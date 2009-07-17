@@ -1,0 +1,5 @@
+<% if @note.errors.empty? -%>
+  $('#notes_list').prepend('<%= escape_javascript(render(:partial => @note)) %>');
+  $('#<%= dom_id(@note) %>').effect('slide', {direction:'right'});
+  $("#new_note")[0].reset();
+<% end -%>

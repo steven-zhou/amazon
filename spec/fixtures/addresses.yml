@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  building_name: MyString
+  suite_unit: MyString
+  street_number: MyString
+  street_name: MyString
+  town: MyString
+  state: MyString
+  postal_code: MyString
+  time_zone: MyString
+  map_reference: MyString
+  bar_code: MyString
+
+two:
+  building_name: MyString
+  suite_unit: MyString
+  street_number: MyString
+  street_name: MyString
+  town: MyString
+  state: MyString
+  postal_code: MyString
+  time_zone: MyString
+  map_reference: MyString
+  bar_code: MyString

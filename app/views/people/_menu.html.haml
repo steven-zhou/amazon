@@ -1,0 +1,19 @@
+= link_to image_tag('person_profile.png'), :controller => "people", :action => "show", :id => ""
+- if (@current_action == 'show') then
+  %h1 Person Profile
+= image_tag('menu_bar.png')
+
+= link_to image_tag('person_add.png'), :controller => "people", :action => "new"
+- if (@current_action == 'new') then
+  %h1 Add Person
+= image_tag('menu_bar.png')
+
+- unless ( @person.nil? || @person.new_record? )
+  = link_to image_tag('person_edit.png'), :controller => "people", :action => "edit", :id => @person.id
+  - if (@current_action == 'edit') then
+    %h1 Edit Person
+  = image_tag('menu_bar.png')
+
+= link_to image_tag('person_find.png'), :controller => "people", :action => "find"
+- if (@current_action == 'find') then
+  %h1 Find Person

@@ -1,0 +1,177 @@
+--- 
+contact_00005: 
+  saturday_hours: 
+  post_value: 
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 07:00:28 Z
+  contact_type_id: 5
+  tuesday_hours: 
+  sunday_hours: 
+  preferred_time: 
+  contactable_id: 3
+  updated_at: 2009-07-14 07:00:28 Z
+  pre_value: 
+  priority: true
+  monday_hours: 
+  id: 5
+  wednesday_hours: 
+  value: dr.nick@hospital.org
+  type: Email
+  friday_hours: 
+  thursday_hours: 
+  preferred_day: 
+contact_00006: 
+  saturday_hours: 
+  post_value: 
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 07:00:41 Z
+  contact_type_id: 4
+  tuesday_hours: 
+  sunday_hours: 
+  preferred_time: 
+  contactable_id: 3
+  updated_at: 2009-07-14 07:00:41 Z
+  pre_value: 
+  priority: false
+  monday_hours: 
+  id: 6
+  wednesday_hours: 
+  value: discount_surgery@hotmail.com
+  type: Email
+  friday_hours: 
+  thursday_hours: 
+  preferred_day: 
+contact_00007: 
+  saturday_hours: "3"
+  post_value: ""
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 07:02:30 Z
+  contact_type_id: 1
+  tuesday_hours: "0"
+  sunday_hours: "0"
+  preferred_time: 
+  contactable_id: 3
+  updated_at: 2009-07-14 07:02:30 Z
+  pre_value: "02"
+  priority: true
+  monday_hours: "1"
+  id: 7
+  wednesday_hours: "1"
+  value: "97625855"
+  type: Phone
+  friday_hours: "0"
+  thursday_hours: "0"
+  preferred_day: 
+contact_00008: 
+  saturday_hours: 
+  post_value: 
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 07:03:27 Z
+  contact_type_id: 4
+  tuesday_hours: 
+  sunday_hours: 
+  preferred_time: 
+  contactable_id: 4
+  updated_at: 2009-07-14 07:03:27 Z
+  pre_value: 
+  priority: true
+  monday_hours: 
+  id: 8
+  wednesday_hours: 
+  value: annie.lee6283@hotmail.com
+  type: Email
+  friday_hours: 
+  thursday_hours: 
+  preferred_day: 
+contact_00001: 
+  saturday_hours: 
+  post_value: 
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 06:41:20 Z
+  contact_type_id: 5
+  tuesday_hours: 
+  sunday_hours: 
+  preferred_time: 
+  contactable_id: 1
+  updated_at: 2009-07-14 06:41:20 Z
+  pre_value: 
+  priority: true
+  monday_hours: 
+  id: 1
+  wednesday_hours: 
+  value: eric@robotcorp.com
+  type: Email
+  friday_hours: 
+  thursday_hours: 
+  preferred_day: 
+contact_00002: 
+  saturday_hours: "0"
+  post_value: ""
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 06:41:46 Z
+  contact_type_id: 2
+  tuesday_hours: "1"
+  sunday_hours: "0"
+  preferred_time: 
+  contactable_id: 1
+  updated_at: 2009-07-14 06:41:46 Z
+  pre_value: (02)
+  priority: true
+  monday_hours: "1"
+  id: 2
+  wednesday_hours: "1"
+  value: "80034250"
+  type: Phone
+  friday_hours: "1"
+  thursday_hours: "1"
+  preferred_day: 
+contact_00003: 
+  saturday_hours: "3"
+  post_value: ""
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 06:49:36 Z
+  contact_type_id: 1
+  tuesday_hours: "0"
+  sunday_hours: "3"
+  preferred_time: 
+  contactable_id: 2
+  updated_at: 2009-07-14 06:49:36 Z
+  pre_value: "07"
+  priority: true
+  monday_hours: "0"
+  id: 3
+  wednesday_hours: "0"
+  value: "85672783"
+  type: Phone
+  friday_hours: "0"
+  thursday_hours: "0"
+  preferred_day: 
+contact_00004: 
+  saturday_hours: 
+  post_value: 
+  contactable_type: Person
+  remarks: ""
+  created_at: 2009-07-14 06:59:45 Z
+  contact_type_id: 5
+  tuesday_hours: 
+  sunday_hours: 
+  preferred_time: 
+  contactable_id: 2
+  updated_at: 2009-07-14 06:59:45 Z
+  pre_value: 
+  priority: true
+  monday_hours: 
+  id: 4
+  wednesday_hours: 
+  value: samantha.jellyville@corporation.net
+  type: Email
+  friday_hours: 
+  thursday_hours: 
+  preferred_day: 

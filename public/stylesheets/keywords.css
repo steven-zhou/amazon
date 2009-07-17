@@ -1,0 +1,28 @@
+form select#keywords {
+
+}
+
+form select#selected_keywords {
+
+}
+
+div.left {
+	width: 30%;
+	margin-left: 5%;
+	float: left;
+}
+
+div#keywords_right {
+  width: 30%;	
+  margin-right: 5%;
+	float: right;
+}
+
+div#keywords_middle {
+  width: 20%;
+  margin: 0 5% 0 5%;
+  
+  padding-top: 80px;
+  text-align: center;
+	float: left;
+}

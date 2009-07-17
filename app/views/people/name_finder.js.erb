@@ -1,0 +1,5 @@
+<% unless @person.nil? %> 
+  $("#related_person_name_container").html('<%=escape_javascript("<br/>#{@person.name}")%>')
+<% else %>
+  $("#related_person_name_container").html('<br/>Invalid ID')
+<% end -%>

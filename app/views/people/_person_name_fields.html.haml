@@ -1,0 +1,50 @@
+.form_line
+  .field_20
+    = p.label :custom_id, 'Custom ID'
+    = p.text_field :custom_id
+  .field_25
+    = p.label :onrecord_since, 'On Record Since'
+    = p.text_field :onrecord_since, :disabled => true
+  %br.clear
+.form_line
+  .field_20
+    = p.label :title_id, 'Title'
+    = p.collection_select :title_id, Title.all, :id, :name, {:include_blank => true}
+  .field_40
+    = p.label :first_name, "First Names"
+    = p.text_field :first_name
+  .field_40
+    = p.label :family_name, "Family Name"
+    = p.text_field :family_name
+  %br.clear
+.form_line
+  .field_20
+    = p.label :second_title_id, '2nd Title'
+    = p.collection_select :second_title_id, Title.all, :id, :name, {:include_blank => true}
+  .field_40
+    = p.label :middle_name, 'Middle Names'
+    = p.text_field :middle_name
+  .field_40 
+    = p.label :maiden_name, 'Maiden Name'
+    = p.text_field :maiden_name
+  %br.clear
+.form_line
+  .field_20
+    = p.label :initials, 'Initials'
+    = p.text_field :initials
+  .field_40
+    = p.label :post_title, 'Post Name'
+    = p.text_field :post_title
+  .field_40
+    = p.label :preferred_name, 'Preferred Name'
+    = p.text_field :preferred_name
+  %br.clear
+%fieldset
+  %h3 Salutations
+  .form_line
+    .field_50
+      = p.label :primary_salutation, "Primary"
+      = p.text_field :primary_salutation
+    .field_50
+      = p.label :second_salutation, "Second"
+      = p.text_field :second_salutation

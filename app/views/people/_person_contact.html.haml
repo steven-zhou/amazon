@@ -1,0 +1,13 @@
+-# Displays A Contact
+-div_for(person_contact, :class => 'info_container') do 
+  .header_container
+    .title
+      %h3= "#{person_contact.contact_type.name} #{person_contact.class}"
+    
+  .display_container
+    = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
+    %br
+    - if person_contact.read_attribute("type") == "Phone"
+      = person_contact.preferrence_day_times
+    %br
+    = person_contact.remarks

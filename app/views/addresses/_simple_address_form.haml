@@ -1,0 +1,36 @@
+-# The options to edit or add an address
+.form_line
+  .field_20
+    = address.label :address_type_id, 'Type'
+    = address.collection_select :address_type_id, AddressType.all, :id, :name
+    
+  .field_40
+    = address.label :building_name, 'Building Name'
+    = address.text_field :building_name   
+  %br{:style=>"clear: both;"}
+.form_line
+  .field_20
+    = address.label :suite_unit, 'Unit Number'
+    = address.text_field :suite_unit
+  .field_20
+    = address.label :street_number, 'Street Number'
+    = address.text_field :street_number
+  .field_60
+    = address.label :street_name, 'Street Name'
+    = address.text_field :street_name
+  %br{ :style=>"clear: both;"}
+.form_line
+  .field_40
+    = address.label :town, 'Suburb/Town'
+    = address.text_field :town
+  .field_40
+    = address.label :state, 'State/Province'
+    = address.text_field :state
+  %br{ :style=>"clear: both;"}
+.form_line
+  .field_40
+    = address.label :postal_code, 'Postal Code'
+    = address.text_field :postal_code
+  .field_40
+    = address.label :country, 'Country'
+    = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}

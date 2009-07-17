@@ -1,0 +1,57 @@
+- form_for person,:html=>{:id=>"person_details_form",:class=>"ajax_form"} do |p|
+  = hidden_field_tag("submit","edit_details")
+  %fieldset
+    %h3 Personal Details
+    .form_line
+      .field_33
+        = p.label :birth_date,"Date Of Birth"
+        = p.text_field :birth_date, :class=>"datepick"
+      .field_20
+        = p.label :age,"Age"
+        = p.text_field :age, :disabled=> true
+      .field_33
+        = p.label :onrecord_since,"On Record Since"
+        = p.text_field :onrecord_since, :class=>"datepick"
+      %br{:style=>"clear: both;"}
+    .form_line
+      .field_33
+        = p.label :marital_status,"Marital Status"
+        = p.select :marital_status, Person::MARITAL_STATUS, {:include_blank => true}
+      .field_20
+        = p.label :gender,"Gender"
+        = p.select :gender, Person::GENDER, {:include_blank => true}
+      .field_33
+        = p.label :origin_country_id,"Country Of Origin"
+        = p.text_field :origin_country_id
+      %br{:style=>"clear: both;"}
+    .form_line
+      .field_33
+        = p.label :religion_id,"Religion"
+        = p.collection_select :religion_id, Religion.all, :id, :name, {:include_blank => true}
+      .field_33
+        = p.label :nationality_id,"Nationality"
+        = p.collection_select :nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+      .field_33
+        = p.label :language_id,"Language"
+        = p.collection_select :language_id, Language.all, :id, :name, {:include_blank => true}
+      %br{:style=>"clear: both;"}
+    .form_line
+      .field_33
+        = p.label :residence_country_id,"Country Of Residence"
+        = p.collection_select :nationality_id, Country.all, :id, :short_name, {:include_blank => true}
+      .field_33
+        = p.label :other_nationality_id,"Other Nationality"
+        = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+      .field_33
+        = p.label :other_language,"Other Language"
+        = p.collection_select :other_language_id, Language.all, :id, :name, {:include_blank => true}
+      %br{:style=>"clear: both;"}
+    .form_line
+      .field_40
+        = p.label :industry_sector,"Industry Sector"
+        = p.text_field :industry_sector
+      .field_60
+        = p.label :interests,"Interests"
+        = p.text_field :interests
+      %br{:style=>"clear: both;"} 
+      = submit_tag "Save"

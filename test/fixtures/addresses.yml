@@ -1,0 +1,106 @@
+--- 
+address_00001: 
+  region: ""
+  map_reference: 
+  created_at: 2009-07-14 06:47:10 Z
+  address_type_id: 1
+  updated_at: 2009-07-14 06:47:10 Z
+  postal_code: "2121"
+  district: ""
+  priority: true
+  country_id: 1
+  building_name: ""
+  addressable_type: Person
+  id: 1
+  addressable_id: 1
+  suite_unit: ""
+  street_number: "8"
+  bar_code: 
+  time_zone: 
+  town: Epping
+  street_name: Rorton Drive
+  state: NSW
+address_00002: 
+  region: ""
+  map_reference: 
+  created_at: 2009-07-14 06:52:03 Z
+  address_type_id: 2
+  updated_at: 2009-07-14 06:52:03 Z
+  postal_code: "2000"
+  district: ""
+  priority: true
+  country_id: 1
+  building_name: Corporation Megatower
+  addressable_type: Person
+  id: 2
+  addressable_id: 2
+  suite_unit: ""
+  street_number: "1"
+  bar_code: 
+  time_zone: 
+  town: Sydney
+  street_name: Central Street
+  state: NSW
+address_00003: 
+  region: ""
+  map_reference: 
+  created_at: 2009-07-14 07:01:47 Z
+  address_type_id: 1
+  updated_at: 2009-07-14 07:01:47 Z
+  postal_code: "2065"
+  district: ""
+  priority: true
+  country_id: 1
+  building_name: ""
+  addressable_type: Person
+  id: 3
+  addressable_id: 3
+  suite_unit: ""
+  street_number: "5"
+  bar_code: 
+  time_zone: 
+  town: St Leonards
+  street_name: Herbert Street
+  state: NSW
+address_00004: 
+  region: ""
+  map_reference: 
+  created_at: 2009-07-14 07:03:07 Z
+  address_type_id: 1
+  updated_at: 2009-07-14 07:03:07 Z
+  postal_code: "2112"
+  district: ""
+  priority: true
+  country_id: 1
+  building_name: ""
+  addressable_type: Person
+  id: 4
+  addressable_id: 4
+  suite_unit: ""
+  street_number: "46"
+  bar_code: 
+  time_zone: 
+  town: Eaglevale
+  street_name: Robertson Ave
+  state: NSW
+address_00005: 
+  region: ""
+  map_reference: 
+  created_at: 2009-07-14 07:04:45 Z
+  address_type_id: 1
+  updated_at: 2009-07-14 07:04:45 Z
+  postal_code: EAK732
+  district: ""
+  priority: true
+  country_id: 4
+  building_name: ""
+  addressable_type: Person
+  id: 5
+  addressable_id: 5
+  suite_unit: ""
+  street_number: "17"
+  bar_code: 
+  time_zone: 
+  town: Orgville
+  street_name: Bloom St
+  state: Utter Pradesh

@@ -1,0 +1,7 @@
+<% if @address.errors.empty? -%>
+  $('#addresses').prepend('<%= escape_javascript(render(:partial => @address)) %>');
+  $('#<%= dom_id(@address) %>').effect('slide', {direction:'right'});
+  $("#new_address")[0].reset();
+<% end -%>
+
+

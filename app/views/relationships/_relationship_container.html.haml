@@ -1,0 +1,11 @@
+-#The container for a Relationship Type
+%div{:id => type.gsub(/ /,'').underscore, :class=>"info_container"}
+  .header_container
+    .title
+      %h3 
+        =type
+    %br{ :style=>"clear: both;"}
+  - if type == "Siblings" || type == "Children"
+    = render :partial => 'relationships/auto_generated_person', :collection => relations
+  - else
+    =render :partial => 'relationships/person', :collection => relations

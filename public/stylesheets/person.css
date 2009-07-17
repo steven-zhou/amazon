@@ -1,0 +1,70 @@
+/* Person css */
+div.header {
+  min-height:40px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+div.header .options {
+	float: right;
+}
+
+div.header .title {
+	display: inline;
+	float: left;
+}
+
+
+
+/* Left div */
+
+
+div#left div.header .title img {
+  display: inline;
+}
+
+div#left div.header .title h1 {
+  margin-bottom: 30px;
+	display: inline;
+}
+
+/* Add Person Form */
+
+input[disabled='disabled'], input[readonly='readonly']{
+  background: #c0c0c0;
+}
+
+/* Id Labels*/
+
+fieldset.identication {
+	display: inline;
+}
+
+fieldset.identification div.right{
+	float: right;
+}
+
+/* Name Layout*/
+
+form.contact_form {
+  display:none;
+}
+
+form.active {
+  display:block;
+}
+
+span.details {
+  display:block;
+  text-align: right;
+}
+
+a.toggle_more{
+  color: #FFFFFF;
+  font-size: 12px;
+}
+
+#idline{
+    margin-left:70px
+
+}

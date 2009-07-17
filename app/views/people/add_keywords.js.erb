@@ -1,0 +1,3 @@
+$('#keywords_tab').replaceWith(" <%= escape_javascript(render(:partial => "keywords/keywords_tab", :locals => { :person => @person })) %>");
+showKeyword();
+showTooltip();

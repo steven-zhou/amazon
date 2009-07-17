@@ -1,0 +1,20 @@
+-# Displays A Contact
+-div_for(contact, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= "#{contact.contact_type.name} #{contact.class}"
+    .options
+      - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
+        = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get'
+        = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete'
+      - elsif contact.read_attribute("type") == "Email" #contact.class == Email.new.class
+        = link_to image_tag('edit_icon.png'), edit_email_path(contact), :class => 'get'
+        = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete'
+    %br{ :style => "clear:both;"}
+  .display_container
+    = "#{contact.pre_value} #{contact.value} #{contact.post_value}".squeeze(" ").strip
+    %br
+    - if contact.read_attribute("type") == "Phone"
+      = contact.preferrence_day_times
+    %br
+    = contact.remarks

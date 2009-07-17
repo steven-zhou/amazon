@@ -1,0 +1,30 @@
+%div.info_container
+
+  %div
+    -if person.photo?
+      = image_tag person.photo.url(:thumb)
+    -else
+      = image_tag 'no_photo.jpeg'
+    %table{:style => 'width:90%;float:right;'}
+      %tbody{:style => 'color:white;'}
+        %tr
+          %td{:style=>'width:30%'}= "#{person.id} - #{person.name}"
+          %td{:style=>'width:30%'}= "Date of Birth : #{person.birth_date}"
+          %td{:style=>'width:20%'}= h "<Other1>"
+          %td{:style=>'width:20%'}
+        %tr
+          %td= "Customer ID : #{person.custom_id}"
+          %td= "Gender : #{person.gender}"
+          %td= h "<Other2>"
+          %td
+        %tr
+          %td= "On Record Since : #{person.onrecord_since}"
+          %td
+            Religion : 
+            = "#{person.religion.name}" unless person.religion.nil?
+          %td
+          %td{:style => 'text-align:right'}
+            = link_to 'Go to Profile', person unless person.blank?
+            or
+            = link_to 'Edit', edit_person_path(person) unless person.blank?
+    %br.clear

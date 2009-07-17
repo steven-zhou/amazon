@@ -1,0 +1,17 @@
+.form_line
+  .field_20
+    = note.label :note_type_id, 'Type'
+    = note.collection_select :note_type_id, NoteType.all, :id, :name
+  %br{:style=>"clear: both;"}
+.form_line
+  .field_40
+    = note.label :label, 'Label'
+    = note.text_field :label
+  %br{ :style=>"clear: both;"}
+  .field_60
+    = note.label :short_description, 'Description'
+    = note.text_field :short_description
+  %br{ :style=>"clear: both;"}
+  .field_60
+    = note.label :body_text, 'Note'
+    = note.text_area :body_text,:rows => 6, :cols => 61

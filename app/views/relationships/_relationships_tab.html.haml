@@ -1,0 +1,31 @@
+-# The relationships tab
+#relationships_tab.info_container
+  .header_container
+    .title
+      %h3 Relationships
+    .options
+      = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"toggle_button", :toggle_id_name => "new_relationship"
+      = image_tag('help_icon.png')
+    %br{ :style=>"clear: both;"}
+    
+    =# Initially hidden new address form
+    -form_for([@person,@relationship], :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|
+      %fieldset
+        %h3 New Relationship
+        = render :partial => '/relationships/relationship_form', :locals => { :relationship => relationship }
+        = submit_tag 'Submit'
+    
+  
+  =# Render the person's addresses 
+  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
+    
+  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
+  
+  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
+  
+  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
+  
+  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
+  
+  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Next Of Kin', :relations => @person.related_people.of_type('Next Of Kin')}
+

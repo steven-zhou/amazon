@@ -1,0 +1,217 @@
+#left
+  .header
+    .title
+      = render :partial => "menu", :locals => { :person => @person }
+    =link_to image_tag 'help_icon.png', :style => 'float:right'
+    %br.clear
+
+  %div{:id => "accordion01"}
+
+    %h3
+      %a{:href => "#"} Find By Name Details
+    %div
+      - form_for @person, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+
+          .form_line
+            .field_20
+              = p.label :id, 'System ID'
+              = p.text_field :id
+            .field_20
+              = p.label :custom_id, 'Custom ID'
+              = p.text_field :custom_id
+            .field_40
+              = p.label :onrecord_since, 'On Record Since'
+              = p.text_field :onrecord_since
+            %br.clear
+          .form_line
+            .field_20
+              = p.label :title_id, 'Title'
+              = p.collection_select :title_id, Title.all, :id, :name, {:include_blank => true}
+            .field_40
+              = p.label :first_name, "First Names"
+              = p.text_field :first_name
+            .field_40
+              = p.label :family_name, "Family Name"
+              = p.text_field :family_name
+            %br.clear
+          .form_line
+            .field_20
+              = p.label :second_title_id, '2nd Title'
+              = p.collection_select :second_title_id, Title.all, :id, :name, {:include_blank => true}
+            .field_40
+              = p.label :middle_name, 'Middle Names'
+              = p.text_field :middle_name
+            .field_40
+              = p.label :maiden_name, 'Maiden Name'
+              = p.text_field :maiden_name
+            %br.clear
+          .form_line
+            .field_20
+              = p.label :initials, 'Initials'
+              = p.text_field :initials
+            .field_40
+              = p.label :post_title, 'Post Name'
+              = p.text_field :post_title
+            .field_40
+              = p.label :preferred_name, 'Preferred Name'
+              = p.text_field :preferred_name
+            %br.clear
+          .form_line
+            .field_33
+              = p.label :birth_date,"Date Of Birth"
+              = p.text_field :birth_date, :class=>"datepick"
+            %br.clear
+          .form_line
+            .field_33
+              = p.label :marital_status, 'Marital Status'
+              = p.select :marital_status, Person::MARITAL_STATUS, {:include_blank => true}
+            .field_20
+              = p.label :gender, 'Gender'
+              = p.select :gender, Person::GENDER, {:include_blank => true}
+            .field_33
+              = p.label :religion_id, 'Religion'
+              = p.collection_select :religion_id, Religion.all, :id, :name, {:include_blank => true}
+            %br.clear
+          .form_line
+            .field_33
+              = p.label :origin_country_id,'Country Of Origin'
+              = p.collection_select :origin_country_id, Country.all, :id, :short_name, {:include_blank => true}
+            .field_33
+              = p.label :nationality_id, 'Nationality'
+              = p.collection_select :nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+            .field_33
+              = p.label :language_id, 'Language'
+              = p.collection_select :language_id, Language.all, :id, :name, {:include_blank => true}
+            %br.clear
+          .form_line
+            .field_33
+              = p.label :residence_country_id,"Country Of Residence"
+              = p.collection_select :nationality_id, Country.all, :id, :short_name, {:include_blank => true}
+            .field_33
+              = p.label :other_nationality_id,"Other Nationality"
+              = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+            .field_33
+              = p.label :other_language,"Other Language"
+              = p.collection_select :other_language_id, Language.all, :id, :name, {:include_blank => true}
+            %br.clear
+          .form_line
+            .field_40
+              = p.label :industry_sector,"Industry Sector"
+              = p.text_field :industry_sector
+            .field_60
+              = p.label :interests,"Interests"
+              = p.text_field :interests
+            %br.clear
+            %p.submit
+              = submit_tag 'Find', {:id => "find_button" }
+              %span or
+              = link_to_function 'Clear', :class => 'clear_form alt_option'
+
+    %h3
+      %a{:href => "#"} Find by Contact
+    %div
+      -form_for Contact.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          .form_line
+            .field_40
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'
+
+    %h3
+      %a{:href => "#"} Find by Address
+    %div
+      -form_for Address.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          .form_line
+            .field_40
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'
+
+        
+    %h3
+      %a{:href => "#"} Find by Keywords
+    %div
+      -form_for Keyword.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          %h3 Find By Keyword
+          .form_line
+            .field_40
+              = p.label :name, 'Keyword'
+              = p.collection_select :id, Keyword.all, :id, :name
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+
+    %h3
+      %a{:href => "#"} Find by Notes
+    %div
+      -form_for Note.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          .form_line
+            .field_40
+              = p.label :note_type_id, 'Type'
+              = p.collection_select :note_type_id, NoteType.all, :id, :name, {:include_blank => true}
+            %br.clear
+            .field_40
+              = p.label :label, 'Label'
+              = p.text_field :label
+            %br.clear
+            .field_60
+              = p.label :short_description, 'Description'
+              = p.text_field :short_description
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'
+
+#right
+  .header
+
+  %div{:id => "accordion02"}
+
+    %h3
+      %a{:href => "#"} Find by Case
+    %div
+      -form_for Note.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          .form_line
+            .field_40
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'
+
+    %h3
+      %a{:href => "#"} Find by Membership
+    %div
+      -form_for Note.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          .form_line
+            .field_40
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'
+
+    %h3
+      %a{:href => "#"} Find by Module X
+    %div
+      -form_for Note.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+        %fieldset
+          .form_line
+            .field_40
+            %br.clear
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'

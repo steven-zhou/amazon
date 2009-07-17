@@ -1,0 +1,7 @@
+.header
+  .title
+    = render :partial => "menu", :locals => { :person => @person }
+    %h1 Find Results
+  %br.clear
+= render :partial => "search_results", :locals => {:people => @people}
+%p.table_back= link_to_function '« Back to "Find Person"', "history.back()"

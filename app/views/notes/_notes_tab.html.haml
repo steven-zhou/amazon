@@ -1,0 +1,21 @@
+-# The main Address tab
+.info_container
+  .header_container
+    .title
+      %h3 Notes
+    .options
+      = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"toggle_button", :toggle_id_name => "new_note"
+      = image_tag('help_icon.png')
+    %br{ :style=>"clear: both;"}
+
+
+    -form_for([@person,@note], :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
+      %fieldset
+        %h3 New Note
+        = render :partial => '/notes/note_form', :locals => { :note => note }
+        %br{ :style=>"clear: both;"}
+        = submit_tag 'Submit',{ :style=>"width:493px;"}
+
+    #notes_list
+      =# Render the person's notes
+      = render :partial => '/notes/note', :collection => person.sorted_notes

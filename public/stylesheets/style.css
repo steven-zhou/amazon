@@ -1,0 +1,78 @@
+/* style.css */
+
+/* Headers */
+
+h1 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: bolder;
+	text-transform: none;
+	color: #FFF;		
+}
+
+h2 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: bolder;
+	text-transform: none;
+	color: #FFF;		
+}
+
+h3 {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 18px;
+	font-style: normal;
+	font-weight: bolder;
+	text-transform: none;
+	color: #FFF;		
+}
+
+/* Paragraphs */
+
+#root {
+  color: #FFF;
+}
+
+p {
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	font-style: normal;
+	font-weight: bold;
+	color: #FFF;
+	line-height: 16px;
+}
+
+/*Forms*/
+
+label {
+  display: block;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: bold;
+	color: #FFF;
+	line-height: 16px;
+}
+
+form fieldset {
+  border: 0px;
+	width: 96%;
+	padding: 1%;
+	margin: 0px 5px 5px 5px;
+	background-repeat: repeat;
+	background-image: url(../images/container_bg.png);
+	display: inline;
+}
+
+form input[type=submit], input[type=button]{
+	/*float: right;
+	margin-right: 10px;*/
+}
+
+/* Links */
+
+a img {
+  border: 0px;
+}

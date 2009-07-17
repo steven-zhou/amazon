@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  pre_value: MyString
+  value: MyString
+  post_value: MyString
+  preferred_time: MyString
+  preferred_day: MyString
+  remark: MyString
+  type: MyString
+  contactable_id: 1
+  contactable_type: MyString
+  contact_type_id: 1
+
+two:
+  pre_value: MyString
+  value: MyString
+  post_value: MyString
+  preferred_time: MyString
+  preferred_day: MyString
+  remark: MyString
+  type: MyString
+  contactable_id: 1
+  contactable_type: MyString
+  contact_type_id: 1

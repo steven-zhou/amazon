@@ -1,0 +1,5 @@
+<% if @phone.errors.empty? -%>
+  $('#contacts').prepend('<%= escape_javascript(render(:partial => "contacts/contact", :locals => {:contact => @phone})) %>');
+  $('#<%= dom_id(@phone) %>').effect('slide', {direction:'right'});
+  $("#new_phone")[0].reset();
+<% end -%>

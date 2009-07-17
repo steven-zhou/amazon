@@ -1,0 +1,20 @@
+-#MasterDocs Tab
+.info_container
+  .header_container
+    .title
+      %h3 MasterDocs
+    .options
+      = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button", :toggle_id_name => "new_master_doc"
+      = image_tag('help_icon.png')
+    %br{ :style=>"clear: both;"}
+
+  =# Initially hidden new masterdoc form
+  -form_for([@person,@masterdoc], :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
+    %fieldset
+      %h3 New Document
+      = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
+      = submit_tag 'Submit'
+
+  #masterdocs
+    =# Render the person's addresses
+    = render :partial => '/master_docs/master_doc', :collection => person.master_docs

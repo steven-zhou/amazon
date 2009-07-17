@@ -1,0 +1,16 @@
+.form_line
+  = email.check_box :priority
+  Priority
+.form_line
+  .field_20
+    = email.label :contact_type_id, 'Type'
+    = email.collection_select :contact_type_id, ContactType.find_all_by_metatype("Email"), :id, :name
+  .field_80
+    = email.label :value, "Value"
+    = email.text_field :value
+%br{ :style=>"clear: both;"}
+.form_line
+  .field_100
+    = email.label :remarks, "Remarks"
+    = email.text_field :remarks
+%br{ :style=>"clear: both;"}

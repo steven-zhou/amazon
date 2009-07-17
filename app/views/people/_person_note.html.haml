@@ -1,0 +1,13 @@
+/show personal notes details
+-div_for(person_note, :class => 'info_container') do
+  .header_container
+    .title
+      -#= "#{person_note.id} #{person_note.note_type.name}"
+      = h person_note.created_at.to_s(:long)
+
+    %br{ :style => "clear:both;"}
+    .attr_name
+      = h person_note.short_description
+      = "(#{person_note.note_type.name})"
+    .attr_name
+      = truncate(person_note.body_text, 100, "...")

@@ -1,0 +1,10 @@
+-form_for @note,:index => @note.id, :html => {:class => 'ajax_form edit_note'} do |note|
+  %fieldset
+    .header_container
+      .title
+        %h3 Edit Note
+      .options
+        = link_to image_tag('close_icon.png'), note_path(@note),:class => 'get'
+      %br{ :style=>"clear: both;"}
+    = render :partial => 'note_form', :locals => { :note => note}
+    =submit_tag 'Submit',{ :style=>"width:493px;"}

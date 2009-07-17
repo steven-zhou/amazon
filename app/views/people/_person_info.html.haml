@@ -1,0 +1,85 @@
+
+#tabs2
+  = render :partial => 'person_menu'
+  #Address
+    .info_container
+      .header_container
+        .title
+          %h3 Address Details
+        %br{ :style=>"clear: both;"}
+      #addresses
+      =# Render the person's addresses
+      = render :partial => '/people/person_address', :collection => @person.addresses
+  #Contact
+    .info_container
+      .header_container
+        .title
+          %h3 Contact Details
+
+        %br{ :style=>"clear: both;"}
+      #contacts
+      =# Render the person's contacts
+      = render :partial => '/people/person_contact', :collection => @person.contacts
+  #Keyword
+    .info_container
+      .header_container
+        .title
+          %h3 KeyWords Details
+
+        %br{ :style=>"clear: both;"}
+      #keywords
+      =# Render the person's keywords
+      = render :partial => '/people/person_keyword', :collection => @person.keywords
+  #MasterDocs
+    .info_container
+      .header_container
+        .title
+          %h3 MasterDocs Details
+
+        %br{ :style=>"clear: both;"}
+      #masterdocs
+      =# Render the person's masterdocs
+      = render :partial => '/people/person_master_doc', :collection => @person.master_docs
+
+  #Rels
+    .info_container
+      .header_container
+        .title
+          %h3 Relationships
+
+        %br{ :style=>"clear: both;"}
+      #masterdocs
+      =# Render the person's addresses
+      = render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
+
+      = render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
+
+      = render :partial => '/people/person_relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
+
+      = render :partial => '/people/person_relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
+
+      = render :partial => '/people/person_relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
+
+      = render :partial => '/people/person_relationship_container', :locals => {:type => 'Next Of Kin', :relations => @person.related_people.of_type('Next Of Kin')}
+  #Note
+    .info_container
+      .header_container
+        .title
+          %h3 Notes
+
+        %br{ :style=>"clear: both;"}
+      #notes_list
+      =# Render the person's notes
+      = render :partial => '/people/person_note', :collection => @person.sorted_notes
+  #Role
+    .info_container
+      .header_container
+        .title
+          %h3 Roles
+
+        %br{ :style=>"clear: both;"}
+      #role
+
+      %ul
+
+        =render :partial => '/people/person_role', :collection => @person.roles, :locals => {:person => @person}

@@ -1,0 +1,9 @@
+-# Displays An Keyword
+-div_for(person_keyword, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= person_keyword.keyword_type.name unless (person_keyword.blank? || person_keyword.keyword_type.nil?)
+
+    %br{ :style => "clear:both;"}
+  .display_container
+    = format_keyword(person_keyword)

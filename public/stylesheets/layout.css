@@ -1,0 +1,214 @@
+/*Layout.css*/
+/* Page layout*/
+div#root {
+    background-color: #1B4074;
+    min-height: 845px;
+    width: 1250px;
+    margin: 0;
+    font-family: Verdana, Geneva, sans-serif;
+    background-image: url(../images/content_bg.jpg);
+    background-repeat: repeat-x;
+    background-position: left top;
+}
+
+/* Modules Menu Layout*/
+
+div#root div#modules_container {
+    background-color: #069;
+    min-height: 845px;
+    width: 9%;
+    float: left;
+}
+
+/* Content Layout*/
+
+div#content {
+    min-height: 810px;
+    width: 91%;
+    float: left;
+}
+
+div#warning {
+    height : 30px;
+    background-color : red;
+}
+
+div#notice {
+    height : 30px;
+    background-color : yellow;
+}
+
+div#message {
+    height : 30px;
+    background-color : green;
+    }
+
+div#content div#left, div#right {
+    width: 49%;
+    float: left;
+    margin-left: 1%;
+}
+
+/* Form Layouts */
+
+div.form_container {
+    width: 96%;
+    padding: 1%;
+    float: left;
+    margin-top: 0px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    margin-left: 5px;
+    background-repeat: repeat;
+    background-image: url(../images/container_bg.png);
+}
+
+form {
+  width: 100%;
+}
+
+div.form_line {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+}
+
+div.form_line input, select {
+    width: 100%;
+}
+
+div.form_line input#find_button {
+    width: 15%;
+}
+
+div.form_line input[type=checkbox] {
+    width: auto;
+}
+
+div.field_20 {
+  margin: 0% 1%;
+	width: 18%;
+	float: left;
+}
+
+div.field_40 {
+  margin: 0% 1%;
+  width: 38%;
+	float: left;
+}
+
+div.field_50 {
+   margin: 0% 1%;
+   width: 48%;
+   float:left;
+}
+
+div.field_60 {
+  margin: 0% 1%;
+	width: 58%;
+	float: left;
+}
+
+div.field_80 {
+  margin: 0% 1%;
+	width: 78%;
+	float: left;
+}
+
+div.field_33 {
+  margin: 0% 1%;
+	width:31%;
+	float:left;
+}
+
+div.field_25 {
+  margin: 0% 1%;
+	width:23%;
+	float:left;
+}
+
+div.field_75 {
+  margin: 0% 1%;
+	width:73%;
+	float:left;
+}
+
+div.field_100 {
+  margin: 0% 1%;
+	width:98%;
+	float:left;
+}
+
+fieldset h3 {
+    padding: 0;
+    margin: 0 0 10px 0;
+}
+
+/* Containers */
+
+div.info_container {
+	border: 0px;
+	width: 96%;
+	padding: 1%;
+	margin: 0px 5px 5px 5px;
+	background-repeat: repeat;
+	background-image: url(../images/container_bg.png);
+}
+
+div.info_container h3 {
+	padding: 0;
+	margin: 0 0 10px 6px;
+}
+
+div.info_container div.header_container {
+  display: inline;	
+}
+
+div.info_container div.header_container .title {
+  float: left;
+  display:inline;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+div.info_container div.header_container .options {
+  float: right;
+  display:inline;
+}
+
+.options form {
+  display: inline;
+}
+
+div.display_container {
+	margin-top: 10px;
+	margin-right: 40px;
+	font-size: 16px;
+	text-align: right;
+}
+
+.center {
+    text-align: center;
+}
+
+br.clear{
+  clear:both;
+}
+
+p.submit{
+  text-align: right;
+  padding-right:3px;
+}
+
+a.alt_option{
+  color:#cccccc;
+  font-size:11px;
+  line-height:16px;
+  padding:1px;
+
+}
+
+a.alt_option:hover{
+  color:blue;
+}
