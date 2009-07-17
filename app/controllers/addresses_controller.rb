@@ -1,5 +1,5 @@
 class AddressesController < ApplicationController
-
+#
   def show
     @address = Address.find(params[:id])
     respond_to do |format|
