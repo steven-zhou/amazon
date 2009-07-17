@@ -8,7 +8,7 @@ set :application, "amazon"
 set :domain, "203.23.28.79"
 set :deploy_to, "/home/rails/amazon"
 server "203.23.28.79", :app, :web, :db, :primary => true
-set :repository, "file:///var/git/amazon.git"
+set :repository, "ssh://rails@203.23.28.79:/var/git/amazon.git"
 
 
 namespace :mod_rails do
