@@ -157,7 +157,7 @@
           .form_line
             .field_20
               = address.label :address_type_id, 'Type'
-              = address.collection_select :address_type_id, AddressType.all, :id, :name
+              = address.collection_select :address_type_id, AddressType.all, :id, :name, {:include_blank => true}
             .field_40
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name
@@ -206,13 +206,13 @@
     %h3
       %a{:href => "#"} Find by Keywords
     %div
-      -form_for Keyword.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+      -form_for Keyword.new, :url => {:action => 'search'}, :html => {:method => :post} do |keyword|
         %fieldset
           %h3 Find By Keyword
           .form_line
             .field_40
-              = p.label :name, 'Keyword'
-              = p.collection_select :id, Keyword.all, :id, :name
+              = keyword.label :name, 'Keyword'
+              = keyword.collection_select :id, Keyword.all, :id, :name, {:include_blank => true}
             %br.clear
           %p.submit
             = submit_tag 'Find'
@@ -220,20 +220,20 @@
     %h3
       %a{:href => "#"} Find by Notes
     %div
-      -form_for Note.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+      -form_for Note.new, :url => {:action => 'search'}, :html => {:method => :post} do |note|
         %fieldset
           .form_line
             .field_40
-              = p.label :note_type_id, 'Type'
-              = p.collection_select :note_type_id, NoteType.all, :id, :name, {:include_blank => true}
+              = note.label :note_type_id, 'Type'
+              = note.collection_select :note_type_id, NoteType.all, :id, :name, {:include_blank => true}
             %br.clear
             .field_40
-              = p.label :label, 'Label'
-              = p.text_field :label
+              = note.label :label, 'Label'
+              = note.text_field :label
             %br.clear
             .field_60
-              = p.label :short_description, 'Description'
-              = p.text_field :short_description
+              = note.label :short_description, 'Description'
+              = note.text_field :short_description
             %br.clear
           %p.submit
             = submit_tag 'Find'
