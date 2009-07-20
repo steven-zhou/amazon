@@ -116,11 +116,20 @@
       = @person.notes.blank? ? "No Notes": @person.notes.first.id
       = @person.notes.first.note_type.name unless @person.notes.blank?
 
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+     
       = show_date(@person.notes.first.created_at)unless @person.notes.blank?
       \-
       = @person.notes.first.label unless @person.notes.blank?
       = @person.notes.first.short_description unless @person.notes.blank?
+    %div.info_container
+      = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
+      = @person.notes.second.note_type.name unless @person.notes.second.blank?
+
+     
+      = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
+      \-
+      = @person.notes.second.label unless @person.notes.second.blank?
+      = @person.notes.second.short_description unless @person.notes.second.blank?
 
   
 
