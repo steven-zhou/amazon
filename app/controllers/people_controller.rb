@@ -84,18 +84,18 @@ class PeopleController < ApplicationController
     if params[:person]
       @people = PeopleSearch.by_name(params[:person])
     elsif params[:phone]
-      @people = PeopleSearch.by_phone(params[:phone])
+      @people = PeopleSearch.by_phone(params[:phone][:contact_type_id], params[:phone][:pre_value],params[:phone][:value], params[:phone][:post_value])
     elsif params[:email]
       @people = PeopleSearch.by_email(params[:email][:contact_type_id], params[:email][:value])
     elsif params[:address]
       @people = PeopleSearch.by_address(params[:address])
     elsif params[:note]
-      @people = PeopleSearch.by_note(params[:note])
+       @people = PeopleSearch.by_note(params[:note][:note_type_id], params[:note][:label],params[:note][:short_description])
     elsif params[:keyword]
       puts "keyword search"
-      @people = PeopleSearch.by_keyword(params[:keyword])
+      @people = PeopleSearch.by_keyword(params[:keyword][:id])
     end
-    puts " ***** DEBUG #{@people.class}"
+   
 
     respond_to do |format|
       format.html

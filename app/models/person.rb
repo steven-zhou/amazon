@@ -99,9 +99,10 @@ class Person < ActiveRecord::Base
   
 #  named_scope :with_phone, lambda { |*args| {:include => :contacts,:conditions =>["contacts.value LIKE ? AND contacts.type = 'Phone'", args.first+'%'] } }
   named_scope :with_email, lambda { |email_type, email_address| {:include => :contacts, :conditions =>["contacts.contact_type_id LIKE ? AND contacts.value LIKE ? AND contacts.type = 'Email'", "#{email_type}", "#{email_address}%"] } }
-  named_scope :with_keyword, lambda { |*args| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id = ?", args.first] } }
-  named_scope :with_phone, lambda { |*args| {:include => :contacts,:conditions =>["contacts.pre_value LIKE ? && contacts.value LIKE ? && contacts.post_value LIKE ? AND contacts.type = 'Phone'", args.first+'%', args[1]+'%', args[2]+'%'] } }
-  named_scope :with_note, lambda {|*args|{:include => :notes, :conditions => ["  notes.label LIKE ? || notes.short_description LIKE ? ",  '%'+args[0]+'%', '%'+args[1]+'%' ]}}
+  named_scope :with_phone, lambda { |phone_type, phone_pre_value, phone_value, phone_post_value| {:include => :contacts,:conditions =>["contacts.contact_type_id LIKE ? && contacts.pre_value LIKE ? && contacts.value LIKE ? && contacts.post_value LIKE ? AND contacts.type = 'Phone'", "#{phone_type}", "#{phone_pre_value}%", "#{phone_value}%", "#{phone_post_value}%" ] } }
+  named_scope :with_note, lambda {|note_type, note_label, note_short_description|{:include => :notes, :conditions => [" notes.note_type_id LIKE ? && notes.label LIKE ? && notes.short_description LIKE ? ", "#{note_type}", "#{note_label}%", "#{note_short_description}%" ]}}
+#  named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id = ?", "#{keyword_id}%"] } }
+named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id LIKE ?", "#{keyword_id}%"] } }
 
   def primary_address
     
