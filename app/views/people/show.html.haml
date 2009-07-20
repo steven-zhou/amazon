@@ -29,19 +29,19 @@
     
      
     %div#idline
-      .field_33
-        %h3= h "#{@person.name}"
-      %br{:style=>"clear: both;"}
-   
-      .field_33
+      
+      %h3= h "#{@person.name}"
         
-        = label_tag 'custom_id', 'Custom ID'
-        = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}
+      .form_line
+        .field_33
         
-      .field_33
-        = label_tag 'onrecord_since', 'On Record Since'
-        = text_field_tag 'onrecord_since', @person.onrecord_since, {:readonly => true}
-      %br.clear
+          = label_tag 'custom_id', 'Custom ID'
+          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}
+        
+        .field_33
+          = label_tag 'onrecord_since', 'On Record Since'
+          = text_field_tag 'onrecord_since', @person.onrecord_since, {:readonly => true}
+        %br.clear
     %div#more_name_details{:style => 'display:none'}
       .form_line
         .field_20
