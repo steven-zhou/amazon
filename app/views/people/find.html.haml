@@ -118,7 +118,7 @@
           .form_line
             .field_20
               = email.label :contact_type_id, 'Type'
-              = email.collection_select :contact_type_id, ContactType.find_all_by_metatype("Email"), :id, :name
+              = email.collection_select :contact_type_id, ContactType.find_all_by_metatype("Email"), :id, :name, {:include_blank => true }
             .field_80
               = email.label :value, "Value"
               = email.text_field :value
@@ -133,7 +133,7 @@
           .form_line
             .field_20
               = phone.label :contact_type_id, 'Type'
-              = phone.collection_select :contact_type_id, ContactType.find_all_by_metatype("Phone"), :id, :name
+              = phone.collection_select :contact_type_id, ContactType.find_all_by_metatype("Phone"), :id, :name, {:include_blank => true }
             .field_20
               = phone.label :pre_value, "Pre Value"
               = phone.text_field :pre_value

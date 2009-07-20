@@ -35,8 +35,9 @@ module PeopleSearch
 
   end
   
-  def self.by_email(email_attributes)
-    Person.with_email(email_attributes[:value])
+  def self.by_email(email_type, email_address)
+    email_type = !email_type.empty? ? email_type : "%"
+    Person.with_email(email_type, email_address)
   end
   
   def self.by_address(params)
