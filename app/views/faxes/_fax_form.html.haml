@@ -1,0 +1,45 @@
+.form_line
+  = fax.check_box :priority
+  Priority
+.form_line
+  .field_20
+    = fax.label :contact_type_id, 'Type'
+    = fax.collection_select :contact_type_id, ContactType.find_all_by_metatype("Fax"), :id, :name
+  .field_20
+    = fax.label :pre_value, "Pre Value"
+    = fax.text_field :pre_value
+  .field_40
+    = fax.label :value, "value"
+    = fax.text_field :value
+  .field_20
+    = fax.label :post_value, "Pos value"
+    = fax.text_field :post_value
+%br{ :style=>"clear: both;"}
+  .form_line
+    .field_25
+      = fax.label :monday_hours, "Monday"
+      = fax.select :monday_hours,preferrence_time_options
+    .field_25
+      = fax.label :tuesday_hours, "Tuesday"
+      = fax.select :tuesday_hours,preferrence_time_options
+    .field_25
+      = fax.label :wednesday_hours, "Wednesday"
+      = fax.select :wednesday_hours,preferrence_time_options
+    .field_25
+      = fax.label :thursday_hours, "Thursday"
+      = fax.select :thursday_hours,preferrence_time_options
+  .form_line
+    .field_25
+      = fax.label :friday_hours, "Friday"
+      = fax.select :friday_hours,preferrence_time_options
+    .field_25
+      = fax.label :saturdayday_hours, "Saturday"
+      = fax.select :saturday_hours,preferrence_time_options
+    .field_25
+      = fax.label :sunday_hours, "Sunday"
+      = fax.select :sunday_hours,preferrence_time_options
+.form_line
+  .field_100
+    = fax.label :remarks, "Remarks"
+    = fax.text_field :remarks
+%br{ :style=>"clear: both;"}

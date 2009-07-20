@@ -85,6 +85,18 @@ div.form_line input[type=checkbox] {
     width: auto;
 }
 
+div.field_12 {
+  margin: 0% 1%;
+	width: 12%;
+	float: left;
+}
+
+div.field_17 {
+  margin: 0% 1%;
+	width: 17%;
+	float: left;
+}
+
 div.field_20 {
   margin: 0% 1%;
 	width: 18%;
@@ -106,6 +118,12 @@ div.field_50 {
 div.field_60 {
   margin: 0% 1%;
 	width: 58%;
+	float: left;
+}
+
+div.field_61 {
+  margin: 0% 1%;
+	width: 59%;
 	float: left;
 }
 

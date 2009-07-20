@@ -65,10 +65,7 @@
     %fieldset
       %h3 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
-    -#%fieldset
-      -#%h3 Picture
-      -# p.fields_for :image do |image|
-        = render :partial => '/images/edit_photo', :locals => {:image => image}
+
     %fieldset
       %h3 Picture
       .form_line
@@ -77,23 +74,33 @@
 
   #right
     .header
-      -#= flash[:notice]
+      = image_tag 'help_icon.png', :style => 'float:right'
     %fieldset.address_form
       %h3 Primary Address
       - p.fields_for :addresses do |address|
         = render :partial => '/addresses/simple_address_form', :locals => { :address => address}
     %fieldset.add_contacts
       %h3 Primary Contact
-      %fieldset
-        %h3 Phone
+      .form_line
         - p.fields_for :phones do |phone|
           = render :partial => 'phones/simple_phone_form', :locals => {:phone => phone}          
           = phone.hidden_field(:priority, :value => 0)
-      %fieldset
-        %h3 Email
+      .form_line
+        - p.fields_for :faxes do |fax|
+          = render :partial => 'faxes/simple_fax_form', :locals => {:fax => fax}
+          = fax.hidden_field(:priority, :value => 0)
+      .form_line
+        - p.fields_for :faxes do |fax|
+          = render :partial => 'faxes/simple_fax_form', :locals => {:fax=> fax}
+          = fax.hidden_field(:priority, :value => 0)
+      .form_line
         - p.fields_for :emails do |email|
           = render :partial => 'emails/simple_email_form', :locals => {:email=> email}
-          = email.hidden_field(:priority, :value => 0)
+          = email.hidden_field(:priority, :value => 0)      
+      .form_line
+        - p.fields_for :websites do |website|
+          = render :partial => 'websites/simple_website_form', :locals => {:website=> website}
+          = website.hidden_field(:priority, :value => 0)
     
     %p.submit
       = submit_tag "Save"

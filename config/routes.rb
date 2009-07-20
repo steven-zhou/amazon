@@ -10,6 +10,8 @@ ActionController::Routing::Routes.draw do |map|
     } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
     person.resources :phones
+    person.resources :faxes
+    person.resources :websites
     person.resources :emails
     person.resources :master_docs
     person.resources :images, :member => {:thumb => :get}

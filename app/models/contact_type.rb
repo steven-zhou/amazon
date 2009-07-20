@@ -15,7 +15,7 @@ class ContactType < ActiveRecord::Base
 #++  
 
   validates_presence_of :name, :metatype
-  validates_inclusion_of :metatype, :in => %w(Phone Email IM Pager URL)
+  validates_inclusion_of :metatype, :in => %w(Phone Email IM Pager URL Fax Website)
   
   attr_accessible :name, :metatype
   

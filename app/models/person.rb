@@ -8,7 +8,9 @@ class Person < ActiveRecord::Base
 
   has_many :addresses, :as => :addressable  
   has_many :phones, :as => :contactable
+  has_many :faxes, :as => :contactable
   has_many :emails, :as => :contactable
+  has_many :websites, :as => :contactable
   has_many :contacts, :as => :contactable
   has_many :master_docs, :as=> :entity
   has_many :keyword_links, :as => :taggable
@@ -91,6 +93,7 @@ class Person < ActiveRecord::Base
 
   MARITAL_STATUS = [["Single", "Single"], ["Married", "Married"], ["Divorced", "Divorced"]]
   GENDER = [["Male", "Male"], ["Female", "Female"]]
+  INDUSTRY_SECTOR = [["IT", "IT"],["Accounting", "Accounting"]]
   
   # Return the first title
   delegate :name, :to => :title, :prefix => true,:allow_nil => true
@@ -110,29 +113,38 @@ named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:co
   end
 
   def primary_phone
-#    @primary_phone =  self.phones.find_by_priority(true)
     @primary_phone ||= self.phones.select {|phone| phone.priority == true}.first
-
   end
 
-  # Returns the primary email or nil if not found
   def primary_email
-#    @primary_email =  self.emails.find_by_priority(true)
     @primary_email ||= self.emails.select {|email| email.priority == true}.first
+  end
+
+  def primary_fax
+    @primary_fax ||= self.faxes.select {|fax| fax.priority == true}.first
+  end
+
+  def primary_website
+    @primary_website ||= self.websites.select {|website| website.priority == true}.first
   end
 
 
   def other_phones
-
     @other_phones = self.phones.find_all_by_priority(false)
-
   end
 
   def other_emails
     @other_emails = self.emails.find_all_by_priority(false)
-
-
   end
+
+  def other_faxes
+    @other_faxes = self.faxes.find_all_by_priority(false)
+  end
+
+  def other_websites
+    @other_websites = self.websites.find_all_by_priority(false)
+  end
+
 
   def other_address
 
