@@ -30,21 +30,47 @@ module PeopleSearch
   end
 
   def self.by_phone(phone_attributes)
-    Person.with_phone(phone_attributes[:value])
+#    puts "DEBUG #{phone_attributes.to_yaml}"
+    Person.with_phone(phone_attributes[:pre_value], phone_attributes[:value], phone_attributes[:post_value])
+
   end
   
   def self.by_email(email_attributes)
     Person.with_email(email_attributes[:value])
   end
   
-  def self.by_address
-    
+  def self.by_address(params)
+    equality = ['country_id', 'address_type_id']
+    like = ['building_name', 'suite_unit', 'street_number', 'street_name', 'town',
+            'district', 'region', 'state', 'postal_code']
+    params.delete_if {|key, value| value == "" }
+    condition_clauses = Array.new
+    condition_options = Array.new
+
+      params.each do |attribute,value|
+      case sql_condition(attribute, equality, like)
+        when 'equality'
+          condition_clauses.push("addresses.#{attribute} = ?")
+          condition_options.push(value)
+        when 'like'
+          condition_clauses.push("addresses.#{attribute} LIKE ?")
+          condition_options.push(value + '%')
+      else
+        raise InvalidAttribute, 'Attribute must be in array', caller
+      end
+    end
+
+     Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
   end
   
   def self.by_keyword(keyword_attributes)
     @people = Person.with_keyword(keyword_attributes[:id])
   end  
-  
+def self.by_note(note_attributes)
+  Person.with_phone(note_attributes[:note_type_id], note_attributes[:label], note_attributes[:short_description])
+end
+
+
   private
   
   def self.sql_condition(attribute, equality_array, like_array)

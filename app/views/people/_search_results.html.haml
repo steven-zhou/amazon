@@ -1,5 +1,5 @@
 %div#hover
-  = render :partial => "name_card", :locals => {:person => @people.first}
+  = (render :partial => "name_card", :locals => {:person => @people.first}) unless @people.nil?
 %table#search_results.display
   %thead
     %tr

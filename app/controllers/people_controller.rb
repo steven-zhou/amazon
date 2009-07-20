@@ -82,11 +82,19 @@ class PeopleController < ApplicationController
 
   def search
     if params[:person]
+
       @people = PeopleSearch.by_name(params[:person])
+
+
+   
     elsif params[:phone]
       @people = PeopleSearch.by_phone(params[:phone])
     elsif params[:email]
       @people = PeopleSearch.by_email(params[:email])
+    elsif params[:address]
+      @people = PeopleSearch.by_address(params[:address])
+    elsif params[:note]
+      @people = PeopleSearch.by_note(params[:note])
     elsif params[:keyword]
       puts "keyword search"
       @people = PeopleSearch.by_keyword(params[:keyword])

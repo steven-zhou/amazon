@@ -97,10 +97,13 @@ class Person < ActiveRecord::Base
   # Return the second title
   delegate :name, :to => :second_title, :prefix => true,:allow_nil => true
   
-  named_scope :with_phone, lambda { |*args| {:include => :contacts,:conditions =>["contacts.value LIKE ? AND contacts.type = 'Phone'", args.first+'%'] } }
+#  named_scope :with_phone, lambda { |*args| {:include => :contacts,:conditions =>["contacts.value LIKE ? AND contacts.type = 'Phone'", args.first+'%'] } }
   named_scope :with_email, lambda { |*args| {:include => :contacts,:conditions =>["contacts.value LIKE ? AND contacts.type = 'Email'", args.first+'%'] } }
   named_scope :with_keyword, lambda { |*args| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id = ?", args.first] } }
-  
+
+  named_scope :with_phone, lambda { |*args| {:include => :contacts,:conditions =>["contacts.pre_value LIKE ? && contacts.value LIKE ? && contacts.post_value LIKE ? AND contacts.type = 'Phone'", args.first+'%', args[1]+'%', args[2]+'%'] } }
+
+  named_scope :with_note, lambda {|*args|{:include => :notes, :conditions => ["  notes.label LIKE ? || notes.short_description LIKE ? ",  '%'+args[0]+'%', '%'+args[1]+'%' ]}}
 
   def primary_address
     
