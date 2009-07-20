@@ -44,5 +44,10 @@ $(function() {
     $("#accordion01").accordion();
     $("#accordion02").accordion();
 
+    $("#delete_photo").click(function(){
+       $("#photo").attr("src", "/images/no_photo.jpeg");
+       $("#delete_photo").hide();
+    });
+
 });
 

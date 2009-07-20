@@ -21,7 +21,7 @@
       %h3 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
     %fieldset
-      = render :partial => '/photos/show_photo', :locals => {:person => @person}
+      = render :partial => '/images/show_photo', :locals => {:person => @person}
     = submit_tag 'Save and Close', :style => 'float:right;'
     = submit_tag 'Save', :style => 'float:right;'
     
