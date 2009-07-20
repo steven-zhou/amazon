@@ -111,11 +111,39 @@
     %h3
       %a{:href => "#"} Find by Contact
     %div
-      -form_for Contact.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+      
+      -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|
         %fieldset
+          Email
           .form_line
+            .field_20
+              = email.label :contact_type_id, 'Type'
+              = email.collection_select :contact_type_id, ContactType.find_all_by_metatype("Email"), :id, :name
+            .field_80
+              = email.label :value, "Value"
+              = email.text_field :value
+            %br.clear         
+          %p.submit
+            = submit_tag 'Find'
+            %span or
+            = link_to_function 'Clear', :class => 'clear_form alt_option'
+      -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
+        %fieldset
+          Phone
+          .form_line
+            .field_20
+              = phone.label :contact_type_id, 'Type'
+              = phone.collection_select :contact_type_id, ContactType.find_all_by_metatype("Phone"), :id, :name
+            .field_20
+              = phone.label :pre_value, "Pre Value"
+              = phone.text_field :pre_value
             .field_40
-            %br.clear
+              = phone.label :value, "value"
+              = phone.text_field :value
+            .field_20
+              = phone.label :post_value, "Pos value"
+              = phone.text_field :post_value
+          %br.clear
           %p.submit
             = submit_tag 'Find'
             %span or
@@ -124,10 +152,50 @@
     %h3
       %a{:href => "#"} Find by Address
     %div
-      -form_for Address.new, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+      -form_for Address.new, :url => {:action => 'search'}, :html => {:method => :post} do |address|
         %fieldset
           .form_line
+            .field_20
+              = address.label :address_type_id, 'Type'
+              = address.collection_select :address_type_id, AddressType.all, :id, :name
             .field_40
+              = address.label :building_name, 'Building Name'
+              = address.text_field :building_name
+            
+            %br{:style=>"clear: both;"}
+            -#%br.clear
+          .form_line
+            .field_20
+              = address.label :suite_unit, 'Unit Number'
+              = address.text_field :suite_unit
+            .field_25
+              = address.label :street_number, 'Street Number'
+              = address.text_field :street_number
+            .field_50
+              = address.label :street_name, 'Street Name'
+              = address.text_field :street_name
+            %br{ :style=>"clear: both;"}
+          .form_line
+            .field_33
+              = address.label :town, 'Suburb/Town'
+              = address.text_field :town
+            .field_33
+              = address.label :district, 'District'
+              = address.text_field :district
+            .field_33
+              = address.label :region, 'Region'
+              = address.text_field :region
+            %br{ :style=>"clear: both;"}
+          .form_line
+            .field_33
+              = address.label :state, 'State/Province'
+              = address.text_field :state
+            .field_33
+              = address.label :postal_code, 'Postal Code'
+              = address.text_field :postal_code
+            .field_33
+              = address.label :country, 'Country'
+              = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
             %br.clear
           %p.submit
             = submit_tag 'Find'
