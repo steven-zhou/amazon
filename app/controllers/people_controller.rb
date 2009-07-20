@@ -23,6 +23,7 @@ class PeopleController < ApplicationController
     @other_phones = @person.other_phones
     @other_emails = @person.other_emails
     @other_addresses = @person.other_address
+    @notes = @person.notes 
     respond_to do |format|
       format.html
     end
