@@ -1,6 +1,6 @@
 set :scm, :git
-# set :deploy_via, :export
-set :deploy_via, :copy
+set :deploy_via, :export
+#set :deploy_via, :copy
 set :copy_strategy, :export
 set :copy_exclude, [".git/*", ".svn/*"]
 set :user, :rails
@@ -10,6 +10,7 @@ set :application, "amazon"
 set :domain, "203.23.28.79"
 set :deploy_to, "/home/rails/amazon"
 server "203.23.28.79", :app, :web, :db, :primary => true
+# set :repository, svn+ssh://test.example.com/repository/trunk
 set :repository, "rails@203.23.28.79:/var/git/amazon.git"
 
 
