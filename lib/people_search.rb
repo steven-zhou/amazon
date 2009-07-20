@@ -25,7 +25,7 @@ module PeopleSearch
       end    
     end
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones,:addresses,:contacts])
+    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
     
   end
 
