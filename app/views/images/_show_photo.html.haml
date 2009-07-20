@@ -1,0 +1,15 @@
+#photo_details.info_container
+  .header_container
+    .title
+      %h3 Picture
+    .options
+      = link_to_function image_tag('edit_icon.png',:value => "Edit Photo"), :id=>"edit_photo_link"
+      = link_to image_tag('delete_icon.png'), image_path(person.image.id), :class => "delete", :id => "delete_photo" unless person.image.nil?
+    %br{:style=>"clear:both;"}
+  .center
+    -if person.image.nil?
+      = image_tag 'no_photo.jpeg', :id => "photo"
+    -else
+      = image_tag image_path(person.image.id), :id => "photo"
+  #edit_photo{:style=>'display:none'}
+    = render :partial => '/images/edit_photo', :locals =>{:person => person}
