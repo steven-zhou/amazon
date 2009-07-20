@@ -65,9 +65,15 @@
     %fieldset
       %h3 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
+    -#%fieldset
+      -#%h3 Picture
+      -# p.fields_for :image do |image|
+        = render :partial => '/images/edit_photo', :locals => {:image => image}
     %fieldset
       %h3 Picture
-      = render :partial => '/photos/edit_photo', :locals => {:person => @person}
+      .form_line
+        = label :image, :id, "Picture"
+        = file_field :image, :image_file
 
   #right
     .header

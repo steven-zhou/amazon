@@ -7,6 +7,7 @@ class PeopleController < ApplicationController
     @person.addresses.build
     @person.phones.build
     @person.emails.build
+    @image = Image.new
     respond_to do |format|
       format.html
     end
@@ -35,6 +36,7 @@ class PeopleController < ApplicationController
     @masterdoc = MasterDoc.new
     @relationship = Relationship.new
     @note = Note.new
+    @image = @person.image unless @person.image.nil?
 
     respond_to do |format|
       format.html
@@ -42,7 +44,10 @@ class PeopleController < ApplicationController
   end
 
   def create
+    @image = Image.new(params[:image])
+    @image.save
     @person = Person.new(params[:person])
+    @person.image = @image
     if @person.save
       # If the user wants to edit the record they just added
       if(params[:edit])
@@ -64,19 +69,21 @@ class PeopleController < ApplicationController
   end
 
   def update
-    @person = Person.find(params[:id])
-    @person.update_attributes(params[:person])
-    @person.save!
-    #---------------------james part---------------down
-    #if params[:submit] == "edit_details"
-    # render 'edit_details.js'
-    #elsif params[:submit] == "edit_names"
-    #  render 'edit_names.js'
-    #else
-    #  render :nothing => true
-    #end
-    #---------------------james part---------------up
-    flash[:message] = "#{@person.name}'s information have been updated"
+    Person.transaction do
+      @person = Person.find(params[:id])
+
+      if !params[:image].nil?
+        @image = Image.new(params[:image])
+        flash[:warning] = "The image was not saved." unless @image.save
+        @person.image.destroy unless @person.image.nil?
+        @person.image = @image
+      end
+
+      @person.update_attributes(params[:person])
+      @person.save!
+    end
+
+    flash[:message] = "#{@person.name}'s information have been updated" unless !flash[:warning].nil?
     redirect_to person_path(@person)
   end
 

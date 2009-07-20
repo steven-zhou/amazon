@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :phones
     person.resources :emails
     person.resources :master_docs
-    person.resource :photo
+    person.resources :images, :member => {:thumb => :get}
     person.resources :notes
     person.resources :relationships, :collection => {:remove_relation => :delete}
   end

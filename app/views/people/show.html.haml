@@ -21,11 +21,11 @@
       %br.clear
 
   %div.info_container
-    -# %div{:style => "float:left;"}
-      -if @person.photo?
-        = image_tag @person.photo.url(:thumb)
-      -else
+    %div{:style => "float:left;"}
+      -if @person.image.nil?
         = image_tag 'no_photo.jpeg'
+      -else
+        = image_tag(thumb_image_path(@person.image.id))
     
      
     %div#idline

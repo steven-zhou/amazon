@@ -1,10 +1,11 @@
 %div.info_container
 
   %div
-    -#-if person.photo?
-    -#  = image_tag person.photo.url(:thumb)
-    -#-else
-    -#  = image_tag 'no_photo.jpeg'
+    -if person.image.nil?
+      = image_tag 'no_photo.jpeg'
+    -else
+      = image_tag thumb_image_path(person.image.id)
+
     %table{:style => 'width:90%;float:right;'}
       %tbody{:style => 'color:white;'}
         %tr
