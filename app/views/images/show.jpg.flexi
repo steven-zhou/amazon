@@ -1,3 +1,3 @@
 @image.operate do |image|
-  image.resize '150x150'
+  image.resize '120x120'
 end

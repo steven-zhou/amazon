@@ -1,0 +1,16 @@
+.form_line
+  = website.check_box :priority
+  Priority
+.form_line
+  .field_20
+    = website.label :contact_type_id, 'Type'
+    = website.collection_select :contact_type_id, ContactType.find_all_by_metatype("Website"), :id, :name
+  .field_80
+    = website.label :value, "Value"
+    = website.text_field :value
+%br{ :style=>"clear: both;"}
+.form_line
+  .field_100
+    = website.label :remarks, "Remarks"
+    = website.text_field :remarks
+%br{ :style=>"clear: both;"}

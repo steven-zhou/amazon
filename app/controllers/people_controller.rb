@@ -6,7 +6,9 @@ class PeopleController < ApplicationController
     @person = Person.new
     @person.addresses.build
     @person.phones.build
+    @person.faxes.build
     @person.emails.build
+    @person.websites.build
     @image = Image.new
     respond_to do |format|
       format.html
@@ -19,9 +21,13 @@ class PeopleController < ApplicationController
     @person = Person.new if @person.nil?
     @primary_phone = @person.primary_phone
     @primary_email = @person.primary_email
+    @primary_fax = @person.primary_fax
+    @primary_website = @person.primary_website
     @primary_address = @person.primary_address
     @other_phones = @person.other_phones
     @other_emails = @person.other_emails
+    @other_faxes = @person.other_faxes
+    @other_websites = @person.other_websites
     @other_addresses = @person.other_address
     @notes = @person.notes 
     respond_to do |format|
@@ -34,6 +40,8 @@ class PeopleController < ApplicationController
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
+    @fax = Fax.new
+    @website = Website.new
     @masterdoc = MasterDoc.new
     @relationship = Relationship.new
     @note = Note.new
@@ -45,10 +53,14 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @image = Image.new(params[:image])
-    @image.save
-    @person = Person.new(params[:person])
-    @person.image = @image
+    if !params[:image].nil?
+      @image = Image.new(params[:image])
+      @image.save
+      @person = Person.new(params[:person])
+      @person.image = @image
+    else
+      @person = Person.new(params[:person])
+    end
     if @person.save
       # If the user wants to edit the record they just added
       if(params[:edit])
@@ -63,6 +75,8 @@ class PeopleController < ApplicationController
       @person.addresses.build(params[:person][:addresses_attributes][0]) if @person.addresses.empty?
       @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
+      @person.faxes.build(params[:person][:faxes_attributes][0]) if @person.faxes.empty?
+      @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
 
       flash[:warning] = "Error in saving person"
       render :action =>'new'
@@ -98,7 +112,7 @@ class PeopleController < ApplicationController
     elsif params[:address]
       @people = PeopleSearch.by_address(params[:address])
     elsif params[:note]
-       @people = PeopleSearch.by_note(params[:note][:note_type_id], params[:note][:label],params[:note][:short_description])
+      @people = PeopleSearch.by_note(params[:note][:note_type_id], params[:note][:label],params[:note][:short_description])
     elsif params[:keyword]
       puts "keyword search"
       @people = PeopleSearch.by_keyword(params[:keyword][:id])

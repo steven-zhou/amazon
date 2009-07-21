@@ -1,0 +1,1 @@
+$('#<%= dom_id(@website, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => 'contacts/contact', :locals => {:contact => @website})) %>");

@@ -1,0 +1,5 @@
+<% if @fax.errors.empty? -%>
+  $('#contacts').prepend('<%= escape_javascript(render(:partial => "contacts/contact", :locals => {:contact => @fax})) %>');
+  $('#<%= dom_id(@fax) %>').effect('slide', {direction:'right'});
+  $("#new_fax")[0].reset();
+<% end -%>
