@@ -29,6 +29,7 @@ class PeopleController < ApplicationController
     @other_faxes = @person.other_faxes
     @other_websites = @person.other_websites
     @other_addresses = @person.other_address
+    @notes = @person.notes 
     respond_to do |format|
       format.html
     end

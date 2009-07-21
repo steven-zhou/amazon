@@ -29,19 +29,19 @@
     
      
     %div#idline
-      .field_33
-        %h3= h "#{@person.name}"
-      %br{:style=>"clear: both;"}
-   
-      .field_33
+      
+      %h3= h "#{@person.name}"
         
-        = label_tag 'custom_id', 'Custom ID'
-        = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}
+      .form_line
+        .field_33
         
-      .field_33
-        = label_tag 'onrecord_since', 'On Record Since'
-        = text_field_tag 'onrecord_since', @person.onrecord_since, {:readonly => true}
-      %br.clear
+          = label_tag 'custom_id', 'Custom ID'
+          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}
+        
+        .field_33
+          = label_tag 'onrecord_since', 'On Record Since'
+          = text_field_tag 'onrecord_since', @person.onrecord_since, {:readonly => true}
+        %br.clear
     %div#more_name_details{:style => 'display:none'}
       .form_line
         .field_20
@@ -97,6 +97,8 @@
           = email.address
     %span.details
       = link_to_function 'more contacts', :class => 'toggle_more', :toggle_more_id => 'more_contacts', :alt_text => 'hide contacts'
+
+
   %div.info_container
     %p
       %h3= "#{@primary_address.address_type_name} Address" unless @primary_address.nil?
@@ -110,6 +112,27 @@
       = link_to_function 'more addresses', :class => 'toggle_more', :toggle_more_id => 'more_addresses', :alt_text => 'hide addresses'
   %div.info_container
     %h3 Notes
+    %div.info_container
+      = @person.notes.blank? ? "No Notes": @person.notes.first.id
+      = @person.notes.first.note_type.name unless @person.notes.blank?
+
+     
+      = show_date(@person.notes.first.created_at)unless @person.notes.blank?
+      \-
+      = @person.notes.first.label unless @person.notes.blank?
+      = @person.notes.first.short_description unless @person.notes.blank?
+    %div.info_container
+      = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
+      = @person.notes.second.note_type.name unless @person.notes.second.blank?
+
+     
+      = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
+      \-
+      = @person.notes.second.label unless @person.notes.second.blank?
+      = @person.notes.second.short_description unless @person.notes.second.blank?
+
+  
+
       
   %div.info_container
     %h3 Employment
