@@ -1,3 +1,16 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(document).ready(function() {
+      toggleFormStatus()
+    });
+
+    function toggleFormStatus() {
+      if ($('#system_id_tag').val() == '') {
+          $('#left :input').attr('disabled', true);
+          $('#system_id_tag').attr('disabled', false);
+      }
+    }
+
 #left
   .header
     .title
@@ -23,8 +36,8 @@
       = render :partial => 'person_details_fields', :locals => {:p => p}
     %fieldset
       = render :partial => '/images/show_photo', :locals => {:person => @person}
-    = submit_tag 'Save and Close', :style => 'float:right;'
-    = submit_tag 'Save', :style => 'float:right;'
+      = submit_tag 'Save and Close', :style => 'float:right;'
+      = submit_tag 'Save', :style => 'float:right;'
     
 
 #right
