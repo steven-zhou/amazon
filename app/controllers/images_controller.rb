@@ -43,7 +43,7 @@ class ImagesController < ApplicationController
 
   def thumb
     @image = Image.find(params[:id])
-    render :inline => "@image.operate {|i| i.resize '80x80'}", :type => :flexi
+    render :inline => "@image.operate {|i| i.resize '61x61'}", :type => :flexi
   end
 
 end

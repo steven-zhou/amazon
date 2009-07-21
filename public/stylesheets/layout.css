@@ -236,3 +236,14 @@ a.alt_option{
 a.alt_option:hover{
   color:blue;
 }
+
+img.thumb {
+    width:61px;
+    height: 61px;
+    float: left;
+}
+
+img.small {
+    width: 120px;
+    height: 120px;
+}
