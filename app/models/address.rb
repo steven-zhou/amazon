@@ -32,10 +32,10 @@ class Address < ActiveRecord::Base
   #++
 
   # 
-  delegate :short_name, :to => :country, :prefix => true,:allow_nil => true
+  delegate :short_name, :to => :country, :prefix => true, :allow_nil => true, :default => ""
 
   # Return the address type
-  delegate :name, :to => :address_type, :prefix => true, :allow_nil => true
+  delegate :name, :to => :address_type, :prefix => true, :allow_nil => true, :default => ""
 
   #--
   ################

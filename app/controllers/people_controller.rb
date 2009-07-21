@@ -36,7 +36,9 @@ class PeopleController < ApplicationController
   end
   
   def edit
-    @person = Person.find(params[:id])
+    params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+    @person = Person.find_by_id(params[:id])
+    @person = Person.new(:id => "") unless !@person.nil?
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -45,7 +47,7 @@ class PeopleController < ApplicationController
     @masterdoc = MasterDoc.new
     @relationship = Relationship.new
     @note = Note.new
-    @image = @person.image unless @person.image.nil?
+    @image = @person.image unless (@person.nil? || @person.image.nil?)
 
     respond_to do |format|
       format.html
@@ -78,7 +80,7 @@ class PeopleController < ApplicationController
       @person.faxes.build(params[:person][:faxes_attributes][0]) if @person.faxes.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
 
-      flash[:warning] = "Error in saving person"
+      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
       render :action =>'new'
     end
   end
@@ -89,7 +91,7 @@ class PeopleController < ApplicationController
 
       if !params[:image].nil?
         @image = Image.new(params[:image])
-        flash[:warning] = "The image was not saved." unless @image.save
+        flash[:warning] = "The image was not saved. Please check that file was a valid image file." unless @image.save
         @person.image.destroy unless @person.image.nil?
         @person.image = @image
       end
@@ -98,7 +100,7 @@ class PeopleController < ApplicationController
       @person.save!
     end
 
-    flash[:message] = "#{@person.name}'s information have been updated" unless !flash[:warning].nil?
+    flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
     redirect_to person_path(@person)
   end
 

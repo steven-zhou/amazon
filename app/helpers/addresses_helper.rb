@@ -12,9 +12,7 @@ module AddressesHelper
     formatted += "#{address.region} <br/>" unless address.region.blank?
     formatted += "#{address.state} " unless address.state.blank?
     formatted += "#{address.postal_code} " unless address.postal_code.blank?
-    formatted += "#{address.country.short_name} <br/>" unless address.country.short_name.blank?
-    
-#    formatted += "#{address.third_line} <br/>" unless address.third_line.blank?
+    formatted += "#{address.country.short_name} <br/>" unless ( address.country.nil? || address.country.short_name.blank? )
     return formatted
   end
   

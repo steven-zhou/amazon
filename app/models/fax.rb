@@ -53,7 +53,7 @@ class Fax < Contact
   def prefer_time(value)
     case value
     when "0"
-      return "No Contact"
+      return "Not Available"
     when "1"
       return "Business Hours"
     when "2"
