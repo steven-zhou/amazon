@@ -6,6 +6,7 @@
     %br.clear
   %div.info_container
     .form_line
+     
       .field_20{:style => 'float:left;'}
         = label_tag 'person_id', 'System ID',:style => 'clear:both'
         - form_tag(:controller => "people", :action => "show", :id => "") do
@@ -21,7 +22,7 @@
       %br.clear
 
   %div.info_container
-    %div{:style => "float:left;"}
+    %div#imageshow{:style => "float:left;"}
       -if @person.image.nil?
         = image_tag 'no_photo.jpeg'
       -else
@@ -113,24 +114,27 @@
   %div.info_container
     %h3 Notes
     %div.info_container
-      = @person.notes.blank? ? "No Notes": @person.notes.first.id
-      = @person.notes.first.note_type.name unless @person.notes.blank?
+      %div{:style => "float:left;"}
+        = @person.notes.blank? ? "No Notes": @person.notes.first.id
+        = @person.notes.first.note_type.name unless @person.notes.blank?
 
-     
-      = show_date(@person.notes.first.created_at)unless @person.notes.blank?
-      \-
-      = @person.notes.first.label unless @person.notes.blank?
-      = @person.notes.first.short_description unless @person.notes.blank?
+      %div{:style => "float:right;"}
+        = show_date(@person.notes.first.created_at)unless @person.notes.blank?
+        \-
+        = @person.notes.first.label unless @person.notes.blank?
+        = @person.notes.first.short_description unless @person.notes.blank?
+      %br.clear
     %div.info_container
-      = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
-      = @person.notes.second.note_type.name unless @person.notes.second.blank?
+      %div{:style => "float:left;"}
+        = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
+        = @person.notes.second.note_type.name unless @person.notes.second.blank?
 
-     
-      = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
-      \-
-      = @person.notes.second.label unless @person.notes.second.blank?
-      = @person.notes.second.short_description unless @person.notes.second.blank?
-
+      %div{:style => "float:right;"}
+        = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
+        \-
+        = @person.notes.second.label unless @person.notes.second.blank?
+        = @person.notes.second.short_description unless @person.notes.second.blank?
+      %br.clear
   
 
       
@@ -152,10 +156,10 @@
     %br.clear
   .info_container{:align => 'center'}
     .options
-      = link_to_function image_tag('business.png'), :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "person_info"
-      Business &nbsp;|
-      = link_to_function image_tag('person_details.png'), :id=>"personal", :class=>"toggle_button1", :toggle_id_name1 => "person_info",:toggle_id_name2 => "business_info"
-      Personal
+      = link_to_function "#{image_tag('business.png')} Business",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "person_info"
+      &nbsp;|
+      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"toggle_button1", :toggle_id_name1 => "person_info",:toggle_id_name2 => "business_info"
+     
     %br{ :style=>"clear: both;"}
 
  
