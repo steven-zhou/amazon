@@ -216,6 +216,10 @@ div.display_container {
     text-align: center;
 }
 
+.textright {
+    text-align: right;
+}
+
 br.clear{
   clear:both;
 }
@@ -244,6 +248,16 @@ img.thumb {
 }
 
 img.small {
+    width: 90px;
+    height: 90px;
+}
+
+img.medium {
     width: 120px;
     height: 120px;
+}
+
+.help_icon {
+    float:right;
+    margin-right: 8px;
 }

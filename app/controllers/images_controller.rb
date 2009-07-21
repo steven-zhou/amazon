@@ -1,7 +1,7 @@
 class ImagesController < ApplicationController
- caches_page :show
+  caches_page :show
 
- def show    
+  def show
     @image = Image.find(params[:id])
     respond_to do |format|
       format.jpg 
@@ -46,4 +46,9 @@ class ImagesController < ApplicationController
     render :inline => "@image.operate {|i| i.resize '61x61'}", :type => :flexi
   end
 
+  def thumb_large
+    @image = Image.find(params[:id])
+    render :inline => "@image.operate {|i| i.resize '91x91'}", :type => :flexi
+  end
+  
 end

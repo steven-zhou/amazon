@@ -5,39 +5,35 @@
       -#%h1 Person Profile
     %br.clear
   %div.info_container
-    .form_line
-     
-      .field_20{:style => 'float:left;'}
-        = label_tag 'person_id', 'System ID',:style => 'clear:both'
-        - form_tag(:controller => "people", :action => "show", :id => "") do
-          = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit()'}
-      .field_80{:align => 'center'}
-        = render :partial => "lists_menu"
-      %br.clear
-
+    .form_line      
+      = render :partial => "lists_menu"
+    %br.clear
+      
   %div.info_container
     %div#imageshow{:style => "float:left;"}
       -if @person.image.nil?
-        = image_tag 'no_photo.jpeg'
+        = image_tag 'no_photo.jpeg', :class => "small"
       -else
-        = image_tag(thumb_image_path(@person.image.id))
+        = image_tag(image_path(@person.image.id), :class => "small")
     
      
     %div#idline
-      
-      %h3= h "#{@person.name}"
+      - if @person.image.nil?
+        %h3{:style=>'visibility:hidden'} Hidden
+      -else
+        %h3= h "#{@person.name}"
         
       .form_line
-        .field_33
-        
+        .field_33        
           = label_tag 'custom_id', 'Custom ID'
-          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}
-        
+          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}        
         .field_33
           = label_tag 'onrecord_since', 'On Record Since'
           = text_field_tag 'onrecord_since', @person.onrecord_since, {:readonly => true}
         %br.clear
-    %div#more_name_details{:style => 'display:none'}
+
+
+    -#%div#more_name_details{:style => 'display:none'}
       .form_line
         .field_20
           = label_tag 'title', 'Title'
@@ -71,7 +67,7 @@
           = label_tag 'preferred_name', 'Preferred Name'
           = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
         %br.clear
-    %span.details 
+    -#%span.details
       = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
   %div.info_container
     %h3 Contacts
@@ -81,7 +77,7 @@
     %div.info_container
       Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_email.nil? ? "None assigned": @primary_email.value
-    %div#more_contacts{:style => 'display:none'}
+    -#%div#more_contacts{:style => 'display:none'}
       - @other_phones.each do |phone|
         %div.info_container
           Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -90,7 +86,7 @@
         %div.info_container
           Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           = email.address
-    %span.details
+    -#%span.details
       = link_to_function 'more contacts', :class => 'toggle_more', :toggle_more_id => 'more_contacts', :alt_text => 'hide contacts'
 
 
@@ -98,12 +94,12 @@
     %p
       %h3= "#{@primary_address.address_type_name} Address" unless @primary_address.nil?
       = format_address(@primary_address) unless @primary_address.nil?
-    %div#more_addresses{:style=>"display:none"}
+    -#%div#more_addresses{:style=>"display:none"}
       - @other_addresses.each do |address|
         %p
           %h3= "#{address.address_type_name} Address"
           = format_address(address)
-    %span.details 
+    -#%span.details
       = link_to_function 'more addresses', :class => 'toggle_more', :toggle_more_id => 'more_addresses', :alt_text => 'hide addresses'
   %div.info_container
     %h3 Notes
@@ -145,16 +141,14 @@
 #right
   
   .header
-    .title
-      %h1
+    = image_tag 'help_icon.png', :class => "help_icon"
     %br.clear
   .info_container{:align => 'center'}
-    .options
+    .person_profile_options
       = link_to_function "#{image_tag('business.png')} Business",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "person_info"
       &nbsp;|
       = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"toggle_button1", :toggle_id_name1 => "person_info",:toggle_id_name2 => "business_info"
      
-    %br{ :style=>"clear: both;"}
 
  
   %div.info_container#person_info{:style=>"display:none"}

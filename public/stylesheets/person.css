@@ -1,8 +1,43 @@
 /* Person css */
 div.header {
-  min-height:40px;
+  min-height:45px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+
+div.person_profile_options a {
+    color: white;
+    text-decoration: none;
+}
+
+div.person_profile_options a:active {
+    text-decoration: underline;
+}
+
+div.person_profile_options{
+    height: 42px;
+}
+
+div.list_menu{
+    float: right;
+    margin-top: 5px;
+}
+
+div.list_menu a {
+    display:block;
+    float:left;
+    padding:10px 13px 0 0;
+}
+
+div.list_menu #select_tag {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+#system_id_tag {
+    height: 15px;
 }
 
 div.header .options {
@@ -24,6 +59,11 @@ div#left div.header .title img {
 }
 
 div#left div.header .title h1 {
+  margin-bottom: 30px;
+	display: inline;
+}
+
+div.header .title h1 {
   margin-bottom: 30px;
 	display: inline;
 }

@@ -4,10 +4,11 @@
       = render :partial => "menu", :locals => { :person => @person }
     =link_to image_tag 'help_icon.png', :style => 'float:right'
     %br.clear
-  
-  - form_tag(:controller => "list", :action => "show", :id => "") do
-    %fieldset{:style => 'text-align:center'}
+
+  .info_container
+    .form_line
       = render :partial => "lists_menu"
+    %br.clear
 
   - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
     %fieldset

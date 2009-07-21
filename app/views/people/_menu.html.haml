@@ -15,5 +15,5 @@
   = image_tag('menu_bar.png')
 
 = link_to image_tag('person_find.png'), :controller => "people", :action => "find"
-- if (@current_action == 'find') then
+- if (@current_action == 'find' || @current_action == 'search') then
   %h1 Find Person

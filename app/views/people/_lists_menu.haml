@@ -1,6 +1,16 @@
--form_tag(:controller => "list", :action => "show", :id => "") do
-  = link_to image_tag 'back.png'
-  = link_to image_tag 'back.png'
-  = select_tag 'list', :name, :style => 'width:180px;'
-  = link_to image_tag 'go.png'
-  = link_to image_tag 'go.png'
+.field_20{:style => 'float:left;'}
+  = label_tag 'person_id', 'System ID',:style => 'clear:both'
+  - form_tag(:controller => "people", :action => "show", :id => "") do
+    = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit()',:id => 'system_id_tag'}
+
+%div.list_menu
+  -form_tag(:controller => "list", :action => "show", :id => "") do
+    = link_to image_tag 'back.png'
+    = link_to image_tag 'back.png'
+    = select_tag 'list', :name, :id => 'select_tag'
+    = link_to image_tag 'go.png'
+    = link_to image_tag 'go.png'
+
+
+
+

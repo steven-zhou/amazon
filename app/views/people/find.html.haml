@@ -2,7 +2,6 @@
   .header
     .title
       = render :partial => "menu", :locals => { :person => @person }
-    =link_to image_tag 'help_icon.png', :style => 'float:right'
     %br.clear
 
   %div{:id => "accordion01"}
@@ -96,17 +95,16 @@
               = p.collection_select :other_language_id, Language.all, :id, :name, {:include_blank => true}
             %br.clear
           .form_line
-            .field_40
+            .field_33
               = p.label :industry_sector,"Industry Sector"
-              = p.text_field :industry_sector
-            .field_60
+              = p.select :industry_sector, Person::INDUSTRY_SECTOR, {:include_blank => true}
+            .field_63
               = p.label :interests,"Interests"
               = p.text_field :interests
             %br.clear
             %p.submit
               = submit_tag 'Find', {:id => "find_button" }
-              %span or
-              = link_to_function 'Clear', :class => 'clear_form alt_option'
+              = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Contact
@@ -125,8 +123,8 @@
             %br.clear         
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
+
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
         %fieldset
           Phone
@@ -146,8 +144,7 @@
           %br.clear
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Address
@@ -199,8 +196,7 @@
             %br.clear
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
         
     %h3
@@ -216,6 +212,7 @@
             %br.clear
           %p.submit
             = submit_tag 'Find'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Notes
@@ -237,12 +234,11 @@
             %br.clear
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
 #right
   .header
-
+    = image_tag 'help_icon.png', :class => 'help_icon'
   %div{:id => "accordion02"}
 
     %h3
@@ -255,8 +251,7 @@
             %br.clear
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Membership
@@ -268,8 +263,7 @@
             %br.clear
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Module X
@@ -281,5 +275,4 @@
             %br.clear
           %p.submit
             = submit_tag 'Find'
-            %span or
-            = link_to_function 'Clear', :class => 'clear_form alt_option'
+            = submit_tag 'Clear', :type => 'reset', :id => "find_button"

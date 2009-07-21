@@ -5,9 +5,9 @@
 
     .center{:style=>'float:left;width:390px'}
       -if person.image.nil?
-        = image_tag 'no_photo.jpeg', :id => "photo",:class => "small"
+        = image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
       -else
-        = image_tag image_path(person.image.id), :id => "photo", :class => "small"
+        = image_tag image_path(person.image.id), :id => "photo", :class => "medium"
 
     .options
       = link_to_function image_tag('edit_icon.png',:value => "Edit Photo"), :id=>"edit_photo_link"
