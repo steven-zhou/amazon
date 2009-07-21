@@ -74,7 +74,7 @@ class Person < ActiveRecord::Base
     end
     blank
   }
-  accepts_nested_attributes_for :phones, :emails,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_type_id'].blank? }
+  accepts_nested_attributes_for :phones, :emails, :faxes, :websites,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_type_id'].blank? }
 
   #--
   ################

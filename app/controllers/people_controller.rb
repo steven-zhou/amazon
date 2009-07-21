@@ -52,10 +52,14 @@ class PeopleController < ApplicationController
   end
 
   def create
-    @image = Image.new(params[:image])
-    @image.save
-    @person = Person.new(params[:person])
-    @person.image = @image
+    if !params[:image].nil?
+      @image = Image.new(params[:image])
+      @image.save
+      @person = Person.new(params[:person])
+      @person.image = @image
+    else
+      @person = Person.new(params[:person])
+    end
     if @person.save
       # If the user wants to edit the record they just added
       if(params[:edit])
@@ -107,7 +111,7 @@ class PeopleController < ApplicationController
     elsif params[:address]
       @people = PeopleSearch.by_address(params[:address])
     elsif params[:note]
-       @people = PeopleSearch.by_note(params[:note][:note_type_id], params[:note][:label],params[:note][:short_description])
+      @people = PeopleSearch.by_note(params[:note][:note_type_id], params[:note][:label],params[:note][:short_description])
     elsif params[:keyword]
       puts "keyword search"
       @people = PeopleSearch.by_keyword(params[:keyword][:id])
