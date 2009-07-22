@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.root :controller => "people"
+
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
 
   map.resources :people, :shallow=> true, 
