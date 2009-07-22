@@ -94,9 +94,12 @@ class PeopleController < ApplicationController
 
       if !params[:image].nil?
         @image = Image.new(params[:image])
-        flash[:warning] = "The image was not saved. Please check that file was a valid image file." unless @image.save
-        @person.image.destroy unless @person.image.nil?
-        @person.image = @image
+        if @image.save
+          @person.image.destroy unless @person.image.nil?
+          @person.image = @image
+        else
+          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
+        end
       end
 
       @person.update_attributes(params[:person])
