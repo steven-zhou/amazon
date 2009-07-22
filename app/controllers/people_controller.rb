@@ -53,14 +53,18 @@ class PeopleController < ApplicationController
   end
 
   def create
+    @person = Person.new(params[:person])
+
     if !params[:image].nil?
       @image = Image.new(params[:image])
-      @image.save
-      @person = Person.new(params[:person])
-      @person.image = @image
-    else
-      @person = Person.new(params[:person])
+      if @image.save
+        @person.image = @image
+      else
+        flash[:warning] = "The image was not saved."
+      end
     end
+
+    
     if @person.save
       # If the user wants to edit the record they just added
       if(params[:edit])
@@ -89,9 +93,12 @@ class PeopleController < ApplicationController
 
       if !params[:image].nil?
         @image = Image.new(params[:image])
-        flash[:warning] = "The image was not saved." unless @image.save
-        @person.image.destroy unless @person.image.nil?
-        @person.image = @image
+        if @image.save
+          @person.image.destroy unless @person.image.nil?
+          @person.image = @image
+        else
+          flash[:warning] = "The image was not saved."
+        end
       end
 
       @person.update_attributes(params[:person])

@@ -98,6 +98,8 @@ describe PeopleController do
         @invalid.emails.build()
         @invalid.addresses.build()
         @invalid.phones.build()
+        @invalid.faxes.build()
+        @invalid.websites.build()
         Person.stub!(:new).and_return(@invalid)
         @person.stub!(:save).and_return(false)
       end
