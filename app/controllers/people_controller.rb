@@ -60,17 +60,16 @@ class PeopleController < ApplicationController
   def create
     @person = Person.new(params[:person])
 
-    if !params[:image].nil?
-      @image = Image.new(params[:image])
-      if @image.save
-        @person.image = @image
-      else
-        flash[:warning] = "The image was not saved."
-      end
-    end
-
-    
     if @person.save
+      if !params[:image].nil?
+        @image = Image.new(params[:image])
+        if @image.save
+          @person.image = @image
+        else
+          flash[:warning] = "The image was not saved."
+        end
+      end
+
       # If the user wants to edit the record they just added
       if(params[:edit])
         flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name}"
