@@ -89,9 +89,9 @@ class PeopleController < ApplicationController
   end
 
   def update
-    Person.transaction do
-      @person = Person.find(params[:id])
 
+    @person = Person.find(params[:id])
+    Image.transaction do
       if !params[:image].nil?
         @image = Image.new(params[:image])
         if @image.save
@@ -101,13 +101,15 @@ class PeopleController < ApplicationController
           flash[:warning] = "The image was not saved. Please check that file was a valid image file."
         end
       end
-
-      @person.update_attributes(params[:person])
-      @person.save!
     end
 
+    @person.update_attributes(params[:person])
+    flash[:warning] = "There was an error updating the person's details." unless @person.save
+  
+
     flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
-    redirect_to person_path(@person)
+    redirect_to edit_person_path(@person)
+
   end
 
   def search
