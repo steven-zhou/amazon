@@ -8,10 +8,14 @@
   %h1 Add Person
 = image_tag('menu_bar.png')
 
-= link_to image_tag('person_edit.png'), :controller => "people", :action => "edit", :id => @person.id
+- if !(@person.nil? || @person.new_record?)
+  = link_to image_tag('person_edit.png'), :controller => "people", :action => "edit", :id => @person.id
+- else
+  = link_to image_tag('person_edit.png'), :controller => "people", :action => "edit"
+
 - if (@current_action == 'edit') then
   %h1 Edit Person
-= image_tag('menu_bar.png') unless (@person.nil? || @person.new_record?) && @current_action != 'edit'
+= image_tag('menu_bar.png')
 
 = link_to image_tag('person_find.png'), :controller => "people", :action => "find"
 - if (@current_action == 'find' || @current_action == 'search') then
