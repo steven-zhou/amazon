@@ -1,13 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
+
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search => :post, :name_finder => :get},
     :member => {
-      :edit_names => :post,
-      :cancel_edit_names => :post,
-      :add_keywords => :post,
-      :remove_keywords => :post,
-       :name_card => :get
-    } do |person|
+    :edit_names => :post,
+    :cancel_edit_names => :post,
+    :add_keywords => :post,
+    :remove_keywords => :post,
+    :name_card => :get
+  } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
     person.resources :phones
     person.resources :faxes
@@ -18,7 +21,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :notes
     person.resources :relationships, :collection => {:remove_relation => :delete}
   end
-  
+
   map.resources :people do |person|
     person.resources :roles
   end
