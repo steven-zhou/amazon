@@ -1,3 +1,16 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(document).ready(function() {
+      toggleFormStatus()
+    });
+
+    function toggleFormStatus() {
+      if ($('#system_id_tag').val() == '') {
+          $('#left :input').attr('disabled', true);
+          $('#system_id_tag').attr('disabled', false);
+      }
+    }
+
 #left
   .header
     .title
@@ -7,6 +20,10 @@
 
   .info_container
     .form_line
+      .field_20{:style => 'float:left;'}
+        = label_tag 'person_id', 'System ID', :style => 'clear:both'
+        - form_tag(:controller => "people", :action => "edit", :id => "") do
+          = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit();',:id => 'system_id_tag'}
       = render :partial => "lists_menu"
     %br.clear
 
@@ -19,8 +36,8 @@
       = render :partial => 'person_details_fields', :locals => {:p => p}
     %fieldset
       = render :partial => '/images/show_photo', :locals => {:person => @person}
-    = submit_tag 'Save and Close', :style => 'float:right;'
-    = submit_tag 'Save', :style => 'float:right;'
+      = submit_tag 'Save and Close', :style => 'float:right;'
+      = submit_tag 'Save', :style => 'float:right;'
     
 
 #right
@@ -39,4 +56,4 @@
     #Note
       = render :partial => "/notes/notes_tab",:locals =>{:person => @person}
     #Role
-      = render :partial => "/roles/roles_tab",:locals =>{:person => @person}    
+      = render :partial => "/roles/roles_tab",:locals =>{:person => @person}

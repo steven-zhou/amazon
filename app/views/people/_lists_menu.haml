@@ -1,7 +1,3 @@
-.field_20{:style => 'float:left;'}
-  = label_tag 'person_id', 'System ID',:style => 'clear:both'
-  - form_tag(:controller => "people", :action => "show", :id => "") do
-    = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit()',:id => 'system_id_tag'}
 
 %div.list_menu
   -form_tag(:controller => "list", :action => "show", :id => "") do

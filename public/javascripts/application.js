@@ -198,3 +198,4 @@ $(function(){
       $('#flash').hide();
   });
 });
+

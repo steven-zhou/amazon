@@ -4,7 +4,7 @@
     .title
       %h3 Address Details
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"toggle_button", :toggle_id_name => "new_address"
+      = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"toggle_button", :toggle_id_name => "new_address" if (!person.nil? && !person.new_record?)
       = image_tag('help_icon.png')
     %br{ :style=>"clear: both;"}
     

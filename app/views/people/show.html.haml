@@ -5,7 +5,12 @@
       -#%h1 Person Profile
     %br.clear
   %div.info_container
-    .form_line      
+    .form_line
+      .field_20{:style => 'float:left;'}
+        = label_tag 'person_id', 'System ID', :style => 'clear:both'
+        - form_tag(:controller => "people", :action => "show", :id => "") do
+          = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit()',:id => 'system_id_tag'}
+
       = render :partial => "lists_menu"
     %br.clear
       

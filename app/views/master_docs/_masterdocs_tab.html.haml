@@ -4,7 +4,7 @@
     .title
       %h3 MasterDocs
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button", :toggle_id_name => "new_master_doc"
+      = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button", :toggle_id_name => "new_master_doc"  if (!person.nil? && !person.new_record?)
       = image_tag('help_icon.png')
     %br{ :style=>"clear: both;"}
 
