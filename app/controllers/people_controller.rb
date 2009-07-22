@@ -104,7 +104,6 @@ class PeopleController < ApplicationController
         else
           flash[:warning] = "The image was not saved. Please check that file was a valid image file."
         end
-
       end
 
       @person.update_attributes(params[:person])
