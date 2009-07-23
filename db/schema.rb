@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090716071333) do
+ActiveRecord::Schema.define(:version => 20090723001304) do
 
   create_table "address_types", :force => true do |t|
     t.string   "name"
@@ -84,12 +84,13 @@ ActiveRecord::Schema.define(:version => 20090716071333) do
 
   create_table "images", :force => true do |t|
     t.binary   "image_file_data"
-    t.string   "image_file_name"
+    t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"
-    t.datetime "image_updated_at"
     t.integer  "imageable_id"
     t.string   "imageable_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "keyword_links", :force => true do |t|

@@ -95,7 +95,7 @@ class PeopleController < ApplicationController
 
     @person = Person.find(params[:id])
     Image.transaction do
-      if !params[:image].nil?
+      unless params[:image].nil?
         @image = Image.new(params[:image])
         if @image.save
           @person.image.destroy unless @person.image.nil?

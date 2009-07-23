@@ -101,5 +101,4 @@
     %p.submit
       = submit_tag "Save"
       = submit_tag "Save and Edit", :name => 'edit'
-      %span &nbsp;
-      = link_to_function 'Clear', :class => 'clear_form alt_option'
+      = submit_tag 'Clear', :type => 'reset', :id => "find_button"
