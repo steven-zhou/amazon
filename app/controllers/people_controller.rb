@@ -20,7 +20,7 @@ class PeopleController < ApplicationController
   
   def show
     params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-    @person = Person.find_by_id(params[:id])
+    @person = Person.find_by_id(params[:id].to_i)
     @person = Person.new if @person.nil?
     @primary_phone = @person.primary_phone
     @primary_email = @person.primary_email
@@ -40,7 +40,7 @@ class PeopleController < ApplicationController
   
   def edit
     params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-    @person = Person.find_by_id(params[:id])
+    @person = Person.find_by_id(params[:id].to_i)
     @person = Person.new(:id => "") unless !@person.nil?
     @address = Address.new
     @phone = Phone.new
