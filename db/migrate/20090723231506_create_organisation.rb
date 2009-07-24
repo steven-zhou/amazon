@@ -15,7 +15,7 @@ class CreateOrganisation < ActiveRecord::Migration
       t.column :legal_no_2, :text
       t.column :business_classification, :text
       t.column :business_nature, :text
-      t.column :buisness_category, :text
+      t.column :business_category, :text
       t.column :business_sub_category, :text
       t.column :industrial_sector, :text
       t.column :industrial_code, :text
@@ -30,14 +30,14 @@ class CreateOrganisation < ActiveRecord::Migration
       t.timestamps
     end
 
-    create_table :organisation_hierarchy do |t|
-      t.column :heirarchy_level, :integer
-      t.column :heirarchy_name, :text
+    create_table :organisation_hierarchies do |t|
+      t.column :hierarchy_level, :integer   # should be between 0 .. 9 and unique
+      t.column :hierarchy_name, :text
       t.column :remarks, :text
       t.timestamps
     end
 
-    create_table :organisation_key_personnel do |t|
+    create_table :organisation_key_personnels do |t|
       t.column :organisation_id, :integer
       t.column :person_id, :integer
       t.column :designation, :text
@@ -57,7 +57,7 @@ class CreateOrganisation < ActiveRecord::Migration
   def self.down
     drop_table :organisations
     drop_table :organisation_hierarchy
-    drop_table :organisation_key_personnel
+    drop_table :organisation_key_personnels
     drop_table :organisation_subsidiaries
   end
 end

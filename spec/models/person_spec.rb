@@ -21,6 +21,7 @@ describe Person do
   it { should belong_to(:residence_country)}
   it { should belong_to(:nationality)}
   it { should have_many(:person_roles)}
+  it { should have_many(:organisation_key_personnels)}
   
   context "when saving" do
   

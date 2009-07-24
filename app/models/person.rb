@@ -18,6 +18,8 @@ class Person < ActiveRecord::Base
   has_many :person_roles
   has_many :roles, :through => :person_roles, :uniq => true
 
+  has_many :organisation_key_personnels
+
   has_many :notes, :as => :noteable
 
   has_one :image, :as => :imageable

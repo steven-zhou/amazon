@@ -122,18 +122,6 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.datetime "updated_at"
   end
 
-  create_table "lists", :force => true do |t|
-    t.text    "name"
-    t.text    "query"
-    t.integer "listable_id"
-    t.string  "listable_type"
-  end
-
-  create_table "lists_people", :id => false, :force => true do |t|
-    t.integer "person_id"
-    t.integer "list_id"
-  end
-
   create_table "master_doc_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -186,15 +174,15 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.datetime "updated_at"
   end
 
-  create_table "organisation_hierarchy", :force => true do |t|
-    t.integer  "heirarchy_level"
-    t.text     "heirarchy_name"
+  create_table "organisation_hierarchies", :force => true do |t|
+    t.integer  "hierarchy_level"
+    t.text     "hierarchy_name"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "organisation_key_personnel", :force => true do |t|
+  create_table "organisation_key_personnels", :force => true do |t|
     t.integer  "organisation_id"
     t.integer  "person_id"
     t.text     "designation"
@@ -226,7 +214,7 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.text     "legal_no_2"
     t.text     "business_classification"
     t.text     "business_nature"
-    t.text     "buisness_category"
+    t.text     "business_category"
     t.text     "business_sub_category"
     t.text     "industrial_sector"
     t.text     "industrial_code"
