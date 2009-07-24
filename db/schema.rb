@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090723001304) do
+ActiveRecord::Schema.define(:version => 20090723231506) do
 
   create_table "address_types", :force => true do |t|
     t.string   "name"
@@ -122,6 +122,18 @@ ActiveRecord::Schema.define(:version => 20090723001304) do
     t.datetime "updated_at"
   end
 
+  create_table "lists", :force => true do |t|
+    t.text    "name"
+    t.text    "query"
+    t.integer "listable_id"
+    t.string  "listable_type"
+  end
+
+  create_table "lists_people", :id => false, :force => true do |t|
+    t.integer "person_id"
+    t.integer "list_id"
+  end
+
   create_table "master_doc_types", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -170,6 +182,62 @@ ActiveRecord::Schema.define(:version => 20090723001304) do
     t.integer  "noteable_id"
     t.string   "noteable_type"
     t.integer  "note_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organisation_hierarchy", :force => true do |t|
+    t.integer  "heirarchy_level"
+    t.text     "heirarchy_name"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organisation_key_personnel", :force => true do |t|
+    t.integer  "organisation_id"
+    t.integer  "person_id"
+    t.text     "designation"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organisation_subsidiaries", :force => true do |t|
+    t.integer  "parent_id"
+    t.integer  "organisation_id"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "organisations", :force => true do |t|
+    t.text     "custom_id"
+    t.text     "full_name"
+    t.text     "short_name"
+    t.text     "trading_as"
+    t.text     "registered_name"
+    t.text     "registered_number"
+    t.date     "registered_date"
+    t.integer  "registered_country_id"
+    t.text     "organisation_type"
+    t.text     "tax_file_no"
+    t.text     "legal_no_1"
+    t.text     "legal_no_2"
+    t.text     "business_classification"
+    t.text     "business_nature"
+    t.text     "buisness_category"
+    t.text     "business_sub_category"
+    t.text     "industrial_sector"
+    t.text     "industrial_code"
+    t.integer  "number_of_full_time_employees"
+    t.integer  "number_of_part_time_employees"
+    t.integer  "number_of_contractors"
+    t.integer  "number_of_volunteers"
+    t.integer  "number_of_other_workers"
+    t.text     "business_mission"
+    t.integer  "organisation_hierarchy_id"
+    t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
