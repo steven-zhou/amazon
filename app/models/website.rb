@@ -1,5 +1,5 @@
 class Website < Contact
-
+acts_as_list :column => "priority_number"
 
 #--
 ################
@@ -17,6 +17,7 @@ class Website < Contact
   #++
 
   before_save :update_priority
+  before_destroy :update_priority_before_destroy
   #--
   ################
   #  Methods
@@ -33,11 +34,10 @@ class Website < Contact
 
   private
   def update_priority
-    if self.contactable.emails.empty?
-      self.priority = true
-    elsif self.priority == true
-      priority = self.contactable.emails.find_by_priority(true)
-      priority.toggle!(:priority) unless priority.nil?
-    end
+    self.move_to_bottom
+  end
+
+  def update_priority_before_destroy
+    self.remove_from_list
   end
 end

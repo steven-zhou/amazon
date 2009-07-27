@@ -65,7 +65,9 @@ Rails::Initializer.run do |config|
   config.gem "mongrel"
   config.gem "remarkable_rails"
   config.gem "webrat"
-  
+  config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list', :source => 'http://gems.github.com'
+
+
   
   # Use the database for sessions instead of the cookie-based default,
   # which shouldn't be used to store highly confidential information

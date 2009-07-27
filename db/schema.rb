@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090723231506) do
+ActiveRecord::Schema.define(:version => 20090727062858) do
 
   create_table "address_types", :force => true do |t|
     t.string   "name"
@@ -31,12 +31,12 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.string   "time_zone"
     t.string   "map_reference"
     t.string   "bar_code"
-    t.boolean  "priority"
     t.integer  "address_type_id"
     t.integer  "addressable_id"
     t.string   "addressable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "priority_number"
   end
 
   create_table "contact_types", :force => true do |t|
@@ -57,7 +57,6 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.integer  "contactable_id"
     t.string   "contactable_type"
     t.integer  "contact_type_id"
-    t.boolean  "priority"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "monday_hours"
@@ -67,6 +66,7 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.string   "friday_hours"
     t.string   "saturday_hours"
     t.string   "sunday_hours"
+    t.integer  "priority_number"
   end
 
   create_table "countries", :force => true do |t|
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
   end
 
   create_table "images", :force => true do |t|
-    t.binary   "image_file_data"
+    t.binary   "image_file_data", :limit => 2147483647
     t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(:version => 20090723231506) do
     t.string   "entity_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "priority_number"
   end
 
   create_table "note_types", :force => true do |t|

@@ -1,5 +1,6 @@
 class Address < ActiveRecord::Base
 
+  acts_as_list :column => "priority_number"
   #--
   ################
   #  Associations
@@ -25,7 +26,8 @@ class Address < ActiveRecord::Base
   ################
   #++
 
-  before_save :update_priority
+  after_create :update_priority
+  before_destroy :update_priority_before_destroy
   ################
   #  Delegation
   ################
@@ -83,14 +85,11 @@ class Address < ActiveRecord::Base
   end
   
   def update_priority
-    if ( self.addressable.nil? || self.addressable.addresses.empty? )
-      self.priority = true
-    elsif self.priority == true 
-      priority = self.addressable.addresses.find_by_priority(true)
-      priority.toggle!(:priority) unless priority.blank? or priority == self
-    end  
+    self.move_to_bottom
+  end
+
+  def update_priority_before_destroy
+    self.remove_from_list
   end
 
 end
-
-

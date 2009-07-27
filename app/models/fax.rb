@@ -1,5 +1,5 @@
 class Fax < Contact
-
+  acts_as_list :column => "priority_number"
   #--
   ################
   #  Assocations
@@ -13,6 +13,7 @@ class Fax < Contact
   ################
   #++
   before_save :update_priority
+  before_destroy :update_priority_before_destroy
   #--
   ################
   #  Methods
@@ -65,11 +66,10 @@ class Fax < Contact
 
   private
   def update_priority
-    if self.contactable.phones.empty?
-      self.priority = true
-    elsif self.priority == true
-      priority = self.contactable.phones.find_by_priority(true)
-      priority.toggle!(:priority) unless priority.nil?
-    end
+    self.move_to_bottom
+  end
+
+  def update_priority_before_destroy
+    self.remove_from_list
   end
 end

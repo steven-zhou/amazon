@@ -6,13 +6,13 @@ class Person < ActiveRecord::Base
   ################
   #++
 
-  has_many :addresses, :as => :addressable  
+  has_many :addresses, :as => :addressable, :order => "priority_number ASC"
   has_many :phones, :as => :contactable
   has_many :faxes, :as => :contactable
   has_many :emails, :as => :contactable
   has_many :websites, :as => :contactable
   has_many :contacts, :as => :contactable
-  has_many :master_docs, :as=> :entity
+  has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
   has_many :keyword_links, :as => :taggable
   has_many :keywords, :through => :keyword_links,:uniq => true
   has_many :person_roles
@@ -109,61 +109,60 @@ class Person < ActiveRecord::Base
 #  named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id = ?", "#{keyword_id}%"] } }
 named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id LIKE ?", "#{keyword_id}%"] } }
 
-  def primary_address
-    
-    @primary_address = self.addresses.select {|address| address.priority == true}.first
+  def primary_address    
+    @primary_address = self.addresses.select {|address| address.first?}.first
   end
 
   def primary_phone
-    @primary_phone ||= self.phones.select {|phone| phone.priority == true}.first
+    @primary_phone ||= self.phones.select {|phone| phone.first?}.first
   end
 
   def primary_email
-    @primary_email ||= self.emails.select {|email| email.priority == true}.first
+    @primary_email ||= self.emails.select {|email| email.first?}.first
   end
 
   def primary_fax
-    @primary_fax ||= self.faxes.select {|fax| fax.priority == true}.first
+    @primary_fax ||= self.faxes.select {|fax| fax.first?}.first
   end
 
   def primary_website
-    @primary_website ||= self.websites.select {|website| website.priority == true}.first
+    @primary_website ||= self.websites.select {|website| website.first?}.first
+  end
+
+  def primary_master_doc
+    @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.first?}.first
   end
 
 
   def other_phones
-    @other_phones = self.phones.find_all_by_priority(false)
+    @other_phones = self.phones.select {|phone| !phone.first?}
   end
 
   def other_emails
-    @other_emails = self.emails.find_all_by_priority(false)
+    @other_emails = self.emails.select {|email| !email.first?}
   end
 
   def other_faxes
-    @other_faxes = self.faxes.find_all_by_priority(false)
+    @other_faxes = self.faxes.select {|fax| !fax.first?}
   end
 
   def other_websites
-    @other_websites = self.websites.find_all_by_priority(false)
+    @other_websites = self.websites.select {|website| !website.first?}
   end
 
-
-  def other_address
-
-    @other_addresses = self.addresses.find_all_by_priority(false)
-
+  def other_addresses
+    @other_addresses = self.addresses.select {|address| !address.first?}
   end
 
+  def other_master_docs
+    @other_master_docs = self.master_docs.select {|master_doc| !master_doc.first?}
+  end
+  
   def sorted_notes
     @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
   end
 
-#
-  #
-  #
-  #
-  #
-  #
+
   #
   # Returns the first and family name
   def name

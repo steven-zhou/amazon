@@ -1,7 +1,4 @@
 .form_line
-  = email.check_box :priority
-  Priority
-.form_line
   .field_20
     = email.label :contact_type_id, 'Type'
     = email.collection_select :contact_type_id, ContactType.find_all_by_metatype("Email"), :id, :name
