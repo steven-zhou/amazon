@@ -22,7 +22,7 @@
   .display_container
     = "#{contact.pre_value} #{contact.value} #{contact.post_value}".squeeze(" ").strip
     %br
-    - if (contact.read_attribute("type") == "Phone" || contact.read_attribute("type") == "Fax")
+    - if (contact.read_attribute("type") == "Phone")
       = contact.preferrence_day_times
     %br
     = contact.remarks
