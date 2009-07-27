@@ -111,12 +111,9 @@ describe PeopleController do
 
       it "should flash an error message if unsuccessful" do
         post_create
-        flash[:warning].should == "Error in saving person"
+        flash[:warning].should have_at_least(1).things
       end
 
-      it "should show users previous input" do
-        pending
-      end
     end
   end
 
@@ -163,11 +160,6 @@ describe PeopleController do
     end
 
     context "if params[:commit] == 'Search'" do
-      it "should find persons base on the params pass to search" do
-        pending
-        #Person.should_receive(:find_all_by_id).and_return([])
-        #get_search
-      end
 
       context "if no person was found" do
         before(:each) do

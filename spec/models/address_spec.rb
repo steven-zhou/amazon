@@ -59,15 +59,9 @@ describe Address do
     it "should save a new record as a priority address if it is the only address" do
       @address.addressable.addresses.clear
       @address.save!
-      @address.priority.should be_true
+      @address.first?.should be_true
     end
     
-    it "should update the record as the only priority address" do
-      @new_priority_address = Factory.build(:personal_work_address, :addressable_id => @address.addressable_id )
-      @new_priority_address.save!
-      @new_priority_address.priority.should be_true
-      @address.reload.priority.should be_false
-    end
   end
   
   it "should be invalid when all the fields except address_type, addressable, priority are empty" do

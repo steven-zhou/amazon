@@ -12,7 +12,6 @@ Factory.define :address do |f|
   f.district "Archon"
   f.region "Arctic"
   f.association :country, :factory => :australia
-  f.priority true
 end
 
 Factory.define :person_address, :parent => :address do |f|

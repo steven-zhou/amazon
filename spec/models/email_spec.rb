@@ -16,6 +16,6 @@ describe Email do
   it "should save a new record as a primary email if there is no phone belongs to contactable" do
     @email.contactable.emails.clear
     @email.save!
-    @email.priority.should == true
+    @email.first?.should == true
   end
 end

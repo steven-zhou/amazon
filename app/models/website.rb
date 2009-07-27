@@ -18,6 +18,7 @@ acts_as_list :column => "priority_number"
 
   before_save :update_priority
   before_destroy :update_priority_before_destroy
+  
   #--
   ################
   #  Methods
@@ -33,6 +34,7 @@ acts_as_list :column => "priority_number"
   end
 
   private
+
   def update_priority
     self.move_to_bottom
   end

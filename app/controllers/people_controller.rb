@@ -31,7 +31,7 @@ class PeopleController < ApplicationController
     @other_emails = @person.other_emails
     @other_faxes = @person.other_faxes
     @other_websites = @person.other_websites
-    @other_addresses = @person.other_address
+    @other_addresses = @person.other_addresses
     @notes = @person.notes 
     respond_to do |format|
       format.html

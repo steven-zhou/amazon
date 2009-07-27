@@ -5,7 +5,7 @@ Factory.define :contact do |f|
   f.preferred_time "time"
   f.preferred_day "Day"
   f.remarks "Remarks"
-  f.priority true
+
 
   f.association :contact_type
   f.association :contactable, :factory => :john

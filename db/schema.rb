@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(:version => 20090727062858) do
   end
 
   create_table "images", :force => true do |t|
-    t.binary   "image_file_data", :limit => 2147483647
+    t.binary   "image_file_data"
     t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"

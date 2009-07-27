@@ -53,7 +53,6 @@ describe WebsitesController do
 
     it "should render template '/websites/create.js.erb'" do
       post_create_info
-
       response.should render_template("websites/create.js.erb")
 
     end

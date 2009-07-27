@@ -7,7 +7,7 @@ address_00001:
   updated_at: 2009-07-14 06:47:10 Z
   postal_code: "2121"
   district: ""
-  priority: true
+  priority_number: 1
   country_id: 1
   building_name: ""
   addressable_type: Person
@@ -28,7 +28,7 @@ address_00002:
   updated_at: 2009-07-14 06:52:03 Z
   postal_code: "2000"
   district: ""
-  priority: true
+  priority_number: 1
   country_id: 1
   building_name: Corporation Megatower
   addressable_type: Person
@@ -49,7 +49,7 @@ address_00003:
   updated_at: 2009-07-14 07:01:47 Z
   postal_code: "2065"
   district: ""
-  priority: true
+  priority_number: 1
   country_id: 1
   building_name: ""
   addressable_type: Person
@@ -70,7 +70,7 @@ address_00004:
   updated_at: 2009-07-14 07:03:07 Z
   postal_code: "2112"
   district: ""
-  priority: true
+  priority_number: 1
   country_id: 1
   building_name: ""
   addressable_type: Person
@@ -91,7 +91,7 @@ address_00005:
   updated_at: 2009-07-14 07:04:45 Z
   postal_code: EAK732
   district: ""
-  priority: true
+  priority_number: 1
   country_id: 4
   building_name: ""
   addressable_type: Person
