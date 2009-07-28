@@ -23,9 +23,11 @@
     
      
     %div#idline
-      - if @person.image.nil?
+      - if @person.id.nil?
         %h3{:style=>'visibility:hidden'} Hidden
+        
       -else
+      
         %h3= h "#{@person.name}"
         
       .form_line
