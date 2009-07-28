@@ -1,3 +1,6 @@
+-# @p = Person.find(1,3,5,7,9)
+-# @p = Person.all
+-# @person = @p.first if (@person.nil? || @person.new_record?)
 #left
   .header
     .title
@@ -11,7 +14,7 @@
         - form_tag(:controller => "people", :action => "show", :id => "") do
           = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit()',:id => 'system_id_tag'}
 
-      = render :partial => "lists_menu"
+      = render :partial => "lists_menu", :locals => {:person => @person, :p => @p }
     %br.clear
       
   %div.info_container
