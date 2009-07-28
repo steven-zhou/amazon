@@ -18,6 +18,15 @@ class Person < ActiveRecord::Base
   has_many :person_roles
   has_many :roles, :through => :person_roles, :uniq => true
 
+  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id'
+  has_many :recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
+  has_many :supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
+  has_many :terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
+  has_many :recruiters, :through => :employments, :source => :recruiter
+  has_many :supervisors, :through => :employments, :source => :supervisor
+  has_many :terminators, :through => :employments, :source => :terminator
+  has_many :employers, :through => :employments, :source => :organisation
+
   has_many :organisation_key_personnels
 
   has_many :notes, :as => :noteable
