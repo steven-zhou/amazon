@@ -26,7 +26,7 @@ class CreateEmployment < ActiveRecord::Migration
       t.column :pay_cost_centre, :string
       t.column :payment_frequency, :string
       t.column :payment_method, :string
-      t.column :payment_date, :string
+      t.column :payment_day, :string
       t.column :award_agreement, :string
       t.column :award_other, :string
       t.column :suspension_start_date, :date
@@ -36,10 +36,11 @@ class CreateEmployment < ActiveRecord::Migration
       t.column :suspension_reason, :string
       t.column :suspension_remarks, :string
       t.column :termination_notice_date, :date
+      t.column :termination_date, :date
       t.column :terminated_by, :integer
       t.column :termination_method, :string
       t.column :termination_reason, :string
-      t.column :remarks, :string
+      t.column :termination_remarks, :string
       t.timestamps
     end
   end

@@ -26,9 +26,11 @@ describe Person do
   it { should have_many(:recruitments, :class_name => 'Employment', :foreign_key => 'hired_by')}
   it { should have_many(:supervisions, :class_name => 'Employment', :foreign_key => 'report_to')}
   it { should have_many(:terminations, :class_name => 'Employment', :foreign_key => 'terminated_by')}
+  it { should have_many(:suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by')}
   it { should have_many(:recruiters, :through => :employments, :source => :recruiter)}
   it { should have_many(:supervisors, :through => :employments, :source => :supervisor)}
   it { should have_many(:terminators, :through => :employments, :source => :terminator)}
+  it { should have_many(:suspenders, :through => :employments, :source => :suspender)}
   it { should have_many(:employers, :through => :employments, :source => :organisation)}
   
   context "when saving" do

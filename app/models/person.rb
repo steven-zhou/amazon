@@ -22,9 +22,11 @@ class Person < ActiveRecord::Base
   has_many :recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
   has_many :supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
   has_many :terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
+  has_many :suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by'
   has_many :recruiters, :through => :employments, :source => :recruiter
   has_many :supervisors, :through => :employments, :source => :supervisor
   has_many :terminators, :through => :employments, :source => :terminator
+  has_many :suspenders, :through => :employments, :source => :suspender
   has_many :employers, :through => :employments, :source => :organisation
 
   has_many :organisation_key_personnels
@@ -143,6 +145,10 @@ class Person < ActiveRecord::Base
     @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.first?}.first
   end
 
+  def primary_employment
+    @primary_employment ||= self.employments.select {|employment| employment.first?}.first
+  end
+
 
   def other_phones
     @other_phones = self.phones.select {|phone| !phone.first?}
@@ -166,6 +172,10 @@ class Person < ActiveRecord::Base
 
   def other_master_docs
     @other_master_docs = self.master_docs.select {|master_doc| !master_doc.first?}
+  end
+
+  def other_employments
+    @other_employments = self.other_employments.select {|employment| !employment.first?}
   end
   
   def sorted_notes

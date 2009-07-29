@@ -5,7 +5,6 @@
   .header
     .title
       = render :partial => "menu", :locals => { :person => @person }
-      -#%h1 Person Profile
     %br.clear
   %div.info_container
     .form_line
@@ -43,42 +42,7 @@
         %br.clear
 
 
-    -#%div#more_name_details{:style => 'display:none'}
-      .form_line
-        .field_20
-          = label_tag 'title', 'Title'
-          = text_field_tag 'title', @person.title_name, {:readonly => true}
-        .field_40
-          = label_tag 'first_name', 'First Names'
-          = text_field_tag 'first_name', @person.first_name, {:readonly => true}
-        .field_40
-          = label_tag 'family_name', 'Family Name'
-          = text_field_tag 'family_name', @person.family_name, {:readonly => true}
-        %br.clear
-      .form_line
-        .field_20
-          = label_tag 'second_title', 'Second Title'
-          = text_field_tag 'second_title', @person.second_title_name, {:readonly => true}
-        .field_40
-          = label_tag 'middle_name', 'Middle Name'
-          = text_field_tag 'middle_name', @person.middle_name, {:readonly => true}
-        .field_40
-          = label_tag 'maiden_name', 'Maiden Name'
-          = text_field_tag 'middle_name', @person.maiden_name, {:readonly => true}
-        %br.clear
-      .form_line
-        .field_20
-          = label_tag 'initials', 'Initials'
-          = text_field_tag 'initials', @person.initials, {:readonly => true}
-        .field_40
-          = label_tag 'post_title', 'Post Name'
-          = text_field_tag 'post_title', @person.post_title, {:readonly => true}
-        .field_40
-          = label_tag 'preferred_name', 'Preferred Name'
-          = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
-        %br.clear
-    -#%span.details
-      = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
+    
   %div.info_container
     %h3 Contacts
     %div.info_container
@@ -87,30 +51,16 @@
     %div.info_container
       Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_email.nil? ? "None assigned": @primary_email.value
-    -#%div#more_contacts{:style => 'display:none'}
-      - @other_phones.each do |phone|
-        %div.info_container
-          Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          = phone.number
-      - @other_emails.each do |email|
-        %div.info_container
-          Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          = email.address
-    -#%span.details
-      = link_to_function 'more contacts', :class => 'toggle_more', :toggle_more_id => 'more_contacts', :alt_text => 'hide contacts'
+   
 
 
   %div.info_container
-    %p
-      %h3= "#{@primary_address.address_type_name} Address" unless @primary_address.nil?
+    %h3
+      = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
+    .primary_address_and_employment
       = format_address(@primary_address) unless @primary_address.nil?
-    -#%div#more_addresses{:style=>"display:none"}
-      - @other_addresses.each do |address|
-        %p
-          %h3= "#{address.address_type_name} Address"
-          = format_address(address)
-    -#%span.details
-      = link_to_function 'more addresses', :class => 'toggle_more', :toggle_more_id => 'more_addresses', :alt_text => 'hide addresses'
+
+
   %div.info_container
     %h3 Notes
     %div.info_container
@@ -140,11 +90,8 @@
       
   %div.info_container
     %h3 Employment
-    Organization:
-    %br/
-    Department:
-    %br/
-    Job Title:
+    .primary_address_and_employment
+      = format_employment(@primary_employment) unless @primary_employment.nil?
         
 
 

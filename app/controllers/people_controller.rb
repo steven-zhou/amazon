@@ -27,6 +27,7 @@ class PeopleController < ApplicationController
     @primary_fax = @person.primary_fax
     @primary_website = @person.primary_website
     @primary_address = @person.primary_address
+    @primary_employment = @person.primary_employment
     @other_phones = @person.other_phones
     @other_emails = @person.other_emails
     @other_faxes = @person.other_faxes
@@ -49,6 +50,7 @@ class PeopleController < ApplicationController
     @website = Website.new
     @masterdoc = MasterDoc.new
     @relationship = Relationship.new
+    @employment = Employment.new
     @note = Note.new
     @image = @person.image unless (@person.nil? || @person.image.nil?)
 
