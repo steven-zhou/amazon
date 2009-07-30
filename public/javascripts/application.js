@@ -181,7 +181,18 @@ $(function(){
 
 /* Employment Tab*/
 $(function(){
-  $("input[type='text'].find_person_field").change(function(){
+  $(".find_organisation_field").change(function(){
+    $.ajax({
+      type: "GET",
+      url: "/organisations/name_finder.js",
+      data: 'organisation_id='+$(this).val(),
+      dataType: "script"
+    });
+  });
+});
+
+$(function(){
+  $(".find_person_field").change(function(){
     $.ajax({
       type: "GET",
       url: "/people/name_finder.js",

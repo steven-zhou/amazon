@@ -1,0 +1,5 @@
+<% if @organisation.nil? %>
+    $(".organisation_name_container").val("Invalid ID")
+<% else %>
+    $(".organisation_name_container").val("<%=escape_javascript("#{@organisation.full_name}")%>")
+<% end %>

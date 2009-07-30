@@ -8,7 +8,7 @@
       = image_tag('help_icon.png')
     %br{ :style=>"clear: both;"}
     
-    =# Initially hidden new employment form
+    -# Initially hidden new employment form
     -form_for([@person,@employment], :html => {:style => "display:none", :class => 'ajax_form'}) do |employment|
       %fieldset
         %h3 New Employment

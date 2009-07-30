@@ -28,6 +28,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :people do |person|
     person.resources :roles
   end
+
+  map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

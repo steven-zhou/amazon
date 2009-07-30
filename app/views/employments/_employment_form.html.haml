@@ -2,10 +2,13 @@
 .form_line
   .field_25
     =employment.label :organisation_id, "Organisation ID"
-    =employment.text_field :organisation_id
+    =employment.text_field :organisation_id, :class=>"find_organisation_field"
   .field_50
     =employment.label :organisation_id, "Organisation Name"
-    %input#organisation_name_container{:disabled=>true}
+    -if @employment.new_record?
+      %input.organisation_name_container{:disabled=>true}
+    -else
+      %input.organisation_name_container{:disabled=>true, :value=>@employment.organisation.full_name}
   .field_25
     =employment.label :id, "Employment ID"
     =employment.text_field :id, :disabled=>true
@@ -62,13 +65,13 @@
     =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container"
   .field_25
     =employment.label :hired_by, "Recruiter"
-    %input#recruiter_container{:disabled=>true}
+    %input.recruiter_container{:disabled=>true}
   .field_25
     =employment.label :report_to, "Report To"
     =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container"
   .field_25
     =employment.label :report_to, "Supervisor"
-    %input#supervisor_container{:disabled=>true}
+    %input.supervisor_container{:disabled=>true}
   %br.clear
 .form_line
   .field_25
@@ -128,7 +131,7 @@
     =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container"
   .field_25
     =employment.label :suspended_by, "Suspender Name"
-    %input#suspender_container{:disabled=>true}
+    %input.suspender_container{:disabled=>true}
   %br.clear
 .form_line
   .field_25
@@ -162,7 +165,7 @@
     =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container"
   .field_25
     =employment.label :terminated_by, "Terminator Name"
-    %input#terminator_container{:disabled=>true}
+    %input.terminator_container{:disabled=>true}
   %br.clear
 .form_line
   .field_25

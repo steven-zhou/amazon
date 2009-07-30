@@ -2,12 +2,12 @@
   <% if @person.preferred_name.nil? %>
     $("#related_person_name_container").html('<br/>Invalid ID')
   <% else %>
-    $("#"+"<%=escape_javascript("#{@person.preferred_name}")%>").val("Invalid ID")
+    $("."+"<%=escape_javascript("#{@person.preferred_name}")%>").val("Invalid ID")
   <% end %>
 <% else %>
   <% if @person.preferred_name.nil? %>
     $("#related_person_name_container").html('<%=escape_javascript("<br/>#{@person.name}")%>')
   <% else %>
-    $("#"+"<%=escape_javascript("#{@person.preferred_name}")%>").val("<%=escape_javascript("#{@person.name}")%>")
+    $("."+"<%=escape_javascript("#{@person.preferred_name}")%>").val("<%=escape_javascript("#{@person.name}")%>")
   <% end %>
 <% end %>
