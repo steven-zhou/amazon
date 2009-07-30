@@ -181,7 +181,7 @@ $(function(){
 
 /* Employment Tab*/
 $(function(){
-  $(".find_organisation_field").change(function(){
+  $(".find_organisation_field").live('change', function(){
     $.ajax({
       type: "GET",
       url: "/organisations/name_finder.js",
@@ -192,7 +192,7 @@ $(function(){
 });
 
 $(function(){
-  $(".find_person_field").change(function(){
+  $(".find_person_field").live('change', function(){
     $.ajax({
       type: "GET",
       url: "/people/name_finder.js",

@@ -22,6 +22,15 @@ class EmploymentsController < ApplicationController
     end
   end
 
+  def update
+    @employment = Employment.find(params[:id])
+    respond_to do |format|
+      if @employment.update_attributes(params[:employment])
+        format.js { render 'show.js' }
+      end
+    end
+  end
+
   def destroy
     @employment = Employment.find(params[:id])
     @employment.destroy
