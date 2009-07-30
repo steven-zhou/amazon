@@ -59,13 +59,13 @@
 .form_line
   .field_25
     =employment.label :hired_by, "Hired By"
-    =employment.text_field :hired_by
+    =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container"
   .field_25
     =employment.label :hired_by, "Recruiter"
     %input#recruiter_container{:disabled=>true}
   .field_25
     =employment.label :report_to, "Report To"
-    =employment.text_field :report_to
+    =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container"
   .field_25
     =employment.label :report_to, "Supervisor"
     %input#supervisor_container{:disabled=>true}
@@ -125,7 +125,7 @@
     =employment.text_field :suspension_end_date, :class=>"datepick"
   .field_25
     =employment.label :suspended_by, "Suspended By (ID)"
-    =employment.text_field :suspended_by
+    =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container"
   .field_25
     =employment.label :suspended_by, "Suspender Name"
     %input#suspender_container{:disabled=>true}
@@ -159,7 +159,7 @@
     =employment.text_field :termination_date, :class=>"datepick"
   .field_25
     =employment.label :terminated_by, "Terminated By (ID)"
-    =employment.text_field :terminated_by
+    =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container"
   .field_25
     =employment.label :terminated_by, "Terminator Name"
     %input#terminator_container{:disabled=>true}
@@ -175,5 +175,3 @@
     =employment.label :terminated_remarks, "Termination Remarks"
     =employment.text_field :termination_remarks
   %br.clear
-
-

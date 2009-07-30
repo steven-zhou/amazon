@@ -179,7 +179,20 @@ $(function(){
   });
 });
 
+/* Employment Tab*/
+$(function(){
+  $("input[type='text'].find_person_field").change(function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/name_finder.js",
+      data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
+      dataType: "script"
+    });
+  });
+});
 
+
+/* FLASH */
 $.fn.wait = function(time, type) {
         time = time || 1000;
         type = type || "fx";
