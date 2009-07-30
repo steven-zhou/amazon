@@ -1,0 +1,8 @@
+<% unless @role.nil? %>
+  
+
+  $("#role_id").html('<%=escape_javascript("<option value='#{@role.id}'>#{@role.name}</option>")%>')
+  
+<% else %>
+ $("#role_id").html('<option value="1">invalid type</option>')
+<% end -%>

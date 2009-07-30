@@ -9,6 +9,10 @@ describe Organisation do
 
   it { should have_many(:organisation_key_personnels) }
   it { should have_many(:key_people, :through => :organisation_key_personnels, :source => :person) }
+  it { should have_many(:employments)}
+  it { should have_many(:employees, :through => :employments, :source => :employee)}
+
+
   it { should belong_to(:country) }
   it { should belong_to(:organisation_hierarchy) }
 

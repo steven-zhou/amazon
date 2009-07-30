@@ -179,20 +179,51 @@ $(function(){
   });
 });
 
+
 /*role*/
 
 
 $(function(){
-  $("input[type='text']#role_id").change(function(){
+  $("#role_role_type_id").change(function(){
     $.ajax({
       type: "GET",
-      url: "/people/name_finder.js",
-      data: 'person_id='+$(this).val(),
+      url: "/people/"+$(this).attr('person_id')+"/roles/get_roles.js",
+      data: 'role_type_id='+$(this).val(),
       dataType: "script"
     });
   });
 });
 
+
+/* Employment Tab*/
+
+$(function(){
+  $(".find_organisation_field").live('change', function(){
+    $.ajax({
+      type: "GET",
+      url: "/organisations/name_finder.js",
+      data: 'organisation_id='+$(this).val(),
+      dataType: "script"
+    });
+  });
+});
+
+$(function(){
+  $(".find_person_field").live('change', function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/name_finder.js",
+      data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
+      dataType: "script"
+    });
+  });
+});
+
+
+
+
+
+/* FLASH */
 $.fn.wait = function(time, type) {
         time = time || 1000;
         type = type || "fx";

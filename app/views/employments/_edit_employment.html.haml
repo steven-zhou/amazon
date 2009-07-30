@@ -1,0 +1,11 @@
+-# The form to edit an employment
+-form_for @employment, :html => {:class => 'ajax_form'} do |employment|
+  %fieldset
+    .header_container
+      .title
+        %h3 Edit Employment
+      .options
+        = link_to image_tag('close_icon.png'), employment_path(@employment), :class => 'get'
+      %br{ :style=>"clear: both;"}
+    = render :partial => '/employments/employment_form', :locals => { :employment => employment }
+    = submit_tag 'Submit'

@@ -21,12 +21,15 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :master_docs
     person.resources :images, :member => {:thumb => :get}
     person.resources :notes
+    person.resources :employments
     person.resources :relationships, :collection => {:remove_relation => :delete}
   end
 
   map.resources :people do |person|
     person.resources :roles, :collection => {:get_roles => :get}
   end
+
+  map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

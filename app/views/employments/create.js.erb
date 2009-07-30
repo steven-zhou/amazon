@@ -1,0 +1,7 @@
+<% if @employment.errors.empty? -%>
+  $('#employments').prepend('<%= escape_javascript(render(:partial => @employment)) %>');
+  $('#<%= dom_id(@employment) %>').effect('slide', {direction:'right'});
+  $("#new_employment")[0].reset();
+<% end -%>
+
+

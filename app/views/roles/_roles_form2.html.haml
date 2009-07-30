@@ -1,0 +1,32 @@
+#role_types
+  .field_33
+    = role.label :role_type_id, "Role Types"
+    = role.collection_select :role_type_id, RoleType.all, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id}
+%br{ :style=>"clear: both;"}
+
+
+#role
+  .field_33
+    = role.label :id, "Role"
+    %select#role_id{:name => "role_id"}
+      %option
+
+%br{ :style=>"clear: both;"}
+#details
+.form_line
+  .field_33
+    = role.label :id, 'Assigned By'
+    = role.text_field :id
+
+  .field_33#related_person_name
+  %br{:style=>"clear: both;"}
+
+
+
+
+
+
+
+
+
+
