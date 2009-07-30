@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :people do |person|
-    person.resources :roles
+    person.resources :roles, :collection => {:get_roles => :get}
   end
   
   # The priority is based upon order of creation: first created -> highest priority.

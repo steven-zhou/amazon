@@ -4,6 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>Amazon - Person</title>
         <%= stylesheet_link_tag :all, :recursive => true %>
+
         <%= javascript_include_tag  "jquery-1.3.2.min.js",
                                     "jquery-ui-1.7.1.custom.min.js",
                                     "ui.core",
@@ -13,7 +14,9 @@
                                     "jquery.form.js",
                                     "application",
                                     "person.js",
+                                    "jrails.js",
                                     :cache => true %>
+      
         <%= yield_authenticity_token %>
     </head>
     <body>

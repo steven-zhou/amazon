@@ -8,5 +8,7 @@ class Role < ActiveRecord::Base
   validates_presence_of :name, :role_type_id
   validates_associated :role_type
   
-  
+  delegate :name, :to => :role_type, :prefix => true,:allow_nil => true
+
+
 end

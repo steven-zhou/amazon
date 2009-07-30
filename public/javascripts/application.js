@@ -179,6 +179,19 @@ $(function(){
   });
 });
 
+/*role*/
+
+
+$(function(){
+  $("input[type='text']#role_id").change(function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/name_finder.js",
+      data: 'person_id='+$(this).val(),
+      dataType: "script"
+    });
+  });
+});
 
 $.fn.wait = function(time, type) {
         time = time || 1000;
