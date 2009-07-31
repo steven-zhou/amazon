@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090728043801) do
+ActiveRecord::Schema.define(:version => 20090730072945) do
 
   create_table "address_types", :force => true do |t|
     t.string   "name"
@@ -82,6 +82,23 @@ ActiveRecord::Schema.define(:version => 20090728043801) do
     t.datetime "updated_at"
   end
 
+  create_table "doc_meta_meta_types", :force => true do |t|
+    t.string  "type_name"
+    t.string  "short_description"
+    t.string  "full_description"
+    t.boolean "status"
+  end
+
+  create_table "doc_meta_types", :force => true do |t|
+    t.string   "type_name"
+    t.string   "short_description"
+    t.string   "full_description"
+    t.boolean  "status"
+    t.integer  "doc_meta_meta_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "employments", :force => true do |t|
     t.integer  "person_id"
     t.integer  "organisation_id"
@@ -128,7 +145,7 @@ ActiveRecord::Schema.define(:version => 20090728043801) do
   end
 
   create_table "images", :force => true do |t|
-    t.binary   "image_file_data"
+    t.binary   "image_file_data", :limit => 2147483647
     t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"
