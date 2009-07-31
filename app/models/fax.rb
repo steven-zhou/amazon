@@ -12,7 +12,7 @@ class Fax < Contact
   #  Callbacks
   ################
   #++
-  before_save :update_priority
+  after_create :update_priority
   before_destroy :update_priority_before_destroy
   #--
   ################

@@ -8,7 +8,7 @@
     -if @employment.new_record?
       %input.disabled.organisation_name_container{:disabled=>true, :style=>"color:red"}
     -else
-      %input.organisation_name_container{:index=>@employment.id, :disabled=>true, :value=>@employment.organisation.full_name, :style=>"color:red"}
+      %input.organisation_name_container{:disabled=>true, :value=>@employment.organisation.full_name, :style=>"color:red"}
   .field_25
     =employment.label :id, "Employment ID"
     =employment.text_field :id, :disabled=>true

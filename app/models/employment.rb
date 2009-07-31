@@ -8,4 +8,16 @@ class Employment < ActiveRecord::Base
   belongs_to :suspender, :class_name => 'Person', :foreign_key => 'suspended_by'
   belongs_to :organisation
 
+  after_create :update_priority
+  before_destroy :update_priority_before_destroy
+
+  private
+  def update_priority
+    self.move_to_bottom
+  end
+
+  def update_priority_before_destroy
+    self.remove_from_list
+  end
+
 end

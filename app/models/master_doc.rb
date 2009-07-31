@@ -4,7 +4,7 @@ class MasterDoc < ActiveRecord::Base
   belongs_to :entity, :polymorphic => true
   validates_presence_of :master_doc_type_id
 
-  before_save :update_priority
+  after_create :update_priority
   before_destroy :update_priority_before_destroy
 
   private

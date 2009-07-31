@@ -83,10 +83,12 @@ ActiveRecord::Schema.define(:version => 20090730072945) do
   end
 
   create_table "doc_meta_meta_types", :force => true do |t|
-    t.string  "type_name"
-    t.string  "short_description"
-    t.string  "full_description"
-    t.boolean "status"
+    t.string   "type_name"
+    t.string   "short_description"
+    t.string   "full_description"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "doc_meta_types", :force => true do |t|
@@ -145,7 +147,7 @@ ActiveRecord::Schema.define(:version => 20090730072945) do
   end
 
   create_table "images", :force => true do |t|
-    t.binary   "image_file_data", :limit => 2147483647
+    t.binary   "image_file_data"
     t.string   "image_filename"
     t.integer  "image_width"
     t.integer  "image_height"

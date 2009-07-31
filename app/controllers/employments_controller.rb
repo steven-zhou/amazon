@@ -25,7 +25,7 @@ class EmploymentsController < ApplicationController
   def update
     @employment = Employment.find(params[:id])
     respond_to do |format|
-      if @employment.update_attributes(params[:employment])
+      if @employment.update_attributes(params[:employment][@employment.id.to_s])
         format.js { render 'show.js' }
       end
     end
