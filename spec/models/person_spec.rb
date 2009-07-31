@@ -23,14 +23,14 @@ describe Person do
   it { should have_many(:person_roles)}
   it { should have_many(:organisation_key_personnels)}
   it { should have_many(:employments, :class_name => 'Employment', :foreign_key => 'person_id')}
-  it { should have_many(:recruitments, :class_name => 'Employment', :foreign_key => 'hired_by')}
-  it { should have_many(:supervisions, :class_name => 'Employment', :foreign_key => 'report_to')}
-  it { should have_many(:terminations, :class_name => 'Employment', :foreign_key => 'terminated_by')}
-  it { should have_many(:suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by')}
-  it { should have_many(:recruiters, :through => :employments, :source => :recruiter)}
-  it { should have_many(:supervisors, :through => :employments, :source => :supervisor)}
-  it { should have_many(:terminators, :through => :employments, :source => :terminator)}
-  it { should have_many(:suspenders, :through => :employments, :source => :suspender)}
+  it { should have_many(:emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by')}
+  it { should have_many(:emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to')}
+  it { should have_many(:emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by')}
+  it { should have_many(:emp_suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by')}
+  it { should have_many(:emp_recruiters, :through => :employments, :source => :emp_recruiter)}
+  it { should have_many(:emp_supervisors, :through => :employments, :source => :emp_supervisor)}
+  it { should have_many(:emp_terminators, :through => :employments, :source => :emp_terminator)}
+  it { should have_many(:emp_suspenders, :through => :employments, :source => :emp_suspender)}
   it { should have_many(:employers, :through => :employments, :source => :organisation)}
   
   context "when saving" do

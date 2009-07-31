@@ -32,10 +32,10 @@ Factory.define :employment do |f|
   f.termination_remarks "He is happy"
 
   f.association :employee, :factory => :john
-  f.association :recruiter, :factory => :john
-  f.association :supervisor, :factory => :john
-  f.association :terminator, :factory => :john
-  f.association :suspender, :factory => :john
+  f.association :emp_recruiter, :factory => :john
+  f.association :emp_supervisor, :factory => :john
+  f.association :emp_terminator, :factory => :john
+  f.association :emp_suspender, :factory => :john
   f.association :organisation, :factory => :google
 
 end

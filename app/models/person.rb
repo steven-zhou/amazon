@@ -19,14 +19,14 @@ class Person < ActiveRecord::Base
   has_many :roles, :through => :person_roles, :uniq => true
 
   has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no"
-  has_many :recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
-  has_many :supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
-  has_many :terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
-  has_many :suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by'
-  has_many :recruiters, :through => :employments, :source => :recruiter
-  has_many :supervisors, :through => :employments, :source => :supervisor
-  has_many :terminators, :through => :employments, :source => :terminator
-  has_many :suspenders, :through => :employments, :source => :suspender
+  has_many :emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
+  has_many :emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
+  has_many :emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
+  has_many :emp_suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by'
+  has_many :emp_recruiters, :through => :employments, :source => :emp_recruiter
+  has_many :emp_supervisors, :through => :employments, :source => :emp_supervisor
+  has_many :emp_terminators, :through => :employments, :source => :emp_terminator
+  has_many :emp_suspenders, :through => :employments, :source => :emp_suspender
   has_many :employers, :through => :employments, :source => :organisation
 
   has_many :organisation_key_personnels
