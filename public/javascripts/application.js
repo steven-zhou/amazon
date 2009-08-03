@@ -64,7 +64,7 @@ $(function() {
 
 jQuery.fn.submitWithAjax = function($callback) {  
     this.live('submit', function() {
-        $.post($(this).attr("action"), $(this).serialize(), $callback, "script"); 
+        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
         return false;
     });
     return this;
@@ -84,12 +84,22 @@ $(document).ready(function() {
       })
     });*/
     
-    $('#search_results').dataTable({ 
-      "bLengthChange":false, 
-      "iDisplayLength":20,
-      "bAutoWidth":false,
-      "sDom":'lfrtpi',
-      "aoColumns":[{'sWidth':"12%"},{'sWidth':"15%"},{'sWidth':"30%"},{"sWdith":"15%"},{'sWidth':"25%"}]
+    $('#search_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"30%"
+        },{
+            "sWdith":"15%"
+        },{
+            'sWidth':"25%"
+        }]
     })
 });
 
@@ -149,77 +159,77 @@ showTooltip = function(){
 
 $(document).ready(function(){
     showKeyword();
-    showTooltip();    
+    showTooltip();
 });
 
 $("#keyword_types").live("change", showKeyword);
 
 /* Relationships */
 $(function(){
-  $("input[type='text']#relationship_related_person_id").change(function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/name_finder.js",
-      data: 'person_id='+$(this).val(),
-      dataType: "script"
+    $("input[type='text']#relationship_related_person_id").change(function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/name_finder.js",
+            data: 'person_id='+$(this).val(),
+            dataType: "script"
+        });
     });
-  });
 });
 
 $(function(){
-  $('table#search_results tbody tr').live('click',function(){
-    $.ajax({
-      type: 'GET',
-      url: "/people/"+$(this).attr('person_id')+"/name_card.js",
-      dataType: "script"
-    });
-    $('table#search_results tbody tr.selected').removeClass('selected');
-    $(this).addClass("selected");
+    $('table#search_results tbody tr').live('click',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/people/"+$(this).attr('person_id')+"/name_card.js",
+            dataType: "script"
+        });
+        $('table#search_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
 
-  });
+    });
 });
 
 /* Employment Tab*/
 $(function(){
-  $(".find_organisation_field").live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/organisations/name_finder.js",
-      data: 'organisation_id='+$(this).val(),
-      dataType: "script"
+    $(".find_organisation_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/organisations/name_finder.js",
+            data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+            dataType: "script"
+        });
     });
-  });
 });
 
 $(function(){
-  $(".find_person_field").live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/name_finder.js",
-      data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
-      dataType: "script"
+    $(".find_person_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/name_finder.js",
+            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+            dataType: "script"
+        });
     });
-  });
 });
 
 
 /* FLASH */
 $.fn.wait = function(time, type) {
-        time = time || 1000;
-        type = type || "fx";
-        return this.queue(type, function() {
-            var self = this;
-            setTimeout(function() {
-                $(self).dequeue();
-            }, time);
-        });
-    };
+    time = time || 1000;
+    type = type || "fx";
+    return this.queue(type, function() {
+        var self = this;
+        setTimeout(function() {
+            $(self).dequeue();
+        }, time);
+    });
+};
 
 
 $(function(){  
-  $('#flash').wait(5000).slideUp();
-  $('#flash').click(function(){
-      $('#flash').hide();
-  });
+    $('#flash').wait(5000).slideUp();
+    $('#flash').click(function(){
+        $('#flash').hide();
+    });
 });
 
