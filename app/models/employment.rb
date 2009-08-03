@@ -10,8 +10,9 @@ class Employment < ActiveRecord::Base
 
   validates_presence_of :organisation_id
 
-  before_save :update_priority
+  before_save :update_priority, :calculate_salary
   before_destroy :update_priority_before_destroy
+
 
   private
   def update_priority
@@ -29,6 +30,10 @@ class Employment < ActiveRecord::Base
         end
       }
     end
+  end
+
+  def calculate_salary
+    self.annual_base_salary = self.weekly_nominal_hours * self.hourly_rate * 52
   end
 
 end
