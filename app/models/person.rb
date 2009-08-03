@@ -18,7 +18,7 @@ class Person < ActiveRecord::Base
   has_many :person_roles
   has_many :roles, :through => :person_roles, :uniq => true
 
-  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no"
+  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no ASC"
   has_many :emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
   has_many :emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
   has_many :emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
@@ -122,60 +122,60 @@ class Person < ActiveRecord::Base
 
 
   def primary_address    
-    @primary_address = self.addresses.select {|address| address.first?}.first
+    @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end
 
   def primary_phone
-    @primary_phone ||= self.phones.select {|phone| phone.first?}.first
+    @primary_phone ||= self.phones.select {|phone| phone.priority_number == 1}.first
   end
 
   def primary_email
-    @primary_email ||= self.emails.select {|email| email.first?}.first
+    @primary_email ||= self.emails.select {|email| email.priority_number == 1}.first
   end
 
   def primary_fax
-    @primary_fax ||= self.faxes.select {|fax| fax.first?}.first
+    @primary_fax ||= self.faxes.select {|fax| fax.priority_number == 1}.first
   end
 
   def primary_website
-    @primary_website ||= self.websites.select {|website| website.first?}.first
+    @primary_website ||= self.websites.select {|website| website.priority_number == 1}.first
   end
 
   def primary_master_doc
-    @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.first?}.first
+    @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.priority_number == 1}.first
   end
 
   def primary_employment
-    @primary_employment ||= self.employments.select {|employment| employment.first?}.first
+    @primary_employment ||= self.employments.select {|employment| employment.sequence_no == 1}.first
   end
 
 
   def other_phones
-    @other_phones = self.phones.select {|phone| !phone.first?}
+    @other_phones = self.phones.select {|phone| phone.priority_number != 1}
   end
 
   def other_emails
-    @other_emails = self.emails.select {|email| !email.first?}
+    @other_emails = self.emails.select {|email| email.priority_number != 1}
   end
 
   def other_faxes
-    @other_faxes = self.faxes.select {|fax| !fax.first?}
+    @other_faxes = self.faxes.select {|fax| fax.priority_number != 1}
   end
 
   def other_websites
-    @other_websites = self.websites.select {|website| !website.first?}
+    @other_websites = self.websites.select {|website| website.priority_number != 1}
   end
 
   def other_addresses
-    @other_addresses = self.addresses.select {|address| !address.first?}
+    @other_addresses = self.addresses.select {|address| address.priority_number != 1}
   end
 
   def other_master_docs
-    @other_master_docs = self.master_docs.select {|master_doc| !master_doc.first?}
+    @other_master_docs = self.master_docs.select {|master_doc| master_doc.priority_number != 1}
   end
 
   def other_employments
-    @other_employments = self.other_employments.select {|employment| !employment.first?}
+    @other_employments = self.other_employments.select {|employment| employment.sequence_no != 1}
   end
   
   def sorted_notes
