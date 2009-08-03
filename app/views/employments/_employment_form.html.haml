@@ -5,11 +5,11 @@
     =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_50
     =employment.label :organisation_id, "Organisation Name"
-    %input.disabled.organisation_name_container{:id=>@employment.new_record? ? 0 : @employment.id, :disabled=>true}
+    %input.disabled.organisation_name_container{:id=>@employment.new_record? ? 0 : @employment.id, :disabled=>true, :value=>@employment.new_record? ? "" : @organisation.full_name}
 
   .field_25
     =employment.label :id, "Employment ID"
-    =employment.text_field :id, :disabled=>true
+    =employment.text_field :id, :disabled=>true, :class=>"disabled"
   %br.clear
 .form_line
   .field_25
@@ -63,13 +63,13 @@
     =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_25
     =employment.label :hired_by, "Recruiter"
-    %input.disabled.recruiter_container{:disabled=>true, :id=> @employment.new_record? ? "recruiter_container_0" : "recruiter_container_" + "#{@employment.id}"}
+    %input.disabled.recruiter_container{:disabled=>true, :id=> @employment.new_record? ? "recruiter_container_0" : "recruiter_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_recruiter.nil?) ? @employment.emp_recruiter.name : ""}
   .field_25
     =employment.label :report_to, "Report To"
     =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_25
     =employment.label :report_to, "Supervisor"
-    %input.disabled.supervisor_container{:disabled=>true, :id=> @employment.new_record? ? "supervisor_container_0" : "supervisor_container_" + "#{@employment.id}"}
+    %input.disabled.supervisor_container{:disabled=>true, :id=> @employment.new_record? ? "supervisor_container_0" : "supervisor_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_supervisor.nil?) ? @employment.emp_supervisor.name : ""}
   %br.clear
 .form_line
   .field_25
@@ -88,13 +88,13 @@
 .form_line
   .field_25
     =employment.label :weekly_nominal_hours, "Nominal Hours"
-    =employment.text_field :weekly_nominal_hours
+    =employment.text_field :weekly_nominal_hours, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.weekly_nominal_hours, :id=>@employment.new_record? ? "hour_0" : "hour_" + "#{@employment.id}"
   .field_25
     =employment.label :hourly_rate, "Hourly Rate"
-    =employment.text_field :hourly_rate
+    =employment.text_field :hourly_rate, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.hourly_rate, :id=>@employment.new_record? ? "rate_0" : "rate_"+ "#{@employment.id}"
   .field_25
     =employment.label :annual_base_salary, "Annual Base Salary"
-    =employment.text_field :annual_base_salary, :disabled=>true
+    =employment.text_field :annual_base_salary, :disabled=>true, :value=>@employment.new_record? ? number_to_currency(0) : number_to_currency(@employment.annual_base_salary), :class=>"disabled", :id=>@employment.new_record? ? "salary_0" : "salary_"+ "#{@employment.id}"
   .field_25
     =employment.label :plus_package, "Package Plus"
     =employment.text_field :plus_package
@@ -129,7 +129,7 @@
     =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_25
     =employment.label :suspended_by, "Suspender Name"
-    %input.disabled.suspender_container{:disabled=>true, :id=> @employment.new_record? ? "suspender_container_0" : "suspender_container_" + "#{@employment.id}"}
+    %input.disabled.suspender_container{:disabled=>true, :id=> @employment.new_record? ? "suspender_container_0" : "suspender_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_suspender.nil?) ? @employment.emp_suspender.name : ""}
   %br.clear
 .form_line
   .field_25
@@ -163,7 +163,7 @@
     =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_25
     =employment.label :terminated_by, "Terminator Name"
-    %input.disabled.terminator_container{:disabled=>true, :id=> @employment.new_record? ? "terminator_container_0" : "terminator_container_" + "#{@employment.id}"}
+    %input.disabled.terminator_container{:disabled=>true, :id=> @employment.new_record? ? "terminator_container_0" : "terminator_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_terminator.nil?) ? @employment.emp_terminator.name : ""}
   %br.clear
 .form_line
   .field_25

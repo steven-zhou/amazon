@@ -8,6 +8,7 @@ class EmploymentsController < ApplicationController
 
   def edit
     @employment = Employment.find(params[:id])
+    @organisation = @employment.organisation
     respond_to do |format|
       format.js
     end
@@ -16,6 +17,7 @@ class EmploymentsController < ApplicationController
   def create
     @person = Person.find(params[:person_id])
     @employment = @person.employments.new(params[:employment])
+    @employment.annual_base_salary = @employment.weekly_nominal_hours * @employment.hourly_rate * 52
     @employment.save
     respond_to do |format|
       format.js
@@ -24,6 +26,7 @@ class EmploymentsController < ApplicationController
 
   def update
     @employment = Employment.find(params[:id])
+    @employment.annual_base_salary = @employment.weekly_nominal_hours * @employment.hourly_rate * 52
     respond_to do |format|
       if @employment.update_attributes(params[:employment][@employment.id.to_s])
         format.js { render 'show.js' }

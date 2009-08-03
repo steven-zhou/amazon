@@ -192,23 +192,38 @@ $(function(){
 /* Employment Tab*/
 $(function(){
     $(".find_organisation_field").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/organisations/name_finder.js",
-            data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
-            dataType: "script"
-        });
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/organisations/name_finder.js",
+                data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                dataType: "script"
+            });
+        }else{
+            $(".organisation_name_container#"+$(this).attr('employment_id')).val("");
+        }
     });
 });
 
 $(function(){
     $(".find_person_field").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/name_finder.js",
-            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
-            dataType: "script"
-        });
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/people/name_finder.js",
+                data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                dataType: "script"
+            });
+        }else{
+            $("#"+$(this).attr('update')+"_"+$(this).attr('employment_id')).val("");
+        }
+    });
+});
+
+$(function(){
+    $(".calculate_field").live('change', function(){
+        _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
+        $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
     });
 });
 
@@ -233,3 +248,18 @@ $(function(){
     });
 });
 
+formatCurrency= function(num){
+    num = num.toString().replace(/\$|\,/g,'');
+    if(isNaN(num))
+        num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    cents = num%100;
+    num = Math.floor(num/100).toString();
+    if(cents<10)
+        cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+    return (((sign)?'':'-') + '$' + num + '.' + cents);
+}
