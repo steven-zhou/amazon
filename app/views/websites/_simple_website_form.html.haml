@@ -3,7 +3,7 @@
     %h3{:style=>'margin-top:10px;'} Website
   .field_17
     = website.label :contact_type_id, 'Type'
-    = website.collection_select :contact_type_id, ContactType.find_all_by_metatype("website"), :id, :name
+    = website.collection_select :contact_type_id, ContactMetaType.find_all_by_name("Website"), :id, :name
   .field_61
     = website.label :value, "Website"
     = website.text_field :value

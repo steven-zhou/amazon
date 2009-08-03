@@ -1,4 +1,6 @@
-class ContactType < ActiveRecord::Base
+class ContactMetaType < ActiveRecord::Base
+
+# Each ContactMetaType should have a related model that extends the Contact model.
 
 #--
 ################ 
@@ -6,8 +8,7 @@ class ContactType < ActiveRecord::Base
 ################
 #++
   
-  has_many :contacts
-  belongs_to :contact_meta_type
+  has_many :contact_types
 
 #--
 ################ 
@@ -16,5 +17,6 @@ class ContactType < ActiveRecord::Base
 #++  
 
   validates_presence_of :name
+
   
 end

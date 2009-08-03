@@ -3,7 +3,7 @@
     %h3{:style=>'margin-top:10px;'} Fax
   .field_17
     = fax.label :contact_type_id, 'Type'
-    = fax.collection_select :contact_type_id, ContactType.find_all_by_metatype("Fax"), :id, :name
+    = fax.collection_select :contact_type_id, ContactMetaType.find_all_by_name("Fax"), :id, :name
   .field_12
     = fax.label :pre_value, "Prefix"
     = fax.text_field :pre_value

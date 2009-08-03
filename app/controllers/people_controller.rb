@@ -59,7 +59,7 @@ class PeopleController < ApplicationController
 
   def create
     @person = Person.new(params[:person])
-
+    @person.onrecord_since = Date.today()
     if @person.save
       if !params[:image].nil?
         @image = Image.new(params[:image])

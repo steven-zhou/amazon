@@ -18,12 +18,13 @@ class Person < ActiveRecord::Base
   has_many :person_roles
   has_many :roles, :through => :person_roles, :uniq => true
 
-  has_many :organisation_key_personnels
-
   has_many :notes, :as => :noteable
-
   has_one :image, :as => :imageable
-    
+
+  belongs_to :primary_title, :class_name => "Title", :foreign_key => "primary_title_id"
+  belongs_to :second_title, :class_name => "Title", :foreign_key => "second_title_id"
+  belongs_to :marital_status, :class_name => "MaritalStatus", :foreign_key => "marital_status_id"
+
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
   has_many :source_people,  :through => :people_as_related do
@@ -39,9 +40,9 @@ class Person < ActiveRecord::Base
   
   has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ] 
   
-  belongs_to :title
-  belongs_to :second_title, :class_name => "Title"
-  belongs_to :religion
+
+  belongs_to :religion, :class_name => "Religion", :foreign_key => "religion_id"
+  belongs_to :industry_sector, :class_name => "IndustrySector", :foreign_key => "industry_id"
   belongs_to :language
   belongs_to :other_language, :class_name => "Language", :foreign_key => "other_language_id"
   belongs_to :origin_country, :class_name => "Country", :foreign_key => "origin_country_id"
@@ -91,23 +92,16 @@ class Person < ActiveRecord::Base
   #  Convenience
   ################
   #++
-
-
-  MARITAL_STATUS = [["Single", "Single"], ["Married", "Married"], ["Divorced", "Divorced"]]
-  GENDER = [["Male", "Male"], ["Female", "Female"]]
-  INDUSTRY_SECTOR = [["IT", "IT"],["Accounting", "Accounting"]]
   
   # Return the first title
-  delegate :name, :to => :title, :prefix => true,:allow_nil => true
+  delegate :name, :to => :primary_title, :prefix => true, :allow_nil => true
   # Return the second title
-  delegate :name, :to => :second_title, :prefix => true,:allow_nil => true
+  delegate :name, :to => :second_title, :prefix => true, :allow_nil => true
   
-#  named_scope :with_phone, lambda { |*args| {:include => :contacts,:conditions =>["contacts.value LIKE ? AND contacts.type = 'Phone'", args.first+'%'] } }
   named_scope :with_email, lambda { |email_type, email_address| {:include => :contacts, :conditions =>["contacts.contact_type_id LIKE ? AND contacts.value LIKE ? AND contacts.type = 'Email'", "#{email_type}", "#{email_address}%"] } }
   named_scope :with_phone, lambda { |phone_type, phone_pre_value, phone_value, phone_post_value| {:include => :contacts,:conditions =>["contacts.contact_type_id LIKE ? && contacts.pre_value LIKE ? && contacts.value LIKE ? && contacts.post_value LIKE ? AND contacts.type = 'Phone'", "#{phone_type}", "#{phone_pre_value}%", "#{phone_value}%", "#{phone_post_value}%" ] } }
   named_scope :with_note, lambda {|note_type, note_label, note_short_description|{:include => :notes, :conditions => [" notes.note_type_id LIKE ? && notes.label LIKE ? && notes.short_description LIKE ? ", "#{note_type}", "#{note_label}%", "#{note_short_description}%" ]}}
-#  named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id = ?", "#{keyword_id}%"] } }
-named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id LIKE ?", "#{keyword_id}%"] } }
+  named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id LIKE ?", "#{keyword_id}%"] } }
 
   def primary_address    
     @primary_address = self.addresses.select {|address| address.first?}.first
@@ -159,7 +153,8 @@ named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:co
   end
   
   def sorted_notes
-    @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
+    @sorted_notes = self.notes.find(:all, :include => [:note_type])
+    # @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
   end
 
 
@@ -211,7 +206,10 @@ named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:co
   # Default salutation is Title FirstName FamilyName
   def insert_primary_salutation
     if self.primary_salutation.blank?
-      self.primary_salutation = "#{self.title_name} #{self.first_name} #{self.family_name}".squeeze(" ").strip
+      result = String.new
+      result += "#{self.primary_title.name} " unless self.primary_title.nil?
+      result += "#{self.first_name} #{self.family_name}"
+      self.primary_salutation = result.squeeze(" ").strip
     end
   end
 

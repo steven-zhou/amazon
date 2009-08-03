@@ -44,7 +44,7 @@
       .form_line
         .field_20
           = label_tag 'title', 'Title'
-          = text_field_tag 'title', @person.title_name, {:readonly => true}
+          = text_field_tag 'title', @person.title_id, {:readonly => true}
         .field_40
           = label_tag 'first_name', 'First Names'
           = text_field_tag 'first_name', @person.first_name, {:readonly => true}

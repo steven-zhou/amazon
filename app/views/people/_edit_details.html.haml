@@ -16,10 +16,10 @@
     .form_line
       .field_33
         = p.label :marital_status,"Marital Status"
-        = p.select :marital_status, Person::MARITAL_STATUS, {:include_blank => true}
+        = p.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {:include_blank => true}
       .field_20
         = p.label :gender,"Gender"
-        = p.select :gender, Person::GENDER, {:include_blank => true}
+        = p.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {:include_blank => true}
       .field_33
         = p.label :origin_country_id,"Country Of Origin"
         = p.text_field :origin_country_id

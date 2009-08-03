@@ -8,7 +8,7 @@ class Address < ActiveRecord::Base
   #++
 
   belongs_to :addressable, :polymorphic => true
-  belongs_to :address_type
+  belongs_to :address_type, :class_name => "AddressType", :foreign_key => "address_type_id"
   belongs_to :country
 
   #--

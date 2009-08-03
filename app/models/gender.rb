@@ -1,4 +1,4 @@
-class Language < AmazonSetting
+class Gender < AmazonSetting
 
   acts_as_list
 

@@ -1,7 +1,7 @@
 .form_line
   .field_20
     = email.label :contact_type_id, 'Type'
-    = email.collection_select :contact_type_id, ContactType.find_all_by_metatype("Email"), :id, :name
+    = email.collection_select :contact_type_id, ContactMetaType.find_all_by_name("Email"), :id, :name
   .field_80
     = email.label :value, "Value"
     = email.text_field :value

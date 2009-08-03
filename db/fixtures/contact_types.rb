@@ -1,7 +1,18 @@
-ContactType.create_or_update :id => 1, :name => "Home", :metatype => "Phone"
-ContactType.create_or_update :id => 2, :name => "Business", :metatype => "Phone"
-ContactType.create_or_update :id => 3, :name => "Holiday", :metatype => "Phone"
-ContactType.create_or_update :id => 4, :name => "Home", :metatype => "Email"
-ContactType.create_or_update :id => 5, :name => "Business", :metatype => "Email"
-ContactType.create_or_update :id => 6, :name => "Business", :metatype => "Fax"
-ContactType.create_or_update :id => 7, :name => "Business", :metatype => "Website"
+email = ContactMetaType.create :name => "Email"
+phone = ContactMetaType.create :name => "Phone"
+fax = ContactMetaType.create :name => "Fax"
+website = ContactMetaType.create :name => "Website"
+
+ContactType.create :name => "Email Work", :contact_meta_type_id => email.id
+ContactType.create :name => "Email Personal", :contact_meta_type_id => email.id
+ContactType.create :name => "Phone Mobile", :contact_meta_type_id => phone.id
+ContactType.create :name => "Phone Home", :contact_meta_type_id => phone.id
+ContactType.create :name => "Phone Business", :contact_meta_type_id => phone.id
+ContactType.create :name => "Fax Home", :contact_meta_type_id => fax.id
+ContactType.create :name => "Fax Business", :contact_meta_type_id => fax.id
+ContactType.create :name => "Website Personal", :contact_meta_type_id => website.id
+ContactType.create :name => "Website Business", :contact_meta_type_id => website.id
+
+
+
+

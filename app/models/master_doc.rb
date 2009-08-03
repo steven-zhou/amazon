@@ -4,6 +4,8 @@ class MasterDoc < ActiveRecord::Base
   belongs_to :entity, :polymorphic => true
   validates_presence_of :master_doc_type_id
 
+  belongs_to :issue_country, :class_name => "Country", :foreign_key => "issue_country_id"
+
   before_save :update_priority
   before_destroy :update_priority_before_destroy
 

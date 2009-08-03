@@ -1,4 +1,4 @@
-class Language < AmazonSetting
+class MaritalStatus < AmazonSetting
 
   acts_as_list
 

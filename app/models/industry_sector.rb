@@ -1,4 +1,4 @@
-class Language < AmazonSetting
+class IndustrySector < AmazonSetting
 
   acts_as_list
 
