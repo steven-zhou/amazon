@@ -179,4 +179,21 @@ class PeopleController < ApplicationController
       format.js { }
     end
   end
+
+  def master_doc_meta_type_finder
+    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["master_doc_meta_meta_type_id = ?", params[:id]])
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
+  def master_doc_type_finder
+    puts " ******* DEBUG ID:  #{params[:id]}"
+    @master_doc_types = MasterDocType.find(:all, :conditions => ["master_doc_meta_type_id = ?", params[:id]])
+    puts " ******* DEBUG ID:  #{@master_doc_types.to_yaml}"
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
 end

@@ -8,4 +8,5 @@
         = link_to image_tag('close_icon.png'), website_path(@website), :class => 'get'
       %br{ :style=>"clear: both;"}
     = render :partial => 'website_form', :locals => { :website => website }
+    %br{ :style=>"clear: both;"}
     = submit_tag 'Submit'

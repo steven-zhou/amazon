@@ -199,3 +199,26 @@ $(function(){
   });
 });
 
+
+/* MasterDoc */
+$(function(){
+  $("#master_doc_meta_meta_type_id").change(function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/master_doc_meta_type_finder.js",
+      data: 'id='+$(this).val(),
+      dataType: "script"
+    });
+  });
+});
+
+$(function(){
+  $("#master_doc_meta_type_id").change(function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/master_doc_type_finder.js",
+      data: 'id='+$(this).val(),
+      dataType: "script"
+    });
+  });
+});

@@ -25,8 +25,8 @@
             %br.clear
           .form_line
             .field_20
-              = p.label :title_id, 'Title'
-              = p.collection_select :title_id, Title.all, :id, :name, {:include_blank => true}
+              = p.label :primary_title_id, 'Title'
+              = p.collection_select :primary_title_id, Title.all, :id, :name, {:include_blank => true}
             .field_40
               = p.label :first_name, "First Names"
               = p.text_field :first_name
@@ -64,10 +64,10 @@
           .form_line
             .field_33
               = p.label :marital_status, 'Marital Status'
-              = p.select :marital_status, Person::MARITAL_STATUS, {:include_blank => true}
+              = p.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {:include_blank => true}
             .field_20
               = p.label :gender, 'Gender'
-              = p.select :gender, Person::GENDER, {:include_blank => true}
+              = p.collection_select :gender_id, Gender.all, :id, :name, {:include_blank => true}
             .field_33
               = p.label :religion_id, 'Religion'
               = p.collection_select :religion_id, Religion.all, :id, :name, {:include_blank => true}
@@ -97,7 +97,7 @@
           .form_line
             .field_33
               = p.label :industry_sector,"Industry Sector"
-              = p.select :industry_sector, Person::INDUSTRY_SECTOR, {:include_blank => true}
+              = p.collection_select :industry_sector_id, IndustrySector.all, :id, :name, {:include_blank => true}
             .field_63
               = p.label :interests,"Interests"
               = p.text_field :interests

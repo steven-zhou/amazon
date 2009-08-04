@@ -1,8 +1,18 @@
 -# The options to edit or add an address
 .form_line
   .field_25
+    = form.label :master_doc_type_id, 'Type Category'
+    = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true})
+  .field_25
+    = form.label :master_doc_type_id, 'Type Subcategory'
+    %select#master_doc_meta_type_id
+      %option
+  %br{:style=>"clear: both;"}
+.form_line
+  .field_25
     = form.label :master_doc_type_id, 'Type'
-    = form.collection_select :master_doc_type_id, MasterDocType.all, :id, :name
+    %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]"}
+      %option
   .field_25
     = form.label :category, 'Category'
     = form.text_field :category
@@ -54,7 +64,7 @@
     = form.text_field :issue_state
   .field_25
     = form.label :issue_country, 'Issue Country'
-    = form.text_field :issue_country
+    = form.collection_select(:issue_country_id, Country.all, :id, :short_name)
   %br{ :style=>"clear: both;"}
 .form_line
   .field_25

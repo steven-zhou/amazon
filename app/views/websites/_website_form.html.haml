@@ -1,7 +1,7 @@
 .form_line
   .field_20
     = website.label :contact_type_id, 'Type'
-    = website.collection_select :contact_type_id, ContactMetaType.find_all_by_name("Website"), :id, :name
+    = website.collection_select :contact_type_id, ContactType.find(:all, :include => [:contact_meta_type], :conditions => "contact_meta_types.name = 'Website'"), :id, :name
   .field_80
     = website.label :value, "Value"
     = website.text_field :value

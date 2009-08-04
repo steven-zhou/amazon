@@ -13,6 +13,7 @@
       %fieldset
         %h3 New Address
         = render :partial => '/addresses/address_form', :locals => { :address => address }
+        %br{ :style=>"clear: both;"}
         = submit_tag 'Submit'
     
     #addresses

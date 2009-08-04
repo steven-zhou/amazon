@@ -17,34 +17,33 @@
         .form_line
           .field_20
             %select#select_contact_type
-              %option{:value => "add_phone"}
-                Phone
-              %option{:value => "add_email"}
-                Email
-              %option{:value => "add_fax"}
-                Fax
-              %option{:value => "add_website"}
-                Website
+              = for cmt in ContactMetaType.all
+                %option{:value => "add_#{cmt.name.downcase}"}
+                  = cmt.name
         %br{ :style=>"clear: both;"}
                 
         
       -form_for([@person,@phone], :html => {:class => 'active contact_form ajax_form add_phone'}) do |phone|
         = render :partial => '/phones/phone_form', :locals => { :phone => phone }
+        %br{ :style=>"clear: both;"}
         = submit_tag 'Submit'
         %br{ :style=>"clear: both;"}
         
       -form_for([@person,@email], :html => {:class => 'contact_form ajax_form add_email'}) do |email|
         = render :partial => '/emails/email_form', :locals => { :email => email }
+        %br{ :style=>"clear: both;"}
         = submit_tag 'Submit'
         %br{:style=>"clear:both;"}
 
       -form_for([@person,@fax], :html => {:class => 'contact_form ajax_form add_fax'}) do |fax|
         = render :partial => '/faxes/fax_form', :locals => { :fax => fax }
+        %br{ :style=>"clear: both;"}
         = submit_tag 'Submit'
         %br{ :style=>"clear: both;"}
 
       -form_for([@person,@website], :html => {:class => 'contact_form ajax_form add_website'}) do |website|
         = render :partial => '/websites/website_form', :locals => { :website => website }
+        %br{ :style=>"clear: both;"}
         = submit_tag 'Submit'
         %br{:style=>"clear:both;"}
 
