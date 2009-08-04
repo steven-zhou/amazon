@@ -104,13 +104,23 @@ $(document).ready(function() {
 });
 
 /*Date picker */
+$('.birthdatepick').live("mouseover", function(){
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        maxDate: '+0d',
+        yearRange: '-150:+0'
+    });
+});
+
 $('.datepick').live("mouseover", function(){
     $(this).datepicker({
         dateFormat: 'dd-mm-yy',
         altFormat: 'mm-dd-yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '1930:2009'
     });
 });
 
