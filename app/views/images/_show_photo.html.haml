@@ -1,26 +1,12 @@
-%div#deleteicon
+.options{:style=>"float:right"}
   = link_to image_tag('delete_icon.png'), image_path(person.image.id), :class => "delete", :id => "delete_photo" unless person.image.nil?
-
+%br{ :style => "clear:both;"}
 %div#imageshow{:style => "float:left;"}
-    
   -if person.image.nil?
     = image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
   -else
     = image_tag image_path(person.image.id), :id => "photo", :class => "medium"
-
-  -#.options
-    -#= link_to_function image_tag('edit_icon.png',:value => "Edit Photo"), :id=>"edit_photo_link"
-    -#= link_to image_tag('delete_icon.png'), image_path(person.image.id), :class => "delete", :id => "delete_photo" unless person.image.nil?
-  -#%br{:style=>"clear:both;"}
-   
-
 %div#picedit
   = label :image, :id, "Picture"
   = file_field :image, :image_file
-
-
-%br{:style=>"clear:both;"}
-%br{:style=>"clear:both;"}
-
-
-    
+%br.clear
