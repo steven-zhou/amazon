@@ -106,7 +106,8 @@ $(document).ready(function() {
 /*Date picker */
 $('.datepick').live("mouseover", function(){
     $(this).datepicker({
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
         changeMonth: true,
         changeYear: true,
         yearRange: '1930:2009'

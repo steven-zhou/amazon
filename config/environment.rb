@@ -85,6 +85,10 @@ Rails::Initializer.run do |config|
 
 end
 
+ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
+  :default => '%d-%m-%Y'
+)
+
 class ActiveRecord::Base
   # given a hash of attributes including the ID, look up the record by ID.
   # If it does not exist, it is created with the rest of the options.

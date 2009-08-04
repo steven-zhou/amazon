@@ -38,10 +38,10 @@
     =employment.text_field :position_title
   .field_25
     =employment.label :commenced_date, "Commenced Date"
-    =employment.text_field :commenced_date, :class=>"datepick"
+    =employment.text_field :commenced_date, :class=>"datepick", :value=>@employment.commenced_date.to_s
   .field_25
     =employment.label :term_end_date, "Term End Date"
-    =employment.text_field :term_end_date, :class=>"datepick"
+    =employment.text_field :term_end_date, :class=>"datepick", :value=>@employment.term_end_date.to_s
   %br.clear
 .form_line
   .field_25
@@ -120,10 +120,10 @@
 .form_line
   .field_25
     =employment.label :suspension_start_date, "Start Date"
-    =employment.text_field :suspension_start_date, :class=>"datepick"
+    =employment.text_field :suspension_start_date, :class=>"datepick", :value=>@employment.suspension_start_date.to_s
   .field_25
     =employment.label :suspension_end_date, "End Date"
-    =employment.text_field :suspension_end_date, :class=>"datepick"
+    =employment.text_field :suspension_end_date, :class=>"datepick", :value=>@employment.suspension_end_date.to_s
   .field_25
     =employment.label :suspended_by, "Suspended By (ID)"
     =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
@@ -154,10 +154,10 @@
 .form_line
   .field_25
     =employment.label :termination_notice_date, "Notice Date"
-    =employment.text_field :termination_notice_date, :class=>"datepick"
+    =employment.text_field :termination_notice_date, :class=>"datepick", :value=>@employment.termination_notice_date.to_s
   .field_25
     =employment.label :termination_date, "Termination Date"
-    =employment.text_field :termination_date, :class=>"datepick"
+    =employment.text_field :termination_date, :class=>"datepick", :value=>@employment.termination_date.to_s
   .field_25
     =employment.label :terminated_by, "Terminated By (ID)"
     =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id

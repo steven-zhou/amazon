@@ -1,7 +1,7 @@
 .form_line
   .field_33
     = p.label :birth_date,"Date Of Birth"
-    = p.text_field :birth_date, :class=>"datepick"
+    = p.text_field :birth_date, :class=>"datepick", :value=>@person.birth_date.to_s
   .field_20
     = p.label :age, "Age"
     = p.text_field :age, :disabled => 'true', :id => 'age'
