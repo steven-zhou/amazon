@@ -1,21 +1,18 @@
 Factory.define :person do |f|
-  f.sequence(:custom_id) { |n| "custom_id_#{n}"}
-  f.sequence(:first_name) { |n| "foo_#{n}"}
-  f.sequence(:middle_name) { |n| "mid_#{n}"}
-  f.sequence(:family_name) { |n| "baz_#{n}"}
-  f.maiden_name "value for maiden_name"
-  f.sequence(:preferred_name) { |n| "bar_#{n}"}
-  f.initials "value for initials"
-  f.post_title  "value for post_title"
-  f.gender  "value for gender"
-  f.marital_status "value for marital_status"
-  f.birth_date Date.today
-  f.primary_salutation "Mr. Foo Bar"
-  f.second_salutation "Foo Bar"
+  f.first_name "first_name"
+  f.middle_name "middle_name"
+  f.family_name "family_name"
+  f.maiden_name "maiden_name"
+  f.preferred_name "first_name last_name"
+  f.initials "FL"
+  f.primary_salutation "Mr first_name last_name"
 
   #Association
-  f.association :title, :factory => :title
-  f.association :second_title, :factory => :title
+  f.association :primary_title, :factory => :mr
+  f.association :second_title, :factory => :dr
+  f.association :gender, :factory => :male
+  f.association :marital_status, :factory => :married
+
 end
 
 Factory.define :invalid_person, :class =>Person do |f|
@@ -25,14 +22,29 @@ Factory.define :john, :class => Person do |f|
   f.first_name "John"
   f.middle_name "Buck"
   f.family_name "Doe"
-  f.maiden_name "value for maiden_name"
+  f.maiden_name ""
   f.preferred_name "Deer"
   f.initials "JD"
-  f.gender "Male"
-  f.marital_status "Single"
   f.primary_salutation "Mr. John Doe"
 
   #Association
-  f.association :title, :factory => :title
-  f.association :second_title, :factory => :title
+  f.association :primary_title, :factory => :mr
+  f.association :second_title, :factory => :prof
+  f.association :gender, :factory => :male
+  f.association :marital_status, :factory => :single
+end
+
+Factory.define :jane, :class => Person do |f|
+  f.first_name "Jane"
+  f.middle_name "Rose"
+  f.family_name "Doe"
+  f.maiden_name "Dorris"
+  f.preferred_name "Janey"
+  f.initials "JD"
+  f.primary_salutation "Mrs Jane Doe"
+
+  #Association
+  f.association :primary_title, :factory => :mrs
+  f.association :gender, :factory => :female
+  f.association :marital_status, :factory => :divorced
 end

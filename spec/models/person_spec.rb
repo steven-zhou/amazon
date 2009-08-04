@@ -12,7 +12,7 @@ describe Person do
   it { should have_many(:master_docs)}
   it { should have_many(:keywords, :through => :keyword_links,:uniq => true)}
   it { should have_many(:roles, :through => :person_roles, :uniq => true)}
-  it { should belong_to(:title)}
+  it { should belong_to(:primary_title)}
   it { should belong_to(:second_title)}
   it { should belong_to(:language)}
   it { should belong_to(:religion)}
@@ -51,19 +51,19 @@ describe Person do
     context "and no formal salutation exists" do 
       
       before(:each) do
-        @title = Factory.build(:title)
+        @title = Factory.build(:mr)
         @person.primary_salutation = ""
       end
   
       it "should insert the title, first name and family name if salutation is blank" do
         @person.save
-        @person.primary_salutation.should == "#{@person.title.name} #{@person.first_name} #{@person.family_name}"
+        @person.primary_salutation.should == "#{@person.primary_title.name} #{@person.first_name} #{@person.family_name}"
       end
     
       it "should insert only the title and family name into formal salutation" do
         @person.first_name = ""
         @person.save
-        @person.primary_salutation.should == "#{@person.title.name} #{@person.family_name}"
+        @person.primary_salutation.should == "#{@person.primary_title.name} #{@person.family_name}"
       end
       
     end #end context
@@ -82,22 +82,22 @@ describe Person do
     end
 
     it "should return full name and title" do
-      @person.full_name_and_title.should == "#{@person.title_name} #{@person.first_name} #{@person.family_name}"
+      @person.full_name_and_title.should == "#{@person.primary_title.name} #{@person.first_name} #{@person.family_name}"
     end
 
     it "should return the first name and last name" do
-      @person.title = nil
+      @person.primary_title = nil
       @person.full_name_and_title.should == "#{@person.first_name} #{@person.family_name}"
     end
 
     it "should return the title and last name" do
       @person.first_name = nil
-      @person.full_name_and_title.should == "#{@person.title_name} #{@person.family_name}"
+      @person.full_name_and_title.should == "#{@person.primary_title.name} #{@person.family_name}"
     end
 
-    it "should return the title name" do
-      @person.title_name.should == @person.title.name
-    end
+#    it "should return the title name" do
+#      @person.title_name.should == @person.primary_title.name
+#    end
 
     it "should return the second title name" do
       @person.second_title_name.should == @person.second_title.name

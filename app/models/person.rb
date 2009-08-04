@@ -59,11 +59,13 @@ class Person < ActiveRecord::Base
   belongs_to :marital_status, :class_name => "MaritalStatus", :foreign_key => "marital_status_id"
   belongs_to :religion, :class_name => "Religion", :foreign_key => "religion_id"
   belongs_to :industry_sector, :class_name => "IndustrySector", :foreign_key => "industry_id"
-  belongs_to :language
+  belongs_to :language, :class_name => "Language", :foreign_key => "language_id"
   belongs_to :other_language, :class_name => "Language", :foreign_key => "other_language_id"
   belongs_to :origin_country, :class_name => "Country", :foreign_key => "origin_country_id"
   belongs_to :residence_country, :class_name => "Country", :foreign_key => "residence_country_id"
   belongs_to :nationality, :class_name => "Country", :foreign_key => "nationality_id"
+  belongs_to :gender, :class_name => "Gender", :foreign_key => "gender_id"
+
 
 
   #--
@@ -189,7 +191,9 @@ class Person < ActiveRecord::Base
   
   # Returns the full name and title
   def full_name_and_title
-    "#{self.title_name} #{self.first_name} #{self.family_name}".squeeze(" ").strip
+    result = String.new
+    result += "#{self.primary_title.name} " unless self.primary_title.nil?
+    result += "#{self.first_name} #{self.family_name}".squeeze(" ").strip
   end
 
   # Return the age base on birthday

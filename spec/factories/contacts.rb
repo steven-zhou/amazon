@@ -5,8 +5,6 @@ Factory.define :contact do |f|
   f.preferred_time "time"
   f.preferred_day "Day"
   f.remarks "Remarks"
-
-
-  f.association :contact_type
+  f.association :contact_type, :factory => :ct_phone_home
   f.association :contactable, :factory => :john
 end
