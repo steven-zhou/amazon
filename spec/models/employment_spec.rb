@@ -10,10 +10,10 @@ describe Employment do
 
   it { should belong_to(:organisation) }
   it { should belong_to(:employee, :class_name => 'Person', :foreign_key => 'person_id')}
-  it { should belong_to(:recruiter, :class_name => 'Person', :foreign_key => 'hired_by')}
-  it { should belong_to(:supervisor, :class_name => 'Person', :foreign_key => 'report_to')}
-  it { should belong_to(:terminator, :class_name => 'Person', :foreign_key => 'terminated_by')}
-  it { should belong_to(:suspender, :class_name => 'Person', :foreign_key => 'suspended_by')}
+  it { should belong_to(:emp_recruiter, :class_name => 'Person', :foreign_key => 'hired_by')}
+  it { should belong_to(:emp_supervisor, :class_name => 'Person', :foreign_key => 'report_to')}
+  it { should belong_to(:emp_terminator, :class_name => 'Person', :foreign_key => 'terminated_by')}
+  it { should belong_to(:emp_suspender, :class_name => 'Person', :foreign_key => 'suspended_by')}
 
 
 

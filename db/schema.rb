@@ -9,7 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD:db/schema.rb
 ActiveRecord::Schema.define(:version => 20090731020113) do
+=======
+ActiveRecord::Schema.define(:version => 20090730072945) do
+>>>>>>> e7cc61e5b90efc285e0df2512c1b2b1c2bd64e5c:db/schema.rb
 
   create_table "address_types", :force => true do |t|
     t.string   "name"
@@ -78,6 +82,25 @@ ActiveRecord::Schema.define(:version => 20090731020113) do
     t.string   "currency"
     t.string   "currency_subunit"
     t.integer  "main_language_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "doc_meta_meta_types", :force => true do |t|
+    t.string   "type_name"
+    t.string   "short_description"
+    t.string   "full_description"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "doc_meta_types", :force => true do |t|
+    t.string   "type_name"
+    t.string   "short_description"
+    t.string   "full_description"
+    t.boolean  "status"
+    t.integer  "doc_meta_meta_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

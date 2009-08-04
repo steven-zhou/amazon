@@ -289,3 +289,7 @@ img.medium {
 .primary_address_and_employment {
     margin-left: 12px;
 }
+
+input.disabled {
+    color: red;
+}

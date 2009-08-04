@@ -169,6 +169,7 @@ class PeopleController < ApplicationController
 
   def name_finder
     @person = Person.find(params[:person_id]) rescue @person = Person.new
+    @employment = Employment.find(params[:employment_id]) rescue @employment = Employment.new
     
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
     @person.preferred_name = params[:update].nil?? nil : params[:update]

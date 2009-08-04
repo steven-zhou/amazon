@@ -1,5 +1,13 @@
 <% if @organisation.nil? %>
-    $(".organisation_name_container").val("Invalid ID")
+  <% if @employment.new_record? %>
+    $(".organisation_name_container#0").val("Invalid ID")
+   <% else %>
+   $(".organisation_name_container#"+"<%=escape_javascript("#{@employment.id}")%>").val("Invalid ID")
+   <%  end %>
 <% else %>
-    $(".organisation_name_container").val("<%=escape_javascript("#{@organisation.full_name}")%>")
+  <% if @employment.new_record? %>
+    $(".organisation_name_container#0").val("<%=escape_javascript("#{@organisation.full_name}")%>")
+    <% else %>
+    $(".organisation_name_container#"+"<%=escape_javascript("#{@employment.id}")%>").val("<%=escape_javascript("#{@organisation.full_name}")%>")
+ <%  end %>
 <% end %>

@@ -1,5 +1,5 @@
 class Website < Contact
-acts_as_list :column => "priority_number"
+#acts_as_list :column => "priority_number"
 
 #--
 ################
@@ -36,10 +36,19 @@ acts_as_list :column => "priority_number"
   private
 
   def update_priority
-    self.move_to_bottom
+    #self.move_to_bottom
+    self.priority_number = self.contactable.websites.length+1 if self.new_record?
   end
 
   def update_priority_before_destroy
-    self.remove_from_list
+    priority_number = self.priority_number
+    Website.transaction do
+      self.contactable.websites.each { |website|
+        if (website.priority_number > priority_number)
+          website.priority_number -= 1
+          website.save!
+        end
+      }
+    end
   end
 end
