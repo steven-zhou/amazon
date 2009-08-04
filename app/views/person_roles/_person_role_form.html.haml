@@ -1,0 +1,62 @@
+.field_33
+  = label :role_type_id, "Role Types"
+  = collection_select :role, :role_type_id, RoleType.all, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+%br{ :style=>"clear: both;"}
+
+.field_33
+  = person_role.label :role_id, "Role"
+  = person_role.collection_select :role_id, Role.all, :id, :name
+        
+%br{ :style=>"clear: both;"}
+
+.form_line
+  .field_25
+    = person_role.label :assigned_by, 'Assigned By'
+    = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container"
+  .field_25
+    = person_role.label :assigned_by, 'Assigner'
+    %input.assigner_container{:disabled=>true}
+  %br{ :style=>"clear: both;"}
+  .field_25
+    = person_role.label :approved_by, "Approved By"
+    = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container"
+  .field_25
+    = person_role.label :approved_by, "Approver"
+    %input.approver_container{:disabled=>true}
+  %br{ :style=>"clear: both;"}
+  .field_25
+    = person_role.label :supervised_by, "Supervised By"
+    = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container"
+  .field_25
+    = person_role.label :supervised_by, "Supperviser"
+    %input.superviser_container{:disabled=>true}
+  %br{ :style=>"clear: both;"}
+  .field_25
+    = person_role.label :managed_by, "Managed By"
+    = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container"
+  .field_25
+    = person_role.label :managed_by, "Manager"
+    %input.manager_container{:disabled=>true}
+  %br{ :style=>"clear: both;"}
+
+.form_line
+  .field_25
+    = person_role.label :assignment_date, "Assignment Date"
+    = person_role.text_field :assignment_date, :class=>"datepick"
+  %br{ :style=>"clear: both;"}
+  .field_25
+    = person_role.label :start_date, "Start Date"
+    = person_role.text_field :start_date, :class=>"datepick"
+
+  .field_25
+    = person_role.label :end_date, "End Date"
+    = person_role.text_field :end_date, :class=>"datepick"
+  %br{ :style=>"clear: both;"}
+
+.form_line
+  .field_50
+    = person_role.label :remarks, "Remarks"
+    = person_role.text_field :remarks
+  %br{ :style=>"clear: both;"}
+
+

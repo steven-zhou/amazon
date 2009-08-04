@@ -184,11 +184,23 @@ $(function(){
 
 
 $(function(){
-  $("#role_role_type_id").change(function(){
+  $(".find_role_field").live('change',function(){
     $.ajax({
       type: "GET",
       url: "/people/"+$(this).attr('person_id')+"/roles/get_roles.js",
-      data: 'role_type_id='+$(this).val(),
+      data: 'role_type_id='+$(this).val()+'&person_role_id='+$(this).attr('person_role_id'),
+      dataType: "script"
+    });
+  });
+});
+
+
+$(function(){
+  $(".check_person_field").live('change', function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/name_finder.js",
+      data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
       dataType: "script"
     });
   });

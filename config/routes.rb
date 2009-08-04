@@ -22,6 +22,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :images, :member => {:thumb => :get}
     person.resources :notes
     person.resources :employments
+    person.resources :person_roles
     person.resources :relationships, :collection => {:remove_relation => :delete}
   end
 

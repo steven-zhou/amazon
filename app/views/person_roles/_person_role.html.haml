@@ -1,0 +1,11 @@
+-# Displays for Role Details
+-div_for(person_role, :class => 'info_container') do 
+  .header_container
+    .title
+      %h3= person_role.role.name
+    .options
+      =link_to image_tag('edit_icon.png'),edit_person_role_path(person_role), :class =>'get'
+      =link_to image_tag('delete_icon.png'), person_role_path(person_role), :class => 'delete'
+    %br{ :style => "clear:both;" }
+  .display_container
+    =format_role(person_role)

@@ -34,7 +34,7 @@ class PeopleController < ApplicationController
     @other_websites = @person.other_websites
     @other_addresses = @person.other_addresses
     @notes = @person.notes
-    @roles = @person.roles
+    @person_role = @person.person_roles
     respond_to do |format|
       format.html
     end
@@ -55,6 +55,8 @@ class PeopleController < ApplicationController
     @note = Note.new
     @image = @person.image unless (@person.nil? || @person.image.nil?)
     @role = Role.new
+    @person_role = PersonRole.new
+    
 
     respond_to do |format|
       format.html

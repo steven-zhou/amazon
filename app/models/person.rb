@@ -15,8 +15,22 @@ class Person < ActiveRecord::Base
   has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
   has_many :keyword_links, :as => :taggable
   has_many :keywords, :through => :keyword_links,:uniq => true
-  has_many :person_roles
+
+
+  has_many :person_roles, :class_name => 'PersonRole', :foreign_key => 'person_id', :order => "sequence_no"
+  has_many :assign_roles, :class_name => 'PersonRole', :foreign_key => 'assigned_by'
+  has_many :approve_roles, :class_name => 'PersonRole', :foreign_key => 'approved_by'
+  has_many :supervise_roles, :class_name => 'PersonRole', :foreign_key => 'supervised_by'
+  has_many :manage_roles, :class_name => 'PersonRole', :foreign_key => 'managed_by'
+
+  has_many :role_players, :through => :person_roles, :source => :role_player
+  has_many :role_assigners, :through => :person_roles, :source => :role_assigner
+  has_many :role_approvers, :through => :person_roles, :source => :role_approver
+  has_many :role_supervisers, :through => :person_roles, :source => :role_superviser
+  has_many :role_managers, :through => :person_roles, :source => :role_manager
   has_many :roles, :through => :person_roles, :uniq => true
+
+
 
   has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no"
   has_many :recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'

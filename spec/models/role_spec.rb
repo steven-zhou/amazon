@@ -10,7 +10,7 @@ describe Role do
 
   it { should belong_to(:role_type)}
   it { should have_many(:person_roles)}
-  it { should have_many(:people, :through => :person_roles, :uniq => true)}
+  it { should have_many(:role_players, :through => :person_roles, :source => :role_player)}
   
 
   it { should validate_presence_of(:name) }

@@ -1,0 +1,5 @@
+<% if @person_role.errors.empty? -%>
+  $('#person_roles').prepend('<%= escape_javascript(render(:partial => @person_role)) %>');
+  $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
+  $("#new_person_role")[0].reset();
+<% end -%>

@@ -1,0 +1,11 @@
+-# The form to edit an person_role
+-form_for @person_role, :index => @person_role.id, :html => {:class => 'ajax_form'} do |person_role|
+  %fieldset
+    .header_container
+      .title
+        %h3 Edit Role
+      .options
+        = link_to image_tag('close_icon.png'), person_role_path(@person_role), :class => 'get'
+      %br{ :style =>"clear:both;"}
+    = render :partial => '/person_roles/person_role_form',:locals => { :person_role => person_role }
+    = submit_tag 'Submit'

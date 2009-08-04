@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090728043801) do
+ActiveRecord::Schema.define(:version => 20090731020113) do
 
   create_table "address_types", :force => true do |t|
     t.string   "name"
@@ -313,6 +313,14 @@ ActiveRecord::Schema.define(:version => 20090728043801) do
     t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "sequence_no"
+    t.integer  "assigned_by"
+    t.integer  "approved_by"
+    t.date     "assignment_date"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "supervised_by"
+    t.integer  "managed_by"
   end
 
   create_table "relationship_types", :force => true do |t|
