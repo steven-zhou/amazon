@@ -1,0 +1,9 @@
+<% unless @master_doc_types.nil? %>
+  <%  result = String.new %>
+  <% for mdt in @master_doc_types %>
+    <% result += "<option value='#{mdt.id}'>#{mdt.name}</option>" %>
+  <% end %>
+  $("#master_doc_master_doc_type_id").html('<%=escape_javascript("#{result}")%>')
+<% else %>
+  $("#master_doc_master_doc_type_id").html('<option></option>')
+<% end -%>
