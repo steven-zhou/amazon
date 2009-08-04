@@ -64,7 +64,7 @@ $(function() {
 
 jQuery.fn.submitWithAjax = function($callback) {  
     this.live('submit', function() {
-        $.post($(this).attr("action"), $(this).serialize(), $callback, "script"); 
+        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
         return false;
     });
     return this;
@@ -84,22 +84,43 @@ $(document).ready(function() {
       })
     });*/
     
-    $('#search_results').dataTable({ 
-      "bLengthChange":false, 
-      "iDisplayLength":20,
-      "bAutoWidth":false,
-      "sDom":'lfrtpi',
-      "aoColumns":[{'sWidth':"12%"},{'sWidth':"15%"},{'sWidth':"30%"},{"sWdith":"15%"},{'sWidth':"25%"}]
+    $('#search_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"30%"
+        },{
+            "sWdith":"15%"
+        },{
+            'sWidth':"25%"
+        }]
     })
 });
 
 /*Date picker */
-$('.datepick').live("mouseover", function(){
+$('.birthdatepick').live("mouseover", function(){
     $(this).datepicker({
-        dateFormat: 'yy-mm-dd',
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
         changeMonth: true,
         changeYear: true,
-        yearRange: '1930:2009'
+        maxDate: '+0d',
+        yearRange: '-150:+0'
+    });
+});
+
+$('.datepick').live("mouseover", function(){
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
     });
 });
 
@@ -149,56 +170,128 @@ showTooltip = function(){
 
 $(document).ready(function(){
     showKeyword();
-    showTooltip();    
+    showTooltip();
 });
 
 $("#keyword_types").live("change", showKeyword);
 
 /* Relationships */
 $(function(){
-  $("input[type='text']#relationship_related_person_id").change(function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/name_finder.js",
-      data: 'person_id='+$(this).val(),
-      dataType: "script"
+    $("input[type='text']#relationship_related_person_id").change(function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/name_finder.js",
+            data: 'person_id='+$(this).val(),
+            dataType: "script"
+        });
     });
-  });
 });
 
 $(function(){
-  $('table#search_results tbody tr').live('click',function(){
+    $('table#search_results tbody tr').live('click',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/people/"+$(this).attr('person_id')+"/name_card.js",
+            dataType: "script"
+        });
+        $('table#search_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+});
+
+
+/*role*/
+
+
+$(function(){
+  $(".find_role_field").live('change',function(){
     $.ajax({
-      type: 'GET',
-      url: "/people/"+$(this).attr('person_id')+"/name_card.js",
+      type: "GET",
+      url: "/people/"+$(this).attr('person_id')+"/roles/get_roles.js",
+      data: 'role_type_id='+$(this).val()+'&person_role_id='+$(this).attr('person_role_id'),
       dataType: "script"
     });
-    $('table#search_results tbody tr.selected').removeClass('selected');
-    $(this).addClass("selected");
-
   });
 });
 
 
+$(function(){
+  $(".check_person_field").live('change', function(){
+    $.ajax({
+      type: "GET",
+      url: "/people/name_finder.js",
+      data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
+      dataType: "script"
+    });
+  });
+});
+
+
+/* Employment Tab*/
+
+$(function(){
+    $(".find_organisation_field").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/organisations/name_finder.js",
+                data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                dataType: "script"
+            });
+        }else{
+            $(".organisation_name_container#"+$(this).attr('employment_id')).val("");
+        }
+    });
+});
+
+$(function(){
+    $(".find_person_field").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/people/name_finder.js",
+                data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                dataType: "script"
+            });
+        }else{
+            $("#"+$(this).attr('update')+"_"+$(this).attr('employment_id')).val("");
+        }
+    });
+});
+
+$(function(){
+    $(".calculate_field").live('change', function(){
+        _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
+        $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
+    });
+});
+
+
+
+
+
+/* FLASH */
 $.fn.wait = function(time, type) {
-        time = time || 1000;
-        type = type || "fx";
-        return this.queue(type, function() {
-            var self = this;
-            setTimeout(function() {
-                $(self).dequeue();
-            }, time);
-        });
-    };
+    time = time || 1000;
+    type = type || "fx";
+    return this.queue(type, function() {
+        var self = this;
+        setTimeout(function() {
+            $(self).dequeue();
+        }, time);
+    });
+};
 
 
 $(function(){  
-  $('#flash').wait(5000).slideUp();
-  $('#flash').click(function(){
-      $('#flash').hide();
-  });
+    $('#flash').wait(5000).slideUp();
+    $('#flash').click(function(){
+        $('#flash').hide();
+    });
 });
 
+<<<<<<< HEAD:public/javascripts/application.js
 
 /* MasterDoc */
 $(function(){
@@ -222,3 +315,20 @@ $(function(){
     });
   });
 });
+=======
+formatCurrency= function(num){
+    num = num.toString().replace(/\$|\,/g,'');
+    if(isNaN(num))
+        num = "0";
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    cents = num%100;
+    num = Math.floor(num/100).toString();
+    if(cents<10)
+        cents = "0" + cents;
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+    return (((sign)?'':'-') + '$' + num + '.' + cents);
+}
+>>>>>>> a406bd75b05e0cd9fedbaa1b3e57e24d1b416de3:public/javascripts/application.js

@@ -1,0 +1,8 @@
+<% if @employment.errors.empty? -%>
+  $('#employments').prepend('<%= escape_javascript(render(:partial => @employment)) %>');
+  $("#new_employment")[0].reset();
+  $("#new_employment").toggle('blind');
+  $('#<%= dom_id(@employment) %>').effect('slide', {direction:'right'});  
+<% end -%>
+
+

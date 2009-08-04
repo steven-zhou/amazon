@@ -27,12 +27,14 @@ class PeopleController < ApplicationController
     @primary_fax = @person.primary_fax
     @primary_website = @person.primary_website
     @primary_address = @person.primary_address
+    @primary_employment = @person.primary_employment
     @other_phones = @person.other_phones
     @other_emails = @person.other_emails
     @other_faxes = @person.other_faxes
     @other_websites = @person.other_websites
     @other_addresses = @person.other_addresses
-    @notes = @person.notes 
+    @notes = @person.notes
+    @person_role = @person.person_roles
     respond_to do |format|
       format.html
     end
@@ -49,8 +51,12 @@ class PeopleController < ApplicationController
     @website = Website.new
     @masterdoc = MasterDoc.new
     @relationship = Relationship.new
+    @employment = Employment.new
     @note = Note.new
     @image = @person.image unless (@person.nil? || @person.image.nil?)
+    @role = Role.new
+    @person_role = PersonRole.new
+    
 
     respond_to do |format|
       format.html
@@ -162,8 +168,13 @@ class PeopleController < ApplicationController
   end
 
   def name_finder
-    @person = Person.find(params[:person_id]) rescue @person = nil
-
+    @person = Person.find(params[:person_id]) rescue @person = Person.new
+    @employment = Employment.find(params[:employment_id]) rescue @employment = Employment.new
+    
+    #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
+    @person.preferred_name = params[:update].nil?? nil : params[:update]
+    
+    
     respond_to do |format|
       format.js {  }
     end

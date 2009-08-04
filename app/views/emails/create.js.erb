@@ -1,5 +1,6 @@
 <% if @email.errors.empty? -%>
   $('#contacts').prepend('<%= escape_javascript(render(:partial => "contacts/contact", :locals => {:contact => @email})) %>');
-  $('#<%= dom_id(@email) %>').effect('slide', {direction:'right'});
   $("#new_email")[0].reset();
+  $("#new_contact").toggle('blind');
+  $('#<%= dom_id(@email) %>').effect('slide', {direction:'right'});
 <% end -%>

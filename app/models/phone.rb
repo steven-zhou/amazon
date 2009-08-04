@@ -1,5 +1,5 @@
 class Phone < Contact
-  acts_as_list :column => "priority_number"
+  #acts_as_list :column => "priority_number"
   #--
   ################
   #  Assocations
@@ -66,10 +66,19 @@ class Phone < Contact
 
   private
   def update_priority
-    self.move_to_bottom
+    #self.move_to_bottom
+    self.priority_number = self.contactable.phones.length+1 if self.new_record?
   end
 
   def update_priority_before_destroy
-    self.remove_from_list
+    priority_number = self.priority_number
+    Phone.transaction do
+      self.contactable.phones.each { |phone|
+        if (phone.priority_number > priority_number)
+          phone.priority_number -= 1
+          phone.save!
+        end
+      }
+    end
   end
 end

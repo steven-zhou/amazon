@@ -85,3 +85,6 @@ Rails::Initializer.run do |config|
 
 end
 
+ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
+  :default => '%d-%m-%Y'
+)

@@ -1,0 +1,29 @@
+ var roles = new Array();
+<% for role in @roles -%>
+   roles.push(new Array(<%= role.role_type_id %>, '<%= role.name %>',<%= role.id %> ));
+ <% end -%>
+
+ function roletypeSelected() {
+  role_type_id = $('role_role_type_id').getValue();
+   options = $('role_role_type_id').options
+   options.length = 1;
+   roles.each(function(role){
+   if (role[0]==role_type_id){
+   options[options.length] = new Option (role[1], role[2]);
+}
+});
+
+if(options.length ==1){
+$('role').hide();
+} else {
+$('role').show();
+}
+
+}
+
+document.observe('dom:loaded',function(){
+
+$('role').hide();
+$('role_types').observe('change', roletypeSelected)
+
+});

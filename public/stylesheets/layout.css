@@ -91,6 +91,12 @@ div.field_12 {
 	float: left;
 }
 
+div.field_14 {
+    margin: 0% 1%;
+    width: 14%;
+    float: left;
+}
+
 div.field_17 {
   margin: 0% 1%;
 	width: 17%;
@@ -103,9 +109,27 @@ div.field_20 {
 	float: left;
 }
 
+div.field_22 {
+    margin: 0% 1%;
+    width: 20%;
+    float: left;
+}
+
+div.field_27 {
+    margin: 0% 1%;
+    width: 25%;
+    float: left;
+}
+
 div.field_40 {
   margin: 0% 1%;
   width: 38%;
+	float: left;
+}
+
+div.field_45 {
+  margin: 0% 1%;
+  width: 45%;
 	float: left;
 }
 
@@ -260,4 +284,12 @@ img.medium {
 .help_icon {
     float:right;
     margin-right: 8px;
+}
+
+.primary_address_and_employment {
+    margin-left: 12px;
+}
+
+input.disabled {
+    color: red;
 }

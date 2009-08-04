@@ -22,6 +22,29 @@ describe Person do
   it { should belong_to(:nationality)}
   it { should have_many(:person_roles)}
   it { should have_many(:organisation_key_personnels)}
+  it { should have_many(:employments, :class_name => 'Employment', :foreign_key => 'person_id')}
+  it { should have_many(:emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by')}
+  it { should have_many(:emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to')}
+  it { should have_many(:emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by')}
+  it { should have_many(:emp_suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by')}
+  it { should have_many(:emp_recruiters, :through => :employments, :source => :emp_recruiter)}
+  it { should have_many(:emp_supervisors, :through => :employments, :source => :emp_supervisor)}
+  it { should have_many(:emp_terminators, :through => :employments, :source => :emp_terminator)}
+  it { should have_many(:emp_suspenders, :through => :employments, :source => :emp_suspender)}
+  it { should have_many(:employers, :through => :employments, :source => :organisation)}
+
+  it { should have_many(:person_roles, :class_name => 'PersonRole', :foreign_key => 'person_id')}
+  it { should have_many(:assign_roles, :class_name => 'PersonRole', :foreign_key => 'assigned_by')}
+  it { should have_many(:approve_roles, :class_name => 'PersonRole', :foreign_key => 'approved_by')}
+  it { should have_many(:supervise_roles, :class_name => 'PersonRole', :foreign_key => 'supervised_by')}
+  it { should have_many(:manage_roles, :class_name => 'PersonRole', :foreign_key => 'managed_by')}
+
+  it { should have_many(:role_players, :through => :person_roles, :source => :role_player)}
+  it { should have_many(:role_assigners, :through => :person_roles, :source => :role_assigner)}
+  it { should have_many(:role_approvers, :through => :person_roles, :source => :role_approver)}
+  it { should have_many(:role_supervisers, :through => :person_roles, :source => :role_superviser)}
+  it { should have_many(:role_managers, :through => :person_roles, :source => :role_manager)}
+
   
   context "when saving" do
   

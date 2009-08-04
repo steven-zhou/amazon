@@ -1,6 +1,6 @@
 class Address < ActiveRecord::Base
 
-  acts_as_list :column => "priority_number"
+  #acts_as_list :column => "priority_number"
   #--
   ################
   #  Associations
@@ -26,7 +26,7 @@ class Address < ActiveRecord::Base
   ################
   #++
 
-  after_create :update_priority
+  before_save :update_priority
   before_destroy :update_priority_before_destroy
   ################
   #  Delegation
@@ -85,11 +85,20 @@ class Address < ActiveRecord::Base
   end
   
   def update_priority
-    self.move_to_bottom
+    #self.move_to_bottom
+    self.priority_number = self.addressable.addresses.length+1 if self.new_record?
   end
 
   def update_priority_before_destroy
-    self.remove_from_list
+    priority_number = self.priority_number
+    Address.transaction do
+      self.addressable.addresses.each { |address|
+        if (address.priority_number > priority_number)
+          address.priority_number -= 1
+          address.save!
+        end
+      }
+    end
   end
 
 end

@@ -1,5 +1,6 @@
 <% if @website.errors.empty? -%>
   $('#contacts').prepend('<%= escape_javascript(render(:partial => "contacts/contact", :locals => {:contact => @website})) %>');
-  $('#<%= dom_id(@website) %>').effect('slide', {direction:'right'});
   $("#new_website")[0].reset();
+  $("#new_contact").toggle('blind');
+  $('#<%= dom_id(@website) %>').effect('slide', {direction:'right'});  
 <% end -%>

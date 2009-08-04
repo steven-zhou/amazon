@@ -1,0 +1,23 @@
+-# The main Employment tab
+.info_container
+  .header_container
+    .title
+      %h3 Employment Details
+    .options
+      = link_to_function image_tag('add_icon.png'), :id=>"add_employment", :class=>"toggle_button", :toggle_id_name => "new_employment" if (!@person.nil? && !@person.new_record?)
+      = image_tag('help_icon.png')
+    %br{ :style=>"clear: both;"}
+    
+    -# Initially hidden new employment form
+    -form_for([@person,@employment], :html => {:style => "display:none", :class => 'ajax_form'}) do |employment|
+      %fieldset
+        %h3 New Employment
+        = render :partial => '/employments/employment_form', :locals => { :employment => employment }
+        = submit_tag 'Submit'
+    
+    #employments
+      =# Render the person's employments
+      = render :partial => '/employments/employment', :collection => person.employments
+        
+          
+      

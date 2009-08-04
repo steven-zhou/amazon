@@ -2,7 +2,6 @@
   .header
     .title
       = render :partial => "menu", :locals => { :person => @person }
-      -#%h1 Person Profile
     %br.clear
   %div.info_container
     .form_line
@@ -11,7 +10,7 @@
         - form_tag(:controller => "people", :action => "show", :id => "") do
           = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit()',:id => 'system_id_tag'}
 
-      = render :partial => "lists_menu"
+      = render :partial => "lists_menu", :locals => {:person => @person, :p => @p }
     %br.clear
       
   %div.info_container
@@ -31,9 +30,9 @@
         %h3= h "#{@person.name}"
         
       .form_line
-        .field_33        
+        .field_33 
           = label_tag 'custom_id', 'Custom ID'
-          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}        
+          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}   
         .field_33
           = label_tag 'onrecord_since', 'On Record Since'
           = text_field_tag 'onrecord_since', @person.onrecord_since, {:readonly => true}
@@ -76,6 +75,7 @@
         %br.clear
     -#%span.details
       = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
+
   %div.info_container
     %h3 Contacts
     %div.info_container
@@ -84,30 +84,16 @@
     %div.info_container
       Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_email.nil? ? "None assigned": @primary_email.value
-    -#%div#more_contacts{:style => 'display:none'}
-      - @other_phones.each do |phone|
-        %div.info_container
-          Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          = phone.number
-      - @other_emails.each do |email|
-        %div.info_container
-          Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          = email.address
-    -#%span.details
-      = link_to_function 'more contacts', :class => 'toggle_more', :toggle_more_id => 'more_contacts', :alt_text => 'hide contacts'
+   
 
 
   %div.info_container
-    %p
-      %h3= "#{@primary_address.address_type_name} Address" unless @primary_address.nil?
+    %h3
+      = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
+    .primary_address_and_employment
       = format_address(@primary_address) unless @primary_address.nil?
-    -#%div#more_addresses{:style=>"display:none"}
-      - @other_addresses.each do |address|
-        %p
-          %h3= "#{address.address_type_name} Address"
-          = format_address(address)
-    -#%span.details
-      = link_to_function 'more addresses', :class => 'toggle_more', :toggle_more_id => 'more_addresses', :alt_text => 'hide addresses'
+
+
   %div.info_container
     %h3 Notes
     %div.info_container
@@ -137,11 +123,8 @@
       
   %div.info_container
     %h3 Employment
-    Organization:
-    %br/
-    Department:
-    %br/
-    Job Title:
+    .primary_address_and_employment
+      = format_employment(@primary_employment) unless @primary_employment.nil?
         
 
 

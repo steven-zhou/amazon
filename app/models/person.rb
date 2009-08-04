@@ -15,16 +15,31 @@ class Person < ActiveRecord::Base
   has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
   has_many :keyword_links, :as => :taggable
   has_many :keywords, :through => :keyword_links,:uniq => true
-  has_many :person_roles
+  has_many :person_roles, :class_name => 'PersonRole', :foreign_key => 'person_id', :order => "sequence_no"
+  has_many :assign_roles, :class_name => 'PersonRole', :foreign_key => 'assigned_by'
+  has_many :approve_roles, :class_name => 'PersonRole', :foreign_key => 'approved_by'
+  has_many :supervise_roles, :class_name => 'PersonRole', :foreign_key => 'supervised_by'
+  has_many :manage_roles, :class_name => 'PersonRole', :foreign_key => 'managed_by'
+  has_many :role_players, :through => :person_roles, :source => :role_player
+  has_many :role_assigners, :through => :person_roles, :source => :role_assigner
+  has_many :role_approvers, :through => :person_roles, :source => :role_approver
+  has_many :role_supervisers, :through => :person_roles, :source => :role_superviser
+  has_many :role_managers, :through => :person_roles, :source => :role_manager
   has_many :roles, :through => :person_roles, :uniq => true
-
+  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no ASC"
+  has_many :emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
+  has_many :emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
+  has_many :emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
+  has_many :emp_suspensions, :class_name => 'Employment', :foreign_key => 'suspended_by'
+  has_many :emp_recruiters, :through => :employments, :source => :emp_recruiter
+  has_many :emp_supervisors, :through => :employments, :source => :emp_supervisor
+  has_many :emp_terminators, :through => :employments, :source => :emp_terminator
+  has_many :emp_suspenders, :through => :employments, :source => :emp_suspender
+  has_many :employers, :through => :employments, :source => :organisation
+  has_many :organisation_key_personnels
   has_many :notes, :as => :noteable
   has_one :image, :as => :imageable
-
-  belongs_to :primary_title, :class_name => "Title", :foreign_key => "primary_title_id"
-  belongs_to :second_title, :class_name => "Title", :foreign_key => "second_title_id"
-  belongs_to :marital_status, :class_name => "MaritalStatus", :foreign_key => "marital_status_id"
-
+  has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ]
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
   has_many :source_people,  :through => :people_as_related do
@@ -38,9 +53,10 @@ class Person < ActiveRecord::Base
     end
   end
   
-  has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ] 
   
-
+  belongs_to :primary_title, :class_name => "Title", :foreign_key => "primary_title_id"
+  belongs_to :second_title, :class_name => "Title", :foreign_key => "second_title_id"
+  belongs_to :marital_status, :class_name => "MaritalStatus", :foreign_key => "marital_status_id"
   belongs_to :religion, :class_name => "Religion", :foreign_key => "religion_id"
   belongs_to :industry_sector, :class_name => "IndustrySector", :foreign_key => "industry_id"
   belongs_to :language
@@ -104,52 +120,59 @@ class Person < ActiveRecord::Base
   named_scope :with_keyword, lambda { |keyword_id| {:include => :keyword_links,:conditions =>["keyword_links.keyword_id LIKE ?", "#{keyword_id}%"] } }
 
   def primary_address    
-    @primary_address = self.addresses.select {|address| address.first?}.first
+    @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end
 
   def primary_phone
-    @primary_phone ||= self.phones.select {|phone| phone.first?}.first
+    @primary_phone ||= self.phones.select {|phone| phone.priority_number == 1}.first
   end
 
   def primary_email
-    @primary_email ||= self.emails.select {|email| email.first?}.first
+    @primary_email ||= self.emails.select {|email| email.priority_number == 1}.first
   end
 
   def primary_fax
-    @primary_fax ||= self.faxes.select {|fax| fax.first?}.first
+    @primary_fax ||= self.faxes.select {|fax| fax.priority_number == 1}.first
   end
 
   def primary_website
-    @primary_website ||= self.websites.select {|website| website.first?}.first
+    @primary_website ||= self.websites.select {|website| website.priority_number == 1}.first
   end
 
   def primary_master_doc
-    @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.first?}.first
+    @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.priority_number == 1}.first
   end
 
+  def primary_employment
+    @primary_employment ||= self.employments.select {|employment| employment.sequence_no == 1}.first
+  end
 
   def other_phones
-    @other_phones = self.phones.select {|phone| !phone.first?}
+    @other_phones = self.phones.select {|phone| phone.priority_number != 1}
   end
 
   def other_emails
-    @other_emails = self.emails.select {|email| !email.first?}
+    @other_emails = self.emails.select {|email| email.priority_number != 1}
   end
 
   def other_faxes
-    @other_faxes = self.faxes.select {|fax| !fax.first?}
+    @other_faxes = self.faxes.select {|fax| fax.priority_number != 1}
   end
 
   def other_websites
-    @other_websites = self.websites.select {|website| !website.first?}
+    @other_websites = self.websites.select {|website| website.priority_number != 1}
   end
 
   def other_addresses
-    @other_addresses = self.addresses.select {|address| !address.first?}
+    @other_addresses = self.addresses.select {|address| address.priority_number != 1}
   end
 
   def other_master_docs
-    @other_master_docs = self.master_docs.select {|master_doc| !master_doc.first?}
+    @other_master_docs = self.master_docs.select {|master_doc| master_doc.priority_number != 1}
+  end
+
+  def other_employments
+    @other_employments = self.other_employments.select {|employment| employment.sequence_no != 1}
   end
   
   def sorted_notes
