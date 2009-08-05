@@ -59,7 +59,7 @@ describe Address do
     it "should save a new record as a priority address if it is the only address" do
       @address.addressable.addresses.clear
       @address.save!
-      @address.first?.should be_true
+      @address.priority_number.should eql(1)
     end
     
   end

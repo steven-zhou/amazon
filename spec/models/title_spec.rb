@@ -5,9 +5,9 @@ describe Title do
   
   it {should allow_mass_assignment_of(:name)}
   
-  it {should belong_to(:title_type)}
-  it {should have_many(:people)}
-  it {should have_many(:secondary_people)}
+  it {should have_many(:primary_title_owners, :class_name=>"Person", :foreign_key => "primary_title_id")}
+  it {should have_many(:second_title_owners, :class_name=>"Person", :foreign_key => "second_title_id")}
+
   
   
 end

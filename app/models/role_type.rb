@@ -2,6 +2,8 @@ class RoleType < AmazonSetting
 
   acts_as_list
 
+  has_many :roles
+
   validates_presence_of :name
   validates_uniqueness_of :name
 

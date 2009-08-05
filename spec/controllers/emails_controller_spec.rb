@@ -2,12 +2,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe EmailsController do
   before(:each) do
-    @email = Factory.build(:email, :id => 1)
-  
+    @email = Factory.build(:email)  
     @attributes = Factory.attributes_for(:email)
     Email.stub!(:find).and_return(@email)
-    @person = Factory.build(:person)
+    @person = Factory.build(:jane)
     Person.stub!(:find).and_return(@person)
+
+    @email.stub(:size)
+    @email.stub(:each)
+
   end
 
 

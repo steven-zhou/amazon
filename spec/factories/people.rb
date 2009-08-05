@@ -1,20 +1,3 @@
-Factory.define :person do |f|
-  f.first_name "first_name"
-  f.middle_name "middle_name"
-  f.family_name "family_name"
-  f.maiden_name "maiden_name"
-  f.preferred_name "first_name last_name"
-  f.initials "FL"
-  f.primary_salutation "Mr first_name last_name"
-
-  #Association
-  f.association :primary_title, :factory => :mr
-  f.association :second_title, :factory => :dr
-  f.association :gender, :factory => :male
-  f.association :marital_status, :factory => :married
-
-end
-
 Factory.define :invalid_person, :class =>Person do |f|
 end
 

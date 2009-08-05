@@ -3,5 +3,5 @@ Factory.define :image do |f|
   f.image_width  "124"
   f.image_height "93"
 
-  f.association :imageable, :factory => :person
+  f.association :imageable, :factory => :john
 end
