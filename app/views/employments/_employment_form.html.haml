@@ -113,66 +113,69 @@
 
 
 .form_line
-  .field_full.center Suspension
+  .field_full.center 
+    = "Suspension"
+    =link_to_function image_tag('closed_accordion.png'), :style => "float:right", :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
+
+%div{:style => "display:none", :id => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"}
+  .form_line
+    .field_25
+      =employment.label :suspension_start_date, "Start Date"
+      =employment.text_field :suspension_start_date, :class=>"datepick", :value=>@employment.suspension_start_date.to_s
+    .field_25
+      =employment.label :suspension_end_date, "End Date"
+      =employment.text_field :suspension_end_date, :class=>"datepick", :value=>@employment.suspension_end_date.to_s
+    .field_25
+      =employment.label :suspended_by, "Suspended By (ID)"
+      =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
+    .field_25
+      =employment.label :suspended_by, "Suspender Name"
+      %input.disabled.suspender_container{:disabled=>true, :id=> @employment.new_record? ? "suspender_container_0" : "suspender_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_suspender.nil?) ? @employment.emp_suspender.name : ""}
+    %br.clear
+  .form_line
+    .field_25
+      =employment.label :suspension_type, "Suspension Type"
+      =employment.text_field :suspension_type
+    .field_25
+      =employment.label :suspension_reason, "Suspension Reason"
+      =employment.text_field :suspension_reason
+    .field_50
+      =employment.label :suspension_remarks, "Suspension Remarks"
+      =employment.text_field :suspension_remarks
+    %br.clear
 
 
 
 .form_line
-  .field_25
-    =employment.label :suspension_start_date, "Start Date"
-    =employment.text_field :suspension_start_date, :class=>"datepick", :value=>@employment.suspension_start_date.to_s
-  .field_25
-    =employment.label :suspension_end_date, "End Date"
-    =employment.text_field :suspension_end_date, :class=>"datepick", :value=>@employment.suspension_end_date.to_s
-  .field_25
-    =employment.label :suspended_by, "Suspended By (ID)"
-    =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
-  .field_25
-    =employment.label :suspended_by, "Suspender Name"
-    %input.disabled.suspender_container{:disabled=>true, :id=> @employment.new_record? ? "suspender_container_0" : "suspender_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_suspender.nil?) ? @employment.emp_suspender.name : ""}
-  %br.clear
-.form_line
-  .field_25
-    =employment.label :suspension_type, "Suspension Type"
-    =employment.text_field :suspension_type
-  .field_25
-    =employment.label :suspension_reason, "Suspension Reason"
-    =employment.text_field :suspension_reason
-  .field_50
-    =employment.label :suspension_remarks, "Suspension Remarks"
-    =employment.text_field :suspension_remarks
-  %br.clear
+  .field_full.center
+    = "Termination"
+    =link_to_function image_tag('closed_accordion.png'), :style => "float:right", :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
 
 
 
-.form_line
-  .field_full.center Termination
-
-
-
-
-.form_line
-  .field_25
-    =employment.label :termination_notice_date, "Notice Date"
-    =employment.text_field :termination_notice_date, :class=>"datepick", :value=>@employment.termination_notice_date.to_s
-  .field_25
-    =employment.label :termination_date, "Termination Date"
-    =employment.text_field :termination_date, :class=>"datepick", :value=>@employment.termination_date.to_s
-  .field_25
-    =employment.label :terminated_by, "Terminated By (ID)"
-    =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
-  .field_25
-    =employment.label :terminated_by, "Terminator Name"
-    %input.disabled.terminator_container{:disabled=>true, :id=> @employment.new_record? ? "terminator_container_0" : "terminator_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_terminator.nil?) ? @employment.emp_terminator.name : ""}
-  %br.clear
-.form_line
-  .field_25
-    =employment.label :termination_method, "Termination Method"
-    =employment.text_field :termination_method
-  .field_25
-    =employment.label :termination_reason, "Termination Reason"
-    =employment.text_field :termination_reason
-  .field_50
-    =employment.label :terminated_remarks, "Termination Remarks"
-    =employment.text_field :termination_remarks
-  %br.clear
+%div{:style => "display:none", :id => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"}
+  .form_line
+    .field_25
+      =employment.label :termination_notice_date, "Notice Date"
+      =employment.text_field :termination_notice_date, :class=>"datepick", :value=>@employment.termination_notice_date.to_s
+    .field_25
+      =employment.label :termination_date, "Termination Date"
+      =employment.text_field :termination_date, :class=>"datepick", :value=>@employment.termination_date.to_s
+    .field_25
+      =employment.label :terminated_by, "Terminated By (ID)"
+      =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
+    .field_25
+      =employment.label :terminated_by, "Terminator Name"
+      %input.disabled.terminator_container{:disabled=>true, :id=> @employment.new_record? ? "terminator_container_0" : "terminator_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_terminator.nil?) ? @employment.emp_terminator.name : ""}
+    %br.clear
+  .form_line
+    .field_25
+      =employment.label :termination_method, "Termination Method"
+      =employment.text_field :termination_method
+    .field_25
+      =employment.label :termination_reason, "Termination Reason"
+      =employment.text_field :termination_reason
+    .field_50
+      =employment.label :terminated_remarks, "Termination Remarks"
+      =employment.text_field :termination_remarks
+    %br.clear

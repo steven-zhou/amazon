@@ -5,7 +5,7 @@ $(function() {
 	  toggle the DOM object associated with it
 	  via an attribute toggle_id_name
 	*/
-    $(".toggle_button").click(function(){
+    $(".toggle_button").live('click', function(){
         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
@@ -13,6 +13,18 @@ $(function() {
         $('#'+$(this).attr('toggle_id_name1')).show();
         $('#'+$(this).attr('toggle_id_name2')).hide();
         
+    });
+
+    $(".close_image").live('click', function(){
+       $(this).children('img').attr('src', '/images/open_accordion.png');
+       $(this).removeClass('close_image');
+       $(this).addClass('open_image');
+    });
+
+    $(".open_image").live('click', function(){
+       $(this).children('img').attr('src', '/images/closed_accordion.png');
+       $(this).removeClass('open_image');
+       $(this).addClass('close_image');
     });
 
 	
