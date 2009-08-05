@@ -7,5 +7,5 @@
       .options
         = link_to image_tag('close_icon.png'), master_doc_path(@masterdoc), :class => 'get'
       %br{ :style=>"clear: both;"}
-    = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
+    = render :partial => '/master_docs/master_doc_form', :locals => { :form => form, :masterdoc => @masterdoc }
     = submit_tag 'Submit'

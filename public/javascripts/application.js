@@ -293,22 +293,22 @@ $(function(){
 
 /* MasterDoc */
 $(function(){
-  $("#master_doc_meta_meta_type_id").change(function(){
+  $(".find_master_doc_meta_type_field").live('change', function(){
     $.ajax({
       type: "GET",
       url: "/people/master_doc_meta_type_finder.js",
-      data: 'id='+$(this).val(),
+      data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
       dataType: "script"
     });
   });
 });
 
 $(function(){
-  $("#master_doc_meta_type_id").change(function(){
+  $(".find_master_doc_type_field").live('change', function(){
     $.ajax({
       type: "GET",
       url: "/people/master_doc_type_finder.js",
-      data: 'id='+$(this).val(),
+      data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
       dataType: "script"
     });
   });
