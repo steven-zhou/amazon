@@ -35,7 +35,7 @@ class Email < Contact
   private
   def update_priority
     #self.move_to_bottom
-    self.priority_number = self.contactable.emails.length+1 if self.new_record?
+    self.priority_number = self.contactable.emails.length + 1 if self.new_record?
   end
 
   def update_priority_before_destroy
