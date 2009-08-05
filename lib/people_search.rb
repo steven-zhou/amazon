@@ -2,11 +2,11 @@ module PeopleSearch
   
   def self.by_name(params)
     
-    equality = ['id', 'custom_id', 'title_id', 'second_title_id', 'gender', 'religion_id', 
+    equality = ['id', 'custom_id', 'primary_title_id', 'second_title_id', 'gender_id', 'religion_id',
       'origin_country_id', 'residence_country_id', 'nationality_id', 'other_nationality_id',
-      'language_id', 'other_language_id']
+      'language_id', 'other_language_id', 'birth_date', 'industry_sector_id', 'onrecord_since', 'marital_status_id']
     like = ['first_name', 'family_name', 'maiden_name', 'middle_name', 'initials',
-      'preferred_name', 'post_title', 'industry_sector', 'interests']
+      'preferred_name', 'post_title', 'interests', 'primary_salutation', 'second_salutation']
 
     params.delete_if {|key, value| value == "" } 
     condition_clauses = Array.new
@@ -25,14 +25,15 @@ module PeopleSearch
       end    
     end
 
+    query = condition_clauses.join(' AND '), *condition_options
+    puts "**** DEBUG Query is #{query}"
+
     Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
     
   end
 
   def self.by_phone(phone_type, phone_pre_value, phone_value, phone_post_value)
-    #    puts "DEBUG #{phone_attributes.to_yaml}"
     phone_type = !phone_type.empty? ? phone_type : "%"
-    #    Person.with_phone(phone_attributes[:pre_value], phone_attributes[:value], phone_attributes[:post_value])
     Person.with_phone(phone_type, phone_pre_value, phone_value, phone_post_value)
   end
   
@@ -49,8 +50,7 @@ module PeopleSearch
   
   def self.by_address(params)
     equality = ['country_id', 'address_type_id']
-    like = ['building_name', 'suite_unit', 'street_number', 'street_name', 'town',
-      'district', 'region', 'state', 'postal_code']
+    like = ['building_name', 'suite_unit', 'street_number', 'street_name', 'town', 'district', 'region', 'state', 'postal_code']
     params.delete_if {|key, value| value == "" }
     condition_clauses = Array.new
     condition_options = Array.new
@@ -75,8 +75,6 @@ module PeopleSearch
     keyword_id = !keyword_id.empty? ? keyword_id : "%"
     Person.with_keyword(keyword_id)
   end  
-
-
 
   private
   
