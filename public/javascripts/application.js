@@ -291,8 +291,6 @@ $(function(){
     });
 });
 
-<<<<<<< HEAD:public/javascripts/application.js
-
 /* MasterDoc */
 $(function(){
   $("#master_doc_meta_meta_type_id").change(function(){
@@ -315,7 +313,7 @@ $(function(){
     });
   });
 });
-=======
+
 formatCurrency= function(num){
     num = num.toString().replace(/\$|\,/g,'');
     if(isNaN(num))
@@ -331,4 +329,3 @@ formatCurrency= function(num){
         num.substring(num.length-(4*i+3));
     return (((sign)?'':'-') + '$' + num + '.' + cents);
 }
->>>>>>> a406bd75b05e0cd9fedbaa1b3e57e24d1b416de3:public/javascripts/application.js
