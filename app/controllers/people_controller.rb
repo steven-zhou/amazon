@@ -4,7 +4,6 @@ class PeopleController < ApplicationController
 
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
-
   def new
     @person = Person.new
     @person.addresses.build
