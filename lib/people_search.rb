@@ -26,7 +26,6 @@ module PeopleSearch
     end
 
     query = condition_clauses.join(' AND '), *condition_options
-    puts "**** DEBUG Query is #{query}"
 
     Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
     

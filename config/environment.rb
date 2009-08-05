@@ -88,3 +88,6 @@ end
 ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
   :default => '%d-%m-%Y'
 )
+
+ExceptionNotifier.exception_recipients = %w(anthony@powernet.com.au lei@powernet.com.au wei@powernet.com.au)
+ExceptionNotifier.sender_address = %("Essene College Web Server" <rails@powernet.com.au>)
