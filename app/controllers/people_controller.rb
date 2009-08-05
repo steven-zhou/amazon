@@ -193,15 +193,15 @@ class PeopleController < ApplicationController
 
   def master_doc_meta_type_finder
     @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["master_doc_meta_meta_type_id = ?", params[:id]])
+    @masterdoc = MasterDoc.find(params[:master_doc_id]) rescue @masterdoc = MasterDoc.new
     respond_to do |format|
       format.js { }
     end
   end
 
   def master_doc_type_finder
-    puts " ******* DEBUG ID:  #{params[:id]}"
     @master_doc_types = MasterDocType.find(:all, :conditions => ["master_doc_meta_type_id = ?", params[:id]])
-    puts " ******* DEBUG ID:  #{@master_doc_types.to_yaml}"
+    @masterdoc = MasterDoc.find(params[:master_doc_id]) rescue @masterdoc = MasterDoc.new
     respond_to do |format|
       format.js { }
     end

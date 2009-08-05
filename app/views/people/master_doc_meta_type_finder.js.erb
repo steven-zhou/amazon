@@ -3,7 +3,17 @@
   <% for mdmt in @master_doc_meta_types %>
     <% result += "<option value='#{mdmt.id}'>#{mdmt.name}</option>" %>
   <% end %>
-  $("#master_doc_meta_type_id").html('<%=escape_javascript("#{result}")%>')
+  <% if @masterdoc.new_record? %>
+    $("#master_doc_meta_type_id").html('<%=escape_javascript("#{result}")%>')
+    $("#master_doc_meta_type_id").change()
+  <% else %>
+    $("#master_doc_meta_type_id_<%=escape_javascript("#{@masterdoc.id}")%>").html('<%=escape_javascript("#{result}")%>')
+    $("#master_doc_meta_type_id_<%=escape_javascript("#{@masterdoc.id}")%>").change()
+  <% end %>
 <% else %>
-  $("#master_doc_meta_type_id").html('<option></option>')
+  <% if @masterdoc.new_record? %>
+    $("#master_doc_meta_type_id").html('<option></option>')
+  <% else %>
+    $("#master_doc_meta_type_id_<%=escape_javascript("#{@masterdoc.id}")%>").html('<option></option>')
+  <% end %>
 <% end -%>

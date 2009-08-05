@@ -2,17 +2,30 @@
 .form_line
   .field_25
     = form.label :master_doc_type_id, 'Type Category'
-    = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true})
+    -if @masterdoc.new_record?
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field"})
+    -else
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
     = form.label :master_doc_type_id, 'Type Subcategory'
-    %select#master_doc_meta_type_id
-      %option
+    -if @masterdoc.new_record?
+      %select.find_master_doc_type_field{:id => "master_doc_meta_type_id"}
+        %option
+    -else
+      %select.find_master_doc_type_field{:id => "master_doc_meta_type_id_#{@masterdoc.id}", :master_doc_id => @masterdoc.id}
+        %option{:value => @masterdoctype.master_doc_meta_type_id}
+          = @masterdocmetatype.name
   %br{:style=>"clear: both;"}
 .form_line
   .field_25
     = form.label :master_doc_type_id, 'Type'
-    %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]"}
-      %option
+    -if @masterdoc.new_record?
+      %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]"}
+        %option
+    -else
+      %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]"}
+        %option{:value => @masterdoc.master_doc_type_id}
+          = @masterdoctype.name
   .field_25
     = form.label :category, 'Category'
     = form.text_field :category

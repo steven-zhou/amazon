@@ -14,6 +14,9 @@ class MasterDocsController < ApplicationController
 
   def edit
     @masterdoc = MasterDoc.find(params[:id])
+    @masterdoctype = @masterdoc.master_doc_type
+    @masterdocmetatype = @masterdoctype.master_doc_meta_type
+    @masterdocmetametatype = @masterdocmetatype.master_doc_meta_meta_type
     render "edit.js"
   end
 
