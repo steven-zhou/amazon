@@ -6,7 +6,7 @@
     .options
       = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button", :toggle_id_name => "new_master_doc"  if (!person.nil? && !person.new_record?)
       = image_tag('help_icon.png')
-    %br{ :style=>"clear: both;"}
+    %br.clear
 
   =# Initially hidden new masterdoc form
   -form_for([@person,@masterdoc], :html => {:style => "display:none", :class => 'ajax_form'}) do |form|

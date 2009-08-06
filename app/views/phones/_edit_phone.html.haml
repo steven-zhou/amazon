@@ -8,5 +8,4 @@
         = link_to image_tag('close_icon.png'), phone_path(@phone), :class => 'get'
       %br{ :style=>"clear: both;"}
     = render :partial => 'phone_form', :locals => { :phone => phone }
-    %br{ :style=>"clear: both;"}
     = submit_tag 'Submit'

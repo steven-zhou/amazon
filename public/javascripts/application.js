@@ -120,7 +120,7 @@ $('.datepick').live("mouseover", function(){
         dateFormat: 'dd-mm-yy',
         altFormat: 'mm-dd-yy',
         changeMonth: true,
-        changeYear: true,
+        changeYear: true
     });
 });
 

@@ -11,32 +11,34 @@
   .field_20
     = phone.label :post_value, "Pos value"
     = phone.text_field :post_value          
-%br{ :style=>"clear: both;"}
-  .form_line
-    .field_25
-      = phone.label :monday_hours, "Monday"
-      = phone.select :monday_hours,preferrence_time_options
-    .field_25
-      = phone.label :tuesday_hours, "Tuesday"
-      = phone.select :tuesday_hours,preferrence_time_options
-    .field_25
-      = phone.label :wednesday_hours, "Wednesday"
-      = phone.select :wednesday_hours,preferrence_time_options
-    .field_25
-      = phone.label :thursday_hours, "Thursday"
-      = phone.select :thursday_hours,preferrence_time_options
-  .form_line
-    .field_25
-      = phone.label :friday_hours, "Friday"
-      = phone.select :friday_hours,preferrence_time_options
-    .field_25
-      = phone.label :saturdayday_hours, "Saturday"
-      = phone.select :saturday_hours,preferrence_time_options
-    .field_25
-      = phone.label :sunday_hours, "Sunday"
-      = phone.select :sunday_hours,preferrence_time_options
+  %br.clear
+.form_line
+  .field_25
+    = phone.label :monday_hours, "Monday"
+    = phone.select :monday_hours,preferrence_time_options
+  .field_25
+    = phone.label :tuesday_hours, "Tuesday"
+    = phone.select :tuesday_hours,preferrence_time_options
+  .field_25
+    = phone.label :wednesday_hours, "Wednesday"
+    = phone.select :wednesday_hours,preferrence_time_options
+  .field_25
+    = phone.label :thursday_hours, "Thursday"
+    = phone.select :thursday_hours,preferrence_time_options
+  %br.clear
+.form_line
+  .field_25
+    = phone.label :friday_hours, "Friday"
+    = phone.select :friday_hours,preferrence_time_options
+  .field_25
+    = phone.label :saturdayday_hours, "Saturday"
+    = phone.select :saturday_hours,preferrence_time_options
+  .field_25
+    = phone.label :sunday_hours, "Sunday"
+    = phone.select :sunday_hours,preferrence_time_options
+  %br.clear
 .form_line
   .field_100
     = phone.label :remarks, "Remarks"
     = phone.text_field :remarks
-%br{ :style=>"clear: both;"}
+  %br.clear

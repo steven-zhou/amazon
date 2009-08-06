@@ -6,6 +6,6 @@
     .options
       = link_to image_tag('edit_icon.png'), edit_master_doc_path(master_doc), :class => 'get'
       = link_to image_tag('delete_icon.png'), master_doc_path(master_doc), :class => 'delete'
-    %br{ :style => "clear:both;"}
+    %br.clear
   .display_container
     = format_masterdoc(master_doc)

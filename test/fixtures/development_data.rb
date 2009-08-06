@@ -193,28 +193,28 @@ website_business = ContactType.find(:first, :conditions => ["contact_meta_type_i
 
 
 puts "Creating email for Sarah Clarkson"
-Contact.create(
+Email.create(
   :contactable => sarah_clarkson,
   :contact_type_id => email_personal.id,
   :value => "sarah.clarkson@gmail.com"
 )
 
 puts "Creating email for Jackie Chan"
-Contact.create(
+Email.create(
   :contactable => jackie_chan,
   :contact_type_id => email_work.id,
   :value => "the_dragon@hotmail.com"
 )
 
 puts "Creating Phone for Robert Tingle"
-Contact.create(
+Phone.create(
   :contactable => robert_tingle,
   :contact_type_id => phone_mobile.id,
   :value => "0410258698"
 )
 
 puts "Creating Phone for Jackie Chan"
-Contact.create(
+Phone.create(
   :contactable => robert_tingle,
   :contact_type_id => phone_home.id,
   :pre_value => "02",
@@ -222,14 +222,14 @@ Contact.create(
 )
 
 puts "Creating Phone for Karen Smith"
-Contact.create(
+Phone.create(
   :contactable => karen_smith,
   :contact_type_id => phone_mobile.id,
   :value => "0458759565"
 )
 
 puts "Creating Website for Jackie Chan"
-Contact.create(
+Website.create(
   :contactable => jackie_chan,
   :contact_type_id => website_business.id,
   :value => "www.jackiechan.com"
@@ -242,4 +242,8 @@ Contact.create(
 
 # Masterdocs
 
-
+#Organisations
+puts "Createing Organisation for ABC"
+Organisation.create(
+  :full_name => "ABC"
+)
