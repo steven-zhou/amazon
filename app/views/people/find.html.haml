@@ -103,8 +103,8 @@
               = p.text_field :interests
             %br.clear
             %p.submit
+              = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
               = submit_tag 'Find', {:id => "find_button" }
-              = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Contact
@@ -122,8 +122,8 @@
               = email.text_field :value
             %br.clear         
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
         %fieldset
@@ -143,8 +143,8 @@
               = phone.text_field :post_value
           %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Address
@@ -195,8 +195,8 @@
               = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
             %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
         
     %h3
@@ -211,8 +211,8 @@
               = keyword.collection_select :id, Keyword.all, :id, :name, {:include_blank => true}
             %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Notes
@@ -233,8 +233,8 @@
               = note.text_field :short_description
             %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
 #right
   .header
@@ -250,8 +250,8 @@
             .field_40
             %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Membership
@@ -262,8 +262,8 @@
             .field_40
             %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"
 
     %h3
       %a{:href => "#"} Find by Module X
@@ -274,5 +274,5 @@
             .field_40
             %br.clear
           %p.submit
+            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-            = submit_tag 'Clear', :type => 'reset', :id => "find_button"

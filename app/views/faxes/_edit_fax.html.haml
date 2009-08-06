@@ -6,7 +6,6 @@
         %h3 Edit Fax
       .options
         = link_to image_tag('close_icon.png'), fax_path(@fax), :class => 'get'
-      %br{ :style=>"clear: both;"}
+      %br.clear
     = render :partial => 'fax_form', :locals => { :fax => fax }
-    %br{ :style=>"clear: both;"}
     = submit_tag 'Submit'

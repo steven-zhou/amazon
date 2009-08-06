@@ -258,7 +258,7 @@ a.alt_option{
   font-size:11px;
   line-height:16px;
   padding:1px;
-
+  margin:2px 10px 0px 0px;
 }
 
 a.alt_option:hover{

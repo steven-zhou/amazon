@@ -99,6 +99,7 @@
           = website.hidden_field(:priority, :value => 0)
     
     %p.submit
-      = submit_tag "Submit"
+      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       = submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag 'Clear', :type => 'reset', :id => "find_button"
+      = submit_tag "Submit"   
+      

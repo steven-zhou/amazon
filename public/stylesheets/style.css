@@ -67,8 +67,8 @@ form fieldset {
 }
 
 form input[type=submit], input[type=button]{
-	/*float: right;
-	margin-right: 10px;*/
+	float: right;
+	margin-right: 10px;
 }
 
 /* Links */

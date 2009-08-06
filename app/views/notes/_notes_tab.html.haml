@@ -13,8 +13,7 @@
       %fieldset
         %h3 New Note
         = render :partial => '/notes/note_form', :locals => { :note => note }
-        %br{ :style=>"clear: both;"}
-        = submit_tag 'Submit',{ :style=>"width:493px;"}
+        = submit_tag 'Submit'
 
     #notes_list
       =# Render the person's notes
