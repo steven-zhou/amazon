@@ -76,10 +76,15 @@
       .header_container
         .title
           %h3 Roles
-
         %br{ :style=>"clear: both;"}
-      #role
-
+      #roles
       %ul
-
         =render :partial => '/people/person_role', :collection => @person.roles, :locals => {:person => @person}
+  #Employment
+    .info_container
+      .header_container
+        .title
+          %h3 Employments
+        %br.clear
+      #employments
+        =render :partial => '/people/person_employment', :collection => @person.employments, :locals => {:person => @person}
