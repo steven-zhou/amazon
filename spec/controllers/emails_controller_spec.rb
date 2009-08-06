@@ -4,10 +4,9 @@ describe EmailsController do
   before(:each) do
     @email = Factory.build(:email)  
     @attributes = Factory.attributes_for(:email)
-    Email.stub!(:find).and_return(@email)
+    # Email.stub!(:find).and_return(@email)
     @person = @email.contactable
     Person.stub!(:find).and_return(@person)
-    
   end
 
 
@@ -30,10 +29,6 @@ describe EmailsController do
     options[:id] ||= @email.id
     delete :destroy, options
   end
-
-   it "should contain when call email.contactable" do
-     @person.emails.should contain()
-   end
 
   #Delete these examples and add some real ones
   it "should use EmailsController" do
@@ -99,7 +94,7 @@ describe EmailsController do
 
   describe "GET 'destroy'" do
     before(:each) do
-      Email.stub!(:find).and_return(@email)
+      # Email.stub!(:find).and_return(@email)
     end
     it "should find a existed email with params[:id]" do
       Email.should_receive(:find).with(@email.id.to_s).and_return(@email)
