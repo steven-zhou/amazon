@@ -13,7 +13,7 @@ male = Gender.find_by_name("Male")
 female = Gender.find_by_name("Female")
 
 christianity = Religion.find_by_name("Christianity")
-buddhism = Religion.find_by_name("buddhism")
+buddhism = Religion.find_by_name("Buddhism")
 
 english = Language.find_by_name("English")
 spanish = Language.find_by_name("Spanish")
@@ -25,7 +25,7 @@ married = MaritalStatus.find_by_name("Married")
 divorced = MaritalStatus.find_by_name("Divorced")
 
 it = IndustrySector.find_by_name("IT")
-wholesale = IndustrySector.find_by_name("wholesale")
+wholesale = IndustrySector.find_by_name("Wholesale")
 manufacturing = IndustrySector.find_by_name("Manufacturing")
 
 australia = Country.find_by_short_name("Australia")
