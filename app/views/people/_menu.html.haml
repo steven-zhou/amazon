@@ -1,4 +1,4 @@
-= link_to image_tag('person_profile.png'), :controller => "people", :action => "show", :id => ""
+= link_to image_tag('person_profile.png'), :controller => "people", :action => "show", :id => @person.id
 - if (@current_action == 'show') then
   %h1 Person Profile
 = image_tag('menu_bar.png')
