@@ -77,3 +77,12 @@ a img {
   border: 0px;
 }
 
+span.viewname{
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: 12px;
+    font-style: normal;
+	font-weight: bolder;
+    color:red;
+    margin:0px;
+    padding:0px;
+}

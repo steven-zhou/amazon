@@ -116,8 +116,11 @@ class PeopleController < ApplicationController
   
 
     flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
-    redirect_to edit_person_path(@person)
-
+    if(params[:edit])
+      redirect_to edit_person_path(@person)
+    else
+      redirect_to person_path(@person)
+    end
   end
 
   def search

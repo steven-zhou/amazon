@@ -4,9 +4,9 @@
     $("#related_person_name").html('<%=escape_javascript("<br/>#{@person.name}")%>')
   <% else %>
     <% if @employment.new_record? %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").val("Invalid ID")
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("Invalid ID")
     <% else %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").val("Invalid ID")
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").html("Invalid ID")
     <% end %>
   <% end %>
 <% else %>
@@ -15,9 +15,9 @@
      $("#related_person_name").html('<br/>Invalid ID')
   <% else %>
     <% if @employment.new_record? %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").val("<%=escape_javascript("#{@person.name}")%>")
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("<%=escape_javascript("#{@person.name}")%>")
     <% else %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").val("<%=escape_javascript("#{@person.name}")%>")
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").html("<%=escape_javascript("#{@person.name}")%>")
     <%end%>
   <% end %>
 <% end %>

@@ -4,9 +4,11 @@
     =employment.label :organisation_id, "Organisation ID"
     =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_50
-    =employment.label :organisation_id, "Organisation Name"
-    %input.disabled.organisation_name_container{:id=>@employment.new_record? ? 0 : @employment.id, :disabled=>true, :value=>@employment.new_record? ? "" : @organisation.full_name}
-
+    %label &nbsp;
+    -if @employment.new_record?
+      %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} &nbsp;
+    -else
+      %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} #{@employment.organisation.full_name}
   .field_25
     =employment.label :id, "Employment ID"
     =employment.text_field :id, :disabled=>true, :class=>"disabled"
@@ -62,14 +64,20 @@
     =employment.label :hired_by, "Hired By"
     =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_25
-    =employment.label :hired_by, "Recruiter"
-    %input.disabled.recruiter_container{:disabled=>true, :id=> @employment.new_record? ? "recruiter_container_0" : "recruiter_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_recruiter.nil?) ? @employment.emp_recruiter.name : ""}
+    %label &nbsp;
+    -if (!@employment.new_record? && !@employment.emp_recruiter.nil?)
+      %span{:class=>"viewname", :id=>@employment.new_record? ? "recruiter_container_0" : "recruiter_container_#{@employment.id}"} #{@employment.emp_recruiter.name}
+    -else
+      %span{:class=>"viewname", :id=>@employment.new_record? ? "recruiter_container_0" : "recruiter_container_#{@employment.id}"} &nbsp;
   .field_25
     =employment.label :report_to, "Report To"
     =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
   .field_25
-    =employment.label :report_to, "Supervisor"
-    %input.disabled.supervisor_container{:disabled=>true, :id=> @employment.new_record? ? "supervisor_container_0" : "supervisor_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_supervisor.nil?) ? @employment.emp_supervisor.name : ""}
+    %label &nbsp;
+    -if (!@employment.new_record? && !@employment.emp_supervisor.nil?)
+      %span{:class=>"viewname", :id=>@employment.new_record? ? "supervisor_container_0" : "supervisor_container_#{@employment.id}"} #{@employment.emp_supervisor.name}
+    -else
+      %span{:class=>"viewname", :id=>@employment.new_record? ? "supervisor_container_0" : "supervisor_container_#{@employment.id}"} &nbsp;
   %br.clear
 .form_line
   .field_25
@@ -129,8 +137,11 @@
       =employment.label :suspended_by, "Suspended By (ID)"
       =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
     .field_25
-      =employment.label :suspended_by, "Suspender Name"
-      %input.disabled.suspender_container{:disabled=>true, :id=> @employment.new_record? ? "suspender_container_0" : "suspender_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_suspender.nil?) ? @employment.emp_suspender.name : ""}
+      %label &nbsp;
+      -if (!@employment.new_record? && !@employment.emp_suspender.nil?)
+        %span{:class=>"viewname", :id=>@employment.new_record? ? "suspender_container_0" : "suspender_container_#{@employment.id}"} #{@employment.emp_suspender.name}
+      -else
+        %span{:class=>"viewname", :id=>@employment.new_record? ? "suspender_container_0" : "suspender_container_#{@employment.id}"} &nbsp;
     %br.clear
   .form_line
     .field_25
@@ -163,8 +174,11 @@
       =employment.label :terminated_by, "Terminated By (ID)"
       =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
     .field_25
-      =employment.label :terminated_by, "Terminator Name"
-      %input.disabled.terminator_container{:disabled=>true, :id=> @employment.new_record? ? "terminator_container_0" : "terminator_container_" + "#{@employment.id}", :value=>(!@employment.new_record? && !@employment.emp_terminator.nil?) ? @employment.emp_terminator.name : ""}
+      %label &nbsp;
+      -if (!@employment.new_record? && !@employment.emp_terminator.nil?)
+        %span{:class=>"viewname", :id=>@employment.new_record? ? "terminator_container_0" : "terminator_container_#{@employment.id}"} #{@employment.emp_terminator.name}
+      -else
+        %span{:class=>"viewname", :id=>@employment.new_record? ? "terminator_container_0" : "terminator_container_#{@employment.id}"} &nbsp;
     %br.clear
   .form_line
     .field_25
