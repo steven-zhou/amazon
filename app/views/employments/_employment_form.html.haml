@@ -87,7 +87,7 @@
 
 .form_line
   .field_25
-    =employment.label :weekly_nominal_hours, "Nominal Hours"
+    =employment.label :weekly_nominal_hours, "Weekly Hours"
     =employment.text_field :weekly_nominal_hours, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.weekly_nominal_hours, :id=>@employment.new_record? ? "hour_0" : "hour_" + "#{@employment.id}"
   .field_25
     =employment.label :hourly_rate, "Hourly Rate"
@@ -113,9 +113,9 @@
 
 
 .form_line
-  .field_full.center 
+  .field_full.center     
+    =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
     = "Suspension"
-    =link_to_function image_tag('closed_accordion.png'), :style => "float:right", :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
 
 %div{:style => "display:none", :id => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"}
   .form_line
@@ -148,10 +148,8 @@
 
 .form_line
   .field_full.center
+    =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
     = "Termination"
-    =link_to_function image_tag('closed_accordion.png'), :style => "float:right", :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
-
-
 
 %div{:style => "display:none", :id => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"}
   .form_line
