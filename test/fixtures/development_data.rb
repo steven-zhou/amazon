@@ -47,7 +47,8 @@ robert_tingle = Person.create(
   :residence_country_id => australia.id,
   :nationality_id => australia.id,
   :language_id => english.id,
-  :other_language_id => spanish.id
+  :other_language_id => spanish.id,
+  :onrecord_since => 1.year.ago
 )
 
 puts "Creating Jackie Chan"
@@ -65,7 +66,8 @@ jackie_chan = Person.create(
   :residence_country_id => china.id,
   :nationality_id => china.id,
   :language_id => china.id,
-  :other_language_id => english.id
+  :other_language_id => english.id,
+  :onrecord_since => 100.days.ago
 )
 
 puts "Creating Sarah Clarkson"
@@ -82,7 +84,8 @@ sarah_clarkson = Person.create(
   :residence_country_id => australia.id,
   :nationality_id => china.id,
   :language_id => chinese.id,
-  :other_language_id => english.id
+  :other_language_id => english.id,
+  :onrecord_since => 36.days.ago
 )
 
 puts "Creating Bill Woo"
@@ -101,7 +104,8 @@ bill_woo = Person.create(
   :residence_country_id => australia.id,
   :nationality_id => china.id,
   :language_id => chinese.id,
-  :other_language_id => english.id
+  :other_language_id => english.id,
+  :onrecord_since => 212.days.ago
 )
 
 puts "Creating Karen Smith"
@@ -119,7 +123,8 @@ karen_smith = Person.create(
   :residence_country_id => india.id,
   :nationality_id => australia.id,
   :language_id => english.id,
-  :other_language_id => french.id
+  :other_language_id => french.id,
+  :onrecord_since => 586.days.ago
 )
 
 # MasterDoc Data
