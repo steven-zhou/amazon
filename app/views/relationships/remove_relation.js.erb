@@ -1,4 +1,4 @@
-$('#<%= @relationship.relationship_type.name.gsub(/ /,'').underscore %> #<%= dom_id(@related_person)%>').fadeOut("slow", function() {$(this).remove();});
+$('#<%= @relationship.relationship_type.name.gsub(/ /,'_').underscore %> #<%= dom_id(@related_person)%>').fadeOut("slow", function() {$(this).remove();});
 <% if @relationship.relationship_type.name == 'Father' || @relationship.relationship_type.name == 'Mother' -%>
   $('#siblings').replaceWith('<%= escape_javascript(render :partial => "/relationships/relationship_container", :locals => {:type => "Siblings", :relations => @source_person.siblings}) %>');
   

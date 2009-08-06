@@ -1,5 +1,5 @@
 <% if @relationship.errors.empty? -%>
-  $('#<%= @relationship.relationship_type.name.gsub(/ /,'').underscore %>').append('<%= escape_javascript(render(:partial => "person", :locals => {:person => @relationship.related_person})) %>');
+  $('#<%= @relationship.relationship_type.name.gsub(/ /,'_').underscore %>').append('<%= escape_javascript(render(:partial => "person", :locals => {:person => @relationship.related_person})) %>');
   $('#<%= dom_id(@related_person) %>').effect('slide', {direction:'right'});
   <% if @relationship.relationship_type.name == 'Father' || @relationship.relationship_type.name == 'Mother' -%>
     $('#siblings').replaceWith('<%= escape_javascript(render :partial => "/relationships/relationship_container", :locals => {:type => "Siblings", :relations => @source_person.siblings}) %>');
