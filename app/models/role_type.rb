@@ -5,7 +5,7 @@ class RoleType < AmazonSetting
   has_many :roles
 
   validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :message => "A role type already exists with the same name."
 
   after_create :assign_priority
   before_destroy :reorder_priority

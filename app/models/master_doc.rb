@@ -12,7 +12,7 @@ class MasterDoc < ActiveRecord::Base
   private
   def update_priority
     #self.move_to_bottom
-    self.priority_number = self.entity.master_docs.length+1 if self.new_record?
+    self.priority_number = self.entity.master_docs.length + 1 if self.new_record?
   end
 
   def update_priority_before_destroy

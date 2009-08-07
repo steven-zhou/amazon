@@ -1,7 +1,7 @@
 Factory.define :male, :class => Gender do |f|
-  f.name "Male"
+  f.sequence(:name) { |n| "Male #{n}" }
 end
 
 Factory.define :female, :class => Gender do |f|
-  f.name "Female"
+  f.sequence(:name) { |n| "Female #{n}" }
 end

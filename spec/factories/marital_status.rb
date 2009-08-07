@@ -1,15 +1,15 @@
 Factory.define :single, :class => MaritalStatus do |f|
-  f.name "Single"
+  f.sequence(:name) { |n| "Single #{n}" }
 end
 
 Factory.define :married, :class => MaritalStatus do |f|
-  f.name "Married"
+  f.sequence(:name) { |n| "Married #{n}" }
 end
 
 Factory.define :divorced, :class => MaritalStatus do |f|
-  f.name "Divorced"
+  f.sequence(:name) { |n| "Divorced #{n}" }
 end
 
 Factory.define :engaged, :class => MaritalStatus do |f|
-  f.name "Engaged"
+  f.sequence(:name) { |n| "Engaged #{n}" }
 end

@@ -1,3 +1,3 @@
 Factory.define :language do |f|
-  f.name "English"
+  f.sequence(:name) { |n| "Language #{n}" }
 end
