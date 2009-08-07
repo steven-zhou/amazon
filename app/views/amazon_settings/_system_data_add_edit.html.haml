@@ -1,0 +1,18 @@
+-form_for @amazonsetting, :url=> {:controller => 'amazon_settings', :action => @amazonsetting.new_record? ? 'create' : 'update', :id => @amazonsetting.id}, :html => {:class => 'ajax_form'} do |setting|
+  .form_line
+    .field_80
+      =setting.label :name, 'Name'
+      =setting.text_field :name
+    .field_80
+      =setting.label :description, 'Description'
+      =setting.text_field :description
+    .field_80
+      =setting.label :status, 'Status'
+      =setting.radio_button :status, true, :style => "display:inline;width:20%"
+      %label{:style => "display:inline"}  Active
+      =setting.radio_button :status, false, :style => "display:inline;width:20%"
+      %label{:style => "display:inline"}  Inactive
+    .field_80
+      %input{:style => "display:none;", :id => "type", :name => "type", :value => @amazonsetting.class.to_s}
+  %br.clear
+  = submit_tag 'Submit'

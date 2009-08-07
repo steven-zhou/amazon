@@ -1,0 +1,8 @@
+<% unless @amazonsettings.nil? %>
+  <% options = String.new %>
+  <% options += "<option value='0'> New Record </option>" %>
+  <% for setting in @amazonsettings %>
+    <% options += "<option value='#{setting.id}'>#{setting.name}</option>" %>
+  <% end %>
+  $("#data_list_field").html('<%=escape_javascript("#{options}")%>');
+<% end %>

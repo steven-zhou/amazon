@@ -1,0 +1,5 @@
+=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+#tabs{:style => "width:96%;"}
+  = render :partial => 'admin_menu'
+  #SystemData
+    = render :partial => 'system_data', :locals => {:amazonsettings => @amazonsettings}
