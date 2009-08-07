@@ -2,8 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PeopleController do
   before(:each) do
-    @person = Factory.build(:person, :id => 1)
-    @attributes = Factory.attributes_for(:person)
+    @person = Factory.build(:john)
+    @attributes = Factory.attributes_for(:john)
     Person.stub!(:find).and_return(@person)
   end
   

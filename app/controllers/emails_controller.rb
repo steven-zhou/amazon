@@ -24,7 +24,7 @@ class EmailsController < ApplicationController
   end
 
   def update
-    @email = Email.find(params[:id])
+    @email = Email.find(params[:id].to_i)
     respond_to do |format|
       if @email.update_attributes(params[:email])  
         format.js { render 'show.js' }
@@ -33,7 +33,7 @@ class EmailsController < ApplicationController
   end
 
   def destroy
-    @email = Email.find(params[:id])
+    @email = Email.find(params[:id].to_i)
     @email.destroy
     respond_to do |format|
       format.js

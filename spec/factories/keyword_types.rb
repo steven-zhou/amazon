@@ -1,3 +1,4 @@
 Factory.define :keyword_type do |f|
-  f.name "type"
+  f.sequence(:id) { |n| n }
+  f.sequence(:name) { |n| "name #{n}" }
 end

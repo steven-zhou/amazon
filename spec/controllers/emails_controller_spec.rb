@@ -4,14 +4,12 @@ describe EmailsController do
   before(:each) do
     @email = Factory.build(:email)  
     @attributes = Factory.attributes_for(:email)
-    # Email.stub!(:find).and_return(@email)
     @person = @email.contactable
-    Person.stub!(:find).and_return(@person)
   end
 
 
   def post_create_info
-    xhr :post, "create",:email => @attributes
+    xhr :post, "create",:email => @attributes, :person_id => @person.id
   end
 
 
@@ -19,7 +17,6 @@ describe EmailsController do
   def put_update(options = {})
     options[:id] ||= @email.id
     options[:email] ||= @attributes
-
 #    options[:email][@email.id.to_s] = @attributes
     put :update,options
   end
@@ -60,44 +57,33 @@ describe EmailsController do
   end
     
   describe "GET 'update'" do
-#    before(:each) do
-#      Email.stub!(:find).and_return(@email)
-#    end
+    before(:each) do
+      Email.stub!(:find).and_return(@email)
+      Email.stub!(:contactable).and_return(@person)
+      Email.contactable.stub!(:emails).and_return([@email])
+    end
 
 
     it "should get the request Email general info" do
-      Email.should_receive(:find).with(@email.id.to_s).and_return(@email)
+      Email.should_receive(:find).with(@email.id).and_return(@email)
       put_update :id => @email.id
     end
 
      it "should update the  email information" do
-
       @email.should_receive(:update_attributes).with(hash_including(@attributes)).and_return(true)
       put_update
      end
-#      it "should got the Email with id" do
-#        Email.should_receive(:find).with(@email.id.to_s).and_return(@email)
-#        put_update
-#      end
-
-#      it "should update the email with params[:id]" do
-#         @email.should_receive(:update_attributes).with(hash_including(@attributs))
-#         put_update
-#       end
-
-#       it "should render template Emails/show.js" do
-#         put_update
-#         response.should render_template("emails/show.js.erb")
-#       end
 
   end
 
   describe "GET 'destroy'" do
     before(:each) do
-      # Email.stub!(:find).and_return(@email)
-    end
-    it "should find a existed email with params[:id]" do
-      Email.should_receive(:find).with(@email.id.to_s).and_return(@email)
+      Email.stub!(:find).and_return(@email)
+      Email.stub!(:contactable).and_return(@person)
+      Email.contactable.stub!(:emails).and_return([@email])
+     end
+    it "should find an existing email with params[:id]" do
+      Email.should_receive(:find).with(@email.id).and_return(@email)
       delete_destroy
     end
 

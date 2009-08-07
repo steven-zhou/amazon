@@ -1,14 +1,14 @@
 class PhonesController < ApplicationController
   
   def show
-    @phone = Phone.find(params[:id])
+    @phone = Phone.find(params[:id].to_i)
     respond_to do |format|
       format.js
     end
   end
   
   def create
-    @person = Person.find(params[:person_id])
+    @person = Person.find(params[:person_id].to_i)
     @phone = @person.phones.new(params[:phone])
     @phone.save
     respond_to do |format|
@@ -17,14 +17,14 @@ class PhonesController < ApplicationController
   end
   
   def edit
-    @phone= Phone.find(params[:id])
+    @phone= Phone.find(params[:id].to_i)
     respond_to do |format|
       format.js
     end
   end
 
   def update
-    @phone = Phone.find(params[:id])
+    @phone = Phone.find(params[:id].to_i)
     respond_to do |format|
       if @phone.update_attributes(params[:phone])  
         format.js { render 'show.js' }
@@ -33,7 +33,7 @@ class PhonesController < ApplicationController
   end
 
   def destroy
-    @phone = Phone.find(params[:id])
+    @phone = Phone.find(params[:id].to_i)
     @phone.destroy
     respond_to do |format|
       format.js
