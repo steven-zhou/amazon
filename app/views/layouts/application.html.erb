@@ -21,8 +21,11 @@
     <body>
         <div id="root">
             <div id="modules_container">
+                <div class="module_item">                  
+                  <%= link_to( image_tag('person_profile.png'), :controller => "people", :action => "show", :id => "") %>                  
+                </div>
                 <div class="module_item">
-                  <%= link_to( image_tag('person_profile.png'), :controller => "people", :action => "show", :id => "") %>
+                  <%= link_to( image_tag('person_icon.png'), :controller => "amazon_settings", :action => "index") %>
                 </div>
             </div>
 

@@ -31,6 +31,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get}
+  map.resources :amazon_settings, :shallow => true, :collection => {:data_list_finder => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

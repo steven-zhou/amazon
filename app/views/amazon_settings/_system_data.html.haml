@@ -1,0 +1,19 @@
+.info_container{:style => "width:50%;"}
+  #left
+    %h3 System Data
+    .form_line
+      .field_80
+        %label Data Type
+        %select{:id => "find_data_list_field"}
+          = @amazonsettings.first.options_for_select
+      %br.clear
+    .form_line
+      .field_80
+        %label Data List
+        %select{:size => "20", :id => "data_list_field"}
+  #right
+    %div#setting{:style => "margin-top:75px;"}
+      -#= render :partial => '/amazon_settings/system_data_add_edit', :locals => { :amazonsetting => @amazonsetting }
+
+  %br.clear
+  

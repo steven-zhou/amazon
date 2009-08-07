@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090802231014) do
+ActiveRecord::Schema.define(:version => 20090807001232) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(:version => 20090802231014) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
+    t.boolean  "status"
   end
 
   create_table "contact_meta_types", :force => true do |t|

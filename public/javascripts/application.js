@@ -338,3 +338,39 @@ formatCurrency= function(num){
         num.substring(num.length-(4*i+3));
     return (((sign)?'':'-') + '$' + num + '.' + cents);
 }
+
+//Admin - System Data Tab
+$(function(){
+    $("#find_data_list_field").wait(1).change();
+});
+
+$(function(){
+    $("#find_data_list_field").live('change', function(){
+       $.ajax({
+          type: "GET",
+          url: "/amazon_settings/data_list_finder.js",
+          data: 'type=' + $(this).val(),
+          dataType: "script"
+       });
+    });
+});
+
+$(function(){
+   $("#data_list_field").live('change', function(){
+      if($(this).val()==0){
+          $.ajax({
+            type: "GET",
+            url: "/amazon_settings/new.js",
+            data: 'type=' + $("#find_data_list_field").val(),
+            dataType: "script"
+          });
+      }else{
+          $.ajax({
+            type: "GET",
+            url: "/amazon_settings/" + $(this).val() + "/edit.js",
+            data: 'id=' + $(this).val(),
+            dataType: "script"
+          });
+      }
+   });
+});
