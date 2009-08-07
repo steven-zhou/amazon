@@ -205,26 +205,26 @@ $(function(){
 
 
 $(function(){
-  $(".find_role_field").live('change',function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/"+$(this).attr('person_id')+"/roles/get_roles.js",
-      data: 'role_type_id='+$(this).val()+'&person_role_id='+$(this).attr('person_role_id'),
-      dataType: "script"
+    $(".find_role_field").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/"+$(this).attr('person_id')+"/roles/get_roles.js",
+            data: 'role_type_id='+$(this).val()+'&person_role_id='+$(this).attr('person_role_id'),
+            dataType: "script"
+        });
     });
-  });
 });
 
 
 $(function(){
-  $(".check_person_field").live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/name_finder.js",
-      data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
-      dataType: "script"
+    $(".check_person_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/name_finder.js",
+            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
+            dataType: "script"
+        });
     });
-  });
 });
 
 
@@ -240,7 +240,7 @@ $(function(){
                 dataType: "script"
             });
         }else{
-            $(".organisation_name_container#"+$(this).attr('employment_id')).val("");
+            $("#organisation_name_container_"+$(this).attr('employment_id')).html(" ");
         }
     });
 });
@@ -262,8 +262,17 @@ $(function(){
 
 $(function(){
     $(".calculate_field").live('change', function(){
-        _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
-        $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if (_valid)
+        {
+            _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
+            $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
+        }else{            
+            alert("This field has be a number!");
+            $(this).focus();
+            $(this).val(0);
+            $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
+        }
     });
 });
 
@@ -293,25 +302,25 @@ $(function(){
 
 /* MasterDoc */
 $(function(){
-  $(".find_master_doc_meta_type_field").live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/master_doc_meta_type_finder.js",
-      data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-      dataType: "script"
+    $(".find_master_doc_meta_type_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/master_doc_meta_type_finder.js",
+            data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            dataType: "script"
+        });
     });
-  });
 });
 
 $(function(){
-  $(".find_master_doc_type_field").live('change', function(){
-    $.ajax({
-      type: "GET",
-      url: "/people/master_doc_type_finder.js",
-      data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-      dataType: "script"
+    $(".find_master_doc_type_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/master_doc_type_finder.js",
+            data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            dataType: "script"
+        });
     });
-  });
 });
 
 formatCurrency= function(num){

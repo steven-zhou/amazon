@@ -38,7 +38,7 @@
       %h3{:style=>"float:left"} Picture
       = render :partial => '/images/show_photo', :locals => {:person => @person}
     = submit_tag 'Submit and Close', :style => 'float:right;'
-    = submit_tag 'Submit', :style => 'float:right;'
+    = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
     
 
 #right
