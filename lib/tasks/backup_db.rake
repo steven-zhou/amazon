@@ -2,6 +2,7 @@ require 'find'
 require 'ftools'
 namespace :db do
   desc "Backup the database to a file. Options: DIR=base_dir RAILS_ENV=production MAX=20"
+  puts "Backup environment is #{RAILS_ENV}"
   task :backup => [:environment] do
     puts "Backup environment is #{RAILS_ENV}"
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
