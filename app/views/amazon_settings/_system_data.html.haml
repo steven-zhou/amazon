@@ -5,7 +5,7 @@
       .field_80
         %label Data Type
         %select{:id => "find_data_list_field"}
-          = @amazonsettings.first.options_for_select
+          = @amazonsetting.distinct_setting_type
       %br.clear
     .form_line
       .field_80

@@ -1,13 +1,9 @@
 class AmazonSetting < ActiveRecord::Base
   
-
-  def options_for_select
-    sql = "SELECT distinct(type) FROM amazon_settings"
-    db_data = ActiveRecord::Base.connection.execute(sql)
+  def distinct_setting_type
+    @setting = AmazonSetting.find(:all, :select => "DISTINCT type")
     results = ""
-    for row in db_data do
-      results += "<option value='" + "#{row[0]}" + "'>" + "#{row[0]}" + "</option>"
-    end
+    @setting.each { |setting| results += "<option value='" + "#{setting.type}" + "'>" + "#{setting.type}" + "</option>" }
     return results
   end
   
