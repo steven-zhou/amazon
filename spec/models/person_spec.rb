@@ -2,8 +2,8 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Person do
   before(:each) do
-    @attributes = Factory.attributes_for(:person)
-    @person = Factory.build(:person)
+    @attributes = Factory.attributes_for(:john)
+    @person = Factory.build(:john)
   end
   
   it { should validate_presence_of(:family_name)}

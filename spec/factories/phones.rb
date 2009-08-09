@@ -1,4 +1,5 @@
-Factory.define :phone, :parent => :contact, :class=>Phone do |f|
+Factory.define :phone, :parent => :contact, :class => Phone do |f|
+  f.sequence(:priority_number) { |n| n }
   f.pre_value  "02"
   f.value  "9876 1111"
   f.post_value  "ext 4356"
@@ -6,6 +7,6 @@ Factory.define :phone, :parent => :contact, :class=>Phone do |f|
   f.preferred_day  "Mon-Fri"
   f.remarks  "Remarkable"
   
-  f.association :contact_type
-  f.association :contactable, :factory => :person
+  f.association :contact_type, :factory => :ct_phone_home
+  f.association :contactable, :factory => :john
 end

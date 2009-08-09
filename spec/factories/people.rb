@@ -2,6 +2,7 @@ Factory.define :invalid_person, :class =>Person do |f|
 end
 
 Factory.define :john, :class => Person do |f|
+  f.sequence(:id) { |n| n }
   f.first_name "John"
   f.middle_name "Buck"
   f.family_name "Doe"
@@ -18,6 +19,7 @@ Factory.define :john, :class => Person do |f|
 end
 
 Factory.define :jane, :class => Person do |f|
+  f.sequence(:id) { |n| n }
   f.first_name "Jane"
   f.middle_name "Rose"
   f.family_name "Doe"

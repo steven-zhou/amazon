@@ -5,7 +5,7 @@ class AddressType < AmazonSetting
   has_many :addresses
 
   validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :message => "An address type already exists with the same name."
 
   after_create :assign_priority
   before_destroy :reorder_priority
