@@ -5,7 +5,6 @@
       %h3= employment.organisation.full_name
     .options
       = link_to image_tag('edit_icon.png'), edit_employment_path(employment), :class => 'get'
-      = link_to image_tag('delete_icon.png'), employment_path(employment), :class => 'delete'
     %br{ :style => "clear:both;"}
   .display_container
     = format_employment(employment)

@@ -36,7 +36,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
 
+
   map.resources :role_conditions, :collection => {:show_roles => :get}
+
+  map.resources :doc_types
+
   
   
   # The priority is based upon order of creation: first created -> highest priority.

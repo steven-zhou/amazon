@@ -1,0 +1,22 @@
+.info_container
+  %h3 Docs Types
+  %div
+    -form_for @master_doc_meta_meta_type, :url=> {:controller => 'doc_type'}, :html => {:class => 'ajax_form'} do |meta_meta|
+      %fieldset
+        %h3 Docs Meta Meta Types
+        .form_line
+          .field_20
+            =meta_meta.label :name, 'Docs Meta Meta Type'
+            %select
+              %option add new
+          #meta_meta_type
+            = render :partial => "/doc_types/meta_meta_type", :locals => {:meta_meta => meta_meta}
+          %br.clear
+      %div#meta_type
+        -#= render :partial => "/doc_types/meta_type"
+
+      %div#type
+        -#= render :partial => "/doc_types/type"
+
+      = submit_tag 'Submit'
+      %br.clear

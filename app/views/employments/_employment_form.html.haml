@@ -2,67 +2,70 @@
 .form_line
   .field_25
     =employment.label :organisation_id, "Organisation ID"
-    =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id
-  .field_50
+    =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :readonly=>@employment.status == false
+  .field_40
     %label &nbsp;
     -if @employment.new_record?
       %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} &nbsp;
     -else
       %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} #{@employment.organisation.full_name}
-  .field_25
-    =employment.label :id, "Employment ID"
-    =employment.text_field :id, :disabled=>true, :class=>"disabled"
+  .field_33
+    =employment.label :status, "Status"
+    =employment.radio_button :status, true, :style => "width:10%", :checked => true
+    %label{:style => "display:inline"} Active
+    =employment.radio_button :status, false, :style => "width:10%"
+    %label{:style => "display:inline"} Inactive
   %br.clear
 .form_line
   .field_25
     =employment.label :staff_reference, "Reference Number"
-    =employment.text_field :staff_reference
+    =employment.text_field :staff_reference, :readonly=>@employment.status == false
   .field_25
     =employment.label :department, "Department"
-    =employment.text_field :department
+    =employment.text_field :department, :readonly=>@employment.status == false
   .field_25
     =employment.label :section, "Section"
-    =employment.text_field :section
+    =employment.text_field :section, :readonly=>@employment.status == false
   .field_25
     =employment.label :pay_cost_centre, "Cost Centre"
-    =employment.text_field :pay_cost_centre
+    =employment.text_field :pay_cost_centre, :readonly=>@employment.status == false
   %br.clear
 
 .form_line
-  .field_full.center Position
+  .field_full Position
 
 .form_line
   .field_25
     =employment.label :position_name, "Name"
-    =employment.text_field :position_name
+    =employment.text_field :position_name, :readonly=>@employment.status == false
   .field_25
     =employment.label :position_title, "Description"
-    =employment.text_field :position_title
+    =employment.text_field :position_title, :readonly=>@employment.status == false
   .field_25
     =employment.label :commenced_date, "Commenced Date"
-    =employment.text_field :commenced_date, :class=>"datepick", :value=>@employment.commenced_date.to_s
+    =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "datepick", :value=>@employment.commenced_date.to_s, :readonly=>@employment.status == false
   .field_25
     =employment.label :term_end_date, "Term End Date"
-    =employment.text_field :term_end_date, :class=>"datepick", :value=>@employment.term_end_date.to_s
+    =employment.text_field :term_end_date, :class=>@employment.status==false ? "" : "datepick", :value=>@employment.term_end_date.to_s, :readonly=>@employment.status == false
   %br.clear
 .form_line
   .field_25
     =employment.label :position_classification, "Classification"
-    =employment.text_field :position_classification
+    =employment.text_field :position_classification, :readonly=>@employment.status == false
   .field_25
     =employment.label :position_type, "Position Type"
-    =employment.text_field :position_type
+    =employment.text_field :position_type, :readonly=>@employment.status == false
   .field_25
     =employment.label :award_agreement, "Award Agreement"
-    =employment.text_field :award_agreement
+    =employment.text_field :award_agreement, :readonly=>@employment.status == false
   .field_25
     =employment.label :award_other, "Award Othhers"
-    =employment.text_field :award_other
+    =employment.text_field :award_other, :readonly=>@employment.status == false
   %br.clear
 .form_line
   .field_25
     =employment.label :hired_by, "Hired By"
-    =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
+    =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :readonly=>@employment.status == false
   .field_25
     %label &nbsp;
     -if (!@employment.new_record? && !@employment.emp_recruiter.nil?)
@@ -71,7 +74,7 @@
       %span{:class=>"viewname", :id=>@employment.new_record? ? "recruiter_container_0" : "recruiter_container_#{@employment.id}"} &nbsp;
   .field_25
     =employment.label :report_to, "Report To"
-    =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
+    =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :readonly=>@employment.status == false
   .field_25
     %label &nbsp;
     -if (!@employment.new_record? && !@employment.emp_supervisor.nil?)
@@ -82,46 +85,48 @@
 .form_line
   .field_25
     =employment.label :position_status, "Position Status"
-    =employment.text_field :position_status
+    =employment.text_field :position_status, :readonly=>@employment.status == false
   .field_75
     =employment.label :duties_resposibilities, "Duties and Responsibilities"
-    =employment.text_field :duties_resposibilities
+    =employment.text_field :duties_resposibilities, :readonly=>@employment.status == false
   %br.clear
 
 
 .form_line
-  .field_full.center Payment
+  .field_full
+    =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"
+    = "Payment"
+
+%div{:style => "display:none", :id => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"}
+  .form_line
+    .field_25
+      =employment.label :weekly_nominal_hours, "Weekly Hours"
+      =employment.text_field :weekly_nominal_hours, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.weekly_nominal_hours, :id=>@employment.new_record? ? "hour_0" : "hour_" + "#{@employment.id}", :readonly=>@employment.status == false
+    .field_25
+      =employment.label :hourly_rate, "Hourly Rate"
+      =employment.text_field :hourly_rate, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.hourly_rate, :id=>@employment.new_record? ? "rate_0" : "rate_"+ "#{@employment.id}", :readonly=>@employment.status == false
+    .field_25
+      =employment.label :annual_base_salary, "Annual Base Salary"
+      =employment.text_field :annual_base_salary, :disabled=>true, :value=>@employment.new_record? ? number_to_currency(0) : number_to_currency(@employment.annual_base_salary), :class=>"disabled", :id=>@employment.new_record? ? "salary_0" : "salary_"+ "#{@employment.id}"
+    .field_25
+      =employment.label :plus_package, "Package Plus"
+      =employment.text_field :plus_package, :readonly=>@employment.status == false
+    %br.clear
+  .form_line
+    .field_25
+      =employment.label :payment_frequency, "Payment Frequency"
+      =employment.text_field :payment_frequency, :readonly=>@employment.status == false
+    .field_25
+      =employment.label :payment_method, "Payment Method"
+      =employment.text_field :payment_method, :readonly=>@employment.status == false
+    .field_25
+      =employment.label :payment_day, "Payment Day"
+      =employment.text_field :payment_day, :readonly=>@employment.status == false
+    %br.clear
 
 
 .form_line
-  .field_25
-    =employment.label :weekly_nominal_hours, "Weekly Hours"
-    =employment.text_field :weekly_nominal_hours, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.weekly_nominal_hours, :id=>@employment.new_record? ? "hour_0" : "hour_" + "#{@employment.id}"
-  .field_25
-    =employment.label :hourly_rate, "Hourly Rate"
-    =employment.text_field :hourly_rate, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.hourly_rate, :id=>@employment.new_record? ? "rate_0" : "rate_"+ "#{@employment.id}"
-  .field_25
-    =employment.label :annual_base_salary, "Annual Base Salary"
-    =employment.text_field :annual_base_salary, :disabled=>true, :value=>@employment.new_record? ? number_to_currency(0) : number_to_currency(@employment.annual_base_salary), :class=>"disabled", :id=>@employment.new_record? ? "salary_0" : "salary_"+ "#{@employment.id}"
-  .field_25
-    =employment.label :plus_package, "Package Plus"
-    =employment.text_field :plus_package
-  %br.clear
-.form_line
-  .field_25
-    =employment.label :payment_frequency, "Payment Frequency"
-    =employment.text_field :payment_frequency
-  .field_25
-    =employment.label :payment_method, "Payment Method"
-    =employment.text_field :payment_method
-  .field_25
-    =employment.label :payment_day, "Payment Day"
-    =employment.text_field :payment_day
-  %br.clear
-
-
-.form_line
-  .field_full.center     
+  .field_full   
     =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
     = "Suspension"
 
@@ -129,13 +134,13 @@
   .form_line
     .field_25
       =employment.label :suspension_start_date, "Start Date"
-      =employment.text_field :suspension_start_date, :class=>"datepick", :value=>@employment.suspension_start_date.to_s
+      =employment.text_field :suspension_start_date, :class=>@employment.status==false ? "" : "datepick", :value=>@employment.suspension_start_date.to_s, :readonly=>@employment.status == false
     .field_25
       =employment.label :suspension_end_date, "End Date"
-      =employment.text_field :suspension_end_date, :class=>"datepick", :value=>@employment.suspension_end_date.to_s
+      =employment.text_field :suspension_end_date, :class=>@employment.status==false ? "" : "datepick", :value=>@employment.suspension_end_date.to_s, :readonly=>@employment.status == false
     .field_25
-      =employment.label :suspended_by, "Suspended By (ID)"
-      =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
+      =employment.label :suspended_by, "Suspended By"
+      =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :readonly=>@employment.status == false
     .field_25
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_suspender.nil?)
@@ -146,19 +151,19 @@
   .form_line
     .field_25
       =employment.label :suspension_type, "Suspension Type"
-      =employment.text_field :suspension_type
+      =employment.text_field :suspension_type, :readonly=>@employment.status == false
     .field_25
       =employment.label :suspension_reason, "Suspension Reason"
-      =employment.text_field :suspension_reason
+      =employment.text_field :suspension_reason, :readonly=>@employment.status == false
     .field_50
       =employment.label :suspension_remarks, "Suspension Remarks"
-      =employment.text_field :suspension_remarks
+      =employment.text_field :suspension_remarks, :readonly=>@employment.status == false
     %br.clear
 
 
 
 .form_line
-  .field_full.center
+  .field_full
     =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
     = "Termination"
 
@@ -166,13 +171,13 @@
   .form_line
     .field_25
       =employment.label :termination_notice_date, "Notice Date"
-      =employment.text_field :termination_notice_date, :class=>"datepick", :value=>@employment.termination_notice_date.to_s
+      =employment.text_field :termination_notice_date, :class=>@employment.status==false ? "" : "datepick", :value=>@employment.termination_notice_date.to_s, :readonly=>@employment.status == false
     .field_25
       =employment.label :termination_date, "Termination Date"
-      =employment.text_field :termination_date, :class=>"datepick", :value=>@employment.termination_date.to_s
+      =employment.text_field :termination_date, :class=>@employment.status==false ? "" : "datepick", :value=>@employment.termination_date.to_s, :readonly=>@employment.status == false
     .field_25
-      =employment.label :terminated_by, "Terminated By (ID)"
-      =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id
+      =employment.label :terminated_by, "Terminated By"
+      =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :readonly=>@employment.status == false
     .field_25
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_terminator.nil?)
@@ -183,11 +188,11 @@
   .form_line
     .field_25
       =employment.label :termination_method, "Termination Method"
-      =employment.text_field :termination_method
+      =employment.text_field :termination_method, :readonly=>@employment.status == false
     .field_25
       =employment.label :termination_reason, "Termination Reason"
-      =employment.text_field :termination_reason
+      =employment.text_field :termination_reason, :readonly=>@employment.status == false
     .field_50
       =employment.label :terminated_remarks, "Termination Remarks"
-      =employment.text_field :termination_remarks
+      =employment.text_field :termination_remarks, :readonly=>@employment.status == false
     %br.clear
