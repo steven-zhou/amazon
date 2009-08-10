@@ -16,6 +16,6 @@ describe Website do
   it "should save a new record as a primary website if there is no phone belongs to contactable" do
     @website.contactable.websites.clear
     @website.save!
-    @website.first?.should == true
+    @website.priority_number.should == 1
   end
 end

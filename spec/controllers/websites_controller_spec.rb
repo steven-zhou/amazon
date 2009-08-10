@@ -2,17 +2,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WebsitesController do
   before(:each) do
-    @website = Factory.build(:website, :id => 1)
-  
+    @website = Factory.build(:website)  
     @attributes = Factory.attributes_for(:website)
-    Website.stub!(:find).and_return(@website)
-    @person = Factory.build(:person)
-    Person.stub!(:find).and_return(@person)
+    @person = @website.contactable
   end
 
 
   def post_create_info
-    xhr :post, "create",:website => @attributes
+    xhr :post, "create", :website => @attributes, :person_id => @person.id
   end
 
 
@@ -25,7 +22,7 @@ describe WebsitesController do
   end
 
 
-   def delete_destroy(options = {})
+  def delete_destroy(options = {})
     options[:id] ||= @website.id
     delete :destroy, options
   end
@@ -39,6 +36,8 @@ describe WebsitesController do
   describe "GET 'create'" do
     before(:each) do
       Website.stub!(:new).and_return(@website)
+      Website.stub!(:contactable).and_return(@person)
+      Website.contactable.stub!(:websites).and_return([@website])
     end
 
     it "should create a new website with params[:website]" do
@@ -59,9 +58,13 @@ describe WebsitesController do
   end
     
   describe "GET 'update'" do
-#    before(:each) do
-#      Website.stub!(:find).and_return(@website)
-#    end
+    
+    before(:each) do
+      Website.stub!(:find).and_return(@website)
+      Website.stub!(:new).and_return(@website)
+      Website.stub!(:contactable).and_return(@person)
+      Website.contactable.stub!(:websites).and_return([@website])
+    end
 
 
     it "should get the request Website general info" do
@@ -69,32 +72,23 @@ describe WebsitesController do
       put_update :id => @website.id
     end
 
-     it "should update the  website information" do
+    it "should update the  website information" do
 
       @website.should_receive(:update_attributes).with(hash_including(@attributes)).and_return(true)
       put_update
-     end
-#      it "should got the Website with id" do
-#        Website.should_receive(:find).with(@website.id.to_s).and_return(@website)
-#        put_update
-#      end
+    end
 
-#      it "should update the website with params[:id]" do
-#         @website.should_receive(:update_attributes).with(hash_including(@attributs))
-#         put_update
-#       end
-
-#       it "should render template websites/show.js" do
-#         put_update
-#         response.should render_template("websites/show.js.erb")
-#       end
 
   end
 
   describe "GET 'destroy'" do
     before(:each) do
       Website.stub!(:find).and_return(@website)
+      Website.stub!(:new).and_return(@website)
+      Website.stub!(:contactable).and_return(@person)
+      Website.contactable.stub!(:websites).and_return([@website])
     end
+
     it "should find a existed website with params[:id]" do
       Website.should_receive(:find).with(@website.id.to_s).and_return(@website)
       delete_destroy

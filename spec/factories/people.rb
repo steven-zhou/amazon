@@ -1,6 +1,23 @@
 Factory.define :invalid_person, :class =>Person do |f|
 end
 
+Factory.define :person, :class => Person do |f|
+  f.sequence(:id) { |n| n }
+  f.first_name "First_Name"
+  f.middle_name "Middle_Name"
+  f.family_name "Family_Name"
+  f.maiden_name "Maiden_Name"
+  f.preferred_name "Preferred_Name"
+  f.initials "INITIALS"
+  f.primary_salutation "Mr. John Doe"
+
+  #Association
+  f.association :primary_title, :factory => :mr
+  f.association :second_title, :factory => :prof
+  f.association :gender, :factory => :male
+  f.association :marital_status, :factory => :single
+end
+
 Factory.define :john, :class => Person do |f|
   f.sequence(:id) { |n| n }
   f.first_name "John"

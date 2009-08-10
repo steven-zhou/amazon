@@ -1,3 +1,4 @@
 Factory.define :role_type do |f|
-  f.name "admin"
+  f.sequence(:id) { |n| n }
+  f.sequence(:name) { |n| "Role #{n}" }
 end
