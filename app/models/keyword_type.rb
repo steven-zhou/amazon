@@ -8,6 +8,8 @@ class KeywordType < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  has_many :keywords
+
   private
 
   def assign_priority

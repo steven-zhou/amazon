@@ -40,6 +40,5 @@ describe Fax do
   it "should save a new record as a primary fax if there is no fax belongs to contactable" do
     @fax.contactable.faxes.clear
     @fax.save!
-    @fax.first?.should == true
-  end
+    @fax.priority_number.should == 1  end
 end

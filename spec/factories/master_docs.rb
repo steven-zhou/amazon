@@ -1,4 +1,4 @@
-Factory.define :master_doc do |f|
+Factory.define :master_doc, :class => MasterDoc do |f|
   f.sequence(:id) { |n| n }
   f.sequence(:priority_number) { |n| n }
   f.sequence(:doc_number) { |n| "doc_number_#{n}"}

@@ -40,6 +40,6 @@ describe Phone do
   it "should save a new record as a primary phone if there is no phone belongs to contactable" do
     @phone.contactable.phones.clear
     @phone.save!
-    @phone.first?.should == true
+    @phone.priority_number.should == 1
   end
 end

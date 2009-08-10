@@ -3,16 +3,18 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe FaxesController do
 
   before(:each) do
-    @fax = Factory.build(:fax, :id => 1)
-
+    @fax = Factory.build(:fax)
     @attributes = Factory.attributes_for(:fax)
+    @person = @fax.contactable
+
     Fax.stub!(:find).and_return(@fax)
-    @person = Factory.build(:person)
-    Person.stub!(:find).and_return(@person)
+    Fax.stub!(:new).and_return(@fax)
+    Fax.stub!(:contactable).and_return(@person)
+    Fax.contactable.stub!(:faxes).and_return([@fax])
   end
 
   def post_create_info
-    xhr :post, "create",:fax => @attributes
+    xhr :post, "create",:fax => @attributes, :person_id => @person.id
   end
 
 
@@ -25,7 +27,7 @@ describe FaxesController do
   end
 
 
-   def delete_destroy(options = {})
+  def delete_destroy(options = {})
     options[:id] ||= @fax.id
     delete :destroy, options
   end
@@ -61,16 +63,16 @@ describe FaxesController do
   end
 
   describe "GET 'update'" do
-      it "should get the request fax general info" do
+    it "should get the request fax general info" do
       Fax.should_receive(:find).with(@fax.id.to_s).and_return(@fax)
       put_update :id => @fax.id
     end
 
-     it "should update the  fax information" do
+    it "should update the  fax information" do
 
       @fax.should_receive(:update_attributes).with(hash_including(@attributes)).and_return(true)
       put_update
-     end
+    end
   end
 
   describe "GET 'destroy'" do
