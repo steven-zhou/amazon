@@ -3,3 +3,5 @@
   = render :partial => 'admin_menu'
   #SystemData
     = render :partial => '/amazon_settings/system_data', :locals => {:amazonsetting => @amazonsetting}
+  #DocsType
+    = render :partial => '/doc_types/doc_type', :locals => {:master_doc_meta_meta_type => @master_doc_meta_meta_type}
