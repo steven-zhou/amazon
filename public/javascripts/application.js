@@ -216,7 +216,7 @@ $(function(){
 });
 
 
-$(function(){
+/*$(function(){
     $(".check_person_field").live('change', function(){
         $.ajax({
             type: "GET",
@@ -225,6 +225,17 @@ $(function(){
             dataType: "script"
         });
     });
+});*/
+$(function(){
+   $(".check_person_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/role_finder.js",
+            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id'),
+            dataType: "script"
+        });
+    });
+
 });
 
 

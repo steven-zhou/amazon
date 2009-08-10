@@ -5,7 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get},
+    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
