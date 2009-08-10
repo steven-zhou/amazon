@@ -47,7 +47,7 @@ class AmazonSettingsController < ApplicationController
   end
 
   def data_list_finder
-    @amazonsettings = AmazonSetting.find_all_by_type(params[:type])    
+    @amazonsetting = AmazonSetting.find_all_by_type(params[:type])
     respond_to do |format|
       format.js
     end
