@@ -61,7 +61,6 @@ Rails::Initializer.run do |config|
 
   config.gem "thoughtbot-factory_girl", :lib => "factory_girl", :source => "http://gems.github.com"
   config.gem "haml"
-  config.gem "mysql"
   config.gem "mongrel"
   config.gem "remarkable_rails"
   config.gem "webrat"
