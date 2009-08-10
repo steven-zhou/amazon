@@ -13,7 +13,8 @@
         %label Data List
         %select{:size => "20", :id => "data_list_field"}
   #right
-    %div#setting{:style => "margin-top:75px;"}
+    %div#feedback{:style => "height:75px;"} &nbsp;
+    %div#setting
       -#= render :partial => '/amazon_settings/system_data_add_edit', :locals => { :amazonsetting => @amazonsetting }
 
   %br.clear

@@ -5,6 +5,8 @@
     <% options += "<option value='#{setting.id}'>#{setting.name}</option>" %>
   <% end %>
   $("#data_list_field").html('<%=escape_javascript("#{options}")%>');
+  $("#setting").html('');
   <% else %>
   $("#data_list_field").html('');
+  $("#setting").html('');
 <% end %>
