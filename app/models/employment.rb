@@ -8,10 +8,18 @@ class Employment < ActiveRecord::Base
   belongs_to :emp_suspender, :class_name => 'Person', :foreign_key => 'suspended_by'
   belongs_to :organisation
 
-  validates_presence_of :organisation_id
+  validates_presence_of :organisation, :commenced_date, :emp_recruiter
+  validates_associated :organisation, :emp_supervisor
+  validates_numericality_of :weekly_nominal_hours, :hourly_rate
+  validate :end_date_must_be_equal_or_after_commence_date
 
   before_save :update_priority, :calculate_salary
   before_destroy :update_priority_before_destroy
+
+  protected
+  def end_date_must_be_equal_or_after_commence_date
+      errors.add(:term_end_date, "can't be before commence date") if (!term_end_date.nil? && term_end_date < commenced_date)
+  end
 
 
   private

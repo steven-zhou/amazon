@@ -11,6 +11,8 @@
     =# Initially hidden new address form
     -form_for([@person,@relationship], :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|
       %fieldset
+        .options{:style => "float:right"}
+          = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_relationship"
         %h3 New Relationship
         = render :partial => '/relationships/relationship_form', :locals => { :relationship => relationship }
         = submit_tag 'Submit'

@@ -11,6 +11,8 @@
 
     -form_for([@person,@note], :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
       %fieldset
+        .options{:style => "float:right"}
+          = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_note"
         %h3 New Note
         = render :partial => '/notes/note_form', :locals => { :note => note }
         = submit_tag 'Submit'
