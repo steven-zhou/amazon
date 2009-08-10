@@ -216,6 +216,19 @@ $(function(){
 });
 
 
+$(function(){
+    $(".show_role").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/role_conditions/show_roles.js",
+            data: 'role_type_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+
 /*$(function(){
     $(".check_person_field").live('change', function(){
         $.ajax({

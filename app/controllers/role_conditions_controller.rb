@@ -1,0 +1,8 @@
+class RoleConditionsController < ApplicationController
+def show_roles
+   @role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    respond_to do |format|
+      format.js
+    end
+  end
+end

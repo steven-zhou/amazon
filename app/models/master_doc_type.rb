@@ -5,6 +5,7 @@ class MasterDocType < ActiveRecord::Base
 
   belongs_to :master_doc_meta_type
   has_many :master_docs
+  has_many :role_conditions
 
   
 end
