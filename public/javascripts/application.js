@@ -340,9 +340,6 @@ formatCurrency= function(num){
 }
 
 //Admin - System Data Tab
-$(function(){
-    $("#find_data_list_field").wait(1).change();
-});
 
 $(function(){
     $("#find_data_list_field").live('change', function(){

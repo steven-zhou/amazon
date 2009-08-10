@@ -2,4 +2,4 @@
 #tabs{:style => "width:96%;"}
   = render :partial => 'admin_menu'
   #SystemData
-    = render :partial => 'system_data', :locals => {:amazonsettings => @amazonsettings}
+    = render :partial => '/amazon_settings/system_data', :locals => {:amazonsetting => @amazonsetting}
