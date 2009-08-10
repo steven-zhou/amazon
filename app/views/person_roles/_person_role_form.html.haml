@@ -6,37 +6,49 @@
 .field_33
   = person_role.label :role_id, "Role"
   = person_role.collection_select :role_id, Role.all, :id, :name
-        
+
 %br{ :style=>"clear: both;"}
 
 .form_line
   .field_25
     = person_role.label :assigned_by, 'Assigned By'
-    = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container"
+    = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
   .field_25
-    = person_role.label :assigned_by, 'Assigner'
-    %input.assigner_container{:disabled=>true}
+    %label &nbsp;
+    -if (!@person_role.new_record? && !@person_role.role_assigner.nil?)
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} #{@person_role.role_assigner.name}
+    -else
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} &nbsp;
   %br{ :style=>"clear: both;"}
   .field_25
     = person_role.label :approved_by, "Approved By"
-    = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container"
+    = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
   .field_25
-    = person_role.label :approved_by, "Approver"
-    %input.approver_container{:disabled=>true}
+    %label &nbsp;
+    -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "approver_container_0" : "approver_container_#{@person_role.id}"} #{@person_role.role_approver.name}
+    -else
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "approver_container_0" : "approver_container_#{@person_role.id}"} &nbsp;
   %br{ :style=>"clear: both;"}
   .field_25
     = person_role.label :supervised_by, "Supervised By"
-    = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container"
+    = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container", :person_role_id=> @person_role.new_record? ? 0 : @person_role.id
   .field_25
-    = person_role.label :supervised_by, "Supperviser"
-    %input.superviser_container{:disabled=>true}
+    %label &nbsp;
+    -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} #{@person_role.role_superviser.name}
+    -else
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} &nbsp;
   %br{ :style=>"clear: both;"}
   .field_25
     = person_role.label :managed_by, "Managed By"
-    = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container"
+    = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
   .field_25
-    = person_role.label :managed_by, "Manager"
-    %input.manager_container{:disabled=>true}
+    %label &nbsp;
+    -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "manager_container_0" : "manager_container_#{@person_role.id}"} #{@person_role.role_manager.name}
+    -else
+      %span{:class=>"viewname", :id=>@person_role.new_record? ? "manager_container_0" : "manager_container_#{@person_role.id}"} &nbsp;
   %br{ :style=>"clear: both;"}
 
 .form_line
