@@ -1,0 +1,12 @@
+.field_20
+  =meta_meta.label :name, 'Docs Meta Meta Type Name'
+  =meta_meta.text_field :name
+.field_40
+  =meta_meta.label :description, 'Description'
+  =meta_meta.text_field :description
+.field_20
+  =meta_meta.label :status, 'Status'
+  =meta_meta.radio_button :status, true, :style => "width:10%"
+  %label{:style => "display:inline"} Active
+  =meta_meta.radio_button :status, false, :style => "width:10%"
+  %label{:style => "display:inline"} Inactive
