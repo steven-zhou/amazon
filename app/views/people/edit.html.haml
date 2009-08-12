@@ -1,16 +1,3 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(document).ready(function() {
-      toggleFormStatus()
-    });
-
-    function toggleFormStatus() {
-      if ($('#system_id_tag').val() == '') {
-          $('#left :input').attr('disabled', true);
-          $('#system_id_tag').attr('disabled', false);
-      }
-    }
-
 #left
   .header
     .title
