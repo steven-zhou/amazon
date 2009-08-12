@@ -126,7 +126,7 @@ $('.datepick').live("mouseover", function(){
 
 /* Disable form*/
 
-$(document).live('ready', function() {
+$(document).ready(function() {
     toggleFormStatus();
 });
 
