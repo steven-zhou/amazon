@@ -115,6 +115,35 @@ $('.birthdatepick').live("mouseover", function(){
     });
 });
 
+$('.startdatepick').live("mouseover", function(){
+    $("#"+$(this).attr("end_date")).datepicker('enable');
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true
+    });
+});
+
+
+$('.enddatepick').live("mouseover", function(){
+    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    if(year>0){
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(year, month-1, day)
+        });
+    }else{
+        $(this).datepicker('disable');
+    }
+});
+
 $('.datepick').live("mouseover", function(){
     $(this).datepicker({
         dateFormat: 'dd-mm-yy',

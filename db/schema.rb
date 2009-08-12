@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090810050035) do
+ActiveRecord::Schema.define(:version => 20090812034824) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -97,17 +97,11 @@ ActiveRecord::Schema.define(:version => 20090810050035) do
     t.integer  "organisation_id"
     t.integer  "sequence_no"
     t.string   "staff_reference"
-    t.string   "department"
-    t.string   "section"
     t.string   "position_reference"
     t.string   "position_name"
-    t.string   "position_title"
     t.date     "commenced_date"
     t.float    "term_length"
     t.date     "term_end_date"
-    t.string   "position_type"
-    t.string   "position_status"
-    t.string   "position_classification"
     t.string   "duties_resposibilities"
     t.integer  "hired_by"
     t.integer  "report_to"
@@ -115,27 +109,33 @@ ActiveRecord::Schema.define(:version => 20090810050035) do
     t.float    "hourly_rate"
     t.float    "annual_base_salary"
     t.string   "plus_package"
-    t.string   "pay_cost_centre"
-    t.string   "payment_frequency"
-    t.string   "payment_method"
-    t.string   "payment_day"
-    t.string   "award_agreement"
     t.string   "award_other"
     t.date     "suspension_start_date"
     t.date     "suspension_end_date"
     t.integer  "suspended_by"
-    t.string   "suspension_type"
     t.string   "suspension_reason"
     t.string   "suspension_remarks"
     t.date     "termination_notice_date"
     t.date     "termination_date"
     t.integer  "terminated_by"
-    t.string   "termination_method"
     t.string   "termination_reason"
     t.string   "termination_remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "status"
+    t.integer  "department_id"
+    t.integer  "section_id"
+    t.integer  "cost_centre_id"
+    t.integer  "position_title_id"
+    t.integer  "position_classification_id"
+    t.integer  "position_type_id"
+    t.integer  "award_agreement_id"
+    t.integer  "position_status_id"
+    t.integer  "payment_frequency_id"
+    t.integer  "payment_method_id"
+    t.integer  "payment_day_id"
+    t.integer  "suspension_type_id"
+    t.integer  "termination_method_id"
   end
 
   create_table "images", :force => true do |t|

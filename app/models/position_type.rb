@@ -1,15 +1,17 @@
-class Gender < AmazonSetting
+class PositionType < AmazonSetting
 
   acts_as_list
 
+  has_many :employments
+
   validates_presence_of :name
-  validates_uniqueness_of :name, :message => "A gender already exists with the same name."
+  validates_uniqueness_of :name, :message => "A position type already exists with the same name."
 
   after_create :assign_priority
   before_destroy :reorder_priority
 
-  def self.active_gender
-    @gender = Gender.find_all_by_status(true)
+  def self.active_position_type
+    @position_type = PositionType.find_all_by_status(true)
   end
 
   private

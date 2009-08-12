@@ -12,7 +12,7 @@
     = p.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {:include_blank => true}
   .field_20
     = p.label :gender, 'Gender'
-    = p.collection_select :gender_id, Gender.all, :id, :name, {:include_blank => true}
+    = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
   .field_33
     = p.label :religion_id, 'Religion'
     = p.collection_select :religion_id, Religion.all, :id, :name, {:include_blank => true}
