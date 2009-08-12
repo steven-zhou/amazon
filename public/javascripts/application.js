@@ -124,6 +124,19 @@ $('.datepick').live("mouseover", function(){
     });
 });
 
+/* Disable form*/
+
+$(document).ready(function() {
+    toggleFormStatus();
+});
+
+toggleFormStatus = function(){
+    if ($('#system_id_tag').val() == '') {
+        $('#left :input').attr('disabled', true);
+        $('#system_id_tag').attr('disabled', false);
+    }
+}
+
 /* Photo */
 //$("#edit_photo").live("submit",function(){
 //    $(this).ajaxSubmit({
@@ -227,7 +240,7 @@ $(function(){
     });
 });*/
 $(function(){
-   $(".check_person_field").live('change', function(){
+    $(".check_person_field").live('change', function(){
         $.ajax({
             type: "GET",
             url: "/people/role_finder.js",
