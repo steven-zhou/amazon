@@ -1,3 +1,7 @@
+Factory.define :title, :class => Title do |f|
+  f.sequence(:name) { |n| "Title #{n}" }
+end
+
 Factory.define :mr, :class => Title do |f|
   f.sequence(:name) { |n| "Mr #{n}" }
 end

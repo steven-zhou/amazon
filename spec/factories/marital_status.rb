@@ -1,3 +1,7 @@
+Factory.define :marital_status, :class => MaritalStatus do |f|
+  f.sequence(:name) { |n| "Marital Status #{n}" }
+end
+
 Factory.define :single, :class => MaritalStatus do |f|
   f.sequence(:name) { |n| "Single #{n}" }
 end
