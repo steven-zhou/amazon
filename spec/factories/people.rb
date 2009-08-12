@@ -12,10 +12,10 @@ Factory.define :person, :class => Person do |f|
   f.primary_salutation "Mr. John Doe"
 
   #Association
-  f.association :primary_title, :factory => :mr
-  f.association :second_title, :factory => :prof
-  f.association :gender, :factory => :male
-  f.association :marital_status, :factory => :single
+  f.association :primary_title, :factory => :title
+  f.association :second_title, :factory => :title
+  f.association :gender, :factory => :gender
+  f.association :marital_status, :factory => :marital_status
 end
 
 Factory.define :john, :class => Person do |f|
