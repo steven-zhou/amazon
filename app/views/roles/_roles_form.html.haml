@@ -1,7 +1,7 @@
 #role_types
   .field_33
     = role.label :role_type_id, "Role Types"
-    = role.collection_select :role_type_id, RoleType.all, :id, :name, {:prompt => "Select one type"}
+    = role.collection_select :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}
 %br{ :style=>"clear: both;"}
 
 

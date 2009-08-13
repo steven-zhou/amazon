@@ -26,7 +26,7 @@
           .form_line
             .field_20
               = p.label :primary_title_id, 'Title'
-              = p.collection_select :primary_title_id, Title.all, :id, :name, {:include_blank => true}
+              = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}
             .field_40
               = p.label :first_name, "First Names"
               = p.text_field :first_name
@@ -37,7 +37,7 @@
           .form_line
             .field_20
               = p.label :second_title_id, '2nd Title'
-              = p.collection_select :second_title_id, Title.all, :id, :name, {:include_blank => true}
+              = p.collection_select :second_title_id, Title.active_title, :id, :name, {:include_blank => true}
             .field_40
               = p.label :middle_name, 'Middle Names'
               = p.text_field :middle_name
@@ -64,13 +64,13 @@
           .form_line
             .field_33
               = p.label :marital_status, 'Marital Status'
-              = p.collection_select :marital_status_id, MaritalStatus.all, :id, :name, {:include_blank => true}
+              = p.collection_select :marital_status_id, MaritalStatus.active_marital_status, :id, :name, {:include_blank => true}
             .field_20
               = p.label :gender, 'Gender'
-              = p.collection_select :gender_id, Gender.all, :id, :name, {:include_blank => true}
+              = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
             .field_33
               = p.label :religion_id, 'Religion'
-              = p.collection_select :religion_id, Religion.all, :id, :name, {:include_blank => true}
+              = p.collection_select :religion_id, Religion.active_religion, :id, :name, {:include_blank => true}
             %br.clear
           .form_line
             .field_33
@@ -81,7 +81,7 @@
               = p.collection_select :nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
             .field_33
               = p.label :language_id, 'Language'
-              = p.collection_select :language_id, Language.all, :id, :name, {:include_blank => true}
+              = p.collection_select :language_id, Language.active_language, :id, :name, {:include_blank => true}
             %br.clear
           .form_line
             .field_33
@@ -92,12 +92,12 @@
               = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
             .field_33
               = p.label :other_language,"Other Language"
-              = p.collection_select :other_language_id, Language.all, :id, :name, {:include_blank => true}
+              = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
             %br.clear
           .form_line
             .field_33
               = p.label :industry_sector,"Industry Sector"
-              = p.collection_select :industry_sector_id, IndustrySector.all, :id, :name, {:include_blank => true}
+              = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
             .field_63
               = p.label :interests,"Interests"
               = p.text_field :interests
@@ -154,7 +154,7 @@
           .form_line
             .field_20
               = address.label :address_type_id, 'Type'
-              = address.collection_select :address_type_id, AddressType.all, :id, :name, {:include_blank => true}
+              = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name, {:include_blank => true}
             .field_40
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name
@@ -222,7 +222,7 @@
           .form_line
             .field_40
               = note.label :note_type_id, 'Type'
-              = note.collection_select :note_type_id, NoteType.all, :id, :name, {:include_blank => true}
+              = note.collection_select :note_type_id, NoteType.active_note_type, :id, :name, {:include_blank => true}
             %br.clear
             .field_40
               = note.label :label, 'Label'

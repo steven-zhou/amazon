@@ -21,7 +21,7 @@
       .form_line
         .field_20
           = p.label :title_id, 'Title'
-          = p.collection_select :primary_title_id, Title.all, :id, :name
+          = p.collection_select :primary_title_id, Title.active_title, :id, :name
         .field_40
           = p.label :first_name, "First Names"
           = p.text_field :first_name
@@ -32,7 +32,7 @@
       .form_line
         .field_20
           = p.label :second_title_id, '2nd Title'
-          = p.collection_select :second_title_id, Title.all, :id, :name, {:include_blank => true}
+          = p.collection_select :second_title_id, Title.active_title, :id, :name, {:include_blank => true}
         .field_40
           = p.label :middle_name, 'Middle Names'
           = p.text_field :middle_name

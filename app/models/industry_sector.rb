@@ -8,6 +8,10 @@ class IndustrySector < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.active_industry_sector
+    @industry_sector = IndustrySector.find_all_by_status(true)
+  end
+
   private
 
   def assign_priority
