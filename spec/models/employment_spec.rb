@@ -47,7 +47,8 @@ describe Employment do
     end
 
     it "should not save when supervisor is not blank but invalid" do
-      @employment = Factory.build(:employment, :report_to => "-1")
+      @employment = Factory.build(:employment)
+      @employment.report_to = "-1"
       @employment.save.should == false
       @employment.errors.on(:emp_supervisor).should_not be_nil
     end
@@ -56,17 +57,23 @@ describe Employment do
 
   describe "When creating or updating a valid record" do
     it "should add the new record to the bottom of the record list" do
-#      Employment.destroy_all
-#      @person = Factory(:john)
-#      puts " %% #{@person.id} %%"
-#      @employment1 = Factory(:employment, :employee => @person)
-#      @employment2 = Factory(:employment, :employee => @person)
-#      puts "-- Person saved = #{!@person.new_record?}"
-#      puts "-- Employment 1 saved = #{!@employment1.new_record?}"
-#      puts "-- Employment 2 saved = #{!@employment2.new_record?}"
-#      puts "** DEBUG ** #{@person.employments.to_yaml}"
-#      Employment.find_by_id(@employment1.id).sequence_no.should == 1
-#      Employment.find_by_id(@employment2.id).sequence_no.should == 2
+      @job_one = Factory.build(:employment)
+      @person = @job_one.employee
+      @person.employments << @job_one
+      @job_one.save
+
+      @job_two = Factory.build(:employment, :employee => @person)
+      @person.employments << @job_two
+      @job_two.save
+
+      @job_three = Factory.build(:employment, :employee => @person)
+      @person.employments << @job_three
+      @job_three.save
+
+      @job_one.sequence_no.should == 1
+      @job_two.sequence_no.should == 2
+      @job_three.sequence_no.should == 3
+
     end
 
     it "should calculate salary correctly" do

@@ -38,10 +38,7 @@ class Employment < ActiveRecord::Base
   end
 
   def person_must_be_valid
-    #puts "** DEBUG ** report_to = #{report_to}"
-    #puts "** DEBUG ** report_to = #{self.to_yaml}"
-    #puts "** DEBUG ** supervisor = #{emp_supervisor.to_yaml}"
-    errors.add(:emp_supervisor, "can't be invalid") if (!report_to.blank? && emp_supervisor.nil?) 
+    errors.add(:emp_supervisor, "can't be invalid") if (!report_to.blank? && Person.find_by_id(report_to).nil?)
   end
   
 
