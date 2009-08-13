@@ -131,14 +131,18 @@ $('.enddatepick').live("mouseover", function(){
     day = arr_dateText[0];
     month = arr_dateText[1];
     year = arr_dateText[2];
-    if(year>0 || arr_dateText != ""){
-        $(this).datepicker({
+    //init
+    $(this).datepicker({
             dateFormat: 'dd-mm-yy',
             altFormat: 'mm-dd-yy',
             changeMonth: true,
             changeYear: true,
             minDate: new Date(year, month-1, day)
-        });
+    });
+
+    //reset
+    if(year!=undefined){
+        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
     }else{
         $(this).datepicker('disable');
     }
