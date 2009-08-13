@@ -131,7 +131,7 @@ $('.enddatepick').live("mouseover", function(){
     day = arr_dateText[0];
     month = arr_dateText[1];
     year = arr_dateText[2];
-    if(year>0){
+    if(year>0 || arr_dateText != ""){
         $(this).datepicker({
             dateFormat: 'dd-mm-yy',
             altFormat: 'mm-dd-yy',
