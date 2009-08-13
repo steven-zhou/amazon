@@ -46,11 +46,25 @@ describe Employment do
       @employment.errors.on(:organisation).should_not be_nil
     end
 
-    it "should not save when supervisor is not blank but invalid" do
+    it "should not save when emp_supervisor is not blank but invalid" do
       @employment = Factory.build(:employment)
       @employment.report_to = "-1"
       @employment.save.should == false
-      @employment.errors.on(:emp_supervisor).should_not be_nil
+      @employment.errors.on(:report_to).should_not be_nil
+    end
+
+    it "should not save when emp_terminator is not blank but invalid" do
+      @employment = Factory.build(:employment)
+      @employment.terminated_by = "-1"
+      @employment.save.should == false
+      @employment.errors.on(:terminated_by).should_not be_nil
+    end
+
+    it "should not save when emp_suspensor is not blank but invalid" do
+      @employment = Factory.build(:employment)
+      @employment.suspended_by = "-1"
+      @employment.save.should == false
+      @employment.errors.on(:suspended_by).should_not be_nil
     end
   end
 
@@ -74,6 +88,34 @@ describe Employment do
       @job_two.sequence_no.should == 2
       @job_three.sequence_no.should == 3
 
+    end
+
+    it "should add the editing record to the bottom of ther record list if it is changed to be inactive" do
+      @job_one = Factory.build(:employment)
+      @person = @job_one.employee
+      @person.employments << @job_one
+      @job_one.save
+
+      @job_two = Factory.build(:employment, :employee => @person)
+      @person.employments << @job_two
+      @job_two.save
+
+      @job_three = Factory.build(:employment, :employee => @person)
+      @person.employments << @job_three
+      @job_three.save
+
+      @job_two.status = false
+      @job_two.save
+
+      @job_one.sequence_no.should == 1
+      @job_two.sequence_no.should == 3
+      @job_three.sequence_no.should == 2
+
+      @job_one.status = false
+      @job_one.save
+      @job_one.sequence_no.should == 3
+      @job_two.sequence_no.should == 2
+      @job_three.sequence_no.should == 1
     end
 
     it "should calculate salary correctly" do

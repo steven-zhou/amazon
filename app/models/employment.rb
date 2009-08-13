@@ -26,38 +26,47 @@ class Employment < ActiveRecord::Base
   validates_numericality_of :weekly_nominal_hours, :hourly_rate
   validate :end_date_must_be_equal_or_after_commence_date, :person_must_be_valid
 
-  before_create :update_priority
-  before_save :calculate_salary
-  before_destroy :update_priority_before_destroy
+  before_create :assign_priority
+  before_save :calculate_salary, :update_priority
 
   protected
   def end_date_must_be_equal_or_after_commence_date
-      errors.add(:term_end_date, "can't be before commence date") if (!term_end_date.nil? && term_end_date < commenced_date)
-      errors.add(:suspension_end_date, "can't be before suspension start date") if (!suspension_end_date.nil? && suspension_end_date < suspension_start_date)
-      errors.add(:termination_date, "can't be before termination_notice_date") if (!termination_date.nil? && termination_date < termination_notice_date)
+    errors.add(:term_end_date, "can't be before commence date") if (!term_end_date.nil? && term_end_date < commenced_date)
+    errors.add(:suspension_end_date, "can't be before suspension start date") if (!suspension_end_date.nil? && suspension_end_date < suspension_start_date)
+    errors.add(:termination_date, "can't be before termination_notice_date") if (!termination_date.nil? && termination_date < termination_notice_date)
   end
 
   def person_must_be_valid
-    errors.add(:emp_supervisor, "can't be invalid") if (!report_to.blank? && Person.find_by_id(report_to).nil?)
+    errors.add(:report_to, "can't be invalid") if (!report_to.blank? && Person.find_by_id(report_to).nil?)
+    errors.add(:terminated_by, "can't be invalid") if (!terminated_by.blank? && Person.find_by_id(terminated_by).nil?)
+    errors.add(:suspended_by, "can't be invalid") if (!suspended_by.blank? && Person.find_by_id(suspended_by).nil?)
   end
   
 
   private
-  def update_priority
-    #self.move_to_bottom
-    self.sequence_no = self.employee.employments.length+1 if self.new_record?
+  def assign_priority
+    self.sequence_no = self.employee.employments.length+1
   end
 
-  def update_priority_before_destroy
+  def update_priority
     sequence_no = self.sequence_no
-    Employment.transaction do
-      self.employee.employments.each { |employment|
-        if (employment.sequence_no > sequence_no)
-          employment.sequence_no -= 1
-          employment.save!
-        end
-      }
+    if (self.status == false)
+    
+      Employment.transaction do
+        Employment.without_callbacks(:before_save) do
+          self.employee.employments.each { |employment|
+            if (employment.sequence_no > sequence_no)
+              employment.sequence_no -= 1
+              employment.save
+            end
+          }
+        end        
+      end
+
+      self.sequence_no = self.employee.employments.length
     end
+
+    
   end
 
   def calculate_salary
