@@ -1,4 +1,5 @@
 Factory.define :employment do |f|
+  f.sequence(:id) { |n| n }
   f.staff_reference "Staff reference"
   f.position_reference "Position reference"
   f.position_name "Developer"
