@@ -1,11 +1,4 @@
 class AmazonSettingsController < ApplicationController
-  def index
-    @amazonsettings = AmazonSetting.all
-    @amazonsetting = AmazonSetting.new
-    respond_to do |format|
-      format.html
-    end
-  end
 
   def new
     @amazonsetting = params[:type].camelize.constantize.new
@@ -27,14 +20,14 @@ class AmazonSettingsController < ApplicationController
   end
 
   def edit
-    @amazonsetting = AmazonSetting.find(params[:id])
+    @amazonsetting = AmazonSetting.find(params[:id].to_i)
     respond_to do |format|
       format.js
     end
   end
 
   def update
-    @amazonsetting = AmazonSetting.find(params[:id])
+    @amazonsetting = AmazonSetting.find(params[:id].to_i)
     @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
     if @amazonsetting.save
       flash[:message] = "The type was updated successfully."
