@@ -1,6 +1,6 @@
-Factory.define :person_roles do |f|
+Factory.define :person_role, :class => "PersonRole" do |f|
   f.remarks "Some remark"
-  f.assignmen_date Date.today()
+  f.assignment_date Date.today()
   f.start_date Date.today()
   f.end_date Date.today()
 

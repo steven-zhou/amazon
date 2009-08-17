@@ -54,6 +54,19 @@ describe PeopleController do
     get :search, options
   end
 
+  def get_name_card(options={})
+    options[:id] ||= @person.id
+    get :name_card, options
+  end
+
+  def get_master_doc_meta_type_finder(options={})
+    get :master_doc_meta_type_finder, options
+  end
+
+  def get_master_doc_type_finder(options={})
+    get :master_doc_type_finder, options
+  end
+
   describe "GET 'new'" do
     before(:each) do
       get 'new'
@@ -180,6 +193,51 @@ describe PeopleController do
     it "should render role_finder" do
       get_role_finder
       response.should render_template('role_finder')
+    end
+
+  end
+
+
+  describe "GET 'name_card'" do
+    before(:each) do
+      Person.stub!(:find).and_return(@person)
+    end
+
+    it "should find the person we supply an id for" do
+      Person.should_receive(:find).and_return(@person)
+      get_name_card
+    end
+
+  end
+
+  describe "GET 'master_doc_meta_type_finder'" do
+    before(:each) do
+      @mdmmt = Factory(:master_doc_meta_meta_type)
+      @mdmt_1 = Factory(:master_doc_meta_type, :tag_meta_type_id => @mdmmt.id)
+      @mdmt_2 = Factory(:master_doc_meta_type, :tag_meta_type_id => @mdmmt.id)
+      @md = Factory(:master_doc)
+    end
+
+    it "should find the correct documents" do
+      MasterDocMetaType.should_receive(:find).and_return([@mdmt_1, @mdmt_2])
+      MasterDoc.should_receive(:find).and_return(@md)
+      get_master_doc_meta_type_finder(:id => @mdmmt.id, :master_doc_id => @md.id)
+    end
+ 
+  end
+
+  describe "GET 'master_doc_type_finder'" do
+    before(:each) do
+      @mdmt = Factory(:master_doc_type)
+      @mdt_1 = Factory(:master_doc_type, :tag_type_id => @mdmt.id)
+      @mdt_2 = Factory(:master_doc_type, :tag_type_id => @mdmt.id)
+      @md = Factory(:master_doc)
+    end
+
+    it "should find the correct documents" do
+      MasterDocType.should_receive(:find).and_return([@mdt_1, @mdt_2])
+      MasterDoc.should_receive(:find).and_return(@md)
+      get_master_doc_type_finder(:id => @mdmt.id, :master_doc_id => @md.id)
     end
 
   end
