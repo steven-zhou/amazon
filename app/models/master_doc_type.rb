@@ -6,7 +6,7 @@ class MasterDocType < Tag
   has_many :master_docs, :class_name => "MasterDoc", :foreign_key => "master_doc_type_id"
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :message => "A master doc meta type already exists with the same name."
+  validates_uniqueness_of :name, :scope => :tag_type_id, :message => "A master doc meta type already exists with the same name."
 
   after_create :assign_priority
   before_destroy :reorder_priority
