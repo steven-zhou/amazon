@@ -204,7 +204,7 @@ class PeopleController < ApplicationController
   end
 
   def master_doc_meta_type_finder
-    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["master_doc_meta_meta_type_id = ?", params[:id]])
+    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", params[:id]])
     @masterdoc = MasterDoc.find(params[:master_doc_id]) rescue @masterdoc = MasterDoc.new
     respond_to do |format|
       format.js { }
@@ -212,7 +212,7 @@ class PeopleController < ApplicationController
   end
 
   def master_doc_type_finder
-    @master_doc_types = MasterDocType.find(:all, :conditions => ["master_doc_meta_type_id = ?", params[:id]])
+    @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:id]])
     @masterdoc = MasterDoc.find(params[:master_doc_id]) rescue @masterdoc = MasterDoc.new
     respond_to do |format|
       format.js { }
