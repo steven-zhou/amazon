@@ -8,18 +8,18 @@ describe AdministrationsController do
       xhr :get, "index"
     end
 
-    it "should create a new MasterDocMetaMetaType" do
-      MasterDocMetaMetaType.should_receive(:new)
+    it "should create a new TagMetaType" do
+      TagMetaType.should_receive(:new)
       xhr :get, "index"
     end
 
-    it "should create a new MasterDocMetaType" do
-      MasterDocMetaType.should_receive(:new)
+    it "should create a new TagType" do
+      TagType.should_receive(:new)
       xhr :get, "index"
     end
 
-    it "should create a new MasterDocType" do
-      MasterDocType.should_receive(:new)
+    it "should create a new Tag" do
+      Tag.should_receive(:new)
       xhr :get, "index"
     end
     

@@ -429,3 +429,41 @@ $(function(){
         }
     });
 });
+
+
+/* Admin  -  Tag Setting Tab*/
+
+$(function(){
+    $("#tag_selection").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/tags/show_all_for_selected_classifier.js",
+                data: 'type='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#show_tag").html("");
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag_meta_type").live('change', function(){
+        if($("#render_tag_meta_type").val() != "0"){
+            $.ajax({
+                type: "GET",
+                url: "/tags/tag_meta_type_edit.js",
+                data: 'type='+$("#tag_selection").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tags/tag_meta_type_new.js",
+                data: 'type='+$("#tag_selection").val(),
+                dataType: "script"
+            });
+        }
+    });
+});

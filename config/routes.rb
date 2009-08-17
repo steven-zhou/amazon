@@ -36,7 +36,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
 
-  map.resources :doc_types
+  map.resources :tags,
+    :member => {:tag_meta_type_new => :get, :tag_meta_type_edit => :get},
+    :collection => {:show_all_for_selected_classifier => :get}
+    
   
   
   # The priority is based upon order of creation: first created -> highest priority.

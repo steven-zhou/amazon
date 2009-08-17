@@ -1,0 +1,21 @@
+-fields_for @tag do |tag|
+  %fieldset
+    %h3 Docs Meta tags
+    .form_line
+      .field_20
+        =tag.label :name, 'Tag'
+        %select
+          %option << New Record >>
+      .field_20
+        =tag.label :name, 'Tag Name'
+        =tag.text_field :name
+      .field_40
+        =tag.label :description, 'Description'
+        =tag.text_field :description
+      .field_20
+        =tag.label :status, 'Status'
+        =tag.radio_button :status, true, :style => "width:10%"
+        %label{:style => "display:inline"} Active
+        =tag.radio_button :status, false, :style => "width:10%"
+        %label{:style => "display:inline"} Inactive
+      %br.clear
