@@ -21,6 +21,15 @@ describe WebsitesController do
     put :update,options
   end
 
+  def get_show(options = {})
+    options[:id] ||= @website.id
+    get :show, options
+  end
+
+  def get_edit(options = {})
+    options[:id] ||= @website.id
+    get :edit, options
+  end
 
   def delete_destroy(options = {})
     options[:id] ||= @website.id
@@ -68,7 +77,7 @@ describe WebsitesController do
 
 
     it "should get the request Website general info" do
-      Website.should_receive(:find).with(@website.id.to_s).and_return(@website)
+      Website.should_receive(:find).with(@website.id).and_return(@website)
       put_update :id => @website.id
     end
 
@@ -77,7 +86,29 @@ describe WebsitesController do
       @website.should_receive(:update_attributes).with(hash_including(@attributes)).and_return(true)
       put_update
     end
+  end
 
+  describe "GET 'show'" do
+    before(:each) do
+      Website.stub!(:find).and_return(@website)
+    end
+
+    it "should find the website we request" do
+      Website.should_receive(:find).with(@website.id).and_return(@website)
+      get_show(:id => @website.id)
+    end
+
+  end
+
+  describe "GET 'edit'" do
+    before(:each) do
+      Website.stub!(:find).and_return(@website)
+    end
+
+    it "should find the website we request" do
+      Website.should_receive(:find).with(@website.id).and_return(@website)
+      get_edit(:id => @website.id)
+    end
 
   end
 
@@ -90,7 +121,7 @@ describe WebsitesController do
     end
 
     it "should find a existed website with params[:id]" do
-      Website.should_receive(:find).with(@website.id.to_s).and_return(@website)
+      Website.should_receive(:find).with(@website.id).and_return(@website)
       delete_destroy
     end
 

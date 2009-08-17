@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TagMetaType do
+
   before(:each) do
     @tag_meta_type = Factory(:doc_tag_meta_type)
   end

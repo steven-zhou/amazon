@@ -1,6 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TagType do
+
   before(:each) do
     @tag_type = Factory(:doc_tag_type)
   end
@@ -13,3 +14,4 @@ describe TagType do
   end
 
 end
+
