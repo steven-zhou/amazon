@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090812034824) do
+ActiveRecord::Schema.define(:version => 20090813225747) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -171,32 +171,6 @@ ActiveRecord::Schema.define(:version => 20090812034824) do
     t.datetime "updated_at"
   end
 
-  create_table "master_doc_meta_meta_types", :force => true do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.boolean  "status"
-  end
-
-  create_table "master_doc_meta_types", :force => true do |t|
-    t.text     "name"
-    t.integer  "master_doc_meta_meta_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.text     "description"
-    t.boolean  "status"
-  end
-
-  create_table "master_doc_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "master_doc_meta_type_id"
-    t.text     "description"
-    t.boolean  "status"
-  end
-
   create_table "master_docs", :force => true do |t|
     t.string   "doc_number"
     t.string   "doc_reference"
@@ -351,6 +325,38 @@ ActiveRecord::Schema.define(:version => 20090812034824) do
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "role_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_meta_types", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "position"
+    t.boolean  "status"
+    t.text     "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tag_types", :force => true do |t|
+    t.text     "name"
+    t.integer  "tag_meta_type_id"
+    t.text     "description"
+    t.integer  "position"
+    t.boolean  "status"
+    t.text     "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.text     "name"
+    t.integer  "tag_type_id"
+    t.text     "description"
+    t.integer  "position"
+    t.boolean  "status"
+    t.text     "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

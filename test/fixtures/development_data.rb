@@ -133,22 +133,22 @@ puts "Creating sample MasterDoc data."
 
 mdmmt = MasterDocMetaMetaType.create :name => "Licences"
 
-mdmt = MasterDocMetaType.create :name => "Airplane", :master_doc_meta_meta_type_id => mdmmt.id
-boeing_747 = MasterDocType.create :name => "Boeing 747", :master_doc_meta_type_id => mdmt.id
-boeing_737 = MasterDocType.create :name => "Boeing 737", :master_doc_meta_type_id => mdmt.id
-paper_aeroplane = MasterDocType.create :name => "Paper aeroplane", :master_doc_meta_type_id => mdmt.id
+mdmt = MasterDocMetaType.create :name => "Airplane", :master_doc_meta_meta_type => mdmmt
+boeing_747 = MasterDocType.create :name => "Boeing 747", :master_doc_meta_type => mdmt
+boeing_737 = MasterDocType.create :name => "Boeing 737", :master_doc_meta_type => mdmt
+paper_aeroplane = MasterDocType.create :name => "Paper aeroplane", :master_doc_meta_type => mdmt
 
-mdmt = MasterDocMetaType.create :name => "Road Vehicles", :master_doc_meta_meta_type_id => mdmmt.id
-huge_truck = MasterDocType.create :name => "Huge Truck", :master_doc_meta_type_id => mdmt.id
-little_truck = MasterDocType.create :name => "Little Truck", :master_doc_meta_type_id => mdmt.id
-car = MasterDocType.create :name => "Car", :master_doc_meta_type_id => mdmt.id
+mdmt = MasterDocMetaType.create :name => "Road Vehicles", :master_doc_meta_meta_type => mdmmt
+huge_truck = MasterDocType.create :name => "Huge Truck", :master_doc_meta_type => mdmt
+little_truck = MasterDocType.create :name => "Little Truck", :master_doc_meta_type => mdmt
+car = MasterDocType.create :name => "Car", :master_doc_meta_type => mdmt
 
 mdmmt = MasterDocMetaMetaType.create :name => "Identification"
 
-mdmt = MasterDocMetaType.create :name => "Government Issued", :master_doc_meta_meta_type_id => mdmmt.id
-passport = MasterDocType.create :name => "Passport", :master_doc_meta_type_id => mdmt.id
-drivers_licence = MasterDocType.create :name => "Drivers Licence", :master_doc_meta_type_id => mdmt.id
-national_id_card = MasterDocType.create :name => "National ID Card", :master_doc_meta_type_id => mdmt.id
+mdmt = MasterDocMetaType.create :name => "Government Issued", :master_doc_meta_meta_type => mdmmt
+passport = MasterDocType.create :name => "Passport", :master_doc_meta_type => mdmt
+drivers_licence = MasterDocType.create :name => "Drivers Licence", :master_doc_meta_type => mdmt
+national_id_card = MasterDocType.create :name => "National ID Card", :master_doc_meta_type => mdmt
 
 
 puts "Creating passport for Robert Tingle"
