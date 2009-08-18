@@ -72,7 +72,7 @@ jQuery.fn.submitWithAjax = function($callback) {
 
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
-    
+
     // AJAX search form *Not Used*
     /*
     $(".ajax_search_form").submitWithAjax( function(){
@@ -133,11 +133,11 @@ $('.enddatepick').live("mouseover", function(){
     year = arr_dateText[2];
     //init
     $(this).datepicker({
-            dateFormat: 'dd-mm-yy',
-            altFormat: 'mm-dd-yy',
-            changeMonth: true,
-            changeYear: true,
-            minDate: new Date(year, month-1, day)
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: new Date(year, month-1, day)
     });
 
     //reset
@@ -438,8 +438,8 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                url: "/tags/show_all_for_selected_classifier.js",
-                data: 'type='+$(this).val(),
+                url: "/tag_settings/show_all_for_selected_classifier.js",
+                data: 'tag='+$(this).val(),
                 dataType: "script"
             });
         }else{
@@ -450,18 +450,18 @@ $(function(){
 
 $(function(){
     $("#render_tag_meta_type").live('change', function(){
-        if($("#render_tag_meta_type").val() != "0"){
+        if($(this).val()=="0"){
             $.ajax({
                 type: "GET",
-                url: "/tags/tag_meta_type_edit.js",
-                data: 'type='+$("#tag_selection").val(),
+                url: "/tag_meta_types/new.js",
+                data: 'tag='+$("#tag_selection").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
-                url: "/tags/tag_meta_type_new.js",
-                data: 'type='+$("#tag_selection").val(),
+                url: "/tag_meta_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
                 dataType: "script"
             });
         }

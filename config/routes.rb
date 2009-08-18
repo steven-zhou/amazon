@@ -36,9 +36,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
 
-  map.resources :tags,
-    :member => {:tag_meta_type_new => :get, :tag_meta_type_edit => :get},
-    :collection => {:show_all_for_selected_classifier => :get}
+  map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
+  map.resources :tag_meta_types, :shallow => true do |tag_meta_type|
+    tag_meta_type.resources :tag_types, :shallow => true do |tag_type|
+      tag_type.resources :tags
+    end
+  end
     
   
   

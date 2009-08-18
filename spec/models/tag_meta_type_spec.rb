@@ -12,4 +12,5 @@ describe TagMetaType do
     TagMetaType.distinct_types_of_tag_meta_types.should == "<option value='MasterDocMetaMetaType'>MasterDocMetaMetaType</option>"
   end
 
+
 end

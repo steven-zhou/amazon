@@ -1,6 +1,6 @@
--fields_for @tag_type do |tag_type|
+-form_for([@tag_meta_type, @tag_type], :url => {:controller => 'tag_types', :action => @tag_type.new_record? ? "create" : "update", :id => @tag_type.id}, :html => {:class => 'ajax_form'}) do |tag_type|
   %fieldset
-    %h3 Docs tag_type Types
+    %h3 Tag Types
     .form_line
       .field_20
         =tag_type.label :name, 'Tag Type'
@@ -14,8 +14,9 @@
         =tag_type.text_field :description
       .field_20
         =tag_type.label :status, 'Status'
-        =tag_type.radio_button :status, true, :style => "width:10%"
+        =tag_type.radio_button :status, true, :style => "width:10%", :checked => true
         %label{:style => "display:inline"} Active
         =tag_type.radio_button :status, false, :style => "width:10%"
         %label{:style => "display:inline"} Inactive
       %br.clear
+    = submit_tag 'Submit'

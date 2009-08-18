@@ -5,6 +5,8 @@ class TagMetaType < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:type]
 
+  accepts_nested_attributes_for :tag_types, :reject_if => proc { |attributes| attributes['name'].blank? || attributes['tag_meta_type_id'].blank? }
+
   def self.distinct_types_of_tag_meta_types
     @tag_meta_types = TagMetaType.find(:all, :select => "DISTINCT type")
     results = ""
