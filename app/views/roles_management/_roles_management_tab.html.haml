@@ -1,11 +1,5 @@
 .info_container{:style => "width:50%;"}
   .header_container
     %h3 Role Management
-    .field_33
-      = label :role_type_id, "Role Types"
-      = collection_select :role, :role_type_id, RoleType.all, :id, :name, {:prompt => "Select one type"}, {:class => "show_role"}
-    %br{ :style=>"clear: both;"}
-    .field_33
-      = label :role_id, "Role"
-      = collection_select :role, :id,  Role.all, :id, :name
-    %br{ :style=>"clear: both;"}
+  %div#kk
+    = render :partial => '/roles/role_main_form'

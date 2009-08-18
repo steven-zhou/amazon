@@ -1,0 +1,40 @@
+%div#top
+  -form_for @role, :url=> {:controller => 'roles',:action => @role.new_record? ? 'create' : 'update', :id => @role.id}, :html => {:class => 'ajax_form'} do |role|
+    .field_33
+      = role.label :role_type_id, "Role Types"
+      = role.collection_select :role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "show_role"}
+    %br{ :style=>"clear: both;"}
+    .field_33
+      = role.label :role_id, "Role"
+      -if @role.new_record?
+        %select.add_role{:id => "role_id"}
+          %option
+      -else
+        %select.add_role{:id => "role_id", :name => "role[id]"}
+          %option{:value => @role.id}
+            = @role.name += "<option value=''><< New Record >></option>"
+    .field_60{:style => "float:right"}
+      = role.label :role_status, 'Status'
+      = role.radio_button :role_status, true, :style => "width:10%",:checked => true
+      %label{:style => "display:inline"} Active
+      &nbsp;&nbsp
+      = role.radio_button :role_status, false, :style => "width:10%"
+      %label{:style => "display:inline"} Inactive
+    %br{ :style=>"clear: both;"}
+
+    %div#down
+      .form_line
+        .field_80
+          = role.label :description, "Descriptions"
+          = role.text_field :description
+        %br{ :style=>"clear: both;"}
+      .form_line
+      %br{ :style=>"clear: both;"}
+      %div#role_condition
+        
+    
+  %br{ :style=>"clear: both;"}
+
+
+
+

@@ -1,20 +1,26 @@
 <% unless @role.nil? %>
   <% role = String.new %>
+  <% role += "<option value='0'></option>" %>
+  <% role += "<option value=''><< New Record >></option>" %>
   <% for r in @role %>
-<% role += "<option value='0'>please choose one</option>" %>
-<% role += "<option value='-1'>\"add new\"</option>" %>
-    <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
-    
 
-      $("#role_id").html('<%=escape_javascript("#{role}")%>')
+    <% role += "<option value= '#{r.id}'>#{r.name}</option>" %>
+
+
+    $(".add_role").html('<%=escape_javascript("#{role}")%>')
+
+
+
+    $("#role_description").val('')
 
   <%end%>
 <% else %>
 
 
 
-    $("#role_id").html('<option value="1">invalid type</option>')
+  $(".add_role").html('<option value="1">invalid type</option>')
 
+  $("#role_description").val('')
 
 
 

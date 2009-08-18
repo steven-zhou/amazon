@@ -7,7 +7,7 @@ class RoleCondition < ActiveRecord::Base
   delegate :name, :to => :master_doc_type
 
 
-#  validates_presence_of :name, :doctype_id
+  #  validates_presence_of :name, :doctype_id
   validates_associated :master_doc_type
-
+  validates_uniqueness_of :doctype_id, :scope => :role_id
 end

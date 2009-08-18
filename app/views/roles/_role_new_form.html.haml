@@ -1,0 +1,14 @@
+%div
+  .form_line
+    .field_33
+      = label @role, :name, "Role Name"
+      = text_field @role, :name, :name => "role[name]"
+  .form_line
+    .field_80
+      = label @role, :description, "Descriptions"
+      = text_field @role, :description, :name => "role[description]"
+  %br{ :style=>"clear: both;"}
+    = submit_tag 'Submit'
+
+  %br{ :style=>"clear: both;"}
+

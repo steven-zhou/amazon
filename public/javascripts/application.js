@@ -229,7 +229,7 @@ $(function(){
 
 
 
-/*$(function(){
+$(function(){
     $(".check_person_field").live('change', function(){
         $.ajax({
             type: "GET",
@@ -238,17 +238,66 @@ $(function(){
             dataType: "script"
         });
     });
-});*/
+});
+
+
+
 $(function(){
-   $(".check_person_field").live('change', function(){
+    $(".add_role").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/people/role_finder.js",
-            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id'),
+            url: "/roles/new.js",
+            data: 'id='+$(this).val(),
             dataType: "script"
         });
     });
 
+});
+
+
+$(function(){
+    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/roles/master_doc_meta_type_finder1.js",
+            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/roles/meta_name_finder.js",
+            data: 'id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/roles/meta_type_name_finder.js",
+            data: 'id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/roles/doc_type_finder.js",
+            data: 'master_doc_meta_type_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
 });
 
 

@@ -1,0 +1,19 @@
+
+
+<% if @master_doc_meta_types.blank? %>
+  $("#master_doc_meta_type_id_for_role_condition").html('')
+  $("#master_doc_meta_type_id_for_role_condition").change()
+
+<% else %>
+
+  <%  result = String.new %>
+  <% for mdmt in @master_doc_meta_types %>
+    <% result += "<option value='#{mdmt.id}'>#{mdmt.name}</option>" %>
+
+
+    $("#master_doc_meta_type_id_for_role_condition").html('<%=escape_javascript("#{result}")%>')
+    $("#master_doc_meta_type_id_for_role_condition").change()
+
+  <%end%>
+
+<% end -%>

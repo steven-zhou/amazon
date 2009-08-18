@@ -1,2 +1,2 @@
-$('#role ul').prepend('<%= escape_javascript(render :partial => @role, :locals => {:person => @person}) %>')
-$('select#role_id').replaceWith('<%= escape_javascript(collection_select :role, :id, Role.all-@person.roles, :id, :name)%>')
+
+ $("#kk").html(" <%= escape_javascript(render(:partial => 'role_main_form')) %>");
