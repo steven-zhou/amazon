@@ -5,7 +5,7 @@
     = relationship.text_field :related_person_id
   .field_20
     = relationship.label :relationship_type_id, 'Type'
-    = relationship.collection_select :relationship_type_id, RelationshipType.all, :id, :name
+    = relationship.collection_select :relationship_type_id, RelationshipType.active_relationship_type, :id, :name
   .field_40#related_person_name_container
     %br
   %br{:style=>"clear: both;"}

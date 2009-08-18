@@ -6,6 +6,9 @@ class AdministrationsController < ApplicationController
     @master_doc_type = MasterDocType.new
     @role = Role.new
     @role_condition = RoleCondition.new
+    @tag_meta_type = TagMetaType.new
+    @tag_type = TagType.new
+    @tag = Tag.new
     respond_to do |format|
       format.html
     end

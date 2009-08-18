@@ -135,7 +135,6 @@ class PeopleController < ApplicationController
     elsif params[:note]
       @people = PeopleSearch.by_note(params[:note][:note_type_id], params[:note][:label],params[:note][:short_description])
     elsif params[:keyword]
-      puts "keyword search"
       @people = PeopleSearch.by_keyword(params[:keyword][:id])
     end
    
@@ -170,8 +169,8 @@ class PeopleController < ApplicationController
   end
 
   def name_finder
-    @person = Person.find(params[:person_id]) rescue @person = Person.new
-    @employment = Employment.find(params[:employment_id]) rescue @employment = Employment.new
+    @person = Person.find(params[:person_id].to_i) rescue @person = Person.new
+    @employment = Employment.find(params[:employment_id].to_i) rescue @employment = Employment.new
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
     @person.preferred_name = params[:update].nil?? nil : params[:update]
     
@@ -205,7 +204,7 @@ class PeopleController < ApplicationController
   end
 
   def master_doc_meta_type_finder
-    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["master_doc_meta_meta_type_id = ?", params[:id]])
+    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", params[:id]])
     @masterdoc = MasterDoc.find(params[:master_doc_id]) rescue @masterdoc = MasterDoc.new
     respond_to do |format|
       format.js { }
@@ -213,7 +212,7 @@ class PeopleController < ApplicationController
   end
 
   def master_doc_type_finder
-    @master_doc_types = MasterDocType.find(:all, :conditions => ["master_doc_meta_type_id = ?", params[:id]])
+    @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:id]])
     @masterdoc = MasterDoc.find(params[:master_doc_id]) rescue @masterdoc = MasterDoc.new
     respond_to do |format|
       format.js { }

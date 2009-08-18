@@ -2,7 +2,7 @@
 .form_line
   .field_20
     = address.label :address_type_id, 'Type'
-    = address.collection_select :address_type_id, AddressType.all, :id, :name
+    = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name
     
   .field_40
     = address.label :building_name, 'Building Name'

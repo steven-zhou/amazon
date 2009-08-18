@@ -9,7 +9,7 @@
   - if (!person.nil? && !person.new_record?)
     #keyword_types.left
       = label_tag :keyword_type_id, "Keyword Types"
-      = collection_select :keyword,:keyword_type_id, KeywordType.all, :id, :name, {:prompt => "Select All"}
+      = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br{ :style=>"clear: both;"}
     %form#keywords
       #keywords_left.left

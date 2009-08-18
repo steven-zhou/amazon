@@ -58,6 +58,23 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
     })
 
+    $(".clear_employment_form").click(function () {
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#organisation_name_container_0').html('');
+        $('#recruiter_container_0').html('');
+        $('#supervisor_container_0').html('');
+        $('#suspender_container_0').html('');
+        $('#terminator_container_0').html('');
+    })
+
+    $("#new_employment").submit( function(){
+        $('#organisation_name_container_0').html('');
+        $('#recruiter_container_0').html('');
+        $('#supervisor_container_0').html('');
+        $('#suspender_container_0').html('');
+        $('#terminator_container_0').html('');
+    })
+
     $("#accordion").accordion();
     $("#accordion01").accordion();
     $("#accordion02").accordion();

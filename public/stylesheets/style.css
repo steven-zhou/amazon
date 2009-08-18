@@ -86,3 +86,7 @@ span.viewname{
     margin:0px;
     padding:0px;
 }
+
+select[disabled], input[disabled] {
+    color:black;
+}

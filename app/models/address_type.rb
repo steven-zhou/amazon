@@ -10,6 +10,10 @@ class AddressType < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.active_address_type
+    @address_type = AddressType.find_all_by_status(true)
+  end
+
   private
 
   def assign_priority

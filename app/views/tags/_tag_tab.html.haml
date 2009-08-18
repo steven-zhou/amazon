@@ -1,0 +1,17 @@
+.info_container
+  %h3 Tags
+
+  %div
+    -form_for @tag_meta_type, :url=> {:controller => 'tag_settings'}, :html => {:class => 'ajax_form'} do |tag_meta_type|
+      %fieldset
+        %h3 Type
+        .form_line
+          .field_20
+            %select#tag_selection
+              %option
+              =TagMetaType.distinct_types_of_tag_meta_types
+          %br.clear
+
+      #show_tag
+        
+        

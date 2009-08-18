@@ -10,6 +10,10 @@ class Title < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.active_title
+    @title = Title.find_all_by_status(true)
+  end
+
   private
 
   def assign_priority

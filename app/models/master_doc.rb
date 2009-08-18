@@ -1,6 +1,5 @@
 class MasterDoc < ActiveRecord::Base
-  #acts_as_list :column => "priority_number"
-  belongs_to :master_doc_type
+  belongs_to :master_doc_type, :class_name => "MasterDocType", :foreign_key => "master_doc_type_id"  
   belongs_to :entity, :polymorphic => true
   validates_presence_of :master_doc_type_id
 

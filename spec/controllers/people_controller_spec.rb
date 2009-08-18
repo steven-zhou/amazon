@@ -20,18 +20,51 @@ describe PeopleController do
   def put_update(options = {})
     options[:id] ||= @person.id
     options[:person] ||= @attributes
-    put :update,options
+    put :update, options
+  end
+
+  def get_name_finder(options = {})
+    get :name_finder, options
+  end
+
+  def get_role_finder(options = {})
+    get :role_finder, options
+  end
+
+  def get_master_doc_meta_type_finder(options = {})
+    get :master_doc_meta_type, options
+  end
+
+  def get_master_doc_type_finder(options = {})
+    get :master_doc_type_finder, options
+  end
+
+  def get_edit(options = {})
+    get :edit, options
   end
 
   def get_show(options = {})
     options[:id] ||= @person.id
-    get :show,options
+    get :show, options
   end
   
   def get_search(options={})
     options[:commit] ||= "Search"
     options[:id] ||= @person.id
-    get :search,options
+    get :search, options
+  end
+
+  def get_name_card(options={})
+    options[:id] ||= @person.id
+    get :name_card, options
+  end
+
+  def get_master_doc_meta_type_finder(options={})
+    get :master_doc_meta_type_finder, options
+  end
+
+  def get_master_doc_type_finder(options={})
+    get :master_doc_type_finder, options
   end
 
   describe "GET 'new'" do
@@ -42,17 +75,14 @@ describe PeopleController do
       assigns[:person].should be_new_record
     end
 
-    #TODO Should be refactoring
     it "should assign a new Person with an associate address to a variable" do
       assigns[:person].addresses.length.should == 1
     end
 
-    #TODO Should be refactoring
     it "should have a phone associated with a Person" do
       assigns[:person].addresses.length.should == 1
     end
     
-    #TODO Should be refactoring
     it "should have an email associated with a Person" do
       assigns[:person].addresses.length.should == 1
     end
@@ -120,7 +150,7 @@ describe PeopleController do
   describe "PUT :update" do
     it "should get the request person general info" do
       Person.should_receive(:find).with(@person.id.to_s).and_return(@person)
-      put_update :id => @person.id
+      put_update :person_id => @person.id
     end
 
     it "should update the person's attributes" do
@@ -128,27 +158,117 @@ describe PeopleController do
       put_update
     end
 
-    
-    #nothe case
-    #
-#    it "should have some error handler" do
-#      pending
-#    end
+  end
+
+
+  describe "PUT :name_finder" do
+
+    before(:each) do
+      Person.stub!(:find).and_return(@person)
+    end
+
+    it "should find the correctly set @person if params[:person_id] is specified" do
+      get_name_finder(:person_id => @person.id)
+      assigns[:person].should equal(@person)
+    end
+
+    it "should render name_finder" do
+      get_name_finder
+      response.should render_template('name_finder')
+    end
+
+  end
+
+  describe "PUT :role_finder" do
+
+    before(:each) do
+      Person.stub!(:find).and_return(@person)
+    end
+
+    it "should find the correctly set @person if params[:person_id] is specified" do
+      get_role_finder(:person_id => @person.id)
+      assigns[:person].should equal(@person)
+    end
+
+    it "should render role_finder" do
+      get_role_finder
+      response.should render_template('role_finder')
+    end
+
+  end
+
+
+  describe "GET 'name_card'" do
+    before(:each) do
+      Person.stub!(:find).and_return(@person)
+    end
+
+    it "should find the person we supply an id for" do
+      Person.should_receive(:find).and_return(@person)
+      get_name_card
+    end
+
+  end
+
+  describe "GET 'master_doc_meta_type_finder'" do
+    before(:each) do
+      @mdmmt = Factory(:master_doc_meta_meta_type)
+      @mdmt_1 = Factory(:master_doc_meta_type, :tag_meta_type_id => @mdmmt.id)
+      @mdmt_2 = Factory(:master_doc_meta_type, :tag_meta_type_id => @mdmmt.id)
+      @md = Factory(:master_doc)
+    end
+
+    it "should find the correct documents" do
+      MasterDocMetaType.should_receive(:find).and_return([@mdmt_1, @mdmt_2])
+      MasterDoc.should_receive(:find).and_return(@md)
+      get_master_doc_meta_type_finder(:id => @mdmmt.id, :master_doc_id => @md.id)
+    end
+ 
+  end
+
+  describe "GET 'master_doc_type_finder'" do
+    before(:each) do
+      @mdmt = Factory(:master_doc_type)
+      @mdt_1 = Factory(:master_doc_type, :tag_type_id => @mdmt.id)
+      @mdt_2 = Factory(:master_doc_type, :tag_type_id => @mdmt.id)
+      @md = Factory(:master_doc)
+    end
+
+    it "should find the correct documents" do
+      MasterDocType.should_receive(:find).and_return([@mdt_1, @mdt_2])
+      MasterDoc.should_receive(:find).and_return(@md)
+      get_master_doc_type_finder(:id => @mdmt.id, :master_doc_id => @md.id)
+    end
+
   end
 
 
   describe "GET 'show'" do
 
-    # No longer the case...
-    #    it "should get the person" do
-    #      Person.should_receive(:find).with(@person.id.to_s).and_return(@person)
-    #      get_show
-    #    end
-
     it "should render show" do
       get_show :id => 1
       response.should render_template('show')
     end
+  end
+
+  describe "GET 'edit'" do
+
+    before(:each) do
+      Person.stub!(:find).and_return(@person)
+      Person.stub!(:new).and_return(@person)
+    end
+
+    it "should find the correctly set @person if params[:person_id] is specified" do
+      get_edit(:person_id => @person.id)
+      assigns[:person].should equal(@person)
+    end
+
+    it "should generate a new record for @person if there is no params[:person_id] specified" do
+      get_edit
+      assigns[:person].should be_new_record
+    end
+
+
   end
 
   describe "Get 'search'" do
@@ -167,8 +287,6 @@ describe PeopleController do
           get_search
         end
 
-        it {should render_template("search")}
-        # it {should set_the_flash(:notice)}
       end
 
       context "if more than one person was found" do

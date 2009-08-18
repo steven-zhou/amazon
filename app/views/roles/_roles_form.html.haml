@@ -1,0 +1,24 @@
+#role_types
+  .field_33
+    = role.label :role_type_id, "Role Types"
+    = role.collection_select :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}
+%br{ :style=>"clear: both;"}
+
+
+= observe_field "role_role_type_id", :update => "role_id", :with => "role_type_id", :url => { :controller => "roles", :action => "get_roles" }
+-form_for @roles do |roles|
+  #role
+    .field_33
+      = role.label :id, "Role"
+      = roles
+      -#= role.collection_select :id, @roles, :id, :name, {:prompt => "Select one type"}
+      -#%select#role_id{:name => "role_id"}
+        -#%option
+
+
+
+%br{ :style=>"clear: both;"}
+
+
+    
+

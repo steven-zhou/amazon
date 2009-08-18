@@ -1,5 +1,14 @@
 class Phone < Contact
-  #acts_as_list :column => "priority_number"
+
+
+  AVAILABILITY = [
+    ["Not Available", "Not Available"],
+    ["Business Hours", "Business Hours"],
+    ["After Hours", "After Hours"],
+    ["Anytime", "Anytime"]
+
+  ]
+  
   #--
   ################
   #  Assocations

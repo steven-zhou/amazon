@@ -37,11 +37,17 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
 
 
+
   map.resources :role_conditions, :collection => {:show_roles => :get,:add_conditions => :post,:remove_conditions => :post}
 
-  map.resources :doc_types
 
   map.resources :roles, :collection => {:master_doc_meta_type_finder1 => :get, :meta_name_finder => :get, :meta_type_name_finder => :get,:doc_type_finder => :get}
+
+
+  map.resources :tags,
+    :member => {:tag_meta_type_new => :get, :tag_meta_type_edit => :get},
+    :collection => {:show_all_for_selected_classifier => :get}
+    
 
   
   

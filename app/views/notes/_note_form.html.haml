@@ -1,7 +1,7 @@
 .form_line
   .field_20
     = note.label :note_type_id, 'Type'
-    = note.collection_select :note_type_id, NoteType.all, :id, :name
+    = note.collection_select :note_type_id, NoteType.active_note_type, :id, :name
   %br.clear
 .form_line
   .field_40

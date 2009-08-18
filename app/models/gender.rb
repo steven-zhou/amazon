@@ -8,6 +8,10 @@ class Gender < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.active_gender
+    @gender = Gender.find_all_by_status(true)
+  end
+
   private
 
   def assign_priority

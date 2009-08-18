@@ -115,6 +115,39 @@ $('.birthdatepick').live("mouseover", function(){
     });
 });
 
+$('.startdatepick').live("mouseover", function(){
+    $("#"+$(this).attr("end_date")).datepicker('enable');
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true
+    });
+});
+
+
+$('.enddatepick').live("mouseover", function(){
+    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    //init
+    $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true,
+            minDate: new Date(year, month-1, day)
+    });
+
+    //reset
+    if(year!=undefined){
+        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+    }else{
+        $(this).datepicker('disable');
+    }
+});
+
 $('.datepick').live("mouseover", function(){
     $(this).datepicker({
         dateFormat: 'dd-mm-yy',
@@ -123,6 +156,19 @@ $('.datepick').live("mouseover", function(){
         changeYear: true
     });
 });
+
+/* Disable form*/
+
+$(document).ready(function() {
+    toggleFormStatus();
+});
+
+toggleFormStatus = function(){
+    if ($('#system_id_tag').val() == '') {
+        $('#left :input').attr('disabled', true);
+        $('#system_id_tag').attr('disabled', false);
+    }
+}
 
 /* Photo */
 //$("#edit_photo").live("submit",function(){
@@ -440,6 +486,44 @@ $(function(){
                 type: "GET",
                 url: "/amazon_settings/" + $(this).val() + "/edit.js",
                 data: 'id=' + $(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
+/* Admin  -  Tag Setting Tab*/
+
+$(function(){
+    $("#tag_selection").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/tags/show_all_for_selected_classifier.js",
+                data: 'type='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#show_tag").html("");
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag_meta_type").live('change', function(){
+        if($("#render_tag_meta_type").val() != "0"){
+            $.ajax({
+                type: "GET",
+                url: "/tags/tag_meta_type_edit.js",
+                data: 'type='+$("#tag_selection").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tags/tag_meta_type_new.js",
+                data: 'type='+$("#tag_selection").val(),
                 dataType: "script"
             });
         }

@@ -1,6 +1,6 @@
 .field_33
   = label :role_type_id, "Role Types"
-  = collection_select :role, :role_type_id, RoleType.all, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+  = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
 %br{ :style=>"clear: both;"}
 
 .field_33

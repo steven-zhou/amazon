@@ -1,5 +1,4 @@
 Factory.define :australia, :class => Country do |f|
-  f.sequence(:id) { |n| n }
   f.long_name "Australia"
   f.short_name "Australia"
   f.citizenship "Australian"

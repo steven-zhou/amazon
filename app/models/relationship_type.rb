@@ -8,6 +8,10 @@ class RelationshipType < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.active_relationship_type
+    @relationship_type = RelationshipType.find_all_by_status(true)
+  end
+
   private
 
   def assign_priority

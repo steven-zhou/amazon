@@ -10,6 +10,10 @@ class KeywordType < AmazonSetting
 
   has_many :keywords
 
+  def self.active_keyword_type
+    @keyword_type = KeywordType.find_all_by_status(true)
+  end
+
   private
 
   def assign_priority
