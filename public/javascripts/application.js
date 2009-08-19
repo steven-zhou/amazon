@@ -70,6 +70,11 @@ jQuery.fn.submitWithAjax = function($callback) {
     return this;
 };
 
+jQuery.fn.doAjaxSubmit = function($callback) {
+    $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
+    return false;
+}
+
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
 
@@ -467,3 +472,9 @@ $(function(){
         }
     });
 });
+
+$(function(){
+    $("#fake").live('click', function(){
+        $("#form1").doAjaxSubmit();
+    })
+})

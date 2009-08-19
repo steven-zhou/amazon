@@ -18,5 +18,6 @@
         %label{:style => "display:inline"} Active
         =tag_type.radio_button :status, false, :style => "width:10%"
         %label{:style => "display:inline"} Inactive
+        %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_meta_type.class.to_s}
       %br.clear
     = submit_tag 'Submit'
