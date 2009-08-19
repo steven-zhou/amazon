@@ -50,6 +50,15 @@ class RoleConditionsController < ApplicationController
 
   end
 
- 
+ def create
+
+   @role = Role.new
+    respond_to do |format|
+
+      format.js
+
+
+    end
+ end
 
 end

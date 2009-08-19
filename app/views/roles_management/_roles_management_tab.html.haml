@@ -2,4 +2,4 @@
   .header_container
     %h3 Role Management
   %div#kk
-    = render :partial => '/roles/role_main_form'
+    = render :partial => '/roles/roles_tab',:locals => { :role => @role }

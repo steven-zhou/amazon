@@ -1,4 +1,19 @@
--form_for @role_condition do |rc|
+-form_for  @role, :url => {:controller => 'roles', :action => 'update', :id => @role.id}, :html => {:id => 'edit_role',:class => 'ajax_form'} do |role|
+  .field_60{:style => "float:right"}
+    = role.label :role_status, 'Status'
+    = role.radio_button :role_status, true, :style => "width:10%",:checked => true
+    %label{:style => "display:inline"} Active
+    &nbsp;&nbsp
+    = role.radio_button :role_status, false, :style => "width:10%"
+    %label{:style => "display:inline"} Inactive
+  %br{ :style=>"clear: both;"}
+  .form_line
+    .field_80
+      = role.label :description, "Descriptions"
+      = role.text_field :description, :id => "role_description1"
+    %br.clear
+  = submit_tag 'Sumbit',{:id => "cheatsubmit"}
+-form_for @role_condition,:html => {:class => 'ajax_form'} do |rc|
   .info_container
     %h3 Roles Conditions
     .form_line
@@ -36,5 +51,7 @@
       %label Conditions
       %select{:multiple => true,:size => "20", :id => "remove_doctype_id",:name => "remove_doctype_id[]"}
     %br{:style => "clear:both;"}
-  %br.clear
-= submit_tag 'Sumbit'
+  -#= submit_tag 'Sumbit'
+  -#= button_to 'Sumbit',{},{:id => "cheatbutton"}
+%button{:type => "button", :style => "float:right;", :id => "cheatbutton"} submit
+%br{:style => "clear:both;"}

@@ -12,7 +12,9 @@ class RolesController < ApplicationController
   end
 
   def new
-
+    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
+  
+   
     @role = Role.find(params[:id]) rescue @role = Role.new
     #@role = Role.new if @role.nil?
     @role_condition = RoleCondition.new
@@ -32,7 +34,7 @@ class RolesController < ApplicationController
     
   def master_doc_meta_type_finder1
  
-    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["master_doc_meta_meta_type_id = ?", params[:master_doc_meta_meta_type_id].to_i]) rescue @master_doc_meta_types = MasterDocMetaType.new
+    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", params[:master_doc_meta_meta_type_id].to_i]) rescue @master_doc_meta_types = MasterDocMetaType.new
   
 
 
@@ -63,7 +65,7 @@ class RolesController < ApplicationController
   end
 
   def doc_type_finder
-     @master_doc_types = MasterDocType.find(:all, :conditions => ["master_doc_meta_type_id = ?", params[:master_doc_meta_type_id].to_i]) rescue @master_doc_types = MasterDocType.new
+     @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:master_doc_meta_type_id].to_i]) rescue @master_doc_types = MasterDocType.new
     respond_to do |format|
       format.js { }
     end

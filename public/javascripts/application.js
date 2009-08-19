@@ -29,7 +29,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -90,16 +90,16 @@ $(document).ready(function() {
         "bAutoWidth":false,
         "sDom":'lfrtpi',
         "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
+                'sWidth':"12%"
+            },{
+                'sWidth':"15%"
+            },{
+                'sWidth':"30%"
+            },{
+                "sWdith":"15%"
+            },{
+                'sWidth':"25%"
+            }]
     })
 });
 
@@ -133,11 +133,11 @@ $('.enddatepick').live("mouseover", function(){
     year = arr_dateText[2];
     //init
     $(this).datepicker({
-            dateFormat: 'dd-mm-yy',
-            altFormat: 'mm-dd-yy',
-            changeMonth: true,
-            changeYear: true,
-            minDate: new Date(year, month-1, day)
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: new Date(year, month-1, day)
     });
 
     //reset
@@ -293,7 +293,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/roles/new.js",
-            data: 'id='+$(this).val(),
+            data: 'id='+$(this).val()+'&role_type_id='+$('#role_role_type_id').val(),
             dataType: "script"
         });
     });
@@ -346,186 +346,205 @@ $(function(){
     });
 });
 
-
-/* Employment Tab*/
-
 $(function(){
-    $(".find_organisation_field").live('change', function(){
-        if($(this).val() != ""){
-            $.ajax({
-                type: "GET",
-                url: "/organisations/name_finder.js",
-                data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
-                dataType: "script"
-            });
-        }else{
-            $("#organisation_name_container_"+$(this).attr('employment_id')).html(" ");
-        }
-    });
-});
+    $("#cheatbutton").live('click', function(){
+        //alert("a");
+        //$("#cheatsubmit").click();
+        //$.post($("#edit_role").attr("action"), $("#edit_role").serialize(), "script");
+        //return false;
+        //$('#cheatsubmit').trigger('click')
+        $.ajax({ // create an AJAX call...
+            data: $("#edit_role").serialize(), // get the form data
+            type: $("#edit_role").attr('method'), // GET or POST
+            url: $("#edit_role").attr('action'), // the file to call
+            success: function(response) { // on success..
+              $('#pwd-settings').html(response); // update the DIV - should I use the DIV id?
+                        }
 
-$(function(){
-    $(".find_person_field").live('change', function(){
-        if($(this).val() != ""){
-            $.ajax({
-                type: "GET",
-                url: "/people/name_finder.js",
-                data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
-                dataType: "script"
-            });
-        }else{
-            $("#"+$(this).attr('update')+"_"+$(this).attr('employment_id')).val("");
-        }
-    });
-});
-
-$(function(){
-    $(".calculate_field").live('change', function(){
-        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
-        if (_valid)
-        {
-            _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
-            $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
-        }else{            
-            alert("This field has be a number!");
-            $(this).focus();
-            $(this).val(0);
-            $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
-        }
-    });
-});
-
-
-
-
-
-/* FLASH */
-$.fn.wait = function(time, type) {
-    time = time || 1000;
-    type = type || "fx";
-    return this.queue(type, function() {
-        var self = this;
-        setTimeout(function() {
-            $(self).dequeue();
-        }, time);
-    });
-};
-
-
-$(function(){  
-    $('#flash').wait(5000).slideUp();
-    $('#flash').click(function(){
-        $('#flash').hide();
-    });
-});
-
-/* MasterDoc */
-$(function(){
-    $(".find_master_doc_meta_type_field").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/master_doc_meta_type_finder.js",
-            data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-            dataType: "script"
+          });
         });
     });
-});
 
-$(function(){
-    $(".find_master_doc_type_field").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/master_doc_type_finder.js",
-            data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-            dataType: "script"
+
+    /* Employment Tab*/
+
+    $(function(){
+        $(".find_organisation_field").live('change', function(){
+            if($(this).val() != ""){
+                $.ajax({
+                    type: "GET",
+                    url: "/organisations/name_finder.js",
+                    data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                    dataType: "script"
+                });
+            }else{
+                $("#organisation_name_container_"+$(this).attr('employment_id')).html(" ");
+            }
         });
     });
-});
 
-formatCurrency= function(num){
-    num = num.toString().replace(/\$|\,/g,'');
-    if(isNaN(num))
-        num = "0";
-    sign = (num == (num = Math.abs(num)));
-    num = Math.floor(num*100+0.50000000001);
-    cents = num%100;
-    num = Math.floor(num/100).toString();
-    if(cents<10)
-        cents = "0" + cents;
-    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
-        num = num.substring(0,num.length-(4*i+3))+','+
-        num.substring(num.length-(4*i+3));
-    return (((sign)?'':'-') + '$' + num + '.' + cents);
-}
-
-//Admin - System Data Tab
-
-$(function(){
-    $("#find_data_list_field").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/amazon_settings/data_list_finder.js",
-            data: 'type=' + $(this).val(),
-            dataType: "script"
+    $(function(){
+        $(".find_person_field").live('change', function(){
+            if($(this).val() != ""){
+                $.ajax({
+                    type: "GET",
+                    url: "/people/name_finder.js",
+                    data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                    dataType: "script"
+                });
+            }else{
+                $("#"+$(this).attr('update')+"_"+$(this).attr('employment_id')).val("");
+            }
         });
     });
-});
 
-$(function(){
-    $("#data_list_field").live('change', function(){
-        $('#feedback').html('');
-        if($(this).val()==0){
-            $.ajax({
-                type: "GET",
-                url: "/amazon_settings/new.js",
-                data: 'type=' + $("#find_data_list_field").val(),
-                dataType: "script"
-            });
-        }else{
-            $.ajax({
-                type: "GET",
-                url: "/amazon_settings/" + $(this).val() + "/edit.js",
-                data: 'id=' + $(this).val(),
-                dataType: "script"
-            });
-        }
+    $(function(){
+        $(".calculate_field").live('change', function(){
+            _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+            if (_valid)
+            {
+                _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
+                $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
+            }else{
+                alert("This field has be a number!");
+                $(this).focus();
+                $(this).val(0);
+                $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
+            }
+        });
     });
-});
 
 
-/* Admin  -  Tag Setting Tab*/
 
-$(function(){
-    $("#tag_selection").live('change', function(){
-        if($(this).val() != ""){
-            $.ajax({
-                type: "GET",
-                url: "/tags/show_all_for_selected_classifier.js",
-                data: 'type='+$(this).val(),
-                dataType: "script"
-            });
-        }else{
-            $("#show_tag").html("");
-        }
+
+
+    /* FLASH */
+    $.fn.wait = function(time, type) {
+        time = time || 1000;
+        type = type || "fx";
+        return this.queue(type, function() {
+            var self = this;
+            setTimeout(function() {
+                $(self).dequeue();
+            }, time);
+        });
+    };
+
+
+    $(function(){
+        $('#flash').wait(5000).slideUp();
+        $('#flash').click(function(){
+            $('#flash').hide();
+        });
     });
-});
 
-$(function(){
-    $("#render_tag_meta_type").live('change', function(){
-        if($("#render_tag_meta_type").val() != "0"){
+    /* MasterDoc */
+    $(function(){
+        $(".find_master_doc_meta_type_field").live('change', function(){
             $.ajax({
                 type: "GET",
-                url: "/tags/tag_meta_type_edit.js",
-                data: 'type='+$("#tag_selection").val(),
+                url: "/people/master_doc_meta_type_finder.js",
+                data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
                 dataType: "script"
             });
-        }else{
-            $.ajax({
-                type: "GET",
-                url: "/tags/tag_meta_type_new.js",
-                data: 'type='+$("#tag_selection").val(),
-                dataType: "script"
-            });
-        }
+        });
     });
-});
+
+    $(function(){
+        $(".find_master_doc_type_field").live('change', function(){
+            $.ajax({
+                type: "GET",
+                url: "/people/master_doc_type_finder.js",
+                data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                dataType: "script"
+            });
+        });
+    });
+
+    formatCurrency= function(num){
+        num = num.toString().replace(/\$|\,/g,'');
+        if(isNaN(num))
+            num = "0";
+        sign = (num == (num = Math.abs(num)));
+        num = Math.floor(num*100+0.50000000001);
+        cents = num%100;
+        num = Math.floor(num/100).toString();
+        if(cents<10)
+            cents = "0" + cents;
+        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+            num = num.substring(0,num.length-(4*i+3))+','+
+            num.substring(num.length-(4*i+3));
+        return (((sign)?'':'-') + '$' + num + '.' + cents);
+    }
+
+    //Admin - System Data Tab
+
+    $(function(){
+        $("#find_data_list_field").live('change', function(){
+            $.ajax({
+                type: "GET",
+                url: "/amazon_settings/data_list_finder.js",
+                data: 'type=' + $(this).val(),
+                dataType: "script"
+            });
+        });
+    });
+
+    $(function(){
+        $("#data_list_field").live('change', function(){
+            $('#feedback').html('');
+            if($(this).val()==0){
+                $.ajax({
+                    type: "GET",
+                    url: "/amazon_settings/new.js",
+                    data: 'type=' + $("#find_data_list_field").val(),
+                    dataType: "script"
+                });
+            }else{
+                $.ajax({
+                    type: "GET",
+                    url: "/amazon_settings/" + $(this).val() + "/edit.js",
+                    data: 'id=' + $(this).val(),
+                    dataType: "script"
+                });
+            }
+        });
+    });
+
+
+    /* Admin  -  Tag Setting Tab*/
+
+    $(function(){
+        $("#tag_selection").live('change', function(){
+            if($(this).val() != ""){
+                $.ajax({
+                    type: "GET",
+                    url: "/tags/show_all_for_selected_classifier.js",
+                    data: 'type='+$(this).val(),
+                    dataType: "script"
+                });
+            }else{
+                $("#show_tag").html("");
+            }
+        });
+    });
+
+    $(function(){
+        $("#render_tag_meta_type").live('change', function(){
+            if($("#render_tag_meta_type").val() != "0"){
+                $.ajax({
+                    type: "GET",
+                    url: "/tags/tag_meta_type_edit.js",
+                    data: 'type='+$("#tag_selection").val(),
+                    dataType: "script"
+                });
+            }else{
+                $.ajax({
+                    type: "GET",
+                    url: "/tags/tag_meta_type_new.js",
+                    data: 'type='+$("#tag_selection").val(),
+                    dataType: "script"
+                });
+            }
+        });
+    });

@@ -1,18 +1,25 @@
 <%if @role.new_record? %>
 
-  $("#down").html(" <%= escape_javascript(render(:partial => 'role_new_form', :locals => { :role => @role })) %>");
+  $("#downside").html(" <%= escape_javascript(render(:partial => 'roles_new_form1', :locals => { :role => @role })) %>");
+  $("#role_type_id_field").val('<%=  escape_javascript("#{@role_type.id}")%>');
+  $("#role_type_id_field").text('<%=  escape_javascript("#{@role_type.id}")%>');
+
 <% else %>
-$("#kk").html(" <%= escape_javascript(render(:partial => 'role_main_form')) %>");
+
   $("#role_description").html('<%=  escape_javascript("#{@role.description}")%>');
-    $("#role_condition").html('<%=  escape_javascript(render(:partial => '/role_conditions/role_condition_form'))%>');
-    $("#role_condition_role_id").val('<%=  escape_javascript("#{@role.id}")%>');
+  $("#downside").html('<%=  escape_javascript(render(:partial => '/role_conditions/role_condition_form',:locals => { :role => @role }))%>');
+  $("#role_condition_role_id").val('<%=  escape_javascript("#{@role.id}")%>');
+   $("#role_condition_role_id").text('<%=  escape_javascript("#{@role.id}")%>');
 
-    
+  
+  $("#role_description1").text('<%=  escape_javascript("#{@role.description}")%>');
+  $("#role_description1").val('<%=  escape_javascript("#{@role.description}")%>');
+$("#role_id_hide").val('<%=  escape_javascript("#{@role.id}")%>');
 
-    <% role = String.new %>
+  <% role = String.new %>
   <% for r in @role.role_conditions %>
-  <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
+    <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
     $("#remove_doctype_id").html('<%=  escape_javascript("#{role}")%>');
-<%end%>
+  <%end%>
 
 <%end-%>

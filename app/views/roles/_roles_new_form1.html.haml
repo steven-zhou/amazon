@@ -1,0 +1,25 @@
+-form_for @role, :url=> {:controller => 'roles',:action => @role.new_record? ? 'create' : 'update', :id => @role.id}, :html => {:class => 'ajax_form'} do |role|
+  .field_60{:style => "float:right"}
+    = role.label :role_status, 'Status'
+    = role.radio_button :role_status, true, :style => "width:10%",:checked => true
+    %label{:style => "display:inline"} Active
+    &nbsp;&nbsp
+    = role.radio_button :role_status, false, :style => "width:10%"
+    %label{:style => "display:inline"} Inactive
+  %br{ :style=>"clear: both;"}
+
+  .form_line
+    .field_33
+      = role.label :name, "Role Name"
+      = role.text_field :name, :name => "role[name]"
+  .form_line    
+    .field_80
+      = role.label :description, "Descriptions"
+      = role.text_field :description, :name => "role[description]"
+  .form_line
+    .field_33{:style => "display:none"}
+      = role.text_field :role_type_id, :id => "role_type_id_field"
+  %br{ :style=>"clear: both;"}
+    = submit_tag 'Submit'
+
+  %br{ :style=>"clear: both;"}
