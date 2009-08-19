@@ -16,6 +16,7 @@ class RolesController < ApplicationController
   
    
     @role = Role.find(params[:id]) rescue @role = Role.new
+   # @role = Role.find(params[:id.to_i])
     #@role = Role.new if @role.nil?
     @role_condition = RoleCondition.new
     #puts "debug ----#{@role.to_yaml}"

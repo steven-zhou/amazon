@@ -12,7 +12,7 @@
       = role.label :description, "Descriptions"
       = role.text_field :description, :id => "role_description1"
     %br.clear
-  = submit_tag 'Sumbit',{:id => "cheatsubmit"}
+  = submit_tag 'Sumbit',{:id => "cheatsubmit", :style => "display:none"}
 -form_for @role_condition,:html => {:class => 'ajax_form'} do |rc|
   .info_container
     %h3 Roles Conditions

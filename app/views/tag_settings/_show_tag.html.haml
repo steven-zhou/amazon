@@ -1,4 +1,4 @@
-%fieldset
+.info_container
   %h3 Tag Meta Types
   .form_line
     .field_20
@@ -8,13 +8,9 @@
         - @tag_meta_types.each do |i|
           %option{:value=>"#{i.id}"} #{i.name}
     #tag_meta_type
-      = render :partial => "/tags/tag_meta_type"
+      =render :partial => "/tag_settings/tag_meta_type"
     %br.clear
-  %div#tag_type
-    -#= render :partial => "/tags/tag_type"
 
-  %div#tag
-    -#= render :partial => "/tags/tag"
-
-  = submit_tag 'Submit'
-  %br.clear
+%div#tag_type
+    
+%div#tag

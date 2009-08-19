@@ -1,0 +1,18 @@
+-form_for @tag_meta_type, :url=> {:controller => 'tag_meta_types', :action => @tag_meta_type.new_record? ? "create" : "update", :id => @tag_meta_type.id}, :html => {:class => 'ajax_form', :id => "form1", :name => "form1"} do |tag_meta_type|
+  .form_line
+    .field_20
+      =tag_meta_type.label :name, 'Tag Meta Type Name'
+      =tag_meta_type.text_field :name
+    .field_40
+      =tag_meta_type.label :description, 'Description'
+      =tag_meta_type.text_field :description
+    .field_20
+      =tag_meta_type.label :status, 'Status'
+      =tag_meta_type.radio_button :status, true, :style => "width:10%", :checked => true
+      %label{:style => "display:inline"} Active
+      =tag_meta_type.radio_button :status, false, :style => "width:10%"
+      %label{:style => "display:inline"} Inactive
+      %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_meta_type.class.to_s}
+    %br.clear
+  = submit_tag 'Submit', :style => "width:80px;", :id => "submitmeta"
+%button{:type => "button", :id => "fake"} "Fake Submit"

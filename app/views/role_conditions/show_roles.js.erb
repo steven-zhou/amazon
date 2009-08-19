@@ -2,8 +2,8 @@
   <% unless @role.blank? %>
 
     <% role = String.new %>
-    <% role += "<option value='0'></option>" %>
-    <% role += "<option value=''><< New Record >></option>" %>
+    <% role += "<option></option>" %>
+    <% role += "<option value='0'><< New Record >></option>" %>
     <% for r in @role %>
 
       <% role += "<option value= '#{r.id}'>#{r.name}</option>" %>

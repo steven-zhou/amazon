@@ -1,0 +1,5 @@
+<% unless flash[:message].nil? %>
+$("#tag_flash").html(" <%= escape_javascript(flash[:message]) %>");
+<% else %>
+$("#tag_flash").html(" <%= escape_javascript(flash[:warning]) %>");
+<% end %>
