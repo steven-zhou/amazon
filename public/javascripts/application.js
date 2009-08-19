@@ -447,8 +447,10 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
+            $("#fake").css("display", "");
         }else{
             $("#show_tag").html("");
+            $("#fake").css("display", "none");
         }
     });
 });
@@ -474,7 +476,49 @@ $(function(){
 });
 
 $(function(){
-    $("#fake").live('click', function(){
-        $("#form1").doAjaxSubmit();
+    $("#render_tag_type").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/new.js",
+                data: 'tag='+$("#tag_selection").val()+'&tag_meta_type_id='+$("#render_tag_meta_type").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tags/new.js",
+                data: 'tag='+$("#tag_selection").val()+'&tag_type_id='+$("#render_tag_type").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tags/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#fake").live('click', function(){        
+        $("#tag_meta_type_form").doAjaxSubmit();
+        $("#tag_type_form").doAjaxSubmit();
+        $("#tag_form").doAjaxSubmit();
     })
 })
