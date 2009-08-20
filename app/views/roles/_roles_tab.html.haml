@@ -1,24 +1,17 @@
--# The main Roles tab
-.info_container
-  .header_container
-    .title
-      %h3 Roles
-    .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_role", :class=>"toggle_button", :toggle_id_name => "new_role"  if (!person.nil? && !person.new_record?)
-      = image_tag('help_icon.png')
-    %br{ :style=>"clear: both;"}
-    
-    =# Initially hidden new roles form
-    -form_tag person_roles_path(@person), :id => "new_role", :style => "display:none", :class => 'ajax_form' do
-      %fieldset
-        %h3 Add Role
-        = collection_select :role, :id, Role.all-person.roles, :id, :name
-        = submit_tag 'Submit'
-    
-    #role
-      -# Render the person's addresses 
-      =# render :partial => '/addresses/address', :collection => person.addresses
-      %ul
-        -#person.roles.each do |role|
-        -#  %li=role.name 
-        =render :partial => '/roles/role', :collection => person.roles, :locals => {:person => person}  
+%div#top
+  .field_33
+    = label  @role,:role_type_id, "Role Types"
+    = collection_select :role,:role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "show_role"}
+  %br{ :style=>"clear: both;"}
+  .field_33
+    = label @role,:role_id, "Role"   
+    %select.add_role{:include_blank => true, :id => "role_id"}
+      %option
+%div#downside
+  = render :partial => '/roles/roles_original_form'
+
+  %br{ :style=>"clear: both;"}
+
+
+
+

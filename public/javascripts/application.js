@@ -29,7 +29,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -95,16 +95,16 @@ $(document).ready(function() {
         "bAutoWidth":false,
         "sDom":'lfrtpi',
         "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
+                'sWidth':"12%"
+            },{
+                'sWidth':"15%"
+            },{
+                'sWidth':"30%"
+            },{
+                "sWdith":"15%"
+            },{
+                'sWidth':"25%"
+            }]
     })
 });
 
@@ -267,7 +267,8 @@ $(function(){
 });
 
 
-/*$(function(){
+
+$(function(){
     $(".check_person_field").live('change', function(){
         $.ajax({
             type: "GET",
@@ -276,17 +277,6 @@ $(function(){
             dataType: "script"
         });
     });
-});*/
-$(function(){
-    $(".check_person_field").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/role_finder.js",
-            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id'),
-            dataType: "script"
-        });
-    });
-
 });
 
 
@@ -297,8 +287,10 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                url: "/organisations/name_finder.js",
-                data: 'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                url:
+                    "/organisations/name_finder.js",
+                data:
+                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -312,8 +304,10 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                url: "/people/name_finder.js",
-                data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                url:
+                    "/people/name_finder.js",
+                data:
+                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -329,7 +323,7 @@ $(function(){
         {
             _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
             $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
-        }else{            
+        }else{
             alert("This field has be a number!");
             $(this).focus();
             $(this).val(0);
@@ -355,7 +349,7 @@ $.fn.wait = function(time, type) {
 };
 
 
-$(function(){  
+$(function(){
     $('#flash').wait(5000).slideUp();
     $('#flash').click(function(){
         $('#flash').hide();
@@ -367,19 +361,24 @@ $(function(){
     $(".find_master_doc_meta_type_field").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/people/master_doc_meta_type_finder.js",
-            data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            url:
+                "/people/master_doc_meta_type_finder.js",
+            data:
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
 });
 
+
 $(function(){
     $(".find_master_doc_type_field").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/people/master_doc_type_finder.js",
-            data: 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            url:
+                "/people/master_doc_type_finder.js",
+            data:
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -407,8 +406,10 @@ $(function(){
     $("#find_data_list_field").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/amazon_settings/data_list_finder.js",
-            data: 'type=' + $(this).val(),
+            url:
+                "/amazon_settings/data_list_finder.js",
+            data:
+                'type=' + $(this).val(),
             dataType: "script"
         });
     });
@@ -420,15 +421,19 @@ $(function(){
         if($(this).val()==0){
             $.ajax({
                 type: "GET",
-                url: "/amazon_settings/new.js",
-                data: 'type=' + $("#find_data_list_field").val(),
+                url:
+                    "/amazon_settings/new.js",
+                data:
+                    'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
-                url: "/amazon_settings/" + $(this).val() + "/edit.js",
-                data: 'id=' + $(this).val(),
+                url:
+                    "/amazon_settings/" + $(this).val() + "/edit.js",
+                data:
+                    'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -443,8 +448,10 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                url: "/tag_settings/show_all_for_selected_classifier.js",
-                data: 'tag='+$(this).val(),
+                url:
+                    "/tag_settings/show_all_for_selected_classifier.js",
+                data:
+                    'tag='+$(this).val(),
                 dataType: "script"
             });
             $("#fake").css("display", "");
@@ -452,23 +459,29 @@ $(function(){
             $("#show_tag").html("");
             $("#fake").css("display", "none");
         }
+
     });
 });
+
 
 $(function(){
     $("#render_tag_meta_type").live('change', function(){
         if($(this).val()=="0"){
             $.ajax({
                 type: "GET",
-                url: "/tag_meta_types/new.js",
-                data: 'tag='+$("#tag_selection").val(),
+                url:
+                    "/tag_meta_types/new.js",
+                data:
+                    'tag='+$("#tag_selection").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
-                url: "/tag_meta_types/"+$(this).val()+"/edit.js",
-                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                url:
+                    "/tag_meta_types/"+$(this).val()+"/edit.js",
+                data:
+                    'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
                 dataType: "script"
             });
         }
@@ -516,9 +529,98 @@ $(function(){
 });
 
 $(function(){
-    $("#fake").live('click', function(){        
+    $("#fake").live('click', function(){
         $("#tag_meta_type_form").doAjaxSubmit();
         $("#tag_type_form").doAjaxSubmit();
         $("#tag_form").doAjaxSubmit();
     })
-})
+});
+
+
+    /* Admin  -  Role_Condition Tab*/
+
+
+$(function(){
+    $(".show_role").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/role_conditions/show_roles.js",
+            data: 'role_type_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $(".add_role").live('change', function(){
+        if($(this).val()!=""){
+            $.ajax({
+                type: "GET",
+                url: "/roles/new.js",
+                data: 'id='+$(this).val()+'&role_type_id='+$('#role_role_type_id').val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
+$(function(){
+    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/roles/master_doc_meta_type_finder1.js",
+            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
+            dataType: "script"
+        });
+
+    });
+});
+
+
+$(function(){
+    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url:
+                "/roles/meta_name_finder.js",
+            data:
+                'id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url:
+                "/roles/meta_type_name_finder.js",
+            data:
+                'id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+
+    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url:
+                "/roles/doc_type_finder.js",
+            data:
+                'master_doc_meta_type_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#cheatbutton").live('click', function(){
+        $("#edit_role").doAjaxSubmit();
+    })
+});

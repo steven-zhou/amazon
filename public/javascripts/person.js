@@ -53,8 +53,7 @@ $(function() {
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
     });
 
-
-
+   
     $(".clear_form").click(function(){
         $('#'+$(this).parents("form").get(0).id)[0].reset();
     })

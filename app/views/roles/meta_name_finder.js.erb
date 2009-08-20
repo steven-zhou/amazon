@@ -1,0 +1,9 @@
+
+ <% if @master_doc_meta_meta_types.nil? %>
+    $("#mmt").html('')
+
+  <% else %>
+    $("#mmt").html('<%=escape_javascript("#{@master_doc_meta_meta_types.description}")%>')
+
+
+  <% end %>

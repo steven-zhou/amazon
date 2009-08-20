@@ -1,0 +1,12 @@
+ <% role = String.new %>
+ <%  if @role.role_conditions.blank?%>
+   $("#remove_doctype_id").html('');
+<%else%>
+<% for r in @role.role_conditions %>
+  <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
+    $("#remove_doctype_id").html('<%=  escape_javascript("#{role}")%>');
+
+
+    <%end%>
+    
+<%end-%>

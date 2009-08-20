@@ -1,0 +1,19 @@
+
+
+<% if @master_doc_types.blank? %>
+  $("#doctype_id").html('')
+  $("#doctype_id").change()
+
+<% else %>
+
+  <%  result = String.new %>
+  <% for mdmt in @master_doc_types %>
+    <% result += "<option value='#{mdmt.id}'>#{mdmt.name}</option>" %>
+
+
+    $("#doctype_id").html('<%=escape_javascript("#{result}")%>')
+    $("#doctype_id").change()
+
+  <%end%>
+
+<% end -%>
