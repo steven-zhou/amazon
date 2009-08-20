@@ -3,5 +3,8 @@
   = render :partial => 'admin_menu'
   #SystemData
     = render :partial => '/amazon_settings/system_data', :locals => {:amazonsetting => @amazonsetting}
+  #RolesManagement
+    = render :partial => '/roles_management/roles_management_tab'
   #TagSetting
     = render :partial => '/tag_settings/tag_tab', :locals => {:tag_meta_type => @tag_meta_type}
+

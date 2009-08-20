@@ -15,6 +15,7 @@ class MasterDocType < Tag
     @mdmt = MasterDocMetaType.find_all_by_status(true)
   end
 
+
   private
 
   def assign_priority
@@ -24,6 +25,7 @@ class MasterDocType < Tag
   def reorder_priority
     self.remove_from_list
   end
+
 
 end
 

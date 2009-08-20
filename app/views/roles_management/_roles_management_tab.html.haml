@@ -1,0 +1,5 @@
+.info_container{:style => "width:50%;"}
+  .header_container
+    %h3 Role Management
+  %div#kk
+    = render :partial => '/roles/roles_tab',:locals => { :role => @role }

@@ -1,0 +1,57 @@
+-form_for  @role, :url => {:controller => 'roles', :action => 'update', :id => @role.id}, :html => {:id => 'edit_role',:class => 'ajax_form'} do |role|
+  .field_60{:style => "float:right"}
+    = role.label :role_status, 'Status'
+    = role.radio_button :role_status, true, :style => "width:10%",:checked => true
+    %label{:style => "display:inline"} Active
+    &nbsp;&nbsp
+    = role.radio_button :role_status, false, :style => "width:10%"
+    %label{:style => "display:inline"} Inactive
+  %br{ :style=>"clear: both;"}
+  .form_line
+    .field_80
+      = role.label :description, "Descriptions"
+      = role.text_field :description, :id => "role_description1"
+    %br.clear
+  = submit_tag 'Sumbit',{:id => "cheatsubmit", :style => "display:none"}
+-form_for @role_condition,:html => {:class => 'ajax_form'} do |rc|
+  .info_container
+    %h3 Roles Conditions
+    .form_line
+      .field_33
+        = label :master_doc_meta_meta_type_id, 'Condition_Meta_Meta_Type'
+        = collection_select :master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true }, {:class => "find_master_doc_meta_type_field_for_role_condition"}
+      .field_33{:style => "float:right;"}
+        %label &nbsp;
+        %span{:class => "viewname", :id=> "mmt" }
+      .field_33{:style => "display:none"}
+        = rc.text_field :role_id, {:name => "role_id"}
+      %br{:style => "clear:both;"}
+    .form_line
+      .field_33
+        = label :master_doc_meta_type_id, 'Condition Meta Type'
+        %select.find_master_doc_meta_type{:id => "master_doc_meta_type_id_for_role_condition"}
+          %option
+      .field_33{:style => "float:right;"}
+        %label &nbsp;
+        %span{:class => "viewname", :id=> "mt" }
+      %br{:style => "clear:both;"}
+    .form_line
+      .field_33
+        %label Conditions
+        %select{:multiple => true,:size => "20", :id => "doctype_id",:name => "add_doctype_id[]"}
+      
+    #conditions_middle.middle
+      = link_to image_tag('go.png'),add_conditions_role_conditions_path,:id=>"add_conditions_link",:class => "post",:data_id => "new_role_condition"
+      %br
+      %br
+      %br
+      = link_to image_tag('back.png'),remove_conditions_role_conditions_path,:id=>"remove_conditions_link",:class => "post",:data_id => "new_role_condition"
+      %br{:style => "clear:both;"}
+    #conditions_right.right
+      %label Conditions
+      %select{:multiple => true,:size => "20", :id => "remove_doctype_id",:name => "remove_doctype_id[]"}
+    %br{:style => "clear:both;"}
+  -#= submit_tag 'Sumbit'
+  -#= button_to 'Sumbit',{},{:id => "cheatbutton"}
+%button{:type => "button", :style => "float:right;", :id => "cheatbutton"} submit
+%br{:style => "clear:both;"}

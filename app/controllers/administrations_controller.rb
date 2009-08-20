@@ -1,9 +1,7 @@
 class AdministrationsController < ApplicationController
   def index
-    @amazonsetting = AmazonSetting.new
-    @tag_meta_type = TagMetaType.new
-    @tag_type = TagType.new
-    @tag = Tag.new
+    @role = Role.new
+    @role_condition = RoleCondition.new
     respond_to do |format|
       format.html
     end

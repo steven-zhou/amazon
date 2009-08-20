@@ -1,4 +1,3 @@
-Factory.define :role_type do |f|
-  f.sequence(:id) { |n| n }
+Factory.define :role_type ,:class => RoleType do |f|
   f.sequence(:name) { |n| "Role #{n}" }
 end

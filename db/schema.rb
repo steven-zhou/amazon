@@ -348,11 +348,23 @@ ActiveRecord::Schema.define(:version => 20090819005644) do
     t.datetime "updated_at"
   end
 
+  create_table "role_conditions", :force => true do |t|
+    t.integer  "role_id"
+    t.integer  "priority_number"
+    t.integer  "doctype_id"
+    t.string   "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "roles", :force => true do |t|
     t.string   "name"
     t.integer  "role_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "description"
+    t.string   "remarks"
+    t.boolean  "role_status"
   end
 
   create_table "tag_meta_types", :force => true do |t|
