@@ -24,6 +24,8 @@ class ApplicationController < ActionController::Base
 
   def check_authentication
     unless session[:user]
+      session[:intended_action] = action_name
+      session[:intended_controller] = controller_name
       redirect_to login_url
     else
       @current_user = LoginAccount.find(session[:user])

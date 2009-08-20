@@ -7,16 +7,19 @@ class SigninController < ApplicationController
   def login
 
     if request.post?
-
       begin
         session[:user] = LoginAccount.authenticate(params[:user_name], params[:password]).id
-        redirect_to welcome_url
+        if (session[:intended_action] != nil && session[:intended_controller] != nil)
+          redirect_to :action => session[:intended_action],  :controller => session[:intended_controller]
+        else
+          redirect_to welcome_url
+        end
       rescue
         flash[:warning] = "Username or password invalid."
       end
     end
   end
-
+  
   # Logs a user out.
   def signout
     session[:user] = nil
