@@ -1,7 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
 
-  map.root :controller => "people"
-
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
 
   map.resources :people, :shallow=> true, 
@@ -93,7 +91,13 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   # Note: These default routes make all actions in every controller accessible via GET requests. You should
   # consider removing the them or commenting them out if you're using named routes and resources.
+
+  map.connect '/', {:controller => "signin", :action => "login" }
+  map.welcome 'welcome', :controller => "people", :action => "show"    # After a user is logged in this is where they are sent to
+  map.login 'login', :controller => "signin", :action => "login"       # This should be the page a user logs in at
   
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
+
+
 end
