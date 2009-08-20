@@ -26,6 +26,7 @@ describe PersonRolesController do
     # PersonRole.stub(:find).and_return(@person_role)
     PersonRole.should_receive(:find).with(@person_role.id).and_return(@person_role)
     get_show(:id => @person_role.id)
+
   end
 
   it "should find and destory the person_role specified" do
