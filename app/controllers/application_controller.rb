@@ -20,6 +20,15 @@ class ApplicationController < ActionController::Base
   def instantiate_controller_and_action_names
       @current_action = action_name
       @current_controller = controller_name
-  end 
+  end
+
+  def check_authentication
+    unless session[:user]
+      redirect_to login_url
+    else
+      @current_user = LoginAccount.find(session[:user])
+    end
+  end
+
 
 end

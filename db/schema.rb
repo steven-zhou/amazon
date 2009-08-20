@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090813225747) do
+ActiveRecord::Schema.define(:version => 20090819005644) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -169,6 +169,32 @@ ActiveRecord::Schema.define(:version => 20090813225747) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "login_accounts", :force => true do |t|
+    t.integer  "person_id"
+    t.text     "user_name"
+    t.text     "password_hash"
+    t.text     "password_salt"
+    t.text     "security_email"
+    t.text     "password_hint"
+    t.text     "security_question1"
+    t.text     "security_question2"
+    t.text     "security_question3"
+    t.text     "question1_answer"
+    t.text     "question2_answer"
+    t.text     "question3_answer"
+    t.text     "password_last_hash"
+    t.text     "password_last_salt"
+    t.date     "password_last_date"
+    t.datetime "last_login"
+    t.datetime "last_logoff"
+    t.text     "last_ip_address"
+    t.integer  "session_timeout"
+    t.text     "authentication_token"
+    t.integer  "authentication_grace_period"
+    t.boolean  "login_status"
+    t.boolean  "system_user"
   end
 
   create_table "master_docs", :force => true do |t|
