@@ -2,10 +2,10 @@
   .form_line
     .field_20
       =tag_meta_type.label :name, 'Tag Meta Type Name'
-      =tag_meta_type.text_field :name
+      =tag_meta_type.text_field :name, :disabled=>@tag_meta_type.status == false
     .field_40
       =tag_meta_type.label :description, 'Description'
-      =tag_meta_type.text_field :description
+      =tag_meta_type.text_field :description, :disabled=>@tag_meta_type.status == false
     .field_20
       =tag_meta_type.label :status, 'Status'
       =tag_meta_type.radio_button :status, true, :style => "width:10%", :checked => true
