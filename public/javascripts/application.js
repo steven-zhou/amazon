@@ -440,6 +440,11 @@ $(function(){
     });
 });
 
+/* Drop down box hack*/
+$(function(){
+    $(".clear_select").find('option:first').attr('selected', 'selected');
+})
+
 
 /* Admin  -  Tag Setting Tab*/
 
@@ -544,7 +549,7 @@ $(function(){
     $(".show_role").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/role_conditions/show_roles.js",
+            url: "/roles/show_roles.js",
             data: 'role_type_id='+$(this).val(),
             dataType: "script"
         });
@@ -553,14 +558,21 @@ $(function(){
 
 
 $(function(){
-    $(".add_role").live('change', function(){
-        if($(this).val()!=="0"){
+    $(".choose_role").live('change', function(){
+        if($(this).val()=="0"){
             $.ajax({
                 type: "GET",
                 url: "/roles/new.js",
                 data: 'id='+$(this).val()+'&role_type_id='+$('#role_role_type_id').val(),
                 dataType: "script"
             });
+        }else{
+             $.ajax({
+                type: "GET",
+                url: "/roles/"+$(this).val()+"/edit.js",
+                data: 'id='+$(this).val()+'&role_type_id='+$('#role_role_type_id').val(),
+                dataType: "script"
+            });           
         }
     });
 });
@@ -628,7 +640,7 @@ $(function(){
 
 
    $(function(){
-    $("#rt").live('click', function(){
+    $("#rm").live('mousedown', function(){
         $.ajax({
             type: "GET",
             url:"/roles/role_type_finder.js",

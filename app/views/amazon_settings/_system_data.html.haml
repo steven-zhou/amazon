@@ -4,7 +4,7 @@
     .form_line
       .field_80
         %label Data Type
-        %select{:id => "find_data_list_field"}
+        %select#find_data_list_field.clear_select
           %option
           = AmazonSetting.distinct_setting_type
       %br.clear

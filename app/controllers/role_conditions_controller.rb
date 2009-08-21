@@ -9,7 +9,6 @@ class RoleConditionsController < ApplicationController
     end
   end
 
-
   def add_conditions
 
     
@@ -34,7 +33,7 @@ class RoleConditionsController < ApplicationController
   end
 
   def remove_conditions
-      @role = Role.find(params[:role_id])
+    @role = Role.find(params[:role_id])
     unless params[:remove_doctype_id].nil?
       params[:remove_doctype_id].each do |doctype_id|
      
@@ -53,15 +52,15 @@ class RoleConditionsController < ApplicationController
 
   end
 
- def create
+  def create
 
-   @role = Role.new
+    @role = Role.new
     respond_to do |format|
 
       format.js
 
 
     end
- end
+  end
 
 end

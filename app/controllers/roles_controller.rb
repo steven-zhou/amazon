@@ -12,28 +12,9 @@ class RolesController < ApplicationController
     end
   end
 
-  def new
-    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
+
   
-   
-    @role = Role.find(params[:id]) rescue @role = Role.new
-    # @role = Role.find(params[:id.to_i])
-    #@role = Role.new if @role.nil?
-    @role_condition = RoleCondition.new
-    #puts "debug ----#{@role.to_yaml}"
-    respond_to do |format|
-      format.js
-    end
-  end
   
-  def create
-    @role = Role.new(params[:role])
-    @role.save
-    respond_to do |format|
-     
-        format.js 
-    end
-  end
     
   def master_doc_meta_type_finder1
  
@@ -75,24 +56,58 @@ class RolesController < ApplicationController
   end
 
 
-  def update
-
-    @role = Role.find(params[:id])
-
-    respond_to do |format|
-
-      if @role.update_attributes(params[:role])
-
-        format.js { render 'show.js' }
-
-      end
-    end
-  end
+  
 
   def role_type_finder
     @role_type = RoleType.find(:all)
     respond_to do |format|
       format.js { }
+    end
+  end
+
+
+  #/-------------this method for Role management when person select Role_type, show roles for them
+  def show_roles
+    @role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def new
+    @role = Role.new
+    @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    #------------follow is for the hidden field of new form sumit get role_type_id
+    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create
+    @role = Role.new(params[:role])
+    @role.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit
+    @role = Role.find(params[:id].to_i)
+    @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @role_condition = RoleCondition.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    @role = Role.find(params[:id])
+    @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    respond_to do |format|
+      if @role.update_attributes(params[:role])
+        format.js { render 'show.js' }
+      end
     end
   end
 
