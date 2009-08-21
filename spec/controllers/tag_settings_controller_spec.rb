@@ -5,6 +5,7 @@ describe TagSettingsController do
     @doc_tag_meta_type = Factory.build(:doc_tag_meta_type)
     MasterDocMetaMetaType.stub!(:all).and_return([@doc_meta_type])
     MasterDocMetaMetaType.stub!(:new).and_return(@doc_meta_type)
+    session[:user] = Factory(:login_account).id
   end
 
   def get_show_all_for_selected_classifier(options={})

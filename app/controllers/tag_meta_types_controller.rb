@@ -1,5 +1,7 @@
 class TagMetaTypesController < ApplicationController
 
+  before_filter :check_authentication
+
   def new
     @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.new
     respond_to do |format|

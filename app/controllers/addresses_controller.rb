@@ -1,5 +1,6 @@
 class AddressesController < ApplicationController
 
+  before_filter :check_authentication
   
   def show
     @address = Address.find(params[:id])

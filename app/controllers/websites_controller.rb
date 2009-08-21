@@ -1,4 +1,6 @@
 class WebsitesController < ApplicationController
+
+  before_filter :check_authentication
   
   def show
     @website = Website.find(params[:id].to_i)

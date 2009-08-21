@@ -1,6 +1,8 @@
 class ImagesController < ApplicationController
   caches_page :show
 
+  before_filter :check_authentication
+
   def show
     @image = Image.find(params[:id])
     respond_to do |format|

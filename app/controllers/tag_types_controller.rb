@@ -1,5 +1,7 @@
 class TagTypesController < ApplicationController
 
+  before_filter :check_authentication
+
   def new
     @tag_type = (params[:tag]+"MetaType").camelize.constantize.new
     @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.find(params[:tag_meta_type_id])

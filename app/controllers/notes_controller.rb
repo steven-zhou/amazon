@@ -1,5 +1,6 @@
 class NotesController < ApplicationController
 
+  before_filter :check_authentication
 
   def create
     @person = Person.find(params[:person_id])
