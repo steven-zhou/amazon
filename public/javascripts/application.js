@@ -29,7 +29,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -95,16 +95,16 @@ $(document).ready(function() {
         "bAutoWidth":false,
         "sDom":'lfrtpi',
         "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
+                'sWidth':"12%"
+            },{
+                'sWidth':"15%"
+            },{
+                'sWidth':"30%"
+            },{
+                "sWdith":"15%"
+            },{
+                'sWidth':"25%"
+            }]
     })
 });
 
@@ -287,50 +287,50 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                    url:
+                url:
                     "/organisations/name_finder.js",
-                    data:
-                     'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
-                    dataType: "script"
-                });
-            }else{
-            $("#organisation_name_container_"+$(this).attr('employment_id')).html(" ");
-                }
+                data:
+                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                dataType: "script"
             });
+        }else{
+            $("#organisation_name_container_"+$(this).attr('employment_id')).html(" ");
+        }
     });
+});
 
 $(function(){
     $(".find_person_field").live('change', function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                    url:
+                url:
                     "/people/name_finder.js",
-                    data:
-                     'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
-                    dataType: "script"
-                });
-            }else{
-            $("#"+$(this).attr('update')+"_"+$(this).attr('employment_id')).val("");
-                }
+                data:
+                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                dataType: "script"
             });
+        }else{
+            $("#"+$(this).attr('update')+"_"+$(this).attr('employment_id')).val("");
+        }
     });
+});
 
 $(function(){
     $(".calculate_field").live('change', function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
-            if (_valid)
-            {
-                _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
-                    $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
-                    }else{
+        if (_valid)
+        {
+            _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
+            $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
+        }else{
             alert("This field has be a number!");
-                $(this).focus();
-                $(this).val(0);
-                $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
-                }
-            });
+            $(this).focus();
+            $(this).val(0);
+            $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
+        }
     });
+});
 
 
 
@@ -339,163 +339,208 @@ $(function(){
 /* FLASH */
 $.fn.wait = function(time, type) {
     time = time || 1000;
-        type = type || "fx";
-        return this.queue(type, function() {
-            var self = this;
-                setTimeout(function() {
-                    $(self).dequeue();
-                        }, time);
-                });
-        };
+    type = type || "fx";
+    return this.queue(type, function() {
+        var self = this;
+        setTimeout(function() {
+            $(self).dequeue();
+        }, time);
+    });
+};
 
 
-    $(function(){
+$(function(){
     $('#flash').wait(5000).slideUp();
-        $('#flash').click(function(){
-            $('#flash').hide();
-                });
-        });
+    $('#flash').click(function(){
+        $('#flash').hide();
+    });
+});
 
 /* MasterDoc */
 $(function(){
     $(".find_master_doc_meta_type_field").live('change', function(){
         $.ajax({
             type: "GET",
-                url:
+            url:
                 "/people/master_doc_meta_type_finder.js",
-                data:
-                 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-                dataType: "script"
-            });
+            data:
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            dataType: "script"
         });
     });
+});
 
 
 $(function(){
     $(".find_master_doc_type_field").live('change', function(){
         $.ajax({
             type: "GET",
-                url:
+            url:
                 "/people/master_doc_type_finder.js",
-                data:
-                 'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
-                dataType: "script"
-            });
+            data:
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            dataType: "script"
         });
     });
+});
 
 formatCurrency= function(num){
     num = num.toString().replace(/\$|\,/g,'');
-        if(isNaN(num))
+    if(isNaN(num))
         num = "0";
-            sign = (num == (num = Math.abs(num)));
-        num = Math.floor(num*100+0.50000000001);
-        cents = num%100;
-        num = Math.floor(num/100).toString();
-        if(cents<10)
+    sign = (num == (num = Math.abs(num)));
+    num = Math.floor(num*100+0.50000000001);
+    cents = num%100;
+    num = Math.floor(num/100).toString();
+    if(cents<10)
         cents = "0" + cents;
-            for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
-            num = num.substring(0,num.length-(4*i+3))+','+
-            num.substring(num.length-(4*i+3));
-            return (((sign)?'':'-') + '$' + num + '.' + cents);
-        }
+    for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+        num = num.substring(0,num.length-(4*i+3))+','+
+        num.substring(num.length-(4*i+3));
+    return (((sign)?'':'-') + '$' + num + '.' + cents);
+}
 
-    //Admin - System Data Tab
+//Admin - System Data Tab
 
-    $(function(){
-        $("#find_data_list_field").live('change', function(){
+$(function(){
+    $("#find_data_list_field").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url:
+                "/amazon_settings/data_list_finder.js",
+            data:
+                'type=' + $(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#data_list_field").live('change', function(){
+        $('#feedback').html('');
+        if($(this).val()==0){
             $.ajax({
                 type: "GET",
-                    url:
-                    "/amazon_settings/data_list_finder.js",
-                    data:
-                     'type=' + $(this).val(),
-                    dataType: "script"
-                });
+                url:
+                    "/amazon_settings/new.js",
+                data:
+                    'type=' + $("#find_data_list_field").val(),
+                dataType: "script"
             });
-        });
-
-    $(function(){
-        $("#data_list_field").live('change', function(){
-            $('#feedback').html('');
-                if($(this).val()==0){
-                $.ajax({
-                    type: "GET",
-                        url:
-                        "/amazon_settings/new.js",
-                        data:
-                         'type=' + $("#find_data_list_field").val(),
-                        dataType: "script"
-                    });
-                }else{
-                $.ajax({
-                    type: "GET",
-                        url:
-                        "/amazon_settings/" + $(this).val() + "/edit.js",
-                        data:
-                         'id=' + $(this).val(),
-                        dataType: "script"
-                    });
-                }
-                });
-        });
+        }else{
+            $.ajax({
+                type: "GET",
+                url:
+                    "/amazon_settings/" + $(this).val() + "/edit.js",
+                data:
+                    'id=' + $(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
 
 
-    /* Admin  -  Tag Setting Tab*/
+/* Admin  -  Tag Setting Tab*/
 
-    $(function(){
-        $("#tag_selection").live('change', function(){
-            if($(this).val() != ""){
-                $.ajax({
-                    type: "GET",
-                        url:
-                        "/tag_settings/show_all_for_selected_classifier.js",
-                        data:
-                         'tag='+$(this).val(),
-                        dataType: "script"
-                    });
-                }else{
-                $("#show_tag").html("");
-                    }
-                });
-        });
+$(function(){
+    $("#tag_selection").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url:
+                    "/tag_settings/show_all_for_selected_classifier.js",
+                data:
+                    'tag='+$(this).val(),
+                dataType: "script"
+            });
+            $("#fake").css("display", "");
+        }else{
+            $("#show_tag").html("");
+            $("#fake").css("display", "none");
+        }
 
-
-    $(function(){
-        $("#render_tag_meta_type").live('change', function(){
-            if($(this).val()=="0"){
-                $.ajax({
-                    type: "GET",
-                        url:
-                        "/tag_meta_types/new.js",
-                        data:
-                         'tag='+$("#tag_selection").val(),
-                        dataType: "script"
-                    });
-                }else{
-                $.ajax({
-                    type: "GET",
-                        url:
-                        "/tag_meta_types/"+$(this).val()+"/edit.js",
-                        data:
-                         'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
-                        dataType: "script"
-                    });
-                }
-                });
-        });
+    });
+});
 
 
-    $(function(){
-        $("#fake").live('click', function(){
-            $("#form1").doAjaxSubmit();
-                })
-        })
+$(function(){
+    $("#render_tag_meta_type").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url:
+                    "/tag_meta_types/new.js",
+                data:
+                    'tag='+$("#tag_selection").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url:
+                    "/tag_meta_types/"+$(this).val()+"/edit.js",
+                data:
+                    'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag_type").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/new.js",
+                data: 'tag='+$("#tag_selection").val()+'&tag_meta_type_id='+$("#render_tag_meta_type").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tags/new.js",
+                data: 'tag='+$("#tag_selection").val()+'&tag_type_id='+$("#render_tag_type").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tags/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#fake").live('click', function(){
+        $("#tag_meta_type_form").doAjaxSubmit();
+        $("#tag_type_form").doAjaxSubmit();
+        $("#tag_form").doAjaxSubmit();
+    })
+});
+
 
     /* Admin  -  Role_Condition Tab*/
 
 
-    $(function(){
+$(function(){
     $(".show_role").live('change', function(){
         $.ajax({
             type: "GET",
@@ -518,65 +563,63 @@ $(function(){
             });
         }
     });
-
-    });
+});
 
 
 $(function(){
     $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
         $.ajax({
             type: "GET",
-                url:
-                "/roles/master_doc_meta_type_finder1.js",
-                data:
-                 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
-                dataType: "script"
-            });
+            url: "/roles/master_doc_meta_type_finder1.js",
+            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
+            dataType: "script"
         });
+
     });
+});
 
 
 $(function(){
     $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
         $.ajax({
             type: "GET",
-                url:
+            url:
                 "/roles/meta_name_finder.js",
-                data:
-                 'id='+$(this).val(),
-                dataType: "script"
-            });
+            data:
+                'id='+$(this).val(),
+            dataType: "script"
         });
     });
+});
 
 $(function(){
     $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
         $.ajax({
             type: "GET",
-                url:
+            url:
                 "/roles/meta_type_name_finder.js",
-                data:
-                 'id='+$(this).val(),
-                dataType: "script"
-            });
+            data:
+                'id='+$(this).val(),
+            dataType: "script"
         });
     });
+});
 
 $(function(){
+
     $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
         $.ajax({
             type: "GET",
-                url:
+            url:
                 "/roles/doc_type_finder.js",
-                data:
-                 'master_doc_meta_type_id='+$(this).val(),
-                dataType: "script"
-            });
+            data:
+                'master_doc_meta_type_id='+$(this).val(),
+            dataType: "script"
         });
     });
+});
 
 $(function(){
-
     $("#cheatbutton").live('click', function(){
         $("#edit_role").doAjaxSubmit();
             })

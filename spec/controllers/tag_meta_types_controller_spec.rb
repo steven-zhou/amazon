@@ -51,6 +51,12 @@ describe TagMetaTypesController do
       get_edit
     end
 
+    it "should show all tag types belongs to selected tag meta type" do
+      @doc_tag_meta_type.tag_types << @doc_tag_type
+      get_edit
+      @doc_tag_meta_type.tag_types.should == [@doc_tag_type]
+    end
+
     it "should create a new MasterDocMetaType associate with the existing MasterDocMetaMetaType" do
       MasterDocMetaType.should_receive(:new).and_return(@doc_tag_type)
       get_edit

@@ -14,7 +14,7 @@
   
   $("#role_description1").text('<%=  escape_javascript("#{@role.description}")%>');
   $("#role_description1").val('<%=  escape_javascript("#{@role.description}")%>');
-$("#role_id_hide").val('<%=  escape_javascript("#{@role.id}")%>');
+  $("#role_id_hide").val('<%=  escape_javascript("#{@role.id}")%>');
 
   <% role = String.new %>
   <% for r in @role.role_conditions %>
