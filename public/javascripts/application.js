@@ -440,6 +440,11 @@ $(function(){
     });
 });
 
+/* Drop down box hack*/
+$(function(){
+    $(".clear_select").find('option:first').attr('selected', 'selected');
+})
+
 
 /* Admin  -  Tag Setting Tab*/
 
