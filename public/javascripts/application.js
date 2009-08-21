@@ -547,12 +547,20 @@ $(function(){
 
 $(function(){
     $(".show_role").live('change', function(){
-        $.ajax({
+      if($(this).val() != ""){
+          $.ajax({
             type: "GET",
             url: "/roles/show_roles.js",
             data: 'role_type_id='+$(this).val(),
             dataType: "script"
         });
+      }else{
+
+         $("#downside").html("");
+         $("#role_type_description_label").html('')
+
+
+      }
     });
 });
 

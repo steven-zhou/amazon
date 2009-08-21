@@ -16,7 +16,7 @@
   .form_line
     .field_80
       = role.label :description, "Descriptions"
-      = role.text_field :description, :id => "role_description1"
+      = role.text_field :description, :id => "role_description1", :disabled => @role.role_status == false
     %br.clear
   = submit_tag 'Sumbit',{:id => "cheatsubmit", :style => "display:none"}
 -form_for @role_condition,:html => {:class => 'ajax_form'} do |rc|
@@ -25,7 +25,7 @@
     .form_line
       .field_33
         = label :master_doc_meta_meta_type_id, 'Condition_Meta_Meta_Type'
-        = collection_select :master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true }, {:class => "find_master_doc_meta_type_field_for_role_condition"}
+        = collection_select :master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true }, {:class => "find_master_doc_meta_type_field_for_role_condition",:disabled=>@role.role_status == false}
       .field_33{:style => "float:right;"}
         %label &nbsp;
         %span{:class => "viewname", :id=> "mmt" }
@@ -35,7 +35,7 @@
     .form_line
       .field_33
         = label :master_doc_meta_type_id, 'Condition Meta Type'
-        %select.find_master_doc_meta_type{:id => "master_doc_meta_type_id_for_role_condition"}
+        %select.find_master_doc_meta_type{:id => "master_doc_meta_type_id_for_role_condition",:disabled=>@role.role_status == false}
           %option
       .field_33{:style => "float:right;"}
         %label &nbsp;
@@ -44,7 +44,7 @@
     .form_line
       .field_33
         %label Conditions
-        %select{:multiple => true,:size => "20", :id => "doctype_id",:name => "add_doctype_id[]"}
+        %select{:multiple => true,:size => "20", :id => "doctype_id",:name => "add_doctype_id[]",:disabled=>@role.role_status == false}
       
     #conditions_middle.middle
       = link_to image_tag('go.png'),add_conditions_role_conditions_path,:id=>"add_conditions_link",:class => "post",:data_id => "new_role_condition"
@@ -55,7 +55,7 @@
       %br{:style => "clear:both;"}
     #conditions_right.right
       %label Conditions
-      %select{:multiple => true,:size => "20", :id => "remove_doctype_id",:name => "remove_doctype_id[]"}
+      %select{:multiple => true,:size => "20", :id => "remove_doctype_id",:name => "remove_doctype_id[]",:disabled=>@role.role_status == false}
     %br{:style => "clear:both;"}
   -#= submit_tag 'Sumbit'
   -#= button_to 'Sumbit',{},{:id => "cheatbutton"}

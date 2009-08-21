@@ -4,7 +4,7 @@
   <% for r in @role_type -%>
     <% role += "<option value= '#{r.id}'>#{r.name}</option>" %>
   <% end -%>
-
+ $("#kk").html(" <%= escape_javascript(render(:partial => '/roles/roles_tab')) %>");
   $("#role_role_type_id").html('<%=escape_javascript("#{role}")%>');
 
 <% end -%>

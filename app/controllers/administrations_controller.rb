@@ -2,6 +2,7 @@ class AdministrationsController < ApplicationController
   def index
     @role = Role.new
     @role_condition = RoleCondition.new
+    @role_type = RoleType.new
     respond_to do |format|
       format.html
     end

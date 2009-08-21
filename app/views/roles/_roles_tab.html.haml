@@ -4,6 +4,9 @@
     = collection_select :role,:role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "show_role clear_select"}
     -#%select.show_role{:id => "role_role_type_id",:name => "role[role_type_id]"}
       -#%option
+  .field_50{:style => "float:right;"}
+    %label &nbsp;
+    %span{:class => "viewname", :id=> "role_type_description_label" }
   %br{ :style=>"clear: both;"}
 %div#downside
   = render :partial => '/roles/roles_original_form'

@@ -59,6 +59,7 @@ class RolesController < ApplicationController
 
   def role_type_finder
     @role_type = RoleType.find(:all)
+    @role = Role.new
     respond_to do |format|
       format.js { }
     end
@@ -67,7 +68,12 @@ class RolesController < ApplicationController
 
   #/-------------this method for Role management when person select Role_type, show roles for them
   def show_roles
-    @role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    #@role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @role_type_des = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])rescue @role_type = RoleType.new
+    #puts"debug--#{@role_type_des.to_yaml}"
+    @role = Role.new
+    @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
     respond_to do |format|
       format.js
     end
