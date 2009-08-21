@@ -40,7 +40,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :role_conditions, :collection => {:show_roles => :get,:add_conditions => :post,:remove_conditions => :post}
 
 
-  map.resources :roles, :collection => {:master_doc_meta_type_finder1 => :get, :meta_name_finder => :get, :meta_type_name_finder => :get,:doc_type_finder => :get}
+  map.resources :roles, :collection => {:master_doc_meta_type_finder1 => :get, :meta_name_finder => :get, :meta_type_name_finder => :get,:doc_type_finder => :get,:role_type_finder => :get}
 
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
