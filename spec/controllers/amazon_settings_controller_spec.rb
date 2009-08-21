@@ -6,6 +6,7 @@ describe AmazonSettingsController do
     @amazon_setting = Factory(:male_gender)
     @amazon_setting2 = Factory(:female_gender)
     Gender.stub!(:new).and_return(@amazon_setting)
+    session[:user] = Factory(:login_account).id
   end
 
   def get_new(options={})

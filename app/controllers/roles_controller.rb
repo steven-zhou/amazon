@@ -1,6 +1,7 @@
 class RolesController < ApplicationController
 
-  
+  before_filter :check_authentication
+
   def get_roles
 
     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new

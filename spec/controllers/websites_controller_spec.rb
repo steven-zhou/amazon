@@ -5,6 +5,7 @@ describe WebsitesController do
     @website = Factory.build(:website)  
     @attributes = Factory.attributes_for(:website)
     @person = @website.contactable
+    session[:user] = Factory(:login_account).id
   end
 
 

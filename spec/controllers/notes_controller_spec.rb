@@ -5,6 +5,7 @@ describe NotesController do
     @note = Factory.build(:note)
     @attributes = Factory.attributes_for(:note)
     @person = @note.noteable
+    session[:user] = Factory(:login_account).id
   end
 
 

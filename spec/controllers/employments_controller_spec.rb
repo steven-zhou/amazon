@@ -6,6 +6,7 @@ describe EmploymentsController do
     @attributes = Factory.attributes_for(:employment)
     @person = @employment.employee
     Person.stub!(:find).and_return(@person)
+    session[:user] = Factory(:login_account).id
   end
 
 

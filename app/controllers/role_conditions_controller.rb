@@ -1,5 +1,14 @@
 class RoleConditionsController < ApplicationController
 
+  before_filter :check_authentication
+
+  def show_roles
+    @role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def add_conditions
 
     
@@ -24,7 +33,7 @@ class RoleConditionsController < ApplicationController
   end
 
   def remove_conditions
-      @role = Role.find(params[:role_id])
+    @role = Role.find(params[:role_id])
     unless params[:remove_doctype_id].nil?
       params[:remove_doctype_id].each do |doctype_id|
      
@@ -43,15 +52,15 @@ class RoleConditionsController < ApplicationController
 
   end
 
- def create
+  def create
 
-   @role = Role.new
+    @role = Role.new
     respond_to do |format|
 
       format.js
 
 
     end
- end
+  end
 
 end

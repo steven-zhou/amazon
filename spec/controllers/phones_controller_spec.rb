@@ -7,6 +7,7 @@ describe PhonesController do
     @attributes = Factory.attributes_for(:phone)
     Phone.stub!(:find).and_return(@phone)
     @person = @phone.contactable
+    session[:user] = Factory(:login_account).id
   end
 
   def post_create_info
