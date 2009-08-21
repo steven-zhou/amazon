@@ -1,0 +1,37 @@
+<% unless @role.nil? %>
+  <% unless @role.blank? %>
+
+    <% role = String.new %>
+    <% role += "<option></option>" %>
+    <% role += "<option value='0'><< New Record >></option>" %>
+    
+    <% for r in @role %>
+          <% role += "<option value= '#{r.id}'>#{r.name}</option>" %>
+    <%end%>
+    $(".choose_role").html('<%=escape_javascript("#{role}")%>')
+      $("#role_description").val('')
+      $("#role_description1").val('')
+      $("#role_id_field").val('<%=escape_javascript("#{@role.first.role_type_id}")%>')
+      $("#role_id_field").text('<%=escape_javascript("#{@role.first.role_type_id}")%>')
+
+    
+  <% else %>
+    <% role = String.new %>
+    <% role += "<option></option>" %>
+    <% role += "<option value='0'><< New Record >></option>" %>
+    $(".choose_role").html('<%=escape_javascript("#{role}")%>')
+    $("#role_description1").val('')
+    $("#role_description").val('')
+    $("#role_id_field").val('')
+  <%end%>
+<% else %>
+
+
+
+  $(".choose_role").html('<option value="1"></option>')
+
+  $("#role_description").val('')
+  $("#role_description1").val('')
+  $("#role_id_field").val('')
+
+<% end -%>
