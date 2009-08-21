@@ -8,6 +8,8 @@ describe PersonRolesController do
     @person = @person_role.role_player
     @role_attributes = Factory.attributes_for(:role)
 
+    session[:user] = Factory(:login_account).id
+    
   end
 
 

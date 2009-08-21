@@ -6,6 +6,7 @@ describe AddressesController do
     @address = Factory.build(:personal_home_address)
     @person = @address.addressable
     Person.stub!(:find).and_return(@person)
+    session[:user] = Factory(:login_account).id
   end
   
   describe "POST 'create'" do

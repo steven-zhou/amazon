@@ -1,4 +1,6 @@
 class FaxesController < ApplicationController
+
+  before_filter :check_authentication
   
   def show
     @fax = Fax.find(params[:id])

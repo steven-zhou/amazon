@@ -1,4 +1,6 @@
 class PhonesController < ApplicationController
+
+  before_filter :check_authentication
   
   def show
     @phone = Phone.find(params[:id].to_i)

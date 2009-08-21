@@ -51,6 +51,13 @@ robert_tingle = Person.create(
   :onrecord_since => 1.year.ago
 )
 
+puts "Creating login for Robert Tingle"
+robert_tingle_login = LoginAccount.create(
+  :person_id => robert_tingle.id,
+  :user_name => "username",
+  :password => "password"
+)
+
 puts "Creating Jackie Chan"
 jackie_chan = Person.create(
   :custom_id => "548514",

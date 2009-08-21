@@ -5,6 +5,7 @@ describe PeopleController do
     @person = Factory.build(:john)
     @attributes = Factory.attributes_for(:john)
     Person.stub!(:find).and_return(@person)
+    session[:user] = Factory(:login_account).id
   end
   
   def post_create(options = {})
@@ -97,6 +98,7 @@ describe PeopleController do
       before(:each) do
         Person.stub!(:new).and_return(@person)
         @person.stub!(:save).and_return(true)
+        session[:user] = Factory(:login_account).id
       end
       
       it "should build the person" do
@@ -149,6 +151,8 @@ describe PeopleController do
 
   describe "PUT :update" do
     it "should get the request person general info" do
+      session[:user] = Factory(:login_account).id
+      @person = Factory(:person)
       Person.should_receive(:find).with(@person.id.to_s).and_return(@person)
       put_update :person_id => @person.id
     end

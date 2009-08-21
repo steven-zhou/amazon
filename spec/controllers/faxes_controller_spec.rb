@@ -11,6 +11,7 @@ describe FaxesController do
     Fax.stub!(:new).and_return(@fax)
     Fax.stub!(:contactable).and_return(@person)
     Fax.contactable.stub!(:faxes).and_return([@fax])
+    session[:user] = Factory(:login_account).id
   end
 
   def post_create_info

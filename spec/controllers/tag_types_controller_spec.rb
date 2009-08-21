@@ -8,6 +8,7 @@ describe TagTypesController do
     MasterDocMetaType.stub!(:new).and_return(@doc_tag_type)
     MasterDocMetaType.stub!(:find).and_return(@doc_tag_type)
     MasterDocMetaMetaType.stub!(:find).and_return(@doc_tag_meta_type)
+    session[:user] = Factory(:login_account).id
   end
 
   def get_new(options={})

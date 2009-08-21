@@ -8,6 +8,7 @@ describe RolesController do
     Role.stub!(:find).and_return(@role)
     @person = Factory.build(:person)
     Person.stub!(:find).and_return(@person)
+    session[:user] = Factory(:login_account).id
   end
 
   #    xhr :put, "update", :id => "1"

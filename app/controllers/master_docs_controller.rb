@@ -1,4 +1,7 @@
 class MasterDocsController < ApplicationController
+
+  before_filter :check_authentication
+
   def show
     @masterdoc = MasterDoc.find(params[:id])
     render "show.js"

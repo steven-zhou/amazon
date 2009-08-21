@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
 
   include ExceptionNotifiable
 
+  before_filter :check_authentication
+
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details

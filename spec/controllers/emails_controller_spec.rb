@@ -5,6 +5,7 @@ describe EmailsController do
     @email = Factory.build(:email)  
     @attributes = Factory.attributes_for(:email)
     @person = @email.contactable
+    session[:user] = Factory(:login_account).id
   end
 
 

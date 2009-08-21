@@ -1,4 +1,6 @@
 class RelationshipsController < ApplicationController
+
+  before_filter :check_authentication
   
   def create
     @source_person = Person.find(params[:person_id].to_i)

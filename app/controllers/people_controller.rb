@@ -2,6 +2,8 @@ class PeopleController < ApplicationController
   
   include PeopleSearch
 
+  before_filter :check_authentication
+
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new

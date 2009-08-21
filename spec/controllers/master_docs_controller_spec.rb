@@ -13,11 +13,13 @@ describe MasterDocsController do
     MasterDoc.stub!(:entity).and_return(@person)
     MasterDoc.entity.stub!(:master_docs).and_return([@master_doc])
     MasterDoc.entity.master_docs.stub!(:new).and_return(@master_doc)
+    session[:user] = Factory(:login_account).id
   end
 
   def post_create(options = {})
     options[:master_doc] ||= @attributes
-    post :create, options, :person_id => @person.id
+    options[:person_id] ||= @person.id
+    post :create, options
 
   end
 
@@ -72,10 +74,7 @@ describe MasterDocsController do
     before(:each) do
       @master_doc.stub!(:save).and_return(true)
     end
-#    it "should create a new master_doc with params[:master_doc]" do
-#      MasterDoc.should_receive(:new).with(hash_including(@attributes)).and_return(@master_doc)
-#      post_create
-#    end
+
     it "should save the new master_doc" do
       @master_doc.should_receive(:save)
       post_create
