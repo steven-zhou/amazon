@@ -16,7 +16,7 @@ class RolesController < ApplicationController
   
    
     @role = Role.find(params[:id]) rescue @role = Role.new
-   # @role = Role.find(params[:id.to_i])
+    # @role = Role.find(params[:id.to_i])
     #@role = Role.new if @role.nil?
     @role_condition = RoleCondition.new
     #puts "debug ----#{@role.to_yaml}"
@@ -29,7 +29,8 @@ class RolesController < ApplicationController
     @role = Role.new(params[:role])
     @role.save
     respond_to do |format|
-      format.js
+     
+        format.js 
     end
   end
     
@@ -66,16 +67,16 @@ class RolesController < ApplicationController
   end
 
   def doc_type_finder
-     @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:master_doc_meta_type_id].to_i]) rescue @master_doc_types = MasterDocType.new
+    @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:master_doc_meta_type_id].to_i]) rescue @master_doc_types = MasterDocType.new
     respond_to do |format|
       format.js { }
     end
   end
 
 
-   def update
+  def update
 
-  @role = Role.find(params[:id])
+    @role = Role.find(params[:id])
 
     respond_to do |format|
 
@@ -86,6 +87,12 @@ class RolesController < ApplicationController
       end
     end
   end
- 
+
+  def role_type_finder
+    @role_type = RoleType.find(:all)
+    respond_to do |format|
+      format.js { }
+    end
+  end
 
 end

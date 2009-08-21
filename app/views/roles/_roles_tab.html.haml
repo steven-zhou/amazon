@@ -2,10 +2,12 @@
   .field_33
     = label  @role,:role_type_id, "Role Types"
     = collection_select :role,:role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "show_role"}
+    -#%select.show_role{:id => "role_role_type_id",:name => "role[role_type_id]"}
+      -#%option
   %br{ :style=>"clear: both;"}
   .field_33
     = label @role,:role_id, "Role"   
-    %select.add_role{:include_blank => true, :id => "role_id"}
+    %select.add_role{:id => "role_id"}
       %option
 %div#downside
   = render :partial => '/roles/roles_original_form'

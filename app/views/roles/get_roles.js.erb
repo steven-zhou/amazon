@@ -13,9 +13,9 @@
 
 
   <% if @person_role.new_record? %>
-    $("#person_role_role_id").html('<option value="1">invalid type</option>')
+    $("#person_role_role_id").html('<option value="1"></option>')
   <%else%>
-    $("#person_role_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_role_id").html('<option value="1">invalid type</option>')
+    $("#person_role_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_role_id").html('<option value="1"></option>')
   <%end%>
 
 

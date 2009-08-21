@@ -1,4 +1,4 @@
-<%if @role.new_record? %>
+<% if  @role.new_record? %>
 
   $("#downside").html(" <%= escape_javascript(render(:partial => 'roles_new_form', :locals => { :role => @role })) %>");
   $("#role_type_id_field").val('<%=  escape_javascript("#{@role_type.id}")%>');

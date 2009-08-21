@@ -509,7 +509,7 @@ formatCurrency= function(num){
 
 $(function(){
     $(".add_role").live('change', function(){
-        if($(this).val()!=""){
+        if($(this).val()!=="0"){
             $.ajax({
                 type: "GET",
                 url: "/roles/new.js",
@@ -580,4 +580,16 @@ $(function(){
     $("#cheatbutton").live('click', function(){
         $("#edit_role").doAjaxSubmit();
             })
+    });
+
+
+
+   $(function(){
+    $("#rt").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url:"/roles/role_type_finder.js",
+            dataType: "script"
+            });
+        });
     });

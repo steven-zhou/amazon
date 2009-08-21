@@ -2,8 +2,8 @@
   <% unless @role.blank? %>
 
     <% role = String.new %>
-    <% role += "<option></option>" %>
-    <% role += "<option value='0'><< New Record >></option>" %>
+   <% role += "<option value='0'></option>" %>
+    <% role += "<option value=''><< New Record >></option>" %>
     <% for r in @role %>
 
       <% role += "<option value= '#{r.id}'>#{r.name}</option>" %>
@@ -32,7 +32,7 @@
 
 
 
-  $(".add_role").html('<option value="1">invalid type</option>')
+  $(".add_role").html('<option value="1"></option>')
 
   $("#role_description").val('')
     $("#role_description1").val('')
