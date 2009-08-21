@@ -17,9 +17,9 @@ class TagsController < ApplicationController
     @tag_type = (params[:tag_type]).camelize.constantize.find(params[:tag_type_id])
     @tag_type.tags << @tag
     if @tag.save
-      flash[:message] = "Tag Type was saved"
+      flash[:message] = "Tag was saved"
     else
-      flash[:warning] = "Tag Type wasn't saved"
+      flash[:warning] = "Tag wasn't saved"
     end
   end
 
@@ -36,9 +36,9 @@ class TagsController < ApplicationController
   def update
     @tag = (params[:type]).camelize.constantize.find(params[:id].to_i)
     if @tag.update_attributes(params[params[:type].underscore.to_sym])
-      flash[:message] = "Tag Type was updated"
+      flash[:message] = "Tag was updated"
     else
-      flash[:warning] = "Tag Type was not updated"
+      flash[:warning] = "Tag was not updated"
     end
     respond_to do |format|
       format.js

@@ -29,7 +29,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-            + "=" + encodeURIComponent(window._auth_token);
+        + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -95,16 +95,16 @@ $(document).ready(function() {
         "bAutoWidth":false,
         "sDom":'lfrtpi',
         "aoColumns":[{
-                'sWidth':"12%"
-            },{
-                'sWidth':"15%"
-            },{
-                'sWidth':"30%"
-            },{
-                "sWdith":"15%"
-            },{
-                'sWidth':"25%"
-            }]
+            'sWidth':"12%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"30%"
+        },{
+            "sWdith":"15%"
+        },{
+            'sWidth':"25%"
+        }]
     })
 });
 
@@ -288,9 +288,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/organisations/name_finder.js",
+                "/organisations/name_finder.js",
                 data:
-                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -305,9 +305,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/people/name_finder.js",
+                "/people/name_finder.js",
                 data:
-                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -362,9 +362,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/people/master_doc_meta_type_finder.js",
+            "/people/master_doc_meta_type_finder.js",
             data:
-                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -376,9 +376,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/people/master_doc_type_finder.js",
+            "/people/master_doc_type_finder.js",
             data:
-                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -407,9 +407,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/amazon_settings/data_list_finder.js",
+            "/amazon_settings/data_list_finder.js",
             data:
-                'type=' + $(this).val(),
+            'type=' + $(this).val(),
             dataType: "script"
         });
     });
@@ -422,18 +422,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/amazon_settings/new.js",
+                "/amazon_settings/new.js",
                 data:
-                    'type=' + $("#find_data_list_field").val(),
+                'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                    "/amazon_settings/" + $(this).val() + "/edit.js",
+                "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                    'id=' + $(this).val(),
+                'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -454,9 +454,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/tag_settings/show_all_for_selected_classifier.js",
+                "/tag_settings/show_all_for_selected_classifier.js",
                 data:
-                    'tag='+$(this).val(),
+                'tag='+$(this).val(),
                 dataType: "script"
             });
             $("#fake").css("display", "");
@@ -475,18 +475,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/tag_meta_types/new.js",
+                "/tag_meta_types/new.js",
                 data:
-                    'tag='+$("#tag_selection").val(),
+                'tag='+$("#tag_selection").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                    "/tag_meta_types/"+$(this).val()+"/edit.js",
+                "/tag_meta_types/"+$(this).val()+"/edit.js",
                 data:
-                    'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
                 dataType: "script"
             });
         }
@@ -535,14 +535,22 @@ $(function(){
 
 $(function(){
     $("#fake").live('click', function(){
+        $("#tag_flash").html("");
         $("#tag_meta_type_form").doAjaxSubmit();
-        $("#tag_type_form").doAjaxSubmit();
-        $("#tag_form").doAjaxSubmit();
+
+        if($("#tag_type").html() != ""){
+            $("#tag_type_form").doAjaxSubmit();
+        }
+
+        if($("#tag").html() != ""){
+            $("#tag_form").doAjaxSubmit();
+        }
+
     })
 });
 
 
-    /* Admin  -  Role_Condition Tab*/
+/* Admin  -  Role_Condition Tab*/
 
 
 $(function(){
@@ -604,9 +612,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/roles/meta_name_finder.js",
+            "/roles/meta_name_finder.js",
             data:
-                'id='+$(this).val(),
+            'id='+$(this).val(),
             dataType: "script"
         });
     });
@@ -617,9 +625,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/roles/meta_type_name_finder.js",
+            "/roles/meta_type_name_finder.js",
             data:
-                'id='+$(this).val(),
+            'id='+$(this).val(),
             dataType: "script"
         });
     });
@@ -631,9 +639,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/roles/doc_type_finder.js",
+            "/roles/doc_type_finder.js",
             data:
-                'master_doc_meta_type_id='+$(this).val(),
+            'master_doc_meta_type_id='+$(this).val(),
             dataType: "script"
         });
     });
@@ -642,9 +650,8 @@ $(function(){
 $(function(){
     $("#cheatbutton").live('click', function(){
         $("#edit_role").doAjaxSubmit();
-            })
-    });
-
+    })
+});
 
 
    $(function(){
@@ -653,6 +660,6 @@ $(function(){
             type: "GET",
             url:"/roles/role_type_finder.js",
             dataType: "script"
-            });
         });
     });
+});

@@ -14,5 +14,5 @@ class TagType < ActiveRecord::Base
     @tag_types.each { |setting| results += "<option value='" + "#{setting.type}" + "'>" + "#{setting.type}" + "</option>" }
     return results
   end
-  
+ 
 end
