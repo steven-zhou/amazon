@@ -1,4 +1,8 @@
 -form_for @role, :url=> {:controller => 'roles',:action => @role.new_record? ? 'create' : 'update', :id => @role.id}, :html => {:class => 'ajax_form'} do |role|
+  .field_33
+    = role.label :role_id, "Role"
+    %select.choose_role{:id => "role_id"}
+      %option
   .field_60{:style => "float:right"}
     = role.label :role_status, 'Status'
     = role.radio_button :role_status, true, :style => "width:10%",:checked => true
