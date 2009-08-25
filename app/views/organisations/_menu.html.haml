@@ -1,0 +1,22 @@
+= link_to image_tag('person_profile.png'), :controller => "organisations", :action => "show", :id => @organisation.id
+- if (@current_action == 'show') then
+  %h1 Organisation Profile
+= image_tag('menu_bar.png')
+
+= link_to image_tag('person_add.png'), :controller => "organisations", :action => "new"
+- if (@current_action == 'new') then
+  %h1 Add Organisation
+= image_tag('menu_bar.png')
+
+- if !(@organisation.nil? || @organisation.new_record?)
+  = link_to image_tag('person_edit.png'), :controller => "organisations", :action => "edit", :id => @organisation.id
+- else
+  = link_to image_tag('person_edit.png'), :controller => "organisations", :action => "edit"
+
+- if (@current_action == 'edit') then
+  %h1 Edit Organisation
+= image_tag('menu_bar.png')
+
+= link_to image_tag('person_find.png'), :controller => "organisations", :action => "find"
+- if (@current_action == 'find' || @current_action == 'search') then
+  %h1 Find Organisation
