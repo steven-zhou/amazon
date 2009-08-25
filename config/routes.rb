@@ -28,7 +28,16 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :roles, :collection => {:get_roles => :get}
   end
 
-  map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get}
+  map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get} do |organisation|
+    organisation.resources :addresses, :member => {:set_primary_address => :post}
+    organisation.resources :phones
+    organisation.resources :faxes
+    organisation.resources :websites
+    organisation.resources :emails
+    organisation.resources :master_docs
+    organisation.resources :images, :member => {:thumb => :get}
+    organisation.resources :notes
+  end
 
   map.resources :administrations
 

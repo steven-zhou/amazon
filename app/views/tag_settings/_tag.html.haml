@@ -5,7 +5,7 @@
       .field_20
         =tag.label :name, 'Tag'
         %select#render_tag{:disabled =>(@tag.status == false) }
-          %option{:value => "0", :selected => @tag.new_record?} << New Record >>
+          %option{:value => "0", :selected => @tag.new_record?} << Add New >>
           - @tags.each do |i|
             %option{:value => "#{i.id}", :selected => (@tag.id == i.id) } #{i.name}
       .field_20

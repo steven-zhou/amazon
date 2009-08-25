@@ -9,7 +9,7 @@ class Religion < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_religion
-    @religion = Religion.find_all_by_status(true)
+    @religion = Religion.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

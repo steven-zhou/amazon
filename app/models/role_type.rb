@@ -11,7 +11,7 @@ class RoleType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_role_type
-    @role_type = RoleType.find_all_by_status(true)
+    @role_type = RoleType.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

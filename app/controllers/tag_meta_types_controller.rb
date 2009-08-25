@@ -11,7 +11,7 @@ class TagMetaTypesController < ApplicationController
 
   def edit
     @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.find(params[:id])
-    @tag_types = @tag_meta_type.tag_types
+    @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
     @tag_type = (params[:tag]+"MetaType").camelize.constantize.new
     respond_to do |format|
       format.js

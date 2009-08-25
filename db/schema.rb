@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090819005644) do
+ActiveRecord::Schema.define(:version => 20090825011400) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -272,15 +272,9 @@ ActiveRecord::Schema.define(:version => 20090819005644) do
     t.text     "registered_number"
     t.date     "registered_date"
     t.integer  "registered_country_id"
-    t.text     "organisation_type"
     t.text     "tax_file_no"
     t.text     "legal_no_1"
     t.text     "legal_no_2"
-    t.text     "business_classification"
-    t.text     "business_nature"
-    t.text     "business_category"
-    t.text     "business_sub_category"
-    t.text     "industrial_sector"
     t.text     "industrial_code"
     t.integer  "number_of_full_time_employees"
     t.integer  "number_of_part_time_employees"
@@ -292,6 +286,10 @@ ActiveRecord::Schema.define(:version => 20090819005644) do
     t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "organisation_type_id"
+    t.integer  "business_type_id"
+    t.integer  "industry_sector_id"
+    t.integer  "business_category_id"
   end
 
   create_table "people", :force => true do |t|

@@ -9,7 +9,7 @@ class NoteType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_note_type
-    @note_type = NoteType.find_all_by_status(true)
+    @note_type = NoteType.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

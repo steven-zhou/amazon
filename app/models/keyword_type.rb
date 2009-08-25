@@ -11,7 +11,7 @@ class KeywordType < AmazonSetting
   has_many :keywords
 
   def self.active_keyword_type
-    @keyword_type = KeywordType.find_all_by_status(true)
+    @keyword_type = KeywordType.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

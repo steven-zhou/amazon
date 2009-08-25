@@ -11,7 +11,7 @@ class TerminationMethod < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_termination_method
-    @termination_method = TerminationMethod.find_all_by_status(true)
+    @termination_method = TerminationMethod.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

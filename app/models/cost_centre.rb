@@ -11,7 +11,7 @@ class CostCentre < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_cost_centre
-    @cost_centre = CostCentre.find_all_by_status(true)
+    @cost_centre = CostCentre.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

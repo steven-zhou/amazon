@@ -11,7 +11,7 @@ class Section < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_section
-    @section = Section.find_all_by_status(true)
+    @section = Section.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

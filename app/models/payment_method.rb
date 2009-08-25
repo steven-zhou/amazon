@@ -11,7 +11,7 @@ class PaymentMethod < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_payment_method
-    @payment_method = PaymentMethod.find_all_by_status(true)
+    @payment_method = PaymentMethod.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

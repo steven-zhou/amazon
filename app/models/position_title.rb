@@ -11,7 +11,7 @@ class PositionTitle < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_position_title
-    @position_title = PositionTitle.find_all_by_status(true)
+    @position_title = PositionTitle.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private
