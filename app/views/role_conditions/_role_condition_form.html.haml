@@ -13,6 +13,8 @@
     = role.radio_button :role_status, false, :style => "width:10%"
     %label{:style => "display:inline"} Inactive
   %br{ :style=>"clear: both;"}
+  .field_33{:style => "display:none"}
+    = role.text_field :role_type_id, {:name => "role[role_type_id]",:id => "role_type_hide"}
   .form_line
     .field_80
       = role.label :description, "Descriptions"

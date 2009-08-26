@@ -12,9 +12,9 @@ class AmazonSettingsController < ApplicationController
   def create
     @amazonsetting = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
     if @amazonsetting.save
-      flash[:message] = "The type was saved."
+      flash[:message] = "Saved successfully."
     else
-      flash[:warning] = "The type was not saved."
+      flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully."
     end
     respond_to do |format|
       format.js
@@ -32,9 +32,9 @@ class AmazonSettingsController < ApplicationController
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
     @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
     if @amazonsetting.save
-      flash[:message] = "The type was updated successfully."
+      flash[:message] = "Updated successfully."
     else
-      flash[:warning] = "The type was not updated successfully."
+      flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", updated unsuccessfully."
     end
     respond_to do |format|
       format.js
@@ -42,7 +42,8 @@ class AmazonSettingsController < ApplicationController
   end
 
   def data_list_finder
-    @amazonsetting = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    @amazonsettings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    @amazonsetting = AmazonSetting.find(params[:id].to_i) rescue @amazonsetting = AmazonSetting.new
     respond_to do |format|
       format.js
     end

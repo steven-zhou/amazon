@@ -120,6 +120,7 @@ $('.birthdatepick').live("mouseover", function(){
     });
 });
 
+
 $('.startdatepick').live("mouseover", function(){
     $("#"+$(this).attr("end_date")).datepicker('enable');
     $(this).datepicker({
@@ -128,6 +129,30 @@ $('.startdatepick').live("mouseover", function(){
         changeMonth: true,
         changeYear: true
     });
+});
+
+
+
+$('.startdatepick').live("mouseover", function(){
+    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    //init
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: new Date(year, month-1, day)
+    });
+
+    //reset
+    if(year!=undefined){
+        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+    }else{
+        $(this).datepicker('disable');
+    }
 });
 
 
@@ -272,8 +297,8 @@ $(function(){
     $(".check_person_field").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/people/name_finder.js",
-            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update'),
+            url: "/people/role_finder.js",
+            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id'),
             dataType: "script"
         });
     });
@@ -406,10 +431,8 @@ $(function(){
     $("#find_data_list_field").live('change', function(){
         $.ajax({
             type: "GET",
-            url:
-            "/amazon_settings/data_list_finder.js",
-            data:
-            'type=' + $(this).val(),
+            url: "/amazon_settings/data_list_finder.js",
+            data: 'type=' + $(this).val() + '&id=' + $("#hiden_id").val(),
             dataType: "script"
         });
     });
@@ -417,7 +440,6 @@ $(function(){
 
 $(function(){
     $("#data_list_field").live('change', function(){
-        $('#feedback').html('');
         if($(this).val()==0){
             $.ajax({
                 type: "GET",
@@ -453,10 +475,8 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                url:
-                "/tag_settings/show_all_for_selected_classifier.js",
-                data:
-                'tag='+$(this).val(),
+                url: "/tag_settings/show_all_for_selected_classifier.js",
+                data: 'tag='+$(this).val(),
                 dataType: "script"
             });
             $("#fake").css("display", "");
@@ -474,19 +494,15 @@ $(function(){
         if($(this).val()=="0"){
             $.ajax({
                 type: "GET",
-                url:
-                "/tag_meta_types/new.js",
-                data:
-                'tag='+$("#tag_selection").val(),
+                url: "/tag_meta_types/new.js",
+                data: 'tag='+$("#tag_selection").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
-                url:
-                "/tag_meta_types/"+$(this).val()+"/edit.js",
-                data:
-                'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                url: "/tag_meta_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
                 dataType: "script"
             });
         }
@@ -624,10 +640,8 @@ $(function(){
     $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
         $.ajax({
             type: "GET",
-            url:
-            "/roles/meta_type_name_finder.js",
-            data:
-            'id='+$(this).val(),
+            url: "/roles/meta_type_name_finder.js",
+            data:'id='+$(this).val(),
             dataType: "script"
         });
     });
@@ -661,5 +675,28 @@ $(function(){
             url:"/roles/role_type_finder.js",
             dataType: "script"
         });
+    });
+});
+
+/*for rule use*/
+
+$(function(){
+    $(".show_role_table").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/"+$(this).attr('person_id')+"/roles/person_role_des.js",
+            data: 'id='+$(this).val()+'&person_id='+$(this).attr('person_id')+'&person_role_id='+$(this).attr('person_role_id'),
+            dataType: "script"
+        });
+    });
+});
+
+$('.beforestartdatepick').live("mouseover", function(){
+    $("#"+$(this).attr("end_date")).datepicker('enable');
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true
     });
 });

@@ -4,7 +4,7 @@ class TagType < ActiveRecord::Base
   has_many :tags
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => [:type]
+  validates_uniqueness_of :name, :scope => [:type], :case_sensitive => false
 
   accepts_nested_attributes_for :tags, :reject_if => proc { |attributes| attributes['name'].blank? || attributes['tag_type_id'].blank? }
 

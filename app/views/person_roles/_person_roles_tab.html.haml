@@ -12,7 +12,7 @@
   -form_for([@person,@person_role], :html => {:style => "display:none", :class => 'ajax_form'}) do |person_role|
     %fieldset
       .options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_person_role"
+        = link_to_function image_tag('close_icon.png'), :class => "clear_person_role_form toggle_button", :toggle_id_name => "new_person_role"
       %h3 New Role
       = render :partial => '/person_roles/person_role_form', :locals => { :person_role => person_role }
       = submit_tag 'Submit'

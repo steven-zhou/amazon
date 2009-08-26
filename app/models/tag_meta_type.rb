@@ -1,9 +1,11 @@
 class TagMetaType < ActiveRecord::Base
 
+  OPTIONS = ['MasterDoc', 'Group', 'Fee']
+
   has_many :tag_types
   
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => [:type]
+  validates_uniqueness_of :name, :scope => [:type], :case_sensitive => false
 
 
   def self.distinct_types_of_tag_meta_types

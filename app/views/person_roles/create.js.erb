@@ -1,5 +1,15 @@
 <% if @person_role.errors.empty? -%>
   $('#person_roles').prepend('<%= escape_javascript(render(:partial => @person_role)) %>');
-  $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
   $("#new_person_role")[0].reset();
+    $("#person_role_role_id").html('');
+
+     $("#role_condition_display").html('');
+
+     $("#role_masterdoc_display").html('');
+     $("#person_role_type_description").html('');
+     $("#person_role_description").html('');
+
+
+  $("#new_person_role").toggle('blind');
+  $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
 <% end -%>

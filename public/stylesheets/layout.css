@@ -28,19 +28,19 @@ div#content {
     float: left;
 }
 
-div#warning {
+div.warning {
     height : 30px;
-    background-color : red;
+    color : red;
 }
 
-div#notice {
+div.notice {
     height : 30px;
-    background-color : yellow;
+    color : yellow;
 }
 
-div#message {
+div.message {
     height : 30px;
-    background-color : green;
+    color : green;
     }
 
 div#content div#left, div#right {
@@ -118,6 +118,12 @@ div.field_22 {
 div.field_27 {
     margin: 0% 1%;
     width: 25%;
+    float: left;
+}
+
+div.field_30 {
+    margin: 0% 1%;
+    width: 28%;
     float: left;
 }
 
@@ -292,4 +298,8 @@ img.medium {
 
 input.disabled {
     color: red;
+}
+
+.hiden {
+    display: none;
 }

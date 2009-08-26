@@ -182,7 +182,7 @@ class PeopleController < ApplicationController
     end
   end
 
-    def role_finder
+  def role_finder
     @person = Person.find(params[:person_id]) rescue @person = Person.new
     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
@@ -220,5 +220,6 @@ class PeopleController < ApplicationController
       format.js { }
     end
   end
+
 
 end

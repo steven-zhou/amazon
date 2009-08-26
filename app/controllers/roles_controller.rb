@@ -5,14 +5,23 @@ class RolesController < ApplicationController
   def get_roles
 
     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
-    @role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
-
+    @role = Role.find(:all, :conditions => ["role_type_id=? and role_status=?",params[:role_type_id],true]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    
     respond_to do |format|
       format.js
     end
   end
 
+  def person_role_des
+     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
+     @role = Role.find(:first, :conditions => ["id=?", params[:id].to_i])
+     @person = Person.find(:first, :conditions => ["id=?", params[:person_id].to_i])
 
+    respond_to do |format|
+      format.js { }
+    end
+  end
   
   
     
@@ -101,6 +110,7 @@ class RolesController < ApplicationController
   def edit
     @role = Role.find(params[:id].to_i)
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+ 
     @role_condition = RoleCondition.new
     respond_to do |format|
       format.js
@@ -110,6 +120,7 @@ class RolesController < ApplicationController
   def update
     @role = Role.find(params[:id])
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+      #  puts"debug--#{@roles.to_yaml}"
     respond_to do |format|
       if @role.update_attributes(params[:role])
         format.js { render 'show.js' }

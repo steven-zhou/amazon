@@ -1,18 +1,15 @@
 .info_container
-  %h3 Tags
-
   %div
     .info_container
-      %h3 System Tags
+      %h3 Please select a system tag to continue
       .form_line
-        .field_20
+        .field_25
           %select#tag_selection.clear_select
-            %option{:selected => true}
-            %option MasterDoc
-            -#%option Group
-            -#%option Condition
-            -#%option Fee
-        .field_80
+            %option
+            %option{:value => "0"} Master Doc / Role Condition
+            -#%option{:value => "1"} Group
+            -#%option{:value => "2"} Fee
+        .field_70
           #tag_flash
         %br.clear
 

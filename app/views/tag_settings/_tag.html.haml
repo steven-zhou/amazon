@@ -3,13 +3,13 @@
     %h3 Tags
     .form_line
       .field_20
-        =tag.label :name, 'Tag'
+        =tag.label :name, "&nbsp;"
         %select#render_tag{:disabled =>(@tag.status == false) }
           %option{:value => "0", :selected => @tag.new_record?} << Add New >>
           - @tags.each do |i|
             %option{:value => "#{i.id}", :selected => (@tag.id == i.id) } #{i.name}
       .field_20
-        =tag.label :name, 'Tag Name'
+        =tag.label :name, 'Name'
         =tag.text_field :name, :disabled=>(@tag.status == false)
       .field_40
         =tag.label :description, 'Description'

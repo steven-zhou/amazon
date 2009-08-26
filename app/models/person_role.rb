@@ -7,5 +7,7 @@ class PersonRole < ActiveRecord::Base
   belongs_to :role_manager, :class_name => 'Person', :foreign_key => 'managed_by'
 
   belongs_to :role
-  
+
+  validates_presence_of :role_id
+
 end

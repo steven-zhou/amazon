@@ -7,7 +7,7 @@
 
   .info_container
     .form_line
-      .field_20{:style => 'float:left;'}
+      .field_20{:style => "float:left"}
         = label_tag 'person_id', 'System ID', :style => 'clear:both'
         - form_tag(:controller => "people", :action => "edit", :id => "") do
           = text_field_tag 'person_id', @person.id, {:readonly=> false, :onblur => 'this.form.submit();',:id => 'system_id_tag'}
