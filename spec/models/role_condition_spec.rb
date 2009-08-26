@@ -39,22 +39,11 @@ describe RoleCondition do
     @role_condition.errors.on(:role_id).should_not be_nil
   end
   it "should have unique doctype for the same role" do
-    #    @doctype = Factory(:master_doc_type)
-    #    @role = Factory(:role)
-    #    @role_condition_1 = Factory.build(:role_condition)
-    #    @role_condition_1.doctype_id = "10"
-    #    @role_condition_1.role_id = "10"
-    #    @role_condition_1.save.should == true
-    #    @role_condition_2 = Factory.build(:role_condition)
-    #    @role_condition_2.doctype_id = "10"
-    #    @role_condition_2.role_id = "10"
-    #    @role_condition_2.save.should == false
-    #    @role_condition_2.errors.on(:doctype_id).should_not be_nil
-
     @doctype = Factory(:master_doc_type)
-    @role_condition_1 = Factory.build(:role_condition, :doctype_id => @doctype.id)
+    @role = Factory(:role)
+    @role_condition_1 = RoleCondition.new(:doctype_id => @doctype.id, :role_id => @role.id)
     @role_condition_1.save.should == true
-    @role_condition_2 = Factory.build(:role_condition, :doctype_id => @doctype.id)
+    @role_condition_2 = RoleCondition.new(:doctype_id => @doctype.id, :role_id => @role.id)
     @role_condition_2.save.should == false
     @role_condition_2.errors.on(:doctype_id).should_not be_nil
   end
