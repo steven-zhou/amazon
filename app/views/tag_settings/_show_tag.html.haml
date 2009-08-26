@@ -4,7 +4,7 @@
     .field_20
       %label Tag Meta Type
       %select#render_tag_meta_type
-        %option{:value => "0"} << New Record >>
+        %option{:value => "0"} << Add New >>
         - @tag_meta_types.each do |i|
           %option{:value=>"#{i.id}"} #{i.name}
     #tag_meta_type

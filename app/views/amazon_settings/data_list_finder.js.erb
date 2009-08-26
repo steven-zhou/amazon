@@ -1,6 +1,6 @@
 <% unless @amazonsetting.blank? %>
   <% options = String.new %>
-  <% options += "<option value='0'> << New Record >> </option>" %>
+  <% options += "<option value='0'> << Add New >> </option>" %>
   <% for setting in @amazonsetting %>
     <% options += "<option value='#{setting.id}'>#{setting.name}</option>" %>
   <% end %>

@@ -9,7 +9,7 @@ class Language < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_language
-    @language = Language.find_all_by_status(true)
+    @language = Language.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private

@@ -11,7 +11,7 @@ class SuspensionType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_suspension_type
-    @suspension_type = SuspensionType.find_all_by_status(true)
+    @suspension_type = SuspensionType.find(:all, :conditions => ["status = true"], :order => 'name')
   end
 
   private
