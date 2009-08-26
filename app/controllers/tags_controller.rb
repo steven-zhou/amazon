@@ -3,8 +3,8 @@ class TagsController < ApplicationController
   before_filter :check_authentication
 
  def new
-    @tag = (params[:tag]+"Type").camelize.constantize.new
-    @tag_type = (params[:tag]+"MetaType").camelize.constantize.find(params[:tag_type_id])
+    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
+    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:tag_type_id])
     @tag_meta_type = @tag_type.tag_meta_type
     @tags = @tag_type.tags
     respond_to do |format|
@@ -17,14 +17,14 @@ class TagsController < ApplicationController
     @tag_type = (params[:tag_type]).camelize.constantize.find(params[:tag_type_id])
     @tag_type.tags << @tag
     if @tag.save
-      flash[:message] = "Tag was saved"
+      flash[:message] ||= " Saved successfully"
     else
-      flash[:warning] = "Tag wasn't saved"
+      flash[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", saved unsuccessfully"
     end
   end
 
   def edit
-    @tag = (params[:tag]+"Type").camelize.constantize.find(params[:id])
+    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.find(params[:id])
     @tag_type = @tag.tag_type
     @tag_meta_type = @tag_type.tag_meta_type
     @tags = @tag_type.tags
@@ -36,9 +36,9 @@ class TagsController < ApplicationController
   def update
     @tag = (params[:type]).camelize.constantize.find(params[:id].to_i)
     if @tag.update_attributes(params[params[:type].underscore.to_sym])
-      flash[:message] = "Tag was updated"
+      flash[:message] ||= " Updated successfully."
     else
-      flash[:warning] = "Tag was not updated"
+      flash[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", updated unsuccessfully."
     end
     respond_to do |format|
       format.js

@@ -1,6 +1,6 @@
-<% unless flash[:message].nil? %>
-$("#tag_flash").append(" <%= escape_javascript(flash[:message]) %> ");
-$("#render_tag_meta_type").change();
+<% unless flash[:warning].nil? %>
+$("#tag_flash").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
 <% else %>
-$("#tag_flash").append(" <%= escape_javascript(flash[:warning]) %> ");
+$("#tag_flash").html("<div class='message'>" + "Operated successfully" + "</div>");
+$("#render_tag_meta_type").change();
 <% end %>

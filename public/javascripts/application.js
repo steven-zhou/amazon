@@ -406,10 +406,8 @@ $(function(){
     $("#find_data_list_field").live('change', function(){
         $.ajax({
             type: "GET",
-            url:
-            "/amazon_settings/data_list_finder.js",
-            data:
-            'type=' + $(this).val(),
+            url: "/amazon_settings/data_list_finder.js",
+            data: 'type=' + $(this).val() + '&id=' + $("#hiden_id").val(),
             dataType: "script"
         });
     });
@@ -417,7 +415,6 @@ $(function(){
 
 $(function(){
     $("#data_list_field").live('change', function(){
-        $('#feedback').html('');
         if($(this).val()==0){
             $.ajax({
                 type: "GET",
@@ -453,10 +450,8 @@ $(function(){
         if($(this).val() != ""){
             $.ajax({
                 type: "GET",
-                url:
-                "/tag_settings/show_all_for_selected_classifier.js",
-                data:
-                'tag='+$(this).val(),
+                url: "/tag_settings/show_all_for_selected_classifier.js",
+                data: 'tag='+$(this).val(),
                 dataType: "script"
             });
             $("#fake").css("display", "");
@@ -474,19 +469,15 @@ $(function(){
         if($(this).val()=="0"){
             $.ajax({
                 type: "GET",
-                url:
-                "/tag_meta_types/new.js",
-                data:
-                'tag='+$("#tag_selection").val(),
+                url: "/tag_meta_types/new.js",
+                data: 'tag='+$("#tag_selection").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
-                url:
-                "/tag_meta_types/"+$(this).val()+"/edit.js",
-                data:
-                'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
+                url: "/tag_meta_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection").val()+'&id='+$(this).val(),
                 dataType: "script"
             });
         }

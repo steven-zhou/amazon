@@ -1,6 +1,7 @@
 $('#tag_meta_type').html("<%= escape_javascript(render(:partial => '/tag_settings/tag_meta_type')) %>");
 <%- if(@tag_meta_type.status == true)  %>
 $('#tag_type').html("<%= escape_javascript(render(:partial => '/tag_settings/tag_type')) %>");
+$('#tag').html("");
 <%- else %>
 $('#tag_type').html("");
 $('#tag').html("");

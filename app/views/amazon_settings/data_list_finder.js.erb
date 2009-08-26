@@ -1,12 +1,24 @@
-<% unless @amazonsetting.blank? %>
+<%- unless @amazonsettings.blank? %>
   <% options = String.new %>
-  <% options += "<option value='0'> << Add New >> </option>" %>
-  <% for setting in @amazonsetting %>
-    <% options += "<option value='#{setting.id}'>#{setting.name}</option>" %>
-  <% end %>
+
+  <%- if (@amazonsetting.new_record?) %>
+    <% options += "<option value='0' selected='true'> << Add New >> </option>" %>
+  <%- else %>
+    <% options += "<option value='0'> << Add New >> </option>" %>
+  <%- end %>
+
+  <%- for setting in @amazonsettings %>
+
+    <%- if (@amazonsetting.id == setting.id) %>
+      <% options += "<option value='#{setting.id}' selected='true'>#{setting.name}</option>" %>
+    <%- else %>
+      <% options += "<option value='#{setting.id}'>#{setting.name}</option>" %>
+    <%- end %>
+
+  <%- end %>
   $("#data_list_field").html('<%=escape_javascript("#{options}")%>');
-  $("#setting").html('');
-  <% else %>
+  $("#data_list_field").change();
+<%- else %>
   $("#data_list_field").html('');
   $("#setting").html('');
-<% end %>
+<%- end %>

@@ -1,12 +1,12 @@
 .info_container{:style => "width:50%;"}
   #left
-    %h3 System Data
     .form_line
       .field_80
         %label Data Type
         %select#find_data_list_field.clear_select
           %option
           = AmazonSetting.distinct_setting_type
+        %input#hiden_id.hiden{:value=>"0"}
       %br.clear
     .form_line
       .field_80
