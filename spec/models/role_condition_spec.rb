@@ -57,6 +57,14 @@ describe RoleCondition do
     #    @role_condition_2 = Factory.build(:role_condition, :doctype_id => @doctype.id)
     #    @role_condition_2.save.should == false
     #    @role_condition_2.errors.on(:doctype_id).should_not be_nil
+    @doctype = Factory(:master_doc_type)
+    @role = Factory(:role)
+    @role_condition_1 = RoleCondition.new(:doctype_id => @doctype.id, :role_id => @role.id)
+    @role_condition_1.save.should == true
+    @role_condition_2 = RoleCondition.new(:doctype_id => @doctype.id, :role_id => @role.id)
+    @role_condition_2.save.should == false
+    @role_condition_2.errors.on(:doctype_id).should_not be_nil
+
   end
   it "should belongs to Roles" do
     RoleCondition.reflect_on_association(:role).nil?.should == false
