@@ -1,0 +1,32 @@
+<% unless @role.nil? %>
+  <% role = String.new %>
+  <% for r in @role.role_conditions %>
+    <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
+  <%end%>
+  <% masterdoc = String.new %>
+  <% for m in @person.master_docs %>
+    <% masterdoc += "<option value='#{m.master_doc_type.id}'>#{m.master_doc_type.name}</option>" %>
+  <%end%>
+
+  <% if @person_role.new_record? %>
+    $("#role_condition_display").html('<%=  escape_javascript("#{role}")%>');
+    $("#person_role_description").html('<%=escape_javascript("#{@role.description}")%>')
+    $("#role_masterdoc_display").html('<%=  escape_javascript("#{masterdoc}")%>');
+  <%else%>
+    $("#role_condition_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_display").html('<%=  escape_javascript("#{role}")%>');
+    $("#role_masterdoc_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_display").html('<%=  escape_javascript("#{masterdoc}")%>');
+    $("#person_role_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_description").html('<%=escape_javascript("#{@role.description}")%>')
+
+  <%end%>
+
+<%else%>
+  <% if @person_role.new_record? %>
+    $("#person_role_description").html('')
+    $("#role_condition_display").html('');
+    $("#role_masterdoc_display").html('');
+  <%else%>
+    $("#person_role_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_description").html('')
+    $("#role_condition_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_display").html('');
+    $("#role_masterdoc_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_display").html('');
+  <%end%>
+<%end%>

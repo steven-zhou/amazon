@@ -25,7 +25,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :people do |person|
-    person.resources :roles, :collection => {:get_roles => :get}
+    person.resources :roles, :collection => {:get_roles => :get, :person_role_des => :get}
   end
 
   map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get}
@@ -35,7 +35,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
 
 
-
+ 
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}
 

@@ -1,14 +1,54 @@
-.field_33
+.field_50
   = label :role_type_id, "Role Types"
-  = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+  -if @person_role.new_record?
+    = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+  -else
+    = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+.field_33{:style => "float:right;"}
+  %label &nbsp;
+  -if @person_role.new_record?
+    %span{:class => "viewname", :id=> "person_role_type_description" }
+  -else
+    %span{:class => "viewname", :id=> "person_role_type_#{@person_role.id}_description" } #{@role_type.description}
 %br{ :style=>"clear: both;"}
 
-.field_33
+.field_50
   = person_role.label :role_id, "Role"
-  = person_role.collection_select :role_id, Role.all, :id, :name
+  -if @person_role.new_record?
+    %select.show_role_table{:name => "person_role[role_id]", :id => "person_role_role_id", :person_id => @person.id, :person_role_id => "person_role_role_id"}
+      %options
+  -else
+    %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id}
+      - @roles.each do |r|
+        %option{:value => "#{r.id}", :selected => (@role.id == r.id) } #{r.name}
+
+.field_33{:style => "float:right;"}
+  %label &nbsp;
+  -if @person_role.new_record?
+    %span{:class => "viewname", :id=> "person_role_description" }
+  -else
+    %span{:class => "viewname", :id=> "person_role_#{@person_role.id}_description" } #{@role.description}
+     
 
 %br{ :style=>"clear: both;"}
-
+.form_line
+  .field_33
+    %label Conditions
+    -if @person_role.new_record?
+      %select{:multiple => true,:size => "15", :id => "role_condition_display"}
+    -else
+      %select{:multiple => true,:size => "15", :id => "role_condition_#{@person_role.id}_display"}
+        - @role.role_conditions.each do |r|
+          %option{:value => "#{r.id}" } #{r.name}
+  .field_33
+    %label Conditions
+    -if @person_role.new_record?
+      %select{:multiple => true,:size => "15", :id => "role_masterdoc_display"}
+    -else
+      %select{:multiple => true,:size => "15", :id => "role_masterdoc_#{@person_role.id}_display"}
+        - @masterdoc.each do |r|
+          %option{:value => "#{r.master_doc_type.id}" } #{r.master_doc_type.name}
+%br.clear
 .form_line
   .field_25
     = person_role.label :assigned_by, 'Assigned By'
@@ -19,7 +59,6 @@
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} #{@person_role.role_assigner.name}
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} &nbsp;
-  %br{ :style=>"clear: both;"}
   .field_25
     = person_role.label :approved_by, "Approved By"
     = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
@@ -35,17 +74,17 @@
     = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container", :person_role_id=> @person_role.new_record? ? 0 : @person_role.id
   .field_25
     %label &nbsp;
-    -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
+    -if (!@person_role.new_record? && !@person_role.role_superviser.nil?)
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} #{@person_role.role_superviser.name}
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} &nbsp;
-  %br{ :style=>"clear: both;"}
+
   .field_25
     = person_role.label :managed_by, "Managed By"
     = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
   .field_25
     %label &nbsp;
-    -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
+    -if (!@person_role.new_record? && !@person_role.role_manager.nil?)
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "manager_container_0" : "manager_container_#{@person_role.id}"} #{@person_role.role_manager.name}
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "manager_container_0" : "manager_container_#{@person_role.id}"} &nbsp;
@@ -54,21 +93,26 @@
 .form_line
   .field_25
     = person_role.label :assignment_date, "Assignment Date"
-    = person_role.text_field :assignment_date, :class=>"datepick"
-  %br{ :style=>"clear: both;"}
-  .field_25
-    = person_role.label :start_date, "Start Date"
-    = person_role.text_field :start_date, :class=>"datepick"
+    = person_role.text_field :assignment_date, :class=> "beforestartdatepick", :end_date=>@person_role.new_record? ? "person_role_start_date" : "person_role_#{@person_role.id}_start_date"
 
   .field_25
+    = person_role.label :start_date, "Start Date"
+    = person_role.text_field :start_date, :class=> "startdatepick", :end_date=>@person_role.new_record? ? "person_role_end_date" : "person_role_#{@person_role.id}_end_date", :start_date=>@person_role.new_record? ? "person_role_assignment_date" : "person_role_#{@person_role.id}_assignment_date"
+  .field_25
     = person_role.label :end_date, "End Date"
-    = person_role.text_field :end_date, :class=>"datepick"
+    = person_role.text_field :end_date, :class=> "enddatepick", :start_date=>@person_role.new_record? ? "person_role_start_date" : "person_role_#{@person_role.id}_start_date"
   %br{ :style=>"clear: both;"}
 
 .form_line
-  .field_50
+  .field_80
     = person_role.label :remarks, "Remarks"
     = person_role.text_field :remarks
   %br{ :style=>"clear: both;"}
+
+.field_33{:style => "display:none"}
+  -if @person_role.new_record?
+    = person_role.text_field :id, {:id => "show"}
+  -else
+    = person_role.text_field :id, {:id => "show1"} #{@person_role.id}
 
 

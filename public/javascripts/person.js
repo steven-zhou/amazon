@@ -16,15 +16,15 @@ $(function() {
     });
 
     $(".close_image").live('click', function(){
-       $(this).children('img').attr('src', '/images/open_accordion.png');
-       $(this).removeClass('close_image');
-       $(this).addClass('open_image');
+        $(this).children('img').attr('src', '/images/open_accordion.png');
+        $(this).removeClass('close_image');
+        $(this).addClass('open_image');
     });
 
     $(".open_image").live('click', function(){
-       $(this).children('img').attr('src', '/images/closed_accordion.png');
-       $(this).removeClass('open_image');
-       $(this).addClass('close_image');
+        $(this).children('img').attr('src', '/images/closed_accordion.png');
+        $(this).removeClass('open_image');
+        $(this).addClass('close_image');
     });
 
 	
@@ -38,7 +38,7 @@ $(function() {
         var $alt_text = $(this).attr('alt_text')
         $(this).attr({
             alt_text: $(this).html()
-            })
+        })
         $(this).html($alt_text)
         $('#'+$(this).attr('toggle_more_id')).toggle();
     })
@@ -79,9 +79,32 @@ $(function() {
     $("#accordion01").accordion();
     $("#accordion02").accordion();
 
+    $(".clear_person_role_form").click(function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#assigner_container_0').html('');
+        $('#approver_container_0').html('');
+        $('#superviser_container_0').html('');
+        $('#manager_container_0').html('');
+        $('#role_role_type_id').change();
+    })
+
+    $("#new_person_role").submit( function(){
+        $('#assigner_container_0').html('');
+        $('#approver_container_0').html('');
+        $('#superviser_container_0').html('');
+        $('#manager_container_0').html('');
+ 
+       
+
+        
+      
+      
+
+    })
+
     $("#delete_photo").click(function(){
-       $("#photo").attr("src", "/images/no_photo.jpeg");
-       $("#delete_photo").hide();
+        $("#photo").attr("src", "/images/no_photo.jpeg");
+        $("#delete_photo").hide();
     });
 
 });

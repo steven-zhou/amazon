@@ -20,7 +20,12 @@ class PersonRolesController < ApplicationController
 
   def edit
     @person_role = PersonRole.find(params[:id])
+    @role = @person_role.role
+    @role_type = @role.role_type
+    @roles = @role_type.roles.find(:all, :order => 'name')
     @person = @person_role.role_player
+    @masterdoc = @person.master_docs
+    
     respond_to do |format|
       format.js
     end
@@ -40,7 +45,6 @@ class PersonRolesController < ApplicationController
     @person_role.update_attributes(params[:person_role][@person_role.id.to_s])
     render "show.js"
   end
-
 
 
 
