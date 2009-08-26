@@ -2,10 +2,10 @@
   .form_line
     .field_80
       =setting.label :name, 'Name'
-      =setting.text_field :name
+      =setting.text_field :name, :disabled => (@amazonsetting.status == false)
     .field_80
       =setting.label :description, 'Description'
-      =setting.text_field :description
+      =setting.text_field :description, :disabled => (@amazonsetting.status == false)
     .field_80
       =setting.label :status, 'Status'
       =setting.radio_button :status, true, :style => "display:inline;width:20%", :checked => true
