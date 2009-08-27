@@ -481,6 +481,7 @@ $(function(){
             });
             $("#fake").css("display", "");
         }else{
+            $("#hiden_meta_id").val("0")
             $("#show_tag").html("");
             $("#fake").css("display", "none");
         }
