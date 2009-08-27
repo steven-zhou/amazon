@@ -39,48 +39,18 @@
         %br.clear
 
 
-    -#%div#more_name_details{:style => 'display:none'}
-      .form_line
-        .field_20
-          = label_tag 'title', 'Title'
-          = text_field_tag 'title', @organisation.title_id, {:readonly => true}
-        .field_40
-          = label_tag 'first_name', 'First Names'
-          = text_field_tag 'first_name', @organisation.first_name, {:readonly => true}
-        .field_40
-          = label_tag 'family_name', 'Family Name'
-          = text_field_tag 'family_name', @organisation.family_name, {:readonly => true}
-        %br.clear
-      .form_line
-        .field_20
-          = label_tag 'second_title', 'Second Title'
-          = text_field_tag 'second_title', @organisation.second_title_name, {:readonly => true}
-        .field_40
-          = label_tag 'middle_name', 'Middle Name'
-          = text_field_tag 'middle_name', @organisation.middle_name, {:readonly => true}
-        .field_40
-          = label_tag 'maiden_name', 'Maiden Name'
-          = text_field_tag 'middle_name', @organisation.maiden_name, {:readonly => true}
-        %br.clear
-      .form_line
-        .field_20
-          = label_tag 'initials', 'Initials'
-          = text_field_tag 'initials', @organisation.initials, {:readonly => true}
-        .field_40
-          = label_tag 'post_title', 'Post Name'
-          = text_field_tag 'post_title', @organisation.post_title, {:readonly => true}
-        .field_40
-          = label_tag 'preferred_name', 'Preferred Name'
-          = text_field_tag 'preferred_name', @organisation.preferred_name, {:readonly => true}
-        %br.clear
-    -#%span.details
-      = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
 
   %div.info_container
     %h3 Contacts
     %div.info_container
       Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_phone.nil? ? "None assigned": @primary_phone.number
+    %div.info_container
+      Fax &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      = @primary_fax.nil? ? "None assigned": @primary_fax.number
+    %div.info_container
+      Website &nbsp;&nbsp;&nbsp;&nbsp;
+      = @primary_website.nil? ? "None assigned": @primary_website.value
     %div.info_container
       Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_email.nil? ? "None assigned": @primary_email.value
@@ -95,38 +65,13 @@
 
 
   %div.info_container
-    %h3 Notes
+    %h3 Key Personnel
     %div.info_container
-      %div{:style => "float:left;"}
-        = @organisation.notes.blank? ? "No Notes": @organisation.notes.first.id
-        = @organisation.notes.first.note_type.name unless @organisation.notes.blank?
+      %h3 Office Bearer
 
-      %div{:style => "float:right;"}
-        = show_date(@organisation.notes.first.created_at)unless @organisation.notes.blank?
-        \-
-        = @organisation.notes.first.label unless @organisation.notes.blank?
-        = @organisation.notes.first.short_description unless @organisation.notes.blank?
-      %br.clear
     %div.info_container
-      %div{:style => "float:left;"}
-        = @organisation.notes.second.blank? ? "No Notes": @organisation.notes.second.id
-        = @organisation.notes.second.note_type.name unless @organisation.notes.second.blank?
-
-      %div{:style => "float:right;"}
-        = show_date(@organisation.notes.second.created_at)unless @organisation.notes.second.blank?
-        \-
-        = @organisation.notes.second.label unless @organisation.notes.second.blank?
-        = @organisation.notes.second.short_description unless @organisation.notes.second.blank?
-      %br.clear
+      %h3 Contact Persons
   
-
-      
-  %div.info_container
-    %h3 Employment
-    .primary_address_and_employment
-      = format_employment(@primary_employment) unless @primary_employment.nil?
-        
-
 
 #right
   
@@ -137,7 +82,7 @@
     .organisation_profile_options
       = link_to_function "#{image_tag('business.png')} Business",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "organisation_info"
       &nbsp;|
-      = link_to_function "#{image_tag('organisation_details.png')} organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"toggle_button1", :toggle_id_name1 => "organisation_info",:toggle_id_name2 => "business_info"
+      = link_to_function "#{image_tag('person_details.png')} organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"toggle_button1", :toggle_id_name1 => "organisation_info",:toggle_id_name2 => "business_info"
      
 
  

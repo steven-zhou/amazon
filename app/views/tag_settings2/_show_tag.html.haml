@@ -3,14 +3,14 @@
   .form_line
     .field_20
       %label &nbsp;
-      %select#render_tag_meta_type
+      %select#render_tag_meta_type2
         %option{:value => "0", :selected => @tag_meta_type.new_record?} << Add New >>
         - @tag_meta_types.each do |i|
           %option{:value=>"#{i.id}", :selected => (@tag_meta_type.id == i.id)} #{i.name}
-    #tag_meta_type
-      =render :partial => "/tag_settings/tag_meta_type"
+    #tag_meta_type2
+      =render :partial => "/tag_settings2/tag_meta_type"
     %br.clear
 
-%div#tag_type
+%div#tag_type2{:style => "display:none"}
     
-%div#tag
+%div#tag2{:style => "display:none"}

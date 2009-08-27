@@ -1,0 +1,26 @@
+.form_line
+  .field_20
+    = p.label :id, 'System ID'
+    = p.text_field :id, :disabled => true
+  .field_20
+    = p.label :custom_id, 'Custom ID'
+    = p.text_field :custom_id
+  .field_25
+    = p.label :onrecord_since, 'On Record Since'
+    = p.text_field :onrecord_since, :disabled => true
+  %br.clear
+.form_line
+  .field_100
+    = p.label :full_name, "Full Name"
+    = p.text_field :full_name
+  %br.clear
+.form_line
+  .field_100
+    = p.label :short_name, "Short Name"
+    = p.text_field :short_name
+  %br.clear
+.form_line
+  .field_100
+    = p.label :trading_as, "Trading as"
+    = p.text_field :trading_as
+  %br.clear

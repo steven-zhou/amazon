@@ -1,0 +1,54 @@
+
+#tabs2
+  = render :partial => 'organisation_menu'
+  #Address
+    .info_container
+      .header_container
+        .title
+          %h3 Address Details
+        %br{ :style=>"clear: both;"}
+      #addresses
+      =# Render the organisation's addresses
+      =# render :partial => '/ogranisations/organisation_address', :collection => @organisation.addresses
+  #Contact
+    .info_container
+      .header_container
+        .title
+          %h3 Contact Details
+
+        %br{ :style=>"clear: both;"}
+      #contacts
+      =# Render the organisation's contacts
+      =# render :partial => '/organisations/organisation_contact', :collection => @organisation.contacts
+  #Keyword
+    .info_container
+      .header_container
+        .title
+          %h3 KeyWords Details
+
+        %br{ :style=>"clear: both;"}
+      #keywords
+      =# Render the organisation's keywords
+      =# render :partial => '/organisations/organisation_keyword', :collection => @organisation.keywords
+  #MasterDocs
+    .info_container
+      .header_container
+        .title
+          %h3 MasterDocs Details
+
+        %br{ :style=>"clear: both;"}
+      #masterdocs
+      =# Render the organisation's masterdocs
+      =# render :partial => '/organisations/organisation_master_doc', :collection => @organisation.master_docs
+
+  #Note
+    .info_container
+      .header_container
+        .title
+          %h3 Notes
+
+        %br{ :style=>"clear: both;"}
+      #notes_list
+      =# Render the organisation's notes
+      =# render :partial => '/organisations/organisation_note', :collection => @organisation.sorted_notes
+  

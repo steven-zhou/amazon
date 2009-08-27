@@ -17,9 +17,9 @@ class TagsController < ApplicationController
     @tag_type = (params[:tag_type]).camelize.constantize.find(params[:tag_type_id])
     @tag_type.tags << @tag
     if @tag.save
-      flash[:message] ||= " Saved successfully"
+      flash.now[:message] ||= " Saved successfully"
     else
-      flash[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", saved unsuccessfully"
+      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", saved unsuccessfully"
     end
   end
 
@@ -36,9 +36,9 @@ class TagsController < ApplicationController
   def update
     @tag = (params[:type]).camelize.constantize.find(params[:id].to_i)
     if @tag.update_attributes(params[params[:type].underscore.to_sym])
-      flash[:message] ||= " Updated successfully."
+      flash.now[:message] ||= " Updated successfully."
     else
-      flash[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", updated unsuccessfully."
+      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", updated unsuccessfully."
     end
     respond_to do |format|
       format.js

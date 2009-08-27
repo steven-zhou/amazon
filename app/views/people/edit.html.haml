@@ -23,7 +23,7 @@
       = render :partial => 'person_details_fields', :locals => {:p => p}
     %fieldset
       %h3{:style=>"float:left"} Picture
-      = render :partial => '/images/show_photo', :locals => {:person => @person}
+      = render :partial => '/images/show_photo', :locals => {:entity => @person}
     = submit_tag 'Submit and Close', :style => 'float:right;'
     = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
     

@@ -23,7 +23,7 @@ class TagMetaTypesController < ApplicationController
     if @tag_meta_type.save
       flash.now[:message] = "Saved successfully"
     else
-      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully"
+      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js

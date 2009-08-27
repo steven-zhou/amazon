@@ -1,0 +1,25 @@
+-# The main Address tab
+.info_container
+  .header_container
+    .title
+      %h3 Address Details
+    .options
+      = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"toggle_button", :toggle_id_name => "new_address" if (!organisation.nil? && !organisation.new_record?)
+      = image_tag('help_icon.png')
+    %br.clear
+    
+    =# Initially hidden new address form
+    -form_for([@organisation,@address], :html => {:style => "display:none", :class => 'ajax_form'}) do |address|
+      %fieldset
+        .options{:style => "float:right"}
+          = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_address"
+        %h3 New Address
+        = render :partial => '/addresses/address_form', :locals => { :address => address }
+        = submit_tag 'Submit'
+    
+    #addresses
+      =# Render the organisation's addresses
+      = render :partial => '/addresses/address', :collection => organisation.addresses
+        
+          
+      

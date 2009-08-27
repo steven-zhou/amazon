@@ -1,0 +1,18 @@
+-form_for @tag_meta_type, :url=> {:controller => 'tag_meta_types', :action => @tag_meta_type.new_record? ? "create" : "update", :id => @tag_meta_type.id}, :html => {:class => 'ajax_form', :id => "tag_meta_type_form2"} do |tag_meta_type|
+  .form_line
+    .field_20
+      =tag_meta_type.label :name, 'Named'
+      =tag_meta_type.text_field :name, :disabled=>@tag_meta_type.status == false
+    .field_40
+      =tag_meta_type.label :description, 'Description'
+      =tag_meta_type.text_field :description, :disabled=>@tag_meta_type.status == false
+    .field_20
+      =tag_meta_type.label :status, 'Status'
+      =tag_meta_type.radio_button :status, true, :style => "width:10%", :checked => true
+      %label{:style => "display:inline"} Active
+      =tag_meta_type.radio_button :status, false, :style => "width:10%"
+      %label{:style => "display:inline"} Inactive
+      %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_meta_type.class.to_s}
+    %br.clear
+  =link_to_function image_tag('closed_accordion.png', :style=>"float:right", :alt=>"Continue"), :class => "toggle_button close_image", :toggle_id_name => "tag_type2" if @tag_meta_type.status == true
+  = submit_tag 'Submit', :style => "width:75px;"
