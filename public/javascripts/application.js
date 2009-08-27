@@ -476,7 +476,7 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/tag_settings/show_all_for_selected_classifier.js",
-                data: 'tag='+$(this).val(),
+                data: 'tag='+$(this).val()+'&id='+$("#hiden_meta_id").val(),
                 dataType: "script"
             });
             $("#fake").css("display", "");

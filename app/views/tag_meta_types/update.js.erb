@@ -2,5 +2,7 @@
 $("#tag_flash").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
 <% else %>
 $("#tag_flash").html("<div class='message'>" + "Operated successfully" + "</div>");
+$("#hiden_meta_id").val('<%= escape_javascript("#{@tag_meta_type.id}") %>')
+$("#tag_selection").change();
 $("#render_tag_meta_type").change();
 <% end %>
