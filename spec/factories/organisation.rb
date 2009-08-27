@@ -1,4 +1,5 @@
 Factory.define :google, :class => Organisation do |f|
+  f.sequence(:id) { |n| n }
   f.custom_id "GOGL"
   f.full_name "Google Enterprises"
   f.short_name "Google"
@@ -22,4 +23,7 @@ Factory.define :google, :class => Organisation do |f|
   f.association :business_type, :factory => :high_tech
   f.association :business_category, :factory => :search_engine
   f.association :industry_sector, :factory => :telecommunications
+end
+
+Factory.define :invalid_organisation, :class =>Organisation do |f|
 end

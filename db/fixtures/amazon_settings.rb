@@ -89,3 +89,5 @@ SuspensionType.create :name => "Stepped down", :status => true
 SuspensionType.create :name => "Investigation", :status => true
 TerminationMethod.create :name => "By consent", :status => true
 TerminationMethod.create :name => "By notice", :status => true
+OrganisationType.create :name => "IT", :status => true
+OrganisationType.create :name => "High Tech", :status => true

@@ -81,17 +81,6 @@ describe TagMetaTypesController do
       post_create
     end
 
-    it "should flash[:message] after saved successfully" do
-      post_create
-      flash[:message].should have_at_least(1).things
-    end
-
-    it "should flash[:warning after saved unsuccessfully" do
-      @doc_tag_meta_type.stub!(:save).and_return(false)
-      post_create
-      flash[:warning].should have_at_least(1).things
-    end
-
     it "should render template /tag_meta_types/create.js" do
       post_create
       response.should render_template("tag_meta_types/create.js.erb")
@@ -108,17 +97,6 @@ describe TagMetaTypesController do
     it "should update" do
       @doc_tag_meta_type.should_receive(:update_attributes).with(hash_including(@attributes))
       put_update
-    end
-
-    it "should flash[:message] after saved successfully" do
-      put_update
-      flash[:message].should have_at_least(1).things
-    end
-
-    it "should flash[:warning after saved unsuccessfully" do
-      @doc_tag_meta_type.stub!(:update_attributes).and_return(false)
-      put_update
-      flash[:warning].should have_at_least(1).things
     end
 
     it "should render template /tag_meta_types/update.js" do

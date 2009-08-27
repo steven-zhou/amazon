@@ -566,6 +566,86 @@ $(function(){
     })
 });
 
+/* Admin  -  Tag Setting2 Tab*/
+
+$(function(){
+    $("#tag_selection2").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/tag_settings2/show_all_for_selected_classifier.js",
+                data: 'tag='+$(this).val()+'&id='+$("#hiden_meta_id2").val(),
+                dataType: "script"
+            });
+        }else{
+            $("#hiden_meta_id2").val("0")
+            $("#show_tag2").html("");
+        }
+
+    });
+});
+
+
+$(function(){
+    $("#render_tag_meta_type2").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tag_meta_types/new.js",
+                data: 'tag='+$("#tag_selection2").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tag_meta_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag_type2").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/new.js",
+                data: 'tag='+$("#tag_selection2").val()+'&tag_meta_type_id='+$("#render_tag_meta_type2").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#render_tag2").live('change', function(){
+        if($(this).val()=="0"){
+            $.ajax({
+                type: "GET",
+                url: "/tags/new.js",
+                data: 'tag='+$("#tag_selection2").val()+'&tag_type_id='+$("#render_tag_type2").val(),
+                dataType: "script"
+            });
+        }else{
+            $.ajax({
+                type: "GET",
+                url: "/tags/"+$(this).val()+"/edit.js",
+                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
 
 /* Admin  -  Role_Condition Tab*/
 

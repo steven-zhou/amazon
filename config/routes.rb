@@ -57,6 +57,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_types
   map.resources :tags
 
+  map.resources :tag_settings2, :collection => {:show_all_for_selected_classifier => :get}
+  map.resources :tag_meta_types2
+  map.resources :tag_types2
+  map.resources :tags2
+
     
 
   

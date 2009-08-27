@@ -1,0 +1,27 @@
+-form_for @tag, :url => {:controller => 'tags', :action => @tag.new_record? ? "create" : "update", :id => @tag.id}, :html => {:id => "tag_form2", :class => 'ajax_form'} do |tag|
+  %fieldset
+    %h3 Tags
+    .form_line
+      .field_20
+        =tag.label :name, "&nbsp;"
+        %select#render_tag2{:disabled =>(@tag.status == false) }
+          %option{:value => "0", :selected => @tag.new_record?} << Add New >>
+          - @tags.each do |i|
+            %option{:value => "#{i.id}", :selected => (@tag.id == i.id) } #{i.name}
+      .field_20
+        =tag.label :name, 'Name'
+        =tag.text_field :name, :disabled=>(@tag.status == false)
+      .field_40
+        =tag.label :description, 'Description'
+        =tag.text_field :description, :disabled=>(@tag.status == false)
+      .field_20
+        =tag.label :status, 'Status'
+        =tag.radio_button :status, true, :style => "width:10%", :checked => true
+        %label{:style => "display:inline"} Active
+        =tag.radio_button :status, false, :style => "width:10%"
+        %label{:style => "display:inline"} Inactive
+        %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag.class.to_s}
+        %input{:style => "display:none", :id => "tag_type", :name =>"tag_type", :value => @tag_type.class.to_s}
+        %input{:style => "display:none", :id => "tag_type_id", :name =>"tag_type_id", :value => @tag_type.id}
+      %br.clear
+    = submit_tag 'Submit', :style => "width:75px;"
