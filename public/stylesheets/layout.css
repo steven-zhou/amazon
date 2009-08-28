@@ -303,3 +303,15 @@ input.disabled {
 .hiden {
     display: none;
 }
+
+div.field_36 {
+    margin: 0% 1%;
+    width: 36%;
+    float: left;
+}
+
+div.field_73 {
+    margin: 0% 1%;
+    width: 73%;
+    float: left;
+}

@@ -11,7 +11,7 @@ class RoleCondition < ActiveRecord::Base
   validates_presence_of :role_id
   validate :doctype_must_exist
   validate :role_must_exist
-  validates_uniqueness_of :doctype_id
+  validates_uniqueness_of :doctype_id, :scope => :role_id
 
   def doctype_must_exist
     errors.add(:doctype_id, "You must specify a doctype that exists.") if (doctype_id && MasterDocType.find_by_id(doctype_id).nil?)

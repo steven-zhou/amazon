@@ -83,6 +83,7 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#assigner_container_0').html('');
         $('#approver_container_0').html('');
+          $('#approver_container_0').val('');
         $('#superviser_container_0').html('');
         $('#manager_container_0').html('');
         $('#role_role_type_id').change();
