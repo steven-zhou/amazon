@@ -23,6 +23,7 @@
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type", :name =>"tag_meta_type", :value => @tag_meta_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type_id", :name =>"tag_meta_type_id", :value => @tag_meta_type.id}
+        %input{:style => "display:none", :id => "show_tag_details", :name => "show_tag_details", :value => "false"}
       %br.clear
-    =link_to_function image_tag('closed_accordion.png', :style=>"float:right", :alt=>"Continue"), :class => "toggle_button close_image", :toggle_id_name => "tag2" if @tag_type.status == true
+    =link_to_function image_tag('closed_accordion.png', :style=>"float:right", :alt=>"Continue"), :id => "arrow2", :class => "toggle_button close_image", :toggle_id_name => "tag2" if @tag_type.status == true
     = submit_tag 'Submit', :style => "width:75px;"

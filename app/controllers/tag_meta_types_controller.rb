@@ -13,6 +13,8 @@ class TagMetaTypesController < ApplicationController
     @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:id])
     @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
     @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.new
+    @flag = String.new
+    @flag = params[:flag]
     respond_to do |format|
       format.js
     end
