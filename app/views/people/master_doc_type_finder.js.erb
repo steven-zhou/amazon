@@ -1,4 +1,4 @@
-<% unless @master_doc_types.nil? %>
+<% if @master_doc_types.size > 0 %>
   <%  result = String.new %>
   <% for mdt in @master_doc_types %>
     <% result += "<option value='#{mdt.id}'>#{mdt.name}</option>" %>
