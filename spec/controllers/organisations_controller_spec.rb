@@ -153,6 +153,21 @@ describe OrganisationsController do
     end
   end
 
+   describe "PUT :update" do
+    it "should get the request organisation general info" do
+      session[:user] = Factory(:login_account).id
+      @organisation = Factory(:google)
+      Organisation.should_receive(:find).with(@organisation.id.to_s).and_return(@organisation)
+      put_update :organisation_id => @organisation.id
+    end
+
+    it "should update the person's attributes" do
+      @organisation.should_receive(:update_attributes).with(hash_including(@attributes)).and_return(true)
+      put_update
+    end
+
+  end
+
   describe "GET :name_finder" do
 
     before(:each) do
