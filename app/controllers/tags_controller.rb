@@ -19,7 +19,7 @@ class TagsController < ApplicationController
     if @tag.save
       flash.now[:message] ||= " Saved successfully"
     else
-      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", saved unsuccessfully"
+      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag.errors.on(:name).nil?
     end
   end
 
@@ -38,7 +38,7 @@ class TagsController < ApplicationController
     if @tag.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] ||= " Updated successfully."
     else
-      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", updated unsuccessfully."
+      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js

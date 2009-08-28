@@ -14,7 +14,7 @@ class AmazonSettingsController < ApplicationController
     if @amazonsetting.save
       flash[:message] = "Saved successfully."
     else
-      flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully."
+      flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js
@@ -34,7 +34,7 @@ class AmazonSettingsController < ApplicationController
     if @amazonsetting.save
       flash[:message] = "Updated successfully."
     else
-      flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", updated unsuccessfully."
+      flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", updated unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js

@@ -37,7 +37,7 @@ class TagMetaTypesController < ApplicationController
     if @tag_meta_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] = "Updated successfully."
     else
-      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", updated unsuccessfully."
+      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js
