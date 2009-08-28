@@ -3,8 +3,8 @@ class NotesController < ApplicationController
   before_filter :check_authentication
 
   def create
-    @person = Person.find(params[:person_id])
-    @note = @person.notes.new(params[:note])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @note = @entity.notes.new(params[:note])
   
     @note.save
     respond_to do |format|

@@ -1,6 +1,7 @@
 class OrganisationsController < ApplicationController
 
   before_filter :check_authentication
+  skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new
     @organisation = Organisation.new
@@ -92,6 +93,30 @@ class OrganisationsController < ApplicationController
     respond_to do |format|
       format.js {  }
     end
+  end
+
+  def add_keywords
+    @organisation = Organisation.find(params[:id])
+
+    unless params[:add_keywords].nil?
+      params[:add_keywords].each do |keyword_id|
+        keyword = Keyword.find(keyword_id);
+        @organisation.keywords<<keyword
+      end
+    end
+    render "add_keywords.js"
+  end
+
+  def remove_keywords
+    @organisation = Organisation.find(params[:id])
+
+    unless params[:remove_keywords].nil?
+      params[:remove_keywords].each do |keyword_id|
+        keyword = Keyword.find(keyword_id)
+        @organisation.keywords.delete(keyword)
+      end
+    end
+    render "remove_keywords.js"
   end
 
 end

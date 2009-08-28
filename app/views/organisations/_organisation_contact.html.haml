@@ -1,0 +1,13 @@
+-# Displays A Contact
+-div_for(organisation_contact, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= "#{organisation_contact.contact_type.name} #{organisation_contact.class}"
+    
+  .display_container
+    = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+    %br
+    - if organisation_contact.read_attribute("type") == "Phone"
+      = organisation_contact.preferrence_day_times
+    %br
+    = organisation_contact.remarks

@@ -10,8 +10,8 @@ class WebsitesController < ApplicationController
   end
   
   def create
-    @person = Person.find(params[:person_id].to_i)
-    @website = @person.websites.new(params[:website])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @website = @entity.websites.new(params[:website])
     @website.save
     respond_to do |format|
       format.js

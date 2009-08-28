@@ -8,8 +8,8 @@ class MasterDocsController < ApplicationController
   end
 
   def create
-    @person = Person.find(params[:person_id])
-    @masterdoc = @person.master_docs.new(params[:master_doc])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @masterdoc = @entity.master_docs.new(params[:master_doc])
     @masterdoc.save
     #create.js should also handle the error
     render "create.js"

@@ -23,6 +23,21 @@ describe OrganisationsController do
     get :edit, options
   end
 
+  def post_add_keywords(options ={})
+    options[:add_keywords] ||= [1,2]
+    post :add_keywords, options
+  end
+
+  def put_update(options = {})
+    options[:id] ||= @organisation.id
+    options[:organisation] ||= @attributes
+    put :update, options
+  end
+
+  def get_name_finder(options = {})
+    get :name_finder, options
+  end
+
   describe "GET 'new'" do
     before(:each) do
       get 'new'
@@ -136,10 +151,75 @@ describe OrganisationsController do
       get_edit
       assigns[:organisation].should be_new_record
     end
+  end
 
+  describe "GET :name_finder" do
+
+    before(:each) do
+      Organisation.stub!(:find).and_return(@organisation)
+    end
+
+    it "should find the correctly set @person if params[:person_id] is specified" do
+      get_name_finder(:person_id => @organisation.id)
+      assigns[:organisation].should equal(@organisation)
+    end
+
+    it "should render name_finder" do
+      get_name_finder
+      response.should render_template('name_finder')
+    end
 
   end
 
+  describe "handle POST 'add_keywords'" do
+    before(:each) do
+      @keyword = Factory.build(:keyword)
+      @keyword_2 = Factory.build(:keyword)
+      Keyword.stub!(:find).and_return(@keyword,@keyword_2)
+      @ids = [1,2]
+    end
 
+    it "should find keywords for each elements in add_keyword params" do
+      @ids.each do |id|
+        Keyword.should_receive(:find).with(id)
+      end
+      post_add_keywords :add_keywords => @ids
+    end
+
+    it "should add all founded keywords to organisation" do
+      post :add_keywords, :add_keywords => @ids
+      @organisation.keywords.size.should equal(@ids.size)
+    end
+
+    it "should render add_keywords.js" do
+      post_add_keywords :add_keywords => @ids
+      response.should render_template("organisations/add_keywords.js")
+    end
+  end
+
+  describe "handle POST 'remove_keywords'" do
+    before(:each) do
+      @keyword = Factory.build(:keyword)
+      Keyword.stub!(:find).and_return(@keyword)
+      @ids = [1]
+    end
+
+    it "should find keywords for each elements in remove_keyword params" do
+      @ids.each do |id|
+        Keyword.should_receive(:find).with(id)
+      end
+      post :remove_keywords, :remove_keywords => @ids
+    end
+
+    it "should remove all founded keywords from organisation" do
+      @organisation.keywords.should_receive(:delete).exactly(@ids.size)
+      post :remove_keywords, :remove_keywords => @ids
+    end
+
+    it "should render remove_keywords.js" do
+      post :remove_keywords, :remove_keywords => @ids
+      response.should render_template("organisations/remove_keywords.js")
+    end
+  end
 
 end

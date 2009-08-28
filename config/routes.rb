@@ -28,7 +28,9 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :roles, :collection => {:get_roles => :get, :person_role_des => :get}
   end
 
-  map.resources :organisations, :shallow=>true, :collection => {:name_finder => :get} do |organisation|
+  map.resources :organisations, :shallow=>true,
+    :collection => {:find => :get, :search => :post, :name_finder => :get},
+    :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}
     organisation.resources :phones
     organisation.resources :faxes

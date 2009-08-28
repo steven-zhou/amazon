@@ -17,8 +17,8 @@ class AddressesController < ApplicationController
   end
 
   def create
-    @person = Person.find(params[:person_id])
-    @address = @person.addresses.new(params[:address])
+    @entity = Person.find(params[:person_id]) rescue @entity = Organisation.find(params[:organisation_id])
+    @address = @entity.addresses.new(params[:address])
     @address.save
     respond_to do |format|
       format.js
