@@ -72,8 +72,7 @@ class OrganisationsController < ApplicationController
 
   def edit
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = Organisation.new(:id => "") unless !@organisation.nil?
+    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = Organisation.new(:id => "")
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
