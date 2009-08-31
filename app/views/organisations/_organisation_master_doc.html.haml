@@ -1,0 +1,9 @@
+-# Displays Organisation Master Doc
+-div_for(organisation_master_doc, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= "#{organisation_master_doc.id} #{organisation_master_doc.master_doc_type.name}"
+
+    %br{ :style => "clear:both;"}
+  .display_container
+    = format_masterdoc(organisation_master_doc)

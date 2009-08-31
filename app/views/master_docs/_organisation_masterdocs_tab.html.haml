@@ -1,0 +1,22 @@
+-#MasterDocs Tab
+.info_container
+  .header_container
+    .title
+      %h3 MasterDocs
+    .options
+      = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button", :toggle_id_name => "new_master_doc"  if (!organisation.nil? && !organisation.new_record?)
+      = image_tag('help_icon.png')
+    %br.clear
+
+  =# Initially hidden new masterdoc form
+  -form_for([@organisation,@masterdoc], :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
+    %fieldset
+      .options{:style => "float:right"}
+        = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_master_doc"
+      %h3 New Document
+      = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
+      = submit_tag 'Submit'
+
+  #masterdocs
+    =# Render the organisation's addresses
+    = render :partial => '/master_docs/master_doc', :collection => organisation.master_docs

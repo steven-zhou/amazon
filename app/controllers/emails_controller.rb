@@ -10,8 +10,8 @@ class EmailsController < ApplicationController
   end
   
   def create
-    @person = Person.find(params[:person_id])
-    @email = @person.emails.new(params[:email])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @email = @entity.emails.new(params[:email])
     @email.save
     respond_to do |format|
       format.js

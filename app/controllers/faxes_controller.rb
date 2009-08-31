@@ -10,8 +10,8 @@ class FaxesController < ApplicationController
   end
   
   def create
-    @person = Person.find(params[:person_id])
-    @fax = @person.faxes.new(params[:fax])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @fax = @entity.faxes.new(params[:fax])
     @fax.save
     respond_to do |format|
       format.js

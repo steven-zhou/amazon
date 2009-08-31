@@ -37,10 +37,10 @@
     #Address
       = render :partial => "/addresses/organisation_addresses_tab",:locals =>{:organisation => @organisation}
     #Contact
-      =# render :partial => "/contacts/contacts_tab", :locals => {:organisation => @organisation}
+      = render :partial => "/contacts/organisation_contacts_tab", :locals => {:organisation => @organisation}
     #Keyword
-      =# render :partial => "/keywords/keywords_tab",:locals =>{:organisation => @organisation}
+      = render :partial => "/keywords/organisation_keywords_tab",:locals =>{:organisation => @organisation}
     #MasterDocs
-      =# render :partial => "/master_docs/masterdocs_tab", :locals =>{:organisation => @organisation}
+      = render :partial => "/master_docs/organisation_masterdocs_tab", :locals =>{:organisation => @organisation}
     #Note
-      =# render :partial => "/notes/notes_tab",:locals =>{:organisation => @organisation}
+      = render :partial => "/notes/organisation_notes_tab",:locals =>{:organisation => @organisation}

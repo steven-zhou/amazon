@@ -86,17 +86,6 @@ describe TagsController do
       @doc_tag.should_receive(:save)
       post_create
     end
-
-    it "should flash[:message] when save successfully" do
-      post_create
-      flash[:message].should have_at_least(1).things
-    end
-
-    it "should flash[:warning] when save unsuccessfully" do
-      @doc_tag.stub!(:save).and_return(false)
-      post_create
-      flash[:warning].should have_at_least(1).things
-    end
   end
 
   describe "get edit" do
@@ -137,17 +126,6 @@ describe TagsController do
     it "should update attributes" do
       @doc_tag.should_receive(:update_attributes).with(hash_including(@attributes))
       put_update
-    end
-
-    it "should flash[:message] when update successfully" do
-      put_update
-      flash[:message].should have_at_least(1).things
-    end
-
-    it "should flash[:warning] when update unsuccessfully" do
-      @doc_tag.stub!(:update_attributes).and_return(false)
-      put_update
-      flash[:warning].should have_at_least(1).things
     end
 
     it "should render template /tags/update.js" do

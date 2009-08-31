@@ -576,12 +576,14 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/tag_meta_types/"+$(this).val()+"/edit.js",
-                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val(),
+                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val()+'&flag='+$("#show_tag_type_details").val(),
                 dataType: "script"
             });
         }
     });
 });
+
+
 
 $(function(){
     $("#render_tag_type2").live('change', function(){
@@ -596,7 +598,7 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/tag_types/"+$(this).val()+"/edit.js",
-                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val(),
+                data: 'tag='+$("#tag_selection2").val()+'&id='+$(this).val()+'&flag='+$("#show_tag_details").val(),
                 dataType: "script"
             });
         }
@@ -622,6 +624,11 @@ $(function(){
         }
     });
 });
+
+refreshChidren = function(list, arrow){
+    $(list).change();
+    $(arrow).wait(10000).click();
+}
 
 
 /* Admin  -  Role_Condition Tab*/

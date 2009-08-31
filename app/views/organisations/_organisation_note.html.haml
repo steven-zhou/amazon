@@ -1,0 +1,13 @@
+/show organisational notes details
+-div_for(organisation_note, :class => 'info_container') do
+  .header_container
+    .title
+      -#= "#{organisation_note.id} #{organisation_note.note_type.name}"
+      = h organisation_note.created_at.to_s(:long)
+
+    %br{ :style => "clear:both;"}
+    .attr_name
+      = h organisation_note.short_description
+      = "(#{organisation_note.note_type.name})"
+    .attr_name
+      = truncate(organisation_note.body_text, 100, "...")

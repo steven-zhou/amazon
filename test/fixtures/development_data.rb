@@ -251,6 +251,7 @@ Website.create(
 
 #Organisations
 puts "Createing Organisation for ABC"
-Organisation.create(
-  :full_name => "ABC"
+abc = Organisation.create(
+  :full_name => "ABC",
+  :onrecord_since => 586.days.ago
 )

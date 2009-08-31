@@ -18,7 +18,7 @@ class TagTypesController < ApplicationController
     if @tag_type.save
       flash.now[:message] ||= " Saved successfully"
     else
-      flash.now[:warning] ||= " Name " + @tag_type.errors.on(:name)[0] + ", saved unsuccessfully"
+      flash.now[:warning] ||= " Name " + @tag_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_type.errors.on(:name).nil?
     end
   end
 
@@ -28,6 +28,8 @@ class TagTypesController < ApplicationController
     @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
     @tags = @tag_type.tags.find(:all, :order => "name")
     @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
+    @flag = String.new
+    @flag = params[:flag]
     respond_to do |format|
       format.js
     end
@@ -38,7 +40,7 @@ class TagTypesController < ApplicationController
     if @tag_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] ||= " Updated successfully."
     else
-      flash.now[:warning] ||= " Name " + @tag_type.errors.on(:name)[0] + ", updated unsuccessfully."
+      flash.now[:warning] ||= " Name " + @tag_type.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag_type.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js

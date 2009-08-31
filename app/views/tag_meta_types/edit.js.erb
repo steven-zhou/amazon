@@ -6,6 +6,7 @@ $('#tag_type').html("<%= escape_javascript(render(:partial => '/tag_settings/tag
 $('#tag').html("");
 
 $('#tag_type2').html("<%= escape_javascript(render(:partial => '/tag_settings2/tag_type')) %>");
+$('#tag_type2').css("display", "none");
 $('#tag2').html("");
 <%- else %>
 $('#tag_type').html("");
@@ -14,3 +15,7 @@ $('#tag').html("");
 $('#tag_type2').html("");
 $('#tag2').html("");
 <%- end%>
+
+<%- if (@flag=="true") %>
+$('#arrow1').click();
+<%- end %>

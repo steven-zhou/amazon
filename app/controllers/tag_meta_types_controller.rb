@@ -13,6 +13,8 @@ class TagMetaTypesController < ApplicationController
     @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:id])
     @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
     @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.new
+    @flag = String.new
+    @flag = params[:flag]
     respond_to do |format|
       format.js
     end
@@ -35,7 +37,7 @@ class TagMetaTypesController < ApplicationController
     if @tag_meta_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] = "Updated successfully."
     else
-      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", updated unsuccessfully."
+      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
     end
     respond_to do |format|
       format.js

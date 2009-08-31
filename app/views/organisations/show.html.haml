@@ -27,7 +27,7 @@
         
       -else
       
-        %h3= h "#{@organisation.name}"
+        %h3= h "#{@organisation.full_name}"
         
       .form_line
         .field_33 
@@ -35,7 +35,7 @@
           = text_field_tag 'custom_id', @organisation.custom_id, {:readonly => true}
         .field_33
           = label_tag 'onrecord_since', 'On Record Since'
-          = text_field_tag 'onrecord_since', @organisation.onrecord_since, {:readonly => true}
+          = text_field_tag 'onrecord_since', @organisation.onrecord_since.to_s, {:readonly => true}
         %br.clear
 
 

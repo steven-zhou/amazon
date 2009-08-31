@@ -65,11 +65,6 @@ describe AmazonSettingsController do
       flash[:message].should have_at_least(1).things
     end
 
-    it "should put flash warning if save unsuccessfully when repeat" do
-      @amazon_setting.stub!(:save).and_return(false)
-      post_create
-      flash[:warning].should have_at_least(1).things
-    end
 
     it "should render template '/amazon_settings/create.js.erb" do
       post_create
@@ -116,12 +111,6 @@ describe AmazonSettingsController do
       flash[:message].should have_at_least(1).things
     end
 
-    it "should flash warning when save unsuccessfully" do
-      @amazon_setting.stub!(:save).and_return(false)
-      put_update
-      flash[:warning].should have_at_least(1).things
-    end
-
     it "should render template '/amazon_settings/update.js.erb" do
       put_update
       response.should render_template("amazon_settings/update.js.erb")
@@ -130,11 +119,11 @@ describe AmazonSettingsController do
 
   describe "data_list_finder" do
     before(:each) do
-      AmazonSetting.stub!(:find_all_by_type).and_return([@amazon_setting, @amazon_setting2])
+      AmazonSetting.stub!(:find).and_return([@amazon_setting, @amazon_setting2])
     end
 
     it "should return all the amazonsettings within the same type" do
-      AmazonSetting.should_receive(:find_all_by_type).with("Gender").and_return([@amazon_setting, @amazon_setting2])
+      AmazonSetting.should_receive(:find).and_return([@amazon_setting, @amazon_setting2])
       get_data_list_finder
     end
 

@@ -1,6 +1,7 @@
 class OrganisationsController < ApplicationController
 
   before_filter :check_authentication
+  skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new
     @organisation = Organisation.new
@@ -71,8 +72,7 @@ class OrganisationsController < ApplicationController
 
   def edit
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = Organisation.new(:id => "") unless !@organisation.nil?
+    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = Organisation.new(:id => "")
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -86,12 +86,63 @@ class OrganisationsController < ApplicationController
     end
   end
 
+  def update
+
+    @organisation = Organisation.find(params[:id])
+    Image.transaction do
+      unless params[:image].nil?
+        @image = Image.new(params[:image])
+        if @image.save
+          @organisation.image.destroy unless @organisation.image.nil?
+          @organisation.image = @image
+        else
+          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
+        end
+      end
+    end
+
+    @organisation.update_attributes(params[:organisation])
+    flash[:warning] = "There was an error updating the person's details." unless @organisation.save
+
+
+    flash[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
+    if(params[:edit])
+      redirect_to edit_organisation_path(@organisation)
+    else
+      redirect_to organisation_path(@organisation)
+    end
+  end
+
   def name_finder
     @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = nil
     @employment = Employment.find(params[:employment_id]) rescue @employment = Employment.new
     respond_to do |format|
       format.js {  }
     end
+  end
+
+  def add_keywords
+    @organisation = Organisation.find(params[:id])
+
+    unless params[:add_keywords].nil?
+      params[:add_keywords].each do |keyword_id|
+        keyword = Keyword.find(keyword_id);
+        @organisation.keywords<<keyword
+      end
+    end
+    render "add_keywords.js"
+  end
+
+  def remove_keywords
+    @organisation = Organisation.find(params[:id])
+
+    unless params[:remove_keywords].nil?
+      params[:remove_keywords].each do |keyword_id|
+        keyword = Keyword.find(keyword_id)
+        @organisation.keywords.delete(keyword)
+      end
+    end
+    render "remove_keywords.js"
   end
 
 end

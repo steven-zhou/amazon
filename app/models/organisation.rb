@@ -103,6 +103,9 @@ class Organisation < ActiveRecord::Base
     @other_addresses = self.addresses.select {|address| address.priority_number != 1}
   end
 
-
+  def sorted_notes
+    @sorted_notes = self.notes.find(:all, :include => [:note_type])
+    # @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
+  end
 
 end

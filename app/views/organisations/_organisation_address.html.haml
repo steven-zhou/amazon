@@ -1,0 +1,9 @@
+-# Displays An Address
+-div_for(organisation_address, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= organisation_address.address_type.name
+    
+    %br{ :style => "clear:both;"}
+  .display_container
+    = format_address(organisation_address)

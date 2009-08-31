@@ -18,8 +18,8 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @person = Person.find(params[:person_id])
-    @image = @person.image.new(params[:image])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @image = @entity.image.new(params[:image])
     @image.save
     respond_to do |format|
       format.js

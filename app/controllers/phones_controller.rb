@@ -10,8 +10,8 @@ class PhonesController < ApplicationController
   end
   
   def create
-    @person = Person.find(params[:person_id].to_i)
-    @phone = @person.phones.new(params[:phone])
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    @phone = @entity.phones.new(params[:phone])
     @phone.save
     respond_to do |format|
       format.js
