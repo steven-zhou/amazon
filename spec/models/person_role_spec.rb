@@ -24,11 +24,12 @@ describe PersonRole do
   #    PersonRole.create!(@valid_attributes)
   #  end
   before(:each) do
-    @person_role = PersonRole.new
-    @person = Factory.build(:jane)
-    @role = Factory.build(:role)
-    @person_role.role_player = @person
-    @person_role.role = @role
+    #    @person_role = PersonRole.new
+    #    @person = Factory.build(:jane)
+    #    @role = Factory.build(:role)
+    #    @person_role.role_player = @person
+    #    @person_role.role = @role
+    @person_role = Factory.build(:person_role)
   end
 
   it "should save the record when data is valid" do
@@ -46,10 +47,10 @@ describe PersonRole do
 
   it "should not saved when the role_id is wrong" do
 
-   @person_role = PersonRole.new
-  @person_role.role_id = "-1"
-  @person_role.save.should == false
-  @person_role.errors.on(:role_id).should_not be_nil
+    @person_role = PersonRole.new
+    @person_role.role_id = "-1"
+    @person_role.save.should == false
+    @person_role.errors.on(:role_id).should_not be_nil
 
   end
 
