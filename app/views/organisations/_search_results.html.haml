@@ -1,0 +1,18 @@
+%div#hover
+  = (render :partial => "name_card", :locals => {:organisation => @organisations.first}) unless @organisations.empty?
+%table#search_results.display
+  %thead
+    %tr
+      %th System ID
+      %th Trading as Name
+      %th Registered Address
+      %th Phone
+      %th Website
+  %tbody
+    - organisations.each do |organisation|
+      %tr{:organisation_id => organisation.id}
+        %td= organisation.id
+        %td= organisation.trading_as
+        %td= organisation.primary_address.first_line unless organisation.primary_address.blank?
+        %td= organisation.primary_phone.value unless organisation.primary_phone.blank?
+        %td= organisation.primary_website.address unless organisation.primary_website.blank?

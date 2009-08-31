@@ -38,6 +38,12 @@ describe OrganisationsController do
     get :name_finder, options
   end
 
+  def get_search(options={})
+    options[:commit] ||= "Search"
+    options[:id] ||= @person.id
+    get :search, options
+  end
+
   describe "GET 'new'" do
     before(:each) do
       get 'new'
@@ -234,6 +240,44 @@ describe OrganisationsController do
     it "should render remove_keywords.js" do
       post :remove_keywords, :remove_keywords => @ids
       response.should render_template("organisations/remove_keywords.js")
+    end
+  end
+
+  describe "Get 'search'" do
+    context "if params[:commit] != 'Search'" do
+      before(:each) do
+        get_search :commit => 'test'
+      end
+      it { should render_template("search")}
+    end
+
+    context "if params[:commit] == 'Search'" do
+
+      context "if no organisation was found" do
+        before(:each) do
+          Organisation.stub!(:find_all_by_id).and_return([])
+          get_search
+        end
+
+      end
+
+      context "if more than one organisation was found" do
+        before(:each) do
+          Organisation.stub!(:find_all_by_id).and_return([@organisation,@organisation])
+          get_search
+        end
+
+        it {should render_template("organisations/search.html.haml")}
+      end
+
+      context "only one organisation was found" do
+        before(:each) do
+          Organisation.stub!(:find_all_by_id).and_return([@organisation])
+          get_search
+        end
+
+        # it {should redirect_to(organisation_path(@organisation))}
+      end
     end
   end
 

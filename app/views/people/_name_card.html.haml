@@ -11,7 +11,7 @@
         %td.w30
           = "#{person.id} - #{person.name}"
         %td.w30
-          = "Date of Birth : #{person.birth_date}"
+          = "Date of Birth : #{person.birth_date.to_s}"
         %td.w20
           = h "<Other1>"
         %td.w20
@@ -19,13 +19,14 @@
         %td.w30
           = "Customer ID : #{person.custom_id}"
         %td.w30
-          = "Gender : #{person.gender}"
+          Gender
+          = "#{person.gender.name}" unless person.gender.nil?
         %td.w20
           = h "<Other2>"
         %td.w20
       %tr
         %td.w30
-          = "On Record Since : #{person.onrecord_since}"
+          = "On Record Since : #{person.onrecord_since.to_s}"
         %td.w30
           Religion :
           = "#{person.religion.name}" unless person.religion.nil?

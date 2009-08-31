@@ -63,6 +63,8 @@ class Organisation < ActiveRecord::Base
   #  Convenience
   ################
   #++
+
+
   def primary_address
     @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end

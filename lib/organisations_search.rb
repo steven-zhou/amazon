@@ -1,12 +1,12 @@
-module PeopleSearch
+module OrganisationsSearch
   
   def self.by_name(params)
     
-    equality = ['id', 'custom_id', 'primary_title_id', 'second_title_id', 'gender_id', 'religion_id',
-      'origin_country_id', 'residence_country_id', 'nationality_id', 'other_nationality_id',
-      'language_id', 'other_language_id', 'birth_date', 'industry_sector_id', 'onrecord_since', 'marital_status_id']
-    like = ['first_name', 'family_name', 'maiden_name', 'middle_name', 'initials',
-      'preferred_name', 'post_title', 'interests', 'primary_salutation', 'second_salutation']
+    equality = ['id', 'custom_id', 'registered_date', 'registered_country_id', 'number_of_full_time_employees', 'number_of_part_time_employees',
+      'number_of_contractors', 'number_of_volunteers', 'number_of_other_workers', 'organisation_hierarchy_id',
+      'organisation_type_id', 'business_type_id', 'industry_sector_id', 'business_category_id', 'onrecord_since']
+    like = ['full_name', 'short_name', 'trading_as', 'registered_name', 'registered_number',
+      'tax_file_no', 'legal_no_1', 'legal_no_2', 'industrial_code', 'business_mission', 'remarks']
 
     params.delete_if {|key, value| value == "" } 
     condition_clauses = Array.new
@@ -15,10 +15,10 @@ module PeopleSearch
     params.each do |attribute,value|
       case sql_condition(attribute, equality, like)
       when 'equality'
-        condition_clauses.push("people.#{attribute} = ?")
+        condition_clauses.push("organisations.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("people.#{attribute} LIKE ?")
+        condition_clauses.push("organisations.#{attribute} LIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
@@ -27,7 +27,7 @@ module PeopleSearch
 
     query = condition_clauses.join(' AND '), *condition_options
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
+    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
     
   end
 
@@ -51,7 +51,7 @@ module PeopleSearch
       end
     end
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones])
+    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones])
   end
 
   def self.by_email(params)
@@ -74,9 +74,9 @@ module PeopleSearch
       end
     end
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
+    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
   end
-  
+
   def self.by_note(params)
     equality = ['note_type_id']
     like = ['note_label', 'note_short_description']
@@ -97,9 +97,8 @@ module PeopleSearch
       end
     end
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:notes])
+    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:notes])
   end
-
   
   def self.by_address(params)
     equality = ['country_id', 'address_type_id']
@@ -121,9 +120,9 @@ module PeopleSearch
       end
     end
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
+    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
   end
-
+  
   def self.by_keyword(params)
     equality = ['keyword_id']
     params.delete_if {|key, value| value == "" }
@@ -142,7 +141,7 @@ module PeopleSearch
 
     Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
   end
-  
+
   private
   
   def self.sql_condition(attribute, equality_array, like_array)
