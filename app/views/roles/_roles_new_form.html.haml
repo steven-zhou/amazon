@@ -2,7 +2,7 @@
   .field_33
     = role.label :role_id, "Role"
     %select.choose_role{:id => "role_id"}
-      %option{:value => "0", :selected => @role.new_record?}<< New Record >>
+      %option{:value => "0", :selected => @role.new_record?}<< Add New >>
       - @roles.each do |r|
         %option{:value => "#{r.id}", :selected => (@roles.id == r.id) } #{r.name}
   .field_60{:style => "float:right"}
