@@ -10,7 +10,7 @@ describe PeopleController do
   
   def post_create(options = {})
     options[:person] ||= @attributes
-    post :create, {:person => @attributes}
+    post :create, options
   end
 
   def post_add_keywords(options ={})
