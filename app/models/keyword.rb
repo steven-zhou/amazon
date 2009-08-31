@@ -11,6 +11,12 @@ class Keyword < ActiveRecord::Base
     :class_name => "Person",
     :source_type => "Person",
     :uniq => true
+  has_many :organisation, :source => :taggable,
+    :through => :keyword_links,
+    :class_name => "Organisation",
+    :source_type => "Organisation",
+    :uniq => true
+  
   belongs_to :keyword_type, :class_name => "KeywordType", :foreign_key => "keyword_type_id"
 
 

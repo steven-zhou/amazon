@@ -139,7 +139,7 @@ module OrganisationsSearch
       end
     end
 
-    Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
+    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
   end
 
   private
