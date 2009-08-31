@@ -133,28 +133,6 @@ $('.startdatepick').live("mouseover", function(){
 
 
 
-$('.role_startdatepick').live("mouseover", function(){
-    $("#"+$(this).attr("end_date")).datepicker('enable');
-    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
-    day = arr_dateText[0];
-    month = arr_dateText[1];
-    year = arr_dateText[2];
-    //init
-    $(this).datepicker({
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true,
-        minDate: new Date(year, month-1, day)
-    });
-
-    //reset
-    if(year!=undefined){
-        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
-    }
-});
-
-
 $('.enddatepick').live("mouseover", function(){
     var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
     day = arr_dateText[0];
@@ -774,9 +752,7 @@ $(function(){
 
 $('.beforestartdatepick').live("mouseover", function(){
     $("#"+$(this).attr("end_date")).datepicker('enable');
-
-
-    $(this).datepicker({
+     $(this).datepicker({
         dateFormat: 'dd-mm-yy',
         altFormat: 'mm-dd-yy',
         changeMonth: true,
@@ -786,6 +762,27 @@ $('.beforestartdatepick').live("mouseover", function(){
 
 });
 $('.role_enddatepick').live("mouseover", function(){
+    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    //init
+    $(this).datepicker({
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        minDate: new Date(year, month-1, day)
+    });
+
+    //reset
+    if(year!=undefined){
+        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+    }
+});
+
+$('.role_startdatepick').live("mouseover", function(){
+    $("#"+$(this).attr("end_date")).datepicker('enable');
     var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
     day = arr_dateText[0];
     month = arr_dateText[1];

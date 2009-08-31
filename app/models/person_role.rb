@@ -9,5 +9,6 @@ class PersonRole < ActiveRecord::Base
   belongs_to :role
 
   validates_presence_of :role_id
+  validates_presence_of :person_id
 
 end
