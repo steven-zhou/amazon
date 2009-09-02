@@ -5,6 +5,7 @@ describe OrganisationsController do
   before(:each) do
     @organisation = Factory.build(:google)
     @attributes = Factory.attributes_for(:google)
+    @person = Factory(:person)
     Organisation.stub!(:find).and_return(@organisation)
     session[:user] = Factory(:login_account).id
   end
