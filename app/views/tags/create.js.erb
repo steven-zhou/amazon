@@ -1,11 +1,8 @@
 <% unless flash[:warning].nil? %>
-$("#tag_flash").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
 
-$("#tag_flash2").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
 <% else %>
-$("#tag_flash").html("<div class='message'>" + "Operated successfully" +  "</div>");
 
-$("#tag_flash2").html("<div class='message'>" + "Operated successfully" +  "</div>");
-$("#show_tag_details").val("true");
-$("#render_tag_type2").change();
+$("#tag_form").html('');
+$(".show_tags[tag_types_id = " + "<%= escape_javascript("#{@tag_type.id}")%>" + "]").click();
+
 <% end %>

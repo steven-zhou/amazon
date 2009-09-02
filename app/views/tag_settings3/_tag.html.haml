@@ -1,0 +1,24 @@
+-form_for @tag, :url => {:controller => 'tags', :action => @tag.new_record? ? "create" : "update", :id => @tag.id}, :html => {:id => "tag_form2", :class => 'ajax_form'} do |tag|
+  %fieldset
+    .form_line
+      .field_100
+        =tag.label :name, 'Name'
+        =tag.text_field :name, :disabled=>(@tag.status == false)
+      %br.clear
+    .form_line
+      .field_100
+        =tag.label :description, 'Description'
+        =tag.text_field :description, :disabled=>(@tag.status == false)
+      %br.clear
+    .form_line
+      .field_100
+        =tag.label :status, 'Status'
+        =tag.radio_button :status, true, :style => "width:10%", :checked => true
+        %label{:style => "display:inline"} Active
+        =tag.radio_button :status, false, :style => "width:10%"
+        %label{:style => "display:inline"} Inactive
+        %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag.class.to_s}
+        %input{:style => "display:none", :id => "tag_type", :name =>"tag_type", :value => @tag_type.class.to_s}
+        %input{:style => "display:none", :id => "tag_type_id", :name =>"tag_type_id", :value => @tag_type.id}
+      %br.clear
+    = submit_tag 'Submit', :style => "width:75px;"

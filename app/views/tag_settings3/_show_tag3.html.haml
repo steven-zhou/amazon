@@ -1,13 +1,7 @@
-.info_container
-  %h3 Tags
-  .form_line
-    .field_20
-      %label &nbsp;
-      %ul
-        - @tag.each do |t|
-          %li
-            %div#tag3{:tag_id => t.id}
-              = t.name
-              
-
-      %br.clear
+%ul
+  - @tag.each do |i|
+    %li
+      .info_container
+        %div
+          = button_to_function 'Edit', :class => "edit_tag", :style => "float:right;", :tag_id => i.id
+          = i.name

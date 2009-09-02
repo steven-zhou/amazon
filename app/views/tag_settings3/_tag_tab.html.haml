@@ -2,18 +2,20 @@
   %div
     .info_container
       %h3 Please select a system tag to continue
-      .form_line
-        .field_25
-          %select#tag_selection3.clear_select
-            %option
-            %option{:value => "0"} Master Doc / Role Condition
-            -#%option{:value => "1"} Group
-            -#%option{:value => "2"} Fee
-          %input#hiden_meta_id2.hiden{:value=>"0"}
-        .field_70
-          #tag_flash2
-        %br.clear
+      = button_to_function 'Add children', :id => "add_tag_meta_type", :style => "float:right;display:none;"
+      %select#tag_selection3.clear_select{:style => "width:300px;"}
+        %option
+        %option{:value => "0"} Master Doc / Role Condition
+        -#%option{:value => "1"} Group
+        -#%option{:value => "2"} Fee
+
 
     #show_tag3
 
-  %br.clear
+    #tag_meta_type_form{:style => "width:32%;margin-right:2%" }
+      
+    #tag_type_form{:style => "width:32%;margin-right:2%" }
+
+    #tag_form{:style => "width:32%;margin-right:2%" }
+
+    #tag3_flash_message
