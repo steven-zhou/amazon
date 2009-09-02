@@ -15,7 +15,7 @@ class SigninController < ApplicationController
           redirect_to welcome_url
         end
       rescue
-        flash[:warning] = "Username or password invalid."
+        flash.now[:warning] = "Username or password invalid."
       end
     end
   end
