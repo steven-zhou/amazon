@@ -1,0 +1,14 @@
+.info_container
+  %h3 Tag Types
+  .form_line
+    .field_20
+      %label &nbsp;
+      %ul
+        - @tag_type.each do |t|
+          %li
+            %div#tag_types3{:tag_types_id => t.id}
+              = t.name
+              %div#tag_show3
+
+      %br.clear
+            

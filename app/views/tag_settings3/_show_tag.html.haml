@@ -1,0 +1,22 @@
+.info_container
+  %h3 Tag Meta Types
+  .form_line
+    .field_20
+      %label &nbsp;
+      %ul
+        - @tag_meta_types.each do |i|
+          %li
+            %div#tag_meta_types{:tag_meta_types_id => i.id}
+              = i.name
+            %div#tag_types_show
+            %br.clear
+             
+              
+
+
+      
+    %br.clear
+
+%div#tag_type2{:style => "display:none"}
+    
+%div#tag2{:style => "display:none"}
