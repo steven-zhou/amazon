@@ -1,0 +1,38 @@
+%div.info_container
+
+  -if organisation.image.nil?
+    = image_tag 'no_photo.jpeg', {:class => "thumb"}
+  -else
+    = image_tag thumb_image_path(organisation.image.id), {:class => "thumb"}
+
+  %table#name_card
+    %tbody
+      %tr
+        %td.w30
+          = "#{organisation.id} - #{organisation.trading_as}"
+        %td.w30
+          = "Registration Date : #{organisation.registered_date.to_s}"
+        %td.w20
+          = h "<Other1>"
+        %td.w20
+      %tr
+        %td.w30
+          = "Customer ID : #{organisation.custom_id}"
+        %td.w30
+          Business Category :
+          = "#{organisation.business_category.name}" unless organisation.business_category.nil?
+        %td.w20
+          = h "<Other2>"
+        %td.w20
+      %tr
+        %td.w30
+          = "On Record Since : #{organisation.onrecord_since.to_s}"
+        %td.w30
+          Business Type :
+          = "#{organisation.business_type.name}" unless organisation.business_type.nil?
+        %td.w20
+        %td.w20.textright
+          = link_to 'Go to Profile', organisation unless organisation.blank?
+          or
+          = link_to 'Edit', edit_organisation_path(organisation) unless organisation.blank?
+  %br.clear

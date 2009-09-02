@@ -20,8 +20,8 @@ class ApplicationController < ActionController::Base
   before_filter :instantiate_controller_and_action_names
 
   def instantiate_controller_and_action_names
-      @current_action = action_name
-      @current_controller = controller_name
+    @current_action = action_name
+    @current_controller = controller_name
   end
 
   def check_authentication
@@ -34,5 +34,29 @@ class ApplicationController < ActionController::Base
     end
   end
 
+
+  def flash_message(options = {})
+
+    options[:type] ||= "default"
+    options[:object] ||= ""
+    options[:field] ||= ""
+    options[:message] ||= ""
+
+    result = case options[:type]
+
+    # Success
+    when "object_created_successfully" then "A new #{options[:object]} was created."
+    when "object_updated_successfully" then "The #{options[:object]} was updated."
+
+    # Errors
+    when "login_error" then "The login credentials you supplied were incorrect."
+    when "field_missing" then "You did not fill out the required field #{options[:field]}."
+
+    # Default
+    when default then ""
+    end
+
+    options[:message] ?  result : result + " #{options[:message]}"
+  end
 
 end

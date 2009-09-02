@@ -4,7 +4,7 @@
     = p.text_field :custom_id
   .field_25
     = p.label :onrecord_since, 'On Record Since'
-    = p.text_field :onrecord_since, :disabled => true
+    = p.text_field :onrecord_since, :disabled => true, :value => @person.onrecord_since.to_s
   %br.clear
 .form_line
   .field_20

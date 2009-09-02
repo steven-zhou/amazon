@@ -4,7 +4,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon | A new word of possibilities | Now with microwave!!</title>
 
-    <link href="/stylesheets/signin.css" rel="stylesheet" type="text/css" />
+    <%= javascript_include_tag "jquery.min.js",
+                               "jquery-ui.min.js"
+                           %>
+    <%= stylesheet_link_tag "signin" %>
+    <%= stylesheet_link_tag "jquery-ui-custom" %>
+
   </head>
 
   <body>
@@ -16,18 +21,19 @@
 
       </div>
       <div id="signin_form">
+        <%= render(:partial => "/shared/flash_messages") %>
         <h1> System Sign In </h1>
         <% form_tag(:controller => "signin", :action => "login") do -%>
           <label>Username</label>
           <input class="field" type="text" size="28" name="user_name" />
 
-            <label>Password</label>
-            <input class="field" type="password" size="25" name="password" />&nbsp;
-            <a href="#"><!-- Need to implement a tooltip to show the password hint --><img src="/images/password_hint.png" alt="Password_hint" width="20" height="22" border="0" /></a><br />
-            <a href="#">I forgot my password</a><br />
+          <label>Password</label>
+          <input class="field" type="password" size="25" name="password" />&nbsp;
+          <a href="#"><!-- Need to implement a tooltip to show the password hint --><img src="/images/password_hint.png" alt="Password_hint" width="20" height="22" border="0" /></a><br />
+          <a href="#">I forgot my password</a><br />
 
-            <input id="signin_button" type="submit" value="Sign In" />
-          <% end -%>
+          <input id="signin_button" type="submit" value="Sign In" />
+        <% end -%>
       </div>
     </div>
   </body>

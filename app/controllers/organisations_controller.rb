@@ -1,5 +1,6 @@
 class OrganisationsController < ApplicationController
 
+  include OrganisationsSearch
   before_filter :check_authentication
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
@@ -143,6 +144,31 @@ class OrganisationsController < ApplicationController
       end
     end
     render "remove_keywords.js"
+  end
+
+  def find
+    @organisation = Organisation.new
+  end
+
+  def search
+    if params[:organisation]
+      @organisations = OrganisationsSearch.by_name(params[:organisation])
+    elsif params[:phone]
+      @organisations = OrganisationsSearch.by_phone(params[:phone])
+    elsif params[:email]
+      @organisations = OrganisationsSearch.by_email(params[:email])
+    elsif params[:address]
+      @organisations = OrganisationsSearch.by_address(params[:address])
+    elsif params[:note]
+      @organisations = OrganisationsSearch.by_note(params[:note])
+    elsif params[:keyword]
+      @organisations = OrganisationsSearch.by_keyword(params[:keyword])
+    end
+
+    @organisation = Organisation.new
+    respond_to do |format|
+      format.html
+    end
   end
 
 end

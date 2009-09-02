@@ -1,0 +1,27 @@
+<div id="flash_message" style="display:none;">
+<%- if flash[:error] %>
+  <%= flash[:error] %>
+<%- elsif flash[:warning] %>
+  <%= flash[:warning] %>
+<%- end %>
+</div>
+
+<%- if flash[:error] || flash[:warning] %>
+  <script type="text/javascript">
+    $(function() {
+      $('#flash_message').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        buttons: {
+          Ok: function() {
+            $(this).dialog('close');
+          }
+        }
+      }
+
+    );
+    }
+  )
+  </script>
+<% end %>
