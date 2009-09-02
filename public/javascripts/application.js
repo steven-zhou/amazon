@@ -563,6 +563,8 @@ $(function(){
 });
 
 
+
+
 $(function(){
     $("#render_tag_meta_type2").live('change', function(){
         if($(this).val()=="0"){
@@ -808,3 +810,44 @@ $('.role_startdatepick').live("mouseover", function(){
         $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
     }
 });
+
+$(function(){
+    $("#tag_meta_types").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types3/show_tag_types.js",
+            data:'id='+$(this).attr('tag_meta_types_id'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#tag_types3").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_types3.js",
+            data:'id='+$(this).attr('tag_types_id'),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $("#tag_selection3").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/tag_settings3/show_all_for_selected_classifier.js",
+                data: 'tag='+$(this).val()+'&id='+$("#hiden_meta_id2").val(),
+                dataType: "script"
+            });
+        }else{
+        
+            $("#show_tag3").html("");
+        }
+
+    });
+});
+

@@ -47,6 +47,9 @@ describe RoleType do
     @role_type_c.position.should == 1
     @role_type_d.position.should == 2
 
+#    @role_type_c.destroy
+#    @role_type_d.posistion.should == 1
+
   end
 
    

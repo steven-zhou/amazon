@@ -46,12 +46,12 @@ class RolesController < ApplicationController
     
   def master_doc_meta_type_finder1
  
-    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", params[:master_doc_meta_meta_type_id].to_i]) rescue @master_doc_meta_types = MasterDocMetaType.new
+    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", params[:master_doc_meta_meta_type_id].to_i],:order => 'name') rescue @master_doc_meta_types = MasterDocMetaType.new
   
 
 
     #@master_doc_meta_meta_types = MasterDocMetaMetaType.find(:first, :conditions => ["id = ?", params[:master_doc_meta_meta_type_id].to_i])
-    @master_doc_meta_meta_types = MasterDocMetaMetaType.find(params[:id]) rescue @master_doc_meta_meta_types = MasterDocMetaMetaType.new
+    @master_doc_meta_meta_types = MasterDocMetaMetaType.find(params[:id],:order => 'name') rescue @master_doc_meta_meta_types = MasterDocMetaMetaType.new
     #puts "debbb---#{@master_doc_meta_meta_types.to_yaml}"
     respond_to do |format|
       format.js { }
@@ -127,7 +127,7 @@ class RolesController < ApplicationController
   end
 
   def edit
-    @role = Role.find(params[:id].to_i)
+    @role = Role.find(params[:id].to_i, :order => 'name')
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
  
     @role_condition = RoleCondition.new

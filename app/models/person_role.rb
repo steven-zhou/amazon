@@ -11,4 +11,17 @@ class PersonRole < ActiveRecord::Base
   validates_presence_of :role_id
   validates_presence_of :person_id
 
+ validate :role_must_exist
+ validate :person_must_exist
+
+ def role_must_exist
+   errors.add(:role_id, "You must specify a role that exists.") if (role_id && Role.find_by_id(role_id).nil?)
+ end
+
+ def person_must_exist
+   errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
+ end
+
+
+
 end

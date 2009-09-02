@@ -2,7 +2,7 @@ class TagsController < ApplicationController
 
   before_filter :check_authentication
 
- def new
+  def new
     @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
     @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:tag_type_id])
     @tag_meta_type = @tag_type.tag_meta_type
@@ -43,5 +43,15 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def show_types3
+    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:id])
+    @tag = @tag_type.tags
+    respond_to do |format|
+      format.js
+    end
+
+
   end
 end
