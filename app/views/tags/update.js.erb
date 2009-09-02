@@ -4,4 +4,5 @@
 $(".show_tags[tag_types_id = " + "<%= escape_javascript("#{@tag_type.id}")%>" + "]").click();
 $("#tag_form").html('');
 $(".show_tags[tag_types_id = " + "<%= escape_javascript("#{@tag_type.id}")%>" + "]").click();
+$('#tag_form').dialog('close');
 <% end %>

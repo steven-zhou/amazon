@@ -1,1 +1,8 @@
 $('#tag_meta_type_form').html("<%= escape_javascript(render(:partial => '/tag_settings3/tag_meta_type')) %>");
+$('#tag_meta_type_form').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true});
+
+$('#tag_meta_type_form').dialog('open');
+

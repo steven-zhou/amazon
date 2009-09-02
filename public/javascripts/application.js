@@ -880,6 +880,9 @@ $(function(){
 
 
 
+
+
+
 $(function(){
     $(".edit_tag_meta_type").live('click', function(){
         $.ajax({
