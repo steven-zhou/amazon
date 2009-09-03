@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090827044911) do
+ActiveRecord::Schema.define(:version => 20090903032701) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -337,6 +337,37 @@ ActiveRecord::Schema.define(:version => 20090827044911) do
     t.date     "end_date"
     t.integer  "supervised_by"
     t.integer  "managed_by"
+  end
+
+  create_table "query_criterias", :force => true do |t|
+    t.integer "query_header_id"
+    t.integer "sequence"
+    t.string  "table_name"
+    t.string  "field_name"
+    t.string  "data_type"
+    t.string  "operator"
+    t.string  "option"
+    t.string  "value"
+    t.string  "status"
+  end
+
+  create_table "query_details", :force => true do |t|
+    t.integer "query_header_id"
+    t.integer "sequence"
+    t.string  "table_name"
+    t.string  "field_name"
+    t.boolean "status"
+    t.string  "type"
+  end
+
+  create_table "query_headers", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.date     "last_date_executed"
+    t.boolean  "status"
+    t.boolean  "save"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "relationships", :force => true do |t|

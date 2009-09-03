@@ -1,0 +1,4 @@
+class QuerySorter < QueryDetail
+
+  
+end

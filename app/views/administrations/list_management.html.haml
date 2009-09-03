@@ -1,0 +1,15 @@
+=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+
+=link_to('System Setting', :controller => "administrations", :action => "system_setting")
+=link_to('System Management', :controller => "administrations", :action => "system_management")
+%h3{:style => "display:inline;"} List Management
+
+#tabs{:style => "width:96%;"}
+  = render :partial => 'list_management_menu'
+  #Query
+    = render :partial => '/query_headers/index'
+
+  #List
+    -#= render :partial => '/list_headers/index'
+
+

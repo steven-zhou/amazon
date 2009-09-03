@@ -1,13 +1,14 @@
 =image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+
+=link_to('System Setting', :controller => "administrations", :action => "system_setting")
+%h3{:style => "display:inline;"} System Management
+=link_to('List Management', :controller => "administrations", :action => "list_management")
 #tabs{:style => "width:96%;"}
-  = render :partial => 'admin_menu'
-  #SystemData
-    = render :partial => '/amazon_settings/system_data', :locals => {:amazonsetting => @amazonsetting}
+  = render :partial => 'system_management_menu'
   #RolesManagement
     = render :partial => '/roles_management/roles_management_tab', :locals => {:role => @role}
   #SystemUsers
     = render :partial => '/user_management/user_tab'
-  #TagSetting3
-    = render :partial => '/tag_settings/tag_tab', :locals => {:tag_meta_type => @tag_meta_type}
+
 
 

@@ -1,0 +1,17 @@
+-#for user_management
+%h3 System User Mangement
+%div#add_user_bar{:style => "width:80%;", :class => "info_container toggle_button", :toggle_id_name => "new_user" }
+  .header_container
+    .options
+      = link_to_function image_tag('closed_accordion.png')
+    .options_left
+      = link_to_function image_tag('add_icon.png'), :id => "add_user"
+      &nbsp
+    Add New User
+  %br.clear
+
+  -#hidden the new_user form
+  %div#new_user
+    = render :partial => '/user_management/user_account_form'
+
+
