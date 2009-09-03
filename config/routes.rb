@@ -42,7 +42,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :notes
   end
 
-  map.resources :administrations
+  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :list_management => :get}
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
 
@@ -59,6 +59,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_meta_types
   map.resources :tag_types, :collection => {:show_tag_types => :get}
   map.resources :tags, :collection => {:show_tags => :get}
+
+  map.resources :query_headers, :shallow=> true do |query_header|
+    query_header.resources :query_details
+    query_header.resources :query_criterias
+  end
   
   
   # The priority is based upon order of creation: first created -> highest priority.

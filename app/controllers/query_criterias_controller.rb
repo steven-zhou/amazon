@@ -1,32 +1,30 @@
-class QueryHeadersController < ApplicationController
+class QueryCriteriasController < ApplicationController
 
   before_filter :check_authentication
 
-  def index
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def new
+    @query_criteria = QueryCriteria.new
     respond_to do |format|
       format.js
     end
   end
 
   def edit
+    
     respond_to do |format|
       format.js
     end
   end
 
   def create
+
     respond_to do |format|
       format.js
     end
   end
 
   def update
+
     respond_to do |format|
       format.js
     end
