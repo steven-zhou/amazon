@@ -8,6 +8,7 @@ class LoginAccount < ActiveRecord::Base
   validate :person_must_exist
   validates_presence_of :user_name, :message => "You must specify a username to for use with this login."
   validates_uniqueness_of :user_name, :message => "An account with that username already exists."
+  validates_presence_of :password_hash
 
   def self.authenticate(user_name, password)
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
