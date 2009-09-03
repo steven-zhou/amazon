@@ -1,9 +1,15 @@
 <div id="flash_message" style="display:none;">
-<%- if flash[:error] %>
-  <%= flash[:error] %>
-<%- elsif flash[:warning] %>
-  <%= flash[:warning] %>
-<%- end %>
+  <%- if flash[:error] %>
+    <%= flash[:error] %>
+  <%- elsif flash[:warning] %>
+    <%= flash[:warning] %>
+  <%- end %>
+</div>
+
+<div id="flash_feedback" style="display:none;position:absolute;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
+  <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
+    <%= flash[:message] %>
+  <%- end %>
 </div>
 
 <%- if flash[:error] || flash[:warning] %>
@@ -21,6 +27,16 @@
       }
 
     );
+    }
+  )
+  </script>
+<% end %>
+
+<%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
+  <script type="text/javascript">
+    $(function() {
+      $('#flash_feedback').fadeIn("slow");
+      $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
     }
   )
   </script>
