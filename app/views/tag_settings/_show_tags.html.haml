@@ -1,0 +1,7 @@
+%ul
+  - @tag.each do |i|
+    %li
+      .info_container
+        %div
+          = button_to_function 'Edit', :class => "edit_tag", :style => "float:right;", :tag_id => i.id
+          = i.name

@@ -1,0 +1,16 @@
+%ul
+  - @tag_meta_types.each do |i|
+    %li
+      .info_container
+        %div#tagset
+          = button_to_function 'Edit', :class => "edit_tag_meta_type", :style => "float:right;", :tag_meta_type_id => i.id
+          = button_to_function 'Add children', :class => "add_tag_type", :style => "float:right;", :tag_meta_type_id => i.id
+          %div{:tag_meta_types_id => i.id, :class => "toggle_button show_tag_types", :toggle_id_name => "tag_types_show_#{i.id}",:style => "float:left;width:80%;"}
+            = i.name
+          %br.clear
+
+
+
+       
+      %div{:id => "tag_types_show_#{i.id}"}
+           
