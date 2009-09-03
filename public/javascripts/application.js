@@ -563,6 +563,8 @@ $(function(){
 });
 
 
+
+
 $(function(){
     $("#render_tag_meta_type2").live('change', function(){
         if($(this).val()=="0"){
@@ -807,4 +809,132 @@ $('.role_startdatepick').live("mouseover", function(){
     if(year!=undefined){
         $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
     }
+});
+
+
+
+
+$(function(){
+    $("#tag_selection3").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/tag_settings3/show_all_for_selected_classifier.js",
+                data: 'tag='+$(this).val(),
+                dataType: "script"
+            });
+            $("#add_tag_meta_type").css("display", "");
+        }else{
+            $("#add_tag_meta_type").css("display", "none");
+            $("#show_tag3").html("");
+        }
+
+    });
+});
+
+
+$(function(){
+    $(".show_tag_types").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types3/show_tag_types.js",
+            data:'id='+$(this).attr('tag_meta_types_id'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $(".show_tags").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_types3.js",
+            data:'id='+$(this).attr('tag_types_id'),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $("#tag_types3").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_types3.js",
+            data:'id='+$(this).attr('tag_types_id'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#add_tag_meta_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_meta_types/new.js",
+            data:'tag='+$('#tag_selection3').val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+
+
+
+
+$(function(){
+    $(".edit_tag_meta_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_meta_types/" + $(this).attr("tag_meta_type_id") + "/edit.js",
+            data:'tag='+$('#tag_selection3').val()+'&id=' + $(this).attr("tag_meta_type_id"),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $(".add_tag_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/new.js",
+            data:'tag='+$('#tag_selection3').val()+'&tag_meta_type_id=' + $(this).attr("tag_meta_type_id"),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $(".edit_tag_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/" + $(this).attr("tag_type_id") + "/edit.js",
+            data:'tag='+$('#tag_selection3').val()+'&id=' + $(this).attr("tag_type_id"),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $(".add_tag").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/new.js",
+            data:'tag='+$('#tag_selection3').val()+'&tag_type_id=' + $(this).attr("tag_type_id"),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $(".edit_tag").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/" + $(this).attr("tag_id") + "/edit.js",
+            data:'tag='+$('#tag_selection3').val()+'&id=' + $(this).attr("tag_id"),
+            dataType: "script"
+        });
+    });
 });

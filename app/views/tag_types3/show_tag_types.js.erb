@@ -1,0 +1,2 @@
+
+$('#tag_types_show_' + '<%= escape_javascript("#{@tag_meta_type.id}")%>').html("<%= escape_javascript(render(:partial => '/tag_settings3/show_tag_types', :collection => {:tag_type => @tag_type})) %>");

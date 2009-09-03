@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Role do
   before(:each) do
-   @role = Factory.build(:role)
+    @role = Factory.build(:role)
   end
 
   it { should belong_to(:role_type)}
@@ -22,11 +22,30 @@ describe Role do
   end
 
 
-  it "should not save if the name not exist"
+  it "should not save if the name is blank" do
+    @role.name = ""
+    @role.save.should == false
+    @role.errors.on(:name).should_not be_nil
 
-  it "should not save if the name is the same when role_type is the same"
+  end
 
-  it "should save if the name is the same but the role_type is not same"
+  it "should not save if the name is the same when role_type is the same" do
+    @role_type = Factory(:role_type)
+    @role_1 = Factory.build(:role, :name => "role", :role_type => @role_type)
+    @role_1.save.should == true
+    @role_2 = Factory.build(:role, :name => "role", :role_type => @role_type)
+    @role_2.save.should == false
+  end
+
+  it "should save if the name is the same but the role_type is not same" do
+    @role_type_1 = Factory(:role_type)
+    @role_type_2 = Factory(:role_type)
+    @role_1 = Factory.build(:role, :name => "role", :role_type => @role_type_1)
+    @role_1.save.should == true
+    @role_2 = Factory.build(:role, :name => "role", :role_type => @role_type_2)
+    @role_2.save.should == true
+
+  end
 
 
 

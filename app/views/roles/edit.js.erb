@@ -1,11 +1,10 @@
-
 $("#downside").html(" <%= escape_javascript(render(:partial => '/role_conditions/role_condition_form')) %>");
 $("#role_condition_role_id").val('<%=  escape_javascript("#{@role.id}")%>');
 $("#role_condition_role_id").text('<%=  escape_javascript("#{@role.id}")%>');
 <% role = String.new %>
 <% for r in @role.role_conditions %>
   <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
-  $("#remove_doctype_id").html('<%=  escape_javascript("#{role}")%>');
 <%end%>
+$("#remove_doctype_id").html('<%=  escape_javascript("#{role}")%>');
 $("#role_description").html('<%=  escape_javascript("#{@role.description}")%>');
 

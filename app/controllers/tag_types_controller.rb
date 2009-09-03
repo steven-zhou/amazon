@@ -37,6 +37,7 @@ class TagTypesController < ApplicationController
 
   def update
     @tag_type = (params[:type]).camelize.constantize.find(params[:id].to_i)
+    @tag_meta_type = @tag_type.tag_meta_type
     if @tag_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] ||= " Updated successfully."
     else

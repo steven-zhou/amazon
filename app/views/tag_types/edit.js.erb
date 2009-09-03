@@ -1,25 +1,6 @@
-<%- if (@tag_type.tag_meta_type.status == true) %>
-    $('#tag_type').html("<%= escape_javascript(render(:partial => '/tag_settings/tag_type')) %>");
-
-    $('#tag_type2').html("<%= escape_javascript(render(:partial => '/tag_settings2/tag_type')) %>");
-    <%- if(@tag_type.status == true)  %>
-    $('#tag').html("<%= escape_javascript(render(:partial => '/tag_settings/tag')) %>");
-
-    $('#tag2').html("<%= escape_javascript(render(:partial => '/tag_settings2/tag')) %>");
-    $('#tag2').css("display", "none");
-    <%- else %>
-    $('#tag').html("");
-
-    $('#tag2').html("");
-    <%- end%>
-<%- else %>
-    $('#tag_type').html("");
-    $('#tag').html("");
-
-    $('#tag_type2').html("");
-    $('#tag2').html("");
-<%- end%>
-
-<%- if (@flag=="true") %>
-$('#arrow2').click();
-<%- end %>
+$('#tag_type_form').html("<%= escape_javascript(render(:partial => '/tag_settings3/tag_type')) %>");
+$('#tag_type_form').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true});
+ $('#tag_type_form').dialog('open')

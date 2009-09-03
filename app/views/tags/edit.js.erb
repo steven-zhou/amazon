@@ -1,5 +1,6 @@
-<%- if (@tag.tag_type.status == true && @tag.tag_type.tag_meta_type.status == true) %>
-$('#tag').html("<%= escape_javascript(render(:partial => '/tag_settings/tag')) %>")
-
-$('#tag2').html("<%= escape_javascript(render(:partial => '/tag_settings2/tag')) %>")
-<%- end%>
+$('#tag_form').html("<%= escape_javascript(render(:partial => '/tag_settings3/tag')) %>");
+$('#tag_form').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true});
+$('#tag_form').dialog('open')
