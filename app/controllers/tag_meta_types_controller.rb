@@ -25,7 +25,9 @@ class TagMetaTypesController < ApplicationController
     if @tag_meta_type.save
       flash.now[:message] = "Saved successfully"
     else
-      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
+      #flash.now[:error] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "can't be blank"
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "has already been taken"
     end
     respond_to do |format|
       format.js
@@ -37,7 +39,8 @@ class TagMetaTypesController < ApplicationController
     if @tag_meta_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] = "Updated successfully."
     else
-      flash.now[:warning] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "can't be blank"
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "has already been taken"
     end
     respond_to do |format|
       format.js

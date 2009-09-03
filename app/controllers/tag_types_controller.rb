@@ -18,7 +18,8 @@ class TagTypesController < ApplicationController
     if @tag_type.save
       flash.now[:message] ||= " Saved successfully"
     else
-      flash.now[:warning] ||= " Name " + @tag_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_type.errors.on(:name).nil?
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag_type.errors.on(:name)[0] == "can't be blank"
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag_type.errors.on(:name)[0] == "has already been taken"
     end
   end
 
@@ -41,8 +42,17 @@ class TagTypesController < ApplicationController
     if @tag_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] ||= " Updated successfully."
     else
-      flash.now[:warning] ||= " Name " + @tag_type.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag_type.errors.on(:name).nil?
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag_type.errors.on(:name)[0] == "can't be blank"
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag_type.errors.on(:name)[0] == "has already been taken"
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show_tag_types
+    @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:id])
+    @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
     respond_to do |format|
       format.js
     end

@@ -1,6 +1,0 @@
-<% unless flash[:message].nil? %>
-$("#feedback").html(" <%= escape_javascript(flash[:message]) %>");
-$("#find_data_list_field").change();
-<% else %>
-$("#feedback").html(" <%= escape_javascript(flash[:warning]) %>");
-<% end %>

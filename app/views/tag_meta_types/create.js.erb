@@ -1,9 +1,22 @@
-<% unless flash[:warning].nil? %>
-
+<% unless flash[:error].nil? %>
+$("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+$('#flash_message').dialog( {
+    modal: true,
+    resizable: true,
+    draggable: true,
+    position: 'top',
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    }
+  });
+$('#flash_message').dialog('open');
 <% else %>
-$("#tag_selection3").change();
+  $("#tag_selection").change();
 
-$("#tag_meta_type_form").html('');
-$('#tag_meta_type_form').dialog('close');
+  $("#tag_meta_type_form").html('');
+  $('#tag_meta_type_form').dialog('close');
 
 <% end %>
+("<%= escape_javascript(render(:partial => '/tag_settings/tag_meta_type')) %>");

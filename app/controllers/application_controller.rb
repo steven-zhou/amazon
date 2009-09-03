@@ -51,6 +51,7 @@ class ApplicationController < ActionController::Base
     # Errors
     when "login_error" then "The login credentials you supplied were incorrect."
     when "field_missing" then "You did not fill out the required field #{options[:field]}."
+    when "uniqueness_error" then "#{options[:field]} has already existed."
 
     # Default
     when default then ""

@@ -1,20 +1,17 @@
--form_for @tag_type, :url => {:controller => 'tag_types', :action => @tag_type.new_record? ? "create" : "update", :id => @tag_type.id}, :html => {:id => "tag_type_form", :class => 'ajax_form'} do |tag_type|
+-form_for @tag_type, :url => {:controller => 'tag_types', :action => @tag_type.new_record? ? "create" : "update", :id => @tag_type.id}, :html => {:id => "tag_type_form2", :class => 'ajax_form'} do |tag_type|
   %fieldset
-    %h3 Tag Types
     .form_line
-      .field_20
-        =tag_type.label :name, "&nbsp;"
-        %select#render_tag_type{:disabled=>(@tag_type.status == false)}
-          %option{:value => "0", :selected => @tag_type.new_record?} << Add New >>
-          - @tag_types.each do |i|
-            %option{:value => "#{i.id}", :selected => (@tag_type.id == i.id) } #{i.name}
-      .field_20
+      .field_100
         =tag_type.label :name, 'Name'
         =tag_type.text_field :name, :disabled=>(@tag_type.status == false)
-      .field_40
+      %br.clear
+    .form_line
+      .field_100
         =tag_type.label :description, 'Description'
         =tag_type.text_field :description, :disabled=>(@tag_type.status == false)
-      .field_20
+      %br.clear
+    .form_line
+      .field_100
         =tag_type.label :status, 'Status'
         =tag_type.radio_button :status, true, :style => "width:10%", :checked => true
         %label{:style => "display:inline"} Active
@@ -24,3 +21,4 @@
         %input{:style => "display:none", :id => "tag_meta_type", :name =>"tag_meta_type", :value => @tag_meta_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type_id", :name =>"tag_meta_type_id", :value => @tag_meta_type.id}
       %br.clear
+    = submit_tag 'Submit', :style => "width:75px;"
