@@ -19,7 +19,8 @@ class TagsController < ApplicationController
     if @tag.save
       flash.now[:message] ||= " Saved successfully"
     else
-      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag.errors.on(:name).nil?
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag.errors.on(:name)[0] == "can't be blank"
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag.errors.on(:name)[0] == "has already been taken"
     end
   end
 
@@ -39,14 +40,15 @@ class TagsController < ApplicationController
     if @tag.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] ||= " Updated successfully."
     else
-      flash.now[:warning] ||= " Name " + @tag.errors.on(:name)[0] + ", updated unsuccessfully" unless @tag.errors.on(:name).nil?
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag.errors.on(:name)[0] == "can't be blank"
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag.errors.on(:name)[0] == "has already been taken"
     end
     respond_to do |format|
       format.js
     end
   end
 
-  def show_types3
+  def show_tags
     @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:id])
     @tag = @tag_type.tags
     respond_to do |format|

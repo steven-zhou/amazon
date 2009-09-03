@@ -57,18 +57,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types
-  map.resources :tag_types
-  map.resources :tags, :collection => {:show_types3 => :get}
-
-  map.resources :tag_settings2, :collection => {:show_all_for_selected_classifier => :get}
-  map.resources :tag_meta_types2
-  map.resources :tag_types2
-  map.resources :tags2
-
-    
-  map.resources :tag_settings3, :collection => {:show_all_for_selected_classifier => :get}
-  map.resources :tag_types3, :collection => {:show_tag_types => :get}
-
+  map.resources :tag_types, :collection => {:show_tag_types => :get}
+  map.resources :tags, :collection => {:show_tags => :get}
   
   
   # The priority is based upon order of creation: first created -> highest priority.
