@@ -12,6 +12,7 @@ class AdministrationsController < ApplicationController
     @role = Role.new
     @role_condition = RoleCondition.new
     @role_type = RoleType.new
+    @login_account = LoginAccount.new
     respond_to do |format|
       format.html
     end

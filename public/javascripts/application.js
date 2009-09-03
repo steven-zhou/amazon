@@ -740,14 +740,10 @@ $(function(){
 
 $(function(){
     $(".show_tag_types").live('mouseover', function(){
-       $(this).animate({ color: "#FFFF00" }, 300)
+      $(this).effect("highlight", {color: "#15317E" }, 1000)
 
-    });
+
+   });
 });
 
-$(function(){
-    $(".show_tag_types").live('mouseout', function(){
-       $(this).animate({ color: "#F7F8E0" }, 300)
 
-    });
-});
