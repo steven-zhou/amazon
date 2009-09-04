@@ -1,7 +1,5 @@
 class TagMetaTypesController < ApplicationController
 
-  before_filter :check_authentication
-
   def new
     @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.new
     respond_to do |format|
@@ -26,8 +24,8 @@ class TagMetaTypesController < ApplicationController
       flash.now[:message] = "Saved successfully"
     else
       #flash.now[:error] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "can't be blank"
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "has already been taken"
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "can't be blank")
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "has already been taken")
     end
     respond_to do |format|
       format.js
@@ -39,8 +37,8 @@ class TagMetaTypesController < ApplicationController
     if @tag_meta_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] = "Updated successfully."
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "can't be blank"
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if @tag_meta_type.errors.on(:name)[0] == "has already been taken"
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "can't be blank")
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "has already been taken")
     end
     respond_to do |format|
       format.js

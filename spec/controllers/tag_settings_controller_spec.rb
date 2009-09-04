@@ -14,7 +14,7 @@ describe TagSettingsController do
 
   describe "get show_all_for_selected_classifier" do
     it "should return all meta meta types under selected classifier - MasterDoc" do
-      MasterDocMetaMetaType.should_receive(:find).twice
+      MasterDocMetaMetaType.should_receive(:find)
       get_show_all_for_selected_classifier
     end
 
