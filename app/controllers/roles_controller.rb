@@ -1,10 +1,8 @@
 class RolesController < ApplicationController
 
-  before_filter :check_authentication
-
   def get_roles
 
-    @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
+    @person_role = PersonRole.find(params[:person_role_id].to_i) rescue @person_role = PersonRole.new
     @role = Role.find(:all, :conditions => ["role_type_id=? and role_status=?",params[:role_type_id],true]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
 
@@ -14,7 +12,7 @@ class RolesController < ApplicationController
   end
 
   def person_role_des
-    @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
+    @person_role = PersonRole.find(params[:person_role_id].to_i) rescue @person_role = PersonRole.new
     @role = Role.find(:first, :conditions => ["id=?", params[:id].to_i])rescue @role = Role.new
     @person = Person.find(:first, :conditions => ["id=?", params[:person_id].to_i])
 
@@ -60,7 +58,7 @@ class RolesController < ApplicationController
 
   def meta_name_finder
 
-    @master_doc_meta_meta_types = MasterDocMetaMetaType.find(params[:id]) rescue @master_doc_meta_meta_types = MasterDocMetaMetaType.new
+    @master_doc_meta_meta_types = MasterDocMetaMetaType.find(params[:id].to_i) rescue @master_doc_meta_meta_types = MasterDocMetaMetaType.new
    
     respond_to do |format|
       format.js { }
@@ -68,7 +66,7 @@ class RolesController < ApplicationController
   end
 
   def meta_type_name_finder
-    @master_doc_meta_types = MasterDocMetaType.find(params[:id]) rescue @master_doc_meta_types = MasterDocMetaType.new
+    @master_doc_meta_types = MasterDocMetaType.find(params[:id].to_i) rescue @master_doc_meta_types = MasterDocMetaType.new
 
     #puts "debug----#{@master_doc_meta_types.to_yaml}"
     respond_to do |format|
@@ -137,7 +135,7 @@ class RolesController < ApplicationController
   end
 
   def update
-    @role = Role.find(params[:id])
+    @role = Role.find(params[:id].to_i)
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     #  puts"debug--#{@roles.to_yaml}"
     respond_to do |format|

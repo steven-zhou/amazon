@@ -1,7 +1,5 @@
 class EmailsController < ApplicationController
 
-  before_filter :check_authentication
-
   def show
     @email = Email.find(params[:id])
     respond_to do |format|

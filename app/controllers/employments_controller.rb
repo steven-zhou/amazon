@@ -1,7 +1,5 @@
 class EmploymentsController < ApplicationController
 
-  before_filter :check_authentication
-
   def show
     @employment = Employment.find(params[:id].to_i)
     respond_to do |format|

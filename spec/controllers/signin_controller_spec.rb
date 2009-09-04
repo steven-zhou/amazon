@@ -48,6 +48,20 @@ describe SigninController do
       flash.now[:warning].should_not be_nil
     end
 
+    it "should record the ip address of the user" do
+      last_ip_address = @login_account.last_ip_address
+      post_login
+      @login_account = LoginAccount.find(@login_account.id)
+      @login_account.last_ip_address.should_not == last_ip_address
+    end
+
+    it "should record the login date and time" do
+      last_login = @login_account.last_login.should
+      post_login
+      @login_account = LoginAccount.find(@login_account.id)
+      @login_account.last_login.should_not == last_login
+    end
+
   end
 
   describe "when logging out" do
@@ -59,6 +73,13 @@ describe SigninController do
       session[:user].should == @login_account.id
       put_signout
       session[:user].should == nil
+    end
+
+    it "should record the the logoff time" do
+      last_logoff = @login_account.last_logoff
+      put_signout
+      @login_account = LoginAccount.find(@login_account.id)
+      @login_account.last_logoff.should_not == last_logoff
     end
 
     it "should redirect to the login_url" do

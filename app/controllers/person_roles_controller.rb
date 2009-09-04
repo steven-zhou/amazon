@@ -1,7 +1,5 @@
 class PersonRolesController < ApplicationController
 
-  before_filter :check_authentication
-
   def create
     @person = Person.find(params[:person_id].to_i)
     @person_role = @person.person_roles.new(params[:person_role])
