@@ -1,0 +1,4 @@
+class QuerySelection < QueryDetail
+
+
+end
