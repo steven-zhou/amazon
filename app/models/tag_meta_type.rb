@@ -1,6 +1,6 @@
 class TagMetaType < ActiveRecord::Base
 
-  OPTIONS = ['MasterDoc', 'Group', 'Fee']
+  OPTIONS = ['MasterDoc', 'Group', 'Fee', 'Table', 'ContactType']
 
   has_many :tag_types
   

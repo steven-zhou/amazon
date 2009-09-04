@@ -11,10 +11,6 @@ class MasterDocMetaType < TagType
   after_create :assign_priority
   before_destroy :reorder_priority
 
-  def self.active_master_doc_meta_meta_type
-    @mdmt = MasterDocMetaType.find_all_by_status(true)
-  end
-
   private
 
   def assign_priority

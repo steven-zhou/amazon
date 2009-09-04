@@ -649,7 +649,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/tag_types/show_tag_types.js",
-            data:'id='+$(this).attr('tag_meta_types_id'),
+            data:'tag='+$('#tag_selection').val() + '&id='+$(this).attr('tag_meta_types_id'),
             dataType: "script"
         });
     });
@@ -660,7 +660,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/tags/show_tags.js",
-            data:'id='+$(this).attr('tag_types_id'),
+            data:'tag='+$('#tag_selection').val() + '&id='+$(this).attr('tag_types_id'),
             dataType: "script"
         });
     });
@@ -749,5 +749,19 @@ $(function(){
     $(".show_tag_types").live('mouseout', function(){
        $(this).animate({ color: "#F7F8E0" }, 300)
 
+    });
+});
+
+
+/* Admin List Management - Query*/
+
+$(function(){
+    $(".show_fields").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/show_fields.js",
+            data:'id=' + $(this).val(),
+            dataType: "script"
+        });
     });
 });
