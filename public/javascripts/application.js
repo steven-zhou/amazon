@@ -634,7 +634,7 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            $("#add_tag_meta_type").css("display", "");
+            if($(this).val() != "4"){$("#add_tag_meta_type").css("display", "");}else{$("#add_tag_meta_type").css("display", "none");}
         }else{
             $("#add_tag_meta_type").css("display", "none");
             $("#show_tag").html("");

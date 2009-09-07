@@ -2,8 +2,8 @@
   .field_20
     %h3{:style=>'margin-top:10px;'} Email
   .field_17
-    = email.label :contact_type_id, 'Type'
-    = email.collection_select :contact_type_id, ContactMetaType.find_all_by_name("Email"), :id, :name
+    = email.label :contact_meta_type_id, 'Type'
+    = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name
   .field_61
     = email.label :value, "Email"
     = email.text_field :value

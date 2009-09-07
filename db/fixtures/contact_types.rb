@@ -1,18 +1,16 @@
-email = ContactMetaType.create :name => "Email"
-phone = ContactMetaType.create :name => "Phone"
-fax = ContactMetaType.create :name => "Fax"
-website = ContactMetaType.create :name => "Website"
+ContactMetaMetaType.create :name => "Email",    :status => true
+ContactMetaMetaType.create :name => "Fax",    :status => true
+ContactMetaMetaType.create :name => "Phone",    :status => true
+ContactMetaMetaType.create :name => "Website",    :status => true
 
-ContactType.create :name => "Work", :contact_meta_type_id => email.id
-ContactType.create :name => "Personal", :contact_meta_type_id => email.id
-ContactType.create :name => "Mobile", :contact_meta_type_id => phone.id
-ContactType.create :name => "Home", :contact_meta_type_id => phone.id
-ContactType.create :name => "Business", :contact_meta_type_id => phone.id
-ContactType.create :name => "Home", :contact_meta_type_id => fax.id
-ContactType.create :name => "Business", :contact_meta_type_id => fax.id
-ContactType.create :name => "Personal", :contact_meta_type_id => website.id
-ContactType.create :name => "Business", :contact_meta_type_id => website.id
+email = ContactMetaMetaType.find_by_name("Email")
+fax = ContactMetaMetaType.find_by_name("Fax")
+phone = ContactMetaMetaType.find_by_name("Phone")
+website = ContactMetaMetaType.find_by_name("Website")
 
-
-
-
+ContactMetaType.create :name => "Work",   :tag_meta_type_id => email.id,    :status => true
+ContactMetaType.create :name => "Personal",   :tag_meta_type_id => email.id,    :status => true
+ContactMetaType.create :name => "Mobile",   :tag_meta_type_id => phone.id,    :status => true
+ContactMetaType.create :name => "Home",   :tag_meta_type_id => phone.id,    :status => true
+ContactMetaType.create :name => "Business",   :tag_meta_type_id => website.id,    :status => true
+ContactMetaType.create :name => "Business",   :tag_meta_type_id => fax.id,    :status => true

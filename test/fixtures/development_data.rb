@@ -191,39 +191,39 @@ MasterDoc.create(
 
 puts "Creating sample contacts."
 
-email_work = ContactType.find(:first, :conditions => ["contact_meta_type_id = ? and name = 'Work'", ContactMetaType.find_by_name("Email").id])
-email_personal = ContactType.find(:first, :conditions => ["contact_meta_type_id = ? and name = 'Personal'", ContactMetaType.find_by_name("Email").id])
-phone_mobile = ContactType.find(:first, :conditions => ["contact_meta_type_id = ? and name = 'Mobile'", ContactMetaType.find_by_name("Phone").id])
-phone_home = ContactType.find(:first, :conditions => ["contact_meta_type_id = ? and name = 'Home'", ContactMetaType.find_by_name("Phone").id])
-website_business = ContactType.find(:first, :conditions => ["contact_meta_type_id = ? and name = 'Business'", ContactMetaType.find_by_name("Website").id])
+email_work = ContactMetaType.find(:first, :conditions => ["tag_meta_type_id = ? and name = 'Work'", ContactMetaMetaType.find_by_name("Email").id])
+email_personal = ContactMetaType.find(:first, :conditions => ["tag_meta_type_id = ? and name = 'Personal'", ContactMetaMetaType.find_by_name("Email").id])
+phone_mobile = ContactMetaType.find(:first, :conditions => ["tag_meta_type_id = ? and name = 'Mobile'", ContactMetaMetaType.find_by_name("Phone").id])
+phone_home = ContactMetaType.find(:first, :conditions => ["tag_meta_type_id = ? and name = 'Home'", ContactMetaMetaType.find_by_name("Phone").id])
+website_business = ContactMetaType.find(:first, :conditions => ["tag_meta_type_id = ? and name = 'Business'", ContactMetaMetaType.find_by_name("Website").id])
 
 
 
 puts "Creating email for Sarah Clarkson"
 Email.create(
   :contactable => sarah_clarkson,
-  :contact_type_id => email_personal.id,
+  :contact_meta_type_id => email_personal.id,
   :value => "sarah.clarkson@gmail.com"
 )
 
 puts "Creating email for Jackie Chan"
 Email.create(
   :contactable => jackie_chan,
-  :contact_type_id => email_work.id,
+  :contact_meta_type_id => email_work.id,
   :value => "the_dragon@hotmail.com"
 )
 
 puts "Creating Phone for Robert Tingle"
 Phone.create(
   :contactable => robert_tingle,
-  :contact_type_id => phone_mobile.id,
+  :contact_meta_type_id => phone_mobile.id,
   :value => "0410258698"
 )
 
 puts "Creating Phone for Jackie Chan"
 Phone.create(
   :contactable => robert_tingle,
-  :contact_type_id => phone_home.id,
+  :contact_meta_type_id => phone_home.id,
   :pre_value => "02",
   :value => "82564521"
 )
@@ -231,14 +231,14 @@ Phone.create(
 puts "Creating Phone for Karen Smith"
 Phone.create(
   :contactable => karen_smith,
-  :contact_type_id => phone_mobile.id,
+  :contact_meta_type_id => phone_mobile.id,
   :value => "0458759565"
 )
 
 puts "Creating Website for Jackie Chan"
 Website.create(
   :contactable => jackie_chan,
-  :contact_type_id => website_business.id,
+  :contact_meta_type_id => website_business.id,
   :value => "www.jackiechan.com"
 )
 
