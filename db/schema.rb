@@ -43,19 +43,6 @@ ActiveRecord::Schema.define(:version => 20090908023917) do
     t.boolean  "status"
   end
 
-  create_table "contact_meta_types", :force => true do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "contact_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "contact_meta_type_id"
-  end
-
   create_table "contacts", :force => true do |t|
     t.string   "pre_value"
     t.string   "value"
@@ -66,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20090908023917) do
     t.string   "type"
     t.integer  "contactable_id"
     t.string   "contactable_type"
-    t.integer  "contact_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "monday_hours"
@@ -77,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20090908023917) do
     t.string   "saturday_hours"
     t.string   "sunday_hours"
     t.integer  "priority_number"
+    t.integer  "contact_meta_type_id"
   end
 
   create_table "countries", :force => true do |t|
@@ -364,8 +351,9 @@ ActiveRecord::Schema.define(:version => 20090908023917) do
     t.string   "name"
     t.string   "description"
     t.date     "last_date_executed"
+    t.integer  "result_size"
     t.boolean  "status"
-    t.boolean  "save"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

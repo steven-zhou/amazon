@@ -634,7 +634,7 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            $("#add_tag_meta_type").css("display", "");
+            if($(this).val() != "4"){$("#add_tag_meta_type").css("display", "");}else{$("#add_tag_meta_type").css("display", "none");}
         }else{
             $("#add_tag_meta_type").css("display", "none");
             $("#show_tag").html("");
@@ -649,7 +649,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/tag_types/show_tag_types.js",
-            data:'id='+$(this).attr('tag_meta_types_id'),
+            data:'tag='+$('#tag_selection').val() + '&id='+$(this).attr('tag_meta_types_id'),
             dataType: "script"
         });
     });
@@ -660,7 +660,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/tags/show_tags.js",
-            data:'id='+$(this).attr('tag_types_id'),
+            data:'tag='+$('#tag_selection').val() + '&id='+$(this).attr('tag_types_id'),
             dataType: "script"
         });
     });
@@ -781,4 +781,18 @@ $('.password').pstrength();
 $('#login_account_password').live("click", function(){
     $("#login_account_password_confirmation").enable();
  
+});
+
+
+/* Admin List Management - Query*/
+
+$(function(){
+    $(".show_fields").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/show_fields.js",
+            data:'id=' + $(this).val(),
+            dataType: "script"
+        });
+    });
 });

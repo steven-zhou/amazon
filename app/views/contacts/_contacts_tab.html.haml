@@ -19,7 +19,7 @@
         .form_line
           .field_20
             %select#select_contact_type
-              = for cmt in ContactMetaType.all
+              = for cmt in ContactMetaMetaType.all
                 %option{:value => "add_#{cmt.name.downcase}"}
                   = cmt.name
         %br{ :style=>"clear: both;"}

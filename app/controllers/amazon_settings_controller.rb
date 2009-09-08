@@ -1,7 +1,5 @@
 class AmazonSettingsController < ApplicationController
 
-  before_filter :check_authentication
-
   def new
     @amazonsetting = params[:type].camelize.constantize.new
     respond_to do |format|

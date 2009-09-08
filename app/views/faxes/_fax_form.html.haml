@@ -1,7 +1,7 @@
 .form_line
   .field_20
-    = fax.label :contact_type_id, 'Type'
-    = fax.collection_select :contact_type_id, ContactType.find(:all, :include => [:contact_meta_type], :conditions => "contact_meta_types.name = 'Fax'"), :id, :name
+    = fax.label :contact_meta_type_id, 'Type'
+    = fax.collection_select :contact_meta_type_id, Contact.fax_types, :id, :name
   .field_20
     = fax.label :pre_value, "Pre Value"
     = fax.text_field :pre_value

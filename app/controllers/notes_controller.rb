@@ -1,7 +1,5 @@
 class NotesController < ApplicationController
 
-  before_filter :check_authentication
-
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @note = @entity.notes.new(params[:note])

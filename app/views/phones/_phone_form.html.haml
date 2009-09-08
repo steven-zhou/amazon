@@ -1,7 +1,7 @@
 .form_line
   .field_20
-    = phone.label :contact_type_id, 'Type'
-    = phone.collection_select :contact_type_id, ContactType.find(:all, :include => [:contact_meta_type], :conditions => "contact_meta_types.name = 'Phone'"), :id, :name
+    = phone.label :contact_meta_type_id, 'Type'
+    = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name
   .field_20
     = phone.label :pre_value, "Pre Value"
     = phone.text_field :pre_value

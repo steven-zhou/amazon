@@ -115,8 +115,8 @@
           Email
           .form_line
             .field_20
-              = email.label :contact_type_id, 'Type'
-              = email.collection_select :contact_type_id, ContactType.find_all_by_contact_meta_type_id(ContactMetaType.find_by_name("Email").id), :id, :name, {:include_blank => true }
+              = email.label :contact_meta_type_id, 'Type'
+              = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name, {:include_blank => true }
             .field_80
               = email.label :value, "Value"
               = email.text_field :value
@@ -130,8 +130,8 @@
           Phone
           .form_line
             .field_20
-              = phone.label :contact_type_id, 'Type'
-              = phone.collection_select :contact_type_id, ContactType.find_all_by_contact_meta_type_id(ContactMetaType.find_by_name("Phone").id), :id, :name, {:include_blank => true }
+              = phone.label :contact_meta_type_id, 'Type'
+              = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name, {:include_blank => true }
             .field_20
               = phone.label :pre_value, "Pre Value"
               = phone.text_field :pre_value
