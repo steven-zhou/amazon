@@ -733,11 +733,6 @@ $(function(){
     });
 });
 
-
-
-
-
-
 $(function(){
     $(".show_tag_types").live('mouseover', function(){
       $(this).effect("highlight", {color: "#15317E" }, 1000)
@@ -746,4 +741,44 @@ $(function(){
    });
 });
 
+/*Admin User management*/
 
+$(function(){
+    $(".check_login_id").live('change', function(){
+       if($(this).val()!= ""){
+          $.ajax({
+              type: "GET",
+              url: "/people/login_id_finder.js",
+              data: 'person_id='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+              dataType:"script"
+           });
+        }else{
+            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+        }
+    });
+  });
+
+  $(function(){
+    $(".check_username_unique").live('change', function(){
+       if($(this).val()!= ""){
+          $.ajax({
+              type: "GET",
+              url: "/login_accounts/user_name_unique.js",
+              data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+              dataType:"script"
+           });
+        }else{
+            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+        }
+    });
+  });
+
+
+$(function() {
+$('.password').pstrength();
+});
+
+$('#login_account_password').live("click", function(){
+    $("#login_account_password_confirmation").enable();
+ 
+});

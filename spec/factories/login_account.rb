@@ -1,5 +1,5 @@
 Factory.define :login_account, :class => LoginAccount do |f|
-  f.sequence(:user_name) { |n| "User name #{n}" }
+  f.sequence(:user_name) { |n| "Username#{n}" }
   f.sequence(:security_email) { |n| "address_#{n}@email.com" }
   f.sequence(:password_hint) { |n| "Password Hint #{n}" }
   f.sequence(:security_question1) { |n| "Security Question 1 #{n}" }

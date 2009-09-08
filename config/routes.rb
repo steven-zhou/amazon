@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get},
+    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
@@ -64,6 +64,8 @@ ActionController::Routing::Routes.draw do |map|
     query_header.resources :query_details
     query_header.resources :query_criterias
   end
+
+  map.resources :login_accounts, :collection => {:user_name_unique => :get}
   
   
   # The priority is based upon order of creation: first created -> highest priority.

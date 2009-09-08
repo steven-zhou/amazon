@@ -91,3 +91,7 @@ TerminationMethod.create :name => "By consent", :status => true
 TerminationMethod.create :name => "By notice", :status => true
 OrganisationType.create :name => "IT", :status => true
 OrganisationType.create :name => "High Tech", :status => true
+SecurityQuestion.create :name => "what is your favorite pet name", :status => true
+SecurityQuestion.create :name => "what is your father's name", :status => true
+SecurityQuestion.create :name => "what is your mather's name", :status => true
+
