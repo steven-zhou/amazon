@@ -34,7 +34,7 @@
       = login.text_field :security_email
     .field_22
       = login.label :password_confirmation, 'Repeat Password'
-      = login.text_field :password_confirmation, :disabled => true
+      = login.password_field :password_confirmation, :disabled => true
     .field_22
       = login.label :password_hint, 'Password Hint'
       = login.text_field :password_hint
@@ -83,7 +83,13 @@
         &nbsp;&nbsp;
         = login.radio_button :login_status, false, :style => "width:10%"
         %label{:style => "display:inline"} Inactive
-    
+
+    .field_22
+      = login.label :system_user, ''
+      -if @login_account.new_record?
+        = login.check_box :system_user
+        %label{:style => "display:inline"} System User
+      -else
 
         
         %label{:style => "display:inline"} System User

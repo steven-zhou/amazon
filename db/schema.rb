@@ -351,9 +351,8 @@ ActiveRecord::Schema.define(:version => 20090908023917) do
     t.string   "name"
     t.string   "description"
     t.date     "last_date_executed"
-    t.integer  "result_size"
     t.boolean  "status"
-    t.string   "type"
+    t.boolean  "save"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
