@@ -1,0 +1,22 @@
+<%- if flash[:error].nil?%>
+
+$('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+$('#save_form').dialog('close');
+
+<%- else %>
+$('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
+$('#flash_message').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        buttons: {
+          Ok: function() {
+            $(this).dialog('close');
+          }
+        }
+      }
+
+    );
+<%- end %>

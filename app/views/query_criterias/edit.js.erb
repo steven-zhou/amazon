@@ -1,0 +1,4 @@
+$('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form")) %>');
+$('#show_fields').change();
+$('.highlight').removeClass("highlight");
+$('#<%= dom_id(@query_criteria) %>').addClass("highlight");
