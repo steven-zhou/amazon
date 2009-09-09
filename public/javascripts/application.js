@@ -809,19 +809,7 @@ $(".password").jpassword(
 );
 });
 
-$(function(){
-    $("#login_account_password_confirmation").live('change', function(){
-      if ($(this).val!= $('#login_account_password').val()){
 
-         $(this).qtip(
-    {
-        content: 'password is not match',
-        style: 'dark'
-    }
-    );
-      }
-    });
-});
 
 /* Admin List Management - Query*/
 
