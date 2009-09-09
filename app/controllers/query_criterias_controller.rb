@@ -1,7 +1,5 @@
 class QueryCriteriasController < ApplicationController
 
-  before_filter :check_authentication
-
   def edit
     
     respond_to do |format|
@@ -10,7 +8,9 @@ class QueryCriteriasController < ApplicationController
   end
 
   def create
-    @query_criteria = QueryCriteria.new(params[:query_criteria])
+    @query_header = QueryHeader.find(params[:query_header_id].to_i)
+    @query_criteria = @query_header.query_criterias.new(params[:query_criteria])
+    @query_criteria.status = true
     if @query_criteria.save
       flash[:message] = flash_message(:type => "object_created_successfully", :object => "criteria")
     else
@@ -30,5 +30,11 @@ class QueryCriteriasController < ApplicationController
     end
   end
 
-
+  def destroy
+    @query_criteria = QueryCriteria.find(params[:id])
+    @query_criteria.destroy
+    respond_to do |format|
+      format.js
+    end
+  end
 end

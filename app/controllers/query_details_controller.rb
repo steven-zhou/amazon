@@ -1,7 +1,5 @@
 class QueryDetailsController < ApplicationController
 
-  before_filter :check_authentication
-
   def new
     @query_detail = QueryDetail.new
     respond_to do |format|

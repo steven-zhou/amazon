@@ -1,14 +1,10 @@
 class QueryHeadersController < ApplicationController
 
-  before_filter :check_authentication
-
-  def index
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def new
+    @query_header = QueryHeader.new
+    @query_header.name = QueryHeader.random_name
+    @query_header.save
+    @query_criteria = QueryCriteria.new
     respond_to do |format|
       format.js
     end

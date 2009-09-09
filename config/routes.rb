@@ -57,14 +57,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types
-  map.resources :tag_types, :collection => {:show_tag_types => :get}
+  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get}
   map.resources :tags, :collection => {:show_tags => :get}
 
   map.resources :query_headers, :shallow=> true do |query_header|
     query_header.resources :query_details
     query_header.resources :query_criterias
   end
-  
   
   # The priority is based upon order of creation: first created -> highest priority.
 

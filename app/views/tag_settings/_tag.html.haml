@@ -7,6 +7,11 @@
       %br.clear
     .form_line
       .field_100
+        =tag.label :category, 'Category'
+        =tag.text_field :category, :disabled=>(@tag.status == false)
+      %br.clear
+    .form_line
+      .field_100
         =tag.label :description, 'Description'
         =tag.text_field :description, :disabled=>(@tag.status == false)
       %br.clear

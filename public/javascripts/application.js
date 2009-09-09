@@ -634,7 +634,11 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            if($(this).val() != "4"){$("#add_tag_meta_type").css("display", "");}else{$("#add_tag_meta_type").css("display", "none");}
+            if($(this).val() != "4"){
+                $("#add_tag_meta_type").css("display", "");
+            }else{
+                $("#add_tag_meta_type").css("display", "none");
+            }
         }else{
             $("#add_tag_meta_type").css("display", "none");
             $("#show_tag").html("");
@@ -740,14 +744,18 @@ $(function(){
 
 $(function(){
     $(".show_tag_types").live('mouseover', function(){
-       $(this).animate({ color: "#FFFF00" }, 300)
+        $(this).animate({
+            color: "#FFFF00"
+        }, 300)
 
     });
 });
 
 $(function(){
     $(".show_tag_types").live('mouseout', function(){
-       $(this).animate({ color: "#F7F8E0" }, 300)
+        $(this).animate({
+            color: "#F7F8E0"
+        }, 300)
 
     });
 });
@@ -756,12 +764,46 @@ $(function(){
 /* Admin List Management - Query*/
 
 $(function(){
-    $(".show_fields").live('change', function(){
+    $("#show_fields").live('change', function(){
+        if($(this).val()){
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/show_fields.js",
+                data:'table_name=' + $(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#fields").html("");
+            $("#attribute_description").html("<label class='descriptions'>&nbsp;</label>")
+        }
+    });
+});
+
+$(function(){
+    $("#fields").live('change', function(){
+        $(".descriptions").css("display", "none");
+        $("#description_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
+    $(".show_new_query").live('click', function(){
         $.ajax({
             type: "GET",
-            url: "/tag_types/show_fields.js",
-            data:'id=' + $(this).val(),
+            url: "/query_headers/new.js",
             dataType: "script"
         });
+    });
+});
+
+$(function(){
+    $("#save_button").live('click', function(){
+        $('#save_form').toggle('blind');
+        $('#save_form').dialog( {
+            modal: true,
+            resizable: true,
+            draggable: true
+        });
+        $('#save_form').dialog('open');
     });
 });
