@@ -4,6 +4,7 @@
 $(function(){
     $("#tabs").tabs();
 });
+
 $(function(){
     $("#tabs2").tabs();
 });
@@ -442,7 +443,7 @@ $(function(){
 /* Drop down box hack*/
 $(function(){
     $(".clear_select").find('option:first').attr('selected', 'selected');
-})
+});
 
 /* Admin  -  Role_Condition Tab*/
 
@@ -578,9 +579,8 @@ $('.beforestartdatepick').live("mouseover", function(){
         changeMonth: true,
         changeYear: true
     });
-   
-
 });
+
 $('.role_enddatepick').live("mouseover", function(){
     var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
     day = arr_dateText[0];
@@ -738,12 +738,18 @@ $(function(){
 });
 
 $(function(){
-    $(".show_tag_types").live('mousein', function(){
-        $(this).effect("highlight", {
-            color: "#15317E"
-        }, 1000)
+    $(".show_tag_types").live('mouseover', function(){
+        $(this).animate({
+            color: "#FFFF00"
+        }, 300)
+    });
+});
 
-
+$(function(){
+    $(".show_tag_types").live('mouseout', function(){
+        $(this).animate({
+            color: "#F7F8E0"
+        }, 300)
     });
 });
 
@@ -778,6 +784,8 @@ $(function(){
         }
     });
 });
+
+
 
 $('#login_account_user_name').live("mouseover", function(){
     $(this).qtip(
@@ -814,13 +822,46 @@ $(".password").jpassword(
 /* Admin List Management - Query*/
 
 $(function(){
-    $(".show_fields").live('change', function(){
+    $("#show_fields").live('change', function(){
+        if($(this).val()){
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/show_fields.js",
+                data:'table_name=' + $(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#fields").html("");
+            $("#attribute_description").html("<label class='descriptions'>&nbsp;</label>")
+        }
+    });
+});
+
+$(function(){
+    $("#fields").live('change', function(){
+        $(".descriptions").css("display", "none");
+        $("#description_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
+    $(".show_new_query").live('click', function(){
         $.ajax({
             type: "GET",
-            url: "/tag_types/show_fields.js",
-            data:'id=' + $(this).val(),
+            url: "/query_headers/new.js",
             dataType: "script"
         });
     });
 });
 
+$(function(){
+    $("#save_button").live('click', function(){
+        $('#save_form').toggle('blind');
+        $('#save_form').dialog( {
+            modal: true,
+            resizable: true,
+            draggable: true
+        });
+        $('#save_form').dialog('open');
+    });
+});

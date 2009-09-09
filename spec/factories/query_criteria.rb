@@ -1,9 +1,8 @@
-Factory.define :query_criteria do |f|
-  f.sequence "1"
-  f.option ""
-  f.table_name "addresses"
+Factory.define :query_criteria, :class => QueryCriteria do |f|
+  f.option "And"
+  f.table_name "Addresses"
   f.field_name "state"
-  f.operator "="
+  f.operator "equals"
   f.value "NSW"
   f.status true
 

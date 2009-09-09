@@ -1,0 +1,33 @@
+.info_container
+  #add_query{:class => "show_new_query toggle_button", :toggle_id_name => "forms", :style => "cursor:pointer;cursor:hand"}
+    = image_tag('add_icon.png', :style => "float:left;margin-right:10px;")
+    %h3 Add New Query
+
+  #forms{:style => "display:none"}
+    #new_query_form.field_50
+    #new_query_list.field_50
+    %br.clear
+        
+    #display_form.info_container
+      %h3 Display Attributes
+
+    #sort_form.info_container
+      %h3 Sorting Attributes
+
+    
+    = link_to_function 'clear', :style => "float:right;"
+    = button_to_function 'Save', :id => "save_button"
+    = button_to_function 'Run Query'
+    = link_to_function 'view SQL statements'
+    
+
+.info_container#show_queries
+  %h3 Existing Queries
+  = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
+  %br.clear
+
+#edit_query
+
+
+#save_form{:style => "display:none;"}
+  

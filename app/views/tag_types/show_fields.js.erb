@@ -1,1 +1,14 @@
-$('#fields').html("<%= escape_javascript(render(:partial => '/tag_types/show_fields', :collection => {:tag_type => @tag_type})) %>");
+<%- options = String.new  %>
+<%- descriptions = String.new %>
+<%- descriptions += "<label class='descriptions'>&nbsp;</label>"%>
+
+<%- @tag_types.each do |i|%>
+<%- options += "<option value = #{i.name}> #{i.name} </option>"%>
+<%- if i.description.nil? %>
+  <%- descriptions += "<label class='descriptions' id='description_#{i.name}' style='display:none;'>#{i.description}</label>" %>
+<%- else %>
+  <%- descriptions += "<label class='descriptions' id='description_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>" %>
+<%- end %>
+<%- end %>
+$('#fields').html('<%= escape_javascript("#{options}") %>');
+$('#attribute_description').html('<%= escape_javascript("#{descriptions}") %>');

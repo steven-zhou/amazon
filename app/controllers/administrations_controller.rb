@@ -19,10 +19,6 @@ class AdministrationsController < ApplicationController
   end
 
   def list_management
-    @query_header = QueryHeader.new
-    @query_header.name = QueryHeader.random_name
-    @query_header.save
-    @query_criteria = QueryCriteria.new
     respond_to do |format|
       format.html
     end

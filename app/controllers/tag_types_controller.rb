@@ -57,7 +57,7 @@ class TagTypesController < ApplicationController
   end
 
   def show_fields
-    @tag_types = TableMetaType.find(:all, :conditions => ["tag_meta_type_id=?", params[:id]], :order => "name")
+    @tag_types = TableMetaType.find(:all, :conditions => ["tag_meta_type_id=?", TableMetaMetaType.find_by_name(params[:table_name]).id], :order => "name")
     respond_to do |format|
       format.js
     end

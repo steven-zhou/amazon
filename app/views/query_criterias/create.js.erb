@@ -1,0 +1,9 @@
+<%- if flash[:error].nil? %>
+$("#criterias").append("<%= escape_javascript(render(:partial => 'queries/query_criteria')) %>");
+$("#new_query_criteria")[0].reset();
+$("#fields").html('');
+$('#<%= dom_id(@query_criteria) %>').effect('slide', {direction:'right'});
+
+<%- else %>
+
+<%- end %>
