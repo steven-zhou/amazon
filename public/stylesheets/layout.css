@@ -85,6 +85,12 @@ div.form_line input[type=checkbox] {
     width: auto;
 }
 
+div.field_10 {
+  margin: 0% 1%;
+	width: 10%;
+	float: left;
+}
+
 div.field_12 {
   margin: 0% 1%;
 	width: 12%;
@@ -127,9 +133,21 @@ div.field_30 {
     float: left;
 }
 
+div.field_30real {
+    margin: 0% 1%;
+    width: 30.5%;
+    float: left;
+}
+
 div.field_40 {
   margin: 0% 1%;
   width: 38%;
+	float: left;
+}
+
+div.field_42 {
+  margin: 0% 1%;
+  width: 42%;
 	float: left;
 }
 
@@ -314,4 +332,25 @@ div.field_73 {
     margin: 0% 1%;
     width: 73%;
     float: left;
+}
+
+
+div.info_container div.header_container .options_left {
+  float: left;
+ 
+}
+
+
+.password {
+font-size : 12px;
+border : 1px solid #cc9933;
+width : 200px;
+font-family : arial, sans-serif;
+}
+.pstrength-minchar {
+font-size : 10px;
+}
+.p_empty {
+border: 1px solid white; font-size: 5px; height: 20px; width: 20%; background-color: rgb(204, 204, 204);
+
 }
