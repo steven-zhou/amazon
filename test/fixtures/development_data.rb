@@ -55,7 +55,11 @@ puts "Creating login for Robert Tingle"
 robert_tingle_login = LoginAccount.create(
   :person_id => robert_tingle.id,
   :user_name => "username",
-  :password => "password"
+  :password => "password",
+  :password_confirmation => "password",
+  :question1_answer => "1",
+  :question2_answer => "2",
+  :question3_answer => "3"
 )
 
 puts "Creating Jackie Chan"

@@ -133,13 +133,19 @@ div.field_30 {
     float: left;
 }
 
+div.field_30real {
+    margin: 0% 1%;
+    width: 30.5%;
+    float: left;
+}
+
 div.field_40 {
   margin: 0% 1%;
   width: 38%;
 	float: left;
 }
 
-div.field_40real {
+div.field_42 {
   margin: 0% 1%;
   width: 42%;
 	float: left;

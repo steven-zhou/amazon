@@ -634,7 +634,11 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            if($(this).val() != "4"){$("#add_tag_meta_type").css("display", "");}else{$("#add_tag_meta_type").css("display", "none");}
+            if($(this).val() != "4"){
+                $("#add_tag_meta_type").css("display", "");
+            }else{
+                $("#add_tag_meta_type").css("display", "none");
+            }
         }else{
             $("#add_tag_meta_type").css("display", "none");
             $("#show_tag").html("");
@@ -734,53 +738,76 @@ $(function(){
 });
 
 $(function(){
-    $(".show_tag_types").live('mouseover', function(){
-      $(this).effect("highlight", {color: "#15317E" }, 1000)
+    $(".show_tag_types").live('mousein', function(){
+        $(this).effect("highlight", {
+            color: "#15317E"
+        }, 1000)
 
 
-   });
+    });
 });
 
 /*Admin User management*/
 
 $(function(){
     $(".check_login_id").live('change', function(){
-       if($(this).val()!= ""){
-          $.ajax({
-              type: "GET",
-              url: "/people/login_id_finder.js",
-              data: 'person_id='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
-              dataType:"script"
-           });
+        if($(this).val()!= ""){
+            $.ajax({
+                type: "GET",
+                url: "/people/login_id_finder.js",
+                data: 'person_id='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+                dataType:"script"
+            });
         }else{
             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
         }
     });
-  });
+});
 
-  $(function(){
+$(function(){
     $(".check_username_unique").live('change', function(){
-       if($(this).val()!= ""){
-          $.ajax({
-              type: "GET",
-              url: "/login_accounts/user_name_unique.js",
-              data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
-              dataType:"script"
-           });
+        if($(this).val()!= ""){
+            $.ajax({
+                type: "GET",
+                url: "/login_accounts/user_name_unique.js",
+                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+                dataType:"script"
+            });
         }else{
             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
         }
     });
-  });
+});
 
 
 $(function() {
-$('.password').pstrength();
+    $('.password').pstrength();
 });
 
 $('#login_account_password').live("click", function(){
     $("#login_account_password_confirmation").enable();
  
+});
+
+$('#login_account_user_name').live("mouseover", function(){
+    $(this).qtip(
+    {
+        content: 'username must between 6~20',
+        style: 'dark'
+    }
+    );
+
+});
+
+$(function(){
+    $(".show_users").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
+            data:'id='+$(this).attr('id'),
+            dataType: "script"
+        });
+    });
 });
 
 
@@ -796,3 +823,4 @@ $(function(){
         });
     });
 });
+

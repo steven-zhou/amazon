@@ -29,6 +29,7 @@
   $('#login_account_password_bar').css('width', '20%');
   $('#login_account_password_bar').css('background-color', 'rgb(204, 204, 204)');
   $("#login_account_password_text").html('<span style="color: rgb(204, 204, 204);">Password Strength</span>');
+  $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
 
 
 

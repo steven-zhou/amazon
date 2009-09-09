@@ -12,6 +12,7 @@ class AdministrationsController < ApplicationController
     @role_condition = RoleCondition.new
     @role_type = RoleType.new
     @login_account = LoginAccount.new
+    @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
     respond_to do |format|
       format.html
     end

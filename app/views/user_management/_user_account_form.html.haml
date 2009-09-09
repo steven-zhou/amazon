@@ -29,7 +29,7 @@
       %div#login_account_password_bar{:class => "pstrength-bar", :style => style="border: 1px solid white; font-size: 5px; height: 20px; width: 20%; background-color: rgb(204, 204, 204);" }
   %br.clear
   .form_line
-    .field_40real
+    .field_42
       = login.label :security_email, 'Email'
       = login.text_field :security_email
     .field_22
@@ -43,7 +43,7 @@
     .field_22
       = login.label :security_question1_id, 'Question1'
       -if @login_account.new_record?
-        = collection_select :login_account, :security_question1_id, SecurityQuestion.active_security_question, :id, :name,{:prompt => "select one" }
+        = collection_select :login_account, :security_question1_id, SecurityQuestion.active_security_question, :id, :name
       -else
         = collection_select :login_account, :security_question1_id, SecurityQuestion.active_security_question, :id, :name, {:prompt => "#{@login_account.security_question.name}" }
     .field_22
@@ -52,7 +52,7 @@
     .field_22
       = login.label :security_question2_id, 'Question2'
       -if @login_account.new_record?
-        = collection_select :login_account, :security_question2_id, SecurityQuestion.active_security_question, :id, :name,{:prompt => "select one" }
+        = collection_select :login_account, :security_question2_id, SecurityQuestion.active_security_question, :id, :name
       -else
         = collection_select :login_account, :security_question2_id, SecurityQuestion.active_security_question, :id, :name, {:prompt => "#{@login_account.security_question.name}" }
     .field_22
@@ -63,7 +63,7 @@
     .field_22
       = login.label :security_question3, 'Question3'
       -if @login_account.new_record?
-        = collection_select :login_account, :security_question3_id, SecurityQuestion.active_security_question, :id, :name,{:prompt => "select one" }
+        = collection_select :login_account, :security_question3_id, SecurityQuestion.active_security_question, :id, :name
       -else
         = collection_select :login_account, :security_question3_id, SecurityQuestion.active_security_question, :id, :name, {:prompt => "#{@login_account.security_question.name}" }
     .field_22
@@ -85,9 +85,9 @@
         %label{:style => "display:inline"} Inactive
 
     .field_22
-      = login.label :system_user, ''
+      = login.label :system_user, '&nbsp'
       -if @login_account.new_record?
-        = login.check_box :system_user
+        = login.check_box :system_user,{:checked => true}
         %label{:style => "display:inline"} System User
       -else
 

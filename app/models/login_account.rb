@@ -23,7 +23,7 @@ class LoginAccount < ActiveRecord::Base
   validates_length_of :password, :within => 6..30, :too_long => "pick a shorter password", :too_short => "pick a longer password"
   validates_confirmation_of :password,  :message => "password confirmation is different with password"
 
-  validates_presence_of :password_confirmation, :message => "password confirmation can not blank"
+  #validates_presence_of :password_confirmation, :message => "password confirmation can not blank"
   validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of password is wrong."
 
   attr_accessor :password, :password_confirmation

@@ -13,6 +13,15 @@
   %div#new_user
     = render :partial => '/user_management/user_account_form'
 
-  %div#user_flash_message
+.info_container{:style => "width:80%;"}
+  %h3 Existing Users
+  %div#show_user
+    = render :partial => '/user_management/show_user_list'
+  %br.clear
+
+
+  %div#edit_user
+
+
 
 

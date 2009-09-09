@@ -12,6 +12,7 @@ class LoginAccountsController < ApplicationController
 
   def create
     @login_account = LoginAccount.new(params[:login_account])
+    
     if request.post?
       if @login_account.save
         flash.now[:message] = " Saved successfully"
@@ -19,10 +20,21 @@ class LoginAccountsController < ApplicationController
         flash.now[:error] = " Saved unsuccessfully, please check again"
     
       end
+
+      @login_accounts = LoginAccount.find(:all)
       respond_to  do |format|
         format.js
       end
     
+    end
+  end
+
+
+  def edit
+    @login_account = LoginAccount.find(params[:id].to_i)
+
+    respond_to do |format|
+      format.js
     end
   end
 
