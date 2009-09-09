@@ -4,8 +4,10 @@
     %h3 Add New Query
 
   #forms{:style => "display:none"}
-    #new_query_form.info_container
-
+    #new_query_form.field_50
+    #new_query_list.field_50
+    %br.clear
+        
     #display_form.info_container
       %h3 Display Attributes
 
@@ -21,6 +23,8 @@
 
 .info_container#show_queries
   %h3 Existing Queries
+  = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
+  %br.clear
 
 #edit_query
 

@@ -16,4 +16,12 @@ class QueryHeader < ActiveRecord::Base
     @name += letter[rand(letter.length)]+"#{rand(9)}"+letter[rand(letter.length)]+letter[rand(letter.length)]
     @name += letter[rand(letter.length)]+letter[rand(letter.length)]+"#{rand(9)}"
   end
+
+  def self.saved_queries
+    QueryHeader.find_all_by_group("save")
+  end
+
+  def formatted_info
+    "#{self.name} - #{self.description}"
+  end
 end

@@ -17,6 +17,11 @@ describe QueryCriteriasController do
     xhr :post, "create", options
   end
 
+  def post_update(options = {})
+    options[:query_criteria] ||= @attributes
+    xhr :post, "update", options
+  end
+  
   describe "post create" do
     it "should get the correct query header it belongs to" do
       QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)

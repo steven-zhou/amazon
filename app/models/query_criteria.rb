@@ -3,7 +3,7 @@ class QueryCriteria < ActiveRecord::Base
   belongs_to :query_header
 
   validates_presence_of :table_name, :field_name, :operator
-  validates_uniqueness_of :table_name_and_field_name
+  validates_uniqueness_of :field_name, :scope => [:query_header_id, :table_name]
 
   before_create :assign_sequence
   before_destroy :update_sequence
@@ -11,10 +11,6 @@ class QueryCriteria < ActiveRecord::Base
   def formatted_info
     result = (self.sequence == 1) ? "" : "#{self.option} "
     result += "#{self.table_name}.#{self.field_name} #{self.operator} #{self.value}"
-  end
-
-  def table_name_and_field_name
-    "#{self.table_name} #{self.field_name}"
   end
 
   private

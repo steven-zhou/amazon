@@ -60,6 +60,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get}
   map.resources :tags, :collection => {:show_tags => :get}
 
+#  map.resources :query_headers, :shallow=> true do |query_header|
+#    query_header.resources :query_details
+#    query_header.resources :query_criterias
+#  end
+
   map.resources :query_headers, :shallow=> true do |query_header|
     query_header.resources :query_details
     query_header.resources :query_criterias

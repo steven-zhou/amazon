@@ -10,19 +10,16 @@ class QueryHeadersController < ApplicationController
     end
   end
 
-  def edit
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def create
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def update
+    @query_header = QueryHeader.find(params[:id])
+    if !@query_header.query_criterias.blank? && @query_header.update_attributes(params[:query_header])
+      @query_header.group = "save"
+      @query_header.status = true
+      @query_header.save
+      flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")
+    else
+      flash.now[:error] = "save unsuccessfully"
+    end
     respond_to do |format|
       format.js
     end
