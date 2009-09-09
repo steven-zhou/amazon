@@ -16,7 +16,7 @@
         %span{:id => "user_name_container_#{@login_account.id}"} #{@login_account.user_name}
     %br.clear
     .form_line
-      .field_42
+      .field_42half
         = login.label :security_email, 'Email'
         = login.text_field :security_email
       .field_22
@@ -33,10 +33,12 @@
 
     %br.clear
     .form_line
+    %br
     .info_container
       %h3 Security Groups
     %p.submit
       = link_to_function 'Clear', :class => "user_clear_form alt_option", :style=>"float:right"
       = submit_tag 'Submit'
     %br.clear
+
 

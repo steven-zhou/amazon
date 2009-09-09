@@ -6,6 +6,10 @@
   <%end%>
 
 <%else%>
-
+  <%if @flag %>
+    $('#user_name_container_'+'<%=escape_javascript("#{@login_account.id}") %>').html("UserName has been taken")
+  <%else%>
+    $('#user_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("Username not been taken")
+  <%end%>
 
 <%end%>

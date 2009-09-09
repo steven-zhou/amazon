@@ -139,6 +139,12 @@ div.field_30real {
     float: left;
 }
 
+div.field_3a {
+    margin: 0% 1%;
+    width: 33%;
+    float: left;
+}
+
 div.field_40 {
   margin: 0% 1%;
   width: 38%;
@@ -151,9 +157,21 @@ div.field_42 {
 	float: left;
 }
 
+div.field_42half {
+  margin: 0% 1%;
+  width: 42.5%;
+	float: left;
+}
+
 div.field_45 {
   margin: 0% 1%;
   width: 45%;
+	float: left;
+}
+
+div.field_47 {
+  margin: 0% 1%;
+  width: 47%;
 	float: left;
 }
 

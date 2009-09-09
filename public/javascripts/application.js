@@ -779,24 +779,13 @@ $(function(){
     });
 });
 
-
-$(function() {
-    $('.password').pstrength();
-});
-
-$('#login_account_password').live("click", function(){
-    $("#login_account_password_confirmation").enable();
- 
-});
-
 $('#login_account_user_name').live("mouseover", function(){
     $(this).qtip(
     {
-        content: 'username must between 6~20',
+        content: 'username must between 6~20<br>username can\'t the same as password',
         style: 'dark'
     }
     );
-
 });
 
 $(function(){
@@ -810,6 +799,29 @@ $(function(){
     });
 });
 
+
+$(function() {
+$(".password").jpassword(
+
+{lang: { please: "please type password over 6 characters", low: "Low security.", correct: "Correct security.", high: "High security.", length: "-X- characters would be a plus.", number: "Why not numbers?", uppercase: "And caps?", lowercase: "Some tiny?", punctuation: "Punctuations?", special: "Best, special characters?" }
+ },
+{length: 6}
+);
+});
+
+$(function(){
+    $("#login_account_password_confirmation").live('change', function(){
+      if ($(this).val!= $('#login_account_password').val()){
+
+         $(this).qtip(
+    {
+        content: 'password is not match',
+        style: 'dark'
+    }
+    );
+      }
+    });
+});
 
 /* Admin List Management - Query*/
 
