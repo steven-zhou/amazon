@@ -22,8 +22,8 @@
       %br.clear
     .form_line
       %label Input Value
-      = f.text_field :value, :style => "width:70%;"
-      %input{:type => "checkbox", :style => "width:20%;", :name => "runtime"}
+      = f.text_field :value, :style => "width:70%;", :disabled => false
+      %input{:type => "checkbox", :style => "width:20%;", :name => "runtime" :id => "new_runtime"}
       %label{:style => "width:10%;display:inline"} R/T
       %br.clear
     .form_line

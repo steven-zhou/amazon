@@ -964,3 +964,15 @@ $(function(){
         $('#save_form').dialog('open');
     });
 });
+
+$(function(){
+    $("#new_runtime").live('click', function(){
+        if ($("#query_criteria_value").attr("readonly")==false){
+            $("#query_criteria_value").val("?");
+            $("#query_criteria_value").attr("readonly", true);
+        }else{
+            $("#query_criteria_value").val("");
+            $("#query_criteria_value").attr("readonly", false);
+        }
+    });
+  });
