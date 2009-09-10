@@ -4,8 +4,7 @@ class QuerySorter < QueryDetail
   before_destroy :update_sequence
 
   def formatted_info
-    result = (self.sequence == 1) ? "" : "#{self.option} "
-    result += "#{self.table_name}.#{self.field_name}"
+    "#{self.table_name}.#{self.field_name}"
   end
 
   private

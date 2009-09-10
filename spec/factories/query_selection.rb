@@ -1,6 +1,5 @@
-Factory.define :query_selection do |f|
+Factory.define :query_selection, :class => QuerySelection do |f|
   f.table_name "addresses"
-  f.sequence "1"
   f.field_name "state"
   f.status true
 
