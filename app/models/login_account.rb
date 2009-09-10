@@ -8,18 +8,19 @@ class LoginAccount < ActiveRecord::Base
   belongs_to :security_question, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
 
 
-  validates_presence_of :person_id, :message => "You must specify which person this login account belongs to."
-  validates_uniqueness_of :person_id, :message => "Another login account already exists for this person."
+  validates_presence_of :person_id
+  validates_uniqueness_of :person_id
   validate :person_must_exist
   before_save :different_password_username, :answer_unique
 
-  validates_presence_of :user_name, :message => "You must specify a username to for use with this login."
-  validates_uniqueness_of :user_name, :message => "An account with that username already exists."
+
+  validates_presence_of :user_name
+  validates_uniqueness_of :user_name
   validates_length_of :user_name, :within => 6..30, :too_long => "pick a shorter name", :too_short => "pick a longer name"
   validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of username is wrong."
 
   validates_presence_of :password_hash
-  validates_presence_of :password, :message => "please type password"
+  validates_presence_of :password, :message => "password can't be blank"
   validates_length_of :password, :within => 6..30, :too_long => "pick a shorter password", :too_short => "pick a longer password"
   validates_confirmation_of :password,  :message => "password confirmation is different with password"
 

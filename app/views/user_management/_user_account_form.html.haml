@@ -28,7 +28,7 @@
       = login.password_field :password_confirmation
     .field_47
       = login.label :security_email, 'Email'
-      = login.text_field :security_email
+      = login.text_field :security_email, :class => "titleHintBox", :title => "Minimum of 8 characters in length"
   %br.clear
   .form_line
     .field_27

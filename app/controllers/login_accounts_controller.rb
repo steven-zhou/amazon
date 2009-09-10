@@ -12,13 +12,25 @@ class LoginAccountsController < ApplicationController
 
   def create
     @login_account = LoginAccount.new(params[:login_account])
+    a = String.new
+    a = ""
     
     if request.post?
       if @login_account.save
         flash.now[:message] = " Saved successfully"
       else
-        flash.now[:error] = " Saved unsuccessfully, please check again"
-    
+        a += flash_message(:type => "field_missing", :field => "person_id") + "<p/>" if (!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?( "can't be blank"))
+        a += flash_message(:type => "field_missing", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
+        a += flash_message(:type => "field_missing", :field => "password") + "<p/>" if (!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("password can't be blank"))
+        a += flash_message(:type => "uniqueness_error", :field => "person_id") + "<p/>" if (!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?("has already been taken"))
+        a += flash_message(:type => "uniqueness_error", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
+        a += flash_message(:type => "not exist", :field => "person_id") + "<p/>" if (!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?("You must specify a person that exists."))
+        if a == ""
+
+          flash.now[:error] = "please check your security answer and password can not the same as username"
+        else
+          flash.now[:error] = a
+        end
       end
 
       @login_accounts = LoginAccount.find(:all)

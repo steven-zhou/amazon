@@ -112,13 +112,8 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#login_name_container_0').html('');
         $('#user_name_container_0').html('');
-        $("#login_account_password_confirmation").disable();
-        $('#login_account_password_bar').css('border', '1px solid white');
-        $('#login_account_password_bar').css('font-size', '5px');
-        $('#login_account_password_bar').css('height', '20px');
-        $('#login_account_password_bar').css('width', '20%');
-        $('#login_account_password_bar').css('background-color', 'rgb(204, 204, 204)');
-        $("#login_account_password_text").html('<span style="color: rgb(204, 204, 204);">Password Strength</span>');
+      
+      
 
 
 
