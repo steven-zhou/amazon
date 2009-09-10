@@ -38,6 +38,17 @@ class LoginAccountsController < ApplicationController
     end
   end
 
+  def update
+    @login_account = LoginAccount.find(params[:id].to_i)
+
+    if @login_account.update_attribute(:person_id, params[:login_account][:person_id]) && @login_account.update_attribute(:user_name, params[:login_account][:user_name])
+
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
 
 
 
