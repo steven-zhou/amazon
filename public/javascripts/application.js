@@ -901,7 +901,16 @@ $(function(){
 });
 
 
-
+$(function(){
+    $(".show_users").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
+            data:'id='+$(this).attr('id'),
+            dataType: "script"
+        });
+    });
+});
 
 
 /* Admin List Management - Query*/

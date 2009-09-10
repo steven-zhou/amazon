@@ -20,13 +20,14 @@ class LoginAccount < ActiveRecord::Base
   validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of username is wrong."
 
   validates_presence_of :password_hash
-  validates_presence_of :password, :message => "password can't be blank"
-  validates_length_of :password, :within => 6..30, :too_long => "pick a shorter password", :too_short => "pick a longer password"
-  validates_confirmation_of :password,  :message => "password confirmation is different with password"
+  validates_presence_of :password, :message => "password can't be blank", :on => :create
+  validates_length_of :password, :within => 6..30, :too_long => "pick a shorter password", :too_short => "pick a longer password", :on => :create
+  validates_confirmation_of :password,  :message => "password confirmation is different with password", :on => :create
 
   #validates_presence_of :password_confirmation, :message => "password confirmation can not blank"
-  validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of password is wrong."
+  validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of password is wrong.", :on => :create
 
+  #attr_accessor :password, :password_confirmation
   attr_accessor :password, :password_confirmation
 
 

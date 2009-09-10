@@ -1,6 +1,6 @@
 -#for user_management
 %h3 System User Mangement
-.info_container{:style => "width:80%;"}
+.info_container
   %div#add_user_bar{:class => "toggle_button", :toggle_id_name => "new_user" }
     .header_container
       .options
@@ -13,7 +13,7 @@
   %div#new_user{:style => "display:none"}
     = render :partial => '/user_management/user_account_form'
 
-.info_container{:style => "width:80%;"}
+.info_container
   %h3 Existing Users
   %div#show_user
     = render :partial => '/user_management/show_user_list'
