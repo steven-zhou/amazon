@@ -1,6 +1,7 @@
 class QuerySelection < QueryDetail
 
-
+  validates_uniqueness_of :field_name, :scope => [:query_header_id, :table_name]
+  
   before_create :assign_sequence
   before_destroy :update_sequence
 
