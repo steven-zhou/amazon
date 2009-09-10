@@ -7,12 +7,22 @@
     #new_query_form.field_50
     #new_query_list.field_50
     %br.clear
-        
-    #display_form.info_container
-      %h3 Display Attributes
 
-    #sort_form.info_container
-      %h3 Sorting Attributes
+    .info_container
+      #display_form{:class => "toggle_button", :toggle_id_name => "new_selection", :style => "cursor:pointer;cursor:hand"}
+        %h3 Display Attributes
+      #new_selection{:style => "display:none"}
+        #new_selection_form.field_50
+        #new_selection_list.field_33
+        %br.clear
+
+    .info_container
+      #sort_form{:class => "toggle_button", :toggle_id_name => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+        %h3 Sorting Attributes
+      #new_sorter{:style => "display:none"}
+        #new_sorter_form.field_50
+        #new_sorter_list.field_33
+        %br.clear
 
     
     = link_to_function 'clear', :style => "float:right;"

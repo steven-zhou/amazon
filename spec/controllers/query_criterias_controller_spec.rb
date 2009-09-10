@@ -5,8 +5,7 @@ describe QueryCriteriasController do
   before(:each) do
     @query_criteria = Factory(:query_criteria)
     @attributes = @query_criteria
-    @query_header = @query_criteria.query_header
-    
+    @query_header = @query_criteria.query_header    
     QueryHeader.stub!(:find).and_return(@query_header)
     QueryCriteria.stub!(:new).and_return(@query_criteria)
     session[:user] = Factory(:login_account).id

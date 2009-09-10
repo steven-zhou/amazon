@@ -66,7 +66,8 @@ ActionController::Routing::Routes.draw do |map|
 #  end
 
   map.resources :query_headers, :shallow=> true do |query_header|
-    query_header.resources :query_details
+    query_header.resources :query_selections
+    query_header.resources :query_sorters
     query_header.resources :query_criterias
   end
 

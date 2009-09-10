@@ -916,25 +916,39 @@ $(function(){
 /* Admin List Management - Query*/
 
 $(function(){
-    $("#show_fields").live('change', function(){
+    $(".show_fields").live('change', function(){
         if($(this).val()){
             $.ajax({
                 type: "GET",
                 url: "/tag_types/show_fields.js",
-                data:'table_name=' + $(this).val(),
+                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field"),
                 dataType: "script"
             });
         }else{
-            $("#fields").html("");
-            $("#attribute_description").html("<label class='descriptions'>&nbsp;</label>")
+            $("#fields_"+$(this).attr("update_field")).html("");
+            $("#attribute_description_"+$(this).attr("update_field")).html("<label class='descriptions'>&nbsp;</label>")
         }
     });
 });
 
 $(function(){
-    $("#fields").live('change', function(){
-        $(".descriptions").css("display", "none");
-        $("#description_"+$(this).val()).css("display", "");
+    $("#fields_criteria").live('change', function(){
+        $(".descriptions_criteria").css("display", "none");
+        $("#description_criteria_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
+    $("#fields_selection").live('change', function(){
+        $(".descriptions_selection").css("display", "none");
+        $("#description_selection_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
+    $("#fields_sorter").live('change', function(){
+        $(".descriptions_sorter").css("display", "none");
+        $("#description_sorter_"+$(this).val()).css("display", "");
     });
 });
 
@@ -959,3 +973,15 @@ $(function(){
         $('#save_form').dialog('open');
     });
 });
+
+$(function(){
+    $("#new_runtime").live('click', function(){
+        if ($("#query_criteria_value").attr("readonly")==false){
+            $("#query_criteria_value").val("?");
+            $("#query_criteria_value").attr("readonly", true);
+        }else{
+            $("#query_criteria_value").val("");
+            $("#query_criteria_value").attr("readonly", false);
+        }
+    });
+  });

@@ -40,7 +40,6 @@ class QueryCriteriasController < ApplicationController
     @query_criteria.destroy
     @query_header = QueryHeader.find(@query_header.id)
     @query_criteria = QueryCriteria.new
-    puts "after destroy, #{@query_header.query_criterias.to_yaml}"
     respond_to do |format|
       format.js
     end

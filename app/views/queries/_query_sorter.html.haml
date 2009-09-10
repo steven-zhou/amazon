@@ -1,0 +1,8 @@
+-# Displays An Query Sorter
+-div_for(query_sorter, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= query_sorter.formatted_info
+    .options
+      = link_to image_tag('delete_icon.png'), query_sorter_path(query_sorter), :class => 'delete'
+    %br.clear
