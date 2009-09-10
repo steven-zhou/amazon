@@ -5,6 +5,8 @@ class QueryHeadersController < ApplicationController
     @query_header.name = QueryHeader.random_name
     @query_header.save
     @query_criteria = QueryCriteria.new
+    @query_seleciton = QuerySelection.new
+    @query_sorter = QuerySorter.new
     respond_to do |format|
       format.js
     end

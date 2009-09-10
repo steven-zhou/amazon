@@ -1,11 +1,4 @@
-class QueryDetailsController < ApplicationController
-
-  def new
-    @query_detail = QueryDetail.new
-    respond_to do |format|
-      format.js
-    end
-  end
+class QuerySelectionsController < ApplicationController
 
   def edit
 

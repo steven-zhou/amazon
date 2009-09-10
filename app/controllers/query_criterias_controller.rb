@@ -25,7 +25,7 @@ class QueryCriteriasController < ApplicationController
   end
 
   def update
-    @query_criteria = QueryCriteria.find(params[:id])
+    @query_criteria = QueryCriteria.find(params[:id].to_i)
     @query_criteria.update_attributes(params[:query_criteria])
     @query_header = @query_criteria.query_header
     @query_criteria = QueryCriteria.new
