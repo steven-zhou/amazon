@@ -1,0 +1,3 @@
+$('#<%= dom_id(@query_sorter_old) %>').fadeOut("slow", function() {$(this).remove();});
+$('#new_sorter_form').html('<%= escape_javascript(render(:partial => "queries/new_query_sorter_form")) %>');
+$('#new_sorter_list').html('<%= escape_javascript(render(:partial => "queries/new_query_sorter_list")) %>');

@@ -21,9 +21,6 @@ class QuerySelectionsController < ApplicationController
     @query_selection_old.destroy
     @query_seleciton = QuerySelection.new
     @query_header = QueryHeader.find(@query_header.id)
-
-    puts "#{@query_header.to_yaml} \n"
-    puts "#{@query_selection.to_yaml} \n"
     respond_to do |format|
       format.js
     end

@@ -937,6 +937,13 @@ $(function(){
 });
 
 $(function(){
+    $("#fields_sorter").live('change', function(){
+        $(".descriptions_sorter").css("display", "none");
+        $("#description_sorter_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
     $(".show_new_query").live('click', function(){
         $.ajax({
             type: "GET",

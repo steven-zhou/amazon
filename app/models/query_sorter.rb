@@ -4,7 +4,11 @@ class QuerySorter < QueryDetail
   before_destroy :update_sequence
 
   def formatted_info
-    "#{self.table_name}.#{self.field_name}"
+    if self.ascending
+      "#{self.table_name}.#{self.field_name} ASC"
+    else
+      "#{self.table_name}.#{self.field_name} DES"
+    end
   end
 
   private
@@ -15,7 +19,7 @@ class QuerySorter < QueryDetail
   def update_sequence
     sequence = self.sequence
     QuerySorter.transaction do
-    self.query_header.query_sorters.each { |sorter|
+      self.query_header.query_sorters.each { |sorter|
         if (sorter.sequence > sequence)
           sorter.sequence -= 1
           sorter.save
