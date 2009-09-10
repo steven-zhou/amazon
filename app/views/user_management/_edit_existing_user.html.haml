@@ -45,7 +45,7 @@
     .info_container
       %h3 Security Groups
     %p.submit
-      = link_to_function 'Clear', :class => "user_clear_form alt_option", :style=>"float:right"
+      = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
       = submit_tag 'Submit'
     %br.clear
 

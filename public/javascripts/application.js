@@ -30,7 +30,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -96,16 +96,16 @@ $(document).ready(function() {
         "bAutoWidth":false,
         "sDom":'lfrtpi',
         "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
+                'sWidth':"12%"
+            },{
+                'sWidth':"15%"
+            },{
+                'sWidth':"30%"
+            },{
+                "sWdith":"15%"
+            },{
+                'sWidth':"25%"
+            }]
     })
 });
 
@@ -291,9 +291,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/organisations/name_finder.js",
+                    "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -308,9 +308,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/people/name_finder.js",
+                    "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -365,9 +365,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_meta_type_finder.js",
+                "/people/master_doc_meta_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -379,9 +379,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_type_finder.js",
+                "/people/master_doc_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -422,18 +422,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/new.js",
+                    "/amazon_settings/new.js",
                 data:
-                'type=' + $("#find_data_list_field").val(),
+                    'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/" + $(this).val() + "/edit.js",
+                    "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                'id=' + $(this).val(),
+                    'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -507,9 +507,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/roles/meta_name_finder.js",
+                "/roles/meta_name_finder.js",
             data:
-            'id='+$(this).val(),
+                'id='+$(this).val(),
             dataType: "script"
         });
     });
@@ -532,9 +532,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/roles/doc_type_finder.js",
+                "/roles/doc_type_finder.js",
             data:
-            'master_doc_meta_type_id='+$(this).val(),
+                'master_doc_meta_type_id='+$(this).val(),
             dataType: "script"
         });
     });
@@ -797,7 +797,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 
 });
@@ -811,7 +811,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 
 });
@@ -822,23 +822,23 @@ $(function() {
     $(".password").jpassword(
 
     {
-            lang: {
-                please: "please type password over 6 characters",
-                low: "Low security.",
-                correct: "Correct security.",
-                high: "High security.",
-                length: "-X- characters would be a plus.",
-                number: "Why not numbers?",
-                uppercase: "And caps?",
-                lowercase: "Some tiny?",
-                punctuation: "Punctuations?",
-                special: "Best, special characters?"
-            }
-        },
-        {
-            length: 6
+        lang: {
+            please: "please type password over 6 characters",
+            low: "Low security.",
+            correct: "Correct security.",
+            high: "High security.",
+            length: "-X- characters would be a plus.",
+            number: "Why not numbers?",
+            uppercase: "And caps?",
+            lowercase: "Some tiny?",
+            punctuation: "Punctuations?",
+            special: "Best, special characters?"
         }
-        );
+    },
+    {
+        length: 6
+    }
+);
 });
 
 
@@ -913,75 +913,87 @@ $(function(){
 });
 
 
+$(function(){
+    $(".user_clear_edit_form").live('click', function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+      
+        $('#user_name_container_' + $(this).attr('login_account_id')).html('');
+      
+        
+    })
+
+});
+
+
 /* Admin List Management - Query*/
 
 $(function(){
-    $(".show_fields").live('change', function(){
-        if($(this).val()){
-            $.ajax({
-                type: "GET",
-                url: "/tag_types/show_fields.js",
-                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field"),
-                dataType: "script"
-            });
-        }else{
-            $("#fields_"+$(this).attr("update_field")).html("");
-            $("#attribute_description_"+$(this).attr("update_field")).html("<label class='descriptions'>&nbsp;</label>")
-        }
-    });
-});
-
-$(function(){
-    $("#fields_criteria").live('change', function(){
-        $(".descriptions_criteria").css("display", "none");
-        $("#description_criteria_"+$(this).val()).css("display", "");
-    });
-});
-
-$(function(){
-    $("#fields_selection").live('change', function(){
-        $(".descriptions_selection").css("display", "none");
-        $("#description_selection_"+$(this).val()).css("display", "");
-    });
-});
-
-$(function(){
-    $("#fields_sorter").live('change', function(){
-        $(".descriptions_sorter").css("display", "none");
-        $("#description_sorter_"+$(this).val()).css("display", "");
-    });
-});
-
-$(function(){
-    $(".show_new_query").live('click', function(){
+$(".show_fields").live('change', function(){
+    if($(this).val()){
         $.ajax({
             type: "GET",
-            url: "/query_headers/new.js",
+            url: "/tag_types/show_fields.js",
+            data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field"),
             dataType: "script"
         });
-    });
+    }else{
+        $("#fields_"+$(this).attr("update_field")).html("");
+        $("#attribute_description_"+$(this).attr("update_field")).html("<label class='descriptions'>&nbsp;</label>")
+    }
+});
 });
 
 $(function(){
-    $("#save_button").live('click', function(){
-        $('#save_form').toggle('blind');
-        $('#save_form').dialog( {
-            modal: true,
-            resizable: true,
-            draggable: true
-        });
-        $('#save_form').dialog('open');
-    });
+$("#fields_criteria").live('change', function(){
+    $(".descriptions_criteria").css("display", "none");
+    $("#description_criteria_"+$(this).val()).css("display", "");
+});
 });
 
 $(function(){
-    $("#new_runtime").live('click', function(){
-        if ($("#query_criteria_value").attr("readonly")==false){
-            $("#query_criteria_value").val("?");
-            $("#query_criteria_value").attr("readonly", true);
-        }else{
-            $("#query_criteria_value").val("");
-            $("#query_criteria_value").attr("readonly", false);
-        }
+$("#fields_selection").live('change', function(){
+    $(".descriptions_selection").css("display", "none");
+    $("#description_selection_"+$(this).val()).css("display", "");
+});
+});
+
+$(function(){
+$("#fields_sorter").live('change', function(){
+    $(".descriptions_sorter").css("display", "none");
+    $("#description_sorter_"+$(this).val()).css("display", "");
+});
+});
+
+$(function(){
+$(".show_new_query").live('click', function(){
+    $.ajax({
+        type: "GET",
+        url: "/query_headers/new.js",
+        dataType: "script"
     });
-  });
+});
+});
+
+$(function(){
+$("#save_button").live('click', function(){
+    $('#save_form').toggle('blind');
+    $('#save_form').dialog( {
+        modal: true,
+        resizable: true,
+        draggable: true
+    });
+    $('#save_form').dialog('open');
+});
+});
+
+$(function(){
+$("#new_runtime").live('click', function(){
+    if ($("#query_criteria_value").attr("readonly")==false){
+        $("#query_criteria_value").val("?");
+        $("#query_criteria_value").attr("readonly", true);
+    }else{
+        $("#query_criteria_value").val("");
+        $("#query_criteria_value").attr("readonly", false);
+    }
+});
+});

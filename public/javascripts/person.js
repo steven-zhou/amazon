@@ -112,6 +112,7 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#login_name_container_0').html('');
         $('#user_name_container_0').html('');
+        
       
       
 
