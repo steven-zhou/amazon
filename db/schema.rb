@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090909082425) do
+ActiveRecord::Schema.define(:version => 20090910002442) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -345,6 +345,7 @@ ActiveRecord::Schema.define(:version => 20090909082425) do
     t.string  "field_name"
     t.boolean "status"
     t.string  "type"
+    t.boolean "ascending"
   end
 
   create_table "query_headers", :force => true do |t|

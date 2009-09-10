@@ -1,4 +1,4 @@
-Factory.define :query_detail do |f|
+Factory.define :query_selection do |f|
   f.table_name "addresses"
   f.sequence "1"
   f.field_name "state"
