@@ -52,13 +52,31 @@ class LoginAccountsController < ApplicationController
 
   def update
     @login_account = LoginAccount.find(params[:id].to_i)
-
-    if @login_account.update_attribute(:person_id, params[:login_account][:person_id]) && @login_account.update_attribute(:user_name, params[:login_account][:user_name])
-
-      respond_to do |format|
-        format.js
+   a = String.new
+    a = ""
+    #    @login_account.user_name = params[:login_account][:user_name]
+    #    @login_account.security_email = params[:login_account][:email]
+    #    @login_account.login_status = params[:login_account][:login_status]
+    #    @login_account.system_user = params[:login_account][:system_user]
+    #if @login_account.update_attribute(:user_name,params[:login_account][:user_name])&& @login_account.update_attribute(:security_email,params[:login_account][:security_email])&& @login_account.update_attribute(:login_status,params[:login_account][:login_status])&& @login_account.update_attribute(:system_user,params[:login_account][:system_user])
+    if @login_account.update_attributes(params[:login_account])
+   
+      flash.now[:message] = " Saved successfully"
+    else
+      a += flash_message(:type => "field_missing", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
+      a += flash_message(:type => "uniqueness_error", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
+      if a == ""
+        flash.now[:error] = "username must between 6 to 30 and unique"
+      else
+        flash.now[:error] = a
       end
+
     end
+      @login_accounts = LoginAccount.find(:all)
+    respond_to do |format|
+      format.js
+    end
+    
   end
 
 
