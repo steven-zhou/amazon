@@ -787,35 +787,120 @@ $(function(){
 
 
 
-$('#login_account_user_name').live("mouseover", function(){
-    $(this).qtip(
+
+
+$(function(){
+    $('#login_account_user_name').live("focus", function(){
+
+        $(this).qtip(
+        {
+            content: 'username must between 6~20<br>username can\'t the same as password',
+            style: 'dark'
+        }
+        );
+    });
+
+});
+
+
+$(function(){
+    $('#login_account_user_name').live("mouseover", function(){
+
+        $(this).qtip(
+        {
+            content: 'username must between 6~20<br>username can\'t the same as password',
+            style: 'dark'
+        }
+        );
+    });
+
+});
+
+
+
+$(function() {
+    $(".password").jpassword(
+
     {
-        content: 'username must between 6~20<br>username can\'t the same as password',
-        style: 'dark'
-    }
-    );
+            lang: {
+                please: "please type password over 6 characters",
+                low: "Low security.",
+                correct: "Correct security.",
+                high: "High security.",
+                length: "-X- characters would be a plus.",
+                number: "Why not numbers?",
+                uppercase: "And caps?",
+                lowercase: "Some tiny?",
+                punctuation: "Punctuations?",
+                special: "Best, special characters?"
+            }
+        },
+        {
+            length: 6
+        }
+        );
+});
+
+
+
+
+$(function(){
+    $("#add_user_bar").live('click', function(){
+        $(".user_clear_form").click();
+    });
+
+});
+
+
+$(function(){
+    $("#login_account_password_confirmation").live('change', function(){
+        if ($(this).val()!= $('#login_account_password').val()){
+
+            $('#password_confirm').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#password_confirm').dialog('open');
+
+        }
+    });
 });
 
 $(function(){
-    $(".show_users").live('click', function(){
-        $.ajax({
-            type: "GET",
-            url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
-            data:'id='+$(this).attr('id'),
-            dataType: "script"
-        });
+    $("#login_account_user_name").live('change', function(){
+     
+        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
+      
+            $('#user_length').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#user_length').dialog('open');
+        }
+      
     });
 });
 
 
-$(function() {
-$(".password").jpassword(
+$(function(){
+    $("#login_account_password").live('change', function(){
 
-{lang: { please: "please type password over 6 characters", low: "Low security.", correct: "Correct security.", high: "High security.", length: "-X- characters would be a plus.", number: "Why not numbers?", uppercase: "And caps?", lowercase: "Some tiny?", punctuation: "Punctuations?", special: "Best, special characters?" }
- },
-{length: 6}
-);
+        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
+
+            $('#password_length').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#password_length').dialog('open');
+        }
+
+    });
 });
+
+
 
 
 
