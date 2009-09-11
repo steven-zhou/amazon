@@ -5,6 +5,10 @@ $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 $('#save_form').dialog('close');
 
+$('#add_query').addClass('show_new_query');
+$('#forms').css("display", "none");
+$('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection => QueryHeader.saved_queries)) %>');
+
 <%- else %>
 $('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
 $('#flash_message').dialog( {

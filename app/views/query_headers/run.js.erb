@@ -1,0 +1,17 @@
+$('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @query_header.run})) %>');
+
+
+$('#result_div').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 600,
+  width: 800,
+  buttons: {
+    Ok: function() {
+      $(this).dialog('close');
+    }
+  }
+});
+
+$('#result_div').dialog('open');

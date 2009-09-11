@@ -17,7 +17,7 @@
       %label Select Operator
       %select{:id => "query_criteria[operator]", :name => "query_criteria[operator]", :class => "clear_select"}
         %option
-        -TableMetaMetaType::OPERATORS.keys.sort.each do |key|
+        -QueryCriteria::OPERATORS.keys.sort.each do |key|
           %option{:value => key, :selected => @query_criteria.operator == key} #{key}
       %br.clear
     .form_line

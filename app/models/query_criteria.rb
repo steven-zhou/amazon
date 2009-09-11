@@ -1,5 +1,12 @@
 class QueryCriteria < ActiveRecord::Base
 
+  OPERATORS = { "equals" => ["=", "", ""],
+                "is greater than" => [">", "", ""],
+                "likes" => ["LIKE", "%", "%"],
+                "starts with" => ["LIKE", "", "%"],
+                "ends with" => ["LIKE", "%", ""],
+  }
+  
   belongs_to :query_header
 
   validates_presence_of :table_name, :field_name, :operator

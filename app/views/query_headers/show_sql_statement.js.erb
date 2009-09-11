@@ -1,0 +1,19 @@
+<%- if @query_header.query_criterias.empty? %>
+  $('#sql_statement').html('No Criteria Entered')
+<%- else %>
+  $('#sql_statement').html('<%= escape_javascript("#{@query_header.sql_statements}") %>')
+<%- end %>
+
+$('#sql_div').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  width: 600,
+  buttons: {
+    Ok: function() {
+      $(this).dialog('close');
+    }
+  }
+});
+
+$('#sql_div').dialog('open');

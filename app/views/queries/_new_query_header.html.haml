@@ -1,7 +1,7 @@
 -form_for @query_header, :html => {:class => 'ajax_form'} do |f|
   .form_line
     = f.label :name, 'Name'
-    = f.text_field :name
+    = f.text_field :name, :value => ""
     %br.clear
   .form_line
     = f.label :description, 'Description'

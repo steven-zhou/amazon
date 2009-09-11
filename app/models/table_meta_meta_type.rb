@@ -1,12 +1,5 @@
 class TableMetaMetaType < TagMetaType
 
-  OPERATORS = { "equals" => ["=", "", ""],
-                "is greater than" => [">", "", ""],
-                "likes" => ["LIKE", "%", "%"],
-                "starts with" => ["LIKE", "", "%"],
-                "ends with" => ["LIKE", "%", ""],
-  }
-
   acts_as_list
 
   has_many :table_meta_types, :class_name => "TableMetaType", :foreign_key => "tag_meta_type_id"
