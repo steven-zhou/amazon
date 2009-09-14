@@ -1,9 +1,12 @@
+$('#new_form').toggle('blind');
+$('#close_new_query').toggle('blind');
+$('#existing_query').toggle('blind');
 $('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
-$('#new_query_list').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_list")) %>');
-$('#new_selection_form').html('<%= escape_javascript(render(:partial => "queries/new_query_selection_form")) %>');
-$('#new_selection_list').html('<%= escape_javascript(render(:partial => "queries/new_query_selection_list")) %>');
-$('#new_sorter_form').html('<%= escape_javascript(render(:partial => "queries/new_query_sorter_form")) %>');
-$('#new_sorter_list').html('<%= escape_javascript(render(:partial => "queries/new_query_sorter_list")) %>');
+$('#new_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');
+$('#new_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form")) %>');
+$('#new_selection_list').html('<%= escape_javascript(render(:partial => "queries/query_selection_list")) %>');
+$('#new_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form")) %>');
+$('#new_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
 $('#save_form').html('<%= escape_javascript(render(:partial => "queries/new_query_header")) %>');
-$('#add_query').removeClass('show_new_query');
 $('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>')
+$("#current_action_global").val("new");

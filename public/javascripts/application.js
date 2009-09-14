@@ -965,7 +965,8 @@ $(function(){
 });
 
 $(function(){
-    $(".show_new_query").live('click', function(){
+    $("#show_new_query").live('click', function(){
+        $(this).css("display", "none");
         $.ajax({
             type: "GET",
             url: "/query_headers/new.js",
@@ -975,25 +976,46 @@ $(function(){
 });
 
 $(function(){
+    $("#close_new_query").live('click', function(){
+        $(this).css("display", "none");
+        $("#current_action").val("");
+        $('#new_query_form').html('');
+        $('#new_query_list').html('');
+        $('#new_selection_form').html('');
+        $('#new_selection_list').html('');
+        $('#new_sorter_form').html('');
+        $('#new_sorter_list').html('');
+        $('#save_form').html('');
+        $('#new_form').toggle('blind');
+        $("#show_new_query").toggle('blind');
+        $("#existing_query").toggle('blind');
+    });
+});
+
+$(function(){
     $("#save_button").live('click', function(){
-        $('#save_form').toggle('blind');
-        $('#save_form').dialog( {
-            modal: true,
-            resizable: true,
-            draggable: true
-        });
-        $('#save_form').dialog('open');
+        if($(this).attr("action")=="new"){
+            $('#save_form').toggle('blind');
+            $('#save_form').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#save_form').dialog('open');
+        }else{
+            $('#edit_query_header').doAjaxSubmit();
+        }
     });
 });
 
 $(function(){
     $("#run_button").live('click', function(){
-        $.ajax({
-            type: "GET",
-            url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
-            dataType: "script"
-        });
+            $.ajax({
+                type: "GET",
+                url: "/query_headers/run.js",
+                data:'id=' + $("#query_header_id").val(),
+                dataType: "script"
+            });
     });
 });
 
@@ -1028,5 +1050,36 @@ $(function(){
             data:'id=' + $("#query_header_id").val(),
             dataType: "script"
         });
+    });
+});
+
+$(function(){
+    $(".get_query").live('click', function(){
+        $("#current_action").val("edit");
+        $(".highlight").removeClass("highlight");
+        $("#new_query").css("display", "none");
+        $("#close_edit_query").css("display", "");
+        $("#edit_query").css("display", "");
+        $(this).addClass("highlight");
+        $.ajax({
+            type: "GET",
+            url: "/query_headers/"+ $(this).attr("query_id") +"/edit.js",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#close_edit_query").live('click', function(){
+        $("#new_query").toggle('blind');
+        $(".highlight").removeClass("highlight");
+        $(this).css("display", "none");
+        $("#edit_query").toggle('blind');
+        $('#edit_query_form').html('');
+        $('#edit_query_list').html('');
+        $('#edit_selection_form').html('');
+        $('#edit_selection_list').html('');
+        $('#edit_sorter_form').html('');
+        $('#edit_sorter_list').html('');
     });
 });

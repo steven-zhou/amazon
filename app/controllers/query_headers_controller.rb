@@ -14,9 +14,10 @@ class QueryHeadersController < ApplicationController
 
   def update
     @query_header = QueryHeader.find(params[:id].to_i)
+
     if (!@query_header.query_criterias.empty? && @query_header.update_attributes(params[:query_header]))
       @query_header.group = "save"
-      @query_header.status = true
+      @query_header.status = true if @query_header.status.nil?
       @query_header.save
       flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")
     else
@@ -60,6 +61,16 @@ class QueryHeadersController < ApplicationController
     end
     @query_header.query_sorters.clear
     @query_criteria = QueryCriteria.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_criteria = QueryCriteria.new
+    @query_seleciton = QuerySelection.new
+    @query_sorter = QuerySorter.new
     respond_to do |format|
       format.js
     end

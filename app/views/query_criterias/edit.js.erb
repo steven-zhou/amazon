@@ -1,4 +1,9 @@
-$('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form")) %>');
+if ($("#current_action_global").val() == "new"){
+  $('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form")) %>');
+}else{
+  $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form")) %>');
+}
 $(".show_fields[update_field='criteria']").change();
 $('.highlight').removeClass("highlight");
 $('#<%= dom_id(@query_criteria) %>').addClass("highlight");
+$('#current_action').val($('#current_action_global').val());
