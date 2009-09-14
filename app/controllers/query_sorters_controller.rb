@@ -5,10 +5,10 @@ class QuerySortersController < ApplicationController
     @query_sorter = @query_header.query_sorters.new(params[:query_sorter])
     @query_sorter.status = true
     if @query_sorter.save
-      flash[:message] = flash_message(:type => "object_created_successfully", :object => "selection")
+      flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "selection")
     else
-      flash[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_sorter.errors.on(:table_name).nil? && @query_sorter.errors.on(:table_name)[0] == "can't be blank")
-      flash[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_sorter.errors.on(:field_name).nil? && @query_sorter.errors.on(:field_name)[0] == "can't be blank")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_sorter.errors.on(:table_name).nil? && @query_sorter.errors.on(:table_name)[0] == "can't be blank")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_sorter.errors.on(:field_name).nil? && @query_sorter.errors.on(:field_name)[0] == "can't be blank")
     end
     respond_to do |format|
       format.js

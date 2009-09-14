@@ -13,7 +13,7 @@ class QueryHeadersController < ApplicationController
   end
 
   def update
-    @query_header = QueryHeader.find(params[:id])
+    @query_header = QueryHeader.find(params[:id].to_i)
     if (!@query_header.query_criterias.empty? && @query_header.update_attributes(params[:query_header]))
       @query_header.group = "save"
       @query_header.status = true
@@ -28,14 +28,38 @@ class QueryHeadersController < ApplicationController
   end
 
   def show_sql_statement
-    @query_header = QueryHeader.find(params[:id])
+    @query_header = QueryHeader.find(params[:id].to_i)
     respond_to do |format|
       format.js
     end
   end
 
   def run
-    @query_header = QueryHeader.find(params[:id])
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_header.result_size = @query_header.run.size
+    @query_header.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def clear
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_header.query_criterias.each do |c|
+      c.destroy
+    end
+    @query_header.query_criterias.clear
+
+    @query_header.query_selections.each do |s|
+      s.destroy
+    end
+    @query_header.query_selections.clear
+
+    @query_header.query_sorters.each do |s|
+      s.destroy
+    end
+    @query_header.query_sorters.clear
+    @query_criteria = QueryCriteria.new
     respond_to do |format|
       format.js
     end
