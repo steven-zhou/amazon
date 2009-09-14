@@ -6,3 +6,4 @@ $('#new_sorter_form').html('<%= escape_javascript(render(:partial => "queries/ne
 $('#new_sorter_list').html('<%= escape_javascript(render(:partial => "queries/new_query_sorter_list")) %>');
 $('#save_form').html('<%= escape_javascript(render(:partial => "queries/new_query_header")) %>');
 $('#add_query').removeClass('show_new_query');
+$('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>')

@@ -14,7 +14,7 @@ class QueryHeadersController < ApplicationController
 
   def update
     @query_header = QueryHeader.find(params[:id])
-    if !@query_header.query_criterias.blank? && @query_header.update_attributes(params[:query_header])
+    if (!@query_header.query_criterias.empty? && @query_header.update_attributes(params[:query_header]))
       @query_header.group = "save"
       @query_header.status = true
       @query_header.save
@@ -27,5 +27,17 @@ class QueryHeadersController < ApplicationController
     end
   end
 
+  def show_sql_statement
+    @query_header = QueryHeader.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
 
+  def run
+    @query_header = QueryHeader.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
 end

@@ -27,17 +27,26 @@
     
     = link_to_function 'clear', :style => "float:right;"
     = button_to_function 'Save', :id => "save_button"
-    = button_to_function 'Run Query'
-    = link_to_function 'view SQL statements'
+    = button_to_function 'Run Query', :id => "run_button"
+    %input#query_header_id{:style => "display:none;"}
+    = link_to_function 'view SQL statements', :id => "show_sql_statements"
     
 
-.info_container#show_queries
+.info_container
   %h3 Existing Queries
-  = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
+  #show_queries
+    = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
   %br.clear
 
 #edit_query
 
 
 #save_form{:style => "display:none;"}
-  
+
+#sql_div{:style => "display:none;"}
+  %h3 SQL Statement
+  #sql_statement
+
+#result_div{:style => "display:none;"}
+  %h3 Query Results
+  #sql_result
