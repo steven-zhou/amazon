@@ -1,9 +1,10 @@
-.info_container
-  #add_query{:class => "show_new_query toggle_button", :toggle_id_name => "forms", :style => "cursor:pointer;cursor:hand"}
-    = image_tag('add_icon.png', :style => "float:left;margin-right:10px;")
-    %h3 Add New Query
+.info_container#new_query
+  = link_to_function (image_tag('add_icon.png', :style => "float:left;margin-right:10px;"), :id => "show_new_query")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_query", :style => "display:none;")
+  %h3 Add New Query
+  
 
-  #forms{:style => "display:none"}
+  #new_form{:style => "display:none"}
     #new_query_form.field_50
     #new_query_list.field_50
     %br.clear
@@ -25,51 +26,54 @@
         %br.clear
 
     
-    = link_to_function 'clear', :style => "float:right;", :id => "clear_button"
-    = button_to_function 'Save', :id => "save_button"
-    = button_to_function 'Run Query', :id => "run_button"
+    = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "new"
+    = button_to_function 'Save', :id => "save_button", :action => "new"
+    = button_to_function 'Run Query', :id => "run_button", :action => "new"
     %input#query_header_id{:style => "display:none;"}
-    = link_to_function 'view SQL statements', :id => "show_sql_statements"
+    %input#current_action_global{:style => "display:none;"}
+    = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "new"
     
 
-.info_container
+.info_container#existing_query
   %h3 Existing Queries
   #show_queries
     = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
   %br.clear
 
-.info_container
-  %div{:class => "toggle_button", :toggle_id_name => "edit_query_form", :style => "cursor:pointer;cursor:hand"}
-    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
-    %h3 Edit Query
+.info_container#edit_query{:style => "display:none"}
+  = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;")
+  %h3 Edit Query
 
-  #edit_query_form
-    #new_query_form.field_50
-    #new_query_list.field_50
+  #edit_form
+    #edit_header
+    #edit_query_form.field_50
+    #edit_query_list.field_50
     %br.clear
 
     .info_container
-      #display_form{:class => "toggle_button", :toggle_id_name => "new_selection", :style => "cursor:pointer;cursor:hand"}
+      #display_form{:class => "toggle_button", :toggle_id_name => "edit_selection", :style => "cursor:pointer;cursor:hand"}
         %h3 Display Attributes
-      #new_selection{:style => "display:none"}
-        #new_selection_form.field_50
-        #new_selection_list.field_33
+      #edit_selection{:style => "display:none"}
+        #edit_selection_form.field_50
+        #edit_selection_list.field_33
         %br.clear
 
     .info_container
-      #sort_form{:class => "toggle_button", :toggle_id_name => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+      #sort_form{:class => "toggle_button", :toggle_id_name => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
         %h3 Sorting Attributes
-      #new_sorter{:style => "display:none"}
-        #new_sorter_form.field_50
-        #new_sorter_list.field_33
+      #edit_sorter{:style => "display:none"}
+        #edit_sorter_form.field_50
+        #edit_sorter_list.field_33
         %br.clear
 
 
-    = link_to_function 'clear', :style => "float:right;", :id => "clear_button"
-    = button_to_function 'Save', :id => "save_button"
-    = button_to_function 'Run Query', :id => "run_button"
+    = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "edit"
+    = button_to_function 'Save', :id => "save_button", :action => "edit"
+    = button_to_function 'Run Query', :id => "run_button", :action => "edit"
     %input#query_header_id{:style => "display:none;"}
-    = link_to_function 'view SQL statements', :id => "show_sql_statements"
+    %input#current_action_global{:style => "display:none;"}
+    = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "edit"
 
 
 #save_form{:style => "display:none;"}

@@ -1,2 +1,11 @@
+<%- if @action == "new"  %>
+
 $('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
-$('#new_query_list').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_list")) %>');
+$('#new_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');
+
+<%- else  %>
+
+$('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
+$('#edit_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');
+
+<%- end  %>

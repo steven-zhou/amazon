@@ -34,6 +34,11 @@ describe QueryHeadersController do
     xhr :get, "clear", options
   end
 
+  def get_edit(options={})
+    options[:id] = @query_header.id
+    xhr :get, "edit", options
+  end
+
   describe "Get New" do
     it "should create a new query header for the new query" do
       QueryHeader.should_receive(:new)
@@ -118,8 +123,28 @@ describe QueryHeadersController do
       @query_sorter.save
       get_clear
       @query_header.query_sorters.size.should == 0
+    end    
+  end
+
+  describe "Get Edit" do
+    it "should find the currect query header for edit" do
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      get_edit
     end
 
-    
+    it "should create new query criteria for edit" do
+      QueryCriteria.should_receive(:new)
+      get_edit
+    end
+
+    it "should create new query selection for edit" do
+      QuerySelection.should_receive(:new)
+      get_edit
+    end
+
+    it "should create new query sorter for edit" do
+       QuerySorter.should_receive(:new)
+       get_edit
+    end
   end
 end

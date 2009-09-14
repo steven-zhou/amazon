@@ -10,8 +10,8 @@ $(function() {
     });
 
     $(".toggle_button1").click(function(){
-        $('#'+$(this).attr('toggle_id_name1')).show();
-        $('#'+$(this).attr('toggle_id_name2')).hide();
+        $('#'+$(this).attr('toggle_id_name1')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name2')).toggle('blind');
         
     });
 

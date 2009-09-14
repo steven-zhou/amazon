@@ -1,0 +1,22 @@
+-form_for ([@query_header, @query_sorter]), :html => {:class => 'ajax_form'} do |f|
+  .field_50
+    .form_line
+      = f.label :table_name, 'Select Table'
+      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "sorter", :class => "clear_select show_fields", :disabled => @query_header.status == false}
+      %br.clear
+    .form_line
+      = f.label :field_name, 'Select Field'
+      %select#fields_sorter{:name => "query_sorter[field_name]", :size => "12", :disabled => @query_header.status == false}
+      %br.clear
+
+  .field_50
+    #attribute_description_sorter{:style => "margin:82px 0 30px 0;"}
+      %label &nbsp;
+    .form_line
+      = f.radio_button :ascending, true, :checked => true, :style => "width:20%;display:inline;", :disabled => @query_header.status == false
+      = f.label :ascending, "Ascending", :style => "width:20%;display:inline;"
+      = f.radio_button :ascending, false, :style => "width:20%;display:inline;", :disabled => @query_header.status == false
+      = f.label :ascending, "Descending", :style => "width:20%;display:inline;"
+    = submit_tag "Add Attribute", :disabled => @query_header.status == false
+
+%br.clear

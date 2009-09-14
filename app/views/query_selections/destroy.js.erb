@@ -1,3 +1,8 @@
 $('#<%= dom_id(@query_selection_old) %>').fadeOut("slow", function() {$(this).remove();});
-$('#new_selection_form').html('<%= escape_javascript(render(:partial => "queries/new_query_selection_form")) %>');
-$('#new_selection_list').html('<%= escape_javascript(render(:partial => "queries/new_query_selection_list")) %>');
+if ($("#current_action_global").val() == "new"){
+  $('#new_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form")) %>');
+  $('#new_selection_list').html('<%= escape_javascript(render(:partial => "queries/query_selection_list")) %>');
+}else{
+  $('#edit_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form")) %>');
+  $('#edit_selection_list').html('<%= escape_javascript(render(:partial => "queries/query_selection_list")) %>');
+}
