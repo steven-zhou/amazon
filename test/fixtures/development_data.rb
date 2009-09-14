@@ -161,6 +161,24 @@ passport = MasterDocType.create(:name => "Passport", :master_doc_meta_type => md
 drivers_licence = MasterDocType.create(:name => "Drivers Licence", :master_doc_meta_type => mdmt, :status => true)
 national_id_card = MasterDocType.create(:name => "National ID Card", :master_doc_meta_type => mdmt, :status => true)
 
+puts "Creating sample Group data."
+
+mdmmt = GroupMetaMetaType.create(:name => "Security", :status => true)
+
+mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => mdmmt, :status => true)
+super_admin = GroupType.create(:name => "Super Admin", :group_meta_type => mdmt, :status => true)
+admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true)
+operators = GroupType.create(:name => "Operators", :group_meta_type => mdmt, :status => true)
+volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :status => true)
+
+mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
+
+
+mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
+
+
+
+
 
 puts "Creating passport for Robert Tingle"
 MasterDoc.create(

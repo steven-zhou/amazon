@@ -72,6 +72,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :login_accounts, :collection => {:user_name_unique => :get}
+  map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

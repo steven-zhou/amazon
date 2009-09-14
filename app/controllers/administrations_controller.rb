@@ -13,6 +13,7 @@ class AdministrationsController < ApplicationController
     @role_type = RoleType.new
     @login_account = LoginAccount.new
     @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
+    @user_group = UserGroup.new
     respond_to do |format|
       format.html
     end

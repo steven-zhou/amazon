@@ -52,7 +52,15 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
 
-
+  def destroy
+    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.find(params[:id])
+    @tag_type = @tag.tag_type
+    @tag.destroy
+    
+    respond_to do |format|
+      format.js
+    end
   end
 end

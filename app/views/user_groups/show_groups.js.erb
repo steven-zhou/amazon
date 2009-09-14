@@ -1,0 +1,17 @@
+<% if @group_types.blank? %>
+  $("#group_id").html('')
+
+
+<% else %>
+
+  <%  result = String.new %>
+  <% for gt in @group_types %>
+    <% result += "<option value='#{gt.id}'>#{gt.name}</option>" %>
+
+  <%end%>
+  $("#group_id").html('<%=escape_javascript("#{result}")%>')
+
+
+
+
+<% end -%>

@@ -64,4 +64,24 @@ class TagTypesController < ApplicationController
       format.js
     end
   end
+
+  def destroy
+    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:id])
+    @tag_meta_type = @tag_type.tag_meta_type
+    
+    @tags = @tag_type.tags.find(:all, :order => "name")unless @tag_type.tags.nil?
+    #@tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
+    #@flag = String.new
+    #@flag = params[:flag]
+    for i in @tags
+    i.destroy
+    end
+    
+    @tag_type.destroy
+
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end
