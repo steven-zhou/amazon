@@ -1,6 +1,6 @@
-<% role = String.new %>
-<% for r in @role.role_conditions %>
-  <% role += "<option value='#{r.id}'>#{r.name}</option>" %>
+<% user_group = String.new %>
+<% for u in @groups %>
+  <% user_group += "<option value='#{u.id}'>#{u.name}</option>" %>
 <%end%>
-$("#remove_doctype_id").html('<%=  escape_javascript("#{role}")%>');
+$("#remove_group_tag_id").html('<%=  escape_javascript("#{user_group}")%>');
 

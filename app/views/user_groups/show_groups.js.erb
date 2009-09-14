@@ -1,16 +1,16 @@
-<% if @groups.new_record? %>
+<% if @group_types.blank? %>
   $("#group_id").html('')
-  $("#group_id").change()
+
 
 <% else %>
 
   <%  result = String.new %>
-  <% for gt in @groups %>
+  <% for gt in @group_types %>
     <% result += "<option value='#{gt.id}'>#{gt.name}</option>" %>
 
   <%end%>
   $("#group_id").html('<%=escape_javascript("#{result}")%>')
-  $("#group_id").change()
+
 
 
 

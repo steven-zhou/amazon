@@ -49,11 +49,11 @@
         %select{:multiple => true,:size => "20", :id => "doctype_id",:name => "add_doctype_id[]",:disabled=>@role.role_status == false}
       
     #conditions_middle.middle
-      = link_to image_tag('go.png'),add_conditions_role_conditions_path,:id=>"add_conditions_link",:class => "post",:data_id => "new_security"
+      = link_to image_tag('go.png'),add_conditions_role_conditions_path,:id=>"add_conditions_link",:class => "post",:data_id => "new_role_condition"
       %br
       %br
       %br
-      = link_to image_tag('back.png'),remove_conditions_role_conditions_path,:id=>"remove_conditions_link",:class => "post",:data_id => "new_security"
+      = link_to image_tag('back.png'),remove_conditions_role_conditions_path,:id=>"remove_conditions_link",:class => "post",:data_id => "new_role_condition"
       %br{:style => "clear:both;"}
     #conditions_right.right
       %label Conditions

@@ -693,6 +693,19 @@ $(function(){
 });
 
 $(function(){
+    $(".delete_tag_meta_type").live('click', function(){
+        $.ajax({
+           type: "DELETE",
+            url: "/tag_meta_types/" + $(this).attr("tag_meta_type_id"),
+            data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_meta_type_id"),
+            dataType: "script"
+        });
+    });
+});
+
+
+
+$(function(){
     $(".add_tag_type").live('click', function(){
         $.ajax({
             type: "GET",
@@ -714,6 +727,18 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".delete_tag_type").live('click', function(){
+        $.ajax({
+           type: "DELETE",
+            url: "/tag_types/" + $(this).attr("tag_type_id"),
+            data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_type_id"),
+            dataType: "script"
+            
+        });
+    });
+});
+
 
 $(function(){
     $(".add_tag").live('click', function(){
@@ -731,6 +756,17 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/tags/" + $(this).attr("tag_id") + "/edit.js",
+            data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_id"),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $(".delete_tag").live('click', function(){
+        $.ajax({
+            type: "DELETE",
+            url: "/tags/" + $(this).attr("tag_id"),
             data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_id"),
             dataType: "script"
         });
@@ -926,7 +962,7 @@ $(function(){
 });
 
 $(function(){
-    $(".show_groups").live('click', function(){
+    $("#show_groups").live('click', function(){
         $.ajax({
            type: "GET",
                 url: "/user_groups/show_groups.js",
