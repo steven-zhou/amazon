@@ -20,13 +20,18 @@ describe QueryHeadersController do
   end
 
   def get_show_sql_statement(options={})
-    options[:query_header_id] = @query_header.id
-    xhr :get, "show_sql_statement"
+    options[:id] = @query_header.id
+    xhr :get, "show_sql_statement", options
   end
 
   def get_run(options={})
-    options[:query_header_id] = @query_header.id
-    xhr :get, "run"
+    options[:id] = @query_header.id
+    xhr :get, "run", options
+  end
+
+  def get_clear(options={})
+    options[:id] = @query_header.id
+    xhr :get, "clear", options
   end
 
   describe "Get New" do
@@ -76,6 +81,45 @@ describe QueryHeadersController do
       QueryHeader.should_receive(:find).and_return(@query_header)
       get_run
     end
+
+    it "should update the result size" do
+      @person = Factory.build(:person)
+      @query_header.stub!(:run).and_return([@person])
+      get_run
+      @query_header.result_size.should == 1      
+    end
   end
 
+  describe "Get Clear" do
+    it "should find the current query header to clear" do
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      get_clear
+    end
+
+    it "should clear it's query criterias" do
+      @query_criteria = QueryCriteria.new(:table_name => "People", :field_name => "first_name", :operator => "starts with", :value => "a")
+      @query_header.query_criterias << @query_criteria
+      @query_criteria.save
+      get_clear
+      @query_header.query_criterias.size.should == 0
+    end
+
+    it "should clear it's query selections" do
+      @query_selection = QuerySelection.new(:table_name => "People", :field_name => "first_name")
+      @query_header.query_selections << @query_selection
+      @query_selection.save
+      get_clear
+      @query_header.query_selections.size.should == 0
+    end
+
+    it "should clear it's query sorters" do
+      @query_sorter = QuerySorter.new(:table_name => "People", :field_name => "first_name", :ascending => true)
+      @query_header.query_sorters << @query_sorter
+      @query_sorter.save
+      get_clear
+      @query_header.query_sorters.size.should == 0
+    end
+
+    
+  end
 end

@@ -106,7 +106,7 @@ $(document).ready(function() {
         },{
             'sWidth':"25%"
         }]
-    })
+    });
 });
 
 /*Date picker */
@@ -1042,6 +1042,17 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
+            data:'id=' + $("#query_header_id").val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#clear_button").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/query_headers/clear.js",
             data:'id=' + $("#query_header_id").val(),
             dataType: "script"
         });

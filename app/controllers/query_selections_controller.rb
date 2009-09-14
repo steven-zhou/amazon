@@ -5,10 +5,10 @@ class QuerySelectionsController < ApplicationController
     @query_selection = @query_header.query_selections.new(params[:query_selection])
     @query_selection.status = true
     if @query_selection.save
-      flash[:message] = flash_message(:type => "object_created_successfully", :object => "selection")
+      flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "selection")
     else
-      flash[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_selection.errors.on(:table_name).nil? && @query_selection.errors.on(:table_name)[0] == "can't be blank")
-      flash[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_selection.errors.on(:field_name).nil? && @query_selection.errors.on(:field_name)[0] == "can't be blank")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_selection.errors.on(:table_name).nil? && @query_selection.errors.on(:table_name)[0] == "can't be blank")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_selection.errors.on(:field_name).nil? && @query_selection.errors.on(:field_name)[0] == "can't be blank")
     end
     respond_to do |format|
       format.js

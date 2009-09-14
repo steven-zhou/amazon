@@ -1,6 +1,23 @@
 $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @query_header.run})) %>');
 
-
+$('#search_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"30%"
+        },{
+            "sWdith":"15%"
+        },{
+            'sWidth':"25%"
+        }]
+    });
+    
 $('#result_div').dialog({
   modal: true,
   resizable: true,
