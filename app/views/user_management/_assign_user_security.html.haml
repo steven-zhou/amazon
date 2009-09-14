@@ -1,0 +1,28 @@
+-form_for @user_group, :url=> {:controller => 'user_groups'}, :html => {:class => 'ajax_form'} do |ug|
+  %div#secu_left{:style => "width:30%;float:left"}
+    .form_line
+      .field_75
+        = ug.label :Group_Meta_Type, 'Group Meta Type'
+        = text_field_tag 'group_meta_type','Security', {:readonly => true}
+      %br.clear
+      .field_75
+        = ug.label :Group_Type, 'Group Type'
+        = text_field_tag 'group_type','Users', {:readonly => true}
+  %div#secu_right{:style => "width:70%;float:right;"}
+    #group_left.left
+      %label Groups
+      %select{:multiple => true,:size => "8", :id => "group_id",:name => "add_group_id[]",:disabled=>@login_account.login_status == false}
+
+    #group_middle.middle
+      = link_to image_tag('go.png'),add_security_user_groups_path,:id=>"add_security_link",:class => "post",:data_id => "new_role_condition"
+      %br
+      %br
+      %br
+      = link_to image_tag('back.png'),remove_security_user_groups_path,:id=>"remove_security_link",:class => "post",:data_id => "new_role_condition"
+
+    #group_right.right
+      %label Conditions
+      %select{:multiple => true,:size => "8", :id => "remove_group_tag_id",:name => "remove_group_id[]",:disabled=>@login_account.login_status == false}
+  %br.clear
+
+    

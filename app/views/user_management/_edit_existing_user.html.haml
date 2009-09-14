@@ -42,11 +42,15 @@
     %br.clear
     .form_line
     %br
-    .info_container
-      %h3 Security Groups
     %p.submit
       = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
       = submit_tag 'Submit'
     %br.clear
+    .info_container{:class => "toggle_button", :toggle_id_name => "new_security", :id => "show groups", :login_account_id => @login_account.id}
+      %h3 Security Groups
+      %div#new_security{:style => "display:none;"}
+        = render :partial => '/user_management/assign_user_security', :object => @login_account
+    
+
 
 

@@ -3,7 +3,7 @@ class GroupType < Tag
   acts_as_list
 
   belongs_to :group_meta_type, :class_name => "GroupMetaType", :foreign_key => "tag_type_id"
-  #has_many :groups, :class_name => "Group", :foreign_key => "group_type_id"
+  has_many :groups, :class_name => "Group", :foreign_key => "tags_id"
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :tag_type_id, :message => "A group type already exists with the same name."

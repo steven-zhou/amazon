@@ -44,6 +44,7 @@ class LoginAccountsController < ApplicationController
 
   def edit
     @login_account = LoginAccount.find(params[:id].to_i)
+    @user_group = UserGroup.new
 
     respond_to do |format|
       format.js
