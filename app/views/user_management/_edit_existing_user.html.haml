@@ -2,7 +2,7 @@
   = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
   %h3 Edit User
 
-  -form_for @login_account, :html => {:class => 'ajax_form'} do |login|
+  -form_for @login_account, :html => {:class => 'ajax_form edit_login'} do |login|
     .form_line
       .field_5
         %span #{@login_account.person_id}
@@ -43,8 +43,8 @@
     .form_line
     %br
     %p.submit
-      = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
-      = submit_tag 'Submit'
+      = link_to_function 'Clear', :class => "user_clear_edit_form1 alt_option", :style=>"float:right;display:none;", :login_account_id => @login_account.id
+      = submit_tag 'Sumbit',{:id => "group_secu_submit", :style => "display:none"}
     %br.clear
 
   -form_for @user_group, :url=> {:controller => 'user_groups'}, :html => {:class => 'ajax_form'} do |ug|
@@ -80,6 +80,10 @@
             %label Conditions
             %select{:multiple => true,:size => "8", :id => "remove_group_tag_id",:name => "remove_group_id[]",:disabled=>@login_account.login_status == false}
         %br.clear
+    %p.submit
+      = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
+      %button{:type => "button", :style => "float:right;", :id => "group_secu_submit"} submit
+    %br.clear
 
 
     

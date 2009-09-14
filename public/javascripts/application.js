@@ -951,7 +951,7 @@ $(function(){
 
 $(function(){
     $(".user_clear_edit_form").live('click', function(){
-        $('#'+($(this).parents("form").get(0).id))[0].reset();
+        $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
       
         $('#user_name_container_' + $(this).attr('login_account_id')).html('');
 
@@ -973,7 +973,11 @@ $(function(){
 });
 
 
-
+$(function(){
+    $("#group_secu_submit").live('click', function(){
+        $(".edit_login").doAjaxSubmit();
+    })
+});
 
 
 /* Admin List Management - Query*/

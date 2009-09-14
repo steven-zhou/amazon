@@ -9,15 +9,15 @@ class UserGroupsController < ApplicationController
         @user_group.user_id = params[:user_id]
         @user_group.group_id = group_id
 
-        @user_group.save!
+        @user_group.save
 
 
       end
     end
     @login_account = LoginAccount.find(params[:user_id])
-    puts"dubg111---#{@login_account.to_yaml}"
-    @groups = @login_account.groups
-    puts"debug222===#{@groups.to_yaml}"
+    #puts"dubg111---#{@login_account.to_yaml}"
+    @groups = @login_account.group_types
+    #puts"debug222===#{@groups.to_yaml}"
     respond_to do |format|
 
       format.js
@@ -27,8 +27,15 @@ class UserGroupsController < ApplicationController
   end
   
   def remove_security
-    
-    
+
+    @login_account = LoginAccount.find(params[:user_id])
+    unless params[:remove_group_id].nil?
+      params[:remove_group_id].each do |group_id|
+        @user_group = @login_account.user_groups.find_by_group_id(group_id)
+        @user_group.destroy
+      end
+    end
+    #@groups = @login_account.group_types rescue @groups = GroupType.new
   end
 
   def show_groups
@@ -38,6 +45,9 @@ class UserGroupsController < ApplicationController
     gp_id = @group_meta_types.id
     #puts"DEBUG222222---#{@group_meta_types.to_yaml}"
     @group_types = GroupType.find(:all, :conditions => ["tag_type_id=?", gp_id])rescue  @group_types =  GroupType.new
+    @login_account = LoginAccount.find(params[:login_account_id])
+    #puts"dubg111---#{@login_account.to_yaml}"
+    @groups = @login_account.group_types
     #puts"DEBUG333333333---#{@groups.to_yaml}"
     respond_to do |format|
       format.js
