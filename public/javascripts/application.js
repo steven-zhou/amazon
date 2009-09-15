@@ -440,6 +440,20 @@ $(function(){
     });
 });
 
+
+
+$(function(){
+    $(".delete_system_data").live('click', function(){
+        $.ajax({
+           type: "DELETE",
+            url: "/amazon_settings/" + $(this).attr("data_id"),
+            data:'&id=' + $(this).attr("data_id"),
+            dataType: "script"
+        });
+    });
+});
+
+
 /* Drop down box hack*/
 $(function(){
     $(".clear_select").find('option:first').attr('selected', 'selected');
@@ -939,6 +953,9 @@ $(function(){
 
 $(function(){
     $(".show_users").live('click', function(){
+
+          $(".highlight").removeClass("highlight");
+        $(this).addClass("highlight");
         $.ajax({
             type: "GET",
             url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
@@ -951,14 +968,10 @@ $(function(){
 
 $(function(){
     $(".user_clear_edit_form").live('click', function(){
-        $('#'+($(this).parents("form").get(0).id))[0].reset();
+        $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
       
-        $('#user_name_container_' + $(this).attr('login_account_id')).html('');
-
-      
-        
+        $('#user_name_container_' + $(this).attr('login_account_id')).html('');     
     })
-
 });
 
 $(function(){
@@ -973,8 +986,24 @@ $(function(){
 });
 
 
+$(function(){
+    $("#group_secu_submit").live('click', function(){
+        $(".edit_login").doAjaxSubmit();
+    })
+});
 
 
+
+$(function(){
+    $(".delete_login_account").live('click', function(){
+        $.ajax({
+           type: "DELETE",
+            url: "/login_accounts/" + $(this).attr("data_id"),
+            data:'&id=' + $(this).attr("data_id"),
+            dataType: "script"
+        });
+    });
+});
 
 /* Admin List Management - Query*/
 

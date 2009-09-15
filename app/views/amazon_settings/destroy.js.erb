@@ -1,0 +1,14 @@
+  <% options = String.new %>
+   <% options += "<option value='' selected='true'></option>" %>
+    <% options += @amazonsetting %>
+
+
+$("#find_data_list_field").html('<%=escape_javascript(options)%>');
+$("#find_data_list_field").change('');
+$("#data_list_field").html('');
+$("#setting").html('');
+$(".message").html('destroy success');
+
+
+
+

@@ -127,7 +127,8 @@ class RolesController < ApplicationController
   def edit
     @role = Role.find(params[:id].to_i, :order => 'name')
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
- 
+    puts"debug1111--#{@role.role_conditions.to_yaml}"
+
     @role_condition = RoleCondition.new
     respond_to do |format|
       format.js

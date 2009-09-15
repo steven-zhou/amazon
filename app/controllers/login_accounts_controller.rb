@@ -53,7 +53,7 @@ class LoginAccountsController < ApplicationController
 
   def update
     @login_account = LoginAccount.find(params[:id].to_i)
-   a = String.new
+    a = String.new
     a = ""
     #    @login_account.user_name = params[:login_account][:user_name]
     #    @login_account.security_email = params[:login_account][:email]
@@ -73,11 +73,28 @@ class LoginAccountsController < ApplicationController
       end
 
     end
-      @login_accounts = LoginAccount.find(:all)
+    @login_accounts = LoginAccount.find(:all)
     respond_to do |format|
       format.js
     end
     
+  end
+
+
+  def destroy
+
+    @login_account = LoginAccount.find(params[:id].to_i)
+    @user_group = @login_account.user_groups
+    for ug in @user_group
+      ug.destroy
+    end
+    @login_account.destroy
+    @login_accounts = LoginAccount.all
+   
+
+    respond_to do |format|
+      format.js
+    end
   end
 
 

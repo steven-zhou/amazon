@@ -2,7 +2,7 @@ class UserGroup < ActiveRecord::Base
 
 
   belongs_to :login_account, :foreign_key => "user_id"
-  belongs_to :group, :foreign_key => "group_id"
+  belongs_to :group_type, :foreign_key => "group_id"
 
 
   validates_presence_of :user_id
