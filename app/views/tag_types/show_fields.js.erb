@@ -1,0 +1,14 @@
+<%- options = String.new  %>
+<%- descriptions = String.new %>
+<%- descriptions += "<label class='descriptions_#{@update_field}'>&nbsp;</label>"%>
+
+<%- @tag_types.each do |i|%>
+<%- options += "<option value = #{i.name}> #{i.name} </option>"%>
+<%- if i.description.nil? %>
+  <%- descriptions += "<label class='descriptions_#{@update_field}' id='description_#{@update_field}_#{i.name}' style='display:none;'>#{i.description}</label>" %>
+<%- else %>
+  <%- descriptions += "<label class='descriptions_#{@update_field}' id='description_#{@update_field}_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>" %>
+<%- end %>
+<%- end %>
+$('#fields_<%= escape_javascript("#{@update_field}") %>').html('<%= escape_javascript("#{options}") %>');
+$('#attribute_description_<%= escape_javascript("#{@update_field}") %>').html('<%= escape_javascript("#{descriptions}") %>');

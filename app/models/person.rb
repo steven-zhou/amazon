@@ -42,7 +42,9 @@ class Person < ActiveRecord::Base
   has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ]
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
+  has_many :groups, :class_name =>'Group', :foreign_key => 'group_owner'
   has_many :source_people,  :through => :people_as_related do
+ 
     def of_type(type)
       find(:all, :conditions => ['relationship_type_id=?',RelationshipType.find_by_name(type)])
     end

@@ -2,7 +2,7 @@
 -div_for(person_contact, :class => 'info_container') do 
   .header_container
     .title
-      %h3= "#{person_contact.contact_type.name} #{person_contact.class}"
+      %h3= "#{person_contact.class} (#{person_contact.contact_meta_type.name})"
     
   .display_container
     = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip

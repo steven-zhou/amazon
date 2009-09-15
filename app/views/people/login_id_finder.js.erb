@@ -1,0 +1,20 @@
+<% if @login_account.new_record? %>
+  <% if @person.new_record? %>
+    $('#login_name_container_0').html("Invalid ID")
+  <%else%>
+    $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
+  <%end%>
+
+<%else%>
+
+  <% if @person.new_record? %>
+    $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("Invalid ID")
+  <%else%>
+    $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("<%=escape_javascript("#{@person.name}")%>")
+
+
+  <%end%>
+
+<%end%>
+
+

@@ -1,0 +1,15 @@
+<% if @login_account.new_record? %>
+  <%if @flag %>
+    $('#user_name_container_0').html("UserName has been taken")
+  <%else%>
+    $('#user_name_container_0').html("Username not been taken")
+  <%end%>
+
+<%else%>
+  <%if @flag %>
+    $('#user_name_container_'+'<%=escape_javascript("#{@login_account.id}") %>').html("UserName has been taken")
+  <%else%>
+    $('#user_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("Username not been taken")
+  <%end%>
+
+<%end%>

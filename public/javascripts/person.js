@@ -10,8 +10,8 @@ $(function() {
     });
 
     $(".toggle_button1").click(function(){
-        $('#'+$(this).attr('toggle_id_name1')).show();
-        $('#'+$(this).attr('toggle_id_name2')).hide();
+        $('#'+$(this).attr('toggle_id_name1')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name2')).toggle('blind');
         
     });
 
@@ -83,7 +83,7 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#assigner_container_0').html('');
         $('#approver_container_0').html('');
-          $('#approver_container_0').val('');
+        $('#approver_container_0').val('');
         $('#superviser_container_0').html('');
         $('#manager_container_0').html('');
         $('#role_role_type_id').change();
@@ -107,6 +107,18 @@ $(function() {
         $("#photo").attr("src", "/images/no_photo.jpeg");
         $("#delete_photo").hide();
     });
+
+    $(".user_clear_form").click(function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#login_name_container_0').html('');
+        $('#user_name_container_0').html('');
+        
+      
+      
+
+
+
+    })
 
 });
 

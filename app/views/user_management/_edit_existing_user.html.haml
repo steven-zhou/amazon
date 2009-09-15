@@ -1,0 +1,92 @@
+.info_container
+  = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+  %h3 Edit User
+
+  -form_for @login_account, :html => {:class => 'ajax_form edit_login'} do |login|
+    .form_line
+      .field_5
+        %span #{@login_account.person_id}
+      .field_27
+        %span{:id => "login_name_container_#{@login_account.id}"} #{@login_account.person.name}
+        
+    %br.clear
+      .field_22
+        = login.label :user_name, 'User Name'
+        = login.text_field :user_name, :class => "check_username_unique", :login_account_id => @login_account.id
+ 
+      .field_27
+        %label &nbsp
+        %span{:id => "user_name_container_#{@login_account.id}"} &nbsp&nbsp #{@login_account.user_name}
+    %br.clear
+    .form_line
+      .field_47
+        = login.label :security_email, 'Email'
+        = login.text_field :security_email
+      .field_27
+        %label &nbsp
+        = link_to_function 'Generate new password', :style => "font-size:10px", :class => "alt option"
+    %br.clear
+    .form_line
+      .field_22
+        = login.label :login_status, 'Status'
+        = login.radio_button :login_status, true, :style => "width:10%"
+        %label{:style => "display:inline"} Active
+        &nbsp;&nbsp;
+        = login.radio_button :login_status, false, :style => "width:10%"
+        %label{:style => "display:inline"} Inactive
+      .field_22
+        = login.label :system_user, '&nbsp'
+        = login.check_box :system_user
+        %label{:style => "display:inline"} System User
+
+    %br.clear
+    .form_line
+    %br
+    %p.submit
+      = link_to_function 'Clear', :class => "user_clear_edit_form1 alt_option", :style=>"float:right;display:none;", :login_account_id => @login_account.id
+      = submit_tag 'Sumbit',{:id => "group_secu_submit", :style => "display:none"}
+    %br.clear
+
+  -form_for @user_group, :url=> {:controller => 'user_groups'}, :html => {:class => 'ajax_form'} do |ug|
+    .info_container{:class => "toggle_button", :toggle_id_name => "new_security", :id => "show_groups", :login_account_id => @login_account.id}
+      %h3 Security Groups
+    .info_container
+      %div#new_security{:style => "display:none;"}
+        -#= render :partial => '/user_management/assign_user_security', :object => @login_account, ug
+        %div#secu_left{:style => "width:30%;float:left"}
+          .form_line
+            .field_75
+              = ug.label :Group_Meta_Type, 'Group Meta Type'
+              = text_field_tag 'group_meta_type','Security', {:readonly => true}
+            %br.clear
+            .field_75
+              = ug.label :Group_Type, 'Group Type'
+              = text_field_tag 'group_type','Users', {:readonly => true}
+            .field_75{:style => "display:none"}
+              = ug.text_field :user_id, {:name => "user_id", :value => @login_account.id}
+        %div#secu_right{:style => "width:70%;float:right;"}
+          #group_left.left
+            %label Groups
+            %select{:multiple => true,:size => "8", :id => "group_id",:name => "add_group_id[]",:disabled=>@login_account.login_status == false}
+
+          #group_middle.middle
+            = link_to image_tag('go.png'),add_security_user_groups_path,:id=>"add_security_link",:class => "post",:data_id => "new_user_group"
+            %br
+            %br
+            %br
+            = link_to image_tag('back.png'),remove_security_user_groups_path,:id=>"remove_security_link",:class => "post",:data_id => "new_user_group"
+
+          #group_right.right
+            %label Conditions
+            %select{:multiple => true,:size => "8", :id => "remove_group_tag_id",:name => "remove_group_id[]",:disabled=>@login_account.login_status == false}
+        %br.clear
+    %p.submit
+      = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
+      %button{:type => "button", :style => "float:right;", :id => "group_secu_submit"} submit
+    %br.clear
+
+
+    
+
+
+

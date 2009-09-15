@@ -1,0 +1,9 @@
+<%- if flash[:error].nil? %>
+$("#selections").append("<%= escape_javascript(render(:partial => 'queries/query_selection')) %>");
+$("#new_query_selection")[0].reset();
+$("#fields_selection").html('');
+$("#attribute_description_selection").html('<label> &nbsp;</label>');
+$('#<%= dom_id(@query_selection) %>').effect('slide', {direction:'right'});
+<%- else %>
+
+<%- end %>

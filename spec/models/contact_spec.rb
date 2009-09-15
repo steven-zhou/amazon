@@ -6,7 +6,7 @@ describe Contact do
     @contact = Factory.build(:contact)
   end
 
-  it {should belong_to(:contact_type)}
+  it {should belong_to(:contact_meta_type)}
   
   it "should belong to contactable" do
     Contact.reflect_on_association(:contactable).nil?.should == false

@@ -2,8 +2,8 @@
   .field_20
     %h3{:style=>'margin-top:10px;'} Phone
   .field_17
-    = phone.label :contact_type_id, 'Type'
-    = phone.collection_select :contact_type_id, ContactMetaType.find_all_by_name("Phone"), :id, :name
+    = phone.label :contact_meta_type_id, 'Type'
+    = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name
   .field_12
     = phone.label :pre_value, "Prefix"
     = phone.text_field :pre_value

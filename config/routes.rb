@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get},
+    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
@@ -57,14 +57,22 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types
-  map.resources :tag_types, :collection => {:show_tag_types => :get}
+  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get}
   map.resources :tags, :collection => {:show_tags => :get}
 
-  map.resources :query_headers, :shallow=> true do |query_header|
-    query_header.resources :query_details
+#  map.resources :query_headers, :shallow=> true do |query_header|
+#    query_header.resources :query_details
+#    query_header.resources :query_criterias
+#  end
+
+  map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get} do |query_header|
+    query_header.resources :query_selections
+    query_header.resources :query_sorters
     query_header.resources :query_criterias
   end
-  
+
+  map.resources :login_accounts, :collection => {:user_name_unique => :get}
+  map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -1,0 +1,18 @@
+-form_for ([@query_header, @query_seleciton]), :html => {:class => 'ajax_form'} do |f|
+  .field_50
+    .form_line
+      = f.label :table_name, 'Select Table'
+      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "selection", :class => "clear_select show_fields", :disabled => @query_header.status == false}
+      %br.clear
+    .form_line
+      = f.label :field_name, 'Select Field'
+      %select#fields_selection{:name => "query_selection[field_name]", :size => "12", :disabled => @query_header.status == false}
+      %br.clear
+
+  .field_50
+    #attribute_description_selection{:style => "margin:82px 0 30px 0;"}
+      %label &nbsp;
+
+    = submit_tag "Add Attribute", :disabled => @query_header.status == false
+
+%br.clear

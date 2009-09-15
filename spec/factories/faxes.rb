@@ -7,6 +7,6 @@ Factory.define :fax, :parent => :contact, :class => Fax do |f|
   f.preferred_time  "After 6"
   f.preferred_day  "Mon-Fri"
   f.remarks  "Remarkable"
-  f.association :contact_type, :factory => :ct_fax_work
+
   f.association :contactable, :factory => :john
 end

@@ -1,0 +1,54 @@
+<%- if flash[:error].nil?%>
+
+$('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+$('#save_form').dialog('close');
+
+if($('#current_action_global').val()=="new"){
+        $("#close_new_query").css("display", "none");
+        $("#current_action").val("");
+        $('#new_query_form').html('');
+        $('#new_query_list').html('');
+        $('#new_selection_form').html('');
+        $('#new_selection_list').html('');
+        $('#new_sorter_form').html('');
+        $('#new_sorter_list').html('');
+        $('#save_form').html('');
+        $('#new_form').toggle('blind');
+        $("#show_new_query").toggle('blind');
+        $("#existing_query").toggle('blind');
+}else{
+  $("#new_query").toggle('blind');
+        $(".highlight").removeClass("highlight");
+        $("#close_edit_query").css("display", "none");
+        $("#edit_query").toggle('blind');
+        $('#edit_query_form').html('');
+        $('#edit_query_list').html('');
+        $('#edit_selection_form').html('');
+        $('#edit_selection_list').html('');
+        $('#edit_sorter_form').html('');
+        $('#edit_sorter_list').html('');
+}
+
+
+$('#add_query').addClass('show_new_query');
+$('#forms').css("display", "none");
+$('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection => QueryHeader.saved_queries)) %>');
+
+<%- else %>
+$('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
+$('#flash_message').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        buttons: {
+          Ok: function() {
+            $(this).dialog('close');
+          }
+        }
+      }
+
+    );
+    $('#flash_message').dialog('open');
+<%- end %>

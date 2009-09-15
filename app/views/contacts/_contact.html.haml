@@ -2,7 +2,7 @@
 -div_for(contact, :class => 'info_container') do
   .header_container
     .title
-      %h3= "#{contact.class} (#{contact.contact_type.name})"
+      %h3= "#{contact.class} (#{contact.contact_meta_type.name})"
     .options
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
         = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get'

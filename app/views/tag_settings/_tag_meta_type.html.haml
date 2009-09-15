@@ -2,8 +2,13 @@
   %fieldset
     .form_line
       .field_100
-        =tag_meta_type.label :name, 'Named'
+        =tag_meta_type.label :name, 'Name'
         =tag_meta_type.text_field :name, :disabled=>@tag_meta_type.status == false
+      %br.clear
+    .form_line
+      .field_100
+        =tag_meta_type.label :category, 'Category'
+        =tag_meta_type.text_field :category, :disabled=>@tag_meta_type.status == false
       %br.clear
     .form_line
       .field_100

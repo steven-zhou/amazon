@@ -90,3 +90,14 @@ span.viewname{
 select[disabled], input[disabled] {
     color:black;
 }
+
+
+#login_account_password_text {
+  display: block;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	font-weight: bold;
+	color: #FFF;
+	line-height: 16px;
+}

@@ -1,0 +1,9 @@
+<%- if flash[:error].nil? %>
+$("#sorters").append("<%= escape_javascript(render(:partial => 'queries/query_sorter')) %>");
+$("#new_query_sorter")[0].reset();
+$("#fields_sorter").html('');
+$("#attribute_description_sorter").html('<label> &nbsp;</label>');
+$('#<%= dom_id(@query_sorter) %>').effect('slide', {direction:'right'});
+<%- else %>
+
+<%- end %>

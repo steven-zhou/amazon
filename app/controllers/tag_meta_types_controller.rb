@@ -45,5 +45,15 @@ class TagMetaTypesController < ApplicationController
     end
   end
 
+  def destroy
+    @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:id])
+    @tag_meta_type.destroy
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
 
 end

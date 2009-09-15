@@ -1,0 +1,28 @@
+<% unless flash[:error].nil? %>
+  $("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: true,
+  draggable: true,
+  position: 'top',
+  buttons: {
+  Ok: function() {
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#flash_message').dialog('open');
+
+<% else %>
+
+  $("#flash_feedback").html("<%= escape_javascript(flash[:message]) %>");
+  $('#flash_feedback').fadeIn("slow");
+  $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
+
+  
+ 
+  $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
+
+  $('#edit_user').html('');
+
+  <%end%>

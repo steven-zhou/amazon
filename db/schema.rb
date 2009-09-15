@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090903032701) do
+ActiveRecord::Schema.define(:version => 20090911002856) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -43,19 +43,6 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.boolean  "status"
   end
 
-  create_table "contact_meta_types", :force => true do |t|
-    t.text     "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "contact_types", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "contact_meta_type_id"
-  end
-
   create_table "contacts", :force => true do |t|
     t.string   "pre_value"
     t.string   "value"
@@ -66,7 +53,6 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.string   "type"
     t.integer  "contactable_id"
     t.string   "contactable_type"
-    t.integer  "contact_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "monday_hours"
@@ -77,6 +63,7 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.string   "saturday_hours"
     t.string   "sunday_hours"
     t.integer  "priority_number"
+    t.integer  "contact_meta_type_id"
   end
 
   create_table "countries", :force => true do |t|
@@ -138,6 +125,18 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.integer  "termination_method_id"
   end
 
+  create_table "groups", :force => true do |t|
+    t.integer  "tags_id"
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "status"
+    t.integer  "group_owner"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", :force => true do |t|
     t.binary   "image_file_data"
     t.string   "image_filename"
@@ -178,9 +177,6 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.text     "password_salt"
     t.text     "security_email"
     t.text     "password_hint"
-    t.text     "security_question1"
-    t.text     "security_question2"
-    t.text     "security_question3"
     t.text     "question1_answer"
     t.text     "question2_answer"
     t.text     "question3_answer"
@@ -195,6 +191,9 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.integer  "authentication_grace_period"
     t.boolean  "login_status"
     t.boolean  "system_user"
+    t.integer  "security_question1_id"
+    t.integer  "security_question2_id"
+    t.integer  "security_question3_id"
   end
 
   create_table "master_docs", :force => true do |t|
@@ -358,16 +357,18 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.string  "field_name"
     t.boolean "status"
     t.string  "type"
+    t.boolean "ascending"
   end
 
   create_table "query_headers", :force => true do |t|
     t.string   "name"
     t.string   "description"
     t.date     "last_date_executed"
+    t.integer  "result_size"
     t.boolean  "status"
-    t.boolean  "save"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "group"
   end
 
   create_table "relationships", :force => true do |t|
@@ -405,6 +406,7 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.text     "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "category"
   end
 
   create_table "tag_types", :force => true do |t|
@@ -416,6 +418,7 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.text     "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "category"
   end
 
   create_table "tags", :force => true do |t|
@@ -427,6 +430,12 @@ ActiveRecord::Schema.define(:version => 20090903032701) do
     t.text     "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "category"
+  end
+
+  create_table "user_groups", :force => true do |t|
+    t.integer "user_id"
+    t.integer "group_id"
   end
 
 end

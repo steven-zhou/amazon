@@ -4,8 +4,9 @@ class CreateQueryHeaders < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.date :last_date_executed
+      t.integer :result_size
       t.boolean :status
-      t.boolean :save
+      t.string :type
       t.timestamps
     end
   end

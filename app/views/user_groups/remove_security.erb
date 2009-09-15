@@ -1,0 +1,16 @@
+<% user_group = String.new %>
+<%  if @login_account.group_types.blank?%>
+  $("#remove_doctype_id").html('');
+<%else%>
+  <% for r in @login_account.group_types %>
+    <% user_group += "<option value='#{r.id}'>#{r.name}</option>" %>
+
+  <%end%>
+  $("#remove_group_tag_id").html('<%=  escape_javascript("#{user_group}")%>');
+
+
+
+
+<%end-%>
+
+
