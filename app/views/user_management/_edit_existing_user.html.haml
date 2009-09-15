@@ -82,6 +82,7 @@
         %br.clear
     %p.submit
       = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
+      = button_to_function 'Delete', :class => "delete_login_account", :style => "float:right;", :data_id => @login_account.id
       %button{:type => "button", :style => "float:right;", :id => "group_secu_submit"} submit
     %br.clear
 

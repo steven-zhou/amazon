@@ -970,12 +970,8 @@ $(function(){
     $(".user_clear_edit_form").live('click', function(){
         $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
       
-        $('#user_name_container_' + $(this).attr('login_account_id')).html('');
-
-      
-        
+        $('#user_name_container_' + $(this).attr('login_account_id')).html('');     
     })
-
 });
 
 $(function(){
@@ -997,6 +993,17 @@ $(function(){
 });
 
 
+
+$(function(){
+    $(".delete_login_account").live('click', function(){
+        $.ajax({
+           type: "DELETE",
+            url: "/login_accounts/" + $(this).attr("data_id"),
+            data:'&id=' + $(this).attr("data_id"),
+            dataType: "script"
+        });
+    });
+});
 
 /* Admin List Management - Query*/
 
