@@ -15,5 +15,10 @@ class TagMetaType < ActiveRecord::Base
     @tag_meta_types.each { |setting| results += "<option value='" + "#{setting.type}" + "'>" + "#{setting.type}" + "</option>" }
     return results
   end
+
+    def self.active_group_meta_type
+    @group_meta_type = TagMetaType.find(:all, :conditions => ["status = true"], :order => 'name')
+  end
+
   
 end

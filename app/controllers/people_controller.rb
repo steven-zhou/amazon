@@ -34,9 +34,15 @@ class PeopleController < ApplicationController
     @other_addresses = @person.other_addresses
     @notes = @person.notes
     @person_role = @person.person_roles
+    
     respond_to do |format|
+      
       format.html
+
     end
+
+# redirect_to "show.html"
+     
   end
   
   def edit
@@ -55,10 +61,11 @@ class PeopleController < ApplicationController
     @image = @person.image unless (@person.nil? || @person.image.nil?)
     @role = Role.new
     @person_role = PersonRole.new
-    
+
 
     respond_to do |format|
       format.html
+     
     end
   end
 

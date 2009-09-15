@@ -1,0 +1,15 @@
+-form_for @group, :url=> {:controller => 'groups',:action => @group.new_record? ? 'create' : 'update', :id => @group.id}, :html => {:class => 'ajax_form'} do |group|
+  .form_line
+    .field_25
+      = label_tag :group_meta_type_id, "Group Meta Type"
+      = collection_select :keyword,:group_meta_type_id, TagMetaType.active_group_meta_type, :id, :name, {:prompt => " "}
+  %br{ :style=>"clear: both;"}
+  .field_25
+    = label_tag :group_meta_type_id, "Group Type"
+    = collection_select :keyword,:group_meta_type_id, TagMetaType.active_group_meta_type, :id, :name, {:prompt => " "}
+  %br{ :style=>"clear: both;"}
+  .field_25
+    = label_tag :group_meta_type_id, "Group"
+    = collection_select :keyword,:group_meta_type_id, TagMetaType.active_group_meta_type, :id, :name, {:prompt => " "}
+  = submit_tag 'Submit'
+%br{ :style=>"clear: both;"}

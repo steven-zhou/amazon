@@ -14,7 +14,7 @@
       .options{:style => "float:right"}
         = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_contact"
       %h3 New Contact
-      
+
       %p
         .form_line
           .field_20
@@ -23,7 +23,6 @@
                 %option{:value => "add_#{cmt.name.downcase}"}
                   = cmt.name
         %br{ :style=>"clear: both;"}
-                
         
       -form_for([@person,@phone], :html => {:class => 'active contact_form ajax_form add_phone'}) do |phone|
         = render :partial => '/phones/phone_form', :locals => { :phone => phone }
