@@ -39,6 +39,8 @@ class QueryHeadersController < ApplicationController
     @query_header = QueryHeader.find(params[:id].to_i)
     @query_header.result_size = @query_header.run.size
     @query_header.save
+    @people = @query_header.run
+    @list_header = ListHeader.new
     respond_to do |format|
       format.js
     end

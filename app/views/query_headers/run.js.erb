@@ -1,4 +1,4 @@
-$('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @query_header.run})) %>');
+$('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
 
 $('#search_results').dataTable({
         "bLengthChange":false,
@@ -6,15 +6,8 @@ $('#search_results').dataTable({
         "bAutoWidth":false,
         "sDom":'lfrtpi',
         "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
+            'bSortable': false,
+            'sWidth': "20%"
         }]
     });
     
@@ -22,8 +15,8 @@ $('#result_div').dialog({
   modal: true,
   resizable: true,
   draggable: true,
-  height: 600,
-  width: 800,
+  height: 900,
+  width: 1200,
   buttons: {
     Ok: function() {
       $(this).dialog('close');

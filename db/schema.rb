@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090911002856) do
+ActiveRecord::Schema.define(:version => 20090915070508) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -166,6 +166,25 @@ ActiveRecord::Schema.define(:version => 20090911002856) do
 
   create_table "languages", :force => true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "list_details", :force => true do |t|
+    t.integer  "list_header_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "list_headers", :force => true do |t|
+    t.integer  "query_header_id"
+    t.string   "type"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "list_size"
+    t.date     "last_date_generated"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
