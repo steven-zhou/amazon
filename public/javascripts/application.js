@@ -953,6 +953,9 @@ $(function(){
 
 $(function(){
     $(".show_users").live('click', function(){
+
+          $(".highlight").removeClass("highlight");
+        $(this).addClass("highlight");
         $.ajax({
             type: "GET",
             url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
@@ -992,6 +995,7 @@ $(function(){
         $(".edit_login").doAjaxSubmit();
     })
 });
+
 
 
 /* Admin List Management - Query*/
