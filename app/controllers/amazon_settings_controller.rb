@@ -46,4 +46,13 @@ class AmazonSettingsController < ApplicationController
       format.js
     end
   end
+
+  def destroy
+    @amazonsetting = AmazonSetting.find(params[:id].to_i)
+    @amazonsetting.destroy
+    @amazonsetting = AmazonSetting.distinct_setting_type
+    respond_to do |format|
+      format.js
+    end
+  end
 end

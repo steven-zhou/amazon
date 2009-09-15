@@ -18,6 +18,7 @@
   <%- end %>
   $("#data_list_field").html('<%=escape_javascript("#{options}")%>');
   $("#data_list_field").change();
+  $(".message").html('');
 <%- else %>
   $("#data_list_field").html('');
   $("#setting").html('');

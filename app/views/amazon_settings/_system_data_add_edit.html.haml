@@ -15,4 +15,8 @@
     .field_80
       %input{:style => "display:none;", :id => "type", :name => "type", :value => @amazonsetting.class.to_s}
   %br.clear
-  = submit_tag 'Submit'
+  -if @amazonsetting.new_record?
+    = submit_tag 'Submit'
+  -else
+    = button_to_function 'Delete', :class => "delete_system_data", :style => "float:right;", :data_id => @amazonsetting.id
+    = submit_tag 'Submit'

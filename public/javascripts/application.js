@@ -440,6 +440,20 @@ $(function(){
     });
 });
 
+
+
+$(function(){
+    $(".delete_system_data").live('click', function(){
+        $.ajax({
+           type: "DELETE",
+            url: "/amazon_settings/" + $(this).attr("data_id"),
+            data:'&id=' + $(this).attr("data_id"),
+            dataType: "script"
+        });
+    });
+});
+
+
 /* Drop down box hack*/
 $(function(){
     $(".clear_select").find('option:first').attr('selected', 'selected');
