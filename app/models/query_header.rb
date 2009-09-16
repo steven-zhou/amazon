@@ -1,9 +1,9 @@
 class QueryHeader < ActiveRecord::Base
 
   has_many :query_details
-  has_many :query_selections
-  has_many :query_sorters
-  has_many :query_criterias
+  has_many :query_selections, :order => "sequence"
+  has_many :query_sorters, :order => "sequence"
+  has_many :query_criterias, :order => "sequence"
 
   validates_presence_of :name
   validates_uniqueness_of :name
@@ -20,7 +20,7 @@ class QueryHeader < ActiveRecord::Base
   end
 
   def self.saved_queries
-    QueryHeader.find_all_by_group("save")
+    QueryHeader.find(:all, :conditions => ["query_headers.group = ?", "save"], :order => "id")
   end
 
   def formatted_info

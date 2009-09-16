@@ -14,7 +14,7 @@ class ListHeadersController < ApplicationController
       StaticList.transaction do
         if @static_list.save
           
-          person_ids.each do |i|
+          person_ids.each_value do |i|
             @list_detail = ListDetail.new(:list_header_id => @static_list.id, :person_id => i)
             if @list_detail.save
               flash.now[:message] = "Save Successfully"
