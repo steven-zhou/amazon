@@ -1163,3 +1163,13 @@ $(function(){
         $('#edit_sorter_list').html('');
     });
 });
+
+$(function(){
+   $("#select_all").live('click', function(){
+       if($(".checkboxes").attr("checked") == false){
+           $(".checkboxes").attr("checked", true);
+       }else{
+           $(".checkboxes").attr("checked", false);
+       }
+   });
+});

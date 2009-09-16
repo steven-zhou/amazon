@@ -9,7 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD:db/schema.rb
 ActiveRecord::Schema.define(:version => 20090915070830) do
+=======
+ActiveRecord::Schema.define(:version => 20090915070508) do
+>>>>>>> 84f7e63365e9cf5d5649955338a1ae525906247c:db/schema.rb
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -171,18 +175,34 @@ ActiveRecord::Schema.define(:version => 20090915070830) do
   end
 
   create_table "list_details", :force => true do |t|
+<<<<<<< HEAD:db/schema.rb
     t.integer "list_header_id"
     t.integer "person_id"
+=======
+    t.integer  "list_header_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+>>>>>>> 84f7e63365e9cf5d5649955338a1ae525906247c:db/schema.rb
   end
 
   create_table "list_headers", :force => true do |t|
     t.integer  "query_header_id"
     t.string   "type"
     t.string   "name"
+<<<<<<< HEAD:db/schema.rb
     t.integer  "list_size"
     t.datetime "date_created"
     t.datetime "last_date_generated"
     t.boolean  "status"
+=======
+    t.string   "description"
+    t.integer  "list_size"
+    t.date     "last_date_generated"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+>>>>>>> 84f7e63365e9cf5d5649955338a1ae525906247c:db/schema.rb
   end
 
   create_table "login_accounts", :force => true do |t|

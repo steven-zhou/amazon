@@ -93,6 +93,11 @@ describe QueryHeadersController do
       get_run
       @query_header.result_size.should == 1      
     end
+
+    it "should create a new list header for create" do
+      ListHeader.should_receive(:new)
+      get_run
+    end
   end
 
   describe "Get Clear" do
