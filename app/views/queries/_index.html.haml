@@ -5,26 +5,32 @@
   
 
   #new_form{:style => "display:none"}
-    #new_query_form.field_50
-    #new_query_list.field_50
+    #left
+      .info_container
+        #criteria_form{:class => "toggle_button2", :toggle_id_name => "new_criteria", :toggle_id_name1 => "new_selection", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h3 Criteria Attributes
+        #new_criteria
+          #new_query_form          
+          %br.clear
+
+      .info_container
+        #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h3 Display Attributes
+        #new_selection{:style => "display:none"}
+          #new_selection_form          
+          %br.clear
+
+      .info_container
+        #sort_form{:class => "toggle_button2", :toggle_id_name => "new_sorter", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_selection", :style => "cursor:pointer;cursor:hand"}
+          %h3 Sorting Attributes
+        #new_sorter{:style => "display:none"}
+          #new_sorter_form          
+          %br.clear
+    #right
+      #new_query_list
+      #new_selection_list
+      #new_sorter_list
     %br.clear
-
-    .info_container
-      #display_form{:class => "toggle_button", :toggle_id_name => "new_selection", :style => "cursor:pointer;cursor:hand"}
-        %h3 Display Attributes
-      #new_selection{:style => "display:none"}
-        #new_selection_form.field_50
-        #new_selection_list.field_33
-        %br.clear
-
-    .info_container
-      #sort_form{:class => "toggle_button", :toggle_id_name => "new_sorter", :style => "cursor:pointer;cursor:hand"}
-        %h3 Sorting Attributes
-      #new_sorter{:style => "display:none"}
-        #new_sorter_form.field_50
-        #new_sorter_list.field_33
-        %br.clear
-
     
     = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "new"
     = button_to_function 'Save', :id => "save_button", :action => "new"
@@ -47,26 +53,34 @@
 
   #edit_form
     #edit_header
-    #edit_query_form.field_50
-    #edit_query_list.field_50
+    #left
+      .info_container
+        #criteria_form{:class => "toggle_button2", :toggle_id_name => "edit_criteria", :toggle_id_name1 => "edit_selection", :toggle_id_name2 => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h3 Criteria Attributes        
+        #edit_criteria
+          #edit_query_form
+          %br.clear
+
+      .info_container
+        #display_form{:class => "toggle_button2", :toggle_id_name => "edit_selection", :toggle_id_name1 => "edit_criteria", :toggle_id_name2 => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h3 Display Attributes
+        #edit_selection{:style => "display:none"}
+          #edit_selection_form
+          %br.clear
+
+      .info_container
+        #sort_form{:class => "toggle_button2", :toggle_id_name => "edit_sorter", :toggle_id_name1 => "edit_selection", :toggle_id_name2 => "edit_criteria", :style => "cursor:pointer;cursor:hand"}
+          %h3 Sorting Attributes
+        #edit_sorter{:style => "display:none"}
+          #edit_sorter_form
+          %br.clear
+
+    #right
+      #edit_query_list
+      #edit_selection_list
+      #edit_sorter_list
+
     %br.clear
-
-    .info_container
-      #display_form{:class => "toggle_button", :toggle_id_name => "edit_selection", :style => "cursor:pointer;cursor:hand"}
-        %h3 Display Attributes
-      #edit_selection{:style => "display:none"}
-        #edit_selection_form.field_50
-        #edit_selection_list.field_33
-        %br.clear
-
-    .info_container
-      #sort_form{:class => "toggle_button", :toggle_id_name => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
-        %h3 Sorting Attributes
-      #edit_sorter{:style => "display:none"}
-        #edit_sorter_form.field_50
-        #edit_sorter_list.field_33
-        %br.clear
-
 
     = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "edit"
     = button_to_function 'Save', :id => "save_button", :action => "edit"

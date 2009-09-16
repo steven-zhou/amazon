@@ -1,4 +1,5 @@
 $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
+$('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
 
 $('#search_results').dataTable({
         "bLengthChange":false,
