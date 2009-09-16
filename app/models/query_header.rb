@@ -4,6 +4,7 @@ class QueryHeader < ActiveRecord::Base
   has_many :query_selections
   has_many :query_sorters
   has_many :query_criterias
+  has_many :list_headers
 
   validates_presence_of :name
   validates_uniqueness_of :name
