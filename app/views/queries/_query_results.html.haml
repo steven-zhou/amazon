@@ -13,19 +13,19 @@
           -@query_header.query_selections.each do |i|
             %th= i.field_name
     %tbody
-      - people.each do |person|
-        %tr{:person_id => person.id}
+      - people.each_index do |i|
+        %tr{:person_id => people[i].id}
           %td
-            %input{:type => "checkbox", :name => "person_id[]", :value => person.id, :class => "checkboxes"}
-          %td= person.id
+            %input{:type => "checkbox", :name => "person_id[]", :value => people[i].id, :class => "checkboxes"}
+          %td= people[i].id
           -if @query_header.query_selections.empty?
-            %td= person.name
+            %td= people[i].name
           -else
-            -@query_header.query_selections.each do |i|
-              -if i.table_name == "people"
-                %td= person.__send__(i.field_name.to_sym)
+            -@query_header.query_selections.each do |j|
+              -if j.table_name == "people"
+                %td= people[i].__send__(j.field_name.to_sym)
               -else
-                %td= person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym) unless person.__send__(i.table_name.underscore.to_sym).empty?
+                %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless people[i].__send__(j.table_name.underscore.to_sym).empty?
 
   .info_container
     %h3 Create List
@@ -40,8 +40,9 @@
         =f.text_field :name
       .field_25
         =f.label :description, "List Description"
-        =f.text_field :name
+        =f.text_field :description
       .field_25{:style => "float:right"}
         =f.label :description, "&nbsp;"
+        %input{:name => "query_header_id", :id => "query_id_for_list"}
         =submit_tag "Create List", :style => "width:100px;float:right"
       %br.clear

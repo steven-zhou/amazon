@@ -1166,7 +1166,7 @@ $(function(){
 
 $(function(){
    $("#select_all").live('click', function(){
-       if($(".checkboxes").attr("checked") == false){
+       if($("#select_all").attr("checked") == true){
            $(".checkboxes").attr("checked", true);
        }else{
            $(".checkboxes").attr("checked", false);

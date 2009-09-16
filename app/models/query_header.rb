@@ -68,6 +68,14 @@ class QueryHeader < ActiveRecord::Base
     self.query_criterias.each do |i|
       include_tables.push("#{i.table_name}") if !include_tables.include?("#{i.table_name}")
     end
+
+    self.query_selections.each do |i|
+      include_tables.push("#{i.table_name}") if !include_tables.include?("#{i.table_name}")
+    end
+
+    self.query_sorters.each do |i|
+      include_tables.push("#{i.table_name}") if !include_tables.include?("#{i.table_name}")
+    end
     include_tables.delete("people") if include_tables.include?("people")
     include_tables
   end
