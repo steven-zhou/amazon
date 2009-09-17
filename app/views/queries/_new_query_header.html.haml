@@ -6,6 +6,7 @@
   .form_line
     = f.label :description, 'Description'
     = f.text_field :description
+    %input{:style => "display:none", :name =>"new"}
     %br.clear
   = submit_tag "Save"
   %br.clear
