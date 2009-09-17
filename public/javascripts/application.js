@@ -1083,9 +1083,9 @@ $(function(){
         $('#new_sorter_form').html('');
         $('#new_sorter_list').html('');
         $('#save_form').html('');
-        $('#new_form').toggle('blind');
-        $("#show_new_query").toggle('blind');
-        $("#existing_query").toggle('blind');
+        $('#new_form').css("display", "none");
+        $("#show_new_query").css("display", "");
+        $("#existing_query").css("display", "");
     });
 });
 

@@ -121,4 +121,10 @@ class QueryHeadersController < ApplicationController
       format.js
     end
   end
+
+  def destory
+    respond_to do |format|
+      format.js
+    end
+  end
 end
