@@ -1155,7 +1155,7 @@ $(function(){
         container = $(this).parent().parent().parent();
         $("#current_action").val("edit");
         $(".highlight").removeClass("highlight");
-        $("#new_query").css("display", "none");
+        
         container.addClass("highlight");
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');

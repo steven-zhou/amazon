@@ -1,3 +1,12 @@
+$("#new_query").css('display','');
+$("#close_edit_query").css("display", "none");
+$("#edit_query").css("display", "none");
+$('#edit_query_form').html('');
+$('#edit_query_list').html('');
+$('#edit_selection_form').html('');
+$('#edit_selection_list').html('');
+$('#edit_sorter_form').html('');
+$('#edit_sorter_list').html('');
 $('#save_form').html('<%= escape_javascript(render(:partial => "queries/copy_query_header")) %>');
 $('#save_form').toggle('blind');
 $('#save_form').dialog( {
