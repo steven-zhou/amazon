@@ -87,9 +87,9 @@ class QueryHeader < ActiveRecord::Base
    def run
      if (self.sort_clauses.empty?)
         if (self.include_clauses.empty?)
-          Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id DESC")
+          Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
         else
-          Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [self.include_clauses.join(", ")])
+          Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [self.include_clauses.join(", ")], :order => "people.id")
         end
      else
        if (self.include_clauses.empty?)
