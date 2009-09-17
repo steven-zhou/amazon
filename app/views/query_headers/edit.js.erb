@@ -1,3 +1,5 @@
+$("#close_edit_query").css("display", "");
+$("#edit_query").css("display", "");
 $("#edit_header").html('<%= escape_javascript(render(:partial => "queries/edit_query_header")) %>');
 $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
 $('#edit_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');

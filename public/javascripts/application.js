@@ -1151,27 +1151,26 @@ $(function(){
 });
 
 $(function(){
-    $(".get_query").live('click', function(){
+     $('a.get_query').live('click', function() {
+        container = $(this).parent().parent().parent();
         $("#current_action").val("edit");
         $(".highlight").removeClass("highlight");
         $("#new_query").css("display", "none");
-        $("#close_edit_query").css("display", "");
-        $("#edit_query").css("display", "");
-        $(this).addClass("highlight");
-        $.ajax({
-            type: "GET",
-            url: "/query_headers/"+ $(this).attr("query_id") +"/edit.js",
-            dataType: "script"
-        });
-    });
+        container.addClass("highlight");
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    jQuery('a.get_query').removeAttr('onclick');
 });
 
 $(function(){
     $("#close_edit_query").live('click', function(){
-        $("#new_query").toggle('blind');
+        $("#new_query").css('display','');
         $(".highlight").removeClass("highlight");
         $(this).css("display", "none");
-        $("#edit_query").toggle('blind');
+        $("#edit_query").css("display", "none");
         $('#edit_query_form').html('');
         $('#edit_query_list').html('');
         $('#edit_selection_form').html('');

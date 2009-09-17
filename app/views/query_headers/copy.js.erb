@@ -1,0 +1,8 @@
+$('#save_form').html('<%= escape_javascript(render(:partial => "queries/copy_query_header")) %>');
+$('#save_form').toggle('blind');
+$('#save_form').dialog( {
+modal: true,
+resizable: true,
+draggable: true
+});
+$('#save_form').dialog('open');
