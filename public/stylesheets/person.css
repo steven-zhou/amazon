@@ -122,5 +122,11 @@ a.toggle_more{
         margin:0 0 0 510px
     }
 
+div.list_menu #list_header_name {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
 
 }

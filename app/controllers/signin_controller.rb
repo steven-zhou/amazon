@@ -11,6 +11,10 @@ class SigninController < ApplicationController
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
         session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+         #session[:user_list] = UserList.find_by_user_id(session[:user])
+         #puts"DEBUG-SESSION--#{session[:user_list].to_yaml}"
+         session[:login_account_info] = LoginAccount.find_by_id(session[:user])
+
         if (session[:intended_action] != nil && session[:intended_controller] != nil)
           redirect_to :action => session[:intended_action],  :controller => session[:intended_controller]
         else

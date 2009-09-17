@@ -2,7 +2,9 @@
   -form_tag(:controller => "list", :action => "show", :id => "") do
     = link_to(image_tag 'back.png')
     = link_to(image_tag 'back.png')
-    = select_tag 'list', :name, :id => 'select_tag'
+    %select{:id => "list_header_name", :disabled => (@list_headers.blank?)}
+      - @list_headers.each do |r|
+        %option{:value => "#{r.id}"} #{r.name}
     = link_to image_tag 'go.png'
     = link_to image_tag 'go.png'
 

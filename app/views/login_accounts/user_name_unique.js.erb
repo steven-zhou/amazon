@@ -1,8 +1,8 @@
 <% if @login_account.new_record? %>
   <%if @flag %>
-    $('#user_name_container_0').html("UserName has been taken")
+    $('#user_name_container_0').html("UserName already taken")
   <%else%>
-    $('#user_name_container_0').html("Username not been taken")
+    $('#user_name_container_0').html("Username not taken")
   <%end%>
 
 <%else%>

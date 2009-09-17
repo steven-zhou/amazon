@@ -1,9 +1,12 @@
 class QueryHeader < ActiveRecord::Base
 
   has_many :query_details
+  has_many :list_headers
+
   has_many :query_selections, :order => "sequence"
   has_many :query_sorters, :order => "sequence"
   has_many :query_criterias, :order => "sequence"
+
 
   validates_presence_of :name
   validates_uniqueness_of :name

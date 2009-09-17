@@ -10,6 +10,7 @@ class LoginAccount < ActiveRecord::Base
   
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
+  has_many :user_lists, :foreign_key => "user_id"
 
   validates_presence_of :person_id
   validates_uniqueness_of :person_id

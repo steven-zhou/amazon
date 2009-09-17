@@ -167,16 +167,7 @@ $('.datepick').live("mouseover", function(){
 
 /* Disable form*/
 
-$(document).ready(function() {
-    toggleFormStatus();
-});
 
-toggleFormStatus = function(){
-    if ($('#system_id_tag').val() == '') {
-        $('#left :input').attr('disabled', true);
-        $('#system_id_tag').attr('disabled', false);
-    }
-}
 
 /* Photo */
 //$("#edit_photo").live("submit",function(){
@@ -895,8 +886,12 @@ $(function() {
 
 
 $(function(){
-    $("#add_user_bar").live('click', function(){
+    $("#add_user").live('click', function(){
         $(".user_clear_form").click();
+          $("#show_user").hide();
+           $("#close_new_account").show();
+
+       
     });
 
 });
@@ -958,11 +953,20 @@ $(function(){
         $(this).addClass("highlight");
         $.ajax({
             type: "GET",
-            url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
-            data:'id='+$(this).attr('id'),
+            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+            data:'id='+$(this).attr('login_account_id'),
             dataType: "script"
         });
+
+        $.ajax({
+           type: "GET",
+                url: "/user_groups/show_groups.js",
+                data: 'login_account_id='+$(this).attr('login_account_id'),
+                dataType: "script"
+        });
     });
+
+     
 });
 
 
@@ -974,16 +978,6 @@ $(function(){
     })
 });
 
-$(function(){
-    $("#show_groups").live('click', function(){
-        $.ajax({
-           type: "GET",
-                url: "/user_groups/show_groups.js",
-                data: 'login_account_id='+$(this).attr('login_account_id'),
-                dataType: "script"
-        });
-    });
-});
 
 
 $(function(){
@@ -1004,6 +998,29 @@ $(function(){
         });
     });
 });
+
+
+$(function(){
+    $("#close_new_account").live('click', function(){
+       
+        $(".user_clear_form").click();
+         $("#new_user").toggle('blind');
+          $("#show_user").show();
+           $("#close_new_account").hide();
+    });
+});
+
+$(function(){
+    $("#close_edit_account").live('click', function(){
+
+        
+        $(".highlight").removeClass("highlight");
+       
+        $("#edit_user").html('');
+      
+    });
+});
+
 
 /* Admin List Management - Query*/
 

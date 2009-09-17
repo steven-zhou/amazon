@@ -53,8 +53,13 @@ class Person < ActiveRecord::Base
       find(:all, :conditions => ['relationship_type_id=?',RelationshipType.find_by_name(type)])
     end
   end
-  has_many :login_accounts
+
   
+  has_many :login_accounts
+  has_many :list_details
+  has_many :list_headers, :through => :list_details,:uniq => true
+  #has_many :players, :through => :list_details, :source => :player
+
   
   belongs_to :primary_title, :class_name => "Title", :foreign_key => "primary_title_id"
   belongs_to :second_title, :class_name => "Title", :foreign_key => "second_title_id"
@@ -67,7 +72,7 @@ class Person < ActiveRecord::Base
   belongs_to :residence_country, :class_name => "Country", :foreign_key => "residence_country_id"
   belongs_to :nationality, :class_name => "Country", :foreign_key => "nationality_id"
   belongs_to :gender, :class_name => "Gender", :foreign_key => "gender_id"
-
+  
 
 
   #--
