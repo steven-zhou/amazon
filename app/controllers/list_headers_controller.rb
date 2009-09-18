@@ -23,8 +23,8 @@ class ListHeadersController < ApplicationController
               end
               flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "static list")
             else
-              flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@static_list.errors.nil? && @static_list.errors.on(:name).include?("can't be blank"))
-              flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@static_list.errors.nil? && @static_list.errors.on(:name).include?("has already been taken"))
+              flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@static_list.errors.on(:name).nil? && @static_list.errors.on(:name).include?("can't be blank"))
+              flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@static_list.errors.on(:name).nil? && @static_list.errors.on(:name).include?("has already been taken"))
             end
           end
 
@@ -47,8 +47,8 @@ class ListHeadersController < ApplicationController
               end
               flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "dynamic list")
             else
-              flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@static_list.errors.nil? && @static_list.errors.on(:name).include?("can't be blank"))
-              flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@static_list.errors.nil? && @static_list.errors.on(:name).include?("has already been taken"))
+              flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@dynamic_list.errors.on(:name).nil? && @dynamic_list.errors.on(:name).include?("can't be blank"))
+              flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@dynamic_list.errors.on(:name).nil? && @dynamic_list.errors.on(:name).include?("has already been taken"))
             end
 
           end
@@ -64,6 +64,14 @@ class ListHeadersController < ApplicationController
     end
 
     
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @list_header = ListHeader.find(params[:id].to_i)
+    @list_header.destroy
     respond_to do |format|
       format.js
     end

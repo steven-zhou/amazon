@@ -11,5 +11,7 @@ class ListHeader < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive => false
   validates_presence_of :name, :query_header
 
-
+  def formatted_info
+    "#{self.name} - #{self.description} : #{self.list_size} records"
+  end
 end

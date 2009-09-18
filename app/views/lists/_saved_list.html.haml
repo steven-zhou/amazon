@@ -1,0 +1,8 @@
+.field_50
+  .info_container
+    .header_container
+      .options
+        = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_list_header_path(saved_list), :class => 'get'
+        = link_to image_tag('folder.png', :alt => 'SaveAs'), copy_list_header_path(saved_list), :class => 'get'
+        = link_to image_tag('delete_icon.png', :alt => 'Delete'), list_header_path(saved_list), :class => 'delete'
+      = saved_list.formatted_info
