@@ -9,7 +9,7 @@ class QueryHeader < ActiveRecord::Base
 
 
   validates_presence_of :name
-  validates_uniqueness_of :name
+  validates_uniqueness_of :name, :case_sensitive => false
 
   accepts_nested_attributes_for :query_selections, :query_sorters, :reject_if => proc { |attributes| attributes['table_name'].blank? || attributes['field_name'].blank? }
   accepts_nested_attributes_for :query_criterias, :reject_if => proc { |attributes| attributes['table_name'].blank? || attributes['field_name'].blank? || attributes['operator'].blank?}

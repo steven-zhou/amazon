@@ -106,6 +106,7 @@ class QueryHeadersController < ApplicationController
     @query_header_old = QueryHeader.find(params[:source_id].to_i)
     @query_header = QueryHeader.new(params[:query_header])
     @query_header.group = "save"
+    @query_header.status = true
     if @query_header.save
 
       @query_header_old.query_criterias.each do |i|

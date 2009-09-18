@@ -1117,6 +1117,17 @@ $(function(){
 });
 
 $(function(){
+    $("#run_button_edit").live('click', function(){
+            $.ajax({
+                type: "GET",
+                url: "/query_headers/run.js",
+                data:'id=' + $("#query_header_id").val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
     $("#clear_button").live('click', function(){
         $.ajax({
             type: "GET",
