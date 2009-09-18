@@ -4,7 +4,7 @@
     %thead
       %tr
         %th
-          %input{:type => "checkbox", :id => "select_all", :style => "float:left;"}
+          %input{:type => "checkbox", :id => "select_all", :style => "float:left;", :checked => true}
           select all
         %th System ID
         -if @query_header.query_selections.empty?
@@ -16,7 +16,7 @@
       - people.each_index do |i|
         %tr{:person_id => people[i].id}
           %td
-            %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes"}
+            %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes", :checked => true}
           %td= people[i].id
           -if @query_header.query_selections.empty?
             %td= people[i].name

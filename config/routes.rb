@@ -45,8 +45,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :list_management => :get}
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
-
-
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}
@@ -60,12 +58,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get}
   map.resources :tags, :collection => {:show_tags => :get}
 
-#  map.resources :query_headers, :shallow=> true do |query_header|
-#    query_header.resources :query_details
-#    query_header.resources :query_criterias
-#  end
-
-  map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get} do |query_header|
+  map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
+    :member => {:copy => :get} do |query_header|
     query_header.resources :query_selections
     query_header.resources :query_sorters
     query_header.resources :query_criterias
@@ -74,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :login_accounts, :collection => {:user_name_unique => :get}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
 
-  map.resources :list_headers
+  map.resources :list_headers, :member => {:copy => :get}
   map.resources :list_details
   
   # The priority is based upon order of creation: first created -> highest priority.

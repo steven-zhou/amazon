@@ -2,7 +2,7 @@
 
 =link_to('System Setting', :controller => "administrations", :action => "system_setting")
 =link_to('System Management', :controller => "administrations", :action => "system_management")
-%h3{:style => "display:inline;"} List Management
+%h3{:style => "display:inline;"} Query/List
 
 #tabs{:style => "width:96%;"}
   = render :partial => 'list_management_menu'
@@ -10,6 +10,9 @@
     = render :partial => '/queries/index'
 
   #List
-    -#= render :partial => '/lists/index'
+    = render :partial => '/lists/list_update'
+
+  #Compiler
+    = render :partial => '/lists/list_compiler'
 
 

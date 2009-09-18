@@ -1,0 +1,8 @@
+.info_container#existing_list
+  %h3 Existing Lists
+  #show_lists
+    = render :partial => "lists/saved_list", :collection => ListHeader.all
+  %br.clear
+
+.info_container#edit_list{:style => "display:none"}
+  %h3 Edit Query
