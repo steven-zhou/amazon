@@ -1190,3 +1190,19 @@ $(function(){
        }
    });
 });
+
+
+
+/*List Header of Person*/
+
+$(function(){
+    $("#list_header_name").change(function(){
+       $("#person_list").submit();
+    });
+});
+
+$(function(){
+    $("#list_header_name2").change(function(){
+       $("#person_list_edit").submit();
+    });
+});

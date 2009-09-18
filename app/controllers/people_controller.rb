@@ -18,14 +18,98 @@ class PeopleController < ApplicationController
   end
   
   def show
+
+    @user_lists = session[:login_account_info].user_lists
+    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
+
+
+    if request.get?       #when it is cal show action
+      if params[:id].nil? || params[:id] == "show" #when just jumping or change list
+        #if  params[:list_header_id].nil?  first time in this page
+
+        @list_header = @list_headers.first
+ 
+        session[:current_list_id] = @list_header.id
+        @person = @list_headers.first.players.first unless @list_headers.blank?
+       
+        session[:current_person_id] = @person.id
+        @person = Person.new if @person.nil?
+        @p = Array.new
+        @p = @list_header.players
+        #        else            # list changing
+        #          @list_header = ListHeader.find(params[:list_header_id])
+        #          @person = @list_header.players.first
+        #          @p = Array.new
+        #          @p = @list_header.players
+        #end
+      else                #when there is id come---click the narrow button
+        #unless session[:current_list_id].nil?
+          @list_header = ListHeader.find(session[:current_list_id])
+          @p = Array.new
+          @p = @list_header.players
+          @person = Person.find_by_id(params[:id].to_i)
+        session[:current_person_id] = @person.id
+#        else
+#          @list_header = @list_headers.first
+#          @person = Person.find_by_id(params[:id].to_i)
+#          @person = Person.new if @person.nil?
+#          @p = Array.new
+#          @p = @list_header.players
+          # end
+
+        #        c2 = Array.new
+        #        c2 = @list_header.players
+        #        @person = Person.find_by_id(params[:id].to_i)
+        #        unless c2.include?(@person)
+        #          @person = @list_header.players.first
+        #        else
+        #          @person
+        #        end
+        #        @list_headers = @person.list_headers
+        #        @list_header = @list_headers.first
+        #
+        #        c0 = Array.new
+        #        c0 = @list_header.players
+        #
+        #        unless c0.include?(@person)
+        #          @person = @list_header.players.first
+        #        else
+        #          @person
+        #        end
+      end
+    end
+    if request.post?
+      @list_header = ListHeader.find(params[:list_header_id])
+      
+      #unless (params[:person_id].nil? || params[:person_id].empty?)
+      
+      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+      #params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+      #@person1 = Person.find_by_id(params[:id].to_i)
+      #@person2 = @list_headers.first.players
+      #      c1 = Array.new
+      #      c2 = Array.new
+      #      c1 << Person.find_by_id(params[:id].to_i)
+      #      c2 << @list_headers.first.players
+      c1 = Array.new
+      c1 = @list_header.players
+      @person = Person.find_by_id(params[:id].to_i)
+      unless c1.include?(@person)
+        @person = @list_header.players.first
+      else
+        @person
+      end
+      @p = Array.new
+      @p = @list_header.players
+      session[:current_list_id] = @list_header.id
+      session[:current_person_id] = @person.id
+    end
     #    params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
     #    @person = Person.find_by_id(params[:id].to_i)
     #    @person = Person.new if @person.nil?
-    @user_lists = session[:login_account_info].user_lists
-    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
-    @person = @list_headers.first.players.first unless @list_headers.blank?
-      #puts"DEBUG--LIST--#{@person.to_yaml}"
-    @person = Person.new if @person.nil? || @list_headers.blank?
+    
+    #puts"DEBUG--LIST--#{@person.to_yaml}"
+    #@person = Person.new if @person.nil? || @list_headers.blank?
     @primary_phone = @person.primary_phone
     @primary_email = @person.primary_email
     @primary_fax = @person.primary_fax
@@ -64,9 +148,58 @@ class PeopleController < ApplicationController
   end
   
   def edit
-    params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-    @person = Person.find_by_id(params[:id].to_i)
-    @person = Person.new(:id => "") unless !@person.nil?
+
+    @user_lists = session[:login_account_info].user_lists
+    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
+
+    if request.get?
+      if params[:id].nil? || params[:id] == ""
+     
+        @list_header = ListHeader.find(session[:current_list_id])
+        @p = Array.new
+        @p = @list_header.players
+        @person = Person.find(session[:current_person_id])
+      else
+         @list_header = ListHeader.find(session[:current_list_id])
+          @p = Array.new
+          @p = @list_header.players
+          @person = Person.find_by_id(params[:id].to_i)
+        session[:current_person_id] = @person.id
+      end
+
+    end
+
+    if request.post?
+      @list_header = ListHeader.find(params[:list_header_id])
+      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+      c1 = Array.new
+      c1 = @list_header.players
+      @person = Person.find_by_id(params[:id].to_i)
+      unless c1.include?(@person)
+        @person = @list_header.players.first
+      else
+        @person
+      end
+      @p = Array.new
+      @p = @list_header.players
+       session[:current_list_id] = @list_header.id
+      session[:current_person_id] = @person.id
+    end
+
+
+    #    @person = Person.new(:id => "") unless !@person.nil?
+    #    @address = Address.new
+    #    @phone = Phone.new
+    #    @email = Email.new
+    #    @fax = Fax.new
+    #    @website = Website.new
+    #    @masterdoc = MasterDoc.new
+    #    @relationship = Relationship.new
+    #    @employment = Employment.new
+    #    @note = Note.new
+    #    @image = @person.image unless (@person.nil? || @person.image.nil?)
+    #    @role = Role.new
+    #    @person_role = PersonRole.new
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -79,6 +212,7 @@ class PeopleController < ApplicationController
     @image = @person.image unless (@person.nil? || @person.image.nil?)
     @role = Role.new
     @person_role = PersonRole.new
+
     
 
     respond_to do |format|
