@@ -1,10 +1,10 @@
 -form_for @list_header, :html => {:class => "ajax_form"} do |f|
 
-  %table#search_results.display
+  %table#query_results.display
     %thead
       %tr
         %th
-          %input{:type => "checkbox", :id => "select_all", :style => "float:left;", :checked => true}
+          %input{:type => "checkbox", :class => "select_all", :style => "float:left;", :checked => true}
           select all
         %th System ID
         -if @query_header.query_selections.empty?
@@ -14,7 +14,7 @@
             %th= i.field_name
     %tbody
       - people.each_index do |i|
-        %tr{:person_id => people[i].id}
+        %tr
           %td
             %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes", :checked => true}
           %td= people[i].id

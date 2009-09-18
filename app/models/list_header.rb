@@ -3,8 +3,9 @@ class ListHeader < ActiveRecord::Base
 
 
   belongs_to :query_header
-  has_many :list_details
+  has_many :list_details, :order => "id"
   has_many :user_lists
+  has_many :people_on_list, :through => :list_details, :source => :person
 
   has_many :players, :through => :list_details, :source => :person
 

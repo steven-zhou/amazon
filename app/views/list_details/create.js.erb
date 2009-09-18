@@ -1,0 +1,17 @@
+<%- if @list_detail.errors.nil?  %>
+  $('#list_details').prepend('<%= escape_javascript(render(:partial => "list_update/list_detail")) %>');
+  $('#<%= dom_id(@list_detail) %>').effect('slide', {direction:'right'});
+  $("#show_lists").html("<%= escape_javascript(render(:partial => "list_update/saved_list", :collection => ListHeader.all)) %>");
+  $('#<%= dom_id(@list_detail) %>').fadeOut("slow", function() {$(this).remove();});
+  $('#show_list_details').html('<%= escape_javascript(render(:partial => "list_update/edit_list_details")) %>');
+  $('#list_details').dataTable({
+          "bLengthChange":false,
+          "iDisplayLength":20,
+          "bAutoWidth":false,
+          "sDom":'lfrtpi',
+          "aoColumns":[{
+              'bSortable': false,
+              'sWidth': "20%"
+          }]
+      });
+<%- end%>

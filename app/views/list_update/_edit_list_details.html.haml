@@ -1,0 +1,39 @@
+%table#list_details.display
+  %thead
+    %tr
+      %th
+        Manipulation
+      %th System ID
+      -if @list_header.query_header.query_selections.empty?
+        %th Name
+      -else
+        - @list_header.query_header.query_selections.each do |i|
+          %th= i.field_name
+  %tbody
+    - @list_header.list_details.each do |i|
+      %tr{:id => "list_detail_#{i.id}"}
+        %td
+          =link_to image_tag("delete_icon.png", :alt => "Delete"), list_detail_path(i), :class => "delete"
+        %td= i.person.id
+        -if i.list_header.query_header.query_selections.empty?
+          %td= i.person.name
+        -else
+          - i.list_header.query_header.query_selections.each do |j|
+            -if j.table_name == "people"
+              %td= i.person.__send__(j.field_name.to_sym)
+            -else
+              %td= i.person.__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless i.person.__send__(j.table_name.underscore.to_sym).empty?
+
+
+.info_container{:style => "width:30%"}
+  %h3 Add Person To List
+  -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
+    .form_line
+      .field_50
+        =f.label :person_id, "Person ID"
+        %input{:id => "person_id", :name => "person_id"}
+        %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
+      .field_50
+        %label &nbsp;
+        =submit_tag "Add Person", :style => "width:100px;float:right"
+      %br.clear

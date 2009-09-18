@@ -1,0 +1,12 @@
+%tr{:id => "list_detail_#{@list_detail.id}"}
+  %td
+    =link_to image_tag("delete_icon.png", :alt => "Delete"), list_detail_path(@list_detail), :class => "delete"
+  %td= @list_detail.person.id
+  -if @list_detail.list_header.query_header.query_selections.empty?
+    %td= i.person.name
+  -else
+    -@list_detail.list_header.query_header.query_selections.each do |j|
+       -if j.table_name == "people"
+         %td= @list_detail.person.__send__(j.field_name.to_sym)
+       -else
+         %td= @list_detail.person.__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless @list_detail.person.__send__(j.table_name.underscore.to_sym).empty?

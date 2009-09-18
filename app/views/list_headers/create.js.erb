@@ -12,8 +12,11 @@ $('#flash_message').dialog( {
     }
   });
 $('#flash_message').dialog('open');
+
 <% else %>
+ $('#copy_form').dialog('close');
  $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
  $('#flash_feedback').fadeIn("slow");
  $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
+ $("#show_lists").html("<%= escape_javascript(render(:partial => "list_update/saved_list", :collection => ListHeader.all)) %>");
 <% end %>

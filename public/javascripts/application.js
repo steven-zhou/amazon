@@ -1192,11 +1192,25 @@ $(function(){
 });
 
 $(function(){
-   $("#select_all").live('click', function(){
-       if($("#select_all").attr("checked") == true){
+   $(".select_all").live('click', function(){
+       if($(this).attr("checked") == true){
            $(".checkboxes").attr("checked", true);
        }else{
            $(".checkboxes").attr("checked", false);
        }
    });
+});
+
+/*Admin List Management - List Update*/
+$(function(){
+     $('a.get_list').live('click', function() {
+        container = $(this).parent().parent().parent();
+        $(".highlight").removeClass("highlight");
+        container.addClass("highlight");
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    jQuery('a.get_list').removeAttr('onclick');
 });

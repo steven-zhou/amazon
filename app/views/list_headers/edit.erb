@@ -1,7 +1,5 @@
-$('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
-$('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
-
-$('#query_results').dataTable({
+$('#show_list_details').html('<%= escape_javascript(render(:partial => "list_update/edit_list_details")) %>');
+$('#list_details').dataTable({
         "bLengthChange":false,
         "iDisplayLength":20,
         "bAutoWidth":false,
@@ -11,8 +9,8 @@ $('#query_results').dataTable({
             'sWidth': "20%"
         }]
     });
-    
-$('#result_div').dialog({
+
+$('#edit_list').dialog({
   modal: true,
   resizable: true,
   draggable: true,
@@ -25,4 +23,4 @@ $('#result_div').dialog({
   }
 });
 
-$('#result_div').dialog('open');
+$('#edit_list').dialog('open');
