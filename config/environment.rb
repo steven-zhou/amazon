@@ -82,6 +82,17 @@ Rails::Initializer.run do |config|
   # Please note that observers generated using script/generate observer need to have an _observer suffix
   # config.active_record.observers = :cacher, :garbage_collector, :forum_observer
 
+  config.action_mailer.delivery_method = :smtp  # :smtp for live, test for test
+  config.action_mailer.perform_deliveries = true # true for live, false for test
+  config.action_mailer.raise_delivery_errors = false
+
+  config.action_mailer.smtp_settings = {
+    :address          => "127.0.0.1",
+    :port             => 25,
+    :domain           => "amazon-development",
+    :authentication   => :plain,
+  }
+
 end
 
 ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
