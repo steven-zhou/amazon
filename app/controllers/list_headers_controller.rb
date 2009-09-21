@@ -5,8 +5,8 @@ class ListHeadersController < ApplicationController
       @list_header_old = ListHeader.find(params[:source_id].to_i)
       @list_header = @list_header_old.class.new(params[:list_header])
       @list_header.query_header_id = @list_header_old.query_header_id
+      @list_header.list_size = 0
       @list_header.status = true
-      @list_header.list_size = @list_header_old.list_size
       @list_header.last_date_generated = Date.today()
       
       if @list_header.save
@@ -34,8 +34,8 @@ class ListHeadersController < ApplicationController
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
           @static_list = StaticList.new(params[:list_header])
           @static_list.query_header_id = @query_header.id
-          @static_list.list_size = person_ids.size
           @static_list.last_date_generated = Date.today()
+          @static_list.list_size = 0
           @static_list.status = true
 
           StaticList.transaction do
@@ -57,9 +57,9 @@ class ListHeadersController < ApplicationController
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
           @dynamic_list = DynamicList.new(params[:list_header])
           @dynamic_list.query_header_id = @query_header.id
-          @dynamic_list.list_size = person_ids.size
           @dynamic_list.created_at = Date.today()
           @dynamic_list.last_date_generated = Date.today()
+          @dynamic_list.list_size = 0
           @dynamic_list.status = true
 
           DynamicList.transaction do

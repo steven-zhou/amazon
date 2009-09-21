@@ -12,6 +12,7 @@ class ListDetailsController < ApplicationController
 
   def create
     @list_detail = ListDetail.new(:list_header_id => params[:list_header_id], :person_id => params[:person_id])
+    @list_header = ListHeader.find(params[:list_header_id])
     @list_detail.save
     respond_to do |format|
       format.js

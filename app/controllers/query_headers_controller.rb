@@ -4,6 +4,7 @@ class QueryHeadersController < ApplicationController
     @query_header = QueryHeader.new
     @query_header.name = QueryHeader.random_name
     @query_header.group = "temp"
+    @query_header.status = true
     @query_header.save
     @query_criteria = QueryCriteria.new
     @query_seleciton = QuerySelection.new

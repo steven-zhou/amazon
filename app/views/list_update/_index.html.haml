@@ -1,7 +1,7 @@
 .info_container#existing_list
   %h3 Existing Lists
   #show_lists
-    = render :partial => "list_update/saved_list", :collection => ListHeader.all
+    = render :partial => "list_update/saved_list", :collection => ListHeader.sortall
   %br.clear
 
 .info_container#edit_list{:style => "display:none"}

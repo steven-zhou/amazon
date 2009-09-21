@@ -15,4 +15,8 @@ class ListHeader < ActiveRecord::Base
   def formatted_info
     "#{self.name} - #{self.description} : #{self.list_size} records"
   end
+
+  def self.sortall
+    ListHeader.find(:all, :order => "id")
+  end
 end
