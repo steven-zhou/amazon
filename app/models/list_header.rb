@@ -10,13 +10,17 @@ class ListHeader < ActiveRecord::Base
   has_many :players, :through => :list_details, :source => :person
 
   validates_uniqueness_of :name, :case_sensitive => false
-  validates_presence_of :name, :query_header
+  validates_presence_of :name
 
   def formatted_info
     "#{self.name} - #{self.description} : #{self.list_size} records"
   end
 
   def self.sortall
+    ListHeader.find(:all, :conditions => ["type is null"], :order => "id")
+  end
+
+  def self.all
     ListHeader.find(:all, :order => "id")
   end
 end

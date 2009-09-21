@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe QueryHeadersController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @query_header = Factory(:query_header)
     @attributes = @query_header
     QueryHeader.stub!(:new).and_return(@query_header)

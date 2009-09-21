@@ -111,7 +111,7 @@ class Person < ActiveRecord::Base
   #++
 
   before_save :insert_primary_salutation
-  
+  after_create :update_primary_list
   #--
   ################
   #  Convenience
@@ -240,6 +240,11 @@ class Person < ActiveRecord::Base
       result += "#{self.first_name} #{self.family_name}"
       self.primary_salutation = result.squeeze(" ").strip
     end
+  end
+
+  def update_primary_list
+    @list_detail = ListDetail.new(:list_header_id => PrimaryList.first.id, :person_id => self.id)
+    @list_detail.save
   end
 
 end

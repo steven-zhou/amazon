@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe QueryCriteriasController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @query_criteria = Factory(:query_criteria)
     @attributes = @query_criteria
     @query_header = @query_criteria.query_header    

@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe LoginAccountsController do
    before(:each) do
+    @primary_list = Factory(:primary_list)
     @login_account = Factory.build(:login_account)
     @password = "password"
     @login_account.password = @password

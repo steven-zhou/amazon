@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     when "too short" then "#{options[:field]} is too short"
 
     # Default
-    when default then ""
+    when "default" then " #{options[:message]}"
     end
 
     options[:message] ?  result : result + " #{options[:message]}"

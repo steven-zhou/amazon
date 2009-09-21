@@ -1,0 +1,3 @@
+class PrimaryList < ListHeader
+
+end

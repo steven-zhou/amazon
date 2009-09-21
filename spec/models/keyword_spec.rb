@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Keyword do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @keyword = Factory.build(:keyword)
   end
   it { should have_many(:keyword_links)}

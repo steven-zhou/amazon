@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PhonesController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @phone = Factory.build(:phone, :id => 1)
     @attributes = Factory.attributes_for(:phone)
     Phone.stub!(:find).and_return(@phone)

@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe MasterDocsController do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @master_doc = Factory.build(:master_doc)
     @attributes = Factory.attributes_for(:master_doc)
     @person = @master_doc.entity

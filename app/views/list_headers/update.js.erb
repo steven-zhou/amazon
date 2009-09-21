@@ -1,7 +1,4 @@
-<%- if flash[:error].nil? %>
-
 $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
-$('#<%= dom_id(@list_detail) %>').effect('slide', {direction:'right'});
 $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_details').dataTable({
         "bLengthChange":false,
@@ -13,20 +10,3 @@ $('#list_details').dataTable({
             'sWidth': "20%"
         }]
     });
- <%- else  %>
- $('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
-$('#flash_message').dialog( {
-        modal: true,
-        resizable: true,
-        draggable :true,
-        buttons: {
-          Ok: function() {
-            $(this).dialog('close');
-          }
-        }
-      }
-
-    );
-    $('#flash_message').dialog('open');
-
- <%- end %>

@@ -8,6 +8,7 @@ describe LoginAccount do
   context "when creating a new login account" do
     
     before(:each) do
+      @primary_list = Factory(:primary_list)
       @login_account = Factory.build(:login_account)
     end
 

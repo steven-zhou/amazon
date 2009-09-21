@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Role do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @role = Factory.build(:role)
   end
 

@@ -26,6 +26,25 @@
         #new_sorter{:style => "display:none"}
           #new_sorter_form          
           %br.clear
+
+      .info_container
+        #extra_form
+          %h3 Extra Attributes
+          .form_line
+            %input{:type => "checkbox", :style => "width:50%;display:inline;"}
+            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
+            %label{:style => "width:30%;display:inline;"} Top
+            %input{:style => "width:30%;display:inline;"}
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
+            %label{:style => "width:30%;display:inline;"} Precentage
+            %input{:style => "width:30%;display:inline;"}
+            %br.clear
+
     #right
       #new_query_list
       #new_selection_list
@@ -73,6 +92,24 @@
         #edit_sorter{:style => "display:none"}
           #edit_sorter_form
           %br.clear
+
+      .info_container
+        #extra_form
+          %h3 Extra Attributes
+          .form_line
+            %input{:type => "checkbox", :style => "width:50%;display:inline;"}
+            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
+            %label{:style => "width:30%;display:inline;"} Top
+            %input{:style => "width:30%;display:inline;"}
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
+            %label{:style => "width:30%;display:inline;"} Precentage
+            %input{:style => "width:30%;display:inline;"}
+            %br.clear
 
     #right
       #edit_query_list
