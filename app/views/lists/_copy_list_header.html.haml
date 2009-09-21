@@ -1,0 +1,12 @@
+-form_for ListHeader.new, :html => {:class => 'ajax_form'} do |f|
+  .form_line
+    = f.label :name, 'Name'
+    = f.text_field :name, :value => ""
+    %br.clear
+  .form_line
+    = f.label :description, 'Description'
+    = f.text_field :description
+    %input{:style => "display:none", :name => "source_id", :value => "#{@list_header.id}"}
+    %br.clear
+  = submit_tag "Save", :name => "copy"
+  %br.clear

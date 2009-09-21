@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AmazonSetting do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @attributes = Factory.attributes_for(:male_gender)
     @amazon_setting = Factory.build(:male_gender)
   end

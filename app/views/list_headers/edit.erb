@@ -1,0 +1,26 @@
+$('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
+$('#list_details').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'bSortable': false,
+            'sWidth': "10%"
+        }]
+    });
+
+$('#edit_list').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 700,
+  width: 1300,
+  buttons: {
+    Ok: function() {
+      $(this).dialog('close');
+    }
+  }
+});
+
+$('#edit_list').dialog('open');

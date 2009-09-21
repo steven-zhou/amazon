@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe QuerySortersController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @query_sorter = Factory(:query_sorter)
     @attributes = @query_sorter
     @query_header = @query_sorter.query_header

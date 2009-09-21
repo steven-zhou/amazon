@@ -1,6 +1,9 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Address do
+  before(:each) do
+    @primary_list = Factory(:primary_list)
+  end
 
   it "should belong to addressable" do
     Address.reflect_on_association(:addressable).nil?.should == false

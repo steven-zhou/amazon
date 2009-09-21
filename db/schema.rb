@@ -9,7 +9,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20090921070522) do
+
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -194,6 +196,9 @@ ActiveRecord::Schema.define(:version => 20090921070522) do
     t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "source"
+    t.string   "source_type"
+    t.boolean  "allow_duplication"
   end
 
   create_table "login_accounts", :force => true do |t|

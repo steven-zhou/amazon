@@ -2,7 +2,10 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe SigninController do
   before(:each) do
-  @login_account = Factory.build(:login_account)
+
+    @primary_list = Factory(:primary_list)
+    @login_account = Factory.build(:login_account)
+
     @password = "password"
     @login_account.password = @password
     @login_account.password_confirmation = @password

@@ -3,7 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe PersonRole do
 
   before(:each) do
-
+    @primary_list = Factory(:primary_list)
     @person_role = Factory.build(:person_role)
   end
 

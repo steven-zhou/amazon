@@ -1,10 +1,10 @@
 -form_for @list_header, :html => {:class => "ajax_form"} do |f|
 
-  %table#search_results.display
+  %table#query_results.display
     %thead
       %tr
         %th
-          %input{:type => "checkbox", :id => "select_all", :style => "float:left;", :checked => true}
+          %input{:type => "checkbox", :class => "select_all", :style => "float:left;", :checked => true}
           select all
         %th System ID
         -if @query_header.query_selections.empty?
@@ -14,7 +14,7 @@
             %th= i.field_name
     %tbody
       - people.each_index do |i|
-        %tr{:person_id => people[i].id}
+        %tr
           %td
             %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes", :checked => true}
           %td= people[i].id
@@ -30,17 +30,16 @@
   .info_container
     %h3 Create List
     .form_line
-      .field_20
-        =f.label :id, "List Type"
-        %select{:name => "type"}
-          %option{:value => "StaticList"} Static List
-          %option{:value => "DynamicList"} Dynamic List
       .field_25
         =f.label :name, "List Name"
         =f.text_field :name
       .field_25
         =f.label :description, "List Description"
         =f.text_field :description
+      .field_25
+        =f.label :allow_duplication, "&nbsp;"
+        =f.check_box :allow_duplication, :style => "width:30%;display:inline"
+        =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
       .field_25{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "query_header_id", :id => "query_id_for_list"}

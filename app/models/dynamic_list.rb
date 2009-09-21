@@ -1,3 +1,0 @@
-class DynamicList < ListHeader
-
-end

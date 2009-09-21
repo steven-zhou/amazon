@@ -45,17 +45,17 @@ class PeopleController < ApplicationController
           @list_header = @list_headers.first
           puts"---debug000#{@list_header.to_yaml}"
           session[:current_list_id] = @list_header.id
-          @person = @list_headers.first.players.first unless @list_headers.blank?
+          @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
            puts"000000debug000#{@person.to_yaml}"
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
-          @p = @list_header.players
+          @p = @list_header.people_on_list
         end
       else                #when there is id come---click the narrow button
         @list_header = ListHeader.find(session[:current_list_id])
         @p = Array.new
-        @p = @list_header.players
+        @p = @list_header.people_on_list
         @person = Person.find_by_id(params[:id].to_i)
         session[:current_person_id] = @person.id
       end
@@ -65,15 +65,15 @@ class PeopleController < ApplicationController
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
 
       c1 = Array.new
-      c1 = @list_header.players
+      c1 = @list_header.people_on_list
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
-        @person = @list_header.players.first
+        @person = @list_header.people_on_list.first
       else
         @person
       end
       @p = Array.new
-      @p = @list_header.players
+      @p = @list_header.people_on_list
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -128,14 +128,14 @@ class PeopleController < ApplicationController
         
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.players
+            @p = @list_header.people_on_list
             @person = Person.find(session[:current_person_id])
      
           end
         else
           @list_header = ListHeader.find(session[:current_list_id])
           @p = Array.new
-          @p = @list_header.players
+          @p = @list_header.people_on_list
           @person = Person.find_by_id(params[:id].to_i)
           session[:current_person_id] = @person.id
         end
@@ -143,11 +143,11 @@ class PeopleController < ApplicationController
       else
           @list_header = @list_headers.first
             session[:current_list_id] = @list_header.id
-            @person = @list_headers.first.players.first unless @list_headers.blank?
+            @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
             session[:current_person_id] = @person.id
             @person = Person.new if @person.nil?
             @p = Array.new
-            @p = @list_header.players
+            @p = @list_header.people_on_list
 
       end
     end
@@ -156,15 +156,15 @@ class PeopleController < ApplicationController
         @list_header = ListHeader.find(params[:list_header_id])
         params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
         c1 = Array.new
-        c1 = @list_header.players
+        c1 = @list_header.people_on_list
         @person = Person.find_by_id(params[:id].to_i)
         unless c1.include?(@person)
-          @person = @list_header.players.first
+          @person = @list_header.people_on_list.first
         else
           @person
         end
         @p = Array.new
-        @p = @list_header.players
+        @p = @list_header.people_on_list
         session[:current_list_id] = @list_header.id
         session[:current_person_id] = @person.id
       end

@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe QuerySelectionsController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @query_selection = Factory(:query_selection)    
     @attributes = @query_selection
     @query_header = @query_selection.query_header

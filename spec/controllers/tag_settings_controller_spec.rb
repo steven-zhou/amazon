@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TagSettingsController do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @doc_tag_meta_type = Factory.build(:doc_tag_meta_type)
     MasterDocMetaMetaType.stub!(:new).and_return(@doc_meta_type)
     session[:user] = Factory(:login_account).id
