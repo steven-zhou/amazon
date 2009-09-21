@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe ListHeadersController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @list_detail = Factory(:list_detail)
     @list_header = @list_detail.list_header
     @list_details = @list_header.list_details
@@ -12,7 +13,6 @@ describe ListHeadersController do
   end
   
   def post_create(options={})
-    options[:type] ||= "StaticList"
     options[:list_header] ||= @attributes
     options[:query_header_id] ||= @query_header.id
     options[:person_id] = {"2" => "3", "4" => "5"}
@@ -40,46 +40,33 @@ describe ListHeadersController do
     xhr :get, "copy", options
   end
 
+  def put_update(options={})
+    options[:id] ||= @list_header.id
+    options[:list_header] ||= @attributes
+    xhr :put, "update", options
+  end
+
   describe "Post Create" do
+    before(:each) do
+      ListHeader.stub!(:new).and_return(@list_header)
+    end
 
     it "should find the correct query header this list belongs to" do
-        QueryHeader.stub!(:find).and_return(@query_header)
-        QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
-        post_create
-      end
-
-    context "when type is Static List" do
-      before(:each) do
-        @static_list = @list_header
-        StaticList.stub!(:new).and_return(@static_list)
-      end      
-
-      it "should create new Static List for save when type is StaticList" do
-        StaticList.should_receive(:new).with(hash_including(@attributes)).and_return(@static_list)
-        post_create
-      end
-
-      it "should save the new Static List" do
-        @static_list.should_receive(:save)
-        post_create
-      end
-
+      QueryHeader.stub!(:find).and_return(@query_header)
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      post_create
     end
 
-    context "when type is Dynamic List" do
-      before(:each) do
-        @dynamic_list = @list_header
-        DynamicList.stub!(:new).and_return(@dynamic_list)
-      end
-      it "should create new Dynamic List for save when type is DynamicList" do
-        DynamicList.should_receive(:new).with(hash_including(@attributes)).and_return(@dynamic_list)
-        post_create :type => "DynamicList"
-      end
-      it "should save the new Dynamic List" do
-        @dynamic_list.should_receive(:save)
-        post_create :type => "DynamicList"
-      end
+    it "should create new Dynamic List for save when type is DynamicList" do
+      ListHeader.should_receive(:new).with(hash_including(@attributes)).and_return(@list_header)
+      post_create
     end
+
+    it "should save the new Dynamic List" do
+      @list_header.should_receive(:save)
+      post_create
+    end
+    
   end
 
   describe "Post Create Copy" do
@@ -89,7 +76,7 @@ describe ListHeadersController do
       ListHeader.stub!(:new).and_return(@list_header)
     end
     it "should find the old list for copy" do
-        ListHeader.should_receive(:find).with(@list_header_old.id).and_return(@list_header_old)
+      ListHeader.should_receive(:find).with(@list_header_old.id).and_return(@list_header_old)
       post_create_copy
     end
 
@@ -132,6 +119,19 @@ describe ListHeadersController do
     it "should find the current list for copy" do
       ListHeader.should_receive(:find).with(@list_header.id).and_return(@list_header)
       get_copy
+    end
+  end
+
+  describe "Put Update" do
+    it "should find the current list for update" do
+      ListHeader.should_receive(:find).with(@list_header.id).and_return(@list_header)
+      put_update
+    end
+
+    it "should update the attributes for the current list" do
+      ListHeader.stub!(:find).and_return(@list_header)
+      @list_header.should_receive(:update_attributes)
+      put_update
     end
   end
 end

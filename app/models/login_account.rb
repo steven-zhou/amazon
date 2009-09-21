@@ -21,7 +21,7 @@ class LoginAccount < ActiveRecord::Base
   validates_presence_of :user_name
   validates_uniqueness_of :user_name
   validates_length_of :user_name, :within => 6..30, :too_long => "pick a shorter name", :too_short => "pick a longer name"
-  validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of username is wrong."
+  validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of username is wrong."
 
   validates_presence_of :password_hash
   validates_presence_of :password, :message => "password can't be blank", :on => :create
@@ -29,7 +29,7 @@ class LoginAccount < ActiveRecord::Base
   validates_confirmation_of :password,  :message => "password confirmation is different with password", :on => :create
 
   #validates_presence_of :password_confirmation, :message => "password confirmation can not blank"
-  validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()]+$/i, :message => "regular expression of password is wrong.", :on => :create
+  validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of password is wrong.", :on => :create
 
   #attr_accessor :password, :password_confirmation
   attr_accessor :password, :password_confirmation
@@ -46,7 +46,17 @@ class LoginAccount < ActiveRecord::Base
     login_account
   end
 
-  
+
+  def self.validate_group(user_id)
+    #@group_types = LoginAccount.find_by_id(user_id).group_types
+    login_account = LoginAccount.find(:first, :conditions => ['id = ?', user_id])
+    @group_types = login_account.group_types
+    if @group_types.blank?
+      raise "you do not have group permission"
+    end
+    @group_types
+  end
+
  
   def password=(pass)
     @password=pass

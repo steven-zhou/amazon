@@ -4,13 +4,28 @@
       = render :partial => "menu", :locals => { :person => @person }
     %br.clear
   %div.info_container
-    .form_line
-      .field_20{:style => 'float:left;'}
-        = label_tag 'person_id', 'System ID', :style => 'clear:both'
-        - form_tag(:controller => "people", :action => "show", :id => "") do
-          = text_field_tag 'person_id', @person.id, {:readonly=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag'}
-
-      = render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
+    - form_tag('/people/show', :id => "person_list") do
+      .form_line
+        .field_20{:style => 'float:left;'}
+          = label_tag 'person_id', 'System ID', :style => 'clear:both'
+          = text_field_tag 'person_id', @person.id, {:disabled => (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag'}
+      %div.list_menu
+        -if @list_header.new_record? && @person.new_record?
+          %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+          - @list_headers.each do |r|
+            %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+        -else
+          = link_to((image_tag 'back.png'), person_path(@p.at(0)))
+          = link_to((image_tag 'back.png'), person_path(@p.at((@p.index(@person))-1)))
+          %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+            - @list_headers.each do |r|
+              %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+          -if @p.index(@person) != @p.index(@p.last)
+            = link_to((image_tag 'go.png'), person_path(@p[@p.index(@person)+1]))
+          -else
+            = link_to((image_tag 'go.png'), person_path(@p.first))
+          = link_to((image_tag 'go.png'), person_path(@p.fetch(-1)))
+      -#= render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
     %br.clear
       
   %div.info_container

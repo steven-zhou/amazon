@@ -1,4 +1,4 @@
-$('#show_list_details').html('<%= escape_javascript(render(:partial => "list_update/edit_list_details")) %>');
+$('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_details').dataTable({
         "bLengthChange":false,
         "iDisplayLength":20,
@@ -6,7 +6,7 @@ $('#list_details').dataTable({
         "sDom":'lfrtpi',
         "aoColumns":[{
             'bSortable': false,
-            'sWidth': "20%"
+            'sWidth': "10%"
         }]
     });
 

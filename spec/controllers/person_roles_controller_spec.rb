@@ -2,7 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe PersonRolesController do
   before(:each) do
-
+    @primary_list = Factory(:primary_list)
     @person_role = Factory(:person_role)
     @person_role_attributes = Factory.attributes_for(:person_role)
     @person = @person_role.role_player

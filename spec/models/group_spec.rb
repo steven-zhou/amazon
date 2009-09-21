@@ -6,6 +6,7 @@ describe  Group  do
   it { should belong_to(:group_type)}
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @group = Factory.build(:group)
   end
 

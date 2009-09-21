@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe FaxesController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @fax = Factory.build(:fax)
     @attributes = Factory.attributes_for(:fax)
     @person = @fax.contactable

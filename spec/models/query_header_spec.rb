@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe QueryHeader do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @query_header = Factory.build(:query_header)
   end
 

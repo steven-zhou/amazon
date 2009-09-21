@@ -1,6 +1,6 @@
-$("#show_lists").html("<%= escape_javascript(render(:partial => "list_update/saved_list", :collection => ListHeader.all)) %>");
+$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
 $('#<%= dom_id(@list_detail) %>').fadeOut("slow", function() {$(this).remove();});
-$('#show_list_details').html('<%= escape_javascript(render(:partial => "list_update/edit_list_details")) %>');
+$('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_details').dataTable({
         "bLengthChange":false,
         "iDisplayLength":20,

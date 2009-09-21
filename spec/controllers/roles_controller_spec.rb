@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RolesController do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @role = Factory(:role)
     @attributes = Factory.attributes_for(:role)
     #    Role.stub!(:find).and_return(@role)

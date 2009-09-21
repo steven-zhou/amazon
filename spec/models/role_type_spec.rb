@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe RoleType do
   before(:each)do
+    @primary_list = Factory(:primary_list)
     @role_type = Factory.build(:role_type)
   end
 

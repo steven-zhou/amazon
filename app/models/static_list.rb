@@ -1,3 +1,0 @@
-class StaticList < ListHeader
-
-end
