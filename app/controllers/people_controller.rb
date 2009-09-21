@@ -18,13 +18,9 @@ class PeopleController < ApplicationController
   end
   
   def show
-    #    params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-    #    @person = Person.find_by_id(params[:id].to_i)
-    #    @person = Person.new if @person.nil?
     @user_lists = session[:login_account_info].user_lists
     @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
     @person = @list_headers.first.players.first unless @list_headers.blank?
-      #puts"DEBUG--LIST--#{@person.to_yaml}"
     @person = Person.new if @person.nil? || @list_headers.blank?
     @primary_phone = @person.primary_phone
     @primary_email = @person.primary_email
@@ -39,25 +35,6 @@ class PeopleController < ApplicationController
     @other_addresses = @person.other_addresses
     @notes = @person.notes
     @person_role = @person.person_roles
-   
-    #puts"DEBUG--LIST--#{@user_lists.to_yaml}"
-
-
-   
-    #@list_details = ListDetail.find(:all, :include => [:list_header], :conditions => ["list_headers.id=?", @list_headers.id])
-   
-    #puts"DEBUG--header--#{@user_lists.to_yaml}"
-    #    for i in @user_lists
-    #      @list_header = ListHeader.find(i.id)
-    #    end
-    # @list_headers = Array.new
-    #@list_headers += @list_header
-    #puts"DEBUG--LIST--#{@list_headers.to_yaml}"
-    #@list_headers = @user_lists.list_header
-
-    #@user_list = session[:user_list]
-    #@list_headers = @user_list.list_header
-    #puts"DEBUG--LIST--#{@list_headers.to_yaml}"
     respond_to do |format|
       format.html
     end
