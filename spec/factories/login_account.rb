@@ -14,4 +14,7 @@ Factory.define :login_account, :class => LoginAccount do |f|
   f.login_status true
   f.system_user true
   f.association :person, :factory => :person
+  #f.association :group_type, :factory => :group_type
+  
+ 
 end

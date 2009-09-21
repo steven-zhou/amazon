@@ -248,11 +248,10 @@ describe PeopleController do
 
 
   describe "GET 'show'" do
-
-    it "should render show" do
-      get_show :id => 1
-      response.should render_template('show')
+    before(:each) do
+     
     end
+
   end
 
   describe "GET 'edit'" do

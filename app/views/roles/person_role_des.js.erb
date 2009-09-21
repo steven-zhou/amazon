@@ -17,8 +17,10 @@
     $("#role_masterdoc_display").html('<%=  escape_javascript("#{masterdoc}")%>');
     <% unless flash[:message].nil? %>
       $("#warning").html("<div class='message'>" + "<%= escape_javascript(flash[:message]) %>" +  "</div>");
+      $('#warning').addClass("info_warning");
     <%else%>
       $("#warning").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
+      $('#warning').addClass("info_warning");
     <%end%>
 
   <%else%>
@@ -27,8 +29,10 @@
     $("#person_role_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_description").html('<%=escape_javascript("#{@role.description}")%>')
     <% unless flash[:message].nil? %>
       $("#warning_1").html("<div class='message'>" + "<%= escape_javascript(flash[:message]) %>" +  "</div>");
+       $('#warning_1').addClass("info_warning");
     <%else%>
       $("#warning_1").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
+       $('#warning_1').addClass("info_warning");
     <%end%>
 
   <%end%>
@@ -47,9 +51,11 @@
     $("#role_masterdoc_display").html('');
 
     <% unless flash[:message].nil? %>
+      $(".info_warning").removeClass("info_warning");
       $("#warning").html('');
     <%else%>
       $("#warning").html('');
+       $(".info_warning").removeClass("info_warning");
     <%end%>
 
   <%else%>
@@ -57,10 +63,13 @@
     $("#role_condition_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_display").html('');
     $("#role_masterdoc_"+"<%=escape_javascript("#{@person_role.id}")%>"+"_display").html('');
     $("#warning").html('');
+     $(".info_warning").removeClass("info_warning");
     <% unless flash[:message].nil? %>
       $("#warning_1").html('');
+       $(".info_warning").removeClass("info_warning");
     <%else%>
       $("#warning_1").html('');
+       $(".info_warning").removeClass("info_warning");
     <%end%>
 
   <%end%>

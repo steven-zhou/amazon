@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
-  before_filter :instantiate_controller_and_action_names
+  before_filter :instantiate_controller_and_action_names, :check_authentication
 
   def instantiate_controller_and_action_names
     @current_action = action_name
