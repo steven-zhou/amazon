@@ -46,6 +46,12 @@ describe ListHeadersController do
     xhr :put, "update", options
   end
 
+  def put_delete_details(options={})
+    options[:id] ||=@list_header.id
+    options[:list_detail] ||= [@list_detail.id]
+    xhr :put, "delete_details", options
+  end
+
   describe "Post Create" do
     before(:each) do
       ListHeader.stub!(:new).and_return(@list_header)
@@ -132,6 +138,22 @@ describe ListHeadersController do
       ListHeader.stub!(:find).and_return(@list_header)
       @list_header.should_receive(:update_attributes)
       put_update
+    end
+  end
+
+  describe "Put delete_details" do
+    before(:each) do
+      ListDetail.stub!(:find).and_return(@list_detail)
+    end
+
+    it "should find the current list detail for delete" do
+      ListDetail.should_receive(:find).and_return(@list_detail)
+      put_delete_details
+    end
+
+    it "should delete the list detail" do
+      @list_detail.should_receive(:destroy)
+      put_delete_details
     end
   end
 end
