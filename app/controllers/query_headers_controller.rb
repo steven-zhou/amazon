@@ -30,8 +30,8 @@ class QueryHeadersController < ApplicationController
       @query_seleciton = QuerySelection.new
       @query_sorter = QuerySorter.new
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.nil? && @query_header.errors.on(:name).include?("can't be blank"))
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.nil? && @query_header.errors.on(:name).include?("has already been taken"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.on(:name).nil? && @query_header.errors.on(:name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.on(:name)..nil? && @query_header.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
