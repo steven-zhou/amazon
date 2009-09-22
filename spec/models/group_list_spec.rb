@@ -13,9 +13,9 @@ describe GroupList do
   it {should validate_presence_of(:tag_id)}
 
   it "should not save if the tag_id is blank" do
-    @user_group.tag_id = ""
-    @user_group.save.should == false
-    @user_group.errors.on(:tag_id).should_not be_nil
+    @group_list.tag_id = ""
+    @group_list.save.should == false
+    @group_list.errors.on(:tag_id).should_not be_nil
 
   end
 
