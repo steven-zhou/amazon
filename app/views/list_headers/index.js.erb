@@ -1,0 +1,7 @@
+<%- result = String.new %>
+<%- result = "<option></option>" %>
+<%- @list_headers.each do |i|%>
+<%- result += "<option value='#{i.id}'>#{i.name}</option>" %>
+<%- end %>
+$('#merging_options').html('<%= escape_javascript(result) %>');
+$('#excluding_options').html('<%= escape_javascript(result) %>');
