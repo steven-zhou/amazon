@@ -56,6 +56,7 @@ robert_tingle_login = LoginAccount.create(
   :person_id => robert_tingle.id,
   :user_name => "username",
   :password => "password",
+  :security_email => "powernet@powernet.com",
   :password_confirmation => "password",
   :question1_answer => "1",
   :question2_answer => "2",
@@ -177,7 +178,9 @@ mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, 
 mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 
 
+puts "Assign Group to person_id 1."
 
+pg = UserGroup.create(:user_id => LoginAccount.first.id, :group_id => admin.id)
 
 
 puts "Creating passport for Robert Tingle"
