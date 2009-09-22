@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe UserGroup do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @user_group = Factory.build(:user_group)
   end
 

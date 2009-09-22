@@ -11,7 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20090922014459) do
 
-
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
     t.string   "suite_unit"

@@ -8,16 +8,17 @@ describe QueryHeadersController do
     @attributes = @query_header
     QueryHeader.stub!(:new).and_return(@query_header)
     QueryHeader.stub!(:find).and_return(@query_header)
+    session[:user] = Factory(:login_account).id
   end
   
   def get_new
     xhr :get, "new"
   end
 
-  def post_update(options={})
+  def put_update(options={})
     options[:id] ||= @query_header.id
     options[:query_header] ||= @attributes
-    xhr :post, "update", options
+    xhr :put, "update", options
   end
 
   def get_show_sql_statement(options={})
@@ -86,8 +87,8 @@ describe QueryHeadersController do
 
   describe "Post Update" do
     it "should find the correct query_header to update" do
-      QueryHeader.should_receive(:find).and_return(@query_header)
-      post_update
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      put_update
     end
   end
 

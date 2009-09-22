@@ -69,8 +69,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
 
   map.resources :list_headers, :member => {:copy => :get, :delete_details => :put}
-  map.resources :static_lists
-  map.resources :dynamic_lists
   map.resources :list_details
   
   # The priority is based upon order of creation: first created -> highest priority.

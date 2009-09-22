@@ -4,12 +4,14 @@ describe ListHeadersController do
 
   before(:each) do
     @primary_list = Factory(:primary_list)
+    session[:user] = Factory(:login_account).id
     @list_detail = Factory(:list_detail)
     @list_header = @list_detail.list_header
     @list_details = @list_header.list_details
     @query_header = @list_header.query_header
     @attributes = Factory.attributes_for(:list_header)
     ListHeader.stub!(:find).and_return(@list_header)
+    
   end
   
   def post_create(options={})
