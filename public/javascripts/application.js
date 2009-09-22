@@ -888,7 +888,7 @@ $(function() {
 $(function(){
     $("#add_user").live('click', function(){
         $(".user_clear_form").click();
-          $("#show_user").hide();
+          $(".show_user_container").hide();
            $("#close_new_account").show();
 
        
@@ -950,7 +950,9 @@ $(function(){
     $(".show_users").live('click', function(){
 
           $(".highlight").removeClass("highlight");
+
         $(this).addClass("highlight");
+             $(".add_user").hide();
         $.ajax({
             type: "GET",
             url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
@@ -966,7 +968,7 @@ $(function(){
         });
     });
 
-     
+ 
 });
 
 
@@ -1005,7 +1007,7 @@ $(function(){
        
         $(".user_clear_form").click();
          $("#new_user").toggle('blind');
-          $("#show_user").show();
+          $(".show_user_container").show();
            $("#close_new_account").hide();
     });
 });
@@ -1013,9 +1015,8 @@ $(function(){
 $(function(){
     $("#close_edit_account").live('click', function(){
 
-        
-        $(".highlight").removeClass("highlight");
-       
+        $(".add_user").show();
+        $(".highlight").removeClass("highlight");       
         $("#edit_user").html('');
       
     });

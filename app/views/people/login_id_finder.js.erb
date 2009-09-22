@@ -5,9 +5,12 @@
 <% if @login_account.new_record? %>
   <% if @person.new_record? %>
     $('#login_name_container_0').html("Invalid ID")
+    $('.user_email_new').val('')
+
   <%else%>
     <% if y.blank? %>
       $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
+      $('.user_email_new').val("<%=escape_javascript("#{@primary_email}")%>")
     <%else%>
 
       $('#person_check').dialog( {
@@ -23,6 +26,7 @@
 
 
       $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
+      $('.user_email_new').val('')
     <%end%>
   <%end%>
 

@@ -145,13 +145,13 @@ class PeopleController < ApplicationController
         if @list_headers.blank?
 
           @list_header = ListHeader.new
-           #puts"---debug---00--#{@list_header.to_yaml}"
+          #puts"---debug---00--#{@list_header.to_yaml}"
           @person = Person.new
           @p = Array.new
         else
           #puts"---debug---11--#{@list_headers.to_yaml}"
           @list_header = @list_headers.first
-         # puts"---debug--22---#{@list_header.to_yaml}"
+          # puts"---debug--22---#{@list_header.to_yaml}"
           session[:current_list_id] = @list_header.id
           @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
@@ -356,6 +356,9 @@ class PeopleController < ApplicationController
   def login_id_finder
     @person = Person.find(params[:person_id]) rescue @person = Person.new
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
+    @primary_email = @person.primary_email.value unless @person.primary_email.blank?
+ 
+    
     respond_to do |format|
       format.js()
     end
