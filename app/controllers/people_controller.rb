@@ -19,17 +19,16 @@ class PeopleController < ApplicationController
   
   def show
 
-    #    @user_lists = session[:login_account_info].user_lists
-    #    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
+    @user_lists = session[:login_account_info].user_lists
+    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
+    @person = @list_headers.first.players.first unless @list_headers.blank?
+    @person = Person.new if @person.nil? || @list_headers.blank?
+
     @group_types = LoginAccount.find(session[:user]).group_types
 
-    #@user_lists = session[:login_account_info].user_lists
-    #@list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
-    #@list_headers = ListHeader.find(:all, :include => [:group_lists, :group_types, :user_group], :conditions => ["user_groups.user_id=?", session[:user]])
     @list_headers = Array.new
     c = Array.new
     @group_types.each do |group_type|
-      #a = ListHeader.find(:all, :include => [:group_lists], :conditions => ["group_lists.tag_id=?", group_type.id])
       a = group_type.list_headers
       c += a
       @list_headers = c.uniq
@@ -91,7 +90,6 @@ class PeopleController < ApplicationController
     @other_addresses = @person.other_addresses
     @notes = @person.notes
     @person_role = @person.person_roles
-
     respond_to do |format|
       format.html
     end
