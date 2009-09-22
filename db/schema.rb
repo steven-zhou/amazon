@@ -11,6 +11,7 @@
 
 ActiveRecord::Schema.define(:version => 20090922014459) do
 
+
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
     t.string   "suite_unit"
@@ -123,6 +124,13 @@ ActiveRecord::Schema.define(:version => 20090922014459) do
     t.integer  "payment_day_id"
     t.integer  "suspension_type_id"
     t.integer  "termination_method_id"
+  end
+
+  create_table "group_lists", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "list_header_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "groups", :force => true do |t|

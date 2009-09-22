@@ -1201,6 +1201,22 @@ $(function(){
    });
 });
 
+
+
+
+/*List Header of Person*/
+
+$(function(){
+    $("#list_header_name").change(function(){
+       $("#person_list").submit();
+    });
+});
+
+$(function(){
+    $("#list_header_name2").change(function(){
+       $("#person_list_edit").submit();
+    });
+});
 /*Admin List Management - List Update*/
 $(function(){
      $('a.get_list').live('click', function() {
@@ -1211,6 +1227,5 @@ $(function(){
         $.get(link.attr('href'), null ,null, 'script');
         return false;
     }).attr("rel", "nofollow");
-
     jQuery('a.get_list').removeAttr('onclick');
 });

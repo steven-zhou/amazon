@@ -9,7 +9,8 @@
      $("#person_role_type_description").html('');
      $("#person_role_description").html('');
 
-
+   $(".info_warning").removeClass("info_warning");
+      $("#warning").html('');
   $("#new_person_role").toggle('blind');
   $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
 <% end -%>
