@@ -1,5 +1,4 @@
 class ListDetailsController < ApplicationController
-
  
   def destroy    
     @list_detail = ListDetail.find(params[:id].to_i)

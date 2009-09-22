@@ -1,3 +1,10 @@
+.info_container#new_query
+  = link_to_function (image_tag('add_icon.png', :style => "float:left;margin-right:10px;"), :id => "show_list_compiler")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_list_compiler", :style => "display:none;")
+  %h3 List Compiler
+
+  #list_compiler_form{:style => "display:none"}
+
 .info_container#existing_list
   %h3 Existing Lists
   #show_lists

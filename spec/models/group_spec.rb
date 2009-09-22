@@ -1,6 +1,8 @@
+
 #require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 #
 #describe  Group  do
+
 #
 #  it { should belong_to(:group_owner)}
 #  it { should belong_to(:group_type)}
@@ -28,8 +30,14 @@
 #     @group.name = ""
 #     @group.save.should == false
 #  end
+
 #
 #
 #
 #
 #end
+
+
+
+
+

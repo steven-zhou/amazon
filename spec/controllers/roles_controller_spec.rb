@@ -5,6 +5,7 @@ describe RolesController do
     @primary_list = Factory(:primary_list)
     @role = Factory(:role)
     @attributes = Factory.attributes_for(:role)
+    session[:user] = Factory(:login_account).id
     #    Role.stub!(:find).and_return(@role)
     #    @person = Factory.build(:person)
     #    Person.stub!(:find).and_return(@person)

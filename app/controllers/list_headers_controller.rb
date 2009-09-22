@@ -125,4 +125,14 @@ class ListHeadersController < ApplicationController
       format.js
     end
   end
+
+  def delete_details
+    params[:list_detail].each do |i|
+      @list_detail = ListDetail.find(i.to_i)
+      @list_detail.destroy
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end

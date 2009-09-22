@@ -6,6 +6,7 @@ describe ListDetailsController do
     @list_detail = Factory(:list_detail)
     @list_header = @list_detail.list_header
     @person = Factory(:jane)
+    session[:user] = Factory(:login_account).id
   end
 
   def delete_destroy(options={})
