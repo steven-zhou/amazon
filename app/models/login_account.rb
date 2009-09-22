@@ -31,6 +31,12 @@ class LoginAccount < ActiveRecord::Base
   #validates_presence_of :password_confirmation, :message => "password confirmation can not blank"
   validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of password is wrong.", :on => :create
 
+  validates_presence_of :security_email
+  validates_format_of :security_email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
+  validates_uniqueness_of :security_email
+
+
+
   #attr_accessor :password, :password_confirmation
   attr_accessor :password, :password_confirmation
 

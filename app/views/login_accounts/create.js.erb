@@ -22,7 +22,7 @@
   $('#login_name_container_0').html('');
   $('#user_name_container_0').html('');
 $("#new_user").toggle('blind');
-   $("#show_user").show();
+   $(".show_user_container").show();
   $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
        $("#close_new_account").hide();
 
