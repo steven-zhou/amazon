@@ -132,6 +132,11 @@ ActiveRecord::Schema.define(:version => 20090922014459) do
     t.datetime "updated_at"
   end
 
+  create_table "group_permissions", :force => true do |t|
+    t.integer "system_permission_type_id"
+    t.integer "user_group_id"
+  end
+
   create_table "groups", :force => true do |t|
     t.integer  "tags_id"
     t.string   "name"

@@ -134,9 +134,6 @@ class PeopleController < ApplicationController
 
   
   def edit
-    #    puts"debug---#{session[:current_list_id].to_yaml}"
-    #    puts"debug---#{session[:current_person_id].to_yaml}"
-    #    puts"debug---#{session[:login_account_info].to_yaml}"
     @group_types = LoginAccount.find(session[:user]).group_types
 
     #@user_lists = session[:login_account_info].user_lists
@@ -150,8 +147,6 @@ class PeopleController < ApplicationController
       c += a
       @list_headers = c.uniq
     end
-
-
     if request.get?
       if @list_headers.blank?
         @list_header = ListHeader.new
@@ -343,30 +338,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  def add_keywords
-    @person = Person.find(params[:id])
-
-    unless params[:add_keywords].nil?
-      params[:add_keywords].each do |keyword_id|
-        keyword = Keyword.find(keyword_id);
-        @person.keywords<<keyword
-      end
-    end
-    render "add_keywords.js"
-  end
-
-  def remove_keywords
-    @person = Person.find(params[:id])
-
-    unless params[:remove_keywords].nil?
-      params[:remove_keywords].each do |keyword_id|
-        keyword = Keyword.find(keyword_id)
-        @person.keywords.delete(keyword)
-      end
-    end
-    render "remove_keywords.js"
-  end
-
   def name_finder
     @person = Person.find(params[:person_id].to_i) rescue @person = Person.new
     @employment = Employment.find(params[:employment_id].to_i) rescue @employment = Employment.new
@@ -384,8 +355,6 @@ class PeopleController < ApplicationController
     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
     @person.preferred_name = params[:update].nil?? nil : params[:update]
-
-
     respond_to do |format|
       format.js {  }
     end
@@ -421,12 +390,35 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:person_id]) rescue @person = Person.new
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
     @primary_email = @person.primary_email.value unless @person.primary_email.blank?
- 
-    
     respond_to do |format|
       format.js()
     end
 
   end
+
+#  def add_keywords
+#    @person = Person.find(params[:id])
+#
+#    unless params[:add_keywords].nil?
+#      params[:add_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id);
+#        @person.keywords<<keyword
+#      end
+#    end
+#    render "add_keywords.js"
+#  end
+#
+#  def remove_keywords
+#    @person = Person.find(params[:id])
+#
+#    unless params[:remove_keywords].nil?
+#      params[:remove_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id)
+#        @person.keywords.delete(keyword)
+#      end
+#    end
+#    render "remove_keywords.js"
+#  end
+
 
 end
