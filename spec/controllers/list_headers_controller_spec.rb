@@ -54,6 +54,19 @@ describe ListHeadersController do
     xhr :put, "delete_details", options
   end
 
+  def post_add_merge(options={})
+    options[:id] ||= @list_header.id
+    options[:merge_list_array] ||= []
+    xhr :post, "add_merge", options
+  end
+
+  def post_add_exclude(options={})
+    options[:id] ||= @list_header.id
+    options[:exclude_list_array] ||= []
+    xhr :post, "add_exclude", options
+  end
+
+
   describe "Post Create" do
     before(:each) do
       ListHeader.stub!(:new).and_return(@list_header)
@@ -146,6 +159,12 @@ describe ListHeadersController do
   describe "Put delete_details" do
     before(:each) do
       ListDetail.stub!(:find).and_return(@list_detail)
+      ListHeader.stub!(:find).and_return(@list_header)
+    end
+
+    it "should find the current list header" do
+      ListHeader.should_receive(:find).and_return(@list_header)
+      put_delete_details
     end
 
     it "should find the current list detail for delete" do
@@ -157,5 +176,24 @@ describe ListHeadersController do
       @list_detail.should_receive(:destroy)
       put_delete_details
     end
+  end
+
+  describe "Get Index" do
+    it "should find all list for display" do
+      ListHeader.stub!(:all).and_return([@list_header])
+      ListHeader.should_receive(:all).and_return([@list_header])
+      xhr :get, "index"
+    end
+  end
+
+  describe "Post Add Merge" do
+    before(:each) do
+      ListHeader.stub!(:find).and_return(@list_header)
+    end
+    it "should find the correct list for adding to merging list" do
+      ListHeader.should_receive(:find).with(@list_header.id).and_return(@list_header)
+      post_add_merge
+    end
+
   end
 end

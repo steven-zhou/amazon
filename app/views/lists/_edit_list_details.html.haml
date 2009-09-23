@@ -37,7 +37,7 @@
         =submit_tag "Add Person", :style => "width:100px;float:right"
       %br.clear
 
--form_for @list_header, :action => "delete_details", :html => {:class => "ajax_form"} do |f|
+-form_for @list_header, :url => {:action => "delete_details"}, :html => {:class => "ajax_form"} do |f|
   %table#list_details.display
     %thead
       %tr

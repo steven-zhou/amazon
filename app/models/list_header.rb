@@ -21,10 +21,10 @@ class ListHeader < ActiveRecord::Base
   end
 
   def self.sortall
-    ListHeader.find(:all, :conditions => ["type is null"], :order => "id")
+    ListHeader.find(:all, :conditions => ["type is null"], :order => "name")
   end
 
   def self.all
-    ListHeader.find(:all, :order => "id")
+    ListHeader.find(:all, :order => "name")
   end
 end

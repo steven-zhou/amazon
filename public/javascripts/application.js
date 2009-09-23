@@ -1218,7 +1218,9 @@ $(function(){
        $("#person_list_edit").submit();
     });
 });
-/*Admin List Management - List Update*/
+
+
+/*Admin List Management - List Manager*/
 $(function(){
      $('a.get_list').live('click', function() {
         container = $(this).parent().parent().parent();
@@ -1229,4 +1231,49 @@ $(function(){
         return false;
     }).attr("rel", "nofollow");
     jQuery('a.get_list').removeAttr('onclick');
+});
+
+$(function(){
+    $('#show_list_compiler').live('click', function(){
+        $(this).css("display","none");
+        $("#close_list_compiler").css("display", "");
+        $("#list_compiler_form").css("display","");
+        $("#existing_list").css("display","none");
+        $.ajax({
+            type: "GET",
+            url: "/list_headers",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+   $('#close_list_compiler').live('click', function(){
+      $(this).css("display","none");
+      $("#show_list_compiler").css("display", "");
+      $("#existing_list").css("display","");
+      $("#list_compiler_form").css("display","none");
+   });
+});
+
+$(function(){
+   $("#add_merge").live('click', function(){
+       $.ajax({
+            type: "POST",
+            url: "/list_headers/add_merge.js",
+            data:'id=' + $("#merging_options").val() + '&merge_list_array=' + $("#merge_list_array").val(),
+            dataType: "script"
+        });
+   });
+});
+
+$(function(){
+   $("#add_exclude").live('click', function(){
+       $.ajax({
+            type: "POST",
+            url: "/list_headers/add_exclude.js",
+            data:'id=' + $("#excluding_options").val() + '&exclude_list_array=' + $("#exclude_list_array").val(),
+            dataType: "script"
+        });
+   });
 });
