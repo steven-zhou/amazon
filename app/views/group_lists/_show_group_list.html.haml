@@ -1,10 +1,10 @@
 %ul{:style => "list-style-type:none;padding-left:0px;"}
-  - @list_headers.each do |i|
-    %li{:style => "width:50%;float:left;cursor:pointer;cursor:hand;"}
+  - @group_lists.each do |i|
+    -div_for(i, :style => "width:50%;float:left;") do
       .info_container
         %div#group_list_in
-          %div
-            = i.id
-            \-
-            = i.name
+          = i.id
+          \-
+          = i.list_header.name
+          = link_to image_tag('delete_icon.png'), group_list_path(i), :class => 'delete'
 %br.clear

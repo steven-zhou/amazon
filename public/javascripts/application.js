@@ -1283,7 +1283,6 @@ $(function(){
 
 
 
-
 /*List Header of Person*/
 
 $(function(){
@@ -1372,8 +1371,11 @@ $(function(){
                 dataType: "script"
             })
             $(".show_list_container").css("display", "");
+            $("#new_group_list_container").css("display", "");
         } else{
            $(".show_list_container").css("display", "none");
+           $("#new_group_list_container").css("display", "none")
+           
         }
     });
 });

@@ -1,12 +1,14 @@
 .info_container
   .header_container
     .title
+      = label :group_list, :group_id, '&nbsp'
       %h3 Select a User Group:
   .field_22
-    = collection_select :group_list, :group_id, GroupType.all, :id, :name, {:prompt => true}, {:class => "show_list"}
+    = label :group_list, :group_id, 'User Groups'
+    = collection_select :group_list, :group_id, GroupType.all, :id, :name, {:prompt => true}, {:class => "show_list clear_select"}
   %br.clear
 
-  .info_container{:class => "show_list_container",:style => "display:none;"}
+  %div{:class => "show_list_container",:style => "display:none;"}
   
     
 
