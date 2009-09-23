@@ -33,6 +33,7 @@ class PhonesController < ApplicationController
   end
 
   def destroy
+   
     @phone = Phone.find(params[:id].to_i)
     @phone.destroy
     respond_to do |format|
