@@ -8,8 +8,6 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
-    :add_keywords => :post,
-    :remove_keywords => :post,
     :name_card => :get,
   } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
@@ -28,6 +26,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :people do |person|
     person.resources :roles, :collection => {:get_roles => :get, :person_role_des => :get}
   end
+
+  map.resources :keyword_links, :collection => {:remove => :post, :create => :post}
 
   map.resources :organisations, :shallow=>true,
     :collection => {:find => :get, :search => :post, :name_finder => :get},
@@ -70,6 +70,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :list_headers, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
+
   
   # The priority is based upon order of creation: first created -> highest priority.
 
