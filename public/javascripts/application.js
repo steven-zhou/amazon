@@ -109,6 +109,8 @@ $(document).ready(function() {
     });
 });
 
+
+
 /*Date picker */
 $('.birthdatepick').live("mouseover", function(){
     $(this).datepicker({
@@ -335,9 +337,86 @@ $(function(){
     });
 });
 
+/* Person_Group */
+
+$(function()
+{
+    $(".show_group_type").live('change', function(){
+       /*   if($(this).val()!= ""){  */
+            $.ajax({
+                type: "GET",
+                url: "/tag_meta_types/show_group_types.js",
+                data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+                dataType: "script"
+            });
+
+       /* }
+        else{
+            if($(this).attr('person_group_id').val()!="")
+                {
+                    $(".find_group_meta_type[person_group_id='"+ $(this).attr("person_group_id") +"']").html(" ")
+             $("#person_group_id[person_group_id='"+ $(this).attr("person_group_id") +"']").html(" ")
+                    
+                }
+                else {
+            $(".find_group_meta_type").html(" ")
+            $("#person_group_id").html(" ")}
+        } */
+    });
 
 
+})
 
+
+/* show other group member */
+$(function(){
+    $("#show_other_group_members").live('click',function(){
+            $.ajax({
+                type: "GET",
+                url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
+                data: 'person_group_id='+$(this).attr('person_group_id'),
+                dataType: "script"
+
+            });
+    });
+});
+
+
+/* Show_group */
+$(function(){
+    $(".find_group_meta_type").live('change',function(){
+    /*   if($(this).val()!=""){  */
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/show_types.js",
+                data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+                dataType: "script"
+
+            });
+
+        /* }  */
+
+    });
+}
+)
+/* Show Group Description */
+
+$(function(){
+    $(".person_group_id").live('change',function(){
+    /*   if($(this).val()!=""){  */
+            $.ajax({
+                type: "GET",
+                url: "/tags/show_group_description.js",
+                data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+                dataType: "script"
+
+            });
+
+        /* }  */
+
+    });
+}
+)
 
 /* FLASH */
 $.fn.wait = function(time, type) {
@@ -695,7 +774,7 @@ $(function(){
 $(function(){
     $(".delete_tag_meta_type").live('click', function(){
         $.ajax({
-           type: "DELETE",
+            type: "DELETE",
             url: "/tag_meta_types/" + $(this).attr("tag_meta_type_id"),
             data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_meta_type_id"),
             dataType: "script"
@@ -730,7 +809,7 @@ $(function(){
 $(function(){
     $(".delete_tag_type").live('click', function(){
         $.ajax({
-           type: "DELETE",
+            type: "DELETE",
             url: "/tag_types/" + $(this).attr("tag_type_id"),
             data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_type_id"),
             dataType: "script"
@@ -964,10 +1043,10 @@ $(function(){
 $(function(){
     $("#show_groups").live('click', function(){
         $.ajax({
-           type: "GET",
-                url: "/user_groups/show_groups.js",
-                data: 'login_account_id='+$(this).attr('login_account_id'),
-                dataType: "script"
+            type: "GET",
+            url: "/user_groups/show_groups.js",
+            data: 'login_account_id='+$(this).attr('login_account_id'),
+            dataType: "script"
         });
     });
 });
@@ -1065,12 +1144,12 @@ $(function(){
 
 $(function(){
     $("#run_button").live('click', function(){
-            $.ajax({
-                type: "GET",
-                url: "/query_headers/run.js",
-                data:'id=' + $("#query_header_id").val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/query_headers/run.js",
+            data:'id=' + $("#query_header_id").val(),
+            dataType: "script"
+        });
     });
 });
 

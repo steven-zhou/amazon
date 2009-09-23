@@ -1,0 +1,13 @@
+-# Displays for Group Details
+-div_for(person_group, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= format_group(person_group)
+    .options
+      = link_to image_tag('edit_icon.png')  , edit_person_group_path(person_group), :class => 'get'
+      = link_to image_tag('delete_icon.png'), person_group_path(person_group), :class => 'delete'
+  %br.clear
+    .display_container
+      =link_to_function 'view other group members', :id => "show_other_group_members", :class => "alt_option", :person_group_id => person_group.id, :person_id => person_group.group_owner.id
+  
+

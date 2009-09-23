@@ -58,6 +58,10 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
     })
 
+    $(".clear_group_form").click(function(){
+        $('#show_group_type').val("").change();
+    })
+
     $(".clear_employment_form").click(function () {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#organisation_name_container_0').html('');

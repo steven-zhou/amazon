@@ -1,0 +1,27 @@
+$('#show_group_members').html('<%= escape_javascript(render(:partial => "person_groups/show_other_group_member", :locals =>{:group_members => @group_members })) %>');
+$('#search_group_members_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"15%"
+        }]
+    });
+
+$('#show_group_members').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 600,
+  width: 800,
+  buttons: {
+    Ok: function() {
+      $(this).dialog('close');
+    }
+  }
+});
+
+$('#show_group_members').dialog('open');

@@ -1,0 +1,15 @@
+
+<%- description = String.new %>
+<%- description = "#{@group_type.description}" %>
+
+<% if @person_group.new_record? %>
+
+$("#group_description").html("<%= escape_javascript("#{description}") %>");
+$("#group_description").change('');
+
+<% else %>
+
+ $("#group_description_<%=escape_javascript("#{@person_group.id}")%>").html("<%= escape_javascript("#{description}") %>");
+ $("#group_description_<%=escape_javascript("#{@person_group.id}")%>").change('');
+ <% end %>
+

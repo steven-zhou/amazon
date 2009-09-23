@@ -1,0 +1,41 @@
+<% if @group_meta_types.size > 0 %>
+<%- options = String.new  %>
+<%- @group_meta_types.each do |i| %>
+<%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
+<%- end %>
+<%- description = String.new %>
+<%- description = "#{@group_meta_meta_type.description}"%>
+
+
+<% if @person_group.new_record? %>
+$("#group_meta_type_id").html("<%= escape_javascript("#{options}") %>");
+$("#group_meta_type_description").html("<%= escape_javascript("#{description}") %>");
+$("#group_meta_type_description").change('');
+$("#group_meta_type_id").change('');
+
+<% else %>
+ $("#group_meta_type_id_<%=escape_javascript("#{@person_group.id}")%>").html('<%=escape_javascript("#{options}")%>');
+ $("#group_meta_type_id_<%=escape_javascript("#{@person_group.id}")%>").change();
+ $("#group_meta_type_description_<%=escape_javascript("#{@person_group.id}")%>").html('<%=escape_javascript("#{description}")%>');
+ $("#group_meta_type_description_<%=escape_javascript("#{@person_group.id}")%>").change('');
+<% end %>
+
+<% else %>
+ <% if @person_group.new_record? %>
+  $("#group_meta_type_id").html('<option></option>');
+  $("#group_meta_type_id").change();
+
+  $("#group_meta_type_description").html('');
+ $("#group_meta_type_description").change('');
+
+ <% else %>
+   $("#group_meta_type_id_<%=escape_javascript("#{@person_group.id}")%>").html('<option></option>');
+   $("#group_meta_type_id_<%=escape_javascript("#{@person_group.id}")%>").change();
+
+     $("#group_meta_type_description_<%=escape_javascript("#{@person_group.id}")%>").html('');
+    $("#group_meta_type_description_<%=escape_javascript("#{@person_group.id}")%>").change('');
+  <% end %>
+  <% end %>
+
+
+

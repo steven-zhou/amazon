@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :master_docs
     person.resources :images, :member => {:thumb => :get}
     person.resources :notes
+    person.resources :person_groups, :collection => {:show_group_members => :get}
     person.resources :employments
     person.resources :person_roles
     person.resources :relationships, :collection => {:remove_relation => :delete}
@@ -56,9 +57,10 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
-  map.resources :tag_meta_types
-  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get}
-  map.resources :tags, :collection => {:show_tags => :get}
+  map.resources :tag_meta_types, :collection => {:show_group_types => :get}
+  map.resources :group, :collection => {:show_group_types => :get}
+  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get}
+  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get}
 
 #  map.resources :query_headers, :shallow=> true do |query_header|
 #    query_header.resources :query_details

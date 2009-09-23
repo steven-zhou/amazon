@@ -61,6 +61,7 @@ class PeopleController < ApplicationController
     @image = @person.image unless (@person.nil? || @person.image.nil?)
     @role = Role.new
     @person_role = PersonRole.new
+    @person_group = PersonGroup.new
 
 
     respond_to do |format|
