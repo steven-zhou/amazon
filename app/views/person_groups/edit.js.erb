@@ -1,0 +1,1 @@
+$('#<%= dom_id(@person_group) %>').replaceWith('<%= escape_javascript(render(:partial => "person_groups/edit_person_group", :locals =>{:person_group => @person_group })) %>');

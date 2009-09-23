@@ -1,6 +1,6 @@
 class TagMetaType < ActiveRecord::Base
 
-  OPTIONS = ['MasterDoc', 'Group', 'Fee', 'Table', 'Contact', 'SystemPermission']
+  OPTIONS = ['SystemPermission', 'MasterDoc', 'Group', 'Fee', 'Table', 'Contact']
 
   has_many :tag_types
   
@@ -15,5 +15,10 @@ class TagMetaType < ActiveRecord::Base
     @tag_meta_types.each { |setting| results += "<option value='" + "#{setting.type}" + "'>" + "#{setting.type}" + "</option>" }
     return results
   end
+
+    def self.active_group_meta_type
+    @group_meta_type = GroupMetaMetaType.find(:all, :conditions => ["status = true"], :order => 'name')
+  end
+
   
 end

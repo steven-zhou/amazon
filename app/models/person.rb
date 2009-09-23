@@ -42,8 +42,12 @@ class Person < ActiveRecord::Base
   has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ]
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
-  has_many :groups, :class_name =>'Group', :foreign_key => 'group_owner'
-  has_many :source_people,  :through => :people_as_related do 
+
+  has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id'
+  has_many :group_types, :through => :person_groups
+ #has_many :group_owner, :class_name => 'PersonGroup', :foreign_key => 'people_id'
+  has_many :source_people,  :through => :people_as_related do
+
     def of_type(type)
       find(:all, :conditions => ['relationship_type_id=?',RelationshipType.find_by_name(type)])
     end
@@ -104,6 +108,7 @@ class Person < ActiveRecord::Base
   }
   accepts_nested_attributes_for :phones, :emails, :faxes, :websites,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_type_id'].blank? }
 
+  accepts_nested_attributes_for :person_groups, :reject_if => proc { |attributes| attributes['person_group_id'].blank? }
   #--
   ################
   #  Callbacks

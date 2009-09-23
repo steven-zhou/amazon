@@ -1,0 +1,13 @@
+-# Displays for Group Details
+-form_for person_group, :html => {:class => "ajax_form"} do |group_form|
+  -#-div_for(person_group, :class => 'info_container') do
+  .info_container
+    .header_container
+      .title
+        %h3= format_group(person_group)
+      .options
+        = link_to image_tag('close_icon.png'), person_group_path(person_group), :class => 'get'
+      %br{ :style=>"clear: both;"}
+    = render :partial => '/person_groups/group_form'
+    = submit_tag 'Submit'
+    %br.clear

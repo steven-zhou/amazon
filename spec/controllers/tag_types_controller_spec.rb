@@ -31,6 +31,12 @@ describe TagTypesController do
     xhr :get, "edit", options
   end
 
+  def get_show_group(options={})
+    options[:group_meta_type_id] ||= @group_meta_type.id
+    xhr :get, "show_types", options
+  end
+
+
   def put_update(options={})
     options[:type] ||= "MasterDocMetaType"
     options[:id] ||= @doc_tag_type.id
@@ -135,4 +141,36 @@ describe TagTypesController do
       response.should render_template("tag_types/update.js.erb")
     end
   end
+
+
+
+   describe "GET show_types" do
+    before(:each) do
+
+      @group_meta_type = Factory(:group_tag_type)
+      @group_type = Factory(:group_type)
+      @group_meta_type.group_types << @group_type
+      @group_meta_type.save
+      @group_types=@group_meta_type.group_types
+      GroupMetaType.stub!(:find).and_return(@group_meta_type)
+       GroupType.stub!(:find).and_return(@group_types)
+    end
+
+   
+    it "should find the selected group type" do
+      GroupMetaType.should_receive(:find).with(@group_meta_type.id).and_return(@group_meta_type)
+      get_show_group
+    end
+
+
+   it "should find the group type" do
+      @group_meta_type.group_types.should_receive(:find).and_return(@group_types)
+      get_show_group
+
+    end
+
+
+  end
+  
+
 end

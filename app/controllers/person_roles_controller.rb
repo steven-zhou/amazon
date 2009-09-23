@@ -41,6 +41,7 @@ class PersonRolesController < ApplicationController
   def update
     @person_role = PersonRole.find(params[:id].to_i)
     @person_role.update_attributes(params[:person_role][@person_role.id.to_s])
+    
     render "show.js"
   end
 

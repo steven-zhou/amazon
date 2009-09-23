@@ -35,6 +35,16 @@ describe TagMetaTypesController do
     xhr :put, "update", options
   end
 
+  def get_show_group_type(options={})
+    options[:group_meta_meta_type_id] ||= @group_meta_meta_type.id
+    xhr :get, "show_group_types", options
+  end
+#
+#  def get_show_group(options={})
+#    options[:group_meta_type_id] ||= @group_meta_type.id
+#    xhr :get, "show_types", options
+#  end
+
   describe "get new" do
     it "should create a new MasterDocMetaMetaType" do
       MasterDocMetaMetaType.should_receive(:new).and_return(@doc_tag_meta_type)
@@ -106,6 +116,51 @@ describe TagMetaTypesController do
     end
   end
 
+  describe "GET show_group_types" do
+    before(:each) do
+      @group_meta_meta_type = Factory(:group_tag_meta_type)
+      @group_meta_type = Factory(:group_tag_type)
 
- 
+      @group_meta_meta_type.group_meta_types << @group_meta_type
+      @group_meta_meta_type.save
+      @group_meta_types = @group_meta_meta_type.group_meta_types
+    
+      GroupMetaMetaType.stub!(:find).and_return(@group_meta_meta_type)
+
+      GroupMetaType.stub!(:find).and_return(@group_meta_types)
+       GroupType.stub!(:find).and_return(@group_types)
+    end
+
+    it "should find the selected group meta meta type" do
+      GroupMetaMetaType.should_receive(:find).with(@group_meta_meta_type.id).and_return(@group_meta_meta_type)
+     #  @group_meta_meta_type.should_receive(:find).and_return(@group_meta_types)
+      get_show_group_type
+    end
+
+
+  it "should find the group meta type" do
+
+     @group_meta_meta_type.group_meta_types.should_receive(:find).and_return(@group_meta_types)
+    # GroupMetaType.should_receive(:find)
+      get_show_group_type
+    end
+
+  
+#    it "should find the group type" do
+#      GroupMetaType.should_receive(:find).with(@group_meta_type.id).and_return(@group_meta_type)
+#      get_show_group
+#    end
+
+
+#    it "should find the group type" do
+#      @group_meta_types.group_types.should_receive(:find).and_return(@group_meta_types)
+#      get_show_group_type
+#
+#    end
+
+
+  end
+#       GroupMetaType.should_receive(:find).and_return(@group_meta_types)
+#      +@group_meta_meta_type = GroupMetaMetaType.find(params[:group_meta_meta_type_id])
+#      +@group_meta_types = @group_meta_meta_type.group_meta_types.find(:all, :order => "name")
 end
