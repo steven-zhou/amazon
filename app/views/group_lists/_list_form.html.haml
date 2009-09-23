@@ -1,0 +1,5 @@
+.field_33
+  = group_list.collection_select :list_header_id, ListHeader.all, :id, :name, {:prompt => "Select one type"}
+%br.clear
+.field_33
+  = group_list.text_field :tag_id, :value => @group_type.id
