@@ -1,0 +1,48 @@
+<% if @group_types.size >0 %>
+<%- options = String.new  %>
+
+<%- @group_types.each do |i| %>
+<%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
+<%- end %>
+
+<%- description = String.new %>
+<%- description = "#{@group_meta_type.description}" %>
+
+
+<% if @person_group.new_record? %>
+
+$("#person_group_id").html("<%= escape_javascript("#{options}") %>");
+$("#person_group_id").change('');
+
+$("#group_type_description").html("<%= escape_javascript("#{description}") %>");
+$("#group_type_description").change('');
+
+<% else %>
+$("#person_group_id_<%=escape_javascript("#{@person_group.id}")%>").html('<%=  escape_javascript("#{options}")%>')
+$("#person_group_id_<%=escape_javascript("#{@person_group.id}")%>").change()
+
+$("#group_type_description_<%=escape_javascript("#{@person_group.id}")%>").html("<%= escape_javascript("#{description}") %>");
+$("#group_type_description_<%=escape_javascript("#{@person_group.id}")%>").change('');
+ <% end %>
+
+ <% else %>
+ <% if @person_group.new_record? %>
+  $("#person_group_id").html('<option></option>');
+  $("#person_group_id").change('');
+
+   $("#group_type_description").html("");
+$("#group_type_description").change('');
+
+ <% else %>
+   $("#person_group_id_<%=escape_javascript("#{@person_group.id}")%>").html('<option></option>')
+   $("#person_group_id_<%=escape_javascript("#{@person_group.id}")%>").change('');
+
+    $("#group_type_description_<%=escape_javascript("#{@person_group.id}")%>").html("");
+$("#group_type_description_<%=escape_javascript("#{@person_group.id}")%>").change('');
+  <% end %>
+
+ <% end %>
+
+
+
+

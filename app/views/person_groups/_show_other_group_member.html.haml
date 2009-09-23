@@ -1,0 +1,12 @@
+%table#search_group_members_results.display
+  %thead
+    %tr
+      %th System ID
+      %th Name
+  
+  %tbody
+    - group_members.each do |person|
+      %tr{:person_id => person.id}
+        %td= person.group_owner.id
+        %td= person.group_owner.name
+        

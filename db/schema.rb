@@ -140,6 +140,11 @@ ActiveRecord::Schema.define(:version => 20090923042953) do
     t.datetime "updated_at"
   end
 
+  create_table "group_permissions", :force => true do |t|
+    t.integer "system_permission_type_id"
+    t.integer "user_group_id"
+  end
+
   create_table "groups", :force => true do |t|
     t.integer  "tags_id"
     t.string   "name"
@@ -359,6 +364,13 @@ ActiveRecord::Schema.define(:version => 20090923042953) do
     t.datetime "updated_at"
     t.integer  "marital_status_id"
     t.integer  "gender_id"
+  end
+
+  create_table "person_groups", :force => true do |t|
+    t.integer  "people_id"
+    t.integer  "tag_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "person_roles", :force => true do |t|

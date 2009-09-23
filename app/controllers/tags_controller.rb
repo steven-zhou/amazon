@@ -54,6 +54,17 @@ class TagsController < ApplicationController
     end
   end
 
+ def show_group_description
+    @group_type = GroupType.find(params[:group_id].to_i) rescue @group_type = GroupType.new
+    @person_group = PersonGroup.find(params[:person_group_id]) rescue @person_group = PersonGroup.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  
+
+
   def destroy
     @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.find(params[:id])
     @tag_type = @tag.tag_type

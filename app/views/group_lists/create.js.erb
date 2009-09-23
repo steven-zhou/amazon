@@ -1,0 +1,26 @@
+<% unless flash[:error].nil? %>
+ $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
+ $("#flash_message").dialog( {
+ modal:true,
+ position: 'top',
+ buttons: {
+
+ OK: function(){
+
+ $(this).dialog('close');
+ }
+ }
+ });
+
+  $('#flash_message').dialog('open');
+<% else %>
+
+
+
+
+
+
+$('.show_list_container').html('<%=escape_javascript(render(:partial => '/group_lists/show_group_list', :object => @list_headers)) %>');
+$('#new_group_list').toggle('blind');
+
+<%end%>

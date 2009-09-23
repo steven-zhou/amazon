@@ -1,0 +1,58 @@
+.form_line
+  .field_25
+    = label_tag :group_meta_type_id, "Group Meta Type"
+  %br.clear
+.form_line
+  -if @person_group.new_record?
+    .field_25
+      = collection_select :group,:group_meta_type_id, TagMetaType.active_custom_type, :id, :name, {:prompt => " "}, {:class => "show_group_type",:id=> "show_group_type"}
+    .field_25
+      = label_tag :group_meta_type_description, " ", {:id => "group_meta_type_description"}
+  -else
+    .field_25
+      = collection_select(:group, :group_meta_type_id, TagMetaType.active_custom_type, :id, :name, { :include_blank => true, :prompt => "#{@person_group_meta_meta_type.name}",:selected => "#{@person_group_meta_meta_type.name}" }, {:class => "show_group_type", :person_group_id => @person_group.id})
+    .field_25
+      = label_tag :group_meta_type_description, "#{@person_group_meta_meta_type.description}",  {:id => "group_meta_type_description_#{@person_group.id}", :person_group_id =>@person_group.id }
+  %br.clear
+.form_line
+  .field_25
+    = label_tag :group_meta_type_id, "Group Type"
+  %br.clear
+.form_line
+  -if @person_group.new_record?
+    .field_25
+      %select.find_group_meta_type{:id => "group_meta_type_id"}
+        %option
+    .field_25
+      = label_tag :group_type_description, " ", {:id => "group_type_description"}
+  -else
+    .field_25
+      %select.find_group_meta_type{:id => "group_meta_type_id_#{@person_group.id}", :person_group_id => @person_group.id}
+        %option{:value => @person_group_meta_type.id}
+          = @person_group_meta_type.name
+    .field_25
+      = label_tag :group_type_description, "#{@person_group_meta_type.description}", {:id => "group_type_description_#{@person_group.id}", :person_group_id => @person_group.id}
+  %br.clear
+.form_line
+  .field_25
+    = label_tag :group_meta_type_id, "Group"
+  %br.clear
+.form_line
+  -if @person_group.new_record?
+    .field_25
+      %select.person_group_id{:id => "person_group_id" :name => "person_group_id"}
+        %option
+    .field_25
+      = label_tag :group_description, " ", {:id => "group_description"}
+  -else
+    .field_25
+      %select.person_group_id{:id => "person_group_id_#{@person_group.id}", :name => "person_group[tag_id]", :person_group_id => @person_group.id}
+        %option{:value => @person_group_type.id}
+          = @person_group_type.name
+    .field_25
+      = label_tag :group_description, "#{@person_group_type.description}", {:id => "group_description_#{@person_group.id}", :person_group_id => @person_group.id}
+  %br.clear
+
+
+
+

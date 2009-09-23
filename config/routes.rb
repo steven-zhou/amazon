@@ -8,8 +8,6 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
-    :add_keywords => :post,
-    :remove_keywords => :post,
     :name_card => :get,
   } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
@@ -20,6 +18,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :master_docs
     person.resources :images, :member => {:thumb => :get}
     person.resources :notes
+    person.resources :person_groups, :collection => {:show_group_members => :get}
     person.resources :employments
     person.resources :person_roles
     person.resources :relationships, :collection => {:remove_relation => :delete}
@@ -28,6 +27,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :people do |person|
     person.resources :roles, :collection => {:get_roles => :get, :person_role_des => :get}
   end
+
+  map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
     :collection => {:find => :get, :search => :post, :name_finder => :get},
@@ -54,9 +55,10 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
-  map.resources :tag_meta_types
-  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get}
-  map.resources :tags, :collection => {:show_tags => :get}
+  map.resources :tag_meta_types, :collection => {:show_group_types => :get}
+  map.resources :group, :collection => {:show_group_types => :get}
+  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get}
+  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
     :member => {:copy => :get} do |query_header|
@@ -71,9 +73,15 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
 
+<<<<<<< HEAD:config/routes.rb
   map.resources :include_lists
   map.resources :exclude_lists
   map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
+=======
+  map.resources :group_lists, :collection => {:show_lists => :get}
+
+
+>>>>>>> 9186bbf45d8e3e6d3759fe771519558eda79b244:config/routes.rb
   
   # The priority is based upon order of creation: first created -> highest priority.
 
