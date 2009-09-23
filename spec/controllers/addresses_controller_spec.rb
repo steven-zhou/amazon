@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe AddressesController do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @attributes = Factory.attributes_for(:personal_home_address)
     @address = Factory.build(:personal_home_address)
     @person = @address.addressable

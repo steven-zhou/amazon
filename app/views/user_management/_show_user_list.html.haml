@@ -1,9 +1,10 @@
+%h3 Existing Users
 %ul{:style => "list-style-type:none;padding-left:0px;"}
   - @login_accounts.each do |i|
-    %li{:style => "width:50%;float:left;"}
+    %li{:style => "width:50%;float:left;cursor:pointer;cursor:hand;"}
       .info_container
         %div#user_list_in
-          %div{:person_id => i.person_id, :class => "show_users", :id => i.id}
+          %div{:person_id => i.person_id, :class => "show_users", :id => "login_account_#{i.id}", :login_account_id => i.id}
             = i.person_id
             \-
             = i.user_name

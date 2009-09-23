@@ -1,4 +1,5 @@
 -form_for @login_account, :url=> {:controller => 'login_accounts',:action => @login_account.new_record? ? 'create' : 'update', :id => @login_account.id}, :html => {:class => 'ajax_form'} do |login|
+  
   .form_line
     .field_12
       = login.label :person_id, 'System ID'
@@ -28,7 +29,7 @@
       = login.password_field :password_confirmation
     .field_47
       = login.label :security_email, 'Email'
-      = login.text_field :security_email, :class => "titleHintBox", :title => "Minimum of 8 characters in length"
+      = login.text_field :security_email, :class => "user_email_new", :title => "Minimum of 8 characters in length"
   %br.clear
   .form_line
     .field_27
@@ -74,8 +75,6 @@
   %br.clear
   .form_line
   %br
-  .info_container
-    %h3 Security Groups
     
   %p.submit
     = link_to_function 'Clear', :class => "user_clear_form alt_option", :style=>"float:right"

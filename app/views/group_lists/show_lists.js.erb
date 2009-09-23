@@ -1,0 +1,3 @@
+$('.show_list_container').html('<%=escape_javascript(render(:partial => '/group_lists/show_group_list', :object => @list_headers)) %>');
+
+$('#new_group_list_container').html('<%=escape_javascript(render(:partial => '/group_lists/add_group_list', :collection => {@group_type, @group_list})) %>');

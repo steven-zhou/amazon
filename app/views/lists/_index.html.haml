@@ -1,0 +1,69 @@
+.info_container#list_compiler
+  = link_to_function (image_tag('add_icon.png', :style => "float:left;margin-right:10px;"), :id => "show_list_compiler")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_list_compiler", :style => "display:none;")
+  %h3 List Compiler
+
+  #list_compiler_form{:style => "display:none;"}
+    #list_form_container{:style => "margin-bottom:40px;"}
+      #left
+        %h3 Merging Lists
+        .form_line
+          .field_73
+            %label Lists
+            %select#merging_options
+          .field_20
+            %label &nbsp;
+            = button_to_function "Add", :id => "add_merge"
+          %br.clear
+        #merging_lists
+
+
+      #right
+        %h3 Excluding Lists
+        .form_line
+          .field_73
+            %label Lists
+            %select#excluding_options
+          .field_20
+            %label &nbsp;
+            = button_to_function "Add", :id => "add_exclude"
+          %br.clear
+        #excluding_lists
+
+      %br.clear
+
+    .info_container#result
+      %h3 Result
+      -form_for ListHeader.new, :html => {:class => "ajax_form"} do |f|
+        .form_line
+          .field_25
+            =f.label :name, "Name"
+            =f.text_field :name
+          .field_25
+            =f.label :description, "Description"
+            =f.text_field :description
+          .field_20
+            =f.label :allow_duplication, "&nbsp;"
+            =f.check_box :allow_duplication, :style => "width:30%;display:inline"
+            =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
+          .field_2{:style => "float:right"}
+            =f.label :status, "&nbsp;"
+            = link_to_function 'Clear', :class => "clear_list alt_option", :style=>"float:right;"
+          .field_10{:style => "float:right"}
+            =f.label :status, "&nbsp;"
+            %input{:style => "display:none", :id => "merge_list_array", :name => "merge_list_array", :value => Array.new}
+            %input{:style => "display:none", :id => "exclude_list_array", :name => "exclude_list_array", :value => Array.new}
+            =submit_tag "Submit"
+          %br.clear
+
+.info_container#existing_list
+  %h3 Existing Lists
+  #show_lists
+    = render :partial => "lists/saved_list", :collection => ListHeader.sortall
+  %br.clear
+
+.info_container#edit_list{:style => "display:none"}
+  %h3 Edit List
+  #show_list_details
+
+#copy_form{:style => "display:none"}

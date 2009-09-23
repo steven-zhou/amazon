@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe Employment do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @attributes = Factory.attributes_for(:employment)
     @employment = Factory.build(:employment)
   end

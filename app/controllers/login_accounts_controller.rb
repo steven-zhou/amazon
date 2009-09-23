@@ -22,12 +22,15 @@ class LoginAccountsController < ApplicationController
         a += flash_message(:type => "field_missing", :field => "person_id") + "<p/>" if (!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?( "can't be blank"))
         a += flash_message(:type => "field_missing", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
         a += flash_message(:type => "field_missing", :field => "password") + "<p/>" if (!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("password can't be blank"))
+        a += flash_message(:type => "field_missing", :field => "security_email") + "<p/>" if (!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
         a += flash_message(:type => "uniqueness_error", :field => "person_id") + "<p/>" if (!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?("has already been taken"))
         a += flash_message(:type => "uniqueness_error", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
+        a += flash_message(:type => "uniqueness_error", :field => "security_email") + "<p/>" if (!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
+        a += flash_message(:type => "format error", :field => "security_email") + "<p/>" if (!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
         a += flash_message(:type => "not exist", :field => "person_id") + "<p/>" if (!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?("You must specify a person that exists."))
         if a == ""
 
-          flash.now[:error] = "please check your security answer and password can not the same as username"
+          flash.now[:error] = "please check your security answer" + "<p/>" + "password can not the same as username"
         else
           flash.now[:error] = a
         end
@@ -53,7 +56,7 @@ class LoginAccountsController < ApplicationController
 
   def update
     @login_account = LoginAccount.find(params[:id].to_i)
-   a = String.new
+    a = String.new
     a = ""
     #    @login_account.user_name = params[:login_account][:user_name]
     #    @login_account.security_email = params[:login_account][:email]
@@ -66,6 +69,9 @@ class LoginAccountsController < ApplicationController
     else
       a += flash_message(:type => "field_missing", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
       a += flash_message(:type => "uniqueness_error", :field => "user_name") + "<p/>" if (!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
+      a += flash_message(:type => "field_missing", :field => "security_email") + "<p/>" if (!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
+      a += flash_message(:type => "uniqueness_error", :field => "security_email") + "<p/>" if (!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
+      a += flash_message(:type => "format error", :field => "security_email") + "<p/>" if (!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
       if a == ""
         flash.now[:error] = "username must between 6 to 30 and unique"
       else
@@ -73,11 +79,28 @@ class LoginAccountsController < ApplicationController
       end
 
     end
-      @login_accounts = LoginAccount.find(:all)
+    @login_accounts = LoginAccount.find(:all)
     respond_to do |format|
       format.js
     end
     
+  end
+
+
+  def destroy
+
+    @login_account = LoginAccount.find(params[:id].to_i)
+    @user_group = @login_account.user_groups
+    for ug in @user_group
+      ug.destroy
+    end
+    @login_account.destroy
+    @login_accounts = LoginAccount.all
+   
+
+    respond_to do |format|
+      format.js
+    end
   end
 
 

@@ -3,6 +3,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe OrganisationsController do
   
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @organisation = Factory.build(:google)
     @attributes = Factory.attributes_for(:google)
     @person = Factory(:person)

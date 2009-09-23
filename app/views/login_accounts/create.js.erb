@@ -21,9 +21,10 @@
   $("#new_login_account")[0].reset();
   $('#login_name_container_0').html('');
   $('#user_name_container_0').html('');
-  $("#add_user_bar").click();
+$("#new_user").toggle('blind');
+   $(".show_user_container").show();
   $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
-
+       $("#close_new_account").hide();
 
 
 

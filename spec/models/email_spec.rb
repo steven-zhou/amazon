@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe Email do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @email = Factory.build(:email)
     @attributes = Factory.build(:email)
   end

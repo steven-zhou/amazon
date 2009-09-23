@@ -1,6 +1,11 @@
 .info_container
-  = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+  .options
+    = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_edit_account")
+  .options_left{:style => "margin-right:10px;"}
+    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
   %h3 Edit User
+
+
 
   -form_for @login_account, :html => {:class => 'ajax_form edit_login'} do |login|
     .form_line
@@ -48,10 +53,11 @@
     %br.clear
 
   -form_for @user_group, :url=> {:controller => 'user_groups'}, :html => {:class => 'ajax_form'} do |ug|
-    .info_container{:class => "toggle_button", :toggle_id_name => "new_security", :id => "show_groups", :login_account_id => @login_account.id}
-      %h3 Security Groups
+    -#.info_container{:class => "toggle_button", :toggle_id_name => "new_security", :id => "show_groups", :login_account_id => @login_account.id}
     .info_container
-      %div#new_security{:style => "display:none;"}
+      %h3 Security Groups
+  
+      %div#new_security
         -#= render :partial => '/user_management/assign_user_security', :object => @login_account, ug
         %div#secu_left{:style => "width:30%;float:left"}
           .form_line
@@ -82,6 +88,7 @@
         %br.clear
     %p.submit
       = link_to_function 'Clear', :class => "user_clear_edit_form alt_option", :style=>"float:right", :login_account_id => @login_account.id
+      = button_to_function 'Delete', :class => "delete_login_account", :style => "float:right;", :data_id => @login_account.id
       %button{:type => "button", :style => "float:right;", :id => "group_secu_submit"} submit
     %br.clear
 

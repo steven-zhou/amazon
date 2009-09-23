@@ -1,20 +1,21 @@
 -#for user_management
 %h3 System User Mangement
-.info_container
-  %div#add_user_bar{:class => "toggle_button", :toggle_id_name => "new_user" }
+.info_container{:class => "add_user"}
+  %div#add_user_bar
     .header_container
       .options
-        = link_to_function image_tag('closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "new_user"
+        -#= link_to_function image_tag('closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "new_user"
+        = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_account", :style => "display:none;")
       .options_left{:style => "margin-right:10px;"}
-        = link_to_function image_tag('add_icon.png'), :id => "add_user"
+        = link_to_function image_tag('add_icon.png'), :id => "add_user", :class => "toggle_button", :toggle_id_name => "new_user"
         &nbsp
       %h3 Add New User
 
   %div#new_user{:style => "display:none"}
     = render :partial => '/user_management/user_account_form'
 
-.info_container
-  %h3 Existing Users
+.info_container{:class => "show_user_container"}
+  
   %div#show_user
     = render :partial => '/user_management/show_user_list'
   %br.clear
@@ -33,6 +34,9 @@
 
 %div#answer{:style => "display:none;"}
   %span answer can not empty
+
+%div#person_check{:style => "display:none;"}
+  %span the person already have login_account
 
 
 

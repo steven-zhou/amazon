@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe WebsitesController do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @website = Factory.build(:website)  
     @attributes = Factory.attributes_for(:website)
     @person = @website.contactable

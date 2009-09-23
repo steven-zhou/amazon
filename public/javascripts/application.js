@@ -169,16 +169,7 @@ $('.datepick').live("mouseover", function(){
 
 /* Disable form*/
 
-$(document).ready(function() {
-    toggleFormStatus();
-});
 
-toggleFormStatus = function(){
-    if ($('#system_id_tag').val() == '') {
-        $('#left :input').attr('disabled', true);
-        $('#system_id_tag').attr('disabled', false);
-    }
-}
 
 /* Photo */
 //$("#edit_photo").live("submit",function(){
@@ -518,6 +509,20 @@ $(function(){
         }
     });
 });
+
+
+
+$(function(){
+    $(".delete_system_data").live('click', function(){
+        $.ajax({
+            type: "DELETE",
+            url: "/amazon_settings/" + $(this).attr("data_id"),
+            data:'&id=' + $(this).attr("data_id"),
+            dataType: "script"
+        });
+    });
+});
+
 
 /* Drop down box hack*/
 $(function(){
@@ -960,8 +965,12 @@ $(function() {
 
 
 $(function(){
-    $("#add_user_bar").live('click', function(){
+    $("#add_user").live('click', function(){
         $(".user_clear_form").click();
+        $(".show_user_container").hide();
+        $("#close_new_account").show();
+
+       
     });
 
 });
@@ -1018,30 +1027,18 @@ $(function(){
 
 $(function(){
     $(".show_users").live('click', function(){
+
+        $(".highlight").removeClass("highlight");
+
+        $(this).addClass("highlight");
+        $(".add_user").hide();
         $.ajax({
             type: "GET",
-            url: "/login_accounts/" + $(this).attr('id') + "/edit.js",
-            data:'id='+$(this).attr('id'),
+            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+            data:'id='+$(this).attr('login_account_id'),
             dataType: "script"
         });
-    });
-});
 
-
-$(function(){
-    $(".user_clear_edit_form").live('click', function(){
-        $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
-      
-        $('#user_name_container_' + $(this).attr('login_account_id')).html('');
-
-      
-        
-    })
-
-});
-
-$(function(){
-    $("#show_groups").live('click', function(){
         $.ajax({
             type: "GET",
             url: "/user_groups/show_groups.js",
@@ -1049,13 +1046,59 @@ $(function(){
             dataType: "script"
         });
     });
+
+ 
 });
+
+
+$(function(){
+    $(".user_clear_edit_form").live('click', function(){
+        $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
+      
+        $('#user_name_container_' + $(this).attr('login_account_id')).html('');     
+    })
+});
+
 
 
 $(function(){
     $("#group_secu_submit").live('click', function(){
         $(".edit_login").doAjaxSubmit();
     })
+});
+
+
+
+$(function(){
+    $(".delete_login_account").live('click', function(){
+        $.ajax({
+            type: "DELETE",
+            url: "/login_accounts/" + $(this).attr("data_id"),
+            data:'&id=' + $(this).attr("data_id"),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $("#close_new_account").live('click', function(){
+       
+        $(".user_clear_form").click();
+        $("#new_user").toggle('blind');
+        $(".show_user_container").show();
+        $("#close_new_account").hide();
+    });
+});
+
+$(function(){
+    $("#close_edit_account").live('click', function(){
+
+        $(".add_user").show();
+        $(".highlight").removeClass("highlight");       
+        $("#edit_user").html('');
+      
+    });
 });
 
 
@@ -1120,9 +1163,9 @@ $(function(){
         $('#new_sorter_form').html('');
         $('#new_sorter_list').html('');
         $('#save_form').html('');
-        $('#new_form').toggle('blind');
-        $("#show_new_query").toggle('blind');
-        $("#existing_query").toggle('blind');
+        $('#new_form').css("display", "none");
+        $("#show_new_query").css("display", "");
+        $("#existing_query").css("display", "");
     });
 });
 
@@ -1144,6 +1187,17 @@ $(function(){
 
 $(function(){
     $("#run_button").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/query_headers/run.js",
+            data:'id=' + $("#query_header_id").val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#run_button_edit").live('click', function(){
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
@@ -1188,32 +1242,138 @@ $(function(){
 });
 
 $(function(){
-    $(".get_query").live('click', function(){
+    $('a.get_query').live('click', function() {
+        container = $(this).parent().parent().parent();
         $("#current_action").val("edit");
         $(".highlight").removeClass("highlight");
-        $("#new_query").css("display", "none");
-        $("#close_edit_query").css("display", "");
-        $("#edit_query").css("display", "");
-        $(this).addClass("highlight");
-        $.ajax({
-            type: "GET",
-            url: "/query_headers/"+ $(this).attr("query_id") +"/edit.js",
-            dataType: "script"
-        });
-    });
+        
+        container.addClass("highlight");
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    jQuery('a.get_query').removeAttr('onclick');
 });
 
 $(function(){
     $("#close_edit_query").live('click', function(){
-        $("#new_query").toggle('blind');
+        $("#new_query").css('display','');
         $(".highlight").removeClass("highlight");
         $(this).css("display", "none");
-        $("#edit_query").toggle('blind');
+        $("#edit_query").css("display", "none");
         $('#edit_query_form').html('');
         $('#edit_query_list').html('');
         $('#edit_selection_form').html('');
         $('#edit_selection_list').html('');
         $('#edit_sorter_form').html('');
         $('#edit_sorter_list').html('');
+    });
+});
+
+$(function(){
+    $(".select_all").live('click', function(){
+        if($(this).attr("checked") == true){
+            $(".checkboxes").attr("checked", true);
+        }else{
+            $(".checkboxes").attr("checked", false);
+        }
+    });
+});
+
+
+
+
+/*List Header of Person*/
+
+$(function(){
+    $("#list_header_name").change(function(){
+        $("#person_list").submit();
+    });
+});
+
+$(function(){
+    $("#list_header_name2").change(function(){
+        $("#person_list_edit").submit();
+    });
+});
+
+
+/*Admin List Management - List Manager*/
+$(function(){
+    $('a.get_list').live('click', function() {
+        container = $(this).parent().parent().parent();
+        $(".highlight").removeClass("highlight");
+        container.addClass("highlight");
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+    jQuery('a.get_list').removeAttr('onclick');
+});
+
+
+$(function(){
+    $('#show_list_compiler').live('click', function(){
+        $(this).css("display","none");
+        $("#close_list_compiler").css("display", "");
+        $("#list_compiler_form").css("display","");
+        $("#existing_list").css("display","none");
+        $.ajax({
+            type: "GET",
+            url: "/list_headers",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+   $('#close_list_compiler').live('click', function(){
+      $(this).css("display","none");
+      $("#show_list_compiler").css("display", "");
+      $("#existing_list").css("display","");
+      $("#list_compiler_form").css("display","none");
+   });
+});
+
+$(function(){
+   $("#add_merge").live('click', function(){
+       $.ajax({
+            type: "POST",
+            url: "/list_headers/add_merge.js",
+            data:'id=' + $("#merging_options").val() + '&merge_list_array=' + $("#merge_list_array").val(),
+            dataType: "script"
+        });
+   });
+});
+
+$(function(){
+   $("#add_exclude").live('click', function(){
+       $.ajax({
+            type: "POST",
+            url: "/list_headers/add_exclude.js",
+            data:'id=' + $("#excluding_options").val() + '&exclude_list_array=' + $("#exclude_list_array").val(),
+            dataType: "script"
+        });
+   });
+});
+
+
+
+/*Group ---List*/
+$(function(){
+    $(".show_list").live('change',function(){
+        if ($(this).val()!= ""){
+
+            $.ajax({
+                type: "GET",
+                url: "/group_lists/show_lists.js",
+                data: 'group_id='+$(this).val(),
+                dataType: "script"
+            })
+            $(".show_list_container").css("display", "");
+        } else{
+           $(".show_list_container").css("display", "none");
+        }
     });
 });

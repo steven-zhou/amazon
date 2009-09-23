@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe EmploymentsController do
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @employment = Factory(:employment)
     @attributes = Factory.attributes_for(:employment)
     @person = @employment.employee

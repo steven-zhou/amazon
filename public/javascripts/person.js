@@ -15,6 +15,13 @@ $(function() {
         
     });
 
+    $(".toggle_button2").click(function(){
+        $('#'+$(this).attr('toggle_id_name')).css("display","");
+        $('#'+$(this).attr('toggle_id_name1')).css("display","none");
+        $('#'+$(this).attr('toggle_id_name2')).css("display","none");
+
+    });
+
     $(".close_image").live('click', function(){
         $(this).children('img').attr('src', '/images/open_accordion.png');
         $(this).removeClass('close_image');

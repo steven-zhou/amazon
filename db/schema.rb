@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090915063338) do
+
+ActiveRecord::Schema.define(:version => 20090922014459) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -125,6 +126,18 @@ ActiveRecord::Schema.define(:version => 20090915063338) do
     t.integer  "termination_method_id"
   end
 
+  create_table "group_lists", :force => true do |t|
+    t.integer  "tag_id"
+    t.integer  "list_header_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "group_permissions", :force => true do |t|
+    t.integer "system_permission_type_id"
+    t.integer "user_group_id"
+  end
+
   create_table "groups", :force => true do |t|
     t.integer  "tags_id"
     t.string   "name"
@@ -168,6 +181,28 @@ ActiveRecord::Schema.define(:version => 20090915063338) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "list_details", :force => true do |t|
+    t.integer  "list_header_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "list_headers", :force => true do |t|
+    t.integer  "query_header_id"
+    t.string   "type"
+    t.string   "name"
+    t.string   "description"
+    t.integer  "list_size"
+    t.date     "last_date_generated"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "source"
+    t.string   "source_type"
+    t.boolean  "allow_duplication"
   end
 
   create_table "login_accounts", :force => true do |t|
@@ -376,6 +411,11 @@ ActiveRecord::Schema.define(:version => 20090915063338) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "group"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "top_value"
+    t.string   "top_type"
+    t.boolean  "allow_duplication"
   end
 
   create_table "relationships", :force => true do |t|
@@ -443,6 +483,11 @@ ActiveRecord::Schema.define(:version => 20090915063338) do
   create_table "user_groups", :force => true do |t|
     t.integer "user_id"
     t.integer "group_id"
+  end
+
+  create_table "user_lists", :force => true do |t|
+    t.integer "user_id"
+    t.integer "list_header_id"
   end
 
 end

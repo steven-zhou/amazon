@@ -1,0 +1,22 @@
+<% unless flash[:error].nil? %>
+$("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+$('#flash_message').dialog( {
+    modal: true,
+    resizable: true,
+    draggable: true,
+    position: 'top',
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    }
+  });
+$('#flash_message').dialog('open');
+
+<% else %>
+ $('#copy_form').dialog('close');
+ $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
+ $('#flash_feedback').fadeIn("slow");
+ $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
+ $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
+<% end %>

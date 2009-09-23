@@ -122,5 +122,29 @@ a.toggle_more{
         margin:0 0 0 510px
     }
 
+div.list_menu #list_header_name {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+div.list_menu #list_header_name2 {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+div.info_warning {
+    display:block;
+	border: 0px;
+	width: 95%;
+	padding: 1%;
+	margin: 8px 8px 8px 8px;
+	float:left;
+	background-color:silver;
+}
+
 
 }

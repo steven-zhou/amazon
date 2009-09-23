@@ -2,6 +2,7 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe TagsController do
    before(:each) do
+    @primary_list = Factory(:primary_list)
     @attributes = Factory.attributes_for(:doc_tag)
     @doc_tag = Factory.build(:doc_tag)
     @doc_tag_type = Factory.build(:doc_tag_type)

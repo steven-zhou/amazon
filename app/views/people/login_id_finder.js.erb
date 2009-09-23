@@ -1,8 +1,33 @@
+<%y = Array.new%>
+<%y = @person.login_accounts%>
+
+
 <% if @login_account.new_record? %>
   <% if @person.new_record? %>
     $('#login_name_container_0').html("Invalid ID")
+    $('.user_email_new').val('')
+
   <%else%>
-    $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
+    <% if y.blank? %>
+      $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
+      $('.user_email_new').val("<%=escape_javascript("#{@primary_email}")%>")
+    <%else%>
+
+      $('#person_check').dialog( {
+      modal: true,
+      draggable: true,
+      buttons: {
+      Ok: function() {
+      $(this).dialog('close');
+      }
+      }
+      });
+      $('#person_check').dialog('open');
+
+
+      $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
+      $('.user_email_new').val('')
+    <%end%>
   <%end%>
 
 <%else%>
@@ -10,9 +35,25 @@
   <% if @person.new_record? %>
     $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("Invalid ID")
   <%else%>
-    $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("<%=escape_javascript("#{@person.name}")%>")
+    <% if y.blank? %>
+    <%else%>
+
+      $('#person_check').dialog( {
+      modal: true,
+      resizable: true,
+      draggable: true,
+      position: 'top',
+      buttons: {
+      Ok: function() {
+      $(this).dialog('close');
+      }
+      }
+      });
+      $('#person_check').dialog('open');
 
 
+      $('#login_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("<%=escape_javascript("#{@person.name}")%>")
+    <%end%>
   <%end%>
 
 <%end%>

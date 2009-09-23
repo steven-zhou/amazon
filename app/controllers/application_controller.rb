@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
-  before_filter :instantiate_controller_and_action_names
+  before_filter :instantiate_controller_and_action_names, :check_authentication
 
   def instantiate_controller_and_action_names
     @current_action = action_name
@@ -42,20 +42,21 @@ class ApplicationController < ActionController::Base
 
     result = case options[:type]
 
-    # Success
+      # Success
     when "object_created_successfully" then "A new #{options[:object]} was created."
     when "object_updated_successfully" then "The #{options[:object]} was updated."
 
-    # Errors
+      # Errors
     when "login_error" then "The login credentials you supplied were incorrect."
     when "field_missing" then "You did not fill out the required field #{options[:field]}."
     when "uniqueness_error" then "#{options[:field]} has already existed."
     when "not exist" then "#{options[:field]} not exist in system"
     when "too long" then "#{options[:field]} is too long"
     when "too short" then "#{options[:field]} is too short"
+    when "format error" then "#{options[:field]} format is wrong"
 
-    # Default
-    when default then ""
+      # Default
+    when "default" then " #{options[:message]}"
     end
 
     options[:message] ?  result : result + " #{options[:message]}"

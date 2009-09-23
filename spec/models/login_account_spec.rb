@@ -3,11 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe LoginAccount do
 
   it { should belong_to(:person)}                     # Login accounts belong to a person
-
+  it { should have_many(:user_groups, :foreign_key => "user_id")}
+  it { should have_many(:group_types, :through => :user_groups, :uniq => true)}
+  it { should have_many(:user_lists, :foreign_key => "user_id")}
   
   context "when creating a new login account" do
     
     before(:each) do
+      @primary_list = Factory(:primary_list)
       @login_account = Factory.build(:login_account)
     end
 

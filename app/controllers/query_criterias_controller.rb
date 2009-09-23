@@ -7,6 +7,7 @@ class QueryCriteriasController < ApplicationController
       format.js
     end
   end
+  
 
   def create
     @query_header = QueryHeader.find(params[:query_header_id].to_i)

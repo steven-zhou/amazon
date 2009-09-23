@@ -3,20 +3,22 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe QueryHeadersController do
 
   before(:each) do
+    @primary_list = Factory(:primary_list)
     @query_header = Factory(:query_header)
     @attributes = @query_header
     QueryHeader.stub!(:new).and_return(@query_header)
     QueryHeader.stub!(:find).and_return(@query_header)
+    session[:user] = Factory(:login_account).id
   end
   
   def get_new
     xhr :get, "new"
   end
 
-  def post_update(options={})
+  def put_update(options={})
     options[:id] ||= @query_header.id
     options[:query_header] ||= @attributes
-    xhr :post, "update", options
+    xhr :put, "update", options
   end
 
   def get_show_sql_statement(options={})
@@ -37,6 +39,22 @@ describe QueryHeadersController do
   def get_edit(options={})
     options[:id] = @query_header.id
     xhr :get, "edit", options
+  end
+
+  def delete_destroy(options={})
+    options[:id] = @query_header.id
+    xhr :delete, "destroy", options
+  end
+
+  def get_copy(options={})
+    options[:id] = @query_header.id
+    xhr :get, "copy", options
+  end
+
+  def post_create(options={})
+    options[:source_id] = @query_header_old.id
+    options[:query_header] = @query_header.attributes
+    xhr :post, "create", options
   end
 
   describe "Get New" do
@@ -69,8 +87,8 @@ describe QueryHeadersController do
 
   describe "Post Update" do
     it "should find the correct query_header to update" do
-      QueryHeader.should_receive(:find).and_return(@query_header)
-      post_update
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      put_update
     end
   end
 
@@ -92,6 +110,11 @@ describe QueryHeadersController do
       @query_header.stub!(:run).and_return([@person])
       get_run
       @query_header.result_size.should == 1      
+    end
+
+    it "should create a new list header for create" do
+      ListHeader.should_receive(:new)
+      get_run
     end
   end
 
@@ -146,5 +169,71 @@ describe QueryHeadersController do
        QuerySorter.should_receive(:new)
        get_edit
     end
+  end
+
+  describe "Delete Destroy" do
+    it "should find the current query header for delete" do
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      delete_destroy
+    end
+
+    it "should delelte the current query header" do
+      @query_header.should_receive(:destroy)
+      delete_destroy
+    end
+  end
+
+  describe "Get Copy" do
+    it "should find the current query header for copy" do
+      QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
+      get_copy
+    end
+  end
+
+  describe "Post Create" do
+     before(:each) do
+      @query_header_old = @query_header
+      @query_criteria1 = QueryCriteria.new(:table_name => "people", :field_name => "first_name", :operator => "starts with", :value => "a")
+      @query_criteria2 = QueryCriteria.new(:table_name => "people", :field_name => "family_name", :operator => "starts with", :value => "b")
+      @query_header_old.query_criterias << @query_criteria1
+      @query_header_old.query_criterias << @query_criteria2
+      @query_selection1 = QuerySelection.new(:table_name => "people", :field_name => "family_name")
+      @query_header_old.query_selections << @query_selection1
+      @query_sorter1 = QuerySorter.new(:table_name => "people", :field_name => "family_name", :ascending => true)
+      @query_header_old.query_sorters << @query_sorter1
+      @query_header_old.save
+
+      @query_header = QueryHeader.new
+    end
+    it "should find the current query header for copy" do
+      QueryHeader.should_receive(:find).with(@query_header_old.id).and_return(@query_header_old)
+      post_create
+    end
+
+    it "should create a new query header for save the copy" do
+      QueryHeader.stub!(:new).and_return(@query_header)
+      QueryHeader.should_receive(:new).and_return(@query_header)
+      post_create
+    end
+
+    it "should change the new query header to be a temp query header" do
+      post_create
+      @query_header.group.should == "save"
+    end
+
+    it "should copy all the query criterias from old to new query header" do
+      post_create
+      @query_header.query_criterias.should == [@query_criteria1, @query_criteria2]
+    end
+#
+#    it "should copy all the query selections from old to new query header" do
+#      post_create
+#      @query_header.query_selections.should == [@query_selection1]
+#    end
+#
+#    it "should copy all the query sorters from old to new query header" do
+#      post_create
+#      @query_header.query_sorters.should == [@query_sorter1]
+#    end
   end
 end

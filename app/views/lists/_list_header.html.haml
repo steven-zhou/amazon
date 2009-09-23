@@ -1,0 +1,7 @@
+-div_for(@list_header, :class => 'info_container') do
+  .header_container
+    .title
+      %h3= @list_header.name
+    .options
+      = link_to_function image_tag('delete_icon.png'), :class => 'delete_list', :list_header_id => @list_header.id
+    %br.clear

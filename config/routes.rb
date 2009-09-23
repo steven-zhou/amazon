@@ -8,8 +8,6 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
-    :add_keywords => :post,
-    :remove_keywords => :post,
     :name_card => :get,
   } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
@@ -30,6 +28,8 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :roles, :collection => {:get_roles => :get, :person_role_des => :get}
   end
 
+  map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
+
   map.resources :organisations, :shallow=>true,
     :collection => {:find => :get, :search => :post, :name_finder => :get},
     :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
@@ -46,8 +46,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :list_management => :get}
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
-
-
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}
@@ -62,12 +60,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get}
   map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get}
 
-#  map.resources :query_headers, :shallow=> true do |query_header|
-#    query_header.resources :query_details
-#    query_header.resources :query_criterias
-#  end
-
-  map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get} do |query_header|
+  map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
+    :member => {:copy => :get} do |query_header|
     query_header.resources :query_selections
     query_header.resources :query_sorters
     query_header.resources :query_criterias
@@ -75,6 +69,13 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :login_accounts, :collection => {:user_name_unique => :get}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
+
+  map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post}, :member => {:copy => :get, :delete_details => :put}
+  map.resources :list_details
+
+  map.resources :group_lists, :collection => {:show_lists => :get}
+
+
   
   # The priority is based upon order of creation: first created -> highest priority.
 
