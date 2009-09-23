@@ -22,7 +22,7 @@ class TagMetaType < ActiveRecord::Base
   end
 
    def self.active_custom_type
-    @group_meta_type = GroupMetaMetaType.find(:all, :conditions => ["id = 9"], :order => 'name')
+    @group_meta_type = GroupMetaMetaType.find(:all, :conditions => ["name = ?" , 'Custom'], :order => 'name')
 
   end
 end
