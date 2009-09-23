@@ -5,17 +5,15 @@
 .form_line
   -if @person_group.new_record?
     .field_25
-      = collection_select :group,:group_meta_type_id, TagMetaType.active_group_meta_type, :id, :name, {:prompt => " "}, {:class => "show_group_type",:id=> "show_group_type"}
+      = collection_select :group,:group_meta_type_id, TagMetaType.active_custom_type, :id, :name, {:prompt => " "}, {:class => "show_group_type",:id=> "show_group_type"}
     .field_25
       = label_tag :group_meta_type_description, " ", {:id => "group_meta_type_description"}
   -else
     .field_25
-      = collection_select(:group, :group_meta_type_id, TagMetaType.active_group_meta_type, :id, :name, { :include_blank => true, :prompt => "#{@person_group_meta_meta_type.name}" }, {:class => "show_group_type", :person_group_id => @person_group.id})
+      = collection_select(:group, :group_meta_type_id, TagMetaType.active_custom_type, :id, :name, { :include_blank => true, :prompt => "#{@person_group_meta_meta_type.name}",:selected => "#{@person_group_meta_meta_type.name}" }, {:class => "show_group_type", :person_group_id => @person_group.id})
     .field_25
       = label_tag :group_meta_type_description, "#{@person_group_meta_meta_type.description}",  {:id => "group_meta_type_description_#{@person_group.id}", :person_group_id =>@person_group.id }
   %br.clear
-
-
 .form_line
   .field_25
     = label_tag :group_meta_type_id, "Group Type"
@@ -35,8 +33,6 @@
     .field_25
       = label_tag :group_type_description, "#{@person_group_meta_type.description}", {:id => "group_type_description_#{@person_group.id}", :person_group_id => @person_group.id}
   %br.clear
-
-
 .form_line
   .field_25
     = label_tag :group_meta_type_id, "Group"
