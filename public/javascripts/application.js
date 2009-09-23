@@ -436,7 +436,7 @@ $(function(){
 $(function(){
     $(".delete_system_data").live('click', function(){
         $.ajax({
-           type: "DELETE",
+            type: "DELETE",
             url: "/amazon_settings/" + $(this).attr("data_id"),
             data:'&id=' + $(this).attr("data_id"),
             dataType: "script"
@@ -700,7 +700,7 @@ $(function(){
 $(function(){
     $(".delete_tag_meta_type").live('click', function(){
         $.ajax({
-           type: "DELETE",
+            type: "DELETE",
             url: "/tag_meta_types/" + $(this).attr("tag_meta_type_id"),
             data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_meta_type_id"),
             dataType: "script"
@@ -735,7 +735,7 @@ $(function(){
 $(function(){
     $(".delete_tag_type").live('click', function(){
         $.ajax({
-           type: "DELETE",
+            type: "DELETE",
             url: "/tag_types/" + $(this).attr("tag_type_id"),
             data:'tag='+$('#tag_selection').val()+'&id=' + $(this).attr("tag_type_id"),
             dataType: "script"
@@ -888,8 +888,8 @@ $(function() {
 $(function(){
     $("#add_user").live('click', function(){
         $(".user_clear_form").click();
-          $(".show_user_container").hide();
-           $("#close_new_account").show();
+        $(".show_user_container").hide();
+        $("#close_new_account").show();
 
        
     });
@@ -949,10 +949,10 @@ $(function(){
 $(function(){
     $(".show_users").live('click', function(){
 
-          $(".highlight").removeClass("highlight");
+        $(".highlight").removeClass("highlight");
 
         $(this).addClass("highlight");
-             $(".add_user").hide();
+        $(".add_user").hide();
         $.ajax({
             type: "GET",
             url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
@@ -961,10 +961,10 @@ $(function(){
         });
 
         $.ajax({
-           type: "GET",
-                url: "/user_groups/show_groups.js",
-                data: 'login_account_id='+$(this).attr('login_account_id'),
-                dataType: "script"
+            type: "GET",
+            url: "/user_groups/show_groups.js",
+            data: 'login_account_id='+$(this).attr('login_account_id'),
+            dataType: "script"
         });
     });
 
@@ -993,7 +993,7 @@ $(function(){
 $(function(){
     $(".delete_login_account").live('click', function(){
         $.ajax({
-           type: "DELETE",
+            type: "DELETE",
             url: "/login_accounts/" + $(this).attr("data_id"),
             data:'&id=' + $(this).attr("data_id"),
             dataType: "script"
@@ -1006,9 +1006,9 @@ $(function(){
     $("#close_new_account").live('click', function(){
        
         $(".user_clear_form").click();
-         $("#new_user").toggle('blind');
-          $(".show_user_container").show();
-           $("#close_new_account").hide();
+        $("#new_user").toggle('blind');
+        $(".show_user_container").show();
+        $("#close_new_account").hide();
     });
 });
 
@@ -1108,23 +1108,23 @@ $(function(){
 
 $(function(){
     $("#run_button").live('click', function(){
-            $.ajax({
-                type: "GET",
-                url: "/query_headers/run.js",
-                data:'id=' + $("#query_header_id").val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/query_headers/run.js",
+            data:'id=' + $("#query_header_id").val(),
+            dataType: "script"
+        });
     });
 });
 
 $(function(){
     $("#run_button_edit").live('click', function(){
-            $.ajax({
-                type: "GET",
-                url: "/query_headers/run.js",
-                data:'id=' + $("#query_header_id").val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/query_headers/run.js",
+            data:'id=' + $("#query_header_id").val(),
+            dataType: "script"
+        });
     });
 });
 
@@ -1163,7 +1163,7 @@ $(function(){
 });
 
 $(function(){
-     $('a.get_query').live('click', function() {
+    $('a.get_query').live('click', function() {
         container = $(this).parent().parent().parent();
         $("#current_action").val("edit");
         $(".highlight").removeClass("highlight");
@@ -1193,13 +1193,13 @@ $(function(){
 });
 
 $(function(){
-   $(".select_all").live('click', function(){
-       if($(this).attr("checked") == true){
-           $(".checkboxes").attr("checked", true);
-       }else{
-           $(".checkboxes").attr("checked", false);
-       }
-   });
+    $(".select_all").live('click', function(){
+        if($(this).attr("checked") == true){
+            $(".checkboxes").attr("checked", true);
+        }else{
+            $(".checkboxes").attr("checked", false);
+        }
+    });
 });
 
 
@@ -1209,18 +1209,18 @@ $(function(){
 
 $(function(){
     $("#list_header_name").change(function(){
-       $("#person_list").submit();
+        $("#person_list").submit();
     });
 });
 
 $(function(){
     $("#list_header_name2").change(function(){
-       $("#person_list_edit").submit();
+        $("#person_list_edit").submit();
     });
 });
 /*Admin List Management - List Update*/
 $(function(){
-     $('a.get_list').live('click', function() {
+    $('a.get_list').live('click', function() {
         container = $(this).parent().parent().parent();
         $(".highlight").removeClass("highlight");
         container.addClass("highlight");
@@ -1230,3 +1230,23 @@ $(function(){
     }).attr("rel", "nofollow");
     jQuery('a.get_list').removeAttr('onclick');
 });
+
+/*Group ---List*/
+$(function(){
+    $(".show_list").live('change',function(){
+        if ($(this).val()!= ""){
+
+            $.ajax({
+                type: "GET",
+                url: "/group_lists/show_lists.js",
+                data: 'group_id='+$(this).val(),
+                dataType: "script"
+            })
+            $(".show_list_container").css("display", "");
+        } else{
+           $(".show_list_container").css("display", "none");
+        }
+    });
+});
+
+

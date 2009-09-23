@@ -19,48 +19,85 @@ class PeopleController < ApplicationController
   
   def show
 
-    @user_lists = session[:login_account_info].user_lists
-    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
-    @person = @list_headers.first.players.first unless @list_headers.blank?
-    @person = Person.new if @person.nil? || @list_headers.blank?
+    #    @user_lists = session[:login_account_info].user_lists
+    #    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
+    #
+    #
+    #    @person = @list_headers.first.players.first unless @list_headers.blank?
+    #    @person = Person.new if @person.nil? || @list_headers.blank?
 
     @group_types = LoginAccount.find(session[:user]).group_types
-
     @list_headers = Array.new
     c = Array.new
     @group_types.each do |group_type|
       a = group_type.list_headers
       c += a
       @list_headers = c.uniq
+        
     end
- 
-    if request.get?       #when it is cal show action
-      if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-        if @list_headers.blank?
-          @list_header = ListHeader.new
-          @person = Person.new
-          @p = Array.new
-        else
+
+    #when it is cal show action
+    if request.get?
+      if @list_headers.blank?
+        @list_header = ListHeader.new
+        @person = Person.new
+        @p = Array.new
+      else
+        if params[:id].nil? || params[:id] == "show" #when just jumping or change list
           @list_header = @list_headers.first
-          puts"---debug000#{@list_header.to_yaml}"
           session[:current_list_id] = @list_header.id
           @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
-          puts"000000debug000#{@person.to_yaml}"
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
           @p = @list_header.people_on_list
+        else  #when there is id come---click the narrow button
+          unless session[:current_list_id].blank?
+            @list_header = ListHeader.find(session[:current_list_id])
+            @p = Array.new
+            @p = @list_header.people_on_list
+            @person = Person.find_by_id(params[:id].to_i)
+            session[:current_person_id] = @person.id
+            #else
+          end
         end
-      else                #when there is id come---click the narrow button
-        @list_header = ListHeader.find(session[:current_list_id])
-        @p = Array.new
-        @p = @list_header.people_on_list
-        @person = Person.find_by_id(params[:id].to_i)
-        session[:current_person_id] = @person.id
       end
     end
+
+  
+
+
+
+
+
+
+
+    #    if params[:id].nil? || params[:id] == "show" #when just jumping or change list
+    #      if @list_headers.blank?
+    #        @list_header = ListHeader.new
+    #        @person = Person.new
+    #        @p = Array.new
+    #      else
+    #        @list_header = @list_headers.first
+    #        #puts"---debug000#{@list_header.to_yaml}"
+    #        session[:current_list_id] = @list_header.id
+    #        @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
+    #        #puts"000000debug000#{@person.to_yaml}"
+    #        session[:current_person_id] = @person.id
+    #        @person = Person.new if @person.nil?
+    #        @p = Array.new
+    #        @p = @list_header.people_on_list
+    #      end
+    #    else                #when there is id come---click the narrow button
+    #      @list_header = ListHeader.find(session[:current_list_id])
+    #      @p = Array.new
+    #      @p = @list_header.people_on_list
+    #      @person = Person.find_by_id(params[:id].to_i)
+    #      session[:current_person_id] = @person.id
+    #    end
+    #  end
     if request.post?
-      @list_header = ListHeader.find(params[:list_header_id])  
+      @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
 
       c1 = Array.new
@@ -114,42 +151,28 @@ class PeopleController < ApplicationController
       @list_headers = c.uniq
     end
 
-    #puts"---debug-----#{@list_headers.to_yaml}"
+
     if request.get?
-      unless session[:current_list_id].blank? && session[:current_person_id].blank?
-        if params[:id].blank? || params[:id] == "show"
-          if @list_headers.blank?
-            @list_header = ListHeader.new
-            @person = Person.new
-            @p = Array.new
-          else
-        
+      if @list_headers.blank?
+        @list_header = ListHeader.new
+        @person = Person.new
+        @p = Array.new
+      else
+        unless session[:current_list_id].blank? && session[:current_person_id].blank?
+          if params[:id].blank? || params[:id] == "show"
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
             @p = @list_header.people_on_list
             @person = Person.find(session[:current_person_id])
-     
+          else
+            @list_header = ListHeader.find(session[:current_list_id])
+            @p = Array.new
+            @p = @list_header.people_on_list
+            @person = Person.find_by_id(params[:id].to_i)
+            session[:current_person_id] = @person.id
           end
         else
-          @list_header = ListHeader.find(session[:current_list_id])
-          @p = Array.new
-          @p = @list_header.people_on_list
-          @person = Person.find_by_id(params[:id].to_i)
-          session[:current_person_id] = @person.id
-        end
-
-      else
-
-        if @list_headers.blank?
-
-          @list_header = ListHeader.new
-          #puts"---debug---00--#{@list_header.to_yaml}"
-          @person = Person.new
-          @p = Array.new
-        else
-          #puts"---debug---11--#{@list_headers.to_yaml}"
           @list_header = @list_headers.first
-          # puts"---debug--22---#{@list_header.to_yaml}"
           session[:current_list_id] = @list_header.id
           @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
@@ -159,6 +182,49 @@ class PeopleController < ApplicationController
         end
       end
     end
+
+
+    #    if request.get?
+    #      unless session[:current_list_id].blank? && session[:current_person_id].blank?
+    #        if params[:id].blank? || params[:id] == "show"
+    #          if @list_headers.blank?
+    #            @list_header = ListHeader.new
+    #            @person = Person.new
+    #            @p = Array.new
+    #          else
+    #
+    #            @list_header = ListHeader.find(session[:current_list_id])
+    #            @p = Array.new
+    #            @p = @list_header.people_on_list
+    #            @person = Person.find(session[:current_person_id])
+    #
+    #          end
+    #        else
+    #          @list_header = ListHeader.find(session[:current_list_id])
+    #          @p = Array.new
+    #          @p = @list_header.people_on_list
+    #          @person = Person.find_by_id(params[:id].to_i)
+    #          session[:current_person_id] = @person.id
+    #        end
+    #
+    #      else
+    #
+    #        if @list_headers.blank?
+    #
+    #          @list_header = ListHeader.new
+    #          @person = Person.new
+    #          @p = Array.new
+    #        else
+    #          @list_header = @list_headers.first
+    #          session[:current_list_id] = @list_header.id
+    #          @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
+    #          session[:current_person_id] = @person.id
+    #          @person = Person.new if @person.nil?
+    #          @p = Array.new
+    #          @p = @list_header.people_on_list
+    #        end
+    #      end
+    #    end
 
     if request.post?
       @list_header = ListHeader.find(params[:list_header_id])

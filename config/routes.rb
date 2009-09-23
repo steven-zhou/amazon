@@ -70,6 +70,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :list_headers, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
+  map.resources :group_lists, :collection => {:show_lists => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

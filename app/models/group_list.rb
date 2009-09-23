@@ -6,4 +6,6 @@ class GroupList < ActiveRecord::Base
 
   validates_presence_of :list_header_id, :tag_id
 
+  validates_uniqueness_of :list_header_id, :scope => :tag_id
+
 end
