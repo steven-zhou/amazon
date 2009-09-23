@@ -72,16 +72,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
-
-<<<<<<< HEAD:config/routes.rb
   map.resources :include_lists
   map.resources :exclude_lists
   map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
-=======
+
   map.resources :group_lists, :collection => {:show_lists => :get}
-
-
->>>>>>> 9186bbf45d8e3e6d3759fe771519558eda79b244:config/routes.rb
   
   # The priority is based upon order of creation: first created -> highest priority.
 
