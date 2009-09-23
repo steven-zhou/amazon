@@ -70,6 +70,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
+
+  map.resources :include_lists
+  map.resources :exclude_lists
+  map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
   
   # The priority is based upon order of creation: first created -> highest priority.
 
