@@ -1,0 +1,2 @@
+class InternationalPostcode < Postcode
+end

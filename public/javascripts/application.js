@@ -333,15 +333,15 @@ $(function(){
 $(function()
 {
     $(".show_group_type").live('change', function(){
-       /*   if($(this).val()!= ""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tag_meta_types/show_group_types.js",
-                data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
-            });
+        /*   if($(this).val()!= ""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tag_meta_types/show_group_types.js",
+            data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
+        });
 
-       /* }
+    /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -362,13 +362,13 @@ $(function()
 /* show other group member */
 $(function(){
     $("#show_other_group_members").live('click',function(){
-            $.ajax({
-                type: "GET",
-                url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
-                data: 'person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        $.ajax({
+            type: "GET",
+            url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
+            data: 'person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
     });
 });
 
@@ -376,16 +376,16 @@ $(function(){
 /* Show_group */
 $(function(){
     $(".find_group_meta_type").live('change',function(){
-    /*   if($(this).val()!=""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tag_types/show_types.js",
-                data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        /*   if($(this).val()!=""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/show_types.js",
+            data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
 
-        /* }  */
+    /* }  */
 
     });
 }
@@ -394,16 +394,16 @@ $(function(){
 
 $(function(){
     $(".person_group_id").live('change',function(){
-    /*   if($(this).val()!=""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tags/show_group_description.js",
-                data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        /*   if($(this).val()!=""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_group_description.js",
+            data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
 
-        /* }  */
+    /* }  */
 
     });
 }
@@ -1327,34 +1327,34 @@ $(function(){
 });
 
 $(function(){
-   $('#close_list_compiler').live('click', function(){
-      $(this).css("display","none");
-      $("#show_list_compiler").css("display", "");
-      $("#existing_list").css("display","");
-      $("#list_compiler_form").css("display","none");
-   });
+    $('#close_list_compiler').live('click', function(){
+        $(this).css("display","none");
+        $("#show_list_compiler").css("display", "");
+        $("#existing_list").css("display","");
+        $("#list_compiler_form").css("display","none");
+    });
 });
 
 $(function(){
-   $("#add_merge").live('click', function(){
-       $.ajax({
+    $("#add_merge").live('click', function(){
+        $.ajax({
             type: "POST",
             url: "/list_headers/add_merge.js",
             data:'id=' + $("#merging_options").val() + '&merge_list_array=' + $("#merge_list_array").val(),
             dataType: "script"
         });
-   });
+    });
 });
 
 $(function(){
-   $("#add_exclude").live('click', function(){
-       $.ajax({
+    $("#add_exclude").live('click', function(){
+        $.ajax({
             type: "POST",
             url: "/list_headers/add_exclude.js",
             data:'id=' + $("#excluding_options").val() + '&exclude_list_array=' + $("#exclude_list_array").val(),
             dataType: "script"
         });
-   });
+    });
 });
 
 
@@ -1372,7 +1372,7 @@ $(function(){
             })
             $(".show_list_container").css("display", "");
         } else{
-           $(".show_list_container").css("display", "none");
+            $(".show_list_container").css("display", "none");
         }
     });
 });

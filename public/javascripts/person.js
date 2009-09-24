@@ -133,3 +133,42 @@ $(function() {
 
 });
 
+
+// Address assistant //
+
+$(document).ready(function() {
+    $('#address_assistant').dataTable( {
+        "iDisplayLength":10,
+        "bLengthChange": false,
+        "bAutoWidth":false,
+        "aoColumns":[{
+            'sWidth':"50"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWdith':"20%"
+        }]
+    }
+    );
+});
+
+$(document).ready(function() {
+
+    $('#launch_address_assistant').live('click', function() {
+        $('#address_form_assistant').dialog({
+            modal: true,
+            width: 650,
+            height: 500,
+            resizable: true,
+            draggable :true,
+            buttons: {
+                Close: function() {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        $('#address_form_assistant').dialog('open');
+    });
+});
