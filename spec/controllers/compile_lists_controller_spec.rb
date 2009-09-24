@@ -34,15 +34,20 @@ describe CompileListsController do
   end
 
   describe "Post Compile" do
-    before(:each) do
-      CompileList.stub!(:find_all_by_login_account_id).and_return([@include_list])
+#    context "if include list is empty should spell an error" do
+#      it "should spell an error when include list is empty" do
+#        IncludeList.stub!(:find_all_by_login_account_id).and_return([])
+#        @people = Array.new
+#        Array.stub!(:new).and_return(@people)
+#        Array.should_receive(:new).and_return(@people)
+#        post_compile
+#      end
+#    end
+#
+#    context "if include list is not empty should compile" do
+#      before(:each) do
+#
+#      end
     end
-
-    it "should find all the compile lists belongs to the login account" do
-      CompileList.should_receive(:find_all_by_login_account_id).and_return([@include_list])
-      post_compile
-    end
-
-   
   end
 end

@@ -14,35 +14,25 @@
         =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
       .field_25{:style => "float:right"}
         =f.label :description, "&nbsp;"
-        %input{:style => "display:none", :name => "query_header_id", :id => "query_id_for_list"}
-        =submit_tag "Create List", :style => "width:100px;float:right"
+        %input{:style => "display:none", :name => "compile"}
+        =submit_tag "Createa List", :style => "width:100px;float:right"
       %br.clear
 
-  %table#query_results.display
+
+  %table#compile_results.display
     %thead
       %tr
         %th
           %input{:type => "checkbox", :class => "select_all", :style => "float:left;", :checked => true}
           select all
         %th System ID
-        -if @query_header.query_selections.empty?
-          %th Name
-        -else
-          -@query_header.query_selections.each do |i|
-            %th= i.field_name
+        %th Name
     %tbody
       - people.each_index do |i|
         %tr
           %td
             %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes", :checked => true}
           %td= people[i].id
-          -if @query_header.query_selections.empty?
-            %td= people[i].name
-          -else
-            -@query_header.query_selections.each do |j|
-              -if j.table_name == "people"
-                %td= people[i].__send__(j.field_name.to_sym)
-              -else
-                %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless people[i].__send__(j.table_name.underscore.to_sym).empty?
-
+          %td= people[i].name
+          
   

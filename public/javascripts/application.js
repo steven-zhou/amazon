@@ -718,7 +718,7 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            if($(this).val() != "4"){
+            if($(this).val() != "5"){
                 $("#add_tag_meta_type").css("display", "");
             }else{
                 $("#add_tag_meta_type").css("display", "none");
@@ -1339,23 +1339,27 @@ $(function(){
 
 $(function(){
    $("#add_to_include").live('click', function(){
-       $.ajax({
+       if($("#compiler_options").val() != null){
+         $.ajax({
             type: "POST",
             url: "/include_lists",
             data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
             dataType: "script"
         });
+       }
    });
 });
 
 $(function(){
    $("#add_to_exclude").live('click', function(){
-       $.ajax({
+       if($("#compiler_options").val() != null){
+         $.ajax({
             type: "POST",
             url: "/exclude_lists",
             data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
             dataType: "script"
         });
+       }
    });
 });
 

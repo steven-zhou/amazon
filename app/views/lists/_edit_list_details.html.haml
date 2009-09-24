@@ -44,18 +44,19 @@
         %th
           =submit_tag "Remove Selected"
         %th System ID
-        -if @list_header.query_header.query_selections.empty?
+        - if (@list_header.query_header.nil? || @list_header.query_header.query_selections.empty?)
           %th Name
-        -else
+        - else
           - @list_header.query_header.query_selections.each do |i|
             %th= i.field_name
+
     %tbody
       - @list_header.list_details.each do |i|
         %tr{:id => "list_detail_#{i.id}"}
           %td
             %input{:type => "checkbox", :name => "list_detail[]", :value => i.id, :class => "checkboxes"}
           %td= i.person.id
-          -if i.list_header.query_header.query_selections.empty?
+          -if (@list_header.query_header.nil? || @list_header.query_header.query_selections.empty?)
             %td= i.person.name
           -else
             - i.list_header.query_header.query_selections.each do |j|

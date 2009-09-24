@@ -1,5 +1,6 @@
 <% if @exclude_list.errors.empty? -%>
   $('#exclude_lists').append('<%= escape_javascript(render(:partial => @exclude_list)) %>');
+  $("#compiler_options").val('');
   $('#list_header_<%= escape_javascript("#{@list_header_id}")%>').addClass("selected");
   $('#<%= dom_id(@exclude_list) %>').effect('slide', {direction:'right'});
 <% end -%>

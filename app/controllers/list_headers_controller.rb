@@ -1,8 +1,49 @@
 class ListHeadersController < ApplicationController
 
   def create
-    if(params[:compiler]) #Compiler
+    if(params[:compile]) #Compile List
+      if(params[:person_id])
+          
+          @list_header = ListHeader.new(params[:list_header])
+          @list_header.last_date_generated = Date.today()
+          @list_header.list_size = 0
+          @list_header.source_type = "C" #generate from query
+          @include_lists = IncludeList.find_all_by_login_account_id(session[:user])
+          @exclude_lists = ExcludeList.find_all_by_login_account_id(session[:user])
+          include_lists = Array.new
+          exclude_lists = Array.new
+          @include_lists.each do |i|
+            include_lists << i.list_header.name
+          end
+          @exclude_lists.each do |i|
+            exclude_lists << i.list_header.name
+          end
+          @list_header.source = "Compile from List - Include(#{include_lists.join(', ')})"
+          @list_header.source += " And Exclude(#{exclude_lists.join(', ')})" unless @exclude_lists.empty?
+          @list_header.status = true
 
+          ListHeader.transaction do
+            if @list_header.save
+              person_ids = Array.new
+              params[:person_id].each_value do |i|
+                puts "params #{i} EOD"
+                person_ids << i
+              end
+              person_ids = person_ids.uniq unless @list_header.allow_duplication
+              person_ids.each do |i|
+                puts "person_id #{i} EOD"
+                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i)
+                @list_detail.save
+              end
+              flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
+            else
+              flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))
+              flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("has already been taken"))
+            end
+          end
+        else
+          flash.now[:error] = flash_message(:message => "list can't be empty")
+        end
 
 
     else
