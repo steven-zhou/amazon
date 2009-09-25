@@ -1,0 +1,20 @@
+$('#address_assistant_postcodes').html('<%= escape_javascript(render(:partial => "/addresses/address_assistant_postcodes")) %>');
+$('#address_assistant').dataTable( {
+    "iDisplayLength":10,
+    "bLengthChange": false,
+    "bAutoWidth":false,
+    "bFilter":false,
+    "bStateSave":false,
+    "aoColumns":[{
+        'sWidth':"50"
+    },{
+        'sWidth':"15%"
+    },{
+        'sWidth':"15%"
+    },{
+        'sWdith':"20%"
+    }]
+}
+);
+
+

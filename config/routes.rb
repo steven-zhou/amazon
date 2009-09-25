@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     :cancel_edit_names => :post,
     :name_card => :get,
   } do |person|
-    person.resources :addresses, :member => {:set_primary_address => :post}
+    person.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     person.resources :phones
     person.resources :faxes
     person.resources :websites
@@ -74,8 +74,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :list_details
 
   map.resources :group_lists, :collection => {:show_lists => :get}
-
-
   
   # The priority is based upon order of creation: first created -> highest priority.
 
