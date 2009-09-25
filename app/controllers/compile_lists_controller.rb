@@ -12,7 +12,15 @@ class CompileListsController < ApplicationController
 
   def compile
     
-    @include_lists = CompileList.find_all_by_login_account_id(params[:login_account_id]) 
+    @include_lists = CompileList.find_all_by_login_account_id(params[:login_account_id])
+    @allow_duplication = params[:allow_duplication]
+    top = params[:top]
+    if(top == "number")
+      value = params[:top_number].to_i
+    else
+      value = params[:top_percent].to_i
+    end
+
     unless @include_lists.empty?
 
       @exclude_lists = ExcludeList.find_all_by_login_account_id(params[:login_account_id])
@@ -37,13 +45,21 @@ class CompileListsController < ApplicationController
       end
 
       person_ids = include_ids - exclude_ids
+      person_ids = person_ids.uniq if (@allow_duplication=="false")
+
+      if(value>0)
+        if(top == "number")
+          person_ids = person_ids[0, value]
+        else
+          person_ids = person_ids[0, value*person_ids.size/100]
+        end
+      end
+
       @people = Array.new
       person_ids.each do |i|
         @person = Person.find(i)
         @people << @person
       end
-
-      puts "^^^ #{@people.size} EOD"
 
       @list_header = ListHeader.new
 

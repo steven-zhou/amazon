@@ -1377,15 +1377,49 @@ $(function(){
 
 $(function(){
    $("#compile_button").live('click', function(){
+      var temp = "";
+      temp += "login_account_id=" + $("#login_account_id").val();
+      temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
+      if($("#top_number").attr("checked")==true){
+        temp += "&top=number&top_number=" + $("#top_number_value").val();
+      }else{
+        temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+      }
+      
       $.ajax({
          type: "POST",
          url: "/compile_lists/compile.js",
-         data: "login_account_id=" + $("#login_account_id").val(),
+         data: temp,
          dataType: "script"
       });
    });
 });
 
+$(function(){
+   $("#top_number").click(function(){
+      $("#top_percent_value").val('');
+      $("#top_percent_value").attr("disabled",true);
+      $("#top_number_value").attr("disabled",false);
+   });
+   $("#top_percent").click(function(){
+      $("#top_number_value").val('');
+      $("#top_number_value").attr("disabled",true);
+      $("#top_percent_value").attr("disabled",false);
+   });
+});
+
+$(function(){
+    $(".integer_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+          if((!_valid) || $(this).val()<=0){
+            alert("This field has be a number and great than zero!");
+            $(this).focus();
+            $(this).val('');
+            }
+        }
+    });
+});
 
 /*Group ---List*/
 $(function(){

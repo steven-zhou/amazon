@@ -26,12 +26,10 @@ class ListHeadersController < ApplicationController
             if @list_header.save
               person_ids = Array.new
               params[:person_id].each_value do |i|
-                puts "params #{i} EOD"
                 person_ids << i
               end
               person_ids = person_ids.uniq unless @list_header.allow_duplication
               person_ids.each do |i|
-                puts "person_id #{i} EOD"
                 @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i)
                 @list_detail.save
               end
