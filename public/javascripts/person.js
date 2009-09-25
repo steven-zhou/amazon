@@ -105,12 +105,6 @@ $(function() {
         $('#approver_container_0').html('');
         $('#superviser_container_0').html('');
         $('#manager_container_0').html('');
- 
-       
-
-        
-      
-      
 
     })
 
@@ -123,14 +117,7 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#login_name_container_0').html('');
         $('#user_name_container_0').html('');
-        
-      
-      
-
-
-
     })
-
 });
 
 
@@ -141,6 +128,8 @@ $(document).ready(function() {
         "iDisplayLength":10,
         "bLengthChange": false,
         "bAutoWidth":false,
+        "bFilter":false,
+        "bStateSave":false,
         "aoColumns":[{
             'sWidth':"50"
         },{
@@ -164,7 +153,10 @@ $(document).ready(function() {
             resizable: true,
             draggable :true,
             buttons: {
-                Close: function() {
+                Select: function() {
+                    $('#address_town').val($('tr.selected > td')[0].innerHTML);
+                    $('#address_state').val($('tr.selected > td')[1].innerHTML);
+                    $('#address_postal_code').val($('tr.selected > td')[2].innerHTML);
                     $(this).dialog('close');
                 }
             }
@@ -172,3 +164,13 @@ $(document).ready(function() {
         $('#address_form_assistant').dialog('open');
     });
 });
+
+$(function(){
+    $('table#address_assistant tbody tr').live('click',function(){
+        $('table#address_assistant tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+});
+
+// End of address assistant //
