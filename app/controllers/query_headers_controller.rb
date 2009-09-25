@@ -51,9 +51,18 @@ class QueryHeadersController < ApplicationController
 
   def run
     @query_header = QueryHeader.find(params[:id].to_i)
-    @query_header.result_size = @query_header.run.size
-    @query_header.save
     @people = @query_header.run
+    top = params[:top]
+    if(top=="number")
+      value = params[:top_number].to_i
+    else
+      value = params[:top_percent].to_i*@people.size/100
+    end
+
+    @people = @people[0,value] if (value>0)
+    @query_header.result_size = @people.size
+    @query_header.save
+    
     @list_header = ListHeader.new
     respond_to do |format|
       format.js

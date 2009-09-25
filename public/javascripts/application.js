@@ -1185,12 +1185,20 @@ $(function(){
     });
 });
 
+
 $(function(){
     $("#run_button").live('click', function(){
+        var temp = "";
+        temp += 'id=' + $("#query_header_id").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+        }
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
@@ -1198,10 +1206,17 @@ $(function(){
 
 $(function(){
     $("#run_button_edit").live('click', function(){
+        var temp = "";
+        temp += 'id=' + $("#query_header_id").val();
+        if($("#query_edit_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+        }
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
@@ -1281,6 +1296,31 @@ $(function(){
     });
 });
 
+$(function(){
+   $("#query_top_number").click(function(){
+      $("#query_top_percent_value").val('');
+      $("#query_top_percent_value").attr("disabled",true);
+      $("#query_top_number_value").attr("disabled",false);
+   });
+   $("#query_top_percent").click(function(){
+      $("#query_top_number_value").val('');
+      $("#query_top_number_value").attr("disabled",true);
+      $("#query_top_percent_value").attr("disabled",false);
+   });
+});
+
+$(function(){
+   $("#query_edit_top_number").click(function(){
+      $("#query_edit_top_percent_value").val('');
+      $("#query_edit_top_percent_value").attr("disabled",true);
+      $("#query_edit_top_number_value").attr("disabled",false);
+   });
+   $("#query_edit_top_percent").click(function(){
+      $("#query_edit_top_number_value").val('');
+      $("#query_edit_top_number_value").attr("disabled",true);
+      $("#query_edit_top_percent_value").attr("disabled",false);
+   });
+});
 
 
 /*List Header of Person*/
@@ -1413,13 +1453,15 @@ $(function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
           if((!_valid) || $(this).val()<=0){
-            alert("This field has be a number and great than zero!");
+            alert("This field has be an integer and great than zero!");
             $(this).focus();
             $(this).val('');
             }
         }
     });
 });
+
+
 
 /*Group ---List*/
 $(function(){

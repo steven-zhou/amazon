@@ -58,7 +58,7 @@ class QueryHeader < ActiveRecord::Base
     sort_clauses = Array.new
     self.query_sorters.find(:all, :order => "sequence").each do |i|
       if i.ascending
-      sort_clauses.push("#{i.table_name}.#{i.field_name}")
+        sort_clauses.push("#{i.table_name}.#{i.field_name}")
       else
         sort_clauses.push("#{i.table_name}.#{i.field_name} DESC")
       end
@@ -84,20 +84,20 @@ class QueryHeader < ActiveRecord::Base
   end
 
 
-   def run
-     if (self.sort_clauses.empty?)
-        if (self.include_clauses.empty?)
-          Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
-        else
-          Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [self.include_clauses.join(", ")], :order => "people.id")
-        end
-     else
-       if (self.include_clauses.empty?)
-         Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "))
-       else
-         Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "), :include => [self.include_clauses.join(", ")])
-       end
-     end
+  def run
+    if (self.sort_clauses.empty?)
+      if (self.include_clauses.empty?)
+        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
+      else
+        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [self.include_clauses.join(", ")], :order => "people.id")
+      end
+    else
+      if (self.include_clauses.empty?)
+        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "))
+      else
+        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "), :include => [self.include_clauses.join(", ")])
+      end
+    end
   end
 
   

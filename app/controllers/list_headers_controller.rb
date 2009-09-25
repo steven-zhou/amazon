@@ -167,6 +167,8 @@ class ListHeadersController < ApplicationController
       @list_detail = ListDetail.find(i.to_i)
       @list_detail.destroy
     end
+    @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
+    @list_header.save
     respond_to do |format|
       format.js
     end
