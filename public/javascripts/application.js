@@ -718,7 +718,7 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            if($(this).val() != "4"){
+            if($(this).val() != "5"){
                 $("#add_tag_meta_type").css("display", "");
             }else{
                 $("#add_tag_meta_type").css("display", "none");
@@ -1318,6 +1318,7 @@ $(function(){
         $("#close_list_compiler").css("display", "");
         $("#list_compiler_form").css("display","");
         $("#existing_list").css("display","none");
+        $("#clear_compile_list").click();
         $.ajax({
             type: "GET",
             url: "/list_headers",
@@ -1332,31 +1333,58 @@ $(function(){
       $("#show_list_compiler").css("display", "");
       $("#existing_list").css("display","");
       $("#list_compiler_form").css("display","none");
+      $("#clear_compile_list").click();
    });
 });
 
 $(function(){
-   $("#add_merge").live('click', function(){
-       $.ajax({
+   $("#add_to_include").live('click', function(){
+       if($("#compiler_options").val() != null){
+         $.ajax({
             type: "POST",
-            url: "/list_headers/add_merge.js",
-            data:'id=' + $("#merging_options").val() + '&merge_list_array=' + $("#merge_list_array").val(),
+            url: "/include_lists",
+            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
             dataType: "script"
         });
+       }
    });
 });
 
 $(function(){
-   $("#add_exclude").live('click', function(){
-       $.ajax({
+   $("#add_to_exclude").live('click', function(){
+       if($("#compiler_options").val() != null){
+         $.ajax({
             type: "POST",
-            url: "/list_headers/add_exclude.js",
-            data:'id=' + $("#excluding_options").val() + '&exclude_list_array=' + $("#exclude_list_array").val(),
+            url: "/exclude_lists",
+            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
             dataType: "script"
         });
+       }
    });
 });
 
+
+$(function(){
+   $("#clear_compile_list").live('click', function(){
+      $.ajax({
+        type: "POST",
+        url: "/compile_lists/clear.js",
+        data: "login_account_id=" + $("#login_account_id").val(),
+        dataType: "script"
+      });
+   });
+});
+
+$(function(){
+   $("#compile_button").live('click', function(){
+      $.ajax({
+         type: "POST",
+         url: "/compile_lists/compile.js",
+         data: "login_account_id=" + $("#login_account_id").val(),
+         dataType: "script"
+      });
+   });
+});
 
 
 /*Group ---List*/

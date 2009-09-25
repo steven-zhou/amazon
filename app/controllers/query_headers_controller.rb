@@ -17,21 +17,25 @@ class QueryHeadersController < ApplicationController
 
   def update
     @query_header = QueryHeader.find(params[:id].to_i)
-    if (!@query_header.query_criterias.empty? && @query_header.update_attributes(params[:query_header]))
-      @query_header.group = "save"
-      @query_header.status = true if @query_header.status.nil?
-      @query_header.save
-      if (params[:new])
-        flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")
-      else        
-        flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "query")
+    if (!@query_header.query_criterias.empty?)
+      if (@query_header.update_attributes(params[:query_header]))
+        @query_header.group = "save"
+        @query_header.status = true if @query_header.status.nil?
+        @query_header.save
+        if (params[:new])
+          flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")
+        else        
+          flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "query")
+        end
+        @query_criteria = QueryCriteria.new
+        @query_seleciton = QuerySelection.new
+        @query_sorter = QuerySorter.new
+      else
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.on(:name).nil? && @query_header.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.on(:name)..nil? && @query_header.errors.on(:name).include?("has already been taken"))
       end
-      @query_criteria = QueryCriteria.new
-      @query_seleciton = QuerySelection.new
-      @query_sorter = QuerySorter.new
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.on(:name).nil? && @query_header.errors.on(:name).include?("can't be blank"))
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.on(:name)..nil? && @query_header.errors.on(:name).include?("has already been taken"))
+      flash.now[:error] = flash_message(:message => "No criteria")
     end
     respond_to do |format|
       format.js

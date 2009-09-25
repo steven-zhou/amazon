@@ -4,57 +4,57 @@
   %h3 List Compiler
 
   #list_compiler_form{:style => "display:none;"}
-    #list_form_container{:style => "margin-bottom:40px;"}
-      #left
-        %h3 Merging Lists
+    #list_left{:style => "width:32%;margin-right:2%;float:left;"}
+      .info_container
         .form_line
-          .field_73
-            %label Lists
-            %select#merging_options
-          .field_20
-            %label &nbsp;
-            = button_to_function "Add", :id => "add_merge"
+          %label Lists
+          %input{:style => "display:none", :id => "login_account_id", :value => session[:user]}
+          %select#compiler_options{:multiple => true,:size => "20"}
           %br.clear
-        #merging_lists
+
+      .info_container
+        #extra_form
+          %h3 Extra Attributes
+          .form_line
+            %input{:type => "checkbox", :style => "width:50%;display:inline;", :id =>"allow_duplication"}
+            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
+            %label{:style => "width:30%;display:inline;"} Top
+            %input{:style => "width:30%;display:inline;"}
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
+            %label{:style => "width:30%;display:inline;"} Precentage
+            %input{:style => "width:30%;display:inline;"}
+            %br.clear
 
 
-      #right
-        %h3 Excluding Lists
+    #list_middle{:style => "width:20%;margin-right:2%;float:left;margin-top:150px;"}
+      #merge_operation
+        .form_line{:style => "margin-bottom:30px;"}
+          %label{:style => "display:inline;width:50%"} add to include list
+          =link_to_function image_tag('go.png'), :id => "add_to_include"
+          %br.clear
         .form_line
-          .field_73
-            %label Lists
-            %select#excluding_options
-          .field_20
-            %label &nbsp;
-            = button_to_function "Add", :id => "add_exclude"
+          %label{:style => "display:inline;width:50%"} add to exclude list
+          =link_to_function image_tag('go.png'), :id => "add_to_exclude"
           %br.clear
-        #excluding_lists
 
-      %br.clear
 
-    .info_container#result
-      %h3 Result
-      -form_for ListHeader.new, :html => {:class => "ajax_form"} do |f|
-        .form_line
-          .field_25
-            =f.label :name, "Name"
-            =f.text_field :name
-          .field_25
-            =f.label :description, "Description"
-            =f.text_field :description
-          .field_20
-            =f.label :allow_duplication, "&nbsp;"
-            =f.check_box :allow_duplication, :style => "width:30%;display:inline"
-            =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
-          .field_2{:style => "float:right"}
-            =f.label :status, "&nbsp;"
-            = link_to_function 'Clear', :class => "clear_list alt_option", :style=>"float:right;"
-          .field_10{:style => "float:right"}
-            =f.label :status, "&nbsp;"
-            %input{:style => "display:none", :id => "merge_list_array", :name => "merge_list_array", :value => Array.new}
-            %input{:style => "display:none", :id => "exclude_list_array", :name => "exclude_list_array", :value => Array.new}
-            =submit_tag "Submit"
-          %br.clear
+    #list_right{:style => "width:44%;float:left;margin-top:20px;"}
+      .info_container
+        %h3 Include Lists
+        #include_lists
+      .info_container
+        %h3 Exclude Lists
+        #exclude_lists
+    %br.clear
+    = link_to_function "Clear", :class => "alt_option", :style => "float:right", :id => "clear_compile_list"
+    = button_to_function "Compile", :style => "float:right", :id => "compile_button"
+    %br.clear
+
 
 .info_container#existing_list
   %h3 Existing Lists
@@ -67,3 +67,7 @@
   #show_list_details
 
 #copy_form{:style => "display:none"}
+
+#compile_result_div{:style => "display:none;"}
+  %h3 Compile Results
+  #compile_result
