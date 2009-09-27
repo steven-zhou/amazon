@@ -83,7 +83,7 @@
             = link_to image_tag('back.png'),remove_security_user_groups_path,:id=>"remove_security_link",:class => "post",:data_id => "new_user_group"
 
           #group_right.right
-            %label Conditions
+            %label Selected Groups
             %select{:multiple => true,:size => "8", :id => "remove_group_tag_id",:name => "remove_group_id[]",:disabled=>@login_account.login_status == false}
         %br.clear
     %p.submit

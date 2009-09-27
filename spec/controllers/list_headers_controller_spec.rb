@@ -128,6 +128,7 @@ describe ListHeadersController do
 
     it "should get the query_header belongs to current list" do
       @query_header.should == @list_header.query_header
+      get_edit
     end
 
     it "should get all the list details belongs to current list" do

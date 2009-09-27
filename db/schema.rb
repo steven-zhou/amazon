@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20090923045120) do
     t.boolean  "status"
   end
 
+  create_table "compile_lists", :force => true do |t|
+    t.integer  "login_account_id"
+    t.integer  "list_header_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "contacts", :force => true do |t|
     t.string   "pre_value"
     t.string   "value"
@@ -202,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20090923045120) do
     t.string   "source"
     t.string   "source_type"
     t.boolean  "allow_duplication"
+    t.string   "top_type"
+    t.integer  "top_value"
   end
 
   create_table "login_accounts", :force => true do |t|

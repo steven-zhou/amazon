@@ -72,6 +72,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
+  map.resources :include_lists
+  map.resources :exclude_lists
+  map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
 
   map.resources :group_lists, :collection => {:show_lists => :get}
   

@@ -1,0 +1,42 @@
+-form_for @list_header, :html => {:class => "ajax_form"} do |f|
+  .info_container
+    %h3 Create List #{@allow_duplication}
+    .form_line
+      .field_25
+        =f.label :name, "List Name"
+        =f.text_field :name
+      .field_25
+        =f.label :description, "List Description"
+        =f.text_field :description
+      .field_25
+        =f.label :allow_duplication, "&nbsp;"
+        %input{:style => "display:none;", :name => "list_header[allow_duplication]", :value => @allow_duplication}
+        -if (@allow_duplication=="true")
+          %input{:type => "checkbox", :style => "width:30%;display:inline;", :disabled => true, :checked=>true}
+        -else
+          %input{:type => "checkbox", :style => "width:30%;display:inline;", :disabled => true}
+        =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
+      .field_25{:style => "float:right"}
+        =f.label :description, "&nbsp;"
+        %input{:style => "display:none", :name => "compile"}
+        =submit_tag "Createa List", :style => "width:100px;float:right"
+      %br.clear
+
+
+  %table#compile_results.display
+    %thead
+      %tr
+        %th
+          %input{:type => "checkbox", :class => "select_all", :style => "float:left;", :checked => true}
+          select all
+        %th System ID
+        %th Name
+    %tbody
+      - people.each_index do |i|
+        %tr
+          %td
+            %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes", :checked => true}
+          %td= people[i].id
+          %td= people[i].name
+          
+  
