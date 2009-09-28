@@ -6,7 +6,7 @@ $(function() {
 	  via an attribute toggle_id_name
      */
     $(".toggle_button").live('click', function(){
-      $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
 
@@ -52,97 +52,98 @@ $(function() {
         $('#'+$(this).attr('toggle_more_id')).toggle();
     })
 
-$("#select_contact_type").ready(function(){
-    $('form.active').removeClass('active');
-    $("form."+$('#select_contact_type option:selected').val()).addClass('active');
-});
+    $("#select_contact_type").ready(function(){
+        $('form.active').removeClass('active');
+        $("form."+$('#select_contact_type option:selected').val()).addClass('active');
+    });
 
-$("#select_contact_type").change(function(){
-    $('form.active').removeClass('active');
-    $("form."+$('#select_contact_type option:selected').val()).addClass('active');
-});
+    $("#select_contact_type").change(function(){
+        $('form.active').removeClass('active');
+        $("form."+$('#select_contact_type option:selected').val()).addClass('active');
+    });
 
    
-$(".clear_form").click(function(){
-    $('#'+$(this).parents("form").get(0).id)[0].reset();
-})
+    $(".clear_form").click(function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+    })
 
-$(".clear_group_form").click(function(){
-    $('.find_group_meta_type').val("").change();
-})
+    $(".clear_group_form").click(function(){
+        $('.find_group_meta_type').val("").change();
+    })
 
-$(".clear_employment_form").click(function () {
-    $('#'+$(this).parents("form").get(0).id)[0].reset();
-    $('#organisation_name_container_0').html('');
-    $('#recruiter_container_0').html('');
-    $('#supervisor_container_0').html('');
-    $('#suspender_container_0').html('');
-    $('#terminator_container_0').html('');
-})
+    $(".clear_employment_form").click(function () {
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#organisation_name_container_0').html('');
+        $('#recruiter_container_0').html('');
+        $('#supervisor_container_0').html('');
+        $('#suspender_container_0').html('');
+        $('#terminator_container_0').html('');
+    })
 
-$("#new_employment").submit( function(){
-    $('#organisation_name_container_0').html('');
-    $('#recruiter_container_0').html('');
-    $('#supervisor_container_0').html('');
-    $('#suspender_container_0').html('');
-    $('#terminator_container_0').html('');
-})
+    $("#new_employment").submit( function(){
+        $('#organisation_name_container_0').html('');
+        $('#recruiter_container_0').html('');
+        $('#supervisor_container_0').html('');
+        $('#suspender_container_0').html('');
+        $('#terminator_container_0').html('');
+    })
 
-$("#accordion").accordion();
-$("#accordion01").accordion();
-$("#accordion02").accordion();
+    $("#accordion").accordion();
+    $("#accordion01").accordion();
+    $("#accordion02").accordion();
 
-$(".clear_person_role_form").click(function(){
-    $('#'+$(this).parents("form").get(0).id)[0].reset();
-    $('#assigner_container_0').html('');
-    $('#approver_container_0').html('');
-    $('#approver_container_0').val('');
-    $('#superviser_container_0').html('');
-    $('#manager_container_0').html('');
-    $('#role_role_type_id').change();
-})
+    $(".clear_person_role_form").click(function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#assigner_container_0').html('');
+        $('#approver_container_0').html('');
+        $('#approver_container_0').val('');
+        $('#superviser_container_0').html('');
+        $('#manager_container_0').html('');
+        $('#role_role_type_id').change();
+    })
 
 
-$("#new_person_role").submit( function(){
-    $('#assigner_container_0').html('');
-    $('#approver_container_0').html('');
-    $('#superviser_container_0').html('');
-    $('#manager_container_0').html('');
+    $("#new_person_role").submit( function(){
+        $('#assigner_container_0').html('');
+        $('#approver_container_0').html('');
+        $('#superviser_container_0').html('');
+        $('#manager_container_0').html('');
   
-})
+    })
 
-$("#delete_photo").click(function(){
-    $("#photo").attr("src", "/images/no_photo.jpeg");
-    $("#delete_photo").hide();
-});
+    $("#delete_photo").click(function(){
+        $("#photo").attr("src", "/images/no_photo.jpeg");
+        $("#delete_photo").hide();
+    });
 
-$(".user_clear_form").click(function(){
-    $('#'+$(this).parents("form").get(0).id)[0].reset();
-    $('#login_name_container_0').html('');
-    $('#user_name_container_0').html('');
+    $(".user_clear_form").click(function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#login_name_container_0').html('');
+        $('#user_name_container_0').html('');
 
-})
+    })
 
-});
 
-/* Person Group */
-$('#person_group_close_button').live('click',function(){
 
-$('.person_group_delete_button').css("display","");
- 
-});
+    /* Person Group */
 
-$(".person_group_toggle_button").live('click', function(){
-       if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+    $('#person_group_close_button').live('click',function(){
+
+        $('.person_group_delete_button').css("display","");
+
+    });
+
+    $(".person_group_toggle_button").live('click', function(){
+        if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
             $('.person_group_delete_button').css("display","none");
         else
             $('.person_group_delete_button').css("display","");
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
 
-/* Person Group */
+    /* Person Group */
 
     $(".user_clear_form").click(function(){
         $('#'+$(this).parents("form").get(0).id)[0].reset();
@@ -152,152 +153,153 @@ $(".person_group_toggle_button").live('click', function(){
 
 
 
-/* Person Contact Form  */
-$(".person_contact_toggle_button").live('click', function(){
-       if ($('.person_contact_edit_delete').css("display")=="block" || $('.person_contact_edit_delete').css("display")=="")
+    /* Person Contact Form  */
+    $(".person_contact_toggle_button").live('click', function(){
+        if ($('.person_contact_edit_delete').css("display")=="block" || $('.person_contact_edit_delete').css("display")=="")
             $('.person_contact_edit_delete').css("display","none");
         else
             $('.person_contact_edit_delete').css("display","");
 
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
-$('#person_edit_phone_close_button').live('click',function(){
+    $('#person_edit_phone_close_button').live('click',function(){
 
-$('.person_contact_edit_delete').css("display","");
+        $('.person_contact_edit_delete').css("display","");
  
-});
+    });
 
-$("#email_edit_button").live('click',function(){
+    $("#email_edit_button").live('click',function(){
 
-$('.person_contact_toggle_button').css("display","none");
-$('.person_contact_edit_delete').css("display","none");
+        $('.person_contact_toggle_button').css("display","none");
+        $('.person_contact_edit_delete').css("display","none");
 
-});
-
-
-
-
-$("#phone_edit_button").live('click',function(){
-
-$('.person_contact_toggle_button').css("display","none");
-$('.person_contact_edit_delete').css("display","none");
-
-});
-
-
-$("#fax_edit_button").live('click',function(){
-
-$('.person_contact_toggle_button').css("display","none");
-$('.person_contact_edit_delete').css("display","none");
-
-});
-
-
-$("#website_edit_button").live('click',function(){
-
-$('.person_contact_toggle_button').css("display","none");
-$('.person_contact_edit_delete').css("display","none");
-
-});
+    });
 
 
 
 
-/* Person address  */
+    $("#phone_edit_button").live('click',function(){
 
-$(".person_address_toggle_button").live('click', function(){
-       if ($('.person_address_edit_delete').css("display")=="block" || $('.person_address_edit_delete').css("display")=="")
+        $('.person_contact_toggle_button').css("display","none");
+        $('.person_contact_edit_delete').css("display","none");
+
+    });
+
+
+    $("#fax_edit_button").live('click',function(){
+
+        $('.person_contact_toggle_button').css("display","none");
+        $('.person_contact_edit_delete').css("display","none");
+
+    });
+
+
+    $("#website_edit_button").live('click',function(){
+
+        $('.person_contact_toggle_button').css("display","none");
+        $('.person_contact_edit_delete').css("display","none");
+
+    });
+
+
+
+
+    /* Person address  */
+
+    $(".person_address_toggle_button").live('click', function(){
+        if ($('.person_address_edit_delete').css("display")=="block" || $('.person_address_edit_delete').css("display")=="")
             $('.person_address_edit_delete').css("display","none");
         else
             $('.person_address_edit_delete').css("display","");
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
 
-$("#address_edit_button").live('click',function(){
+    $("#address_edit_button").live('click',function(){
 
-$('.person_address_toggle_button').css("display","none");
-$('.person_address_edit_delete').css("display","none");
+        $('.person_address_toggle_button').css("display","none");
+        $('.person_address_edit_delete').css("display","none");
 
-});
+    });
 
 
     /* Person Master Doc*/
 
-$(".person_master_doc_toggle_button").live('click', function(){
-       if ($('.person_master_doc_edit_delete').css("display")=="block" || $('.person_master_doc_edit_delete').css("display")=="")
+    $(".person_master_doc_toggle_button").live('click', function(){
+        if ($('.person_master_doc_edit_delete').css("display")=="block" || $('.person_master_doc_edit_delete').css("display")=="")
             $('.person_master_doc_edit_delete').css("display","none");
         else
             $('.person_master_doc_edit_delete').css("display","");
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
 
     $("#master_doc_edit_button").live('click',function(){
 
-$('.person_master_doc_toggle_button').css("display","none");
-$('.person_master_doc_edit_delete').css("display","none");
+        $('.person_master_doc_toggle_button').css("display","none");
+        $('.person_master_doc_edit_delete').css("display","none");
 
-});
+    });
 
     /*Person Notes*/
 
     $(".person_notes_toggle_button").live('click', function(){
-       if ($('.person_notes_edit_delete').css("display")=="block" || $('.person_notes_edit_delete').css("display")=="")
+        if ($('.person_notes_edit_delete').css("display")=="block" || $('.person_notes_edit_delete').css("display")=="")
             $('.person_notes_edit_delete').css("display","none");
         else
             $('.person_notes_edit_delete').css("display","");
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
-        $("#notes_edit_button").live('click',function(){
+    $("#notes_edit_button").live('click',function(){
 
-$('.person_notes_toggle_button').css("display","none");
-$('.person_notes_edit_delete').css("display","none");
+        $('.person_notes_toggle_button').css("display","none");
+        $('.person_notes_edit_delete').css("display","none");
 
-});
+    });
 
 
 
     /* Person Employment*/
-       $(".person_employments_toggle_button").live('click', function(){
-       if ($('.person_employments_edit_delete').css("display")=="block" || $('.person_employments_edit_delete').css("display")=="")
+    $(".person_employments_toggle_button").live('click', function(){
+        if ($('.person_employments_edit_delete').css("display")=="block" || $('.person_employments_edit_delete').css("display")=="")
             $('.person_employments_edit_delete').css("display","none");
         else
             $('.person_employments_edit_delete').css("display","");
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
 
-       $("#employments_edit_button").live('click',function(){
+    $("#employments_edit_button").live('click',function(){
 
-    $('.person_employments_toggle_button').css("display","none");
-    $('.person_employments_edit_delete').css("display","none");
+        $('.person_employments_toggle_button').css("display","none");
+        $('.person_employments_edit_delete').css("display","none");
 
-});
+    });
 
 
     /* Person Roles */
-      $(".person_roles_toggle_button").live('click', function(){
-       if ($('.person_roles_edit_delete').css("display")=="block" || $('.person_roles_edit_delete').css("display")=="")
+    $(".person_roles_toggle_button").live('click', function(){
+        if ($('.person_roles_edit_delete').css("display")=="block" || $('.person_roles_edit_delete').css("display")=="")
             $('.person_roles_edit_delete').css("display","none");
         else
             $('.person_roles_edit_delete').css("display","");
 
-         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
-        $("#role_edit_button").live('click',function(){
+    $("#role_edit_button").live('click',function(){
 
-    $('.person_roles_toggle_button').css("display","none");
-    $('.person_roles_edit_delete').css("display","none");
-
+        $('.person_roles_toggle_button').css("display","none");
+        $('.person_roles_edit_delete').css("display","none");
+    });
+});
 // Address assistant //
 
 $(document).ready(function() {
@@ -351,7 +353,6 @@ $(function(){
 });
 
 $(function(){
-
     $('.address_assistant_search').keyup(function() {
         $.ajax({
             type: "GET",
@@ -360,7 +361,4 @@ $(function(){
             dataType: "script"
         });
     });
-
-
 });
-
