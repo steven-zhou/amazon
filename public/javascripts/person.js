@@ -123,6 +123,7 @@ $(function() {
 
     })
 
+});
 
 
     /* Person Group */
@@ -174,6 +175,7 @@ $(function() {
 
         $('.person_contact_toggle_button').css("display","none");
         $('.person_contact_edit_delete').css("display","none");
+       
 
     });
 
@@ -202,7 +204,6 @@ $(function() {
         $('.person_contact_edit_delete').css("display","none");
 
     });
-
 
 
 
@@ -299,7 +300,7 @@ $(function() {
         $('.person_roles_toggle_button').css("display","none");
         $('.person_roles_edit_delete').css("display","none");
     });
-});
+
 // Address assistant //
 
 $(document).ready(function() {

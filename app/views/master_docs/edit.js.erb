@@ -1,2 +1,4 @@
 $('#<%= dom_id(@masterdoc) %>').replaceWith(" <%= escape_javascript(render(:partial => 'edit_master_doc')) %>");
+  $('.person_master_doc_edit_delete').css("display","none");
+  $('.person_master_doc_toggle_button').css("display","none");
 
