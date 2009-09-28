@@ -78,6 +78,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_lists, :collection => {:show_lists => :get}
 
+  map.resources :duplication_formulas
   map.resources :duplication_formula_details
   
   # The priority is based upon order of creation: first created -> highest priority.
