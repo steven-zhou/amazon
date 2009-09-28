@@ -129,18 +129,13 @@ $(document).ready(function() {
         "bLengthChange": false,
         "bAutoWidth":false,
         "bFilter":false,
-        "bStateSave":false,
-        "aoColumns":[{
-            'sWidth':"50"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWdith':"20%"
-        }]
-    }
-    );
+        "aoColumns": [
+            {"sWidth":"40%"},
+            {"sWidth":"13%"},
+            {"sWidth":"22%"},
+            {"sWidth":"25%"}
+        ]
+    });
 });
 
 $(document).ready(function() {
@@ -157,6 +152,11 @@ $(document).ready(function() {
                     $('#address_town').val($('tr.selected > td')[0].innerHTML);
                     $('#address_state').val($('tr.selected > td')[1].innerHTML);
                     $('#address_postal_code').val($('tr.selected > td')[2].innerHTML);
+
+                    $('#person_addresses_attributes_0_town').val($('tr.selected > td')[0].innerHTML);
+                    $('#person_addresses_attributes_0_state').val($('tr.selected > td')[1].innerHTML);
+                    $('#person_addresses_attributes_0_postal_code').val($('tr.selected > td')[2].innerHTML);
+
                     $(this).dialog('close');
                 }
             }

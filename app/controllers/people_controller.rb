@@ -5,6 +5,7 @@ class PeopleController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new
+    @postcodes = DomesticPostcode.find(:all)
     @person = Person.new
     @person.addresses.build
     @person.phones.build
