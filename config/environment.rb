@@ -11,7 +11,7 @@ RAILS_GEM_VERSION = '2.3.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 require 'pdf/writer'
-Mime::Type.register 'application/pdf', :pdf
+# Mime::Type.register 'application/pdf', :pdf
 
 
 Rails::Initializer.run do |config|
