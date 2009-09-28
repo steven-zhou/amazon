@@ -7,7 +7,7 @@ describe AdministrationsController do
     session[:user] = Factory(:login_account).id
   end
   
-  describe "System Setting" do
+  describe "Get System Setting" do
     it "should render template '/administrations/system_setting.html'" do
       xhr :get, "system_setting"
       response.should render_template("administrations/system_setting.html")
@@ -46,6 +46,13 @@ describe AdministrationsController do
     it "should render template '/administrations/list_management.html'" do
       xhr :get, "list_management"
       response.should render_template("administrations/list_management.html")
+    end
+  end
+
+  describe "Get Duplication Formula" do
+    it "should find the duplication formula" do
+      DuplicationFormula.should_receive(:first)
+      xhr :get, "duplication_formula"
     end
   end
 end

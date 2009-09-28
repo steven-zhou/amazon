@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090923045120) do
+ActiveRecord::Schema.define(:version => 20090928024327) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -83,6 +83,22 @@ ActiveRecord::Schema.define(:version => 20090923045120) do
     t.string   "currency"
     t.string   "currency_subunit"
     t.integer  "main_language_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "duplication_formula_details", :force => true do |t|
+    t.integer  "duplication_formula_id"
+    t.string   "table_name"
+    t.string   "field_name"
+    t.integer  "number_of_charecter"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "duplication_formulas", :force => true do |t|
+    t.string   "duplication_space"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -364,6 +380,7 @@ ActiveRecord::Schema.define(:version => 20090923045120) do
     t.datetime "updated_at"
     t.integer  "marital_status_id"
     t.integer  "gender_id"
+    t.string   "duplication_value"
   end
 
   create_table "person_groups", :force => true do |t|
