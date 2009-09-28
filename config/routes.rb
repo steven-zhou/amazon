@@ -80,6 +80,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :reports, :collection => {:generate_report => :post}
 
+  map.resources :duplication_formulas
   map.resources :duplication_formula_details
   
   # The priority is based upon order of creation: first created -> highest priority.
