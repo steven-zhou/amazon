@@ -3,20 +3,20 @@
   .header_container
     .title
       %h3= "#{contact.class} (#{contact.contact_meta_type.name})"
-    .options
+    .options{:class => 'person_contact_edit_delete',:id => 'person_contact_edit_delete'}
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
-        = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get'
-        = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete'
+        = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get',:id => 'phone_edit_button'
+        = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete', :id => 'phone_delete_button'
       - elsif contact.read_attribute("type") == "Email" #contact.class == Email.new.class
-        = link_to image_tag('edit_icon.png'), edit_email_path(contact), :class => 'get'
-        = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete'
+        = link_to image_tag('edit_icon.png'), edit_email_path(contact), :class => 'get', :id => 'email_edit_button'
+        = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete', :id => 'email_delete_button'
 
       - if contact.read_attribute("type") == "Fax" #contact.class == Fax.new.class
-        = link_to image_tag('edit_icon.png'), edit_fax_path(contact), :class => 'get'
-        = link_to image_tag('delete_icon.png'), fax_path(contact), :class => 'delete'
+        = link_to image_tag('edit_icon.png'), edit_fax_path(contact), :class => 'get',:id => 'fax_edit_button'
+        = link_to image_tag('delete_icon.png'), fax_path(contact), :class => 'delete',:id => 'fax_delete_button'
       - elsif contact.read_attribute("type") == "Website" #contact.class == Website.new.class
-        = link_to image_tag('edit_icon.png'), edit_website_path(contact), :class => 'get'
-        = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete'
+        = link_to image_tag('edit_icon.png'), edit_website_path(contact), :class => 'get' , :id => 'website_edit_button'
+        = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete',:id => 'website_delete_button'
 
     %br{ :style => "clear:both;"}
   .display_container

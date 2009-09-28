@@ -14,5 +14,11 @@ class TagType < ActiveRecord::Base
     @tag_types.each { |setting| results += "<option value='" + "#{setting.type}" + "'>" + "#{setting.type}" + "</option>" }
     return results
   end
+
+
+def self.show_meta_type
+    @group_meta_meta_type = GroupMetaMetaType.find(:all, :conditions => ["name = ?" , 'Custom'], :order => 'name')
+    @group_meta_type = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", @group_meta_meta_type.first.id], :order => 'name')
+end
  
 end

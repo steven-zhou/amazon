@@ -1,1 +1,4 @@
 $('#<%= dom_id(@person_role) %>').replaceWith(" <%= escape_javascript(render(:partial => 'edit_person_role')) %>");
+    $('.person_roles_edit_delete').css("display","none");
+  $('.person_roles_toggle_button').css("display","none");
+
