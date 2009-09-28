@@ -2,5 +2,7 @@
   $('#contacts').prepend('<%= escape_javascript(render(:partial => "contacts/contact", :locals => {:contact => @fax})) %>');
   $("#new_fax")[0].reset();
   $("#new_contact").toggle('blind');
+  $('.person_contact_edit_delete').css("display","");
+  $('.person_contact_toggle_button').css("display","");
   $('#<%= dom_id(@fax) %>').effect('slide', {direction:'right'});
 <% end -%>

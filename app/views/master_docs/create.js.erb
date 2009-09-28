@@ -2,5 +2,7 @@
   $('#masterdocs').prepend('<%= escape_javascript(render(:partial => @masterdoc)) %>');
   $("#new_master_doc")[0].reset();
   $("#new_master_doc").toggle('blind');
+    $('.person_master_doc_edit_delete').css("display","");
+  $('.person_master_doc_toggle_button').css("display","");
   $('#<%= dom_id(@masterdoc) %>').effect('slide', {direction:'right'});
 <% end -%>

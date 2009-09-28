@@ -4,7 +4,7 @@
     .title
       %h3 MasterDocs
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button", :toggle_id_name => "new_master_doc"  if (!person.nil? && !person.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"person_master_doc_toggle_button", :toggle_id_name => "new_master_doc"  if (!person.nil? && !person.new_record?)
       = image_tag('help_icon.png')
     %br.clear
 
@@ -12,7 +12,7 @@
   -form_for([@person,@masterdoc], :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
     %fieldset
       .options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_master_doc"
+        = link_to_function image_tag('close_icon.png'), :class => "clear_form person_master_doc_toggle_button", :toggle_id_name => "new_master_doc"
       %h3 New Document
       = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
       = submit_tag 'Submit'
