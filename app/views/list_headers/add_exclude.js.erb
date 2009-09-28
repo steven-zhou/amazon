@@ -1,3 +1,3 @@
 <%- unless @list_header.new_record? %>
-$('#excluding_lists').append('<%= escape_javascript(render(:partial => "lists/list_header")) %>');
+$('#excluding_lists').append('<%= escape_javascript(render(:partial => "lists/list_header", :locals => {:type => "exclude"})) %>');
 <%- end %>

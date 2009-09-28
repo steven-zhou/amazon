@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090922014459) do
+ActiveRecord::Schema.define(:version => 20090923045120) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -41,6 +41,14 @@ ActiveRecord::Schema.define(:version => 20090922014459) do
     t.datetime "updated_at"
     t.string   "description"
     t.boolean  "status"
+  end
+
+  create_table "compile_lists", :force => true do |t|
+    t.integer  "login_account_id"
+    t.integer  "list_header_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "contacts", :force => true do |t|
@@ -202,6 +210,8 @@ ActiveRecord::Schema.define(:version => 20090922014459) do
     t.string   "source"
     t.string   "source_type"
     t.boolean  "allow_duplication"
+    t.string   "top_type"
+    t.integer  "top_value"
   end
 
   create_table "login_accounts", :force => true do |t|
@@ -377,6 +387,26 @@ ActiveRecord::Schema.define(:version => 20090922014459) do
     t.date     "end_date"
     t.integer  "supervised_by"
     t.integer  "managed_by"
+  end
+
+  create_table "postcodes", :force => true do |t|
+    t.integer "country_id"
+    t.text    "type"
+    t.text    "governance"
+    t.text    "province"
+    t.text    "state"
+    t.text    "county"
+    t.text    "region"
+    t.text    "district"
+    t.text    "zone"
+    t.text    "city"
+    t.text    "town"
+    t.text    "suburb"
+    t.text    "electoral_area"
+    t.text    "postcode"
+    t.text    "mail_code"
+    t.text    "bulk_code"
+    t.integer "geographical_area_id"
   end
 
   create_table "query_criterias", :force => true do |t|

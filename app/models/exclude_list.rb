@@ -1,0 +1,4 @@
+class ExcludeList < CompileList
+
+
+end

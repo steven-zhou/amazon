@@ -140,6 +140,7 @@ class PeopleController < ApplicationController
 
   
   def edit
+    @postcodes = DomesticPostcode.find(:all)
     @group_types = LoginAccount.find(session[:user]).group_types
 
     #@user_lists = session[:login_account_info].user_lists

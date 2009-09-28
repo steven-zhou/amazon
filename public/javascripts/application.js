@@ -333,15 +333,15 @@ $(function(){
 $(function()
 {
     $(".show_group_type").live('change', function(){
-       /*   if($(this).val()!= ""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tag_meta_types/show_group_types.js",
-                data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
-            });
+        /*   if($(this).val()!= ""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tag_meta_types/show_group_types.js",
+            data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
+        });
 
-       /* }
+    /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -362,13 +362,13 @@ $(function()
 /* show other group member */
 $(function(){
     $("#show_other_group_members").live('click',function(){
-            $.ajax({
-                type: "GET",
-                url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
-                data: 'person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        $.ajax({
+            type: "GET",
+            url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
+            data: 'person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
     });
 });
 
@@ -376,16 +376,16 @@ $(function(){
 /* Show_group */
 $(function(){
     $(".find_group_meta_type").live('change',function(){
-    /*   if($(this).val()!=""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tag_types/show_types.js",
-                data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        /*   if($(this).val()!=""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/show_types.js",
+            data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
 
-        /* }  */
+    /* }  */
 
     });
 }
@@ -394,16 +394,16 @@ $(function(){
 
 $(function(){
     $(".person_group_id").live('change',function(){
-    /*   if($(this).val()!=""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tags/show_group_description.js",
-                data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        /*   if($(this).val()!=""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_group_description.js",
+            data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
 
-        /* }  */
+    /* }  */
 
     });
 }
@@ -718,7 +718,7 @@ $(function(){
                 data: 'tag='+$(this).val(),
                 dataType: "script"
             });
-            if($(this).val() != "4"){
+            if($(this).val() != "5"){
                 $("#add_tag_meta_type").css("display", "");
             }else{
                 $("#add_tag_meta_type").css("display", "none");
@@ -1185,12 +1185,20 @@ $(function(){
     });
 });
 
+
 $(function(){
     $("#run_button").live('click', function(){
+        var temp = "";
+        temp += 'id=' + $("#query_header_id").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+        }
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
@@ -1198,10 +1206,17 @@ $(function(){
 
 $(function(){
     $("#run_button_edit").live('click', function(){
+        var temp = "";
+        temp += 'id=' + $("#query_header_id").val();
+        if($("#query_edit_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+        }
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
@@ -1281,6 +1296,31 @@ $(function(){
     });
 });
 
+$(function(){
+   $("#query_top_number").click(function(){
+      $("#query_top_percent_value").val('');
+      $("#query_top_percent_value").attr("disabled",true);
+      $("#query_top_number_value").attr("disabled",false);
+   });
+   $("#query_top_percent").click(function(){
+      $("#query_top_number_value").val('');
+      $("#query_top_number_value").attr("disabled",true);
+      $("#query_top_percent_value").attr("disabled",false);
+   });
+});
+
+$(function(){
+   $("#query_edit_top_number").click(function(){
+      $("#query_edit_top_percent_value").val('');
+      $("#query_edit_top_percent_value").attr("disabled",true);
+      $("#query_edit_top_number_value").attr("disabled",false);
+   });
+   $("#query_edit_top_percent").click(function(){
+      $("#query_edit_top_number_value").val('');
+      $("#query_edit_top_number_value").attr("disabled",true);
+      $("#query_edit_top_percent_value").attr("disabled",false);
+   });
+});
 
 
 /*List Header of Person*/
@@ -1318,6 +1358,7 @@ $(function(){
         $("#close_list_compiler").css("display", "");
         $("#list_compiler_form").css("display","");
         $("#existing_list").css("display","none");
+        $("#clear_compile_list").click();
         $.ajax({
             type: "GET",
             url: "/list_headers",
@@ -1332,29 +1373,93 @@ $(function(){
       $("#show_list_compiler").css("display", "");
       $("#existing_list").css("display","");
       $("#list_compiler_form").css("display","none");
+      $("#clear_compile_list").click();
    });
 });
 
 $(function(){
-   $("#add_merge").live('click', function(){
-       $.ajax({
+   $("#add_to_include").live('click', function(){
+       if($("#compiler_options").val() != null){
+         $.ajax({
             type: "POST",
-            url: "/list_headers/add_merge.js",
-            data:'id=' + $("#merging_options").val() + '&merge_list_array=' + $("#merge_list_array").val(),
+            url: "/include_lists",
+            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
             dataType: "script"
         });
+
+       }
    });
 });
 
 $(function(){
-   $("#add_exclude").live('click', function(){
-       $.ajax({
+   $("#add_to_exclude").live('click', function(){
+       if($("#compiler_options").val() != null){
+         $.ajax({
             type: "POST",
-            url: "/list_headers/add_exclude.js",
-            data:'id=' + $("#excluding_options").val() + '&exclude_list_array=' + $("#exclude_list_array").val(),
+            url: "/exclude_lists",
+            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
             dataType: "script"
         });
+       }
    });
+});
+
+
+$(function(){
+   $("#clear_compile_list").live('click', function(){
+      $.ajax({
+        type: "POST",
+        url: "/compile_lists/clear.js",
+        data: "login_account_id=" + $("#login_account_id").val(),
+        dataType: "script"
+      });
+   });
+});
+
+$(function(){
+   $("#compile_button").live('click', function(){
+      var temp = "";
+      temp += "login_account_id=" + $("#login_account_id").val();
+      temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
+      if($("#top_number").attr("checked")==true){
+        temp += "&top=number&top_number=" + $("#top_number_value").val();
+      }else{
+        temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+      }
+      
+      $.ajax({
+         type: "POST",
+         url: "/compile_lists/compile.js",
+         data: temp,
+         dataType: "script"
+      });
+   });
+});
+
+$(function(){
+   $("#top_number").click(function(){
+      $("#top_percent_value").val('');
+      $("#top_percent_value").attr("disabled",true);
+      $("#top_number_value").attr("disabled",false);
+   });
+   $("#top_percent").click(function(){
+      $("#top_number_value").val('');
+      $("#top_number_value").attr("disabled",true);
+      $("#top_percent_value").attr("disabled",false);
+   });
+});
+
+$(function(){
+    $(".integer_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+          if((!_valid) || $(this).val()<=0){
+            alert("This field has be an integer and great than zero!");
+            $(this).focus();
+            $(this).val('');
+            }
+        }
+    });
 });
 
 

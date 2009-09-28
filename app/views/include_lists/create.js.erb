@@ -1,0 +1,8 @@
+<% if @include_list.errors.empty? -%>
+  $('#include_lists').append('<%= escape_javascript(render(:partial => @include_list)) %>');
+  $("#compiler_options").val('');
+  $('#list_header_<%= escape_javascript("#{@list_header_id}")%>').addClass("selected");
+  $('#<%= dom_id(@include_list) %>').effect('slide', {direction:'right'});
+<% end -%>
+
+

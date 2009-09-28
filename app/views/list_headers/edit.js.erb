@@ -4,10 +4,13 @@ $('#list_details').dataTable({
         "iDisplayLength":20,
         "bAutoWidth":false,
         "sDom":'lfrtpi',
-        "aoColumns":[{
-            'bSortable': false,
-            'sWidth': "10%"
-        }]
+        "aoColumns":[
+            { 'sType': 'numeric',
+              "bSortable": false,
+              'sWidth': "10%"},
+              null,
+              null,
+            ]
     });
 
 $('#edit_list').dialog({

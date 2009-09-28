@@ -5,7 +5,7 @@
       %h3 Select a User Group:
   .field_22
     = label :group_list, :group_id, 'User Groups'
-    = collection_select :group_list, :group_id, GroupType.all, :id, :name, {:prompt => true}, {:class => "show_list clear_select"}
+    = collection_select :group_list, :group_id, @group_all, :id, :name, {:prompt => true}, {:class => "show_list clear_select"}
   %br.clear
 
   %div{:class => "show_list_container",:style => "display:none;"}

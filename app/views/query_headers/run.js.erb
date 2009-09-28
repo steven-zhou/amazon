@@ -6,10 +6,12 @@ $('#query_results').dataTable({
         "iDisplayLength":20,
         "bAutoWidth":false,
         "sDom":'lfrtpi',
-        "aoColumns":[{
-            'bSortable': false,
-            'sWidth': "20%"
-        }]
+        "aoColumns":[
+            { "bSortable": false,
+              'sWidth': "10%"},
+            { 'sType': 'numeric'},
+              null,
+            ]
     });
     
 $('#result_div').dialog({

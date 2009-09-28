@@ -1,0 +1,48 @@
+<%- unless flash[:error].nil? %>
+$("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+$('#flash_message').dialog( {
+    modal: true,
+    resizable: true,
+    draggable: true,
+    position: 'top',
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    }
+  });
+$('#flash_message').dialog('open');
+<%- else %>
+
+$('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results", :locals => {:people => @people})) %>');
+$('#compile_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[
+            { 'sType': 'numeric',
+              "bSortable": false,
+              'sWidth': "10%"},
+              null,
+              null,
+            ]
+    });
+
+$('#compile_result_div').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 700,
+  width: 1300,
+  buttons: {
+    Ok: function() {
+      $(this).dialog('close');
+    }
+  }
+});
+
+$('#compile_result_div').dialog('open');
+
+
+<%- end %>

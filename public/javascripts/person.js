@@ -102,18 +102,13 @@ $(".clear_person_role_form").click(function(){
     $('#role_role_type_id').change();
 })
 
+
 $("#new_person_role").submit( function(){
     $('#assigner_container_0').html('');
     $('#approver_container_0').html('');
     $('#superviser_container_0').html('');
     $('#manager_container_0').html('');
- 
-       
-
-        
-      
-      
-
+  
 })
 
 $("#delete_photo").click(function(){
@@ -146,7 +141,16 @@ $(".person_group_toggle_button").live('click', function(){
          $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
+
 /* Person Group */
+
+    $(".user_clear_form").click(function(){
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $('#login_name_container_0').html('');
+        $('#user_name_container_0').html('');
+    });
+
+
 
 /* Person Contact Form  */
 $(".person_contact_toggle_button").live('click', function(){
@@ -154,6 +158,7 @@ $(".person_contact_toggle_button").live('click', function(){
             $('.person_contact_edit_delete').css("display","none");
         else
             $('.person_contact_edit_delete').css("display","");
+
 
          $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
@@ -292,6 +297,70 @@ $('.person_notes_edit_delete').css("display","none");
 
     $('.person_roles_toggle_button').css("display","none");
     $('.person_roles_edit_delete').css("display","none");
+
+// Address assistant //
+
+$(document).ready(function() {
+    $('#address_assistant').dataTable( {
+        "iDisplayLength":10,
+        "bLengthChange": false,
+        "bAutoWidth":false,
+        "bFilter":false,
+        "bStateSave":false,
+        "aoColumns":[{
+            'sWidth':"50"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWdith':"20%"
+        }]
+    }
+    );
+});
+
+$(document).ready(function() {
+
+    $('#launch_address_assistant').live('click', function() {
+        $('#address_form_assistant').dialog({
+            modal: true,
+            width: 650,
+            height: 500,
+            resizable: true,
+            draggable :true,
+            buttons: {
+                Select: function() {
+                    $('#address_town').val($('tr.selected > td')[0].innerHTML);
+                    $('#address_state').val($('tr.selected > td')[1].innerHTML);
+                    $('#address_postal_code').val($('tr.selected > td')[2].innerHTML);
+                    $(this).dialog('close');
+                }
+            }
+        });
+        $('#address_form_assistant').dialog('open');
+    });
+});
+
+$(function(){
+    $('table#address_assistant tbody tr').live('click',function(){
+        $('table#address_assistant tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+});
+
+$(function(){
+
+    $('.address_assistant_search').keyup(function() {
+        $.ajax({
+            type: "GET",
+            url: "addresses/search_postcodes.js",
+            data: 'suburb='+$('#address_assistant_suburb').val()+'&state='+$('#address_assistant_state').val()+'&postcode='+$('#address_assistant_postcode').val(),
+            dataType: "script"
+        });
+    });
+
 
 });
 
