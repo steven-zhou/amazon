@@ -164,23 +164,32 @@ $('#person_group_close_button').live('click',function(){
     });
 
 
-//    $("#email_delete_button").live('click',function(){
-//        $('.person_contact_edit_delete').css("display","none");
-//
-//    });
+    
     
     $("#email_edit_button").live('click',function(){
         $('.person_contact_toggle_button').css("display","none");
         $('.person_contact_edit_delete').css("display","none");
     });
 
-   
+       $(".delete_email").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_email[email_id='+ $(this).attr('email_id') +']').css("display", "none");
+    });
 
-    $
+    
     $("#phone_edit_button").live('click',function(){
         $('.person_contact_toggle_button').css("display","none");
         $('.person_contact_edit_delete').css("display","none");
     });
+
+
+
+
+    $(".delete_phone").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_phone[phone_id='+ $(this).attr('phone_id') +']').css("display", "none");
+    });
+
 
 
     $("#fax_edit_button").live('click',function(){
@@ -188,10 +197,21 @@ $('#person_group_close_button').live('click',function(){
         $('.person_contact_edit_delete').css("display","none");
     });
 
+      $(".delete_fax").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_fax[fax_id='+ $(this).attr('fax_id') +']').css("display", "none");
+    });
+
+
 
     $("#website_edit_button").live('click',function(){
         $('.person_contact_toggle_button').css("display","none");
         $('.person_contact_edit_delete').css("display","none");
+    });
+
+      $(".delete_website").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_website[website_id='+ $(this).attr('website_id') +']').css("display", "none");
     });
     
     /* Person address  */
@@ -228,6 +248,11 @@ $('#person_group_close_button').live('click',function(){
         $('.person_master_doc_edit_delete').css("display","none");
     });
 
+     $(".delete_master_doc").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_master_doc[master_doc_id='+ $(this).attr('master_doc_id') +']').css("display", "none");
+    });
+
     /*Person Notes*/
 
     $(".person_notes_toggle_button").live('click', function(){
@@ -239,9 +264,14 @@ $('#person_group_close_button').live('click',function(){
             $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
-    $("#notes_edit_button").live('click',function(){
+    $(".edit_note").live('click',function(){
         $('.person_notes_toggle_button').css("display","none");
         $('.person_notes_edit_delete').css("display","none");
+    });
+
+    $(".delete_note").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_note[note_id='+ $(this).attr('note_id') +']').css("display", "none");
     });
 
 
@@ -277,6 +307,11 @@ $('#person_group_close_button').live('click',function(){
 
         $('.person_roles_toggle_button').css("display","none");
         $('.person_roles_edit_delete').css("display","none");
+    });
+
+      $(".delete_role").live('click',function(){
+        $('.person_notes_toggle_button').css("display","");
+        $('.edit_role[role_id='+ $(this).attr('role_id') +']').css("display", "none");
     });
 
 // Address assistant //
