@@ -1,1 +1,3 @@
 $('#<%= dom_id(@employment, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @employment)) %>");
+    $('.person_employments_edit_delete').css("display","");
+  $('.person_employments_toggle_button').css("display","");

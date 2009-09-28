@@ -4,15 +4,15 @@
     .title
       %h3 Groups
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form toggle_button", :toggle_id_name => "new_group"  if (!person.nil? && !person.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form person_group_toggle_button", :toggle_id_name => "new_group"  if (!person.nil? && !person.new_record?)
       = image_tag('help_icon.png')
     %br{ :style=>"clear: both;"}
     .info_container{:style=>"display:none", :id => "new_group",:name => "new_group"}
-      .options
-        = link_to_function image_tag('close_icon.png'), :class => "toggle_button", :toggle_id_name => "new_group"
+      .options{:id => 'person_group_close_button'}
+        = link_to_function image_tag('close_icon.png'), :class => "clear_group_form toggle_button", :toggle_id_name => "new_group"
       %h3 New Group
       
-      -form_for([@person, @person_group], :html => {:class => 'ajax_form'}) do |groups|
+      -form_for([@person, @person_group], :html => {:class => ' ajax_form'}) do |groups|
         = render :partial => '/person_groups/group_form', :locals => {:groups => groups}
         = submit_tag 'Submit'
       %br.clear

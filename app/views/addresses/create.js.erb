@@ -2,6 +2,8 @@
   $('#addresses').prepend('<%= escape_javascript(render(:partial => @address)) %>');
   $("#new_address")[0].reset();
   $("#new_address").toggle('blind');
+  $('.person_address_edit_delete').css("display","");
+  $('.person_address_toggle_button').css("display","");
   $('#<%= dom_id(@address) %>').effect('slide', {direction:'right'});  
 <% end -%>
 

@@ -1,1 +1,3 @@
 $('#<%= dom_id(@fax, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => 'contacts/contact', :locals => {:contact => @fax})) %>");
+$('.person_contact_toggle_button').css("display","");
+$('.person_contact_edit_delete').css("display","");

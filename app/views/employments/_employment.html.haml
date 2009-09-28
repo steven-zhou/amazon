@@ -3,8 +3,8 @@
   .header_container
     .title
       %h3= employment.organisation.full_name
-    .options
-      = link_to image_tag('edit_icon.png'), edit_employment_path(employment), :class => 'get'
+    .options{:class => 'person_employments_edit_delete'}
+      = link_to image_tag('edit_icon.png'), edit_employment_path(employment), :class => 'get' ,:id => 'employments_edit_button'
     %br{ :style => "clear:both;"}
   .display_container
     = format_employment(employment)
