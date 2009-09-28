@@ -24,6 +24,6 @@ class CreatePostcode < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :psotcodes
+    drop_table :postcodes
   end
 end

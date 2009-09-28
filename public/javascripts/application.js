@@ -1484,3 +1484,11 @@ $(function(){
         }
     });
 });
+
+/* Admin - Duplication Formular */
+$(function(){
+    $("#fields_formula").live('change', function(){
+        $(".descriptions_formula").css("display", "none");
+        $("#description_formula_"+$(this).val()).css("display", "");
+    });
+});
