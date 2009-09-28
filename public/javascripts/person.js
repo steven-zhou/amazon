@@ -105,12 +105,6 @@ $(function() {
         $('#approver_container_0').html('');
         $('#superviser_container_0').html('');
         $('#manager_container_0').html('');
- 
-       
-
-        
-      
-      
 
     })
 
@@ -123,13 +117,73 @@ $(function() {
         $('#'+$(this).parents("form").get(0).id)[0].reset();
         $('#login_name_container_0').html('');
         $('#user_name_container_0').html('');
-        
-      
-      
-
-
-
     })
+});
+
+
+// Address assistant //
+
+$(document).ready(function() {
+    $('#address_assistant').dataTable( {
+        "iDisplayLength":10,
+        "bLengthChange": false,
+        "bAutoWidth":false,
+        "bFilter":false,
+        "bStateSave":false,
+        "aoColumns":[{
+            'sWidth':"50"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWdith':"20%"
+        }]
+    }
+    );
+});
+
+$(document).ready(function() {
+
+    $('#launch_address_assistant').live('click', function() {
+        $('#address_form_assistant').dialog({
+            modal: true,
+            width: 650,
+            height: 500,
+            resizable: true,
+            draggable :true,
+            buttons: {
+                Select: function() {
+                    $('#address_town').val($('tr.selected > td')[0].innerHTML);
+                    $('#address_state').val($('tr.selected > td')[1].innerHTML);
+                    $('#address_postal_code').val($('tr.selected > td')[2].innerHTML);
+                    $(this).dialog('close');
+                }
+            }
+        });
+        $('#address_form_assistant').dialog('open');
+    });
+});
+
+$(function(){
+    $('table#address_assistant tbody tr').live('click',function(){
+        $('table#address_assistant tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+});
+
+$(function(){
+
+    $('.address_assistant_search').keyup(function() {
+        $.ajax({
+            type: "GET",
+            url: "addresses/search_postcodes.js",
+            data: 'suburb='+$('#address_assistant_suburb').val()+'&state='+$('#address_assistant_state').val()+'&postcode='+$('#address_assistant_postcode').val(),
+            dataType: "script"
+        });
+    });
 
 });
 
+// End of address assistant //

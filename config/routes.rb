@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     :cancel_edit_names => :post,
     :name_card => :get,
   } do |person|
-    person.resources :addresses, :member => {:set_primary_address => :post}
+    person.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     person.resources :phones
     person.resources :faxes
     person.resources :websites
