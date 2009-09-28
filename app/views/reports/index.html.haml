@@ -1,0 +1,29 @@
+%h1 Reports
+
+-form_for :report, :url => {:controller => 'reports', :action => "generate_report"}, :html => {} do |tag_type|
+  %fieldset
+    .form_line
+      .field_30
+        %h2 Report Format
+        =tag_type.label :format, 'Format'
+        =tag_type.select(:format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""})
+      %br.clear
+  %fieldset#report_select_list{:style => "display:none;"}
+    .form_line
+      .field_30
+        %h2 Select List
+        =tag_type.label :list, 'Lists'
+        %select{:id => "report_list", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+          %option{:selected => "selected"}
+          - @list_headers.each do |r|
+            %option{:value => "#{r.id}"} #{r.name}
+      %br.clear
+  %fieldset#report_details{:style => "display:none;"}
+    .form_line
+      .field_30
+        %h2 Report Details
+        =tag_type.label :name, 'Name'
+        =tag_type.text_field :name
+      %br.clear
+  = submit_tag 'Generate', :style => "width:75px;", :id => "report_submit_button"
+
