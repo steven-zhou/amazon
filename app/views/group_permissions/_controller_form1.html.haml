@@ -1,0 +1,27 @@
+%ul
+  - @system_permission_meta_types.each do |controller|
+    %li
+      .info_container
+        .field_33{:id => "show_methods", :style => "cursor:pointer;cursor:hand", :class => "group_permission_color toggle_button", :toggle_id_name => "show_methods_container_#{controller.id}", :controller_id => controller.id}
+          = 'Controller---'+ controller.name
+        .field_22
+          = check_box_tag "controller_ids[]", controller.id, false, :class => 'controller_select_all', :controller_id => controller.id
+          = 'Select All11'
+        %br.clear
+      %div{:id => "show_methods_container_#{controller.id}", :style => "display:none"}
+        %ul
+          - controller.system_permission_types.each do |method|
+            %li
+              .info_container
+                .field_33{:style => "cursor:pointer;cursor:hand", :class => "group_permission_color", :method_id => method.id}
+                  = 'Method---'+ method.name
+                .field_22
+                  = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => controller.id
+                  = 'Allow Access111'
+                %br.clear
+
+
+
+
+
+  

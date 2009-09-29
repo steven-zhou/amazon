@@ -77,6 +77,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
 
   map.resources :group_lists, :collection => {:show_lists => :get}
+  map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

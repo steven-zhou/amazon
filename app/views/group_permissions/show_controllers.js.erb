@@ -1,0 +1,13 @@
+
+$('#show_controllers_container').html('<%=escape_javascript(render(:partial => '/group_permissions/controller_form1')) %>')
+
+
+
+if ($('.module_select_all').attr('checked') == true){
+            $('.controller_select_all').attr("checked", true);
+             $('.method_select_all').attr("checked", true);
+
+        }else{
+          $('.controller_select_all').attr("checked", false);
+          $('.method_select_all').attr("checked", false);
+      }

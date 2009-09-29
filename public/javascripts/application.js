@@ -333,15 +333,15 @@ $(function(){
 $(function()
 {
     $(".show_group_type").live('change', function(){
-       /*   if($(this).val()!= ""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tag_meta_types/show_group_types.js",
-                data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
-            });
+        /*   if($(this).val()!= ""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tag_meta_types/show_group_types.js",
+            data: 'group_meta_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
+        });
 
-       /* }
+    /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -362,13 +362,13 @@ $(function()
 /* show other group member */
 $(function(){
     $("#show_other_group_members").live('click',function(){
-            $.ajax({
-                type: "GET",
-                url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
-                data: 'person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        $.ajax({
+            type: "GET",
+            url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
+            data: 'person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
     });
 });
 
@@ -376,16 +376,16 @@ $(function(){
 /* Show_group */
 $(function(){
     $(".find_group_meta_type").live('change',function(){
-    /*   if($(this).val()!=""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tag_types/show_types.js",
-                data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        /*   if($(this).val()!=""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/show_types.js",
+            data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
 
-        /* }  */
+    /* }  */
 
     });
 }
@@ -394,16 +394,16 @@ $(function(){
 
 $(function(){
     $(".person_group_id").live('change',function(){
-    /*   if($(this).val()!=""){  */
-            $.ajax({
-                type: "GET",
-                url: "/tags/show_group_description.js",
-                data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
-                dataType: "script"
+        /*   if($(this).val()!=""){  */
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_group_description.js",
+            data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            dataType: "script"
 
-            });
+        });
 
-        /* }  */
+    /* }  */
 
     });
 }
@@ -1328,62 +1328,62 @@ $(function(){
 });
 
 $(function(){
-   $('#close_list_compiler').live('click', function(){
-      $(this).css("display","none");
-      $("#show_list_compiler").css("display", "");
-      $("#existing_list").css("display","");
-      $("#list_compiler_form").css("display","none");
-      $("#clear_compile_list").click();
-   });
+    $('#close_list_compiler').live('click', function(){
+        $(this).css("display","none");
+        $("#show_list_compiler").css("display", "");
+        $("#existing_list").css("display","");
+        $("#list_compiler_form").css("display","none");
+        $("#clear_compile_list").click();
+    });
 });
 
 $(function(){
-   $("#add_to_include").live('click', function(){
-       if($("#compiler_options").val() != null){
-         $.ajax({
+    $("#add_to_include").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/include_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+$(function(){
+    $("#add_to_exclude").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/exclude_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
+$(function(){
+    $("#clear_compile_list").live('click', function(){
+        $.ajax({
             type: "POST",
-            url: "/include_lists",
-            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+            url: "/compile_lists/clear.js",
+            data: "login_account_id=" + $("#login_account_id").val(),
             dataType: "script"
         });
-       }
-   });
+    });
 });
 
 $(function(){
-   $("#add_to_exclude").live('click', function(){
-       if($("#compiler_options").val() != null){
-         $.ajax({
+    $("#compile_button").live('click', function(){
+        $.ajax({
             type: "POST",
-            url: "/exclude_lists",
-            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+            url: "/compile_lists/compile.js",
+            data: "login_account_id=" + $("#login_account_id").val(),
             dataType: "script"
         });
-       }
-   });
-});
-
-
-$(function(){
-   $("#clear_compile_list").live('click', function(){
-      $.ajax({
-        type: "POST",
-        url: "/compile_lists/clear.js",
-        data: "login_account_id=" + $("#login_account_id").val(),
-        dataType: "script"
-      });
-   });
-});
-
-$(function(){
-   $("#compile_button").live('click', function(){
-      $.ajax({
-         type: "POST",
-         url: "/compile_lists/compile.js",
-         data: "login_account_id=" + $("#login_account_id").val(),
-         dataType: "script"
-      });
-   });
+    });
 });
 
 
@@ -1397,13 +1397,130 @@ $(function(){
                 url: "/group_lists/show_lists.js",
                 data: 'group_id='+$(this).val(),
                 dataType: "script"
-            })
+            });
             $(".show_list_container").css("display", "");
             $("#new_group_list_container").css("display", "");
         } else{
-           $(".show_list_container").css("display", "none");
-           $("#new_group_list_container").css("display", "none")
+            $(".show_list_container").css("display", "none");
+            $("#new_group_list_container").css("display", "none")
            
         }
     });
+});
+
+/*Group---Permission*/
+
+$(function(){
+    $(".show_permission_container").live('change',function(){
+        if ($(this).val()!= ""){
+
+            $.ajax({
+                type:"GET",
+                url: "/group_permissions/show_add_container.js",
+                data: "group_id="+$(this).val(),
+                dataType: "script"
+            });
+            $(".permission_container").css("display", "");
+
+        }
+        else{
+
+            $(".permission_container").css("display", "none");
+
+        }
+    });
+});
+
+
+
+$(function(){
+
+    $("#system_permission_meta_meta_type_id").live('change',function(){
+        $.ajax({
+            type:"GET",
+            url: "/group_permissions/show_module.js",
+            data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+            dataType:"script"
+
+        });
+
+    });
+});
+
+
+$(function(){
+    $(".group_permission_color").live('mouseover', function(){
+        $(this).animate({
+            color: "#FFFF00"
+        }, 300)
+    });
+});
+
+$(function(){
+    $(".group_permission_color").live('mouseout', function(){
+        $(this).animate({
+            color: "#F7F8E0"
+        }, 300)
+    });
+});
+
+/*use for click the module show the whole thing*/
+$(function(){
+    $("#show_controllers").live('click', function(){
+        $.ajax({
+            type:"GET",
+            url:"/group_permissions/show_controllers.js",
+            data:"main_module_id="+$(this).attr('main_module_id'),
+            dataType:"script"
+
+        });
+
+    });
+
+});
+
+$(function(){
+   $(".module_select_all").live('click', function(){
+      if ($(this).attr("checked") == true){
+          $('.controller_select_all').attr("checked", true);
+          $('.method_select_all').attr("checked", true);
+      }else{
+          $('.controller_select_all').attr("checked", false);
+          $('.method_select_all').attr("checked", false);
+      }
+
+    });
+});
+
+
+
+/*when you slecet the controller , all the method will be on*/
+$(function(){
+   $('.controller_select_all').live('click', function(){
+       if ($(this).attr('checked') == true){
+
+
+         $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+
+
+       }else{
+
+
+                   $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
+                   $('.module_select_all').attr("checked", false);
+
+       }
+   });
+});
+
+
+
+$(function(){
+   $('.method_select_all').live('click', function(){
+       if ($(this).attr('checked') == false){
+           $('.module_select_all').attr("checked", false);
+           $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
+       }
+
+   });
 });

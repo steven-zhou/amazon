@@ -17,6 +17,10 @@ class AdministrationsController < ApplicationController
     @group_all = Array.new
     c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])rescue @group_all = Array.new
     @group_all = c.group_types
+
+    @module_all = Array.new
+    c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
+    @module_all = c
     respond_to do |format|
       format.html
     end
