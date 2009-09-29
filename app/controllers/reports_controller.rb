@@ -1,5 +1,8 @@
 class ReportsController < ApplicationController
 
+  require "pdf/writer"
+
+
 
   def index
     @group_types = LoginAccount.find(session[:user]).group_types
@@ -18,7 +21,16 @@ class ReportsController < ApplicationController
     report_name = params[:report][:name]
     report_list = params[:report][:list]
 
-    puts "*****DEBUG got passed #{report_format} #{report_name} #{report_list}"
+    pdf = PDF::Writer.new
+
+    pdf.select_font "Times-Roman"
+    pdf.text "#{report_name}", :font_size => 32, :justification => :center
+
+    send_data pdf.render, :filename => "#{report_name}_report.pdf", :type => "application/pdf"
+
+
+
+    # puts "*****DEBUG got passed #{report_format} #{report_name} #{report_list}"
 
 
   end
