@@ -19,7 +19,7 @@ $('#flash_message').dialog('open');
 
 $('.permission_container').html('<%=escape_javascript(render(:partial => '/group_permissions/add_group_permission'))%>');
 $('#hide_module').toggle('blind');
-$('#permission_form').addClass('info_container')
-$('#permission_form').html('<%=escape_javascript(render(:partial => '/group_permissions/existing_permission'))%>');
+
+$('#old_permissions').html('<%=escape_javascript(render(:partial => '/group_permissions/existing_permission'))%>');
 
 <%end%>

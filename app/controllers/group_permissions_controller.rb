@@ -3,7 +3,7 @@ class GroupPermissionsController < ApplicationController
   def show_add_container
     @group_type = GroupType.find(params[:group_id])
     @group_permission = GroupPermission.new
-    @group_permissions = @group_type.system_permission_types
+    @group_permissions = @group_type.group_permissions
     #puts"---DEBUG111---#{params[:group_id].to_yaml}"
     @module_all = Array.new
     @module_all = SystemPermissionMetaMetaType.all
@@ -125,6 +125,22 @@ class GroupPermissionsController < ApplicationController
     end
   end
 
+  def new
+
+     @group_type = GroupType.find(params[:group_id])
+    @group_permission = GroupPermission.new
+    @group_permissions = @group_type.group_permissions
+    #puts"---DEBUG111---#{params[:group_id].to_yaml}"
+    @module_all = Array.new
+    @module_all = SystemPermissionMetaMetaType.all
+
+     respond_to do |format|
+      format.js
+    end
+
+  end
+
+  
 
   
 end

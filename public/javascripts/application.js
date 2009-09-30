@@ -1038,10 +1038,7 @@ $(function(){
             data:'id='+$(this).attr('login_account_id'),
             dataType: "script"
         });
-
     });
-
- 
 });
 
 
@@ -1584,6 +1581,20 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#new_group_permission").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_permission_delete").css("display", "none");
+
+        $.ajax({
+            type: "GET",
+            url: "/group_permissions/new.js",
+            data:"group_id="+$(this).attr('group_id'),
+            dataType: "script"
+        });
+         $("#close_new_module").css("display", "");
+    });
+});
 
 
 /*when you slecet the controller , all the method will be on*/
@@ -1617,5 +1628,31 @@ $(function(){
     });
 });
 
-
+$(function(){
+    $("#close_new_query").live('click', function(){
+        $(this).css("display", "none");
+        $("#current_action").val("");
+        $('#new_query_form').html('');
+        $('#new_query_list').html('');
+        $('#new_selection_form').html('');
+        $('#new_selection_list').html('');
+        $('#new_sorter_form').html('');
+        $('#new_sorter_list').html('');
+        $('#save_form').html('');
+        $('#new_form').css("display", "none");
+        $("#show_new_query").css("display", "");
+        $("#existing_query").css("display", "");
+    });
+});
   
+$(function(){
+    $("#close_new_module").live('click', function(){
+        $(this).css("display", "none");
+     
+        $('#hide_module').html('');
+        $('#new_group_permission').css("display", "");
+         $(".group_permission_delete").css("display", "");
+      
+    });
+});
+
