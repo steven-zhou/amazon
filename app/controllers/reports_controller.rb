@@ -15,22 +15,34 @@ class ReportsController < ApplicationController
     end
   end
 
+  def preview_report
+    @report_format = params[:report][:requested_format]
+    @report_list = ListHeader.find_by_id(params[:list_header_id].to_i)
+
+    if !report_format_valid(@report_format) || @report_list.nil?
+      flash[:error] = flash_message(:type => "field_missing", :field => "report list") if @report_list.nil?
+      flash[:error] = flash_message(:message => "There was an error generating a report in the format you specified.") if !report_format_valid(@report_format)
+      redirect_to :action => "create", :controller => "reports"
+    else
+      # Do nothing, render the page...
+    end
+
+  end
+
   def generate_report
 
-    report_format = params[:report][:format]
-    report_name = params[:report][:name]
+    report_format = params[:report][:requested_format]
     report_list = ListHeader.find_by_id(params[:list_header_id].to_i)
 
-    if report_name.blank? || !report_format_valid(report_format) || report_list.nil?
-      flash[:error] = flash_message(:type => "field_missing", :field => "name") if report_name.blank?
+    if !report_format_valid(report_format) || report_list.nil?
       flash[:error] = flash_message(:type => "field_missing", :field => "report list") if report_list.nil?
       flash[:error] = flash_message(:message => "There was an error generating a report in the format you specified.") if !report_format_valid(report_format)
       redirect_to :action => "create", :controller => "reports"
     else
       pdf = PDF::Writer.new
-      generate_header(pdf, report_name)
+      generate_header(pdf, report_format)
       generate_body(pdf, report_format, report_list)
-      send_data pdf.render, :filename => "#{report_name}_report.pdf", :type => "application/pdf"
+      send_data pdf.render, :filename => "#{report_format}.pdf", :type => "application/pdf"
 
     end
 
@@ -45,10 +57,10 @@ class ReportsController < ApplicationController
 
   end
 
-  def generate_header(pdf, report_name)
+  def generate_header(pdf, report_format)
     pdf.image "#{RAILS_ROOT}/public/images/Amazon-logo.jpg", :justification => :left
     pdf.select_font "Times-Roman"
-    pdf.text "#{report_name}\n\n", :font_size => 32, :justification => :center
+    pdf.text "#{report_format}\n\n", :font_size => 32, :justification => :center
 
 
   end
@@ -104,6 +116,7 @@ class ReportsController < ApplicationController
         data = Array.new
 
         for person in report_list.people_on_list do
+          
           email_one = format_email(person.emails.select{ |email| email.priority_number == 1}.first)
           email_two = format_email(person.emails.select{ |email| email.priority_number == 2}.first)
           phone_one = format_phone(person.phones.select{ |phone| phone.priority_number == 1}.first)
@@ -113,11 +126,12 @@ class ReportsController < ApplicationController
           fax_one = format_fax(person.faxes.select{ |fax| fax.priority_number == 1}.first)
           fax_two = format_fax(person.faxes.select{ |fax| fax.priority_number == 2}.first)
 
-          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email_one}", "phone" => "#{phone_one}", "website" => "#{website_one}", "fax" => "#{fax_one}" }
+          email = format_fields(email_one, email_two)
+          phone = format_fields(phone_one, phone_two)
+          website = format_fields(website_one, website_two)
+          fax = format_fields(fax_one, fax_two)
 
-          if (!email_two.empty? || !phone_two.empty? || !website_two.empty? || !fax_two.empty?)
-            data << { "system_id" => "", "name" => "", "email" => "#{email_two}", "phone" => "#{phone_two}", "website" => "#{website_two}", "fax" => "#{fax_two}" }          
-          end
+          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}", "fax" => "#{fax}" }
 
         end
 
@@ -150,6 +164,14 @@ class ReportsController < ApplicationController
   def format_website(website)
     return "" if website.nil?
     website.value
+  end
+
+  def format_fields(field_one, field_two)
+    if field_two.empty?
+      return field_one
+    else
+      return "#{field_one}\n#{field_two}"
+    end
   end
 
 end
