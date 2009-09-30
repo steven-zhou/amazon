@@ -73,7 +73,7 @@ class GroupPermissionsController < ApplicationController
           else
             flash.now[:error] = flash_message(:type => "field_missing", :field => "system_permission")if (!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("can't be blank"))
             flash.now[:error] = flash_message(:type => "field_missing", :field => "group")if (!@group_permission.errors[:user_group_id].nil? && @group_permission.errors.on(:user_group_id).include?("can't be blank"))
-            flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "system_permission")if(!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("has already been taken"))
+           
           end
 
         end
@@ -98,7 +98,6 @@ class GroupPermissionsController < ApplicationController
           else
             flash.now[:error] = flash_message(:type => "field_missing", :field => "system_permission")if (!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("can't be blank"))
             flash.now[:error] = flash_message(:type => "field_missing", :field => "group")if (!@group_permission.errors[:user_group_id].nil? && @group_permission.errors.on(:user_group_id).include?("can't be blank"))
-            flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "system_permission")if(!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("has already been taken"))
           end
         end
       end
