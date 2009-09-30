@@ -51,7 +51,17 @@ describe AdministrationsController do
 
   describe "Get Duplication Formula" do
     it "should find the duplication formula" do
-      DuplicationFormula.should_receive(:first)
+      PersonalDuplicationFormula.should_receive(:find_by_group)
+      xhr :get, "duplication_formula"
+    end
+
+    it "should create a new duplication formula" do
+      PersonalDuplicationFormula.should_receive(:new)
+      xhr :get, "duplication_formula"
+    end
+
+    it "should save the new duplication formula" do
+      PersonalDuplicationFormula.should_receive(:save)
       xhr :get, "duplication_formula"
     end
   end

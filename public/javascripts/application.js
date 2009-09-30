@@ -1487,8 +1487,41 @@ $(function(){
 
 /* Admin - Duplication Formular */
 $(function(){
-    $("#fields_formula").live('change', function(){
-        $(".descriptions_formula").css("display", "none");
-        $("#description_formula_"+$(this).val()).css("display", "");
+    $("#personal_back_to_default").live('change', function(){
+        $.ajax({
+                type: "GET",
+                url: "/duplication_formulas/apply.js",
+                data: 'id='+$(this).attr("formula_id"),
+                dataType: "script"
+            })
     });
+});
+
+$(function(){
+    $('#show_new_formula').live('click', function(){
+        $(this).css("display","none");
+        $("#close_new_formula").css("display", "");
+        $("#new_personal_formula").css("display","");
+        $(".edit_mode").css("display","none");
+        $.ajax({
+            type: "GET",
+            url: "/personal_duplication_formulas/new.js",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+   $('#close_new_formula').live('click', function(){
+      $(this).css("display","none");
+      $("#show_new_formula").css("display", "");
+      $("#new_personal_formula").css("display","none");
+      $(".edit_mode").css("display","");
+   });
+});
+
+$(function(){
+   $('#create_personal_duplication').live('click', function(){
+      $("#persoanl_duplication_form").doAjaxSubmit();
+   });
 });

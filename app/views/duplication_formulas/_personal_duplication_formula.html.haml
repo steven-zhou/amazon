@@ -1,0 +1,19 @@
+.info_container
+  = link_to_function (image_tag('add_icon.png', :style => "float:left;margin-right:10px;"), :id => "show_new_formula")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_formula", :style => "display:none;")
+  %h3 Apply New Personal Duplication Formula
+
+  #new_personal_formula{:style => "display:none;"}
+    
+
+.info_container#existing_personal_formula
+  %h3 Existing Personal Duplication Formula
+
+  #personal_current_setting
+    -unless PersonalDuplicationFormula.applied_setting.nil?
+      = render :partial => "duplication_formulas/personal_current_setting"
+
+  .info_container
+    %h3 Default Setting
+    = button_to_function "Back To Default", :style => "float:right;", :id => "personal_back_to_default", :formula_id => PersonalDuplicationFormula.default_setting.id, :class=> "edit_mode"
+    #{PersonalDuplicationFormula.default_setting.formatted_info}

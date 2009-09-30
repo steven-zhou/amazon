@@ -5,10 +5,11 @@ class TableMetaMetaType < TagMetaType
   has_many :table_meta_types, :class_name => "TableMetaType", :foreign_key => "tag_meta_type_id"
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :message => "A table meta meta type already exists with the same name."
+  validates_uniqueness_of :name
 
   after_create :assign_priority
   before_destroy :reorder_priority
+
 
   private
 
