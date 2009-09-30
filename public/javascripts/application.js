@@ -1522,11 +1522,12 @@ $(function(){
                 dataType: "script"
             });
             $(".permission_container").css("display", "");
-
+             $("#old_permissions").show();
         }
         else{
 
             $(".permission_container").css("display", "none");
+            $("#old_permissions").hide();
 
         }
     });
