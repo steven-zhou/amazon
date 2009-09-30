@@ -34,18 +34,8 @@ class AdministrationsController < ApplicationController
   end
 
   def duplication_formula
-    @organisational_duplication_formula_old = OrganisationalDuplicationFormula.find_by_group("applied")
-    @organisational_duplication_formula_old = OrganisationalDuplicationFormula.find_by_group("default") if @organisational_duplication_formula_old.nil?
-    @organisational_duplication_formula = OrganisationalDuplicationFormula.new(@organisational_duplication_formula_old.attributes)
-    @organisational_duplication_formula.group = "temp"
-#
-#    if @organisational_duplication_formula.save
-#      @organisational_duplication_formula_old.duplication_formula_details.each do |i|
-#        @duplication_formula_detail = DuplicationFormulaDetail.new(i.attributes)
-#        @duplication_formula_detail.duplication_formula = @organisational_duplication_formula
-#        @duplication_formula_detail.save
-#      end
-#    end
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.find_by_group("applied")
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.find_by_group("default") if @organisational_duplication_formula.nil?
 
     respond_to do |format|
       format.html
