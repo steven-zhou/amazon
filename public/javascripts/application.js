@@ -1479,6 +1479,25 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#add_new_list").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_list_delete").css("display", "none");
+        $("#close_new_group_list").css("display", "");
+    });
+});
+
+
+$(function(){
+    $("#close_new_group_list").live('click', function(){
+        $(this).css("display", "none");
+
+        $('#new_group_list').toggle('blind');
+        $('#add_new_list').css("display", "");
+        $(".group_list_delete").css("display", "");
+
+    });
+});
 
 
 /* Admin - Duplication Formular */
@@ -1628,23 +1647,6 @@ $(function(){
     });
 });
 
-$(function(){
-    $("#close_new_query").live('click', function(){
-        $(this).css("display", "none");
-        $("#current_action").val("");
-        $('#new_query_form').html('');
-        $('#new_query_list').html('');
-        $('#new_selection_form').html('');
-        $('#new_selection_list').html('');
-        $('#new_sorter_form').html('');
-        $('#new_sorter_list').html('');
-        $('#save_form').html('');
-        $('#new_form').css("display", "none");
-        $("#show_new_query").css("display", "");
-        $("#existing_query").css("display", "");
-    });
-});
-  
 $(function(){
     $("#close_new_module").live('click', function(){
         $(this).css("display", "none");
