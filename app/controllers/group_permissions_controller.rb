@@ -68,12 +68,24 @@ class GroupPermissionsController < ApplicationController
           #        @system_permission_type = SystemPermissionType.find_all_by_id(method_id)
           #         @system_permission_meta_type = SystemPermissionType.find_all_by_id(method_id)
           @group_permission = GroupPermission.new(:user_group_id => params[:group_id], :system_permission_type_id => method_id)
-          @group_permission.save!
+          if  @group_permission.save
+            flash.now[:message]= "saved successfully"
+          else
+            flash.now[:error] = flash_message(:type => "field_missing", :field => "system_permission_type_id")if (!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("can't be blank"))
+            flash.now[:error] = flash_message(:type => "field_missing", :field => "user_group_id")if (!@group_permission.errors[:user_group_id].nil? && @group_permission.errors.on(:user_group_id).include?("can't be blank"))
+            flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "system_permission_type_id")if(!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("has already been taken"))
+          end
 
         end
+
+      else
+        flash.now[:error]= flash_message(:type => "field_missing", :field => "permission")
+       
       end
 
     else
+    
+      # else
 
       @system_permission_meta_meta_type = SystemPermissionMetaMetaType.find(params[:module_id])
       @system_permission_meta_meta_type.system_permission_meta_types.each do |controller|
@@ -81,7 +93,13 @@ class GroupPermissionsController < ApplicationController
         controller.system_permission_types.each do |method|
           @group_permission = GroupPermission.new(:user_group_id => params[:group_id], :system_permission_type_id => method.id)
 
-          @group_permission.save!
+          if @group_permission.save
+            flash.now[:message]= "saved successfully"
+          else
+            flash.now[:error] = flash_message(:type => "field_missing", :field => "system_permission_type_id")if (!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("can't be blank"))
+            flash.now[:error] = flash_message(:type => "field_missing", :field => "user_group_id")if (!@group_permission.errors[:user_group_id].nil? && @group_permission.errors.on(:user_group_id).include?("can't be blank"))
+            flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "system_permission_type_id")if(!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("has already been taken"))
+          end
         end
       end
 
@@ -89,13 +107,15 @@ class GroupPermissionsController < ApplicationController
 
     @group_type = GroupType.find(params[:group_id])
     @group_permissions = @group_type.group_permissions
+    @module_all = Array.new
+    @module_all = SystemPermissionMetaMetaType.all
 
     respond_to do |format|
       format.js
     end
   end
 
-   def destroy
+  def destroy
 
     @group_permission = GroupPermission.find(params[:id].to_i)
     @group_permission.destroy

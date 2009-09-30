@@ -1527,6 +1527,8 @@ $(function(){
 $(function(){
 
     $("#system_permission_meta_meta_type_id").live('change',function(){
+
+        if ($(this).val()!= ""){
         $.ajax({
             type:"GET",
             url: "/group_permissions/show_module.js",
@@ -1534,6 +1536,11 @@ $(function(){
             dataType:"script"
 
         });
+        $('#permission_form').show();
+        }else{
+
+        $('#permission_form').hide();
+        }
 
     });
 });

@@ -6,7 +6,7 @@
           = 'Controller---'+ controller.name
         .field_22
           = check_box_tag "controller_ids[]", controller.id, false, :class => 'controller_select_all', :controller_id => controller.id
-          = 'Select All11'
+          = 'Select All'
         %br.clear
       %div{:id => "show_methods_container_#{controller.id}", :style => "display:none"}
         %ul
@@ -17,7 +17,7 @@
                   = 'Method---'+ method.name
                 .field_22
                   = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => controller.id
-                  = 'Allow Access111'
+                  = 'Allow Access'
                 %br.clear
 
 

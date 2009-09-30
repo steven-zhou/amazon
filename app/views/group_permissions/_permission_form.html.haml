@@ -5,9 +5,9 @@
     .field_22
       = check_box_tag "module_ids[]" , @system_permission_meta_meta_type.id, false, :class => 'module_select_all'
       = 'Select All'
-    .field_22
+    .field_22{:style => "display:none;"}
       = text_field_tag :group_id, params[:group_id], :value => @group_type.id
-    .field_22
+    .field_22{:style => "display:none;"}
       = text_field_tag :module_id, params[:module_id], :value => @system_permission_meta_meta_type.id
     %br.clear
   %div{:id => "show_controllers_container", :style=> "display:none;"}

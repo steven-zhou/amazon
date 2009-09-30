@@ -1,28 +1,21 @@
 .info_container
   .header_container
-    .options_left
+    .options_left{:class => "toggle_button", :toggle_id_name => "hide_module", :id => "show_module_select"}
       = link_to_function image_tag('add_icon.png'), :id => "new_group_permission"
       &nbsp
     %h3 Add Permissions
 
-    .title
-      = label :system_permission_meta_meta_type, :id, '&nbsp'
-      %h3 Select a Module:
-    .field_22
-      = label :system_permission_meta_meta_type, :id, 'System Module'
-      = collection_select :system_permission_meta_meta_type, :id, @module_all, :id, :name, {:prompt => true}, {:class => "show_module_form clear_select"}
+    %div{:id => "hide_module"}
+      .title
+        = label :system_permission_meta_meta_type, :id, '&nbsp'
+        %h3 Select a Module:
+      .field_22
+        = label :system_permission_meta_meta_type, :id, 'System Module'
+        = collection_select :system_permission_meta_meta_type, :id, @module_all, :id, :name, {:prompt => true}, {:class => "show_module_form clear_select"}
 
-    %br.clear
+      %br.clear
 #permission_form
 
 
-
-  -#-form_for @group_list, :html => {:style => "display:none", :class => 'ajax_form'} do |group_list|
-    %div
-      -#.options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_group_list toggle_button", :toggle_id_name => "new_group_list"
-      = render :partial => '/group_lists/list_form', :locals => {:group_list => group_list }
-      = submit_tag 'Submit'
-    %br.clear
 
 
