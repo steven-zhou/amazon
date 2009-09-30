@@ -212,7 +212,10 @@ destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_pe
 
 puts "Assign Group to person_id 1."
 
-pg = UserGroup.create(:user_id => LoginAccount.first.id, :group_id => admin.id)
+pg = UserGroup.create(:user_id => robert_tingle_login.id, :group_id => admin.id)
+
+puts "Assign Permission to group pg"
+permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => pg)
 
 
 puts "Creating passport for Robert Tingle"
