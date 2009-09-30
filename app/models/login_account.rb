@@ -63,7 +63,22 @@ class LoginAccount < ActiveRecord::Base
     @group_types
   end
 
- 
+ def self.validate_permission(user_id)
+    login_account = LoginAccount.find_by_id(user_id)
+    @group_types = login_account.group_types
+    @system_permission_types = Array.new
+    @group_types.each do |group|
+    @system_permission_types += group.system_permission_types
+
+    end
+    @system_permission_types.uniq
+
+   if @system_permission_types.blank?
+     raise "you do not have system permissions"
+   end
+   @system_permission_types
+ end
+
   def password=(pass)
     @password=pass
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
