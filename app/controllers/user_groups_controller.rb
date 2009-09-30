@@ -34,18 +34,17 @@ class UserGroupsController < ApplicationController
     #@groups = @login_account.group_types rescue @groups = GroupType.new
   end
 
-  def show_groups
-    #@group_meta_meta_types = GroupMetaMetaType.find_by_name("Security",:order => "name")rescue  @group_meta_meta_types =  GroupMetaMetaType.new
-    #@group_meta_types = GroupMetaType.find(:first, :conditions => ["tag_meta_type_id=? AND name=?", @group_meta_meta_types.id, "System Users"])rescue  @group_meta_types =  GroupMetaType.new
-    #gp_id = @group_meta_types.id
-    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
-    #@group_types = GroupType.find(:all, :conditions => ["tag_type_id=?", gp_id])rescue  @group_types =  GroupType.new
-    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
-    @login_account = LoginAccount.find(params[:login_account_id])
-    @groups = @login_account.group_types
-    respond_to do |format|
-      format.js
-    end
+#  def show_groups
+#
+#    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+#    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+#    @login_account = LoginAccount.find(params[:login_account_id])
+#    @groups = @login_account.group_types
+#    respond_to do |format|
+#      format.js
+#    end
+#
+#  end
 
-  end
+
 end

@@ -1039,12 +1039,6 @@ $(function(){
             dataType: "script"
         });
 
-        $.ajax({
-            type: "GET",
-            url: "/user_groups/show_groups.js",
-            data: 'login_account_id='+$(this).attr('login_account_id'),
-            dataType: "script"
-        });
     });
 
  
