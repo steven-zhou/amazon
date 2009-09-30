@@ -47,9 +47,9 @@ class ApplicationController < ActionController::Base
     when "object_updated_successfully" then "The #{options[:object]} was updated."
 
       # Errors
-    when "login_error" then "The login credentials you supplied were incorrect."
-    when "field_missing" then "You did not fill out the required field #{options[:field]}."
-    when "uniqueness_error" then "#{options[:field]} has already existed."
+    when "login_error" then "The login credentials you supplied were incorrect"
+    when "field_missing" then "You did not fill out the required field #{options[:field]}"
+    when "uniqueness_error" then "#{options[:field]} has already existed"
     when "not exist" then "#{options[:field]} not exist in system"
     when "too long" then "#{options[:field]} is too long"
     when "too short" then "#{options[:field]} is too short"

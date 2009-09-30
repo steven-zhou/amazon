@@ -1,0 +1,17 @@
+%h3 Existing Permissions
+%ul{:style => "list-style-type:none;padding-left:0px;"}
+  - @group_permissions.each do |i|
+    -div_for(i, :style => "width:50%;float:left;") do
+      .info_container
+        .head_container
+          = link_to image_tag('delete_icon.png'), group_permission_path(i), :class => 'delete group_permission_delete', :style => "float:right;"
+          = i.id
+          \--
+          = i.system_permission_type.system_permission_meta_type.system_permission_meta_meta_type.name
+          \--
+          = i.system_permission_type.system_permission_meta_type.name
+          \--
+          = i.system_permission_type.name
+       
+          
+%br.clear

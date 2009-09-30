@@ -177,6 +177,38 @@ mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, 
 
 mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 
+puts "Creating sample SystemPermission data"
+
+mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true)
+
+mdmt = SystemPermissionMetaType.create(:name => "Address_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
+
+show = SystemPermissionType.create(:name => "Address_show", :system_permission_meta_type => mdmt, :status => true)
+edit = SystemPermissionType.create(:name => "Address_edit", :system_permission_meta_type => mdmt, :status => true)
+create = SystemPermissionType.create(:name => "Address_create", :system_permission_meta_type => mdmt, :status => true)
+update = SystemPermissionType.create(:name => "Address_update", :system_permission_meta_type => mdmt, :status => true)
+destroy = SystemPermissionType.create(:name => "Address_destroy", :system_permission_meta_type => mdmt, :status => true)
+
+mdmt0 = SystemPermissionMetaType.create(:name => "Note_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
+
+show0 = SystemPermissionType.create(:name => "Note_show", :system_permission_meta_type => mdmt0, :status => true)
+edit0 = SystemPermissionType.create(:name => "Note_edit", :system_permission_meta_type => mdmt0, :status => true)
+create0 = SystemPermissionType.create(:name => "Note_create", :system_permission_meta_type => mdmt0, :status => true)
+update0 = SystemPermissionType.create(:name => "Note_update", :system_permission_meta_type => mdmt0, :status => true)
+destroy0 = SystemPermissionType.create(:name => "Note_destroy", :system_permission_meta_type => mdmt0, :status => true)
+
+
+
+
+mdmmt1 = SystemPermissionMetaMetaType.create(:name => "Admin", :status => true)
+
+mdmt1 = SystemPermissionMetaType.create(:name => "group_list_controller", :system_permission_meta_meta_type => mdmmt1, :status => true)
+
+showlist1 = SystemPermissionType.create(:name => "group_list_show_list", :system_permission_meta_type => mdmt1, :status => true)
+create1 = SystemPermissionType.create(:name => "group_list_create", :system_permission_meta_type => mdmt1, :status => true)
+destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_permission_meta_type => mdmt1, :status => true)
+
+
 
 puts "Assign Group to person_id 1."
 

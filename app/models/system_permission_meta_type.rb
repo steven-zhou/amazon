@@ -4,11 +4,11 @@ class SystemPermissionMetaType < TagType
 
   acts_as_list
 
-  belongs_to :system_permission_module, :class_name => "SystemPermissionModule", :foreign_key => "tag_meta_type_id"
-  has_many :system_permission_methods, :class_name => "SystemPermissionMethod", :foreign_key => "tag_type_id"
+  belongs_to :system_permission_meta_meta_type, :class_name => "SystemPermissionMetaMetaType", :foreign_key => "tag_meta_type_id"
+  has_many :system_permission_types, :class_name => "SystemPermissionType", :foreign_key => "tag_type_id"
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :tag_meta_type_id, :message => "A system permission controller already exists with the same name."
+  validates_uniqueness_of :name, :scope => :tag_meta_type_id, :message => "A system permission meta type already exists with the same name."
 
   after_create :assign_priority
   before_destroy :reorder_priority

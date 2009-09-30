@@ -1,0 +1,26 @@
+<%  unless flash[:error].nil? %>
+$('#flash_message').html("<%=escape_javascript(flash[:error])%>");
+$('#flash_message').dialog({
+modal:true,
+position: 'top',
+buttons :{
+
+OK: function(){
+
+$(this).dialog('close');
+}
+}
+});
+
+$('#flash_message').dialog('open');
+
+<%else%>
+
+
+$('.permission_container').html('<%=escape_javascript(render(:partial => '/group_permissions/add_group_permission'))%>');
+$('#hide_module').toggle('blind');
+
+$('#old_permissions').html('<%=escape_javascript(render(:partial => '/group_permissions/existing_permission'))%>');
+
+
+<%end%>

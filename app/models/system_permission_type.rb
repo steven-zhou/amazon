@@ -4,10 +4,10 @@ class SystemPermissionType < Tag
 
   acts_as_list
 
-  belongs_to :system_permission_controller, :class_name => "SystemPermissionController", :foreign_key => "tag_type_id"
+  belongs_to :system_permission_meta_type, :class_name => "SystemPermissionMetaType", :foreign_key => "tag_type_id"
 
   has_many :group_permissions
-  has_many :user_groups, :through => :group_permissions
+  has_many :group_types, :through => :group_permissions, :uniq => true
 
   validates_presence_of :name
 

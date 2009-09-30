@@ -1,0 +1,17 @@
+.info_container
+  .header_container
+    .title
+      = label :group_permission, :user_group_id, '&nbsp'
+      %h3 Select a  Group:
+  .field_22
+    = label :group_permission, :user_group_id, 'User Groups'
+    = collection_select :group_permission, :user_group_id, @group_all, :id, :name, {:prompt => true}, {:class => "show_permission_container clear_select"}
+  %br.clear
+
+%div{:class => "permission_container",:style => "display:none;"}
+  
+    
+
+
+#old_permissions
+    

@@ -1038,16 +1038,7 @@ $(function(){
             data:'id='+$(this).attr('login_account_id'),
             dataType: "script"
         });
-
-        $.ajax({
-            type: "GET",
-            url: "/user_groups/show_groups.js",
-            data: 'login_account_id='+$(this).attr('login_account_id'),
-            dataType: "script"
-        });
     });
-
- 
 });
 
 
@@ -1297,29 +1288,29 @@ $(function(){
 });
 
 $(function(){
-   $("#query_top_number").click(function(){
-      $("#query_top_percent_value").val('');
-      $("#query_top_percent_value").attr("disabled",true);
-      $("#query_top_number_value").attr("disabled",false);
-   });
-   $("#query_top_percent").click(function(){
-      $("#query_top_number_value").val('');
-      $("#query_top_number_value").attr("disabled",true);
-      $("#query_top_percent_value").attr("disabled",false);
-   });
+    $("#query_top_number").click(function(){
+        $("#query_top_percent_value").val('');
+        $("#query_top_percent_value").attr("disabled",true);
+        $("#query_top_number_value").attr("disabled",false);
+    });
+    $("#query_top_percent").click(function(){
+        $("#query_top_number_value").val('');
+        $("#query_top_number_value").attr("disabled",true);
+        $("#query_top_percent_value").attr("disabled",false);
+    });
 });
 
 $(function(){
-   $("#query_edit_top_number").click(function(){
-      $("#query_edit_top_percent_value").val('');
-      $("#query_edit_top_percent_value").attr("disabled",true);
-      $("#query_edit_top_number_value").attr("disabled",false);
-   });
-   $("#query_edit_top_percent").click(function(){
-      $("#query_edit_top_number_value").val('');
-      $("#query_edit_top_number_value").attr("disabled",true);
-      $("#query_edit_top_percent_value").attr("disabled",false);
-   });
+    $("#query_edit_top_number").click(function(){
+        $("#query_edit_top_percent_value").val('');
+        $("#query_edit_top_percent_value").attr("disabled",true);
+        $("#query_edit_top_number_value").attr("disabled",false);
+    });
+    $("#query_edit_top_percent").click(function(){
+        $("#query_edit_top_number_value").val('');
+        $("#query_edit_top_number_value").attr("disabled",true);
+        $("#query_edit_top_percent_value").attr("disabled",false);
+    });
 });
 
 
@@ -1368,95 +1359,98 @@ $(function(){
 });
 
 $(function(){
-   $('#close_list_compiler').live('click', function(){
-      $(this).css("display","none");
-      $("#show_list_compiler").css("display", "");
-      $("#existing_list").css("display","");
-      $("#list_compiler_form").css("display","none");
-      $("#clear_compile_list").click();
-   });
+    $('#close_list_compiler').live('click', function(){
+        $(this).css("display","none");
+        $("#show_list_compiler").css("display", "");
+        $("#existing_list").css("display","");
+        $("#list_compiler_form").css("display","none");
+        $("#clear_compile_list").click();
+    });
 });
 
 $(function(){
-   $("#add_to_include").live('click', function(){
-       if($("#compiler_options").val() != null){
-         $.ajax({
+    $("#add_to_include").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/include_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                dataType: "script"
+            });
+
+        }
+    });
+});
+
+
+
+$(function(){
+    $("#add_to_exclude").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/exclude_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
+$(function(){
+    $("#clear_compile_list").live('click', function(){
+        $.ajax({
             type: "POST",
-            url: "/include_lists",
-            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+            url: "/compile_lists/clear.js",
+            data: "login_account_id=" + $("#login_account_id").val(),
             dataType: "script"
         });
-
-       }
-   });
+    });
 });
 
 $(function(){
-   $("#add_to_exclude").live('click', function(){
-       if($("#compiler_options").val() != null){
-         $.ajax({
+    $("#compile_button").live('click', function(){
+        var temp = "";
+        temp += "login_account_id=" + $("#login_account_id").val();
+        temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
+        if($("#top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+        }
+
+        $.ajax({
             type: "POST",
-            url: "/exclude_lists",
-            data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+            url: "/compile_lists/compile.js",
+            data: temp,
             dataType: "script"
         });
-       }
-   });
+    });
 });
 
 
 $(function(){
-   $("#clear_compile_list").live('click', function(){
-      $.ajax({
-        type: "POST",
-        url: "/compile_lists/clear.js",
-        data: "login_account_id=" + $("#login_account_id").val(),
-        dataType: "script"
-      });
-   });
-});
-
-$(function(){
-   $("#compile_button").live('click', function(){
-      var temp = "";
-      temp += "login_account_id=" + $("#login_account_id").val();
-      temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
-      if($("#top_number").attr("checked")==true){
-        temp += "&top=number&top_number=" + $("#top_number_value").val();
-      }else{
-        temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
-      }
-      
-      $.ajax({
-         type: "POST",
-         url: "/compile_lists/compile.js",
-         data: temp,
-         dataType: "script"
-      });
-   });
-});
-
-$(function(){
-   $("#top_number").click(function(){
-      $("#top_percent_value").val('');
-      $("#top_percent_value").attr("disabled",true);
-      $("#top_number_value").attr("disabled",false);
-   });
-   $("#top_percent").click(function(){
-      $("#top_number_value").val('');
-      $("#top_number_value").attr("disabled",true);
-      $("#top_percent_value").attr("disabled",false);
-   });
+    $("#top_number").click(function(){
+        $("#top_percent_value").val('');
+        $("#top_percent_value").attr("disabled",true);
+        $("#top_number_value").attr("disabled",false);
+    });
+    $("#top_percent").click(function(){
+        $("#top_number_value").val('');
+        $("#top_number_value").attr("disabled",true);
+        $("#top_percent_value").attr("disabled",false);
+    });
 });
 
 $(function(){
     $(".integer_field").live('keyup', function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
-          if((!_valid) || $(this).val()<=0){
-            alert("This field has be an integer and great than zero!");
-            $(this).focus();
-            $(this).val('');
+            if((!_valid) || $(this).val()<=0){
+                alert("This field has be an integer and great than zero!");
+                $(this).focus();
+                $(this).val('');
             }
         }
     });
@@ -1474,16 +1468,37 @@ $(function(){
                 url: "/group_lists/show_lists.js",
                 data: 'group_id='+$(this).val(),
                 dataType: "script"
-            })
+            });
             $(".show_list_container").css("display", "");
             $("#new_group_list_container").css("display", "");
         } else{
-           $(".show_list_container").css("display", "none");
-           $("#new_group_list_container").css("display", "none")
+            $(".show_list_container").css("display", "none");
+            $("#new_group_list_container").css("display", "none")
            
         }
     });
 });
+
+$(function(){
+    $("#add_new_list").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_list_delete").css("display", "none");
+        $("#close_new_group_list").css("display", "");
+    });
+});
+
+
+$(function(){
+    $("#close_new_group_list").live('click', function(){
+        $(this).css("display", "none");
+
+        $('#new_group_list').toggle('blind');
+        $('#add_new_list').css("display", "");
+        $(".group_list_delete").css("display", "");
+
+    });
+});
+
 
 /* Admin - Duplication Formular */
 $(function(){
@@ -1524,4 +1539,154 @@ $(function(){
    $('#create_personal_duplication').live('click', function(){
       $("#persoanl_duplication_form").doAjaxSubmit();
    });
+});
+
+
+/*Group---Permission*/
+
+$(function(){
+    $(".show_permission_container").live('change',function(){
+        if ($(this).val()!= ""){
+
+            $.ajax({
+                type:"GET",
+                url: "/group_permissions/show_add_container.js",
+                data: "group_id="+$(this).val(),
+                dataType: "script"
+            });
+            $(".permission_container").css("display", "");
+             $("#old_permissions").show();
+        }
+        else{
+
+            $(".permission_container").css("display", "none");
+            $("#old_permissions").hide();
+
+        }
+    });
+});
+
+
+$(function(){
+
+    $("#system_permission_meta_meta_type_id").live('change',function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/group_permissions/show_module.js",
+            data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+            dataType:"script"
+
+        });
+        $('#permission_form').show();
+        }else{
+
+        $('#permission_form').hide();
+        }
+
+    });
+});
+
+
+$(function(){
+    $(".group_permission_color").live('mouseover', function(){
+        $(this).animate({
+            color: "#FFFF00"
+        }, 300)
+    });
+});
+
+$(function(){
+    $(".group_permission_color").live('mouseout', function(){
+        $(this).animate({
+            color: "#F7F8E0"
+        }, 300)
+    });
+});
+
+/*use for click the module show the whole thing*/
+$(function(){
+    $("#show_controllers").live('click', function(){
+        $.ajax({
+            type:"GET",
+            url:"/group_permissions/show_controllers.js",
+            data:"main_module_id="+$(this).attr('main_module_id'),
+            dataType:"script"
+
+        });
+
+    });
+
+});
+
+$(function(){
+    $(".module_select_all").live('click', function(){
+        if ($(this).attr("checked") == true){
+            $('.controller_select_all').attr("checked", true);
+            $('.method_select_all').attr("checked", true);
+        }else{
+            $('.controller_select_all').attr("checked", false);
+            $('.method_select_all').attr("checked", false);
+        }
+
+    });
+});
+
+$(function(){
+    $("#new_group_permission").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_permission_delete").css("display", "none");
+
+        $.ajax({
+            type: "GET",
+            url: "/group_permissions/new.js",
+            data:"group_id="+$(this).attr('group_id'),
+            dataType: "script"
+        });
+         $("#close_new_module").css("display", "");
+    });
+});
+
+
+/*when you slecet the controller , all the method will be on*/
+$(function(){
+    $('.controller_select_all').live('click', function(){
+        if ($(this).attr('checked') == true){
+
+
+            $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+
+
+        }else{
+
+
+            $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
+            $('.module_select_all').attr("checked", false);
+
+        }
+    });
+});
+
+
+
+$(function(){
+    $('.method_select_all').live('click', function(){
+        if ($(this).attr('checked') == false){
+            $('.module_select_all').attr("checked", false);
+            $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
+        }
+
+    });
+});
+
+$(function(){
+    $("#close_new_module").live('click', function(){
+        $(this).css("display", "none");
+     
+        $('#hide_module').html('');
+        $('#new_group_permission').css("display", "");
+         $(".group_permission_delete").css("display", "");
+      
+    });
 });
