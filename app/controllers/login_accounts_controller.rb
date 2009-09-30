@@ -49,6 +49,12 @@ class LoginAccountsController < ApplicationController
     @login_account = LoginAccount.find(params[:id].to_i)
     @user_group = UserGroup.new
 
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    #@group_types = GroupType.find(:all, :conditions => ["tag_type_id=?", gp_id])rescue  @group_types =  GroupType.new
+    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    @login_account = LoginAccount.find(params[:id])
+    @groups = @login_account.group_types
+
     respond_to do |format|
       format.js
     end

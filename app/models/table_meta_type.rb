@@ -11,6 +11,14 @@ class TableMetaType < TagType
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.personal_duplication_source
+    TableMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", TableMetaMetaType.find_by_name("people").id], :order => "name")
+  end
+
+  def self.organisational_duplication_source
+    TableMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", TableMetaMetaType.find_by_name("organisations").id], :order => "name")
+  end
+
   private
 
   def assign_priority

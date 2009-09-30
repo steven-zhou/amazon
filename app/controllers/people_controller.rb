@@ -47,6 +47,7 @@ class PeopleController < ApplicationController
         if params[:id].nil? || params[:id] == "show" #when just jumping or change list
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
+          #@person = @list_headers.first.people_on_list.first unless @list_headers.blank?
           @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?

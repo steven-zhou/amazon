@@ -34,7 +34,9 @@ class AdministrationsController < ApplicationController
   end
 
   def duplication_formula
-    @duplication_formula = DuplicationFormula.first
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.find_by_group("applied")
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.find_by_group("default") if @organisational_duplication_formula.nil?
+
     respond_to do |format|
       format.html
     end

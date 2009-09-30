@@ -1,0 +1,3 @@
+class OrganisationalDuplicationFormula < DuplicationFormula
+
+end

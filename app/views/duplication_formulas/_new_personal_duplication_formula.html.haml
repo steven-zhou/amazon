@@ -1,0 +1,35 @@
+-form_for @personal_duplication_formula, :html => {:class => 'ajax_form', :id => "persoanl_duplication_form"} do |f|
+  .form_line
+    .field_30
+      = f.label :duplication_space, "Duplication Space"
+      = f.radio_button :duplication_space, true, :style =>"display:inline;width:25%;", :checked => true
+      = f.label :duplication_space, "Primary List", :style =>"display:inline;width:25%;"
+      = f.radio_button :duplication_space, false, :style =>"display:inline;width:25%;"
+      = f.label :duplication_space, "Customize List", :style =>"display:inline;width:25%;"
+    .field_60
+      = f.label :description, "Description"
+      = f.text_field :description
+    %br.clear
+
+#components{:style => "width:50%;margin:40px auto;"}
+  %h3 Components
+  #personal_formula_list
+  #personal_formula_form
+    -form_for DuplicationFormulaDetail.new, :html => {:class => 'ajax_form'} do |f|
+      .form_line
+        .field_50
+          = f.label :field_name, "Field"
+          = f.collection_select :field_name, TableMetaType.personal_duplication_source, :name, :name, {:include_blank => true}, {:class => "clear_select", :id => "personal_duplication_source"}
+        .field_20
+          = f.label :field_name, "Length"
+          = f.text_field :number_of_charecter, :id => "personal_length"
+        .field_20{:style => "float:right;"}
+          = f.label :field_name, "&nbsp;"
+          = submit_tag "Add"
+          %input{:style => "display:none;", :name => "duplication_formula_detail[table_name]", :value => "people"}
+          %input{:style => "display:none;", :name => "duplication_formula_detail[duplication_formula_id]", :value => @personal_duplication_formula.id}
+        %br.clear
+
+%div
+  = button_to_function "Submit", :id => "create_personal_duplication", :style => "float:right;"
+  %br.clear

@@ -1038,16 +1038,7 @@ $(function(){
             data:'id='+$(this).attr('login_account_id'),
             dataType: "script"
         });
-
-        $.ajax({
-            type: "GET",
-            url: "/user_groups/show_groups.js",
-            data: 'login_account_id='+$(this).attr('login_account_id'),
-            dataType: "script"
-        });
     });
-
- 
 });
 
 
@@ -1488,14 +1479,66 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#add_new_list").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_list_delete").css("display", "none");
+        $("#close_new_group_list").css("display", "");
+    });
+});
+
+
+$(function(){
+    $("#close_new_group_list").live('click', function(){
+        $(this).css("display", "none");
+
+        $('#new_group_list').toggle('blind');
+        $('#add_new_list').css("display", "");
+        $(".group_list_delete").css("display", "");
+
+    });
+});
 
 
 /* Admin - Duplication Formular */
 $(function(){
-    $("#fields_formula").live('change', function(){
-        $(".descriptions_formula").css("display", "none");
-        $("#description_formula_"+$(this).val()).css("display", "");
+    $("#personal_back_to_default").live('change', function(){
+        $.ajax({
+                type: "GET",
+                url: "/duplication_formulas/apply.js",
+                data: 'id='+$(this).attr("formula_id"),
+                dataType: "script"
+            })
     });
+});
+
+$(function(){
+    $('#show_new_formula').live('click', function(){
+        $(this).css("display","none");
+        $("#close_new_formula").css("display", "");
+        $("#new_personal_formula").css("display","");
+        $(".edit_mode").css("display","none");
+        $.ajax({
+            type: "GET",
+            url: "/personal_duplication_formulas/new.js",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+   $('#close_new_formula').live('click', function(){
+      $(this).css("display","none");
+      $("#show_new_formula").css("display", "");
+      $("#new_personal_formula").css("display","none");
+      $(".edit_mode").css("display","");
+   });
+});
+
+$(function(){
+   $('#create_personal_duplication').live('click', function(){
+      $("#persoanl_duplication_form").doAjaxSubmit();
+   });
 });
 
 
@@ -1512,16 +1555,16 @@ $(function(){
                 dataType: "script"
             });
             $(".permission_container").css("display", "");
-
+             $("#old_permissions").show();
         }
         else{
 
             $(".permission_container").css("display", "none");
+            $("#old_permissions").hide();
 
         }
     });
 });
-
 
 
 $(function(){
@@ -1590,6 +1633,20 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#new_group_permission").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_permission_delete").css("display", "none");
+
+        $.ajax({
+            type: "GET",
+            url: "/group_permissions/new.js",
+            data:"group_id="+$(this).attr('group_id'),
+            dataType: "script"
+        });
+         $("#close_new_module").css("display", "");
+    });
+});
 
 
 /*when you slecet the controller , all the method will be on*/
@@ -1623,5 +1680,13 @@ $(function(){
     });
 });
 
-
-  
+$(function(){
+    $("#close_new_module").live('click', function(){
+        $(this).css("display", "none");
+     
+        $('#hide_module').html('');
+        $('#new_group_permission').css("display", "");
+         $(".group_permission_delete").css("display", "");
+      
+    });
+});

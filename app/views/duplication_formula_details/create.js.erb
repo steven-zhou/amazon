@@ -1,0 +1,12 @@
+<% if @duplication_formula_detail.errors.empty? -%>
+  <%- if @duplication_formula_detail.duplication_formula.class.to_s == "PersonalDuplicationFormula"%>
+    $('#personal_formula_list').append('<%= escape_javascript(render(:partial => @duplication_formula_detail)) %>');
+    $('#personal_duplication_source').val('');
+    $('#personal_length').val('');
+  <%- else %>
+    $('#organisational_formula_list').append('<%= escape_javascript(render(:partial => @duplication_formula_detail)) %>');
+  <%- end %>
+  $('#<%= dom_id(@duplication_formula_detail) %>').effect('slide', {direction:'right'});
+<% end -%>
+
+

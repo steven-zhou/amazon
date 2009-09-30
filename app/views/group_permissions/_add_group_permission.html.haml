@@ -1,20 +1,17 @@
 .info_container
   .header_container
+    .options
+      = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_module", :style => "display:none;")
     .options_left{:class => "toggle_button", :toggle_id_name => "hide_module", :id => "show_module_select"}
-      = link_to_function image_tag('add_icon.png'), :id => "new_group_permission"
+      = link_to_function image_tag('add_icon.png'), :id => "new_group_permission", :group_id => @group_type.id
       &nbsp
     %h3 Add Permissions
 
     %div{:id => "hide_module"}
-      .title
-        = label :system_permission_meta_meta_type, :id, '&nbsp'
-        %h3 Select a Module:
-      .field_22
-        = label :system_permission_meta_meta_type, :id, 'System Module'
-        = collection_select :system_permission_meta_meta_type, :id, @module_all, :id, :name, {:prompt => true}, {:class => "show_module_form clear_select"}
-
-      %br.clear
+  
 #permission_form
+
+
 
 
 

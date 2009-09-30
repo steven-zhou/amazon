@@ -82,7 +82,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post}
 
-  map.resources :duplication_formulas
+  map.resources :personal_duplication_formulas
+  map.resources :organisational_duplication_formulas
   map.resources :duplication_formula_details
 
   
