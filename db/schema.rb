@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090923042953) do
+ActiveRecord::Schema.define(:version => 20090928024327) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -83,6 +83,22 @@ ActiveRecord::Schema.define(:version => 20090923042953) do
     t.string   "currency"
     t.string   "currency_subunit"
     t.integer  "main_language_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "duplication_formula_details", :force => true do |t|
+    t.integer  "duplication_formula_id"
+    t.string   "table_name"
+    t.string   "field_name"
+    t.integer  "number_of_charecter"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "duplication_formulas", :force => true do |t|
+    t.string   "duplication_space"
+    t.string   "description"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -364,6 +380,7 @@ ActiveRecord::Schema.define(:version => 20090923042953) do
     t.datetime "updated_at"
     t.integer  "marital_status_id"
     t.integer  "gender_id"
+    t.string   "duplication_value"
   end
 
   create_table "person_groups", :force => true do |t|
@@ -387,6 +404,26 @@ ActiveRecord::Schema.define(:version => 20090923042953) do
     t.date     "end_date"
     t.integer  "supervised_by"
     t.integer  "managed_by"
+  end
+
+  create_table "postcodes", :force => true do |t|
+    t.integer "country_id"
+    t.text    "type"
+    t.text    "governance"
+    t.text    "province"
+    t.text    "state"
+    t.text    "county"
+    t.text    "region"
+    t.text    "district"
+    t.text    "zone"
+    t.text    "city"
+    t.text    "town"
+    t.text    "suburb"
+    t.text    "electoral_area"
+    t.text    "postcode"
+    t.text    "mail_code"
+    t.text    "bulk_code"
+    t.integer "geographical_area_id"
   end
 
   create_table "query_criterias", :force => true do |t|

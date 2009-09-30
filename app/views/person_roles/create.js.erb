@@ -11,6 +11,10 @@
 
    $(".info_warning").removeClass("info_warning");
       $("#warning").html('');
+
+
+        $('.person_roles_edit_delete').css("display","");
+  $('.person_roles_toggle_button').css("display","");
   $("#new_person_role").toggle('blind');
   $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
 <% end -%>

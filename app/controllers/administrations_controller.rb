@@ -15,18 +15,26 @@ class AdministrationsController < ApplicationController
     @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
     @user_group = UserGroup.new
     @group_all = Array.new
-    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])rescue @group_all = Array.new
-    @group_all = c.group_types
+    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
+    @group_all = c.group_types rescue @group_all = Array.new
 
     @module_all = Array.new
     c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
     @module_all = c
+
     respond_to do |format|
       format.html
     end
   end
 
   def list_management
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def duplication_formula
+    @duplication_formula = DuplicationFormula.first
     respond_to do |format|
       format.html
     end

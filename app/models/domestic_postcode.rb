@@ -1,0 +1,3 @@
+class DomesticPostcode < Postcode
+
+end

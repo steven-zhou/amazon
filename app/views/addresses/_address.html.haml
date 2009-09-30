@@ -3,9 +3,9 @@
   .header_container
     .title
       %h3= address.address_type.name
-    .options
-      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get'
-      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete'
+    .options{:class => 'person_address_edit_delete'}
+      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get', :id => 'address_edit_button'
+      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete',:id => 'address_delete_button'
     %br.clear
   .display_container
     = format_address(address)

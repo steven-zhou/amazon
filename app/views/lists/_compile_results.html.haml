@@ -1,6 +1,6 @@
 -form_for @list_header, :html => {:class => "ajax_form"} do |f|
   .info_container
-    %h3 Create List
+    %h3 Create List #{@allow_duplication}
     .form_line
       .field_25
         =f.label :name, "List Name"
@@ -10,7 +10,11 @@
         =f.text_field :description
       .field_25
         =f.label :allow_duplication, "&nbsp;"
-        =f.check_box :allow_duplication, :style => "width:30%;display:inline"
+        %input{:style => "display:none;", :name => "list_header[allow_duplication]", :value => @allow_duplication}
+        -if (@allow_duplication=="true")
+          %input{:type => "checkbox", :style => "width:30%;display:inline;", :disabled => true, :checked=>true}
+        -else
+          %input{:type => "checkbox", :style => "width:30%;display:inline;", :disabled => true}
         =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
       .field_25{:style => "float:right"}
         =f.label :description, "&nbsp;"

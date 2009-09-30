@@ -4,9 +4,9 @@
     .title
       -#= "#{note.id} #{note.note_type.name}"
       = h note.created_at.to_s(:long)
-    .options
-      = link_to image_tag('edit_icon.png'), edit_note_path(note), :class => 'get'
-      = link_to image_tag('delete_icon.png'), note_path(note), :class => 'delete'
+    .options{:class => 'person_notes_edit_delete'}
+      = link_to image_tag('edit_icon.png'), edit_note_path(note), :class => 'get edit_note', :note_id => note.id
+      = link_to image_tag('delete_icon.png'), note_path(note), :class => 'delete delete_note', :note_id => note.id
     %br{ :style => "clear:both;"}
     .attr_name
       = h note.short_description

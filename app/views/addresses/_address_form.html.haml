@@ -21,8 +21,9 @@
   %br.clear
 .form_line
   .field_33
-    = address.label :town, 'Suburb/Town'
+    = address.label :town, 'Suburb'
     = address.text_field :town
+    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
   .field_33
     = address.label :district, 'District'
     = address.text_field :district
@@ -32,12 +33,26 @@
   %br.clear
 .form_line
   .field_33
-    = address.label :state, 'State/Province'
+    = address.label :state, 'State'
     = address.text_field :state
+    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
   .field_33
     = address.label :postal_code, 'Postal Code'
     = address.text_field :postal_code
+    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
   .field_33
     = address.label :country, 'Country'
     = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
   %br.clear
+
+
+%div#address_form_assistant{:style => "display:none"}
+
+  Suburb:
+  %input{:type => "text", :id => "address_assistant_suburb", :class => "address_assistant_search", :size => "15"}
+  State:
+  %input{:type => "text", :id => "address_assistant_state", :class => "address_assistant_search" , :size => "5"}
+  Postcode:
+  %input{:type => "text", :id => "address_assistant_postcode", :class => "address_assistant_search", :size => "5"}
+
+  = render :partial => "/addresses/address_assistant"

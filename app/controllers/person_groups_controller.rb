@@ -14,11 +14,19 @@ class PersonGroupsController < ApplicationController
     
       @person = Person.find(params[:person_id].to_i) 
       @group = Tag.find(params[:person_group_id].to_i) rescue @group = Tag.new
+
+#      if (PersonGroup.find(:all, :conditions => ['people_id = ? AND tag_id = ?', @person.id, @group.id]))
+#        @person_group=PersonGroup.find(:all, :conditions => ['people_id = ? AND tag_id = ?', @person.id, @group.id]);
+#      else
       @person_group = PersonGroup.new
+#       end
       @person_group.people_id= @person.id
       @person_group.tag_id = @group.id
       @person_group.save!
-
+        
+#      else
+#        @person_group.update_attributes(params[:person_group])
+#      end
 
      respond_to do |format|
       format.js

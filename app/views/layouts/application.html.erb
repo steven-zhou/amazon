@@ -10,9 +10,10 @@
       "jquery.dataTables.min.js",
       "jquery.qtip.min.js",
       "jquery.form.js",
+      "jquery.jpassword.js",
       "application",
       "person.js",
-      "jquery.jpassword.js",
+      "reports.js",
       :cache => true %>
 
     <%= yield_authenticity_token %>
@@ -28,6 +29,9 @@
         </div>
         <div class="module_item">
           <%= link_to( image_tag('business.png'), :controller => "organisations", :action => "show", :id => "") %>
+        </div>
+        <div class="module_item">
+          <%= link_to("Reporting", :controller => "reports", :action => "create") %>
         </div>
         <div class="module_item">
           <%= link_to("Log Out", :controller => "signin", :action => "signout") %>

@@ -1185,12 +1185,20 @@ $(function(){
     });
 });
 
+
 $(function(){
     $("#run_button").live('click', function(){
+        var temp = "";
+        temp += 'id=' + $("#query_header_id").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+        }
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
@@ -1198,10 +1206,17 @@ $(function(){
 
 $(function(){
     $("#run_button_edit").live('click', function(){
+        var temp = "";
+        temp += 'id=' + $("#query_header_id").val();
+        if($("#query_edit_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+        }
         $.ajax({
             type: "GET",
             url: "/query_headers/run.js",
-            data:'id=' + $("#query_header_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
@@ -1281,6 +1296,31 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#query_top_number").click(function(){
+        $("#query_top_percent_value").val('');
+        $("#query_top_percent_value").attr("disabled",true);
+        $("#query_top_number_value").attr("disabled",false);
+    });
+    $("#query_top_percent").click(function(){
+        $("#query_top_number_value").val('');
+        $("#query_top_number_value").attr("disabled",true);
+        $("#query_top_percent_value").attr("disabled",false);
+    });
+});
+
+$(function(){
+    $("#query_edit_top_number").click(function(){
+        $("#query_edit_top_percent_value").val('');
+        $("#query_edit_top_percent_value").attr("disabled",true);
+        $("#query_edit_top_number_value").attr("disabled",false);
+    });
+    $("#query_edit_top_percent").click(function(){
+        $("#query_edit_top_number_value").val('');
+        $("#query_edit_top_number_value").attr("disabled",true);
+        $("#query_edit_top_percent_value").attr("disabled",false);
+    });
+});
 
 
 /*List Header of Person*/
@@ -1346,9 +1386,12 @@ $(function(){
                 data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
                 dataType: "script"
             });
+
         }
     });
 });
+
+
 
 $(function(){
     $("#add_to_exclude").live('click', function(){
@@ -1377,14 +1420,51 @@ $(function(){
 
 $(function(){
     $("#compile_button").live('click', function(){
+        var temp = "";
+        temp += "login_account_id=" + $("#login_account_id").val();
+        temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
+        if($("#top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#top_number_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+        }
+
         $.ajax({
             type: "POST",
             url: "/compile_lists/compile.js",
-            data: "login_account_id=" + $("#login_account_id").val(),
+            data: temp,
             dataType: "script"
         });
     });
 });
+
+
+$(function(){
+    $("#top_number").click(function(){
+        $("#top_percent_value").val('');
+        $("#top_percent_value").attr("disabled",true);
+        $("#top_number_value").attr("disabled",false);
+    });
+    $("#top_percent").click(function(){
+        $("#top_number_value").val('');
+        $("#top_number_value").attr("disabled",true);
+        $("#top_percent_value").attr("disabled",false);
+    });
+});
+
+$(function(){
+    $(".integer_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid) || $(this).val()<=0){
+                alert("This field has be an integer and great than zero!");
+                $(this).focus();
+                $(this).val('');
+            }
+        }
+    });
+});
+
 
 
 /*Group ---List*/
@@ -1407,6 +1487,17 @@ $(function(){
         }
     });
 });
+
+
+
+/* Admin - Duplication Formular */
+$(function(){
+    $("#fields_formula").live('change', function(){
+        $(".descriptions_formula").css("display", "none");
+        $("#description_formula_"+$(this).val()).css("display", "");
+    });
+});
+
 
 /*Group---Permission*/
 
@@ -1480,14 +1571,14 @@ $(function(){
 });
 
 $(function(){
-   $(".module_select_all").live('click', function(){
-      if ($(this).attr("checked") == true){
-          $('.controller_select_all').attr("checked", true);
-          $('.method_select_all').attr("checked", true);
-      }else{
-          $('.controller_select_all').attr("checked", false);
-          $('.method_select_all').attr("checked", false);
-      }
+    $(".module_select_all").live('click', function(){
+        if ($(this).attr("checked") == true){
+            $('.controller_select_all').attr("checked", true);
+            $('.method_select_all').attr("checked", true);
+        }else{
+            $('.controller_select_all').attr("checked", false);
+            $('.method_select_all').attr("checked", false);
+        }
 
     });
 });
@@ -1496,31 +1587,34 @@ $(function(){
 
 /*when you slecet the controller , all the method will be on*/
 $(function(){
-   $('.controller_select_all').live('click', function(){
-       if ($(this).attr('checked') == true){
+    $('.controller_select_all').live('click', function(){
+        if ($(this).attr('checked') == true){
 
 
-         $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+            $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
 
 
-       }else{
+        }else{
 
 
-                   $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
-                   $('.module_select_all').attr("checked", false);
+            $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
+            $('.module_select_all').attr("checked", false);
 
-       }
-   });
+        }
+    });
 });
 
 
 
 $(function(){
-   $('.method_select_all').live('click', function(){
-       if ($(this).attr('checked') == false){
-           $('.module_select_all').attr("checked", false);
-           $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
-       }
+    $('.method_select_all').live('click', function(){
+        if ($(this).attr('checked') == false){
+            $('.module_select_all').attr("checked", false);
+            $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
+        }
 
-   });
+    });
 });
+
+
+  

@@ -1,0 +1,55 @@
+=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+
+=link_to('System Setting', :controller => "administrations", :action => "system_setting")
+=link_to('System Management', :controller => "administrations", :action => "system_management")
+=link_to('Query/List', :controller => "administrations", :action => "list_management")
+%h3{:style => "display:inline;"} Duplication Formula
+
+.info_container
+  %h3 Duplication Formula
+
+
+  #formular_form{:style => "margin-left:1%;"}
+    .info_container{:style => "width:97%;"}
+      -form_for @duplication_formula, :html => {:class => 'ajax_form'} do |f|
+        .form_line
+          .field_30
+            = f.label :duplication_space, "Duplication Space"
+            = f.text_field :duplication_space
+          .field_50
+            = f.label :description, "Description"
+            = f.text_field :description
+          .field_10{:style => "float:right"}
+            %label &nbsp;
+            = submit_tag "Update"
+          %br.clear
+
+  #left
+    .info_container
+      -form_for DuplicationFormulaDetail.new, :html => {:class => 'ajax_form'} do |f|
+        .field_50
+          .form_line
+            = f.label :table_name, 'Select Table'
+            = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "formula", :class => "clear_select show_fields"}
+            %br.clear
+          .form_line
+            = f.label :field_name, 'Select Field'
+            %select#fields_formula{:name => "duplication_formula_detail[field_name]", :size => "12"}
+            %br.clear
+        .field_50
+          #attribute_description_formula{:style => "margin:82px 0 30px 0;"}
+            %label &nbsp;
+          .form_line
+            %label Number of Charecter
+            = f.text_field :number_of_charecter, :style => "width:70%;", :class => "integer_field"
+          = submit_tag "Apply Formula"
+
+      %br.clear
+
+
+  #right
+    .info_container
+      %h3 Duplication Formulas
+      #formula_list
+        = render :partial => "/duplication_formula_details/duplication_formula_detail", :collection => @duplication_formula.duplication_formula_details
+  %br.clear

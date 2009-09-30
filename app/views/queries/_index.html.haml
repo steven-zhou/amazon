@@ -35,14 +35,14 @@
             %label{:style => "width:50%;display:inline;"} Allow Duplication
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
-            %label{:style => "width:30%;display:inline;"} Top
-            %input{:style => "width:30%;display:inline;"}
+            %input{:type => "radio", :name => "query_top", :style => "width:30%;display:inline;", :value => "number", :id => "query_top_number", :checked => true}
+            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:style => "width:30%;display:inline;", :id => "query_top_number_value", :class => "integer_field"}
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
-            %label{:style => "width:30%;display:inline;"} Precentage
-            %input{:style => "width:30%;display:inline;"}
+            %input{:type => "radio", :name => "query_top", :style => "width:30%;display:inline;", :value => "percent", :id => "query_top_percent"}
+            %label{:style => "width:30%;display:inline;"} Percent
+            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
             %br.clear
 
     #right
@@ -101,14 +101,14 @@
             %label{:style => "width:50%;display:inline;"} Allow Duplication
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
-            %label{:style => "width:30%;display:inline;"} Top
-            %input{:style => "width:30%;display:inline;"}
+            %input{:type => "radio", :name => "query_top_edit", :style => "width:30%;display:inline;", :value => "number", :id => "query_edit_top_number", :checked => true}
+            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:style => "width:30%;display:inline;", :id => "query_edit_top_number_value", :class => "integer_field"}
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;"}
-            %label{:style => "width:30%;display:inline;"} Precentage
-            %input{:style => "width:30%;display:inline;"}
+            %input{:type => "radio", :name => "query_top_edit", :style => "width:30%;display:inline;", :value => "percent", :id => "query_edit_top_percent"}
+            %label{:style => "width:30%;display:inline;"} Percent
+            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_edit_top_percent_value", :class => "integer_field"}
             %br.clear
 
     #right

@@ -10,7 +10,7 @@ ActionController::Routing::Routes.draw do |map|
     :cancel_edit_names => :post,
     :name_card => :get,
   } do |person|
-    person.resources :addresses, :member => {:set_primary_address => :post}
+    person.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     person.resources :phones
     person.resources :faxes
     person.resources :websites
@@ -43,7 +43,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :notes
   end
 
-  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :list_management => :get}
+  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :list_management => :get, :duplication_formula => :get}
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
  
@@ -77,7 +77,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
 
   map.resources :group_lists, :collection => {:show_lists => :get}
+
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
+
+  map.resources :reports, :collection => {:generate_report => :post}
+
+  map.resources :duplication_formulas
+  map.resources :duplication_formula_details
+
   
   # The priority is based upon order of creation: first created -> highest priority.
 
