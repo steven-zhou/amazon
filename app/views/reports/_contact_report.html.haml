@@ -1,12 +1,11 @@
 %thead
   %tr
-    %th ID
-    %th Name
-    %th Email
-    %th Phone
-    %th Website
-    %th Fax
-
+    %th{:style => "background-color:gray;color:white;"} ID
+    %th{:style => "background-color:gray;color:white;"} Name
+    %th{:style => "background-color:gray;color:white;"} Email
+    %th{:style => "background-color:gray;color:white;"} Phone
+    %th{:style => "background-color:gray;color:white;"} Website
+    %th{:style => "background-color:gray;color:white;"} Fax
 %tbody
   - @report_list.people_on_list.each do |person|
     %tr{:person_id => person.id}
