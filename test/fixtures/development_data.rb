@@ -212,7 +212,10 @@ destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_pe
 
 puts "Assign Group to person_id 1."
 
-pg = UserGroup.create(:user_id => LoginAccount.first.id, :group_id => admin.id)
+pg = UserGroup.create(:user_id => robert_tingle_login.id, :group_id => admin.id)
+
+puts "Assign Permission to group pg"
+permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => admin.id)
 
 
 puts "Creating passport for Robert Tingle"
@@ -312,3 +315,51 @@ abc = Organisation.create(
   :full_name => "ABC",
   :onrecord_since => 586.days.ago
 )
+
+# Sample postcodes
+
+puts "Creating some sample postcodes"
+
+c = Country.find_by_short_name("Australia")
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Epping", :state => "NSW", :postcode => "2121")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Hornsby", :state => "NSW", :postcode => "2065")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Chatswood", :state => "NSW", :postcode => "2066")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "St Leonards", :state => "NSW", :postcode => "2065")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Brisbane", :state => "QLD", :postcode => "4000")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Perth", :state => "WA", :postcode => "5000")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Beerville", :state => "WA", :postcode => "5001")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Adelaide", :state => "SA", :postcode => "6000")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Darlinghurst", :state => "NSW", :postcode => "2001")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Balmain", :state => "NSW", :postcode => "2002")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Newtown", :state => "NSW", :postcode => "2003")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Alexandria", :state => "NSW", :postcode => "2004")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Five Dock", :state => "NSW", :postcode => "2005")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Carlingford", :state => "NSW", :postcode => "2006")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Terry Hills", :state => "NSW", :postcode => "2007")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Waverton", :state => "NSW", :postcode => "2008")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Double Bay", :state => "NSW", :postcode => "2009")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Roseville", :state => "NSW", :postcode => "2010")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Lindfield", :state => "NSW", :postcode => "2011")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Gordon", :state => "NSW", :postcode => "2012")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Killara", :state => "NSW", :postcode => "2013")
+d.save

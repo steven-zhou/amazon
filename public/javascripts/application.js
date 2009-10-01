@@ -1504,10 +1504,29 @@ $(function(){
 
 /* Admin - Duplication Formular */
 $(function(){
-    $("#fields_formula").live('change', function(){
-        $(".descriptions_formula").css("display", "none");
-        $("#description_formula_"+$(this).val()).css("display", "");
+    $("#fields_personal_duplication").live('change', function(){
+        $(".descriptions_personal_duplication").css("display", "none");
+        $("#description_personal_duplication_"+$(this).val()).css("display", "");
     });
+});
+
+$(function(){
+   $('#apply_personal_duplication').live('click', function(){
+      $("#personal_duplication_form").doAjaxSubmit();
+   });
+});
+
+$(function(){
+    $("#fields_organisational_duplication").live('change', function(){
+        $(".descriptions_organisational_duplication").css("display", "none");
+        $("#description_organisational_duplication_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
+   $('#apply_organisational_duplication').live('click', function(){
+      $("#organisational_duplication_form").doAjaxSubmit();
+   });
 });
 
 
@@ -1659,4 +1678,3 @@ $(function(){
       
     });
 });
-

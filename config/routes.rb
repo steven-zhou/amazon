@@ -80,9 +80,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
-  map.resources :reports, :collection => {:generate_report => :post}
+  map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post}
 
-  map.resources :duplication_formulas
+  map.resources :personal_duplication_formulas
+  map.resources :organisational_duplication_formulas
   map.resources :duplication_formula_details
 
   

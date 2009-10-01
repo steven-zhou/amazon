@@ -1,0 +1,67 @@
+- personal_options = String.new
+- personal_options = "<option></option>"
+- personal_descriptions = String.new
+- personal_descriptions += "<label class='descriptions_personal_duplication'>&nbsp;</label>"
+- TableMetaType.personal_duplication_source.each do |i|
+  - personal_options += "<option value = #{i.name}> #{i.name} </option>"
+  - if i.category.nil?
+    - personal_descriptions += "<label class='descriptions_personal_duplication' id='description_personal_duplication_#{i.name}' style='display:none;'>#{i.description}</label>"
+  - else
+    - personal_descriptions += "<label class='descriptions_personal_duplication' id='description_personal_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
+
+.info_container
+  = button_to_function "Regenerate Duplication Value", :id => "generate_personal_duplication", :style => "float:right;"
+  = button_to_function "Load Default Setting", :id => "load_personal_duplication", :style => "float:right;"
+  %h3 Personal Duplication Formula
+  
+
+  #formular_form
+    -form_for @personal_duplication_formula, :html => {:class => 'ajax_form', :id => "personal_duplication_form", :style => "margin-bottom:40px;"} do |f|
+      #left{:style => "width:30%;margin: 0pt 5px 5px 19px;"}
+        .form_line
+          = f.label :duplication_space, "Duplication Space"
+          = f.radio_button :duplication_space, true, :style =>"display:inline;width:25%;"
+          = f.label :duplication_space, "Primary List", :style =>"display:inline;width:75%;"
+          %br
+          = f.radio_button :duplication_space, false, :style =>"display:inline;width:25%;"
+          = f.label :duplication_space, "Customize List", :style =>"display:inline;width:75%;"
+          %br.clear
+      #right{:style => "width:65%;"}
+        .form_line
+          = f.label :description, "Description"
+          = f.text_field :description
+          = submit_tag "test", :style => "display:none;"
+          %br.clear
+      %br.clear
+
+    #left{:style => "width:30%;"}
+      .info_container
+        -form_for DuplicationFormulaDetail.new, :html => {:class => 'ajax_form'} do |f|
+          .form_line
+            = f.label :field_name, 'Select Field'
+            %select#fields_personal_duplication{:class => "clear_select", :name => "duplication_formula_detail[field_name]", :size => "18"}
+              = "#{personal_options}"
+            %br.clear
+
+          #attribute_description_personal_duplication{:style => "margin:0px 0 10px 0;height:40px;"}
+            = "#{personal_descriptions}"
+          .form_line
+            .field_50
+              = f.label :number_of_charecter, "Number of Charecter"
+              = f.text_field :number_of_charecter, :class => "integer_field", :id => "personal_length"
+              %input{:style => "display:none", :name => "duplication_formula_detail[table_name]", :value => "people"}
+              %input{:style => "display:none", :name => "duplication_formula_detail[duplication_formula_id]", :value => @personal_duplication_formula.id}
+            .field_40{:style => "float:right"}
+              %label &nbsp;
+              = submit_tag "Apply"
+
+            %br.clear
+
+    #right{:style => "width:68%;"}
+      #personal_formula_list
+        = render :partial => "/duplication_formula_details/duplication_formula_detail", :collection => @personal_duplication_formula.duplication_formula_details
+
+    %br.clear
+    %div
+      = button_to_function "Submit", :id => "apply_personal_duplication", :style => "float:right;"
+      %br.clear
