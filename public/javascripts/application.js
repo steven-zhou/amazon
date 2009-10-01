@@ -966,6 +966,7 @@ $(function() {
 
 $(function(){
     $("#add_user").live('click', function(){
+        $(this).hide();
         $(".user_clear_form").click();
         $(".show_user_container").hide();
         $("#close_new_account").show();
@@ -1079,6 +1080,7 @@ $(function(){
         $("#new_user").toggle('blind');
         $(".show_user_container").show();
         $("#close_new_account").hide();
+         $("#add_user").show();
     });
 });
 

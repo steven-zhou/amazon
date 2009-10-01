@@ -48,6 +48,8 @@ class ApplicationController < ActionController::Base
 
       # Errors
     when "login_error" then "The login credentials you supplied were incorrect"
+    when "login_group_error" then "you do not have groups"
+    when "login_permission_error" then "you do not have permissions"
     when "field_missing" then "You did not fill out the required field #{options[:field]}"
     when "uniqueness_error" then "#{options[:field]} has already existed"
     when "not exist" then "#{options[:field]} not exist in system"

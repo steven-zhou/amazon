@@ -30,7 +30,7 @@
     %fieldset.address_form
       %h3 Registered Address
       - p.fields_for :addresses do |address|
-        = render :partial => '/addresses/simple_address_form', :locals => { :address => address}
+        -#= render :partial => '/addresses/simple_address_form', :locals => { :address => address}
     %fieldset.add_contacts
       %h3 Primary Contact
       .form_line
