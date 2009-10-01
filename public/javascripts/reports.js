@@ -25,13 +25,20 @@ $(function() {
         }
     });
 
-
     $(document).ready(function() {
-        $('#report_results_data').dataTable( {
+        $('#report_results_data').dataTable({
             "iDisplayLength":10,
             "bLengthChange": false,
-            "bAutoWidth":true,
-            "bFilter":false
+            "bAutoWidth":false,
+            "bFilter":false,
+            "aoColumns": [
+                {"sWidth":"10%"},
+                {"sWidth":"18%"},
+                {"sWidth":"18%"},
+                {"sWidth":"18%"},
+                {"sWidth":"18%"},
+                {"sWidth":"18%"}
+            ]
         });
     });
 
