@@ -1502,42 +1502,28 @@ $(function(){
 
 /* Admin - Duplication Formular */
 $(function(){
-    $("#personal_back_to_default").live('change', function(){
-        $.ajax({
-                type: "GET",
-                url: "/duplication_formulas/apply.js",
-                data: 'id='+$(this).attr("formula_id"),
-                dataType: "script"
-            })
+    $("#fields_personal_duplication").live('change', function(){
+        $(".descriptions_personal_duplication").css("display", "none");
+        $("#description_personal_duplication_"+$(this).val()).css("display", "");
     });
 });
 
 $(function(){
-    $('#show_new_formula').live('click', function(){
-        $(this).css("display","none");
-        $("#close_new_formula").css("display", "");
-        $("#new_personal_formula").css("display","");
-        $(".edit_mode").css("display","none");
-        $.ajax({
-            type: "GET",
-            url: "/personal_duplication_formulas/new.js",
-            dataType: "script"
-        });
-    });
-});
-
-$(function(){
-   $('#close_new_formula').live('click', function(){
-      $(this).css("display","none");
-      $("#show_new_formula").css("display", "");
-      $("#new_personal_formula").css("display","none");
-      $(".edit_mode").css("display","");
+   $('#apply_personal_duplication').live('click', function(){
+      $("#personal_duplication_form").doAjaxSubmit();
    });
 });
 
 $(function(){
-   $('#create_personal_duplication').live('click', function(){
-      $("#persoanl_duplication_form").doAjaxSubmit();
+    $("#fields_organisational_duplication").live('change', function(){
+        $(".descriptions_organisational_duplication").css("display", "none");
+        $("#description_organisational_duplication_"+$(this).val()).css("display", "");
+    });
+});
+
+$(function(){
+   $('#apply_organisational_duplication').live('click', function(){
+      $("#organisational_duplication_form").doAjaxSubmit();
    });
 });
 
