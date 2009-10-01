@@ -1527,6 +1527,50 @@ $(function(){
    });
 });
 
+$(function(){
+   $('#load_personal_duplication').live('mouseover', function(){
+        $('#load_personal_default').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        height: 250,
+        width: 700,
+        buttons: {
+          NO: function() {
+            $(this).dialog('close');
+          },
+          YES: function() {
+            window.open("/personal_duplication_formulas/set_default.html", "_self");
+            return false;
+          }
+        }
+      });
+      $('#load_personal_default').dialog('open');
+   });
+});
+
+$(function(){
+   $('#load_organisational_duplication').live('mouseover', function(){
+        $('#load_organisational_default').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        height: 250,
+        width: 700,
+        buttons: {
+          NO: function() {
+            $(this).dialog('close');
+          },
+          YES: function() {
+            window.open("/organisational_duplication_formulas/set_default.html", "_self");
+            return false;
+          }
+        }
+      });
+      $('#load_organisational_default').dialog('open');
+   });
+});
+
 
 /*Group---Permission*/
 

@@ -35,7 +35,7 @@ class AdministrationsController < ApplicationController
 
   def duplication_formula
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting
-    @personal_duplication_formula_old = PersonalDuplicationFormula.default_setting if @personal_duplication_formula.nil?
+    @personal_duplication_formula_old = PersonalDuplicationFormula.default_setting if @personal_duplication_formula_old.nil?
     @personal_duplication_formula = PersonalDuplicationFormula.new(@personal_duplication_formula_old.attributes)
     @personal_duplication_formula.group = "temp"
     if @personal_duplication_formula.save
@@ -47,7 +47,7 @@ class AdministrationsController < ApplicationController
     end
 
     @organisational_duplication_formula_old = OrganisationalDuplicationFormula.applied_setting
-    @organisational_duplication_formula_old = OrganisationalDuplicationFormula.default_setting if @organisational_duplication_formula.nil?
+    @organisational_duplication_formula_old = OrganisationalDuplicationFormula.default_setting if @organisational_duplication_formula_old.nil?
     @organisational_duplication_formula = OrganisationalDuplicationFormula.new(@organisational_duplication_formula_old.attributes)
     @organisational_duplication_formula.group = "temp"
     if @organisational_duplication_formula.save
