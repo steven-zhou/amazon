@@ -231,6 +231,13 @@ $('#person_group_close_button').live('click',function(){
         $('.person_address_edit_delete').css("display","none");
     });
 
+  $(".delete_address").live('click',function(){
+        $('.person_address_toggle_button').css("display","");
+        $('.edit_address[address_id='+ $(this).attr('address_id') +']').css("display", "none");
+    });
+
+
+
     /* Person Master Doc*/
 
     $(".person_master_doc_toggle_button").live('click', function(){

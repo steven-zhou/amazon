@@ -1,0 +1,15 @@
+#left.show_list
+  .header
+    .title
+      = render :partial => "menu", :locals => { :person => @person }
+    %br.clear
+  .div#edit_list_result
+    = render :partial => "edit_list_result"
+
+  
+
+#right
+  .header
+    = image_tag 'help_icon.png', :class => 'help_icon'
+  %div.info_container
+    = render :partial => "search_list_results", :locals => {:people => @p}
