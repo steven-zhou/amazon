@@ -174,6 +174,7 @@ volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :
 
 mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
 
+mdmmt = GroupMetaMetaType.create(:name => "Custom", :status => true)
 
 mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 

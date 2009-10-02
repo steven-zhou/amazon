@@ -10,8 +10,14 @@
     %tr{:person_id => person.id}
       %td= person.id
       %td= person.name
-      %td= person.primary_email.value unless person.primary_email.nil?
-      %td= person.primary_phone.complete_number unless person.primary_phone.nil?
+      %td 
+        = person.primary_email.value unless person.primary_email.nil?
+        = "<br />#{person.secondary_email.value}" unless person.secondary_email.nil?
+        = " (#{person.secondary_email.contact_meta_type.category})" unless (person.secondary_email.nil? || person.secondary_email.contact_meta_type.category.nil?)
+      %td
+        = person.primary_phone.complete_number unless person.primary_phone.nil?
+        = "<br />#{person.secondary_phone.value}" unless person.secondary_phone.nil?
+        = " (#{person.secondary_phone.contact_meta_type.category})" unless (person.secondary_phone.nil? || person.secondary_phone.contact_meta_type.category.nil?)
       %td= person.websites.first.value unless person.websites.empty?
 
 

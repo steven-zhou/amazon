@@ -106,16 +106,9 @@ class ReportsController < ApplicationController
 
         for person in report_list.people_on_list do
           
-          email_one = format_email(person.emails.select{ |email| email.priority_number == 1}.first)
-          email_two = format_email(person.emails.select{ |email| email.priority_number == 2}.first)
-          phone_one = format_phone(person.phones.select{ |phone| phone.priority_number == 1}.first)
-          phone_two = format_phone(person.phones.select{ |phone| phone.priority_number == 2}.first)
-          website_one = format_website(person.websites.select{ |website| website.priority_number == 1}.first)
-          website_two = format_website(person.websites.select{ |website| website.priority_number == 2}.first)
-
-          email = format_fields(email_one, email_two)
-          phone = format_fields(phone_one, phone_two)
-          website = format_fields(website_one, website_two)
+          email = format_fields(person.primary_email, person.secondary_email)
+          phone = format_fields(person.primary_phone, person.secondary_phone)
+          website = person.primary_website
 
           data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}" }
 
