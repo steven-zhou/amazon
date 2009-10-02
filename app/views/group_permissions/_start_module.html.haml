@@ -1,0 +1,9 @@
+.title
+  = label :system_permission_meta_meta_type, :id, '&nbsp'
+  %h3 Select a Module:
+.field_22
+  = label :system_permission_meta_meta_type, :id, 'System Module'
+  = collection_select :system_permission_meta_meta_type, :id, @module_all, :id, :name, {:prompt => true}, {:class => "show_module_form clear_select"}
+
+%br.clear
+#permission_form

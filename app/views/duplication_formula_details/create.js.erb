@@ -1,0 +1,14 @@
+<% if @duplication_formula_detail.errors.empty? -%>
+  <%- if @duplication_formula_detail.duplication_formula.class.to_s == "PersonalDuplicationFormula"%>
+    $('#personal_formula_list').append('<%= escape_javascript(render(:partial => @duplication_formula_detail)) %>');
+    $('#fields_personal_duplication').val('');
+    $('#personal_length').val('');
+  <%- else %>
+    $('#organisational_formula_list').append('<%= escape_javascript(render(:partial => @duplication_formula_detail)) %>');
+    $('#fields_organisational_duplication').val('');
+    $('#organisational_length').val('');
+  <%- end %>
+  $('#<%= dom_id(@duplication_formula_detail) %>').effect('slide', {direction:'right'});
+<% end -%>
+
+

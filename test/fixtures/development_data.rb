@@ -177,10 +177,51 @@ mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, 
 
 mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 
+puts "Creating sample SystemPermission data"
+
+mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true)
+
+mdmt = SystemPermissionMetaType.create(:name => "Address_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
+
+show = SystemPermissionType.create(:name => "Address_show", :system_permission_meta_type => mdmt, :status => true)
+edit = SystemPermissionType.create(:name => "Address_edit", :system_permission_meta_type => mdmt, :status => true)
+create = SystemPermissionType.create(:name => "Address_create", :system_permission_meta_type => mdmt, :status => true)
+update = SystemPermissionType.create(:name => "Address_update", :system_permission_meta_type => mdmt, :status => true)
+destroy = SystemPermissionType.create(:name => "Address_destroy", :system_permission_meta_type => mdmt, :status => true)
+
+mdmt0 = SystemPermissionMetaType.create(:name => "Note_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
+
+show0 = SystemPermissionType.create(:name => "Note_show", :system_permission_meta_type => mdmt0, :status => true)
+edit0 = SystemPermissionType.create(:name => "Note_edit", :system_permission_meta_type => mdmt0, :status => true)
+create0 = SystemPermissionType.create(:name => "Note_create", :system_permission_meta_type => mdmt0, :status => true)
+update0 = SystemPermissionType.create(:name => "Note_update", :system_permission_meta_type => mdmt0, :status => true)
+destroy0 = SystemPermissionType.create(:name => "Note_destroy", :system_permission_meta_type => mdmt0, :status => true)
+
+
+
+
+mdmmt1 = SystemPermissionMetaMetaType.create(:name => "Admin", :status => true)
+
+mdmt1 = SystemPermissionMetaType.create(:name => "group_list_controller", :system_permission_meta_meta_type => mdmmt1, :status => true)
+
+showlist1 = SystemPermissionType.create(:name => "group_list_show_list", :system_permission_meta_type => mdmt1, :status => true)
+create1 = SystemPermissionType.create(:name => "group_list_create", :system_permission_meta_type => mdmt1, :status => true)
+destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_permission_meta_type => mdmt1, :status => true)
+
+
 
 puts "Assign Group to person_id 1."
 
-pg = UserGroup.create(:user_id => LoginAccount.first.id, :group_id => admin.id)
+pg = UserGroup.create(:user_id => robert_tingle_login.id, :group_id => admin.id)
+
+puts "Assign Permission to group pg"
+permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => admin.id)
+
+puts "Adding the first login account to the primary list"
+
+pl = PrimaryList.first
+la = LoginAccount.first
+pl.group_types << la.group_types.first
 
 
 puts "Creating passport for Robert Tingle"
@@ -280,3 +321,51 @@ abc = Organisation.create(
   :full_name => "ABC",
   :onrecord_since => 586.days.ago
 )
+
+# Sample postcodes
+
+puts "Creating some sample postcodes"
+
+c = Country.find_by_short_name("Australia")
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Epping", :state => "NSW", :postcode => "2121")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Hornsby", :state => "NSW", :postcode => "2065")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Chatswood", :state => "NSW", :postcode => "2066")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "St Leonards", :state => "NSW", :postcode => "2065")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Brisbane", :state => "QLD", :postcode => "4000")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Perth", :state => "WA", :postcode => "5000")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Beerville", :state => "WA", :postcode => "5001")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Adelaide", :state => "SA", :postcode => "6000")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Darlinghurst", :state => "NSW", :postcode => "2001")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Balmain", :state => "NSW", :postcode => "2002")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Newtown", :state => "NSW", :postcode => "2003")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Alexandria", :state => "NSW", :postcode => "2004")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Five Dock", :state => "NSW", :postcode => "2005")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Carlingford", :state => "NSW", :postcode => "2006")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Terry Hills", :state => "NSW", :postcode => "2007")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Waverton", :state => "NSW", :postcode => "2008")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Double Bay", :state => "NSW", :postcode => "2009")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Roseville", :state => "NSW", :postcode => "2010")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Lindfield", :state => "NSW", :postcode => "2011")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Gordon", :state => "NSW", :postcode => "2012")
+d.save
+d = DomesticPostcode.new(:country_id => c.id, :suburb => "Killara", :state => "NSW", :postcode => "2013")
+d.save

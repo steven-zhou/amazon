@@ -1,0 +1,22 @@
+-form_tag('/group_permissions', :class => 'ajax_form') do
+  .info_container
+    .field_33{:id => "show_controllers", :style => "cursor:pointer;cursor:hand", :class => "group_permission_color, toggle_button", :main_module_id => @system_permission_meta_meta_type.id, :toggle_id_name => "show_controllers_container" }
+      = 'Module---'+ @system_permission_meta_meta_type.name
+    .field_22
+      = check_box_tag "module_ids[]" , @system_permission_meta_meta_type.id, false, :class => 'module_select_all'
+      = 'Select All'
+    .field_22{:style => "display:none;"}
+      = text_field_tag :group_id, params[:group_id], :value => @group_type.id
+    .field_22{:style => "display:none;"}
+      = text_field_tag :module_id, params[:module_id], :value => @system_permission_meta_meta_type.id
+    %br.clear
+  %div{:id => "show_controllers_container", :style=> "display:none;"}
+    %br.clear
+  = submit_tag 'submit'
+  %br.clear
+    
+
+
+    
+
+

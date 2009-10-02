@@ -1,0 +1,11 @@
+
+$('#show_methods_container_' + '<%=escape_javascript("#{@system_permission_meta_type.id}")%>' ).html('<%=escape_javascript(render(:partial => '/group_permissions/method_form')) %>')
+
+if ($('.controller_select_all[controller_id ='+ '<%=escape_javascript("#{@system_permission_meta_type.id}")%>'+']').attr('checked') == true){
+
+
+         $('.method_select_all[controller_id = ' + '<%=escape_javascript("#{@system_permission_meta_type.id}")%>' +']').attr("checked", true);
+
+
+       };
+

@@ -55,19 +55,4 @@
   Postcode:
   %input{:type => "text", :id => "address_assistant_postcode", :class => "address_assistant_search", :size => "5"}
 
-  %div#address_assistant_postcodes
-
-    %table#address_assistant
-      %thead
-        %tr
-          %th{:style => "background-color:gray;color:white;"} Suburb
-          %th{:style => "background-color:gray;color:white;"} State
-          %th{:style => "background-color:gray;color:white;"} Postcode
-          %th{:style => "background-color:gray;color:white;"} Country
-      %tbody
-        - @postcodes.each do |postcode|
-          %tr{:postcode_id => postcode.id}
-            %td= postcode.suburb
-            %td= postcode.state
-            %td= postcode.postcode
-            %td= postcode.country.short_name unless postcode.country_id.nil?
+  = render :partial => "/addresses/address_assistant"

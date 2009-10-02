@@ -5,6 +5,7 @@ class PeopleController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new
+    @postcodes = DomesticPostcode.find(:all)
     @person = Person.new
     @person.addresses.build
     @person.phones.build
@@ -27,14 +28,7 @@ class PeopleController < ApplicationController
     #    @person = Person.new if @person.nil? || @list_headers.blank?
 
     @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = Array.new
-    c = Array.new
-    @group_types.each do |group_type|
-      a = group_type.list_headers
-      c += a
-      @list_headers = c.uniq
-        
-    end
+    @list_headers = @current_user.list_headers
 
     #when it is cal show action
     if request.get?
@@ -46,6 +40,7 @@ class PeopleController < ApplicationController
         if params[:id].nil? || params[:id] == "show" #when just jumping or change list
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
+          #@person = @list_headers.first.people_on_list.first unless @list_headers.blank?
           @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?

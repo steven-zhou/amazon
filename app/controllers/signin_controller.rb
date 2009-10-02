@@ -15,7 +15,10 @@ class SigninController < ApplicationController
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
 
         session[:login_account_info] = login_account
+       
         @group_types = LoginAccount.validate_group(session[:user])
+        @system_permission_types = LoginAccount.validate_permission(session[:user])
+        
 
         if (session[:intended_action] != nil && session[:intended_controller] != nil)
           #puts "***** DEBUG Redirecting to the intended action and controller"

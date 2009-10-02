@@ -1,0 +1,8 @@
+$('.permission_container').html('<%=escape_javascript(render(:partial => '/group_permissions/add_group_permission'))%>');
+
+
+$('#old_permissions').addClass('info_container')
+$('#old_permissions').html('<%=escape_javascript(render(:partial => '/group_permissions/existing_permission'))%>');
+
+
+
