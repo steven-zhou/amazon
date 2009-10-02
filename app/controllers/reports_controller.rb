@@ -73,7 +73,7 @@ class ReportsController < ApplicationController
       PDF::SimpleTable.new do |tab|
 
 
-        tab.column_order.push(*%w(system_id name email phone website fax))
+        tab.column_order.push(*%w(system_id name email phone website))
 
         tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
           col.heading = "ID"
