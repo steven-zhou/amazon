@@ -370,12 +370,10 @@ class PeopleController < ApplicationController
   def show_list
 
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
-#     @postcodes = DomesticPostcode.find(:all)
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = Array.new
     c = Array.new
     @group_types.each do |group_type|
-      #a = ListHeader.find(:all, :include => [:group_lists], :conditions => ["group_lists.tag_id=?", group_type.id])
       a = group_type.list_headers
       c += a
       @list_headers = c.uniq
@@ -416,7 +414,6 @@ class PeopleController < ApplicationController
 
 
     respond_to do |format|
-     # format.html
      format.js
     end
 

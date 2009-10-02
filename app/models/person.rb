@@ -136,10 +136,18 @@ class Person < ActiveRecord::Base
     @primary_phone ||= self.phones.select {|phone| phone.priority_number == 1}.first
   end
 
+  def secondary_phone
+    @secondary_phone ||= self.phones.select {|phone| phone.priority_number == 2}.first
+  end
+
   def primary_email
     @primary_email ||= self.emails.select {|email| email.priority_number == 1}.first
   end
 
+    def secondary_email
+    @secondary_email ||= self.emails.select {|email| email.priority_number == 2}.first
+  end
+  
   def primary_fax
     @primary_fax ||= self.faxes.select {|fax| fax.priority_number == 1}.first
   end
