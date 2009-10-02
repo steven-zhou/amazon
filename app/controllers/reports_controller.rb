@@ -5,14 +5,7 @@ class ReportsController < ApplicationController
 
 
   def index
-    @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = Array.new
-    c = Array.new
-    @group_types.each do |group_type|
-      a = group_type.list_headers
-      c += a
-      @list_headers = c.uniq
-    end
+    @list_headers = @current_user.list_headers
   end
 
   def preview_report
