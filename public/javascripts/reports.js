@@ -32,12 +32,11 @@ $(function() {
             "bAutoWidth":false,
             "bFilter":false,
             "aoColumns": [
-                {"sWidth":"10%"},
-                {"sWidth":"18%"},
-                {"sWidth":"18%"},
-                {"sWidth":"18%"},
-                {"sWidth":"18%"},
-                {"sWidth":"18%"}
+                {"sWidth":"20%"},
+                {"sWidth":"25%"},
+                {"sWidth":"25%"},
+                {"sWidth":"25%"},
+                {"sWidth":"25%"}
             ]
         });
     });
