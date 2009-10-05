@@ -65,3 +65,11 @@
     %div
       = button_to_function "Submit", :id => "apply_personal_duplication", :style => "float:right;"
       %br.clear
+
+
+
+#load_personal_default{:style => "display:none;"}
+  %h3 Default Setting
+  = "#{PersonalDuplicationFormula.default_setting.formatted_info}"
+  %br
+  = "Are you sure to load default setting?"

@@ -56,6 +56,7 @@ class CompileListsController < ApplicationController
       end
 
       @people = Array.new
+      puts "#{person_ids.size}"
       person_ids.each do |i|
         @person = Person.find(i)
         @people << @person

@@ -109,6 +109,26 @@ $(document).ready(function() {
     });
 });
 
+/* Show List Summary*/
+$(document).ready(function() {
+    $('#search_list_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":10,
+        "bAutoWidth":true,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"15%"
+        },{
+            'sWidth':"30%"
+        },{
+            "sWdith":"15%"
+        },{
+            'sWidth':"25%"
+        }]
+    });
+});
 
 
 /*Date picker */
@@ -248,6 +268,34 @@ $(function(){
 });
 
 
+/* Show Summary list*/
+$(function(){
+    $('table#search_list_results tbody tr').live('click',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/people/show_left.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+        });
+        $('table#search_list_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+});
+
+/* Show select list*/
+
+$(function(){
+    $('#show_select_person').live('click',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/people/show.js",
+            data: 'id='+$(this).attr('person_id'),
+            dataType: "script"
+        });
+    });
+})
+
 /*role*/
 
 
@@ -371,6 +419,9 @@ $(function(){
         });
     });
 });
+
+
+
 
 
 /* Show_group */
@@ -629,6 +680,8 @@ $(function(){
         $("#edit_role").doAjaxSubmit();
     })
 });
+
+
 
 
 $(function(){
@@ -1529,6 +1582,50 @@ $(function(){
    });
 });
 
+$(function(){
+   $('#load_personal_duplication').live('mouseover', function(){
+        $('#load_personal_default').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        height: 250,
+        width: 700,
+        buttons: {
+          NO: function() {
+            $(this).dialog('close');
+          },
+          YES: function() {
+            window.open("/personal_duplication_formulas/set_default.html", "_self");
+            return false;
+          }
+        }
+      });
+      $('#load_personal_default').dialog('open');
+   });
+});
+
+$(function(){
+   $('#load_organisational_duplication').live('mouseover', function(){
+        $('#load_organisational_default').dialog( {
+        modal: true,
+        resizable: true,
+        draggable :true,
+        height: 250,
+        width: 700,
+        buttons: {
+          NO: function() {
+            $(this).dialog('close');
+          },
+          YES: function() {
+            window.open("/organisational_duplication_formulas/set_default.html", "_self");
+            return false;
+          }
+        }
+      });
+      $('#load_organisational_default').dialog('open');
+   });
+});
+
 
 /*Group---Permission*/
 
@@ -1680,6 +1777,7 @@ $(function(){
 });
 
 
+
 /*Organisation-part*/
 
 
@@ -1725,4 +1823,18 @@ $(function(){
     });
 });
 
+
+
+/* Show list*/
+$(function(){
+    $("#show_all_list_member").live('click',function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/show_list.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+
+        });
+    });
+});
 

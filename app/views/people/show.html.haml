@@ -3,149 +3,150 @@
     .title
       = render :partial => "menu", :locals => { :person => @person }
     %br.clear
-  %div.info_container
-    - form_tag('/people/show', :id => "person_list") do
-      .form_line
-        .field_20{:style => 'float:left;'}
-          = label_tag 'person_id', 'System ID', :style => 'clear:both'
-          = text_field_tag 'person_id', @person.id, {:disabled => (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag'}
-      %div.list_menu
-        -if @list_header.new_record? && @person.new_record?
-          %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
-          - @list_headers.each do |r|
-            %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-        -else
-          = link_to((image_tag 'back.png'), person_path(@p.at(0)))
-          = link_to((image_tag 'back.png'), person_path(@p.at((@p.index(@person))-1)))
-          %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+  #show_left_list
+    %div.info_container
+      - form_tag('/people/show', :id => "person_list") do
+        .form_line
+          .field_20{:style => 'float:left;'}
+            = label_tag 'person_id', 'System ID', :style => 'clear:both'
+            = text_field_tag 'person_id', @person.id, {:disabled => (@list_headers.blank?), :onChange => 'this.form.submit()',:id => 'system_id_tag'}
+        %div.list_menu
+          -if @list_header.new_record? && @person.new_record?
+            %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
             - @list_headers.each do |r|
               %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-          -if @p.index(@person) != @p.index(@p.last)
-            = link_to((image_tag 'go.png'), person_path(@p[@p.index(@person)+1]))
           -else
-            = link_to((image_tag 'go.png'), person_path(@p.first))
-          = link_to((image_tag 'go.png'), person_path(@p.fetch(-1)))
-      -#= render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
-    %br.clear
+            = link_to((image_tag 'back.png'), person_path(@p.at(0)))
+            = link_to((image_tag 'back.png'), person_path(@p.at((@p.index(@person))-1)))
+            %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+              - @list_headers.each do |r|
+                %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+            -if @p.index(@person) != @p.index(@p.last)
+              = link_to((image_tag 'go.png'), person_path(@p[@p.index(@person)+1]))
+            -else
+              = link_to((image_tag 'go.png'), person_path(@p.first))
+            = link_to((image_tag 'go.png'), person_path(@p.fetch(-1)))
+        -#= render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
+      %br.clear
       
-  %div.info_container
-    %div#imageshow{:style => "float:left;"}
-      -if @person.image.nil?
-        = image_tag 'no_photo.jpeg', :class => "small"
-      -else
-        = image_tag(image_path(@person.image.id), :class => "small")
+    %div.info_container
+      %div#imageshow{:style => "float:left;"}
+        -if @person.image.nil?
+          = image_tag 'no_photo.jpeg', :class => "small"
+        -else
+          = image_tag(image_path(@person.image.id), :class => "small")
     
      
-    %div#idline
-      - if @person.id.nil?
-        %h3{:style=>'visibility:hidden'} Hidden
+      %div#idline
+        - if @person.id.nil?
+          %h3{:style=>'visibility:hidden'} Hidden
         
-      -else
+        -else
       
-        %h3= h "#{@person.name}"
+          %h3= h "#{@person.name}"
         
-      .form_line
-        .field_33 
-          = label_tag 'custom_id', 'Custom ID'
-          = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}   
-        .field_33
-          = label_tag 'onrecord_since', 'On Record Since'
-          = text_field_tag 'onrecord_since', @person.onrecord_since.to_s, {:readonly => true}
-        %br.clear
+        .form_line
+          .field_33
+            = label_tag 'custom_id', 'Custom ID'
+            = text_field_tag 'custom_id', @person.custom_id, {:readonly => true}
+          .field_33
+            = label_tag 'onrecord_since', 'On Record Since'
+            = text_field_tag 'onrecord_since', @person.onrecord_since.to_s, {:readonly => true}
+          %br.clear
 
 
-    -#%div#more_name_details{:style => 'display:none'}
-      .form_line
-        .field_20
-          = label_tag 'title', 'Title'
-          = text_field_tag 'title', @person.title_id, {:readonly => true}
-        .field_40
-          = label_tag 'first_name', 'First Names'
-          = text_field_tag 'first_name', @person.first_name, {:readonly => true}
-        .field_40
-          = label_tag 'family_name', 'Family Name'
-          = text_field_tag 'family_name', @person.family_name, {:readonly => true}
-        %br.clear
-      .form_line
-        .field_20
-          = label_tag 'second_title', 'Second Title'
-          = text_field_tag 'second_title', @person.second_title_name, {:readonly => true}
-        .field_40
-          = label_tag 'middle_name', 'Middle Name'
-          = text_field_tag 'middle_name', @person.middle_name, {:readonly => true}
-        .field_40
-          = label_tag 'maiden_name', 'Maiden Name'
-          = text_field_tag 'middle_name', @person.maiden_name, {:readonly => true}
-        %br.clear
-      .form_line
-        .field_20
-          = label_tag 'initials', 'Initials'
-          = text_field_tag 'initials', @person.initials, {:readonly => true}
-        .field_40
-          = label_tag 'post_title', 'Post Name'
-          = text_field_tag 'post_title', @person.post_title, {:readonly => true}
-        .field_40
-          = label_tag 'preferred_name', 'Preferred Name'
-          = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
-        %br.clear
-    -#%span.details
-      = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
+      -#%div#more_name_details{:style => 'display:none'}
+        .form_line
+          .field_20
+            = label_tag 'title', 'Title'
+            = text_field_tag 'title', @person.title_id, {:readonly => true}
+          .field_40
+            = label_tag 'first_name', 'First Names'
+            = text_field_tag 'first_name', @person.first_name, {:readonly => true}
+          .field_40
+            = label_tag 'family_name', 'Family Name'
+            = text_field_tag 'family_name', @person.family_name, {:readonly => true}
+          %br.clear
+        .form_line
+          .field_20
+            = label_tag 'second_title', 'Second Title'
+            = text_field_tag 'second_title', @person.second_title_name, {:readonly => true}
+          .field_40
+            = label_tag 'middle_name', 'Middle Name'
+            = text_field_tag 'middle_name', @person.middle_name, {:readonly => true}
+          .field_40
+            = label_tag 'maiden_name', 'Maiden Name'
+            = text_field_tag 'middle_name', @person.maiden_name, {:readonly => true}
+          %br.clear
+        .form_line
+          .field_20
+            = label_tag 'initials', 'Initials'
+            = text_field_tag 'initials', @person.initials, {:readonly => true}
+          .field_40
+            = label_tag 'post_title', 'Post Name'
+            = text_field_tag 'post_title', @person.post_title, {:readonly => true}
+          .field_40
+            = label_tag 'preferred_name', 'Preferred Name'
+            = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
+          %br.clear
+      -#%span.details
+        = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
 
-  %div.info_container
-    %h3 Contacts
     %div.info_container
-      Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_phone.nil? ? "None assigned": @primary_phone.number
-    %div.info_container
-      Fax &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_fax.nil? ? "None assigned": @primary_fax.number
-    %div.info_container
-      Website &nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_website.nil? ? "None assigned": @primary_website.value
-    %div.info_container
-      Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_email.nil? ? "None assigned": @primary_email.value
+      %h3 Contacts
+      %div.info_container
+        Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_phone.nil? ? "None assigned": @primary_phone.number
+      %div.info_container
+        Fax &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_fax.nil? ? "None assigned": @primary_fax.number
+      %div.info_container
+        Website &nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_website.nil? ? "None assigned": @primary_website.value
+      %div.info_container
+        Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_email.nil? ? "None assigned": @primary_email.value
    
 
 
-  %div.info_container
-    %h3
-      = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
-    .primary_address_and_employment
-      = format_address(@primary_address) unless @primary_address.nil?
-
-
-  %div.info_container
-    %h3 Notes
     %div.info_container
-      %div{:style => "float:left;"}
-        = @person.notes.blank? ? "No Notes": @person.notes.first.id
-        = @person.notes.first.note_type.name unless @person.notes.blank?
+      %h3
+        = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
+      .primary_address_and_employment
+        = format_address(@primary_address) unless @primary_address.nil?
 
-      %div{:style => "float:right;"}
-        = show_date(@person.notes.first.created_at)unless @person.notes.blank?
-        \-
-        = @person.notes.first.label unless @person.notes.blank?
-        = @person.notes.first.short_description unless @person.notes.blank?
-      %br.clear
+
     %div.info_container
-      %div{:style => "float:left;"}
-        = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
-        = @person.notes.second.note_type.name unless @person.notes.second.blank?
+      %h3 Notes
+      %div.info_container
+        %div{:style => "float:left;"}
+          = @person.notes.blank? ? "No Notes": @person.notes.first.id
+          = @person.notes.first.note_type.name unless @person.notes.blank?
 
-      %div{:style => "float:right;"}
-        = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
-        \-
-        = @person.notes.second.label unless @person.notes.second.blank?
-        = @person.notes.second.short_description unless @person.notes.second.blank?
-      %br.clear
+        %div{:style => "float:right;"}
+          = show_date(@person.notes.first.created_at)unless @person.notes.blank?
+          \-
+          = @person.notes.first.label unless @person.notes.blank?
+          = @person.notes.first.short_description unless @person.notes.blank?
+        %br.clear
+      %div.info_container
+        %div{:style => "float:left;"}
+          = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
+          = @person.notes.second.note_type.name unless @person.notes.second.blank?
+
+        %div{:style => "float:right;"}
+          = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
+          \-
+          = @person.notes.second.label unless @person.notes.second.blank?
+          = @person.notes.second.short_description unless @person.notes.second.blank?
+        %br.clear
   
 
       
-  %div.info_container
-    %h3 Employment
-    .primary_address_and_employment
-      = format_employment(@primary_employment) unless @primary_employment.nil?
+    %div.info_container
+      %h3 Employment
+      .primary_address_and_employment
+        = format_employment(@primary_employment) unless @primary_employment.nil?
         
 
 
@@ -200,3 +201,4 @@
       %br
       %br
       %br
+

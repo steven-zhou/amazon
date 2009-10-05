@@ -79,6 +79,16 @@ class LoginAccount < ActiveRecord::Base
    @system_permission_types
  end
 
+ def list_headers
+   list_headers = Array.new
+   for group_type in self.group_types do
+     for list_header in group_type.list_headers do
+       list_headers << list_header
+     end
+   end
+   list_headers.uniq
+ end
+
   def password=(pass)
     @password=pass
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp

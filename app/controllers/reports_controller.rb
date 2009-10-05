@@ -5,14 +5,7 @@ class ReportsController < ApplicationController
 
 
   def index
-    @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = Array.new
-    c = Array.new
-    @group_types.each do |group_type|
-      a = group_type.list_headers
-      c += a
-      @list_headers = c.uniq
-    end
+    @list_headers = @current_user.list_headers
   end
 
   def preview_report
@@ -80,7 +73,7 @@ class ReportsController < ApplicationController
       PDF::SimpleTable.new do |tab|
 
 
-        tab.column_order.push(*%w(system_id name email phone website fax))
+        tab.column_order.push(*%w(system_id name email phone website))
 
         tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
           col.heading = "ID"
@@ -102,10 +95,6 @@ class ReportsController < ApplicationController
           col.heading = "Website"
         }
 
-        tab.columns["fax"] = PDF::SimpleTable::Column.new("fax") { |col|
-          col.heading = "Fax"
-        }
-
 
         tab.show_lines    = :outer
         tab.show_headings = true
@@ -117,21 +106,11 @@ class ReportsController < ApplicationController
 
         for person in report_list.people_on_list do
           
-          email_one = format_email(person.emails.select{ |email| email.priority_number == 1}.first)
-          email_two = format_email(person.emails.select{ |email| email.priority_number == 2}.first)
-          phone_one = format_phone(person.phones.select{ |phone| phone.priority_number == 1}.first)
-          phone_two = format_phone(person.phones.select{ |phone| phone.priority_number == 2}.first)
-          website_one = format_website(person.websites.select{ |website| website.priority_number == 1}.first)
-          website_two = format_website(person.websites.select{ |website| website.priority_number == 2}.first)
-          fax_one = format_fax(person.faxes.select{ |fax| fax.priority_number == 1}.first)
-          fax_two = format_fax(person.faxes.select{ |fax| fax.priority_number == 2}.first)
+          email = format_fields(person.primary_email, person.secondary_email)
+          phone = format_fields(person.primary_phone, person.secondary_phone)
+          website = person.primary_website
 
-          email = format_fields(email_one, email_two)
-          phone = format_fields(phone_one, phone_two)
-          website = format_fields(website_one, website_two)
-          fax = format_fields(fax_one, fax_two)
-
-          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}", "fax" => "#{fax}" }
+          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}" }
 
         end
 
@@ -153,17 +132,16 @@ class ReportsController < ApplicationController
 
   def format_phone(phone)
     return "" if phone.nil?
-    phone.complete_number
-  end
-
-  def format_fax(fax)
-    return "" if fax.nil?
-    fax.complete_number
+    result = phone.complete_number
+    result += " (#{phone.contact_meta_type.category})" unless phone.contact_meta_type.category.nil?
+    return result
   end
 
   def format_website(website)
     return "" if website.nil?
-    website.value
+    result = website.value
+    result += " (#{website.contact_meta_type.category})" unless website.contact_meta_type.category.nil?
+    return result
   end
 
   def format_fields(field_one, field_two)

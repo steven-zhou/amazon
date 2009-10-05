@@ -1,0 +1,25 @@
+.header
+  .title
+.info_container
+  %table#search_list_results.display
+    %thead
+      %tr
+        %th System ID
+        %th Name
+        %th Phone
+        %th Email
+        %th Address
+    %tbody
+      - people.each do |person|
+        %tr{:person_id => person.id}
+          %td= person.id
+          %td= person.name
+          %td
+            = person.primary_phone.value unless person.primary_phone.blank?
+            = "<br />#{person.secondary_phone.value}" unless person.secondary_phone.blank?
+          %td
+            = person.primary_email.address unless person.primary_email.blank?
+            = "<br />#{person.secondary_email.address}" unless person.secondary_email.blank?
+          %td= format_address(person.primary_address) unless person.primary_address.blank?
+  =link_to_function 'Submit'
+%br.clear

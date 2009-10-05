@@ -4,11 +4,13 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :show_left => :get,:show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
     :name_card => :get,
+    :edit_show_list => :get,
   } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     person.resources :phones
@@ -82,8 +84,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post}
 
-  map.resources :personal_duplication_formulas
-  map.resources :organisational_duplication_formulas
+  map.resources :personal_duplication_formulas, :collection => {:set_default => :get}
+  map.resources :organisational_duplication_formulas, :collection => {:set_default => :get}
   map.resources :duplication_formula_details
 
   

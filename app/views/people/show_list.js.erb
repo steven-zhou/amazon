@@ -1,0 +1,31 @@
+$('#right').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p })) %>');
+
+$('#search_list_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"12%"
+        },
+        {
+            'sWidth':"12%"
+        },{
+            'sWidth':"12%"
+        }
+        ,{
+            'sWidth':"20%"
+        }]
+    });
+
+<%#*$('#show_list_member').dialog({%>
+  <%#*modal: true,%>
+  <%#*resizable: true,%>
+  <%#*draggable: true,%>
+  <%#*height: 600,%>
+  <%#*width: 800,%>
+<%#*});%>
+
+<%#*$('#show_list_member').dialog('open');%>

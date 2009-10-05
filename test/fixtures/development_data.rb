@@ -174,6 +174,7 @@ volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :
 
 mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
 
+mdmmt = GroupMetaMetaType.create(:name => "Custom", :status => true)
 
 mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 
@@ -216,6 +217,12 @@ pg = UserGroup.create(:user_id => robert_tingle_login.id, :group_id => admin.id)
 
 puts "Assign Permission to group pg"
 permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => admin.id)
+
+puts "Adding the first login account to the primary list"
+
+pl = PrimaryList.first
+la = LoginAccount.first
+pl.group_types << la.group_types.first
 
 
 puts "Creating passport for Robert Tingle"

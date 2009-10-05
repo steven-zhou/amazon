@@ -1,1 +1,4 @@
 $('#<%= dom_id(@address) %>').replaceWith(" <%= escape_javascript(render(:partial => 'edit_address')) %>");
+ $('.person_address_edit_delete').css("display","none");
+ $('.person_address_toggle_button').css("display","none");
+
