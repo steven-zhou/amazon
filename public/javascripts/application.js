@@ -1678,3 +1678,51 @@ $(function(){
       
     });
 });
+
+
+/*Organisation-part*/
+
+
+$(function(){
+
+     $("#organisation_industry_sector_id").live('change', function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/organisations/show_industrial_code.js",
+            data:"industrial_id="+$(this).val(),
+            dataType:"script"
+
+        });
+      
+        }else{
+
+        $('#organisation_industrial_code').val('');
+        }
+
+    });
+});
+
+$(function(){
+
+     $("#organisation_business_category_id").live('change', function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/organisations/show_sub_category.js",
+            data:"sub_category_id="+$(this).val(),
+            dataType:"script"
+
+        });
+
+        }else{
+
+        $('#organisation_business_sub_category').val('');
+        }
+
+    });
+});
+
+

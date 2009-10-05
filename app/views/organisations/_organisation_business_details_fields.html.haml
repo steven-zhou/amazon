@@ -1,13 +1,5 @@
 .form_line
   .field_33
-    = p.label :business_type_id, 'Type of Business'
-    = p.collection_select :business_type_id, BusinessType.active_business_type, :id, :name, {:include_blank => true}
-  .field_33
-    = p.label :business_category_id, 'Business Category'
-    = p.collection_select :business_category_id, BusinessCategory.active_business_category, :id, :name, {:include_blank => true}
-  %br.clear
-.form_line
-  .field_33
     = p.label :industry_sector_id, 'Industrial Sector'
     = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
   .field_33
@@ -16,14 +8,19 @@
   %br.clear
 .form_line
   .field_33
+    = p.label :business_category_id, 'Business Category'
+    = p.collection_select :business_category_id, BusinessCategory.active_business_category, :id, :name, {:include_blank => true}
+  .field_33
+    = p.label :business_sub_category, 'Business Sub Category'
+    = p.text_field :business_sub_category, :value=>@organisation.business_sub_category
+  %br.clear
+.form_line
+  .field_33
     = p.label :number_of_full_time_employees,'Number of Full Time Employees'
     = p.text_field :number_of_full_time_employees, :value=>@organisation.number_of_full_time_employees
   .field_33
     = p.label :number_of_part_time_employees, 'Number of Part Time Employees'
     = p.text_field :number_of_part_time_employees, :value=>@organisation.number_of_part_time_employees
-  .field_33
-    = p.label :number_of_contractors,'Number of Contractors'
-    = p.text_field :number_of_contractors, :value=>@organisation.number_of_contractors
   %br.clear
 .form_line
   .field_33
@@ -32,6 +29,9 @@
   .field_33
     = p.label :number_of_volunteers, 'Number of Volunteers'
     = p.text_field :number_of_volunteers, :value=>@organisation.number_of_volunteers
+  .field_33
+    = p.label :number_of_other_workers, 'Number of other workers'
+    = p.text_field :number_of_other_workers, :value=>@organisation.number_of_other_workers
   %br.clear
 .form_line
   .field_100

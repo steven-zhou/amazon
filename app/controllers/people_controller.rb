@@ -66,38 +66,7 @@ class PeopleController < ApplicationController
       end
     end
 
-  
-
-
-
-
-
-
-
-    #    if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-    #      if @list_headers.blank?
-    #        @list_header = ListHeader.new
-    #        @person = Person.new
-    #        @p = Array.new
-    #      else
-    #        @list_header = @list_headers.first
-    #        #puts"---debug000#{@list_header.to_yaml}"
-    #        session[:current_list_id] = @list_header.id
-    #        @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
-    #        #puts"000000debug000#{@person.to_yaml}"
-    #        session[:current_person_id] = @person.id
-    #        @person = Person.new if @person.nil?
-    #        @p = Array.new
-    #        @p = @list_header.people_on_list
-    #      end
-    #    else                #when there is id come---click the narrow button
-    #      @list_header = ListHeader.find(session[:current_list_id])
-    #      @p = Array.new
-    #      @p = @list_header.people_on_list
-    #      @person = Person.find_by_id(params[:id].to_i)
-    #      session[:current_person_id] = @person.id
-    #    end
-    #  end
+ 
     if request.post?
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
@@ -136,7 +105,7 @@ class PeopleController < ApplicationController
 
     end
 
-# redirect_to "show.html"
+    # redirect_to "show.html"
      
   end
 
@@ -407,29 +376,29 @@ class PeopleController < ApplicationController
 
   end
 
-#  def add_keywords
-#    @person = Person.find(params[:id])
-#
-#    unless params[:add_keywords].nil?
-#      params[:add_keywords].each do |keyword_id|
-#        keyword = Keyword.find(keyword_id);
-#        @person.keywords<<keyword
-#      end
-#    end
-#    render "add_keywords.js"
-#  end
-#
-#  def remove_keywords
-#    @person = Person.find(params[:id])
-#
-#    unless params[:remove_keywords].nil?
-#      params[:remove_keywords].each do |keyword_id|
-#        keyword = Keyword.find(keyword_id)
-#        @person.keywords.delete(keyword)
-#      end
-#    end
-#    render "remove_keywords.js"
-#  end
+  #  def add_keywords
+  #    @person = Person.find(params[:id])
+  #
+  #    unless params[:add_keywords].nil?
+  #      params[:add_keywords].each do |keyword_id|
+  #        keyword = Keyword.find(keyword_id);
+  #        @person.keywords<<keyword
+  #      end
+  #    end
+  #    render "add_keywords.js"
+  #  end
+  #
+  #  def remove_keywords
+  #    @person = Person.find(params[:id])
+  #
+  #    unless params[:remove_keywords].nil?
+  #      params[:remove_keywords].each do |keyword_id|
+  #        keyword = Keyword.find(keyword_id)
+  #        @person.keywords.delete(keyword)
+  #      end
+  #    end
+  #    render "remove_keywords.js"
+  #  end
 
 
 end
