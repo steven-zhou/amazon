@@ -233,7 +233,7 @@ class PeopleController < ApplicationController
       @person.faxes.build(params[:person][:faxes_attributes][0]) if @person.faxes.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
-      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
+      flash.now[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
       render :action =>'new'
     end
   end
