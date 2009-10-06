@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
     :name_card => :get,
     :edit_show_list => :get,
   } do |person|
-    person.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
+    person.resources :addresses, :member => {:set_primary_address => :post}
     person.resources :phones
     person.resources :faxes
     person.resources :websites
@@ -63,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
-    :member => {:copy => :get} do |query_header|
+    :member => {:copy => :get, :query_header_to_xml => :get} do |query_header|
     query_header.resources :query_selections
     query_header.resources :query_sorters
     query_header.resources :query_criterias
@@ -87,6 +87,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get}
   map.resources :duplication_formula_details
+
+  map.resources :addresses , :member => {:search_postcodes => :get}
 
   
   # The priority is based upon order of creation: first created -> highest priority.

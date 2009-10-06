@@ -1,16 +1,16 @@
 %div#address_assistant_postcodes
 
-%table#address_assistant{:style => "width:100%"}
-  %thead
-    %tr
-      %th{:style => "background-color:gray;color:white;text-align:left;"} Suburb
-      %th{:style => "background-color:gray;color:white;text-align:left;"} State
-      %th{:style => "background-color:gray;color:white;text-align:left;"} Postcode
-      %th{:style => "background-color:gray;color:white;text-align:left;"} Country
-  %tbody
-    - @postcodes.each do |postcode|
-      %tr{:postcode_id => postcode.id}
-        %td= postcode.suburb
-        %td= postcode.state
-        %td= postcode.postcode
-        %td= postcode.country.short_name unless postcode.country_id.nil?
+  %table#address_assistant{:style => "width:100%"}
+    %thead
+      %tr
+        %th{:style => "background-color:gray;color:white;text-align:left;"} Suburb
+        %th{:style => "background-color:gray;color:white;text-align:left;"} State
+        %th{:style => "background-color:gray;color:white;text-align:left;"} Postcode
+        %th{:style => "background-color:gray;color:white;text-align:left;"} Country
+    %tbody
+      - @postcodes.each do |postcode|
+        %tr{:postcode_id => postcode.id}
+          %td= postcode.suburb
+          %td= postcode.state
+          %td= postcode.postcode
+          %td= postcode.country.short_name unless postcode.country_id.nil?

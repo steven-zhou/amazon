@@ -149,4 +149,13 @@ class QueryHeadersController < ApplicationController
       format.js
     end
   end
+
+  def query_header_to_xml
+    @query_header = QueryHeader.find(params[:id])
+    respond_to do |format|
+      format.xml
+    end
+
+  end
+
 end

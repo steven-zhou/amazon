@@ -36,9 +36,6 @@
         - p.fields_for :phones do |phone|
           = render :partial => 'phones/simple_phone_form', :locals => {:phone => phone}          
       .form_line
-        - p.fields_for :faxes do |fax|
-          = render :partial => 'faxes/simple_fax_form', :locals => {:fax=> fax}
-      .form_line
         - p.fields_for :emails do |email|
           = render :partial => 'emails/simple_email_form', :locals => {:email=> email}
       .form_line
