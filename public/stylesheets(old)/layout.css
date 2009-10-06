@@ -46,6 +46,7 @@ div.message {
 div#content div#left, div#right {
     width: 49%;
     float: left;
+ 
     margin-left: 1%;
 }
 
