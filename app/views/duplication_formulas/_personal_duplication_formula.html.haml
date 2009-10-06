@@ -10,7 +10,7 @@
     - personal_descriptions += "<label class='descriptions_personal_duplication' id='description_personal_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
 
 .info_container
-  = button_to_function "Regenerate Duplication Value", :id => "generate_personal_duplication", :style => "float:right;"
+  = button_to_function "Re-generate Duplication Value", :id => "generate_personal_duplication", :style => "float:right;"
   = button_to_function "Load Default Setting", :id => "load_personal_duplication", :style => "float:right;"
   %h3 Personal Duplication Formula
   
@@ -51,6 +51,7 @@
               = f.text_field :number_of_charecter, :class => "integer_field", :id => "personal_length"
               %input{:style => "display:none", :name => "duplication_formula_detail[table_name]", :value => "people"}
               %input{:style => "display:none", :name => "duplication_formula_detail[duplication_formula_id]", :value => @personal_duplication_formula.id}
+              %input{:style => "display:none", :id => "is_foreign_key", :name => "duplication_formula_detail[is_foreign_key]"}
             .field_40{:style => "float:right"}
               %label &nbsp;
               = submit_tag "Apply"

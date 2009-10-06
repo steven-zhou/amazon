@@ -1,0 +1,5 @@
+<% unless flash[:message].nil? %>
+$('#flash_feedback').html('<%= escape_javascript(flash[:message])%>')
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+<%- end %>

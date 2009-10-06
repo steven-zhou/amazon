@@ -115,7 +115,7 @@ class Person < ActiveRecord::Base
   ################
   #++
 
-  before_save :insert_primary_salutation
+  before_save :insert_primary_salutation, :insert_duplication_value
   after_create :update_primary_list
   #--
   ################
@@ -244,6 +244,18 @@ class Person < ActiveRecord::Base
       result += "#{self.primary_title.name} " unless self.primary_title.nil?
       result += "#{self.first_name} #{self.family_name}"
       self.primary_salutation = result.squeeze(" ").strip
+    end
+  end
+
+  def insert_duplication_value
+    @personal_duplication_formula = PersonalDuplicationFormula.applied_setting
+    self.duplication_value = ""
+    @personal_duplication_formula.duplication_formula_details.each do |i|
+      if i.is_foreign_key
+        self.duplication_value += self.__send__(i.field_name.to_sym).name[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+      else
+        self.duplication_value += self.__send__(i.field_name.to_sym)[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+      end
     end
   end
 

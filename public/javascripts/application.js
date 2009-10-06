@@ -1505,6 +1505,11 @@ $(function(){
     $("#fields_personal_duplication").live('change', function(){
         $(".descriptions_personal_duplication").css("display", "none");
         $("#description_personal_duplication_"+$(this).val()).css("display", "");
+        if($("#description_personal_duplication_"+$(this).val()).html().match("(Integer FK)")){
+          $("#is_foreign_key").val(true);
+        }else{
+          $("#is_foreign_key").val(false);
+        }
     });
 });
 
@@ -1518,12 +1523,37 @@ $(function(){
     $("#fields_organisational_duplication").live('change', function(){
         $(".descriptions_organisational_duplication").css("display", "none");
         $("#description_organisational_duplication_"+$(this).val()).css("display", "");
+        if($("#description_organisational_duplication_"+$(this).val()).html().match("(Integer FK)")){
+          $("#is_foreign_key_organisational").val(true);
+        }else{
+          $("#is_foreign_key_organisational").val(false);
+        }
     });
 });
 
 $(function(){
    $('#apply_organisational_duplication').live('click', function(){
       $("#organisational_duplication_form").doAjaxSubmit();
+   });
+});
+
+$(function(){
+   $("#generate_personal_duplication").live('click', function(){
+       $.ajax({
+                type: "GET",
+                url: "/personal_duplication_formulas/generate.js",
+                dataType: "script"
+            });
+   });
+});
+
+$(function(){
+   $("#generate_organisational_duplication").live('click', function(){
+       $.ajax({
+                type: "GET",
+                url: "/organisational_duplication_formulas/generate.js",
+                dataType: "script"
+            });
    });
 });
 
