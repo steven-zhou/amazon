@@ -46,17 +46,17 @@ class OrganisationsController < ApplicationController
         if @image.save
           @organisation.image = @image
         else
-          flash[:warning] = "The image was not saved."
+          flash.now[:warning] = "The image was not saved."
         end
       end
 
       # If the user wants to edit the record they just added
       if(params[:edit])
-        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
+        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
         redirect_to edit_organisation_path(@organisation)
         # If the user wants to continue adding records
       else
-        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
+        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
         redirect_to new_organisation_path
       end
     else
@@ -66,7 +66,8 @@ class OrganisationsController < ApplicationController
       @organisation.faxes.build(params[:organisation][:faxes_attributes][0]) if @organisation.faxes.empty?
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
+      #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
+      flash.now[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
       render :action =>'new'
     end
   end
