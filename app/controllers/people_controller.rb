@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new
-    @postcodes = DomesticPostcode.find(:all)
+   
     @person = Person.new
     @person.addresses.build
     @person.phones.build
@@ -13,6 +13,8 @@ class PeopleController < ApplicationController
     @person.emails.build
     @person.websites.build
     @image = Image.new
+    @postcodes = DomesticPostcode.find(:all)
+   
     respond_to do |format|
       format.html
     end
@@ -58,30 +60,7 @@ class PeopleController < ApplicationController
         end
       end
     end
-    #    if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-    #      if @list_headers.blank?
-    #        @list_header = ListHeader.new
-    #        @person = Person.new
-    #        @p = Array.new
-    #      else
-    #        @list_header = @list_headers.first
-    #        #puts"---debug000#{@list_header.to_yaml}"
-    #        session[:current_list_id] = @list_header.id
-    #        @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
-    #        #puts"000000debug000#{@person.to_yaml}"
-    #        session[:current_person_id] = @person.id
-    #        @person = Person.new if @person.nil?
-    #        @p = Array.new
-    #        @p = @list_header.people_on_list
-    #      end
-    #    else                #when there is id come---click the narrow button
-    #      @list_header = ListHeader.find(session[:current_list_id])
-    #      @p = Array.new
-    #      @p = @list_header.people_on_list
-    #      @person = Person.find_by_id(params[:id].to_i)
-    #      session[:current_person_id] = @person.id
-    #    end
-    #  end
+
     if request.post?
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
@@ -120,7 +99,7 @@ class PeopleController < ApplicationController
 
     end
 
-# redirect_to "show.html"
+    # redirect_to "show.html"
      
   end
 
@@ -204,23 +183,23 @@ class PeopleController < ApplicationController
     @person_group = PersonGroup.new
 
 
-#    if params[:show_list]
-#    session[:show_list] = params[:show_list]
-#    @person = Person.find(params[:id]) rescue @person = Person.find(session[:current_person_id])
-#
-#      render 'show_list.html'
-#
-#    else
+    #    if params[:show_list]
+    #    session[:show_list] = params[:show_list]
+    #    @person = Person.find(params[:id]) rescue @person = Person.find(session[:current_person_id])
+    #
+    #      render 'show_list.html'
+    #
+    #    else
     
 
-      respond_to do |format|
+    respond_to do |format|
       format.html
    
     end
 
 
 
-#    end
+    #    end
 
  
   end
@@ -253,8 +232,8 @@ class PeopleController < ApplicationController
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.faxes.build(params[:person][:faxes_attributes][0]) if @person.faxes.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
-
-      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
+      @postcodes = DomesticPostcode.find(:all)
+      flash.now[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
       render :action =>'new'
     end
   end
@@ -366,6 +345,7 @@ class PeopleController < ApplicationController
 
   end
 
+ 
 
   def show_list
 
@@ -414,7 +394,7 @@ class PeopleController < ApplicationController
 
 
     respond_to do |format|
-     format.js
+      format.js
     end
 
   end
@@ -422,7 +402,7 @@ class PeopleController < ApplicationController
   def edit_show_list
     @person = Person.find(params[:id])
 
-#     @postcodes = DomesticPostcode.find(:all)
+    #     @postcodes = DomesticPostcode.find(:all)
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = Array.new
     c = Array.new
@@ -463,47 +443,47 @@ class PeopleController < ApplicationController
       end
     end
 
-#    if request.post?
-#      @list_header = ListHeader.find(params[:list_header_id])
-#      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-#      c1 = Array.new
-#      c1 = @list_header.people_on_list
-#      @person = Person.find_by_id(params[:id].to_i)
-#      unless c1.include?(@person)
-#        @person = @list_header.people_on_list.first
-#      else
-#        @person
-#      end
-#      @p = Array.new
-#      @p = @list_header.people_on_list
-#      session[:current_list_id] = @list_header.id
-#      session[:current_person_id] = @person.id
-#    end
+    #    if request.post?
+    #      @list_header = ListHeader.find(params[:list_header_id])
+    #      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+    #      c1 = Array.new
+    #      c1 = @list_header.people_on_list
+    #      @person = Person.find_by_id(params[:id].to_i)
+    #      unless c1.include?(@person)
+    #        @person = @list_header.people_on_list.first
+    #      else
+    #        @person
+    #      end
+    #      @p = Array.new
+    #      @p = @list_header.people_on_list
+    #      session[:current_list_id] = @list_header.id
+    #      session[:current_person_id] = @person.id
+    #    end
 
     #    @person = Person.new(:id => "") unless !@person.nil?
-#    @address = Address.new
-#    @phone = Phone.new
-#    @email = Email.new
-#    @fax = Fax.new
-#    @website = Website.new
-#    @masterdoc = MasterDoc.new
-#    @relationship = Relationship.new
-#    @employment = Employment.new
-#    @note = Note.new
+    #    @address = Address.new
+    #    @phone = Phone.new
+    #    @email = Email.new
+    #    @fax = Fax.new
+    #    @website = Website.new
+    #    @masterdoc = MasterDoc.new
+    #    @relationship = Relationship.new
+    #    @employment = Employment.new
+    #    @note = Note.new
     @image = @person.image unless (@person.nil? || @person.image.nil?)
-#    @role = Role.new
-#    @person_role = PersonRole.new
-#    @person_group = PersonGroup.new
+    #    @role = Role.new
+    #    @person_role = PersonRole.new
+    #    @person_group = PersonGroup.new
 
-      respond_to do |format|
+    respond_to do |format|
       format.js
     end
   end
 
-def show_left
+  def show_left
   
  
-     @group_types = LoginAccount.find(session[:user]).group_types
+    @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = Array.new
     c = Array.new
     @group_types.each do |group_type|
@@ -564,8 +544,9 @@ def show_left
     end
 
 
-end
+  end
 
+ 
 
 
 end

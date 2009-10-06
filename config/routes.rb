@@ -33,9 +33,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get, :search => :post, :name_finder => :get},
+    :collection => {:find => :get, :search => :post, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get},
     :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
-    organisation.resources :addresses, :member => {:set_primary_address => :post}
+    organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
     organisation.resources :faxes
     organisation.resources :websites

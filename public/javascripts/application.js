@@ -1019,6 +1019,7 @@ $(function() {
 
 $(function(){
     $("#add_user").live('click', function(){
+        $(this).hide();
         $(".user_clear_form").click();
         $(".show_user_container").hide();
         $("#close_new_account").show();
@@ -1132,6 +1133,7 @@ $(function(){
         $("#new_user").toggle('blind');
         $(".show_user_container").show();
         $("#close_new_account").hide();
+         $("#add_user").show();
     });
 });
 
@@ -1774,6 +1776,54 @@ $(function(){
     });
 });
 
+
+
+/*Organisation-part*/
+
+
+$(function(){
+
+     $("#organisation_industry_sector_id").live('change', function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/organisations/show_industrial_code.js",
+            data:"industrial_id="+$(this).val(),
+            dataType:"script"
+
+        });
+      
+        }else{
+
+        $('#organisation_industrial_code').val('');
+        }
+
+    });
+});
+
+$(function(){
+
+     $("#organisation_business_category_id").live('change', function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/organisations/show_sub_category.js",
+            data:"sub_category_id="+$(this).val(),
+            dataType:"script"
+
+        });
+
+        }else{
+
+        $('#organisation_business_sub_category').val('');
+        }
+    });
+});
+
+
+
 /* Show list*/
 $(function(){
     $("#show_all_list_member").live('click',function(){
@@ -1786,3 +1836,4 @@ $(function(){
         });
     });
 });
+
