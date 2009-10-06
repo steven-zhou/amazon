@@ -1819,7 +1819,6 @@ $(function(){
 
         $('#organisation_business_sub_category').val('');
         }
-
     });
 });
 

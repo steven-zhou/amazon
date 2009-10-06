@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
   def new
-    @postcodes = DomesticPostcode.find(:all)
+   
     @person = Person.new
     @person.addresses.build
     @person.phones.build
@@ -13,6 +13,8 @@ class PeopleController < ApplicationController
     @person.emails.build
     @person.websites.build
     @image = Image.new
+    @postcodes = DomesticPostcode.find(:all)
+   
     respond_to do |format|
       format.html
     end
@@ -230,7 +232,7 @@ class PeopleController < ApplicationController
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.faxes.build(params[:person][:faxes_attributes][0]) if @person.faxes.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
-
+      @postcodes = DomesticPostcode.find(:all)
       flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
       render :action =>'new'
     end
