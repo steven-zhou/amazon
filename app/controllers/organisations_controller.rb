@@ -63,7 +63,6 @@ class OrganisationsController < ApplicationController
       @organisation.addresses.build(params[:organisation][:addresses_attributes][0]) if @organisation.addresses.empty?
       @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
       @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
-      @organisation.faxes.build(params[:organisation][:faxes_attributes][0]) if @organisation.faxes.empty?
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
       #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
