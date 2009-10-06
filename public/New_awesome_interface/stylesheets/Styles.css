@@ -41,14 +41,16 @@ body {
 	background-repeat: repeat-y;
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomleft: 10px;
-	width: 110px;
-	height: 40px;
-	padding: 5px;
+	width: 100px;
+	height: 22px;
+	padding: 10px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 18px;
 	font-style: normal;
 	font-weight: normal;
+	line-height: 22px;
 	color: #666;
+	vertical-align: text-top;
 }
 
 /* Menu - Active menu item */
@@ -62,21 +64,26 @@ body {
 
 #app #lc #menu #menu_active .item {
 	background-color: #f6f6f6;
-	height: 120px;
-	width: 180px;
+	height: 150px;
+	width: 175px;
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	background-image: none;
-	padding: 10px 5px;
+	padding: 10px 5px 10px 10px ;
+	line-height: 24px;
+}
+#app #lc #menu #menu_active .item img { 
+	vertical-align:text-bottom;
+	margin-right: 5px;
 }
 
-	#app #lc #menu #menu_active .item ul {
+#app #lc #menu #menu_active .item ul {
 	float:left;
 	display:block;
 	padding:2px;
 	margin-left: 5px;
 	font-size: 18px;
-	line-height: 24px;
+	line-height: 20px;
 	}
 
 #app #lc #menu #menu_active .item li {
