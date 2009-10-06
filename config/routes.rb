@@ -4,13 +4,15 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :show_left => :get,:show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
     :name_card => :get,
+    :edit_show_list => :get,
   } do |person|
-    person.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
+    person.resources :addresses, :member => {:set_primary_address => :post}
     person.resources :phones
     person.resources :faxes
     person.resources :websites
@@ -31,9 +33,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get, :search => :post, :name_finder => :get},
+    :collection => {:find => :get, :search => :post, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get},
     :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
-    organisation.resources :addresses, :member => {:set_primary_address => :post}
+    organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
     organisation.resources :faxes
     organisation.resources :websites
@@ -61,7 +63,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
-    :member => {:copy => :get} do |query_header|
+    :member => {:copy => :get, :query_header_to_xml => :get} do |query_header|
     query_header.resources :query_selections
     query_header.resources :query_sorters
     query_header.resources :query_criterias
@@ -85,6 +87,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :duplication_formula_details
+
+  map.resources :addresses , :member => {:search_postcodes => :get}
 
   
   # The priority is based upon order of creation: first created -> highest priority.

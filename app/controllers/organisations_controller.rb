@@ -11,6 +11,7 @@ class OrganisationsController < ApplicationController
     @organisation.emails.build
     @organisation.websites.build
     @image = Image.new
+    @postcodes = DomesticPostcode.find(:all)
     respond_to do |format|
       format.html
     end
@@ -45,27 +46,27 @@ class OrganisationsController < ApplicationController
         if @image.save
           @organisation.image = @image
         else
-          flash[:warning] = "The image was not saved."
+          flash.now[:warning] = "The image was not saved."
         end
       end
 
       # If the user wants to edit the record they just added
       if(params[:edit])
-        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
+        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
         redirect_to edit_organisation_path(@organisation)
         # If the user wants to continue adding records
       else
-        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
+        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
         redirect_to new_organisation_path
       end
     else
-      @organisation.addresses.build(params[:person][:addresses_attributes][0]) if @organisation.addresses.empty?
-      @organisation.phones.build(params[:person][:phones_attributes][0]) if @organisation.phones.empty?
-      @organisation.emails.build(params[:person][:emails_attributes][0]) if @organisation.emails.empty?
-      @organisation.faxes.build(params[:person][:faxes_attributes][0]) if @organisation.faxes.empty?
-      @organisation.websites.build(params[:person][:websites_attributes][0]) if @organisation.websites.empty?
-
-      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
+      @organisation.addresses.build(params[:organisation][:addresses_attributes][0]) if @organisation.addresses.empty?
+      @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
+      @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
+      @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
+      @postcodes = DomesticPostcode.find(:all)
+      #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
+      flash.now[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
       render :action =>'new'
     end
   end
@@ -170,4 +171,20 @@ class OrganisationsController < ApplicationController
     end
   end
 
+  def show_industrial_code
+    @industrial_sector = IndustrySector.find(params[:industrial_id])
+    @industrial_code = @industrial_sector.description
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show_sub_category
+    @business_category = BusinessCategory.find(params[:sub_category_id])
+    @business_sub_category = @business_category.description
+  
+    respond_to do |format|
+      format.js
+    end
+  end
 end

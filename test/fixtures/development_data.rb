@@ -24,9 +24,9 @@ single = MaritalStatus.find_by_name("Single")
 married = MaritalStatus.find_by_name("Married")
 divorced = MaritalStatus.find_by_name("Divorced")
 
-it = IndustrySector.find_by_name("IT")
-wholesale = IndustrySector.find_by_name("Wholesale")
-manufacturing = IndustrySector.find_by_name("Manufacturing")
+gov = IndustrySector.find_by_name("Goverment")
+private = IndustrySector.find_by_name("Private")
+
 
 australia = Country.find_by_short_name("Australia")
 china = Country.find_by_short_name("China")
@@ -35,7 +35,7 @@ india = Country.find_by_short_name("India")
 puts "Creating Robert Tingle"
 robert_tingle = Person.create(
   :custom_id => "89567",
-  :industry_sector_id => it.id,
+  :industry_sector_id => gov.id,
   :primary_title_id => mr.id,
   :first_name => "Robert",
   :family_name => "Tingle",
@@ -66,7 +66,7 @@ robert_tingle_login = LoginAccount.create(
 puts "Creating Jackie Chan"
 jackie_chan = Person.create(
   :custom_id => "548514",
-  :industry_sector_id => wholesale.id,
+  :industry_sector_id => private.id,
   :primary_title_id => dr.id,
   :first_name => "Jackie",
   :family_name => "Chan",
@@ -85,7 +85,7 @@ jackie_chan = Person.create(
 puts "Creating Sarah Clarkson"
 sarah_clarkson = Person.create(
   :custom_id => "257854",
-  :industry_sector_id => manufacturing.id,
+  :industry_sector_id => gov.id,
   :primary_title_id => mrs.id,
   :first_name => "Sarah",
   :family_name => "Clarkson",
@@ -103,7 +103,7 @@ sarah_clarkson = Person.create(
 puts "Creating Bill Woo"
 bill_woo = Person.create(
   :custom_id => "7846552",
-  :industry_sector_id => manufacturing.id,
+  :industry_sector_id => gov.id,
   :primary_title_id => mr.id,
   :second_title_id => dr.id,
   :first_name => "William",
@@ -123,7 +123,7 @@ bill_woo = Person.create(
 puts "Creating Karen Smith"
 karen_smith = Person.create(
   :custom_id => "3258714",
-  :industry_sector_id => it.id,
+  :industry_sector_id => gov.id,
   :primary_title_id => mrs.id,
   :second_title_id => dr.id,
   :first_name => "Karen",
@@ -174,6 +174,7 @@ volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :
 
 mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
 
+mdmmt = GroupMetaMetaType.create(:name => "Custom", :status => true)
 
 mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 
@@ -216,6 +217,12 @@ pg = UserGroup.create(:user_id => robert_tingle_login.id, :group_id => admin.id)
 
 puts "Assign Permission to group pg"
 permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => admin.id)
+
+puts "Adding the first login account to the primary list"
+
+pl = PrimaryList.first
+la = LoginAccount.first
+pl.group_types << la.group_types.first
 
 
 puts "Creating passport for Robert Tingle"

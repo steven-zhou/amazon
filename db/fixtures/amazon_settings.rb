@@ -18,13 +18,13 @@ Language.create :name => "Italian", :status => true
 Language.create :name => "Hindi", :status => true
 Language.create :name => "Arabic", :status => true
 Language.create :name => "Chinese", :status => true
-IndustrySector.create :name => "IT", :status => true
-IndustrySector.create :name => "Manufacturing", :status => true
-IndustrySector.create :name => "Wholesale", :status => true
-IndustrySector.create :name => "Services", :status => true
-IndustrySector.create :name => "Brokers", :status => true
-IndustrySector.create :name => "Finance", :status => true
-IndustrySector.create :name => "Insurance", :status => true
+IndustrySector.create :name => "Goverment", :description => "1", :status => true
+IndustrySector.create :name => "Private", :description => "2", :status => true
+#IndustrySector.create :name => "Wholesale", :status => true
+#IndustrySector.create :name => "Services", :status => true
+#IndustrySector.create :name => "Brokers", :status => true
+#IndustrySector.create :name => "Finance", :status => true
+#IndustrySector.create :name => "Insurance", :status => true
 AddressType.create :name => "Home", :status => true
 AddressType.create :name => "Business", :status => true
 AddressType.create :name => "Mail", :status => true
@@ -89,9 +89,12 @@ SuspensionType.create :name => "Stepped down", :status => true
 SuspensionType.create :name => "Investigation", :status => true
 TerminationMethod.create :name => "By consent", :status => true
 TerminationMethod.create :name => "By notice", :status => true
-OrganisationType.create :name => "IT", :status => true
-OrganisationType.create :name => "High Tech", :status => true
+OrganisationType.create :name => "Public", :status => true
+OrganisationType.create :name => "Pty Ltd", :status => true
 SecurityQuestion.create :name => "what is your favorite pet name", :status => true
 SecurityQuestion.create :name => "what is your father's name", :status => true
 SecurityQuestion.create :name => "what is your mather's name", :status => true
 PrimaryList.create :name => "Primary List", :status => true
+BusinessCategory.create :name => "Sales", :description => "10", :status => true
+BusinessCategory.create :name => "Wholesaler", :description => "11", :status => true
+BusinessCategory.create :name => "Service", :description => "12", :status => true

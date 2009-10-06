@@ -46,9 +46,6 @@
       Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_phone.nil? ? "None assigned": @primary_phone.number
     %div.info_container
-      Fax &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_fax.nil? ? "None assigned": @primary_fax.number
-    %div.info_container
       Website &nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_website.nil? ? "None assigned": @primary_website.value
     %div.info_container
@@ -80,7 +77,7 @@
     %br.clear
   .info_container{:align => 'center'}
     .organisation_profile_options
-      = link_to_function "#{image_tag('business.png')} Business",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "organisation_info"
+      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "organisation_info"
       &nbsp;|
       = link_to_function "#{image_tag('person_details.png')} organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"toggle_button1", :toggle_id_name1 => "organisation_info",:toggle_id_name2 => "business_info"
      

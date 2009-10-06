@@ -126,193 +126,200 @@ $(function() {
 });
 
 
-    /* Person Group */
+/* Person Group */
 
 $('#person_group_close_button').live('click',function(){
     $('.person_group_delete_button').css("display","");
 });
 
-    $(".person_group_toggle_button").live('click', function(){
-        if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-            $('.person_group_delete_button').css("display","none");
-        else
-            $('.person_group_delete_button').css("display","");
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
+$(".person_group_toggle_button").live('click', function(){
+    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+        $('.person_group_delete_button').css("display","none");
+    else
+        $('.person_group_delete_button').css("display","");
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
 
-    /* Person Group */
+/* Person Group */
 
-    $(".user_clear_form").click(function(){
-        $('#'+$(this).parents("form").get(0).id)[0].reset();
-        $('#login_name_container_0').html('');
-        $('#user_name_container_0').html('');
-    });
+$(".user_clear_form").click(function(){
+    $('#'+$(this).parents("form").get(0).id)[0].reset();
+    $('#login_name_container_0').html('');
+    $('#user_name_container_0').html('');
+});
 
 
-    /* Person Contact Form  */
-    $(".person_contact_toggle_button").live('click', function(){
-        if ($('.person_contact_edit_delete').css("display")=="block" || $('.person_contact_edit_delete').css("display")=="")
-            $('.person_contact_edit_delete').css("display","none");
-        else
-            $('.person_contact_edit_delete').css("display","");
-
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
-
-    $('#person_edit_phone_close_button').live('click',function(){
+/* Person Contact Form  */
+$(".person_contact_toggle_button").live('click', function(){
+    if ($('.person_contact_edit_delete').css("display")=="block" || $('.person_contact_edit_delete').css("display")=="")
+        $('.person_contact_edit_delete').css("display","none");
+    else
         $('.person_contact_edit_delete').css("display","");
-    });
+
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
+
+$('#person_edit_phone_close_button').live('click',function(){
+    $('.person_contact_edit_delete').css("display","");
+});
 
 
     
     
-    $("#email_edit_button").live('click',function(){
-        $('.person_contact_toggle_button').css("display","none");
-        $('.person_contact_edit_delete').css("display","none");
-    });
+$("#email_edit_button").live('click',function(){
+    $('.person_contact_toggle_button').css("display","none");
+    $('.person_contact_edit_delete').css("display","none");
+});
 
-       $(".delete_email").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_email[email_id='+ $(this).attr('email_id') +']').css("display", "none");
-    });
+$(".delete_email").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_email[email_id='+ $(this).attr('email_id') +']').css("display", "none");
+});
 
     
-    $("#phone_edit_button").live('click',function(){
-        $('.person_contact_toggle_button').css("display","none");
-        $('.person_contact_edit_delete').css("display","none");
-    });
+$("#phone_edit_button").live('click',function(){
+    $('.person_contact_toggle_button').css("display","none");
+    $('.person_contact_edit_delete').css("display","none");
+});
 
 
 
 
-    $(".delete_phone").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_phone[phone_id='+ $(this).attr('phone_id') +']').css("display", "none");
-    });
+$(".delete_phone").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_phone[phone_id='+ $(this).attr('phone_id') +']').css("display", "none");
+});
 
 
 
-    $("#fax_edit_button").live('click',function(){
-        $('.person_contact_toggle_button').css("display","none");
-        $('.person_contact_edit_delete').css("display","none");
-    });
+$("#fax_edit_button").live('click',function(){
+    $('.person_contact_toggle_button').css("display","none");
+    $('.person_contact_edit_delete').css("display","none");
+});
 
-      $(".delete_fax").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_fax[fax_id='+ $(this).attr('fax_id') +']').css("display", "none");
-    });
+$(".delete_fax").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_fax[fax_id='+ $(this).attr('fax_id') +']').css("display", "none");
+});
 
 
 
-    $("#website_edit_button").live('click',function(){
-        $('.person_contact_toggle_button').css("display","none");
-        $('.person_contact_edit_delete').css("display","none");
-    });
+$("#website_edit_button").live('click',function(){
+    $('.person_contact_toggle_button').css("display","none");
+    $('.person_contact_edit_delete').css("display","none");
+});
 
-      $(".delete_website").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_website[website_id='+ $(this).attr('website_id') +']').css("display", "none");
-    });
+$(".delete_website").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_website[website_id='+ $(this).attr('website_id') +']').css("display", "none");
+});
     
-    /* Person address  */
+/* Person address  */
 
-    $(".person_address_toggle_button").live('click', function(){
-        if ($('.person_address_edit_delete').css("display")=="block" || $('.person_address_edit_delete').css("display")=="")
-            $('.person_address_edit_delete').css("display","none");
-        else
-            $('.person_address_edit_delete').css("display","");
-
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
-
-
-    $("#address_edit_button").live('click',function(){
-        $('.person_address_toggle_button').css("display","none");
+$(".person_address_toggle_button").live('click', function(){
+    if ($('.person_address_edit_delete').css("display")=="block" || $('.person_address_edit_delete').css("display")=="")
         $('.person_address_edit_delete').css("display","none");
-    });
+    else
+        $('.person_address_edit_delete').css("display","");
 
-    /* Person Master Doc*/
-
-    $(".person_master_doc_toggle_button").live('click', function(){
-        if ($('.person_master_doc_edit_delete').css("display")=="block" || $('.person_master_doc_edit_delete').css("display")=="")
-            $('.person_master_doc_edit_delete').css("display","none");
-        else
-            $('.person_master_doc_edit_delete').css("display","");
-
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
 
 
-    $("#master_doc_edit_button").live('click',function(){
-        $('.person_master_doc_toggle_button').css("display","none");
+$("#address_edit_button").live('click',function(){
+    $('.person_address_toggle_button').css("display","none");
+    $('.person_address_edit_delete').css("display","none");
+});
+
+$(".delete_address").live('click',function(){
+    $('.person_address_toggle_button').css("display","");
+    $('.edit_address[address_id='+ $(this).attr('address_id') +']').css("display", "none");
+});
+
+
+
+/* Person Master Doc*/
+
+$(".person_master_doc_toggle_button").live('click', function(){
+    if ($('.person_master_doc_edit_delete').css("display")=="block" || $('.person_master_doc_edit_delete').css("display")=="")
         $('.person_master_doc_edit_delete').css("display","none");
-    });
+    else
+        $('.person_master_doc_edit_delete').css("display","");
 
-     $(".delete_master_doc").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_master_doc[master_doc_id='+ $(this).attr('master_doc_id') +']').css("display", "none");
-    });
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
 
-    /*Person Notes*/
 
-    $(".person_notes_toggle_button").live('click', function(){
-        if ($('.person_notes_edit_delete').css("display")=="block" || $('.person_notes_edit_delete').css("display")=="")
-            $('.person_notes_edit_delete').css("display","none");
-        else
-            $('.person_notes_edit_delete').css("display","");
+$("#master_doc_edit_button").live('click',function(){
+    $('.person_master_doc_toggle_button').css("display","none");
+    $('.person_master_doc_edit_delete').css("display","none");
+});
 
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
+$(".delete_master_doc").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_master_doc[master_doc_id='+ $(this).attr('master_doc_id') +']').css("display", "none");
+});
 
-    $(".edit_note").live('click',function(){
-        $('.person_notes_toggle_button').css("display","none");
+/*Person Notes*/
+
+$(".person_notes_toggle_button").live('click', function(){
+    if ($('.person_notes_edit_delete').css("display")=="block" || $('.person_notes_edit_delete').css("display")=="")
         $('.person_notes_edit_delete').css("display","none");
-    });
+    else
+        $('.person_notes_edit_delete').css("display","");
 
-    $(".delete_note").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_note[note_id='+ $(this).attr('note_id') +']').css("display", "none");
-    });
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
 
+$(".edit_note").live('click',function(){
+    $('.person_notes_toggle_button').css("display","none");
+    $('.person_notes_edit_delete').css("display","none");
+});
 
-
-    /* Person Employment*/
-    $(".person_employments_toggle_button").live('click', function(){
-        if ($('.person_employments_edit_delete').css("display")=="block" || $('.person_employments_edit_delete').css("display")=="")
-            $('.person_employments_edit_delete').css("display","none");
-        else
-            $('.person_employments_edit_delete').css("display","");
-
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
+$(".delete_note").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_note[note_id='+ $(this).attr('note_id') +']').css("display", "none");
+});
 
 
-    $("#employments_edit_button").live('click',function(){
-        $('.person_employments_toggle_button').css("display","none");
+
+/* Person Employment*/
+$(".person_employments_toggle_button").live('click', function(){
+    if ($('.person_employments_edit_delete').css("display")=="block" || $('.person_employments_edit_delete').css("display")=="")
         $('.person_employments_edit_delete').css("display","none");
-    });
+    else
+        $('.person_employments_edit_delete').css("display","");
+
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
 
 
-    /* Person Roles */
-    $(".person_roles_toggle_button").live('click', function(){
-        if ($('.person_roles_edit_delete').css("display")=="block" || $('.person_roles_edit_delete').css("display")=="")
-            $('.person_roles_edit_delete').css("display","none");
-        else
-            $('.person_roles_edit_delete').css("display","");
+$("#employments_edit_button").live('click',function(){
+    $('.person_employments_toggle_button').css("display","none");
+    $('.person_employments_edit_delete').css("display","none");
+});
 
-            $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    });
 
-    $("#role_edit_button").live('click',function(){
-
-        $('.person_roles_toggle_button').css("display","none");
+/* Person Roles */
+$(".person_roles_toggle_button").live('click', function(){
+    if ($('.person_roles_edit_delete').css("display")=="block" || $('.person_roles_edit_delete').css("display")=="")
         $('.person_roles_edit_delete').css("display","none");
-    });
+    else
+        $('.person_roles_edit_delete').css("display","");
 
-      $(".delete_role").live('click',function(){
-        $('.person_notes_toggle_button').css("display","");
-        $('.edit_role[role_id='+ $(this).attr('role_id') +']').css("display", "none");
-    });
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+});
+
+$("#role_edit_button").live('click',function(){
+
+    $('.person_roles_toggle_button').css("display","none");
+    $('.person_roles_edit_delete').css("display","none");
+});
+
+$(".delete_role").live('click',function(){
+    $('.person_notes_toggle_button').css("display","");
+    $('.edit_role[role_id='+ $(this).attr('role_id') +']').css("display", "none");
+});
 
 // Address assistant //
 
@@ -323,10 +330,21 @@ $(document).ready(function() {
         "bAutoWidth":false,
         "bFilter":false,
         "aoColumns": [
-            {"sWidth":"40%"},
-            {"sWidth":"13%"},
-            {"sWidth":"22%"},
-            {"sWidth":"25%"}
+        {
+            "sWidth":"40%"
+        },
+
+        {
+            "sWidth":"13%"
+        },
+
+        {
+            "sWidth":"22%"
+        },
+
+        {
+            "sWidth":"25%"
+        }
         ]
     });
 });
@@ -350,6 +368,10 @@ $(document).ready(function() {
                     $('#person_addresses_attributes_0_state').val($('tr.selected > td')[1].innerHTML);
                     $('#person_addresses_attributes_0_postal_code').val($('tr.selected > td')[2].innerHTML);
 
+                    $('#organisation_addresses_attributes_0_town').val($('tr.selected > td')[0].innerHTML);
+                    $('#organisation_addresses_attributes_0_state').val($('tr.selected > td')[1].innerHTML);
+                    $('#organisation_addresses_attributes_0_postal_code').val($('tr.selected > td')[2].innerHTML);
+
                     $(this).dialog('close');
                 }
             }
@@ -370,7 +392,7 @@ $(function(){
     $('.address_assistant_search').keyup(function() {
         $.ajax({
             type: "GET",
-            url: "addresses/search_postcodes.js",
+            url: "/addresses/0/search_postcodes.js",
             data: 'suburb='+$('#address_assistant_suburb').val()+'&state='+$('#address_assistant_state').val()+'&postcode='+$('#address_assistant_postcode').val(),
             dataType: "script"
         });
