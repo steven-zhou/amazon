@@ -43,7 +43,6 @@ class AddressesController < ApplicationController
 
   def search_postcodes
     @postcodes = DomesticPostcode.find(:all, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND postcode LIKE ?", "%#{params[:suburb]}%", "%#{params[:state]}%", "%#{params[:postcode]}%"])
-
     respond_to do |format|
       format.js
     end

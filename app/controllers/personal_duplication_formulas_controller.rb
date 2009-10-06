@@ -29,4 +29,14 @@ class PersonalDuplicationFormulasController < ApplicationController
       redirect_to duplication_formula_administrations_path()
     end
   end
+
+  def generate
+    Person.all.each do |person|      
+      person.save
+    end
+    flash.now[:message] = flash_message(:message => "Personal Duplication Value Is Re-generated")
+    respond_to do |format|
+      format.js {render 'duplication_formulas/personal_generate.js'}
+    end
+  end
 end

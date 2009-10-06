@@ -45,7 +45,7 @@ class Person < ActiveRecord::Base
 
   has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id'
   has_many :group_types, :through => :person_groups
- #has_many :group_owner, :class_name => 'PersonGroup', :foreign_key => 'people_id'
+  #has_many :group_owner, :class_name => 'PersonGroup', :foreign_key => 'people_id'
   has_many :source_people,  :through => :people_as_related do
 
     def of_type(type)
@@ -115,7 +115,7 @@ class Person < ActiveRecord::Base
   ################
   #++
 
-  before_save :insert_primary_salutation
+  before_save :insert_primary_salutation, :insert_duplication_value
   after_create :update_primary_list
   #--
   ################
@@ -144,7 +144,7 @@ class Person < ActiveRecord::Base
     @primary_email ||= self.emails.select {|email| email.priority_number == 1}.first
   end
 
-    def secondary_email
+  def secondary_email
     @secondary_email ||= self.emails.select {|email| email.priority_number == 2}.first
   end
   
@@ -252,6 +252,20 @@ class Person < ActiveRecord::Base
       result += "#{self.primary_title.name} " unless self.primary_title.nil?
       result += "#{self.first_name} #{self.family_name}"
       self.primary_salutation = result.squeeze(" ").strip
+    end
+  end
+
+  def insert_duplication_value
+    @personal_duplication_formula = PersonalDuplicationFormula.applied_setting
+    unless @personal_duplication_formula.nil?
+      self.duplication_value = ""
+      @personal_duplication_formula.duplication_formula_details.each do |i|
+        if i.is_foreign_key
+          self.duplication_value += self.__send__(i.field_name.to_sym).name[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+        else
+          self.duplication_value += self.__send__(i.field_name.to_sym)[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+        end
+      end
     end
   end
 

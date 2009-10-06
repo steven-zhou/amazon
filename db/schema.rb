@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090930014851) do
+
+ActiveRecord::Schema.define(:version => 20091005232824) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -94,6 +95,7 @@ ActiveRecord::Schema.define(:version => 20090930014851) do
     t.integer  "number_of_charecter"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_foreign_key"
   end
 
   create_table "duplication_formulas", :force => true do |t|
@@ -352,6 +354,7 @@ ActiveRecord::Schema.define(:version => 20090930014851) do
     t.integer  "industry_sector_id"
     t.integer  "business_category_id"
     t.date     "onrecord_since"
+    t.string   "business_sub_category"
   end
 
   create_table "people", :force => true do |t|

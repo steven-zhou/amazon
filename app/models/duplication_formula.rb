@@ -1,6 +1,6 @@
 class DuplicationFormula < ActiveRecord::Base
 
-  has_many :duplication_formula_details
+  has_many :duplication_formula_details, :order => "id"
 
   def formatted_info
     result = Array.new

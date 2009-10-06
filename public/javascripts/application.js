@@ -1006,6 +1006,7 @@ $(function() {
 
 $(function(){
     $("#add_user").live('click', function(){
+        $(this).hide();
         $(".user_clear_form").click();
         $(".show_user_container").hide();
         $("#close_new_account").show();
@@ -1119,6 +1120,7 @@ $(function(){
         $("#new_user").toggle('blind');
         $(".show_user_container").show();
         $("#close_new_account").hide();
+         $("#add_user").show();
     });
 });
 
@@ -1545,6 +1547,11 @@ $(function(){
     $("#fields_personal_duplication").live('change', function(){
         $(".descriptions_personal_duplication").css("display", "none");
         $("#description_personal_duplication_"+$(this).val()).css("display", "");
+        if($("#description_personal_duplication_"+$(this).val()).html().match("(Integer FK)")){
+          $("#is_foreign_key").val(true);
+        }else{
+          $("#is_foreign_key").val(false);
+        }
     });
 });
 
@@ -1558,12 +1565,37 @@ $(function(){
     $("#fields_organisational_duplication").live('change', function(){
         $(".descriptions_organisational_duplication").css("display", "none");
         $("#description_organisational_duplication_"+$(this).val()).css("display", "");
+        if($("#description_organisational_duplication_"+$(this).val()).html().match("(Integer FK)")){
+          $("#is_foreign_key_organisational").val(true);
+        }else{
+          $("#is_foreign_key_organisational").val(false);
+        }
     });
 });
 
 $(function(){
    $('#apply_organisational_duplication').live('click', function(){
       $("#organisational_duplication_form").doAjaxSubmit();
+   });
+});
+
+$(function(){
+   $("#generate_personal_duplication").live('click', function(){
+       $.ajax({
+                type: "GET",
+                url: "/personal_duplication_formulas/generate.js",
+                dataType: "script"
+            });
+   });
+});
+
+$(function(){
+   $("#generate_organisational_duplication").live('click', function(){
+       $.ajax({
+                type: "GET",
+                url: "/organisational_duplication_formulas/generate.js",
+                dataType: "script"
+            });
    });
 });
 
@@ -1761,6 +1793,54 @@ $(function(){
     });
 });
 
+
+
+/*Organisation-part*/
+
+
+$(function(){
+
+     $("#organisation_industry_sector_id").live('change', function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/organisations/show_industrial_code.js",
+            data:"industrial_id="+$(this).val(),
+            dataType:"script"
+
+        });
+      
+        }else{
+
+        $('#organisation_industrial_code').val('');
+        }
+
+    });
+});
+
+$(function(){
+
+     $("#organisation_business_category_id").live('change', function(){
+
+        if ($(this).val()!= ""){
+        $.ajax({
+            type:"GET",
+            url: "/organisations/show_sub_category.js",
+            data:"sub_category_id="+$(this).val(),
+            dataType:"script"
+
+        });
+
+        }else{
+
+        $('#organisation_business_sub_category').val('');
+        }
+    });
+});
+
+
+
 /* Show list*/
 $(function(){
     $("#show_all_list_member").live('click',function(){
@@ -1773,6 +1853,7 @@ $(function(){
         });
     });
 });
+
 
 $(function(){
     $("#show_list_select").live('click',function(){

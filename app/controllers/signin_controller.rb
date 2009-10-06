@@ -12,13 +12,12 @@ class SigninController < ApplicationController
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
         session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
-        login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-
-        session[:login_account_info] = login_account
+   
        
         @group_types = LoginAccount.validate_group(session[:user])
         @system_permission_types = LoginAccount.validate_permission(session[:user])
-        
+        login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+        session[:login_account_info] = login_account
 
         if (session[:intended_action] != nil && session[:intended_controller] != nil)
           #puts "***** DEBUG Redirecting to the intended action and controller"
@@ -31,7 +30,19 @@ class SigninController < ApplicationController
         # If we threw an exception for not logging
         #  in ok we will send a warning to the end user
         #puts "**** DEBUG Rescued!"
-        flash.now[:warning] = flash_message(:type => "login_error")
+        #flash.now[:warning] = flash_message(:type => "login_error")
+        #rescue rescue_message = "your group do not have permissions"
+        if login_account.nil?
+          rescue_message = "Login Account is error"
+        else if  @group_types.nil?
+            rescue_message = "you do not have group"
+          else if   @system_permission_types.nil?
+              rescue_message = "group permission is error"
+            end
+          end
+        end
+
+        flash.now[:warning] = rescue_message
       end
     end
   end
