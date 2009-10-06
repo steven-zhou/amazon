@@ -1,4 +1,4 @@
-$('#right').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p })) %>');
+$('#right').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @search_list_result })) %>');
 
 $('#search_list_results').dataTable({
         "bLengthChange":false,
@@ -19,3 +19,4 @@ $('#search_list_results').dataTable({
             'sWidth':"20%"
         }]
     });
+

@@ -383,3 +383,14 @@ $(function(){
         });
     });
 });
+
+$(function(){
+    $('.list_assistant_search').live('keyup', function() {
+        $.ajax({
+            type: "GET",
+            url: "/people/search_lists.js",
+            data: 'name='+$('#list_assistant_name').val()+'&phone='+$('#list_assistant_phone').val()+'&email='+$('#list_assistant_email').val(),
+            dataType: "script"
+        });
+    });
+});

@@ -120,7 +120,7 @@ class PeopleController < ApplicationController
 
     end
 
-# redirect_to "show.html"
+    # redirect_to "show.html"
      
   end
 
@@ -204,23 +204,23 @@ class PeopleController < ApplicationController
     @person_group = PersonGroup.new
 
 
-#    if params[:show_list]
-#    session[:show_list] = params[:show_list]
-#    @person = Person.find(params[:id]) rescue @person = Person.find(session[:current_person_id])
-#
-#      render 'show_list.html'
-#
-#    else
+    #    if params[:show_list]
+    #    session[:show_list] = params[:show_list]
+    #    @person = Person.find(params[:id]) rescue @person = Person.find(session[:current_person_id])
+    #
+    #      render 'show_list.html'
+    #
+    #    else
     
 
-      respond_to do |format|
+    respond_to do |format|
       format.html
    
     end
 
 
 
-#    end
+    #    end
 
  
   end
@@ -414,7 +414,7 @@ class PeopleController < ApplicationController
 
 
     respond_to do |format|
-     format.js
+      format.js
     end
 
   end
@@ -422,7 +422,7 @@ class PeopleController < ApplicationController
   def edit_show_list
     @person = Person.find(params[:id])
 
-#     @postcodes = DomesticPostcode.find(:all)
+    #     @postcodes = DomesticPostcode.find(:all)
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = Array.new
     c = Array.new
@@ -463,47 +463,47 @@ class PeopleController < ApplicationController
       end
     end
 
-#    if request.post?
-#      @list_header = ListHeader.find(params[:list_header_id])
-#      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-#      c1 = Array.new
-#      c1 = @list_header.people_on_list
-#      @person = Person.find_by_id(params[:id].to_i)
-#      unless c1.include?(@person)
-#        @person = @list_header.people_on_list.first
-#      else
-#        @person
-#      end
-#      @p = Array.new
-#      @p = @list_header.people_on_list
-#      session[:current_list_id] = @list_header.id
-#      session[:current_person_id] = @person.id
-#    end
+    #    if request.post?
+    #      @list_header = ListHeader.find(params[:list_header_id])
+    #      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+    #      c1 = Array.new
+    #      c1 = @list_header.people_on_list
+    #      @person = Person.find_by_id(params[:id].to_i)
+    #      unless c1.include?(@person)
+    #        @person = @list_header.people_on_list.first
+    #      else
+    #        @person
+    #      end
+    #      @p = Array.new
+    #      @p = @list_header.people_on_list
+    #      session[:current_list_id] = @list_header.id
+    #      session[:current_person_id] = @person.id
+    #    end
 
     #    @person = Person.new(:id => "") unless !@person.nil?
-#    @address = Address.new
-#    @phone = Phone.new
-#    @email = Email.new
-#    @fax = Fax.new
-#    @website = Website.new
-#    @masterdoc = MasterDoc.new
-#    @relationship = Relationship.new
-#    @employment = Employment.new
-#    @note = Note.new
+    #    @address = Address.new
+    #    @phone = Phone.new
+    #    @email = Email.new
+    #    @fax = Fax.new
+    #    @website = Website.new
+    #    @masterdoc = MasterDoc.new
+    #    @relationship = Relationship.new
+    #    @employment = Employment.new
+    #    @note = Note.new
     @image = @person.image unless (@person.nil? || @person.image.nil?)
-#    @role = Role.new
-#    @person_role = PersonRole.new
-#    @person_group = PersonGroup.new
+    #    @role = Role.new
+    #    @person_role = PersonRole.new
+    #    @person_group = PersonGroup.new
 
-      respond_to do |format|
+    respond_to do |format|
       format.js
     end
   end
 
-def show_left
+  def show_left
   
  
-     @group_types = LoginAccount.find(session[:user]).group_types
+    @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = Array.new
     c = Array.new
     @group_types.each do |group_type|
@@ -564,8 +564,51 @@ def show_left
     end
 
 
-end
+  end
 
+
+
+  def search_lists
+
+#    # @name_search = Person.find(:all, :conditions => ["first_name ILIKE ? AND family_name ILIKE ?", "%#{params[:name]}%", "%#{params[:name]}%"])
+#    @search_list_result = Array.new
+#
+#    params[:person_first_name] = Hash.new
+#    params[:person_family_name] = Hash.new
+#    #  params[:phone_contact] = Hash.new
+#    #  params[:email_contact] = Hash.new
+#    params[:person_first_name][:first_name] = params[:name]
+#    params[:person_family_name][:family_name] = params[:name]
+#    #  params[:phone_contact][:phone_pre_value] = params[:phone]
+#    #  params[:phone_contact][:phone_value] = params[:phone]
+#    #  params[:phone_contact][:phone_post_value] = params[:phone]
+#    #  params[:email_contact][:email_address] = params[:email]
+#
+#    @search_list_result  = PeopleSearch.by_name(params[:person_first_name])
+#    @search_list_result  += PeopleSearch.by_name(params[:person_family_name])
+#    #  @phone_search = PeopleSearch.by_phone(params[:phone_contact])
+#    #  @email_search = PeopleSearch.by_email(params[:email_contact])
+#    #  @search_list_result << @name_search
+#    #  @search_list_result << @email_search
+#    #  @search_list_result << @phone_search
+#
+#    #@search_list_result.uniq
+#   puts "********#{@search_list_result.to_yaml}********"
+
+
+ @name_search=params[:name]
+ @email_search=params[:email]
+ @phone_search=params[:phone]
+ @list_people_id = session[:current_list_id]
+ @list_people = ListHeader.find(session[:current_list_id]).people_on_list
+
+ @search_list_result = @list_people.find(:all, :conditions => ["people.first_name LIKE ? OR people.family_name LIKE ? AND people.phone LIKE ? AND people.email LIKE ?", "%#{@name_search}%", "%#{@name_search}%", "%#{@phone_search}%", "%#{@email_search}%"])
+
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
 
 end
