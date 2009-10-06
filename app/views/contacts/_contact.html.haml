@@ -10,10 +10,6 @@
       - elsif contact.read_attribute("type") == "Email" #contact.class == Email.new.class
         = link_to image_tag('edit_icon.png'), edit_email_path(contact), :class => 'get edit_email', :id => 'email_edit_button', :email_id => contact.id
         = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete delete_email', :id => 'email_delete_button', :email_id => contact.id
-
-      - if contact.read_attribute("type") == "Fax" #contact.class == Fax.new.class
-        = link_to image_tag('edit_icon.png'), edit_fax_path(contact), :class => 'get edit_fax',:id => 'fax_edit_button', :fax_id => contact.id
-        = link_to image_tag('delete_icon.png'), fax_path(contact), :class => 'delete delete_fax',:id => 'fax_delete_button', :fax_id => contact.id
       - elsif contact.read_attribute("type") == "Website" #contact.class == Website.new.class
         = link_to image_tag('edit_icon.png'), edit_website_path(contact), :class => 'get edit_website' , :id => 'website_edit_button', :website_id => contact.id
         = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete delete_website',:id => 'website_delete_button', :website_id => contact.id

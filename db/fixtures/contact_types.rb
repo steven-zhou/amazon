@@ -12,4 +12,3 @@ ContactMetaType.create :name => "Mobile",   :tag_meta_type_id => phone.id,    :s
 ContactMetaType.create :name => "Home",   :tag_meta_type_id => phone.id,    :status => true
 ContactMetaType.create :name => "Fax",   :tag_meta_type_id => phone.id,    :status => true
 ContactMetaType.create :name => "Business",   :tag_meta_type_id => website.id,    :status => true
-ContactMetaType.create :name => "Business",   :tag_meta_type_id => fax.id,    :status => true

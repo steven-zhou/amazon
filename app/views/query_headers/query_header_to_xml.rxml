@@ -1,0 +1,23 @@
+xml.instruct!
+xml.report do
+  for person in @query_header.run do
+    xml.person do
+      xml.system_id(person.id)
+      xml.name(person.name)
+      @query_header.query_selections.each do |i|
+        xml.data do
+
+          data_value = String.new
+          if i.table_name == "people"
+             data_value = "#{person.__send__(i.field_name.to_sym)}"
+          else
+            data_value = "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}" unless person.__send__(i.table_name.underscore.to_sym).empty?
+          end
+
+          xml.field_name i.field_name
+          xml.field_data data_value
+        end
+      end
+    end
+  end
+end
