@@ -25,12 +25,13 @@ body {
 	width: 10%;
 	min-height: 500px;
 	float: left;
-	margin-top: 125px;
+	margin-top: 110px;
 }
 
 /* menu related tags */
 #app #lc #menu, #app #lc #menu li {
 	float: right;
+	margin: 5px 0px;
 }
 
 #app #lc #menu li .item {
@@ -55,7 +56,7 @@ body {
 	background-image:url(../images/corner_top.png);
 	background-position: bottom right;
 	background-repeat:no-repeat;
-	height: 15px;
+	height: 10px;
 	width: 190px;
 }
 
@@ -66,18 +67,26 @@ body {
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	background-image: none;
-	padding: 5px;
+	padding: 10px 5px;
 }
 
 	#app #lc #menu #menu_active .item ul {
 	float:left;
 	display:block;
-	padding:2px
+	padding:2px;
+	margin-left: 5px;
+	font-size: 18px;
+	line-height: 24px;
 	}
 
 #app #lc #menu #menu_active .item li {
 	float: left;
 	padding 2px 4px 2px 2px
+}
+#app #lc #menu #menu_active .item ul #selected {
+	font-weight: bold;
+	color: #333;
+	margin-left: 5px;
 }
 
 
@@ -85,7 +94,7 @@ body {
 	background-image:url(../images/corner_bottom.png);
 	background-position: top right;
 	background-repeat:no-repeat;
-	height: 15px;
+	height: 10px;
 	width: 190px;
 }
 
