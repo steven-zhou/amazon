@@ -56,3 +56,7 @@ a {
     text-decoration : none;
     color: #666666;
 }
+
+.clear {
+    clear: both;
+}

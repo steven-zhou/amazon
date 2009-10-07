@@ -18,6 +18,9 @@
               = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "people", :action => "edit"
           %li{:id => (@current_action == "find" || @current_action == "search") ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Search", :controller => "people", :action => "find"
+          %li{:id => (@current_action == "show_list") ? "selected" : ""}
+            = link_to_function "#{image_tag('icon_holder.png')} Show List", :id => "show_all_list_member", :person_id => @person.id
+        %br.clear
     .bottom
 
   - # Organisation Menu

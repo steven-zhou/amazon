@@ -32,7 +32,7 @@ body {
 #app #lc #menu, #app #lc #menu li {
 	float: right;
 	margin: 5px 0px;
-        clear: both;
+	clear: both;
 }
 
 #app #lc #menu li .item {
@@ -134,7 +134,7 @@ body {
 #content {
 	background-color: #f6f6f6;
 	width:100%;
-	height: 500px;
+	min-height: 500px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
