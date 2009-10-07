@@ -1,13 +1,5 @@
 .form_line
   .field_20
-    = p.label :custom_id, 'Custom ID'
-    = p.text_field :custom_id
-  .field_25
-    = p.label :onrecord_since, 'On Record Since'
-    = p.text_field :onrecord_since, :disabled => true, :value => @person.onrecord_since.to_s
-  %br.clear
-.form_line
-  .field_20
     = p.label :title_id, 'Title'
     = p.collection_select :primary_title_id, Title.active_title, :id, :name
   .field_40
@@ -39,8 +31,8 @@
     = p.label :preferred_name, 'Preferred Name'
     = p.text_field :preferred_name
   %br.clear
-%fieldset
-  %h3 Salutations
+.container
+  %h2 Salutations
   .form_line
     .field_50
       = p.label :primary_salutation, "Primary"
@@ -48,3 +40,4 @@
     .field_50
       = p.label :second_salutation, "Second"
       = p.text_field :second_salutation
+    %br.clear
