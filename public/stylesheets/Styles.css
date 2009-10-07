@@ -3,140 +3,414 @@
 /* CSS Document */
 
 body {
-	background-image:url(../images/body_bg.jpg);
-	background-position: top left;
-	background-repeat:no-repeat;
-	background-color: #030A13;
+    background-image:url(../images/body_bg.jpg);
+    background-position: top left;
+    background-repeat:no-repeat;
+    background-color: #030A13;
 }
 
 
 /* app - centralizes the interface in the browser */
 #app {
-	min-width: 1100px;
-	max-width: 1400px;
-	margin: auto;
-	min-height: 500px;
+    min-width: 1100px;
+    max-width: 1400px;
+    margin: auto;
+    min-height: 500px;
 }
 
 /* left collumn area and related css */
 #app #lc {
-	min-width: 200px;
-	max-width: 250px;
-	width: 10%;
-	min-height: 500px;
-	float: left;
-	margin-top: 110px;
+    min-width: 200px;
+    max-width: 250px;
+    width: 10%;
+    min-height: 500px;
+    float: left;
+    margin-top: 110px;
 }
 
 /* menu related tags */
 #app #lc #menu, #app #lc #menu li {
-	float: right;
-	margin: 5px 0px;
-        clear: both;
+    float: right;
+    margin: 5px 0px;
+    clear: both;
 }
 
 #app #lc #menu li .item {
-	background-color: #f6f6f6;
-	background-image:url(../images/menu_item.png);
-	background-position:right;
-	background-repeat: repeat-y;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-bottomleft: 10px;
-	width: 120px;
-	height: 22px;
-	padding: 10px;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 22px;
-	color: #666;
-	vertical-align: text-top;
+    background-color: #f6f6f6;
+    background-image:url(../images/menu_item.png);
+    background-position:right;
+    background-repeat: repeat-y;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    width: 120px;
+    height: 22px;
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 22px;
+    color: #666;
+    vertical-align: text-top;
 }
+
 
 /* Menu - Active menu item */
 #app #lc #menu #menu_active .top {
-	background-image:url(../images/corner_top.png);
-	background-position: bottom right;
-	background-repeat:no-repeat;
-	height: 10px;
-	width: 190px;
+    background-image:url(../images/corner_top.png);
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 10px;
+    width: 190px;
 }
 
 #app #lc #menu #menu_active .item {
-	background-color: #f6f6f6;
-	min-height: 150px;
-	width: 175px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-bottomleft: 10px;
-	background-image: none;
-	padding: 10px 5px 10px 10px ;
-	line-height: 24px;
+    background-color: #f6f6f6;
+    min-height: 140px;
+    width: 175px;
+    -moz-border-radius-topleft: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    background-image: none;
+    padding: 10px 5px 10px 10px ;
+    line-height: 24px;
 }
+
 #app #lc #menu #menu_active .item img {
-	vertical-align:text-bottom;
-	margin-right: 5px;
+    vertical-align:text-bottom;
+    margin-right: 5px;
 }
 
 #app #lc #menu #menu_active .item ul {
-	float:left;
-	display:block;
-	padding:2px;
-	margin-left: 5px;
-	font-size: 18px;
-	line-height: 20px;
-	}
+    float:left;
+    padding:2px;
+    margin-left: 5px;
+    font-size: 18px;
+    line-height: 20px;
+}
 
 #app #lc #menu #menu_active .item li {
-	float: left;
-	padding: 2px 4px 2px 2px
+    float: left;
+    padding: 2px 4px 2px 2px
 }
 #app #lc #menu #menu_active .item ul #selected {
-	font-weight: bold;
-	color: #333;
-	margin-left: 5px;
+    font-weight: bold;
+    color: #333;
+    margin-left: 5px;
 }
 
 
 #app #lc #menu #menu_active .bottom {
-	background-image:url(../images/corner_bottom.png);
-	background-position: top right;
-	background-repeat:no-repeat;
-	height: 10px;
-	width: 190px;
+    background-image:url(../images/corner_bottom.png);
+    background-position: top right;
+    background-repeat:no-repeat;
+    height: 10px;
+    width: 190px;
 }
 
 
 /* main area */
 #app #main {
-	min-width: 900px;
-	max-width: 1150px;
-	width: 80%;
-	min-height: 500px;
-	float:left;
+    min-width: 900px;
+    max-width: 1150px;
+    width: 80%;
+    min-height: 500px;
+    float:left;
 }
 
 /* System Bar */
 
 #sysbar {
-	background-image:url(../images/sysbar_bg.jpg);
-	background-repeat:repeat-x;
-	width: 100%;
-	height: 50px;
-	margin-top: 15px;
-	margin-bottom: 10px;
-	padding: 0px 10px;
-	-moz-border-radius: 15px;
+    background-image:url(../images/sysbar_bg.jpg);
+    background-repeat:repeat-x;
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    -moz-border-radius: 15px;
 }
 
 /* Content Area */
 
 #content {
-	background-color: #f6f6f6;
-	width:100%;
-	min-height: 500px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	padding: 10px;
-	-moz-border-radius: 15px;
+    background-color: #f6f6f6;
+    width:100%;
+    min-height: 500px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    -moz-border-radius: 15px;
 }
+#app #main #content #header {
+    height: 40px;
+    width: 100%;
+}
+
+#app #main #content #header #page_title {
+    width: 49%;
+    height: 40px;
+    float:left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    color: #2C2C2C;
+    margin-left: 1%;
+}
+#app #main #content #header #lol {
+    float: right;
+    height: 40px;
+    width: 49%;
+    margin-right: 1%;
+    text-align: right;
+}
+#app #main #content #left_content {
+    min-height: 500px;
+    background-color:#FFF;
+    float: left;
+    width: 49.5%;
+    margin-right: 0.5%;
+}
+#app #main #content #right_content {
+    min-height: 500px;
+    float: right;
+    width: 49.5%;
+    margin-left: 0.5%;
+}
+
+#app #main #content .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    padding: 2%;
+    min-height: 50px;
+    -moz-border-radius: 10px;
+}
+
+#app #main #content .container h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+#app #main #content .container h2 {
+    font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+
+#app #main #content .container p {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 16px;
+    margin-bottom: 5px;
+}
+/* Temp*/
+div.form_line {
+    width: 100%;
+    display: block;
+    margin-bottom: 5px;
+}
+
+div.form_line input, select {
+    width: 100%;
+}
+
+div.field_5 {
+    margin: 0% 1%;
+    width: 5%;
+    float: left;
+}
+
+div.field_10 {
+    margin: 0% 1%;
+    width: 10%;
+    float: left;
+}
+
+div.field_12 {
+    margin: 0% 1%;
+    width: 12%;
+    float: left;
+}
+
+div.field_14 {
+    margin: 0% 1%;
+    width: 14%;
+    float: left;
+}
+
+div.field_17 {
+    margin: 0% 1%;
+    width: 17%;
+    float: left;
+}
+
+div.field_20 {
+    margin: 0% 1%;
+    width: 18%;
+    float: left;
+}
+
+div.field_22 {
+    margin: 0% 1%;
+    width: 20%;
+    float: left;
+}
+
+div.field_27 {
+    margin: 0% 1%;
+    width: 25%;
+    float: left;
+}
+
+div.field_30 {
+    margin: 0% 1%;
+    width: 28%;
+    float: left;
+}
+
+div.field_30real {
+    margin: 0% 1%;
+    width: 30.5%;
+    float: left;
+}
+
+div.field_3a {
+    margin: 0% 1%;
+    width: 33%;
+    float: left;
+}
+
+div.field_40 {
+    margin: 0% 1%;
+    width: 38%;
+    float: left;
+}
+
+div.field_42 {
+    margin: 0% 1%;
+    width: 42%;
+    float: left;
+}
+
+div.field_42half {
+    margin: 0% 1%;
+    width: 42.5%;
+    float: left;
+}
+
+div.field_45 {
+    margin: 0% 1%;
+    width: 45%;
+    float: left;
+}
+
+div.field_47 {
+    margin: 0% 1%;
+    width: 47%;
+    float: left;
+}
+
+div.field_50 {
+    margin: 0% 1%;
+    width: 48%;
+    float:left;
+}
+
+div.field_60 {
+    margin: 0% 1%;
+    width: 58%;
+    float: left;
+}
+
+div.field_61 {
+    margin: 0% 1%;
+    width: 59%;
+    float: left;
+}
+
+div.field_63 {
+    margin: 0% 1%;
+    width: 63%;
+    float: left;
+}
+
+div.field_80 {
+    margin: 0% 1%;
+    width: 78%;
+    float: left;
+}
+
+div.field_33 {
+    margin: 0% 1%;
+    width:31%;
+    float:left;
+}
+
+div.field_25 {
+    margin: 0% 1%;
+    width:23%;
+    float:left;
+}
+
+div.field_75 {
+    margin: 0% 1%;
+    width:73%;
+    float:left;
+}
+
+div.field_100 {
+    margin: 0% 1%;
+    width:98%;
+    float:left;
+}
+
+div.list_menu{
+    float: right;
+    margin-top: 5px;
+}
+
+div.list_menu a {
+    display:block;
+    float:left;
+    padding:10px 13px 0 0;
+}
+
+div.list_menu #select_tag {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+/* Temp*/
+
+/*list of list*/
+select#compiler_options option.selected {
+    display: none;
+}
+
+div#content div#left, div#right {
+    width: 49%;
+    float: left;
+    margin-left: 1%;
+}
+
+div.container div.header_container .title {
+  float: left;
+  display:inline;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+div.container div.header_container .options {
+  float: right;
+  display:inline;
+}
+

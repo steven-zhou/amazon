@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon - Beyond the Horizon - Now with Metrox!</title>
-    <%= stylesheet_link_tag  "Styles.css" %>
+    <%= stylesheet_link_tag  "Styles.css", "jquery-ui-custom.css" %>
     <%= javascript_include_tag  "jquery.min.js",
       "jquery-ui.min.js",
       "jrails.js",
@@ -16,6 +16,8 @@
       "person.js",
       "reports.js",
       :cache => true %>
+
+    <%= yield_authenticity_token %>
   </head>
 
   <body>

@@ -1,16 +1,11 @@
-#left
-  .header
-    .title
-      = render :partial => "menu", :locals => { :person => @person }
-    =link_to image_tag 'help_icon.png', :style => 'float:right'
-    %br.clear
-
-  %div.info_container
+#header
+  #page_title
+    %h1 Edit Person
+  #lol
     - form_tag('/people/edit', :id => "person_list_edit")do
-      .form_line
-        .field_20{:style => 'float:left;'}
-          = label_tag 'person_id', 'System ID', :style => 'clear:both'
-          = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag'}
+      .field_20{:style => 'float:left;'}
+        = label_tag 'person_id', 'System ID', :style => 'clear:both'
+        = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag'}
       %div.list_menu
         -if @list_header.new_record? && @person.new_record?
           %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
@@ -26,25 +21,29 @@
             = link_to((image_tag 'go.png'), edit_person_path(@p[@p.index(@person)+1]))
           -else
             = link_to((image_tag 'go.png'), edit_person_path(@p.first))
-          = link_to((image_tag 'go.png'), edit_person_path(@p.fetch(-1)))
-      -#= render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
-    %br.clear
-
+            = link_to((image_tag 'go.png'), edit_person_path(@p.fetch(-1)))
+        -#= render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
+      %br.clear
+#left_content
   - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
-    %fieldset
-      %h3 Name Details
+    .container
+      %h1 Custom ID
+      .field_20
+        = p.text_field :custom_id
+    .container
+      %h1 Name Details
       = render :partial => 'person_name_fields', :locals => {:p => p}
-    %fieldset
-      %h3 Personal Details
+    .container
+      %h1 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
-    %fieldset
-      %h3{:style=>"float:left"} Picture
+    .container
+      %h1{:style=>"float:left"} Picture
       = render :partial => '/images/show_photo', :locals => {:entity => @person}
     = submit_tag 'Submit and Close', :style => 'float:right;'
     = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
     
 
-#right
+#right_content
   #tabs
     = render :partial => 'person_menu'
     #Address
@@ -66,3 +65,4 @@
     #Group
       = render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
 
+%br.clear

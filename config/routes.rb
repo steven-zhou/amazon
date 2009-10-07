@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :show_left => :get,:show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
 
     :member => {
     :edit_names => :post,
@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :notes
   end
 
-  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :list_management => :get, :duplication_formula => :get}
+  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get}
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
  
@@ -72,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :login_accounts, :collection => {:user_name_unique => :get}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
 
-  map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post}, :member => {:copy => :get, :delete_details => :put}
+  map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
   map.resources :include_lists
   map.resources :exclude_lists

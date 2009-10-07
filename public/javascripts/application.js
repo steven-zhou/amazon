@@ -278,23 +278,10 @@ $(function(){
             dataType: "script"
         });
         $('table#search_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
-
+        $(this).addClass("selected");        
     });
 });
 
-/* Show select list*/
-
-$(function(){
-    $('#show_select_person').live('click',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/people/show.js",
-            data: 'id='+$(this).attr('person_id'),
-            dataType: "script"
-        });
-    });
-})
 
 /*role*/
 
@@ -1866,4 +1853,12 @@ $(function(){
         });
     });
 });
+
+
+$(function(){
+    $("#show_list_select").live('click',function(){
+        window.open("/people/"+ $('#system_id_tag').val(), "_self");
+    });
+});
+
 

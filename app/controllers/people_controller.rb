@@ -545,7 +545,55 @@ class PeopleController < ApplicationController
 
   end
 
+
+
+
+  def search_lists
+
+    #    # @name_search = Person.find(:all, :conditions => ["first_name ILIKE ? AND family_name ILIKE ?", "%#{params[:name]}%", "%#{params[:name]}%"])
+    #    @search_list_result = Array.new
+    #
+    #    params[:person_first_name] = Hash.new
+    #    params[:person_family_name] = Hash.new
+    #    #  params[:phone_contact] = Hash.new
+    #    #  params[:email_contact] = Hash.new
+    #    params[:person_first_name][:first_name] = params[:name]
+    #    params[:person_family_name][:family_name] = params[:name]
+    #    #  params[:phone_contact][:phone_pre_value] = params[:phone]
+    #    #  params[:phone_contact][:phone_value] = params[:phone]
+    #    #  params[:phone_contact][:phone_post_value] = params[:phone]
+    #    #  params[:email_contact][:email_address] = params[:email]
+    #
+    #    @search_list_result  = PeopleSearch.by_name(params[:person_first_name])
+    #    @search_list_result  += PeopleSearch.by_name(params[:person_family_name])
+    #    #  @phone_search = PeopleSearch.by_phone(params[:phone_contact])
+    #    #  @email_search = PeopleSearch.by_email(params[:email_contact])
+    #    #  @search_list_result << @name_search
+    #    #  @search_list_result << @email_search
+    #    #  @search_list_result << @phone_search
+    #
+    #    @search_list_result.uniq
+    #   puts "********#{@search_list_result.to_yaml}********"
+
+
  
+
+    @name_search=params[:name]
+    @email_search=params[:email]
+    @phone_search=params[:phone]
+    @list_people_id = session[:current_list_id]
+    @list_people = ListHeader.find(session[:current_list_id]).people_on_list
+#    @search_list_result=@list_people.find(:all)
+#    if (@name_search!="")
+      @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["people.first_name LIKE ? OR people.family_name LIKE ?", "%#{@name_search}%", "%#{@name_search}%"])
+#    end
+#    if (@email_search!="")
+#      @search_list_result = @search_list_result.find(:all,:include => [:contacts], :conditions => ["contacts.value LIKE ?","%#{@email_search}%"])
+#    end
+    respond_to do |format|
+      format.js
+    end
+  end
 
 
 end

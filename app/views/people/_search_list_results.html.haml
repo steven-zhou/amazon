@@ -1,6 +1,12 @@
 .header
   .title
 .info_container
+  Name:
+  %input{:type => "text", :id => "list_assistant_name",  :class => "list_assistant_search", :size => "15"}
+  Phone:
+  %input{:type => "text", :id => "list_assistant_phone", :class => "list_assistant_search" , :size => "5"}
+  Email:
+  %input{:type => "text", :id => "list_assistant_email", :class => "list_assistant_search", :size => "5"}
   %table#search_list_results.display
     %thead
       %tr
@@ -10,7 +16,7 @@
         %th Email
         %th Address
     %tbody
-      - people.each do |person|
+      - for person in people do
         %tr{:person_id => person.id}
           %td= person.id
           %td= person.name
@@ -21,5 +27,6 @@
             = person.primary_email.address unless person.primary_email.blank?
             = "<br />#{person.secondary_email.address}" unless person.secondary_email.blank?
           %td= format_address(person.primary_address) unless person.primary_address.blank?
-  =link_to_function 'Submit'
+  =link_to_function 'Select', :id => "show_list_select"
+
 %br.clear
