@@ -1,0 +1,73 @@
+.container#new_query
+  %h1 Add New Query
+
+  #new_form
+    #left
+      .container
+        #criteria_form{:class => "toggle_button2", :toggle_id_name => "new_criteria", :toggle_id_name1 => "new_selection", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h1 Criteria Attributes
+        #new_criteria
+          #new_query_form
+            = render :partial => "queries/new_query_criteria_form"
+          %br.clear
+
+      .container
+        #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h1 Display Attributes
+        #new_selection{:style => "display:none"}
+          #new_selection_form
+            = render :partial => "queries/query_selection_form"
+          %br.clear
+
+      .container
+        #sort_form{:class => "toggle_button2", :toggle_id_name => "new_sorter", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_selection", :style => "cursor:pointer;cursor:hand"}
+          %h1 Sorting Attributes
+        #new_sorter{:style => "display:none"}
+          #new_sorter_form
+            = render :partial => "queries/query_sorter_form"
+          %br.clear
+
+      .container
+        #extra_form
+          %h1 Extra Attributes
+          .form_line
+            %input{:type => "checkbox", :style => "width:50%;display:inline;"}
+            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "query_top", :style => "width:30%;display:inline;", :value => "number", :id => "query_top_number", :checked => true}
+            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:style => "width:30%;display:inline;", :id => "query_top_number_value", :class => "integer_field"}
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "query_top", :style => "width:30%;display:inline;", :value => "percent", :id => "query_top_percent"}
+            %label{:style => "width:30%;display:inline;"} Percent
+            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
+            %br.clear
+
+    #right
+      #new_query_list
+        = render :partial => "queries/query_criteria_list"
+      #new_selection_list
+        = render :partial => "queries/query_selection_list"
+      #new_sorter_list
+        = render :partial => "queries/query_sorter_list"
+    %br.clear
+    
+    = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "new"
+    = button_to_function 'Save', :id => "save_button", :action => "new"
+    = button_to_function 'Run Query', :id => "run_button", :action => "new"
+    %input#query_header_id{:style => "display:none;", :value => "#{@query_header.id}"}
+    %input#current_action_global{:style => "display:none;"}
+    = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "new"
+    
+#save_form{:style => "display:none;"}
+  = render :partial => "queries/new_query_header"
+
+#sql_div{:style => "display:none;"}
+  %h1 SQL Statement
+  #sql_statement
+
+#result_div{:style => "display:none;"}
+  %h1 Query Results
+  #sql_result

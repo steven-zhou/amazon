@@ -71,11 +71,11 @@
   %li{:id => @current_controller == "query_headers" ? "menu_active" : ""}
     .top
     .item
-      = link_to @current_controller == "query_headers" ? "#{image_tag('icon_holder.png')} Query" :"Query", :controller => "query_headers", :action => "manage_list"
+      = link_to @current_controller == "query_headers" ? "#{image_tag('icon_holder.png')} Query" :"Query", :controller => "query_headers", :action => "index"
       - if @current_controller == "query_headers"
         %ul
-          %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "query_headers", :action => "index"
+          %li{:id => @current_action == "new" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
     .bottom

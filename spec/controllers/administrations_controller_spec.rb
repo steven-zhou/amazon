@@ -42,13 +42,6 @@ describe AdministrationsController do
     end
   end
 
-  describe "List Management" do
-    it "should render template '/administrations/list_management.html'" do
-      xhr :get, "list_management"
-      response.should render_template("administrations/list_management.html")
-    end
-  end
-
   describe "Get Duplication Formula" do
     it "should find the duplication formula" do
       PersonalDuplicationFormula.should_receive(:find_by_group)

@@ -27,11 +27,11 @@ class AdministrationsController < ApplicationController
     end
   end
 
-  def list_management
-    respond_to do |format|
-      format.html
-    end
-  end
+#  def list_management
+#    respond_to do |format|
+#      format.html
+#    end
+#  end
 
   def duplication_formula
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting
