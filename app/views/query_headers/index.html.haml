@@ -1,0 +1,75 @@
+.container#existing_query
+  %h1 Existing Queries
+  #show_queries
+    = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
+  %br.clear
+.container#edit_query{:style => "display:none"}
+  = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;")
+  %h1 Edit Query
+
+  #edit_form
+    #edit_header
+    #left
+      .container
+        #criteria_form{:class => "toggle_button2", :toggle_id_name => "edit_criteria", :toggle_id_name1 => "edit_selection", :toggle_id_name2 => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h3 Criteria Attributes        
+        #edit_criteria
+          #edit_query_form
+          %br.clear
+
+      .container
+        #display_form{:class => "toggle_button2", :toggle_id_name => "edit_selection", :toggle_id_name1 => "edit_criteria", :toggle_id_name2 => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
+          %h3 Display Attributes
+        #edit_selection{:style => "display:none"}
+          #edit_selection_form
+          %br.clear
+
+      .container
+        #sort_form{:class => "toggle_button2", :toggle_id_name => "edit_sorter", :toggle_id_name1 => "edit_selection", :toggle_id_name2 => "edit_criteria", :style => "cursor:pointer;cursor:hand"}
+          %h3 Sorting Attributes
+        #edit_sorter{:style => "display:none"}
+          #edit_sorter_form
+          %br.clear
+
+      .container
+        #extra_form
+          %h3 Extra Attributes
+          .form_line
+            %input{:type => "checkbox", :style => "width:50%;display:inline;"}
+            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "query_top_edit", :style => "width:30%;display:inline;", :value => "number", :id => "query_edit_top_number", :checked => true}
+            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:style => "width:30%;display:inline;", :id => "query_edit_top_number_value", :class => "integer_field"}
+            %br.clear
+          .form_line
+            %input{:type => "radio", :name => "query_top_edit", :style => "width:30%;display:inline;", :value => "percent", :id => "query_edit_top_percent"}
+            %label{:style => "width:30%;display:inline;"} Percent
+            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_edit_top_percent_value", :class => "integer_field"}
+            %br.clear
+
+    #right
+      #edit_query_list
+      #edit_selection_list
+      #edit_sorter_list
+
+    %br.clear
+
+    = button_to_function 'Save', :id => "save_button", :action => "edit"
+    = button_to_function 'Run Query', :id => "run_button_edit", :action => "edit", :disabled => "disabled"
+    %input#query_header_id{:style => "display:none;"}
+    %input#current_action_global{:style => "display:none;"}
+    = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "edit"
+
+
+#save_form{:style => "display:none;"}
+
+#sql_div{:style => "display:none;"}
+  %h3 SQL Statement
+  #sql_statement
+
+#result_div{:style => "display:none;"}
+  %h3 Query Results
+  #sql_result

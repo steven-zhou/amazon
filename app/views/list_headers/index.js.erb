@@ -1,5 +1,0 @@
-<%- result = String.new %>
-<%- @list_headers.each do |i|%>
-<%- result += "<option value='#{i.id}' id='list_header_#{i.id}'>#{i.name}</option>" %>
-<%- end %>
-$('#compiler_options').html('<%= escape_javascript(result) %>');

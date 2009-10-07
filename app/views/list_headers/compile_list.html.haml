@@ -1,20 +1,20 @@
-.info_container#list_compiler
-  = link_to_function (image_tag('add_icon.png', :style => "float:left;margin-right:10px;"), :id => "show_list_compiler")
-  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_list_compiler", :style => "display:none;")
-  %h3 List Compiler
+.container
+  %h1 List Compiler
 
-  #list_compiler_form{:style => "display:none;"}
+  #list_compiler_form
     #list_left{:style => "width:32%;margin-right:2%;float:left;"}
-      .info_container
+      .container
         .form_line
           %label Lists
           %input{:style => "display:none", :id => "login_account_id", :value => session[:user]}
           %select#compiler_options{:multiple => true,:size => "20"}
+            - @list_headers.each do |i|
+              %option{:value => "#{i.id}", :id => "list_header_#{i.id}"} #{i.name}
           %br.clear
 
-      .info_container
+      .container
         #extra_form
-          %h3 Extra Attributes
+          %h1 Extra Attributes
           .form_line
             %input{:type => "checkbox", :style => "width:50%;display:inline;", :id =>"allow_duplication", :value => "true"}
             %label{:style => "width:50%;display:inline;"} Allow Duplication
@@ -44,30 +44,17 @@
 
 
     #list_right{:style => "width:44%;float:left;margin-top:20px;"}
-      .info_container
-        %h3 Include Lists
+      .container
+        %h1 Include Lists
         #include_lists
-      .info_container
-        %h3 Exclude Lists
+      .container
+        %h1 Exclude Lists
         #exclude_lists
     %br.clear
     = link_to_function "Clear", :class => "alt_option", :style => "float:right", :id => "clear_compile_list"
     = button_to_function "Compile", :style => "float:right", :id => "compile_button"
     %br.clear
 
-
-.info_container#existing_list
-  %h3 Existing Lists
-  #show_lists
-    = render :partial => "lists/saved_list", :collection => ListHeader.sortall
-  %br.clear
-
-.info_container#edit_list{:style => "display:none"}
-  %h3 Edit List
-  #show_list_details
-
-#copy_form{:style => "display:none"}
-
 #compile_result_div{:style => "display:none;"}
-  %h3 Compile Results
+  %h1 Compile Results
   #compile_result

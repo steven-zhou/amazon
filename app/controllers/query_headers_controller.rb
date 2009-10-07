@@ -10,7 +10,7 @@ class QueryHeadersController < ApplicationController
     @query_seleciton = QuerySelection.new
     @query_sorter = QuerySorter.new
     respond_to do |format|
-      format.js
+      format.html
     end
   end
 
@@ -156,6 +156,12 @@ class QueryHeadersController < ApplicationController
       format.xml
     end
 
+  end
+
+  def index
+    respond_to do |format|
+      format.html
+    end
   end
 
 end
