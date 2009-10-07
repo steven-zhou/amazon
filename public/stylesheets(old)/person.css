@@ -1,0 +1,151 @@
+/* Person css */
+div.header {
+    min-height:45px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div.person_profile_options a {
+    color: white;
+    text-decoration: none;
+}
+
+div.person_profile_options a:active {
+    text-decoration: underline;
+}
+
+div.person_profile_options{
+    height: 42px;
+}
+
+div.list_menu{
+    float: right;
+    margin-top: 5px;
+}
+
+div.list_menu a {
+    display:block;
+    float:left;
+    padding:10px 13px 0 0;
+}
+
+div.list_menu #select_tag {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+#system_id_tag {
+    height: 15px;
+}
+
+div.header .options {
+    float: right;
+}
+
+div.header .title {
+    display: inline;
+    float: left;
+}
+
+
+
+/* Left div */
+
+
+div#left div.header .title img {
+    display: inline;
+}
+
+div#left div.header .title h1 {
+    margin-bottom: 30px;
+    display: inline;
+}
+
+div.header .title h1 {
+    margin-bottom: 30px;
+    display: inline;
+}
+
+/* Add Person Form */
+
+input[disabled='disabled'], input[readonly='readonly']{
+    background: #c0c0c0;
+}
+
+/* Id Labels*/
+
+fieldset.identication {
+    display: inline;
+}
+
+fieldset.identification div.right{
+    float: right;
+}
+
+/* Name Layout*/
+
+form.contact_form {
+    display:none;
+}
+
+form.active {
+    display:block;
+}
+
+span.details {
+    display:block;
+    text-align: right;
+}
+
+a.toggle_more{
+    color: #FFFFFF;
+    font-size: 12px;
+}
+
+#idline{
+    margin:5px 120px 0 0
+
+}
+
+#imageshow{
+    margin:10px 10px 0px 5px;
+}
+
+#picedit{
+
+    float: right;
+}
+#deleteicon{
+
+    margin:0 0 0 510px
+}
+
+div.list_menu #list_header_name {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+div.list_menu #list_header_name2 {
+    display:block;
+    width:200px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+div.info_warning {
+    display:block;
+    border: 0px;
+    width: 95%;
+    padding: 1%;
+    margin: 8px 8px 8px 8px;
+    float:left;
+    background-color:silver;
+}
+
+option.selected {
+    display:none;
+}

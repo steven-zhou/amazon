@@ -1,0 +1,18 @@
+div.id_container {
+  float:left;
+  margin: 0% 1%;
+	width: 18%;
+}
+
+div.name_container{
+  float:left;
+  margin: 0% 1%;
+	width: 38%;
+}
+
+div.delete_container{
+  float:right;
+  margin: 0% 1%;
+	width: 18%;
+	text-align: right;
+}
