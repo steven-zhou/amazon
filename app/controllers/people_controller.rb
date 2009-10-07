@@ -583,12 +583,13 @@ class PeopleController < ApplicationController
     @phone_search=params[:phone]
     @list_people_id = session[:current_list_id]
     @list_people = ListHeader.find(session[:current_list_id]).people_on_list
-#    @search_list_result=@list_people.find(:all)
+    @search_list_result=@list_people.find(:all)
 #    if (@name_search!="")
-      @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["people.first_name LIKE ? OR people.family_name LIKE ?", "%#{@name_search}%", "%#{@name_search}%"])
+   #   @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["people.first_name LIKE ? OR people.family_name LIKE ?", "%#{@name_search}%", "%#{@name_search}%"])
 #    end
 #    if (@email_search!="")
-#      @search_list_result = @search_list_result.find(:all,:include => [:contacts], :conditions => ["contacts.value LIKE ?","%#{@email_search}%"])
+      @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["contacts.value LIKE ?","%#{@email_search}%"])
+  #    @search_list_result = @search_list_result.find(:all,:include => [:contacts], :conditions => ["contacts.value LIKE ? AND contacts.type = 'Phone'","%#{@phone_search}%"])
 #    end
     respond_to do |format|
       format.js

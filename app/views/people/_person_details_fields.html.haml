@@ -3,16 +3,13 @@
     = p.label :birth_date,"Date Of Birth"
     = p.text_field :birth_date, :class=>"birthdatepick", :value=>@person.birth_date.to_s
   .field_20
-    = p.label :age, "Age"
-    = p.text_field :age, :disabled => 'true', :id => 'age'
+    = p.label :gender, 'Gender'
+    = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
   %br.clear
 .form_line
   .field_33
     = p.label :marital_status, 'Marital Status'
     = p.collection_select :marital_status_id, MaritalStatus.active_marital_status, :id, :name, {:include_blank => true}
-  .field_20
-    = p.label :gender, 'Gender'
-    = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
   .field_33
     = p.label :religion_id, 'Religion'
     = p.collection_select :religion_id, Religion.active_religion, :id, :name, {:include_blank => true}

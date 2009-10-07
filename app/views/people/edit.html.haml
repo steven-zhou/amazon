@@ -27,9 +27,12 @@
 #left_content
   - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
     .container
-      %h1 Custom ID
-      .field_20
-        = p.text_field :custom_id
+      .form_line
+        .field_30
+          %h2 Custom ID
+        .field_30{:style => 'float:right'}
+          = p.text_field :custom_id
+        %br.clear
     .container
       %h1 Name Details
       = render :partial => 'person_name_fields', :locals => {:p => p}

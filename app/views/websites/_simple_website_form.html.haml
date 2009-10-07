@@ -1,6 +1,8 @@
 .form_line
   .field_20
-    %h3{:style=>'margin-top:10px;'} Website
+    %h2 Website
+  %br.clear
+.form_line
   .field_17
     = website.label :contact_meta_type_id, 'Type'
     = website.collection_select :contact_meta_type_id, Contact.website_types, :id, :name

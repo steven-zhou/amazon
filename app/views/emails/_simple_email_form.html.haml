@@ -1,6 +1,8 @@
 .form_line
   .field_20
-    %h3{:style=>'margin-top:10px;'} Email
+    %h2 Email
+  %br.clear
+.form_line
   .field_17
     = email.label :contact_meta_type_id, 'Type'
     = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name

@@ -183,7 +183,7 @@ body {
     background-repeat:repeat;
     width: 96%;
     padding: 2%;
-    min-height: 50px;
+    min-height: 20px; /*Change to mim-height to 20px for Custom ID in Edit page*/
     -moz-border-radius: 10px;
 }
 
@@ -386,5 +386,18 @@ div.list_menu #select_tag {
     width:200px;
     float:left;
     margin:12px 13px 0 0;
+}
+
+p.submit{    /*For the submit button*/
+  text-align: right;
+  padding-right:3px;
+}
+
+a.alt_option{  /*For clear button*/
+  color:#000000;
+  font-size:11px;
+  line-height:16px;
+  padding:1px;
+  margin:2px 10px 0px 0px;
 }
 /* Temp*/

@@ -1,23 +1,15 @@
 - form_for @person, :html => {:multipart => true, :id => "add_person"} do |p|
-  #left
-    .header
-      .title
-        = render :partial => "menu", :locals => { :person => @person }
-      .options
-      %br.clear
-    %fieldset.add_name
-      %h3 Name Details
-      .form_line
-        .field_20
-          = p.label :id, 'System ID'
-          = p.text_field :id, :disabled => true
-        .field_20
-          = p.label :custom_id, 'Custom ID'
-          = p.text_field :custom_id
-        .field_25
-          = p.label :onrecord_since, 'On Record Since'
-          = p.text_field :onrecord_since, :disabled => true
-        %br.clear
+  #header
+    #page_title
+      %h1 Add Person
+    #lol
+  #left_content
+    .container
+      %h1 Custom ID
+      .field_20
+        = p.text_field :custom_id
+    .container.add_name
+      %h1 Name Details
       .form_line
         .field_20
           = p.label :title_id, 'Title'
@@ -51,8 +43,8 @@
           = p.label :preferred_name, 'Preferred Name'
           = p.text_field :preferred_name
         %br.clear
-      %fieldset
-        %h3 Salutations
+      .container
+        %h2 Salutations
         .form_line
           .field_50
             = p.label :primary_salutation, "Primary"
@@ -60,39 +52,38 @@
           .field_50
             = p.label :second_salutation, "Second"
             = p.text_field :second_salutation
+        %br.clear
 
-
-    %fieldset
+    .container
       %h3 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
 
-    %fieldset
+    .container
       %h3 Picture
+      %br
       .form_line
         = label :image, :id, "Picture"
         = file_field :image, :image_file, {:size => "50"}
 
-  #right
-    .header
-      = image_tag 'help_icon.png', :class => 'help_icon'
-    %fieldset.address_form
+  #right_content
+    .container.address_form
       %h3 Primary Address
       - p.fields_for :addresses do |address|
         = render :partial => '/addresses/simple_address_form', :locals => { :address => address}
-    %fieldset.add_contacts
-      %h3 Primary Contact
-      .form_line
+    .container.add_contacts
+      %h3 Primary Contacts
+      .container
         - p.fields_for :phones do |phone|
           = render :partial => 'phones/simple_phone_form', :locals => {:phone => phone}          
-      .form_line
+      .container
         - p.fields_for :emails do |email|
           = render :partial => 'emails/simple_email_form', :locals => {:email=> email}  
-      .form_line
+      .container
         - p.fields_for :websites do |website|
           = render :partial => 'websites/simple_website_form', :locals => {:website=> website}
     
     %p.submit
-      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       = submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag "Submit"   
-      
+      = submit_tag "Submit"
+      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+%br.clear
