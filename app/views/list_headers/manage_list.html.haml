@@ -1,0 +1,12 @@
+.container#existing_list
+  %h31 Existing Lists
+  #show_lists
+    = render :partial => "lists/saved_list", :collection => ListHeader.sortall
+  %br.clear
+
+.container#edit_list{:style => "display:none"}
+  %h1 Edit List
+  #show_list_details
+
+#copy_form{:style => "display:none"}
+

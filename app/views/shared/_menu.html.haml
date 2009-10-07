@@ -44,10 +44,16 @@
     .bottom
 
   - # List of Lists Menu
-  %li{:id => @current_controller == "lists" ? "menu_active" : ""}
+  %li{:id => @current_controller == "list_headers" ? "menu_active" : ""}
     .top
     .item
-      List
+      = link_to @current_controller == "list_headers" ? "#{image_tag('icon_holder.png')} List of Lists" :"List of Lists", :controller => "list_headers", :action => "manage_list"
+      - if @current_controller == "list_headers"
+        %ul
+          %li{:id => @current_action == "manage_list" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "list_headers", :action => "manage_list"
+          %li{:id => @current_action == "compile_list" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Compile", :controller => "list_headers", :action => "compile_list"
     .bottom
 
   - # Report Menu
@@ -59,4 +65,17 @@
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Reporting", :controller => "reports", :action => "index"
+    .bottom
+
+  - # Query Menu
+  %li{:id => @current_controller == "query_headers" ? "menu_active" : ""}
+    .top
+    .item
+      = link_to @current_controller == "query_headers" ? "#{image_tag('icon_holder.png')} Query" :"Query", :controller => "query_headers", :action => "manage_list"
+      - if @current_controller == "query_headers"
+        %ul
+          %li{:id => @current_action == "new" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
+          %li{:id => @current_action == "index" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "query_headers", :action => "index"
     .bottom

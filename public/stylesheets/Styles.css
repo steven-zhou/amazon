@@ -390,3 +390,8 @@ div.list_menu #select_tag {
 }
 /* Temp*/
 
+/*list of list*/
+select#compiler_options option.selected {
+    display: none;
+}
+

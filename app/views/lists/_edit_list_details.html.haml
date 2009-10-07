@@ -1,4 +1,4 @@
-.info_container
+.container
   -form_for @list_header, :html => {:class => 'ajax_form'} do |f|
     .form_line
       .field_25
@@ -24,8 +24,8 @@
   .form_line
     #{@list_header.source}
 
-.info_container{:style => "width:30%"}
-  %h3 Add Person To List
+.container{:style => "width:30%"}
+  %h1 Add Person To List
   -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
     .form_line
       .field_50
