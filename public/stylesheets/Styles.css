@@ -388,16 +388,16 @@ div#content div#left, div#right {
 }
 
 div.container div.header_container .title {
-  float: left;
-  display:inline;
-  font-size: 12px;
-  font-weight: bold;
-  color: #FFFFFF;
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
 }
 
 div.container div.header_container .options {
-  float: right;
-  display:inline;
+    float: right;
+    display:inline;
 }
 
 /*this is for lol*/
@@ -421,7 +421,7 @@ div.field_44 #select_tag {
 
 div#loleft{
     float: left;
-    width: 52%;
+    width: 54%;
 }
 
 div#loright{
@@ -459,4 +459,14 @@ img.thumb {
     margin:0px 0px 10px 0;
     height: 100px;
 
+}
+
+.arrow_block{
+    float: left;
+    margin:0 8px 0 0;
+}
+
+.arrow_block a {
+    float: left;
+    padding:1px 5px 4px 2px;
 }
