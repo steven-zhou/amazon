@@ -4,7 +4,7 @@
   %li{:id => @current_controller == "people" ? "menu_active" : ""}
     .top
     .item
-      = link_to "#{image_tag('icon_holder.png')} Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id
+      = link_to @current_controller == "people" ? "#{image_tag('icon_holder.png')} Person" : "Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id
       - if @current_controller == "people"
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
@@ -24,7 +24,7 @@
   %li{:id => @current_controller == "organisations" ? "menu_active" : ""}
     .top
     .item
-      = link_to "#{image_tag('icon_holder.png')} Organisation", :controller => "organisations", :action => "show", :id => (@organisation.nil?) ? "" : @organisation.id
+      = link_to @current_controller == "organisations" ? "#{image_tag('icon_holder.png')} Organisation" :"Organisation", :controller => "organisations", :action => "show", :id => (@organisation.nil?) ? "" : @organisation.id
       - if @current_controller == "organisations"
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
@@ -51,7 +51,7 @@
   %li{:id => @current_controller == "reports" ? "menu_active" : ""}
     .top
     .item
-      = link_to "#{image_tag('icon_holder.png')} Reporting", :controller => "reports", :action => "index"
+      = link_to @current_controller == "reports" ? "#{image_tag('icon_holder.png')} Reporting" :"Reporting", :controller => "reports", :action => "index"
       - if @current_controller == "reports"
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
