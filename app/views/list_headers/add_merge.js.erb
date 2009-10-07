@@ -1,3 +1,0 @@
-<%- unless @list_header.new_record? %>
-$('#merging_lists').append('<%= escape_javascript(render(:partial => "lists/list_header", :locals => {:type => "merge"})) %>');
-<%- end %>

@@ -436,3 +436,27 @@ img.thumb {
 
 /* Temp*/
 
+/*list of list*/
+select#compiler_options option.selected {
+    display: none;
+}
+
+div#content div#left, div#right {
+    width: 49%;
+    float: left;
+    margin-left: 1%;
+}
+
+div.container div.header_container .title {
+  float: left;
+  display:inline;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+div.container div.header_container .options {
+  float: right;
+  display:inline;
+}
+
