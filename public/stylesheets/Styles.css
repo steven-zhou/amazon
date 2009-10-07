@@ -184,7 +184,7 @@ body {
     background-repeat:repeat;
     width: 96%;
     padding: 2%;
-    min-height: 50px;
+    min-height: 0px;
     -moz-border-radius: 10px;
 }
 
@@ -329,6 +329,7 @@ div.field_60 {
     float: left;
 }
 
+
 div.field_61 {
     margin: 0% 1%;
     width: 59%;
@@ -371,22 +372,67 @@ div.field_100 {
     float:left;
 }
 
-div.list_menu{
-    float: right;
-    margin-top: 5px;
+/*this is for lol*/
+div.field_62 {
+    margin: 0px 0px 0px 0px;
 }
 
-div.list_menu a {
-    display:block;
-    float:left;
-    padding:10px 13px 0 0;
+div.field_62 a { 
+    padding:10px 5px 0 0;
 }
-
-div.list_menu #select_tag {
+div.field_44 {
+    margin: 0 0 0 0;
+    float: left;
+}
+div.field_44 #select_tag {
     display:block;
     width:200px;
     float:left;
     margin:12px 13px 0 0;
 }
+
+div#loleft{   
+    float: left;
+    width: 52%;
+}
+
+div#loright{
+    float: right;
+    width: 35%;
+}
+
+/*this is for person show*/
+#imageshow{
+    margin:10px 10px 0px 5px;
+}
+
+#idline{
+    margin:5px 120px 0 0
+
+}
+
+img.small {
+    width: 90px;
+    height: 90px;
+}
+
+img.medium {
+    width: 120px;
+    height: 120px;
+}
+img.thumb {
+    width:61px;
+    height: 61px;
+    float: left;
+}
+
+#photo_info{
+
+    margin:0px 0px 10px 0;
+    height: 100px;
+
+}
+
+
 /* Temp*/
 
