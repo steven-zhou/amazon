@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Amazon - Person</title>
+    <%= stylesheet_link_tag :all, :recursive => true %>
+    <%= javascript_include_tag  "jquery.min.js",
+      "jquery-ui.min.js",
+      "jrails.js",
+      "jquery.dataTables.min.js",
+      "jquery.qtip.min.js",
+      "jquery.form.js",
+      "jquery.dataTables.min.js",
+      "jquery.jpassword.js",
+      "application",
+      "person.js",
+      "reports.js",
+      :cache => true %>
+
+    <%= yield_authenticity_token %>
+  </head>
+  <body>
+    <div id="root">
+      <div id="modules_container">
+        <div class="module_item">
+          <%= link_to( image_tag('person_profile.png'), :controller => "people", :action => "show", :id => "") %>
+        </div>
+        <div class="module_item">
+          <%= link_to( image_tag('person_icon.png'), :controller => "administrations", :action => "system_setting") %>
+        </div>
+        <div class="module_item">
+          <%= link_to( image_tag('business.png'), :controller => "organisations", :action => "show", :id => "") %>
+        </div>
+        <div class="module_item">
+          <%= link_to("Reporting", :controller => "reports", :action => "create") %>
+        </div>
+        <div class="module_item">
+          <%= link_to("Log Out", :controller => "signin", :action => "signout") %>
+        </div>
+      </div>
+
+      <div id="content">
+        <%= render(:partial => "/shared/flash_messages") %>
+        <%= yield %>
+      </div>
+      <br style="clear: both;"/>
+    </div>
+  </body>
+</html>
