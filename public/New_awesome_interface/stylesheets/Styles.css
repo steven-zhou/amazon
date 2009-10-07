@@ -80,7 +80,6 @@ body {
 }
 
 #app #lc #menu #menu_active .item ul {
-	float:left;
 	padding:2px;
 	margin-left: 5px;
 	font-size: 18px;
@@ -88,7 +87,7 @@ body {
 	}
 
 #app #lc #menu #menu_active .item li {
-	float: left;
+	float: none;
 	padding: 2px 4px 2px 2px
 }
 #app #lc #menu #menu_active .item ul #selected {
@@ -134,17 +133,19 @@ body {
 #content {
 	background-color: #f6f6f6;
 	width:100%;
+	float: left;
 	min-height: 500px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
 	-moz-border-radius: 15px;
 }
+/* header wrapper */
 #app #main #content #header {
 	height: 40px;
 	width: 100%;
 }
-
+/* page title area */
 #app #main #content #header #page_title {
 	width: 49%;
 	height: 40px;
@@ -155,6 +156,7 @@ body {
 	color: #2C2C2C;
 	margin-left: 1%;
 }
+/* list of lists area */
 #app #main #content #header #lol {
 	float: right;
 	height: 40px;
@@ -162,31 +164,25 @@ body {
 	margin-right: 1%;
 	text-align: right;
 }
-#app #main #content #left_content {
-	height: 300px;
-	background-color:#FFF;
-	float: left;
-	width: 49.5%;
-	margin-right: 0.5%;
-}
-#app #main #content #right_content {
-	height: 300px;
-	float: right;
-	width: 49.5%;
-	margin-left: 0.5%;
-}
-
+/* interface blue container*/
 #app #main #content .container {
 	font-family:Arial, Helvetica, sans-serif;
 	color: #232323;
 	background-image:url(../images/container_bg.png);
 	background-repeat:repeat;
 	width: 96%;
+	float: left;
 	padding: 2%;
-	min-height: 50px;
+	min-height: 10px;
 	-moz-border-radius: 10px;
+	margin-bottom: 10px;
+}
+/* removes double margin from last div */
+#app #main #content .container div:last-child {
+	margin-bottom: 0px;
 }
 
+/* blue container title*/
 #app #main #content .container h1 {
 	color: #2C2C2C;
 	font-size:18px;
@@ -195,17 +191,113 @@ body {
 	margin-bottom: 5px;
 	
 }
-
+/*blue container second title*/
 #app #main #content .container h2 {
 	font-size:16px;
 	font-weight: bold;
 	line-height: 20px;
 	margin-bottom: 5px;
 }
-
+/*blue container body copy */
 #app #main #content .container p {
 	font-size: 14px;
 	font-weight: normal;
 	line-height: 16px;
 	margin-bottom: 5px;
+}
+/* form line wrapper */
+#app #main #content .container .form_line {
+	float: left;
+	height: 40px;
+	width: 100%;
+}
+/* filed label properties */
+#app #main #content .container .form_line label {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	font-weight: bold;
+	color: #666;
+	text-decoration: none;
+	display: block;
+	padding-left: 3px;
+}
+/* field properties */
+#app #main #content .container input {
+	font-size:14px;
+	font:Arial, Helvetica, sans-serif;
+	line-height:16px;
+	width: 96%;
+	height: 18px;
+}
+/* dropdown properties */
+#app #main #content .container select {
+	font-size:14px;
+	font:Arial, Helvetica, sans-serif;
+	line-height:20px;
+	width: 100%;
+	height: 24px;
+}
+
+/* Form field place holders */
+
+/* Common properties */
+#app #main #content .container .form_line .field_15, 
+#app #main #content .container .form_line .field_20, 
+#app #main #content .container .form_line .field_25, 
+#app #main #content .container .form_line .field_30, 
+#app #main #content .container .form_line .field_33, 
+#app #main #content .container .form_line .field_40, 
+#app #main #content .container .form_line .field_45, 
+#app #main #content .container .form_line .field_50, 
+#app #main #content .container .form_line .field_55, 
+#app #main #content .container .form_line .field_60, 
+#app #main #content .container .form_line .field_66, 
+#app #main #content .container .form_line .field_70, 
+#app #main #content .container .form_line .field_75, 
+#app #main #content .container .form_line .field_80, 
+#app #main #content .container .form_line .field_85 {
+	float: left;
+	height: 40px;
+	margin-right: 10px;
+	}
+/* unique properties */
+#app #main #content .container .form_line .field_15 {width: 15%;}
+#app #main #content .container .form_line .field_20 {width: 20%;} 
+#app #main #content .container .form_line .field_25 {width: 25%;}
+#app #main #content .container .form_line .field_30 {width: 30%;}
+#app #main #content .container .form_line .field_33 {width: 33%;}
+#app #main #content .container .form_line .field_40 {width: 40%;} 
+#app #main #content .container .form_line .field_45 {width: 45%;}
+#app #main #content .container .form_line .field_50 {width: 50%;}
+#app #main #content .container .form_line .field_55 {width: 55%;}
+#app #main #content .container .form_line .field_60 {width: 60%;}
+#app #main #content .container .form_line .field_66 {width: 66%;}
+#app #main #content .container .form_line .field_70 {width: 70%;}
+#app #main #content .container .form_line .field_75 {width: 75%;}
+#app #main #content .container .form_line .field_80 {width: 80%;}
+#app #main #content .container .form_line .field_85 {width: 85%;}
+
+/* remove margin from .form_field last div */
+#app #main #content .container .form_line div:last-child {
+	margin: 0px;	
+}
+/* left hand of content area */
+#app #main #content #left_content {
+	min-height: 500px;
+	float: left;
+	width: 49.5%;
+	margin-right: 0.5%;
+}
+/* right hand of content area */
+#app #main #content #right_content {
+	min-height: 500px;
+	float: left;
+	width: 49.5%;
+	margin-left: 0.5%;
+}
+/* content footer - not in use at the moment */
+#app #main #content #footer {
+	width: 100%;
+	height: 5px;
+	float:left;
 }
