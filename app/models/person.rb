@@ -38,7 +38,7 @@ class Person < ActiveRecord::Base
   has_many :employers, :through => :employments, :source => :organisation
   has_many :organisation_key_personnels
   has_many :notes, :as => :noteable
-  has_one :image, :as => :imageable
+  has_one  :image, :as => :imageable
   has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ]
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
