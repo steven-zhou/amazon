@@ -1,7 +1,7 @@
-%ul#menu
+%ul#menu{:style => "min-height:500px;"}
 
   - # Person Menu
-  %li{:id => @current_controller == "people" ? "menu_active" : ""}
+  %li{:id => @current_controller == "people" ? "menu_active" : "", :style => "min-height:30px;"}
     .top
     .item
       = link_to @current_controller == "people" ? "#{image_tag('icon_holder.png')} Person" : "Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id

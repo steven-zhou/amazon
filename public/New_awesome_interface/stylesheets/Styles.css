@@ -32,6 +32,7 @@ body {
 #app #lc #menu, #app #lc #menu li {
 	float: right;
 	margin: 5px 0px;
+        clear: both;
 }
 
 #app #lc #menu li .item {
