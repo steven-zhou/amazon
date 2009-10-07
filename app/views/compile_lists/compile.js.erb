@@ -15,7 +15,7 @@ $('#flash_message').dialog('open');
 <%- else %>
 
 $('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results", :locals => {:people => @people})) %>');
-$('#compile_results').dataTable({
+var oTable = $('#compile_results').dataTable({
         "bLengthChange":false,
         "iDisplayLength":20,
         "bAutoWidth":false,
@@ -28,6 +28,12 @@ $('#compile_results').dataTable({
               null,
             ]
     });
+
+ $(".dataTable_form").submit(function(){
+    var sData = $('input', oTable.fnGetNodes()).serialize();
+    alert("submit \n\n" + sData);
+ });
+
 
 $('#compile_result_div').dialog({
   modal: true,

@@ -32,6 +32,7 @@ body {
 #app #lc #menu, #app #lc #menu li {
 	float: right;
 	margin: 5px 0px;
+        clear: both;
 }
 
 #app #lc #menu li .item {
@@ -64,7 +65,7 @@ body {
 
 #app #lc #menu #menu_active .item {
 	background-color: #f6f6f6;
-	height: 150px;
+	min-height: 150px;
 	width: 175px;
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomleft: 10px;
@@ -72,7 +73,7 @@ body {
 	padding: 10px 5px 10px 10px ;
 	line-height: 24px;
 }
-#app #lc #menu #menu_active .item img { 
+#app #lc #menu #menu_active .item img {
 	vertical-align:text-bottom;
 	margin-right: 5px;
 }
@@ -133,7 +134,7 @@ body {
 #content {
 	background-color: #f6f6f6;
 	width:100%;
-	height: 500px;
+	min-height: 500px;
 	margin-top: 10px;
 	margin-bottom: 10px;
 	padding: 10px;
