@@ -372,12 +372,40 @@ div.field_100 {
     float:left;
 }
 
+
+
+/* Temp*/
+
+/*list of list*/
+select#compiler_options option.selected {
+    display: none;
+}
+
+div#content div#left, div#right {
+    width: 49%;
+    float: left;
+    margin-left: 1%;
+}
+
+div.container div.header_container .title {
+  float: left;
+  display:inline;
+  font-size: 12px;
+  font-weight: bold;
+  color: #FFFFFF;
+}
+
+div.container div.header_container .options {
+  float: right;
+  display:inline;
+}
+
 /*this is for lol*/
 div.field_62 {
     margin: 0px 0px 0px 0px;
 }
 
-div.field_62 a { 
+div.field_62 a {
     padding:10px 5px 0 0;
 }
 div.field_44 {
@@ -391,7 +419,7 @@ div.field_44 #select_tag {
     margin:12px 13px 0 0;
 }
 
-div#loleft{   
+div#loleft{
     float: left;
     width: 52%;
 }
@@ -432,31 +460,3 @@ img.thumb {
     height: 100px;
 
 }
-
-
-/* Temp*/
-
-/*list of list*/
-select#compiler_options option.selected {
-    display: none;
-}
-
-div#content div#left, div#right {
-    width: 49%;
-    float: left;
-    margin-left: 1%;
-}
-
-div.container div.header_container .title {
-  float: left;
-  display:inline;
-  font-size: 12px;
-  font-weight: bold;
-  color: #FFFFFF;
-}
-
-div.container div.header_container .options {
-  float: right;
-  display:inline;
-}
-
