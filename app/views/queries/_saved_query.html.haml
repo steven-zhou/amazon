@@ -1,8 +1,7 @@
-.field_50
-  .container{:class => "get_query", :query_id => saved_query.id}
-    .header_container
-      .options
-        = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query'
-        = link_to image_tag('folder.png', :alt => 'SaveAs'), copy_query_header_path(saved_query), :class => 'get_query'
-        = link_to image_tag('delete_icon.png', :alt => 'Delete'), query_header_path(saved_query), :class => 'delete'
-      = saved_query.formatted_info
+.container{:class => "get_query", :query_id => saved_query.id}
+  .header_container
+    .options
+      = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query'
+      = link_to image_tag('folder.png', :alt => 'SaveAs'), copy_query_header_path(saved_query), :class => 'get_query'
+      = link_to image_tag('delete_icon.png', :alt => 'Delete'), query_header_path(saved_query), :class => 'delete'
+    = saved_query.formatted_info

@@ -2,7 +2,7 @@
   #page_title
     %h1 Edit Person
   #lol
-    = render :partial => "lists_menu"
+    = render :partial => "/people/lists_menu"
     %br.clear
 #left_content
   - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|

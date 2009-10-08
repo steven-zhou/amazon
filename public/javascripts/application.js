@@ -1,5 +1,16 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
+$(function(){
+   $("div.container").live('mouseover', function(){
+      $("div.options").css("display", "inline");
+   });
+});
+
+$(function(){
+   $("div.container").live('mouseout', function(){
+      $("div.options").css("display", "none");
+   });
+});
 
 $(function(){
     $("#tabs").tabs();

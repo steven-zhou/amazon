@@ -2,7 +2,7 @@
   #page_title
     %h1 Person Profile
   #lol
-    = render :partial => "lists_menu_show"
+    = render :partial => "people/lists_menu"
     %br.clear
 #left_content
   %div#photo_info
@@ -13,16 +13,16 @@
         = image_tag(image_path(@person.image.id), :class => "small")
     
      
-    %div#idline
+    %div#person_name
       - if @person.id.nil?
-        %h3{:style=>'visibility:hidden'} Hidden        
+        %h1{:style=>'visibility:hidden'} Hidden
       -else   
         %h1= h "#{@person.name}"
       %br
-      .field_33
+      .form_line
         = label_tag 'custom_id', 'Custom ID'
         %span=@person.custom_id
-      .field_60
+      .form_line
         = label_tag 'onrecord_since', 'On Record Since'
         %span=@person.onrecord_since.to_s
       %br
@@ -129,7 +129,7 @@
   .container#business_info
     .container
       %h2 Membership
-      %span Member Since: 2004
+      %span Member Since: 200411111
       %br
       %span Number of Dependents: 2
       %br

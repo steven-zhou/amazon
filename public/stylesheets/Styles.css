@@ -182,6 +182,9 @@ body {
     margin-bottom: 0px;
 }
 
+#app #main #content .container.single_container {
+    margin-bottom:10px !important;
+}
 
 /* blue container title*/
 #app #main #content .container h1 {
@@ -230,6 +233,11 @@ body {
     width: 96%;
     height: 18px; 
 
+}
+
+#app #main #content .container input[type=button] {
+    width:auto;
+    height:auto;
 }
 /* dropdown properties */
 #app #main #content .container select {
@@ -304,15 +312,24 @@ body {
     float:left;
 }
 
-/*list of list*/
+/*list header*/
 select#compiler_options option.selected {
     display: none;
 }
 
-div#content div#left, div#right {
+div#content div#left{
     width: 49%;
     float: left;
-    margin-left: 1%;
+}
+
+div#content div#right {
+    width: 49%;
+    float: left;
+    margin-left: 2%;
+}
+
+div.container div.header_container {
+  display: inline;
 }
 
 div.container div.header_container .title {
@@ -324,47 +341,137 @@ div.container div.header_container .title {
 }
 
 div.container div.header_container .options {
-    float: right;
-    display:inline;
+
+  float: right;
+  display:inline;
+  display:none;
 }
+
+div#show_lists div.container {
+    width:45% !important;
+    margin-right: 1%;
+}
+
+/* query header */
+div#show_queries div.container {
+    width:45% !important;
+    margin-right: 1%;
+}
+
+div#new_query select.field_select {
+    height:auto !important;
+}
+
+div#new_query .form_line.field_select_line {
+    height:auto !important;
+}
+
+div#new_query div.description_label {
+    margin:50px 0 25px 0;
+    height:40px;
+}
+
+div#new_query input[type=submit] {
+    width:160px !important;
+    height:24px !important;
+    float:right;
+}
+
+div#edit_query select.field_select {
+    height:auto !important;
+}
+
+div#edit_query .form_line.field_select_line {
+    height:auto !important;
+}
+
+div#edit_query div.description_label {
+    margin:50px 0 25px 0;
+    height:40px;
+}
+
+div#edit_query input[type=submit] {
+    width:160px !important;
+    height:24px !important;
+    float:right;
+}
+
+div.highlight {
+    background-color : red;
+}
+
 
 /*this is for lol*/
 div.field_62 {
     margin: 0px 0px 0px 0px;
+    float: right;
+    display:inline;
 }
 
-div.field_62 a {
-    padding:10px 5px 0 0;
+/*Person--LIST header*/
+#app #main #content #header #lol .lolfont_center{
+
+   text-align:center;
+  font-size:13px;
 }
-div.field_44 {
+
+#app #main #content #header #lol .lolfont_left{
+
+   text-align:left;
+  font-size:13px;
+}
+
+#app #main #content #header #lol #lol_select {
     margin: 0 0 0 0;
     float: left;
 }
-div.field_44 #select_tag {
+#app #main #content #header #lol #lol_select #select_tag {
     display:block;
-    width:200px;
+    width:300px;
     float:left;
     margin:12px 13px 0 0;
 }
 
-div#loleft{
+#app #main #content #header #lol #loleft{
     float: left;
-    width: 52%;
+    width: 54%;
 }
 
-div#loright{
+#app #main #content #header #lol #loright{
     float: right;
     width: 35%;
 }
 
-/*this is for person show*/
-#imageshow{
-    margin:10px 10px 0px 5px;
+#app #main #content #header #lol #loleft .arrow_block{
+    float: left;
+    margin:0 8px 0 0;
 }
 
-#idline{
-    margin:5px 120px 0 0
+#app #main #content #header #lol #loleft .arrow_block a {
+    float: left;
+    padding:1px 5px 4px 2px;
+}
 
+/*Person--show*/
+
+
+#app #main #content #photo_info{
+
+    margin:0px 0px 20px 0;
+    height: 120px;
+}
+
+#app #main #content #left_content #photo_info #imageshow{
+    margin:10px 10px 0px 5px;
+}
+#app #main #content #left_content #photo_info #person_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
 }
 
 img.small {
@@ -381,6 +488,7 @@ img.thumb {
     height: 61px;
     float: left;
 }
+
 
 #photo_info{
 

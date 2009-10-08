@@ -1,15 +1,16 @@
--form_for @query_header, :html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
-  .form_line
-    .field_25
-      = f.label :name, 'Name'
-      = f.text_field :name, :disabled => @query_header.status == false
-    .field_50
-      = f.label :description, 'Description'
-      = f.text_field :description, :disabled => @query_header.status == false
-    .field_25
-      = f.label :status, 'Status'
-      = f.radio_button :status, "true", :style => "width:40%;display:inline;"
-      = f.label :status, 'Active', :style => "width:40%;display:inline;"
-      = f.radio_button :status, "false", :style => "width:40%;display:inline;"
-      = f.label :status, 'Inactive', :style => "width:40%;display:inline;"
-    %br.clear
+.container.single_container
+  -form_for @query_header, :html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
+    .form_line
+      .field_25
+        = f.label :name, 'Name'
+        = f.text_field :name, :disabled => @query_header.status == false
+      .field_30
+        = f.label :description, 'Description'
+        = f.text_field :description, :disabled => @query_header.status == false
+      .field_25
+        = f.label :status, 'Status'
+        = f.radio_button :status, "true", :style => "width:40%;display:inline;"
+        = f.label :status, 'Active', :style => "width:40%;display:inline;"
+        = f.radio_button :status, "false", :style => "width:40%;display:inline;"
+        = f.label :status, 'Inactive', :style => "width:40%;display:inline;"
+      %br.clear
