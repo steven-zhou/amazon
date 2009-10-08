@@ -4,10 +4,10 @@
   #list_compiler_form
     #list_left{:style => "width:32%;margin-right:2%;float:left;"}
       .container
-        .form_line
+        .form_line.field_select_line
           %label Lists
           %input{:style => "display:none", :id => "login_account_id", :value => session[:user]}
-          %select#compiler_options{:multiple => true,:size => "20"}
+          %select#compiler_options.field_select{:multiple => true,:size => "20"}
             - @list_headers.each do |i|
               %option{:value => "#{i.id}", :id => "list_header_#{i.id}"} #{i.name}
           %br.clear
