@@ -1,1 +1,2 @@
 $('#left_content').replaceWith('<%= escape_javascript(render(:partial => "/people/show_left",:locals => { :person => @person, :people => @p })) %>');
+$('#lol').html('<%= escape_javascript(render(:partial => "/people/list_menu",:locals => { :person => @person, :people => @p })) %>');

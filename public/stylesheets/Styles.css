@@ -231,7 +231,7 @@ body {
     font:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
-    height: 18px; 
+    height: 18px;
 
 }
 
@@ -335,7 +335,7 @@ div#content div#right {
 }
 
 div.container div.header_container {
-  display: inline;
+    display: inline;
 }
 
 div.container div.header_container .title {
@@ -348,9 +348,9 @@ div.container div.header_container .title {
 
 div.container div.header_container .options {
 
-  float: right;
-  display:inline;
-  display:none;
+    float: right;
+    display:inline;
+    display:none;
 }
 
 div#show_lists div.container {
@@ -415,45 +415,47 @@ div.field_62 {
 }
 
 /*Person--LIST header*/
-#app #main #content #header #lol .lolfont_center{
+#app #main #content #header .lolfont_center{
 
-   text-align:center;
-  font-size:13px;
+    text-align:center;
+    font-size:13px;
 }
 
-#app #main #content #header #lol .lolfont_left{
+#app #main #content #header  .lolfont_left{
 
-   text-align:left;
-  font-size:13px;
+    text-align:left;
+    font-size:13px;
 }
 
-#app #main #content #header #lol #lol_select {
-    margin: 0 0 0 0;
+#app #main #content #header  #lol_select {
+    margin: 0 3px 0 0;
     float: left;
 }
-#app #main #content #header #lol #lol_select #select_tag {
+#app #main #content #header  #lol_select #select_tag {
     display:block;
     width:300px;
     float:left;
     margin:12px 13px 0 0;
 }
 
-#app #main #content #header #lol #loleft{
+#app #main #content #header #loleft{
     float: left;
-    width: 54%;
+
 }
 
-#app #main #content #header #lol #loright{
-    float: right;
-    width: 35%;
+#app #main #content #header #loright{
+    float: left;
+    width:260px;
+
 }
 
-#app #main #content #header #lol #loleft .arrow_block{
+#app #main #content #header #loleft .arrow_block{
     float: left;
     margin:0 8px 0 0;
+
 }
 
-#app #main #content #header #lol #loleft .arrow_block a {
+#app #main #content #header #loleft .arrow_block a {
     float: left;
     padding:1px 5px 4px 2px;
 }
@@ -497,17 +499,34 @@ img.thumb {
 
 
 #photo_info{
-
     margin:0px 0px 10px 0;
     height: 100px;
+}
+
+#app #main #content div#right_content .container_icon { /*For find people page*/
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    
+    background-repeat:repeat;
+    color: #232323;
+    float: right;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
 
 }
 
+.container_icon_color{
+
+    background-image:url(../images/container_bg.png);
+}
 /*Temp*/
 
 p.submit{ /*This is for the submit button*/
-          text-align: right;
-          padding-right:3px;
+    text-align: right;
+    padding-right:3px;
 }
 
 .right {
@@ -541,22 +560,29 @@ form#person_names_form.edit_person input#image_image_file{
 }
 
 a.alt_option{
-  color:#000000;
-  font-size:11px;
-  line-height:16px;
-  padding:1px;
-  margin:2px 10px 0px 0px;
+    color:#000000;
+    font-size:11px;
+    line-height:16px;
+    padding:1px;
+    margin:2px 10px 0px 0px;
 }
 
 p.submit{
-  text-align: right;
-  padding-right:3px;
+    text-align: right;
+    padding-right:3px;
 }
 
 #app #main #content div#accordion02 .container { /*For find people page*/
-     float:none !important;
-     margin-bottom:10px !important;
+    float:none !important;
+    margin-bottom:10px !important;
 }
 
+
+
+#app #main #content #header #lol #loright #show_list_icon{
+    float:left !important;
+    margin-top:5px;
+    margin-left:5px;
+}
 
 /*Temp*/
