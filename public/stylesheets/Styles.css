@@ -332,11 +332,11 @@ div.container div.header_container {
 }
 
 div.container div.header_container .title {
-  float: left;
-  display:inline;
-  font-size: 12px;
-  font-weight: bold;
-  color: #FFFFFF;
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFFFFF;
 }
 
 div.container div.header_container .options {
@@ -402,40 +402,74 @@ div.highlight {
 /*this is for lol*/
 div.field_62 {
     margin: 0px 0px 0px 0px;
+    float: right;
+    display:inline;
 }
 
-div.field_62 a {
-    padding:10px 5px 0 0;
+/*Person--LIST header*/
+#app #main #content #header #lol .lolfont_center{
+
+   text-align:center;
+  font-size:13px;
 }
-div.field_44 {
+
+#app #main #content #header #lol .lolfont_left{
+
+   text-align:left;
+  font-size:13px;
+}
+
+#app #main #content #header #lol #lol_select {
     margin: 0 0 0 0;
     float: left;
 }
-div.field_44 #select_tag {
+#app #main #content #header #lol #lol_select #select_tag {
     display:block;
-    width:200px;
+    width:300px;
     float:left;
     margin:12px 13px 0 0;
 }
 
-div#loleft{
+#app #main #content #header #lol #loleft{
     float: left;
-    width: 52%;
+    width: 54%;
 }
 
-div#loright{
+#app #main #content #header #lol #loright{
     float: right;
     width: 35%;
 }
 
-/*this is for person show*/
-#imageshow{
-    margin:10px 10px 0px 5px;
+#app #main #content #header #lol #loleft .arrow_block{
+    float: left;
+    margin:0 8px 0 0;
 }
 
-#idline{
-    margin:5px 120px 0 0
+#app #main #content #header #lol #loleft .arrow_block a {
+    float: left;
+    padding:1px 5px 4px 2px;
+}
 
+/*Person--show*/
+
+
+#app #main #content #photo_info{
+
+    margin:0px 0px 20px 0;
+    height: 120px;
+}
+
+#app #main #content #left_content #photo_info #imageshow{
+    margin:10px 10px 0px 5px;
+}
+#app #main #content #left_content #photo_info #person_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
 }
 
 img.small {
@@ -451,11 +485,4 @@ img.thumb {
     width:61px;
     height: 61px;
     float: left;
-}
-
-#photo_info{
-
-    margin:0px 0px 10px 0;
-    height: 100px;
-
 }
