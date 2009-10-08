@@ -415,45 +415,47 @@ div.field_62 {
 }
 
 /*Person--LIST header*/
-#app #main #content #header #lol .lolfont_center{
+#app #main #content #header .lolfont_center{
 
    text-align:center;
   font-size:13px;
 }
 
-#app #main #content #header #lol .lolfont_left{
+#app #main #content #header  .lolfont_left{
 
    text-align:left;
   font-size:13px;
 }
 
-#app #main #content #header #lol #lol_select {
-    margin: 0 0 0 0;
+#app #main #content #header  #lol_select {
+    margin: 0 3px 0 0;
     float: left;
 }
-#app #main #content #header #lol #lol_select #select_tag {
+#app #main #content #header  #lol_select #select_tag {
     display:block;
     width:300px;
     float:left;
     margin:12px 13px 0 0;
 }
 
-#app #main #content #header #lol #loleft{
+#app #main #content #header #loleft{
     float: left;
    
 }
 
-#app #main #content #header #lol #loright{
-    float: right;
+#app #main #content #header #loright{
+    float: left;
+    width:260px;
     
 }
 
-#app #main #content #header #lol #loleft .arrow_block{
+#app #main #content #header #loleft .arrow_block{
     float: left;
     margin:0 8px 0 0;
+    
 }
 
-#app #main #content #header #lol #loleft .arrow_block a {
+#app #main #content #header #loleft .arrow_block a {
     float: left;
     padding:1px 5px 4px 2px;
 }
@@ -558,5 +560,12 @@ p.submit{
      margin-bottom:10px !important;
 }
 
+
+
+#app #main #content #header #lol #loright #show_list_icon{
+  float:left !important;
+  margin-top:5px;
+margin-left:5px;
+}
 
 /*Temp*/

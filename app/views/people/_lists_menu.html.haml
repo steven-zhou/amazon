@@ -26,5 +26,7 @@
         %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
           - @list_headers.each do |r|
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-    
+
   %br.clear
+
+
