@@ -300,7 +300,7 @@ body {
 
 #app #main #content #left_content {
     min-height: 500px;
-    background-color:#FFF;
+    background-color:#F6F6F6;
     float: left;
     width: 49.5%;
     margin-right: 0.5%;
@@ -350,7 +350,6 @@ div.container div.header_container .options {
 
     float: right;
     display:inline;
-    display:none;
 }
 
 div#show_lists div.container {
@@ -463,10 +462,16 @@ div.field_62 {
 /*Person--show*/
 
 
-#app #main #content #photo_info{
+#app #main #content #left_content #photo_info{
 
     margin:0px 0px 20px 0;
     height: 120px;
+}
+
+#app #main #content #right_content #photo_info{
+
+    margin:0px 0px 20px 0;
+    height: 70px;
 }
 
 #app #main #content #left_content #photo_info #imageshow{

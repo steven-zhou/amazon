@@ -1,6 +1,6 @@
 -# The options to edit or add an address
 .form_line
-  .field_20
+  .field_25
     = address.label :address_type_id, 'Type'
     = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name
   .field_40

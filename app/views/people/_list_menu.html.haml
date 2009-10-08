@@ -1,4 +1,4 @@
-- form_tag('/people/show', :id => "person_list") do
+- form_tag(@current_controller == "people" && @current_action == "show" ? '/people/show' : '/people/edit', :id => "person_list") do
   %div#loleft
     .lolfont_center
       = label_tag 'person_id', 'System ID', :style => 'clear:both'
@@ -27,8 +27,8 @@
           - @list_headers.each do |r|
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
     #show_list_icon
-      - if !(@person.nil? || @person.new_record?)
+      - if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
         =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id
       - else
-        = link_to 'Show List', :controller => "people", :action => "show_list", :show_list => "show_list", :class => "show_list"
+        =link_to_function 'Show List', :id => "edit_all_list_member", :person_id => @person.id
   %br.clear

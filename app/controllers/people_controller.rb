@@ -414,7 +414,7 @@ class PeopleController < ApplicationController
   end
 
   def edit_show_list
-    @person = Person.find(params[:id])
+    @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
 
     #     @postcodes = DomesticPostcode.find(:all)
     @group_types = LoginAccount.find(session[:user]).group_types
@@ -560,6 +560,72 @@ class PeopleController < ApplicationController
 
   end
 
+
+  def show_edit_left
+
+
+    @group_types = LoginAccount.find(session[:user]).group_types
+    @list_headers = Array.new
+    c = Array.new
+    @group_types.each do |group_type|
+      a = group_type.list_headers
+      c += a
+      @list_headers = c.uniq
+
+    end
+
+    #when it is cal show action
+    if request.get?
+      if @list_headers.blank?
+        @list_header = ListHeader.new
+        @person = Person.new
+        @p = Array.new
+      else
+        if params[:id].nil? || params[:id] == "show" #when just jumping or change list
+          @list_header = @list_headers.first
+          session[:current_list_id] = @list_header.id
+          @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
+          session[:current_person_id] = @person.id
+          @person = Person.new if @person.nil?
+          @p = Array.new
+          @p = @list_header.people_on_list
+        else  #when there is id come---click the narrow button
+          unless session[:current_list_id].blank?
+            @list_header = ListHeader.find(session[:current_list_id])
+            @p = Array.new
+            @p = @list_header.people_on_list
+            @person = Person.find_by_id(params[:id].to_i)
+            session[:current_person_id] = @person.id
+            #else
+          end
+        end
+      end
+    end
+
+    @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
+    @primary_phone = @person.primary_phone
+    @primary_email = @person.primary_email
+    @primary_fax = @person.primary_fax
+    @primary_website = @person.primary_website
+    @primary_address = @person.primary_address
+    @primary_employment = @person.primary_employment
+    @other_phones = @person.other_phones
+    @other_emails = @person.other_emails
+    @other_faxes = @person.other_faxes
+    @other_websites = @person.other_websites
+    @other_addresses = @person.other_addresses
+    @notes = @person.notes
+    @person_role = @person.person_roles
+    session[:select_list_person] = params[:person_id]
+
+    respond_to do |format|
+
+      format.js
+
+    end
+
+
+  end
 
 
 
