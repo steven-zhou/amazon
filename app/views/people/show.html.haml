@@ -116,9 +116,10 @@
 #right_content
   #photo_info
   .container_icon{:align => 'center'}
-    = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
-  .container_icon{:align => 'center'}
     = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info"
+  .container_icon{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
+  
      
 
  
