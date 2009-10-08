@@ -7,7 +7,7 @@
         .arrow_block
           = link_to((image_tag 'back.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.at(0)) : edit_person_path(@p.at(0)))
           = link_to((image_tag 'back.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.at((@p.index(@person))-1)) : edit_person_path(@p.at((@p.index(@person))-1)))
-        = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag', :class=> 'arrow_block'}
+        = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px"}
         .arrow_block
           -if @p.index(@person) != @p.index(@p.last)
             = link_to((image_tag 'go.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p[@p.index(@person)+1]) : edit_person_path(@p[@p.index(@person)+1]))
@@ -26,5 +26,9 @@
         %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
           - @list_headers.each do |r|
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-
+    #show_list_icon
+      - if !(@person.nil? || @person.new_record?)
+        =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id
+      - else
+        = link_to 'Show List', :controller => "people", :action => "show_list", :show_list => "show_list", :class => "show_list"
   %br.clear
