@@ -9,7 +9,6 @@
         #new_criteria
           #new_query_form
             = render :partial => "queries/new_query_criteria_form"
-          %br.clear
 
       .container
         #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
@@ -46,12 +45,9 @@
             %br.clear
 
     #right
-      #new_query_list
-        = render :partial => "queries/query_criteria_list"
-      #new_selection_list
-        = render :partial => "queries/query_selection_list"
-      #new_sorter_list
-        = render :partial => "queries/query_sorter_list"
+      = render :partial => "queries/query_criteria_list"
+      = render :partial => "queries/query_selection_list"
+      = render :partial => "queries/query_sorter_list"
     %br.clear
     
     = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "new"

@@ -1,16 +1,16 @@
 -form_for @query_criteria, :html => {:class => 'ajax_form'} do |f|
-  .field_50
+  #left
     .form_line
       = f.label :table_name, 'Select Table'
       = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select", :update_field => "criteria"}
       %br.clear
-    .form_line
+    .form_line.field_select_line
       = f.label :field_name, 'Select Field'
-      %select#fields_criteria{:name => "query_criteria[field_name]", :size => "12"}
+      %select#fields_criteria.field_select{:name => "query_criteria[field_name]", :size => "12"}
       %br.clear
 
-  .field_50
-    #attribute_description_criteria{:style => "margin:82px 0 30px 0;"}
+  #right
+    #attribute_description_criteria.description_label
       %label &nbsp;
 
     .form_line
