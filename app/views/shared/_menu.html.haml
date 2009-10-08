@@ -35,7 +35,7 @@
           %li{:id => @current_action == "show" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "organisations", :action => "show", :id => @organisation.id
           %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Add", :controller => "organisations", :action => "new"
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "organisations", :action => "new"
           %li{:id => @current_action == "edit" ? "selected" : ""}
             - if !(@organisation.nil? || @organisation.new_record?)
               = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "organisations", :action => "edit", :id => @organisation.id
