@@ -1,5 +1,11 @@
 class ListHeadersController < ApplicationController
 
+  def new
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def create
     if(params[:compile]) #Compile List
       if(params[:person_id])
@@ -171,38 +177,6 @@ class ListHeadersController < ApplicationController
       format.js
     end
   end
-
-#  def index
-#    @list_headers = ListHeader.all
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
-
-#  def add_merge
-#    @list_header = ListHeader.find(params[:id].to_i)
-#    @merging_list = Array.new
-#    @merging_list = params[:merge_list_array]
-#    if (@merging_list.include?(@list_header.id))
-#      @list_header = ListHeader.new
-#    else
-#      @merging_list << @list_header.id
-#    end
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
-#
-#  def add_exclude
-#    @list_header = ListHeader.find(params[:id].to_i)
-#    @excluding_list = Array.new
-#    @excluding_list = params[:exclude_list_array]
-#    if (@excluding_list.include?(@list_header.id))
-#      @list_header = ListHeader.new
-#    else
-#      @excluding_list << @list_header.id
-#    end
-#  end
 
   def manage_list
     respond_to do |format|
