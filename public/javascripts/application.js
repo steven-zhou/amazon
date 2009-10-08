@@ -1867,6 +1867,20 @@ $(function(){
 
 
 $(function(){
+    $("#edit_all_list_member").live('click',function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/edit_show_list.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+
+        });
+    });
+});
+
+
+
+$(function(){
     $("#show_list_select").live('click',function(){
         window.open("/people/"+ $('#system_id_tag').val(), "_self");
     });
