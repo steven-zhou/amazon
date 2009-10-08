@@ -49,7 +49,6 @@ class ListHeadersController < ApplicationController
       if(params[:source_id]) #copy
         @list_header_old = ListHeader.find(params[:source_id].to_i)
         @list_header = @list_header_old.class.new(params[:list_header])
-        @list_header.query_header_id = @list_header_old.query_header_id
         @list_header.allow_duplication = @list_header_old.allow_duplication
         @list_header.list_size = 0
         @list_header.source_type = "L" #copy from list
@@ -80,11 +79,10 @@ class ListHeadersController < ApplicationController
 
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
           @list_header = ListHeader.new(params[:list_header])
-          @list_header.query_header_id = @query_header.id
           @list_header.last_date_generated = Date.today()
           @list_header.list_size = 0
           @list_header.source_type = "Q" #generate from query
-          @list_header.source = "Generate by Query - #{@query_header.name}"
+          @list_header.source = "Generate by Query - #{@query_header.group == "save" ? @query_header.name : 'Temp Query'}"
           @list_header.status = true
 
           ListHeader.transaction do

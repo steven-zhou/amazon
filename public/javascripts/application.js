@@ -1,18 +1,6 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
 $(function(){
-   $("div.container").live('mouseover', function(){
-      $("div.options").css("display", "inline");
-   });
-});
-
-$(function(){
-   $("div.container").live('mouseout', function(){
-      $("div.options").css("display", "none");
-   });
-});
-
-$(function(){
     $("#tabs").tabs();
 });
 
@@ -74,72 +62,63 @@ $(function() {
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
-jQuery.fn.submitWithAjax = function($callback) {  
-    this.live('submit', function() {
-        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
-        return false;
-    });
-    return this;
-};
+//jQuery.fn.submitWithAjax = function($callback) {
+//    this.live('submit', function() {
+//        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
+//        return false;
+//    });
+//    return this;
+//};
 
 jQuery.fn.doAjaxSubmit = function($callback) {
     $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
     return false;
-}
+};
 
-$(document).ready(function() {
-    $(".ajax_form").submitWithAjax();
+//$(document).ready(function() {
+//    $(".ajax_form").submitWithAjax();
+//});
 
-    // AJAX search form *Not Used*
-    /*
-    $(".ajax_search_form").submitWithAjax( function(){
-      $('#search_results').dataTable({ 
-        "bLengthChange":false, 
-        "iDisplayLength":20,
-        "bAutoWidth":false,
-        "aoColumns":[{'sWidth':"20%"},{'sWidth':"30%"},{'sWidth':"50%"}]
-      })
-    });*/
-    
-    $('#search_results').dataTable({
-        "bLengthChange":false,
-        "iDisplayLength":20,
-        "bAutoWidth":false,
-        "sDom":'lfrtpi',
-        "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
-    });
-});
+//$(function(){
+//    $('#search_results').dataTable({
+//        "bLengthChange":false,
+//        "iDisplayLength":20,
+//        "bAutoWidth":false,
+//        "sDom":'lfrtpi',
+//        "aoColumns":[{
+//            'sWidth':"12%"
+//        },{
+//            'sWidth':"15%"
+//        },{
+//            'sWidth':"30%"
+//        },{
+//            "sWdith":"15%"
+//        },{
+//            'sWidth':"25%"
+//        }]
+//    });
+//});
 
 /* Show List Summary*/
-$(document).ready(function() {
-    $('#search_list_results').dataTable({
-        "bLengthChange":false,
-        "iDisplayLength":10,
-        "bAutoWidth":true,
-        "sDom":'lfrtpi',
-        "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
-    });
-});
+//$(document).ready(function() {
+//    $('#search_list_results').dataTable({
+//        "bLengthChange":false,
+//        "iDisplayLength":10,
+//        "bAutoWidth":true,
+//        "sDom":'lfrtpi',
+//        "aoColumns":[{
+//            'sWidth':"12%"
+//        },{
+//            'sWidth':"15%"
+//        },{
+//            'sWidth':"30%"
+//        },{
+//            "sWdith":"15%"
+//        },{
+//            'sWidth':"25%"
+//        }]
+//    });
+//});
 
 
 /*Date picker */
@@ -458,25 +437,6 @@ $(function(){
 }
 )
 
-/* FLASH */
-$.fn.wait = function(time, type) {
-    time = time || 1000;
-    type = type || "fx";
-    return this.queue(type, function() {
-        var self = this;
-        setTimeout(function() {
-            $(self).dequeue();
-        }, time);
-    });
-};
-
-
-$(function(){
-    $('#flash').wait(5000).slideUp();
-    $('#flash').click(function(){
-        $('#flash').hide();
-    });
-});
 
 /* MasterDoc */
 $(function(){
