@@ -1,0 +1,29 @@
+- form_tag('/people/edit', :id => "person_list_edit")do
+  %div#loleft
+    .field_62{:style => 'text-align:center;font-size:13px;'}
+      = label_tag 'person_id', 'System ID', :style => 'clear:both'
+      
+    .field_62{:style => 'float:left;'}
+      -unless @list_header.new_record? && @person.new_record?
+        = link_to((image_tag 'back.png'), edit_person_path(@p.at(0)))
+        = link_to((image_tag 'back.png'), edit_person_path(@p.at((@p.index(@person))-1)))
+      
+        = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag'}
+        -if @p.index(@person) != @p.index(@p.last)
+          = link_to((image_tag 'go.png'), edit_person_path(@p[@p.index(@person)+1]))
+        -else
+          = link_to((image_tag 'go.png'), edit_person_path(@p.first))
+        = link_to((image_tag 'go.png'), edit_person_path(@p.fetch(-1)))
+  %div#loright
+    .field_62{:style => 'text-align:left;font-size:13px;'}
+      = label_tag 'person_id', 'System ID', :style => 'clear:both'
+    .field_44{:style => 'float:left;'}
+      -if @list_header.new_record? && @person.new_record?
+        %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+        - @list_headers.each do |r|
+          %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+      -else
+        %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id"}
+          - @list_headers.each do |r|
+            %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+  %br.clear

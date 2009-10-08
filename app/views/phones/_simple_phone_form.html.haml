@@ -3,16 +3,16 @@
     %h2 Phone
   %br.clear
 .form_line
-  .field_17
+  .field_15
     = phone.label :contact_meta_type_id, 'Type'
     = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name
-  .field_12
+  .field_15
     = phone.label :pre_value, "Prefix"
     = phone.text_field :pre_value
-  .field_33
+  .field_45
     = phone.label :value, "Number"
     = phone.text_field :value
-  .field_12
+  .field_15
     = phone.label :post_value, "Suffix"
     = phone.text_field :post_value
   %br.clear

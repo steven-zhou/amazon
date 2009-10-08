@@ -14,26 +14,26 @@
   .field_30
     = address.label :street_number, 'Street Number'
     = address.text_field :street_number
-  .field_50
+  .field_40
     = address.label :street_name, 'Street Name'
     = address.text_field :street_name
   %br.clear
-.form_line
-  .field_50
+.form_line{:style =>'min-height:55px;'}
+  .field_45
     = address.label :town, 'Suburb/Town'
     = address.text_field :town
     = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
-.form_line
-  .field_50
+  .field_45
     = address.label :state, 'State/Province'
     = address.text_field :state
     = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
   %br.clear
-  .field_50
+.form_line{:style =>'min-height:55px;'}
+  .field_45
     = address.label :postal_code, 'Postal Code'
     = address.text_field :postal_code
     = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
-  .field_50
+  .field_45
     = address.label :country, 'Country'
     = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
   %br.clear

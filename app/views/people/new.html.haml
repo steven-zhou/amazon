@@ -5,9 +5,8 @@
     #lol
   #left_content
     .container
-      %h1 Custom ID
-      .field_20
-        = p.text_field :custom_id
+      = p.text_field :custom_id
+      %h1 Custom ID     
     .container.add_name
       %h1 Name Details
       .form_line
@@ -17,7 +16,7 @@
         .field_40
           = p.label :first_name, "First Names"
           = p.text_field :first_name
-        .field_40
+        .field_33
           = p.label :family_name, "Family Name"
           = p.text_field :family_name
         %br.clear
@@ -28,7 +27,7 @@
         .field_40
           = p.label :middle_name, 'Middle Names'
           = p.text_field :middle_name
-        .field_40 
+        .field_33
           = p.label :maiden_name, 'Maiden Name'
           = p.text_field :maiden_name
         %br.clear
@@ -39,17 +38,17 @@
         .field_40
           = p.label :post_title, 'Post Name'
           = p.text_field :post_title
-        .field_40
+        .field_33
           = p.label :preferred_name, 'Preferred Name'
           = p.text_field :preferred_name
         %br.clear
       .container
         %h2 Salutations
         .form_line
-          .field_50
+          .field_45
             = p.label :primary_salutation, "Primary"
             = p.text_field :primary_salutation
-          .field_50
+          .field_45
             = p.label :second_salutation, "Second"
             = p.text_field :second_salutation
         %br.clear
@@ -63,7 +62,7 @@
       %br
       .form_line
         = label :image, :id, "Picture"
-        = file_field :image, :image_file, {:size => "50"}
+        = file_field :image, :image_file
 
   #right_content
     .container.address_form
@@ -83,7 +82,8 @@
           = render :partial => 'websites/simple_website_form', :locals => {:website=> website}
     
     %p.submit
+      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       = submit_tag "Submit and Edit", :name => 'edit'
       = submit_tag "Submit"
-      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+      
 %br.clear

@@ -97,16 +97,16 @@ class OrganisationsController < ApplicationController
           @organisation.image.destroy unless @organisation.image.nil?
           @organisation.image = @image
         else
-          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
+          flash.now[:warning] = "The image was not saved. Please check that file was a valid image file."
         end
       end
     end
 
     @organisation.update_attributes(params[:organisation])
-    flash[:warning] = "There was an error updating the person's details." unless @organisation.save
+    flash.now[:warning] = "There was an error updating the person's details." unless @organisation.save
 
 
-    flash[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
+    flash.now[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
     if(params[:edit])
       redirect_to edit_organisation_path(@organisation)
     else
