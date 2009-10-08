@@ -440,12 +440,12 @@ div.field_62 {
 
 #app #main #content #header #lol #loleft{
     float: left;
-    width: 54%;
+   
 }
 
 #app #main #content #header #lol #loright{
     float: right;
-    width: 35%;
+    
 }
 
 #app #main #content #header #lol #loleft .arrow_block{
