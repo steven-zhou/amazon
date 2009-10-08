@@ -1,4 +1,4 @@
-- form_tag('/people/show', :id => "person_list") do
+- form_tag(@current_controller == "people" && @current_action == "show" ? '/people/show' : '/people/edit', :id => "person_list") do
   %div#loleft
     .lolfont_center
       = label_tag 'person_id', 'System ID', :style => 'clear:both'
