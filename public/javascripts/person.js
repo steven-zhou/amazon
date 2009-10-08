@@ -39,8 +39,9 @@ $(function() {
 	  $(".show_hide_button").click(function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
-      
-
+         $(".container_icon").removeClass("container_icon_color");
+          $(this).parent().addClass("container_icon_color");
+          
     });
     /*
 	  Replaces text of the toggle link, with the alt_text,
