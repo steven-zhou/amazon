@@ -231,12 +231,19 @@ body {
     font:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
-    height: 18px;
+    height: 18px; 
+
 }
 
 #app #main #content .container input[type=button] {
     width:auto;
     height:auto;
+}
+
+#app #main #content .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
 }
 /* dropdown properties */
 #app #main #content .container select {
@@ -340,6 +347,7 @@ div.container div.header_container .title {
 }
 
 div.container div.header_container .options {
+
   float: right;
   display:inline;
   display:none;
@@ -486,3 +494,69 @@ img.thumb {
     height: 61px;
     float: left;
 }
+
+
+#photo_info{
+
+    margin:0px 0px 10px 0;
+    height: 100px;
+
+}
+
+/*Temp*/
+
+p.submit{ /*This is for the submit button*/
+          text-align: right;
+          padding-right:3px;
+}
+
+.right {
+    float:right;
+}
+form#person_names_form.edit_person input#person_custom_id{
+    float:right;
+    width: 200px !important;
+
+}
+
+form#add_person.new_person input#person_custom_id{
+    float:right;
+    width: 200px !important;
+
+}
+
+form#add_person.new_person input#image_image_file{
+
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+form#person_names_form.edit_person input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+a.alt_option{
+  color:#000000;
+  font-size:11px;
+  line-height:16px;
+  padding:1px;
+  margin:2px 10px 0px 0px;
+}
+
+p.submit{
+  text-align: right;
+  padding-right:3px;
+}
+
+#app #main #content div#accordion02 .container { /*For find people page*/
+     float:none !important;
+     margin-bottom:10px !important;
+}
+
+
+/*Temp*/

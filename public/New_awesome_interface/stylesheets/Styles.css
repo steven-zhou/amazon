@@ -227,7 +227,7 @@ body {
     font:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
-    height: 18px;
+   height: 18px;
 }
 /* dropdown properties */
 #app #main #content .container select {

@@ -1,14 +1,23 @@
 - form_for @person, :html => {:multipart => true, :id => "add_person"} do |p|
-  #header
-    #page_title
-      %h1 Add Person
-    #lol
-  #left_content
-    .container
-      = p.text_field :custom_id
-      %h1 Custom ID     
-    .container.add_name
-      %h1 Name Details
+  #left
+    .header
+      .title
+        = render :partial => "menu", :locals => { :person => @person }
+      .options
+      %br.clear
+    %fieldset.add_name
+      %h3 Name Details
+      .form_line
+        .field_20
+          = p.label :id, 'System ID'
+          = p.text_field :id, :disabled => true
+        .field_20
+          = p.label :custom_id, 'Custom ID'
+          = p.text_field :custom_id
+        .field_25
+          = p.label :onrecord_since, 'On Record Since'
+          = p.text_field :onrecord_since, :disabled => true
+        %br.clear
       .form_line
         .field_20
           = p.label :title_id, 'Title'
@@ -16,7 +25,7 @@
         .field_40
           = p.label :first_name, "First Names"
           = p.text_field :first_name
-        .field_33
+        .field_40
           = p.label :family_name, "Family Name"
           = p.text_field :family_name
         %br.clear
@@ -27,7 +36,7 @@
         .field_40
           = p.label :middle_name, 'Middle Names'
           = p.text_field :middle_name
-        .field_33
+        .field_40 
           = p.label :maiden_name, 'Maiden Name'
           = p.text_field :maiden_name
         %br.clear
@@ -38,52 +47,52 @@
         .field_40
           = p.label :post_title, 'Post Name'
           = p.text_field :post_title
-        .field_33
+        .field_40
           = p.label :preferred_name, 'Preferred Name'
           = p.text_field :preferred_name
         %br.clear
-      .container
-        %h2 Salutations
+      %fieldset
+        %h3 Salutations
         .form_line
-          .field_45
+          .field_50
             = p.label :primary_salutation, "Primary"
             = p.text_field :primary_salutation
-          .field_45
+          .field_50
             = p.label :second_salutation, "Second"
             = p.text_field :second_salutation
-        %br.clear
 
-    .container
+
+    %fieldset
       %h3 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
 
-    .container
+    %fieldset
       %h3 Picture
-      %br
       .form_line
         = label :image, :id, "Picture"
-        = file_field :image, :image_file
+        = file_field :image, :image_file, {:size => "50"}
 
-  #right_content
-    .container.address_form
+  #right
+    .header
+      = image_tag 'help_icon.png', :class => 'help_icon'
+    %fieldset.address_form
       %h3 Primary Address
       - p.fields_for :addresses do |address|
         = render :partial => '/addresses/simple_address_form', :locals => { :address => address}
-    .container.add_contacts
-      %h3 Primary Contacts
-      .container
+    %fieldset.add_contacts
+      %h3 Primary Contact
+      .form_line
         - p.fields_for :phones do |phone|
           = render :partial => 'phones/simple_phone_form', :locals => {:phone => phone}          
-      .container
+      .form_line
         - p.fields_for :emails do |email|
           = render :partial => 'emails/simple_email_form', :locals => {:email=> email}  
-      .container
+      .form_line
         - p.fields_for :websites do |website|
           = render :partial => 'websites/simple_website_form', :locals => {:website=> website}
     
     %p.submit
       = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       = submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag "Submit"
+      = submit_tag "Submit"   
       
-%br.clear
