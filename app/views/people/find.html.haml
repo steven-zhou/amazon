@@ -120,35 +120,35 @@
             .field_20
               = email.label :contact_meta_type_id, 'Type'
               = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name, {:include_blank => true }
-            .field_80
+            .field_60
               = email.label :value, "Value"
               = email.text_field :value
             %br.clear
           %p.submit
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-
+          %br.clear
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
         .container
           Phone
           .form_line
-            .field_20
+            .field_15
               = phone.label :contact_meta_type_id, 'Type'
               = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name, {:include_blank => true }
-            .field_20
+            .field_15
               = phone.label :pre_value, "Pre Value"
               = phone.text_field :pre_value
-            .field_40
+            .field_30
               = phone.label :value, "value"
               = phone.text_field :value
-            .field_20
+            .field_15
               = phone.label :post_value, "Pos value"
               = phone.text_field :post_value
           %br.clear
           %p.submit
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-
+          %br.clear
     %h3
       %a{:href => "#"} Find by Address
     %div.container
@@ -171,36 +171,36 @@
             .field_25
               = address.label :street_number, 'Street Number'
               = address.text_field :street_number
-            .field_50
+            .field_40
               = address.label :street_name, 'Street Name'
               = address.text_field :street_name
             %br{ :style=>"clear: both;"}
           .form_line
-            .field_33
+            .field_30
               = address.label :town, 'Suburb/Town'
               = address.text_field :town
             .field_33
               = address.label :district, 'District'
               = address.text_field :district
-            .field_33
+            .field_30
               = address.label :region, 'Region'
               = address.text_field :region
             %br{ :style=>"clear: both;"}
           .form_line
-            .field_33
+            .field_30
               = address.label :state, 'State/Province'
               = address.text_field :state
             .field_33
               = address.label :postal_code, 'Postal Code'
               = address.text_field :postal_code
-            .field_33
+            .field_30
               = address.label :country, 'Country'
               = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
             %br.clear
           %p.submit
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-
+          %br.clear
     %h3
       %a{:href => "#"} Find by Keywords
     %div.container
@@ -215,5 +215,5 @@
           %p.submit
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
-
+          %br.clear
 %br.clear

@@ -239,6 +239,12 @@ body {
     width:auto;
     height:auto;
 }
+
+#app #main #content .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
 /* dropdown properties */
 #app #main #content .container select {
     font-size:14px;
@@ -547,8 +553,9 @@ p.submit{
   padding-right:3px;
 }
 
-#app #main #content div#accordion02 div.container { /*For find people page*/
+#app #main #content div#accordion02 .container { /*For find people page*/
      float:none !important;
+     margin-bottom:10px !important;
 }
 
 
