@@ -26,4 +26,9 @@
         %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
           - @list_headers.each do |r|
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+    #show_list
+      - if !(@person.nil? || @person.new_record?)
+        =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id
+      - else
+        = link_to 'Show List', :controller => "people", :action => "show_list", :show_list => "show_list", :class => "show_list"
   %br.clear
