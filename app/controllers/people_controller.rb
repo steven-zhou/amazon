@@ -278,10 +278,25 @@ class PeopleController < ApplicationController
     elsif params[:keyword]
       @people = PeopleSearch.by_keyword(params[:keyword])
     end
-   
+
     @person = Person.new
     respond_to do |format|
       format.html
+    end
+  end
+
+  def test_search
+    @person = Person.new
+    people = Person.find(:all) do
+      if params[:_search] == "true"
+        first_name =~ "%#{params[:first_name]}%" if params[:first_name].present?
+        family_name  =~ "%#{params[:family_name]}%" if params[:family_name].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+    if request.xhr?
+      render :json => people.to_jqgrid_json([:id,:first_name,:family_name], params[:page], params[:rows], people.total_entries) and return
     end
   end
 
