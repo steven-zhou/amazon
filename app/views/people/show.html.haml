@@ -117,9 +117,9 @@
   #photo_info
   .container{:align => 'center'}
     .person_profile_options
-      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "person_info"
+      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
       &nbsp;|
-      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"toggle_button1", :toggle_id_name1 => "person_info",:toggle_id_name2 => "business_info"
+      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info"
      
 
  
