@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :notes
   end
 
-  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get}
+  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get}
  
