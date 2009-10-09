@@ -632,3 +632,11 @@ form#add_organisation.new_organisation input#image_image_file{
     font-size:14px;
     line-height:16px;
 }
+
+/*Organisation Edit*/
+form#organisation_names_form input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}

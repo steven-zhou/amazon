@@ -1,37 +1,27 @@
-#left
-  .header
-    .title
-      = render :partial => "menu", :locals => { :organisation => @organisation }
-    =link_to image_tag 'help_icon.png', :style => 'float:right'
-    %br.clear
-
-  .info_container
-    .form_line
-      .field_20{:style => "float:left"}
-        = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
-        - form_tag(:controller => "organisations", :action => "edit", :id => "") do
-          = text_field_tag 'organisation_id', @organisation.id, {:readonly=> false, :onblur => 'this.form.submit();',:id => 'system_id_tag'}
-      = render :partial => "lists_menu"
-    %br.clear
-
+#header
+  #page_title
+    %h1 Edit Organisation
+  #lol
+    %h1 Organisation List Here
+#left_content
   - form_for @organisation, :html=>{:multipart => true, :id=>"organisation_names_form"} do |p|
-    %fieldset
-      %h3 Name Details
+    .container
+      %h1 Name Details
       = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
-    %fieldset
-      %h3 Legal Details
+    .container
+      %h1 Legal Details
       = render :partial => 'organisation_legal_details_fields', :locals => {:p => p}
-    %fieldset
-      %h3 Business Details
+    .container
+      %h1 Business Details
       = render :partial => 'organisation_business_details_fields', :locals => {:p => p}
-    %fieldset
-      %h3{:style=>"float:left"} Picture
+    .container
+      %h1{:style=>"float:left"} Picture
       = render :partial => '/images/show_photo', :locals => {:entity => @organisation}
     = submit_tag 'Submit and Close', :style => 'float:right;'
     = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
     
 
-#right
+#right_content
   #tabs
     = render :partial => 'organisation_menu'
     #Address
