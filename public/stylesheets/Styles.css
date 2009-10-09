@@ -177,6 +177,15 @@ body {
     -moz-border-radius: 10px;
     margin-bottom: 10px;
 }
+
+#app #main #content .container.green_container {
+    background-image:url(../images/container_green_bg.png) !important;
+}
+
+#app #main #content .container.orange_container {
+    background-image:url(../images/container_orange_bg.png) !important;
+}
+
 /* removes double margin from last div */
 #app #main #content .container div:last-child {
     margin-bottom: 0px;
@@ -349,7 +358,6 @@ div.container div.header_container .title {
     display:inline;
     font-size: 12px;
     font-weight: bold;
-    color: #FFFFFF;
 }
 
 div.container div.header_container .options {
