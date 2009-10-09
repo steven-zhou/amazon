@@ -8,7 +8,7 @@
   %div#photo_info
     %div#imageshow{:style => "float:left;"}
       -if @person.image.nil?
-        = image_tag 'no_photo.jpeg', :class => "medium"
+        = image_tag 'no_photo.jpeg', :class => "small"
       -else
         = image_tag(image_path(@person.image.id), :class => "small")
     
@@ -27,43 +27,6 @@
         %span=@person.onrecord_since.to_s
       %br
 
-
-      -#%div#more_name_details{:style => 'display:none'}
-        .form_line
-          .field_20
-            = label_tag 'title', 'Title'
-            = text_field_tag 'title', @person.title_id, {:readonly => true}
-          .field_40
-            = label_tag 'first_name', 'First Names'
-            = text_field_tag 'first_name', @person.first_name, {:readonly => true}
-          .field_40
-            = label_tag 'family_name', 'Family Name'
-            = text_field_tag 'family_name', @person.family_name, {:readonly => true}
-          %br.clear
-        .form_line
-          .field_20
-            = label_tag 'second_title', 'Second Title'
-            = text_field_tag 'second_title', @person.second_title_name, {:readonly => true}
-          .field_40
-            = label_tag 'middle_name', 'Middle Name'
-            = text_field_tag 'middle_name', @person.middle_name, {:readonly => true}
-          .field_40
-            = label_tag 'maiden_name', 'Maiden Name'
-            = text_field_tag 'middle_name', @person.maiden_name, {:readonly => true}
-          %br.clear
-        .form_line
-          .field_20
-            = label_tag 'initials', 'Initials'
-            = text_field_tag 'initials', @person.initials, {:readonly => true}
-          .field_40
-            = label_tag 'post_title', 'Post Name'
-            = text_field_tag 'post_title', @person.post_title, {:readonly => true}
-          .field_40
-            = label_tag 'preferred_name', 'Preferred Name'
-            = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
-          %br.clear
-      -#%span.details
-        = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
   .container
     %h1 Primary Contacts
     .container
@@ -84,21 +47,21 @@
   .container
     %h1 Notes
     .container
-      %div{:style => "float:left;"}
+      %div.left
         = @person.notes.blank? ? "No Notes": @person.notes.first.id
         = @person.notes.first.note_type.name unless @person.notes.blank?
-      %div{:style => "float:right;"}
+      %div.right
         = show_date(@person.notes.first.created_at)unless @person.notes.blank?
         \-
         = @person.notes.first.label unless @person.notes.blank?
         = @person.notes.first.short_description unless @person.notes.blank?
       %br.clear
     .container
-      %div{:style => "float:left;"}
+      %div.left
         = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
         = @person.notes.second.note_type.name unless @person.notes.second.blank?
 
-      %div{:style => "float:right;"}
+      %div.right
         = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
         \-
         = @person.notes.second.label unless @person.notes.second.blank?

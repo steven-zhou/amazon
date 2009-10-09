@@ -30,17 +30,17 @@
         #extra_form
           %h1 Extra Attributes
           .form_line
-            %input{:type => "checkbox", :style => "width:50%;display:inline;"}
-            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %input{:type => "checkbox", :style => "display:inline;"}
+            %label{:style => "display:inline;"} Allow Duplication
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "query_top", :style => "width:30%;display:inline;", :value => "number", :id => "query_top_number", :checked => true}
-            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:type => "radio", :name => "query_top", :style => "display:inline;", :value => "number", :id => "query_top_number", :checked => true}
+            %label{:style => "display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %input{:style => "width:30%;display:inline;", :id => "query_top_number_value", :class => "integer_field"}
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "query_top", :style => "width:30%;display:inline;", :value => "percent", :id => "query_top_percent"}
-            %label{:style => "width:30%;display:inline;"} Percent
+            %input{:type => "radio", :name => "query_top", :style => "display:inline;", :value => "percent", :id => "query_top_percent"}
+            %label{:style => "display:inline;"} Percent
             %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
             %br.clear
 

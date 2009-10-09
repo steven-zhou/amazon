@@ -542,6 +542,10 @@ p.submit{ /*This is for the submit button*/
     padding-right:3px;
 }
 
+.left {
+    float:left;
+}
+
 .right {
     float:right;
 }
@@ -599,3 +603,15 @@ p.submit{
 }
 
 /*Temp*/
+
+
+/*Organisation Show*/
+#app #main #content #left_content #photo_info #organisation_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
