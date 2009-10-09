@@ -72,6 +72,7 @@ class OrganisationsController < ApplicationController
   end
 
   def edit
+    @postcodes = DomesticPostcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = Organisation.new(:id => "")
     @address = Address.new

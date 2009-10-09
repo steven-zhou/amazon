@@ -66,11 +66,11 @@
 
   #right_content
     .container.address_form
-      %h3 Primary Address
+      %h1 Primary Address
       - p.fields_for :addresses do |address|
         = render :partial => '/addresses/simple_address_form', :locals => { :address => address}
     .container.add_contacts
-      %h3 Primary Contacts
+      %h1 Primary Contacts
       .container
         - p.fields_for :phones do |phone|
           = render :partial => 'phones/simple_phone_form', :locals => {:phone => phone}          

@@ -260,8 +260,11 @@ body {
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_25,
+#app #main #content .container .form_line .field_27,
 #app #main #content .container .form_line .field_30,
 #app #main #content .container .form_line .field_33,
+#app #main #content .container .form_line .field_34,
+#app #main #content .container .form_line .field_35,
 #app #main #content .container .form_line .field_40,
 #app #main #content .container .form_line .field_45,
 #app #main #content .container .form_line .field_50,
@@ -280,8 +283,11 @@ body {
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_25 {width: 25%;}
+#app #main #content .container .form_line .field_27 {width: 27%;}
 #app #main #content .container .form_line .field_30 {width: 30%;}
 #app #main #content .container .form_line .field_33 {width: 33%;}
+#app #main #content .container .form_line .field_34 {width: 34%;}
+#app #main #content .container .form_line .field_35 {width: 35%;}
 #app #main #content .container .form_line .field_40 {width: 40%;}
 #app #main #content .container .form_line .field_45 {width: 45%;}
 #app #main #content .container .form_line .field_50 {width: 50%;}
@@ -552,13 +558,11 @@ p.submit{ /*This is for the submit button*/
 form#person_names_form.edit_person input#person_custom_id{
     float:right;
     width: 200px !important;
-
 }
 
 form#add_person.new_person input#person_custom_id{
     float:right;
     width: 200px !important;
-
 }
 
 form#add_person.new_person input#image_image_file{
@@ -614,4 +618,17 @@ p.submit{
     line-height: 22px;
     font-family:Arial,Helvetica,sans-serif;
     padding-top:10px;
+}
+
+/* Organisation New*/
+form#add_organisation.new_organisation input#organisation_custom_id{
+    float:right;
+    width: 200px !important;
+}
+
+form#add_organisation.new_organisation input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
 }
