@@ -962,29 +962,23 @@ $(function(){
 });
 
 
-
-$(function() {
-    $(".password").jpassword(
-
-    {
-            lang: {
-                please: "please type password over 6 characters",
-                low: "Low security.",
-                correct: "Correct security.",
-                high: "High security.",
-                length: "-X- characters would be a plus.",
-                number: "Why not numbers?",
-                uppercase: "And caps?",
-                lowercase: "Some tiny?",
-                punctuation: "Punctuations?",
-                special: "Best, special characters?"
-            }
-        },
-        {
-            length: 6
-        }
-        );
-});
+//$(function() {
+//    $(".password").jpassword({
+//            lang: {
+//                please: "please type password over 6 characters",
+//                low: "Low security.",
+//                correct: "Correct security.",
+//                high: "High security.",
+//                length: "-X- characters would be a plus.",
+//                number: "Why not numbers?",
+//                uppercase: "And caps?",
+//                lowercase: "Some tiny?",
+//                punctuation: "Punctuations?",
+//                special: "Best, special characters?"
+//            },
+//            length: 6
+//    });
+//});
 
 
 

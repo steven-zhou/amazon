@@ -6,17 +6,16 @@
 
     <%= stylesheet_link_tag  "Styles.css"%>  
     <%= jqgrid_stylesheets %>
-    <%= javascript_include_tag "jquery.min.js",
-      "jquery-ui.min.js",
-      "jrails.js",
+    <%= jqgrid_javascripts %>
+    <%= javascript_include_tag  "jrails.js",
       "jquery.dataTables.min.js",
       "jquery.qtip.min.js",
       "jquery.form.js",
       "jquery.jpassword.js",
-      "application.js",
+      "application",
       "person.js",
-      "reports.js",
-      :cache => true %>
+      "reports.js"%>
+
     
     <%= yield_authenticity_token %>
   </head>
