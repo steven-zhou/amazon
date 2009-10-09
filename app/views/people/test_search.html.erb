@@ -1,0 +1,8 @@
+<h1>1) Simple DataGrid</h1>
+<%= jqgrid("Football Players", "players", "/people/test_search",
+	[
+		{ :field => "id", :label => "ID", :width => 35, :resizable => false },
+		{ :field => "first_name", :label => "Firstname" },
+		{ :field => "family_name", :label => "Lastname" }
+	]
+) %>

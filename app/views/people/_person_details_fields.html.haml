@@ -1,49 +1,46 @@
 .form_line
-  .field_33
-    = p.label :birth_date,"Date Of Birth"
+  .field_30
+    = p.label :birth_date,"Date of Birth"
     = p.text_field :birth_date, :class=>"birthdatepick", :value=>@person.birth_date.to_s
-  .field_20
-    = p.label :age, "Age"
-    = p.text_field :age, :disabled => 'true', :id => 'age'
-  %br.clear
-.form_line
-  .field_33
-    = p.label :marital_status, 'Marital Status'
-    = p.collection_select :marital_status_id, MaritalStatus.active_marital_status, :id, :name, {:include_blank => true}
-  .field_20
+  .field_30
     = p.label :gender, 'Gender'
     = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
-  .field_33
+  %br.clear
+.form_line
+  .field_30
+    = p.label :marital_status, 'Marital Status'
+    = p.collection_select :marital_status_id, MaritalStatus.active_marital_status, :id, :name, {:include_blank => true}
+  .field_30
     = p.label :religion_id, 'Religion'
     = p.collection_select :religion_id, Religion.active_religion, :id, :name, {:include_blank => true}
   %br.clear
 .form_line
-  .field_33
-    = p.label :origin_country_id,'Country Of Origin'
+  .field_30
+    = p.label :origin_country_id,'Country of Origin'
     = p.collection_select :origin_country_id, Country.all, :id, :short_name, {:include_blank => true}
-  .field_33
+  .field_30
     = p.label :nationality_id, 'Nationality'
     = p.collection_select :nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
-  .field_33
+  .field_30
     = p.label :language_id, 'Language'
     = p.collection_select :language_id, Language.active_language, :id, :name, {:include_blank => true}
   %br.clear
 .form_line
-  .field_33
-    = p.label :residence_country_id,"Country Of Residence"
+  .field_30
+    = p.label :residence_country_id,"Country of Residence"
     = p.collection_select :nationality_id, Country.all, :id, :short_name, {:include_blank => true}
-  .field_33
+  .field_30
     = p.label :other_nationality_id,"Other Nationality"
     = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
-  .field_33
+  .field_30
     = p.label :other_language,"Other Language"
     = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
   %br.clear
 .form_line
-  .field_33
+  .field_30
     = p.label :industry_sector,"Industry Sector"
     = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
-  .field_63
+  .field_60
     = p.label :interests,"Interests"
     = p.text_field :interests
   %br.clear

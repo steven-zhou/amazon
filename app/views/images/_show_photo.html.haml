@@ -6,7 +6,10 @@
     = image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
   -else
     = image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
-%div#picedit
+
+%div#picedit{:style => "float:left; margin-top:40px;"}
   = label :image, :id, "Picture"
+  %br.clear
   = file_field :image, :image_file
 %br.clear
+

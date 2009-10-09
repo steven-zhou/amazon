@@ -1,37 +1,17 @@
-%div.info_container
-  - form_tag('/people/edit', :id => "person_list_edit")do
-    .form_line
-      .field_20{:style => 'float:left;'}
-        = label_tag 'person_id', 'System ID', :style => 'clear:both'
-        = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onChange => 'this.form.submit()',:id => 'system_id_tag'}
-    %div.list_menu
-      -if @list_header.new_record? && @person.new_record?
-        %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id"}
-        - @list_headers.each do |r|
-          %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-      -else
-        = link_to((image_tag 'back.png'), edit_person_path(@p.at(0)))
-        = link_to((image_tag 'back.png'), edit_person_path(@p.at((@p.index(@person))-1)))
-        %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id"}
-          - @list_headers.each do |r|
-            %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-        -if @p.index(@person) != @p.index(@p.last)
-          = link_to((image_tag 'go.png'), edit_person_path(@p[@p.index(@person)+1]))
-        -else
-          = link_to((image_tag 'go.png'), edit_person_path(@p.first))
-        = link_to((image_tag 'go.png'), edit_person_path(@p.fetch(-1)))
-    -#= render :partial => "lists_menu", :locals => {:person => @person, :p => @p, :user_list => @user_list, :list_headers => @list_headers }
-  %br.clear
+#left_content
+  - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
+    .container
+      = p.text_field :custom_id
+      %h1 Custom ID
 
-- form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
-  %fieldset
-    %h3 Name Details
-    = render :partial => 'person_name_fields', :locals => {:p => p}
-  %fieldset
-    %h3 Personal Details
-    = render :partial => 'person_details_fields', :locals => {:p => p}
-  %fieldset
-    %h3{:style=>"float:left"} Picture
-    = render :partial => '/images/show_photo', :locals => {:entity => @person}
-  = submit_tag 'Submit and Close', :style => 'float:right;'
-  = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
+    .container
+      %h1 Name Details
+      = render :partial => 'person_name_fields', :locals => {:p => p}
+    .container
+      %h1 Personal Details
+      = render :partial => 'person_details_fields', :locals => {:p => p}
+    .container
+      %h1{:style=>"float:left"} Picture
+      = render :partial => '/images/show_photo', :locals => {:entity => @person}
+    = submit_tag 'Submit and Close', :style => 'float:right;'
+    = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'

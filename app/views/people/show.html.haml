@@ -2,68 +2,31 @@
   #page_title
     %h1 Person Profile
   #lol
-    = render :partial => "lists_menu_show"
+    = render :partial => "people/list_menu"
     %br.clear
 #left_content
   %div#photo_info
     %div#imageshow{:style => "float:left;"}
       -if @person.image.nil?
-        = image_tag 'no_photo.jpeg', :class => "medium"
+        = image_tag 'no_photo.jpeg', :class => "small"
       -else
         = image_tag(image_path(@person.image.id), :class => "small")
     
      
-    %div#idline
+    %div#person_name
       - if @person.id.nil?
-        %h3{:style=>'visibility:hidden'} Hidden        
+        %h1{:style=>'visibility:hidden'} Hidden
       -else   
         %h1= h "#{@person.name}"
       %br
-      .field_33
+      .form_line
         = label_tag 'custom_id', 'Custom ID'
         %span=@person.custom_id
-      .field_60
+      .form_line
         = label_tag 'onrecord_since', 'On Record Since'
         %span=@person.onrecord_since.to_s
       %br
 
-
-      -#%div#more_name_details{:style => 'display:none'}
-        .form_line
-          .field_20
-            = label_tag 'title', 'Title'
-            = text_field_tag 'title', @person.title_id, {:readonly => true}
-          .field_40
-            = label_tag 'first_name', 'First Names'
-            = text_field_tag 'first_name', @person.first_name, {:readonly => true}
-          .field_40
-            = label_tag 'family_name', 'Family Name'
-            = text_field_tag 'family_name', @person.family_name, {:readonly => true}
-          %br.clear
-        .form_line
-          .field_20
-            = label_tag 'second_title', 'Second Title'
-            = text_field_tag 'second_title', @person.second_title_name, {:readonly => true}
-          .field_40
-            = label_tag 'middle_name', 'Middle Name'
-            = text_field_tag 'middle_name', @person.middle_name, {:readonly => true}
-          .field_40
-            = label_tag 'maiden_name', 'Maiden Name'
-            = text_field_tag 'middle_name', @person.maiden_name, {:readonly => true}
-          %br.clear
-        .form_line
-          .field_20
-            = label_tag 'initials', 'Initials'
-            = text_field_tag 'initials', @person.initials, {:readonly => true}
-          .field_40
-            = label_tag 'post_title', 'Post Name'
-            = text_field_tag 'post_title', @person.post_title, {:readonly => true}
-          .field_40
-            = label_tag 'preferred_name', 'Preferred Name'
-            = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
-          %br.clear
-      -#%span.details
-        = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
   .container
     %h1 Primary Contacts
     .container
@@ -84,21 +47,21 @@
   .container
     %h1 Notes
     .container
-      %div{:style => "float:left;"}
+      %div.left
         = @person.notes.blank? ? "No Notes": @person.notes.first.id
         = @person.notes.first.note_type.name unless @person.notes.blank?
-      %div{:style => "float:right;"}
+      %div.right
         = show_date(@person.notes.first.created_at)unless @person.notes.blank?
         \-
         = @person.notes.first.label unless @person.notes.blank?
         = @person.notes.first.short_description unless @person.notes.blank?
       %br.clear
     .container
-      %div{:style => "float:left;"}
+      %div.left
         = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
         = @person.notes.second.note_type.name unless @person.notes.second.blank?
 
-      %div{:style => "float:right;"}
+      %div.right
         = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
         \-
         = @person.notes.second.label unless @person.notes.second.blank?
@@ -115,11 +78,11 @@
 
 #right_content
   #photo_info
-  .container{:align => 'center'}
-    .person_profile_options
-      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "person_info"
-      &nbsp;|
-      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"toggle_button1", :toggle_id_name1 => "person_info",:toggle_id_name2 => "business_info"
+  .container_icon{:align => 'center'}
+    = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info"
+  .container_icon{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
+  
      
 
  
@@ -129,7 +92,7 @@
   .container#business_info
     .container
       %h2 Membership
-      %span Member Since: 2004
+      %span Member Since: 200411111
       %br
       %span Number of Dependents: 2
       %br

@@ -2,14 +2,14 @@
   #page_title
     %h1 Edit Person
   #lol
-    = render :partial => "lists_menu"
+    = render :partial => "/people/list_menu"
     %br.clear
 #left_content
   - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
     .container
+      = p.text_field :custom_id
       %h1 Custom ID
-      .field_20
-        = p.text_field :custom_id
+
     .container
       %h1 Name Details
       = render :partial => 'person_name_fields', :locals => {:p => p}

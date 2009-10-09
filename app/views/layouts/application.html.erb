@@ -4,21 +4,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon - Beyond the Horizon - Now with Metrox!</title>
 
-    <%= stylesheet_link_tag  "Styles.css", "jquery-ui-custom.css" %>
-
-    <%= javascript_include_tag  "jquery.min.js",
-      "jquery-ui.min.js",
-      "jrails.js",
+    <%= stylesheet_link_tag  "Styles.css"%>  
+    <%= jqgrid_stylesheets %>
+    <%= jqgrid_javascripts %>
+    <%= javascript_include_tag  "jrails.js",
       "jquery.dataTables.min.js",
       "jquery.qtip.min.js",
       "jquery.form.js",
-      "jquery.dataTables.min.js",
       "jquery.jpassword.js",
       "application",
       "person.js",
-      "reports.js",
-      :cache => true %>
+      "reports.js"%>
 
+    
     <%= yield_authenticity_token %>
   </head>
 

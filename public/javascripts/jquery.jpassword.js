@@ -164,8 +164,8 @@
 
 	// Default settings
 	$.fn.jpassword.defaults = {
-		lang: { please: "please type password over 6 characters", low: "Low security.", correct: "Correct security.", high: "High security.", length: "-X- characters would be a plus.", number: "Why not numbers?", uppercase: "And caps?", lowercase: "Some tiny?", punctuation: "Punctuations?", special: "Best, special characters?" },
-		length: 6,														// Length minimal of good password
+		lang: { please: "A strong password...", low: "Low security.", correct: "Correct security.", high: "High security.", length: "-X- characters would be a plus.", number: "Why not numbers?", uppercase: "And caps?", lowercase: "Some tiny?", punctuation: "Punctuations?", special: "Best, special characters?" },
+		length: 8,														// Length minimal of good password
 		flat: false,													// Add jPassword after input or show it on demand
 		type: 1,														// 0: low, 1: correct, 2: high. Defined level of security
 		special: 0,														// 0 or 1. If 1, used the special chars when generating password

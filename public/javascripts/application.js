@@ -63,72 +63,63 @@ $(function() {
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
-jQuery.fn.submitWithAjax = function($callback) {  
-    this.live('submit', function() {
-        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
-        return false;
-    });
-    return this;
-};
+//jQuery.fn.submitWithAjax = function($callback) {
+//    this.live('submit', function() {
+//        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
+//        return false;
+//    });
+//    return this;
+//};
 
 jQuery.fn.doAjaxSubmit = function($callback) {
     $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
     return false;
-}
+};
 
-$(document).ready(function() {
-    $(".ajax_form").submitWithAjax();
+//$(document).ready(function() {
+//    $(".ajax_form").submitWithAjax();
+//});
 
-    // AJAX search form *Not Used*
-    /*
-    $(".ajax_search_form").submitWithAjax( function(){
-      $('#search_results').dataTable({ 
-        "bLengthChange":false, 
-        "iDisplayLength":20,
-        "bAutoWidth":false,
-        "aoColumns":[{'sWidth':"20%"},{'sWidth':"30%"},{'sWidth':"50%"}]
-      })
-    });*/
-    
-    $('#search_results').dataTable({
-        "bLengthChange":false,
-        "iDisplayLength":20,
-        "bAutoWidth":false,
-        "sDom":'lfrtpi',
-        "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
-    });
-});
+//$(function(){
+//    $('#search_results').dataTable({
+//        "bLengthChange":false,
+//        "iDisplayLength":20,
+//        "bAutoWidth":false,
+//        "sDom":'lfrtpi',
+//        "aoColumns":[{
+//            'sWidth':"12%"
+//        },{
+//            'sWidth':"15%"
+//        },{
+//            'sWidth':"30%"
+//        },{
+//            "sWdith":"15%"
+//        },{
+//            'sWidth':"25%"
+//        }]
+//    });
+//});
 
 /* Show List Summary*/
-$(document).ready(function() {
-    $('#search_list_results').dataTable({
-        "bLengthChange":false,
-        "iDisplayLength":10,
-        "bAutoWidth":true,
-        "sDom":'lfrtpi',
-        "aoColumns":[{
-            'sWidth':"12%"
-        },{
-            'sWidth':"15%"
-        },{
-            'sWidth':"30%"
-        },{
-            "sWdith":"15%"
-        },{
-            'sWidth':"25%"
-        }]
-    });
-});
+//$(document).ready(function() {
+//    $('#search_list_results').dataTable({
+//        "bLengthChange":false,
+//        "iDisplayLength":10,
+//        "bAutoWidth":true,
+//        "sDom":'lfrtpi',
+//        "aoColumns":[{
+//            'sWidth':"12%"
+//        },{
+//            'sWidth':"15%"
+//        },{
+//            'sWidth':"30%"
+//        },{
+//            "sWdith":"15%"
+//        },{
+//            'sWidth':"25%"
+//        }]
+//    });
+//});
 
 
 /*Date picker */
@@ -279,6 +270,19 @@ $(function(){
         });
         $('table#search_list_results tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");        
+    });
+});
+
+$(function(){
+    $('table#search_edit_list_results tbody tr').live('click',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/people/show_edit_left.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+        });
+        $('table#search_list_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
     });
 });
 
@@ -447,25 +451,6 @@ $(function(){
 }
 )
 
-/* FLASH */
-$.fn.wait = function(time, type) {
-    time = time || 1000;
-    type = type || "fx";
-    return this.queue(type, function() {
-        var self = this;
-        setTimeout(function() {
-            $(self).dequeue();
-        }, time);
-    });
-};
-
-
-$(function(){
-    $('#flash').wait(5000).slideUp();
-    $('#flash').click(function(){
-        $('#flash').hide();
-    });
-});
 
 /* MasterDoc */
 $(function(){
@@ -977,29 +962,23 @@ $(function(){
 });
 
 
-
-$(function() {
-    $(".password").jpassword(
-
-    {
-            lang: {
-                please: "please type password over 6 characters",
-                low: "Low security.",
-                correct: "Correct security.",
-                high: "High security.",
-                length: "-X- characters would be a plus.",
-                number: "Why not numbers?",
-                uppercase: "And caps?",
-                lowercase: "Some tiny?",
-                punctuation: "Punctuations?",
-                special: "Best, special characters?"
-            }
-        },
-        {
-            length: 6
-        }
-        );
-});
+//$(function() {
+//    $(".password").jpassword({
+//            lang: {
+//                please: "please type password over 6 characters",
+//                low: "Low security.",
+//                correct: "Correct security.",
+//                high: "High security.",
+//                length: "-X- characters would be a plus.",
+//                number: "Why not numbers?",
+//                uppercase: "And caps?",
+//                lowercase: "Some tiny?",
+//                punctuation: "Punctuations?",
+//                special: "Best, special characters?"
+//            },
+//            length: 6
+//    });
+//});
 
 
 
@@ -1856,9 +1835,32 @@ $(function(){
 
 
 $(function(){
+    $("#edit_all_list_member").live('click',function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/edit_show_list.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+
+        });
+    });
+});
+
+
+
+$(function(){
     $("#show_list_select").live('click',function(){
         window.open("/people/"+ $('#system_id_tag').val(), "_self");
     });
 });
+
+
+$(function(){
+    $("#edit_list_select").live('click',function(){
+        window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+    });
+});
+
+
 
 

@@ -1,1 +1,21 @@
-$('#edit_list_result').html('<%= escape_javascript(render :partial => 'edit_list_result', :locals => {:person => @person })%>')
+$('#right_content').html('<%= escape_javascript(render(:partial => "/people/search_edit_list_results", :locals =>{:people => @p })) %>');
+
+$('#search_edit_list_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"12%"
+        },
+        {
+            'sWidth':"12%"
+        },{
+            'sWidth':"12%"
+        }
+        ,{
+            'sWidth':"20%"
+        }]
+    });

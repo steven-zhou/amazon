@@ -1,8 +1,8 @@
 .form_line
-  .field_63
+  .field_60
     = p.label :registered_name,"Registered Name"
     = p.text_field :registered_name, :value=>@organisation.registered_name
-  .field_33
+  .field_35
     = p.label :registered_number, "Registered Number"
     = p.text_field :registered_number, :value=>@organisation.registered_number
   %br.clear
@@ -10,10 +10,10 @@
   .field_33
     = p.label :registered_date, 'registered_date'
     = p.text_field :registered_date, :class=>"datepick", :value=>@organisation.registered_date.to_s
-  .field_33
+  .field_30
     = p.label :registered_country_id, 'Country of Incorporation'
     = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true}
-  .field_33
+  .field_30
     = p.label :organisation_type_id, 'Organisation Legal Type'
     = p.collection_select :organisation_type_id, OrganisationType.active_organisation_type, :id, :name, {:include_blank => true}
   %br.clear
@@ -21,10 +21,10 @@
   .field_33
     = p.label :tax_file_no,'Tax File Number'
     = p.text_field :tax_file_no, :value=>@organisation.tax_file_no
-  .field_33
+  .field_30
     = p.label :legal_no_1, 'Legal Number 1'
     = p.text_field :legal_no_1, :value=>@organisation.legal_no_1
-  .field_33
+  .field_30
     = p.label :legal_no_2, 'Legal Number 2'
     = p.text_field :legal_no_2, :value=>@organisation.legal_no_2
   %br.clear

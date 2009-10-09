@@ -1,10 +1,9 @@
+%h2 Website
 .form_line
-  .field_20
-    %h3{:style=>'margin-top:10px;'} Website
-  .field_17
+  .field_25
     = website.label :contact_meta_type_id, 'Type'
     = website.collection_select :contact_meta_type_id, Contact.website_types, :id, :name
-  .field_61
+  .field_70
     = website.label :value, "Website"
     = website.text_field :value
   %br.clear
