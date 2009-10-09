@@ -1,16 +1,5 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
-$(function(){
-   $("div.container").live('mouseover', function(){
-      $("div.options").css("display", "inline");
-   });
-});
-
-$(function(){
-   $("div.container").live('mouseout', function(){
-      $("div.options").css("display", "none");
-   });
-});
 
 $(function(){
     $("#tabs").tabs();
@@ -290,6 +279,19 @@ $(function(){
         });
         $('table#search_list_results tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");        
+    });
+});
+
+$(function(){
+    $('table#search_edit_list_results tbody tr').live('click',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/people/show_edit_left.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+        });
+        $('table#search_list_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
     });
 });
 
@@ -1867,9 +1869,32 @@ $(function(){
 
 
 $(function(){
+    $("#edit_all_list_member").live('click',function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/edit_show_list.js",
+            data: 'person_id='+$(this).attr('person_id'),
+            dataType: "script"
+
+        });
+    });
+});
+
+
+
+$(function(){
     $("#show_list_select").live('click',function(){
         window.open("/people/"+ $('#system_id_tag').val(), "_self");
     });
 });
+
+
+$(function(){
+    $("#edit_list_select").live('click',function(){
+        window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+    });
+});
+
+
 
 

@@ -1,13 +1,15 @@
 .options{:style=>"float:right"}
   = link_to image_tag('delete_icon.png'), image_path(entity.image.id), :class => "delete", :id => "delete_photo" unless entity.image.nil?
 %br{ :style => "clear:both;"}
-%div#picedit{:style => "float:left"}
+%div#imageshow{:style => "float:left;"}
+  -if entity.image.nil?
+    = image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
+  -else
+    = image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
+
+%div#picedit{:style => "float:left; margin-top:40px;"}
   = label :image, :id, "Picture"
+  %br.clear
   = file_field :image, :image_file
 %br.clear
 
--#%div#imageshow{:style => "float:left;"}
--#-if entity.image.nil?
--#= image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
--#-else
--#= image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
