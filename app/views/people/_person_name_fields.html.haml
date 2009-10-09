@@ -1,43 +1,43 @@
 .form_line
-  .field_20
+  .field_15
     = p.label :title_id, 'Title'
     = p.collection_select :primary_title_id, Title.active_title, :id, :name
   .field_40
     = p.label :first_name, "First Names"
     = p.text_field :first_name
-  .field_40
+  .field_33
     = p.label :family_name, "Family Name"
     = p.text_field :family_name
   %br.clear
 .form_line
-  .field_20
+  .field_15
     = p.label :second_title_id, '2nd Title'
     = p.collection_select :second_title_id, Title.active_title, :id, :name, {:include_blank => true}
   .field_40
     = p.label :middle_name, 'Middle Names'
     = p.text_field :middle_name
-  .field_40 
+  .field_33
     = p.label :maiden_name, 'Maiden Name'
     = p.text_field :maiden_name
   %br.clear
 .form_line
-  .field_20
+  .field_15
     = p.label :initials, 'Initials'
     = p.text_field :initials
   .field_40
     = p.label :post_title, 'Post Name'
     = p.text_field :post_title
-  .field_40
+  .field_33
     = p.label :preferred_name, 'Preferred Name'
     = p.text_field :preferred_name
   %br.clear
 .container
   %h2 Salutations
   .form_line
-    .field_50
+    .field_45
       = p.label :primary_salutation, "Primary"
       = p.text_field :primary_salutation
-    .field_50
-      = p.label :second_salutation, "Second"
+    .field_45
+      = p.label :second_salutation, "Secondary"
       = p.text_field :second_salutation
     %br.clear

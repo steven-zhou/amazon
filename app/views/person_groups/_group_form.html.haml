@@ -39,7 +39,7 @@
 .form_line
   -if @person_group.new_record?
     .field_25
-      %select.person_group_id{:id => "person_group_id" :name => "person_group_id"}
+      %select.person_group_id{:id => "person_group_id", :name => "person_group_id"}
         %option
     .field_25
       = label_tag :group_description, " ", {:id => "group_description"}

@@ -4,10 +4,10 @@
   #list_compiler_form
     #list_left{:style => "width:32%;margin-right:2%;float:left;"}
       .container
-        .form_line
+        .form_line.field_select_line
           %label Lists
           %input{:style => "display:none", :id => "login_account_id", :value => session[:user]}
-          %select#compiler_options{:multiple => true,:size => "20"}
+          %select#compiler_options.field_select{:multiple => true,:size => "20"}
             - @list_headers.each do |i|
               %option{:value => "#{i.id}", :id => "list_header_#{i.id}"} #{i.name}
           %br.clear
@@ -16,17 +16,17 @@
         #extra_form
           %h1 Extra Attributes
           .form_line
-            %input{:type => "checkbox", :style => "width:50%;display:inline;", :id =>"allow_duplication", :value => "true"}
-            %label{:style => "width:50%;display:inline;"} Allow Duplication
+            %input{:type => "checkbox", :style => "display:inline;", :id =>"allow_duplication", :value => "true"}
+            %label{:style => "display:inline;"} Allow Duplication
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;", :value => "number", :id => "top_number", :checked => true}
-            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:type => "radio", :name => "top", :style => "display:inline;", :value => "number", :id => "top_number", :checked => true}
+            %label{:style => "display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %input{:style => "width:30%;display:inline;", :id => "top_number_value", :class => "integer_field"}
             %br.clear
           .form_line
-            %input{:type => "radio", :name => "top", :style => "width:30%;display:inline;", :value => "percent", :id => "top_percent"}
-            %label{:style => "width:30%;display:inline;"} Percent
+            %input{:type => "radio", :name => "top", :style => "display:inline;", :value => "percent", :id => "top_percent"}
+            %label{:style => "display:inline;"} Percent
             %input{:style => "width:30%;display:inline;", :disabled => true, :id => "top_percent_value", :class => "integer_field"}
             %br.clear
 

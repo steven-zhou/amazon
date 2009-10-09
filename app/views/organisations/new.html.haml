@@ -1,44 +1,45 @@
 - form_for @organisation, :html => {:multipart => true, :id => "add_organisation"} do |p|
-  #left
-    .header
-      .title
-        = render :partial => "menu", :locals => { :organisation => @organisation }
-      .options
-      %br.clear
-    %fieldset.add_name
-      %h3 Name Details
+  #header
+    #page_title
+      %h1 Add Person
+    #lol
+
+  #left_content
+    .container
+      = p.text_field :custom_id
+      %h1 Custom ID
+    .container.add_name
+      %h1 Name Details
       = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
 
-    %fieldset
-      %h3 Legal Details
+    .container
+      %h1 Legal Details
       = render :partial => 'organisation_legal_details_fields', :locals => {:p => p}
 
-    %fieldset
-      %h3 Business Details
+    .container
+      %h1 Business Details
       = render :partial => 'organisation_business_details_fields', :locals => {:p => p}
 
-    %fieldset
-      %h3 Organisation Logo
+    .container
+      %h1 Organisation Logo
       .form_line
         = label :image, :id, "Logo"
-        = file_field :image, :image_file, {:size => "50"}
+        = file_field :image, :image_file, {:size => "30"}
 
-  #right
-    .header
-      = image_tag 'help_icon.png', :class => 'help_icon'
-    %fieldset.address_form
-      %h3 Registered Address
+  #right_content
+    .container.address_form
+      %h1 Registered Address
       - p.fields_for :addresses do |address|
         = render :partial => '/addresses/simple_address_form', :locals => { :address => address}
-    %fieldset.add_contacts
-      %h3 Primary Contact
-      .form_line
+    .container.add_contacts
+      %h1 Primary Contact
+      .container
         - p.fields_for :phones do |phone|
           = render :partial => 'phones/simple_phone_form', :locals => {:phone => phone}          
-      .form_line
+      .container
         - p.fields_for :emails do |email|
           = render :partial => 'emails/simple_email_form', :locals => {:email=> email}
-      .form_line
+      .container
         - p.fields_for :websites do |website|
           = render :partial => 'websites/simple_website_form', :locals => {:website=> website}
     

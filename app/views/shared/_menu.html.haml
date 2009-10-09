@@ -1,55 +1,76 @@
-%ul#menu{:style => "min-height:500px;"}
+%ul#menu
 
   - # Person Menu
-  %li{:id => @current_controller == "people" ? "menu_active" : "", :style => "min-height:30px;"}
+  %li{:id => @current_controller == "people" ? "menu_active" : ""}
     .top
     .item
-      = link_to @current_controller == "people" ? "#{image_tag('icon_holder.png')} Person" : "Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id
-      - if @current_controller == "people"
+      - if @current_controller != "people"
+        = link_to "Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id
+      - else
+        Person
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "people", :action => "show", :id => @person.id
           %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Add", :controller => "people", :action => "new"
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "people", :action => "new"
           %li{:id => @current_action == "edit" ? "selected" : ""}
             - if !(@person.nil? || @person.new_record?)
               = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "people", :action => "edit", :id => @person.id
             - else
               = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "people", :action => "edit"
           %li{:id => (@current_action == "find" || @current_action == "search") ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Search", :controller => "people", :action => "find"
-          %li{:id => (@current_action == "show_list") ? "selected" : ""}
-            = link_to_function "#{image_tag('icon_holder.png')} Show List", :id => "show_all_list_member", :person_id => @person.id
-        %br.clear
+            = link_to "#{image_tag('icon_holder.png')} Find", :controller => "people", :action => "find"
+          %br.clear
     .bottom
 
   - # Organisation Menu
   %li{:id => @current_controller == "organisations" ? "menu_active" : ""}
     .top
     .item
-      = link_to @current_controller == "organisations" ? "#{image_tag('icon_holder.png')} Organisation" :"Organisation", :controller => "organisations", :action => "show", :id => (@organisation.nil?) ? "" : @organisation.id
-      - if @current_controller == "organisations"
+      - if @current_controller != "organisations"
+        = link_to "Organisation", :controller => "organisations", :action => "show", :id => (@organisation.nil?) ? "" : @organisation.id
+      - else
+        Organisation
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "organisations", :action => "show", :id => @organisation.id
           %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Add", :controller => "organisations", :action => "new"
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "organisations", :action => "new"
           %li{:id => @current_action == "edit" ? "selected" : ""}
             - if !(@organisation.nil? || @organisation.new_record?)
               = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "organisations", :action => "edit", :id => @organisation.id
             - else
               = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "organisations", :action => "edit"
           %li{:id => (@current_action == "find" || @current_action == "search") ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Search", :controller => "organisations", :action => "find"
+            = link_to "#{image_tag('icon_holder.png')} Find", :controller => "organisations", :action => "find"
+    .bottom
+
+  - # Query Menu
+  %li{:id => @current_controller == "query_headers" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "query_headers"
+        = link_to "Query", :controller => "query_headers", :action => "new"
+      - else
+        Query
+        %ul
+          %li{:id => @current_action == "new" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
+          %li{:id => @current_action == "index" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "query_headers", :action => "index"
     .bottom
 
   - # List of Lists Menu
   %li{:id => @current_controller == "list_headers" ? "menu_active" : ""}
     .top
     .item
-      = link_to @current_controller == "list_headers" ? "#{image_tag('icon_holder.png')} List of Lists" :"List of Lists", :controller => "list_headers", :action => "manage_list"
-      - if @current_controller == "list_headers"
+      - if @current_controller != "list_headers"
+        = link_to "List", :controller => "list_headers", :action => "new"
+      - else
+        List
         %ul
+          %li{:id => @current_action == "new" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} New", :controller => "list_headers", :action => "new"
           %li{:id => @current_action == "manage_list" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "list_headers", :action => "manage_list"
           %li{:id => @current_action == "compile_list" ? "selected" : ""}
@@ -60,22 +81,18 @@
   %li{:id => @current_controller == "reports" ? "menu_active" : ""}
     .top
     .item
-      = link_to @current_controller == "reports" ? "#{image_tag('icon_holder.png')} Reporting" :"Reporting", :controller => "reports", :action => "index"
-      - if @current_controller == "reports"
+      - if @current_controller != "reports"
+        = link_to "Report", :controller => "reports", :action => "index"
+      - else
+        Report
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Reporting", :controller => "reports", :action => "index"
     .bottom
 
-  - # Query Menu
-  %li{:id => @current_controller == "query_headers" ? "menu_active" : ""}
+  - # Import and Export Menu
+  %li{:id => @current_controller == "importer" ? "menu_active" : ""}
     .top
     .item
-      = link_to @current_controller == "query_headers" ? "#{image_tag('icon_holder.png')} Query" :"Query", :controller => "query_headers", :action => "index"
-      - if @current_controller == "query_headers"
-        %ul
-          %li{:id => @current_action == "index" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Edit", :controller => "query_headers", :action => "index"
-          %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
+      Import/Export
     .bottom
