@@ -3,7 +3,22 @@
     %h1 System Data
   #lol
     %br.clear
-#content
+#content_full_page
   .container
     Select System Data Type:
-    = collection_select :amazon_setting, :id, AmazonSetting.all, :id, :name, {:include_blank => true}
+    %select#system_data_type.clear_select{:style => "display:inline;width:20%;"}
+      %option
+        = AmazonSetting.distinct_setting_type
+
+    %br.clear
+
+    %div#system_data_main_contents{:style => "display:none;"}
+      .container#system_data_add_data
+        = image_tag("add_icon.png" , :size => "19x18")
+        Add Data
+      %div#system_data_entries
+
+      %br.clear
+
+      %div#edit_system_data_entry
+        

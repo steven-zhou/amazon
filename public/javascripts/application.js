@@ -1,6 +1,7 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
 
+
 $(function(){
     $("#tabs").tabs();
 });
@@ -495,6 +496,65 @@ formatCurrency= function(num){
         num.substring(num.length-(4*i+3));
     return (((sign)?'':'-') + '$' + num + '.' + cents);
 }
+
+
+
+
+
+
+
+
+// Administration Menu
+
+// Configuration
+
+$(function(){
+    $("#system_data_type").live('change', function(){
+        if($(this).val()==""){
+            $("#system_data_main_contents").hide();
+            $("#system_data_entries").html("");
+            $("#edit_system_data_entry").html("");
+        } else {
+            $("#edit_system_data_entry").html("");
+            $.ajax({
+                type: "GET",
+                url: "/amazon_settings/system_settings_finder.js",
+                data: 'type=' + $(this).val(),
+                dataType: "script"
+            });
+            $("#system_data_main_contents").show();
+        }
+    });
+});
+
+
+$(function(){
+    $("#system_data_entry").live('click', function(){
+        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+        $(this).addClass("system_data_entry_selected");
+        $("#edit_system_data_entry").html("");
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/system_data_entry_finder.js",
+            data: 'id=' + $(this).attr('system_data_id'),
+            dataType: "script"
+        });
+
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //Admin - System Data Tab
 
@@ -1099,7 +1159,7 @@ $(function(){
         $("#new_user").toggle('blind');
         $(".show_user_container").show();
         $("#close_new_account").hide();
-         $("#add_user").show();
+        $("#add_user").show();
     });
 });
 
@@ -1527,17 +1587,17 @@ $(function(){
         $(".descriptions_personal_duplication").css("display", "none");
         $("#description_personal_duplication_"+$(this).val()).css("display", "");
         if($("#description_personal_duplication_"+$(this).val()).html().match("(Integer FK)")){
-          $("#is_foreign_key").val(true);
+            $("#is_foreign_key").val(true);
         }else{
-          $("#is_foreign_key").val(false);
+            $("#is_foreign_key").val(false);
         }
     });
 });
 
 $(function(){
-   $('#apply_personal_duplication').live('click', function(){
-      $("#personal_duplication_form").doAjaxSubmit();
-   });
+    $('#apply_personal_duplication').live('click', function(){
+        $("#personal_duplication_form").doAjaxSubmit();
+    });
 });
 
 $(function(){
@@ -1545,81 +1605,81 @@ $(function(){
         $(".descriptions_organisational_duplication").css("display", "none");
         $("#description_organisational_duplication_"+$(this).val()).css("display", "");
         if($("#description_organisational_duplication_"+$(this).val()).html().match("(Integer FK)")){
-          $("#is_foreign_key_organisational").val(true);
+            $("#is_foreign_key_organisational").val(true);
         }else{
-          $("#is_foreign_key_organisational").val(false);
+            $("#is_foreign_key_organisational").val(false);
         }
     });
 });
 
 $(function(){
-   $('#apply_organisational_duplication').live('click', function(){
-      $("#organisational_duplication_form").doAjaxSubmit();
-   });
+    $('#apply_organisational_duplication').live('click', function(){
+        $("#organisational_duplication_form").doAjaxSubmit();
+    });
 });
 
 $(function(){
-   $("#generate_personal_duplication").live('click', function(){
-       $.ajax({
-                type: "GET",
-                url: "/personal_duplication_formulas/generate.js",
-                dataType: "script"
-            });
-   });
+    $("#generate_personal_duplication").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/personal_duplication_formulas/generate.js",
+            dataType: "script"
+        });
+    });
 });
 
 $(function(){
-   $("#generate_organisational_duplication").live('click', function(){
-       $.ajax({
-                type: "GET",
-                url: "/organisational_duplication_formulas/generate.js",
-                dataType: "script"
-            });
-   });
+    $("#generate_organisational_duplication").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/organisational_duplication_formulas/generate.js",
+            dataType: "script"
+        });
+    });
 });
 
 $(function(){
-   $('#load_personal_duplication').live('mouseover', function(){
+    $('#load_personal_duplication').live('mouseover', function(){
         $('#load_personal_default').dialog( {
-        modal: true,
-        resizable: true,
-        draggable :true,
-        height: 250,
-        width: 700,
-        buttons: {
-          NO: function() {
-            $(this).dialog('close');
-          },
-          YES: function() {
-            window.open("/personal_duplication_formulas/set_default.html", "_self");
-            return false;
-          }
-        }
-      });
-      $('#load_personal_default').dialog('open');
-   });
+            modal: true,
+            resizable: true,
+            draggable :true,
+            height: 250,
+            width: 700,
+            buttons: {
+                NO: function() {
+                    $(this).dialog('close');
+                },
+                YES: function() {
+                    window.open("/personal_duplication_formulas/set_default.html", "_self");
+                    return false;
+                }
+            }
+        });
+        $('#load_personal_default').dialog('open');
+    });
 });
 
 $(function(){
-   $('#load_organisational_duplication').live('mouseover', function(){
+    $('#load_organisational_duplication').live('mouseover', function(){
         $('#load_organisational_default').dialog( {
-        modal: true,
-        resizable: true,
-        draggable :true,
-        height: 250,
-        width: 700,
-        buttons: {
-          NO: function() {
-            $(this).dialog('close');
-          },
-          YES: function() {
-            window.open("/organisational_duplication_formulas/set_default.html", "_self");
-            return false;
-          }
-        }
-      });
-      $('#load_organisational_default').dialog('open');
-   });
+            modal: true,
+            resizable: true,
+            draggable :true,
+            height: 250,
+            width: 700,
+            buttons: {
+                NO: function() {
+                    $(this).dialog('close');
+                },
+                YES: function() {
+                    window.open("/organisational_duplication_formulas/set_default.html", "_self");
+                    return false;
+                }
+            }
+        });
+        $('#load_organisational_default').dialog('open');
+    });
 });
 
 
@@ -1636,7 +1696,7 @@ $(function(){
                 dataType: "script"
             });
             $(".permission_container").css("display", "");
-             $("#old_permissions").show();
+            $("#old_permissions").show();
         }
         else{
 
@@ -1653,17 +1713,17 @@ $(function(){
     $("#system_permission_meta_meta_type_id").live('change',function(){
 
         if ($(this).val()!= ""){
-        $.ajax({
-            type:"GET",
-            url: "/group_permissions/show_module.js",
-            data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
-            dataType:"script"
+            $.ajax({
+                type:"GET",
+                url: "/group_permissions/show_module.js",
+                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+                dataType:"script"
 
-        });
-        $('#permission_form').show();
+            });
+            $('#permission_form').show();
         }else{
 
-        $('#permission_form').hide();
+            $('#permission_form').hide();
         }
 
     });
@@ -1725,7 +1785,7 @@ $(function(){
             data:"group_id="+$(this).attr('group_id'),
             dataType: "script"
         });
-         $("#close_new_module").css("display", "");
+        $("#close_new_module").css("display", "");
     });
 });
 
@@ -1767,7 +1827,7 @@ $(function(){
      
         $('#hide_module').html('');
         $('#new_group_permission').css("display", "");
-         $(".group_permission_delete").css("display", "");
+        $(".group_permission_delete").css("display", "");
       
     });
 });
@@ -1779,20 +1839,20 @@ $(function(){
 
 $(function(){
 
-     $("#organisation_industry_sector_id").live('change', function(){
+    $("#organisation_industry_sector_id").live('change', function(){
 
         if ($(this).val()!= ""){
-        $.ajax({
-            type:"GET",
-            url: "/organisations/show_industrial_code.js",
-            data:"industrial_id="+$(this).val(),
-            dataType:"script"
+            $.ajax({
+                type:"GET",
+                url: "/organisations/show_industrial_code.js",
+                data:"industrial_id="+$(this).val(),
+                dataType:"script"
 
-        });
+            });
       
         }else{
 
-        $('#organisation_industrial_code').val('');
+            $('#organisation_industrial_code').val('');
         }
 
     });
@@ -1800,20 +1860,20 @@ $(function(){
 
 $(function(){
 
-     $("#organisation_business_category_id").live('change', function(){
+    $("#organisation_business_category_id").live('change', function(){
 
         if ($(this).val()!= ""){
-        $.ajax({
-            type:"GET",
-            url: "/organisations/show_sub_category.js",
-            data:"sub_category_id="+$(this).val(),
-            dataType:"script"
+            $.ajax({
+                type:"GET",
+                url: "/organisations/show_sub_category.js",
+                data:"sub_category_id="+$(this).val(),
+                dataType:"script"
 
-        });
+            });
 
         }else{
 
-        $('#organisation_business_sub_category').val('');
+            $('#organisation_business_sub_category').val('');
         }
     });
 });

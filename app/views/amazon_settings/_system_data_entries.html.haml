@@ -1,0 +1,5 @@
+%div#system_data_entries
+  - for setting in @amazon_settings
+    - setting_status = setting.status ? "system_data_entry_active" : "system_data_entry_inactive"
+    %div{:class => setting_status, :id => "system_data_entry", :system_data_id => setting.id }
+      = setting.name

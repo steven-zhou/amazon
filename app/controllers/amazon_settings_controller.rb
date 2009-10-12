@@ -55,4 +55,19 @@ class AmazonSettingsController < ApplicationController
       format.js
     end
   end
+
+  def system_settings_finder
+    @amazon_settings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def system_data_entry_finder
+    @amazon_setting = AmazonSetting.find_by_id(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

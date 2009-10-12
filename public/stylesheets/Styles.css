@@ -328,7 +328,7 @@ body {
 }
 
 /* For when we are using the whole page, not only two columns */
-#app #main #content #content {
+#app #main #content #content_full_page {
     min-height: 500px;
     background-color:#F6F6F6;
     float: left;
@@ -658,4 +658,28 @@ form#organisation_names_form input#image_image_file{
     width: 150px !important;
     font-size:14px;
     line-height:16px;
+}
+
+/* Administration */
+
+/* System Data */
+
+
+
+.system_data_entry_inactive {
+    width: 31%;
+    margin: 1%;
+    background-color: #B2BDC5;
+    float: left;
+}
+
+.system_data_entry_active {
+    width: 31%;
+    margin: 1%;
+    background-color: #B2E3C5;
+    float: left;
+}
+
+.system_data_entry_selected {
+    background-color: #B2CADA;
 }
