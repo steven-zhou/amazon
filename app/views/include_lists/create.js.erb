@@ -1,8 +1,9 @@
 <% if @include_list.errors.empty? -%>
-  $('#include_lists').append('<%= escape_javascript(render(:partial => @include_list)) %>');
+  $('#include_lists').html('<%= escape_javascript(render(:partial => "include_lists/include_list", :collection => @include_lists)) %>');
   $("#compiler_options").val('');
-  $('#list_header_<%= escape_javascript("#{@list_header_id}")%>').addClass("selected");
-  $('#<%= dom_id(@include_list) %>').effect('slide', {direction:'right'});
+  <%- @list_header_ids.each do |i| %>
+    $('#list_header_<%= escape_javascript("#{i}")%>').addClass("selected");
+  <%- end %>
 <% end -%>
 
 

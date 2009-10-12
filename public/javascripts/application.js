@@ -1879,7 +1879,6 @@ $(function(){
 });
 
 
-
 /* Show list*/
 $(function(){
     $("#show_all_list_member").live('click',function(){
@@ -1918,6 +1917,16 @@ $(function(){
 $(function(){
     $("#edit_list_select").live('click',function(){
         window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+    });
+});
+
+$(function(){
+    $("#show_all_organisations").live('click',function(){
+        $.ajax({
+            type: "GET",
+            url: "/organisations/show_list.js",
+            dataType: "script"
+        });
     });
 });
 

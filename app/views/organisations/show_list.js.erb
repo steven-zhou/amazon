@@ -1,0 +1,21 @@
+$('#right_content').html('<%= escape_javascript(render(:partial => "/organisations/search_list_results", :locals =>{:organisations => @organisations })) %>');
+
+$('#search_list_results').dataTable({
+        "bLengthChange":false,
+        "iDisplayLength":20,
+        "bAutoWidth":false,
+        "sDom":'lfrtpi',
+        "aoColumns":[{
+            'sWidth':"12%"
+        },{
+            'sWidth':"12%"
+        },
+        {
+            'sWidth':"12%"
+        },{
+            'sWidth':"12%"
+        }
+        ,{
+            'sWidth':"20%"
+        }]
+    });
