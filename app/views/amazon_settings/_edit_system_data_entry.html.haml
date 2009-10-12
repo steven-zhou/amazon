@@ -2,7 +2,7 @@
   %br.clear
 
   .container
-    - form_for @amazon_setting, :url => {:id => @amazon_setting.id} do |p|
+    - form_for @amazon_setting, :url => {:controller => "amazon_settings", :action => "update_setting", :id => @amazon_setting.id, :type => @amazon_setting.class.name}, :html => {:class => "ajax_form"} do |p|
       .form_line
         .field_30
           = p.label :name, 'Name'
@@ -20,7 +20,6 @@
 %script{:type => "text/javascript"}
   :plain
     $(document).ready(function() {
-        // ":not([safari])" is desirable but not necessary selector
         $('input:checkbox:not([safari])').checkbox();
         $('input[safari]:checkbox').checkbox({cls:'jquery-safari-checkbox'});
         $('input:radio').checkbox();

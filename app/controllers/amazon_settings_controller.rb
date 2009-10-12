@@ -70,4 +70,17 @@ class AmazonSettingsController < ApplicationController
     end
   end
 
+  def update_setting
+    @amazon_setting = AmazonSetting.find(params[:id].to_i)
+    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
+    if @amazon_setting.save
+      flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
+    else
+      flash.now[:warning] = flash_message(:type => "default", :message => "There was an error updating the setting.")
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
