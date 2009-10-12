@@ -1,10 +1,7 @@
-.header
-  .title
-    = render :partial => "menu", :locals => { :organisation => @organisation }
-  %br.clear
-
-
-  %h1 Find Results
+#header
+  #page_title
+    %h1 Find Results
+  #lol
   
 = render :partial => "search_results", :locals => {:organisations => @organisations}
 %p.table_back= link_to_function '« Back to "Find Organisation"', "history.back()"

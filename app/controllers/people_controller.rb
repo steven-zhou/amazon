@@ -309,9 +309,27 @@ class PeopleController < ApplicationController
       paginate :page => params[:page], :per_page => params[:rows]
       order_by "#{params[:sidx]} #{params[:sord]}"
     end
+
+#    condition_clauses = Array.new
+#    value_clauses = Array.new
+#    if params[:_search] == "true"
+#      if params[:first_name].present?
+#        condition_clauses.push("first_name LIKE ?")
+#        value_clauses.push("%#{params[:first_name]}%")
+#      end
+#      if params[:family_name].present?
+#        condition_clauses.push("family_name LIKE ?")
+#        value_cluases.push("%#{params[:family_name]}%")
+#      end
+#    end
+#    people = Person.find(:all, :conditions => [condition_clauses.join(" AND "), *value_clauses], :order => "#{params[:sidx]} #{params[:sord]}", :limit => params[:rows], :offset => (params[:page]-1)*params[:rows])
     if request.xhr?
       render :json => people.to_jqgrid_json([:id,:first_name,:family_name], params[:page], params[:rows], people.total_entries) and return
     end
+  end
+
+  def flexi_search
+    
   end
 
 

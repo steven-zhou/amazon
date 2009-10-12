@@ -648,3 +648,8 @@ form#organisation_names_form input#image_image_file{
     font-size:14px;
     line-height:16px;
 }
+
+#app #main #content #header #lol_organisations {
+    margin: 4px 3px 0 0;
+    float: left;
+}
