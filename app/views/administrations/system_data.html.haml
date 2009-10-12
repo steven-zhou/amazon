@@ -1,0 +1,9 @@
+#header
+  #page_title
+    %h1 System Data
+  #lol
+    %br.clear
+#content
+  .container
+    Select System Data Type:
+    = collection_select :amazon_setting, :id, AmazonSetting.all, :id, :name, {:include_blank => true}

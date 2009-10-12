@@ -326,6 +326,17 @@ body {
     width: 49.5%;
     margin-left: 0.5%;
 }
+
+/* For when we are using the whole page, not only two columns */
+#app #main #content #content {
+    min-height: 500px;
+    background-color:#F6F6F6;
+    float: left;
+    width: 98%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
 /* content footer - not in use at the moment */
 #app #main #content #footer {
     width: 100%;
