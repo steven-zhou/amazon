@@ -20,3 +20,11 @@
 = link_to image_tag('person_find.png'), :controller => "organisations", :action => "find"
 - if (@current_action == 'find' || @current_action == 'search') then
   %h1 Find Organisation
+
+%div.list_menu
+  -form_tag(:controller => "list", :action => "show", :id => "") do
+    = link_to(image_tag 'back.png')
+    = link_to(image_tag 'back.png')
+    = select_tag 'list', :name, :id => 'select_tag'
+    = link_to image_tag 'go.png'
+    = link_to image_tag 'go.png'

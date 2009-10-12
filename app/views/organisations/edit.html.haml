@@ -2,7 +2,9 @@
   #page_title
     %h1 Edit Organisation
   #lol
-    %h1 Organisation List Here
+    = render :partial => "/organisations/lists_menu"
+    %br.clear
+
 #left_content
   - form_for @organisation, :html=>{:multipart => true, :id=>"organisation_names_form"} do |p|
     .container

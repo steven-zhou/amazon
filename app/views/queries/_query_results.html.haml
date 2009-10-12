@@ -44,8 +44,14 @@
           -else
             -@query_header.query_selections.each do |j|
               -if j.table_name == "people"
-                %td= people[i].__send__(j.field_name.to_sym)
+                -if j.data_type == "Integer FK"
+                  %td= people[i].__send__(j.field_name.to_sym).name
+                -else
+                  %td= people[i].__send__(j.field_name.to_sym)
               -else
-                %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless people[i].__send__(j.table_name.underscore.to_sym).empty?
+                -if j.data_type == "Integer FK"
+                  %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym).name unless people[i].__send__(j.table_name.underscore.to_sym).empty?
+                -else
+                  %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless people[i].__send__(j.table_name.underscore.to_sym).empty?
 
   

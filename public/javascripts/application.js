@@ -64,22 +64,22 @@ $(function() {
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
-//jQuery.fn.submitWithAjax = function($callback) {
-//    this.live('submit', function() {
-//        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
-//        return false;
-//    });
-//    return this;
-//};
+jQuery.fn.submitWithAjax = function($callback) {
+    this.live('submit', function() {
+        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
+        return false;
+    });
+    return this;
+};
 
 jQuery.fn.doAjaxSubmit = function($callback) {
     $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
     return false;
 };
 
-//$(document).ready(function() {
-//    $(".ajax_form").submitWithAjax();
-//});
+$(document).ready(function() {
+    $(".ajax_form").submitWithAjax();
+});
 
 //$(function(){
 //    $('#search_results').dataTable({
@@ -1182,7 +1182,7 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/tag_types/show_fields.js",
-                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field"),
+                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field") + '&update_value=' + $(this).attr("update_value"),
                 dataType: "script"
             });
         }else{
@@ -1924,3 +1924,55 @@ $(function(){
 
 
 
+/*test*/
+$(function(){
+    $("#flex1").flexigrid({
+        url: 'http://localhost:3000/people/flexi_search',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'First Name',
+            name : 'first_name',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Family Name',
+            name : 'family_name',
+            width : 120,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'First Name',
+            name : 'first_name'
+        },
+
+        {
+            display: 'Family Name',
+            name : 'family_name'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'People',
+        useRp: true,
+        rp: 15,
+        showTableToggleBtn: true,
+        width: 700,
+        height: 200
+    });
+});

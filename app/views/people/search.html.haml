@@ -8,4 +8,11 @@
 %p.table_back= link_to_function '« Back to "Find Person"', "history.back()"
 
 .container
-  = jqgrid("Find Results", "result_grid", "/people/test_search", [{:field => "id", :label => "ID", :width => 35, :resizable => false}, { :field => "first_name", :label => "Firstname" }, { :field => "family_name", :label => "Lastname" }])
+  %h1 Jqgrid
+  = jqgrid("Find Results", "result_grid", "/people/test_search", [{:field => "id", :label => "ID", :width => 35, :resizable => false}, { :field => "first_name", :label => "First Name" }, { :field => "family_name", :label => "Family Name" }])
+
+.container
+  %h1 Flexigrid
+  %table#flex1
+
+  
