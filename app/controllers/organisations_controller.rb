@@ -190,4 +190,11 @@ class OrganisationsController < ApplicationController
       format.js
     end
   end
+
+   def show_list
+    @organisations = Organisation.find(:all, :order => "id")
+    respond_to do |format|
+      format.js
+    end
+  end
 end
