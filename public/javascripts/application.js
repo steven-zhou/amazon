@@ -1122,7 +1122,7 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/tag_types/show_fields.js",
-                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field"),
+                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field") + '&update_value=' + $(this).attr("update_value"),
                 dataType: "script"
             });
         }else{

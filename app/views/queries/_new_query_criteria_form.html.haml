@@ -2,7 +2,7 @@
   #left
     .form_line
       = f.label :table_name, 'Select Table'
-      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select", :update_field => "criteria", :disabled => @query_header.status == false}
+      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select", :update_field => "criteria", :update_value => "", :disabled => @query_header.status == false}
       %br.clear
     .form_line.field_select_line
       = f.label :field_name, 'Select Field'
@@ -15,7 +15,7 @@
 
     .form_line
       %label Select Operator
-      %select{:id => "query_criteria[operator]", :name => "query_criteria[operator]", :class => "clear_select", :disabled => @query_header.status == false}
+      %select{:id => "query_criteria_operator", :name => "query_criteria[operator]", :class => "clear_select", :disabled => @query_header.status == false}
         %option
         -QueryCriteria::OPERATORS.keys.sort.each do |key|
           %option{:value => key} #{key}
