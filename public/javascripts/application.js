@@ -63,22 +63,22 @@ $(function() {
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
-//jQuery.fn.submitWithAjax = function($callback) {
-//    this.live('submit', function() {
-//        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
-//        return false;
-//    });
-//    return this;
-//};
+jQuery.fn.submitWithAjax = function($callback) {
+    this.live('submit', function() {
+        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
+        return false;
+    });
+    return this;
+};
 
 jQuery.fn.doAjaxSubmit = function($callback) {
     $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
     return false;
 };
 
-//$(document).ready(function() {
-//    $(".ajax_form").submitWithAjax();
-//});
+$(document).ready(function() {
+    $(".ajax_form").submitWithAjax();
+});
 
 //$(function(){
 //    $('#search_results').dataTable({
