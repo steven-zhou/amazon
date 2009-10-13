@@ -10,6 +10,7 @@ class PersonRole < ActiveRecord::Base
 
   validates_presence_of :role_id
   validates_presence_of :person_id
+  validates_uniqueness_of :role_id, :scope => :person_id
 
  validate :role_must_exist
  validate :person_must_exist
