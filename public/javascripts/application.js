@@ -1873,55 +1873,53 @@ $(function(){
 
 
 
-/*test*/
+/*Grid*/
 $(function(){
-    $("#flex1").flexigrid({
-        url: 'http://localhost:3000/people/flexi_search',
+    $("#people_search_grid").flexigrid({
+        url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'First Name',
-            name : 'first_name',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Family Name',
-            name : 'family_name',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        }
+            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+            {display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
+            {display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'},
+            {display: 'Address', name : 'field_3', width : 180, sortable : true, align: 'left'},
+            {display: 'Phone', name : 'field_4', width : 180, sortable : true, align: 'left'},
+            {display: 'Email', name : 'field_5', width : 180, sortable : true, align: 'left'}
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'first_name'
-        },
-
-        {
-            display: 'Family Name',
-            name : 'family_name'
-        }
+            {display: 'First Name', name : 'field_1'},
+            {display: 'Family Name', name : 'field_2'},
+            {display: 'Address', name : 'field_3'},
+            {display: 'Phone', name : 'field_4'},
+            {display: 'Email', name : 'field_5'}
         ],
-        sortname: "id",
+        sortname: "grid_object_id",
         sortorder: "asc",
         usepager: true,
-        title: 'People',
+        title: 'People Search Result',
         useRp: true,
-        rp: 15,
-        showTableToggleBtn: true,
-        width: 700,
-        height: 200
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 1010,
+        height: 300
+    });
+});
+
+$(function(){
+    $('table#people_search_grid tbody tr').live('click',function(){
+        $('table#people_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        $.ajax({
+            type: 'GET',
+            url: "/people/"+$(this).attr('id').substring(3)+"/name_card.js",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('table#query_result_grid tbody tr').live('click',function(){
+        $('table#query_result_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
     });
 });

@@ -1,19 +1,37 @@
 $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
 $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
 
-$('#query_results').dataTable({
-        "bLengthChange":false,
-        "iDisplayLength":20,
-        "bAutoWidth":false,
-        "sDom":'lfrtpi',
-        "aoColumns":[
-            { "bSortable": false,
-              'sWidth': "10%"},
-            { 'sType': 'numeric'},
-              null,
-            ]
-    });
-    
+$("#query_result_grid").flexigrid({
+    url: 'http://localhost:3000/grids/query_result_grid',
+    dataType: 'json',
+    colModel : [
+        {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+        <%- @query_result_columns.each_index do |i|%>
+        {display: '<%= escape_javascript("#{@query_result_columns[i]}") %>', name: '<%= escape_javascript("field_#{i+1}") %>', width: 180, sortable: true, align: 'left'},
+        <%- end %>
+    ],
+    buttons : [
+        {name: 'Add', bclass: "add"},
+        {separator: true},
+        {name: 'Delete', bclass: "add"}
+    ],
+    searchitems : [
+        <%- @query_result_columns.each_index do |i|%>
+        {display: '<%= escape_javascript("#{@query_result_columns[i]}") %>', name: '<%= escape_javascript("field_#{i+1}") %>'},
+        <%- end %>
+    ],
+    sortname: "grid_object_id",
+    sortorder: "asc",
+    usepager: true,
+    title: 'Query Result',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 1010,
+    height: 300
+});
+
+
 $('#result_div').dialog({
   modal: true,
   resizable: true,

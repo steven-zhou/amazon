@@ -62,7 +62,53 @@ class QueryHeadersController < ApplicationController
     @people = @people[0,value] if (value>0)
     @query_header.result_size = @people.size
     @query_header.save
-    
+
+    #clear query result temp table, and save result to temp table
+    QueryResultGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @query_result_columns = Array.new
+
+    if @query_header.query_selections.empty?
+      @query_result_columns << "First Name"
+      @query_result_columns << "Family Name"
+      @people.each do |person|
+        @qrg = QueryResultGrid.new
+        @qrg.login_account_id = session[:user]
+        @qrg.grid_object_id = person.id
+        @qrg.field_1 = person.first_name        
+        @qrg.field_2 = person.family_name        
+        @qrg.save
+      end
+    else
+      @people.each do |person|
+        @qrg = QueryResultGrid.new
+        @qrg.login_account_id = session[:user]
+        @qrg.grid_object_id = person.id
+        @query_header.query_selections.each do |i|
+          if i.sequence<=10
+            if i.table_name == "people"
+              if i.data_type == "Integer FK"
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name)
+              else
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
+              end
+              @query_result_columns << i.field_name
+            else
+              if i.data_type == "Integer FK"
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless person.__send__(i.table_name.underscore.to_sym).empty?
+              else
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
+              end
+              @query_result_columns << i.field_name
+            end
+          end
+          @qrg.save
+        end
+      end
+    end
+    puts "array result #{@query_result_columns}. first element 0 is #{@query_result_columns[0]} EOD"
     @list_header = ListHeader.new
     respond_to do |format|
       format.js
