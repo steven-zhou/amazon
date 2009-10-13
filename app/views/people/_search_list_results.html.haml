@@ -17,7 +17,7 @@
         %th Address
     %tbody
       - for person in people do
-        %tr{:person_id => person.id}
+        %tr{:person_id => person.id, :current_operation => current_operation}
           %td= person.id
           %td= person.name
           %td
@@ -27,6 +27,9 @@
             = person.primary_email.address unless person.primary_email.blank?
             = "<br />#{person.secondary_email.address}" unless person.secondary_email.blank?
           %td= format_address(person.primary_address) unless person.primary_address.blank?
-  =link_to_function 'Select', :id => "show_list_select"
 
+  %p.submit
+    = submit_tag 'Select to Edit', :style => 'float:right;', :id => "edit_list_select"
+    = submit_tag 'Select to Profile', :style => 'float:right;',:id => "show_list_select"
+   
 %br.clear

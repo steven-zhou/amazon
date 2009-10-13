@@ -1,6 +1,6 @@
 -# The main Address tab
-.info_container
-  .header_container
+.container
+  .header
     .title
       %h3 Address Details
     .options
@@ -10,7 +10,7 @@
     
     =# Initially hidden new address form
     -form_for([@person,@address], :html => {:style => "display:none", :class => 'ajax_form'}) do |address|
-      %fieldset
+      .container
         .options{:style => "float:right"}
           = link_to_function image_tag('close_icon.png'), :class => "clear_form person_address_toggle_button", :toggle_id_name => "new_address"
         %h3 New Address
