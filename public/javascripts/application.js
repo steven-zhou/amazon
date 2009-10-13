@@ -1896,5 +1896,27 @@ $(function(){
 });
 
 
+//$(function(){
+//   
+//      $('.text').wysiwyg();
+//
+//});
 
+
+$(function(){
+    $('.header_container').live('mouseover',function(){
+    if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+     
+      $(this).find('.person_tag').css("display","");
+  }
+    });
+});
+
+$(function(){
+    $('.header_container').live('mouseout',function(){
+      if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+    $(this).find('.person_tag').css("display","none");
+      }
+    });
+});
 

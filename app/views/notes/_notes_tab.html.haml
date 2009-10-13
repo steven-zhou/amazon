@@ -1,22 +1,17 @@
 -# The main Address tab
-.info_container
+.container
   .header_container
-    .title
-      %h3 Notes
     .options
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form person_notes_close toggle_button", :toggle_id_name => "new_note", :style => "display:none", :field => "note"
+    .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"person_notes_toggle_button", :toggle_id_name => "new_note"  if (!person.nil? && !person.new_record?)
-      = image_tag('help_icon.png')
-    %br{ :style=>"clear: both;"}
-
+    %h1 Notes
+    %input{:type => "text", :id => "note_hidden_tab" :mode => "show", :style => "display:none", :style => "display:none"}
 
     -form_for([@person,@note], :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
-      %fieldset
-        .options{:style => "float:right"}
-          = link_to_function image_tag('close_icon.png'), :class => "clear_form person_notes_toggle_button", :toggle_id_name => "new_note"
-        %h3 New Note
-        = render :partial => '/notes/note_form', :locals => { :note => note }
-        = submit_tag 'Submit'
+      = render :partial => '/notes/note_form', :locals => { :note => note }
+      = submit_tag 'Submit'
 
-    #notes_list
-      =# Render the person's notes
-      = render :partial => '/notes/note', :collection => person.sorted_notes
+  #notes_list
+    =# Render the person's notes
+    = render :partial => '/notes/note', :collection => person.sorted_notes

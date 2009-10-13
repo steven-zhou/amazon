@@ -1,11 +1,10 @@
 -# The form to edit an phone
 -form_for @phone, :html => {:class => 'ajax_form edit_phone'} do |phone|
-  %fieldset
-    .header_container
-      .title
-        %h3 Edit Phone
-      .options
-        = link_to image_tag('close_icon.png'), phone_path(@phone), :class => 'get'
-      %br{ :style=>"clear: both;"}
+  .header_container
+    .title
+      %h1 Edit Phone
+    .options
+      = link_to image_tag('close_icon.png'), phone_path(@phone), :class => 'get'
+    %br{ :style=>"clear: both;"}
     = render :partial => 'phone_form', :locals => { :phone => phone }
     = submit_tag 'Submit'

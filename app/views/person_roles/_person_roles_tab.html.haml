@@ -1,19 +1,15 @@
 -# The main person_role tab
-.info_container
+.container
   .header_container
-    .title
-      %h3 Role Details
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_role", :class=>" person_roles_toggle_button", :toggle_id_name => "new_person_role" if (!@person.nil? && !@person.new_record?)
-      = image_tag('help_icon.png')
-    %br{ :style=>"clear: both;"}
+      = link_to_function image_tag('close_icon.png'), :class => "clear_person_role_form person_roles_close toggle_button", :toggle_id_name => "new_person_role", :style => "display:none", :field => "person_role"
+    .title
+      = link_to_function image_tag('add_icon.png'), :id=>"add_role", :class=>"person_roles_toggle_button", :toggle_id_name => "new_person_role" if (!person.nil? && !person.new_record?)
+    %h1 Role Details
+    %input{:type => "text", :id => "person_role_hidden_tab" :mode => "show", :style => "display:none", :style => "display:none"}
 
-  =# Initially hidden new person_role form
-  -form_for([@person,@person_role], :html => {:style => "display:none", :class => 'ajax_form'}) do |person_role|
-    %fieldset
-      .options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_person_role_form person_roles_toggle_button", :toggle_id_name => "new_person_role"
-      %h3 New Role
+    =# Initially hidden new person_role form
+    -form_for([@person,@person_role], :html => {:style => "display:none", :class => 'ajax_form'}) do |person_role|
       = render :partial => '/person_roles/person_role_form', :locals => { :person_role => person_role }
       = submit_tag 'Submit'
 

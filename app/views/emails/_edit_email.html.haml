@@ -1,11 +1,11 @@
 -# The form to edit an phone
 -form_for @email, :html => {:class => 'ajax_form edit_email'} do |email|
-  %fieldset
+  %div
     .header_container
       .title
-        %h3 Edit Email
+        %h1 Edit Email
       .options
         = link_to image_tag('close_icon.png'), email_path(@email), :class => 'get'
       %br{ :style=>"clear: both;"}
-    = render :partial => 'email_form', :locals => { :email => email }
-    = submit_tag 'Submit'
+      = render :partial => 'email_form', :locals => { :email => email }
+      = submit_tag 'Submit'

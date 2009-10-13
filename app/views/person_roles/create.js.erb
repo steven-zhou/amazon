@@ -1,20 +1,20 @@
 <% if @person_role.errors.empty? -%>
   $('#person_roles').prepend('<%= escape_javascript(render(:partial => @person_role)) %>');
   $("#new_person_role")[0].reset();
-    $("#person_role_role_id").html('');
+  $("#person_role_role_id").html('');
+  $("#role_condition_display").html('');
 
-     $("#role_condition_display").html('');
-
-     $("#role_masterdoc_display").html('');
-     $("#person_role_type_description").html('');
-     $("#person_role_description").html('');
-
-   $(".info_warning").removeClass("info_warning");
-      $("#warning").html('');
-
-
-        $('.person_roles_edit_delete').css("display","");
-  $('.person_roles_toggle_button').css("display","");
+  $("#role_masterdoc_display").html('');
+  $("#person_role_type_description").html('');
+  $("#person_role_description").html('');
   $("#new_person_role").toggle('blind');
+  $(".info_warning").removeClass("info_warning");
+  $("#warning").html('');
+
+
+  $('#person_role_hidden_tab').attr('mode','show');
+  $('.person_roles_toggle_button').css("display","");
+
+  $('.person_roles_close').css("display","none");
   $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
 <% end -%>

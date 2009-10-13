@@ -1,9 +1,9 @@
 -# Displays A Contact
--div_for(contact, :class => 'info_container') do
-  .header_container
+-div_for(contact, :class => 'header_container', :field => "contact") do
+  %div 
     .title
-      %h3= "#{contact.class} (#{contact.contact_meta_type.name})"
-    .options{:class => 'person_contact_edit_delete',:id => 'person_contact_edit_delete'}
+      %h2= "#{contact.class} (#{contact.contact_meta_type.name})"
+    .options{:class => 'person_contact_edit_delete person_tag',:id => 'person_contact_edit_delete', :style=>"display:none"}
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
         = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get edit_phone', :id => 'phone_edit_button', :phone_id => contact.id
         = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete delete_phone', :id => 'phone_delete_button', :phone_id => contact.id
@@ -15,10 +15,10 @@
         = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete delete_website',:id => 'website_delete_button', :website_id => contact.id
 
     %br{ :style => "clear:both;"}
-  .display_container
+  %div{:style => "float:right;"}
     = "#{contact.pre_value} #{contact.value} #{contact.post_value}".squeeze(" ").strip
     %br
-    - if (contact.read_attribute("type") == "Phone")
+    -#- if (contact.read_attribute("type") == "Phone")
       = contact.preferrence_day_times
     %br
     = contact.remarks

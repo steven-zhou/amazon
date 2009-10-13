@@ -1,25 +1,21 @@
 -# The main Address tab
-.info_container
+.container
   .header_container
-    .title
-      %h3 Address Details
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"person_address_toggle_button", :toggle_id_name => "new_address" if (!person.nil? && !person.new_record?)
-      = image_tag('help_icon.png')
-    %br.clear
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form person_address_close toggle_button", :toggle_id_name => "new_address", :style => "display:none;", :field => "address"
+    .title
+      = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"person_address_toggle_button add_icon", :toggle_id_name => "new_address" if (!person.nil? && !person.new_record?)
+    %h1 Add Address
+    %input{:type => "text", :id => "address_hidden_tab" :mode => "show", :style => "display:none"}
     
     =# Initially hidden new address form
-    -form_for([@person,@address], :html => {:style => "display:none", :class => 'ajax_form'}) do |address|
-      %fieldset
-        .options{:style => "float:right"}
-          = link_to_function image_tag('close_icon.png'), :class => "clear_form person_address_toggle_button", :toggle_id_name => "new_address"
-        %h3 New Address
-        = render :partial => '/addresses/address_form', :locals => { :address => address }
-        = submit_tag 'Submit'
+    -form_for([@person,@address], :html => {:style => "display:none", :class => 'ajax_form'}) do |address|    
+      = render :partial => '/addresses/address_form', :locals => { :address => address }
+      = submit_tag 'Submit'
     
-    #addresses
-      =# Render the person's addresses 
-      = render :partial => '/addresses/address', :collection => person.addresses
+  #addresses
+    =# Render the person's addresses 
+    = render :partial => '/addresses/address', :collection => person.addresses
         
           
       

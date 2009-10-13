@@ -36,11 +36,11 @@ $(function() {
         $(this).addClass('close_image');
     });
 
-	  $(".show_hide_button").click(function(){
+    $(".show_hide_button").click(function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
-         $(".container_icon").removeClass("container_icon_color");
-          $(this).parent().addClass("container_icon_color");
+        $(".container_icon").removeClass("container_icon_color");
+        $(this).parent().addClass("container_icon_color");
           
     });
     /*
@@ -70,7 +70,8 @@ $(function() {
 
    
     $(".clear_form").click(function(){
-        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $("#new_"+$(this).attr('field'))[0].reset();
+        
     })
 
     $(".clear_group_form").click(function(){
@@ -78,7 +79,7 @@ $(function() {
     })
 
     $(".clear_employment_form").click(function () {
-        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $("#new_employment")[0].reset();
         $('#organisation_name_container_0').html('');
         $('#recruiter_container_0').html('');
         $('#supervisor_container_0').html('');
@@ -99,7 +100,7 @@ $(function() {
     $("#accordion02").accordion();
 
     $(".clear_person_role_form").click(function(){
-        $('#'+$(this).parents("form").get(0).id)[0].reset();
+        $("#new_person_role")[0].reset();
         $('#assigner_container_0').html('');
         $('#approver_container_0').html('');
         $('#approver_container_0').val('');
@@ -144,6 +145,18 @@ $(".person_group_toggle_button").live('click', function(){
     else
         $('.person_group_delete_button').css("display","");
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_group_close').css("display","");
+    $(this).css("display","none");
+});
+
+$(".person_group_close").live('click',function(){
+    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+        $('.person_group_delete_button').css("display","none");
+    else
+        $('.person_group_delete_button').css("display","");
+
+    $(this).css("display","none");
+    $('.person_group_toggle_button').css("display","");
 });
 
 /* Person Group */
@@ -157,24 +170,36 @@ $(".user_clear_form").click(function(){
 
 /* Person Contact Form  */
 $(".person_contact_toggle_button").live('click', function(){
-    if ($('.person_contact_edit_delete').css("display")=="block" || $('.person_contact_edit_delete').css("display")=="")
-        $('.person_contact_edit_delete').css("display","none");
-    else
-        $('.person_contact_edit_delete').css("display","");
+   
+    $('.person_contact_edit_delete').css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_contact_close').css("display","");
+    $(this).css("display","none");
+    $('#contact_hidden_tab').attr('mode','new');
 });
 
-$('#person_edit_phone_close_button').live('click',function(){
-    $('.person_contact_edit_delete').css("display","");
-});
+//$('#person_edit_phone_close_button').live('click',function(){
+//    $('.person_contact_edit_delete').css("display","");
+//});
 
 
+$(".person_contact_close").live('click',function(){
+  
+    $('.person_contact_edit_delete').css("display","none");
+
+    $(this).css("display","none");
+    $('.person_contact_toggle_button').css("display","");
+    $('#contact_hidden_tab').attr('mode','show');
+
+   $(".contact_form")[0].reset();
     
+});
     
 $("#email_edit_button").live('click',function(){
     $('.person_contact_toggle_button').css("display","none");
     $('.person_contact_edit_delete').css("display","none");
+    $('#contact_hidden_tab').attr('mode','edit');
 });
 
 $(".delete_email").live('click',function(){
@@ -186,6 +211,7 @@ $(".delete_email").live('click',function(){
 $("#phone_edit_button").live('click',function(){
     $('.person_contact_toggle_button').css("display","none");
     $('.person_contact_edit_delete').css("display","none");
+    $('#contact_hidden_tab').attr('mode','edit');
 });
 
 
@@ -197,12 +223,6 @@ $(".delete_phone").live('click',function(){
 });
 
 
-
-$("#fax_edit_button").live('click',function(){
-    $('.person_contact_toggle_button').css("display","none");
-    $('.person_contact_edit_delete').css("display","none");
-});
-
 $(".delete_fax").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
     $('.edit_fax[fax_id='+ $(this).attr('fax_id') +']').css("display", "none");
@@ -213,6 +233,7 @@ $(".delete_fax").live('click',function(){
 $("#website_edit_button").live('click',function(){
     $('.person_contact_toggle_button').css("display","none");
     $('.person_contact_edit_delete').css("display","none");
+    $('#contact_hidden_tab').attr('mode','edit');
 });
 
 $(".delete_website").live('click',function(){
@@ -223,18 +244,20 @@ $(".delete_website").live('click',function(){
 /* Person address  */
 
 $(".person_address_toggle_button").live('click', function(){
-    if ($('.person_address_edit_delete').css("display")=="block" || $('.person_address_edit_delete').css("display")=="")
-        $('.person_address_edit_delete').css("display","none");
-    else
-        $('.person_address_edit_delete').css("display","");
+ 
+    $('.person_address_edit_delete').css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_address_close').css("display","");
+    $(this).css("display","none");
+    $('#address_hidden_tab').attr('mode','new');
 });
 
 
 $("#address_edit_button").live('click',function(){
     $('.person_address_toggle_button').css("display","none");
     $('.person_address_edit_delete').css("display","none");
+    $('#address_hidden_tab').attr('mode','edit');
 });
 
 $(".delete_address").live('click',function(){
@@ -242,23 +265,44 @@ $(".delete_address").live('click',function(){
     $('.edit_address[address_id='+ $(this).attr('address_id') +']').css("display", "none");
 });
 
+$(".person_address_close").live('click',function(){
+    $('.person_address_edit_delete').css("display","none");
 
+    $(this).css("display","none");
+    $('.person_address_toggle_button').css("display","");
+    $('#address_hidden_tab').attr('mode','show');
+});
+
+
+$("#address_edit_close_button").live('click',function(){
+
+    $('#address_hidden_tab').attr('mode','show');
+});
 
 /* Person Master Doc*/
 
 $(".person_master_doc_toggle_button").live('click', function(){
-    if ($('.person_master_doc_edit_delete').css("display")=="block" || $('.person_master_doc_edit_delete').css("display")=="")
-        $('.person_master_doc_edit_delete').css("display","none");
-    else
-        $('.person_master_doc_edit_delete').css("display","");
+    $('.person_master_doc_edit_delete').css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_master_doc_close').css("display","");
+    $(this).css("display","none");
+    $('#master_doc_hidden_tab').attr('mode','new');
+});
+
+$(".person_master_doc_close").live('click',function(){
+    $('.person_master_doc_edit_delete').css("display","none");
+
+    $(this).css("display","none");
+    $('.person_master_doc_toggle_button').css("display","");
+    $('#master_doc_hidden_tab').attr('mode','show');
 });
 
 
 $("#master_doc_edit_button").live('click',function(){
     $('.person_master_doc_toggle_button').css("display","none");
     $('.person_master_doc_edit_delete').css("display","none");
+    $('#master_doc_hidden_tab').attr('mode','edit');
 });
 
 $(".delete_master_doc").live('click',function(){
@@ -266,20 +310,38 @@ $(".delete_master_doc").live('click',function(){
     $('.edit_master_doc[master_doc_id='+ $(this).attr('master_doc_id') +']').css("display", "none");
 });
 
+
+$("#master_doc_edit_close_button").live('click',function(){
+
+    $('#master_doc_hidden_tab').attr('mode','show');
+});
+
+
 /*Person Notes*/
 
 $(".person_notes_toggle_button").live('click', function(){
-    if ($('.person_notes_edit_delete').css("display")=="block" || $('.person_notes_edit_delete').css("display")=="")
-        $('.person_notes_edit_delete').css("display","none");
-    else
-        $('.person_notes_edit_delete').css("display","");
+
+    $('.person_notes_edit_delete').css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_notes_close').css("display","");
+    $(this).css("display","none");
+    $('#note_hidden_tab').attr('mode','new');
+});
+
+$(".person_notes_close").live('click',function(){
+ 
+    $('.person_notes_edit_delete').css("display","none");
+
+    $(this).css("display","none");
+    $('.person_notes_toggle_button').css("display","");
+    $('#note_hidden_tab').attr('mode','show');
 });
 
 $(".edit_note").live('click',function(){
     $('.person_notes_toggle_button').css("display","none");
     $('.person_notes_edit_delete').css("display","none");
+    $('#note_hidden_tab').attr('mode','edit');
 });
 
 $(".delete_note").live('click',function(){
@@ -287,45 +349,72 @@ $(".delete_note").live('click',function(){
     $('.edit_note[note_id='+ $(this).attr('note_id') +']').css("display", "none");
 });
 
+$("#note_edit_close_button").live('click',function(){
 
+    $('#note_hidden_tab').attr('mode','show');
+});
 
 /* Person Employment*/
 $(".person_employments_toggle_button").live('click', function(){
-    if ($('.person_employments_edit_delete').css("display")=="block" || $('.person_employments_edit_delete').css("display")=="")
-        $('.person_employments_edit_delete').css("display","none");
-    else
-        $('.person_employments_edit_delete').css("display","");
+   
+    $('.person_employments_edit_delete').css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_employments_close').css("display","");
+    $(this).css("display","none");
+    $('#employment_hidden_tab').attr('mode','new');
 });
 
+
+$(".person_employments_close").live('click',function(){
+    
+    $('.person_employments_edit_delete').css("display","none");
+
+    $(this).css("display","none");
+    $('.person_employments_toggle_button').css("display","");
+     $('#employment_hidden_tab').attr('mode','show');
+});
 
 $("#employments_edit_button").live('click',function(){
     $('.person_employments_toggle_button').css("display","none");
     $('.person_employments_edit_delete').css("display","none");
+    $('#employment_hidden_tab').attr('mode','edit');
 });
 
+$("#employment_edit_close_button").live('click',function(){
+
+    $('#employment_hidden_tab').attr('mode','show');
+});
 
 /* Person Roles */
 $(".person_roles_toggle_button").live('click', function(){
-    if ($('.person_roles_edit_delete').css("display")=="block" || $('.person_roles_edit_delete').css("display")=="")
-        $('.person_roles_edit_delete').css("display","none");
-    else
-        $('.person_roles_edit_delete').css("display","");
-
+    
+    $('.person_roles_edit_delete').css("display","none");
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_roles_close').css("display","");
+    $(this).css("display","none");
+    $('#person_role_hidden_tab').attr('mode','new');
 });
 
 $("#role_edit_button").live('click',function(){
 
     $('.person_roles_toggle_button').css("display","none");
     $('.person_roles_edit_delete').css("display","none");
+    $('#person_role_hidden_tab').attr('mode','edit');
 });
 
 $(".delete_role").live('click',function(){
-    $('.person_notes_toggle_button').css("display","");
+    $('.person_roles_toggle_button').css("display","");
     $('.edit_role[role_id='+ $(this).attr('role_id') +']').css("display", "none");
 });
+
+$(".person_roles_close").live('click',function(){
+    $('.person_roles_edit_delete').css("display","none");
+    $(this).css("display","none");
+    $('.person_roles_toggle_button').css("display","");
+    $('#person_role_hidden_tab').attr('mode','show');
+});
+
 
 // Address assistant //
 

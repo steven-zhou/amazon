@@ -1,13 +1,11 @@
 .form_line
-  .field_15
+  .field_20
     = website.label :contact_meta_type_id, 'Type'
     = website.collection_select :contact_meta_type_id, Contact.website_types, :id, :name
-  .field_80
+  .field_75
     = website.label :value, "Value"
     = website.text_field :value
-  %br.clear
 .form_line
   .field_100
     = website.label :remarks, "Remarks"
     = website.text_field :remarks
-  %br.clear
