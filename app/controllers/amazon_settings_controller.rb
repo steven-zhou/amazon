@@ -55,4 +55,45 @@ class AmazonSettingsController < ApplicationController
       format.js
     end
   end
+
+  def system_settings_finder
+    @amazon_settings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def system_data_entry_finder
+    @amazon_setting = AmazonSetting.find_by_id(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def new_setting
+    @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
+    @amazon_setting.update_attributes(params[:amazon_setting])
+    if @amazon_setting.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_setting
+    @amazon_setting = AmazonSetting.find(params[:id].to_i)
+    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
+    if @amazon_setting.save
+      flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
+    else
+      flash.now[:warning] = flash_message(:type => "default", :message => "There was an error updating the setting.")
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

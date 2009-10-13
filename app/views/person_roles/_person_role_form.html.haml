@@ -1,60 +1,59 @@
-.field_50
-  = label :role_type_id, "Role Type"
-  -if @person_role.new_record?
-    = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
-  -else
-    = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
-.field_33{:style => "float:right;"}
-  %label &nbsp;
-  -if @person_role.new_record?
-    %span{ :id=> "person_role_type_description" }
-  -else
-    %span{ :id=> "person_role_type_#{@person_role.id}_description" } #{@role_type.description}
-%br{ :style=>"clear: both;"}
+.form_line{:style => "float:none;"}
+  .field_30
+    = label :role_type_id, "Role Type"
+    -if @person_role.new_record?
+      = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+    -else
+      = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+  .field_25{:style => "float:right;"}
+    %label &nbsp;
+    -if @person_role.new_record?
+      %span{ :id=> "person_role_type_description" }
+    -else
+      %span{ :id=> "person_role_type_#{@person_role.id}_description" } #{@role_type.description}
 
-.field_50
-  = person_role.label :role_id, "Role"
-  -if @person_role.new_record?
-    %select.show_role_table{:name => "person_role[role_id]", :id => "person_role_role_id", :person_id => @person.id, :person_role_id => "person_role_role_id"}
-      %options
-  -else
-    %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id}
-      - @roles.each do |r|
-        %option{:value => "#{r.id}", :selected => (@role.id == r.id) } #{r.name}
-
-.field_33{:style => "float:right;"}
-  %label &nbsp;
-  -if @person_role.new_record?
-    %span{:id=> "person_role_description" }
-  -else
-    %span{:id=> "person_role_#{@person_role.id}_description" } #{@role.description}
-     
-
-%br{ :style=>"clear: both;"}
 .form_line
-  .field_50
-    %label Role Conditions
+  .field_30
+    = person_role.label :role_id, "Role"
     -if @person_role.new_record?
-      %select{:multiple => true,:size => "15", :id => "role_condition_display", :disabled=> true}
+      %select.show_role_table{:name => "person_role[role_id]", :id => "person_role_role_id", :person_id => @person.id, :person_role_id => "person_role_role_id"}
+        %options
     -else
-      %select{:multiple => true,:size => "15", :id => "role_condition_#{@person_role.id}_display", :disabled=> true}
-        - @role.role_conditions.each do |r|
-          %option{:value => "#{r.id}" } #{r.name}
-  .field_50
-    %label Person Master Docs
+      %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id}
+        - @roles.each do |r|
+          %option{:value => "#{r.id}", :selected => (@role.id == r.id) } #{r.name}
+  .field_25{:style => "float:right;"}
+    %label &nbsp;
     -if @person_role.new_record?
-      %select{:multiple => true,:size => "15", :id => "role_masterdoc_display",:disabled=> true}
+      %span{:id=> "person_role_description" }
     -else
-      %select{:multiple => true,:size => "15", :id => "role_masterdoc_#{@person_role.id}_display",:disabled=> true}
-        - @masterdoc.each do |r|
-          %option{:value => "#{r.master_doc_type.id}" } #{r.master_doc_type.name}
+      %span{:id=> "person_role_#{@person_role.id}_description" } #{@role.description}
+.header_container
+  %h1{:style => "margin:0;"} Role Conditions
+  .form_line{:style => "height:auto !important;"}
+    .field_45{:style => "height:auto !important;"}
+      %label Role Conditions
+      -if @person_role.new_record?
+        %select{:multiple => true,:size => "15", :id => "role_condition_display", :disabled=> true, :style => "float:left;min-height:250px;margin-left:10px"}
+      -else
+        %select{:multiple => true,:size => "15", :id => "role_condition_#{@person_role.id}_display", :disabled=> true, :style => "float:left;min-height:250px;margin-left:5px"}
+          - @role.role_conditions.each do |r|
+            %option{:value => "#{r.id}" } #{r.name}
+    .field_45{:style => "height:auto !important;"}
+      %label Person Master Docs
+      -if @person_role.new_record?
+        %select{:multiple => true,:size => "15", :id => "role_masterdoc_display",:disabled=> true, :style => "float:left;min-height:250px;margin-left:10px"}
+      -else
+        %select{:multiple => true,:size => "15", :id => "role_masterdoc_#{@person_role.id}_display",:disabled=> true, :style => "float:left;min-height:250px;margin-left:5px"}
+          - @masterdoc.each do |r|
+            %option{:value => "#{r.master_doc_type.id}" } #{r.master_doc_type.name}
 %br.clear
 
 -if @person_role.new_record?
   %div#warning
 -else
   %div#warning_1
-%br.clear
+
 .form_line
   .field_25
     = person_role.label :assigned_by, 'Assigned By'
@@ -65,6 +64,7 @@
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} #{@person_role.role_assigner.name}
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} &nbsp;
+.form_line
   .field_25
     = person_role.label :approved_by, "Approved By"
     = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
@@ -75,6 +75,7 @@
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "approver_container_0" : "approver_container_#{@person_role.id}"} &nbsp;
   %br{ :style=>"clear: both;"}
+.form_line
   .field_25
     = person_role.label :supervised_by, "Supervised By"
     = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container", :person_role_id=> @person_role.new_record? ? 0 : @person_role.id
@@ -84,7 +85,7 @@
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} #{@person_role.role_superviser.name}
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} &nbsp;
-
+.form_line
   .field_25
     = person_role.label :managed_by, "Managed By"
     = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id

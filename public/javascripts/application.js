@@ -1,6 +1,7 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
 
+
 $(function(){
     $("#tabs").tabs();
 });
@@ -262,29 +263,35 @@ $(function(){
 /* Show Summary list*/
 $(function(){
     $('table#search_list_results tbody tr').live('click',function(){
-        $.ajax({
+
+
+   
+       $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
-            data: 'person_id='+$(this).attr('person_id'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+ $(this).attr('current_operation'),
             dataType: "script"
-        });
+        });      
         $('table#search_list_results tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");        
     });
 });
 
-$(function(){
-    $('table#search_edit_list_results tbody tr').live('click',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/people/show_edit_left.js",
-            data: 'person_id='+$(this).attr('person_id'),
-            dataType: "script"
-        });
-        $('table#search_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
-    });
-});
+
+
+
+//$(function(){
+//    $('table#search_edit_list_results tbody tr').live('click',function(){
+//        $.ajax({
+//            type: 'GET',
+//            url: "/people/show_edit_left.js",
+//            data: 'person_id='+$(this).attr('person_id'),
+//            dataType: "script"
+//        });
+//        $('table#search_list_results tbody tr.selected').removeClass('selected');
+//        $(this).addClass("selected");
+//    });
+//});
 
 
 /*role*/
@@ -495,6 +502,66 @@ formatCurrency= function(num){
         num.substring(num.length-(4*i+3));
     return (((sign)?'':'-') + '$' + num + '.' + cents);
 }
+
+
+
+
+
+
+
+
+// Administration Menu
+
+// Configuration
+
+$(function(){
+    $("#system_data_type").live('change', function(){
+        if($(this).val()==""){
+            $("#system_data_main_contents").hide();
+            $("#system_data_entries").html("");
+            $("#edit_system_data_entry").html("");
+        } else {
+            $("#edit_system_data_entry").html("");
+            $("#amazon_setting_type").val($(this).val());
+            $.ajax({
+                type: "GET",
+                url: "/amazon_settings/system_settings_finder.js",
+                data: 'type=' + $(this).val(),
+                dataType: "script"
+            });
+            $("#system_data_main_contents").show();
+        }
+    });
+});
+
+
+$(function(){
+    $("#system_data_entry").live('click', function(){
+        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+        $(this).addClass("system_data_entry_selected");
+        $("#edit_system_data_entry").html("");
+        $("#system_data_add_entry_form").hide();
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/system_data_entry_finder.js",
+            data: 'id=' + $(this).attr('system_data_id'),
+            dataType: "script"
+        });
+
+    });
+});
+
+$(function(){
+    $("#system_data_add_entry").live('click', function(){
+        $("#system_data_add_entry_form").toggle();
+        $("#edit_system_data_entry").html("");
+        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+    });
+});
+
+
+
+
 
 //Admin - System Data Tab
 
@@ -1825,7 +1892,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation'),
             dataType: "script"
 
         });
@@ -1833,17 +1900,17 @@ $(function(){
 });
 
 
-$(function(){
-    $("#edit_all_list_member").live('click',function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/edit_show_list.js",
-            data: 'person_id='+$(this).attr('person_id'),
-            dataType: "script"
-
-        });
-    });
-});
+//$(function(){
+//    $("#edit_all_list_member").live('click',function(){
+//        $.ajax({
+//            type: "GET",
+//            url: "/people/edit_show_list.js",
+//            data: 'person_id='+$(this).attr('person_id'),
+//            dataType: "script"
+//
+//        });
+//    });
+//});
 
 
 
@@ -1870,7 +1937,29 @@ $(function(){
     });
 });
 
+//$(function(){
+//   
+//      $('.text').wysiwyg();
+//
+//});
 
+
+$(function(){
+    $('.header_container').live('mouseover',function(){
+    if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+     
+      $(this).find('.person_tag').css("display","");
+  }
+    });
+});
+
+$(function(){
+    $('.header_container').live('mouseout',function(){
+      if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+    $(this).find('.person_tag').css("display","none");
+      }
+    });
+});
 
 
 /*Grid*/

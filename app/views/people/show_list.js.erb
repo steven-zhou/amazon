@@ -1,4 +1,4 @@
-$('#right_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p })) %>');
+$('#right_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p,:current_operation => @current_operation })) %>');
 
 $('#search_list_results').dataTable({
         "bLengthChange":false,

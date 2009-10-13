@@ -4,18 +4,27 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon - Beyond the Horizon - Now with Metrox!</title>
 
+<<<<<<< HEAD:app/views/layouts/application.html.erb
     <%= stylesheet_link_tag  "Styles.css", "flexigrid.css"%>
+=======
+    <%= stylesheet_link_tag  "Styles.css"%>  
+    <%= stylesheet_link_tag  "jquery.wysiwyg"%>
+   
+
+>>>>>>> 81759f81fa1f7752eac7c4ac6fe6c205c4506fed:app/views/layouts/application.html.erb
     <%= jqgrid_stylesheets %>
     <%= jqgrid_javascripts %>
     <%= javascript_include_tag  "flexigrid.js",
-      "jrails.js",
       "jquery.dataTables.min.js",
       "jquery.qtip.min.js",
       "jquery.form.js",
       "jquery.jpassword.js",
-      "application",
+      "application.js",
       "person.js",
-      "reports.js"%>
+      "reports.js",
+      "jquery.wysiwyg.js",
+      :cache => true %>
+
 
     
     <%= yield_authenticity_token %>

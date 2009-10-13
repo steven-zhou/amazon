@@ -1,12 +1,11 @@
 -# Displays for Role Details
--div_for(person_role, :class => 'info_container') do
-  .header_container
+-div_for(person_role, :class => 'header_container', :field => "person_role") do
+  %div
     .title
-      %h3= person_role.role.name
-    .options{:class => 'person_roles_edit_delete'}
+      %h2= person_role.role.name
+    .options{:class => 'person_roles_edit_delete person_tag', :style => "display:none;"}
       = link_to image_tag('edit_icon.png'), edit_person_role_path(person_role), :class =>'get edit_role', :id => 'role_edit_button',:role_id => person_role.id
       = link_to image_tag('delete_icon.png'), person_role_path(person_role), :class => 'delete delete_role', :id => 'role_delete_button',:role_id => person_role.id
     %br.clear
-  .display_container
+  %div{:style => "float:right;"}
     = format_role(person_role)
-
