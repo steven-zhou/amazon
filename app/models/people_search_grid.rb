@@ -1,0 +1,3 @@
+class PeopleSearchGrid < Grid
+  
+end

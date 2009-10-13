@@ -192,7 +192,9 @@ $(".person_contact_close").live('click',function(){
     $('.person_contact_toggle_button').css("display","");
     $('#contact_hidden_tab').attr('mode','show');
 
-   $(".contact_form")[0].reset();
+   $("#new_phone")[0].reset();
+    $("#new_email")[0].reset();
+     $("#new_website")[0].reset();
     
 });
     

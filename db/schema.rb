@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091012061523) do
+ActiveRecord::Schema.define(:version => 20091012235713) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -150,6 +150,22 @@ ActiveRecord::Schema.define(:version => 20091012061523) do
     t.integer  "payment_day_id"
     t.integer  "suspension_type_id"
     t.integer  "termination_method_id"
+  end
+
+  create_table "grids", :force => true do |t|
+    t.integer "login_account_id"
+    t.integer "grid_object_id"
+    t.string  "type"
+    t.text    "field_1"
+    t.text    "field_2"
+    t.text    "field_3"
+    t.text    "field_4"
+    t.text    "field_5"
+    t.text    "field_6"
+    t.text    "field_7"
+    t.text    "field_8"
+    t.text    "field_9"
+    t.text    "field_10"
   end
 
   create_table "group_lists", :force => true do |t|

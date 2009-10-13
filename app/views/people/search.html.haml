@@ -3,16 +3,9 @@
     %h1 Find Results
   #lol
 
-
-= render :partial => "search_results", :locals => {:people => @people}
-%p.table_back= link_to_function '« Back to "Find Person"', "history.back()"
-
-.container
-  %h1 Jqgrid
-  = jqgrid("Find Results", "result_grid", "/people/test_search", [{:field => "id", :label => "ID", :width => 35, :resizable => false}, { :field => "first_name", :label => "First Name" }, { :field => "family_name", :label => "Family Name" }])
+%div#hover
+  = (render :partial => "name_card", :locals => {:person => @people.first}) unless @people.empty?
 
 .container
   %h1 Flexigrid
-  %table#flex1
-
-  
+  %table#people_search_grid

@@ -783,6 +783,100 @@ form#organisation_names_form input#image_image_file{
 }
 
 
+/*Grids*/
+.flexigrid input, .flexigrid select {
+    width:auto !important;
+}
+
+/*UI light-box*/
+.ui-dialog .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.ui-dialog #content .container h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+.ui-dialog .container .form_line {
+    float: left;
+    height: 40px;
+    width: 100%;
+}
+
+.ui-dialog .container .form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+
+.ui-dialog .container input {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 96%;
+    height: 18px;
+}
+
+.ui-dialog .container .form_line .field_15,
+.ui-dialog .container .form_line .field_20,
+.ui-dialog .container .form_line .field_25,
+.ui-dialog .container .form_line .field_27,
+.ui-dialog .container .form_line .field_30,
+.ui-dialog .container .form_line .field_33,
+.ui-dialog .container .form_line .field_34,
+.ui-dialog .container .form_line .field_35,
+.ui-dialog .container .form_line .field_40,
+.ui-dialog .container .form_line .field_45,
+.ui-dialog .container .form_line .field_50,
+.ui-dialog .container .form_line .field_55,
+.ui-dialog .container .form_line .field_60,
+.ui-dialog .container .form_line .field_66,
+.ui-dialog .container .form_line .field_70,
+.ui-dialog .container .form_line .field_75,
+.ui-dialog .container .form_line .field_80,
+.ui-dialog .container .form_line .field_85 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.ui-dialog .container .form_line .field_15 {width: 15%;}
+.ui-dialog .container .form_line .field_20 {width: 20%;}
+.ui-dialog .container .form_line .field_25 {width: 25%;}
+.ui-dialog .container .form_line .field_27 {width: 27%;}
+.ui-dialog .container .form_line .field_30 {width: 30%;}
+.ui-dialog .container .form_line .field_33 {width: 33%;}
+.ui-dialog .container .form_line .field_34 {width: 34%;}
+.ui-dialog .container .form_line .field_35 {width: 35%;}
+.ui-dialog .container .form_line .field_40 {width: 40%;}
+.ui-dialog .container .form_line .field_45 {width: 45%;}
+.ui-dialog .container .form_line .field_50 {width: 50%;}
+.ui-dialog .container .form_line .field_55 {width: 55%;}
+.ui-dialog .container .form_line .field_60 {width: 60%;}
+.ui-dialog .container .form_line .field_66 {width: 66%;}
+.ui-dialog .container .form_line .field_70 {width: 70%;}
+.ui-dialog .container .form_line .field_75 {width: 75%;}
+.ui-dialog .container .form_line .field_80 {width: 80%;}
+.ui-dialog .container .form_line .field_85 {width: 85%;}
+
 /* Administration */
 
 /* System Data */
@@ -815,5 +909,3 @@ form#organisation_names_form input#image_image_file{
     padding: 1%;
     -moz-border-radius: 10px;
 }
-
-
