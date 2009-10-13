@@ -11,6 +11,7 @@ class AdministrationsController < ApplicationController
   end
 
   def custom_groups
+    @custom_groups = GroupMetaMetaType.find_by_name("Custom")
     respond_to do |format|
       format.html
     end

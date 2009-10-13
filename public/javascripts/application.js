@@ -508,6 +508,8 @@ formatCurrency= function(num){
 
 // Configuration
 
+//Admin - System Data Tab
+
 $(function(){
     $("#system_data_type").live('change', function(){
         if($(this).val()==""){
@@ -554,10 +556,53 @@ $(function(){
 });
 
 
+// Custom Groups
+
+$(function(){
+    $(".open_sub_group").live('click', function() {
+        $("#group_" + $(this).attr('id')).find(".sub_groups").show();
+        $("#group_" + $(this).attr('id')).find(".open_sub_group").hide();
+        $("#group_" + $(this).attr('id')).find(".close_sub_group").show();
+        $("#custom_group_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_sub_group").live('click', function() {
+        $("#group_" + $(this).attr('id')).find(".sub_groups").hide();
+        $("#group_" + $(this).attr('id')).find(".open_sub_group").show();
+        $("#group_" + $(this).attr('id')).find(".close_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#custom_group_add_entry").live('click', function() {
+        $(".sub_groups").hide();
+        $("#custom_group_entry_form").toggle();
+        $(".open_sub_group").show();
+        $(".close_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#custom_sub_group_add_entry").live('click', function() {
+        $(this).closest("#custom_sub_group_form").show();
+    });
+});
 
 
 
-//Admin - System Data Tab
+
+
+
+
+
+
+
+
+
+
+
 
 $(function(){
     $("#find_data_list_field").live('change', function(){
