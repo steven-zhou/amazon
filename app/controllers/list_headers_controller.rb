@@ -78,11 +78,8 @@ class ListHeadersController < ApplicationController
 
 
       else #create
-
-        if(params[:person_id])
-          person_ids = Array.new
-          person_ids = params[:person_id]
-
+        @qrg = QueryResultGrid.find_all_by_login_account_id(session[:user])
+        if(@qrg.size > 0)
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
           @list_header = ListHeader.new(params[:list_header])
           @list_header.last_date_generated = Date.today()
@@ -93,8 +90,8 @@ class ListHeadersController < ApplicationController
 
           ListHeader.transaction do
             if @list_header.save
-              person_ids.each_value do |i|
-                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i)
+              @qrg.each do |i|
+                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
                 @list_detail.save
               end
               flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")

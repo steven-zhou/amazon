@@ -4,7 +4,6 @@ $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
 $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 $('#save_form').dialog('close');
-$('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection => QueryHeader.saved_queries)) %>');
 
 
 <%- else %>
