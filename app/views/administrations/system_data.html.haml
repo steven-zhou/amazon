@@ -14,8 +14,27 @@
 
     %div#system_data_main_contents{:style => "display:none;"}
       .container#system_data_add_data
-        = image_tag("add_icon.png" , :size => "19x18")
-        Add Data
+        %div#system_data_add_entry
+          = image_tag("add_icon.png" , :size => "19x18")
+          Add Data
+        %div#system_data_add_entry_form{:style => "display:none;"}
+          %br.clear
+          - form_for AmazonSetting.new, :url => {:controller => "amazon_settings", :action => "new_setting"}, :html => {:class => "ajax_form"} do |p|
+            = p.text_field :type, {:style => "display:none"}
+            .form_line
+              .field_30
+                = p.label :name, 'Name'
+                = p.text_field :name
+              .field_35
+                = p.label :description, 'Description'
+                = p.text_field :description
+              .field_30
+                = p.label :active
+                %label
+                  = p.check_box :status
+                = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+          
+
       %div#system_data_entries
 
       %br.clear

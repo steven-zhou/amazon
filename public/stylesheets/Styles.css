@@ -671,21 +671,31 @@ form#organisation_names_form input#image_image_file{
 /* System Data */
 
 
+
 .system_data_entry_inactive {
-    width: 31%;
-    margin: 1%;
     background-color: #B2BDC5;
+    width: 29%;
+    margin: 1%;
     float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
 }
 
 .system_data_entry_active {
-    width: 31%;
-    margin: 1%;
     background-color: #B2E3C5;
+    width: 29%;
+    margin: 1%;
     float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
 }
 
 .system_data_entry_selected {
     background-color: #B2CADA;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
 }
 
