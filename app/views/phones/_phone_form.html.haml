@@ -2,17 +2,17 @@
   .field_20
     = phone.label :contact_meta_type_id, 'Type'
     = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name
-  .field_20
+  .field_15
     = phone.label :pre_value, "Pre Value"
     = phone.text_field :pre_value
   .field_40
     = phone.label :value, "value"
     = phone.text_field :value
-  .field_20
+  .field_15
     = phone.label :post_value, "Pos value"
     = phone.text_field :post_value          
   %br.clear
-.form_line
+-#.form_line
   .field_25
     = phone.label :monday_hours, "Monday"
     = phone.select :monday_hours, Phone::AVAILABILITY
@@ -26,7 +26,7 @@
     = phone.label :thursday_hours, "Thursday"
     = phone.select :thursday_hours, Phone::AVAILABILITY
   %br.clear
-.form_line
+-#.form_line
   .field_25
     = phone.label :friday_hours, "Friday"
     = phone.select :friday_hours, Phone::AVAILABILITY

@@ -1,8 +1,8 @@
 -#The container for a Relationship Type
-%div{:id => type.gsub(/ /,'').underscore, :class=>"info_container"}
-  .header_container
+%div{:id => type.gsub(/ /,'').underscore, :class=>"header_container"}
+  %div
     .title
-      %h3
+      %h2
         =type
     %br{ :style=>"clear: both;"}
   - if type == "Siblings" || type == "Children"

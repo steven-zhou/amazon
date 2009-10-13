@@ -70,6 +70,19 @@ class AmazonSettingsController < ApplicationController
     end
   end
 
+  def new_setting
+    @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
+    @amazon_setting.update_attributes(params[:amazon_setting])
+    if @amazon_setting.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def update_setting
     @amazon_setting = AmazonSetting.find(params[:id].to_i)
     @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])

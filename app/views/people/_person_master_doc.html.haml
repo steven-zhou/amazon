@@ -1,9 +1,7 @@
 -# Displays An Address
--div_for(person_master_doc, :class => 'info_container') do
-  .header_container
+-div_for(person_master_doc, :class => 'header_container') do
+  %div
     .title
-      %h3= "#{person_master_doc.id} #{person_master_doc.master_doc_type.name}"
-
-    %br{ :style => "clear:both;"}
-  .display_container
+      %h2= "#{person_master_doc.id} #{person_master_doc.master_doc_type.name}"
+  %div{:style => "float:right;"}
     = format_masterdoc(person_master_doc)

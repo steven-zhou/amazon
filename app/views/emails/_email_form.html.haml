@@ -2,12 +2,10 @@
   .field_20
     = email.label :contact_meta_type_id, 'Type'
     = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name
-  .field_80
+  .field_75
     = email.label :value, "Value"
     = email.text_field :value
-  %br.clear
 .form_line
   .field_100
     = email.label :remarks, "Remarks"
     = email.text_field :remarks
-  %br.clear

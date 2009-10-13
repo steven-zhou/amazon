@@ -522,6 +522,7 @@ $(function(){
             $("#edit_system_data_entry").html("");
         } else {
             $("#edit_system_data_entry").html("");
+            $("#amazon_setting_type").val($(this).val());
             $.ajax({
                 type: "GET",
                 url: "/amazon_settings/system_settings_finder.js",
@@ -539,6 +540,7 @@ $(function(){
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
         $(this).addClass("system_data_entry_selected");
         $("#edit_system_data_entry").html("");
+        $("#system_data_add_entry_form").hide();
         $.ajax({
             type: "GET",
             url: "/amazon_settings/system_data_entry_finder.js",
@@ -549,14 +551,13 @@ $(function(){
     });
 });
 
-
-
-
-
-
-
-
-
+$(function(){
+    $("#system_data_add_entry").live('click', function(){
+        $("#system_data_add_entry_form").toggle();
+        $("#edit_system_data_entry").html("");
+        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+    });
+});
 
 
 
@@ -1936,7 +1937,29 @@ $(function(){
     });
 });
 
+//$(function(){
+//   
+//      $('.text').wysiwyg();
+//
+//});
 
+
+$(function(){
+    $('.header_container').live('mouseover',function(){
+    if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+     
+      $(this).find('.person_tag').css("display","");
+  }
+    });
+});
+
+$(function(){
+    $('.header_container').live('mouseout',function(){
+      if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+    $(this).find('.person_tag').css("display","none");
+      }
+    });
+});
 
 
 /*test*/

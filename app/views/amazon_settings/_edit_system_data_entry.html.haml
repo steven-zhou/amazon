@@ -11,16 +11,16 @@
           = p.label :description, 'Description'
           = p.text_field :description
         .field_30
-          = p.label :status
+          = p.label :active
           %label
             = p.check_box :status
 
           = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
 
-%script{:type => "text/javascript"}
-  :plain
-    $(document).ready(function() {
-        $('input:checkbox:not([safari])').checkbox();
-        $('input[safari]:checkbox').checkbox({cls:'jquery-safari-checkbox'});
-        $('input:radio').checkbox();
-    });
+//%script{:type => "text/javascript"}
+//  :plain
+//    $(document).ready(function() {
+//        $('input:checkbox:not([safari])').checkbox();
+//        $('input[safari]:checkbox').checkbox({cls:'jquery-safari-checkbox'});
+//        $('input:radio').checkbox();
+//    });

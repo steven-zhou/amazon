@@ -1,3 +1,4 @@
 $('#<%= dom_id(@note,:edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @note)) %>");
-    $('.person_notes_edit_delete').css("display","");
+    $('.person_notes_edit_delete').css("display","none");
     $('.person_notes_toggle_button').css("display","");
+     $('#note_hidden_tab').attr('mode','show');

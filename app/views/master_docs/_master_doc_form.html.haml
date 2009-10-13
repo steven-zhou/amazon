@@ -1,13 +1,13 @@
 -# The options to edit or add an address
-.form_line
+.form_line{:style => "float:none;"}
   .field_25
-    = form.label :id, 'Type Category'
+    = form.label :id, 'Meta Type'
     -if @masterdoc.new_record?
       = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field"})
     -else
       = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
-    = form.label :id, 'Type Subcategory'
+    = form.label :id, 'Type'
     -if @masterdoc.new_record?
       %select.find_master_doc_type_field{:id => "master_doc_meta_type_id"}
         %option
@@ -15,10 +15,8 @@
       %select.find_master_doc_type_field{:id => "master_doc_meta_type_id_#{@masterdoc.id}", :master_doc_id => @masterdoc.id}
         %option{:value => @masterdocmetatype.id}
           = @masterdocmetatype.name
-  %br.clear
-.form_line
   .field_25
-    = form.label :id, 'Type'
+    = form.label :id, 'Category'
     -if @masterdoc.new_record?
       %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]"}
         %option
@@ -26,10 +24,6 @@
       %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]"}
         %option{:value => @masterdoctype.id}
           = @masterdoctype.name
-  .field_25
-    = form.label :category, 'Category'
-    = form.text_field :category
-  %br.clear
 .form_line
   .field_25
     = form.label :doc_number, 'Doc Number'
@@ -45,7 +39,7 @@
   .field_25
     = form.label :short_name, 'Short Name'
     = form.text_field :short_name
-  .field_75
+  .field_70
     = form.label :long_name, 'Long Name'
     = form.text_field :long_name
   %br.clear
@@ -53,7 +47,7 @@
   .field_25
     = form.label :name_on_doc, 'Name on Doc'
     = form.text_field :name_on_doc
-  .field_75
+  .field_70
     = form.label :other_on_doc, 'Other on Doc'
     = form.text_field :other_on_doc
   %br.clear
@@ -86,13 +80,13 @@
   .field_25
     = form.label :action_taken, 'Action'
     = form.text_field :action_taken
-  .field_25
-    
+  .field_5
+    = form.label :reminder, '&nbsp'
     = form.check_box :reminder
-    %span Reminder
-  %br.clear
+  .field_5
+    = form.label :reminder, '&nbsp'
+    %label  Reminder
 .form_line
   .field_100
     = form.label :remarks, 'Remarks'
     = form.text_field :remarks
-  %br.clear

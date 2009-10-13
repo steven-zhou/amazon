@@ -4,6 +4,7 @@ class RolesController < ApplicationController
 
     @person_role = PersonRole.find(params[:person_role_id].to_i) rescue @person_role = PersonRole.new
     @role = Role.find(:all, :conditions => ["role_type_id=? and role_status=?",params[:role_type_id],true]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+
     @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
 
     respond_to do |format|
@@ -29,7 +30,12 @@ class RolesController < ApplicationController
         array2 << m.master_doc_type_id
       end
     end
-     
+
+    array_after = array1 & array2
+    @array_diff = Array.new
+    @array_diff = array1 - array_after
+
+    puts"--DEBUG--#{@array_diff.to_yaml}"
     if ((array1 & array2) == array1)
       flash.now[:message] = "this person is a good choice."
     else
