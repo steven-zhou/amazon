@@ -20,10 +20,8 @@
         %tr{:organisation_id => organisation.id}
           %td= organisation.id
           %td= organisation.full_name
-          %td
-            = organisation.primary_phone.value unless organisation.primary_phone.blank?
-          %td
-            = organisation.primary_email.address unless organisation.primary_email.blank?
+          %td= organisation.primary_phone.value unless organisation.primary_phone.blank?
+          %td= organisation.primary_email.address unless organisation.primary_email.blank?
           %td= format_address(organisation.primary_address) unless organisation.primary_address.blank?
   =link_to_function 'Select', :id => "show_list_select"
 
