@@ -18,7 +18,6 @@
             .field_40
               = p.label :onrecord_since, 'Recorded on'
               = p.text_field :onrecord_since, :class=>"datepick"
-        %br.clear
         %h2 Name Details
         .form_line
           .field_20
@@ -30,7 +29,6 @@
           .field_33
             = p.label :family_name, "Family Name"
             = p.text_field :family_name
-          %br.clear
         .form_line
           .field_20
             = p.label :second_title_id, '2nd Title'
@@ -41,7 +39,6 @@
           .field_33
             = p.label :maiden_name, 'Maiden Name'
             = p.text_field :maiden_name
-          %br.clear
         .form_line
           .field_20
             = p.label :initials, 'Initials'
@@ -52,7 +49,6 @@
           .field_33
             = p.label :preferred_name, 'Preferred Names'
             = p.text_field :preferred_name
-          %br.clear
         %h2 Personal Details
         .form_line
           .field_30
@@ -64,7 +60,6 @@
           .field_30
             = p.label :gender, 'Gender'
             = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
-          %br.clear
         .form_line
           .field_30
             = p.label :marital_status, 'Marital Status'
@@ -72,7 +67,6 @@
           .field_30
             = p.label :religion_id, 'Religion'
             = p.collection_select :religion_id, Religion.active_religion, :id, :name, {:include_blank => true}
-          %br.clear
         .form_line
           .field_30
             = p.label :origin_country_id,'Country of Origin'
@@ -83,7 +77,6 @@
           .field_30
             = p.label :language_id, 'Language'
             = p.collection_select :language_id, Language.active_language, :id, :name, {:include_blank => true}
-          %br.clear
         .form_line
           .field_30
             = p.label :residence_country_id,"Country of Residence"
@@ -94,7 +87,6 @@
           .field_30
             = p.label :other_language,"Other Language"
             = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
-          %br.clear
         .form_line
           .field_30
             = p.label :industry_sector,"Industry Sector"
@@ -102,7 +94,6 @@
           .field_60
             = p.label :interests,"Interests"
             = p.text_field :interests
-          %br.clear
         = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
         = submit_tag 'Find', {:id => "find_button" }
         %br.clear
@@ -118,7 +109,7 @@
     %div.container
       -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|
         .container
-          Email
+          %h2 Email
           .form_line
             .field_20
               = email.label :contact_meta_type_id, 'Type'
@@ -133,7 +124,7 @@
           %br.clear
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
         .container
-          Phone
+          %h2 Phone
           .form_line
             .field_15
               = phone.label :contact_meta_type_id, 'Type'
@@ -209,7 +200,6 @@
     %div.container
       -form_for Keyword.new, :url => {:action => 'search'}, :html => {:method => :post} do |keyword|
         .container
-          %h3 Find By Keyword
           .form_line
             .field_40
               = keyword.label :name, 'Keyword'

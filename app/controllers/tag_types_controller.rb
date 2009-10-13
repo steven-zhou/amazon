@@ -59,7 +59,9 @@ class TagTypesController < ApplicationController
   def show_fields
     @tag_types = TableMetaType.find(:all, :conditions => ["tag_meta_type_id=?", TableMetaMetaType.find_by_name(params[:table_name]).id], :order => "name")
     @update_field = String.new
+    @update_value = String.new
     @update_field = params[:update_field]
+    @update_value = params[:update_value]
     respond_to do |format|
       format.js
     end

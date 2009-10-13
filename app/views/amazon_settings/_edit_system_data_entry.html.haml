@@ -1,0 +1,26 @@
+%div#edit_system_data_entry
+  %br.clear
+
+  .container
+    - form_for @amazon_setting, :url => {:controller => "amazon_settings", :action => "update_setting", :id => @amazon_setting.id, :type => @amazon_setting.class.name}, :html => {:class => "ajax_form"} do |p|
+      .form_line
+        .field_30
+          = p.label :name, 'Name'
+          = p.text_field :name
+        .field_35
+          = p.label :description, 'Description'
+          = p.text_field :description
+        .field_30
+          = p.label :active
+          %label
+            = p.check_box :status
+
+          = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+
+//%script{:type => "text/javascript"}
+//  :plain
+//    $(document).ready(function() {
+//        $('input:checkbox:not([safari])').checkbox();
+//        $('input[safari]:checkbox').checkbox({cls:'jquery-safari-checkbox'});
+//        $('input:radio').checkbox();
+//    });

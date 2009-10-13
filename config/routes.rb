@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :edit_show_list => :get, :show_left => :get,:show_edit_left => :get, :show_list => :get, :test_search => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :edit_show_list => :get, :show_left => :get,:show_edit_left => :get, :show_list => :get, :test_search => :get, :flexi_search => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
@@ -32,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get},
+    :collection => {:find => :get, :search => :post, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get},
     :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
@@ -44,9 +44,9 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :notes
   end
 
-  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get}
+  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
-  map.resources :amazon_settings, :collection => {:data_list_finder => :get}
+  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}

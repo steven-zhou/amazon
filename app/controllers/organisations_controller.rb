@@ -19,8 +19,9 @@ class OrganisationsController < ApplicationController
 
   def show
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
+    @o = Organisation.find(:all, :order => "id")
     @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = Organisation.new if @organisation.nil?
+    @organisation = @o[0] if @organisation.nil?
     @primary_phone = @organisation.primary_phone
     @primary_email = @organisation.primary_email
     @primary_fax = @organisation.primary_fax
@@ -72,8 +73,10 @@ class OrganisationsController < ApplicationController
   end
 
   def edit
+    @o = Organisation.find(:all, :order => "id")
+    @postcodes = DomesticPostcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = Organisation.new(:id => "")
+    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -183,6 +186,13 @@ class OrganisationsController < ApplicationController
     @business_category = BusinessCategory.find(params[:sub_category_id])
     @business_sub_category = @business_category.description
   
+    respond_to do |format|
+      format.js
+    end
+  end
+
+   def show_list
+    @organisations = Organisation.find(:all, :order => "id")
     respond_to do |format|
       format.js
     end

@@ -3,7 +3,8 @@ class PeopleController < ApplicationController
   include PeopleSearch
 
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
-
+  protect_from_forgery :except => [:post_data]
+  
   def new
    
     @person = Person.new
@@ -280,14 +281,8 @@ class PeopleController < ApplicationController
     end
 
     @person = Person.new
-    respond_to do |format|
-      format.html
-    end
-  end
 
-  def test_search
-    @person = Person.new
-    people = Person.find(:all) do
+    @people = PeopleSearch.by_name(params[:person]) do
       if params[:_search] == "true"
         first_name =~ "%#{params[:first_name]}%" if params[:first_name].present?
         family_name  =~ "%#{params[:family_name]}%" if params[:family_name].present?
@@ -296,8 +291,45 @@ class PeopleController < ApplicationController
       order_by "#{params[:sidx]} #{params[:sord]}"
     end
     if request.xhr?
+      render :json => @people.to_jqgrid_json([:id,:first_name,:family_name], params[:page], params[:rows], @people.total_entries) and return
+    end
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def test_search
+    @person = Person.new
+    people = Person.find(:all, :order => "id") do
+      if params[:_search] == "true"
+        first_name =~ "%#{params[:first_name]}%" if params[:first_name].present?
+        family_name  =~ "%#{params[:family_name]}%" if params[:family_name].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+
+#    condition_clauses = Array.new
+#    value_clauses = Array.new
+#    if params[:_search] == "true"
+#      if params[:first_name].present?
+#        condition_clauses.push("first_name LIKE ?")
+#        value_clauses.push("%#{params[:first_name]}%")
+#      end
+#      if params[:family_name].present?
+#        condition_clauses.push("family_name LIKE ?")
+#        value_cluases.push("%#{params[:family_name]}%")
+#      end
+#    end
+#    people = Person.find(:all, :conditions => [condition_clauses.join(" AND "), *value_clauses], :order => "#{params[:sidx]} #{params[:sord]}", :limit => params[:rows], :offset => (params[:page]-1)*params[:rows])
+    if request.xhr?
       render :json => people.to_jqgrid_json([:id,:first_name,:family_name], params[:page], params[:rows], people.total_entries) and return
     end
+  end
+
+  def flexi_search
+    
   end
 
 

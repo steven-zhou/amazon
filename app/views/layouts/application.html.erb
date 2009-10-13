@@ -4,23 +4,25 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon - Beyond the Horizon - Now with Metrox!</title>
 
-    <%= stylesheet_link_tag  "Styles.css", "jquery-ui-custom.css" , "jquery.wysiwyg"%>
+    <%= stylesheet_link_tag  "Styles.css"%>  
+    <%= stylesheet_link_tag  "jquery.checbox.css"%>
+    <%= stylesheet_link_tag  "jquery.safari.checbox.css", "jquery.wysiwyg"%>
+
     <%= jqgrid_stylesheets %>
-    <%= javascript_include_tag "jquery.min.js",
-      "jquery-ui.min.js",
-      "jrails.js",
+    <%= jqgrid_javascripts %>
+    <%= javascript_include_tag  "flexigrid.js",
       "jquery.dataTables.min.js",
       "jquery.qtip.min.js",
       "jquery.form.js",
-      "jquery.dataTables.min.js",
       "jquery.jpassword.js",
-      "application",
+      "application.js",
       "person.js",
       "reports.js",
       "jquery.wysiwyg.js",
       :cache => true %>
-    
 
+
+    
     <%= yield_authenticity_token %>
   </head>
 
@@ -30,6 +32,7 @@
       <%= render(:partial => "/shared/flash_messages") %>
       <div id="lc"><!--left collumn, menu area-->
         <%= render(:partial => "/shared/menu") %>
+        <%= render(:partial => "/shared/admin_menu") %>
       </div>
 
       <div id="main"><!--main area wrapper-->

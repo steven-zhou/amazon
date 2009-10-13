@@ -12,6 +12,7 @@ class QueryCriteriasController < ApplicationController
   def create
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     @query_criteria = @query_header.query_criterias.new(params[:query_criteria])
+    @query_criteria.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_criteria][:field_name], TableMetaMetaType.find_by_name(params[:query_criteria][:table_name])]).category
     @query_criteria.status = true
     if @query_criteria.save
       flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "criteria")
@@ -41,8 +42,8 @@ class QueryCriteriasController < ApplicationController
     @query_criteria = QueryCriteria.find(params[:id])
     @query_header = @query_criteria.query_header
     @query_criteria.destroy
-    @query_header = QueryHeader.find(@query_header.id)
-    @query_criteria = QueryCriteria.new
+#    @query_header = QueryHeader.find(@query_header.id)
+#    @query_criteria = QueryCriteria.new
     respond_to do |format|
       format.js
     end

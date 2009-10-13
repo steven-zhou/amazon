@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091005232824) do
+ActiveRecord::Schema.define(:version => 20091012061523) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -217,7 +217,6 @@ ActiveRecord::Schema.define(:version => 20091005232824) do
   end
 
   create_table "list_headers", :force => true do |t|
-    t.integer  "query_header_id"
     t.string   "type"
     t.string   "name"
     t.string   "description"
@@ -439,7 +438,7 @@ ActiveRecord::Schema.define(:version => 20091005232824) do
     t.string  "operator"
     t.string  "option"
     t.string  "value"
-    t.string  "status"
+    t.boolean "status"
   end
 
   create_table "query_details", :force => true do |t|
@@ -450,6 +449,7 @@ ActiveRecord::Schema.define(:version => 20091005232824) do
     t.boolean "status"
     t.string  "type"
     t.boolean "ascending"
+    t.string  "data_type"
   end
 
   create_table "query_headers", :force => true do |t|

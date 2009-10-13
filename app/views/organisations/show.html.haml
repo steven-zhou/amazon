@@ -1,122 +1,99 @@
-#left
-  .header
-    .title
-      = render :partial => "menu", :locals => { :organisation => @organisation }
+#header
+  #page_title
+    %h1 Organisation Profile
+  #lol
+    = render :partial => "/organisations/lists_menu"
     %br.clear
-  %div.info_container
-    .form_line
-      .field_20{:style => 'float:left;'}
-        = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
-        - form_tag(:controller => "organisations", :action => "show", :id => "") do
-          = text_field_tag 'organisation_id', @organisation.id, {:readonly=> false, :onblur => 'this.form.submit()',:id => 'system_id_tag'}
 
-      = render :partial => "lists_menu", :locals => {:organisation => @organisation, :p => @p }
-    %br.clear
-      
-  %div.info_container
+#left_content
+  %div#photo_info
     %div#imageshow{:style => "float:left;"}
       -if @organisation.image.nil?
         = image_tag 'no_photo.jpeg', :class => "small"
       -else
         = image_tag(image_path(@organisation.image.id), :class => "small")
-    
-     
-    %div#idline
+    %div#organisation_name
       - if @organisation.id.nil?
-        %h3{:style=>'visibility:hidden'} Hidden
-        
+        %h1{:style=>'visibility:hidden'} Hidden
       -else
-      
-        %h3= h "#{@organisation.full_name}"
-        
+        %h1= h "#{@organisation.full_name}"
+      %br
       .form_line
-        .field_33 
-          = label_tag 'custom_id', 'Custom ID'
-          = text_field_tag 'custom_id', @organisation.custom_id, {:readonly => true}
-        .field_33
-          = label_tag 'onrecord_since', 'On Record Since'
-          = text_field_tag 'onrecord_since', @organisation.onrecord_since.to_s, {:readonly => true}
-        %br.clear
+        = label_tag 'custom_id', 'Custom ID'
+        %span=@organisation.custom_id
+      .form_line
+        = label_tag 'onrecord_since', 'On Record Since'
+        %span=@organisation.onrecord_since.to_s
+      %br
 
-
-
-  %div.info_container
-    %h3 Contacts
-    %div.info_container
+  .container
+    %h1 Contacts
+    .container
       Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_phone.nil? ? "None assigned": @primary_phone.number
-    %div.info_container
+    .container
       Website &nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_website.nil? ? "None assigned": @primary_website.value
-    %div.info_container
+    .container
       Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
       = @primary_email.nil? ? "None assigned": @primary_email.value
    
 
 
-  %div.info_container
-    %h3
+  .container
+    %h1
       = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
     .primary_address_and_employment
       = format_address(@primary_address) unless @primary_address.nil?
 
 
-  %div.info_container
-    %h3 Key Personnel
-    %div.info_container
-      %h3 Office Bearer
+  .container
+    %h1 Key Personnel
+    .container
+      %h2 Office Bearer
 
-    %div.info_container
-      %h3 Contact Persons
+    .container
+      %h2 Contact Persons
   
 
-#right
-  
-  .header
-    = image_tag 'help_icon.png', :class => "help_icon"
-    %br.clear
-  .info_container{:align => 'center'}
-    .organisation_profile_options
-      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"toggle_button1", :toggle_id_name1 => "business_info",:toggle_id_name2 => "organisation_info"
-      &nbsp;|
-      = link_to_function "#{image_tag('person_details.png')} organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"toggle_button1", :toggle_id_name1 => "organisation_info",:toggle_id_name2 => "business_info"
-     
+#right_content
+  #photo_info
+  .container_icon{:align => 'center'}
+    = link_to_function "#{image_tag('person_details.png')} Organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"show_hide_button", :show_id_name => "organisation_info",:hide_id_name => "business_info"
+  .container_icon{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "organisation_info"
 
  
-  %div.info_container#organisation_info{:style=>"display:none"}
-     
+  .container#organisation_info{:style=>"display:none"}
     = render :partial => 'organisation_info'
     
-   
-        
-   
-  %div.page#business_info
-    %div.info_container
-      %h3 System Module X
+  .container#business_info
+    .container
+      %h2 System Module X
       %br
       %br
       %br
       %p
-    %div.info_container
-      %h3 Membership
+    .container
+      %h2 Membership
       %br
       %br
       %br
       %br
-    %div.info_container
-      %h3 Events
+    .container
+      %h2 Events
       %br
       %br
       %br
       %br
-    %div.info_container
-      %h3 System Module Y
+    .container
+      %h2 System Module Y
       %br
       %br
       %br
       %br
-    %div.info_container
-      %h3 System Module Z
+    .container
+      %h2 System Module Z
       %br
       %br
       %br

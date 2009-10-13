@@ -177,6 +177,15 @@ body {
     -moz-border-radius: 10px;
     margin-bottom: 10px;
 }
+
+#app #main #content .container.green_container {
+    background-image:url(../images/container_green_bg.png) !important;
+}
+
+#app #main #content .container.orange_container {
+    background-image:url(../images/container_orange_bg.png) !important;
+}
+
 /* removes double margin from last div */
 #app #main #content .container div:last-child {
     margin-bottom: 0px;
@@ -263,8 +272,10 @@ body {
 #app #main #content .container .form_line .field_22,
 #app #main #content .container .form_line .field_23,
 #app #main #content .container .form_line .field_25,
+#app #main #content .container .form_line .field_27,
 #app #main #content .container .form_line .field_30,
 #app #main #content .container .form_line .field_33,
+#app #main #content .container .form_line .field_34,
 #app #main #content .container .form_line .field_35,
 #app #main #content .container .form_line .field_38,
 #app #main #content .container .form_line .field_40,
@@ -290,8 +301,10 @@ body {
 #app #main #content .container .form_line .field_22 {width: 22%;}
 #app #main #content .container .form_line .field_23 {width: 23%;}
 #app #main #content .container .form_line .field_25 {width: 25%;}
+#app #main #content .container .form_line .field_27 {width: 27%;}
 #app #main #content .container .form_line .field_30 {width: 30%;}
 #app #main #content .container .form_line .field_33 {width: 33%;}
+#app #main #content .container .form_line .field_34 {width: 34%;}
 #app #main #content .container .form_line .field_35 {width: 35%;}
 #app #main #content .container .form_line .field_38 {width: 38%;}
 #app #main #content .container .form_line .field_40 {width: 40%;}
@@ -325,6 +338,17 @@ body {
     width: 49.5%;
     margin-left: 0.5%;
 }
+
+/* For when we are using the whole page, not only two columns */
+#app #main #content #content_full_page {
+    min-height: 500px;
+    background-color:#F6F6F6;
+    float: left;
+    width: 98%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
 /* content footer - not in use at the moment */
 #app #main #content #footer {
     width: 100%;
@@ -369,7 +393,6 @@ div.container div.header_container .title {
     display:inline;
     font-size: 12px;
     font-weight: bold;
-    color: #FFFFFF;
 }
 
 div.container div.header_container .title h1{
@@ -400,6 +423,14 @@ div.container div.header_container .options {
 div#show_lists div.container {
     width:45% !important;
     margin-right: 1%;
+}
+
+div#list_compiler_form .form_line.field_select_line {
+    height:auto !important;
+}
+
+div#list_compiler_form select.field_select {
+    height:auto !important;
 }
 
 /* query header */
@@ -579,19 +610,21 @@ p.submit{ /*This is for the submit button*/
     padding-right:3px;
 }
 
+.left {
+    float:left;
+}
+
 .right {
     float:right;
 }
 form#person_names_form.edit_person input#person_custom_id{
     float:right;
     width: 200px !important;
-
 }
 
 form#add_person.new_person input#person_custom_id{
     float:right;
     width: 200px !important;
-
 }
 
 form#add_person.new_person input#image_image_file{
@@ -636,6 +669,7 @@ p.submit{
 }
 
 /*Temp*/
+
 
 
 /*TAB*/
@@ -710,3 +744,76 @@ div.info_warning {
      color:red;
 
 }
+
+/*Organisation Show*/
+#app #main #content #left_content #photo_info #organisation_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
+
+/* Organisation New*/
+form#add_organisation.new_organisation input#organisation_custom_id{
+    float:right;
+    width: 200px !important;
+}
+
+form#add_organisation.new_organisation input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+/*Organisation Edit*/
+form#organisation_names_form input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+#app #main #content #header #lol_organisations {
+    margin: 4px 3px 0 0;
+    float: left;
+}
+
+
+/* Administration */
+
+/* System Data */
+
+
+
+.system_data_entry_inactive {
+    background-color: #B2BDC5;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+.system_data_entry_active {
+    background-color: #B2E3C5;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+.system_data_entry_selected {
+    background-color: #B2CADA;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+
