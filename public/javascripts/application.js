@@ -263,29 +263,35 @@ $(function(){
 /* Show Summary list*/
 $(function(){
     $('table#search_list_results tbody tr').live('click',function(){
-        $.ajax({
+
+
+   
+       $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
-            data: 'person_id='+$(this).attr('person_id'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+ $(this).attr('current_operation'),
             dataType: "script"
-        });
+        });      
         $('table#search_list_results tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");        
     });
 });
 
-$(function(){
-    $('table#search_edit_list_results tbody tr').live('click',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/people/show_edit_left.js",
-            data: 'person_id='+$(this).attr('person_id'),
-            dataType: "script"
-        });
-        $('table#search_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
-    });
-});
+
+
+
+//$(function(){
+//    $('table#search_edit_list_results tbody tr').live('click',function(){
+//        $.ajax({
+//            type: 'GET',
+//            url: "/people/show_edit_left.js",
+//            data: 'person_id='+$(this).attr('person_id'),
+//            dataType: "script"
+//        });
+//        $('table#search_list_results tbody tr.selected').removeClass('selected');
+//        $(this).addClass("selected");
+//    });
+//});
 
 
 /*role*/
@@ -1886,7 +1892,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation'),
             dataType: "script"
 
         });
@@ -1894,17 +1900,17 @@ $(function(){
 });
 
 
-$(function(){
-    $("#edit_all_list_member").live('click',function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/edit_show_list.js",
-            data: 'person_id='+$(this).attr('person_id'),
-            dataType: "script"
-
-        });
-    });
-});
+//$(function(){
+//    $("#edit_all_list_member").live('click',function(){
+//        $.ajax({
+//            type: "GET",
+//            url: "/people/edit_show_list.js",
+//            data: 'person_id='+$(this).attr('person_id'),
+//            dataType: "script"
+//
+//        });
+//    });
+//});
 
 
 
