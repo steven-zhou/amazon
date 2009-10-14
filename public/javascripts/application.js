@@ -2042,19 +2042,22 @@ $(function(){
 
 $(function(){
     $('.edit_option').live('click',function(){
-      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');      
+      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');
+      $('.new_option[field='+ $(this).attr('field') +']').css("display","none");
     });
 });
 
 $(function(){
     $('.close_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','show');
+      $('.new_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
 
 $(function(){
     $('.new_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','new');
+      $('.close_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
 
