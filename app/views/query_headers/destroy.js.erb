@@ -1,3 +1,2 @@
-$("#new_query").css('display','');
 $('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection => QueryHeader.saved_queries)) %>');
 $("#close_edit_query").click();

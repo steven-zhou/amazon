@@ -7,7 +7,7 @@
       .field_25
         =f.label :description, "Description"
         =f.text_field :description
-      .field_12
+      .field_15
         =f.label :allow_duplication, "&nbsp;"
         =f.check_box :allow_duplication, :style => "width:30%;display:inline"
         =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
@@ -20,11 +20,13 @@
       .field_10{:style => "float:right"}
         = f.label :status, "&nbsp;"
         =submit_tag "Submit"
-      %br.clear
-  .form_line
-    #{@list_header.source}
 
-.container{:style => "width:30%"}
+  .form_line
+    .field_100
+      %label Source
+      %lable #{@list_header.source}
+
+.container{:style => "width:30%;margin-right:4%;"}
   %h1 Add Person To List
   -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
     .form_line
@@ -32,37 +34,11 @@
         =f.label :person_id, "Person ID"
         %input{:id => "person_id", :name => "person_id"}
         %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
-      .field_50
+      .field_40{:style => "float:right;"}
         %label &nbsp;
-        =submit_tag "Add Person", :style => "width:100px;float:right"
+        =submit_tag "Add Person"
       %br.clear
 
--form_for @list_header, :url => "/list_headers/#{@list_header.id}/delete_details", :html => {:class => "ajax_form"} do |f|
-  %table#list_details.display
-    %thead
-      %tr
-        %th
-          =submit_tag "Remove Selected"
-        %th System ID
-        - if (@list_header.query_header.nil? || @list_header.query_header.query_selections.empty?)
-          %th Name
-        - else
-          - @list_header.query_header.query_selections.each do |i|
-            %th= i.field_name
-
-    %tbody
-      - @list_header.list_details.each do |i|
-        %tr{:id => "list_detail_#{i.id}"}
-          %td
-            %input{:type => "checkbox", :name => "list_detail[]", :value => i.id, :class => "checkboxes"}
-          %td= i.person.id
-          -if (@list_header.query_header.nil? || @list_header.query_header.query_selections.empty?)
-            %td= i.person.name
-          -else
-            - i.list_header.query_header.query_selections.each do |j|
-              -if j.table_name == "people"
-                %td= i.person.__send__(j.field_name.to_sym)
-              -else
-                %td= i.person.__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless i.person.__send__(j.table_name.underscore.to_sym).empty?
-
-
+.container{:style => "width:60%"}
+  -form_for @list_header, :url => "/list_headers/#{@list_header.id}/delete_details", :html => {:class => "ajax_form"} do |f|
+    %table#list_edit_grid

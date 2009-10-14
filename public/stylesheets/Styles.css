@@ -267,6 +267,7 @@ body {
 
 /* Common properties */
 #app #main #content .container .form_line .field_5,
+#app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_22,
@@ -296,6 +297,7 @@ body {
 }
 /* unique properties */
 #app #main #content .container .form_line .field_5 {width: 5%;}
+#app #main #content .container .form_line .field_5 {width: 10%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
@@ -421,6 +423,7 @@ div.container div.header_container .options {
 
 
 div#show_lists div.container {
+    padding:1% !important;
     width:45% !important;
     margin-right: 1%;
 }
@@ -436,6 +439,7 @@ div#list_compiler_form select.field_select {
 /* query header */
 div#show_queries div.container {
     width:45% !important;
+    padding:1% !important;
     margin-right: 1%;
 }
 
@@ -796,7 +800,7 @@ form#organisation_names_form input#image_image_file{
     background-repeat:repeat;
     width: 96%;
     float: left;
-    padding: 2%;
+    padding: 1%;
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;
@@ -825,6 +829,17 @@ form#organisation_names_form input#image_image_file{
     text-decoration: none;
     display: block;
     padding-left: 3px;
+}
+
+.ui-dialog .container input[type=button] {
+    width:auto;
+    height:auto;
+}
+
+.ui-dialog .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
 }
 
 .ui-dialog .container input {
