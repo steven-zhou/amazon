@@ -1,10 +1,10 @@
-.header_container.container
+.header_container.container.toggle_options{:field => "list"}
   %div
     .title
       %h2 #{saved_list.formatted_info}
-    .options
+    .options{:style => "display:none;"}
       = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_list_header_path(saved_list), :class => 'get_list'
-      = link_to image_tag('folder.png', :alt => 'SaveAs'), copy_list_header_path(saved_list), :class => 'get_list'
+      = link_to image_tag('icon_holder.png', :alt => 'SaveAs'), copy_list_header_path(saved_list), :class => 'get_list'
       = link_to image_tag('delete_icon.png', :alt => 'Delete'), list_header_path(saved_list), :class => 'delete'
     %br.clear
   

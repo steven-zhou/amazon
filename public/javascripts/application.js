@@ -1,7 +1,6 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
 
-
 $(function(){
     $("#tabs").tabs();
 });
@@ -272,8 +271,8 @@ $(function(){
             data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
             dataType: "script"
         });      
-        $('table#search_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");        
+        $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
     });
 });
 
@@ -2094,6 +2093,42 @@ $(function(){
     });
 });
 
+
+/*option hover*/
+$(function(){
+    $('.toggle_options').live('mouseover',function(){
+        if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
+          $(this).find('.options').css("display","");
+        }
+    });
+});
+
+$(function(){
+    $('.toggle_options').live('mouseout',function(){
+      if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
+        $(this).find('.options').css("display","none");
+      }
+    });
+});
+
+$(function(){
+    $('.edit_option').live('click',function(){
+      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');      
+    });
+});
+
+$(function(){
+    $('.close_option').live('click',function(){
+      $("#" + $(this).attr('field')+'_mode').attr('mode','show');
+    });
+});
+
+$(function(){
+    $('.new_option').live('click',function(){
+      $("#" + $(this).attr('field')+'_mode').attr('mode','new');
+    });
+});
+
 /*Organisation Grid*/
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('click',function(){
@@ -2106,8 +2141,8 @@ $(function(){
             data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
             dataType: "script"
         });
-        $('table#search_organisations_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
+        $('table#search_organisations_list_results tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
     });
 });
 
