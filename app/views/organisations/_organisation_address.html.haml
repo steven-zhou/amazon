@@ -1,7 +1,10 @@
 -# Displays An Address
--div_for(organisation_address, :class => 'header_container') do
+-div_for(organisation_address, :class => 'header_container', :field => "address") do
   %div
     .title
       %h2= organisation_address.address_type.name
+      .options{:style => "display:none;"}
+        = link_to image_tag('edit_icon.png', :alt => 'Edit'), :class => 'get_query edit_option'
+        = link_to image_tag('delete_icon.png', :alt => 'Delete'), :class => 'delete'
   %div{:style => "float:right;"}
     = format_address(organisation_address)
