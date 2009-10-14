@@ -50,8 +50,7 @@ RoleType.create :name => "Marketing", :status => true
 RoleType.create :name => "Planning", :status => true
 RelationshipType.create :name => "Father", :status => true
 RelationshipType.create :name => "Mother", :status => true
-RelationshipType.create :name => "Sister", :status => true
-RelationshipType.create :name => "Brother", :status => true
+RelationshipType.create :name => "Spouse", :status => true
 RelationshipType.create :name => "Next of Kin", :status => true
 MaritalStatus.create :name => "Single", :status => true
 MaritalStatus.create :name => "Married", :status => true

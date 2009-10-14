@@ -80,7 +80,7 @@
         .form_line
           .field_30
             = p.label :residence_country_id,"Country of Residence"
-            = p.collection_select :nationality_id, Country.all, :id, :short_name, {:include_blank => true}
+            = p.collection_select :residence_country_id, Country.all, :id, :short_name, {:include_blank => true}
           .field_33
             = p.label :other_nationality_id,"Other Nationality"
             = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}

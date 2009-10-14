@@ -268,7 +268,7 @@ $(function(){
        $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+ $(this).attr('current_operation'),
+            data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
             dataType: "script"
         });      
         $('table#search_list_results tbody tr.selected').removeClass('selected');
@@ -590,8 +590,8 @@ $(function(){
 });
 
 $(function(){
-    $("#custom_sub_group_add_entry").live('click', function() {
-        $(this).closest("#custom_sub_group_form").show();
+    $(".custom_sub_group_add_entry").live('click', function() {
+        $("#sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
 
@@ -1976,6 +1976,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/organisations/show_list.js",
+            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation'),
             dataType: "script"
         });
     });
@@ -2057,6 +2058,7 @@ $(function(){
     });
 });
 
+
 /*option hover*/
 $(function(){
     $('.toggle_options').live('mouseover',function(){
@@ -2089,5 +2091,36 @@ $(function(){
 $(function(){
     $('.new_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','new');
+    });
+});
+
+/*Organisation Grid*/
+$(function(){
+    $('table#search_organisations_list_results tbody tr').live('click',function(){
+
+
+
+       $.ajax({
+            type: 'GET',
+            url: "/organisations/show_left.js",
+            data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
+            dataType: "script"
+        });
+        $('table#search_organisations_list_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+    });
+});
+
+
+$(function(){
+    $("#show_organisation_list_select").live('click',function(){
+        window.open("/organisations/"+ $('#system_id_tag').val(), "_self");
+    });
+});
+
+
+$(function(){
+    $("#edit_organisation_list_select").live('click',function(){
+        window.open("/organisations/"+ $('#system_id_tag').val()+"/edit", "_self");
     });
 });
