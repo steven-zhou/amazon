@@ -2,9 +2,9 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "clear_form person_relationship_close toggle_button", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship"
+      = link_to_function image_tag('close_icon.png'), :class => "clear_tab person_relationship_close toggle_button", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship"
     .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"person_relationship_toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
     %h1 Relationships
     %input{:type => "text", :id => "relationship_hidden_tab" :mode => "show", :style => "display:none"}
     

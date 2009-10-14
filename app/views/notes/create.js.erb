@@ -1,7 +1,7 @@
 <% if @note.errors.empty? -%>
   $('#notes_list').prepend('<%= escape_javascript(render(:partial => @note)) %>');
   $("#new_note")[0].reset();
-  $("#new_note").toggle('blind');
+  $("#new_note").hide();
 
   $('#note_hidden_tab').attr('mode','show');
   $('.person_notes_toggle_button').css("display","");
