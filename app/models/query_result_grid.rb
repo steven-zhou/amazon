@@ -1,0 +1,3 @@
+class QueryResultGrid < Grid
+  
+end

@@ -1,8 +1,1 @@
 $('#<%= dom_id(@query_sorter_old) %>').fadeOut("slow", function() {$(this).remove();});
-if ($("#current_action_global").val() == "new"){
-  $('#new_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form")) %>');
-  $('#new_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
-}else{
-  $('#edit_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form")) %>');
-  $('#edit_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
-}

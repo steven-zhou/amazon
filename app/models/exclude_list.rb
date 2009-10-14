@@ -1,4 +1,3 @@
 class ExcludeList < CompileList
-
-
+  
 end

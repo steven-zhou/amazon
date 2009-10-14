@@ -1,7 +1,27 @@
-%div.list_menu
-  -form_tag(:controller => "list", :action => "show", :id => "") do
-    = link_to(image_tag 'back.png')
-    = link_to(image_tag 'back.png')
-    = select_tag 'list', :name, :id => 'select_tag'
-    = link_to image_tag 'go.png'
-    = link_to image_tag 'go.png'
+- form_tag(@current_controller == "organisations" && @current_action == "show" ? '/organisations/show' : '/organisations/edit') do
+  %div#loleft
+    .lolfont_center
+      = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
+    %div
+      -unless @organisation.new_record?
+        .arrow_block
+          = link_to((image_tag 'back.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.at(0)) : edit_organisation_path(@o.at(0)))
+          = link_to((image_tag 'back.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.at((@o.index(@organisation))-1)) : edit_organisation_path(@o.at((@o.index(@organisation))-1)))
+        = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'this.form.submit()',:id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px"}
+        .arrow_block
+          -if @o.index(@organisation) != @o.index(@o.last)
+            = link_to((image_tag 'go.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o[@o.index(@organisation)+1]) : edit_organisation_path(@o[@o.index(@organisation)+1]))
+          -else
+            = link_to((image_tag 'go.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.first) : edit_organisation_path(@o.first))
+          = link_to((image_tag 'go.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.fetch(-1)) : edit_organisation_path(@o.fetch(-1)))
+  %div#loright
+    .lolfont_left
+      %label &nbsp;
+    #lol_organisations
+      %h1 Organisations
+    #show_list_icon
+      - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
+        =link_to_function 'Show List', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list"
+      - else
+        =link_to_function 'Show List', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list"
+  %br.clear

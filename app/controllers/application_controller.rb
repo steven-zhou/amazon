@@ -58,6 +58,7 @@ class ApplicationController < ActionController::Base
     when "too long" then "#{options[:field]} is too long"
     when "too short" then "#{options[:field]} is too short"
     when "format error" then "#{options[:field]} format is wrong"
+    when "same_person_error" then "#{options[:field]} can not same as source person"
 
       # Default
     when "default" then " #{options[:message]}"

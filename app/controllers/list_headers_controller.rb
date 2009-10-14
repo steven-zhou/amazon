@@ -8,46 +8,42 @@ class ListHeadersController < ApplicationController
 
   def create
     if(params[:compile]) #Compile List
-      if(params[:person_id])
+      @lcg = ListCompileGrid.find_all_by_login_account_id(session[:user])
+      if(@lcg.size > 0)
           
-          @list_header = ListHeader.new(params[:list_header])
-          @list_header.last_date_generated = Date.today()
-          @list_header.list_size = 0
-          @list_header.source_type = "C" #generate from query
-          @include_lists = IncludeList.find_all_by_login_account_id(session[:user])
-          @exclude_lists = ExcludeList.find_all_by_login_account_id(session[:user])
-          include_lists = Array.new
-          exclude_lists = Array.new
-          @include_lists.each do |i|
-            include_lists << i.list_header.name
-          end
-          @exclude_lists.each do |i|
-            exclude_lists << i.list_header.name
-          end
-          @list_header.source = "Compile from List - Include(#{include_lists.join(', ')})"
-          @list_header.source += " And Exclude(#{exclude_lists.join(', ')})" unless @exclude_lists.empty?
-          @list_header.status = true
-
-          ListHeader.transaction do
-            if @list_header.save
-              person_ids = Array.new
-              params[:person_id].each_value do |i|
-                person_ids << i
-              end
-              person_ids = person_ids.uniq unless @list_header.allow_duplication
-              person_ids.each do |i|
-                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i)
-                @list_detail.save
-              end
-              flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
-            else
-              flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))
-              flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("has already been taken"))
-            end
-          end
-        else
-          flash.now[:error] = flash_message(:message => "list can't be empty")
+        @list_header = ListHeader.new(params[:list_header])
+        @list_header.last_date_generated = Date.today()
+        @list_header.list_size = 0
+        @list_header.source_type = "C" #generate from list compile
+        @include_lists = IncludeList.find_all_by_login_account_id(session[:user])
+        @exclude_lists = ExcludeList.find_all_by_login_account_id(session[:user])
+        include_lists = Array.new
+        exclude_lists = Array.new
+        @include_lists.each do |i|
+          include_lists << i.list_header.name
         end
+        @exclude_lists.each do |i|
+          exclude_lists << i.list_header.name
+        end
+        @list_header.source = "Compile from List - Include(#{include_lists.join(', ')})"
+        @list_header.source += " And Exclude(#{exclude_lists.join(', ')})" unless @exclude_lists.empty?
+        @list_header.status = true
+
+        ListHeader.transaction do
+          if @list_header.save
+            @lcg.each do |i|
+              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
+              @list_detail.save
+            end
+            flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
+          else
+            flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))
+            flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("has already been taken"))
+          end
+        end
+      else
+        flash.now[:error] = flash_message(:message => "list can't be empty")
+      end
 
 
     else
@@ -78,11 +74,8 @@ class ListHeadersController < ApplicationController
 
 
       else #create
-
-        if(params[:person_id])
-          person_ids = Array.new
-          person_ids = params[:person_id]
-
+        @qrg = QueryResultGrid.find_all_by_login_account_id(session[:user])
+        if(@qrg.size > 0)
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
           @list_header = ListHeader.new(params[:list_header])
           @list_header.last_date_generated = Date.today()
@@ -93,8 +86,8 @@ class ListHeadersController < ApplicationController
 
           ListHeader.transaction do
             if @list_header.save
-              person_ids.each_value do |i|
-                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i)
+              @qrg.each do |i|
+                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
                 @list_detail.save
               end
               flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
@@ -126,6 +119,21 @@ class ListHeadersController < ApplicationController
     @list_details = @list_header.list_details
     @query_header = @list_header.query_header
     @people = @list_header.people_on_list
+
+    #clear list edit temp table, and save result to temp table
+    ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @people.each do |person|
+      @leg = ListEditGrid.new
+      @leg.login_account_id = session[:user]
+      @leg.grid_object_id = person.id
+      @leg.field_1 = person.first_name
+      @leg.field_2 = person.family_name
+      @leg.save
+    end
+
     respond_to do |format|
       format.js
     end
@@ -151,7 +159,24 @@ class ListHeadersController < ApplicationController
       delete_list.each do |i|
         i.destroy
       end
-    end
+
+      @people = @list_header.people_on_list
+
+      #clear list edit temp table, and save result to temp table
+      ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+      @people.each do |person|
+        @leg = ListEditGrid.new
+        @leg.login_account_id = session[:user]
+        @leg.grid_object_id = person.id
+        @leg.field_1 = person.first_name
+        @leg.field_2 = person.family_name
+        @leg.save
+      end
+    end    
+    
     @list_header = ListHeader.find(@list_header)
     respond_to do |format|
       format.js

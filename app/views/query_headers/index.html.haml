@@ -1,11 +1,12 @@
 .container#existing_query
   %h1 Existing Queries
+  %input.hidden{:id => "query_mode", :mode => "show"}
   #show_queries
     = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
   %br.clear
 .container#edit_query{:style => "display:none"}
   = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
-  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;")
+  = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;", :class => "close_option", :field => "query")
   %h1 Edit Query
 
   #edit_form
@@ -36,19 +37,22 @@
         #extra_form
           %h3 Extra Attributes
           .form_line
-            %input{:type => "checkbox", :style => "width:50%;display:inline;"}
-            %label{:style => "width:50%;display:inline;"} Allow Duplication
-            %br.clear
+            .field_70
+              %input{:type => "checkbox", :style => "width:auto;float:left;"}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
+
           .form_line
-            %input{:type => "radio", :name => "query_top_edit", :style => "width:30%;display:inline;", :value => "number", :id => "query_edit_top_number", :checked => true}
-            %label{:style => "width:30%;display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            %input{:style => "width:30%;display:inline;", :id => "query_edit_top_number_value", :class => "integer_field"}
-            %br.clear
+            .field_70
+              %input{:type => "radio", :name => "query_top_edit", :style => "width:auto;float:left;", :value => "number", :id => "query_edit_top_number", :checked => true}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              %input{:style => "width:70px;float:left;", :id => "query_edit_top_number_value", :class => "integer_field"}
+            
           .form_line
-            %input{:type => "radio", :name => "query_top_edit", :style => "width:30%;display:inline;", :value => "percent", :id => "query_edit_top_percent"}
-            %label{:style => "width:30%;display:inline;"} Percent
-            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_edit_top_percent_value", :class => "integer_field"}
-            %br.clear
+            .field_70
+              %input{:type => "radio", :name => "query_top_edit", :style => "width:auto;float:left;", :value => "percent", :id => "query_edit_top_percent"}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Percent&nbsp;&nbsp;
+              %input{:style => "width:70px;float:left;", :disabled => true, :id => "query_edit_top_percent_value", :class => "integer_field"}
+
 
     #right
       #edit_query_list
@@ -57,14 +61,11 @@
 
     %br.clear
 
-    = button_to_function 'Save', :id => "save_button", :action => "edit"
-    = button_to_function 'Run Query', :id => "run_button_edit", :action => "edit", :disabled => "disabled"
+    = button_to_function 'Save', :id => "save_button", :action => "edit", :style => "float:right;margin-right:20px;"
+    = button_to_function 'Run Query', :id => "run_button_edit", :action => "edit", :disabled => "disabled", :style => "float:right;margin-right:20px;"
     %input#query_header_id{:style => "display:none;"}
     %input#current_action_global{:style => "display:none;"}
     = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "edit"
-
-
-#save_form{:style => "display:none;"}
 
 #sql_div{:style => "display:none;"}
   %h3 SQL Statement
@@ -73,3 +74,5 @@
 #result_div{:style => "display:none;"}
   %h3 Query Results
   #sql_result
+
+#save_form{:style => "display:none;"}

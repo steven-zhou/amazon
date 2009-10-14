@@ -266,14 +266,19 @@ body {
 /* Form field place holders */
 
 /* Common properties */
+#app #main #content .container .form_line .field_5,
+#app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_20,
+#app #main #content .container .form_line .field_22,
+#app #main #content .container .form_line .field_23,
 #app #main #content .container .form_line .field_25,
 #app #main #content .container .form_line .field_27,
 #app #main #content .container .form_line .field_30,
 #app #main #content .container .form_line .field_33,
 #app #main #content .container .form_line .field_34,
 #app #main #content .container .form_line .field_35,
+#app #main #content .container .form_line .field_38,
 #app #main #content .container .form_line .field_40,
 #app #main #content .container .form_line .field_45,
 #app #main #content .container .form_line .field_50,
@@ -281,22 +286,29 @@ body {
 #app #main #content .container .form_line .field_60,
 #app #main #content .container .form_line .field_66,
 #app #main #content .container .form_line .field_70,
+#app #main #content .container .form_line .field_72,
 #app #main #content .container .form_line .field_75,
 #app #main #content .container .form_line .field_80,
-#app #main #content .container .form_line .field_85 {
+#app #main #content .container .form_line .field_85,
+#app #main #content .container .form_line .field_100 {
     float: left;
     height: 40px;
     margin-right: 10px;
 }
 /* unique properties */
+#app #main #content .container .form_line .field_5 {width: 5%;}
+#app #main #content .container .form_line .field_5 {width: 10%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
+#app #main #content .container .form_line .field_22 {width: 22%;}
+#app #main #content .container .form_line .field_23 {width: 23%;}
 #app #main #content .container .form_line .field_25 {width: 25%;}
 #app #main #content .container .form_line .field_27 {width: 27%;}
 #app #main #content .container .form_line .field_30 {width: 30%;}
 #app #main #content .container .form_line .field_33 {width: 33%;}
 #app #main #content .container .form_line .field_34 {width: 34%;}
 #app #main #content .container .form_line .field_35 {width: 35%;}
+#app #main #content .container .form_line .field_38 {width: 38%;}
 #app #main #content .container .form_line .field_40 {width: 40%;}
 #app #main #content .container .form_line .field_45 {width: 45%;}
 #app #main #content .container .form_line .field_50 {width: 50%;}
@@ -304,9 +316,11 @@ body {
 #app #main #content .container .form_line .field_60 {width: 60%;}
 #app #main #content .container .form_line .field_66 {width: 66%;}
 #app #main #content .container .form_line .field_70 {width: 70%;}
+#app #main #content .container .form_line .field_72 {width: 72%;}
 #app #main #content .container .form_line .field_75 {width: 75%;}
 #app #main #content .container .form_line .field_80 {width: 80%;}
 #app #main #content .container .form_line .field_85 {width: 85%;}
+#app #main #content .container .form_line .field_100 {width: 100%;}
 
 /* remove margin from .form_field last div */
 #app #main #content .container .form_line div:last-child {
@@ -328,7 +342,7 @@ body {
 }
 
 /* For when we are using the whole page, not only two columns */
-#app #main #content #content {
+#app #main #content #content_full_page {
     min-height: 500px;
     background-color:#F6F6F6;
     float: left;
@@ -362,7 +376,19 @@ div#content div#right {
 
 div.container div.header_container {
     display: inline;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat; 
+    width: 96%;
+   float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px !important;
 }
+
+
 
 div.container div.header_container .title {
     float: left;
@@ -371,13 +397,33 @@ div.container div.header_container .title {
     font-weight: bold;
 }
 
+div.container div.header_container .title h1{
+    margin: 0 0 0 0 !important;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+div.container div.header_container h1 {
+   margin:0 0 0 35px;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
 div.container div.header_container .options {
 
     float: right;
     display:inline;
 }
 
+
 div#show_lists div.container {
+    padding:1% !important;
     width:45% !important;
     margin-right: 1%;
 }
@@ -393,6 +439,7 @@ div#list_compiler_form select.field_select {
 /* query header */
 div#show_queries div.container {
     width:45% !important;
+    padding:1% !important;
     margin-right: 1%;
 }
 
@@ -436,6 +483,14 @@ div#edit_query input[type=submit] {
 
 div.highlight {
     background-color : red;
+}
+
+.hidden {
+    display:none;
+}
+
+.option {
+    display:none;
 }
 
 
@@ -628,6 +683,80 @@ p.submit{
 /*Temp*/
 
 
+
+/*TAB*/
+/*contact*/
+form.contact_form {
+    display:none;
+}
+
+form.active {
+    display:block;
+}
+
+div.keywordleft {
+	width: 30%;
+	margin-left: 5%;
+	float: left;
+}
+ div#keywords_right {
+  width: 30%;
+  margin-right: 5%;
+	float: right;
+}
+
+#keywords_middle {
+  width: 20%;
+  margin: 0 5% 0 5%;
+
+  padding-top: 80px;
+  text-align: center;
+	float: left;
+}
+
+#keywords select{
+    min-height:325px;
+
+}
+
+
+/*relationship*/
+
+div.id_container {
+  float:left;
+  margin: 0% 1%;
+	width: 18%;
+}
+
+div.name_container{
+  float:left;
+  margin: 0% 1%;
+	width: 38%;
+}
+
+div.delete_container{
+  float:right;
+  margin: 0% 1%;
+	width: 18%;
+	text-align: right;
+}
+
+div.info_warning {
+    display:block;
+    border: 0px;
+    width: 95%;
+    padding: 1%;
+    margin: 8px 8px 8px 8px;
+    float:left;
+    background-color:silver;
+}
+
+.highlight{
+     font-size:14px;
+     color:red;
+
+}
+
 /*Organisation Show*/
 #app #main #content #left_content #photo_info #organisation_name h1{
     margin:5px 120px 0 0;
@@ -658,4 +787,148 @@ form#organisation_names_form input#image_image_file{
     width: 150px !important;
     font-size:14px;
     line-height:16px;
+}
+
+#app #main #content #header #lol_organisations {
+    margin: 4px 3px 0 0;
+    float: left;
+}
+
+
+/*Grids*/
+.flexigrid input, .flexigrid select {
+    width:auto !important;
+}
+
+/*UI light-box*/
+.ui-dialog .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 1%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.ui-dialog #content .container h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+.ui-dialog .container .form_line {
+    float: left;
+    height: 40px;
+    width: 100%;
+}
+
+.ui-dialog .container .form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+
+.ui-dialog .container input[type=button] {
+    width:auto;
+    height:auto;
+}
+
+.ui-dialog .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
+
+.ui-dialog .container input {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 96%;
+    height: 18px;
+}
+
+.ui-dialog .container .form_line .field_15,
+.ui-dialog .container .form_line .field_20,
+.ui-dialog .container .form_line .field_25,
+.ui-dialog .container .form_line .field_27,
+.ui-dialog .container .form_line .field_30,
+.ui-dialog .container .form_line .field_33,
+.ui-dialog .container .form_line .field_34,
+.ui-dialog .container .form_line .field_35,
+.ui-dialog .container .form_line .field_40,
+.ui-dialog .container .form_line .field_45,
+.ui-dialog .container .form_line .field_50,
+.ui-dialog .container .form_line .field_55,
+.ui-dialog .container .form_line .field_60,
+.ui-dialog .container .form_line .field_66,
+.ui-dialog .container .form_line .field_70,
+.ui-dialog .container .form_line .field_75,
+.ui-dialog .container .form_line .field_80,
+.ui-dialog .container .form_line .field_85 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.ui-dialog .container .form_line .field_15 {width: 15%;}
+.ui-dialog .container .form_line .field_20 {width: 20%;}
+.ui-dialog .container .form_line .field_25 {width: 25%;}
+.ui-dialog .container .form_line .field_27 {width: 27%;}
+.ui-dialog .container .form_line .field_30 {width: 30%;}
+.ui-dialog .container .form_line .field_33 {width: 33%;}
+.ui-dialog .container .form_line .field_34 {width: 34%;}
+.ui-dialog .container .form_line .field_35 {width: 35%;}
+.ui-dialog .container .form_line .field_40 {width: 40%;}
+.ui-dialog .container .form_line .field_45 {width: 45%;}
+.ui-dialog .container .form_line .field_50 {width: 50%;}
+.ui-dialog .container .form_line .field_55 {width: 55%;}
+.ui-dialog .container .form_line .field_60 {width: 60%;}
+.ui-dialog .container .form_line .field_66 {width: 66%;}
+.ui-dialog .container .form_line .field_70 {width: 70%;}
+.ui-dialog .container .form_line .field_75 {width: 75%;}
+.ui-dialog .container .form_line .field_80 {width: 80%;}
+.ui-dialog .container .form_line .field_85 {width: 85%;}
+
+/* Administration */
+
+/* System Data */
+
+
+
+.system_data_entry_inactive {
+    background-color: #B2BDC5;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+.system_data_entry_active {
+    background-color: #B2E3C5;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+.system_data_entry_selected {
+    background-color: #B2CADA;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
 }

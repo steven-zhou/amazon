@@ -1,18 +1,19 @@
 -# The main Keyword tab
-#keywords_tab.info_container
+#keywords_tab.container
   .header_container
-    .title
-      %h3 Keyword
     .options
       = image_tag('help_icon.png')
-    %br{ :style=>"clear: both;"}
+    .title
+      %h1 Keyword
+    
+
   - if (!organisation.nil? && !organisation.new_record?)
-    #keyword_types.left
+    #keyword_types.keywordleft
       = label_tag :keyword_type_id, "Keyword Types"
       = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br{ :style=>"clear: both;"}
     %form#keywords
-      #keywords_left.left
+      #keywords_left.keywordleft
         = label_tag :add_keywords,"Keywords"
         = select_tag :add_keywords,unselected_keyword_options(organisation),{:multiple => true,:size => 20}
       #keywords_middle.middle

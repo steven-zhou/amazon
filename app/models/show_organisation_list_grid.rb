@@ -1,0 +1,3 @@
+class ShowOrganisationListGrid < Grid
+  
+end

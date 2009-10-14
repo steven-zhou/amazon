@@ -1,0 +1,8 @@
+$.ajax({
+  type: "GET",
+  url: "/tags/custom_sub_groups_finder.js",
+  data: 'id=' + <%= escape_javascript(params[:id])%>,
+  dataType: "script"
+});
+$(".group_type_name").val("");
+$(".group_type_description").val("");

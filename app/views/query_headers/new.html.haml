@@ -30,31 +30,37 @@
         #extra_form
           %h1 Extra Attributes
           .form_line
-            %input{:type => "checkbox", :style => "display:inline;"}
-            %label{:style => "display:inline;"} Allow Duplication
-            %br.clear
+            .field_70
+              %input{:type => "checkbox", :style => "width:auto;float:left;"}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
+            
           .form_line
-            %input{:type => "radio", :name => "query_top", :style => "display:inline;", :value => "number", :id => "query_top_number", :checked => true}
-            %label{:style => "display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            %input{:style => "width:30%;display:inline;", :id => "query_top_number_value", :class => "integer_field"}
-            %br.clear
+            .field_70
+              %input{:type => "radio", :name => "query_top", :style => "width:auto;float:left;", :value => "number", :id => "query_top_number", :checked => true}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              %input{:style => "width:70px;float:left;", :id => "query_top_number_value", :class => "integer_field"}
+            
           .form_line
-            %input{:type => "radio", :name => "query_top", :style => "display:inline;", :value => "percent", :id => "query_top_percent"}
-            %label{:style => "display:inline;"} Percent
-            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
-            %br.clear
+            .field_70
+              %input{:type => "radio", :name => "query_top", :style => "width:auto;float:left;", :value => "percent", :id => "query_top_percent"}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Percent&nbsp;&nbsp;
+              %input{:style => "width:70px;float:left;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
+            
 
     #right
-      = render :partial => "queries/query_criteria_list"
-      = render :partial => "queries/query_selection_list"
-      = render :partial => "queries/query_sorter_list"
+      #new_query_list
+        = render :partial => "queries/query_criteria_list"
+      #new_selection_list
+        = render :partial => "queries/query_selection_list"
+      #new_sorter_list
+        = render :partial => "queries/query_sorter_list"
     %br.clear
     
     = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "new"
     = button_to_function 'Save', :id => "save_button", :action => "new", :style => "float:right;margin-right:20px;"
     = button_to_function 'Run Query', :id => "run_button", :action => "new", :style => "float:right;margin-right:20px;"
     %input#query_header_id{:style => "display:none;", :value => "#{@query_header.id}"}
-    %input#current_action_global{:style => "display:none;"}
+    %input#current_action_global{:style => "display:none;", :value => "new"}
     = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "new"
     
 #save_form{:style => "display:none;"}

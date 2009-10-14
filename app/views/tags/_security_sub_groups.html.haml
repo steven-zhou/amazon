@@ -1,0 +1,4 @@
+%div{:id => "security_sub_groups_in_group_#{@group.id}"}
+  -for sub_group in @group.tags do
+    .container
+      = sub_group.name

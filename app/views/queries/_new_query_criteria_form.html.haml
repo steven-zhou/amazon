@@ -2,7 +2,7 @@
   #left
     .form_line
       = f.label :table_name, 'Select Table'
-      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select", :update_field => "criteria", :disabled => @query_header.status == false}
+      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select", :update_field => "criteria", :update_value => "", :disabled => @query_header.status == false}
       %br.clear
     .form_line.field_select_line
       = f.label :field_name, 'Select Field'
@@ -15,23 +15,28 @@
 
     .form_line
       %label Select Operator
-      %select{:id => "query_criteria[operator]", :name => "query_criteria[operator]", :class => "clear_select", :disabled => @query_header.status == false}
+      %select{:id => "query_criteria_operator", :name => "query_criteria[operator]", :class => "clear_select", :disabled => @query_header.status == false}
         %option
         -QueryCriteria::OPERATORS.keys.sort.each do |key|
           %option{:value => key} #{key}
       %br.clear
     .form_line
-      %label Input Value
-      = f.text_field :value, :style => "width:70%;", :disabled => false, :disabled => @query_header.status == false
-      %input{:type => "checkbox", :style => "display:inline", :name => "runtime", :id => "new_runtime", :disabled => @query_header.status == false}
-      %label{:style => "display:inline"} R/T
-      %br.clear
+      .field_70
+        %label Input Value
+        = f.text_field :value, :disabled => false, :disabled => @query_header.status == false
+      .field_20
+        %label &nbsp;
+        %input{:type => "checkbox", :name => "runtime", :id => "new_runtime", :disabled => @query_header.status == false, :style => "width:auto;float:left"}
+        %label{:style => "width:auto;float:left;margin-top:5px;"} R/T
+      
     .form_line
-      %input{:type => "radio", :style => "width:20%;", :name => "query_criteria[option]", :value => "And", :checked => true, :disabled => @query_header.status == false}
-      %label{:style => "display:inline"} And
-      %input{:type => "radio", :style => "width:20%;", :name => "query_criteria[option]", :value => "Or", :disabled => @query_header.status == false}
-      %label{:style => "display:inline"} Or
-      %br.clear
+      .field_20
+        %input{:type => "radio", :style => "width:auto;float:left;", :name => "query_criteria[option]", :value => "And", :checked => true, :disabled => @query_header.status == false}
+        %label{:style => "width:auto;float:left;margin-top:5px;"} And
+      .field_20
+        %input{:type => "radio", :style => "width:auto;float:left;", :name => "query_criteria[option]", :value => "Or", :disabled => @query_header.status == false}
+        %label{:style => "width:auto;float:left;margin-top:5px;"} Or
+      
 
 
     = submit_tag "Apply Criterion", :disabled => @query_header.status == false

@@ -1,0 +1,9 @@
+$.ajax({
+  type: "GET",
+  url: "/tag_types/custom_groups_finder.js",
+  data: 'type=' + $("#system_data_type").val(),
+  dataType: "script"
+});
+$("#amazon_setting_name").val("");
+$("#amazon_setting_description").val("");
+$("#system_data_entries").show();

@@ -1,10 +1,10 @@
 -# Displays An Employment
--div_for(employment, :class => 'info_container') do
-  .header_container
+-div_for(employment, :class => 'header_container',:field => "employment") do
+  %div
     .title
-      %h3= employment.organisation.full_name
-    .options{:class => 'person_employments_edit_delete'}
+      %h2= employment.organisation.full_name
+    .options{:class => 'person_employments_edit_delete person_tag', :style => "display:none;"}
       = link_to image_tag('edit_icon.png'), edit_employment_path(employment), :class => 'get' ,:id => 'employments_edit_button'
     %br{ :style => "clear:both;"}
-  .display_container
+  %div{:style => "float:right;"}
     = format_employment(employment)

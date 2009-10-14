@@ -1,7 +1,9 @@
-.container{:class => "get_query", :query_id => saved_query.id}
-  .header_container
-    .options
-      = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query'
-      = link_to image_tag('folder.png', :alt => 'SaveAs'), copy_query_header_path(saved_query), :class => 'get_query'
+.header_container.container.toggle_options{:field => "query", :class => "get_query", :query_id => saved_query.id}
+  %div
+    .title
+      %h2 #{saved_query.formatted_info}
+    .options{:style => "display:none;"}
+      = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query edit_option', :field => "query"
+      = link_to image_tag('icon_holder.png', :alt => 'SaveAs'), copy_query_header_path(saved_query), :class => 'get_query'
       = link_to image_tag('delete_icon.png', :alt => 'Delete'), query_header_path(saved_query), :class => 'delete'
-    = saved_query.formatted_info
+    %br.clear

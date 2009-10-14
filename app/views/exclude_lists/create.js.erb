@@ -1,6 +1,23 @@
 <% if @exclude_list.errors.empty? -%>
-  $('#exclude_lists').append('<%= escape_javascript(render(:partial => @exclude_list)) %>');
+  $('#exclude_lists').append('<%= escape_javascript(render(:partial => "exclude_lists/exclude_list", :collection => @exclude_lists)) %>');
   $("#compiler_options").val('');
-  $('#list_header_<%= escape_javascript("#{@list_header_id}")%>').addClass("selected");
-  $('#<%= dom_id(@exclude_list) %>').effect('slide', {direction:'right'});
+  <%- @list_header_ids.each do |i| %>
+    $('#list_header_<%= escape_javascript("#{i}")%>').addClass("selected");
+  <%- end %>
 <% end -%>
+
+<%- if !@flag %>
+$("#flash_message").html("PrimaryList can't be added to exclude list");
+$('#flash_message').dialog( {
+    modal: true,
+    resizable: true,
+    draggable: true,
+    position: 'centre',
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    }
+  });
+$('#flash_message').dialog('open');
+<%- end %>

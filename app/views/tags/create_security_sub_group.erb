@@ -1,0 +1,8 @@
+$.ajax({
+  type: "GET",
+  url: "/tags/security_sub_groups_finder.js",
+  data: 'id=' + <%= escape_javascript(params[:id])%>,
+  dataType: "script"
+});
+$(".security_group_type_name").val("");
+$(".security_group_type_description").val("");

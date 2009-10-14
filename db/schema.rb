@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091008074443) do
+ActiveRecord::Schema.define(:version => 20091013231506) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -150,6 +150,22 @@ ActiveRecord::Schema.define(:version => 20091008074443) do
     t.integer  "payment_day_id"
     t.integer  "suspension_type_id"
     t.integer  "termination_method_id"
+  end
+
+  create_table "grids", :force => true do |t|
+    t.integer "login_account_id"
+    t.integer "grid_object_id"
+    t.string  "type"
+    t.text    "field_1"
+    t.text    "field_2"
+    t.text    "field_3"
+    t.text    "field_4"
+    t.text    "field_5"
+    t.text    "field_6"
+    t.text    "field_7"
+    t.text    "field_8"
+    t.text    "field_9"
+    t.text    "field_10"
   end
 
   create_table "group_lists", :force => true do |t|
@@ -438,7 +454,7 @@ ActiveRecord::Schema.define(:version => 20091008074443) do
     t.string  "operator"
     t.string  "option"
     t.string  "value"
-    t.string  "status"
+    t.boolean "status"
   end
 
   create_table "query_details", :force => true do |t|
@@ -449,6 +465,7 @@ ActiveRecord::Schema.define(:version => 20091008074443) do
     t.boolean "status"
     t.string  "type"
     t.boolean "ascending"
+    t.string  "data_type"
   end
 
   create_table "query_headers", :force => true do |t|
@@ -492,6 +509,16 @@ ActiveRecord::Schema.define(:version => 20091008074443) do
     t.string   "description"
     t.string   "remarks"
     t.boolean  "role_status"
+  end
+
+  create_table "show_organisation_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_organisation_list_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tag_meta_types", :force => true do |t|

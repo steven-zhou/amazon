@@ -1,8 +1,8 @@
 -# Displays Employment
--div_for(person_employment, :class => 'info_container') do
-  .header_container
+-div_for(person_employment, :class => 'header_container') do
+  %div
     .title
-      %h3= "#{person_employment.organisation.full_name}"
+      %h2= "#{person_employment.organisation.full_name}"
     
-  .display_container
+  %div{:style => "float:right;"}
     = format_employment(person_employment)

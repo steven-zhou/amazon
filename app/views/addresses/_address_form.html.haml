@@ -1,49 +1,38 @@
 -# The options to edit or add an address
-.form_line
-  .field_20
+.form_line{:style => "float:none;"}
+  .field_25
     = address.label :address_type_id, 'Type'
     = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name
-    
   .field_40
     = address.label :building_name, 'Building Name'
     = address.text_field :building_name   
-  %br.clear
 .form_line
   .field_20
     = address.label :suite_unit, 'Unit Number'
     = address.text_field :suite_unit
-  .field_20
+  .field_22
     = address.label :street_number, 'Street Number'
     = address.text_field :street_number
-  .field_60
+  .field_45
     = address.label :street_name, 'Street Name'
     = address.text_field :street_name
-  %br.clear
 .form_line
-  .field_33
+  .field_45
     = address.label :town, 'Suburb'
-    = address.text_field :town
-    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
-  .field_33
-    = address.label :district, 'District'
-    = address.text_field :district
-  .field_33
-    = address.label :region, 'Region'
-    = address.text_field :region
-  %br.clear
+    = address.text_field :town 
+  .field_45
+    = address.label :state, 'State/Province'
+    = address.text_field :state 
 .form_line
-  .field_33
-    = address.label :state, 'State'
-    = address.text_field :state
-    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
-  .field_33
+  .field_38
     = address.label :postal_code, 'Postal Code'
     = address.text_field :postal_code
+  .field_5
+    = address.label :postal_code, '&nbsp'
     = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
-  .field_33
+  .field_45
     = address.label :country, 'Country'
     = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
-  %br.clear
 
 
 %div#address_form_assistant{:style => "display:none"}

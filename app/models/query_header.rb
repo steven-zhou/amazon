@@ -36,9 +36,22 @@ class QueryHeader < ActiveRecord::Base
     self.query_criterias.find(:all, :order => "sequence").each do |i|
       operator_arr = QueryCriteria::OPERATORS[i.operator]
       if(i.sequence == 1)
-        condition_clauses.push("#{i.table_name}.#{i.field_name} #{operator_arr[0]} ?")
+
+        if(i.data_type == "Integer FK")
+          condition_clauses.push("#{i.table_name}.#{i.field_name}_id IN (?)")
+        else
+          condition_clauses.push("#{i.table_name}.#{i.field_name} #{operator_arr[0]} ?")
+        end
+
+
       else
-        condition_clauses.push("#{i.option} #{i.table_name}.#{i.field_name} #{operator_arr[0]} ?")
+
+        if(i.data_type == "Integer FK")
+          condition_clauses.push("#{i.option} #{i.table_name}.#{i.field_name}_id IN (?)")
+        else
+          condition_clauses.push("#{i.option} #{i.table_name}.#{i.field_name} #{operator_arr[0]} ?")
+        end
+
       end
     end
     condition_clauses
@@ -49,7 +62,13 @@ class QueryHeader < ActiveRecord::Base
     operator_arr = Array.new
     self.query_criterias.find(:all, :order => "sequence").each do |i|
       operator_arr = QueryCriteria::OPERATORS[i.operator]
-      value_clauses.push("#{operator_arr[1]}#{i.value}#{operator_arr[2]}")
+
+      if(i.data_type == "Integer FK")
+        value_clauses.push(i.field_name.camelize.constantize.find(:all, :conditions => ["name #{operator_arr[0]} ?", "#{operator_arr[1]}#{i.value}#{operator_arr[2]}"]))
+      else
+        value_clauses.push("#{operator_arr[1]}#{i.value}#{operator_arr[2]}")
+      end
+
     end
     value_clauses
   end

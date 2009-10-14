@@ -1,8 +1,10 @@
 <%- if flash[:error].nil? %>
 $("#criterias").append("<%= escape_javascript(render(:partial => 'queries/query_criteria')) %>");
-$("#new_query_criteria")[0].reset();
-$("#fields_criteria").html('');
-$("#attribute_description_criteria").html('<label class="descriptions_criteria">&nbsp;</label>');
+$("#query_criteria_operator").val('');
+$("#query_criteria_value").val('');
+if ($("#new_runtime").attr('checked')==true) {
+  $("#new_runtime").click();
+}
 $('#<%= dom_id(@query_criteria) %>').effect('slide', {direction:'right'});
 <%- else %>
 

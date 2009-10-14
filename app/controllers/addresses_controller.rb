@@ -8,6 +8,7 @@ class AddressesController < ApplicationController
   end
 
   def edit
+      @postcodes = DomesticPostcode.find(:all)
     @address = Address.find(params[:id])
     respond_to do |format|
       format.js

@@ -2,9 +2,11 @@
   $('#employments').prepend('<%= escape_javascript(render(:partial => @employment)) %>');
   $("#new_employment")[0].reset();
   $("#new_employment").toggle('blind');
-    $('.person_employments_edit_delete').css("display","");
-    $('.person_employments_toggle_button').css("display","");
-  $('#<%= dom_id(@employment) %>').effect('slide', {direction:'right'});  
+
+  $('#employment_hidden_tab').attr('mode','show');
+  $('.person_employments_toggle_button').css("display","");
+  $('.person_employments_close').css("display","none");
+  $('#<%= dom_id(@employment) %>').effect('slide', {direction:'right'});
 <% end -%>
 
 

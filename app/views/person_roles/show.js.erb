@@ -1,3 +1,5 @@
 $('#<%= dom_id(@person_role,:edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @person_role)) %>");
      $('.person_roles_edit_delete').css("display","");
   $('.person_roles_toggle_button').css("display","");
+
+       $('#person_roles_hidden_tab').attr('mode','show');

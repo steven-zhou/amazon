@@ -11,6 +11,7 @@ class AdministrationsController < ApplicationController
   end
 
   def custom_groups
+    @custom_groups = GroupMetaMetaType.find_by_name("Custom")
     respond_to do |format|
       format.html
     end
@@ -62,8 +63,11 @@ class AdministrationsController < ApplicationController
 
 
   def security_groups
-    system_setting
-    render :action => 'system_management'
+    @security_groups = GroupMetaMetaType.find_by_name("Security")
+    puts "***** DEBUG #{@security_groups.to_yaml}"
+    respond_to do |format|
+      format.html
+    end
   end
 
 
@@ -146,27 +150,6 @@ class AdministrationsController < ApplicationController
   end
 
  def group_lists
-
-    @role = Role.new
-    @role_condition = RoleCondition.new
-    @role_type = RoleType.new
-    @login_account = LoginAccount.new
-    @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
-    @user_group = UserGroup.new
-    @group_all = Array.new
-    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
-    @group_all = c.group_types rescue @group_all = Array.new
-
-    @module_all = Array.new
-    c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
-    @module_all = c
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
- def security_groups
 
     @role = Role.new
     @role_condition = RoleCondition.new

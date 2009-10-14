@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :edit_show_list => :get, :show_left => :get,:show_edit_left => :get, :show_list => :get, :test_search => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :show_left => :get, :show_list => :get, :test_search => :get, :flexi_search => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
@@ -32,7 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get, :search => :post, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get},
+    :collection => {:find => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get},
     :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
@@ -46,7 +46,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
-  map.resources :amazon_settings, :collection => {:data_list_finder => :get}
+  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}
@@ -58,8 +58,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types, :collection => {:show_group_types => :get}
   map.resources :group, :collection => {:show_group_types => :get}
-  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get}
-  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get}
+  map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get, :create_group_meta_type => :get, :custom_groups_finder => :get, :create_security_group_meta_type => :get, :security_groups_finder => :get}
+  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
     :member => {:copy => :get, :query_header_to_xml => :get} do |query_header|
@@ -88,7 +88,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :duplication_formula_details
 
   map.resources :addresses , :member => {:search_postcodes => :get}
-
+  map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, :list_compile_grid => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

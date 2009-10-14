@@ -59,7 +59,9 @@ class TagTypesController < ApplicationController
   def show_fields
     @tag_types = TableMetaType.find(:all, :conditions => ["tag_meta_type_id=?", TableMetaMetaType.find_by_name(params[:table_name]).id], :order => "name")
     @update_field = String.new
+    @update_value = String.new
     @update_field = params[:update_field]
+    @update_value = params[:update_value]
     respond_to do |format|
       format.js
     end
@@ -99,5 +101,49 @@ class TagTypesController < ApplicationController
      format.js
     end
   end
+
+  def custom_groups_finder
+    @custom_groups = GroupMetaMetaType.find_by_name("Custom")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_group_meta_type
+    @custom_group = GroupMetaMetaType.find_by_name("Custom")
+    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @custom_group.id)
+    @group_meta_type.update_attributes(params[:group_meta_type])
+    if @group_meta_type.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def security_groups_finder
+    @security_groups = GroupMetaMetaType.find_by_name("Security")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_security_group_meta_type
+    puts "***** DEBUG I am being run!"
+    @security_group = GroupMetaMetaType.find_by_name("Security")
+    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
+    @group_meta_type.update_attributes(params[:group_meta_type])
+    if @group_meta_type.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
 

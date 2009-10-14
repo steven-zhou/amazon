@@ -1,11 +1,11 @@
 -# The form to edit an phone
 -form_for @website, :html => {:class => 'ajax_form edit_website'} do |website|
-  %fieldset
+  %div
     .header_container
       .title
-        %h3 Edit Website
+        %h1 Edit Website
       .options
         = link_to image_tag('close_icon.png'), website_path(@website), :class => 'get'
       %br.clear
-    = render :partial => 'website_form', :locals => { :website => website }
-    = submit_tag 'Submit'
+      = render :partial => 'website_form', :locals => { :website => website }
+      = submit_tag 'Submit'

@@ -12,3 +12,5 @@
 <%- end %>
 $('#fields_<%= escape_javascript("#{@update_field}") %>').html('<%= escape_javascript("#{options}") %>');
 $('#attribute_description_<%= escape_javascript("#{@update_field}") %>').html('<%= escape_javascript("#{descriptions}") %>');
+$('#fields_<%= escape_javascript("#{@update_field}") %>').val('<%= escape_javascript("#{@update_value}") %>');
+$('#fields_<%= escape_javascript("#{@update_field}") %>').change();
