@@ -1,3 +1,5 @@
 $('#<%= dom_id(@website) %>').replaceWith(" <%= escape_javascript(render(:partial => 'edit_website')) %>");
 $('.person_contact_edit_delete').css("display","none");
 $('.person_contact_toggle_button').css("display","none");
+$('#contact_mode').attr('mode', 'edit');
+$('.new_option[field="contact"]').css("display","none");
