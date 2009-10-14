@@ -32,8 +32,8 @@ module OrganisationsSearch
   end
 
   def self.by_phone(params)
-    equality = ['contact_type_id']
-    like = ['phone_pre_value', 'phone_value', 'phone_post_value']
+    equality = ['contact_meta_type_id']
+    like = ['pre_value', 'value', 'post_value']
     params.delete_if {|key, value| value == "" }
     condition_clauses = Array.new
     condition_options = Array.new
@@ -41,10 +41,10 @@ module OrganisationsSearch
     params.each do |attribute,value|
       case sql_condition(attribute, equality, like)
       when 'equality'
-        condition_clauses.push("phones.#{attribute} = ?")
+        condition_clauses.push("contacts.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("phones.#{attribute} LIKE ?")
+        condition_clauses.push("contacts.#{attribute} LIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
@@ -55,8 +55,8 @@ module OrganisationsSearch
   end
 
   def self.by_email(params)
-    equality = ['contact_type_id']
-    like = ['email_address']
+    equality = ['contact_meta_type_id']
+    like = ['value']
     params.delete_if {|key, value| value == "" }
     condition_clauses = Array.new
     condition_options = Array.new
@@ -64,10 +64,10 @@ module OrganisationsSearch
     params.each do |attribute,value|
       case sql_condition(attribute, equality, like)
       when 'equality'
-        condition_clauses.push("emails.#{attribute} = ?")
+        condition_clauses.push("contacts.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("emails.#{attribute} LIKE ?")
+        condition_clauses.push("contacts.#{attribute} LIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
@@ -77,28 +77,6 @@ module OrganisationsSearch
     Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
   end
 
-  def self.by_note(params)
-    equality = ['note_type_id']
-    like = ['note_label', 'note_short_description']
-    params.delete_if {|key, value| value == "" }
-    condition_clauses = Array.new
-    condition_options = Array.new
-
-    params.each do |attribute,value|
-      case sql_condition(attribute, equality, like)
-      when 'equality'
-        condition_clauses.push("notes.#{attribute} = ?")
-        condition_options.push(value)
-      when 'like'
-        condition_clauses.push("notes.#{attribute} LIKE ?")
-        condition_options.push(value + '%')
-      else
-        raise InvalidAttribute, 'Attribute must be in array', caller
-      end
-    end
-
-    Organisation.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:notes])
-  end
   
   def self.by_address(params)
     equality = ['country_id', 'address_type_id']
