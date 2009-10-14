@@ -598,6 +598,41 @@ $(function(){
 
 
 
+// Security Groups
+
+$(function(){
+    $(".open_security_sub_group").live('click', function() {
+        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").show();
+        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").hide();
+        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").show();
+        $("#security_group_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_security_sub_group").live('click', function() {
+        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").hide();
+        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").show();
+        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#security_group_add_entry").live('click', function() {
+        $(".security_sub_groups").hide();
+        $("#security_group_entry_form").toggle();
+        $(".open_security_sub_group").show();
+        $(".close_security_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".security_sub_group_add_entry").live('click', function() {
+        $("#security_sub_group_form_" + $(this).attr('id')).toggle();
+    });
+});
+
+
 
 
 
