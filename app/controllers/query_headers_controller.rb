@@ -109,7 +109,6 @@ class QueryHeadersController < ApplicationController
         end
       end
     end
-    puts "array result #{@query_result_columns}. first element 0 is #{@query_result_columns[0]} EOD"
     @list_header = ListHeader.new
     respond_to do |format|
       format.js
