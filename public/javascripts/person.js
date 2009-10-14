@@ -70,8 +70,19 @@ $(function() {
 
    
     $(".clear_form").click(function(){
-        $("#new_"+$(this).attr('field'))[0].reset();
-        
+        $('#'+$(this).parents("form").get(0).id)[0].reset();
+                
+    })
+
+
+   
+
+    $(".clear_tab").click(function(){
+        if ($(this).attr('field') != ""){
+
+            $("#new_"+$(this).attr('field'))[0].reset();
+        }
+
     })
 
     $(".clear_group_form").click(function(){
@@ -192,9 +203,9 @@ $(".person_contact_close").live('click',function(){
     $('.person_contact_toggle_button').css("display","");
     $('#contact_hidden_tab').attr('mode','show');
 
-   $("#new_phone")[0].reset();
+    $("#new_phone")[0].reset();
     $("#new_email")[0].reset();
-     $("#new_website")[0].reset();
+    $("#new_website")[0].reset();
     
 });
     
@@ -318,6 +329,26 @@ $("#master_doc_edit_close_button").live('click',function(){
     $('#master_doc_hidden_tab').attr('mode','show');
 });
 
+/* Person relationship*/
+
+$(".person_relationship_toggle_button").live('click', function(){
+    $('.person_tag').css("display","none");
+
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_relationship_close').css("display","");
+    $(this).css("display","none");
+    $('#relationship_hidden_tab').attr('mode','new');
+});
+
+$(".person_relationship_close").live('click',function(){
+    $('.person_tag').css("display","none");
+
+    $(this).css("display","none");
+    $('.person_relationship_toggle_button').css("display","");
+    $('#relationship_hidden_tab').attr('mode','show');
+});
+    
+
 
 /*Person Notes*/
 
@@ -374,7 +405,7 @@ $(".person_employments_close").live('click',function(){
 
     $(this).css("display","none");
     $('.person_employments_toggle_button').css("display","");
-     $('#employment_hidden_tab').attr('mode','show');
+    $('#employment_hidden_tab').attr('mode','show');
 });
 
 $("#employments_edit_button").live('click',function(){

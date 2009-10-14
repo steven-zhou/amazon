@@ -24,7 +24,10 @@
       $('#siblings').replaceWith('<%= escape_javascript(render :partial => "/relationships/relationship_container", :locals => {:type => "Siblings", :relations => @source_person.siblings}) %>');
 
     <% end %>
-    $("#new_relationship")[0].reset()
-    $("#new_relationship").toggle('blind');
+    $("#new_relationship")[0].reset();
+    $("#new_relationship").hide();
+    $('.person_relationship_toggle_button').css("display","");
+    $('.person_relationship_close').css("display","none");
+    $('#relationship_hidden_tab').attr('mode','show');
   <%end%>
 <% end -%>

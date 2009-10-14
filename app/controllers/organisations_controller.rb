@@ -125,6 +125,13 @@ class OrganisationsController < ApplicationController
     end
   end
 
+  def name_card
+    @organisation = Organisation.find(params[:id])
+    respond_to do |format|
+      format.js { }
+    end
+  end
+
   def add_keywords
     @organisation = Organisation.find(params[:id])
 
@@ -154,6 +161,7 @@ class OrganisationsController < ApplicationController
   end
 
   def search
+    @organisation = Organisation.new
     if params[:organisation]
       @organisations = OrganisationsSearch.by_name(params[:organisation])
     elsif params[:phone]
@@ -168,7 +176,22 @@ class OrganisationsController < ApplicationController
       @organisations = OrganisationsSearch.by_keyword(params[:keyword])
     end
 
-    @organisation = Organisation.new
+    #clear temple table and save result into temple table
+    OrganisationSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisations.each do |organisation|
+      @osg = OrganisationSearchGrid.new
+      @osg.login_account_id = session[:user]
+      @osg.grid_object_id = organisation.id
+      @osg.field_1 = organisation.trading_as
+      @osg.field_2 = organisation.registered_name
+      @osg.field_3 = organisation.primary_address.first_line unless organisation.primary_address.blank?
+      @osg.field_4 = organisation.primary_phone.value unless organisation.primary_phone.blank?
+      @osg.field_5 = organisation.primary_website.address unless organisation.primary_website.blank?
+      @osg.save
+    end
     respond_to do |format|
       format.html
     end

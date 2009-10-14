@@ -80,48 +80,6 @@ $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
 });
 
-//$(function(){
-//    $('#search_results').dataTable({
-//        "bLengthChange":false,
-//        "iDisplayLength":20,
-//        "bAutoWidth":false,
-//        "sDom":'lfrtpi',
-//        "aoColumns":[{
-//            'sWidth':"12%"
-//        },{
-//            'sWidth':"15%"
-//        },{
-//            'sWidth':"30%"
-//        },{
-//            "sWdith":"15%"
-//        },{
-//            'sWidth':"25%"
-//        }]
-//    });
-//});
-
-/* Show List Summary*/
-//$(document).ready(function() {
-//    $('#search_list_results').dataTable({
-//        "bLengthChange":false,
-//        "iDisplayLength":10,
-//        "bAutoWidth":true,
-//        "sDom":'lfrtpi',
-//        "aoColumns":[{
-//            'sWidth':"12%"
-//        },{
-//            'sWidth':"15%"
-//        },{
-//            'sWidth':"30%"
-//        },{
-//            "sWdith":"15%"
-//        },{
-//            'sWidth':"25%"
-//        }]
-//    });
-//});
-
-
 /*Date picker */
 $('.birthdatepick').live("mouseover", function(){
     $(this).datepicker({
@@ -178,18 +136,8 @@ $('.datepick').live("mouseover", function(){
     });
 });
 
-/* Disable form*/
-
-
 
 /* Photo */
-//$("#edit_photo").live("submit",function(){
-//    $(this).ajaxSubmit({
-//        iframe:true,
-//        dataType:"script"
-//    })
-//    return false;
-//});
 
 $("#edit_photo_link").live("click",function() {
     $("#edit_photo").toggle('blind');
@@ -261,10 +209,7 @@ $(function(){
 
 /* Show Summary list*/
 $(function(){
-    $('table#search_list_results tbody tr').live('click',function(){
-
-
-   
+    $('table#search_list_results tbody tr').live('click',function(){   
        $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
@@ -275,22 +220,6 @@ $(function(){
         $(this).addClass("trSelected");
     });
 });
-
-
-
-
-//$(function(){
-//    $('table#search_edit_list_results tbody tr').live('click',function(){
-//        $.ajax({
-//            type: 'GET',
-//            url: "/people/show_edit_left.js",
-//            data: 'person_id='+$(this).attr('person_id'),
-//            dataType: "script"
-//        });
-//        $('table#search_list_results tbody tr.selected').removeClass('selected');
-//        $(this).addClass("selected");
-//    });
-//});
 
 
 /*role*/
@@ -595,6 +524,41 @@ $(function(){
     });
 });
 
+
+
+// Security Groups
+
+$(function(){
+    $(".open_security_sub_group").live('click', function() {
+        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").show();
+        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").hide();
+        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").show();
+        $("#security_group_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_security_sub_group").live('click', function() {
+        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").hide();
+        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").show();
+        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#security_group_add_entry").live('click', function() {
+        $(".security_sub_groups").hide();
+        $("#security_group_entry_form").toggle();
+        $(".open_security_sub_group").show();
+        $(".close_security_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".security_sub_group_add_entry").live('click', function() {
+        $("#security_sub_group_form_" + $(this).attr('id')).toggle();
+    });
+});
 
 
 
@@ -2078,19 +2042,22 @@ $(function(){
 
 $(function(){
     $('.edit_option').live('click',function(){
-      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');      
+      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');
+      $('.new_option[field='+ $(this).attr('field') +']').css("display","none");
     });
 });
 
 $(function(){
     $('.close_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','show');
+      $('.new_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
 
 $(function(){
     $('.new_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','new');
+      $('.close_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
 
@@ -2122,5 +2089,48 @@ $(function(){
 $(function(){
     $("#edit_organisation_list_select").live('click',function(){
         window.open("/organisations/"+ $('#system_id_tag').val()+"/edit", "_self");
+    });
+});
+
+$(function(){
+    $("#organisation_search_grid").flexigrid({
+        url: '/grids/organisation_search_grid',
+        dataType: 'json',
+        colModel : [
+            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+            {display: 'Trading As', name : 'field_1', width : 180, sortable : true, align: 'left'},
+            {display: 'Registered Name', name : 'field_2', width : 180, sortable : true, align: 'left'},
+            {display: 'Address', name : 'field_3', width : 180, sortable : true, align: 'left'},
+            {display: 'Phone', name : 'field_4', width : 180, sortable : true, align: 'left'},
+            {display: 'Website', name : 'field_5', width : 180, sortable : true, align: 'left'}
+        ],
+        searchitems : [
+            {display: 'Trading As', name : 'field_1'},
+            {display: 'Registered Name', name : 'field_2'},
+            {display: 'Address', name : 'field_3'},
+            {display: 'Phone', name : 'field_4'},
+            {display: 'Website', name : 'field_5'}
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Organisation Search Result',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 1010,
+        height: 300
+    });
+});
+
+$(function(){
+    $('table#organisation_search_grid tbody tr').live('click',function(){
+        $('table#organisation_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        $.ajax({
+            type: 'GET',
+            url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js",
+            dataType: "script"
+        });
     });
 });

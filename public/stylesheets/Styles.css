@@ -290,6 +290,7 @@ body {
 #app #main #content .container .form_line .field_75,
 #app #main #content .container .form_line .field_80,
 #app #main #content .container .form_line .field_85,
+#app #main #content .container .form_line .field_90,
 #app #main #content .container .form_line .field_100 {
     float: left;
     height: 40px;
@@ -297,7 +298,7 @@ body {
 }
 /* unique properties */
 #app #main #content .container .form_line .field_5 {width: 5%;}
-#app #main #content .container .form_line .field_5 {width: 10%;}
+#app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
@@ -320,6 +321,7 @@ body {
 #app #main #content .container .form_line .field_75 {width: 75%;}
 #app #main #content .container .form_line .field_80 {width: 80%;}
 #app #main #content .container .form_line .field_85 {width: 85%;}
+#app #main #content .container .form_line .field_90 {width: 90%;}
 #app #main #content .container .form_line .field_100 {width: 100%;}
 
 /* remove margin from .form_field last div */
@@ -931,4 +933,37 @@ form#organisation_names_form input#image_image_file{
     float: left;
     padding: 1%;
     -moz-border-radius: 10px;
+}
+
+/* table */
+table#name_card {
+    width:92%;
+}
+
+td.w2 {
+    width:2%;
+}
+
+td.w20 {
+    width:20%;
+}
+
+td.w25 {
+    width:25%;
+}
+
+td.w32 {
+    width:32%;
+}
+
+td.w40 {
+    width:40%;
+}
+
+td a {
+    display:inline;
+}
+
+td.textright {
+    text-align:right;
 }

@@ -2,7 +2,7 @@
   
 $('#person_groups').prepend('<%= escape_javascript(render(:partial => "person_groups/person_group", :locals =>{:person_group => @person_group })) %>');
 
-$("#new_group").toggle('blind');
+$("#new_group").hide();
 
 $('.person_group_delete_button').css("display","");
  $('.person_group_toggle_button').css("display","");

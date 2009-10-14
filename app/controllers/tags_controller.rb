@@ -93,5 +93,26 @@ class TagsController < ApplicationController
     end
   end
 
+  def security_sub_groups_finder
+    @group = GroupMetaType.find_by_id(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_security_sub_group
+    @security_group = GroupMetaType.find_by_id(params[:id])
+    @sub_group = GroupType.new(:tag_type_id => @security_group.id)
+    @sub_group.update_attributes(params[:group_type])
+    if @sub_group.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless sub_group.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
 end

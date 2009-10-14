@@ -1,7 +1,7 @@
 <% if @masterdoc.errors.empty? -%>
   $('#masterdocs').prepend('<%= escape_javascript(render(:partial => @masterdoc)) %>');
   $("#new_master_doc")[0].reset();
-  $("#new_master_doc").toggle('blind');
+  $("#new_master_doc").hide();
 
   $('#master_doc_hidden_tab').attr('mode','show');
   $('.person_master_doc_toggle_button').css("display","");
