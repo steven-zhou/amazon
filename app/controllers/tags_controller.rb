@@ -54,16 +54,13 @@ class TagsController < ApplicationController
     end
   end
 
- def show_group_description
+  def show_group_description
     @group_type = GroupType.find(params[:group_id].to_i) rescue @group_type = GroupType.new
     @person_group = PersonGroup.find(params[:person_group_id]) rescue @person_group = PersonGroup.new
     respond_to do |format|
       format.js
     end
   end
-
-  
-
 
   def destroy
     @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.find(params[:id])
@@ -74,4 +71,27 @@ class TagsController < ApplicationController
       format.js
     end
   end
+
+  def custom_sub_groups_finder
+    @group = GroupMetaType.find_by_id(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_custom_sub_group
+    @custom_group = GroupMetaType.find_by_id(params[:id])
+    @sub_group = GroupType.new(:tag_type_id => @custom_group.id)
+    @sub_group.update_attributes(params[:group_type])
+    if @sub_group.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless sub_group.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
 end

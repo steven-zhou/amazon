@@ -591,8 +591,8 @@ $(function(){
 });
 
 $(function(){
-    $("#custom_sub_group_add_entry").live('click', function() {
-        $(this).closest("#custom_sub_group_form").show();
+    $(".custom_sub_group_add_entry").live('click', function() {
+        $("#sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
 
