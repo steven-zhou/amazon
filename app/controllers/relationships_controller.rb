@@ -13,11 +13,8 @@ class RelationshipsController < ApplicationController
     if @relationship.save
       flash.now[:message]= "saved successfully"
       @related_person = @relationship.related_person
-      #@relationship_type = String.new
       @relationship_type = @relationship.relationship_type.name
-      # @siblings = Array.new
       if (@relationship_type == 'Father' || @relationship_type == 'Mother')
-        #@siblings = @related_person.source_people.of_type('Father').concat(@related_person.source_people.of_type('Mother')).uniq
         @siblings = @source_person.siblings
       end
     else
