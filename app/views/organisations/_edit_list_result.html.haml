@@ -1,0 +1,16 @@
+#left_content
+  - form_for @organisation, :html=>{:multipart => true, :id=>"organisation_names_form"} do |p|
+    .container
+      %h1 Name Details
+      = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
+    .container
+      %h1 Legal Details
+      = render :partial => 'organisation_legal_details_fields', :locals => {:p => p}
+    .container
+      %h1 Business Details
+      = render :partial => 'organisation_business_details_fields', :locals => {:p => p}
+    .container
+      %h1{:style=>"float:left"} Picture
+      = render :partial => '/images/show_photo', :locals => {:entity => @organisation}
+    = submit_tag 'Submit and Close', :style => 'float:right;'
+    = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'

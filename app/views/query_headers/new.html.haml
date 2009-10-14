@@ -30,19 +30,22 @@
         #extra_form
           %h1 Extra Attributes
           .form_line
-            %input{:type => "checkbox", :style => "display:inline;"}
-            %label{:style => "display:inline;"} Allow Duplication
-            %br.clear
+            .field_70
+              %input{:type => "checkbox", :style => "width:auto;float:left;"}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
+            
           .form_line
-            %input{:type => "radio", :name => "query_top", :style => "display:inline;", :value => "number", :id => "query_top_number", :checked => true}
-            %label{:style => "display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            %input{:style => "width:30%;display:inline;", :id => "query_top_number_value", :class => "integer_field"}
-            %br.clear
+            .field_70
+              %input{:type => "radio", :name => "query_top", :style => "width:auto;float:left;", :value => "number", :id => "query_top_number", :checked => true}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              %input{:style => "width:70px;float:left;", :id => "query_top_number_value", :class => "integer_field"}
+            
           .form_line
-            %input{:type => "radio", :name => "query_top", :style => "display:inline;", :value => "percent", :id => "query_top_percent"}
-            %label{:style => "display:inline;"} Percent
-            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
-            %br.clear
+            .field_70
+              %input{:type => "radio", :name => "query_top", :style => "width:auto;float:left;", :value => "percent", :id => "query_top_percent"}
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Percent&nbsp;&nbsp;
+              %input{:style => "width:70px;float:left;", :disabled => true, :id => "query_top_percent_value", :class => "integer_field"}
+            
 
     #right
       #new_query_list

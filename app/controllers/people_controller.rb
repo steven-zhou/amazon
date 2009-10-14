@@ -303,6 +303,86 @@ class PeopleController < ApplicationController
     end
   end
 
+  def test_search
+    @person = Person.new
+    people = Person.find(:all, :order => "id") do
+      if params[:_search] == "true"
+        first_name =~ "%#{params[:first_name]}%" if params[:first_name].present?
+        family_name  =~ "%#{params[:family_name]}%" if params[:family_name].present?
+      end
+      paginate :page => params[:page], :per_page => params[:rows]
+      order_by "#{params[:sidx]} #{params[:sord]}"
+    end
+    if request.xhr?
+      render :json => people.to_jqgrid_json([:id,:first_name,:family_name], params[:page], params[:rows], people.total_entries) and return
+    end
+  end
+
+  def flexi_search
+    @person = Person.new
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @countries = Person.find(:all,
+  	:order => sortname+' '+sortorder,
+  	:limit =>rp,
+  	:offset =>start
+  	)
+      count = Person.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+        @countries = Person.find(:all,
+	  :order => sortname+' '+sortorder,
+	  :limit =>rp,
+  	  :offset =>start,
+  	  :conditions=>[qtype +" like ?", query])
+	count = Person.count(:all,
+	  :conditions=>[qtype +" like ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @countries.collect{|u| {
+  			   :cell=>[u.id,
+  			   u.first_name,
+  			   u.family_name]}}
+
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+
+
   def name_finder
     @person = Person.find(params[:person_id].to_i) rescue @person = Person.new
     @employment = Employment.find(params[:employment_id].to_i) rescue @employment = Employment.new
@@ -369,11 +449,33 @@ class PeopleController < ApplicationController
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
     @p = @list_header.people_on_list
+    #clear
+
+    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @p.each do |person|
+      @slg = ShowListGrid.new
+      @slg.login_account_id = session[:user]
+      @slg.grid_object_id = person.id
+      @slg.field_1 = person.first_name
+      @slg.field_2 = person.family_name
+      @slg.field_3 = person.primary_address.first_line unless person.primary_address.blank?
+      @slg.field_4 = person.primary_phone.value unless person.primary_phone.blank?
+      @slg.field_5 = person.primary_email.address unless person.primary_email.blank?
+      @slg.save
+    end
+
     @current_operation = params[:current_operation]
+
     respond_to do |format|
       format.js
     end
   end
+
+
+
 
 
   def show_left

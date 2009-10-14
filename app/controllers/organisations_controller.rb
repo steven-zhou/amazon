@@ -191,10 +191,62 @@ class OrganisationsController < ApplicationController
     end
   end
 
-   def show_list
+  def show_list
     @organisations = Organisation.find(:all, :order => "id")
+
+
+    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisations.each do |organisations|
+      @solg = ShowOrganisationListGrid.new
+      @solg.login_account_id = session[:user]
+      @solg.grid_object_id = organisations.id
+      @solg.field_1 = organisations.full_name
+      @solg.field_2 = organisations.short_name
+      @solg.field_3 = organisations.primary_address.first_line unless organisations.primary_address.blank?
+      @solg.field_4 = organisations.primary_phone.value unless organisations.primary_phone.blank?
+      @solg.field_5 = organisations.primary_email.address unless organisations.primary_email.blank?
+      @solg.save
+    end
+
+    @current_operation = params[:current_operation]
     respond_to do |format|
       format.js
     end
+  end
+
+  #organisation grid show left part
+  def show_left
+    params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
+    @o = Organisation.find(:all, :order => "id")
+    @organisation = Organisation.find_by_id(params[:id].to_i)
+    @organisation = @o[0] if @organisation.nil?
+    @primary_phone = @organisation.primary_phone
+    @primary_email = @organisation.primary_email
+    @primary_fax = @organisation.primary_fax
+    @primary_website = @organisation.primary_website
+    @primary_address = @organisation.primary_address
+    @other_phones = @organisation.other_phones
+    @other_emails = @organisation.other_emails
+    @other_faxes = @organisation.other_faxes
+    @other_websites = @organisation.other_websites
+    @other_addresses = @organisation.other_addresses
+    @notes = @organisation.notes
+
+
+    if(params[:current_operation] == "edit_organisation_list")
+      render 'show_edit_left.js'
+     
+    else
+     
+      respond_to do |format|
+        format.js
+      end
+    end
+    #     respond_to do |format|
+    #      format.js
+    #    end
   end
 end
