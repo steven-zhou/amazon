@@ -1,12 +1,12 @@
--form_for @query_header, :html => {:class => 'ajax_form'} do |f|
-  .form_line
-    = f.label :name, 'Name'
-    = f.text_field :name, :value => ""
-    %br.clear
-  .form_line
-    = f.label :description, 'Description'
-    = f.text_field :description
-    %input{:style => "display:none", :name =>"new"}
-    %br.clear
-  = submit_tag "Save"
-  %br.clear
+.container
+  -form_for @query_header, :html => {:class => 'ajax_form'} do |f|
+    .form_line
+      = f.label :name, 'Name'
+      = f.text_field :name, :value => ""
+    
+    .form_line
+      = f.label :description, 'Description'
+      = f.text_field :description
+      %input{:style => "display:none", :name =>"new"}
+    
+    = submit_tag "Save"

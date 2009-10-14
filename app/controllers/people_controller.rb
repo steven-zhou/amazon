@@ -382,6 +382,7 @@ class PeopleController < ApplicationController
   end
 
 
+
   def name_finder
     @person = Person.find(params[:person_id].to_i) rescue @person = Person.new
     @employment = Employment.find(params[:employment_id].to_i) rescue @employment = Employment.new

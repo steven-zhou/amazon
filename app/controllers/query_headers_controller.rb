@@ -82,6 +82,9 @@ class QueryHeadersController < ApplicationController
         @qrg.save
       end
     else
+      @query_header.query_selections.each do |i|
+        @query_result_columns << i.field_name
+      end
       @people.each do |person|
         @qrg = QueryResultGrid.new
         @qrg.login_account_id = session[:user]
@@ -90,18 +93,16 @@ class QueryHeadersController < ApplicationController
           if i.sequence<=10
             if i.table_name == "people"
               if i.data_type == "Integer FK"
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name)
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
               else
                 @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
-              end
-              @query_result_columns << i.field_name
+              end              
             else
               if i.data_type == "Integer FK"
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless person.__send__(i.table_name.underscore.to_sym).empty?
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
               else
                 @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
               end
-              @query_result_columns << i.field_name
             end
           end
           @qrg.save

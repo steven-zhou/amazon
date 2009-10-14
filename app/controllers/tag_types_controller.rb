@@ -101,5 +101,28 @@ class TagTypesController < ApplicationController
      format.js
     end
   end
+
+  def custom_groups_finder
+    @custom_groups = GroupMetaMetaType.find_by_name("Custom")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_group_meta_type
+    @custom_group = GroupMetaMetaType.find_by_name("Custom")
+    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @custom_group.id)
+    @group_meta_type.update_attributes(params[:group_meta_type])
+    if @group_meta_type.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
 end
 

@@ -62,6 +62,20 @@ class CompileListsController < ApplicationController
         @people << @person
       end
 
+      #clear list compile temp table, and save result to temp table
+      ListCompileGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+      @people.each do |person|
+        @lcg = ListCompileGrid.new
+        @lcg.login_account_id = session[:user]
+        @lcg.grid_object_id = person.id
+        @lcg.field_1 = person.first_name
+        @lcg.field_2 = person.family_name
+        @lcg.save
+      end
+
       @list_header = ListHeader.new
 
     else#Include list is empty

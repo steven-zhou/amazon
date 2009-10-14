@@ -1,7 +1,10 @@
-.container
-  .header_container
+.header_container.container
+  %div
+    .title
+      %h2 #{saved_list.formatted_info}
     .options
       = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_list_header_path(saved_list), :class => 'get_list'
       = link_to image_tag('folder.png', :alt => 'SaveAs'), copy_list_header_path(saved_list), :class => 'get_list'
       = link_to image_tag('delete_icon.png', :alt => 'Delete'), list_header_path(saved_list), :class => 'delete'
-    = saved_list.formatted_info
+    %br.clear
+  
