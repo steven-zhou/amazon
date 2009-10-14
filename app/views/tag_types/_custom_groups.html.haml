@@ -1,0 +1,14 @@
+%div#custom_groups
+  -for group in @custom_groups.tag_types do
+    .container{:id => "group_#{group.id}"}
+      = group.name
+      = image_tag("/images/closed_accordion.png", :size => "18x14", :style => "float:right;", :class => "open_sub_group", :id => group.id)
+      = image_tag("/images/open_accordion.png", :size => "14x18", :style => "float:right;display:none;", :class => "close_sub_group", :id => group.id)
+      %br.clear
+      %div.sub_groups{:style => "display:none;", :id => "sub_group_#{group.id}"}
+        .container
+          = image_tag("add_icon.png" , :size => "19x18")
+          Add Subgroup
+        -for sub_group in group.tags do
+          .container
+            = sub_group.name

@@ -2,56 +2,22 @@
   .container
     %h3 Create List
     .form_line
-      .field_25
+      .field_20
         =f.label :name, "List Name"
         =f.text_field :name
-      .field_25
+      .field_20
         =f.label :description, "List Description"
         =f.text_field :description
-      .field_25
+      .field_20
         =f.label :allow_duplication, "&nbsp;"
         =f.check_box :allow_duplication, :style => "width:30%;display:inline"
         =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
-      .field_25{:style => "float:right"}
+      .field_20{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "query_header_id", :id => "query_id_for_list"}
         =submit_tag "Create List", :style => "width:100px;float:right"
         =link_to("Export to XML", {:action => "query_header_to_xml", :controller => "query_headers", :id => "#{@query_header.id}"}, :target => "_blank")
-      %br.clear
+  %br.clear
 
-
- 
-  %table#query_results.display
-    %thead
-      %tr
-        %th
-          %input{:type => "checkbox", :class => "select_all", :style => "float:left;", :checked => true}
-          select all
-        %th System ID
-        -if @query_header.query_selections.empty?
-          %th Name
-        -else
-          -@query_header.query_selections.each do |i|
-            %th= i.field_name
-    %tbody
-      - people.each_index do |i|
-        %tr
-          %td
-            %input{:type => "checkbox", :name => "person_id[#{i}]", :value => people[i].id, :class => "checkboxes", :checked => true}
-          %td= people[i].id
-          -if @query_header.query_selections.empty?
-            %td= people[i].name
-          -else
-            -@query_header.query_selections.each do |j|
-              -if j.table_name == "people"
-                -if j.data_type == "Integer FK"
-                  %td= people[i].__send__(j.field_name.to_sym).name
-                -else
-                  %td= people[i].__send__(j.field_name.to_sym)
-              -else
-                -if j.data_type == "Integer FK"
-                  %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym).name unless people[i].__send__(j.table_name.underscore.to_sym).empty?
-                -else
-                  %td= people[i].__send__(j.table_name.underscore.to_sym).first.__send__(j.field_name.to_sym) unless people[i].__send__(j.table_name.underscore.to_sym).empty?
-
-  
+.container
+  %table#query_result_grid

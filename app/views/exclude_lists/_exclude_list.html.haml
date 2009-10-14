@@ -1,7 +1,6 @@
--div_for(exclude_list, :class => 'container orange_container') do
-  .header_container
-    .title
-      %h3= exclude_list.list_header.name
-    .options
-      = link_to image_tag('delete_icon.png'), exclude_list_path(exclude_list), :class => 'delete'
-    %br.clear
+-div_for(exclude_list, :class => 'header_container orange_container') do
+  .title
+    %h3= exclude_list.list_header.name
+  .options
+    = link_to image_tag('delete_icon.png'), exclude_list_path(exclude_list), :class => 'delete'
+  %br.clear

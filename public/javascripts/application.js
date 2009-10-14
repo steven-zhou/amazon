@@ -269,7 +269,7 @@ $(function(){
        $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+ $(this).attr('current_operation'),
+            data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
             dataType: "script"
         });      
         $('table#search_list_results tbody tr.selected').removeClass('selected');
@@ -514,6 +514,8 @@ formatCurrency= function(num){
 
 // Configuration
 
+//Admin - System Data Tab
+
 $(function(){
     $("#system_data_type").live('change', function(){
         if($(this).val()==""){
@@ -560,10 +562,53 @@ $(function(){
 });
 
 
+// Custom Groups
+
+$(function(){
+    $(".open_sub_group").live('click', function() {
+        $("#group_" + $(this).attr('id')).find(".sub_groups").show();
+        $("#group_" + $(this).attr('id')).find(".open_sub_group").hide();
+        $("#group_" + $(this).attr('id')).find(".close_sub_group").show();
+        $("#custom_group_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_sub_group").live('click', function() {
+        $("#group_" + $(this).attr('id')).find(".sub_groups").hide();
+        $("#group_" + $(this).attr('id')).find(".open_sub_group").show();
+        $("#group_" + $(this).attr('id')).find(".close_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#custom_group_add_entry").live('click', function() {
+        $(".sub_groups").hide();
+        $("#custom_group_entry_form").toggle();
+        $(".open_sub_group").show();
+        $(".close_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#custom_sub_group_add_entry").live('click', function() {
+        $(this).closest("#custom_sub_group_form").show();
+    });
+});
 
 
 
-//Admin - System Data Tab
+
+
+
+
+
+
+
+
+
+
+
 
 $(function(){
     $("#find_data_list_field").live('change', function(){
@@ -1932,6 +1977,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/organisations/show_list.js",
+            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation'),
             dataType: "script"
         });
     });
@@ -1962,55 +2008,84 @@ $(function(){
 });
 
 
-/*test*/
+/*Grid*/
 $(function(){
-    $("#flex1").flexigrid({
-        url: 'http://localhost:3000/people/flexi_search',
+    $("#people_search_grid").flexigrid({
+        url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'First Name',
-            name : 'first_name',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Family Name',
-            name : 'family_name',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        }
+            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+            {display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
+            {display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'},
+            {display: 'Address', name : 'field_3', width : 180, sortable : true, align: 'left'},
+            {display: 'Phone', name : 'field_4', width : 180, sortable : true, align: 'left'},
+            {display: 'Email', name : 'field_5', width : 180, sortable : true, align: 'left'}
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'first_name'
-        },
-
-        {
-            display: 'Family Name',
-            name : 'family_name'
-        }
+            {display: 'First Name', name : 'field_1'},
+            {display: 'Family Name', name : 'field_2'},
+            {display: 'Address', name : 'field_3'},
+            {display: 'Phone', name : 'field_4'},
+            {display: 'Email', name : 'field_5'}
         ],
-        sortname: "id",
+        sortname: "grid_object_id",
         sortorder: "asc",
         usepager: true,
-        title: 'People',
+        title: 'People Search Result',
         useRp: true,
-        rp: 15,
-        showTableToggleBtn: true,
-        width: 700,
-        height: 200
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 1010,
+        height: 300
+    });
+});
+
+$(function(){
+    $('table#people_search_grid tbody tr').live('click',function(){
+        $('table#people_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        $.ajax({
+            type: 'GET',
+            url: "/people/"+$(this).attr('id').substring(3)+"/name_card.js",
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('table#query_result_grid tbody tr').live('click',function(){
+        $('table#query_result_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+/*Organisation Grid*/
+$(function(){
+    $('table#search_organisations_list_results tbody tr').live('click',function(){
+
+
+
+       $.ajax({
+            type: 'GET',
+            url: "/organisations/show_left.js",
+            data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
+            dataType: "script"
+        });
+        $('table#search_organisations_list_results tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+    });
+});
+
+
+$(function(){
+    $("#show_organisation_list_select").live('click',function(){
+        window.open("/organisations/"+ $('#system_id_tag').val(), "_self");
+    });
+});
+
+
+$(function(){
+    $("#edit_organisation_list_select").live('click',function(){
+        window.open("/organisations/"+ $('#system_id_tag').val()+"/edit", "_self");
     });
 });

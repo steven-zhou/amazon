@@ -21,18 +21,22 @@
           %option{:value => key, :selected => @query_criteria.operator == key} #{key}
       %br.clear
     .form_line
-      %label Input Value
-      = f.text_field :value, :style => "width:70%;"
-      %input{:type => "checkbox", :style => "width:20%;", :name => "runtime" :id => "new_runtime"}
-      %label{:style => "width:10%;display:inline"} R/T
-      %br.clear
+      .field_70
+        %label Input Value
+        = f.text_field :value
+      .field_20
+        %label &nbsp;
+        %input{:type => "checkbox", :style => "width:auto;float:left;", :name => "runtime" :id => "new_runtime"}
+        %label{:style => "width:auto;float:left;margin-top:5px;"} R/T
+
     .form_line
-      %input{:type => "radio", :style => "width:20%;", :name => "query_criteria[option]", :value => "And", :checked => true}
-      %label{:style => "display:inline"} And
-      %input{:type => "radio", :style => "width:20%;", :name => "query_criteria[option]", :value => "Or"}
-      %label{:style => "display:inline"} Or
-      %input#current_action{:style => "display:none;", :name => "current_action"}
-      %br.clear
+      .field_20
+        %input{:type => "radio", :style => "width:auto;float:left;", :name => "query_criteria[option]", :value => "And", :checked => true}
+        %label{:style => "width:auto;float:left;margin-top:5px;"} And
+      .field_20
+        %input{:type => "radio", :style => "width:auto;float:left;", :name => "query_criteria[option]", :value => "Or"}
+        %label{:style => "width:auto;float:left;margin-top:5px;"} Or
+        %input#current_action{:style => "display:none;", :name => "current_action"}
 
 
     = submit_tag "Apply Criterion"

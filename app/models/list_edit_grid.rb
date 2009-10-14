@@ -1,0 +1,3 @@
+class ListEditGrid < Grid
+  
+end
