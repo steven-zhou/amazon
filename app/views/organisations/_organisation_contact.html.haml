@@ -1,13 +1,13 @@
 -# Displays A Contact
--div_for(organisation_contact, :class => 'info_container') do
-  .header_container
+-div_for(organisation_contact, :class => 'header_container') do
+  %div
     .title
-      %h3= "#{organisation_contact.class} (#{organisation_contact.contact_meta_type.name} "
+      %h2= "#{organisation_contact.class} (#{organisation_contact.contact_meta_type.name}) "
     
-  .display_container
+  %div{:style => "float:right;"}
     = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
     %br
-    - if organisation_contact.read_attribute("type") == "Phone"
+    -#- if organisation_contact.read_attribute("type") == "Phone"
       = organisation_contact.preferrence_day_times
     %br
     = organisation_contact.remarks

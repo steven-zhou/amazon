@@ -272,8 +272,8 @@ $(function(){
             data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
             dataType: "script"
         });      
-        $('table#search_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");        
+        $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
     });
 });
 
@@ -2071,8 +2071,8 @@ $(function(){
             data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
             dataType: "script"
         });
-        $('table#search_organisations_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
+        $('table#search_organisations_list_results tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
     });
 });
 

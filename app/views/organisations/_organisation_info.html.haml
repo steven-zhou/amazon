@@ -2,39 +2,39 @@
 #tabs2
   = render :partial => 'organisation_menu'
   #Address
-    .info_container
+    .container
       .header_container
         .title
-          %h3 Address Details
+          %h1 Address Details
         %br{ :style=>"clear: both;"}
       #addresses
       =# Render the organisation's addresses
       = render :partial => '/organisations/organisation_address', :collection => @organisation.addresses
   #Contact
-    .info_container
+    .container
       .header_container
         .title
-          %h3 Contact Details
+          %h1 Contact Details
 
         %br{ :style=>"clear: both;"}
       #contacts
       =# Render the organisation's contacts
       = render :partial => '/organisations/organisation_contact', :collection => @organisation.contacts
   #Keyword
-    .info_container
+    .container
       .header_container
         .title
-          %h3 KeyWords Details
+          %h1 KeyWords Details
 
         %br{ :style=>"clear: both;"}
       #keywords
       =# Render the organisation's keywords
       = render :partial => '/organisations/organisation_keyword', :collection => @organisation.keywords
   #MasterDocs
-    .info_container
+    .container
       .header_container
         .title
-          %h3 MasterDocs Details
+          %h1 MasterDocs Details
 
         %br{ :style=>"clear: both;"}
       #masterdocs
@@ -42,10 +42,10 @@
       = render :partial => '/organisations/organisation_master_doc', :collection => @organisation.master_docs
 
   #Note
-    .info_container
+    .container
       .header_container
         .title
-          %h3 Notes
+          %h1 Notes
 
         %br{ :style=>"clear: both;"}
       #notes_list
