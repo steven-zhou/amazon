@@ -2,3 +2,5 @@ $('#<%= dom_id(@masterdoc, :edit) %>').replaceWith(" <%= escape_javascript(rende
   $('.person_master_doc_edit_delete').css("display","none");
   $('.person_master_doc_toggle_button').css("display","");
      $('#master_doc_hidden_tab').attr('mode','show');
+     $('#master_doc_mode').attr('mode', 'show');
+     $('.new_option[field="master_doc"]').css("display","");

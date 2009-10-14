@@ -1,4 +1,6 @@
 $('#<%= dom_id(@masterdoc) %>').replaceWith(" <%= escape_javascript(render(:partial => 'edit_master_doc')) %>");
   $('.person_master_doc_edit_delete').css("display","none");
   $('.person_master_doc_toggle_button').css("display","none");
+  $('#master_doc_mode').attr('mode', 'edit');
+  $('.new_option[field="master_doc"]').css("display","none");
 

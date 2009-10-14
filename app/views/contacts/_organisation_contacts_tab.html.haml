@@ -3,16 +3,17 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_contact", :class=>"toggle_button", :toggle_id_name => "new_contact"  if (!organisation.nil? && !organisation.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_contact", :class=>"toggle_button new_option", :field => "contact", :toggle_id_name => "new_contact"  if (!organisation.nil? && !organisation.new_record?)
       = image_tag('help_icon.png')
     .title
       %h1 Contact Details
+      %input{:id => "contact_mode" :mode => "show", :style => "display:none"}
     %br{ :style=>"clear: both;"}
 
   =# Initially hidden new address form
   .container#new_contact{:style=>"display:none"}
     .options{:style => "float:right"}
-      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_contact"
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "contact", :toggle_id_name => "new_contact"
     %h1 New Contact
      
     %p

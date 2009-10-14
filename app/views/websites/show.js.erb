@@ -2,3 +2,5 @@ $('#<%= dom_id(@website, :edit) %>').replaceWith(" <%= escape_javascript(render(
 $('.person_contact_toggle_button').css("display","");
  $('#contact_hidden_tab').attr('mode','show');
  $('.person_contact_edit_delete').css("display","none");
+  $('#contact_mode').attr('mode', 'show');
+ $('.new_option[field="contact"]').css("display","");

@@ -5,7 +5,7 @@
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_contact", :class=> "person_contact_toggle_button add_icon", :toggle_id_name => "new_contact"  if (!person.nil? && !person.new_record?)
     %h1 Add Contact
-    %input{:type => "text", :id => "contact_hidden_tab" :mode => "show", :style => "display:none"}
+    %input{:id => "contact_hidden_tab" :mode => "show", :style => "display:none"}
     =# Initially hidden new address form
     %div#new_contact{:style=>"display:none"}
       %p

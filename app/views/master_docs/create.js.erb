@@ -2,7 +2,8 @@
   $('#masterdocs').prepend('<%= escape_javascript(render(:partial => @masterdoc)) %>');
   $("#new_master_doc")[0].reset();
   $("#new_master_doc").hide();
-
+  $('#master_doc_mode').attr('mode', 'show');
+  $('.new_option[field="master_doc"]').css("display","");
   $('#master_doc_hidden_tab').attr('mode','show');
   $('.person_master_doc_toggle_button').css("display","");
   $('.person_master_doc_close').css("display","none");
