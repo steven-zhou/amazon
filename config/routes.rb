@@ -8,7 +8,7 @@ ActionController::Routing::Routes.draw do |map|
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
-    :name_card => :get,
+    :name_card => :get
    
   } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :organisations, :shallow=>true,
     :collection => {:find => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get},
-    :member => {:add_keywords => :post, :remove_keywords => :post} do |organisation|
+    :member => {:add_keywords => :post, :remove_keywords => :post, :name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
     organisation.resources :faxes
@@ -88,7 +88,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :duplication_formula_details
 
   map.resources :addresses , :member => {:search_postcodes => :get}
-  map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, :list_compile_grid => :get}
+  map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, :list_compile_grid => :get, :organisation_search_grid => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

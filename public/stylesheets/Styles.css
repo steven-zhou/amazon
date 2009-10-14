@@ -932,3 +932,36 @@ form#organisation_names_form input#image_image_file{
     padding: 1%;
     -moz-border-radius: 10px;
 }
+
+/* table */
+table#name_card {
+    width:92%;
+}
+
+td.w2 {
+    width:2%;
+}
+
+td.w20 {
+    width:20%;
+}
+
+td.w25 {
+    width:25%;
+}
+
+td.w32 {
+    width:32%;
+}
+
+td.w40 {
+    width:40%;
+}
+
+td a {
+    display:inline;
+}
+
+td.textright {
+    text-align:right;
+}

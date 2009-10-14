@@ -7,31 +7,33 @@
   %table#name_card
     %tbody
       %tr
-        %td.w30
+        %td.w2
+        %td.w32
           = "#{person.id} - #{person.name}"
-        %td.w30
+        %td.w32
           = "Date of Birth : #{person.birth_date.to_s}"
         %td.w20
           = h "<Other1>"
-        %td.w20
+        %td.w25
       %tr
-        %td.w30
+        %td
+        %td
           = "Customer ID : #{person.custom_id}"
-        %td.w30
+        %td
           Gender :
           = "#{person.gender.name}" unless person.gender.nil?
-        %td.w20
+        %td
           = h "<Other2>"
-        %td.w20
+        %td
       %tr
-        %td.w30
+        %td
+        %td
           = "On Record Since : #{person.onrecord_since.to_s}"
-        %td.w30
+        %td
           Religion :
           = "#{person.religion.name}" unless person.religion.nil?
-        %td.w20
-        %td.w20.textright
+        %td
+        %td.textright
           = link_to 'Go to Profile', person unless person.blank?
           or
           = link_to 'Edit', edit_person_path(person) unless person.blank?
-  %br.clear

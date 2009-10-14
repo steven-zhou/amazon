@@ -1,0 +1,3 @@
+class OrganisationSearchGrid < Grid
+  
+end

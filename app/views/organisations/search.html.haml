@@ -2,6 +2,9 @@
   #page_title
     %h1 Find Results
   #lol
-  
-= render :partial => "search_results", :locals => {:organisations => @organisations}
-%p.table_back= link_to_function '« Back to "Find Organisation"', "history.back()"
+
+%div#hover
+  = (render :partial => "name_card", :locals => {:organisation => @organisations.first}) unless @organisations.empty?
+
+.container
+  %table#organisation_search_grid
