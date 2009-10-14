@@ -485,6 +485,14 @@ div.highlight {
     background-color : red;
 }
 
+.hidden {
+    display:none;
+}
+
+.option {
+    display:none;
+}
+
 
 /*this is for lol*/
 div.field_62 {
