@@ -1,11 +1,15 @@
 -# The options to edit or add an address
 .form_line{:style => "float:none;"}
   .field_20
-    = relationship.label :related_person_id, 'System ID'
-    = relationship.text_field :related_person_id
-  .field_20
     = relationship.label :relationship_type_id, 'Type'
     = relationship.collection_select :relationship_type_id, RelationshipType.active_relationship_type, :id, :name
-  .field_40#related_person_name_container
+  .field_20
+    = relationship.label :related_person_id, 'System ID'
+    = relationship.text_field :related_person_id
+  .field_40
+    %label#related_person_name_container{:style => "font-size:17px;display:inline;"}
     %br
+  .field_20
+    = relationship.label :source_person_id, 'Source person ID'
+    %input{:name => "relationship[source_person_id]", :value => "#{@person.id}"}
   %br{:style=>"clear: both;"}

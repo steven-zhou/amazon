@@ -7,14 +7,14 @@ class Relationship < ActiveRecord::Base
 
   validates_presence_of :related_person_id
   validates_uniqueness_of :related_person_id, :scope => [:source_person_id]
-  validate :related_person_cannot_be_the_same_as_source_person, :related_person_cannot_be_nil
+  validate :related_person_cannot_be_the_same_as_source_person
   
   protected
   def related_person_cannot_be_the_same_as_source_person
       errors.add(:related_person_id, "can't be same as source person") if source_person_id == related_person_id
   end
 
-  def related_person_cannot_be_nil
-      error.add(:related_person_id, "can't be nil") if related_person.nil?
-  end
+#  def related_person_cannot_be_nil
+#      errors.add(:related_person_id, "can't be nil") if related_person.nil?
+#  end
 end
