@@ -216,8 +216,8 @@ $(function(){
             data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
             dataType: "script"
         });      
-        $('table#search_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");        
+        $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
     });
 });
 
@@ -524,6 +524,41 @@ $(function(){
     });
 });
 
+
+
+// Security Groups
+
+$(function(){
+    $(".open_security_sub_group").live('click', function() {
+        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").show();
+        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").hide();
+        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").show();
+        $("#security_group_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_security_sub_group").live('click', function() {
+        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").hide();
+        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").show();
+        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#security_group_add_entry").live('click', function() {
+        $(".security_sub_groups").hide();
+        $("#security_group_entry_form").toggle();
+        $(".open_security_sub_group").show();
+        $(".close_security_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".security_sub_group_add_entry").live('click', function() {
+        $("#security_sub_group_form_" + $(this).attr('id')).toggle();
+    });
+});
 
 
 
@@ -2035,8 +2070,8 @@ $(function(){
             data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
             dataType: "script"
         });
-        $('table#search_organisations_list_results tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
+        $('table#search_organisations_list_results tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
     });
 });
 

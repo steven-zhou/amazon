@@ -15,7 +15,7 @@ class Email < Contact
   #  Callbacks
   ################
   #++
-
+  validates_presence_of :value
   before_save :update_priority
   before_destroy :update_priority_before_destroy
   #--

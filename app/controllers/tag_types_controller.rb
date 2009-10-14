@@ -123,6 +123,27 @@ class TagTypesController < ApplicationController
     end
   end
 
+  def security_groups_finder
+    @security_groups = GroupMetaMetaType.find_by_name("Security")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_security_group_meta_type
+    puts "***** DEBUG I am being run!"
+    @security_group = GroupMetaMetaType.find_by_name("Security")
+    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
+    @group_meta_type.update_attributes(params[:group_meta_type])
+    if @group_meta_type.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 
 end
 

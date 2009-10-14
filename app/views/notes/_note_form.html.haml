@@ -13,12 +13,12 @@
     = note.label :active, '&nbsp'
     %label  Active
 .form_line
-  .field_100
+  .field_90
     = note.label :short_description, 'Description'
     = note.text_field :short_description
 
 .form_line{:style =>'min-height:210px;'}
   .field_100
     = note.label :body_text, 'Note'
-    = note.text_area :body_text,:rows => 6, :cols => 50, :class => "text"
+    = note.text_area :body_text,:rows => 6, :cols => 45, :class => "text"
 
