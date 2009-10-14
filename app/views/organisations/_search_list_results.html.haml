@@ -1,28 +1,10 @@
 .header
   .title
-.info_container
-  Name:
-  %input{:type => "text", :id => "list_assistant_name",  :class => "list_assistant_search", :size => "15"}
-  Phone:
-  %input{:type => "text", :id => "list_assistant_phone", :class => "list_assistant_search" , :size => "5"}
-  Email:
-  %input{:type => "text", :id => "list_assistant_email", :class => "list_assistant_search", :size => "5"}
-  %table#search_list_results.display
-    %thead
-      %tr
-        %th System ID
-        %th Full Name
-        %th Phone
-        %th Email
-        %th Address
-    %tbody
-      - for organisation in organisations do
-        %tr{:organisation_id => organisation.id}
-          %td= organisation.id
-          %td= organisation.full_name
-          %td= organisation.primary_phone.value unless organisation.primary_phone.blank?
-          %td= organisation.primary_email.address unless organisation.primary_email.blank?
-          %td= format_address(organisation.primary_address) unless organisation.primary_address.blank?
-  =link_to_function 'Select', :id => "show_list_select"
+%br
+%table#search_organisations_list_results{:current_operation => "#{current_operation}"}
+%br
+%p.submit
+  = submit_tag 'Select to Edit', :style => 'float:right;', :id => "edit_organisation_list_select"
+  = submit_tag 'Select to Profile', :style => 'float:right;',:id => "show_organisation_list_select"
 
 %br.clear

@@ -1,0 +1,3 @@
+class ShowListGrid < Grid
+
+end

@@ -21,7 +21,7 @@
       %h1 Organisations
     #show_list_icon
       - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
-        =link_to_function 'Show List', :id => "show_all_organisations"
+        =link_to_function 'Show List', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list"
       - else
-        =link_to_function 'Show List', :id => "edit_all_organisations"
+        =link_to_function 'Show List', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list"
   %br.clear
