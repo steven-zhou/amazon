@@ -2,3 +2,5 @@ $('#<%= dom_id(@note,:edit) %>').replaceWith(" <%= escape_javascript(render(:par
     $('.person_notes_edit_delete').css("display","none");
     $('.person_notes_toggle_button').css("display","");
      $('#note_hidden_tab').attr('mode','show');
+     $('#note_mode').attr('mode', 'show');
+      $('.new_option[field="note"]').css("display","");

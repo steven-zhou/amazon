@@ -2050,6 +2050,7 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','show');
+      $(this).css("display","none");
       $('.new_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
@@ -2057,6 +2058,7 @@ $(function(){
 $(function(){
     $('.new_option').live('click',function(){
       $("#" + $(this).attr('field')+'_mode').attr('mode','new');
+      $(this).css("display","none");
       $('.close_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
