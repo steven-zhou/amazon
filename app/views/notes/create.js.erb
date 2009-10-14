@@ -2,7 +2,8 @@
   $('#notes_list').prepend('<%= escape_javascript(render(:partial => @note)) %>');
   $("#new_note")[0].reset();
   $("#new_note").hide();
-
+  $('#note_mode').attr('mode', 'show');
+  $('.new_option[field="note"]').css("display","");
   $('#note_hidden_tab').attr('mode','show');
   $('.person_notes_toggle_button').css("display","");
   $('.person_notes_close').css("display","none");
