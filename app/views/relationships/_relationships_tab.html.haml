@@ -1,14 +1,15 @@
 -# The relationships tab
-#relationships_tab.container
+.container
   .header_container
+    .options
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form person_relationship_close toggle_button", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
     %h1 Relationships
+    %input{:type => "text", :id => "relationship_hidden_tab" :mode => "show", :style => "display:none"}
     
     =# Initially hidden new address form
-    -form_for([@person,@relationship], :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|
-      .options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button", :toggle_id_name => "new_relationship"
+    -form_for([@person,@relationship], :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|     
       = render :partial => '/relationships/relationship_form', :locals => { :relationship => relationship }
       = submit_tag 'Submit'
     

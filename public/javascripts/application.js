@@ -1,7 +1,6 @@
 // All ajax requests will trigger the wants.js block
 // of +respond_to do |wants|+ declarations
 
-
 $(function(){
     $("#tabs").tabs();
 });
@@ -591,8 +590,8 @@ $(function(){
 });
 
 $(function(){
-    $("#custom_sub_group_add_entry").live('click', function() {
-        $(this).closest("#custom_sub_group_form").show();
+    $(".custom_sub_group_add_entry").live('click', function() {
+        $("#sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
 
@@ -2056,6 +2055,42 @@ $(function(){
     $('table#query_result_grid tbody tr').live('click',function(){
         $('table#query_result_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
+    });
+});
+
+
+/*option hover*/
+$(function(){
+    $('.toggle_options').live('mouseover',function(){
+        if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
+          $(this).find('.options').css("display","");
+        }
+    });
+});
+
+$(function(){
+    $('.toggle_options').live('mouseout',function(){
+      if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
+        $(this).find('.options').css("display","none");
+      }
+    });
+});
+
+$(function(){
+    $('.edit_option').live('click',function(){
+      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');      
+    });
+});
+
+$(function(){
+    $('.close_option').live('click',function(){
+      $("#" + $(this).attr('field')+'_mode').attr('mode','show');
+    });
+});
+
+$(function(){
+    $('.new_option').live('click',function(){
+      $("#" + $(this).attr('field')+'_mode').attr('mode','new');
     });
 });
 
