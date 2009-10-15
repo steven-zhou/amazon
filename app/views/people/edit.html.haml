@@ -13,6 +13,7 @@
     .container
       %h1 Name Details
       = render :partial => 'person_name_fields', :locals => {:p => p}
+      %input.hidden{:id => :person_id, :value => @person.id}
     .container
       %h1 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}
@@ -46,3 +47,4 @@
       = render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
 
 %br.clear
+  #personal_check_duplication

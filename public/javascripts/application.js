@@ -2421,7 +2421,7 @@ $(function(){
         $.ajax({
             type: 'GET',
             url: "/people/check_duplication.js",
-             data: personal_data_string,
+             data: personal_data_string + "&id="+$("#person_id").val(),
             dataType: "script"
         });
     });

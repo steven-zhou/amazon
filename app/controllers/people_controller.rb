@@ -191,7 +191,13 @@ class PeopleController < ApplicationController
     @role = Role.new
     @person_role = PersonRole.new
     @person_group = PersonGroup.new
-
+  @personal_check_field = Array.new
+ @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.nil?
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
 
    
 
@@ -506,11 +512,16 @@ class PeopleController < ApplicationController
       @personal_duplication_formula.duplication_formula_details.each do |i|
         duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
       end
-   
+
+      if(params[:id]!="")
+        @dup_personal = Person.find(:all, :conditions => ["duplication_value = ? AND id !=?" , duplication_value, params[:id]])
+      else
+        @dup_personal = Person.find(:all, :conditions => ["duplication_value = ?" , duplication_value])
+
+      end
       @dup_personal = Person.find_all_by_duplication_value(duplication_value)
      
       unless @dup_personal.empty?
-
 
         DuplicationPersonalGrid.find_all_by_login_account_id(session[:user]).each do |i|
           i.destroy

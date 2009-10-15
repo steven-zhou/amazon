@@ -1,5 +1,5 @@
 <%- if !@dup_personal.empty?%>
-
+$('#personal_check_duplication').html("<%= escape_javascript(render(:partial => "/people/duplication_grid")) %>");
   $("#person_check_field").flexigrid(
 
 {
