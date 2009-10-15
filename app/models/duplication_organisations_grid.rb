@@ -1,0 +1,3 @@
+class DuplicationOrganisationsGrid < Grid
+  
+end
