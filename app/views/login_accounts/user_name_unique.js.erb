@@ -1,12 +1,16 @@
 <% if @login_account.new_record? %>
-  <%if @flag %>
+  <%if @error_flag %>
     $('#user_name_container_0').html("UserName already taken")
+    $('#no_username').show();
+    $('#yes_username').hide();
   <%else%>
     $('#user_name_container_0').html("Username not taken")
+    $('#no_username').hide();
+    $('#yes_username').show();
   <%end%>
 
 <%else%>
-  <%if @flag %>
+  <%if @error_flag %>
     $('#user_name_container_'+'<%=escape_javascript("#{@login_account.id}") %>').html("UserName has been taken")
   <%else%>
     $('#user_name_container_'+'<%=escape_javascript("#{@login_account.id}")%>').html("Username not been taken")

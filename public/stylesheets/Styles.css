@@ -287,6 +287,7 @@ body {
 /* Form field place holders */
 
 /* Common properties */
+#app #main #content .container .form_line .field_2,
 #app #main #content .container .form_line .field_5,
 #app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_15,
@@ -318,6 +319,7 @@ body {
     margin-right: 10px;
 }
 /* unique properties */
+#app #main #content .container .form_line .field_2 {width: 2%;}
 #app #main #content .container .form_line .field_5 {width: 5%;}
 #app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
@@ -775,7 +777,7 @@ div.info_warning {
     background-color:silver;
 }
 
-.highlight{
+.highlight_for_person_role{
     font-size:14px;
     color:red;
 
@@ -989,3 +991,52 @@ td a {
 td.textright {
     text-align:right;
 }
+
+/* Admin --- user account */
+
+
+.container_inactive {
+    
+   font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-color: #B2BDC5 ;
+    width: 96%;
+    float: left;
+    padding: 1.8%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.container_active {
+   font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_green_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 1.8%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.container_selected {
+     font-family:Arial, Helvetica, sans-serif;
+    background-image:url(../images/container_bg.png) !important;
+    background-repeat:repeat;
+
+}
+
+.imageInputWrapper{
+  width:200px; border:solid 1px #000;
+  }
+
+#app #main #content .container .form_line .wrapimage {
+ float: left;
+    height: 40px;
+    margin-left: 210px;
+   position:absolute;
+   padding: 5px 0px 0px 0px ;
+}
+  

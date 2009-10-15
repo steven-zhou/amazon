@@ -10,7 +10,7 @@ class RelationshipsController < ApplicationController
     @source_person = Person.find(params[:person_id].to_i)
     @person = @source_person
     @relationship = Relationship.new(params[:relationship])
-    if @relationship.save!
+    if @relationship.save
       flash.now[:message]= "saved successfully"
       @related_person = @relationship.related_person
       @relationship_type = @relationship.relationship_type.name
@@ -21,7 +21,7 @@ class RelationshipsController < ApplicationController
         @relationship_spouse.source_person_id = params[:relationship][:related_person_id]
         @relationship_spouse.related_person_id = params[:relationship][:source_person_id]
         @relationship_spouse.relationship_type_id = params[:relationship][:relationship_type_id]
-        @relationship_spouse.save!
+        @relationship_spouse.save
        
       end
     else
