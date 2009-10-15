@@ -2442,12 +2442,10 @@ $(function(){
             }
             data_string += check_fields[j++] + "=" + check_fields[j];
         }
-        alert(data_string);
-
         $.ajax({
             type: 'GET',
             url: "/organisations/check_duplication.js",
-            data: data_string,
+            data: data_string + "&id=" + $("#organisation_id").val(),
             dataType: "script"
         });
     });

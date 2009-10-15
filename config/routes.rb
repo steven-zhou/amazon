@@ -89,7 +89,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :duplication_formula_details
 
   map.resources :addresses , :member => {:search_postcodes => :get}
-  map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, :list_compile_grid => :get, :organisation_search_grid => :get}
+  map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
+                                    :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
+                                    :show_other_group_organisations_grid => :get, :show_other_member_grid => :get, :organisation_employee_grid => :get}
   
   # The priority is based upon order of creation: first created -> highest priority.
 

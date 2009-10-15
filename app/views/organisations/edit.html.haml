@@ -10,6 +10,7 @@
     .container
       %h1 Name Details
       = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
+      %input.hidden{:id => :organisation_id, :value => @organisation.id}
     .container
       %h1 Legal Details
       = render :partial => 'organisation_legal_details_fields', :locals => {:p => p}
@@ -43,3 +44,4 @@
     #Group
       = render :partial => "/organisation_groups/group_tab", :locals => {:organisation => @organisation}
 
+#duplication_box

@@ -1,0 +1,38 @@
+<%- unless @dup_organisations.empty? %>
+$('#duplication_box').html("<%= escape_javascript(render(:partial => "/organisations/duplication_grid")) %>");
+$("#duplication_organisations_grid").flexigrid({
+        url: '/grids/duplication_organisations_grid',
+        dataType: 'json',
+        colModel : [
+            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+            {display: 'Full Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
+            {display: 'Registered Name', name : 'field_2', width : 180, sortable : true, align: 'left'},
+            {display: 'Trading As', name : 'field_3', width : 180, sortable : true, align: 'left'}
+        ],
+        searchitems : [
+            {display: 'Full Name', name : 'field_1'},
+            {display: 'Registered Name', name : 'field_2'},
+            {display: 'Trading As', name : 'field_3'}
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Duplication organisations',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+
+$('#duplication_box').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 600,
+  width: 800
+});
+
+$('#duplication_box').dialog('open');
+<%- end %>

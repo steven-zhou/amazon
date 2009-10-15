@@ -2,6 +2,7 @@
   #header
     #page_title
       %h1 Add Organisation
+      %input.hidden{:id => :organisation_id, :value => @organisation.id}
     #lol
 
   #left_content
@@ -46,5 +47,7 @@
     %p.submit
       = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       = submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag "Submit"   
+      = submit_tag "Submit"
+
+#duplication_box
       
