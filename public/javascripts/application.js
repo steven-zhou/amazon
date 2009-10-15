@@ -2207,7 +2207,8 @@ $(function(){   /*organisation employee list result*/
 /* person check dup feild*/
 
 $(function(){
-    $('.personal_check_field').live('onblur',function(){
+    $('.personal_check_field').blur(function(){
+
         $.ajax({
             type: 'GET',
             url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js",
@@ -2220,14 +2221,23 @@ $(function(){
 $(function(){
     $('.organisational_check_field').blur(function(){
         var check_fields = [];
+        var data_string = "";
         for (var i = 0; i < $('.organisational_check_field').get().length; i++){
+            check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
             check_fields.push($('.organisational_check_field').eq(i).val());
         }
-        alert(check_fields);
+        for (var j = 0; j < check_fields.length; j++){
+            if (j >0){
+                data_string += "&";
+            }
+            data_string += check_fields[j++] + "=" + check_fields[j];
+        }
+        alert(data_string);
+
         $.ajax({
             type: 'GET',
             url: "/organisations/check_duplication.js",
-            data: 'check_fields='+check_fields,
+            data: data_string,
             dataType: "script"
         });
     });
