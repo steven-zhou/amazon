@@ -131,7 +131,6 @@ class TagTypesController < ApplicationController
   end
 
   def create_security_group_meta_type
-    puts "***** DEBUG I am being run!"
     @security_group = GroupMetaMetaType.find_by_name("Security")
     @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
     @group_meta_type.update_attributes(params[:group_meta_type])
@@ -144,6 +143,48 @@ class TagTypesController < ApplicationController
       format.js
     end
   end
+
+  def security_groups_finder
+    @security_groups = GroupMetaMetaType.find_by_name("Security")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_security_group_meta_type
+    @security_group = GroupMetaMetaType.find_by_name("Security")
+    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
+    @group_meta_type.update_attributes(params[:group_meta_type])
+    if @group_meta_type.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def query_tables_finder
+    @query_tables = TableMetaMetaType.find(:all)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_query_table_meta_meta_type
+    @query_table = TableMetaMetaType.new
+    @query_table.update_attributes(params[:table_meta_meta_type])
+    if @query_table.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @query_table.errors.on(:name)[0] + ", saved unsuccessfully." unless @query_table.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
 end
 

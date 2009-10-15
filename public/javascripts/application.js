@@ -525,7 +525,6 @@ $(function(){
 });
 
 
-
 // Security Groups
 
 $(function(){
@@ -561,6 +560,39 @@ $(function(){
 });
 
 
+// Query Tables
+
+$(function(){
+    $(".open_query_table_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").show();
+        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").hide();
+        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").show();
+        $("#query_table_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_query_table_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").hide();
+        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").show();
+        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#query_table_add_entry").live('click', function() {
+        $(".query_table_sub_groups").hide();
+        $("#query_table_entry_form").toggle();
+        $(".open_query_table_sub_group").show();
+        $(".close_query_table_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".query_table_sub_group_add_entry").live('click', function() {
+        $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
+    });
+});
 
 
 
