@@ -1,0 +1,3 @@
+class ShowOtherGroupOrganisationsGrid < Grid
+  
+end
