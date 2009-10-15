@@ -46,6 +46,11 @@ describe OrganisationsController do
     get :search, options
   end
 
+  def get_check_duplication(options={})
+    options[:check_field] ||= ["Google", "Google", "Google"]
+    xhr :get, "check_duplication", options
+  end
+
   describe "GET 'new'" do
     before(:each) do
       get 'new'
@@ -283,4 +288,12 @@ describe OrganisationsController do
     end
   end
 
+  describe "Get check_duplication" do
+
+    it "should get the organisational duplciation formula applied setting" do
+
+    end
+
+    
+  end
 end

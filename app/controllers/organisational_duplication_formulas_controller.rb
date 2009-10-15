@@ -28,4 +28,14 @@ class OrganisationalDuplicationFormulasController < ApplicationController
       redirect_to duplication_formula_administrations_path()
     end
   end
+
+  def generate
+    Organisation.all.each do |organisation|
+      organisation.save
+    end
+    flash.now[:message] = flash_message(:message => "Organisational Duplication Value Is Re-generated")
+    respond_to do |format|
+      format.js {render 'duplication_formulas/organisational_generate.js'}
+    end
+  end
 end

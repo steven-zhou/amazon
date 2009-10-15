@@ -2139,3 +2139,20 @@ $(function(){
         });
     });
 });
+
+/*Organisational Duplication Check*/
+$(function(){
+    $('.organisational_check_field').blur(function(){
+        var check_fields = [];
+        for (var i = 0; i < $('.organisational_check_field').get().length; i++){
+            check_fields.push($('.organisational_check_field').eq(i).val());
+        }
+        alert(check_fields);
+        $.ajax({
+            type: 'GET',
+            url: "/organisations/check_duplication.js",
+            data: 'check_fields='+check_fields,
+            dataType: "script"
+        });
+    });
+});
