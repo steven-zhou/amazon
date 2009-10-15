@@ -56,7 +56,6 @@ class TagsController < ApplicationController
 
   def show_group_description
     @group_type = GroupType.find(params[:group_id].to_i) rescue @group_type = GroupType.new
-    @person_group = PersonGroup.find(params[:person_group_id]) rescue @person_group = PersonGroup.new
     respond_to do |format|
       format.js
     end

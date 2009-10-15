@@ -4,7 +4,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :show_left => :get, :show_list => :get, :test_search => :get, :flexi_search => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :search_lists => :get, :show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
@@ -42,6 +42,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :master_docs
     organisation.resources :images, :member => {:thumb => :get}
     organisation.resources :notes
+    organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
   end
 
   map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
