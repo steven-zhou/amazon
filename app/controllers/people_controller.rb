@@ -437,6 +437,14 @@ class PeopleController < ApplicationController
     session[:select_list_person] = params[:person_id]
     #   session[:current_person_id]=params[:person_id]
 
+     @personal_check_field = Array.new
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.nil?
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
+
     if(params[:current_operation] == "edit_list")
       render 'show_edit_left.js'
 
