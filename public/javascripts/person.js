@@ -342,6 +342,7 @@ $(".person_relationship_toggle_button").live('click', function(){
 
 $(".person_relationship_close").live('click',function(){
     $('.person_tag').css("display","none");
+    $('#related_person_name_container').html('');
 
     $(this).css("display","none");
     $('.person_relationship_toggle_button').css("display","");

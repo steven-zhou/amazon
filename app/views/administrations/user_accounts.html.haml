@@ -1,19 +1,48 @@
-=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+-#for user_management
+.container{:class => "add_user"}
+  %div#add_user_bar
+    %div
+      .options
+        -#= link_to_function image_tag('closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "new_user"
+        = link_to_function (image_tag('close_icon.png'), :id => "close_new_account", :style => "display:none;")
+      .title
+        = link_to_function image_tag('add_icon.png'), :id => "add_user", :class => "toggle_button", :toggle_id_name => "new_user"
+        &nbsp
+      %h1 Add New User
 
-=link_to('System Setting', :controller => "administrations", :action => "system_setting")
-%h3{:style => "display:inline;"} System Management
-=link_to('Query/List', :controller => "administrations", :action => "list_management")
-=link_to('Duplication Formula', :controller => "administrations", :action => "duplication_formula")
-#tabs{:style => "width:96%;"}
-  = render :partial => 'system_management_menu'
-  #RolesManagement
-    = render :partial => '/roles_management/roles_management_tab', :locals => {:role => @role}
-  #SystemUsers
-    = render :partial => '/user_management/user_tab'
-  #AssignGroups
-    = render :partial => '/group_lists/group_list_tab'
-  #GroupPermission
-    = render :partial => '/group_permissions/group_permission_tab'
+  %div#new_user{:style => "display:none"}
+    = render :partial => '/user_management/user_account_form'
+
+.container{:class => "show_user_container"}
+
+  %div#show_user
+    = render :partial => '/user_management/show_user_list'
+  %br.clear
+
+
+%div#edit_user
+
+%div#user_length{:style => "display:none;"}
+  %span username must between 6 to 30
+
+%div#password_confirm{:style => "display:none;"}
+  %span password confirmation is different with password
+
+%div#password_length{:style => "display:none;"}
+  %span password must between 6 to 30
+
+%div#answer{:style => "display:none;"}
+  %span answer can not empty
+
+%div#person_check{:style => "display:none;"}
+  %span the person already have login_account
+
+
+
+
+
+
+
 
 
 
