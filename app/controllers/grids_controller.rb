@@ -324,7 +324,9 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-def organisation_search_grid
+
+  def show_other_group_organisations_grid
+
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -345,7 +347,9 @@ def organisation_search_grid
     end
 
     if (!rp)
-      rp = 10
+
+      rp = 20
+
     end
 
     start = ((page-1) * rp).to_i
@@ -353,23 +357,29 @@ def organisation_search_grid
 
     # No search terms provided
     if(query == "%%")
-      @organisation = OrganisationSearchGrid.find(:all,
+      @organisations = ShowOtherGroupOrganisationsGrid.find(:all,
     :conditions => ["login_account_id = ?", session[:user]],
   	:order => sortname+' '+sortorder,
   	:limit =>rp,
   	:offset =>start
   	)
-      count = OrganisationSearchGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+
+      count = ShowOtherGroupOrganisationsGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+
     end
 
     # User provided search terms
     if(query != "%%")
-        @organisation = OrganisationSearchGrid.find(:all,
+
+        @organisations = ShowOtherGroupOrganisationsGrid.find(:all,
+
 	  :order => sortname+' '+sortorder,
 	  :limit =>rp,
   	  :offset =>start,
   	  :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
-	count = OrganisationSearchGrid.count(:all,
+
+	count = ShowOtherGroupOrganisationsGrid.count(:all,
+
 	  :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
     end
 
@@ -378,13 +388,11 @@ def organisation_search_grid
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @organisation.collect{|u| {:id => u.grid_object_id,
+
+    return_data[:rows] = @organisations.collect{|u| {:id => u.grid_object_id,
   			   :cell=>[u.grid_object_id,
   			   u.field_1,
-  			   u.field_2,
-           u.field_3,
-           u.field_4,
-           u.field_5]}}
+  			   u.field_2]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -401,6 +409,7 @@ def organisation_search_grid
     if (!sortname)
       sortname = "grid_object_id"
     end
+
 
     if (!sortorder)
       sortorder = "asc"

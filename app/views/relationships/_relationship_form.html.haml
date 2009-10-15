@@ -10,6 +10,6 @@
     %label#related_person_name_container{:style => "font-size:17px;display:inline;"}
     %br
   .field_20
-    = relationship.label :source_person_id, 'Source person ID'
-    %input{:name => "relationship[source_person_id]", :value => "#{@person.id}"}
+    
+    %input{:name => "relationship[source_person_id]", :value => "#{@person.id}", :class => "hidden"}
   %br{:style=>"clear: both;"}

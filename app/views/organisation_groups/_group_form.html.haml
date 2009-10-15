@@ -1,0 +1,14 @@
+.form_line{:style => "float:none;"}
+  .field_25
+    = label_tag :group_meta_type_id, "Group Type"
+    = collection_select :group, :group_meta_type_id, TagType.show_meta_type, :id, :name,{:prompt => " "}, {:class => "find_group_meta_type"}
+  .field_25
+    = label_tag :group_type_description, " ", {:id => "group_type_description"}
+
+.form_line
+  .field_25
+    = label_tag :group_meta_type_id, "Group"
+    %select#group_id{:name => "organisation_group_id"}
+      %option
+  .field_25
+    = label_tag :group_description, " ", {:id => "group_description"}

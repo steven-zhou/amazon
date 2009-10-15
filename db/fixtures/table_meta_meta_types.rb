@@ -78,7 +78,7 @@ TableMetaType.create :name => "town", :tag_meta_type_id => addresses.id, :descri
 TableMetaType.create :name => "state", :tag_meta_type_id => addresses.id, :description => "State (e.g. NSW)",  :status => true, :category => "String"
 TableMetaType.create :name => "district", :tag_meta_type_id => addresses.id, :description => "District (e.g. District 9)",  :status => true, :category => "String"
 TableMetaType.create :name => "region", :tag_meta_type_id => addresses.id, :description => "Region (e.g. Region A)",  :status => true, :category => "String"
-TableMetaType.create :name => "country", :tag_meta_type_id => addresses.id, :description => "Country (e.g. Australia)",  :status => true, :category => "String"
+TableMetaType.create :name => "country", :tag_meta_type_id => addresses.id, :description => "Country (e.g. Australia)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "postal_code", :tag_meta_type_id => addresses.id, :description => "Postal Code (e.g. 2021)",  :status => true, :category => "String"
 TableMetaType.create :name => "time_zone", :tag_meta_type_id => addresses.id, :description => "Time Zone (e.g. UTC/GMT +10)",  :status => true, :category => "String"
 TableMetaType.create :name => "map_reference", :tag_meta_type_id => addresses.id, :description => "Map Reference (e.g. 4807.038,N  01131.000,E)",  :status => true, :category => "String"

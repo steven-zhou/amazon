@@ -6,7 +6,7 @@
 
   #left_content
     .container
-      = p.text_field :custom_id
+      = p.text_field :custom_id, :class => @check_field.include?("custom_id") ? "organisational_check_field" : ""
       %h1 Custom ID
     .container.add_name
       %h1 Name Details

@@ -1,30 +1,30 @@
 .form_line
   .field_60
     = p.label :registered_name,"Registered Name"
-    = p.text_field :registered_name, :value=>@organisation.registered_name
+    = p.text_field :registered_name, :value=>@organisation.registered_name, :class => @check_field.include?("registered_name") ? "organisational_check_field" : ""
   .field_35
     = p.label :registered_number, "Registered Number"
-    = p.text_field :registered_number, :value=>@organisation.registered_number
+    = p.text_field :registered_number, :value=>@organisation.registered_number, :class => @check_field.include?("registered_number") ? "organisational_check_field" : ""
   %br.clear
 .form_line
   .field_33
     = p.label :registered_date, 'registered_date'
-    = p.text_field :registered_date, :class=>"datepick", :value=>@organisation.registered_date.to_s
+    = p.text_field :registered_date, :class=> @check_field.include?("registered_date") ? "organisational_check_field datepick" : "datepick", :value=>@organisation.registered_date.to_s
   .field_30
     = p.label :registered_country_id, 'Country of Incorporation'
-    = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true}
+    = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true}, {:class => @check_field.include?("registered_country") ? "check_field" : ""}
   .field_30
     = p.label :organisation_type_id, 'Organisation Legal Type'
-    = p.collection_select :organisation_type_id, OrganisationType.active_organisation_type, :id, :name, {:include_blank => true}
+    = p.collection_select :organisation_type_id, OrganisationType.active_organisation_type, :id, :name, {:include_blank => true}, {:class => @check_field.include?("organisation_type") ? "check_field" : ""}
   %br.clear
 .form_line
   .field_33
     = p.label :tax_file_no,'Tax File Number'
-    = p.text_field :tax_file_no, :value=>@organisation.tax_file_no
+    = p.text_field :tax_file_no, :value=>@organisation.tax_file_no, :class => @check_field.include?("tax_file_no") ? "check_field" : ""
   .field_30
     = p.label :legal_no_1, 'Legal Number 1'
-    = p.text_field :legal_no_1, :value=>@organisation.legal_no_1
+    = p.text_field :legal_no_1, :value=>@organisation.legal_no_1, :class => @check_field.include?("legal_no_1") ? "check_field" : ""
   .field_30
     = p.label :legal_no_2, 'Legal Number 2'
-    = p.text_field :legal_no_2, :value=>@organisation.legal_no_2
+    = p.text_field :legal_no_2, :value=>@organisation.legal_no_2, :class => @check_field.include?("legal_no_2") ? "check_field" : ""
   %br.clear

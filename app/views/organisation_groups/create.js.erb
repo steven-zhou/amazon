@@ -1,0 +1,16 @@
+ <% if @organisation_group.errors.empty? -%>
+  
+$('#organisation_groups').prepend('<%= escape_javascript(render(:partial => "organisation_groups/organisation_group", :locals =>{:organisation_group => @organisation_group })) %>');
+
+$("#new_group").hide();
+
+$('#organisation_group_mode').attr('mode', 'show');
+$('.new_option[field="organisation_group"]').css("display","");
+$('.close_option[field="organisation_group"]').css("display","none");
+$('#<%= dom_id(@organisation_group) %>').effect('slide', {direction:'right'});
+
+
+
+<% end -%>
+
+  

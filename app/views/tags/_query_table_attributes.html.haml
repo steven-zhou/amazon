@@ -1,0 +1,4 @@
+%div{:id => "table_attributes_in_query_table_#{@query_table.id}"}
+  -for table_attribute in @query_table.tag_types do
+    .container
+      = table_attribute.name

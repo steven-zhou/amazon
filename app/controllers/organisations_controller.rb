@@ -12,6 +12,13 @@ class OrganisationsController < ApplicationController
     @organisation.websites.build
     @image = Image.new
     @postcodes = DomesticPostcode.find(:all)
+    @check_field = Array.new
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    unless @organisational_duplication_formula.nil?
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        @check_field << i.field_name
+      end
+    end
     respond_to do |format|
       format.html
     end
@@ -102,6 +109,7 @@ class OrganisationsController < ApplicationController
     @masterdoc = MasterDoc.new
     @note = Note.new
     @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
+    @organisation_group = OrganisationGroup.new
     respond_to do |format|
       format.html
     end

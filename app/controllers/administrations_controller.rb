@@ -18,6 +18,7 @@ class AdministrationsController < ApplicationController
   end
 
   def query_tables
+    @query_tables = TableMetaMetaType.find(:all)
     respond_to do |format|
       format.html
     end

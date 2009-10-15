@@ -36,12 +36,10 @@
       = render :partial => "/master_docs/organisation_masterdocs_tab", :locals =>{:organisation => @organisation}
     #Note
       = render :partial => "/notes/organisation_notes_tab",:locals =>{:organisation => @organisation}
-    #Employee
-      .container
-        .header_container
-          .title
-            %h1 Employee
 
-        %br{ :style=>"clear: both;"}
-        =# Render the organisation's employee
-        = render :partial => '/organisations/organisation_employee'
+    #Employee
+      = render :partial => '/organisations/organisation_employee'
+
+    #Group
+      = render :partial => "/organisation_groups/group_tab", :locals => {:organisation => @organisation}
+
