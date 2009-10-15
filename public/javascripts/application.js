@@ -2165,3 +2165,72 @@ $(function(){
         });
     });
 });
+
+
+$(function(){   /*organisation employee list result*/
+    $("#organisations_employees_grid").flexigrid({
+        url: '/grids/organisation_employee_grid',
+        dataType: 'json',
+        colModel : [
+            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+            {display: 'First Name', name : 'field_1', width : 50, sortable : true, align: 'left'},
+            {display: 'Family Name', name : 'field_2', width : 50, sortable : true, align: 'left'},
+            {display: 'Address', name : 'field_3', width : 120, sortable : true, align: 'left'},
+            {display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
+            {display: 'email', name : 'field_5', width : 140, sortable : true, align: 'left'}
+        ],
+        searchitems : [
+            {display: 'First Name', name : 'field_1'},
+            {display: 'Family Name', name : 'field_2'},
+            {display: 'Address', name : 'field_3'},
+            {display: 'Phone', name : 'field_4'},
+            {display: 'Email', name : 'field_5'}
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Organisation Employee Result',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+});
+
+/* person check dup feild*/
+
+$(function(){
+    $('.personal_check_field').blur(function(){
+
+        $.ajax({
+            type: 'GET',
+            url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js",
+
+        });
+    });
+});
+
+/*Organisational Duplication Check*/
+$(function(){
+    $('.organisational_check_field').blur(function(){
+        var check_fields = [];
+        var data_string = "";
+        for (var i = 0; i < $('.organisational_check_field').get().length; i++){
+            check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
+            check_fields.push($('.organisational_check_field').eq(i).val());
+        }
+        for (var j = 0; j < check_fields.length; j++){
+            if (j >0){
+                data_string += "&";
+            }
+            data_string += check_fields[j++] + "=" + check_fields[j];
+        }
+        $.ajax({
+            type: 'GET',
+            url: "/organisations/check_duplication.js",
+            data: data_string + "&id=" + $("#organisation_id").val(),
+            dataType: "script"
+        });
+    });
+});

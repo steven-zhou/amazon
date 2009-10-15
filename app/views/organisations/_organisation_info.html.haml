@@ -51,4 +51,15 @@
       #notes_list
       =# Render the organisation's notes
       = render :partial => '/organisations/organisation_note', :collection => @organisation.sorted_notes
-  
+
+  #Employee
+    .container
+      .header_container
+        .title
+          %h1 Employee
+
+      %br{ :style=>"clear: both;"}
+      #employee_list
+      =# Render the organisation's employee
+      .header_container
+        = render :partial => '/organisations/organisation_employee'
