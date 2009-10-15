@@ -1,0 +1,8 @@
+$.ajax({
+  type: "GET",
+  url: "/tags/query_table_attributes_finder.js",
+  data: 'id=' + <%= escape_javascript(params[:id])%>,
+  dataType: "script"
+});
+$(".query_table_type_name").val("");
+$(".query_table_type_description").val("");

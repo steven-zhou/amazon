@@ -46,9 +46,9 @@
                     = p.label :description, 'Description'
                     = p.text_field :description, {:class => "group_type_description"}
                   .field_30
-                    = p.label :active, {:class => "group_type_active"}
+                    = p.label :active
                     %label
-                      = p.check_box :status
+                      = p.check_box :status, {:class => "group_type_active"}
                     = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
           %div{:id => "sub_groups_in_group_#{group.id}"}
             -for sub_group in group.tags do
