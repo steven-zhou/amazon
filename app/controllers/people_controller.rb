@@ -15,7 +15,16 @@ class PeopleController < ApplicationController
     @person.websites.build
     @image = Image.new
     @postcodes = DomesticPostcode.find(:all)
-   
+    @personal_check_field = Array.new
+    
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.nil?
+    @duplication_formula_appiled.duplication_formula_details.each do |i|
+      @personal_check_field << i.field_name
+    end
+    end
+
+
     respond_to do |format|
       format.html
     end
@@ -184,14 +193,7 @@ class PeopleController < ApplicationController
     @person_group = PersonGroup.new
 
 
-    #    if params[:show_list]
-    #    session[:show_list] = params[:show_list]
-    #    @person = Person.find(params[:id]) rescue @person = Person.find(session[:current_person_id])
-    #
-    #      render 'show_list.html'
-    #
-    #    else
-    
+   
 
     respond_to do |format|
       format.html

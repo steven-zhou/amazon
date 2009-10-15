@@ -1,0 +1,10 @@
+-# Displays An Employment
+-div_for(employees, :class => 'header_container',:field => "employees") do
+  %div
+    .title
+      %h2= employees.organisation.full_name
+    .options{:class => 'person_employments_edit_delete person_tag', :style => "display:none;"}
+      = link_to image_tag('edit_icon.png')
+    %br{ :style => "clear:both;"}
+  %div{:style => "float:right;"}
+    = format_employee(employees)
