@@ -346,6 +346,18 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#show_other_group_members_organisations").live('click',function(){
+        $.ajax({
+            type: "GET",
+            url: "/organisations/"+$(this).attr('organisation_id')+"/organisation_groups/show_group_members.js",
+            data: 'organisation_group_id='+$(this).attr('organisation_group_id'),
+            dataType: "script"
+
+        });
+    });
+});
+
 
 
 
@@ -353,38 +365,29 @@ $(function(){
 /* Show_group */
 $(function(){
     $(".find_group_meta_type").live('change',function(){
-        /*   if($(this).val()!=""){  */
         $.ajax({
             type: "GET",
             url: "/tag_types/show_types.js",
-            data: 'group_meta_type_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            data: 'group_meta_type_id='+$(this).val(),
             dataType: "script"
 
         });
-
-    /* }  */
-
     });
-}
-)
+});
+
 /* Show Group Description */
 
 $(function(){
-    $(".person_group_id").live('change',function(){
-        /*   if($(this).val()!=""){  */
+    $("#group_id").live('change',function(){
         $.ajax({
             type: "GET",
             url: "/tags/show_group_description.js",
-            data: 'group_id='+$(this).val()+'&person_group_id='+$(this).attr('person_group_id'),
+            data: 'group_id='+$(this).val(),
             dataType: "script"
 
         });
-
-    /* }  */
-
     });
-}
-)
+});
 
 
 /* MasterDoc */
@@ -525,7 +528,6 @@ $(function(){
 });
 
 
-
 // Security Groups
 
 $(function(){
@@ -561,6 +563,39 @@ $(function(){
 });
 
 
+// Query Tables
+
+$(function(){
+    $(".open_query_table_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").show();
+        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").hide();
+        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").show();
+        $("#query_table_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_query_table_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").hide();
+        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").show();
+        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#query_table_add_entry").live('click', function() {
+        $(".query_table_sub_groups").hide();
+        $("#query_table_entry_form").toggle();
+        $(".open_query_table_sub_group").show();
+        $(".close_query_table_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".query_table_sub_group_add_entry").live('click', function() {
+        $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
+    });
+});
 
 
 

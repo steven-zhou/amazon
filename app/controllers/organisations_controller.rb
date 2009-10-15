@@ -85,6 +85,7 @@ class OrganisationsController < ApplicationController
     @masterdoc = MasterDoc.new
     @note = Note.new
     @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
+    @organisation_group = OrganisationGroup.new
     respond_to do |format|
       format.html
     end
