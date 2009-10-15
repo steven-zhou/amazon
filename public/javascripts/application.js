@@ -598,6 +598,43 @@ $(function(){
 });
 
 
+// Access Permissions
+
+$(function(){
+    $(".open_system_module_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").show();
+        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").hide();
+        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").show();
+        $("#access_permissions_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_system_module_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").hide();
+        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").show();
+        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#access_permissions_add_entry").live('click', function() {
+        $(".access_permissions_module_controllers").hide();
+        $("#access_permissions_entry_form").toggle();
+        $(".open_system_module_sub_group").show();
+        $(".close_system_module_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".access_permissions_module_add_entry").live('click', function() {
+        $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
+    });
+});
+
+
+
+
 
 
 
