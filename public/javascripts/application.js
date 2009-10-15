@@ -1009,6 +1009,14 @@ $(function(){
 });
 
 /*Admin User management*/
+$(function(){
+    $("#add_user").live('click', function(){
+        $(this).hide();
+        $(".user_clear_form").click();
+        $(".show_user_container").hide();
+        $("#close_new_account").show();
+    });
+});
 
 $(function(){
     $(".check_login_id").live('change', function(){
@@ -1031,7 +1039,7 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/login_accounts/user_name_unique.js",
-                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
                 dataType:"script"
             });
         }else{
@@ -1040,13 +1048,15 @@ $(function(){
     });
 });
 
-
-
+$(function(){
+    $(".check_username_unique").live('change', function(){
+        //alert($(this).val().length)
+        });
+});
 
 
 $(function(){
     $('#login_account_user_name').live("focus", function(){
-
         $(this).qtip(
         {
             content: 'username must between 6~20<br>username can\'t the same as password',
@@ -1054,13 +1064,10 @@ $(function(){
         }
         );
     });
-
 });
-
 
 $(function(){
     $('#login_account_user_name').live("mouseover", function(){
-
         $(this).qtip(
         {
             content: 'username must between 6~20<br>username can\'t the same as password',
@@ -1068,74 +1075,54 @@ $(function(){
         }
         );
     });
-
 });
 
 
-//$(function() {
-//    $(".password").jpassword({
-//            lang: {
-//                please: "please type password over 6 characters",
-//                low: "Low security.",
-//                correct: "Correct security.",
-//                high: "High security.",
-//                length: "-X- characters would be a plus.",
-//                number: "Why not numbers?",
-//                uppercase: "And caps?",
-//                lowercase: "Some tiny?",
-//                punctuation: "Punctuations?",
-//                special: "Best, special characters?"
-//            },
-//            length: 6
-//    });
-//});
-
-
-
-
-$(function(){
-    $("#add_user").live('click', function(){
-        $(this).hide();
-        $(".user_clear_form").click();
-        $(".show_user_container").hide();
-        $("#close_new_account").show();
-
-       
+$(function() {
+    $(".password").jpassword({
+            lang: {
+                please: "please type password over 6 characters",
+                low: "Low security.",
+                correct: "Correct security.",
+                high: "High security.",
+                length: "-X- characters would be a plus.",
+                number: "Why not numbers?",
+                uppercase: "And caps?",
+                lowercase: "Some tiny?",
+                punctuation: "Punctuations?",
+                special: "Best, special characters?"
+            },
+            length: 6
     });
-
 });
 
 
 $(function(){
     $("#login_account_password_confirmation").live('change', function(){
         if ($(this).val()!= $('#login_account_password').val()){
-
             $('#password_confirm').dialog( {
                 modal: true,
                 resizable: true,
                 draggable: true
             });
             $('#password_confirm').dialog('open');
-
         }
     });
 });
 
-$(function(){
-    $("#login_account_user_name").live('change', function(){
-     
-        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-      
-            $('#user_length').dialog( {
-                modal: true,
-                resizable: true,
-                draggable: true
-            });
-            $('#user_length').dialog('open');
-        }
-      
-    });
-});
+//$(function(){
+//    $("#login_account_user_name").live('change', function(){
+//
+//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
+//            $('#user_length').dialog( {
+//                modal: true,
+//                resizable: true,
+//                draggable: true
+//            });
+//            $('#user_length').dialog('open');
+//        }
+//    });
+//});
 
 
 $(function(){
@@ -1158,9 +1145,9 @@ $(function(){
 $(function(){
     $(".show_users").live('click', function(){
 
-        $(".highlight").removeClass("highlight");
+        $(".container_selected").removeClass("container_selected");
 
-        $(this).addClass("highlight");
+        $(this).addClass("container_selected");
         $(".add_user").hide();
         $.ajax({
             type: "GET",
@@ -1174,12 +1161,11 @@ $(function(){
 
 $(function(){
     $(".user_clear_edit_form").live('click', function(){
-        $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
+        $('#'+($(this).closest('form').get(0).id))[0].reset();
       
         $('#user_name_container_' + $(this).attr('login_account_id')).html('');     
     })
 });
-
 
 
 $(function(){
@@ -1217,9 +1203,17 @@ $(function(){
     $("#close_edit_account").live('click', function(){
 
         $(".add_user").show();
-        $(".highlight").removeClass("highlight");       
+        $(".container_selected").removeClass("container_selected");
         $("#edit_user").html('');
       
+    });
+});
+
+
+
+$(document).ready(function() {
+    $(".inputWithImge").each(function(){
+        $(this).add($(this).next()).wrapAll('<div class="imageInputWrapper"></div>');
     });
 });
 
