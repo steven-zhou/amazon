@@ -39,17 +39,14 @@ $('#personal_check_duplication').dialog({
   modal: true,
   resizable: true,
   draggable: true,
-  height: 'auto',
-  width: 600,
+  height: 600,
+  width: 800,
   buttons:{
           Continue: function(){
           $(this).dialog('close');
           },
-          "Edit One": function(){
-          personal_edit_one();
-          },
-          "Create New": function(){
-           window.open("/people/new","_self");
+          "Restart": function(){
+          personal_check_duplication_restart_button();
           }
   }
 });
