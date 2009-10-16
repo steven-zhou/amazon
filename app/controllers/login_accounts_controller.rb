@@ -2,7 +2,7 @@ class LoginAccountsController < ApplicationController
 
 
   def user_name_unique
-    @flag = LoginAccount.find_by_user_name(params[:user_name]).nil? ? false : true
+    @error_flag = (LoginAccount.find_by_user_name(params[:user_name]).nil? && params[:length].to_i > 6 && params[:length].to_i < 30) ? false : true
     #@login_accounts = LoginAccount.find(:all, :conditions => ["user_name=?",params[:user_name]])unless (params[:user_name].nil? || params[:user_name].empty?)
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
     respond_to  do |format|

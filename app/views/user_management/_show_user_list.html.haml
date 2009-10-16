@@ -1,10 +1,11 @@
-%h3 Existing Users
+%h1 Existing Users
+%br
 %ul{:style => "list-style-type:none;padding-left:0px;"}
   - @login_accounts.each do |i|
     %li{:style => "width:50%;float:left;cursor:pointer;cursor:hand;"}
-      .info_container
+      .show_users{:person_id => i.person_id, :class => (i.login_status?) ? "container_active" : "container_inactive", :id => "login_account_#{i.id}", :login_account_id => i.id}
         %div#user_list_in
-          %div{:person_id => i.person_id, :class => "show_users", :id => "login_account_#{i.id}", :login_account_id => i.id}
+          %div
             = i.person_id
             \-
             = i.user_name
