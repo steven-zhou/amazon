@@ -1158,18 +1158,16 @@ $(function(){
 
 
 $(function(){
-    $(".show_users").live('click', function(){
+    $(".edit_login_account").live('click', function(){
 
-        $(".container_selected").removeClass("container_selected");
-
-        $(this).addClass("container_selected");
-        $(".add_user").hide();
-        $.ajax({
-            type: "GET",
-            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-            data:'id='+$(this).attr('login_account_id'),
-            dataType: "script"
-        });
+   
+       
+//        $.ajax({
+//            type: "GET",
+//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+//            data:'id='+$(this).attr('login_account_id'),
+//            dataType: "script"
+//        });
     });
 });
 
