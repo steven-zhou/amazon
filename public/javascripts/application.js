@@ -1158,18 +1158,16 @@ $(function(){
 
 
 $(function(){
-    $(".show_users").live('click', function(){
+    $(".edit_login_account").live('click', function(){
 
-        $(".container_selected").removeClass("container_selected");
-
-        $(this).addClass("container_selected");
-        $(".add_user").hide();
-        $.ajax({
-            type: "GET",
-            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-            data:'id='+$(this).attr('login_account_id'),
-            dataType: "script"
-        });
+   
+       
+//        $.ajax({
+//            type: "GET",
+//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+//            data:'id='+$(this).attr('login_account_id'),
+//            dataType: "script"
+//        });
     });
 });
 
@@ -2106,8 +2104,8 @@ $(function(){
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
-        width: 1010,
-        height: 300
+        width: 'auto',
+        height: 'auto'
     });
 });
 
@@ -2479,21 +2477,13 @@ $(function(){
     });
 });
 
-
-organisation_edit_one = function() {
-    var selected = $('table#duplication_organisations_grid tbody tr.trSelected');
-    if (selected.attr('id') != undefined){
-         window.open("/organisations/"+ selected.attr('id').substring(3) +"/edit", "_self");
-    }
-    return false;
-};
-
 $(function(){
     $('table#duplication_organisations_grid tbody tr').live('click',function(){
         $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
     });
 });
+
 
 /*personal check field restart button*/
 personal_check_duplication_restart_button = function(){
@@ -2508,3 +2498,11 @@ $(function(){
     window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
     });
 });
+
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('dblclick',function(){
+       window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
+    });
+});
+
+

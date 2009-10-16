@@ -321,11 +321,13 @@ class OrganisationsController < ApplicationController
           duplication_value += params[i.field_name.to_sym][0, i.number_of_charecter]
         end
       end
-      
+
+      @organisation_id = "" #organisation edit
       if (params[:id]!="")
-        @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value = ? AND id != ?", duplication_value, params[:id]])
+        @organisation_id = params[:id]
+        @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value ILIKE ? AND id != ?", duplication_value, params[:id]])
       else
-        @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value = ?", duplication_value])
+        @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value ILIKE ?", duplication_value])
       end
 
       unless @dup_organisations.empty?
