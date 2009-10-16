@@ -3,6 +3,7 @@
     .container
       = p.text_field :custom_id
       %h1 Custom ID
+      %input.hidden{:id => :person_id, :value => @person.id}
 
     .container
       %h1 Name Details

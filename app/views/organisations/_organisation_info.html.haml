@@ -63,3 +63,14 @@
       =# Render the organisation's employee
       .header_container
         = render :partial => '/organisations/organisation_employee'
+
+  #Group
+    .container
+      .header_container
+        .title
+          %h1 Group
+
+      %br{ :style=>"clear: both;"}
+      #group_list
+      =# Render the organisation's group
+      = render :partial => '/organisations/organisation_group', :collection => @organisation.organisation_groups

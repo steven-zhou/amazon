@@ -191,8 +191,8 @@ class PeopleController < ApplicationController
     @role = Role.new
     @person_role = PersonRole.new
     @person_group = PersonGroup.new
-  @personal_check_field = Array.new
- @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    @personal_check_field = Array.new
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
     unless @duplication_formula_appiled.nil?
       @duplication_formula_appiled.duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
@@ -437,7 +437,7 @@ class PeopleController < ApplicationController
     session[:select_list_person] = params[:person_id]
     #   session[:current_person_id]=params[:person_id]
 
-     @personal_check_field = Array.new
+    @personal_check_field = Array.new
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
     unless @duplication_formula_appiled.nil?
       @duplication_formula_appiled.duplication_formula_details.each do |i|
@@ -518,9 +518,18 @@ class PeopleController < ApplicationController
     duplication_value = ""
     unless @personal_duplication_formula.nil?
       @personal_duplication_formula.duplication_formula_details.each do |i|
-        duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
-      end
 
+        if(i.is_foreign_key==true)
+          if (i.field_name =="primary_title" || i.field_name =="secondary_title" ) # judge is primar_title or secondary_title. If yes , search the name from Title Table
+            duplication_value+=Title.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter]
+          else
+            duplication_value+=params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter] # Put params string to object to find the name
+          end
+        else
+          duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
+        end
+      end
+#      puts "*******************#{duplication_value}******************"
       if(params[:id]!="")
         @dup_personal = Person.find(:all, :conditions => ["duplication_value = ? AND id !=?" , duplication_value, params[:id]])
       else
@@ -550,7 +559,7 @@ class PeopleController < ApplicationController
       end
     end
    
-     respond_to do |format|
+    respond_to do |format|
       format.js
     end
 

@@ -40,7 +40,18 @@ $('#personal_check_duplication').dialog({
   resizable: true,
   draggable: true,
   height: 'auto',
-  width: 600
+  width: 600,
+  buttons:{
+          Continue: function(){
+          $(this).dialog('close');
+          },
+          "Edit One": function(){
+          personal_edit_one();
+          },
+          "Create New": function(){
+           window.open("/people/new","_self");
+          }
+  }
 });
 
 $('#personal_check_duplication').dialog('open');

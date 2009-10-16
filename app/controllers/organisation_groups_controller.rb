@@ -52,12 +52,17 @@ class OrganisationGroupsController < ApplicationController
     @group_members = OrganisationGroup.find(:all, :conditions => ["tag_id = ?", @organisation_group.tag_id])
     @group_members.delete_if{|x| x.organisation_id == @organisation_group.organisation_id }
 
+    ShowOtherGroupOrganisationsGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
     @group_members.each do |i|
       @sogog = ShowOtherGroupOrganisationsGrid.new
       @sogog.login_account_id = session[:user]
       @sogog.grid_object_id = i.group_owner.id
-      @sogog.field_1 = i.group_owner.trading_as
+      @sogog.field_1 = i.group_owner.full_name
       @sogog.field_2 = i.group_owner.registered_name
+      @sogog.field_3 = i.group_owner.trading_as
       @sogog.save
     end
     respond_to do |format|
