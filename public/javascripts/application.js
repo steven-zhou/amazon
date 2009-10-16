@@ -2442,6 +2442,23 @@ $(function(){
     });
 });
 
+personal_edit_one = function(){
+    var selected =$('table#person_check_field tbody tr.trSelected');
+    if(selected.attr('id')!=undefined){
+        window.open("/people/"+selected.attr("id").substring(3)+"/edit","_self");
+
+    }
+    return false;
+};
+
+
+$(function(){
+    $('table#person_check_field tbody tr').live('click',function(){
+        $('table#person_check_field tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
 /*Organisational Duplication Check*/
 $(function(){
     $('.organisational_check_field').blur(function(){
@@ -2471,14 +2488,6 @@ $(function(){
     });
 });
 
-organisation_edit_one = function() {
-    var selected = $('table#duplication_organisations_grid tbody tr.trSelected');
-    if (selected.attr('id') != undefined){
-         window.open("/organisations/"+ selected.attr('id').substring(3) +"/edit", "_self");
-    }
-    return false;
-};
-
 $(function(){
     $('table#duplication_organisations_grid tbody tr').live('click',function(){
         $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
@@ -2491,3 +2500,4 @@ $(function(){
        window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
     });
 });
+
