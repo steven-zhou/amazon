@@ -490,10 +490,10 @@ $(function(){
     });
 });
 
-/* $(function(){
+$(function(){
     $("#delete_system_data_entry").live('click', function(){
         $(".container_selected").removeClass("container_selected");
-        $("#edit_system_data_entry").html("");
+        $("#edit_system_data_entry").hide();
         $("#system_data_add_entry_form").hide();
         $.ajax({
             type: "GET",
@@ -503,7 +503,7 @@ $(function(){
         });
 
     });
-}); */
+}); 
 
 $(function(){
     $("#system_data_add_entry").live('click', function(){

@@ -1,9 +1,7 @@
-$("#edit_system_data_entry").html("");
+$("#system_data_mode").attr('mode', 'show');
 $.ajax({
   type: "GET",
   url: "/amazon_settings/system_settings_finder.js",
   data: 'type=' + $("#system_data_type").val(),
   dataType: "script"
 });
-$("#system_data_main_contents").show();
-$("#system_data_mode").attr('mode', 'show');
