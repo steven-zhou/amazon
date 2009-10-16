@@ -2501,3 +2501,12 @@ $(function(){
     });
 });
 
+
+/*organisation info tab*/
+$(function(){
+    $('.active_organisation_info_tab').live('click',function(){
+        $('.organisation_info_tab').removeClass('hidden_tab');
+        $("#"+$(this).attr("hidden_id_name")).addClass('hidden_tab');
+    });
+});
+

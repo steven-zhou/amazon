@@ -794,6 +794,10 @@ div.info_warning {
     padding-top:10px;
 }
 
+.hidden_tab {
+    position: absolute; left: -10000px;
+}
+
 /* Organisation New*/
 form#add_organisation.new_organisation input#organisation_custom_id{
     float:right;
@@ -1060,4 +1064,6 @@ td.textright {
     font-weight:normal;
 
 }
-  
+
+
+
