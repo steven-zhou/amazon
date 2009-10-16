@@ -437,10 +437,6 @@ formatCurrency= function(num){
 
 
 
-
-
-
-
 // Administration Menu
 
 $(function(){
@@ -473,14 +469,15 @@ $(function(){
             });
             $("#system_data_main_contents").show();
         }
+        $("#system_data_mode").attr('mode', 'show');
     });
 });
 
 
 $(function(){
-    $("#system_data_entry").live('click', function(){
-        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
-        $(this).addClass("system_data_entry_selected");
+    $("#edit_current_system_data_entry").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
         $("#edit_system_data_entry").html("");
         $("#system_data_add_entry_form").hide();
         $.ajax({
@@ -493,11 +490,33 @@ $(function(){
     });
 });
 
+/* $(function(){
+    $("#delete_system_data_entry").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $("#edit_system_data_entry").html("");
+        $("#system_data_add_entry_form").hide();
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/delete_system_data_entry.js",
+            data: 'id=' + $(this).attr('system_data_id'),
+            dataType: "script"
+        });
+
+    });
+}); */
+
 $(function(){
     $("#system_data_add_entry").live('click', function(){
         $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+    });
+});
+
+
+$(function(){
+    $("#close_edit_system_data_entry").live('click', function(){
+        $("#edit_system_data_entry").hide();
     });
 });
 
@@ -2180,8 +2199,9 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","");
+           $(this).find('.options').css("display","");
         }
+         
     });
 });
 
