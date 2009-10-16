@@ -139,6 +139,11 @@ $(function() {
         $('#login_name_container_0').html('');
         $('#user_name_container_0').html('');
 
+        $('#no_password').hide();
+        $('#yes_password').hide();
+        $('#no_username').hide();
+        $('#yes_username').hide();
+
     })
 
 });
@@ -172,11 +177,6 @@ $(".person_group_close").live('click',function(){
 
 /* Person Group */
 
-$(".user_clear_form").click(function(){
-    $('#'+$(this).parents("form").get(0).id)[0].reset();
-    $('#login_name_container_0').html('');
-    $('#user_name_container_0').html('');
-});
 
 
 /* Person Contact Form  */

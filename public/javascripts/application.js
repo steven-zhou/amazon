@@ -1211,6 +1211,10 @@ $(function(){
         $(".show_user_container").show();
         $("#close_new_account").hide();
         $("#add_user").show();
+        $('#no_password').hide();
+        $('#yes_password').hide();
+        $('#no_username').hide();
+        $('#yes_username').hide();
     });
 });
 
@@ -2400,7 +2404,7 @@ $(function(){
 
         $.ajax({
             type: 'GET',
-            url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js",
+            url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js"
 
         });
     });
