@@ -22,8 +22,8 @@
   
  
   $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
-  $('#login_account_'+'<%=escape_javascript("#{@login_account.id}") %>').click();
-  $('#edit_user').hide();
+ 
+  $('#edit_user').html('');
   $(".add_user").show();
 
 

@@ -1,10 +1,12 @@
-$("#edit_user").html(" <%= escape_javascript(render(:partial => '/user_management/edit_existing_user')) %>");
-$('#login_account_mode').attr('mode','edit');
-$('.edit_option').closest('.options').css('display','none');
-$(".container_selected").removeClass("container_selected");
-
-$('#login_account_'+'<%=escape_javascript("#{@login_account.id}")%>').addClass("container_selected");
 $(".add_user").hide();
+$('.show_users').find('.options').hide();
+$('#login_account_mode').attr('mode','edit');
+$(".container_selected").removeClass("container_selected");
+$('#login_account_'+'<%=escape_javascript("#{@login_account.id}")%>').addClass("container_selected");
+$("#edit_user").html(" <%= escape_javascript(render(:partial => '/user_management/edit_existing_user')) %>");
+
+
+
 
 
 <% if @group_types.blank? %>
