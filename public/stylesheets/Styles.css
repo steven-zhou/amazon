@@ -995,42 +995,42 @@ td.textright {
 /* Admin --- user account */
 
 
-.container_inactive {
-    
-   font-family:Arial, Helvetica, sans-serif;
-    color: #232323;
-    background-color: #B2BDC5 ;
-    width: 96%;
+.container_inactive {  
+    background-color: #B2BDC5;  
+    width: 95%;
+    margin: 1%;
     float: left;
     padding: 1.8%;
-    min-height: 10px;
     -moz-border-radius: 10px;
-    margin-bottom: 10px;
+ 
+    min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .container_active {
-   font-family:Arial, Helvetica, sans-serif;
-    color: #232323;
-    background-image:url(../images/container_green_bg.png);
-    background-repeat:repeat;
-    width: 96%;
+    background-color: #B2E3C5;
+    width: 95%;
+    margin: 1%;
     float: left;
     padding: 1.8%;
-    min-height: 10px;
     -moz-border-radius: 10px;
-    margin-bottom: 10px;
+
+
+   font-family:Arial, Helvetica, sans-serif;
+   min-height: 10px;
 }
 
 .container_selected {
-     font-family:Arial, Helvetica, sans-serif;
-    background-image:url(../images/container_bg.png) !important;
-    background-repeat:repeat;
-
+     background-color: #B2CADA;
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-.imageInputWrapper{
-  width:200px; border:solid 1px #000;
-  }
+
 
 #app #main #content .container .form_line .wrapimage {
  float: left;
@@ -1038,5 +1038,26 @@ td.textright {
     margin-left: 210px;
    position:absolute;
    padding: 5px 0px 0px 0px ;
+}
+
+
+#app #main #content .container .container_inactive .title{
+
+
+     float: left;
+    height: 20px;
+     font-size: 17px;
+        font-weight:normal;
+
+}
+
+#app #main #content .container .container_active .title{
+
+
+     float: left;
+    height: 20px;
+    font-size: 17px;
+    font-weight:normal;
+
 }
   

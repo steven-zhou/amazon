@@ -1,5 +1,5 @@
 $("#edit_user").html(" <%= escape_javascript(render(:partial => '/user_management/edit_existing_user')) %>");
-
+ $('#login_account_mode').attr('mode','edit');
 <% if @group_types.blank? %>
   $("#group_id").html('')
 
