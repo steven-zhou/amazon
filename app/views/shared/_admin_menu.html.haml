@@ -23,8 +23,10 @@
   %li{:id => controller == "configuration" ? "menu_active" : ""}
     .top
     .item
-      = link_to controller == "configuration" ? "#{image_tag('icon_holder.png')} Configuration" :"Configuration", :controller => "administrations", :action => "system_data"
-      - if controller == "configuration"
+      - if controller != "configuration"
+        = link_to controller == "configuration" ? "#{image_tag('icon_holder.png')} Configuration" :"Configuration", :controller => "administrations", :action => "system_data"
+      -else
+        Configuration
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} System Data", :controller => "administrations", :action => "system_data"
@@ -46,8 +48,10 @@
   %li{:id => controller == "security" ? "menu_active" : ""}
     .top
     .item
-      = link_to controller == "security" ? "#{image_tag('icon_holder.png')} Security" :"Security", :controller => "administrations", :action => "access_permissions"
-      - if controller == "security"
+      - if controller != "security"
+        = link_to controller == "security" ? "#{image_tag('icon_holder.png')} Security" :"Security", :controller => "administrations", :action => "access_permissions"
+      - else
+        Security
         %ul
           %li{:id => action == "access_permissions" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
@@ -63,8 +67,10 @@
   %li{:id => controller == "users" ? "menu_active" : ""}
     .top
     .item
-      = link_to controller == "users" ? "#{image_tag('icon_holder.png')} Users" :"Users", :controller => "administrations", :action => "user_accounts"
-      - if controller == "users"
+      - if controller != "users"
+        = link_to controller == "users" ? "#{image_tag('icon_holder.png')} Users" :"Users", :controller => "administrations", :action => "user_accounts"
+      - else
+        Users
         %ul
           %li{:id => action == "user_accounts" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} User Accounts", :controller => "administrations", :action => "user_accounts"
