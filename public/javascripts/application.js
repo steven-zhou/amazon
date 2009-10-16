@@ -1211,6 +1211,10 @@ $(function(){
         $(".show_user_container").show();
         $("#close_new_account").hide();
         $("#add_user").show();
+        $('#no_password').hide();
+        $('#yes_password').hide();
+        $('#no_username').hide();
+        $('#yes_username').hide();
     });
 });
 
@@ -2429,9 +2433,11 @@ $(function(){
     
         $.ajax({
             type: 'GET',
+
             url: "/people/check_duplication.js",
              data: personal_data_string + "&id="+$("#person_id").val(),
             dataType: "script"
+
         });
     });
 });
@@ -2459,8 +2465,13 @@ $(function(){
         var check_fields = [];
         var data_string = "";
         for (var i = 0; i < $('.organisational_check_field').get().length; i++){
-            check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
-            check_fields.push($('.organisational_check_field').eq(i).val());
+            if($('.organisational_check_field').eq(i).attr("id").indexOf("_id")>0){
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13, $('.organisational_check_field').eq(i).attr("id").indexOf("_id")));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }else{
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }            
         }
         for (var j = 0; j < check_fields.length; j++){
             if (j >0){
@@ -2474,6 +2485,22 @@ $(function(){
             data: data_string + "&id=" + $("#organisation_id").val(),
             dataType: "script"
         });
+    });
+});
+
+
+organisation_edit_one = function() {
+    var selected = $('table#duplication_organisations_grid tbody tr.trSelected');
+    if (selected.attr('id') != undefined){
+         window.open("/organisations/"+ selected.attr('id').substring(3) +"/edit", "_self");
+    }
+    return false;
+};
+
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('click',function(){
+        $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
     });
 });
 

@@ -1,6 +1,6 @@
 .container
   .options
-    = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_edit_account")
+    = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_edit_account", :class =>  "close_option", :field => "login_account")
   .options_left{:style => "margin-right:10px;"}
     = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
   %h3 Edit User
