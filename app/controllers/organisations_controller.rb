@@ -315,7 +315,11 @@ class OrganisationsController < ApplicationController
     duplication_value = ""
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
-        duplication_value += params[i.field_name.to_sym][0, i.number_of_charecter]
+        if i.is_foreign_key
+          duplication_value += i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).name[0, i.number_of_charecter]
+        else
+          duplication_value += params[i.field_name.to_sym][0, i.number_of_charecter]
+        end
       end
       
       if (params[:id]!="")

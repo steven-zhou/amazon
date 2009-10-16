@@ -2442,8 +2442,13 @@ $(function(){
         var check_fields = [];
         var data_string = "";
         for (var i = 0; i < $('.organisational_check_field').get().length; i++){
-            check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
-            check_fields.push($('.organisational_check_field').eq(i).val());
+            if($('.organisational_check_field').eq(i).attr("id").indexOf("_id")>0){
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13, $('.organisational_check_field').eq(i).attr("id").indexOf("_id")));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }else{
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }            
         }
         for (var j = 0; j < check_fields.length; j++){
             if (j >0){
