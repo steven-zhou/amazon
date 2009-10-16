@@ -2106,8 +2106,8 @@ $(function(){
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
-        width: 1010,
-        height: 300
+        width: 'auto',
+        height: 'auto'
     });
 });
 
@@ -2483,5 +2483,11 @@ $(function(){
     $('table#duplication_organisations_grid tbody tr').live('click',function(){
         $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
+    });
+});
+
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('dblclick',function(){
+       window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
     });
 });
