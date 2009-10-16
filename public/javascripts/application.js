@@ -2436,6 +2436,23 @@ $(function(){
     });
 });
 
+personal_edit_one = function(){
+    var selected =$('table#person_check_field tbody tr.trSelected');
+    if(selected.attr('id')!=undefined){
+        window.open("/people/"+selected.attr("id").substring(3)+"/edit","_self");
+
+    }
+    return false;
+};
+
+
+$(function(){
+    $('table#person_check_field tbody tr').live('click',function(){
+        $('table#person_check_field tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
 /*Organisational Duplication Check*/
 $(function(){
     $('.organisational_check_field').blur(function(){
@@ -2459,3 +2476,4 @@ $(function(){
         });
     });
 });
+
