@@ -742,4 +742,5 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
+  
 end

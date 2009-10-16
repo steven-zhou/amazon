@@ -1,0 +1,15 @@
+.container
+  %h2 Export Person Data
+  .form_line
+    .field_20
+      %label Select Query
+      %select
+        %option
+        - @queries.each do |i|
+          %option{:value => i.id} #{i.name}
+        
+    .field_20
+      %label Export To
+      %input{:type => "button", :value => "PDF"}
+      %input{:type => "button", :value => "XML"}
+      %input{:type => "button", :value => "CSV"}
