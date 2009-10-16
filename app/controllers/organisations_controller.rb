@@ -289,8 +289,13 @@ class OrganisationsController < ApplicationController
     @other_websites = @organisation.other_websites
     @other_addresses = @organisation.other_addresses
     @notes = @organisation.notes
-
-
+    @check_field = Array.new
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    unless @organisational_duplication_formula.nil?
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        @check_field << i.field_name
+      end
+    end
     if(params[:current_operation] == "edit_organisation_list")
       render 'show_edit_left.js'
      
@@ -312,7 +317,7 @@ class OrganisationsController < ApplicationController
       @organisational_duplication_formula.duplication_formula_details.each do |i|
         duplication_value += params[i.field_name.to_sym][0, i.number_of_charecter]
       end
-      puts "******************** #{duplication_value}***********"
+      
       if (params[:id]!="")
         @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value = ? AND id != ?", duplication_value, params[:id]])
       else

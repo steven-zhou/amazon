@@ -2240,3 +2240,11 @@ $(function(){
         });
     });
 });
+
+organisation_edit_one = function() {
+    var selected = $('table#duplication_organisations_grid tbody tr.trSelected');
+    if (selected.attr('id') != undefined){
+         window.open("/organisations/"+ selected.attr('id').substring(3) +"/edit", "_self");
+    }
+    return false;
+};
