@@ -2,6 +2,7 @@
   #header
     #page_title
       %h1 Add Person
+      %input.hidden{:id => :person_id, :value => @person.id}
     #lol
   #left_content
     .container
@@ -87,3 +88,6 @@
       = submit_tag "Submit"
       
 %br.clear
+
+  #personal_check_duplication
+    

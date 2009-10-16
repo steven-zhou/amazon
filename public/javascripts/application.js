@@ -2402,9 +2402,41 @@ $(function(){   /*organisation employee list result*/
 $(function(){
     $('.personal_check_field').blur(function(){
 
+        var personal_check_fields=[];
+        var personal_data_string ="";
+
+        for(var k=0; k < $('.personal_check_field').get().length;k++)
+        {
+           if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
+           {
+             
+             personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
+             personal_check_fields.push($('.personal_check_field').eq(k).val());
+           }
+           else
+           {
+           personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
+            personal_check_fields.push($('.personal_check_field').eq(k).val());
+             }
+        }
+
+        for (var z=0; z< personal_check_fields.length;z++)
+        {
+
+            if(z > 0)
+            {
+                personal_data_string += "&"
+
+            }
+            personal_data_string += personal_check_fields[z++] + "=" + personal_check_fields[z];
+        }
+    
         $.ajax({
             type: 'GET',
-            url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js"
+
+            url: "/people/check_duplication.js",
+             data: personal_data_string + "&id="+$("#person_id").val(),
+            dataType: "script"
 
         });
     });
@@ -2416,8 +2448,13 @@ $(function(){
         var check_fields = [];
         var data_string = "";
         for (var i = 0; i < $('.organisational_check_field').get().length; i++){
-            check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
-            check_fields.push($('.organisational_check_field').eq(i).val());
+            if($('.organisational_check_field').eq(i).attr("id").indexOf("_id")>0){
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13, $('.organisational_check_field').eq(i).attr("id").indexOf("_id")));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }else{
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }            
         }
         for (var j = 0; j < check_fields.length; j++){
             if (j >0){
@@ -2431,5 +2468,20 @@ $(function(){
             data: data_string + "&id=" + $("#organisation_id").val(),
             dataType: "script"
         });
+    });
+});
+
+organisation_edit_one = function() {
+    var selected = $('table#duplication_organisations_grid tbody tr.trSelected');
+    if (selected.attr('id') != undefined){
+         window.open("/organisations/"+ selected.attr('id').substring(3) +"/edit", "_self");
+    }
+    return false;
+};
+
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('click',function(){
+        $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
     });
 });

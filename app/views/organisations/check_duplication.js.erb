@@ -22,7 +22,7 @@ $("#duplication_organisations_grid").flexigrid({
         rp: 20,
         showTableToggleBtn: false,
         width: 'auto',
-        height: 'auto'
+        height: 250
     });
 
 
@@ -31,7 +31,19 @@ $('#duplication_box').dialog({
   resizable: true,
   draggable: true,
   height: 600,
-  width: 800
+  width: 800,
+  buttons: {
+                Continue: function() {
+                    $(this).dialog('close');
+                },
+                "Edit One": function() {
+                    organisation_edit_one();
+                },
+                "Create New": function() {
+                    window.open("/organisations/new", "_self");
+                    return false;
+                }
+            }
 });
 
 $('#duplication_box').dialog('open');

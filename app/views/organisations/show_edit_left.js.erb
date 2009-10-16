@@ -1,3 +1,23 @@
 $('#left_content').replaceWith('<%= escape_javascript(render(:partial => "/organisations/edit_list_result")) %>');
 $('#lol').html('<%= escape_javascript(render(:partial => "/organisations/lists_menu")) %>');
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_organisation_edit_list_menu",:locals => { :organisation => @organisation})) %>');
+$('.organisational_check_field').blur(function(){
+    var check_fields = [];
+    var data_string = "";
+    for (var i = 0; i < $('.organisational_check_field').get().length; i++){
+        check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
+        check_fields.push($('.organisational_check_field').eq(i).val());
+    }
+    for (var j = 0; j < check_fields.length; j++){
+        if (j >0){
+            data_string += "&";
+        }
+        data_string += check_fields[j++] + "=" + check_fields[j];
+    }
+    $.ajax({
+        type: 'GET',
+        url: "/organisations/check_duplication.js",
+        data: data_string + "&id=" + $("#organisation_id").val(),
+        dataType: "script"
+    });
+});

@@ -1,0 +1,2 @@
+class DuplicationPersonalGrid < Grid
+end
