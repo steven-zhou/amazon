@@ -46,7 +46,6 @@ class AdministrationsController < ApplicationController
 
   def access_permissions
     @access_permissions = SystemPermissionMetaMetaType.find(:all)
-    puts "***** DEBUG access_permissions is being run and returning #{@access_permissions.to_yaml}"
 
     respond_to do |format|
       format.html

@@ -443,6 +443,15 @@ formatCurrency= function(num){
 
 // Administration Menu
 
+$(function(){
+    $(".close_option").live('click', function(){
+        $("#system_data_add_entry_form").hide();
+        $("#custom_group_entry_form").hide();
+        $("#query_table_add_entry_form").hide();
+        $("#access_permission_add_entry_form").hide();
+    });
+});
+
 // Configuration
 
 //Admin - System Data Tab
@@ -486,12 +495,11 @@ $(function(){
 
 $(function(){
     $("#system_data_add_entry").live('click', function(){
-        $("#system_data_add_entry_form").toggle();
+        $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
     });
 });
-
 
 // Custom Groups
 
@@ -550,7 +558,7 @@ $(function(){
 $(function(){
     $("#security_group_add_entry").live('click', function() {
         $(".security_sub_groups").hide();
-        $("#security_group_entry_form").toggle();
+        $("#security_group_entry_form").show();
         $(".open_security_sub_group").show();
         $(".close_security_sub_group").hide();
     });
@@ -620,7 +628,7 @@ $(function(){
 $(function(){
     $("#access_permissions_add_entry").live('click', function() {
         $(".access_permissions_module_controllers").hide();
-        $("#access_permissions_entry_form").toggle();
+        $("#access_permissions_entry_form").show();
         $(".open_system_module_sub_group").show();
         $(".close_system_module_sub_group").hide();
     });
@@ -628,7 +636,7 @@ $(function(){
 
 $(function(){
     $(".access_permissions_module_add_entry").live('click', function() {
-        $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
+        $("#query_table_sub_group_form_" + $(this).attr('id')).show();
     });
 });
 
