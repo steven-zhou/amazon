@@ -1,7 +1,7 @@
 .form_line
   .field_15
     = p.label :title_id, 'Title'
-    = p.collection_select :primary_title_id, Title.active_title, :id, :name, {}, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
+    = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
   .field_40
     = p.label :first_name, "First Names"
     = p.text_field :first_name, :class=>@personal_check_field.include?("first_name") ? "personal_check_field":""

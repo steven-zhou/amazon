@@ -2352,7 +2352,7 @@ $(function(){   /*organisation employee list result*/
         {
             display: 'email',
             name : 'field_5',
-            width : 140,
+            width : 40,
             sortable : true,
             align: 'left'
         }
@@ -2394,6 +2394,7 @@ $(function(){   /*organisation employee list result*/
         height: 'auto'
     });
 });
+
 
 /* person check dup feild*/
 
@@ -2440,16 +2441,6 @@ $(function(){
     });
 });
 
-personal_edit_one = function(){
-    var selected =$('table#person_check_field tbody tr.trSelected');
-    if(selected.attr('id')!=undefined){
-        window.open("/people/"+selected.attr("id").substring(3)+"/edit","_self");
-
-    }
-    return false;
-};
-
-
 $(function(){
     $('table#person_check_field tbody tr').live('click',function(){
         $('table#person_check_field tbody tr.trSelected').removeClass('trSelected');
@@ -2493,9 +2484,25 @@ $(function(){
     });
 });
 
+
+/*personal check field restart button*/
+personal_check_duplication_restart_button = function(){
+
+   window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+ return false;
+}
+
+$(function(){
+    $('table#person_check_field tbody tr.trSelected').live('dblclick',function(){
+
+    window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
+    });
+});
+
 $(function(){
     $('table#duplication_organisations_grid tbody tr').live('dblclick',function(){
        window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
     });
 });
+
 

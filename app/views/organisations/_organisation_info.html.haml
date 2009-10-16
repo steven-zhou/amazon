@@ -53,16 +53,10 @@
       = render :partial => '/organisations/organisation_note', :collection => @organisation.sorted_notes
 
   #Employee
-    .container
-      .header_container
-        .title
-          %h1 Employee
+    #employee_list
+    =# Render the organisation's employee
+    = render :partial => '/organisations/organisation_employee'
 
-      %br{ :style=>"clear: both;"}
-      #employee_list
-      =# Render the organisation's employee
-      .header_container
-        = render :partial => '/organisations/organisation_employee'
 
   #Group
     .container
@@ -74,3 +68,4 @@
       #group_list
       =# Render the organisation's group
       = render :partial => '/organisations/organisation_group', :collection => @organisation.organisation_groups
+
