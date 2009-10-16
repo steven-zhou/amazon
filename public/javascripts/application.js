@@ -2248,3 +2248,10 @@ organisation_edit_one = function() {
     }
     return false;
 };
+
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('click',function(){
+        $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
