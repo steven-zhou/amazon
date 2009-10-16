@@ -7,4 +7,6 @@ module EmploymentsHelper
     formatted += "Position Title: #{employment.position_title.name} " unless employment.position_title_id.blank?
     return formatted
   end
+
+ 
 end

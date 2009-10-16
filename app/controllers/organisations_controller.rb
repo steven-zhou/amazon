@@ -12,6 +12,13 @@ class OrganisationsController < ApplicationController
     @organisation.websites.build
     @image = Image.new
     @postcodes = DomesticPostcode.find(:all)
+    @check_field = Array.new
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    unless @organisational_duplication_formula.nil?
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        @check_field << i.field_name
+      end
+    end
     respond_to do |format|
       format.html
     end
@@ -33,6 +40,23 @@ class OrganisationsController < ApplicationController
     @other_websites = @organisation.other_websites
     @other_addresses = @organisation.other_addresses
     @notes = @organisation.notes
+    
+    
+    OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisation.employees.each do |organisations_employees|  #show organisation employee grid
+      @soeg = OrganisationEmployeeGrid.new
+      @soeg.login_account_id = session[:user]
+      @soeg.grid_object_id = organisations_employees.id
+      @soeg.field_1 = organisations_employees.first_name
+      @soeg.field_2 = organisations_employees.family_name
+      @soeg.field_3 = organisations_employees.primary_address.first_line unless organisations_employees.primary_address.blank?
+      @soeg.field_4 = organisations_employees.primary_phone.value unless organisations_employees.primary_phone.blank?
+      @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
+      @soeg.save
+    end
     respond_to do |format|
       format.html
     end
@@ -86,6 +110,13 @@ class OrganisationsController < ApplicationController
     @note = Note.new
     @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
     @organisation_group = OrganisationGroup.new
+    @check_field = Array.new
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    unless @organisational_duplication_formula.nil?
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        @check_field << i.field_name
+      end
+    end
     respond_to do |format|
       format.html
     end
@@ -258,8 +289,13 @@ class OrganisationsController < ApplicationController
     @other_websites = @organisation.other_websites
     @other_addresses = @organisation.other_addresses
     @notes = @organisation.notes
-
-
+    @check_field = Array.new
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    unless @organisational_duplication_formula.nil?
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        @check_field << i.field_name
+      end
+    end
     if(params[:current_operation] == "edit_organisation_list")
       render 'show_edit_left.js'
      
@@ -273,4 +309,46 @@ class OrganisationsController < ApplicationController
     #      format.js
     #    end
   end
+
+  def check_duplication
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    duplication_value = ""
+    unless @organisational_duplication_formula.nil?
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        if i.is_foreign_key
+          duplication_value += i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).name[0, i.number_of_charecter]
+        else
+          duplication_value += params[i.field_name.to_sym][0, i.number_of_charecter]
+        end
+      end
+      
+      if (params[:id]!="")
+        @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value = ? AND id != ?", duplication_value, params[:id]])
+      else
+        @dup_organisations = Organisation.find(:all, :conditions => ["duplication_value = ?", duplication_value])
+      end
+
+      unless @dup_organisations.empty?
+        #clear temple table and save result into temple table
+        DuplicationOrganisationsGrid.find_all_by_login_account_id(session[:user]).each do |i|
+          i.destroy
+        end
+      
+        @dup_organisations.each do |dup_organisation|
+          @dog = DuplicationOrganisationsGrid.new
+          @dog.login_account_id = session[:user]
+          @dog.grid_object_id = dup_organisation.id
+          @dog.field_1 = dup_organisation.full_name
+          @dog.field_2 = dup_organisation.registered_name
+          @dog.field_3 = dup_organisation.trading_as
+          @dog.save
+        end
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

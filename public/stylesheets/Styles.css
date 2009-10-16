@@ -287,6 +287,7 @@ body {
 /* Form field place holders */
 
 /* Common properties */
+#app #main #content .container .form_line .field_2,
 #app #main #content .container .form_line .field_5,
 #app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_15,
@@ -318,6 +319,7 @@ body {
     margin-right: 10px;
 }
 /* unique properties */
+#app #main #content .container .form_line .field_2 {width: 2%;}
 #app #main #content .container .form_line .field_5 {width: 5%;}
 #app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
@@ -775,7 +777,7 @@ div.info_warning {
     background-color:silver;
 }
 
-.highlight{
+.highlight_for_person_role{
     font-size:14px;
     color:red;
 
@@ -989,3 +991,73 @@ td a {
 td.textright {
     text-align:right;
 }
+
+/* Admin --- user account */
+
+
+.container_inactive {  
+    background-color: #B2BDC5;  
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+ 
+    min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.container_active {
+    background-color: #B2E3C5;
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+
+
+   font-family:Arial, Helvetica, sans-serif;
+   min-height: 10px;
+}
+
+.container_selected {
+     background-color: #B2CADA;
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+
+#app #main #content .container .form_line .wrapimage {
+ float: left;
+    height: 40px;
+    margin-left: 210px;
+   position:absolute;
+   padding: 5px 0px 0px 0px ;
+}
+
+
+#app #main #content .container .container_inactive .title{
+
+
+     float: left;
+    height: 20px;
+     font-size: 17px;
+        font-weight:normal;
+
+}
+
+#app #main #content .container .container_active .title{
+
+
+     float: left;
+    height: 20px;
+    font-size: 17px;
+    font-weight:normal;
+
+}
+  

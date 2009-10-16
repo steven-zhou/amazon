@@ -15,7 +15,16 @@ class PeopleController < ApplicationController
     @person.websites.build
     @image = Image.new
     @postcodes = DomesticPostcode.find(:all)
-   
+    @personal_check_field = Array.new
+    
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.nil?
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
+
+
     respond_to do |format|
       format.html
     end
@@ -182,16 +191,15 @@ class PeopleController < ApplicationController
     @role = Role.new
     @person_role = PersonRole.new
     @person_group = PersonGroup.new
+    @personal_check_field = Array.new
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.nil?
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
 
-
-    #    if params[:show_list]
-    #    session[:show_list] = params[:show_list]
-    #    @person = Person.find(params[:id]) rescue @person = Person.find(session[:current_person_id])
-    #
-    #      render 'show_list.html'
-    #
-    #    else
-    
+   
 
     respond_to do |format|
       format.html
@@ -427,7 +435,15 @@ class PeopleController < ApplicationController
     @notes = @person.notes
     @person_role = @person.person_roles
     session[:select_list_person] = params[:person_id]
-#   session[:current_person_id]=params[:person_id]
+    #   session[:current_person_id]=params[:person_id]
+
+    @personal_check_field = Array.new
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.nil?
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
 
     if(params[:current_operation] == "edit_list")
       render 'show_edit_left.js'
@@ -493,6 +509,62 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+
+  def check_duplication
+
+    @personal_duplication_formula = PersonalDuplicationFormula.applied_setting
+    duplication_value = ""
+    unless @personal_duplication_formula.nil?
+      @personal_duplication_formula.duplication_formula_details.each do |i|
+
+        if(i.is_foreign_key==true)
+          if (i.field_name =="primary_title" || i.field_name =="secondary_title" ) # judge is primar_title or secondary_title. If yes , search the name from Title Table
+            duplication_value+=Title.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter]
+          else
+            duplication_value+=params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter] # Put params string to object to find the name
+          end
+        else
+          duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
+        end
+      end
+#      puts "*******************#{duplication_value}******************"
+      if(params[:id]!="")
+        @dup_personal = Person.find(:all, :conditions => ["duplication_value = ? AND id !=?" , duplication_value, params[:id]])
+      else
+        @dup_personal = Person.find(:all, :conditions => ["duplication_value = ?" , duplication_value])
+
+      end
+      @dup_personal = Person.find_all_by_duplication_value(duplication_value)
+     
+      unless @dup_personal.empty?
+
+        DuplicationPersonalGrid.find_all_by_login_account_id(session[:user]).each do |i|
+          i.destroy
+        end
+
+        @dup_personal.each do |person|
+          @dup_person = DuplicationPersonalGrid.new
+          @dup_person.login_account_id = session[:user]
+          @dup_person.grid_object_id = person.id
+          @dup_person.field_1 = person.first_name
+          @dup_person.field_2 = person.family_name
+          @dup_person.field_3 =person.primary_address.first_line unless person.primary_address.blank?
+          @dup_person.field_4 = person.primary_phone.value unless person.primary_phone.blank?
+          @dup_person.field_5 = person.primary_email.address unless person.primary_email.blank?
+          @dup_person.save
+        end
+      
+      end
+    end
+   
+    respond_to do |format|
+      format.js
+    end
+
+
+
   end
 
 

@@ -26,7 +26,7 @@
     <% unless @array_diff.nil? %>
       <% for dif in @array_diff %>
 
-      $("#role_condition_display option[value="+ "<%=escape_javascript("#{dif}")%>" + "]").addClass('highlight');
+      $("#role_condition_display option[value="+ "<%=escape_javascript("#{dif}")%>" + "]").addClass('highlight_for_person_role');
       <%end%>
     <%end%>
 

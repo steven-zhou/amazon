@@ -1,0 +1,2 @@
+class OrganisationEmployeeGrid < Grid
+end

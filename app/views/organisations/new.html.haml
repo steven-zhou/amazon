@@ -2,11 +2,12 @@
   #header
     #page_title
       %h1 Add Organisation
+      %input.hidden{:id => :organisation_id, :value => @organisation.id}
     #lol
 
   #left_content
     .container
-      = p.text_field :custom_id
+      = p.text_field :custom_id, :class => @check_field.include?("custom_id") ? "organisational_check_field" : ""
       %h1 Custom ID
     .container.add_name
       %h1 Name Details
@@ -46,5 +47,7 @@
     %p.submit
       = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       = submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag "Submit"   
+      = submit_tag "Submit"
+
+#duplication_box
       

@@ -210,7 +210,7 @@ $(function(){
 /* Show Summary list*/
 $(function(){
     $('table#search_list_results tbody tr').live('click',function(){   
-       $.ajax({
+        $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
             data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
@@ -1054,6 +1054,14 @@ $(function(){
 });
 
 /*Admin User management*/
+$(function(){
+    $("#add_user").live('click', function(){
+        $(this).hide();
+        $(".user_clear_form").click();
+        $(".show_user_container").hide();
+        $("#close_new_account").show();
+    });
+});
 
 $(function(){
     $(".check_login_id").live('change', function(){
@@ -1076,7 +1084,7 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url: "/login_accounts/user_name_unique.js",
-                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id'),
+                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
                 dataType:"script"
             });
         }else{
@@ -1087,11 +1095,8 @@ $(function(){
 
 
 
-
-
 $(function(){
     $('#login_account_user_name').live("focus", function(){
-
         $(this).qtip(
         {
             content: 'username must between 6~20<br>username can\'t the same as password',
@@ -1099,13 +1104,10 @@ $(function(){
         }
         );
     });
-
 });
-
 
 $(function(){
     $('#login_account_user_name').live("mouseover", function(){
-
         $(this).qtip(
         {
             content: 'username must between 6~20<br>username can\'t the same as password',
@@ -1113,99 +1115,99 @@ $(function(){
         }
         );
     });
-
 });
 
 
-//$(function() {
-//    $(".password").jpassword({
-//            lang: {
-//                please: "please type password over 6 characters",
-//                low: "Low security.",
-//                correct: "Correct security.",
-//                high: "High security.",
-//                length: "-X- characters would be a plus.",
-//                number: "Why not numbers?",
-//                uppercase: "And caps?",
-//                lowercase: "Some tiny?",
-//                punctuation: "Punctuations?",
-//                special: "Best, special characters?"
-//            },
-//            length: 6
-//    });
-//});
-
-
-
-
-$(function(){
-    $("#add_user").live('click', function(){
-        $(this).hide();
-        $(".user_clear_form").click();
-        $(".show_user_container").hide();
-        $("#close_new_account").show();
-
-       
+$(function() {
+    $(".password").jpassword({
+        lang: {
+            please: "please type password over 6 characters",
+            low: "Low security.",
+            correct: "Correct security.",
+            high: "High security.",
+            length: "-X- characters would be a plus.",
+            number: "Why not numbers?",
+            uppercase: "And caps?",
+            lowercase: "Some tiny?",
+            punctuation: "Punctuations?",
+            special: "Best, special characters?"
+        },
+        length: 6
     });
-
 });
 
 
 $(function(){
     $("#login_account_password_confirmation").live('change', function(){
         if ($(this).val()!= $('#login_account_password').val()){
-
             $('#password_confirm').dialog( {
                 modal: true,
                 resizable: true,
                 draggable: true
             });
             $('#password_confirm').dialog('open');
-
         }
     });
 });
 
-$(function(){
-    $("#login_account_user_name").live('change', function(){
-     
-        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-      
-            $('#user_length').dialog( {
-                modal: true,
-                resizable: true,
-                draggable: true
-            });
-            $('#user_length').dialog('open');
-        }
-      
-    });
-});
+//$(function(){
+//    $("#login_account_user_name").live('change', function(){
+//
+//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
+//            $('#user_length').dialog( {
+//                modal: true,
+//                resizable: true,
+//                draggable: true
+//            });
+//            $('#user_length').dialog('open');
+//        }
+//    });
+//});
+
+
+//$(function(){
+//    $("#login_account_password").live('change', function(){
+//
+//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
+//
+//            $('#password_length').dialog( {
+//                modal: true,
+//                resizable: true,
+//                draggable: true
+//            });
+//            $('#password_length').dialog('open');
+//        }
+//
+//    });
+//});
 
 
 $(function(){
     $("#login_account_password").live('change', function(){
 
         if ($(this).val().length < 6 ||$(this).val().length > 30 ){
+            $('#no_password').show();
+            $('#yes_password').hide();
 
-            $('#password_length').dialog( {
-                modal: true,
-                resizable: true,
-                draggable: true
-            });
-            $('#password_length').dialog('open');
+        }else{
+             $('#no_password').hide();
+            $('#yes_password').show();
+
         }
 
     });
 });
 
 
+
+
+
 $(function(){
     $(".show_users").live('click', function(){
 
-        $(".highlight").removeClass("highlight");
+        $(".container_selected").removeClass("container_selected");
 
-        $(this).addClass("highlight");
+        $(this).addClass("container_selected");
         $(".add_user").hide();
         $.ajax({
             type: "GET",
@@ -1219,12 +1221,11 @@ $(function(){
 
 $(function(){
     $(".user_clear_edit_form").live('click', function(){
-        $('#'+($(".user_clear_edit_form1").parents("form").get(0).id))[0].reset();
+        $('#'+($(this).closest('form').get(0).id))[0].reset();
       
         $('#user_name_container_' + $(this).attr('login_account_id')).html('');     
     })
 });
-
 
 
 $(function(){
@@ -1255,6 +1256,10 @@ $(function(){
         $(".show_user_container").show();
         $("#close_new_account").hide();
         $("#add_user").show();
+        $('#no_password').hide();
+        $('#yes_password').hide();
+        $('#no_username').hide();
+        $('#yes_username').hide();
     });
 });
 
@@ -1262,9 +1267,17 @@ $(function(){
     $("#close_edit_account").live('click', function(){
 
         $(".add_user").show();
-        $(".highlight").removeClass("highlight");       
+        $(".container_selected").removeClass("container_selected");
         $("#edit_user").html('');
       
+    });
+});
+
+
+
+$(document).ready(function() {
+    $(".inputWithImge").each(function(){
+        $(this).add($(this).next()).wrapAll('<div class="imageInputWrapper"></div>');
     });
 });
 
@@ -2035,18 +2048,18 @@ $(function(){
 
 $(function(){
     $('.header_container').live('mouseover',function(){
-    if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+        if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
      
-      $(this).find('.person_tag').css("display","");
-  }
+            $(this).find('.person_tag').css("display","");
+        }
     });
 });
 
 $(function(){
     $('.header_container').live('mouseout',function(){
-      if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
-    $(this).find('.person_tag').css("display","none");
-      }
+        if ($("#" + $(this).attr('field')+'_hidden_tab').attr('mode') == "show"){
+            $(this).find('.person_tag').css("display","none");
+        }
     });
 });
 
@@ -2057,19 +2070,79 @@ $(function(){
         url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-            {display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
-            {display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'},
-            {display: 'Address', name : 'field_3', width : 180, sortable : true, align: 'left'},
-            {display: 'Phone', name : 'field_4', width : 180, sortable : true, align: 'left'},
-            {display: 'Email', name : 'field_5', width : 180, sortable : true, align: 'left'}
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'First Name',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Family Name',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Email',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {display: 'First Name', name : 'field_1'},
-            {display: 'Family Name', name : 'field_2'},
-            {display: 'Address', name : 'field_3'},
-            {display: 'Phone', name : 'field_4'},
-            {display: 'Email', name : 'field_5'}
+        {
+            display: 'First Name',
+            name : 'field_1'
+        },
+
+        {
+            display: 'Family Name',
+            name : 'field_2'
+        },
+
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
+
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
+
+        {
+            display: 'Email',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2107,39 +2180,39 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-          $(this).find('.options').css("display","");
+            $(this).find('.options').css("display","");
         }
     });
 });
 
 $(function(){
     $('.toggle_options').live('mouseout',function(){
-      if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-        $(this).find('.options').css("display","none");
-      }
+        if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
+            $(this).find('.options').css("display","none");
+        }
     });
 });
 
 $(function(){
     $('.edit_option').live('click',function(){
-      $("#" + $(this).attr('field')+'_mode').attr('mode','edit');
-      $('.new_option[field='+ $(this).attr('field') +']').css("display","none");
+        $("#" + $(this).attr('field')+'_mode').attr('mode','edit');
+        $('.new_option[field='+ $(this).attr('field') +']').css("display","none");
     });
 });
 
 $(function(){
     $('.close_option').live('click',function(){
-      $("#" + $(this).attr('field')+'_mode').attr('mode','show');
-      $(this).css("display","none");
-      $('.new_option[field='+ $(this).attr('field') +']').css("display","");
+        $("#" + $(this).attr('field')+'_mode').attr('mode','show');
+        $(this).css("display","none");
+        $('.new_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
 
 $(function(){
     $('.new_option').live('click',function(){
-      $("#" + $(this).attr('field')+'_mode').attr('mode','new');
-      $(this).css("display","none");
-      $('.close_option[field='+ $(this).attr('field') +']').css("display","");
+        $("#" + $(this).attr('field')+'_mode').attr('mode','new');
+        $(this).css("display","none");
+        $('.close_option[field='+ $(this).attr('field') +']').css("display","");
     });
 });
 
@@ -2149,7 +2222,7 @@ $(function(){
 
 
 
-       $.ajax({
+        $.ajax({
             type: 'GET',
             url: "/organisations/show_left.js",
             data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
@@ -2179,19 +2252,79 @@ $(function(){
         url: '/grids/organisation_search_grid',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-            {display: 'Trading As', name : 'field_1', width : 180, sortable : true, align: 'left'},
-            {display: 'Registered Name', name : 'field_2', width : 180, sortable : true, align: 'left'},
-            {display: 'Address', name : 'field_3', width : 180, sortable : true, align: 'left'},
-            {display: 'Phone', name : 'field_4', width : 180, sortable : true, align: 'left'},
-            {display: 'Website', name : 'field_5', width : 180, sortable : true, align: 'left'}
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Trading As',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Registered Name',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Website',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {display: 'Trading As', name : 'field_1'},
-            {display: 'Registered Name', name : 'field_2'},
-            {display: 'Address', name : 'field_3'},
-            {display: 'Phone', name : 'field_4'},
-            {display: 'Website', name : 'field_5'}
+        {
+            display: 'Trading As',
+            name : 'field_1'
+        },
+
+        {
+            display: 'Registered Name',
+            name : 'field_2'
+        },
+
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
+
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
+
+        {
+            display: 'Website',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2216,3 +2349,203 @@ $(function(){
         });
     });
 });
+
+
+$(function(){   /*organisation employee list result*/
+    $("#organisations_employees_grid").flexigrid({
+        url: '/grids/organisation_employee_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'First Name',
+            name : 'field_1',
+            width : 50,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Family Name',
+            name : 'field_2',
+            width : 50,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 120,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 80,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'email',
+            name : 'field_5',
+            width : 140,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'First Name',
+            name : 'field_1'
+        },
+
+        {
+            display: 'Family Name',
+            name : 'field_2'
+        },
+
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
+
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
+
+        {
+            display: 'Email',
+            name : 'field_5'
+        }
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Organisation Employee Result',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+});
+
+/* person check dup feild*/
+
+$(function(){
+    $('.personal_check_field').blur(function(){
+
+        var personal_check_fields=[];
+        var personal_data_string ="";
+
+        for(var k=0; k < $('.personal_check_field').get().length;k++)
+        {
+           if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
+           {
+             
+             personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
+             personal_check_fields.push($('.personal_check_field').eq(k).val());
+           }
+           else
+           {
+           personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
+            personal_check_fields.push($('.personal_check_field').eq(k).val());
+             }
+        }
+
+        for (var z=0; z< personal_check_fields.length;z++)
+        {
+
+            if(z > 0)
+            {
+                personal_data_string += "&"
+
+            }
+            personal_data_string += personal_check_fields[z++] + "=" + personal_check_fields[z];
+        }
+    
+        $.ajax({
+            type: 'GET',
+
+            url: "/people/check_duplication.js",
+             data: personal_data_string + "&id="+$("#person_id").val(),
+            dataType: "script"
+
+        });
+    });
+});
+
+personal_edit_one = function(){
+    var selected =$('table#person_check_field tbody tr.trSelected');
+    if(selected.attr('id')!=undefined){
+        window.open("/people/"+selected.attr("id").substring(3)+"/edit","_self");
+
+    }
+    return false;
+};
+
+
+$(function(){
+    $('table#person_check_field tbody tr').live('click',function(){
+        $('table#person_check_field tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+/*Organisational Duplication Check*/
+$(function(){
+    $('.organisational_check_field').blur(function(){
+        var check_fields = [];
+        var data_string = "";
+        for (var i = 0; i < $('.organisational_check_field').get().length; i++){
+            if($('.organisational_check_field').eq(i).attr("id").indexOf("_id")>0){
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13, $('.organisational_check_field').eq(i).attr("id").indexOf("_id")));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }else{
+                check_fields.push($('.organisational_check_field').eq(i).attr("id").substring(13));
+                check_fields.push($('.organisational_check_field').eq(i).val());
+            }            
+        }
+        for (var j = 0; j < check_fields.length; j++){
+            if (j >0){
+                data_string += "&";
+            }
+            data_string += check_fields[j++] + "=" + check_fields[j];
+        }
+        $.ajax({
+            type: 'GET',
+            url: "/organisations/check_duplication.js",
+            data: data_string + "&id=" + $("#organisation_id").val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+organisation_edit_one = function() {
+    var selected = $('table#duplication_organisations_grid tbody tr.trSelected');
+    if (selected.attr('id') != undefined){
+         window.open("/organisations/"+ selected.attr('id').substring(3) +"/edit", "_self");
+    }
+    return false;
+};
+
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('click',function(){
+        $('table#duplication_organisations_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+

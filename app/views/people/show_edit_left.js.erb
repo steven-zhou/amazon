@@ -2,3 +2,42 @@ $('#left_content').replaceWith('<%= escape_javascript(render(:partial => "/peopl
 $('#lol').html('<%= escape_javascript(render(:partial => "/people/list_menu",:locals => { :person => @person, :people => @p })) %>');
 
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_edit_list_menu",:locals => { :person => @person})) %>');
+
+ $('.personal_check_field').blur(function(){
+
+        var personal_check_fields=[];
+        var personal_data_string ="";
+
+        for(var k=0; k < $('.personal_check_field').get().length;k++)
+        {
+           if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
+           {
+
+             personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
+             personal_check_fields.push($('.personal_check_field').eq(k).val());
+           }
+           else
+           {
+           personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
+            personal_check_fields.push($('.personal_check_field').eq(k).val());
+             }
+        }
+
+        for (var z=0; z< personal_check_fields.length;z++)
+        {
+
+            if(z > 0)
+            {
+                personal_data_string += "&"
+
+            }
+            personal_data_string += personal_check_fields[z++] + "=" + personal_check_fields[z];
+        }
+
+        $.ajax({
+            type: 'GET',
+            url: "/people/check_duplication.js",
+             data: personal_data_string + "&id="+$("#person_id").val(),
+            dataType: "script"
+        });
+    });
