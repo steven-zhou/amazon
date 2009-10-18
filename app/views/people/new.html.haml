@@ -11,17 +11,6 @@
     .container.add_name
       %h1 Name Details
       = render :partial => 'person_name_fields', :locals => {:p => p}
-      .container
-        %h2 Salutations
-        .form_line
-          .field_45
-            = p.label :primary_salutation, "Primary"
-            = p.text_field :primary_salutation , :class=>@personal_check_field.include?("primary_salutation") ? "personal_check_field":""
-          .field_45
-            = p.label :second_salutation, "Second"
-            = p.text_field :second_salutation , :class=>@personal_check_field.include?("second_salutation") ? "personal_check_field":""
-        %br.clear
-
     .container
       %h1 Personal Details
       = render :partial => 'person_details_fields', :locals => {:p => p}

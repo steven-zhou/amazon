@@ -197,6 +197,8 @@ class QueryHeadersController < ApplicationController
   end
 
   def query_header_to_xml
+    response.headers['Content-Type'] = 'text/csv' # I've also seen this for CSV files: 'text/csv; charset=iso-8859-1; header=present'
+    response.headers['Content-Disposition'] = 'attachment; filename=thefile.csv'
     @query_header = QueryHeader.find(params[:id])
     respond_to do |format|
       format.xml

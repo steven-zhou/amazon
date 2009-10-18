@@ -1,8 +1,5 @@
-  $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
+$('#<%= dom_id(@login_account) %>').fadeOut("slow", function() {$(this).remove();});
 
-  $('#edit_user').html('');
-
-  $('.add_user').show();
 
 
 
