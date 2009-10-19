@@ -437,11 +437,16 @@ formatCurrency= function(num){
 
 
 
-
-
-
-
 // Administration Menu
+
+$(function(){
+    $(".close_option").live('click', function(){
+        $("#system_data_add_entry_form").hide();
+        $("#custom_group_entry_form").hide();
+        $("#query_table_add_entry_form").hide();
+        $("#access_permission_add_entry_form").hide();
+    });
+});
 
 // Configuration
 
@@ -464,14 +469,15 @@ $(function(){
             });
             $("#system_data_main_contents").show();
         }
+        $("#system_data_mode").attr('mode', 'show');
     });
 });
 
 
 $(function(){
-    $("#system_data_entry").live('click', function(){
-        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
-        $(this).addClass("system_data_entry_selected");
+    $("#edit_current_system_data_entry").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
         $("#edit_system_data_entry").html("");
         $("#system_data_add_entry_form").hide();
         $.ajax({
@@ -485,13 +491,34 @@ $(function(){
 });
 
 $(function(){
+    $("#delete_system_data_entry").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $("#edit_system_data_entry").hide();
+        $("#system_data_add_entry_form").hide();
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/delete_system_data_entry.js",
+            data: 'id=' + $(this).attr('system_data_id'),
+            dataType: "script"
+        });
+
+    });
+}); 
+
+$(function(){
     $("#system_data_add_entry").live('click', function(){
-        $("#system_data_add_entry_form").toggle();
+        $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
     });
 });
 
+
+$(function(){
+    $("#close_edit_system_data_entry").live('click', function(){
+        $("#edit_system_data_entry").hide();
+    });
+});
 
 // Custom Groups
 
@@ -550,7 +577,7 @@ $(function(){
 $(function(){
     $("#security_group_add_entry").live('click', function() {
         $(".security_sub_groups").hide();
-        $("#security_group_entry_form").toggle();
+        $("#security_group_entry_form").show();
         $(".open_security_sub_group").show();
         $(".close_security_sub_group").hide();
     });
@@ -596,6 +623,43 @@ $(function(){
         $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
+
+
+// Access Permissions
+
+$(function(){
+    $(".open_system_module_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").show();
+        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").hide();
+        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").show();
+        $("#access_permissions_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_system_module_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").hide();
+        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").show();
+        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#access_permissions_add_entry").live('click', function() {
+        $(".access_permissions_module_controllers").hide();
+        $("#access_permissions_entry_form").show();
+        $(".open_system_module_sub_group").show();
+        $(".close_system_module_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".access_permissions_module_add_entry").live('click', function() {
+        $("#query_table_sub_group_form_" + $(this).attr('id')).show();
+    });
+});
+
+
 
 
 
@@ -2133,8 +2197,9 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","");
+           $(this).find('.options').css("display","");
         }
+         
     });
 });
 

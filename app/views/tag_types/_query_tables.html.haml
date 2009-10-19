@@ -7,8 +7,8 @@
       %br.clear
       %div.query_table_sub_groups{:style => "display:none;", :id => "query_table_sub_group_#{query_table.id}"}
         .container
-          %div{:class => "query_table_sub_group_add_entry", :id => query_table.id}
-            = image_tag("add_icon.png" , :size => "19x18")
+          %div
+            = image_tag("add_icon.png" , :size => "19x18", :class => "query_table_sub_group_add_entry", :id => query_table.id)
             Add Subgroup
           %div{:style => "display:none;", :id => "query_table_sub_group_form_#{query_table.id}", :group_id => query_table.id}
             %br.clear

@@ -96,4 +96,12 @@ class AmazonSettingsController < ApplicationController
     end
   end
 
+  def delete_system_data_entry
+    amazon_setting = AmazonSetting.find(params[:id])
+    amazon_setting.destroy
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
