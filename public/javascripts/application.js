@@ -1157,19 +1157,19 @@ $(function(){
 
 
 
-$(function(){
-    $(".edit_login_account").live('click', function(){
-
-   
-       
+//$(function(){
+//    $(".edit_login_account").live('click', function(){
+//
+//
+//
 //        $.ajax({
 //            type: "GET",
 //            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
 //            data:'id='+$(this).attr('login_account_id'),
 //            dataType: "script"
 //        });
-    });
-});
+//    });
+//});
 
 
 $(function(){
@@ -2506,3 +2506,17 @@ $(function(){
 });
 
 
+/*user_group  new design*/
+
+$(function(){
+    $('#user_group_edit_button').live('click', function(){
+
+        $.ajax({
+              type:'GET',
+              url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+              data: "group_type_id="+$(this).attr('group_type_id'),
+              dataType:"script"
+
+        });
+    });
+});

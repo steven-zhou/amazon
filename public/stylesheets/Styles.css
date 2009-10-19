@@ -556,8 +556,8 @@ div.field_62 {
 }
 
 #app #main #content #header #loright{
-    float: left;
-    width:260px;
+    float: right;
+    width:240px;
 
 }
 
@@ -1059,5 +1059,13 @@ td.textright {
     font-size: 17px;
     font-weight:normal;
 
+}
+
+#app #main #content .container .half_container{
+    float: left;
+    width: 46%;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    padding: 1%;
 }
   

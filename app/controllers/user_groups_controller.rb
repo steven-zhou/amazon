@@ -46,5 +46,36 @@ class UserGroupsController < ApplicationController
 #
 #  end
 
+  def show
+    @group = GroupType.find(params[:group_type_id])
+    @login_accounts = @group.login_accounts
+    puts"-----DEBUG---#{@login_accounts.to_yaml}"
+    @user_group = UserGroup.new
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def create
+    @user_group = UserGroup.new(params[:user_group])
+    puts"--DEBUG#############---#{@user_group.to_yaml}"
+     @login_account = @user_group.login_account
+    if @user_group.save
+      flash.now[:message] = "saved successfully"
+     
+      puts"--DEBUG#############---#{@login_account.to_yaml}"
+    else
+      flash.now[:error]= flash_message(:type => "field_missing", :field => "system_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
+      
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "system_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
+      puts"--DEBUG---eeeerrrorororo"
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
 end

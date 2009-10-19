@@ -12,7 +12,7 @@ class UserGroup < ActiveRecord::Base
   validates_presence_of :group_id
 
 
-  validates_uniqueness_of :group_id, :scope => :user_id
+  validates_uniqueness_of :user_id, :scope => :group_id
 
 
 end

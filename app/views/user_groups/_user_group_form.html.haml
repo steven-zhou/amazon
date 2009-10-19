@@ -1,0 +1,61 @@
+.container
+  .options
+    -#= link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_user_group_form", :class =>  "close_option", :field => "user_group")
+  .options_left{:style => "margin-right:10px;"}
+    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+  %h3 Edit
+  %br
+  .container{:style => "padding:1.5% 1% 1.5% 1%;margin-left:10px;"}
+    %div#add_user_to_group
+      .options
+        = link_to_function image_tag('close_icon.png'), :id => "close_user_group_add"
+      .title
+        = link_to_function image_tag('add_icon.png'), :id => "add_user_to_group", :class => "toggle_button", :toggle_id_name => "new_user_to_group"
+        &nbsp
+      %h1 Add User
+
+
+    %div#new_user_to_group{:style => "display:none"}
+      -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
+        .form_line{:style => "float:none"}
+          .field_10
+            = user_group.label :user_id, 'system_id'
+            = user_group.text_field :user_id, :class => "check_login_id", :login_account_id => 0
+          .field_20
+            %label &nbsp
+            %span{:id => "login_name_container_0"}
+          .field_20
+            %label &nbsp
+            %input{:name => "user_group[group_id]", :value => "#{@group.id}", :class => "hidden"}
+            
+          .field_20{:style => "float:right"}
+            %label &nbsp
+            = link_to_function 'clear', :class => "alt_option"
+            = submit_tag 'Submit'
+
+   
+  - for i in @login_accounts    
+    - status = i.login_status ? "container_active" : "container_inactive"
+    %div#user_group_user
+      -div_for(i, :class => "#{status} half_container toggle_options" , :id => "existing_user_in_group", :login_account_id => i.id, :field => "user_group") do
+        .options{:style => "display:none",:id => "delete_icon"}
+          = link_to_function image_tag('delete_icon.png')
+        .title
+          = i.person_id
+          \-
+          = i.user_name
+ 
+      
+
+
+
+
+
+
+
+
+
+
+
+
+

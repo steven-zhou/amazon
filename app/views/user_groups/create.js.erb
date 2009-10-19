@@ -1,0 +1,23 @@
+<% unless flash[:error].nil? %>
+ $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
+ $("#flash_message").dialog( {
+ modal:true,
+ position: 'top',
+ buttons: {
+
+ OK: function(){
+
+ $(this).dialog('close');
+ }
+ }
+ });
+
+  $('#flash_message').dialog('open');
+<%else %>
+
+
+ $('#<%= dom_id(@login_account) %>').effect('slide', {direction:'right'});  
+
+
+
+<%end%>
