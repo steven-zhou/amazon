@@ -1,30 +1,29 @@
 %h1 Reports
-
--form_for :report, :url => {:controller => 'reports', :action => "preview_report"}, :html => {} do |tag_type|
-  %fieldset#report_select_list
-    .form_line
+-form_for :report, :url => {:controller => 'reports', :action => "person_contacts_report_grid"}, :html => {:class => "ajax_form"} do |tag_type|
+  .container
+    .form_line      
       .field_30
-        %h2 Select List
-        =tag_type.label :list, 'Lists'
-        %select{:id => "report_list", :disabled => (@list_headers.blank?), :name => "list_header_id", :class => "clear_select"}
-          %option{:selected => "selected"}
-          - @list_headers.each do |r|
-            %option{:value => "#{r.id}"} #{r.name}
-      %br.clear
-  %fieldset#report_format{:style => "display:none;"}
-    .form_line
+        %div#report_select_list
+          =tag_type.label :list, 'Select Lists'
+          %select{:id => "report_list", :disabled => (@list_headers.blank?), :name => "list_header_id", :class => "clear_select"}
+            %option{:selected => "selected"}
+            - @list_headers.each do |r|
+              %option{:value => "#{r.id}"} #{r.name}
       .field_30
-        %h2 Report Format
-        =tag_type.label :format, 'Format'
-        =tag_type.select(:requested_format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""}, :class => "clear_select")
-      %br.clear
-  %fieldset#report_details{:style => "display:none;"}
-    .form_line
-      .field_30
-        %h2 Sample Report
+        %div#report_format{:style => "display:none;"}
+          =tag_type.label :format, 'Report Format'
+          =tag_type.select(:requested_format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""}, :class => "clear_select")
+      .field_30{:style => "float:right;"}
+        %label &nbsp;
+        = button_to_function 'Generate', :style => "width:75px;", :id => "report_submit_button"
+    %br
+  .form_line
+    .field_30
+      %div#report_details{:style => "display:none;"}
+        %h1 Sample Report
         %div#report_sample_image
-      %br.clear
+  .container#report_grid_form_container{:style => "display:none"}
+    #report_grid_form
 
-
-  = submit_tag 'Generate', :style => "width:75px;", :id => "report_submit_button"
+  %br
 

@@ -1,0 +1,2 @@
+class PersonContactsReportGrid < Grid
+end

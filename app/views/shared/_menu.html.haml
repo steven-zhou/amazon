@@ -82,12 +82,12 @@
     .top
     .item
       - if @current_controller != "reports"
-        = link_to "Report", :controller => "reports", :action => "index"
+        = link_to "Reporting", :controller => "reports", :action => "index"
       - else
-        Report
+        Reporting
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Reporting", :controller => "reports", :action => "index"
+            = link_to "#{image_tag('icon_holder.png')} Default Report", :controller => "reports", :action => "index"
     .bottom
 
   - # Import and Export Menu

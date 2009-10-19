@@ -156,6 +156,10 @@ class Person < ActiveRecord::Base
     @primary_website ||= self.websites.select {|website| website.priority_number == 1}.first
   end
 
+    def secondary_website
+    @secondary_website ||= self.websites.select {|website| website.priority_number == 2}.first
+  end
+
   def primary_master_doc
     @primary_master_doc ||= self.master_docs.select {|master_doc| master_doc.priority_number == 1}.first
   end
