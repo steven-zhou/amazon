@@ -47,7 +47,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
-  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get}
+  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}
@@ -57,7 +57,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
-  map.resources :tag_meta_types, :collection => {:show_group_types => :get}
+  map.resources :tag_meta_types, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
   map.resources :group, :collection => {:show_group_types => :get}
   map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get, :create_group_meta_type => :get, :custom_groups_finder => :get, :create_security_group_meta_type => :get, :security_groups_finder => :get, :create_query_table_meta_meta_type => :get, :query_tables_finder => :get}
   map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get, :create_query_table_atttribute => :get, :query_table_attributes_finder => :get}
@@ -82,7 +82,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
-  map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post}
+  map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post, :person_contacts_report_grid => :get}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
@@ -91,8 +91,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :addresses , :member => {:search_postcodes => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
                                     :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
-                                    :show_other_group_organisations_grid => :get, :show_other_member_grid => :get, :organisation_employee_grid => :get}
+
+                                    :show_other_group_organisations_grid => :get, :show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
   
+
+  map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
+
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

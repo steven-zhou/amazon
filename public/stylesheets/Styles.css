@@ -623,16 +623,16 @@ img.thumb {
 
 #app #main #content div#right_content .container_icon { /*For find people page*/
 
-    font-family:Arial, Helvetica, sans-serif;
+                                                        font-family:Arial, Helvetica, sans-serif;
 
 
-    background-repeat:repeat;
-    color: #232323;
-    float: right;
-    padding: 2%;
-    min-height: 10px;
-    -moz-border-radius-topleft:10px;
-    -moz-border-radius-topright:10px;
+                                                        background-repeat:repeat;
+                                                        color: #232323;
+                                                        float: right;
+                                                        padding: 2%;
+                                                        min-height: 10px;
+                                                        -moz-border-radius-topleft:10px;
+                                                        -moz-border-radius-topright:10px;
 
 }
 
@@ -643,8 +643,8 @@ img.thumb {
 /*Temp*/
 
 p.submit{ /*This is for the submit button*/
-    text-align: right;
-    padding-right:3px;
+          text-align: right;
+          padding-right:3px;
 }
 
 .left {
@@ -694,8 +694,8 @@ p.submit{
 }
 
 #app #main #content div#accordion02 .container { /*For find people page*/
-    float:none !important;
-    margin-bottom:10px !important;
+                                                 float:none !important;
+                                                 margin-bottom:10px !important;
 }
 
 
@@ -792,6 +792,10 @@ div.info_warning {
     line-height: 22px;
     font-family:Arial,Helvetica,sans-serif;
     padding-top:10px;
+}
+
+.hidden_tab {
+    position: absolute; left: -10000px;
 }
 
 /* Organisation New*/
@@ -1002,7 +1006,7 @@ td.textright {
     float: left;
     padding: 1.8%;
     -moz-border-radius: 10px;
- 
+
     min-height: 10px;
     font-family:Arial, Helvetica, sans-serif;
 }
@@ -1016,12 +1020,12 @@ td.textright {
     -moz-border-radius: 10px;
 
 
-   font-family:Arial, Helvetica, sans-serif;
-   min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+    min-height: 10px;
 }
 
 .container_selected {
-     background-color: #B2CADA;
+    background-color: #B2CADA;
     width: 95%;
     margin: 1%;
     float: left;
@@ -1033,33 +1037,34 @@ td.textright {
 
 
 #app #main #content .container .form_line .wrapimage {
- float: left;
+    float: left;
     height: 40px;
     margin-left: 210px;
-   position:absolute;
-   padding: 5px 0px 0px 0px ;
+    position:absolute;
+    padding: 5px 0px 0px 0px ;
 }
 
 
 #app #main #content .container .container_inactive .title{
 
 
-     float: left;
+    float: left;
     height: 20px;
-     font-size: 17px;
-        font-weight:normal;
+    font-size: 17px;
+    font-weight:normal;
 
 }
 
 #app #main #content .container .container_active .title{
 
 
-     float: left;
+    float: left;
     height: 20px;
     font-size: 17px;
     font-weight:normal;
 
 }
+
 
 #app #main #content .container .half_container{
     float: left;
@@ -1069,3 +1074,16 @@ td.textright {
     padding: 1%;
 }
   
+
+/*Report tab css*/
+
+.report_left_tab{
+    float:left;
+    margin-left:0.5%;
+    min-height:500px;
+    width:500px;
+
+}
+
+
+

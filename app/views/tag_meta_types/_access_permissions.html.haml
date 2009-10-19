@@ -1,0 +1,31 @@
+%div#access_permissions
+  -for system_module in @access_permissions do
+    .container{:id => "query_table_#{system_module.id}"}
+      = system_module.name
+      = image_tag("/images/closed_accordion.png", :size => "18x14", :style => "float:right;", :class => "open_system_module_sub_group", :id => system_module.id)
+      = image_tag("/images/open_accordion.png", :size => "14x18", :style => "float:right;display:none;", :class => "close_system_module_sub_group", :id => system_module.id)
+      %br.clear
+      %div.access_permissions_module_controllers{:style => "display:none;", :id => "access_permissions_module_#{system_module.id}"}
+        .container
+          %div{:class => "access_permissions_module_add_entry", :id => system_module.id}
+            = image_tag("add_icon.png" , :size => "19x18")
+            Add Subgroup
+          %div{:style => "display:none;", :id => "query_table_sub_group_form_#{system_module.id}", :module_id => system_module.id}
+            %br.clear
+            - form_for SystemPermissionMetaType.new, :url => {:controller => "tag_types", :action => "create_access_permission_meta_type", :id => system_module.id}, :html => {:class => "ajax_form"} do |p|
+              .form_line
+                .field_30
+                  = p.label :name, 'Name'
+                  = p.text_field :name, {:class => "system_module_type_name"}
+                .field_35
+                  = p.label :description, 'Description'
+                  = p.text_field :description, {:class => "system_module_type_description"}
+                .field_30
+                  = p.label :active
+                  %label
+                    = p.check_box :status, {:class => "system_module_type_status"}
+                  = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+        %div{:id => "controllers_in_module_#{system_module.id}"}
+          -for system_controller in system_module.tag_types do
+            .container
+              = system_controller.name

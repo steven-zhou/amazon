@@ -11,11 +11,12 @@
         = AmazonSetting.distinct_setting_type
 
     %br.clear
-
+    %input{:id => "system_data_mode", :style => "display:none;", :mode => "show"}
     %div#system_data_main_contents{:style => "display:none;"}
       .container#system_data_add_data
-        %div#system_data_add_entry
-          = image_tag("add_icon.png" , :size => "19x18")
+        %div
+          = image_tag("close_icon.png" , :class => "close_option", :style => "display:none;float:right;", :field => "system_data")
+          = image_tag("add_icon.png" , :size => "19x18", :id => "system_data_add_entry", :class => "new_option", :field => "system_data")
           Add Data
         %div#system_data_add_entry_form{:style => "display:none;"}
           %br.clear

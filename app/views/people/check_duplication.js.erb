@@ -1,5 +1,24 @@
 <%- if !@dup_personal.empty?%>
 $('#personal_check_duplication').html("<%= escape_javascript(render(:partial => "/people/duplication_grid")) %>");
+
+$('#personal_check_duplication').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 600,
+  width: 800,
+  buttons:{
+          Continue: function(){
+          $(this).dialog('close');
+          },
+          "Restart": function(){
+          personal_check_duplication_restart_button();
+          }
+  }
+});
+
+$('#personal_check_duplication').dialog('open');
+
   $("#person_check_field").flexigrid(
 
 {
@@ -35,22 +54,6 @@ height: 'auto'
 
 
 
-$('#personal_check_duplication').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 600,
-  width: 800,
-  buttons:{
-          Continue: function(){
-          $(this).dialog('close');
-          },
-          "Restart": function(){
-          personal_check_duplication_restart_button();
-          }
-  }
-});
 
-$('#personal_check_duplication').dialog('open');
 
 <%- end%>

@@ -66,6 +66,26 @@ class TagMetaTypesController < ApplicationController
     end
   end
 
+  def access_permission_finder
+    @access_permissions = SystemPermissionMetaMetaType.find(:all)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_access_permissions_meta_meta_type
+    @access_permission = SystemPermissionMetaMetaType.new
+    @access_permission.update_attributes(params[:system_permission_meta_meta_type])
+    if @access_permission.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @access_permission.errors.on(:name)[0] + ", saved unsuccessfully." unless @access_permission.errors.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
 
 

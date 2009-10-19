@@ -45,6 +45,8 @@ class AdministrationsController < ApplicationController
 
 
   def access_permissions
+    @access_permissions = SystemPermissionMetaMetaType.find(:all)
+
     respond_to do |format|
       format.html
     end
@@ -65,7 +67,10 @@ class AdministrationsController < ApplicationController
 
   def security_groups
     @security_groups = GroupMetaMetaType.find_by_name("Security")
+<<<<<<< HEAD:app/controllers/administrations_controller.rb
    # puts "***** DEBUG #{@security_groups.to_yaml}"
+=======
+>>>>>>> a9fab4a2166520ae5905bb872067a29adf396c0d:app/controllers/administrations_controller.rb
     respond_to do |format|
       format.html
     end
@@ -132,12 +137,6 @@ class AdministrationsController < ApplicationController
     end
   end
 
-
-  def access_permissions
-    respond_to do |format|
-      format.html
-    end
-  end
 
   def group_permissions
 

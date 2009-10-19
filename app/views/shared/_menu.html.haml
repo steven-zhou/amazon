@@ -82,17 +82,25 @@
     .top
     .item
       - if @current_controller != "reports"
-        = link_to "Report", :controller => "reports", :action => "index"
+        = link_to "Reporting", :controller => "reports", :action => "index"
       - else
-        Report
+        Reporting
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Reporting", :controller => "reports", :action => "index"
+            = link_to "#{image_tag('icon_holder.png')} Default Report", :controller => "reports", :action => "index"
     .bottom
 
   - # Import and Export Menu
-  %li{:id => @current_controller == "importer" ? "menu_active" : ""}
+  %li{:id => @current_controller == "data_managers" ? "menu_active" : ""}
     .top
     .item
-      Import/Export
+      - if @current_controller != "data_managers"
+        = link_to "Import/Export", :controller => "data_managers", :action => "import_index"
+      - else
+        Import/Export
+        %ul
+          %li{:id => @current_action == "import_index" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Import", :controller => "data_managers", :action => "import_index"
+          %li{:id => @current_action == "export_index" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Export", :controller => "data_managers", :action => "export_index"
     .bottom

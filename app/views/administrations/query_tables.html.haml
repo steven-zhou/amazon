@@ -5,12 +5,12 @@
     %br.clear
 #content_full_page
   .container#query_table_add_data
-    %div#query_table_add_entry
-      = image_tag("add_icon.png" , :size => "19x18")
+    %div
+      = image_tag("add_icon.png" , :size => "19x18", :id => "query_table_add_entry")
       Add Group
     %div#query_table_entry_form{:style => "display:none;"}
       %br.clear
-      - form_for TableMetaMetaType.new, :url => {:controller => "tag_types", :action => "create_query_table_meta_meta_type"}, :html => {:class => "ajax_form"} do |p|
+      - form_for TableMetaMetaType.new, :url => {:controller => "tag_meta_types", :action => "create_query_table_meta_meta_type"}, :html => {:class => "ajax_form"} do |p|
         .form_line
           .field_30
             = p.label :name, 'Name'
@@ -32,12 +32,12 @@
         %br.clear
         %div.query_table_sub_groups{:style => "display:none;", :id => "query_table_sub_group_#{query_table.id}"}
           .container
-            %div{:class => "query_table_sub_group_add_entry", :id => query_table.id}
-              = image_tag("add_icon.png" , :size => "19x18")
+            %div
+              = image_tag("add_icon.png" , :size => "19x18", :class => "query_table_sub_group_add_entry", :id => query_table.id)
               Add Subgroup
             %div{:style => "display:none;", :id => "query_table_sub_group_form_#{query_table.id}", :group_id => query_table.id}
               %br.clear
-              - form_for TableMetaType.new, :url => {:controller => "tags", :action => "create_query_table_atttribute", :id => query_table.id}, :html => {:class => "ajax_form"} do |p|
+              - form_for TableMetaType.new, :url => {:controller => "tag_types", :action => "create_query_table_atttribute", :id => query_table.id}, :html => {:class => "ajax_form"} do |p|
                 .form_line
                   .field_30
                     = p.label :name, 'Name'

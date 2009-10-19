@@ -1,5 +1,29 @@
 <%- unless @dup_organisations.empty? %>
 $('#duplication_box').html("<%= escape_javascript(render(:partial => "/organisations/duplication_grid")) %>");
+
+$('#duplication_box').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 600,
+  width: 800,
+  buttons: {
+                Continue: function() {
+                    $(this).dialog('close');
+                },
+                "Restart": function() {
+                <%- if @organisation_id == "" %>
+                    window.open("/organisations/new", "_self");
+                <%- else %>
+                    window.open("/organisations/<%= escape_javascript(@organisation_id)%>/edit", "_self");
+                <%- end %>
+                    return false;
+                }
+            }
+});
+
+$('#duplication_box').dialog('open');
+
 $("#duplication_organisations_grid").flexigrid({
         url: '/grids/duplication_organisations_grid',
         dataType: 'json',
@@ -24,27 +48,5 @@ $("#duplication_organisations_grid").flexigrid({
         width: 'auto',
         height: 'auto'
     });
-
-$('#duplication_box').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 600,
-  width: 800,
-  buttons: {
-                Continue: function() {
-                    $(this).dialog('close');
-                },
-                "Restart": function() {
-                <%- if @organisation_id == "" %>
-                    window.open("/organisations/new", "_self");
-                <%- else %>
-                    window.open("/organisations/<%= escape_javascript(@organisation_id)%>/edit", "_self");
-                <%- end %>
-                    return false;
-                }
-            }
-});
-
-$('#duplication_box').dialog('open');
+    
 <%- end %>
