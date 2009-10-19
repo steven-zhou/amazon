@@ -1209,7 +1209,7 @@ $(function(){
             $('#yes_password').hide();
 
         }else{
-             $('#no_password').hide();
+            $('#no_password').hide();
             $('#yes_password').show();
 
         }
@@ -1226,13 +1226,13 @@ $(function(){
 
    
        
-//        $.ajax({
-//            type: "GET",
-//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-//            data:'id='+$(this).attr('login_account_id'),
-//            dataType: "script"
-//        });
-    });
+        //        $.ajax({
+        //            type: "GET",
+        //            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+        //            data:'id='+$(this).attr('login_account_id'),
+        //            dataType: "script"
+        //        });
+        });
 });
 
 
@@ -2197,7 +2197,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-           $(this).find('.options').css("display","");
+            $(this).find('.options').css("display","");
         }
          
     });
@@ -2471,17 +2471,17 @@ $(function(){
 
         for(var k=0; k < $('.personal_check_field').get().length;k++)
         {
-           if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
-           {
+            if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
+            {
              
-             personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
-             personal_check_fields.push($('.personal_check_field').eq(k).val());
-           }
-           else
-           {
-           personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
-            personal_check_fields.push($('.personal_check_field').eq(k).val());
-             }
+                personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
+                personal_check_fields.push($('.personal_check_field').eq(k).val());
+            }
+            else
+            {
+                personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
+                personal_check_fields.push($('.personal_check_field').eq(k).val());
+            }
         }
 
         for (var z=0; z< personal_check_fields.length;z++)
@@ -2499,7 +2499,7 @@ $(function(){
             type: 'GET',
 
             url: "/people/check_duplication.js",
-             data: personal_data_string + "&id="+$("#person_id").val(),
+            data: personal_data_string + "&id="+$("#person_id").val(),
             dataType: "script"
 
         });
@@ -2553,20 +2553,20 @@ $(function(){
 /*personal check field restart button*/
 personal_check_duplication_restart_button = function(){
 
-   window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
- return false;
+    window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+    return false;
 }
 
 $(function(){
     $('table#person_check_field tbody tr.trSelected').live('dblclick',function(){
 
-    window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
+        window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
     });
 });
 
 $(function(){
     $('table#duplication_organisations_grid tbody tr').live('dblclick',function(){
-       window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
+        window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
     });
 });
 
@@ -2579,3 +2579,13 @@ $(function(){
     });
 });
 
+
+/* Import and Export */
+$(function(){
+    $('.export_button').live('click',function(){
+        var format = $(this).attr("value").toLowerCase();
+        var source = $(this).attr("source");
+        var source_id = $("#source_id").val();
+        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
+    });
+});

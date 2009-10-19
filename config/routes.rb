@@ -93,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
                                     :show_other_group_organisations_grid => :get, :show_other_member_grid => :get, :organisation_employee_grid => :get}
 
-  map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get}
+  map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

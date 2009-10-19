@@ -85,6 +85,7 @@ class QueryHeadersController < ApplicationController
       @query_header.query_selections.each do |i|
         @query_result_columns << i.field_name
       end
+      @query_result_columns = @query_result_columns[0, 10]
       @people.each do |person|
         @qrg = QueryResultGrid.new
         @qrg.login_account_id = session[:user]
