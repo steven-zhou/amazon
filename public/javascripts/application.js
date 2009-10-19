@@ -437,11 +437,16 @@ formatCurrency= function(num){
 
 
 
-
-
-
-
 // Administration Menu
+
+$(function(){
+    $(".close_option").live('click', function(){
+        $("#system_data_add_entry_form").hide();
+        $("#custom_group_entry_form").hide();
+        $("#query_table_add_entry_form").hide();
+        $("#access_permission_add_entry_form").hide();
+    });
+});
 
 // Configuration
 
@@ -464,14 +469,15 @@ $(function(){
             });
             $("#system_data_main_contents").show();
         }
+        $("#system_data_mode").attr('mode', 'show');
     });
 });
 
 
 $(function(){
-    $("#system_data_entry").live('click', function(){
-        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
-        $(this).addClass("system_data_entry_selected");
+    $("#edit_current_system_data_entry").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
         $("#edit_system_data_entry").html("");
         $("#system_data_add_entry_form").hide();
         $.ajax({
@@ -485,13 +491,34 @@ $(function(){
 });
 
 $(function(){
+    $("#delete_system_data_entry").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $("#edit_system_data_entry").hide();
+        $("#system_data_add_entry_form").hide();
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/delete_system_data_entry.js",
+            data: 'id=' + $(this).attr('system_data_id'),
+            dataType: "script"
+        });
+
+    });
+}); 
+
+$(function(){
     $("#system_data_add_entry").live('click', function(){
-        $("#system_data_add_entry_form").toggle();
+        $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
     });
 });
 
+
+$(function(){
+    $("#close_edit_system_data_entry").live('click', function(){
+        $("#edit_system_data_entry").hide();
+    });
+});
 
 // Custom Groups
 
@@ -550,7 +577,7 @@ $(function(){
 $(function(){
     $("#security_group_add_entry").live('click', function() {
         $(".security_sub_groups").hide();
-        $("#security_group_entry_form").toggle();
+        $("#security_group_entry_form").show();
         $(".open_security_sub_group").show();
         $(".close_security_sub_group").hide();
     });
@@ -596,6 +623,43 @@ $(function(){
         $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
+
+
+// Access Permissions
+
+$(function(){
+    $(".open_system_module_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").show();
+        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").hide();
+        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").show();
+        $("#access_permissions_entry_form").hide();
+    });
+});
+
+$(function(){
+    $(".close_system_module_sub_group").live('click', function() {
+        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").hide();
+        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").show();
+        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#access_permissions_add_entry").live('click', function() {
+        $(".access_permissions_module_controllers").hide();
+        $("#access_permissions_entry_form").show();
+        $(".open_system_module_sub_group").show();
+        $(".close_system_module_sub_group").hide();
+    });
+});
+
+$(function(){
+    $(".access_permissions_module_add_entry").live('click', function() {
+        $("#query_table_sub_group_form_" + $(this).attr('id')).show();
+    });
+});
+
+
 
 
 
@@ -1145,7 +1209,7 @@ $(function(){
             $('#yes_password').hide();
 
         }else{
-             $('#no_password').hide();
+            $('#no_password').hide();
             $('#yes_password').show();
 
         }
@@ -1162,13 +1226,13 @@ $(function(){
 
    
        
-//        $.ajax({
-//            type: "GET",
-//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-//            data:'id='+$(this).attr('login_account_id'),
-//            dataType: "script"
-//        });
-    });
+        //        $.ajax({
+        //            type: "GET",
+        //            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+        //            data:'id='+$(this).attr('login_account_id'),
+        //            dataType: "script"
+        //        });
+        });
 });
 
 
@@ -2135,6 +2199,7 @@ $(function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
             $(this).find('.options').css("display","");
         }
+         
     });
 });
 
@@ -2406,17 +2471,17 @@ $(function(){
 
         for(var k=0; k < $('.personal_check_field').get().length;k++)
         {
-           if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
-           {
+            if($('.personal_check_field').eq(k).attr("id").indexOf("_id")>0)
+            {
              
-             personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
-             personal_check_fields.push($('.personal_check_field').eq(k).val());
-           }
-           else
-           {
-           personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
-            personal_check_fields.push($('.personal_check_field').eq(k).val());
-             }
+                personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7,$('.personal_check_field').eq(k).attr("id").indexOf("_id")));
+                personal_check_fields.push($('.personal_check_field').eq(k).val());
+            }
+            else
+            {
+                personal_check_fields.push($('.personal_check_field').eq(k).attr("id").substring(7));
+                personal_check_fields.push($('.personal_check_field').eq(k).val());
+            }
         }
 
         for (var z=0; z< personal_check_fields.length;z++)
@@ -2434,7 +2499,7 @@ $(function(){
             type: 'GET',
 
             url: "/people/check_duplication.js",
-             data: personal_data_string + "&id="+$("#person_id").val(),
+            data: personal_data_string + "&id="+$("#person_id").val(),
             dataType: "script"
 
         });
@@ -2488,20 +2553,20 @@ $(function(){
 /*personal check field restart button*/
 personal_check_duplication_restart_button = function(){
 
-   window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
- return false;
+    window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+    return false;
 }
 
 $(function(){
     $('table#person_check_field tbody tr.trSelected').live('dblclick',function(){
 
-    window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
+        window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
     });
 });
 
 $(function(){
     $('table#duplication_organisations_grid tbody tr').live('dblclick',function(){
-       window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
+        window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
     });
 });
 
@@ -2514,3 +2579,13 @@ $(function(){
     });
 });
 
+
+/* Import and Export */
+$(function(){
+    $('.export_button').live('click',function(){
+        var format = $(this).attr("value").toLowerCase();
+        var source = $(this).attr("source");
+        var source_id = $("#source_id").val();
+        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
+    });
+});

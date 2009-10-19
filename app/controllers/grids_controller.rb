@@ -192,7 +192,12 @@ class GridsController < ApplicationController
           u.field_2,
           u.field_3,
           u.field_4,
-          u.field_5]}}
+          u.field_5,
+          u.field_6,
+          u.field_7,
+          u.field_8,
+          u.field_9,
+          u.field_10]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -744,6 +749,7 @@ class GridsController < ApplicationController
   end
 
 
+
    def show_person_contacts_report_grid
 
     page = (params[:page]).to_i
@@ -820,4 +826,5 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
+
 end

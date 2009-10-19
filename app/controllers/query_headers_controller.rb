@@ -85,6 +85,7 @@ class QueryHeadersController < ApplicationController
       @query_header.query_selections.each do |i|
         @query_result_columns << i.field_name
       end
+      @query_result_columns = @query_result_columns[0, 10]
       @people.each do |person|
         @qrg = QueryResultGrid.new
         @qrg.login_account_id = session[:user]
@@ -199,7 +200,7 @@ class QueryHeadersController < ApplicationController
   def query_header_to_xml
     @query_header = QueryHeader.find(params[:id])
     respond_to do |format|
-      format.xml
+      format.xml {send_data((render 'query_headers/query_header_to_xml.rxml'), :filename => "query.xml", :type => "text/xml")}
     end
 
   end

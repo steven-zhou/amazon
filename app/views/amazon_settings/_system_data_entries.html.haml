@@ -1,5 +1,9 @@
 %div#system_data_entries
   - for setting in @amazon_settings
-    - setting_status = setting.status ? "system_data_entry_active" : "system_data_entry_inactive"
-    %div{:class => setting_status, :id => "system_data_entry", :system_data_id => setting.id }
-      = setting.name
+    - setting_status = setting.status ? "container_active" : "container_inactive"
+    %div{:class => "#{setting_status} toggle_options", :system_data_id => setting.id, :style => "width:26%;", :field => "system_data" }
+      .options{:style => "display:none;"}
+        = image_tag('edit_icon.png', {:class => 'edit_option', :system_data_id => setting.id, :field => "system_data", :id => "edit_current_system_data_entry"})
+        = image_tag('delete_icon.png', {:class => 'delete_option', :system_data_id => setting.id, :field => "system_data", :id => "delete_system_data_entry"}) unless !setting.status
+      .title
+        = setting.name

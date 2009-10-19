@@ -1,6 +1,7 @@
+$("#system_data_mode").attr('mode', 'show');
 $.ajax({
   type: "GET",
-  url: "/tag_types/custom_groups_finder.js",
+  url: "/amazon_settings/system_settings_finder.js",
   data: 'type=' + $("#system_data_type").val(),
   dataType: "script"
 });

@@ -7,8 +7,8 @@
       %br.clear
       %div.sub_groups{:style => "display:none;", :id => "sub_group_#{group.id}"}
         .container
-          %div{:class => "custom_sub_group_add_entry", :id => group.id}
-            = image_tag("add_icon.png" , :size => "19x18")
+          %div
+            = image_tag("add_icon.png" , :size => "19x18", :class => "custom_sub_group_add_entry", :id => group.id)
             Add Subgroup
           %div{:style => "display:none;", :id => "sub_group_form_#{group.id}", :group_id => group.id}
             %br.clear
