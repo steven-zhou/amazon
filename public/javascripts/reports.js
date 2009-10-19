@@ -37,20 +37,20 @@ $(function() {
     });
 
 
-//    $(document).ready(function() {
-//        $('#report_results_data').dataTable({
-//            "iDisplayLength":10,
-//            "bLengthChange": false,
-//            "bAutoWidth":false,
-//            "bFilter":false,
-//            "aoColumns": [
-//                {"sWidth":"8%"},
-//                {"sWidth":"23%"},
-//                {"sWidth":"23%"},
-//                {"sWidth":"23%"},
-//                {"sWidth":"23%"}
-//            ]
-//        });
-//    });
-//
+// organisation report
+$("#report_organisation_requested_format").live('change', function(){
+        if($(this).val() != ""){
+
+            $("#organisation_report_submit_button").css("display", "block");
+            $("#organisation_report_sample_image").replaceWith("<img src=\"/images/" + $("#report_requested_format").val() + ".jpg\" >");
+            $("#organisation_report_grid_form_container").css("display","none");
+
+        } else {
+            $("#organisation_report_sample_image").css("display", "none");
+            $("#organisation_report_details").css("display", "none");
+            $("#organisation_report_submit_button").css("display", "none");
+
+        }
+    });
+
 });
