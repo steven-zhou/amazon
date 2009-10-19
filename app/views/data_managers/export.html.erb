@@ -1,0 +1,36 @@
+<%if @type == "Query"
+    if @query_header.query_selections.empty? -%>
+            <%= "ID,First Name,Family Name" %>
+        <%  @people.each do |person| -%>
+            <%=  "#{person.id},#{person.first_name.gsub(/,/, '')},#{person.family_name.gsub(/,/, '')}" %>
+        <%end
+    else
+            title = Array.new
+            @query_header.query_selections.each do |i|
+              title << i.field_name.humanize
+            end -%>
+                <%= title.join(",") %>
+            <%@people.each do |person|
+            data_value = Array.new
+            data_value << "#{person.id},"
+            @query_header.query_selections.each do |i|
+                if i.table_name == "people"
+                  if i.data_type == "Integer FK"
+                    data_value << person.__send__(i.field_name.to_sym).nil? ? "" : "#{person.__send__(i.field_name.to_sym).name}"
+                  else
+                    data_value << "#{person.__send__(i.field_name.to_sym)}"
+                  end
+                else
+                  if i.data_type == "Integer FK"
+                    data_value << (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "" : "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}"
+                  else
+                    data_value << (person.__send__(i.table_name.underscore.to_sym).empty?) ? "" : "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}"
+                  end
+                end
+            end-%>
+            <%=  data_value.join(",") %>
+        <%end
+    end
+else
+
+end-%>
