@@ -145,7 +145,7 @@ class ReportsController < ApplicationController
   end
 
   def format_fields(field_one, field_two)
-    if field_two.empty?
+    if field_two.nil?
       return field_one
     else
       return "#{field_one}\n#{field_two}"
