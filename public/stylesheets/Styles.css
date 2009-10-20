@@ -621,18 +621,18 @@ img.thumb {
     height: 100px;
 }
 
-#app #main #content div#right_content .container_icon { /*For find people page*/
+#app #main #content  .container_icon { /*For find people page*/
 
-                                                        font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 
 
-                                                        background-repeat:repeat;
-                                                        color: #232323;
-                                                        float: right;
-                                                        padding: 2%;
-                                                        min-height: 10px;
-                                                        -moz-border-radius-topleft:10px;
-                                                        -moz-border-radius-topright:10px;
+    background-repeat:repeat;
+    color: #232323;
+    float: right;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
 
 }
 
@@ -643,8 +643,8 @@ img.thumb {
 /*Temp*/
 
 p.submit{ /*This is for the submit button*/
-          text-align: right;
-          padding-right:3px;
+    text-align: right;
+    padding-right:3px;
 }
 
 .left {
@@ -694,8 +694,8 @@ p.submit{
 }
 
 #app #main #content div#accordion02 .container { /*For find people page*/
-                                                 float:none !important;
-                                                 margin-bottom:10px !important;
+    float:none !important;
+    margin-bottom:10px !important;
 }
 
 
@@ -1000,7 +1000,7 @@ td.textright {
 
 
 .container_inactive {  
-    background-color: #B2BDC5;  
+    background-color: #B2BDC5;
     width: 95%;
     margin: 1%;
     float: left;
@@ -1073,7 +1073,7 @@ td.textright {
     margin-bottom: 0px;
     padding: 1%;
 }
-  
+
 
 /*Report tab css*/
 
@@ -1086,4 +1086,15 @@ td.textright {
 }
 
 
+/*Admin User group*/
 
+.container_edit{
+   
+    width:6% !important;
+    margin-bottom:0px !important;
+    margin-top:70px;
+    margin-left:20px !important;
+    padding:1% 1% 0 1% !important;
+    -moz-border-radius-bottomleft:0px !important;
+     -moz-border-radius-bottomright:0px !important;
+}

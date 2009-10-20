@@ -2610,6 +2610,25 @@ $(function(){
     });
 });
 
+$(function(){
+
+    $('.add_flag').live('click', function(){
+        $(this).css('display', 'none');
+        $('#close_'+ $(this).attr('flag_name')).css('display', '');
+    });
+});
+
+
+$(function(){
+    $('.close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#add_'+$(this).attr('flag_name')).css('display', '');
+       $('#new_'+$(this).attr('flag_name')).toggle('blind');
+
+    });
+   
+});
+
 /*organisation info tab*/
 $(function(){
     $('.active_organisation_info_tab').live('click',function(){

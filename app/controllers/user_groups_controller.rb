@@ -49,8 +49,8 @@ class UserGroupsController < ApplicationController
   def show
     @group = GroupType.find(params[:group_type_id])
     @login_accounts = @group.login_accounts
-    puts"-----DEBUG---#{@login_accounts.to_yaml}"
     @user_group = UserGroup.new
+    @user_groups = @group.user_groups
 
     respond_to do |format|
       format.js
@@ -59,19 +59,26 @@ class UserGroupsController < ApplicationController
   end
 
   def create
+    @login_ = Person.find(params[:user_group][])
     @user_group = UserGroup.new(params[:user_group])
-    puts"--DEBUG#############---#{@user_group.to_yaml}"
+   
      @login_account = @user_group.login_account
     if @user_group.save
       flash.now[:message] = "saved successfully"
-     
-      puts"--DEBUG#############---#{@login_account.to_yaml}"
     else
-      flash.now[:error]= flash_message(:type => "field_missing", :field => "system_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
-      
-      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "system_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
-      puts"--DEBUG---eeeerrrorororo"
+      flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
+   
     end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @user_group = UserGroup.find(params[:id])
+    @user_group.destroy
 
     respond_to do |format|
       format.js
