@@ -2602,6 +2602,8 @@ $(function(){
 
 $(function(){
     $('#user_group_edit_button').live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
 
         $.ajax({
               type:'GET',
