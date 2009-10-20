@@ -6,7 +6,8 @@
 #content_full_page
   .container#custom_group_add_data
     %div
-      = image_tag("add_icon.png" , :size => "19x18", :id => "custom_group_add_entry")
+      = image_tag("close_icon.png", :class => "close_option", :style => "display:none;float:right;", :field => "system_data", :id => "close_custom_group_add_entry")
+      = image_tag("add_icon.png" , :size => "19x18", :id => "custom_group_add_entry", :class => "new_option", :field => "system_data")
       Add Group
     %div#custom_group_entry_form{:style => "display:none;"}
       %br.clear

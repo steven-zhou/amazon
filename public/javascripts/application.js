@@ -543,9 +543,15 @@ $(function(){
 $(function(){
     $("#custom_group_add_entry").live('click', function() {
         $(".sub_groups").hide();
-        $("#custom_group_entry_form").toggle();
+        $("#custom_group_entry_form").show(); // toggle
         $(".open_sub_group").show();
         $(".close_sub_group").hide();
+    });
+});
+
+$(function(){
+    $("#close_custom_group_add_entry").live('click', function(){
+        $("#edit_system_data_entry").hide();
     });
 });
 
@@ -554,6 +560,21 @@ $(function(){
         $("#sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
+
+//$(function(){
+//    $("#system_data_add_entry").live('click', function(){
+//        $("#system_data_add_entry_form").show();
+//        $("#edit_system_data_entry").html("");
+//        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+//    });
+//});
+//
+//
+//$(function(){
+//    $("#close_edit_system_data_entry").live('click', function(){
+//        $("#edit_system_data_entry").hide();
+//    });
+//});
 
 
 // Security Groups
