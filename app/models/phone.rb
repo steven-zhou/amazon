@@ -51,6 +51,7 @@ class Phone < Contact
     "#{self.pre_value} #{self.value} #{self.post_value}".squeeze(" ").strip
   end
 
+
   def preferrence_day_times
     "Monday(#{prefer_time(self.monday_hours)}) " +
       "Tuesday(#{prefer_time(self.tuesday_hours)}) " +

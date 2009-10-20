@@ -70,9 +70,10 @@ $(function() {
 
    
     $(".clear_form").click(function(){
-        $('#'+$(this).parents("form").get(0).id)[0].reset();
-                
-    })
+
+       if(confirm("Are you sure?","Warning","Yes","No",3))
+          {$('#'+$(this).parents("form").get(0).id)[0].reset();}           
+    });
 
 
    

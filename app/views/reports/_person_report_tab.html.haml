@@ -7,14 +7,16 @@
           %select{:id => "report_list", :disabled => (@list_headers.blank?), :name => "list_header_id", :class => "clear_select"}
             %option{:selected => "selected"}
             - @list_headers.each do |r|
-              %option{:value => "#{r.id}"} #{r.name}
+              %option{:value => "list_#{r.id}"} List_#{r.name}
+            - @query.each do |i|
+              %option{:value => "query_#{i.id}"} Query_#{i.name}
       .field_30
         %div#report_format{:style => "display:none;"}
           =tag_type.label :format, 'Report Format'
           =tag_type.select(:requested_format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""}, :class => "clear_select")
       .field_30{:style => "float:right;"}
         %label &nbsp;
-        = button_to_function 'Generate', :style => "width:75px;", :id => "report_submit_button"
+        = button_to_function 'Generate', :style => "width:75px;display:none", :id => "report_submit_button"
     %br
   .form_line
     .field_30
@@ -23,6 +25,6 @@
         %div#report_sample_image
   .container#report_grid_form_container{:style => "display:none"}
     #report_grid_form
-
+    = button_to_function 'PDF Format', :style => "float:right;", :id => "report_person_pdf_submit_button"
   %br
 
