@@ -17,6 +17,7 @@
 
  $('#user_group_user').append('<%= escape_javascript(render(:partial => "user_groups/new_group_user", :locals =>{:user_group => @user_group })) %>');
  $('#<%= dom_id(@user_group) %>').show('slide');
+ $('#group_display').replaceWith(" <%= escape_javascript(render(:partial => 'group_display')) %>");
 
 
 
