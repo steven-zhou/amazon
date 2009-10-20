@@ -3,7 +3,7 @@ module OutputPdf
   require "pdf/writer"
   require "pdf/simpletable"
   
-  #if the field is FK(e.g. gender), the hash would be "Gender(FK)" => "gender"
+  # if the field is FK(e.g. gender), the hash would be "Gender(FK)" => "gender"
   PERSONAL_REPORT_FORMAT = {"person_contact_report" => {"ID" => "id",
       "First Name" => "first_name",
       "Family Name" => "family_name",
@@ -22,29 +22,64 @@ module OutputPdf
       "Website" => "website"}
   }
 
-  #The difference between report and non_report is with/without format
-  #validate report format
+  # The difference between report and non_report is with/without format
+  # validate personal report format
   def self.personal_report_format_valid(format)
     OutputPdf::PERSONAL_REPORT_FORMAT.has_key?(format.to_s)
   end
 
+  # validate personal report format
   def self.organisational_report_format_valid(format)
     OutputPdf::ORGANISATIONAL_REPORT_FORMAT.has_key?(format.to_s)
   end
 
   #  generate personal report in pdf
-  def self.generate_personal_report_pdf(source_type, source_id, format, image, title, header_settings, body_settings)
+  # private method - generate_personal_report_header
+  # geneare_personal_report_header(pdf, source_type, source_id, format, header_settings={}, body_settings={})
+  # options in header_settings:
+  #       image(image)                      = path of image
+  #       title(report title)               = string(e.g. "Person Contact Report")
+  #       image_position(position of image) = "left"/"center"/"right"
+  #       title_position(position of title) = "left"/"center"/"right"
+  #       font(font)                        = any font(e.g. "Times-Roman)
+  #       font_size(font_size)              = any integer(e.g. 32)
+  # options in body_settings:
+  #       show_lines(position of lines)     = "outer"/"inner"
+  #       show_headings(display or not)     = true/false
+  #       orientation(orientation)          = "left"/"center"/"right"
+  #       position(position)                = "left"/"center"/"right"
+  #       bold_header(header bold?)         = true/false
+  #       font_size(font_size)              = any integer(e.g. 32)
+  #       text_align(alignment)             = "left"/"center"/"right"
+  def self.generate_personal_report_pdf(source_type, source_id, format, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
-    generate_report_header(pdf, source_type, source_id, format, image, title, header_settings)
-    generate_report_body(pdf, source_type, source_id, format, body_settings)
+    generate_report_header(pdf, source_type, source_id, format, header_settings)
+    generate_personal_report_body(pdf, source_type, source_id, format, body_settings)
     return pdf
   end
 
   # generate organisational report in pdf
-  def self.generate_organisational_report_pdf(source_type, source_id, format, image, title, header_settings, body_settings)
+  # private method - generate_personal_report_header
+  # geneare_personal_report_header(pdf, source_type, source_id, format, header_settings={}, body_settings={})
+  # options in header_settings:
+  #       image(image)                      = path of image
+  #       title(report title)               = string(e.g. "Person Contact Report")
+  #       image_position(position of image) = "left"/"center"/"right"
+  #       title_position(position of title) = "left"/"center"/"right"
+  #       font(font)                        = any font(e.g. "Times-Roman)
+  #       font_size(font_size)              = any integer(e.g. 32)
+  # options in body_settings:
+  #       show_lines(position of lines)     = "outer"/"inner"
+  #       show_headings(display or not)     = true/false
+  #       orientation(orientation)          = "left"/"center"/"right"
+  #       position(position)                = "left"/"center"/"right"
+  #       bold_header(header bold?)         = true/false
+  #       font_size(font_size)              = any integer(e.g. 32)
+  #       text_align(alignment)             = "left"/"center"/"right"
+  def self.generate_organisational_report_pdf(source_type, source_id, format, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
-    generate_report_header(pdf, source_type, source_id, format, image, title, header_settings)
-    generate_report_body(pdf, source_type, source_id, format, body_settings)
+    generate_report_header(pdf, source_type, source_id, format, header_settings)
+    generate_organisational_report_body(pdf, source_type, source_id, format, body_settings)
     return pdf
   end
 
@@ -63,6 +98,8 @@ module OutputPdf
   #private method - generate_report_header
   #geneare_report_header(pdf, source_type, source_id, format, [image, title, {header_settings}])
   #options in header_settings:
+  #       image(image)                      = path of image
+  #       title(report title)               = string(e.g. "Person Contact Report")
   #       image_position(position of image) = "left"/"center"/"right"
   #       title_position(position of title) = "left"/"center"/"right"
   #       font(font)                     = any font(e.g. "Times-Roman)
@@ -82,8 +119,8 @@ module OutputPdf
     pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position]
   end
 
-  #private method - generate_report_body
-  #geneare_report_body(pdf, source_type, source_id, format, [{header_settings}])
+  #private method - generate_personal_report_body
+  #geneare_personal_report_body(pdf, source_type, source_id, format, [{body_settings}])
   #options in body_settings:
   #       show_lines(position of lines) = "outer"/"inner"
   #       show_headings(display or not) = true/false
@@ -92,7 +129,7 @@ module OutputPdf
   #       bold_header(header bold?)     = true/false
   #       font_size(font_size)          = any integer(e.g. 32)
   #       text_align(alignment)         = "left"/"center"/"right"
-  def self.generate_report_body(pdf, source_type, source_id, format, body_settings={})
+  def self.generate_personal_report_body(pdf, source_type, source_id, format, body_settings={})
     body_settings[:show_lines] ||= "outer"
     body_settings[:show_headings] ||= true
     body_settings[:orientation] ||= "center"
