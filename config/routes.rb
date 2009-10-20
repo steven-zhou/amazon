@@ -82,7 +82,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
-  map.resources :reports, :collection => {:generate_report => :post, :generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get}
+  map.resources :reports, :collection => {:generate_report => :post, :generate_organisation_report_pdf => :get,:generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}

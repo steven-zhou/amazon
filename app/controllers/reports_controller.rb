@@ -55,12 +55,12 @@ class ReportsController < ApplicationController
       @person_report_list = ListHeader.find(@list_header_id)
     end
    
-
-    if(@person_report_format == "Contact Report")
-
-      PersonContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
+     PersonContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
         i.destroy
       end
+    if(@person_report_format == "Contact Report")
+
+      
 
        
       @person_report_list.list_details.each do |i|
@@ -103,25 +103,41 @@ class ReportsController < ApplicationController
 
   def generate_person_report_pdf
 #     @person_report_format = params[:request_format]
-puts "111111111111111111111111111111"
     @person_report_format ="person_contact_report"
     if(params[:list_header_id].include?("list_"))
-      puts "111111111111111111111111111112"
+     
       @list_header_id = params[:list_header_id].delete("list_")
       @type= "List"
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
-    puts "111111111111111111111111111113"
+    
     if OutputPdf.personal_report_format_valid(@person_report_format) && !@person_report_list.nil?
-      puts "111111111111111111111111111114#{@list_header_id}"
+   
        pdf = OutputPdf.generate_personal_report_pdf(@type,@list_header_id, @person_report_format)
      
     end
-    puts "111111111111111111111111111115"
+
   respond_to do |format|
-      format.pdf {send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
+      format.pdf {send_data(pdf.render, :filename => "person_report.pdf", :type => "application/pdf")}
     end
 
+
+  end
+
+  def generate_organisation_report_pdf
+       @organisation_report_list = Organisation.find(:all, :order => "id")
+       @type ="List"
+       @organisation_report_format = "organisaiton_contact_report"
+
+      if OutputPdf.organisational_report_format_valid(@organisation_report_format) && !@organisation_report_list.nil?
+
+         pdf = OutputPdf.generate_organisational_report_pdf(@type,@organisation_report_list, @organisation_report_format)
+
+      end
+
+     respond_to do |format|
+      format.pdf {send_data(pdf.render, :filename => "organisation_report.pdf", :type => "application/pdf")}
+    end
 
   end
 
