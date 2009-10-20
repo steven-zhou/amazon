@@ -1,4 +1,4 @@
-<%if @type == "Query"
+<%if @source_type == "query"
     if @query_header.query_selections.empty? -%>
             <%= "ID,First Name,Family Name" %>
         <%  @people.each do |person| -%>
