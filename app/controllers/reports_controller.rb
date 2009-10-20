@@ -103,17 +103,21 @@ class ReportsController < ApplicationController
 
   def generate_person_report_pdf
 #     @person_report_format = params[:request_format]
+puts "111111111111111111111111111111"
     @person_report_format ="person_contact_report"
     if(params[:list_header_id].include?("list_"))
+      puts "111111111111111111111111111112"
       @list_header_id = params[:list_header_id].delete("list_")
       @type= "List"
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
-    
-    if OutputPdf.personal_report_format_valid(@person_report_format) && @person_report_list.nil?
-       pdf = OutputPdf.generate_personal_report_pdf(@type,@person_report_list, @person_report_format)
+    puts "111111111111111111111111111113"
+    if OutputPdf.personal_report_format_valid(@person_report_format) && !@person_report_list.nil?
+      puts "111111111111111111111111111114#{@list_header_id}"
+       pdf = OutputPdf.generate_personal_report_pdf(@type,@list_header_id, @person_report_format)
      
     end
+    puts "111111111111111111111111111115"
   respond_to do |format|
       format.pdf {send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
     end

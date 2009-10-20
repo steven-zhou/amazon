@@ -4,13 +4,13 @@ module OutputPdf
   require "pdf/simpletable"
   
   # if the field is FK(e.g. gender), the hash would be "Gender(FK)" => "gender"
-  PERSONAL_REPORT_FORMAT = {"person_contact_report" => {"ID" => "id",
-      "First Name" => "first_name",
-      "Family Name" => "family_name",
-      "Address" => "address",
-      "Email" => "email",
-      "Phone" => "phone",
-      "Website" => "website"}}
+  PERSONAL_REPORT_FORMAT = {"person_contact_report" => {"id" => "id",
+      "first_name" => "first_name",
+      "family_name" => "family_name",
+      "address" => "address",
+      "email" => "email",
+      "phone" => "phone",
+      "website" => "website"}}
   
   ORGANISATIONAL_REPORT_FORMAT = {
     "organisaiton_contact_report" => {"ID" => "id",
@@ -158,21 +158,39 @@ module OutputPdf
       end
 
       OutputPdf::PERSONAL_REPORT_FORMAT[format].each_key do |i|
-        tab.column[OutputPdf::PERSONAL_REPORT_FORMAT[format][i]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]) { |col| col.heading = i}
+        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]) { |col| col.heading = i}
       end
 
-      tab.show_lines    = body_settings[:show_lines]
+      tab.show_lines    = body_settings[:show_lines].to_sym
       tab.show_headings = body_settings[:show_headings]
-      tab.orientation   = body_settings[:orientation]
-      tab.position      = body_settings[:position]
+      tab.orientation   = body_settings[:orientation].to_sym
+      tab.position      = body_settings[:position].to_sym
       tab.bold_headings = body_settings[:bold_header]
 
       data = Array.new
       @people.each do |person|
-        email = format_fields(person.primary_email, person.secondary_email)
-        phone = format_fields(person.primary_phone, person.secondary_phone)
-        website = format_fields(person.primary_website, person.secondary_website)
-        address = person.primary_address.formatted_value
+        if(!person.primary_email.nil?)
+          email_p=person.primary_email.address
+        end
+        if(!person.secondary_email.nil?)
+          email_s=person.secondary_email.address
+        end
+         if(!person.primary_phone.nil?)
+          phone_p=person.primary_phone.value
+        end
+        if(!person.secondary_phone.nil?)
+          phone_s=person.secondary_phone.value
+        end
+        if(!person.primary_website.nil?)
+          website_p=person.primary_website.value
+        end
+        if(!person.secondary_website.nil?)
+          website_s=person.secondary_website.value
+        end
+        email = format_fields(email_p, email_s)
+        phone = format_fields(phone_p, phone_s)
+        website = format_fields(website_p, website_s)
+        address = (person.primary_address.nil?) ? "" : person.primary_address.formatted_value
 
         data_row = Hash.new
         OutputPdf::PERSONAL_REPORT_FORMAT[format].each_key do |i|
@@ -180,20 +198,26 @@ module OutputPdf
             data_row[i] = (person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]).nil?) ? "" : person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]).name
           else
             case i
-            when "Address" then data_row[i] = address
-            when "Phone" then data_row[i] = phone
-            when "Email" then data_row[i] = email
-            when "Website" then data_row[i] = website
+            when "address" then data_row[i] = address
+            when "phone" then data_row[i] = phone
+            when "email" then data_row[i] = email
+            when "website" then data_row[i] = website
             else data_row[i] = person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i])
             end
             
           end
         end
+
+          data << data_row
       end
+      puts "*************#{data}*********************"
 
       tab.data.replace data
+      puts "*************#{tab.data}*********************"
       tab.render_on(pdf)
     end
+  
+
   end
 
 
