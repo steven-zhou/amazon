@@ -20,8 +20,8 @@ module OutputPdf
       "phone" => "phone",
       "website" => "website"}}
 
-  PERSON_DEFAULT_FORMAT = {"id" => "id", "address" => "address",
-    "email" => "email", "phone" => "phone", "website" => "website"}
+  PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
+    {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
                           
 
   # The difference between report and non_report is with/without format
@@ -400,19 +400,21 @@ module OutputPdf
 
     PDF::SimpleTable.new do |tab|
       if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
+        tab.column_order.push("id")
         QueryHeader.find(source_id.to_i).query_selections.each do |i|
           tab.column_order.push("#{i.field_name}")
         end
+        tab.columns["id"] = PDF::SimpleTable::Column.new("id") {|col| col.heading = "ID"}
         QueryHeader.find(source_id.to_i).query_selections.each do |i|
           tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.humanize}"}
         end
       else
-        OutputPdf::PERSON_DEFAULT_FORMAT.each_key do |i|
-          tab.column_order.push("#{OutputPdf::PERSON_DEFAULT_FORMAT[i].downcase}")
+        OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
+          tab.column_order.push("#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}")
         end
 
-        OutputPdf::PERSON_DEFAULT_FORMAT.each_key do |i|
-          tab.columns["#{OutputPdf::PERSON_DEFAULT_FORMAT[i].downcase}"] = PDF::SimpleTable::Column.new("#{OutputPdf::PERSON_DEFAULT_FORMAT[i].downcase}") { |col| col.heading = "#{i}"}
+        OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
+          tab.columns["#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}"] = PDF::SimpleTable::Column.new("#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}") { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
         end
       end
 
@@ -439,23 +441,34 @@ module OutputPdf
         address = (person.primary_address.nil?) ? "" : person.primary_address.formatted_value
 
         data_row = Hash.new
-        OutputPdf::PERSON_DEFAULT_FORMAT.each_key do |i|
-          if (i.include?("FK"))
-            data_row[i] = (person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i]).nil?) ? "" : "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i]).name}"
-          else
-            case i
-            when "address" then data_row[i] = "#{address}"
-            when "phone" then data_row[i] = "#{phone}"
-            when "email" then data_row[i] = "#{email}"
-            when "website" then data_row[i] = "#{website}"
-            else data_row[i] = "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i])}"
+        if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
+          data_row["id"] = "#{person.id}"
+          QueryHeader.find(source_id.to_i).query_selections.each do |i|
+            if i.is_foreign_key
+              data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
+            else
+              data_row["#{i.field_name}"] = person.__send__(i.field_name)
             end
+          end
+        else
+          OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
+            if (OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0].include?("FK"))
+              data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = (person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]).nil?) ? "" : "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]).name}"
+            else
+              case OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]
+              when "address" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{address}"
+              when "phone" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{phone}"
+              when "email" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{email}"
+              when "website" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{website}"
+              else data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0])}"
+              end
 
+            end
           end
         end
+        
         data << data_row
       end
-      puts "*********************#{data.to_yaml}*****************************99"
       tab.data.replace data
       tab.render_on(pdf)
     end
@@ -511,6 +524,7 @@ module OutputPdf
     #        tab.data.replace data
     #        tab.render_on(pdf)
     #      end
+
   end
 
 
