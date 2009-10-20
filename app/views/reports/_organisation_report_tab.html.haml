@@ -6,17 +6,15 @@
           =tag_type.label :list, 'Select Lists'
           %select{:id => "organisation_report_list", :disabled => (@list_headers.blank?), :name => "organisation_list_header_id", :class => "clear_select"}
             %option{:selected => "selected"}
-            - @list_headers.each do |r|
-              %option{:value => "list_#{r.id}"} List_#{r.name}
-            - @query.each do |i|
-              %option{:value => "query_#{i.id}"} Query_#{i.name}
+            %option{:value => "All Organisation"} All Organisation
+           
       .field_30
-        %div#organisation_report_format
+        %div#organisation_report_format{:style => "display:none;"}
           =tag_type.label :format, 'Report Format'
           =tag_type.select(:organisation_requested_format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""}, :class => "clear_select")
       .field_30{:style => "float:right;"}
         %label &nbsp;
-        = button_to_function 'Generate', :style => "width:75px;", :id => "organisation_report_submit_button"
+        = button_to_function 'Generate', :style => "width:75px;display:none", :id => "organisation_report_submit_button"
     %br
   .form_line
     .field_30
