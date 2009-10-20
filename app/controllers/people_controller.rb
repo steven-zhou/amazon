@@ -445,15 +445,45 @@ class PeopleController < ApplicationController
         @personal_check_field << i.field_name
       end
     end
-
+ 
+     
     if(params[:current_operation] == "edit_list")
+       @postcodes = DomesticPostcode.find(:all)
+      @current_action = "edit"
+       @address = Address.new
+    @phone = Phone.new
+    @email = Email.new
+    @fax = Fax.new
+    @website = Website.new
+    @masterdoc = MasterDoc.new
+    @relationship = Relationship.new
+    @employment = Employment.new
+    @note = Note.new
+    @image = @person.image unless (@person.nil? || @person.image.nil?)
+    @role = Role.new
+    @person_role = PersonRole.new
+    @person_group = PersonGroup.new
       render 'show_edit_left.js'
 
     else
-
+       @primary_phone = @person.primary_phone
+    @primary_email = @person.primary_email
+    @primary_fax = @person.primary_fax
+    @primary_website = @person.primary_website
+    @primary_address = @person.primary_address
+    @primary_employment = @person.primary_employment
+    @other_phones = @person.other_phones
+    @other_emails = @person.other_emails
+    @other_faxes = @person.other_faxes
+    @other_websites = @person.other_websites
+    @other_addresses = @person.other_addresses
+    @notes = @person.notes
+    @person_role = @person.person_roles
+      @current_action = "show"
       respond_to do |format|
         format.js
       end
+#    redirect_to :action => "show", :id => @person.id
     end
 
 

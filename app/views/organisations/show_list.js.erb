@@ -1,4 +1,4 @@
-$('#right_content').html('<%= escape_javascript(render(:partial => "/organisations/search_list_results", :locals =>{:organisations => @organisations, :current_operation => @current_operation })) %>');
+$('#show_organisation_list_grid').html('<%= escape_javascript(render(:partial => "/organisations/search_list_results", :locals =>{:organisations => @organisations, :current_operation => @current_operation })) %>');
 
 $(function(){
 $("#search_organisations_list_results").flexigrid(
@@ -34,3 +34,15 @@ width: 'auto',
 height: 'auto'
 });
 });
+
+
+$('#show_organisation_list_grid').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  width: 600,
+  buttons: {
+  }
+});
+
+$('#show_organisation_list_grid').dialog('open');

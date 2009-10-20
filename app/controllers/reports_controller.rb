@@ -94,6 +94,54 @@ class ReportsController < ApplicationController
 
   end
 
+  def organisation_contacts_report_grid
+
+    @organisation_report_format = params[:request_format]
+
+    @organisation_report_list = Organisation.find(:all, :order => "id")
+
+    if(@organisation_report_format == "Contact Report")
+
+      OgansisationContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+      @organisation_report_list.each do |o|
+        @ocr = OgansisationContactsReportGrid.new #oganisation contact report
+        @ocr.login_account_id = session[:user]
+        @ocr.grid_object_id = o.id
+        @ocr.field_1 = o.full_name
+        @ocr.field_2 = o.registered_name
+        @ocr.field_3 = o.primary_email.address unless o.primary_email.blank?
+        #      @ocr.field_3 = o.primary_address.first_line unless o.primary_address.blank?
+        #      @ocr.field_4 = o.primary_phone.value unless o.primary_phone.blank?
+        #      @ocr.field_5 = o.primary_email.address unless o.primary_email.blank?
+        if (!(o.secondary_email.blank?))
+          @ocr.field_3+="<br>"+ o.secondary_email.address
+        end
+        @ocr.field_4 = o.primary_phone.value unless o.primary_phone.blank?
+        if (!(o.secondary_phone.blank?))
+          @ocr.field_4+="<br>"+ o.secondary_phone.value
+        end
+        @ocr.field_5 = o.primary_website.value unless o.primary_website.blank?
+        if (!(o.secondary_website.blank?))
+          @ocr.field_5+="<br>"+ o.secondary_website.value
+        end
+          @ocr.field_6 = o.primary_address.first_line unless o.primary_address.blank?
+        if (!(o.primary_address.blank?))
+          @ocr.field_6+="<br>"+ o.primary_address.second_line
+        end
+
+        @ocr.save
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+
+      
+  end
+
 
 
   def generate_report

@@ -62,6 +62,10 @@ class Address < ActiveRecord::Base
   def third_line
     "#{self.state} #{self.postal_code} #{self.country_short_name}".squeeze(" ").strip
   end
+
+  def formatted_value
+    "#{self.building_name} #{self.suite_unit} #{self.street_number} #{self.street_name} #{self.town} #{self.district} #{self.region} #{self.state} #{self.postal_code} #{self.country_short_name}".squeeze(" ").strip
+  end
   
   #--
   ###################

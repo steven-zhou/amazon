@@ -37,6 +37,7 @@ class DataManagersController < ApplicationController
 
     respond_to do |format|
       format.html {render 'data_managers/export.html'}
+      format.pdf {send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
       format.xml {send_data((render 'data_managers/export.rxml'), :filename => "export.xml", :type => "text/xml")}
       format.csv {send_data((render 'data_managers/export.html'), :filename => "export.csv", :type => "text/csv")}
     end
