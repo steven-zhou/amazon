@@ -1,14 +1,25 @@
-=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
-%h3{:style => "display:inline;"} System Setting
-=link_to('System Management', :controller => "administrations", :action => "system_management")
-=link_to('Query/List', :controller => "administrations", :action => "list_management")
-=link_to('Duplication Formula', :controller => "administrations", :action => "duplication_formula")
-#tabs{:style => "width:96%;"}
-  = render :partial => 'system_setting_menu'
-  #SystemData
-    = render :partial => '/amazon_settings/system_data'
+#header
+  #page_title
+    %h1 Role Manager
+  #lol
+    %br.clear
 
-  #TagSetting
-    = render :partial => '/tag_settings/tag_tab'
-
-
+#content_full_page
+  .container
+    %h2{:style => "display:inline;"} Select Role Type:
+    = collection_select :role,:role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "show_role clear_select", :style => "display:inline;width:20%;"}
+    %br
+    %br
+   
+    %div#role_main_contents.hidden
+      .container#new_role_bar
+        .options
+          = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role", :id => "close_role", :style => "display:none;", :field => "role"
+        .title
+          = link_to_function image_tag('add_icon.png'), :class => "toggle_button new_option add_flag", :toggle_id_name => "downside", :flag_name => "role", :field => "role"
+          &nbsp
+        %h2 Add Role
+        %input{:id => "role_mode", :style=> "display:none;", :mode => "show"}
+        %div#downside.hidden
+          = render :partial => '/roles/roles_original_form'
+          %br{ :style=>"clear: both;"}

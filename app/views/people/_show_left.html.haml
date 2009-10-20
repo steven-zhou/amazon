@@ -1,106 +1,115 @@
-#left_content
-  %div#photo_info
-    %div#imageshow{:style => "float:left;"}
-      -if @person.image.nil?
-        = image_tag 'no_photo.jpeg', :class => "medium"
-      -else
-        = image_tag(image_path(@person.image.id), :class => "small")
-
-
-    %div#person_name
-      - if @person.id.nil?
-        %h1{:style=>'visibility:hidden'} Hidden
-      -else
-        %h1= h "#{@person.name}"
-      %br
-      .form_line
-        = label_tag 'custom_id', 'Custom ID'
-        %span=@person.custom_id
-      .form_line
-        = label_tag 'onrecord_since', 'On Record Since'
-        %span=@person.onrecord_since.to_s
-      %br
-
-
-      -#%div#more_name_details{:style => 'display:none'}
-        .form_line
-          .field_20
-            = label_tag 'title', 'Title'
-            = text_field_tag 'title', @person.title_id, {:readonly => true}
-          .field_40
-            = label_tag 'first_name', 'First Names'
-            = text_field_tag 'first_name', @person.first_name, {:readonly => true}
-          .field_40
-            = label_tag 'family_name', 'Family Name'
-            = text_field_tag 'family_name', @person.family_name, {:readonly => true}
-          %br.clear
-        .form_line
-          .field_20
-            = label_tag 'second_title', 'Second Title'
-            = text_field_tag 'second_title', @person.second_title_name, {:readonly => true}
-          .field_40
-            = label_tag 'middle_name', 'Middle Name'
-            = text_field_tag 'middle_name', @person.middle_name, {:readonly => true}
-          .field_40
-            = label_tag 'maiden_name', 'Maiden Name'
-            = text_field_tag 'middle_name', @person.maiden_name, {:readonly => true}
-          %br.clear
-        .form_line
-          .field_20
-            = label_tag 'initials', 'Initials'
-            = text_field_tag 'initials', @person.initials, {:readonly => true}
-          .field_40
-            = label_tag 'post_title', 'Post Name'
-            = text_field_tag 'post_title', @person.post_title, {:readonly => true}
-          .field_40
-            = label_tag 'preferred_name', 'Preferred Name'
-            = text_field_tag 'preferred_name', @person.preferred_name, {:readonly => true}
-          %br.clear
-      -#%span.details
-        = link_to_function 'more details', :class => 'toggle_more', :toggle_more_id => 'more_name_details', :alt_text => 'hide details'
-  .container
-    %h1 Primary Contacts
-    .container
-      Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_phone.nil? ? "None assigned": @primary_phone.number
-    .container
-      Website &nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_website.nil? ? "None assigned": @primary_website.value
-    .container
-      Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      = @primary_email.nil? ? "None assigned": @primary_email.value
-
-  .container
-    %h1= @primary_address.nil? ? "Primary Address" : "Primary Address"
-    = format_address(@primary_address) unless @primary_address.nil?
-
-
-  .container
-    %h1 Notes
-    .container
-      %div{:style => "float:left;"}
-        = @person.notes.blank? ? "No Notes": @person.notes.first.id
-        = @person.notes.first.note_type.name unless @person.notes.blank?
-      %div{:style => "float:right;"}
-        = show_date(@person.notes.first.created_at)unless @person.notes.blank?
-        \-
-        = @person.notes.first.label unless @person.notes.blank?
-        = @person.notes.first.short_description unless @person.notes.blank?
+#content_container
+  #header
+    #page_title
+      %h1 Person Profile
+    #lol
+      = render :partial => "people/list_menu"
       %br.clear
+  #left_content
+    %div#photo_info
+      %div#imageshow{:style => "float:left;"}
+        -if @person.image.nil?
+          = image_tag 'no_photo.jpeg', :class => "small"
+        -else
+          = image_tag(image_path(@person.image.id), :class => "small")
+
+
+      %div#person_name
+        - if @person.id.nil?
+          %h1{:style=>'visibility:hidden'} Hidden
+        -else
+          %h1= h "#{@person.name}"
+        %br
+        .form_line
+          = label_tag 'custom_id', 'Custom ID'
+          %span=@person.custom_id
+        .form_line
+          = label_tag 'onrecord_since', 'On Record Since'
+          %span=@person.onrecord_since.to_s
+        %br
+
     .container
-      %div{:style => "float:left;"}
-        = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
-        = @person.notes.second.note_type.name unless @person.notes.second.blank?
+      %h1 Primary Contacts
+      .container
+        Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_phone.nil? ? "None assigned": @primary_phone.number
+      .container
+        Website &nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_website.nil? ? "None assigned": @primary_website.value
+      .container
+        Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        = @primary_email.nil? ? "None assigned": @primary_email.value
 
-      %div{:style => "float:right;"}
-        = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
-        \-
-        = @person.notes.second.label unless @person.notes.second.blank?
-        = @person.notes.second.short_description unless @person.notes.second.blank?
-      %br.clear
+    .container
+      %h1= @primary_address.nil? ? "Primary Address" : "Primary Address"
+      = format_address(@primary_address) unless @primary_address.nil?
+
+
+    .container
+      %h1 Notes
+      .container
+        %div.left
+          = @person.notes.blank? ? "No Notes": @person.notes.first.id
+          = @person.notes.first.note_type.name unless @person.notes.blank?
+        %div.right
+          = show_date(@person.notes.first.created_at)unless @person.notes.blank?
+          \-
+          = @person.notes.first.label unless @person.notes.blank?
+          = @person.notes.first.short_description unless @person.notes.blank?
+        %br.clear
+      .container
+        %div.left
+          = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
+          = @person.notes.second.note_type.name unless @person.notes.second.blank?
+
+        %div.right
+          = show_date(@person.notes.second.created_at)unless @person.notes.second.blank?
+          \-
+          = @person.notes.second.label unless @person.notes.second.blank?
+          = @person.notes.second.short_description unless @person.notes.second.blank?
+        %br.clear
 
 
 
-  .container
-    %h1 Employment
-    = format_employment(@primary_employment) unless @primary_employment.nil?
+    .container
+      %h1 Employment
+      = format_employment(@primary_employment) unless @primary_employment.nil?
+
+
+
+  #right_content
+    #photo_info
+    .container_icon{:align => 'center'}
+      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info"
+    .container_icon{:align => 'center', :class => "container_icon_color"}
+      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
+
+
+
+
+    .container#person_info{:style=>"display:none"}
+      = render :partial => 'person_info'
+
+    .container#business_info
+      .container
+        %h2 Membership
+        %span Member Since: 200411111
+        %br
+        %span Number of Dependents: 2
+        %br
+        %span Membership Status: Active
+
+      .container
+        %h2 Events
+        %span Last Events:Xmas 2008 - at the Lake
+        %br
+        %span Number of Attended Events: 14
+        %br
+        %span Interested in: Family Events
+      .container
+        %h3 Case Management
+        %span Open Cases: None
+        %span Close Cases: 5
+  %br.clear
+
+

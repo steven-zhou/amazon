@@ -6,11 +6,32 @@
   <% if @person.new_record? %>
     $('#login_name_container_0').html("Invalid ID")
     $('.user_email_new').val('')
+          $('#user_group_person_check').dialog( {
+      modal: true,
+      draggable: true,
+      buttons: {
+      Ok: function() {
+      $(this).dialog('close');
+      }
+      }
+      });
+      $('#user_group_person_check').dialog('open');
 
   <%else%>
     <% if y.blank? %>
       $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
       $('.user_email_new').val("<%=escape_javascript("#{@primary_email}")%>")
+        $('#user_group_wrong_login_id').dialog( {
+      modal: true,
+      draggable: true,
+      buttons: {
+      Ok: function() {
+      $(this).dialog('close');
+      }
+      }
+      });
+      $('#user_group_wrong_login_id').dialog('open');
+
     <%else%>
 
       $('#person_check').dialog( {

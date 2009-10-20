@@ -1,0 +1,2 @@
+class OgansisationContactsReportGrid < Grid
+end

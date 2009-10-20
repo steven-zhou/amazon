@@ -218,6 +218,7 @@ $(function(){
         });      
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
+        
     });
 });
 
@@ -711,13 +712,15 @@ $(function(){
                 url: "/roles/show_roles.js",
                 data: 'role_type_id='+$(this).val(),
                 dataType: "script"
+
             });
+
+            $('#role_main_contents').show();
         }else{
 
             $("#downside").html("");
-            $("#role_type_description_label").html('')
-
-
+            $("#role_type_description_label").html('');
+             $('#role_main_contents').hide();
         }
     });
 });
@@ -1051,7 +1054,7 @@ $(function(){
     $("#add_user").live('click', function(){
         $(this).hide();
         $(".user_clear_form").click();
-        $(".show_user_container").hide();
+        //$(".show_user_container").hide();
         $("#close_new_account").show();
     });
 });
@@ -1195,19 +1198,21 @@ $(function(){
 
 
 
-$(function(){
-    $(".edit_login_account").live('click', function(){
 
-   
-       
-        //        $.ajax({
-        //            type: "GET",
-        //            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-        //            data:'id='+$(this).attr('login_account_id'),
-        //            dataType: "script"
-        //        });
-        });
-});
+//$(function(){
+//    $(".edit_login_account").live('click', function(){
+//
+//
+//
+//        $.ajax({
+//            type: "GET",
+//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+//            data:'id='+$(this).attr('login_account_id'),
+//            dataType: "script"
+//        });
+//    });
+//});
+
 
 
 $(function(){
@@ -2545,6 +2550,78 @@ $(function(){
 });
 
 
+
+/*user_group  new design*/
+
+$(function(){
+    $('#user_group_edit_button').live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+
+        $.ajax({
+              type:'GET',
+              url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+              data: "group_type_id="+$(this).attr('group_type_id'),
+              dataType:"script"
+
+        });
+    });
+});
+
+$(function(){
+
+    $('.add_flag').live('click', function(){
+        $(this).css('display', 'none');
+        $('#close_'+ $(this).attr('flag_name')).css('display', '');
+    });
+});
+
+
+$(function(){
+    $('.close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#add_'+$(this).attr('flag_name')).css('display', '');
+       $('#new_'+$(this).attr('flag_name')).toggle('blind');
+
+    });
+   
+});
+
+$(function(){
+    $('.user_name_to_person').live('change', function(){
+        if($(this).val()!= ""){
+          $.ajax({
+              type: "GET",
+              url: "/user_groups/user_name_to_person.js",
+              data: 'user_name='+$(this).val(),
+              dataType:"script"
+          });
+        }else{
+             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+        }
+       
+    });
+});
+
+//
+//
+//$(function(){
+//    $(".check_username_unique").live('change', function(){
+//        if($(this).val()!= ""){
+//            $.ajax({
+//                type: "GET",
+//                url: "/login_accounts/user_name_unique.js",
+//                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
+//                dataType:"script"
+//            });
+//        }else{
+//            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+//        }
+//    });
+//});
+
+
+
 /*organisation info tab*/
 $(function(){
     $('.active_organisation_info_tab').live('click',function(){
@@ -2562,4 +2639,22 @@ $(function(){
         var source_id = $("#source_id").val();
         window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
     });
+});
+
+
+/* Reporting*/
+$(function(){
+    $('#report_person_pdf_submit_button').live('click', function(){
+
+       window.open("/reports/generate_person_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+    });
+
+});
+
+$(function(){
+    $('#report_organisation_pdf_submit_button').live('click', function(){
+
+       window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+    });
+
 });

@@ -36,7 +36,7 @@ $(function() {
         $(this).addClass('close_image');
     });
 
-    $(".show_hide_button").click(function(){
+    $(".show_hide_button").live('click', function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
         $(".container_icon").removeClass("container_icon_color");
@@ -70,9 +70,10 @@ $(function() {
 
    
     $(".clear_form").click(function(){
-        $('#'+$(this).parents("form").get(0).id)[0].reset();
-                
-    })
+
+       if(confirm("Are you sure?","Warning","Yes","No",3))
+          {$('#'+$(this).parents("form").get(0).id)[0].reset();}           
+    });
 
 
    

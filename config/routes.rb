@@ -70,7 +70,7 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :login_accounts, :collection => {:user_name_unique => :get}
-  map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get}
+  map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get, :user_name_to_person => :get}
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
@@ -82,7 +82,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
-  map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post, :person_contacts_report_grid => :get}
+  map.resources :reports, :collection => {:generate_report => :post, :generate_organisation_report_pdf => :get,:generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
                                     :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
 
-                                    :show_other_group_organisations_grid => :get, :show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
+                                    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
   
 
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}

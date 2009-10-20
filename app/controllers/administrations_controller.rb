@@ -32,6 +32,8 @@ class AdministrationsController < ApplicationController
 
 
   def roles_management
+
+    @role = Role.new
     respond_to do |format|
       format.html
     end
@@ -67,6 +69,7 @@ class AdministrationsController < ApplicationController
 
   def security_groups
     @security_groups = GroupMetaMetaType.find_by_name("Security")
+
     respond_to do |format|
       format.html
     end
@@ -80,6 +83,16 @@ class AdministrationsController < ApplicationController
 
 
   def user_groups
+
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+   
+    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    
+#    @login_account = LoginAccount.find(params[:login_account_id])
+#    @groups = @login_account.group_types
+
+
+
     respond_to do |format|
       format.html
     end
@@ -188,11 +201,6 @@ class AdministrationsController < ApplicationController
   end
 
 
-  def user_groups
-    respond_to do |format|
-      format.html
-    end
-  end
 
  def user_lists
 

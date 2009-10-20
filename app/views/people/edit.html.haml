@@ -1,50 +1,52 @@
-#header
-  #page_title
-    %h1 Edit Person
-  #lol
-    = render :partial => "/people/list_menu"
-    %br.clear
-#left_content
-  - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
-    .container
-      = p.text_field :custom_id
-      %h1 Custom ID
+#edit_content_container
+  #header
+    #page_title
+      %h1 Edit Person
+    #lol
+      = render :partial => "/people/list_menu"
+      %br.clear
+  #left_content
+    - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
+      .container
+        = p.text_field :custom_id
+        %h1 Custom ID
 
-    .container
-      %h1 Name Details
-      = render :partial => 'person_name_fields', :locals => {:p => p}
-      %input.hidden{:id => :person_id, :value => @person.id}
-    .container
-      %h1 Personal Details
-      = render :partial => 'person_details_fields', :locals => {:p => p}
-    .container
-      %h1{:style=>"float:left"} Picture
-      = render :partial => '/images/show_photo', :locals => {:entity => @person}
-    = submit_tag 'Submit and Close', :style => 'float:right;'
-    = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
+      .container
+        %h1 Name Details
+        = render :partial => 'person_name_fields', :locals => {:p => p}
+        %input.hidden{:id => :person_id, :value => @person.id}
+      .container
+        %h1 Personal Details
+        = render :partial => 'person_details_fields', :locals => {:p => p}
+      .container
+        %h1{:style=>"float:left"} Picture
+        = render :partial => '/images/show_photo', :locals => {:entity => @person}
+      = submit_tag 'Submit and Close', :style => 'float:right;'
+      = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
     
 
-#right_content
-  #tabs
-    = render :partial => 'person_menu'
-    #Address
-      = render :partial => "/addresses/addresses_tab",:locals =>{:person => @person}
-    #Contact
-      = render :partial => "/contacts/contacts_tab", :locals => {:person => @person}
-    #Keyword
-      = render :partial => "/keywords/keywords_tab",:locals =>{:person => @person}
-    #MasterDocs
-      = render :partial => "/master_docs/masterdocs_tab", :locals =>{:person => @person}
-    #Rels
-      = render :partial => "/relationships/relationships_tab", :locals  => {:person  => @person}
-    #Note
-      = render :partial => "/notes/notes_tab",:locals =>{:person => @person}
-    #Role
-      = render :partial => "/person_roles/person_roles_tab",:locals =>{:person => @person}
-    #Employment
-      = render :partial => "/employments/employments_tab",:locals =>{:person => @person}
-    #Group
-      = render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
+  #right_content
+    #tabs
+      = render :partial => 'person_menu'
+      #Address
+        = render :partial => "/addresses/addresses_tab",:locals =>{:person => @person}
+      #Contact
+        = render :partial => "/contacts/contacts_tab", :locals => {:person => @person}
+      #Keyword
+        = render :partial => "/keywords/keywords_tab",:locals =>{:person => @person}
+      #MasterDocs
+        = render :partial => "/master_docs/masterdocs_tab", :locals =>{:person => @person}
+      #Rels
+        = render :partial => "/relationships/relationships_tab", :locals  => {:person  => @person}
+      #Note
+        = render :partial => "/notes/notes_tab",:locals =>{:person => @person}
+      #Role
+        = render :partial => "/person_roles/person_roles_tab",:locals =>{:person => @person}
+      #Employment
+        = render :partial => "/employments/employments_tab",:locals =>{:person => @person}
+      #Group
+        = render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
 
-%br.clear
-  #personal_check_duplication
+  %br.clear
+    #personal_check_duplication
+    #show_list_grid

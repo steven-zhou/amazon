@@ -79,12 +79,21 @@ class Organisation < ActiveRecord::Base
     @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end
 
+
   def primary_phone
     @primary_phone ||= self.phones.select {|phone| phone.priority_number == 1}.first
   end
 
+  def secondary_phone
+    @secondary_phone ||= self.phones.select {|phone| phone.priority_number == 2}.first
+  end
+
   def primary_email
     @primary_email ||= self.emails.select {|email| email.priority_number == 1}.first
+  end
+
+   def secondary_email
+    @secondary_email ||= self.emails.select {|email| email.priority_number == 2}.first
   end
 
   def primary_fax
@@ -94,7 +103,9 @@ class Organisation < ActiveRecord::Base
   def primary_website
     @primary_website ||= self.websites.select {|website| website.priority_number == 1}.first
   end
-
+ def secondary_website
+    @secondary_website ||= self.websites.select {|website| website.priority_number == 2}.first
+  end
   def other_phones
     @other_phones = self.phones.select {|phone| phone.priority_number != 1}
   end
