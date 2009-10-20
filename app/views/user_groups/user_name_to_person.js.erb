@@ -1,0 +1,38 @@
+<%if @login_account.nil?%>
+  $('#login_name_container_0').html("Invalid ID");
+  $('#user_group_wrong_login_id').dialog( {
+  modal: true,
+  draggable: true,
+  buttons: {
+  Ok: function() {
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#user_group_wrong_login_id').dialog('open');
+  $('#user_name_id').val('');
+
+
+<%else%>
+  <%if @person.nil?%>
+
+   $('#login_name_container_0').html("This LoginAccount's person information has been delete");
+   $('#user_group_person_check').dialog( {
+      modal: true,
+      draggable: true,
+      buttons: {
+      Ok: function() {
+      $(this).dialog('close');
+      }
+      }
+      });
+      $('#user_group_person_check').dialog('open');
+       $('#user_name_id').val('')
+
+  <%else%>
+  $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>");
+  $('#user_name_id').val("<%=escape_javascript("#{@login_account.id}")%>");
+
+  <%end%>
+
+<%end%>

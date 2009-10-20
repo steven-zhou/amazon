@@ -2632,6 +2632,41 @@ $(function(){
    
 });
 
+$(function(){
+    $('.user_name_to_person').live('change', function(){
+        if($(this).val()!= ""){
+          $.ajax({
+              type: "GET",
+              url: "/user_groups/user_name_to_person.js",
+              data: 'user_name='+$(this).val(),
+              dataType:"script"
+          });
+        }else{
+             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+        }
+       
+    });
+});
+
+//
+//
+//$(function(){
+//    $(".check_username_unique").live('change', function(){
+//        if($(this).val()!= ""){
+//            $.ajax({
+//                type: "GET",
+//                url: "/login_accounts/user_name_unique.js",
+//                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
+//                dataType:"script"
+//            });
+//        }else{
+//            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+//        }
+//    });
+//});
+
+
+
 /*organisation info tab*/
 $(function(){
     $('.active_organisation_info_tab').live('click',function(){

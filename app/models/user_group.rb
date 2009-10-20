@@ -10,7 +10,7 @@ class UserGroup < ActiveRecord::Base
 
   validates_presence_of :user_id
   validates_presence_of :group_id
-  before_save :login_account_check, :person_check
+#  before_save :login_account_check, :person_check
 
 
   validates_uniqueness_of :user_id, :scope => :group_id
@@ -19,14 +19,11 @@ class UserGroup < ActiveRecord::Base
 
   private
 
-  def login_account_check
-    errors.add(:user_id, "invalid login_account") if (user_id && LoginAccount.find_by_id(user_id).nil?)
-   
-  end
+  
 
-  def person_check
-       errors.add(:user_id, "invalid person_id") if (user_id && Person.find_by_id(user_id).nil?)
-
-  end
+#  def person_check
+#       errors.add(:user_id, "invalid user_name") if (user_id && Person.find_by_id(user_id).nil?)
+#
+#  end
 
 end
