@@ -73,10 +73,10 @@
         Users
         %ul
           %li{:id => action == "user_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Accounts", :controller => "administrations", :action => "user_accounts"
+            = link_to "#{image_tag('icon_holder.png')} User Account", :controller => "administrations", :action => "user_accounts"
           %li{:id => action == "user_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Groups", :controller => "administrations", :action => "user_groups"
+            = link_to "#{image_tag('icon_holder.png')} User Group", :controller => "administrations", :action => "user_groups"
           %li{:id => action == "user_lists" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Lists", :controller => "administrations", :action => "user_lists"
+            = link_to "#{image_tag('icon_holder.png')} User List", :controller => "administrations", :action => "user_lists"
 
     .bottom

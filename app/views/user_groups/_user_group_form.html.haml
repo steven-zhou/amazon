@@ -1,0 +1,69 @@
+.container_edit.container
+  .options
+    -#= link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_user_group_form", :class =>  "close_option", :field => "user_group")
+  .options_left{:style => "margin-right:10px;"}
+    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+  %h3 Edit
+  %br
+.container
+  .container{:style => "padding:1.5% 1% 1.5% 1%;margin-left:10px;"}
+    %div#add_user_to_group
+      .options
+        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_group", :id => "close_user_group", :style => "display:none;", :field => "user_group"
+      .title
+        = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_groups", :flag_name => "user_group", :field => "user_group"
+        &nbsp
+      %h1 Add User
+    %input{:id => "user_group_mode", :mode => "show", :style => "display:none"}
+
+    %div#new_user_groups{:style => "display:none"}
+      -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
+        .form_line{:style => "float:none"}
+          .field_10
+            = user_group.label :user_id, 'system_id'
+            %input{:name => "user_group[perosn_id]", :class => "check_login_id", :login_account_id => 0}       
+          .field_20
+            %label &nbsp
+            %span{:id => "login_name_container_0"}
+          .field_20
+            %label &nbsp
+            %input{:name => "user_group[group_id]", :value => "#{@group.id}", :class => "hidden"}
+            
+          .field_20{:style => "float:right"}
+            %label &nbsp
+            = link_to_function 'clear', :class => "alt_option"
+            = submit_tag 'Submit'
+
+  %div#user_group_user
+    - for i in @user_groups
+      - status = i.login_account.login_status ? "container_active" : "container_inactive"
+      -div_for(i, :class => "#{status} half_container toggle_options" , :id => "existing_user_in_group", :login_account_id => i.login_account.id, :field => "user_group") do
+        .options{:style => "display:none"}
+          = link_to image_tag('delete_icon.png'), user_group_path(i), :class => 'delete delete_flag',:id => 'delete_user_group'
+        .title
+          = i.login_account.person_id
+          \-
+          = i.login_account.user_name
+
+
+
+  %div#user_group_wrong_login_id{:style => "display:none;"}
+    %span This person do not have login_account yet
+
+  %div#user_group_person_check{:style => "display:none;"}
+    %span This person not exist in our system
+ 
+      
+
+
+
+
+
+
+
+
+
+
+
+
+

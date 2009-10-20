@@ -759,13 +759,15 @@ $(function(){
                 url: "/roles/show_roles.js",
                 data: 'role_type_id='+$(this).val(),
                 dataType: "script"
+
             });
+
+            $('#role_main_contents').show();
         }else{
 
             $("#downside").html("");
-            $("#role_type_description_label").html('')
-
-
+            $("#role_type_description_label").html('');
+             $('#role_main_contents').hide();
         }
     });
 });
@@ -1243,19 +1245,21 @@ $(function(){
 
 
 
-$(function(){
-    $(".edit_login_account").live('click', function(){
 
-   
-       
-        //        $.ajax({
-        //            type: "GET",
-        //            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-        //            data:'id='+$(this).attr('login_account_id'),
-        //            dataType: "script"
-        //        });
-        });
-});
+//$(function(){
+//    $(".edit_login_account").live('click', function(){
+//
+//
+//
+//        $.ajax({
+//            type: "GET",
+//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+//            data:'id='+$(this).attr('login_account_id'),
+//            dataType: "script"
+//        });
+//    });
+//});
+
 
 
 $(function(){
@@ -2593,6 +2597,41 @@ $(function(){
 });
 
 
+
+/*user_group  new design*/
+
+$(function(){
+    $('#user_group_edit_button').live('click', function(){
+
+        $.ajax({
+              type:'GET',
+              url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+              data: "group_type_id="+$(this).attr('group_type_id'),
+              dataType:"script"
+
+        });
+    });
+});
+
+$(function(){
+
+    $('.add_flag').live('click', function(){
+        $(this).css('display', 'none');
+        $('#close_'+ $(this).attr('flag_name')).css('display', '');
+    });
+});
+
+
+$(function(){
+    $('.close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#add_'+$(this).attr('flag_name')).css('display', '');
+       $('#new_'+$(this).attr('flag_name')).toggle('blind');
+
+    });
+   
+});
+
 /*organisation info tab*/
 $(function(){
     $('.active_organisation_info_tab').live('click',function(){
@@ -2611,3 +2650,4 @@ $(function(){
         window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
     });
 });
+

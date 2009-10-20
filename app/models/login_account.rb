@@ -35,6 +35,7 @@ class LoginAccount < ActiveRecord::Base
   validates_format_of :security_email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
   validates_uniqueness_of :security_email
 
+  default_scope :order => "id ASC"
 
 
   #attr_accessor :password, :password_confirmation
