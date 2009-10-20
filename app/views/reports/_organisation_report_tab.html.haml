@@ -7,7 +7,9 @@
           %select{:id => "organisation_report_list", :disabled => (@list_headers.blank?), :name => "organisation_list_header_id", :class => "clear_select"}
             %option{:selected => "selected"}
             - @list_headers.each do |r|
-              %option{:value => "#{r.id}"} #{r.name}
+              %option{:value => "list_#{r.id}"} List_#{r.name}
+            - @query.each do |i|
+              %option{:value => "query_#{i.id}"} Query_#{i.name}
       .field_30
         %div#organisation_report_format
           =tag_type.label :format, 'Report Format'

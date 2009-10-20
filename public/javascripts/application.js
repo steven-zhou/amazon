@@ -2611,3 +2611,18 @@ $(function(){
         window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
     });
 });
+
+
+/* Reporting*/
+$(function(){
+    $('#report_person_pdf_submit_button').live('click', function(){
+        $.ajax({
+            type: 'GET',
+            url: "/reports/generate_person_report_pdf.js",
+            data: 'request_format='+$('#report_requested_format').val()+'&list_header_id='+$('#report_list').val(),
+            dataType: "script"
+        });
+       
+    });
+
+});

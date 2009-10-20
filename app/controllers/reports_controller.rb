@@ -2,10 +2,12 @@ class ReportsController < ApplicationController
 
   require "pdf/writer"
   require "pdf/simpletable"
-
+  include OutputPdf
 
   def index
     @list_headers = @current_user.list_headers
+      @query = QueryHeader.saved_queries
+
   end
 
   def preview_report
@@ -47,7 +49,12 @@ class ReportsController < ApplicationController
   def person_contacts_report_grid
     @person_report_format = params[:request_format]
 
-    @person_report_list = ListHeader.find(params[:list_header_id].to_i)
+    if(params[:list_header_id].include?("list_"))
+      @list_header_id = params[:list_header_id].delete("list_")
+      @type= "List"
+      @person_report_list = ListHeader.find(@list_header_id)
+    end
+   
 
     if(@person_report_format == "Contact Report")
 
@@ -91,6 +98,27 @@ class ReportsController < ApplicationController
     respond_to do |format|
       format.js
     end
+
+  end
+
+  def generate_person_report_pdf
+#     @person_report_format = params[:request_format]
+    @person_report_format ="person_contact_report"
+    if(params[:list_header_id].include?("list_"))
+      @list_header_id = params[:list_header_id].delete("list_")
+      @type= "List"
+      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+    end
+    
+    if OutputPdf.report_format_valid(@person_report_format) && @person_report_list.nil?
+       pdf = PDF::Writer.new
+       generate_header(pdf, report_format)
+       generate_body(pdf, report_format, report_list)
+       send_data pdf.render, :filename => "#{report_format}.pdf", :type => "application/pdf"
+      
+    end
+
+
 
   end
 
