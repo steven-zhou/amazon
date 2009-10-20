@@ -392,7 +392,7 @@ module OutputPdf
         if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
           data_row["id"] = "#{person.id}"
           QueryHeader.find(source_id.to_i).query_selections.each do |i|
-            if i.is_foreign_key
+            if i.data_type.include?("Integer FK")
               data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
             else
               data_row["#{i.field_name}"] = person.__send__(i.field_name)
