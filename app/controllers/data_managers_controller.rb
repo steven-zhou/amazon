@@ -38,7 +38,9 @@ class DataManagersController < ApplicationController
       format.html {render 'data_managers/export.html'}      
       format.xml {send_data((render 'data_managers/export.rxml'), :filename => "export.xml", :type => "text/xml")}
       format.csv {send_data((render 'data_managers/export.html'), :filename => "export.csv", :type => "text/csv")}
-      format.pdf {send_data(OutputPdf.generate_pdf(@source_type, @source_id, {}, {}).render, :filename => "report.pdf", :type => "application/pdf")}
+      format.pdf {pdf = PDF::Writer.new
+                  pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+                  send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
     end
   end
 

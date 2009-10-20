@@ -1101,7 +1101,7 @@ $(function(){
     $("#add_user").live('click', function(){
         $(this).hide();
         $(".user_clear_form").click();
-        $(".show_user_container").hide();
+        //$(".show_user_container").hide();
         $("#close_new_account").show();
     });
 });
