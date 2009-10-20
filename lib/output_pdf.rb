@@ -12,13 +12,13 @@ module OutputPdf
       {"Phone" => "phone"},
       {"Website" => "website"}]}
   
-  ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => {"id" => "id",
-      "full_name" => "full_name",
-      "registered_name" => "registered_name",
-      "address" => "address",
-      "email" => "email",
-      "phone" => "phone",
-      "website" => "website"}}
+  ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => [{"id" => "id"},
+      {"full_name" => "full_name"},
+      {"registered_name" => "registered_name"},
+      {"address" => "address"},
+      {"email" => "email"},
+      {"phone" => "phone"},
+      {"website" => "website"}]}
 
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
@@ -126,16 +126,16 @@ module OutputPdf
   def self.generate_report_header(pdf, source_type, source_id, format, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
-    header_settings[:title] ||= "#{format} from #{source_type}_#{source_id}"
+    header_settings[:title] ||= "#{format} from list"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
-    header_settings[:font_size] ||= 32
+    header_settings[:font_size] ||= 18
 
 
-    pdf.image header_settings[:image], :justification => header_settings[:image_position]
+    pdf.image header_settings[:image], :justification => header_settings[:image_position].to_sym
     pdf.select_font header_settings[:font]
-    pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position]
+    pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
   end
 
   # private method - generate_personal_report_body
@@ -271,12 +271,12 @@ module OutputPdf
 
 
     PDF::SimpleTable.new do |tab|
-      OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_key do |i|
-        tab.column_order.push(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i])
+      OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_index do |i|
+        tab.column_order.push(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0])
       end
 
-      OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_key do |i|
-        tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i]) { |col| col.heading = i}
+      OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_index do |i|
+        tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]) { |col| col.heading = OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].keys[0]}
       end
 
 
@@ -319,16 +319,16 @@ module OutputPdf
 
 
         data_row = Hash.new
-        OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_key do |i|
-          if (i.include?("FK"))
-            data_row[i] = (organisation.__send__(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i]).nil?) ? "" : organisation.__send__(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i]).name
+        OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_index do |i|
+          if (OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].keys[0].include?("FK"))
+            data_row[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]] = (organisation.__send__(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]).nil?) ? "" : organisation.__send__(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]).name
           else
-            case i
-            when "address" then data_row[i] = address
-            when "phone" then data_row[i] = phone
-            when "email" then data_row[i] = email
-            when "website" then data_row[i] = website
-            else data_row[i] = organisation.__send__(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i])
+            case OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]
+            when "address" then data_row["address"] = address
+            when "phone" then data_row["phone"] = phone
+            when "email" then data_row["email"] = email
+            when "website" then data_row["website"] = website
+            else data_row[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]] = organisation.__send__(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0])
             end
 
           end
@@ -443,7 +443,7 @@ module OutputPdf
         if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
           data_row["id"] = "#{person.id}"
           QueryHeader.find(source_id.to_i).query_selections.each do |i|
-            if i.is_foreign_key
+            if i.data_type.include?("Integer FK")
               data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
             else
               data_row["#{i.field_name}"] = person.__send__(i.field_name)
@@ -471,59 +471,6 @@ module OutputPdf
       tab.data.replace data
       tab.render_on(pdf)
     end
-
-    #    PDF::SimpleTable.new do |tab|
-    #
-    #        tab.column_order.push(*%w(system_id name email phone website))
-    #
-    #        tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
-    #          col.heading = "ID"
-    #        }
-    #
-    #        tab.columns["name"] = PDF::SimpleTable::Column.new("name") { |col|
-    #          col.heading = "Name"
-    #        }
-    #
-    #        tab.columns["email"] = PDF::SimpleTable::Column.new("email") { |col|
-    #          col.heading = "Email"
-    #        }
-    #
-    #        tab.columns["phone"] = PDF::SimpleTable::Column.new("phone") { |col|
-    #          col.heading = "Phone"
-    #        }
-    #
-    #        tab.columns["website"] = PDF::SimpleTable::Column.new("website") { |col|
-    #          col.heading = "Website"
-    #        }
-    #
-    #
-    #        tab.show_lines    = :outer
-    #        tab.show_headings = true
-    #        tab.orientation   = :center
-    #        tab.position      = :center
-    #        tab.bold_headings = false
-    #
-    #        data = Array.new
-    #
-    #        @people.each do |person|
-    #          primary_e = person.primary_email.nil? ? "" : person.primary_email.address
-    #          secondary_e = person.secondary_email.nil? ? "" : person.secondary_email.address
-    #          primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
-    #          secondary_p = person.secondary_phone.nil? ? "" : person.secondary_phone.complete_number
-    #          primary_w = person.primary_website.nil? ? "" : person.primary_website.address
-    #          secondary_w = person.secondary_website.nil? ? "" : person.secondary_website.address
-    #          email = format_fields(primary_e, secondary_e)
-    #          phone = format_fields(primary_p, secondary_p)
-    #          website = format_fields(primary_w, secondary_w)
-    #
-    #          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}" }
-    #
-    #        end
-    #        puts "*********************#{data.to_yaml}*****************************99"
-    #        tab.data.replace data
-    #        tab.render_on(pdf)
-    #      end
-
   end
 
 
