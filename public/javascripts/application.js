@@ -618,6 +618,9 @@ $(function (){
 
         $(".close_tag_toggle").hide();
 
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+
     });
 });
 
