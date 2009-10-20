@@ -7,18 +7,18 @@ module OutputPdf
   PERSONAL_REPORT_FORMAT = {"person_contact_report" =>[ {"ID" => "id"},
       {"First Name" => "first_name"},
       {"Family Name" => "family_name"},
-      {"Address" => "address"},
       {"Email" => "email"},
       {"Phone" => "phone"},
-      {"Website" => "website"}]}
+      {"Website" => "website"},
+      {"Address" => "address"}]}
   
-  ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => [{"id" => "id"},
-      {"full_name" => "full_name"},
-      {"registered_name" => "registered_name"},
-      {"address" => "address"},
-      {"email" => "email"},
-      {"phone" => "phone"},
-      {"website" => "website"}]}
+  ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => [{"ID" => "id"},
+      {"Full Name" => "full_name"},
+      {"Registered Name" => "registered_name"},
+      {"Email" => "email"},
+      {"Phone" => "phone"},
+      {"Website" => "website"},
+      {"Address" => "address"}]}
 
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
@@ -126,7 +126,7 @@ module OutputPdf
   def self.generate_report_header(pdf, source_type, source_id, format, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
-    header_settings[:title] ||= "#{format} from list"
+    header_settings[:title] ||= "#{format.gsub("_"," ").titleize} from List"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
