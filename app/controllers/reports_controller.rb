@@ -110,14 +110,13 @@ class ReportsController < ApplicationController
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
     
-    if OutputPdf.report_format_valid(@person_report_format) && @person_report_list.nil?
-       pdf = PDF::Writer.new
-       generate_header(pdf, report_format)
-       generate_body(pdf, report_format, report_list)
-       send_data pdf.render, :filename => "#{report_format}.pdf", :type => "application/pdf"
-      
+    if OutputPdf.personal_report_format_valid(@person_report_format) && @person_report_list.nil?
+       pdf = OutputPdf.generate_personal_report_pdf(@type,@person_report_list, @person_report_format)
+     
     end
-
+  respond_to do |format|
+      format.pdf {send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
+    end
 
 
   end

@@ -33,10 +33,10 @@ module OutputPdf
   end
 
   #  generate personal report in pdf
-  def self.generate_personal_report_pdf(source_type, source_id, format, image, title, header_settings, body_settings)
+  def self.generate_personal_report_pdf(source_type, source_id, format)
     pdf = PDF::Writer.new
-    generate_report_header(pdf, source_type, source_id, format, image, title, header_settings)
-    generate_report_body(pdf, source_type, source_id, format, body_settings)
+    generate_report_header(pdf, source_type, source_id, format)
+    generate_report_body(pdf, source_type, source_id, format)
     return pdf
   end
 
