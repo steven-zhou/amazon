@@ -4,21 +4,21 @@ module OutputPdf
   require "pdf/simpletable"
   
   # if the field is FK(e.g. gender), the hash would be "Gender(FK)" => "gender"
-  PERSONAL_REPORT_FORMAT = {"person_contact_report" => {"ID" => "id",
-      "First Name" => "first_name",
-      "Family Name" => "family_name",
-      "Address" => "address",
-      "Email" => "email",
-      "Phone" => "phone",
-      "Website" => "website"}}
+  PERSONAL_REPORT_FORMAT = {"person_contact_report" => {"id" => "id",
+      "first_name" => "first_name",
+      "family_name" => "family_name",
+      "address" => "address",
+      "email" => "email",
+      "phone" => "phone",
+      "website" => "website"}}
   
-  ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => {"ID" => "id",
-      "Full Name" => "first_name",
-      "Registered Name" => "family_name",
-      "Address" => "address",
-      "Email" => "email",
-      "Phone" => "phone",
-      "Website" => "website"}}
+  ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => {"id" => "id",
+      "full_name" => "full_name",
+      "registered_name" => "registered_name",
+      "address" => "address",
+      "email" => "email",
+      "phone" => "phone",
+      "website" => "website"}}
 
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
@@ -180,18 +180,36 @@ module OutputPdf
         tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]) { |col| col.heading = i}
       end
 
-      tab.show_lines    = body_settings[:show_lines]
+      tab.show_lines    = body_settings[:show_lines].to_sym
       tab.show_headings = body_settings[:show_headings]
-      tab.orientation   = body_settings[:orientation]
-      tab.position      = body_settings[:position]
+      tab.orientation   = body_settings[:orientation].to_sym
+      tab.position      = body_settings[:position].to_sym
       tab.bold_headings = body_settings[:bold_header]
 
       data = Array.new
       @people.each do |person|
-        email = format_fields(person.primary_email, person.secondary_email)
-        phone = format_fields(person.primary_phone, person.secondary_phone)
-        website = format_fields(person.primary_website, person.secondary_website)
-        address = person.primary_address.formatted_value
+        if(!person.primary_email.nil?)
+          email_p=person.primary_email.address
+        end
+        if(!person.secondary_email.nil?)
+          email_s=person.secondary_email.address
+        end
+        if(!person.primary_phone.nil?)
+          phone_p=person.primary_phone.value
+        end
+        if(!person.secondary_phone.nil?)
+          phone_s=person.secondary_phone.value
+        end
+        if(!person.primary_website.nil?)
+          website_p=person.primary_website.value
+        end
+        if(!person.secondary_website.nil?)
+          website_s=person.secondary_website.value
+        end
+        email = format_fields(email_p, email_s)
+        phone = format_fields(phone_p, phone_s)
+        website = format_fields(website_p, website_s)
+        address = (person.primary_address.nil?) ? "" : person.primary_address.formatted_value
 
         data_row = Hash.new
         OutputPdf::PERSONAL_REPORT_FORMAT[format].each_key do |i|
@@ -199,20 +217,26 @@ module OutputPdf
             data_row[i] = (person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]).nil?) ? "" : person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]).name
           else
             case i
-            when "Address" then data_row[i] = address
-            when "Phone" then data_row[i] = phone
-            when "Email" then data_row[i] = email
-            when "Website" then data_row[i] = website
+            when "address" then data_row[i] = address
+            when "phone" then data_row[i] = phone
+            when "email" then data_row[i] = email
+            when "website" then data_row[i] = website
             else data_row[i] = person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i])
             end
             
           end
         end
+
+        data << data_row
       end
+      puts "*************#{data}*********************"
 
       tab.data.replace data
+      puts "*************#{tab.data}*********************"
       tab.render_on(pdf)
     end
+  
+
   end
 
   # private method - generate_organisational_report_body
@@ -256,18 +280,44 @@ module OutputPdf
         tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i]) { |col| col.heading = i}
       end
 
-      tab.show_lines    = body_settings[:show_lines]
+
+      tab.show_lines    = body_settings[:show_lines].to_sym
       tab.show_headings = body_settings[:show_headings]
-      tab.orientation   = body_settings[:orientation]
-      tab.position      = body_settings[:position]
+      tab.orientation   = body_settings[:orientation].to_sym
+      tab.position      = body_settings[:position].to_sym
       tab.bold_headings = body_settings[:bold_header]
+
 
       data = Array.new
       @organisations.each do |organisation|
-        email = format_fields(organisation.primary_email, organisation.secondary_email)
-        phone = format_fields(organisation.primary_phone, organisation.secondary_phone)
-        website = format_fields(organisation.primary_website, organisation.secondary_website)
-        address = organisation.primary_address.formatted_value
+        if(!organisation.primary_email.nil?)
+          email_p=organisation.primary_email.address
+        end
+        if(!organisation.secondary_email.nil?)
+          email_s=organisation.secondary_email.address
+        end
+        if(!organisation.primary_phone.nil?)
+          phone_p=organisation.primary_phone.value
+        end
+        if(!organisation.secondary_phone.nil?)
+          phone_s=organisation.secondary_phone.value
+        end
+        if(!organisation.primary_website.nil?)
+          website_p=organisation.primary_website.value
+        end
+        if(!organisation.secondary_website.nil?)
+          website_s=organisation.secondary_website.value
+        end
+
+        email = format_fields(email_p, email_s)
+        phone = format_fields(phone_p, phone_s)
+        website = format_fields(website_p, website_s)
+        #        if(!(organisation.primary_address.blank?))
+        #          address = organisation.primary_address.first_line + organisation.primary_address.second_line
+        #        end
+
+        address = (organisation.primary_address.nil?) ? "" : organisation.primary_address.formatted_value
+
 
         data_row = Hash.new
         OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_key do |i|
@@ -284,7 +334,9 @@ module OutputPdf
 
           end
         end
+             data << data_row
       end
+ 
 
       tab.data.replace data
       tab.render_on(pdf)
@@ -420,6 +472,59 @@ module OutputPdf
       tab.data.replace data
       tab.render_on(pdf)
     end
+
+    #    PDF::SimpleTable.new do |tab|
+    #
+    #        tab.column_order.push(*%w(system_id name email phone website))
+    #
+    #        tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
+    #          col.heading = "ID"
+    #        }
+    #
+    #        tab.columns["name"] = PDF::SimpleTable::Column.new("name") { |col|
+    #          col.heading = "Name"
+    #        }
+    #
+    #        tab.columns["email"] = PDF::SimpleTable::Column.new("email") { |col|
+    #          col.heading = "Email"
+    #        }
+    #
+    #        tab.columns["phone"] = PDF::SimpleTable::Column.new("phone") { |col|
+    #          col.heading = "Phone"
+    #        }
+    #
+    #        tab.columns["website"] = PDF::SimpleTable::Column.new("website") { |col|
+    #          col.heading = "Website"
+    #        }
+    #
+    #
+    #        tab.show_lines    = :outer
+    #        tab.show_headings = true
+    #        tab.orientation   = :center
+    #        tab.position      = :center
+    #        tab.bold_headings = false
+    #
+    #        data = Array.new
+    #
+    #        @people.each do |person|
+    #          primary_e = person.primary_email.nil? ? "" : person.primary_email.address
+    #          secondary_e = person.secondary_email.nil? ? "" : person.secondary_email.address
+    #          primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
+    #          secondary_p = person.secondary_phone.nil? ? "" : person.secondary_phone.complete_number
+    #          primary_w = person.primary_website.nil? ? "" : person.primary_website.address
+    #          secondary_w = person.secondary_website.nil? ? "" : person.secondary_website.address
+    #          email = format_fields(primary_e, secondary_e)
+    #          phone = format_fields(primary_p, secondary_p)
+    #          website = format_fields(primary_w, secondary_w)
+    #
+    #          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}" }
+    #
+    #        end
+    #        puts "*********************#{data.to_yaml}*****************************99"
+    #        tab.data.replace data
+    #        tab.render_on(pdf)
+    #      end
+
   end
 
 
