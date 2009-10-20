@@ -218,6 +218,7 @@ $(function(){
         });      
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
+        
     });
 });
 
