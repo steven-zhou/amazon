@@ -520,165 +520,118 @@ $(function(){
     });
 });
 
-// Custom Groups
+
+// Tag hover system
 
 $(function(){
-    $(".open_sub_group").live('click', function() {
-        $("#group_" + $(this).attr('id')).find(".sub_groups").show();
-        $("#group_" + $(this).attr('id')).find(".open_sub_group").hide();
-        $("#group_" + $(this).attr('id')).find(".close_sub_group").show();
-        $("#custom_group_entry_form").hide();
+    $(".multilevel_new_option").live('click', function(){
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "new");
+        $(this).css("display", "none");
+        $(".multilevel_close_option[level="+ $(this).attr("level") +"]").css("display","");
+        $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") + "]").css("display","none");
     });
-});
 
-$(function(){
-    $(".close_sub_group").live('click', function() {
-        $("#group_" + $(this).attr('id')).find(".sub_groups").hide();
-        $("#group_" + $(this).attr('id')).find(".open_sub_group").show();
-        $("#group_" + $(this).attr('id')).find(".close_sub_group").hide();
+    $(".multilevel_edit_option").live('click', function() {
+       // This function is an AJAX call for a form, meaning none of this code
+       // is going to be executed. However, you will need to place the following
+       // code in the return.js file for that AJAX method in your controller.
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
+        $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
     });
-});
 
-$(function(){
-    $("#custom_group_add_entry").live('click', function() {
-        $(".sub_groups").hide();
-        $("#custom_group_entry_form").show(); // toggle
-        $(".open_sub_group").show();
-        $(".close_sub_group").hide();
+    $(".multilevel_close_option").live('click', function() {
+        $("#multilevel_mode_1").attr("mode", "show");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "show");
+        $(this).css("display", "none");
+        $(".multilevel_new_option[level="+ $(this).attr("level") +"]").css("display","");
+        $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") +"]").css("display","");
+
     });
-});
 
-$(function(){
-    $("#close_custom_group_add_entry").live('click', function(){
-        $("#edit_system_data_entry").hide();
+    $(".multilevel_delete_option").live('click', function() {
+       // This function is an AJAX call for a form, meaning none of this code
+       // is going to be executed. However, you will need to place the following
+       // code in the return.js file for that AJAX method in your controller.
+        $("#multilevel_mode_1").attr("mode", "show");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "show");
     });
-});
 
-$(function(){
-    $(".custom_sub_group_add_entry").live('click', function() {
-        $("#sub_group_form_" + $(this).attr('id')).toggle();
+    $(".toggle_multilevel_options").live("mouseover", function(){
+        if ( $("#multilevel_mode_" + $(this).attr('level')).attr("mode") == 'show' ) {
+            $(this).find(".options").css("display", "");
+        }
     });
-});
 
-//$(function(){
-//    $("#system_data_add_entry").live('click', function(){
-//        $("#system_data_add_entry_form").show();
-//        $("#edit_system_data_entry").html("");
-//        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
-//    });
-//});
-//
-//
-//$(function(){
-//    $("#close_edit_system_data_entry").live('click', function(){
-//        $("#edit_system_data_entry").hide();
-//    });
-//});
-
-
-// Security Groups
-
-$(function(){
-    $(".open_security_sub_group").live('click', function() {
-        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").show();
-        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").hide();
-        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").show();
-        $("#security_group_entry_form").hide();
-    });
-});
-
-$(function(){
-    $(".close_security_sub_group").live('click', function() {
-        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").hide();
-        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").show();
-        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").hide();
-    });
-});
-
-$(function(){
-    $("#security_group_add_entry").live('click', function() {
-        $(".security_sub_groups").hide();
-        $("#security_group_entry_form").show();
-        $(".open_security_sub_group").show();
-        $(".close_security_sub_group").hide();
-    });
-});
-
-$(function(){
-    $(".security_sub_group_add_entry").live('click', function() {
-        $("#security_sub_group_form_" + $(this).attr('id')).toggle();
+    $(".toggle_multilevel_options").live("mouseout", function(){
+        if ( $("#multilevel_mode_" + $(this).attr('level')).attr("mode") == 'show' ) {
+            $(this).find(".options").css("display", "none");
+        }
     });
 });
 
 
-// Query Tables
+// Tag toggle system
 
-$(function(){
-    $(".open_query_table_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").show();
-        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").hide();
-        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").show();
-        $("#query_table_entry_form").hide();
-    });
-});
+$(function (){
+    $(".open_tag_toggle").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('toggle_id_name')).show();
+        $(this).parent().find(".close_tag_toggle").show();
 
-$(function(){
-    $(".close_query_table_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").hide();
-        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").show();
-        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").hide();
-    });
-});
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
+        $(".open_tag_toggle").hide();
 
-$(function(){
-    $("#query_table_add_entry").live('click', function() {
-        $(".query_table_sub_groups").hide();
-        $("#query_table_entry_form").toggle();
-        $(".open_query_table_sub_group").show();
-        $(".close_query_table_sub_group").hide();
-    });
-});
+        $(".multilevel_new_option").hide();
+        $(".multilevel_close_option").hide();
 
-$(function(){
-    $(".query_table_sub_group_add_entry").live('click', function() {
-        $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
 
 
-// Access Permissions
+$(function (){
+    $(".close_tag_toggle").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('toggle_id_name')).hide();
+        $(this).parent().find(".open_tag_toggle").show();
+        $(".open_tag_toggle").show();
 
-$(function(){
-    $(".open_system_module_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").show();
-        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").hide();
-        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").show();
-        $("#access_permissions_entry_form").hide();
+        $(".multilevel_new_option").show();
     });
 });
 
-$(function(){
-    $(".close_system_module_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").hide();
-        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").show();
-        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").hide();
+$(function (){
+    $(".tag_add_entry_form").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('form_id')).show();
+        $(this).parent().find(".tag_close_entry_form").show();
+
+        $(".close_tag_toggle").hide();
+
     });
 });
 
-$(function(){
-    $("#access_permissions_add_entry").live('click', function() {
-        $(".access_permissions_module_controllers").hide();
-        $("#access_permissions_entry_form").show();
-        $(".open_system_module_sub_group").show();
-        $(".close_system_module_sub_group").hide();
+$(function (){
+    $(".tag_close_entry_form").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('form_id')).hide();
+        $(this).parent().find(".tag_add_entry_form").show();
+
+        $(this).parent().parent().parent().parent().find('.close_tag_toggle').show();
+        
     });
 });
 
-$(function(){
-    $(".access_permissions_module_add_entry").live('click', function() {
-        $("#query_table_sub_group_form_" + $(this).attr('id')).show();
-    });
-});
 
 
 
