@@ -15,8 +15,9 @@
   $('#flash_message').dialog('open');
 <%else %>
 
- $('#user_group_user').append('<%= escape_javascript(render(:partial => "user_groups/new_group_user", :locals =>{:login_account => @login_account })) %>');
- $('#<%= dom_id(@login_account) %>').show('slide'); 
+ $('#user_group_user').append('<%= escape_javascript(render(:partial => "user_groups/new_group_user", :locals =>{:user_group => @user_group })) %>');
+ $('#<%= dom_id(@user_group) %>').show('slide');
+
 
 
 

@@ -9,20 +9,21 @@
   .container{:style => "padding:1.5% 1% 1.5% 1%;margin-left:10px;"}
     %div#add_user_to_group
       .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_group", :id => "close_user_group", :style => "display:none;", :field => "user_group"
+        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_groups", :id => "close_user_group", :style => "display:none;", :field => "user_group"
       .title
-        = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_groups", :flag_name => "user_group", :field => "user_group"
+        = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_groups", :flag_name => "user_groups", :field => "user_group"
         &nbsp
-      %h1 Add User
+      %h2 Assign User
     %input{:id => "user_group_mode", :mode => "show", :style => "display:none"}
 
     %div#new_user_groups{:style => "display:none"}
       -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
         .form_line{:style => "float:none"}
           .field_10
-            = user_group.label :user_id, 'system_id'
-            %input{:name => "user_group[perosn_id]", :class => "check_login_id", :login_account_id => 0}       
-          .field_20
+            = user_group.label :user_id, 'User Name'
+            %input{:name => "user_group[user_id]", :style => "display:none", :id => "user_name_id"}
+            %input{:name => "user_name", :class => "user_name_to_person", :login_account_id => 0}
+          .field_40
             %label &nbsp
             %span{:id => "login_name_container_0"}
           .field_20
@@ -48,10 +49,10 @@
 
 
   %div#user_group_wrong_login_id{:style => "display:none;"}
-    %span This person do not have login_account yet
+    %span system do not have this login_account
 
   %div#user_group_person_check{:style => "display:none;"}
-    %span This person not exist in our system
+    %span This LoginAccount's person information has been delete
  
       
 
