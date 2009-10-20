@@ -362,6 +362,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:person_id]) rescue @person = Person.new
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
     @primary_email = @person.primary_email.value unless @person.primary_email.blank?
+    #@person_login_account = @person.login_accounts rescue @person_login_account = LoginAccount.new
     respond_to do |format|
       format.js()
     end

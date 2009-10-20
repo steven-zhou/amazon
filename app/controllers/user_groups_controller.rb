@@ -46,5 +46,43 @@ class UserGroupsController < ApplicationController
 #
 #  end
 
+  def show
+    @group = GroupType.find(params[:group_type_id])
+    @login_accounts = @group.login_accounts
+    @user_group = UserGroup.new
+    @user_groups = @group.user_groups
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def create
+    @login_ = Person.find(params[:user_group][])
+    @user_group = UserGroup.new(params[:user_group])
+   
+     @login_account = @user_group.login_account
+    if @user_group.save
+      flash.now[:message] = "saved successfully"
+    else
+      flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
+   
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @user_group = UserGroup.find(params[:id])
+    @user_group.destroy
+
+    respond_to do |format|
+      format.js
+    end
+  end
 
 end
