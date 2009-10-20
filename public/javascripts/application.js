@@ -758,13 +758,15 @@ $(function(){
                 url: "/roles/show_roles.js",
                 data: 'role_type_id='+$(this).val(),
                 dataType: "script"
+
             });
+
+            $('#role_main_contents').show();
         }else{
 
             $("#downside").html("");
-            $("#role_type_description_label").html('')
-
-
+            $("#role_type_description_label").html('');
+             $('#role_main_contents').hide();
         }
     });
 });

@@ -11,19 +11,17 @@
       .options
         = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_group", :id => "close_user_group", :style => "display:none;", :field => "user_group"
       .title
-        = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_group", :flag_name => "user_group", :field => "user_group"
+        = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_groups", :flag_name => "user_group", :field => "user_group"
         &nbsp
       %h1 Add User
     %input{:id => "user_group_mode", :mode => "show", :style => "display:none"}
 
-
-    %div#new_user_group{:style => "display:none"}
+    %div#new_user_groups{:style => "display:none"}
       -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
         .form_line{:style => "float:none"}
           .field_10
             = user_group.label :user_id, 'system_id'
-            %input{:name => "user_group[perosn_id]", :class => "check_login_id", :login_account_id => 0}
-           
+            %input{:name => "user_group[perosn_id]", :class => "check_login_id", :login_account_id => 0}       
           .field_20
             %label &nbsp
             %span{:id => "login_name_container_0"}
