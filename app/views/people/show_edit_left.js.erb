@@ -1,8 +1,7 @@
-$('#left_content').replaceWith('<%= escape_javascript(render(:partial => "/people/edit_list_result",:locals => { :person => @person, :people => @p })) %>');
-$('#lol').html('<%= escape_javascript(render(:partial => "/people/list_menu",:locals => { :person => @person, :people => @p })) %>');
+$('#edit_content_container').replaceWith('<%= escape_javascript(render(:partial => "/people/edit_list_result",:locals => { :person => @person, :people => @p })) %>');
 
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_edit_list_menu",:locals => { :person => @person})) %>');
-
+$("#tabs").tabs();
  $('.personal_check_field').blur(function(){
 
         var personal_check_fields=[];

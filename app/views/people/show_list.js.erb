@@ -1,6 +1,6 @@
-$('#right_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation })) %>');
+$('#show_list_grid').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation })) %>');
 
-$(function(){
+
 $("#search_list_results").flexigrid(
 
 {
@@ -26,11 +26,22 @@ searchitems : [
 sortname: "grid_object_id",
 sortorder: "asc",
 usepager: true,
-title: 'People Search Result',
+title: '',
 useRp: true,
 rp: 20,
 showTableToggleBtn: false,
 width: 'auto',
 height: 'auto'
 });
+
+
+$('#show_list_grid').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  width: 600,
+  buttons: {
+  }
 });
+
+$('#show_list_grid').dialog('open');

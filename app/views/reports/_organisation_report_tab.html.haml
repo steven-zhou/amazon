@@ -2,9 +2,9 @@
   .container
     .form_line
       .field_30
-        %div#report_select_list{:style => "display:none"}
+        %div#organisation_report_select_list
           =tag_type.label :list, 'Select Lists'
-          %select{:id => "report_list", :disabled => (@list_headers.blank?), :name => "list_header_id", :class => "clear_select"}
+          %select{:id => "organisation_report_list", :disabled => (@list_headers.blank?), :name => "organisation_list_header_id", :class => "clear_select"}
             %option{:selected => "selected"}
             - @list_headers.each do |r|
               %option{:value => "#{r.id}"} #{r.name}

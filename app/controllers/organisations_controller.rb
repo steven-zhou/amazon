@@ -278,17 +278,7 @@ class OrganisationsController < ApplicationController
     @o = Organisation.find(:all, :order => "id")
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if @organisation.nil?
-    @primary_phone = @organisation.primary_phone
-    @primary_email = @organisation.primary_email
-    @primary_fax = @organisation.primary_fax
-    @primary_website = @organisation.primary_website
-    @primary_address = @organisation.primary_address
-    @other_phones = @organisation.other_phones
-    @other_emails = @organisation.other_emails
-    @other_faxes = @organisation.other_faxes
-    @other_websites = @organisation.other_websites
-    @other_addresses = @organisation.other_addresses
-    @notes = @organisation.notes
+    
     @check_field = Array.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
@@ -297,11 +287,34 @@ class OrganisationsController < ApplicationController
       end
     end
     if(params[:current_operation] == "edit_organisation_list")
+      @postcodes = DomesticPostcode.find(:all)
+      @address = Address.new
+      @phone = Phone.new
+      @email = Email.new
+      @fax = Fax.new
+      @website = Website.new
+      @masterdoc = MasterDoc.new
+      @note = Note.new
+      @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
+      @organisation_group = OrganisationGroup.new
+      @current_action = "edit"
       render 'show_edit_left.js'
      
     else
      
       respond_to do |format|
+        @primary_phone = @organisation.primary_phone
+        @primary_email = @organisation.primary_email
+        @primary_fax = @organisation.primary_fax
+        @primary_website = @organisation.primary_website
+        @primary_address = @organisation.primary_address
+        @other_phones = @organisation.other_phones
+        @other_emails = @organisation.other_emails
+        @other_faxes = @organisation.other_faxes
+        @other_websites = @organisation.other_websites
+        @other_addresses = @organisation.other_addresses
+        @notes = @organisation.notes
+        @current_action = "show"
         format.js
       end
     end

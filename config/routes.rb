@@ -82,7 +82,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
-  map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post, :person_contacts_report_grid => :get}
+  map.resources :reports, :collection => {:generate_report => :post, :preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
                                     :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
 
-                                    :show_other_group_organisations_grid => :get, :show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
+                                    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
   
 
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}

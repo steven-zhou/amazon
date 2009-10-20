@@ -36,7 +36,7 @@ $(function() {
         $(this).addClass('close_image');
     });
 
-    $(".show_hide_button").click(function(){
+    $(".show_hide_button").live('click', function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
         $(".container_icon").removeClass("container_icon_color");
