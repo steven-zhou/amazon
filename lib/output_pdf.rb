@@ -4,13 +4,13 @@ module OutputPdf
   require "pdf/simpletable"
   
   # if the field is FK(e.g. gender), the hash would be "Gender(FK)" => "gender"
-  PERSONAL_REPORT_FORMAT = {"person_contact_report" => {"id" => "id",
-      "first_name" => "first_name",
-      "family_name" => "family_name",
-      "address" => "address",
-      "email" => "email",
-      "phone" => "phone",
-      "website" => "website"}}
+  PERSONAL_REPORT_FORMAT = {"person_contact_report" =>[ {"ID" => "id"},
+      {"First Name" => "first_name"},
+      {"Family Name" => "family_name"},
+      {"Address" => "address"},
+      {"Email" => "email"},
+      {"Phone" => "phone"},
+      {"Website" => "website"}]}
   
   ORGANISATIONAL_REPORT_FORMAT = {"organisaiton_contact_report" => [{"id" => "id"},
       {"full_name" => "full_name"},
@@ -170,14 +170,13 @@ module OutputPdf
       return
     end
 
-
     PDF::SimpleTable.new do |tab|
-      OutputPdf::PERSONAL_REPORT_FORMAT[format].each_key do |i|
-        tab.column_order.push(OutputPdf::PERSONAL_REPORT_FORMAT[format][i])
+      OutputPdf::PERSONAL_REPORT_FORMAT[format].each_index do |i|
+        tab.column_order.push(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0])
       end
 
-      OutputPdf::PERSONAL_REPORT_FORMAT[format].each_key do |i|
-        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]) { |col| col.heading = i}
+      OutputPdf::PERSONAL_REPORT_FORMAT[format].each_index do |i|
+        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]) { |col| col.heading = "#{OutputPdf::PERSONAL_REPORT_FORMAT[format][i].keys[0]}"}
       end
 
       tab.show_lines    = body_settings[:show_lines].to_sym
@@ -212,16 +211,16 @@ module OutputPdf
         address = (person.primary_address.nil?) ? "" : person.primary_address.formatted_value
 
         data_row = Hash.new
-        OutputPdf::PERSONAL_REPORT_FORMAT[format].each_key do |i|
-          if (i.include?("FK"))
-            data_row[i] = (person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]).nil?) ? "" : person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i]).name
+        OutputPdf::PERSONAL_REPORT_FORMAT[format].each_index do |i|
+          if (PERSONAL_REPORT_FORMAT[format][i].keys[0].include?("FK"))
+            data_row[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = (person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]).nil?) ? "" : person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]).name
           else
-            case i
-            when "address" then data_row[i] = address
-            when "phone" then data_row[i] = phone
-            when "email" then data_row[i] = email
-            when "website" then data_row[i] = website
-            else data_row[i] = person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i])
+            case OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]
+            when "address" then data_row[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = address
+            when "phone" then data_row[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = phone
+            when "email" then data_row[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = email
+            when "website" then data_row[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = website
+            else data_row[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = person.__send__(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0])
             end
             
           end
@@ -229,10 +228,10 @@ module OutputPdf
 
         data << data_row
       end
-      puts "*************#{data}*********************"
+
 
       tab.data.replace data
-      puts "*************#{tab.data}*********************"
+      
       tab.render_on(pdf)
     end
   
