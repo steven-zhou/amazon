@@ -32,6 +32,8 @@ class AdministrationsController < ApplicationController
 
 
   def roles_management
+
+    @role = Role.new
     respond_to do |format|
       format.html
     end
