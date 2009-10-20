@@ -553,7 +553,6 @@ $(function(){
         $(this).css("display", "none");
         $(".multilevel_new_option[level="+ $(this).attr("level") +"]").css("display","");
         $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") +"]").css("display","");
-
     });
 
     $(".multilevel_delete_option").live('click', function() {
@@ -628,7 +627,9 @@ $(function (){
         $('#'+$(this).attr('form_id')).hide();
         $(this).parent().find(".tag_add_entry_form").show();
 
-        $(this).parent().parent().parent().parent().find('.close_tag_toggle').show();
+        if($(this).attr('level')> 1) {
+            $(this).parent().parent().parent().parent().find('.close_tag_toggle').show();
+        }
         
     });
 });
