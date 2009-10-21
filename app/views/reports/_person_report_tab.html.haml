@@ -3,7 +3,7 @@
     .form_line
       .field_30
         %div#report_select_list
-          =tag_type.label :list, 'Select Lists'
+          =tag_type.label :list, 'Select List'
           %select{:id => "report_list", :disabled => (@list_headers.blank?), :name => "list_header_id", :class => "clear_select"}
             %option{:selected => "selected"}
             - @list_headers.each do |r|

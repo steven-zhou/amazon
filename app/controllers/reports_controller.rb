@@ -5,8 +5,9 @@ class ReportsController < ApplicationController
   include OutputPdf
 
   def index
-    @list_headers = @current_user.list_headers
-      @query = QueryHeader.saved_queries
+#    @list_headers = @current_user.list_headers
+    @list_headers = ListHeader.find(:all)
+    @query = QueryHeader.saved_queries
 
   end
 
@@ -107,7 +108,14 @@ class ReportsController < ApplicationController
     if(params[:list_header_id].include?("list_"))
      
       @list_header_id = params[:list_header_id].delete("list_")
-      @type= "List"
+      @type= "list"
+      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+    end
+
+     if(params[:list_header_id].include?("query_"))
+
+      @list_header_id = params[:list_header_id].delete("query_")
+      @type= "query"
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
     
