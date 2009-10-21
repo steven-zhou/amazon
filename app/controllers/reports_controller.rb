@@ -6,7 +6,13 @@ class ReportsController < ApplicationController
 
   def index
     @list_headers = @current_user.list_headers
-      @query = QueryHeader.saved_queries
+
+    @user_list_id = UserList.find_all_by_user_id(session[:user]) #load the user lists from table user lists
+    @user_list_id.each do |i|
+    @list_headers += ListHeader.find_all_by_id(i.list_header_id)
+    end
+
+    @query = QueryHeader.saved_queries
 
   end
 
@@ -49,15 +55,18 @@ class ReportsController < ApplicationController
   def person_contacts_report_grid
     @person_report_format = params[:request_format]
 
+
     if(params[:list_header_id].include?("list_"))
       @list_header_id = params[:list_header_id].delete("list_")
+     
+      
       @type= "List"
       @person_report_list = ListHeader.find(@list_header_id)
     end
    
-     PersonContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
-        i.destroy
-      end
+    PersonContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
     if(@person_report_format == "Contact Report")
 
       
@@ -102,22 +111,30 @@ class ReportsController < ApplicationController
   end
 
   def generate_person_report_pdf
-#     @person_report_format = params[:request_format]
+    #     @person_report_format = params[:request_format]
     @person_report_format ="person_contact_report"
     if(params[:list_header_id].include?("list_"))
      
       @list_header_id = params[:list_header_id].delete("list_")
-      @type= "List"
+      @type= "list"
+      @list_name = ListHeader.find(@list_header_id).name
+      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+    end
+
+    if(params[:list_header_id].include?("query_"))
+
+      @list_header_id = params[:list_header_id].delete("query_")
+      @type= "query"
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
     
     if OutputPdf.personal_report_format_valid(@person_report_format) && !@person_report_list.nil?
    
-       pdf = OutputPdf.generate_personal_report_pdf(@type,@list_header_id, @person_report_format)
+      pdf = OutputPdf.generate_personal_report_pdf(@type,@list_header_id, @person_report_format,@list_name)
      
     end
 
-  respond_to do |format|
+    respond_to do |format|
       format.pdf {send_data(pdf.render, :filename => "person_report.pdf", :type => "application/pdf")}
     end
 
@@ -125,17 +142,17 @@ class ReportsController < ApplicationController
   end
 
   def generate_organisation_report_pdf
-       @organisation_report_list = Organisation.find(:all, :order => "id")
-       @type ="List"
-       @organisation_report_format = "organisaiton_contact_report"
+    @organisation_report_list = Organisation.find(:all, :order => "id")
+    @type ="List"
+    @organisation_report_format = "organisaiton_contact_report"
 
-      if OutputPdf.organisational_report_format_valid(@organisation_report_format) && !@organisation_report_list.nil?
+    if OutputPdf.organisational_report_format_valid(@organisation_report_format) && !@organisation_report_list.nil?
 
-         pdf = OutputPdf.generate_organisational_report_pdf(@type,@organisation_report_list, @organisation_report_format)
+      pdf = OutputPdf.generate_organisational_report_pdf(@type,@organisation_report_list, @organisation_report_format)
 
-      end
+    end
 
-     respond_to do |format|
+    respond_to do |format|
       format.pdf {send_data(pdf.render, :filename => "organisation_report.pdf", :type => "application/pdf")}
     end
 
@@ -174,7 +191,7 @@ class ReportsController < ApplicationController
         if (!(o.secondary_website.blank?))
           @ocr.field_5+="<br>"+ o.secondary_website.value
         end
-          @ocr.field_6 = o.primary_address.first_line unless o.primary_address.blank?
+        @ocr.field_6 = o.primary_address.first_line unless o.primary_address.blank?
         if (!(o.primary_address.blank?))
           @ocr.field_6+="<br>"+ o.primary_address.second_line
         end

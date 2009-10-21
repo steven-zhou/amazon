@@ -1,6 +1,7 @@
+$('#report_grid_form').replaceWith('<%= escape_javascript(render(:partial => "/reports/person_report_grid")) %>');
 $("#report_details").css("display", "none");
 $("#report_grid_form_container").css("display", "");
-$("#report_grid_form").flexigrid(
+$("#report_grid_form1").flexigrid(
 {
 url: '/grids/show_person_contacts_report_grid',
 dataType: 'json',
@@ -33,3 +34,4 @@ showTableToggleBtn: false,
 width: 'auto',
 height: 'auto'
 });
+

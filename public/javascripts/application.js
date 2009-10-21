@@ -539,11 +539,11 @@ $(function(){
        // This function is an AJAX call for a form, meaning none of this code
        // is going to be executed. However, you will need to place the following
        // code in the return.js file for that AJAX method in your controller.
-        $("#multilevel_mode_1").attr("mode", "inactive");
-        $("#multilevel_mode_2").attr("mode", "inactive");
-        $("#multilevel_mode_3").attr("mode", "inactive");
-        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
-        $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
+       // $("#multilevel_mode_1").attr("mode", "inactive");
+       // $("#multilevel_mode_2").attr("mode", "inactive");
+       // $("#multilevel_mode_3").attr("mode", "inactive");
+       // $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
+       // $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
     });
 
     $(".multilevel_close_option").live('click', function() {
@@ -606,6 +606,11 @@ $(function (){
         $(this).parent().find(".open_tag_toggle").show();
         $(".open_tag_toggle").show();
 
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
+
         $(".multilevel_new_option").show();
     });
 });
@@ -617,6 +622,15 @@ $(function (){
         $(this).parent().find(".tag_close_entry_form").show();
 
         $(".close_tag_toggle").hide();
+
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        if ($(this).attr('level') * 1 > 1) {
+            $("#multilevel_mode_" + ( ( $(this).attr('level') * 1 ) -1 ) ).attr("mode", "show");
+        } else {
+            $("#multilevel_mode_1").attr("mode", "show");
+        }
 
     });
 });
@@ -635,14 +649,52 @@ $(function (){
 });
 
 
+/* Custom Group Types */
+
+$(function(){
+    $("#delete_custom_group_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/delete_custom_group_type.js",
+            data: 'id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
+
+    });
+});
+
+$(function(){
+    $("#delete_custom_group").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/delete_custom_group.js",
+            data: 'id=' + $(this).attr('custom_group_id') + '&custom_group_type_id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
+
+    });
+});
 
 
+$(function(){
+    $(".edit_custom_group").live('click', function(){
+        $('#edit_sub_group_'+$(this).attr('sub_group_id')).show();
+        $('#sub_group_'+$(this).attr('sub_group_id')).hide();
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+    });
+});
 
-
-
-
-
-
+$(function(){
+    $(".close_edit_custom_group").live('click', function(){
+        $('#edit_sub_group_'+$(this).attr('sub_group_id')).hide();
+        $('#sub_group_'+$(this).attr('sub_group_id')).show();
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+    });
+});
 
 
 
@@ -2609,6 +2661,17 @@ $(function(){
    
 });
 
+
+
+$(function(){
+    $('.edit_close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#edit_'+$(this).attr('flag_name')+"_container").html('');
+
+    });
+
+});
+
 $(function(){
     $('.user_name_to_person').live('change', function(){
         if($(this).val()!= ""){
@@ -2680,3 +2743,20 @@ $(function(){
     });
 
 });
+
+
+/*role--new--design*/
+
+$(function(){
+    $('#edit_role_form').live('click', function(){
+
+        $('#role_role_type_id').attr("disabled", false);
+
+
+    });
+
+});
+
+
+
+
