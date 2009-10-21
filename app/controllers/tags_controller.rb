@@ -155,4 +155,14 @@ class TagsController < ApplicationController
     end
   end
 
+
+  def delete_custom_group
+    custom_group = GroupType.find(params[:id])
+    custom_group.destroy
+    @group = GroupMetaType.find(params[:custom_group_type_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

@@ -16,10 +16,15 @@
         .options
           = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role", :id => "close_role", :style => "display:none;", :field => "role"
         .title
-          = link_to_function image_tag('add_icon.png'), :class => "toggle_button new_option add_flag", :toggle_id_name => "downside", :flag_name => "role", :field => "role"
+          = link_to_function image_tag('add_icon.png'), :class => "toggle_button new_option add_flag", :toggle_id_name => "new_role", :flag_name => "role", :field => "role"
           &nbsp
         %h2 Add Role
         %input{:id => "role_mode", :style=> "display:none;", :mode => "show"}
-        %div#downside.hidden
-          = render :partial => '/roles/roles_original_form'
-          %br{ :style=>"clear: both;"}
+
+        
+        %div#new_role{:style => "display:none"}
+          = render :partial => '/roles/role_form'
+      
+      %div#existing_role
+        
+

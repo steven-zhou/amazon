@@ -1,16 +1,16 @@
 #header
   #page_title
-    %h1 Custom Groups
+    %h1 Custom Group Types
   #lol
     %br.clear
-    %input{:id => "multilevel_mode_1", :mode => "show", :style => "display:none;"}
-    %input{:id => "multilevel_mode_2", :mode => "show", :style => "display:none;"}
+    %input{:id => "multilevel_mode_1", :mode => "show", :style => "display:;"}
+    %input{:id => "multilevel_mode_2", :mode => "show", :style => "display:;"}
 #content_full_page
   .container#custom_group_add_data
     %div
       = link_to_function image_tag("close_icon.png", :size => "19x18"), :style => "display:none;float:right;", :id => "close_custom_group_add_entry", :level => "1", :class => "tag_close_entry_form multilevel_close_option", :form_id => "custom_group_entry_form"
       = link_to_function image_tag("add_icon.png" , :size => "19x18"), :id => "custom_group_add_entry", :level => "1", :class => "tag_add_entry_form multilevel_new_option", :form_id => "custom_group_entry_form"
-      Add Group
+      Add Group Type
     %div#custom_group_entry_form{:style => "display:none;", :class => ""}
       %br.clear
       - form_for GroupMetaType.new, :url => {:controller => "tag_types", :action => "create_group_meta_type"}, :html => {:class => "ajax_form"} do |p|

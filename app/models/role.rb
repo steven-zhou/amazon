@@ -8,7 +8,7 @@ class Role < ActiveRecord::Base
   
   validates_presence_of :name, :role_type_id
   validates_associated :role_type
-  validates_uniqueness_of :name, :message => "A role already exists with the same name.", :scope => [:role_type_id]
+  validates_uniqueness_of :name,  :scope => [:role_type_id]
   
   delegate :name, :to => :role_type, :prefix => true,:allow_nil => true
 
