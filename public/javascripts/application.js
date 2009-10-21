@@ -618,6 +618,9 @@ $(function (){
 
         $(".close_tag_toggle").hide();
 
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+
     });
 });
 
@@ -635,9 +638,31 @@ $(function (){
 });
 
 
+/* Custom Group Types */
 
+$(function(){
+    $("#delete_custom_group_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/delete_custom_group_type.js",
+            data: 'id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
 
+    });
+});
 
+$(function(){
+    $("#delete_custom_group").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/delete_custom_group.js",
+            data: 'id=' + $(this).attr('custom_group_id') + '&custom_group_type_id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
+
+    });
+});
 
 
 
