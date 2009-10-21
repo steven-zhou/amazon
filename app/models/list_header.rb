@@ -16,6 +16,8 @@ class ListHeader < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive => false
   validates_presence_of :name
 
+  before_destroy :delete_all_details
+
   def formatted_info
     "#{self.name} - #{self.description} : #{self.list_size} records"
   end
@@ -26,5 +28,13 @@ class ListHeader < ActiveRecord::Base
 
   def self.all
     ListHeader.find(:all, :order => "name")
+  end
+
+  private
+
+  def delete_all_details
+    self.list_details.each do |list_detail|
+      list_detail.destroy
+    end
   end
 end

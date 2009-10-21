@@ -90,6 +90,13 @@ class LoginAccount < ActiveRecord::Base
    list_headers.uniq
  end
 
+ def custom_lists
+   custom_lists = Array.new
+   self.user_lists.each do |i|
+     custom_lists << ListHeader.find(i.list_header_id)
+   end
+ end
+
   def password=(pass)
     @password=pass
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091019044531) do
+ActiveRecord::Schema.define(:version => 20091021050902) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20091019044531) do
     t.boolean  "allow_duplication"
     t.string   "top_type"
     t.integer  "top_value"
+    t.integer  "login_account_id"
   end
 
   create_table "login_accounts", :force => true do |t|
@@ -389,6 +390,8 @@ ActiveRecord::Schema.define(:version => 20091019044531) do
     t.string   "duplication_value"
   end
 
+  add_index "organisations", ["duplication_value"], :name => "duplication_value"
+
   create_table "people", :force => true do |t|
     t.string   "custom_id"
     t.integer  "primary_title_id"
@@ -419,6 +422,8 @@ ActiveRecord::Schema.define(:version => 20091019044531) do
     t.integer  "gender_id"
     t.string   "duplication_value"
   end
+
+  add_index "people", ["duplication_value"], :name => "duplication_vaule"
 
   create_table "person_groups", :force => true do |t|
     t.integer  "people_id"
@@ -527,6 +532,16 @@ ActiveRecord::Schema.define(:version => 20091019044531) do
     t.string   "description"
     t.string   "remarks"
     t.boolean  "role_status"
+  end
+
+  create_table "show_organisation_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_organisation_list_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "tag_meta_types", :force => true do |t|
