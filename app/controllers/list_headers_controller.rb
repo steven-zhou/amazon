@@ -10,7 +10,8 @@ class ListHeadersController < ApplicationController
     if(params[:compile]) #Compile List
       @lcg = ListCompileGrid.find_all_by_login_account_id(session[:user])
       if(@lcg.size > 0)
-          
+
+
         @list_header = ListHeader.new(params[:list_header])
         @list_header.last_date_generated = Date.today()
         @list_header.list_size = 0
@@ -41,6 +42,12 @@ class ListHeadersController < ApplicationController
             flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("has already been taken"))
           end
         end
+        #save to the user list
+        @user_list=UserList.new
+        @user_list.user_id = session[:user]
+        @user_list.list_header_id = @list_header.id
+        @user_list.save
+
       else
         flash.now[:error] = flash_message(:message => "list can't be empty")
       end
@@ -86,10 +93,15 @@ class ListHeadersController < ApplicationController
 
           ListHeader.transaction do
             if @list_header.save
+              @user_list=UserList.new   # save to the user lists table
+              @user_list.user_id = session[:user]
+              @user_list.list_header_id = @list_header.id
+              @user_list.save
               @qrg.each do |i|
                 @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
                 @list_detail.save
               end
+
               flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
             else
               flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))

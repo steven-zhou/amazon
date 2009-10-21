@@ -1075,6 +1075,11 @@ td.textright {
 }
 
 
+.inline{
+
+    display:inline !important;
+}
+
 /*Report tab css*/
 
 .report_left_tab{
@@ -1098,3 +1103,5 @@ td.textright {
     -moz-border-radius-bottomleft:0px !important;
      -moz-border-radius-bottomright:0px !important;
 }
+
+

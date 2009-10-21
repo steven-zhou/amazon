@@ -53,9 +53,9 @@ module OutputPdf
   #       bold_header(header bold?)         = true/false
   #       font_size(font_size)              = any integer(e.g. 32)
   #       text_align(alignment)             = "left"/"center"/"right"
-  def self.generate_personal_report_pdf(source_type, source_id, format, header_settings={}, body_settings={})
+  def self.generate_personal_report_pdf(source_type, source_id, format,list_report, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
-    generate_report_header(pdf, source_type, source_id, format, header_settings)
+    generate_report_header(pdf, source_type, source_id, format,list_report, header_settings)
     generate_personal_report_body(pdf, source_type, source_id, format, body_settings)
     return pdf
   end
@@ -123,10 +123,10 @@ module OutputPdf
   #       title_position(position of title) = "left"/"center"/"right"
   #       font(font)                     = any font(e.g. "Times-Roman)
   #       font_size(font_size)           = any integer(e.g. 32)
-  def self.generate_report_header(pdf, source_type, source_id, format, header_settings={})
+  def self.generate_report_header(pdf, source_type, source_id, format,list_report, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
-    header_settings[:title] ||= "#{format.gsub("_"," ").titleize} from List"
+    header_settings[:title] ||= "#{format.gsub("_"," ").titleize} From <#{list_report}>"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
@@ -208,7 +208,11 @@ module OutputPdf
         email = format_fields(email_p, email_s)
         phone = format_fields(phone_p, phone_s)
         website = format_fields(website_p, website_s)
-        address = (person.primary_address.nil?) ? "" : person.primary_address.formatted_value
+        address = (person.primary_address.nil?) ? "" : person.primary_address.first_line 
+        if(!person.primary_address.second_line.blank?)
+          address+="\n" + person.primary_address.second_line
+        end
+
 
         data_row = Hash.new
         OutputPdf::PERSONAL_REPORT_FORMAT[format].each_index do |i|
@@ -480,7 +484,7 @@ module OutputPdf
     if field_two.nil?
       return field_one
     else
-      return "#{field_one} #{field_two}"
+      return "#{field_one} \n #{field_two}"
     end
   end
   

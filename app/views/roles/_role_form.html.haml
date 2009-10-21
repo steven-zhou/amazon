@@ -1,0 +1,19 @@
+-form_for @role, :html => {:class => 'ajax_form'} do |role|
+  .form_line{:style => "float:none;"}
+    .field_20
+      = role.label :name, 'Role Name'
+      = role.text_field :name
+    .field_25
+      = role.label :remarks, 'Remark'
+      = role.text_field :remarks
+    .field_10
+      = role.label :role_status, 'Status'
+      = role.radio_button :role_status, true, :checked => true, :style => "width:10%;"
+      %label.inline Active
+    .field_10
+      = role.label :role_status, '&nbsp'
+      = role.radio_button :role_status, false, :style => "width:10%"
+      %label.inline Inactive
+      = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
+  = link_to_function 'clear', :class => "clear_form alt_option"
+  = submit_tag 'Submit'
