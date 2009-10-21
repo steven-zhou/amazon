@@ -539,11 +539,11 @@ $(function(){
        // This function is an AJAX call for a form, meaning none of this code
        // is going to be executed. However, you will need to place the following
        // code in the return.js file for that AJAX method in your controller.
-        $("#multilevel_mode_1").attr("mode", "inactive");
-        $("#multilevel_mode_2").attr("mode", "inactive");
-        $("#multilevel_mode_3").attr("mode", "inactive");
-        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
-        $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
+       // $("#multilevel_mode_1").attr("mode", "inactive");
+       // $("#multilevel_mode_2").attr("mode", "inactive");
+       // $("#multilevel_mode_3").attr("mode", "inactive");
+       // $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
+       // $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
     });
 
     $(".multilevel_close_option").live('click', function() {
@@ -676,9 +676,25 @@ $(function(){
 });
 
 
+$(function(){
+    $(".edit_custom_group").live('click', function(){
+        $('#edit_sub_group_'+$(this).attr('sub_group_id')).show();
+        $('#sub_group_'+$(this).attr('sub_group_id')).hide();
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+    });
+});
 
-
-
+$(function(){
+    $(".close_edit_custom_group").live('click', function(){
+        $('#edit_sub_group_'+$(this).attr('sub_group_id')).hide();
+        $('#sub_group_'+$(this).attr('sub_group_id')).show();
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+    });
+});
 
 
 
