@@ -209,7 +209,7 @@ module OutputPdf
         phone = format_fields(phone_p, phone_s)
         website = format_fields(website_p, website_s)
         address = (person.primary_address.nil?) ? "" : person.primary_address.first_line 
-        if(!person.primary_address.second_line.blank?)
+        if(!(person.primary_address.nil?))
           address+="\n" + person.primary_address.second_line
         end
 
