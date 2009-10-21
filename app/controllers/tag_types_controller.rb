@@ -76,7 +76,7 @@ class TagTypesController < ApplicationController
     #@flag = String.new
     #@flag = params[:flag]
     for i in @tags
-    i.destroy
+      i.destroy
     end
     
     @tag_type.destroy
@@ -93,8 +93,8 @@ class TagTypesController < ApplicationController
   def show_types
     @group_meta_type = GroupMetaType.find(params[:group_meta_type_id].to_i) rescue @group_meta_type = GroupMetaType.new
     @group_types = @group_meta_type.group_types.find(:all, :order => "name")
-  respond_to do |format|
-     format.js
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -181,6 +181,15 @@ class TagTypesController < ApplicationController
     end
   end
 
+
+  def delete_custom_group_type
+    custom_group = GroupMetaType.find(params[:id])
+    custom_group.destroy
+    @custom_groups = GroupMetaMetaType.find_by_name("Custom")
+    respond_to do |format|
+      format.js
+    end
+  end  
 
 end
 
