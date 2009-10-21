@@ -9,6 +9,7 @@ class ListHeader < ActiveRecord::Base
   has_many :group_lists
   has_many :people_on_list, :through => :list_details, :source => :person
 
+#  has_many :user_list_headers,:through => :user_lists, :uniq => true
 
   has_many :group_types, :through => :group_lists, :uniq => true
   #has_many :players, :through => :list_details, :source => :person
