@@ -11,8 +11,10 @@ class LoginAccount < ActiveRecord::Base
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
   has_many :user_lists, :foreign_key => "user_id"
-
+#  has_many :user_list_headers, :through => :user_lists, :uniq => true
+  
   validates_presence_of :person_id
+
   validates_uniqueness_of :person_id
   validate :person_must_exist
   before_save :different_password_username, :answer_unique
@@ -87,8 +89,20 @@ class LoginAccount < ActiveRecord::Base
        list_headers << list_header
      end
    end
+
+#   for user_list_header in self.user_list_headers do
+#     list_headers << user_list_header
+#   end
+
+#    user_list_id = UserList.find_all_by_user_id(user_id)
+#
+#    user_list_id.each do |i|
+#      list_headers << i.list_header_id
+#    end
    list_headers.uniq
  end
+
+
 
   def password=(pass)
     @password=pass
