@@ -2613,6 +2613,17 @@ $(function(){
    
 });
 
+
+
+$(function(){
+    $('.edit_close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#edit_'+$(this).attr('flag_name')+"_container").html('');
+
+    });
+
+});
+
 $(function(){
     $('.user_name_to_person').live('change', function(){
         if($(this).val()!= ""){
@@ -2684,3 +2695,20 @@ $(function(){
     });
 
 });
+
+
+/*role--new--design*/
+
+$(function(){
+    $('#edit_role_form').live('click', function(){
+
+        $('#role_role_type_id').attr("disabled", false);
+
+
+    });
+
+});
+
+
+
+

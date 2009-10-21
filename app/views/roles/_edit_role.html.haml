@@ -5,11 +5,11 @@
     = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
   %h3 Edit
   %br
-.container
-  %div#edit_role
-    -#.options
-      -#= link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :id => "role", :style => "display:none;", :field => "role"
-    %input{:id => "role_mode", :mode => "show", :style => "display:none"}
+.container#edit_role
+  %div
+    .options
+      = link_to_function image_tag('close_icon.png'), :class => "edit_close_flag close_option", :id => "edit_role_form",  :field => "role", :flag_name => "role"
+   
     -form_for @role, :url => {:controller => "roles", :action=> "update"}, :html => {:class => 'ajax_form'} do |role|
       .form_line{:style => "float:none;"}
         .field_20
