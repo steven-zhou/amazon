@@ -34,17 +34,68 @@ class UserGroupsController < ApplicationController
     #@groups = @login_account.group_types rescue @groups = GroupType.new
   end
 
-#  def show_groups
-#
-#    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
-#    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
-#    @login_account = LoginAccount.find(params[:login_account_id])
-#    @groups = @login_account.group_types
-#    respond_to do |format|
-#      format.js
-#    end
-#
-#  end
+  #  def show_groups
+  #
+  #    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+  #    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+  #    @login_account = LoginAccount.find(params[:login_account_id])
+  #    @groups = @login_account.group_types
+  #    respond_to do |format|
+  #      format.js
+  #    end
+  #
+  #  end
 
+  def show
+    @group = GroupType.find(params[:group_type_id])
+    @login_accounts = @group.login_accounts
+    @user_group = UserGroup.new
+    @user_groups = @group.user_groups
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def create
+   
+    @user_group = UserGroup.new(params[:user_group])
+    if @user_group.save!
+      flash.now[:message] = "saved successfully"
+      @login_account = @user_group.login_account
+      @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+      @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    else
+      flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))   
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @user_group = UserGroup.find(params[:id])
+    @user_group.destroy
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def user_name_to_person
+    @login_account = LoginAccount.find_by_user_name(params[:user_name])
+    unless @login_account.nil?
+      @person = @login_account.person
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  
 
 end

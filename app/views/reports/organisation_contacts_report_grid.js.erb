@@ -1,0 +1,35 @@
+$("#organisation_report_details").css("display", "none");
+$("#organisation_report_grid_form_container").css("display", "");
+$("#organisation_report_grid_form").flexigrid(
+{
+url: '/grids/show_organisation_contacts_report_grid',
+dataType: 'json',
+colModel : [
+{display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+{display: 'Full Name', name : 'field_1', width : 50, sortable : true, align: 'left'},
+{display: 'Registered Name', name : 'field_2', width : 60, sortable : true, align: 'left'},
+{display: 'Email', name : 'field_3', width : 140, sortable : true, align: 'left'},
+{display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
+{display: 'Website', name : 'field_5', width : 120, sortable : true, align: 'left'},
+{display: 'Address', name : 'field_6', width : 140, sortable : true, align: 'left'}
+
+],
+searchitems : [
+{display: 'Full Name', name : 'field_1'},
+{display: 'Registered Name', name : 'field_2'},
+{display: 'Email', name : 'field_3'},
+{display: 'Phone', name : 'field_4'},
+{display: 'Website', name : 'field_5'},
+{display: 'Address', name : 'field_6'}
+
+],
+sortname: "grid_object_id",
+sortorder: "asc",
+usepager: true,
+title: 'People contactgs Report Result',
+useRp: true,
+rp: 20,
+showTableToggleBtn: false,
+width: 'auto',
+height: 'auto'
+});

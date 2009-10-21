@@ -218,6 +218,7 @@ $(function(){
         });      
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
+        
     });
 });
 
@@ -520,174 +521,180 @@ $(function(){
     });
 });
 
-// Custom Groups
+
+// Tag hover system
 
 $(function(){
-    $(".open_sub_group").live('click', function() {
-        $("#group_" + $(this).attr('id')).find(".sub_groups").show();
-        $("#group_" + $(this).attr('id')).find(".open_sub_group").hide();
-        $("#group_" + $(this).attr('id')).find(".close_sub_group").show();
-        $("#custom_group_entry_form").hide();
+    $(".multilevel_new_option").live('click', function(){
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "new");
+        $(this).css("display", "none");
+        $(".multilevel_close_option[level="+ $(this).attr("level") +"]").css("display","");
+        $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") + "]").css("display","none");
     });
-});
 
-$(function(){
-    $(".close_sub_group").live('click', function() {
-        $("#group_" + $(this).attr('id')).find(".sub_groups").hide();
-        $("#group_" + $(this).attr('id')).find(".open_sub_group").show();
-        $("#group_" + $(this).attr('id')).find(".close_sub_group").hide();
+    $(".multilevel_edit_option").live('click', function() {
+       // This function is an AJAX call for a form, meaning none of this code
+       // is going to be executed. However, you will need to place the following
+       // code in the return.js file for that AJAX method in your controller.
+       // $("#multilevel_mode_1").attr("mode", "inactive");
+       // $("#multilevel_mode_2").attr("mode", "inactive");
+       // $("#multilevel_mode_3").attr("mode", "inactive");
+       // $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
+       // $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
     });
-});
 
-$(function(){
-    $("#custom_group_add_entry").live('click', function() {
-        $(".sub_groups").hide();
-        $("#custom_group_entry_form").show(); // toggle
-        $(".open_sub_group").show();
-        $(".close_sub_group").hide();
+    $(".multilevel_close_option").live('click', function() {
+        $("#multilevel_mode_1").attr("mode", "show");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "show");
+        $(this).css("display", "none");
+        $(".multilevel_new_option[level="+ $(this).attr("level") +"]").css("display","");
+        $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") +"]").css("display","");
     });
-});
 
-$(function(){
-    $("#close_custom_group_add_entry").live('click', function(){
-        $("#edit_system_data_entry").hide();
+    $(".multilevel_delete_option").live('click', function() {
+       // This function is an AJAX call for a form, meaning none of this code
+       // is going to be executed. However, you will need to place the following
+       // code in the return.js file for that AJAX method in your controller.
+        $("#multilevel_mode_1").attr("mode", "show");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "show");
     });
-});
 
-$(function(){
-    $(".custom_sub_group_add_entry").live('click', function() {
-        $("#sub_group_form_" + $(this).attr('id')).toggle();
+    $(".toggle_multilevel_options").live("mouseover", function(){
+        if ( $("#multilevel_mode_" + $(this).attr('level')).attr("mode") == 'show' ) {
+            $(this).find(".options").css("display", "");
+        }
     });
-});
 
-//$(function(){
-//    $("#system_data_add_entry").live('click', function(){
-//        $("#system_data_add_entry_form").show();
-//        $("#edit_system_data_entry").html("");
-//        $(".system_data_entry_selected").removeClass("system_data_entry_selected");
-//    });
-//});
-//
-//
-//$(function(){
-//    $("#close_edit_system_data_entry").live('click', function(){
-//        $("#edit_system_data_entry").hide();
-//    });
-//});
-
-
-// Security Groups
-
-$(function(){
-    $(".open_security_sub_group").live('click', function() {
-        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").show();
-        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").hide();
-        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").show();
-        $("#security_group_entry_form").hide();
-    });
-});
-
-$(function(){
-    $(".close_security_sub_group").live('click', function() {
-        $("#security_group_" + $(this).attr('id')).find(".security_sub_groups").hide();
-        $("#security_group_" + $(this).attr('id')).find(".open_security_sub_group").show();
-        $("#security_group_" + $(this).attr('id')).find(".close_security_sub_group").hide();
-    });
-});
-
-$(function(){
-    $("#security_group_add_entry").live('click', function() {
-        $(".security_sub_groups").hide();
-        $("#security_group_entry_form").show();
-        $(".open_security_sub_group").show();
-        $(".close_security_sub_group").hide();
-    });
-});
-
-$(function(){
-    $(".security_sub_group_add_entry").live('click', function() {
-        $("#security_sub_group_form_" + $(this).attr('id')).toggle();
+    $(".toggle_multilevel_options").live("mouseout", function(){
+        if ( $("#multilevel_mode_" + $(this).attr('level')).attr("mode") == 'show' ) {
+            $(this).find(".options").css("display", "none");
+        }
     });
 });
 
 
-// Query Tables
+// Tag toggle system
 
-$(function(){
-    $(".open_query_table_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").show();
-        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").hide();
-        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").show();
-        $("#query_table_entry_form").hide();
-    });
-});
+$(function (){
+    $(".open_tag_toggle").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('toggle_id_name')).show();
+        $(this).parent().find(".close_tag_toggle").show();
 
-$(function(){
-    $(".close_query_table_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".query_table_sub_groups").hide();
-        $("#query_table_" + $(this).attr('id')).find(".open_query_table_sub_group").show();
-        $("#query_table_" + $(this).attr('id')).find(".close_query_table_sub_group").hide();
-    });
-});
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
+        $(".open_tag_toggle").hide();
 
-$(function(){
-    $("#query_table_add_entry").live('click', function() {
-        $(".query_table_sub_groups").hide();
-        $("#query_table_entry_form").toggle();
-        $(".open_query_table_sub_group").show();
-        $(".close_query_table_sub_group").hide();
-    });
-});
+        $(".multilevel_new_option").hide();
+        $(".multilevel_close_option").hide();
 
-$(function(){
-    $(".query_table_sub_group_add_entry").live('click', function() {
-        $("#query_table_sub_group_form_" + $(this).attr('id')).toggle();
     });
 });
 
 
-// Access Permissions
+$(function (){
+    $(".close_tag_toggle").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('toggle_id_name')).hide();
+        $(this).parent().find(".open_tag_toggle").show();
+        $(".open_tag_toggle").show();
+
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
+
+        $(".multilevel_new_option").show();
+    });
+});
+
+$(function (){
+    $(".tag_add_entry_form").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('form_id')).show();
+        $(this).parent().find(".tag_close_entry_form").show();
+
+        $(".close_tag_toggle").hide();
+
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        if ($(this).attr('level') * 1 > 1) {
+            $("#multilevel_mode_" + ( ( $(this).attr('level') * 1 ) -1 ) ).attr("mode", "show");
+        } else {
+            $("#multilevel_mode_1").attr("mode", "show");
+        }
+
+    });
+});
+
+$(function (){
+    $(".tag_close_entry_form").live('click', function() {
+        $(this).hide();
+        $('#'+$(this).attr('form_id')).hide();
+        $(this).parent().find(".tag_add_entry_form").show();
+
+        if($(this).attr('level')> 1) {
+            $(this).parent().parent().parent().parent().find('.close_tag_toggle').show();
+        }
+        
+    });
+});
+
+
+/* Custom Group Types */
 
 $(function(){
-    $(".open_system_module_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").show();
-        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").hide();
-        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").show();
-        $("#access_permissions_entry_form").hide();
+    $("#delete_custom_group_type").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/delete_custom_group_type.js",
+            data: 'id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
+
     });
 });
 
 $(function(){
-    $(".close_system_module_sub_group").live('click', function() {
-        $("#query_table_" + $(this).attr('id')).find(".access_permissions_module_controllers").hide();
-        $("#query_table_" + $(this).attr('id')).find(".open_system_module_sub_group").show();
-        $("#query_table_" + $(this).attr('id')).find(".close_system_module_sub_group").hide();
+    $("#delete_custom_group").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/delete_custom_group.js",
+            data: 'id=' + $(this).attr('custom_group_id') + '&custom_group_type_id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
+
+    });
+});
+
+
+$(function(){
+    $(".edit_custom_group").live('click', function(){
+        $('#edit_sub_group_'+$(this).attr('sub_group_id')).show();
+        $('#sub_group_'+$(this).attr('sub_group_id')).hide();
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
     });
 });
 
 $(function(){
-    $("#access_permissions_add_entry").live('click', function() {
-        $(".access_permissions_module_controllers").hide();
-        $("#access_permissions_entry_form").show();
-        $(".open_system_module_sub_group").show();
-        $(".close_system_module_sub_group").hide();
+    $(".close_edit_custom_group").live('click', function(){
+        $('#edit_sub_group_'+$(this).attr('sub_group_id')).hide();
+        $('#sub_group_'+$(this).attr('sub_group_id')).show();
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "show");
+        $("#multilevel_mode_3").attr("mode", "inactive");
     });
 });
-
-$(function(){
-    $(".access_permissions_module_add_entry").live('click', function() {
-        $("#query_table_sub_group_form_" + $(this).attr('id')).show();
-    });
-});
-
-
-
-
-
-
-
-
-
 
 
 
@@ -758,13 +765,15 @@ $(function(){
                 url: "/roles/show_roles.js",
                 data: 'role_type_id='+$(this).val(),
                 dataType: "script"
+
             });
+
+            $('#role_main_contents').show();
         }else{
 
             $("#downside").html("");
-            $("#role_type_description_label").html('')
-
-
+            $("#role_type_description_label").html('');
+             $('#role_main_contents').hide();
         }
     });
 });
@@ -1098,7 +1107,7 @@ $(function(){
     $("#add_user").live('click', function(){
         $(this).hide();
         $(".user_clear_form").click();
-        $(".show_user_container").hide();
+        //$(".show_user_container").hide();
         $("#close_new_account").show();
     });
 });
@@ -1242,19 +1251,21 @@ $(function(){
 
 
 
-$(function(){
-    $(".edit_login_account").live('click', function(){
 
-   
-       
-        //        $.ajax({
-        //            type: "GET",
-        //            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-        //            data:'id='+$(this).attr('login_account_id'),
-        //            dataType: "script"
-        //        });
-        });
-});
+//$(function(){
+//    $(".edit_login_account").live('click', function(){
+//
+//
+//
+//        $.ajax({
+//            type: "GET",
+//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
+//            data:'id='+$(this).attr('login_account_id'),
+//            dataType: "script"
+//        });
+//    });
+//});
+
 
 
 $(function(){
@@ -1342,6 +1353,27 @@ $(function(){
     $("#fields_criteria").live('change', function(){
         $(".descriptions_criteria").css("display", "none");
         $("#description_criteria_"+$(this).val()).css("display", "");
+        if ($(this).val().indexOf("date") > 0){
+            if ($(this).val() == "birth_date"){
+                $("#query_criteria_value").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    altFormat: 'mm-dd-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: '+0d',
+                    yearRange: '-150:+0'
+                });
+            }else{
+                $("#query_criteria_value").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    altFormat: 'mm-dd-yy',
+                    changeMonth: true,
+                    changeYear: true
+                });
+            }
+        }else{
+            $("#query_criteria_value").datepicker('destroy');
+        }
     });
 });
 
@@ -2592,6 +2624,89 @@ $(function(){
 });
 
 
+
+/*user_group  new design*/
+
+$(function(){
+    $('#user_group_edit_button').live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+
+        $.ajax({
+              type:'GET',
+              url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+              data: "group_type_id="+$(this).attr('group_type_id'),
+              dataType:"script"
+
+        });
+    });
+});
+
+$(function(){
+
+    $('.add_flag').live('click', function(){
+        $(this).css('display', 'none');
+        $('#close_'+ $(this).attr('flag_name')).css('display', '');
+    });
+});
+
+
+$(function(){
+    $('.close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#add_'+$(this).attr('flag_name')).css('display', '');
+       $('#new_'+$(this).attr('flag_name')).toggle('blind');
+
+    });
+   
+});
+
+
+
+$(function(){
+    $('.edit_close_flag').live('click', function(){
+       $(this).css('display', 'none');
+       $('#edit_'+$(this).attr('flag_name')+"_container").html('');
+
+    });
+
+});
+
+$(function(){
+    $('.user_name_to_person').live('change', function(){
+        if($(this).val()!= ""){
+          $.ajax({
+              type: "GET",
+              url: "/user_groups/user_name_to_person.js",
+              data: 'user_name='+$(this).val(),
+              dataType:"script"
+          });
+        }else{
+             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+        }
+       
+    });
+});
+
+//
+//
+//$(function(){
+//    $(".check_username_unique").live('change', function(){
+//        if($(this).val()!= ""){
+//            $.ajax({
+//                type: "GET",
+//                url: "/login_accounts/user_name_unique.js",
+//                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
+//                dataType:"script"
+//            });
+//        }else{
+//            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+//        }
+//    });
+//});
+
+
+
 /*organisation info tab*/
 $(function(){
     $('.active_organisation_info_tab').live('click',function(){
@@ -2610,3 +2725,38 @@ $(function(){
         window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
     });
 });
+
+
+/* Reporting*/
+$(function(){
+    $('#report_person_pdf_submit_button').live('click', function(){
+
+       window.open("/reports/generate_person_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+    });
+
+});
+
+$(function(){
+    $('#report_organisation_pdf_submit_button').live('click', function(){
+
+       window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+    });
+
+});
+
+
+/*role--new--design*/
+
+$(function(){
+    $('#edit_role_form').live('click', function(){
+
+        $('#role_role_type_id').attr("disabled", false);
+
+
+    });
+
+});
+
+
+
+

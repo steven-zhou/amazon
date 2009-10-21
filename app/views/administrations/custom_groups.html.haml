@@ -1,15 +1,17 @@
 #header
   #page_title
-    %h1 Custom Groups
+    %h1 Custom Group Types
   #lol
     %br.clear
+    %input{:id => "multilevel_mode_1", :mode => "show", :style => "display:none;"}
+    %input{:id => "multilevel_mode_2", :mode => "show", :style => "display:none;"}
 #content_full_page
   .container#custom_group_add_data
     %div
-      = image_tag("close_icon.png", :class => "close_option", :style => "display:none;float:right;", :field => "system_data", :id => "close_custom_group_add_entry")
-      = image_tag("add_icon.png" , :size => "19x18", :id => "custom_group_add_entry", :class => "new_option", :field => "system_data")
-      Add Group
-    %div#custom_group_entry_form{:style => "display:none;"}
+      = link_to_function image_tag("close_icon.png", :size => "19x18"), :style => "display:none;float:right;", :id => "close_custom_group_add_entry", :level => "1", :class => "tag_close_entry_form multilevel_close_option", :form_id => "custom_group_entry_form"
+      = link_to_function image_tag("add_icon.png" , :size => "19x18"), :id => "custom_group_add_entry", :level => "1", :class => "tag_add_entry_form multilevel_new_option", :form_id => "custom_group_entry_form"
+      Add Group Type
+    %div#custom_group_entry_form{:style => "display:none;", :class => ""}
       %br.clear
       - form_for GroupMetaType.new, :url => {:controller => "tag_types", :action => "create_group_meta_type"}, :html => {:class => "ajax_form"} do |p|
         .form_line
@@ -25,33 +27,4 @@
               = p.check_box :status
             = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
   %div#custom_groups
-    -for group in @custom_groups.tag_types do
-      .container{:id => "group_#{group.id}"}
-        = group.name
-        = image_tag("/images/closed_accordion.png", :size => "18x14", :style => "float:right;", :class => "open_sub_group", :id => group.id)
-        = image_tag("/images/open_accordion.png", :size => "14x18", :style => "float:right;display:none;", :class => "close_sub_group", :id => group.id)
-        %br.clear
-        %div.sub_groups{:style => "display:none;", :id => "sub_group_#{group.id}"}
-          .container
-            %div
-              = image_tag("add_icon.png" , :size => "19x18", :class => "custom_sub_group_add_entry", :id => group.id)
-              Add Subgroup
-            %div{:style => "display:none;", :id => "sub_group_form_#{group.id}", :group_id => group.id}
-              %br.clear
-              - form_for GroupType.new, :url => {:controller => "tags", :action => "create_custom_sub_group", :id => group.id}, :html => {:class => "ajax_form"} do |p|
-                .form_line
-                  .field_30
-                    = p.label :name, 'Name'
-                    = p.text_field :name, {:class => "group_type_name"}
-                  .field_35
-                    = p.label :description, 'Description'
-                    = p.text_field :description, {:class => "group_type_description"}
-                  .field_30
-                    = p.label :active
-                    %label
-                      = p.check_box :status, {:class => "group_type_active"}
-                    = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
-          %div{:id => "sub_groups_in_group_#{group.id}"}
-            -for sub_group in group.tags do
-              .container
-                = sub_group.name
+    = render :partial => "/tag_types/custom_groups"

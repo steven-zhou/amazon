@@ -1,6 +1,7 @@
-$('#left_content').replaceWith('<%= escape_javascript(render(:partial => "/organisations/edit_list_result")) %>');
-$('#lol').html('<%= escape_javascript(render(:partial => "/organisations/lists_menu")) %>');
+$('#edit_organisation_content_container').replaceWith('<%= escape_javascript(render(:partial => "/organisations/edit_list_result")) %>');
+
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_organisation_edit_list_menu",:locals => { :organisation => @organisation})) %>');
+$("#tabs").tabs();
 $('.organisational_check_field').blur(function(){
     var check_fields = [];
     var data_string = "";

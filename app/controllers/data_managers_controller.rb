@@ -1,7 +1,6 @@
 class DataManagersController < ApplicationController
 
-  require "pdf/writer"
-  require "pdf/simpletable"
+  include OutputPdf
 
   def import_index
     respond_to do |format|
@@ -19,16 +18,16 @@ class DataManagersController < ApplicationController
 
   def export
     @source_id = String.new
-    @type = String.new
+    @source_type = String.new
     if(params[:source]=="person")
       if(params[:source_id].include?("query_"))
         @source_id = params[:source_id].delete("query_")
-        @type = "Query"
+        @source_type = "query"
         @query_header = QueryHeader.find(@source_id)
         @people = @query_header.run
       else
         @source_id = params[:source_id].delete("list_")
-        @type = "List"
+        @source_type = "list"
         @people = ListHeader.find(@source_id).people_on_list
       end
     else
@@ -36,9 +35,12 @@ class DataManagersController < ApplicationController
     end
 
     respond_to do |format|
-      format.html {render 'data_managers/export.html'}
+      format.html {render 'data_managers/export.html'}      
       format.xml {send_data((render 'data_managers/export.rxml'), :filename => "export.xml", :type => "text/xml")}
       format.csv {send_data((render 'data_managers/export.html'), :filename => "export.csv", :type => "text/csv")}
+      format.pdf {pdf = PDF::Writer.new
+                  pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+                  send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
     end
   end
 

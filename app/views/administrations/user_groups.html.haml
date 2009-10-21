@@ -1,14 +1,24 @@
-=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
-%h3{:style => "display:inline;"} System Setting
-=link_to('System Management', :controller => "administrations", :action => "system_management")
-=link_to('Query/List', :controller => "administrations", :action => "list_management")
-=link_to('Duplication Formula', :controller => "administrations", :action => "duplication_formula")
-#tabs{:style => "width:96%;"}
-  = render :partial => 'system_setting_menu'
-  #SystemData
-    = render :partial => '/amazon_settings/system_data'
+#header
+  #page_title
+    %h1 User Groups
+  #lol
+    %br.clear
+%input{:id => "group_type_mode", :mode => "show", :style => "display:none"}
+%br
+#content_full_page
+  %div#group_display
+    %ul{:style => "list-style-type:none;padding-left:0px;"}
+      - @group_types.each do |i|
+        %li{:style => "width:50%;float:left;"}
+          .group_type_tab.toggle_options{:class => "container_active", :id => "group_type_#{i.id}", :field => "group_type"}
+            .options{:style=> "display:inline;float:right;display:none;"}
+              = image_tag('edit_icon.png', :class => 'edit_option', :id => 'user_group_edit_button', :group_type_id => i.id)
+            .title
+              = i.name
+              \-
+              = i.login_accounts.size
+              &nbsp
+              users
+            
 
-  #TagSetting
-    = render :partial => '/tag_settings/tag_tab'
-
-
+  %div#user_group_form

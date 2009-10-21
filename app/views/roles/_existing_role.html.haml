@@ -1,0 +1,11 @@
+- for i in @roles
+  - status = i.role_status ? "container_active" : "container_inactive"
+  -div_for(i, :class => "#{status}  toggle_options" , :id => "existing_role", :role_id => i.id, :field => "role", :style => "padding:1%;width:29%;") do
+    .options{:style => "display:none", :class => "role_options"}
+      = link_to image_tag('edit_icon.png'), edit_role_path(i), :class => 'get edit_role edit_option', :role_id => i.id,:field => "role"
+      = link_to image_tag('delete_icon.png'), role_path(i), :class => 'delete delete_flag',:id => 'delete_role'
+    .title
+      = i.id
+      \-
+      = i.name
+    %br

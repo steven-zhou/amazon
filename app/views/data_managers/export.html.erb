@@ -1,4 +1,4 @@
-<%if @type == "Query"
+<%if @source_type == "query"
     if @query_header.query_selections.empty? -%>
             <%= "ID,First Name,Family Name" %>
         <%  @people.each do |person| -%>
@@ -31,6 +31,9 @@
             <%=  data_value.join(",") %>
         <%end
     end
-else
-
-end-%>
+else-%>
+  <%= "ID, First Name, Family Name"%>
+  <% @people.each do |person| -%>
+    <%=  "#{person.id},#{person.first_name.gsub(/,/, '')},#{person.family_name.gsub(/,/, '')}" %>
+  <%end -%>
+<%end-%>
