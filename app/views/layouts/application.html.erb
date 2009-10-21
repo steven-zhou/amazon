@@ -13,14 +13,15 @@
       "jquery.qtip.min.js",
       "jquery.form.js",
       "jquery.jpassword.js",
+      "jquery.wysiwyg.js",
       "application.js",
       "person.js",
       "reports.js",
-      "jquery.wysiwyg.js",
+      "module_menu.js",
       :cache => true %>
 
 
-    
+
     <%= yield_authenticity_token %>
   </head>
 
@@ -30,11 +31,27 @@
       <%= render(:partial => "/shared/flash_messages") %>
       <div id="lc"><!--left collumn, menu area-->
         <%= render(:partial => "/shared/menu") %>
-        <%= render(:partial => "/shared/admin_menu") %>
       </div>
 
       <div id="main"><!--main area wrapper-->
         <div id="sysbar"><!--System Bar-->
+          <div class="bar_section">
+            <div id="module_menu">
+              <div id="module_menu_top"><a href="#"></a></div>
+
+              <div id="module_menu_items" >
+                <div id="module_menu_connector">
+                </div>
+                <ul>
+                  <li><%= link_to("Core", :controller => "module", :action => "core") %></li>
+                  <li><%= link_to("Administration", :controller => "module", :action => "administration") %></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="bar_section">toolbar</div>
+          <div class="bar_section">system search</div>
+          <div class="bar_section">help</div>
         </div>
         <div id="content"><!--main content area "where the magic happens"-->
 

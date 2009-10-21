@@ -138,7 +138,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.connect '/', {:controller => "signin", :action => "login" }
-  map.welcome 'welcome', :controller => "people", :action => "show"    # After a user is logged in this is where they are sent to
+  map.welcome 'welcome', :controller => "module", :action => "core"    # After a user is logged in this is where they are sent to
   map.login 'login', :controller => "signin", :action => "login"       # This should be the page a user logs in at
   
   map.connect ':controller/:action/:id'

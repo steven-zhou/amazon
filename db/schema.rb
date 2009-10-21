@@ -390,8 +390,6 @@ ActiveRecord::Schema.define(:version => 20091021050902) do
     t.string   "duplication_value"
   end
 
-  add_index "organisations", ["duplication_value"], :name => "duplication_value"
-
   create_table "people", :force => true do |t|
     t.string   "custom_id"
     t.integer  "primary_title_id"
@@ -422,8 +420,6 @@ ActiveRecord::Schema.define(:version => 20091021050902) do
     t.integer  "gender_id"
     t.string   "duplication_value"
   end
-
-  add_index "people", ["duplication_value"], :name => "duplication_vaule"
 
   create_table "person_groups", :force => true do |t|
     t.integer  "people_id"
@@ -532,16 +528,6 @@ ActiveRecord::Schema.define(:version => 20091021050902) do
     t.string   "description"
     t.string   "remarks"
     t.boolean  "role_status"
-  end
-
-  create_table "show_organisation_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "show_organisation_list_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "tag_meta_types", :force => true do |t|

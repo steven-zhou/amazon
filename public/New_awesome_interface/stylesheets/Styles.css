@@ -77,7 +77,7 @@ body {
 
 #app #lc #menu #menu_active .item li {
 	float: left;
-	padding 2px 4px 2px 2px
+	padding: 2px 4px 2px 2px;
 }
 
 
