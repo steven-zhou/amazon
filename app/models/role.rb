@@ -12,7 +12,7 @@ class Role < ActiveRecord::Base
   
   delegate :name, :to => :role_type, :prefix => true,:allow_nil => true
 
-
+  default_scope :order => "id ASC"
 
 
 end
