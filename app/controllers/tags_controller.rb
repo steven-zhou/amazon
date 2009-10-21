@@ -85,7 +85,20 @@ class TagsController < ApplicationController
     if @sub_group.save
       flash.now[:message] = "Saved successfully."
     else
-      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless sub_group.on(:name).nil?
+      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_custom_sub_group
+    @custom_group = GroupType.find_by_id(params[:id])
+    @custom_group.update_attributes(params[:group_type])
+    if @custom_group.save
+      flash.now[:message] = "Saved successfully."
+    else
+      flash.now[:warning] = "Name " + @custom_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @custom__group.on(:name).nil?
     end
     respond_to do |format|
       format.js
@@ -106,7 +119,7 @@ class TagsController < ApplicationController
     if @sub_group.save
       flash.now[:message] = "Saved successfully."
     else
-      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless sub_group.on(:name).nil?
+      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
     end
     respond_to do |format|
       format.js
