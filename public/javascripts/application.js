@@ -606,6 +606,11 @@ $(function (){
         $(this).parent().find(".open_tag_toggle").show();
         $(".open_tag_toggle").show();
 
+        $("#multilevel_mode_1").attr("mode", "inactive");
+        $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
+
         $(".multilevel_new_option").show();
     });
 });
@@ -620,6 +625,12 @@ $(function (){
 
         $("#multilevel_mode_1").attr("mode", "inactive");
         $("#multilevel_mode_2").attr("mode", "inactive");
+        $("#multilevel_mode_3").attr("mode", "inactive");
+        if ($(this).attr('level') * 1 > 1) {
+            $("#multilevel_mode_" + ( ( $(this).attr('level') * 1 ) -1 ) ).attr("mode", "show");
+        } else {
+            $("#multilevel_mode_1").attr("mode", "show");
+        }
 
     });
 });
