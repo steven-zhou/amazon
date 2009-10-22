@@ -50,10 +50,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
  
 
-  map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post}
+  map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post, :role_condition_show_roles => :get, :condition_meta_type_finder => :get, :doc_type_finder => :get}
 
 
-  map.resources :roles, :collection => {:show_roles => :get,:master_doc_meta_type_finder1 => :get, :meta_name_finder => :get, :meta_type_name_finder => :get,:doc_type_finder => :get,:role_type_finder => :get}
+  map.resources :roles, :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get}
 
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}

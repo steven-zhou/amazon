@@ -11,7 +11,7 @@ class AdministrationsController < ApplicationController
   end
 
   def custom_groups
-    @custom_groups = GroupMetaMetaType.find_by_name("Custom")
+    @tag_meta_type = GroupMetaMetaType.find_by_name("Custom")
     respond_to do |format|
       format.html
     end
@@ -68,8 +68,7 @@ class AdministrationsController < ApplicationController
 
 
   def security_groups
-    @security_groups = GroupMetaMetaType.find_by_name("Security")
-
+    @tag_meta_type = GroupMetaMetaType.find_by_name("Security")
     respond_to do |format|
       format.html
     end

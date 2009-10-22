@@ -1,8 +1,8 @@
 class TagTypesController < ApplicationController
 
   def new
-    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.new
-    @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:tag_meta_type_id])
+    @tag_type = (params[:tag]+"MetaType").camelize.constantize.new
+    @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.find(params[:tag_meta_type_id])
     @tag_types = @tag_meta_type.tag_types
     respond_to do |format|
       format.js
@@ -22,13 +22,8 @@ class TagTypesController < ApplicationController
   end
 
   def edit
-    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:id])
+    @tag_type = TagType.find(params[:id])
     @tag_meta_type = @tag_type.tag_meta_type
-    @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
-    @tags = @tag_type.tags.find(:all, :order => "name")
-    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
-    @flag = String.new
-    @flag = params[:flag]
     respond_to do |format|
       format.js
     end
@@ -68,20 +63,9 @@ class TagTypesController < ApplicationController
   end
 
   def destroy
-    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:id])
+    @tag_type = TagType.find(params[:id])
     @tag_meta_type = @tag_type.tag_meta_type
-    
-    @tags = @tag_type.tags.find(:all, :order => "name")unless @tag_type.tags.nil?
-    #@tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
-    #@flag = String.new
-    #@flag = params[:flag]
-    for i in @tags
-      i.destroy
-    end
-    
     @tag_type.destroy
-
-
     respond_to do |format|
       format.js
     end

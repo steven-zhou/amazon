@@ -530,6 +530,16 @@ ActiveRecord::Schema.define(:version => 20091021050902) do
     t.boolean  "role_status"
   end
 
+  create_table "show_organisation_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_organisation_list_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tag_meta_types", :force => true do |t|
     t.text     "name"
     t.text     "description"

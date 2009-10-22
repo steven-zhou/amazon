@@ -1,30 +1,18 @@
 #header
   #page_title
-    %h1 Custom Group Types
+    %h1 Custom Group
   #lol
-    %br.clear
-    %input{:id => "multilevel_mode_1", :mode => "show", :style => "display:none;"}
-    %input{:id => "multilevel_mode_2", :mode => "show", :style => "display:none;"}
-#content_full_page
-  .container#custom_group_add_data
-    %div
-      = link_to_function image_tag("close_icon.png", :size => "19x18"), :style => "display:none;float:right;", :id => "close_custom_group_add_entry", :level => "1", :class => "tag_close_entry_form multilevel_close_option", :form_id => "custom_group_entry_form"
-      = link_to_function image_tag("add_icon.png" , :size => "19x18"), :id => "custom_group_add_entry", :level => "1", :class => "tag_add_entry_form multilevel_new_option", :form_id => "custom_group_entry_form"
-      Add Group Type
-    %div#custom_group_entry_form{:style => "display:none;", :class => ""}
-      %br.clear
-      - form_for GroupMetaType.new, :url => {:controller => "tag_types", :action => "create_group_meta_type"}, :html => {:class => "ajax_form"} do |p|
-        .form_line
-          .field_30
-            = p.label :name, 'Name'
-            = p.text_field :name
-          .field_35
-            = p.label :description, 'Description'
-            = p.text_field :description
-          .field_30
-            = p.label :active
-            %label
-              = p.check_box :status
-            = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
-  %div#custom_groups
-    = render :partial => "/tag_types/custom_groups"
+  %br.clear
+
+.container
+  .container
+    = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_type", :tag => "Group", :tag_meta_type_id => @tag_meta_type.id
+    Add Group
+  %br.clear
+    
+  .tag{:id => "tag_types_#{@tag_meta_type.id}"}
+    = render :partial => "/tag_types/tag_types"
+
+
+.container#tag_type_form{:style => "display:none;"}
+.container#tag_form{:style => "display:none;"}
