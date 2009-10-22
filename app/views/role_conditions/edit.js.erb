@@ -1,0 +1,12 @@
+$('#role_condition_edit_role_container').html('<%=escape_javascript(render(:partial => "/role_conditions/role_condition_edit_role"))%>');
+ $("#role_condition_edit_role_container").show();
+$('#role_condition_role_type_id').attr("disabled", true);
+
+
+$('.role_condition_options').hide();
+
+$('#role_id_of_role_condition').val('<%=escape_javascript("#{@role.id}")%>');
+
+
+
+
