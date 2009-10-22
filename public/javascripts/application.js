@@ -2733,3 +2733,12 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#click_condition").live('mousedown', function(){
+        $.ajax({
+            type: "GET",
+            url:"/roles/role_type_finder.js",
+            dataType: "script"
+        });
+    });
+});
