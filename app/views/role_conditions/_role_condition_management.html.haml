@@ -1,0 +1,16 @@
+#content_full_page
+  .container
+    %h2{:style => "display:inline;"} Select Role Type:
+    = collection_select :role_condition,:role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "role_condition_show_role clear_select", :style => "display:inline;width:20%;", :disabled => false}
+    %br
+    %br
+
+    %div#role_condition_role_main_contents.hidden
+      %input{:id => "condition_role_mode", :mode => "show", :style => "display:none"}
+      %div#role_condition_existing_role
+      %br.clear
+      %div#role_condition_edit_role_container
+
+
+ 
+        

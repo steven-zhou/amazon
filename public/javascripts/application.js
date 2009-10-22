@@ -536,15 +536,15 @@ $(function(){
     });
 
     $(".multilevel_edit_option").live('click', function() {
-       // This function is an AJAX call for a form, meaning none of this code
-       // is going to be executed. However, you will need to place the following
-       // code in the return.js file for that AJAX method in your controller.
-       // $("#multilevel_mode_1").attr("mode", "inactive");
-       // $("#multilevel_mode_2").attr("mode", "inactive");
-       // $("#multilevel_mode_3").attr("mode", "inactive");
-       // $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
-       // $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
-    });
+        // This function is an AJAX call for a form, meaning none of this code
+        // is going to be executed. However, you will need to place the following
+        // code in the return.js file for that AJAX method in your controller.
+        // $("#multilevel_mode_1").attr("mode", "inactive");
+        // $("#multilevel_mode_2").attr("mode", "inactive");
+        // $("#multilevel_mode_3").attr("mode", "inactive");
+        // $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
+        // $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
+        });
 
     $(".multilevel_close_option").live('click', function() {
         $("#multilevel_mode_1").attr("mode", "show");
@@ -556,9 +556,9 @@ $(function(){
     });
 
     $(".multilevel_delete_option").live('click', function() {
-       // This function is an AJAX call for a form, meaning none of this code
-       // is going to be executed. However, you will need to place the following
-       // code in the return.js file for that AJAX method in your controller.
+        // This function is an AJAX call for a form, meaning none of this code
+        // is going to be executed. However, you will need to place the following
+        // code in the return.js file for that AJAX method in your controller.
         $("#multilevel_mode_1").attr("mode", "show");
         $("#multilevel_mode_2").attr("mode", "show");
         $("#multilevel_mode_3").attr("mode", "show");
@@ -773,7 +773,7 @@ $(function(){
 
             $("#downside").html("");
             $("#role_type_description_label").html('');
-             $('#role_main_contents').hide();
+            $('#role_main_contents').hide();
         }
     });
 });
@@ -800,56 +800,9 @@ $(function(){
 });
 
 
-$(function(){
-    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/roles/master_doc_meta_type_finder1.js",
-            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
-            dataType: "script"
-        });
-
-    });
-});
 
 
-$(function(){
-    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url:
-            "/roles/meta_name_finder.js",
-            data:
-            'id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
 
-$(function(){
-    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/roles/meta_type_name_finder.js",
-            data:'id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
-
-$(function(){
-
-    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url:
-            "/roles/doc_type_finder.js",
-            data:
-            'master_doc_meta_type_id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
 
 $(function(){
     $("#cheatbutton").live('click', function(){
@@ -2612,10 +2565,10 @@ $(function(){
         $(this).closest('.toggle_options').addClass("container_selected");
 
         $.ajax({
-              type:'GET',
-              url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
-              data: "group_type_id="+$(this).attr('group_type_id'),
-              dataType:"script"
+            type:'GET',
+            url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+            data: "group_type_id="+$(this).attr('group_type_id'),
+            dataType:"script"
 
         });
     });
@@ -2632,9 +2585,9 @@ $(function(){
 
 $(function(){
     $('.close_flag').live('click', function(){
-       $(this).css('display', 'none');
-       $('#add_'+$(this).attr('flag_name')).css('display', '');
-       $('#new_'+$(this).attr('flag_name')).toggle('blind');
+        $(this).css('display', 'none');
+        $('#add_'+$(this).attr('flag_name')).css('display', '');
+        $('#new_'+$(this).attr('flag_name')).toggle('blind');
 
     });
    
@@ -2644,8 +2597,8 @@ $(function(){
 
 $(function(){
     $('.edit_close_flag').live('click', function(){
-       $(this).css('display', 'none');
-       $('#edit_'+$(this).attr('flag_name')+"_container").html('');
+        $(this).css('display', 'none');
+        $('#edit_'+$(this).attr('flag_name')+"_container").html('');
 
     });
 
@@ -2654,14 +2607,14 @@ $(function(){
 $(function(){
     $('.user_name_to_person').live('change', function(){
         if($(this).val()!= ""){
-          $.ajax({
-              type: "GET",
-              url: "/user_groups/user_name_to_person.js",
-              data: 'user_name='+$(this).val(),
-              dataType:"script"
-          });
+            $.ajax({
+                type: "GET",
+                url: "/user_groups/user_name_to_person.js",
+                data: 'user_name='+$(this).val(),
+                dataType:"script"
+            });
         }else{
-             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
         }
        
     });
@@ -2710,7 +2663,7 @@ $(function(){
 $(function(){
     $('#report_person_pdf_submit_button').live('click', function(){
 
-       window.open("/reports/generate_person_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+        window.open("/reports/generate_person_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
     });
 
 });
@@ -2718,7 +2671,7 @@ $(function(){
 $(function(){
     $('#report_organisation_pdf_submit_button').live('click', function(){
 
-       window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+        window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
     });
 
 });
@@ -2728,14 +2681,122 @@ $(function(){
 
 $(function(){
     $('#edit_role_form').live('click', function(){
-
         $('#role_role_type_id').attr("disabled", false);
-
-
     });
 
 });
 
 
+/*role_condition part*/
 
+
+$(function(){
+    $('.edit_role').live('click', function(){
+
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+        $.ajax({
+            type: "GET",
+            url: "/roles/" + $(this).attr('role_id') + "/edit.js",
+            data: "role_id="+$(this).attr('role_id'),
+            dataType:"script"
+
+        });
+    });
+});
+
+$(function(){
+    $(".role_condition_show_role").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/role_conditions/role_condition_show_roles.js",
+                data: 'role_type_id='+$(this).val(),
+                dataType: "script"
+
+            });
+
+            $('#role_condition_role_main_contents').show();
+        }else{
+
+            $('#role_condition_role_main_contents').hide();
+            
+        }
+    });
+});
+
+
+$(function(){
+    $('#role_condition_role_click').live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+
+        $.ajax({
+            type:'GET',
+            url: "/role_conditions/" + $(this).attr('role_id') + "/edit.js",
+            data: "role_id="+$(this).attr('role_id'),
+            dataType:"script"
+
+        });
+    });
+});
+
+
+$(function(){
+    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/role_conditions/condition_meta_type_finder.js",
+            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
+            dataType: "script"
+        });
+
+    });
+});
+
+
+//$(function(){
+//    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+//        $.ajax({
+//            type: "GET",
+//            url:
+//            "/roles/meta_name_finder.js",
+//            data:
+//            'id='+$(this).val(),
+//            dataType: "script"
+//        });
+//    });
+//});
+
+//$(function(){
+//    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+//        $.ajax({
+//            type: "GET",
+//            url: "/roles/meta_type_name_finder.js",
+//            data:'id='+$(this).val(),
+//            dataType: "script"
+//        });
+//    });
+//});
+
+$(function(){
+
+    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url:"/role_conditions/doc_type_finder.js",
+            data:'master_doc_meta_type_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+
+    $("#edit_role_condition_form").live('click', function(){
+      $("#role_condition_edit_role_container").hide();
+      $('#role_condition_role_type_id').attr("disabled", false);
+    });
+});
 
