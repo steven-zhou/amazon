@@ -9,6 +9,21 @@ class ModuleController < ApplicationController
     redirect_to :controller => "people", :action => "show"
   end
 
+  def membership
+    session[:module] = "core"
+    redirect_to :controller => "people", :action => "show"
+  end
+
+  def fundraising
+    session[:module] = "core"
+    redirect_to :controller => "people", :action => "show"
+  end
+
+  def case_management
+    session[:module] = "core"
+    redirect_to :controller => "people", :action => "show"
+  end
+
   def administration
     session[:module] = "administration"
     redirect_to :controller => "administrations", :action => "system_data"
