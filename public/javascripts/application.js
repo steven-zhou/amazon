@@ -541,11 +541,13 @@ $(function(){
         $("li.active").removeClass("active");
     });
 
+
     $(".toggle_multilevel_options").live("click", function(){
         $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
         $(this).parent().toggleClass("open");
         $("li").removeClass("active");
         $(this).parent().addClass("active");
+
     });
 
     $(".toggle_multilevel_options").live("mouseover", function(){
@@ -760,56 +762,9 @@ $(function(){
 });
 
 
-$(function(){
-    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/roles/master_doc_meta_type_finder1.js",
-            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
-            dataType: "script"
-        });
-
-    });
-});
 
 
-$(function(){
-    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url:
-            "/roles/meta_name_finder.js",
-            data:
-            'id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
 
-$(function(){
-    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/roles/meta_type_name_finder.js",
-            data:'id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
-
-$(function(){
-
-    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url:
-            "/roles/doc_type_finder.js",
-            data:
-            'master_doc_meta_type_id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
 
 $(function(){
     $("#cheatbutton").live('click', function(){
@@ -2625,8 +2580,8 @@ $(function(){
 
 $(function(){
     $('.edit_close_flag').live('click', function(){
-       $(this).css('display', 'none');
-       $('#edit_'+$(this).attr('flag_name')+"_container").html('');
+        $(this).css('display', 'none');
+        $('#edit_'+$(this).attr('flag_name')+"_container").html('');
 
     });
 
@@ -2709,14 +2664,131 @@ $(function(){
 
 $(function(){
     $('#edit_role_form').live('click', function(){
-
         $('#role_role_type_id').attr("disabled", false);
-
-
     });
 
 });
 
 
+/*role_condition part*/
 
 
+$(function(){
+    $('.edit_role').live('click', function(){
+
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+        $.ajax({
+            type: "GET",
+            url: "/roles/" + $(this).attr('role_id') + "/edit.js",
+            data: "role_id="+$(this).attr('role_id'),
+            dataType:"script"
+
+        });
+    });
+});
+
+$(function(){
+    $(".role_condition_show_role").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/role_conditions/role_condition_show_roles.js",
+                data: 'role_type_id='+$(this).val(),
+                dataType: "script"
+
+            });
+
+            $('#role_condition_role_main_contents').show();
+        }else{
+
+            $('#role_condition_role_main_contents').hide();
+            
+        }
+    });
+});
+
+
+$(function(){
+    $('#role_condition_role_click').live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+
+        $.ajax({
+            type:'GET',
+            url: "/role_conditions/" + $(this).attr('role_id') + "/edit.js",
+            data: "role_id="+$(this).attr('role_id'),
+            dataType:"script"
+
+        });
+    });
+});
+
+
+$(function(){
+    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url: "/role_conditions/condition_meta_type_finder.js",
+            data: 'master_doc_meta_meta_type_id='+$(this).val()+'&id='+$(this).val(),
+            dataType: "script"
+        });
+
+    });
+});
+
+
+//$(function(){
+//    $(".find_master_doc_meta_type_field_for_role_condition").live('change', function(){
+//        $.ajax({
+//            type: "GET",
+//            url:
+//            "/roles/meta_name_finder.js",
+//            data:
+//            'id='+$(this).val(),
+//            dataType: "script"
+//        });
+//    });
+//});
+
+//$(function(){
+//    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+//        $.ajax({
+//            type: "GET",
+//            url: "/roles/meta_type_name_finder.js",
+//            data:'id='+$(this).val(),
+//            dataType: "script"
+//        });
+//    });
+//});
+
+$(function(){
+
+    $("#master_doc_meta_type_id_for_role_condition").live('change', function(){
+        $.ajax({
+            type: "GET",
+            url:"/role_conditions/doc_type_finder.js",
+            data:'master_doc_meta_type_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+
+    $("#edit_role_condition_form").live('click', function(){
+      $("#role_condition_edit_role_container").hide();
+      $('#role_condition_role_type_id').attr("disabled", false);
+    });
+});
+
+$(function(){
+    $("#click_condition").live('mousedown', function(){
+        $.ajax({
+            type: "GET",
+            url:"/roles/role_type_finder.js",
+            dataType: "script"
+        });
+    });
+});

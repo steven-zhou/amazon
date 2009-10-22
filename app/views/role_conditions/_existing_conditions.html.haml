@@ -1,0 +1,13 @@
+- for r in @role_conditions
+  -div_for(r, :class => " container_active_30 toggle_options" , :id => "existing_condition_in_role", :field => "role_condition") do
+    .options{:id => "delete_icon",:style => "display:none;"}
+      = link_to image_tag('delete_icon.png'), role_condition_path(r), :class => 'delete delete_flag',:id => 'delete_user_group',:size => "10px;"
+    .title{:style => "height:20px;"}
+      = r.master_doc_type.master_doc_meta_type.master_doc_meta_meta_type.name[0,2]
+      \.
+      \-
+      = r.master_doc_type.master_doc_meta_type.name[0,2]
+      \.
+      \-
+      = r.master_doc_type.name
+  
