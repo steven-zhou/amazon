@@ -1,0 +1,20 @@
+<div id="sysbar"><!--System Bar-->
+  <div class="bar_section">
+    <div id="module_menu">
+      <div id="module_menu_top"><a href="#"></a></div>
+
+      <div id="module_menu_items" >
+        <div id="module_menu_connector">
+        </div>
+        <ul>
+          <li><%= link_to("Core", :controller => "module", :action => "core") %></li>
+          <li><%= link_to("Administration", :controller => "module", :action => "administration") %></li>
+          <li><%= link_to("Log Out", :controller => "signin", :action => "signout") %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bar_section">toolbar</div>
+  <div class="bar_section">system search</div>
+  <div class="bar_section">help</div>
+</div>
