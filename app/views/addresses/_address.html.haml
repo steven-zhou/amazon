@@ -4,8 +4,12 @@
     .title
       %h2= address.address_type.name
     .options{:class => 'person_address_edit_delete person_tag', :style => "display:none;"}
-      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get edit_address edit_option', :id => 'address_edit_button' , :address_id => @address.id,:field => "address"
-      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete delete_address',:id => 'address_delete_button', :address_id => @address.id
+      -if(address.priority_number==1)
+        = link_to image_tag('down_arrow.png'),move_down_address_priority_address_path(address), :class => 'move_down_address_priority',:id => 'address_down_button', :address_id => address.id
+      - else
+        = link_to image_tag('up_arrow.png'),move_up_address_priority_address_path(address), :class => 'move_up_address_priority',:id => 'address_up_button', :address_id => address.id
+      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get edit_address edit_option', :id => 'address_edit_button' , :address_id => address.id, :field => "address"
+      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete delete_address',:id => 'address_delete_button', :address_id => address.id
     %br.clear
   %div{:style => "float:right;"}
     = format_address(address)

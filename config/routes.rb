@@ -88,7 +88,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :duplication_formula_details
 
-  map.resources :addresses , :member => {:search_postcodes => :get}
+  map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
                                     :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
 

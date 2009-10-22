@@ -42,6 +42,18 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
+    $('a.move_down_address_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_address_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
     //To use this function, please add data_id attributes to the link and the element id point to should be the form
     $('a.post').live('click', function(){
         $.post($(this).attr('href'), $("#" + $(this).attr("data_id")).serialize(),null,'script');
@@ -536,9 +548,9 @@ $(function(){
     });
 
     $(".multilevel_edit_option").live('click', function() {
-       // This function is an AJAX call for a form, meaning none of this code
-       // is going to be executed. However, you will need to place the following
-       // code in the return.js file for that AJAX method in your controller.
+        // This function is an AJAX call for a form, meaning none of this code
+        // is going to be executed. However, you will need to place the following
+        // code in the return.js file for that AJAX method in your controller.
         $("#multilevel_mode_1").attr("mode", "inactive");
         $("#multilevel_mode_2").attr("mode", "inactive");
         $("#multilevel_mode_3").attr("mode", "inactive");
@@ -556,9 +568,9 @@ $(function(){
     });
 
     $(".multilevel_delete_option").live('click', function() {
-       // This function is an AJAX call for a form, meaning none of this code
-       // is going to be executed. However, you will need to place the following
-       // code in the return.js file for that AJAX method in your controller.
+        // This function is an AJAX call for a form, meaning none of this code
+        // is going to be executed. However, you will need to place the following
+        // code in the return.js file for that AJAX method in your controller.
         $("#multilevel_mode_1").attr("mode", "show");
         $("#multilevel_mode_2").attr("mode", "show");
         $("#multilevel_mode_3").attr("mode", "show");
@@ -746,7 +758,7 @@ $(function(){
 
             $("#downside").html("");
             $("#role_type_description_label").html('');
-             $('#role_main_contents').hide();
+            $('#role_main_contents').hide();
         }
     });
 });
@@ -2585,10 +2597,10 @@ $(function(){
         $(this).closest('.toggle_options').addClass("container_selected");
 
         $.ajax({
-              type:'GET',
-              url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
-              data: "group_type_id="+$(this).attr('group_type_id'),
-              dataType:"script"
+            type:'GET',
+            url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+            data: "group_type_id="+$(this).attr('group_type_id'),
+            dataType:"script"
 
         });
     });
@@ -2605,9 +2617,9 @@ $(function(){
 
 $(function(){
     $('.close_flag').live('click', function(){
-       $(this).css('display', 'none');
-       $('#add_'+$(this).attr('flag_name')).css('display', '');
-       $('#new_'+$(this).attr('flag_name')).toggle('blind');
+        $(this).css('display', 'none');
+        $('#add_'+$(this).attr('flag_name')).css('display', '');
+        $('#new_'+$(this).attr('flag_name')).toggle('blind');
 
     });
    
@@ -2616,14 +2628,14 @@ $(function(){
 $(function(){
     $('.user_name_to_person').live('change', function(){
         if($(this).val()!= ""){
-          $.ajax({
-              type: "GET",
-              url: "/user_groups/user_name_to_person.js",
-              data: 'user_name='+$(this).val(),
-              dataType:"script"
-          });
+            $.ajax({
+                type: "GET",
+                url: "/user_groups/user_name_to_person.js",
+                data: 'user_name='+$(this).val(),
+                dataType:"script"
+            });
         }else{
-             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
         }
        
     });
@@ -2672,7 +2684,7 @@ $(function(){
 $(function(){
     $('#report_person_pdf_submit_button').live('click', function(){
 
-       window.open("/reports/generate_person_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+        window.open("/reports/generate_person_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
     });
 
 });
@@ -2680,7 +2692,7 @@ $(function(){
 $(function(){
     $('#report_organisation_pdf_submit_button').live('click', function(){
 
-       window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+        window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
     });
 
 });
