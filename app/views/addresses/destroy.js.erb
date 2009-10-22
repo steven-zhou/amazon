@@ -1,4 +1,4 @@
-$('#<%= dom_id(@address) %>').fadeOut("slow", function() {$(this).remove();});
+ $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @person.addresses)) %>');
 
 $('.person_address_edit_delete').css("display","none");
 $('.person_address_toggle_button').css("display","");
