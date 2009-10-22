@@ -54,6 +54,55 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
+    $('a.move_down_phone_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_phone_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+
+    $('a.move_down_email_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_email_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+     $('a.move_down_website_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_website_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_down_master_doc_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_master_doc_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
     //To use this function, please add data_id attributes to the link and the element id point to should be the form
     $('a.post').live('click', function(){
         $.post($(this).attr('href'), $("#" + $(this).attr("data_id")).serialize(),null,'script');

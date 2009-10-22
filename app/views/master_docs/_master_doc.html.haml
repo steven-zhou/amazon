@@ -4,6 +4,10 @@
     .title
       %h2= "#{master_doc.master_doc_type.name}"
     .options{:class => 'person_master_doc_edit_delete person_tag', :style => "display:none;"}
+      -if(master_doc.priority_number==1)
+        = link_to image_tag('down_arrow.png'),move_down_master_doc_priority_master_doc_path(master_doc), :class => 'move_down_master_doc_priority',:id => 'master_doc_down_button', :master_doc_id => master_doc.id
+      - else
+        = link_to image_tag('up_arrow.png'),move_up_master_doc_priority_master_doc_path(master_doc), :class => 'move_up_master_doc_priority',:id => 'master_doc_up_button', :master_doc_id => master_doc.id
       = link_to image_tag('edit_icon.png'), edit_master_doc_path(master_doc), :class => 'get edit_master_doc edit_option', :field => "master_doc", :id => 'master_doc_edit_button', :master_doc_id => master_doc.id
       = link_to image_tag('delete_icon.png'), master_doc_path(master_doc), :class => 'delete delete_master_doc delete_option', :field => "master_doc", :id => 'master_doc_delete_button', :master_doc_id => master_doc.id
     %br.clear

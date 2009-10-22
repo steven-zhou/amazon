@@ -36,5 +36,22 @@
     
   #contacts
     =# Render the person's contacts
-    = render :partial => '/contacts/contact', :collection => @person.contacts
+    -if !@person.emails.blank?
+      .container
+        %h2 Email
+        #contact_email
+          = render :partial => '/contacts/contact', :collection => @person.emails
+    -if !@person.phones.blank?
+      .container
+        %h2 Phone
+        #contact_phone
+          = render :partial => '/contacts/contact', :collection => @person.phones
+    -if !@person.websites.blank?
+      .container
+        %h2 website
+        #contact_website
+          = render :partial => '/contacts/contact', :collection => @person.websites
+     
+   
+  
       

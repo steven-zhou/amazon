@@ -31,6 +31,42 @@ class MasterDocsController < ApplicationController
   def destroy
     @masterdoc = MasterDoc.find(params[:id])
     @masterdoc.destroy
+    @person = Person.find(session[:user])
     render "destroy.js"
+  end
+
+  def move_down_master_doc_priority
+    @current_master_doc = MasterDoc.find(params[:id])
+
+    if(@current_master_doc.priority_number==1)
+      @exchange_master_doc = @current_master_doc.entity.master_docs.find_by_priority_number(2)
+
+      @exchange_master_doc.priority_number = 1
+      @current_master_doc.priority_number = 2
+      @exchange_master_doc.save
+      @current_master_doc.save
+    end
+    @person = Person.find(session[:user])
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def move_up_master_doc_priority
+    @up_current_master_doc = MasterDoc.find(params[:id])
+    @up_exchange_master_doc = @up_current_master_doc.entity.master_docs.find_by_priority_number(@up_current_master_doc.priority_number - 1)
+
+     @up_exchange_master_doc.priority_number = @up_exchange_master_doc.priority_number + 1
+     @up_current_master_doc.priority_number = @up_current_master_doc.priority_number - 1
+
+    @up_exchange_master_doc.save
+    @up_current_master_doc.save
+    @person = Person.find(session[:user])
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 end
