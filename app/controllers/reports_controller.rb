@@ -117,14 +117,15 @@ class ReportsController < ApplicationController
      
       @list_header_id = params[:list_header_id].delete("list_")
       @type= "list"
-      @list_name = ListHeader.find(@list_header_id).name
+      @list_name = "List "+ListHeader.find(@list_header_id).name
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
 
-    if(params[:list_header_id].include?("query_"))
+    if(params[:list_header_id].include?("query_"))  
 
       @list_header_id = params[:list_header_id].delete("query_")
       @type= "query"
+      @list_name = "Query "+ListHeader.find(@list_header_id).name
       @person_report_list = ListHeader.find(@list_header_id).people_on_list
     end
     

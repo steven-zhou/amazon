@@ -55,9 +55,110 @@ body {
 }
 
 
+/*------------------------------*/
+/* ---- SYSTEM MODULE MENU -----*/
+/*------------------------------*/
+
+#app #main #sysbar .bar_section #module_menu #module_menu_top {
+	height: 32px;
+	cursor: pointer;
+}
+#app #main #sysbar .bar_section #module_menu #module_menu_items #module_menu_connector #module_menu_connector_1 {
+	background-color: #f6f6f6;
+	display: block;
+	float: left;
+	height: 13px;
+	width: 30px;
+}
+#app #main #sysbar .bar_section #module_menu #module_menu_items #module_menu_connector #module_menu_connector_2 {
+	background-color: #F6f6f6;
+
+	background-repeat: no-repeat;
+	background-position: right bottom;
+	width:100%;
+	height:10px;
+	float:left;
+}
+
+
+#app #main #sysbar .bar_section #module_menu #module_menu_connector {
+	background-image: url(/images/module_menu_connector.png);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	margin-left: -10px;
+	background-color: transparent;
+	margin: 0;
+	width: 100%;
+	z-index:999;
+	position: relative;
+	height:23px;
+	}
+#app #main #sysbar .bar_section #module_menu #module_menu_items {
+	margin-left: -10px;
+	background-color: transparent;
+	margin: -0px 0 0 -15px;
+	width: 100%;
+	z-index:999;
+	position: relative;
+	display: none;
+	}
+#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:100%; box-shadow: 5px 5px #CCC;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color:#f6f6f6; height:40px; padding: 0 0 0 10px; border-bottom: 1px solid #ccc;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li:first-child {margin-top: 3px; -moz-border-radius-topleft:10px; -moz-border-radius-topright:10px;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { -moz-border-radius-bottomleft:10px; -moz-border-radius-bottomright:10px;}
+
+#app #main #sysbar .bar_section #module_menu #module_menu_items li.hover { background: transparent url(/images/module_menu_hover.jpg) repeat-x;}
+
+
+/* End Module Menu */
+
+/* System Bar */
+
+#sysbar {
+	background-image:url(../images/sysbar_bg.jpg);
+	background-repeat:repeat-x;
+	width: 100%;
+	height: 50px;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	padding: 0px 10px;
+	-moz-border-radius: 15px;
+}
+
+#app #main #sysbar .bar_section:first-child {
+	border-left: none;
+	width: 17%;
+	background-image:url(../images/icon_black.png);
+	background-repeat:no-repeat;
+	background-position: 35px 5px;
+}
+
+#app #main #sysbar .bar_section {
+	padding: 0.5%;
+	height: 40px;
+	width: 37%;
+	background-color: transparent;
+	display: inline-block;
+	border-right-width: 1px;
+	border-left-width: 1px;
+	border-right-style: solid;
+	border-left-style: solid;
+	border-right-color: #FFF;
+	border-left-color: #BBB;
+	margin-left: 0px;
+	line-height: 35px;
+	float:left;
+}
+#app #main #sysbar .bar_section:last-child {
+	border-right: none;
+	width: 4%;
+}
+
+/* End system bar */
+
 /* Menu - Active menu item */
 #app #lc #menu #menu_active .top {
-    background-image:url(../images/corner_top.png);
+    background-image:url(/images/corner_top.png);
     background-position: bottom right;
     background-repeat:no-repeat;
     height: 10px;
@@ -98,7 +199,7 @@ body {
 
 
 #app #lc #menu #menu_active .bottom {
-    background-image:url(../images/corner_bottom.png);
+    background-image:url(/images/corner_bottom.png);
     background-position: top right;
     background-repeat:no-repeat;
     height: 10px;
@@ -118,7 +219,7 @@ body {
 /* System Bar */
 
 #sysbar {
-    background-image:url(../images/sysbar_bg.jpg);
+    background-image:url(/images/sysbar_bg.jpg);
     background-repeat:repeat-x;
     width: 100%;
     height: 50px;
@@ -168,7 +269,7 @@ body {
 #app #main #content .container {
     font-family:Arial, Helvetica, sans-serif;
     color: #232323;
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
     background-repeat:repeat;
     width: 96%;
     float: left;
@@ -179,11 +280,11 @@ body {
 }
 
 #app #main #content .container.green_container {
-    background-image:url(../images/container_green_bg.png) !important;
+    background-image:url(/images/container_green_bg.png) !important;
 }
 
 #app #main #content .container.orange_container {
-    background-image:url(../images/container_orange_bg.png) !important;
+    background-image:url(/images/container_orange_bg.png) !important;
 }
 
 /* removes double margin from last div */
@@ -1119,3 +1220,29 @@ td.textright {
     min-height: 10px;
 }
 
+/* tag ul li setting */
+div.tag ul {
+    padding-left:10%;
+}
+
+div.tag ul li .options {
+    display:none !important;
+}
+
+div.tag ul li .options.active{
+    display:block !important;
+}
+
+div.tag ul li ul {
+    display:none;
+}
+
+div.tag ul li.open ul {
+    display:block;
+}
+
+div.tag ul li.active {
+    border-style:dashed;
+    border-color:red;
+    border-width:1px;
+}

@@ -1,0 +1,3 @@
+class CustomList < ListHeader
+
+end

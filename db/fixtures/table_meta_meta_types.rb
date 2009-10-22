@@ -20,7 +20,7 @@ TableMetaType.create :name => "residence_country", :tag_meta_type_id => people.i
 TableMetaType.create :name => "nationality", :tag_meta_type_id => people.id, :description => "Nationality (e.g. Australian)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "other_nationality", :tag_meta_type_id => people.id, :description => "Other Nationality (e.g. Australian)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "language", :tag_meta_type_id => people.id, :description => "Language (e.g. English)",  :status => true, :category => "Integer FK"
-TableMetaType.create :name => "other language", :tag_meta_type_id => people.id, :description => "Other Language (e.g. English)",  :status => true, :category => "Integer FK"
+TableMetaType.create :name => "other_language", :tag_meta_type_id => people.id, :description => "Other Language (e.g. English)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "religion", :tag_meta_type_id => people.id, :description => "Religion (e.g. Christianity)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "onrecord_since", :tag_meta_type_id => people.id, :description => "Onrecord Since (dd-mm-yyyy e.g. 01-11-2000)",  :status => true, :category => "Date"
 TableMetaType.create :name => "marital_status", :tag_meta_type_id => people.id, :description => "Marital Status (e.g. Single)",  :status => true, :category => "Integer FK"

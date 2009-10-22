@@ -89,19 +89,15 @@ class LoginAccount < ActiveRecord::Base
        list_headers << list_header
      end
    end
-
-#   for user_list_header in self.user_list_headers do
-#     list_headers << user_list_header
-#   end
-
-#    user_list_id = UserList.find_all_by_user_id(user_id)
-#
-#    user_list_id.each do |i|
-#      list_headers << i.list_header_id
-#    end
    list_headers.uniq
  end
 
+ def custom_lists
+   custom_lists = Array.new
+   self.user_lists.each do |i|
+     custom_lists << ListHeader.find(i.list_header_id)
+   end
+ end
 
 
   def password=(pass)

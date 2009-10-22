@@ -42,6 +42,18 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
+    $('a.move_down_address_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_address_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
     //To use this function, please add data_id attributes to the link and the element id point to should be the form
     $('a.post').live('click', function(){
         $.post($(this).attr('href'), $("#" + $(this).attr("data_id")).serialize(),null,'script');
@@ -523,128 +535,28 @@ $(function(){
 
 
 // Tag hover system
-
 $(function(){
-    $(".multilevel_new_option").live('click', function(){
-        $("#multilevel_mode_1").attr("mode", "inactive");
-        $("#multilevel_mode_2").attr("mode", "inactive");
-        $("#multilevel_mode_3").attr("mode", "inactive");
-        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "new");
-        $(this).css("display", "none");
-        $(".multilevel_close_option[level="+ $(this).attr("level") +"]").css("display","");
-        $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") + "]").css("display","none");
+    $("#multilevel_new_option").live("click", function(){
+        $("li.open").removeClass("open");
+        $("li.active").removeClass("active");
     });
 
-    $(".multilevel_edit_option").live('click', function() {
-        // This function is an AJAX call for a form, meaning none of this code
-        // is going to be executed. However, you will need to place the following
-        // code in the return.js file for that AJAX method in your controller.
-        // $("#multilevel_mode_1").attr("mode", "inactive");
-        // $("#multilevel_mode_2").attr("mode", "inactive");
-        // $("#multilevel_mode_3").attr("mode", "inactive");
-        // $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "edit");
-        // $(".multilevel_new_option[level="+ $(this).attr('level')+"]").css("display","none");
-        });
 
-    $(".multilevel_close_option").live('click', function() {
-        $("#multilevel_mode_1").attr("mode", "show");
-        $("#multilevel_mode_2").attr("mode", "show");
-        $("#multilevel_mode_3").attr("mode", "show");
-        $(this).css("display", "none");
-        $(".multilevel_new_option[level="+ $(this).attr("level") +"]").css("display","");
-        $(".open_tag_toggle[level="+ (( $(this).attr("level") * 1) +1 +"") +"]").css("display","");
-    });
+    $(".toggle_multilevel_options").live("click", function(){
+        $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
+        $(this).parent().toggleClass("open");
+        $("li").removeClass("active");
+        $(this).parent().addClass("active");
 
-    $(".multilevel_delete_option").live('click', function() {
-        // This function is an AJAX call for a form, meaning none of this code
-        // is going to be executed. However, you will need to place the following
-        // code in the return.js file for that AJAX method in your controller.
-        $("#multilevel_mode_1").attr("mode", "show");
-        $("#multilevel_mode_2").attr("mode", "show");
-        $("#multilevel_mode_3").attr("mode", "show");
     });
 
     $(".toggle_multilevel_options").live("mouseover", function(){
-        if ( $("#multilevel_mode_" + $(this).attr('level')).attr("mode") == 'show' ) {
-            $(this).find(".options").css("display", "");
-        }
+        $(this).css("cursor","pointer");
+        $(this).find(".options").addClass("active");
     });
 
     $(".toggle_multilevel_options").live("mouseout", function(){
-        if ( $("#multilevel_mode_" + $(this).attr('level')).attr("mode") == 'show' ) {
-            $(this).find(".options").css("display", "none");
-        }
-    });
-});
-
-
-// Tag toggle system
-
-$(function (){
-    $(".open_tag_toggle").live('click', function() {
-        $(this).hide();
-        $('#'+$(this).attr('toggle_id_name')).show();
-        $(this).parent().find(".close_tag_toggle").show();
-
-        $("#multilevel_mode_1").attr("mode", "inactive");
-        $("#multilevel_mode_2").attr("mode", "inactive");
-        $("#multilevel_mode_3").attr("mode", "inactive");
-        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
-        $(".open_tag_toggle").hide();
-
-        $(".multilevel_new_option").hide();
-        $(".multilevel_close_option").hide();
-
-    });
-});
-
-
-$(function (){
-    $(".close_tag_toggle").live('click', function() {
-        $(this).hide();
-        $('#'+$(this).attr('toggle_id_name')).hide();
-        $(this).parent().find(".open_tag_toggle").show();
-        $(".open_tag_toggle").show();
-
-        $("#multilevel_mode_1").attr("mode", "inactive");
-        $("#multilevel_mode_2").attr("mode", "inactive");
-        $("#multilevel_mode_3").attr("mode", "inactive");
-        $("#multilevel_mode_" + $(this).attr('level')).attr("mode", "show");
-
-        $(".multilevel_new_option").show();
-    });
-});
-
-$(function (){
-    $(".tag_add_entry_form").live('click', function() {
-        $(this).hide();
-        $('#'+$(this).attr('form_id')).show();
-        $(this).parent().find(".tag_close_entry_form").show();
-
-        $(".close_tag_toggle").hide();
-
-        $("#multilevel_mode_1").attr("mode", "inactive");
-        $("#multilevel_mode_2").attr("mode", "inactive");
-        $("#multilevel_mode_3").attr("mode", "inactive");
-        if ($(this).attr('level') * 1 > 1) {
-            $("#multilevel_mode_" + ( ( $(this).attr('level') * 1 ) -1 ) ).attr("mode", "show");
-        } else {
-            $("#multilevel_mode_1").attr("mode", "show");
-        }
-
-    });
-});
-
-$(function (){
-    $(".tag_close_entry_form").live('click', function() {
-        $(this).hide();
-        $('#'+$(this).attr('form_id')).hide();
-        $(this).parent().find(".tag_add_entry_form").show();
-
-        if($(this).attr('level')> 1) {
-            $(this).parent().parent().parent().parent().find('.close_tag_toggle').show();
-        }
-        
+        $(this).find(".options").removeClass("active");
     });
 });
 
@@ -1306,6 +1218,27 @@ $(function(){
     $("#fields_criteria").live('change', function(){
         $(".descriptions_criteria").css("display", "none");
         $("#description_criteria_"+$(this).val()).css("display", "");
+        if ($(this).val().indexOf("date") > 0){
+            if ($(this).val() == "birth_date"){
+                $("#query_criteria_value").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    altFormat: 'mm-dd-yy',
+                    changeMonth: true,
+                    changeYear: true,
+                    maxDate: '+0d',
+                    yearRange: '-150:+0'
+                });
+            }else{
+                $("#query_criteria_value").datepicker({
+                    dateFormat: 'dd-mm-yy',
+                    altFormat: 'mm-dd-yy',
+                    changeMonth: true,
+                    changeYear: true
+                });
+            }
+        }else{
+            $("#query_criteria_value").datepicker('destroy');
+        }
     });
 });
 

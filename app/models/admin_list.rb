@@ -1,0 +1,3 @@
+class AdminList < ListHeader
+
+end

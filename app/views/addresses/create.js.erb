@@ -1,5 +1,5 @@
 <% if @address.errors.empty? -%>
-  $('#addresses').prepend('<%= escape_javascript(render(:partial => @address)) %>');
+  $('#addresses').append('<%= escape_javascript(render(:partial => @address)) %>');
   $("#new_address")[0].reset();
   $("#new_address").hide();
 

@@ -1,10 +1,10 @@
 class QueryCriteria < ActiveRecord::Base
 
-  OPERATORS = { "equals" => ["=", "", ""],
+  OPERATORS = { "equals" => ["ILIKE", "", ""],
                 "is greater than" => [">", "", ""],
-                "likes" => ["LIKE", "%", "%"],
-                "starts with" => ["LIKE", "", "%"],
-                "ends with" => ["LIKE", "%", ""],
+                "likes" => ["ILIKE", "%", "%"],
+                "starts with" => ["ILIKE", "", "%"],
+                "ends with" => ["ILIKE", "%", ""],
   }
   
   belongs_to :query_header

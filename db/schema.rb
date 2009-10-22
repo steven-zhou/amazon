@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091019044531) do
+ActiveRecord::Schema.define(:version => 20091021050902) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -251,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20091019044531) do
     t.boolean  "allow_duplication"
     t.string   "top_type"
     t.integer  "top_value"
+    t.integer  "login_account_id"
   end
 
   create_table "login_accounts", :force => true do |t|

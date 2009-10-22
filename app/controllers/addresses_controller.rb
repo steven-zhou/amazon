@@ -8,7 +8,7 @@ class AddressesController < ApplicationController
   end
 
   def edit
-      @postcodes = DomesticPostcode.find(:all)
+    @postcodes = DomesticPostcode.find(:all)
     @address = Address.find(params[:id])
     respond_to do |format|
       format.js
@@ -37,6 +37,7 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.destroy
 
+  @person = Person.find(session[:user])
     respond_to do |format|
       format.js
     end
@@ -49,4 +50,40 @@ class AddressesController < ApplicationController
     end
   end
 
+
+  def move_down_address_priority
+
+    @current_address = Address.find(params[:id])
+
+    if(@current_address.priority_number==1)
+      @exchange_address = @current_address.addressable.addresses.find_by_priority_number(2)
+      
+      @exchange_address.priority_number = 1
+      @current_address.priority_number = 2
+      @exchange_address.save
+      @current_address.save
+    end
+    @person = Person.find(session[:user])
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+
+  def move_up_address_priority
+    @up_current_address = Address.find(params[:id])
+    @up_exchange_address = @up_current_address.addressable.addresses.find_by_priority_number(@up_current_address.priority_number - 1)
+    
+     @up_exchange_address.priority_number = @up_exchange_address.priority_number + 1
+     @up_current_address.priority_number = @up_current_address.priority_number - 1
+    
+    @up_exchange_address.save
+    @up_current_address.save
+    @person = Person.find(session[:user])
+
+    respond_to do |format|
+      format.js
+    end
+  end
 end
