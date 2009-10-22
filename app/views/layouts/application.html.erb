@@ -13,14 +13,15 @@
       "jquery.qtip.min.js",
       "jquery.form.js",
       "jquery.jpassword.js",
+      "jquery.wysiwyg.js",
       "application.js",
       "person.js",
       "reports.js",
-      "jquery.wysiwyg.js",
+      "module_menu.js",
       :cache => true %>
 
 
-    
+
     <%= yield_authenticity_token %>
   </head>
 
@@ -30,12 +31,10 @@
       <%= render(:partial => "/shared/flash_messages") %>
       <div id="lc"><!--left collumn, menu area-->
         <%= render(:partial => "/shared/menu") %>
-        <%= render(:partial => "/shared/admin_menu") %>
       </div>
 
       <div id="main"><!--main area wrapper-->
-        <div id="sysbar"><!--System Bar-->
-        </div>
+        <%= render(:partial => "/shared/system_bar") %>
         <div id="content"><!--main content area "where the magic happens"-->
 
           <%= yield %>

@@ -11,5 +11,6 @@ $('#flash_message').dialog('open');
 <%else%>
 
 $('#existing_role').html("<%=escape_javascript(render(:partial => "/roles/existing_role"))%>")
-
+$("#role_name").val('');
+$("#role_remarks").val('');
 <%end%>

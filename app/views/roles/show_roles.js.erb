@@ -1,2 +1,5 @@
-  $("#role_type_id_field").val('<%=  escape_javascript("#{@role_type.id}")%>');
-  $("#existing_role").html('<%=escape_javascript(render(:partial => '/roles/existing_role'))%>');
+$("#role_type_id_field").val('<%=  escape_javascript("#{@role_type.id}")%>');
+$("#existing_role").html('<%=escape_javascript(render(:partial => '/roles/existing_role'))%>');
+
+$("#role_name").val('');
+$("#role_remarks").val('');

@@ -1,0 +1,28 @@
+
+
+#content_full_page
+  .container
+    %h2{:style => "display:inline;"} Select Role Type:
+    = collection_select :role,:role_type_id, RoleType.all, :id, :name, {:include_blank => true}, {:class => "show_role clear_select", :style => "display:inline;width:20%;", :disabled => false}
+    %br
+    %br
+   
+    %div#role_main_contents.hidden
+      .container#new_role_bar
+        .options
+          = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role", :id => "close_role", :style => "display:none;", :field => "role"
+        .title
+          = link_to_function image_tag('add_icon.png'), :class => "toggle_button new_option add_flag", :toggle_id_name => "new_role", :flag_name => "role", :field => "role", :id => "add_new_role"
+          &nbsp
+        %h2 Add Role
+        %input{:id => "role_mode", :mode => "show", :style => "display:none"}
+
+        
+        %div#new_role{:style => "display:none"}
+          = render :partial => '/roles/role_form'
+      
+      %div#existing_role
+      %br.clear
+      %div#edit_role_container
+        
+

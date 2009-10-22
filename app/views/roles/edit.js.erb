@@ -1,2 +1,10 @@
-$('#edit_role_container').html('<%=escape_javascript(render(:partial => "/roles/edit_role"))%>')
+$('#edit_role_container').html('<%=escape_javascript(render(:partial => "/roles/edit_role"))%>');
+
+$('#role_role_type_id').attr("disabled", true);
+$('#add_new_role').hide();
+$('#role_mode').attr('mode','edit');
+$('.role_options').hide();
+
+
+
 

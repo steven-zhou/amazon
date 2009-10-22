@@ -60,7 +60,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_meta_types, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
   map.resources :group, :collection => {:show_group_types => :get}
   map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get, :create_group_meta_type => :get, :custom_groups_finder => :get, :create_security_group_meta_type => :get, :security_groups_finder => :get, :create_query_table_meta_meta_type => :get, :query_tables_finder => :get, :delete_custom_group_type => :get}
-  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get, :create_query_table_atttribute => :get, :query_table_attributes_finder => :get, :delete_custom_group => :get}
+  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get, :create_query_table_atttribute => :get, :query_table_attributes_finder => :get, :delete_custom_group => :get, :edit_custom_sub_group => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get},
     :member => {:copy => :get, :query_header_to_xml => :get} do |query_header|
@@ -138,7 +138,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.connect '/', {:controller => "signin", :action => "login" }
-  map.welcome 'welcome', :controller => "people", :action => "show"    # After a user is logged in this is where they are sent to
+  map.welcome 'welcome', :controller => "module", :action => "core"    # After a user is logged in this is where they are sent to
   map.login 'login', :controller => "signin", :action => "login"       # This should be the page a user logs in at
   
   map.connect ':controller/:action/:id'

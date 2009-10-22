@@ -4,8 +4,8 @@
     = link_to_function image_tag("/images/open_accordion.png", :size => "14x18"), :style => "float:right;display:none;", :id => group.id, :toggle_id_name => "sub_group_#{group.id}", :class => "close_tag_toggle", :level => "1"
     %div{:class => "toggle_multilevel_options", :level => "1"}
       %div.options{:style => "display:none;"}
-        = image_tag("edit_icon.png", :class => "multilevel_edit_option", :level => "1")
-        = image_tag("delete_icon.png", :class => "multilevel_delete_option", :level => "1", :id => "delete_custom_group_type", :custom_group_type_id => group.id)
+        =# image_tag("edit_icon.png", :class => "multilevel_edit_option", :level => "1")
+        = image_tag("delete_icon.png", :class => "multilevel_delete_option", :level => "1", :id => "delete_custom_group_type", :custom_group_type_id => group.id, :style => "padding-left:1em;padding-right:1em;")
       = group.name
       %br.clear
     %div.sub_groups{:style => "display:none;", :id => "sub_group_#{group.id}"}
@@ -17,7 +17,7 @@
         %div{:id => "sub_group_form_#{group.id}", :group_id => group.id, :style => "display:none;"}
           %br.clear
           - form_for GroupType.new, :url => {:controller => "tags", :action => "create_custom_sub_group", :id => group.id}, :html => {:class => "ajax_form"} do |p|
-            .form_line{:style => "float:none;"}
+            .form_line
               .field_30
                 = p.label :name, 'Name'
                 = p.text_field :name, {:class => "group_type_name"}
@@ -29,10 +29,4 @@
                 %label
                   = p.check_box :status, {:class => "group_type_active"}
                 = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
-      %div{:id => "sub_groups_in_group_#{group.id}"}
-        -for sub_group in group.tags do
-          .container{:class => "toggle_multilevel_options", :level => "2"}
-            %div.options{:style => "display:none;"}
-              = image_tag("edit_icon.png" , :class => "multilevel_edit_option", :level => "2" )
-              = image_tag("delete_icon.png" , :class => "multilevel_delete_option", :level => "2", :id => "delete_custom_group", :custom_group_type_id => group.id, :custom_group_id => sub_group.id)
-            = sub_group.name
+      = render(:partial => "/tags/custom_sub_groups", :locals => {:group => group})
