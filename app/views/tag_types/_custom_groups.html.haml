@@ -1,12 +1,14 @@
 %ul
   -for group_meta_type in @custom_groups.tag_types do
-    %li{:level => "1"}
-      .container{:id => "group_#{group_meta_type.id}", :class => "toggle_multilevel_options", :level => "1"}
-        %div.options
-          = link_to image_tag('icon_holder.png'), new_tag_path(), :class => 'get'
-          = link_to image_tag('edit_icon.png'), edit_tag_type_path(group_meta_type), :class => 'get'
+    %li{:level => "1", :id => "group_meta_type_#{group_meta_type.id}"}
+      %div{:level => "1", :class => group_meta_type.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+        .options
+          = link_to_function image_tag('icon_holder.png'), :class => "new_tag", :tag => "Group", :tag_type_id => group_meta_type.id
+          = link_to image_tag('edit_icon.png'), edit_tag_type_path(group_meta_type), :class => 'get_tag'
           = link_to image_tag('delete_icon.png'), tag_type_path(group_meta_type), :class => 'delete'
-
-        = group_meta_type.name
+        .title
+          %h2 #{group_meta_type.name}
       %br.clear
-      = render(:partial => "/tags/custom_sub_groups", :locals => {:group_meta_type => group_meta_type})
+
+      %div{:id => "tags_#{group_meta_type.id}"}
+        = render(:partial => "/tags/custom_sub_groups", :locals => {:group_meta_type => group_meta_type})

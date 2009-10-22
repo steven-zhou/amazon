@@ -1,7 +1,7 @@
 class TagMetaTypesController < ApplicationController
 
   def new
-    @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.new
+    @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.new
     respond_to do |format|
       format.js
     end

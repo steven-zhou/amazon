@@ -69,7 +69,6 @@ class AdministrationsController < ApplicationController
 
   def security_groups
     @security_groups = GroupMetaMetaType.find_by_name("Security")
-
     respond_to do |format|
       format.html
     end

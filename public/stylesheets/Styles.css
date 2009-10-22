@@ -1150,7 +1150,7 @@ td.textright {
 
 
     float: left;
-    height: 20px;
+    height: 25px;
     font-size: 17px;
     font-weight:normal;
 
@@ -1160,7 +1160,7 @@ td.textright {
 
 
     float: left;
-    height: 20px;
+    height: 25px;
     font-size: 17px;
     font-weight:normal;
 
@@ -1207,8 +1207,8 @@ td.textright {
 
 
 /* tag ul li setting */
-div.tag ul {
-    padding-left:10%;
+div.tag ul li ul {
+    padding-left:50px;
 }
 
 div.tag ul li .options {
@@ -1231,4 +1231,16 @@ div.tag ul li.active {
     border-style:dashed;
     border-color:red;
     border-width:1px;
+}
+
+div.tag .container_active{
+    padding:10px;
+}
+
+div.tag .container_inactive{
+    padding:10px;
+}
+
+div.tag .container_selected{
+    padding:10px;
 }

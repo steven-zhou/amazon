@@ -16,6 +16,6 @@ $('#flash_message').dialog('open');
 <% else %>
 
 $("#tag_type_form").html('');
-$(".show_tag_types[tag_meta_types_id = " + "<%= escape_javascript("#{@tag_meta_type.id}")%>" + "]").click();
 $('#tag_type_form').dialog('close');
+$("#tag_types_<%= escape_javascript("#{@tag_meta_type.id}")%> > ul").append("<%= escape_javascript(render(:partial => '/tag_types/custom_group', :locals => {:group_meta_type => @tag_type})) %>");
 <% end %>
