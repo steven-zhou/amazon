@@ -1105,3 +1105,29 @@ td.textright {
 }
 
 
+/* tag ul li setting */
+div.tag ul {
+    padding-left:10%;
+}
+
+div.tag ul li .options {
+    display:none !important;
+}
+
+div.tag ul li .options.active{
+    display:block !important;
+}
+
+div.tag ul li ul {
+    display:none;
+}
+
+div.tag ul li.open ul {
+    display:block;
+}
+
+div.tag ul li.active {
+    border-style:dashed;
+    border-color:red;
+    border-width:1px;
+}

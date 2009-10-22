@@ -79,7 +79,7 @@ class TagsController < ApplicationController
   end
 
   def create_custom_sub_group
-    @custom_group = GroupMetaType.find_by_id(params[:id])
+    @custom_group = GroupMetaType.find_by_id(params[:group_meta_type_id])
     @sub_group = GroupType.new(:tag_type_id => @custom_group.id)
     @sub_group.update_attributes(params[:group_type])
     if @sub_group.save
