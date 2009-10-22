@@ -3,7 +3,7 @@
 /* CSS Document */
 
 body {
-    background-image:url(../images/body_bg.jpg);
+    background-image:url(/images/body_bg.jpg);
     background-position: top left;
     background-repeat:no-repeat;
     background-color: #030A13;
@@ -37,7 +37,7 @@ body {
 
 #app #lc #menu li .item {
     background-color: #f6f6f6;
-    background-image:url(../images/menu_item.png);
+    background-image:url(/images/menu_item.png);
     background-position:right;
     background-repeat: repeat-y;
     -moz-border-radius-topleft: 10px;
@@ -101,7 +101,8 @@ body {
 	z-index:999;
 	position: relative;
 	display: none;
-	}
+}
+
 #app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:100%; box-shadow: 5px 5px #CCC;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color:#f6f6f6; height:40px; padding: 0 0 0 10px; border-bottom: 1px solid #ccc;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:first-child {margin-top: 3px; -moz-border-radius-topleft:10px; -moz-border-radius-topright:10px;}
@@ -109,13 +110,21 @@ body {
 
 #app #main #sysbar .bar_section #module_menu #module_menu_items li.hover { background: transparent url(/images/module_menu_hover.jpg) repeat-x;}
 
+.module_menu_item{ text-align: left; }
+
+.bar_section {
+    vertical-align: middle;
+    text-align: right;
+}
+
+
 
 /* End Module Menu */
 
 /* System Bar */
 
 #sysbar {
-	background-image:url(../images/sysbar_bg.jpg);
+	background-image:url(/images/sysbar_bg.jpg);
 	background-repeat:repeat-x;
 	width: 100%;
 	height: 50px;
@@ -128,7 +137,7 @@ body {
 #app #main #sysbar .bar_section:first-child {
 	border-left: none;
 	width: 17%;
-	background-image:url(../images/icon_black.png);
+	background-image:url(/images/icon_black.png);
 	background-repeat:no-repeat;
 	background-position: 35px 5px;
 }
@@ -149,6 +158,7 @@ body {
 	line-height: 35px;
 	float:left;
 }
+
 #app #main #sysbar .bar_section:last-child {
 	border-right: none;
 	width: 4%;
