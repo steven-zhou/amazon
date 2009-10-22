@@ -15,6 +15,6 @@ $('#flash_message').dialog('open');
 <% else %>
 $("#tag_form").html('');
 $('#tag_form').dialog('close');
-$('#<%= dom_id(@tag) %>').replaceWith("<%= escape_javascript(render(:partial => '/tags/custom_sub_group', :locals => {:group_type => @tag})) %>");
-$('#<%= dom_id(@tag) %>').addClass('open active');
+$("#tag_<%= escape_javascript("#{@tag.id}")%>").replaceWith("<%= escape_javascript(render(:partial => '/tags/tag', :locals => {:tag => @tag})) %>");
+$("#tag_<%= escape_javascript("#{@tag.id}")%>").addClass('open active');
 <% end %>

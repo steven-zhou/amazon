@@ -1,17 +1,17 @@
 #header
   #page_title
-    %h1 Custom Group Types
+    %h1 Custom Group
   #lol
   %br.clear
 
 .container
   .container
-    = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_type", :tag => "Group", :tag_meta_type_id => @custom_groups.id
-    Add Group Type
+    = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_type", :tag => "Group", :tag_meta_type_id => @tag_meta_type.id
+    Add Group
   %br.clear
     
-  .tag{:id => "tag_types_#{@custom_groups.id}"}
-    = render :partial => "/tag_types/custom_groups"
+  .tag{:id => "tag_types_#{@tag_meta_type.id}"}
+    = render :partial => "/tag_types/tag_types"
 
 
 .container#tag_type_form{:style => "display:none;"}

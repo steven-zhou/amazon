@@ -16,6 +16,6 @@ $('#flash_message').dialog('open');
 <% else %>
 $("#tag_type_form").html('');
 $('#tag_type_form').dialog('close');
-$('#<%= dom_id(@tag_type) %>').replaceWith("<%= escape_javascript(render(:partial => '/tag_types/custom_group', :locals => {:group_meta_type => @tag_type})) %>");
-$('#<%= dom_id(@tag_type) %>').addClass('open active');
+$("#tag_type_<%= escape_javascript("#{@tag_type.id}")%>").replaceWith("<%= escape_javascript(render(:partial => '/tag_types/tag_type', :locals => {:tag_type => @tag_type})) %>");
+$("#tag_type_<%= escape_javascript("#{@tag_type.id}")%>").addClass('open active');
 <% end %>

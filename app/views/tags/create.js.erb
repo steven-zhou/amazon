@@ -16,5 +16,5 @@ $('#flash_message').dialog('open');
 
 $("#tag_form").html('');
 $('#tag_form').dialog('close');
-$("#tags_<%= escape_javascript("#{@tag_type.id}")%> > ul").append("<%= escape_javascript(render(:partial => '/tags/custom_sub_group', :locals => {:group_type => @tag})) %>");
+$("#tags_<%= escape_javascript("#{@tag_type.id}")%> > ul").append("<%= escape_javascript(render(:partial => '/tags/tag', :locals => {:tag => @tag})) %>");
 <% end %>

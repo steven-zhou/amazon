@@ -1,1 +1,1 @@
-$('#<%= dom_id(@tag) %>').fadeOut("slow", function() {$(this).remove();});
+$("#tag_<%= escape_javascript("#{@tag.id}")%>").fadeOut("slow", function() {$(this).remove();});

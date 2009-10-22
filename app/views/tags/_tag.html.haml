@@ -1,0 +1,8 @@
+%li{:level => "2", :id => "tag_#{tag.id}"}
+  %div{:level => "2", :class => tag.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+    %div.options
+      = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag'
+      = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete'
+    .title
+      %h2 #{tag.name}
+  %br.clear
