@@ -1,1 +1,4 @@
 $('#<%= dom_id(@group_list) %>').fadeOut("slow", function() {$(this).remove();});
+
+$('#group_list_show_group').html(" <%= escape_javascript(render(:partial => '/group_lists/header_group_list_group')) %>");
+$('#group_list_group_'+ '<%=escape_javascript("#{@select_group_id}")%>').addClass("container_selected");
