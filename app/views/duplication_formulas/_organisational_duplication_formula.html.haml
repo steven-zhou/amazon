@@ -9,10 +9,10 @@
   - else
     - organisational_descriptions += "<label class='descriptions_organisational_duplication' id='description_organisational_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
 
-.info_container
+.container.duplication_check
   = button_to_function "Re-generate Duplication Value", :id => "generate_organisational_duplication", :style => "float:right;"
   = button_to_function "Load Default Setting", :id => "load_organisational_duplication", :style => "float:right;"
-  %h3 Organisational Duplication Formula
+  %h1 Organisational Duplication Formula
 
 
   #formular_form
@@ -35,15 +35,15 @@
       %br.clear
 
     #left{:style => "width:30%;"}
-      .info_container
+      .container
         -form_for DuplicationFormulaDetail.new, :html => {:class => 'ajax_form'} do |f|
-          .form_line
+          .form_line.field_select_line
             = f.label :field_name, 'Select Field'
-            %select#fields_organisational_duplication{:class => "clear_select", :name => "duplication_formula_detail[field_name]", :size => "18"}
+            %select.field_select#fields_organisational_duplication{:class => "clear_select", :name => "duplication_formula_detail[field_name]", :size => "18"}
               = "#{organisational_options}"
             %br.clear
 
-          #attribute_description_organisational_duplication{:style => "margin:0px 0 10px 0;height:40px;"}
+          .form_line#attribute_description_organisational_duplication{:style => "margin:0px 0 10px 0;height:40px;"}
             = "#{organisational_descriptions}"
           
           .form_line

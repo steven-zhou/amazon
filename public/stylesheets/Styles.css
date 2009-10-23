@@ -1268,3 +1268,12 @@ div.tag .container_inactive{
 div.tag .container_selected{
     padding:10px;
 }
+
+/*duplication check*/
+div.duplication_check select.field_select {
+    height:auto !important;
+}
+
+div.duplication_check .form_line.field_select_line {
+    height:auto !important;
+}
