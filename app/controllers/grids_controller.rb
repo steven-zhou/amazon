@@ -905,4 +905,81 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+
+   def show_postcode_grid
+
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+
+      rp = 20
+
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @person_postcode_grid = Postcode.find(:all,
+        :conditions => ["country_id = ?", Country.find_by_short_name("Australia").id],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+
+      count = Postcode.count(:all)
+
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      @person_postcode_grid = Postcode.find(:all,
+
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" like ? AND country_id = ? ", query,Country.find_by_short_name("Australia").id])
+
+      count = Postcode.count(:all,
+
+        :conditions=>[qtype +" like ? AND country_id = ? ", query,Country.find_by_short_name("Australia").id])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+
+    return_data[:rows] = @person_postcode_grid.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.state,
+          u.suburb,
+          u.postcode,
+          "Australia",
+           ]}}
+
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
 end

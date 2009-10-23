@@ -597,5 +597,17 @@ class PeopleController < ApplicationController
 
   end
 
+  def postcode_look_up
+    @postcode = Postcode.find(params[:id])
+    @postcode_town = params[:update_field1]
+    @postcode_state = params[:update_field2]
+    @postcode_post_code = params[:update_field3]
+ puts "*******#{params[:update_field1]}******8"
+
+     respond_to do |format|
+      format.js
+    end
+  end
+
 
 end

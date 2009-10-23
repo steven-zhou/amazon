@@ -41,4 +41,37 @@ class EmploymentsController < ApplicationController
     end
   end
 
+ def move_down_employment_priority
+    @current_employment = Employment.find(params[:id])
+
+    if(@current_employment.sequence_no==1)
+      @exchange_employment = @current_employment.employee.employments.find_by_sequence_no(2)
+
+      @exchange_employment.sequence_no = 1
+      @current_employment.sequence_no = 2
+      @exchange_employment.save
+      @current_employment.save
+    end
+    @person = Person.find(session[:user])
+    respond_to do |format|
+      format.js
+    end
+
+ end
+
+ def move_up_employment_priority
+  @up_current_employment = Employment.find(params[:id])
+    @up_exchange_employment = @up_current_employment.employee.employments.find_by_sequence_no(@up_current_employment.sequence_no - 1)
+
+    @up_exchange_employment.sequence_no = @up_exchange_employment.sequence_no + 1
+    @up_current_employment.sequence_no = @up_current_employment.sequence_no - 1
+
+    @up_exchange_employment.save
+    @up_current_employment.save
+    @person = Person.find(session[:user])
+
+    respond_to do |format|
+      format.js
+    end
+ end
 end
