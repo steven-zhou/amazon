@@ -248,8 +248,6 @@ class OrganisationsController < ApplicationController
 
   def show_list
     @organisations = Organisation.find(:all, :order => "id")
-
-
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -361,6 +359,35 @@ class OrganisationsController < ApplicationController
       end
     end
 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def lookup
+    @update_field = params[:update_field]
+    if ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).empty?
+      @organisations = Organisation.find(:all, :order => "id")
+      @organisations.each do |organisations|
+        @solg = ShowOrganisationListGrid.new
+        @solg.login_account_id = session[:user]
+        @solg.grid_object_id = organisations.id
+        @solg.field_1 = organisations.full_name
+        @solg.field_2 = organisations.short_name
+        @solg.field_3 = organisations.primary_address.first_line unless organisations.primary_address.blank?
+        @solg.field_4 = organisations.primary_phone.value unless organisations.primary_phone.blank?
+        @solg.field_5 = organisations.primary_email.address unless organisations.primary_email.blank?
+        @solg.save
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def lookup_fill
+    @update_field = params[:update_field]
+    @organisation = Organisation.find(params[:id].to_i)
     respond_to do |format|
       format.js
     end

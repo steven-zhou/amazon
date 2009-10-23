@@ -2841,3 +2841,25 @@ $(function(){
         });
     });
 });
+
+/* Organisation Lookup*/
+$(function(){
+    $(".organisation_lookup").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url:"/organisations/lookup.js",
+            data:'update_field='+$(this).attr('update_field'),
+            dataType: "script"
+        });
+    });
+
+    $("table#organisation_lookup_grid tbody tr").live("dblclick", function(){
+        $.ajax({
+            type: "GET",
+            url:"/organisations/lookup_fill.js",
+            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#organisation_lookup_grid").attr('update_field'),
+            dataType: "script"
+        });
+
+    });
+});
