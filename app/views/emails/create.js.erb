@@ -1,5 +1,5 @@
 <% if @email.errors.empty? -%>
-  $('#contacts').prepend('<%= escape_javascript(render(:partial => "contacts/contact", :locals => {:contact => @email})) %>');
+  $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
   $("#new_email")[0].reset();
   $("#new_contact").hide();
   $('.person_contact_close').css("display","none");

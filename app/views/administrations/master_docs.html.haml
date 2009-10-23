@@ -1,11 +1,18 @@
 #header
   #page_title
-    %h1 Master Docs
+    %h1 Master Doc
   #lol
-    %br.clear
+  %br.clear
 
 .container
-  #TagSetting
-    = render :partial => '/tag_settings/tag_tab'
+  .container
+    = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_meta_type", :tag => @category
+    Add Master Doc
+  %br.clear
 
+  .tag
+    = render :partial => "/tag_meta_types/tag_meta_types", :locals => {:tag_meta_types => @tag_meta_types}
 
+.container#tag_meta_type_form{:style => "display:none;"}
+.container#tag_type_form{:style => "display:none;"}
+.container#tag_form{:style => "display:none;"}

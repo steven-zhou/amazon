@@ -1,62 +1,18 @@
 #header
   #page_title
-    %h1 Custom Group Types
+    %h1 Custom Group
   #lol
   %br.clear
 
-
 .container
-  = link_to_function image_tag("add_icon.png" , :size => "19x18"), :id => "custom_group_add_entry", :level => "1", :class => "tag_add_entry_form multilevel_new_option", :form_id => "custom_group_entry_form"
-  Add Group Type
-%br.clear
+  .container
+    = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_type", :tag => "Group", :tag_meta_type_id => @tag_meta_type.id
+    Add Curstom Group
+  %br.clear
     
-%div#custom_groups.tag
-  = render :partial => "/tag_types/custom_groups"
+  .tag{:id => "tag_types_#{@tag_meta_type.id}"}
+    = render :partial => "/tag_types/tag_types", :locals => {:tag_meta_type => @tag_meta_type}
 
 
-%div#custom_group_meta_type_form{:style => "display:none;"}
-  - form_for GroupMetaType.new, :url => {:controller => "tag_types", :action => "create_group_meta_type"}, :html => {:class => "ajax_form"} do |p|
-    .form_line
-      .field_100
-        = p.label :name, 'Name'
-        = p.text_field :name
-    .form_line
-      .field_100
-        = p.label :category, 'Category'
-        = p.text_field :category
-    .form_line
-      .field_100
-        = p.label :description, 'Description'
-        = p.text_field :description
-    .form_line
-      .field_100
-        = p.label :active
-        %label
-          = p.check_box :status
-    .form_line
-      .field_100
-        = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
-
-%div#custom_group_type_form{:style => "display:none;"}
-  - form_for GroupType.new, :url => {:controller => "tags", :action => "create_custom_sub_group"}, :html => {:class => "ajax_form"} do |p|
-    .form_line
-      .field_100
-        = p.label :name, 'Name'
-        = p.text_field :name
-        %input{:style => "display:none;" :id => "group_meta_type_id", :name => "group_meta_type_id"}
-    .form_line
-      .field_100
-        = p.label :category, 'Category'
-        = p.text_field :category
-    .form_line
-      .field_100
-        = p.label :description, 'Description'
-        = p.text_field :description
-    .form_line
-      .field_100
-        = p.label :active
-        %label
-          = p.check_box :status
-    .form_line
-      .field_100
-        = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+.container#tag_type_form{:style => "display:none;"}
+.container#tag_form{:style => "display:none;"}

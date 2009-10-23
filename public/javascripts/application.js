@@ -54,6 +54,55 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
+    $('a.move_down_phone_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_phone_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+
+    $('a.move_down_email_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_email_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+     $('a.move_down_website_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_website_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_down_master_doc_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    $('a.move_up_master_doc_priority').live('click', function() {
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
     //To use this function, please add data_id attributes to the link and the element id point to should be the form
     $('a.post').live('click', function(){
         $.post($(this).attr('href'), $("#" + $(this).attr("data_id")).serialize(),null,'script');
@@ -536,7 +585,7 @@ $(function(){
 
 // Tag hover system
 $(function(){
-    $("#multilevel_new_option").live("click", function(){
+    $(".multilevel_new_option").live("click", function(){
         $("li.open").removeClass("open");
         $("li.active").removeClass("active");
     });
@@ -560,8 +609,58 @@ $(function(){
     });
 });
 
+//tag system
+$(function(){
+    $(".new_tag_meta_type").live("click", function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_meta_types/new.js",
+            data: 'tag=' + $(this).attr('tag'),
+            dataType: "script"
+        });
+    });
+
+    $(".new_tag_type").live("click", function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/new.js",
+            data: 'tag=' + $(this).attr('tag') + '&tag_meta_type_id=' + $(this).attr('tag_meta_type_id'),
+            dataType: "script"
+        });
+    });
+
+    $(".new_tag").live("click", function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/new.js",
+            data: 'tag=' + $(this).attr('tag') + '&tag_type_id=' + $(this).attr('tag_type_id'),
+            dataType: "script"
+        });
+    });
+
+    $('a.get_tag').live('click', function() {
+        container = $(this).parent().parent();
+        container.click();
+        var link = $(this);
+        $.get(link.attr('href'), null ,null, 'script');
+        return false;
+    }).attr("rel", "nofollow");
+
+    jQuery('a.get_tag').removeAttr('onclick');
+});
+
 
 /* Custom Group Types */
+$(function(){
+    $("#show_group_meta_type_form").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/tag_types/new.js",
+            data: 'id=' + $(this).attr('custom_group_type_id'),
+            dataType: "script"
+        });
+    })
+});
 
 $(function(){
     $("#delete_custom_group_type").live('click', function(){

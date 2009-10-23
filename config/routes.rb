@@ -45,7 +45,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
   end
 
-  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
+  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
  
@@ -93,8 +93,11 @@ ActionController::Routing::Routes.draw do |map|
                                     :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
 
                                     :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
-  
-
+                                       
+  map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get}
+  map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get}
+  map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get}
+  map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.

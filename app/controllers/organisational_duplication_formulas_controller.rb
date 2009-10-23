@@ -25,7 +25,7 @@ class OrganisationalDuplicationFormulasController < ApplicationController
         @duplication_formula_detail.save
       end
       flash[:message] = flash_message(:message => "Default Organisational Duplication Formula Applied")
-      redirect_to duplication_formula_administrations_path()
+      redirect_to duplication_check_administrations_path()
     end
   end
 

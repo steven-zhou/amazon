@@ -13,10 +13,7 @@ $('#flash_message').dialog( {
   });
 $('#flash_message').dialog('open');
 <% else %>
-  $("#tag_selection").change();
-
   $("#tag_meta_type_form").html('');
   $('#tag_meta_type_form').dialog('close');
-
+  $(".tag > ul").append("<%= escape_javascript(render(:partial => '/tag_meta_types/tag_meta_type', :locals => {:tag_meta_type => @tag_meta_type})) %>");
 <% end %>
-("<%= escape_javascript(render(:partial => '/tag_settings/tag_meta_type')) %>");

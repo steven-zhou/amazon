@@ -3,7 +3,7 @@
 /* CSS Document */
 
 body {
-    background-image:url(../images/body_bg.jpg);
+    background-image:url(/images/body_bg.jpg);
     background-position: top left;
     background-repeat:no-repeat;
     background-color: #030A13;
@@ -37,7 +37,7 @@ body {
 
 #app #lc #menu li .item {
     background-color: #f6f6f6;
-    background-image:url(../images/menu_item.png);
+    background-image:url(/images/menu_item.png);
     background-position:right;
     background-repeat: repeat-y;
     -moz-border-radius-topleft: 10px;
@@ -102,12 +102,21 @@ body {
     position: relative;
     display: none;
 }
+
 #app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:100%; box-shadow: 5px 5px #CCC;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color:#f6f6f6; height:40px; padding: 0 0 0 10px; border-bottom: 1px solid #ccc;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:first-child {margin-top: 3px; -moz-border-radius-topleft:10px; -moz-border-radius-topright:10px;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { -moz-border-radius-bottomleft:10px; -moz-border-radius-bottomright:10px;}
 
 #app #main #sysbar .bar_section #module_menu #module_menu_items li.hover { background: transparent url(/images/module_menu_hover.jpg) repeat-x;}
+
+.module_menu_item{ text-align: left; }
+
+.bar_section {
+    vertical-align: middle;
+    text-align: right;
+}
+
 
 
 /* End Module Menu */
@@ -149,6 +158,7 @@ body {
     line-height: 35px;
     float:left;
 }
+
 #app #main #sysbar .bar_section:last-child {
     border-right: none;
     width: 4%;
@@ -1150,7 +1160,7 @@ td.textright {
 
 
     float: left;
-    height: 20px;
+    height: 25px;
     font-size: 17px;
     font-weight:normal;
 
@@ -1160,7 +1170,7 @@ td.textright {
 
 
     float: left;
-    height: 20px;
+    height: 25px;
     font-size: 17px;
     font-weight:normal;
 
@@ -1221,8 +1231,8 @@ td.textright {
 }
 
 /* tag ul li setting */
-div.tag ul {
-    padding-left:10%;
+div.tag ul li ul {
+    padding-left:50px;
 }
 
 div.tag ul li .options {
@@ -1246,6 +1256,7 @@ div.tag ul li.active {
     border-color:red;
     border-width:1px;
 }
+
 
 
 /*group-list*/
@@ -1303,3 +1314,25 @@ div#content_full_page .add_container {
     font-family:Arial, Helvetica, sans-serif;
     min-height: 10px;
 }
+
+div.tag .container_active{
+    padding:10px;
+}
+
+div.tag .container_inactive{
+    padding:10px;
+}
+
+div.tag .container_selected{
+    padding:10px;
+}
+
+/*duplication check*/
+div.duplication_check select.field_select {
+    height:auto !important;
+}
+
+div.duplication_check .form_line.field_select_line {
+    height:auto !important;
+}
+

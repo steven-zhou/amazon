@@ -13,8 +13,8 @@ $('#flash_message').dialog( {
   });
 $('#flash_message').dialog('open');
 <% else %>
-$(".show_tags[tag_types_id = " + "<%= escape_javascript("#{@tag_type.id}")%>" + "]").click();
 $("#tag_form").html('');
-$(".show_tags[tag_types_id = " + "<%= escape_javascript("#{@tag_type.id}")%>" + "]").click();
 $('#tag_form').dialog('close');
+$("#tag_<%= escape_javascript("#{@tag.id}")%>").replaceWith("<%= escape_javascript(render(:partial => '/tags/tag', :locals => {:tag => @tag})) %>");
+$("#tag_<%= escape_javascript("#{@tag.id}")%>").addClass('open active');
 <% end %>
