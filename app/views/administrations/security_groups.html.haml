@@ -1,17 +1,17 @@
 #header
   #page_title
-    %h1 Security Groups
+    %h1 Security Group
   #lol
   %br.clear
 
 .container
   .container
     = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_type", :tag => "Group", :tag_meta_type_id => @tag_meta_type.id
-    Add Group
+    Add Security Group
   %br.clear
 
   .tag{:id => "tag_types_#{@tag_meta_type.id}"}
-    = render :partial => "/tag_types/tag_types"
+    = render :partial => "/tag_types/tag_types", :locals => {:tag_meta_type => @tag_meta_type}
 
 
 .container#tag_type_form{:style => "display:none;"}

@@ -12,27 +12,54 @@ class AdministrationsController < ApplicationController
 
   def custom_groups
     @tag_meta_type = GroupMetaMetaType.find_by_name("Custom")
+    @category = "Group"
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
+  def security_groups
+    @tag_meta_type = GroupMetaMetaType.find_by_name("Security")
+    @category = "Group"
     respond_to do |format|
       format.html
     end
   end
 
   def query_tables
-    @query_tables = TableMetaMetaType.find(:all)
+    @tag_meta_types = TableMetaMetaType.find(:all)
+    @category = "Table"
     respond_to do |format|
       format.html
     end
   end
 
   def master_docs
+    @tag_meta_types = MasterDocMetaMetaType.find(:all)
+    @category = "MasterDoc"
     respond_to do |format|
       format.html
     end
   end
 
+  def role_conditions
+    @tag_meta_types = MasterDocMetaMetaType.find(:all)
+    @category = "MasterDoc"
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def access_permissions
+    @tag_meta_types = SystemPermissionMetaMetaType.find(:all)
+    @category = "SystemPermission"
+    respond_to do |format|
+      format.html
+    end
+  end
 
   def roles_management
-
     @role = Role.new
     respond_to do |format|
       format.html
@@ -45,16 +72,6 @@ class AdministrationsController < ApplicationController
     end
   end
 
-
-  def access_permissions
-    @access_permissions = SystemPermissionMetaMetaType.find(:all)
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
-
   def group_permissions
     system_management
     render :action => 'system_management'
@@ -66,44 +83,24 @@ class AdministrationsController < ApplicationController
     render :action => 'system_management'
   end
 
-
-  def security_groups
-    @tag_meta_type = GroupMetaMetaType.find_by_name("Security")
-    respond_to do |format|
-      format.html
-    end
-  end
-
-
   def user_accounts
     system_management
     render :action => 'system_management'
   end
 
-
   def user_groups
-
     @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
-   
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
-    
-#    @login_account = LoginAccount.find(params[:login_account_id])
-#    @groups = @login_account.group_types
-
-
-
     respond_to do |format|
       format.html
     end
   end
-
 
   def user_lists
     respond_to do |format|
       format.html
     end
   end
- 
 
   def duplication_check
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting
@@ -137,7 +134,6 @@ class AdministrationsController < ApplicationController
 
 
   def group_permissions
-
     @role = Role.new
     @role_condition = RoleCondition.new
     @role_type = RoleType.new
@@ -151,14 +147,12 @@ class AdministrationsController < ApplicationController
     @module_all = Array.new
     c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
     @module_all = c
-
     respond_to do |format|
       format.html
     end
   end
 
  def group_lists
-
     @role = Role.new
     @role_condition = RoleCondition.new
     @role_type = RoleType.new
@@ -168,18 +162,15 @@ class AdministrationsController < ApplicationController
     @group_all = Array.new
     c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
     @group_all = c.group_types rescue @group_all = Array.new
-
     @module_all = Array.new
     c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
     @module_all = c
-
     respond_to do |format|
       format.html
     end
   end
 
  def user_accounts
-
     @role = Role.new
     @role_condition = RoleCondition.new
     @role_type = RoleType.new
@@ -189,11 +180,9 @@ class AdministrationsController < ApplicationController
     @group_all = Array.new
     c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
     @group_all = c.group_types rescue @group_all = Array.new
-
     @module_all = Array.new
     c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
     @module_all = c
-
     respond_to do |format|
       format.html
     end
@@ -202,7 +191,6 @@ class AdministrationsController < ApplicationController
 
 
  def user_lists
-
     @role = Role.new
     @role_condition = RoleCondition.new
     @role_type = RoleType.new
@@ -212,44 +200,13 @@ class AdministrationsController < ApplicationController
     @group_all = Array.new
     c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
     @group_all = c.group_types rescue @group_all = Array.new
-
     @module_all = Array.new
     c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
     @module_all = c
-
     respond_to do |format|
       format.html
     end
   end
-
-
-#  def system_setting
-#    respond_to do |format|
-#      format.html
-#    end
-#  end
-#
-#
-#  def system_management
-#
-#    @role = Role.new
-#    @role_condition = RoleCondition.new
-#    @role_type = RoleType.new
-#    @login_account = LoginAccount.new
-#    @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
-#    @user_group = UserGroup.new
-#    @group_all = Array.new
-#    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
-#    @group_all = c.group_types rescue @group_all = Array.new
-#
-#    @module_all = Array.new
-#    c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
-#    @module_all = c
-#
-#    respond_to do |format|
-#      format.html
-#    end
-#  end
 
   def duplication_formula
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting

@@ -1,9 +1,9 @@
 %ul
-  -for tag_type in @tag_meta_type.tag_types do
-    %li{:level => "1", :id => "tag_type_#{tag_type.id}"}
-      %div{:level => "1", :class => tag_type.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+  -for tag_type in tag_meta_type.tag_types do
+    %li{:level => "2", :id => "tag_type_#{tag_type.id}"}
+      %div{:level => "2", :class => tag_type.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
         .options
-          = link_to_function image_tag('icon_holder.png'), :class => "new_tag", :tag => "Group", :tag_type_id => tag_type.id
+          = link_to_function image_tag('icon_holder.png'), :class => "new_tag", :tag => @category, :tag_type_id => tag_type.id unless @category == "Table"
           = link_to image_tag('edit_icon.png'), edit_tag_type_path(tag_type), :class => 'get_tag'
           = link_to image_tag('delete_icon.png'), tag_type_path(tag_type), :class => 'delete'
         .title

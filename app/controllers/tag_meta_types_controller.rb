@@ -8,11 +8,7 @@ class TagMetaTypesController < ApplicationController
   end
 
   def edit
-    @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:id])
-    @tag_types = @tag_meta_type.tag_types.find(:all, :order => "name")
-    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.new
-    @flag = String.new
-    @flag = params[:flag]
+    @tag_meta_type = TagMetaType.find(params[:id])
     respond_to do |format|
       format.js
     end
@@ -20,6 +16,7 @@ class TagMetaTypesController < ApplicationController
 
   def create
     @tag_meta_type = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
+    @category = params[:type].sub(/MetaMetaType/,"")
     if @tag_meta_type.save
       flash.now[:message] = "Saved successfully"
     else
@@ -34,6 +31,7 @@ class TagMetaTypesController < ApplicationController
 
   def update
     @tag_meta_type = params[:type].camelize.constantize.find(params[:id].to_i)
+    @category = params[:type].sub(/MetaMetaType/,"")
     if @tag_meta_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] = "Updated successfully."
     else
@@ -46,9 +44,8 @@ class TagMetaTypesController < ApplicationController
   end
 
   def destroy
-    @tag_meta_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaMetaType").camelize.constantize.find(params[:id])
+    @tag_meta_type = TagMetaType.find(params[:id])
     @tag_meta_type.destroy
-
     respond_to do |format|
       format.js
     end

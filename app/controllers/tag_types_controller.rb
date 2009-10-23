@@ -11,6 +11,7 @@ class TagTypesController < ApplicationController
 
   def create
     @tag_type = (params[:type]).camelize.constantize.new(params[params[:type].underscore.to_sym])
+    @category = params[:type].sub(/MetaType/,"")
     @tag_meta_type = (params[:tag_meta_type]).camelize.constantize.find(params[:tag_meta_type_id])
     @tag_meta_type.tag_types << @tag_type
     if @tag_type.save
@@ -31,6 +32,7 @@ class TagTypesController < ApplicationController
 
   def update
     @tag_type = (params[:type]).camelize.constantize.find(params[:id].to_i)
+    @category = params[:type].sub(/MetaType/,"")
     @tag_meta_type = @tag_type.tag_meta_type
     if @tag_type.update_attributes(params[params[:type].underscore.to_sym])
       flash.now[:message] ||= " Updated successfully."
