@@ -5,7 +5,7 @@ class ContactType < Tag
   belongs_to :contact_meta_type, :class_name => "ContactMetaType", :foreign_key => "tag_type_id"
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :tag_type_id, :message => "A contact type already exists with the same name."
+  validates_uniqueness_of :name, :scope => :tag_type_id
 
   after_create :assign_priority
   before_destroy :reorder_priority
