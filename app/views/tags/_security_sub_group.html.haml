@@ -1,0 +1,8 @@
+%li{:level => "2", :id => "group_type_#{group_type.id}"}
+  %div{:level => "2", :class => group_type.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+    %div.options
+      = link_to image_tag('edit_icon.png'), edit_tag_path(group_type), :class => 'get_tag'
+      = link_to image_tag('delete_icon.png'), tag_path(group_type), :class => 'delete'
+    .title
+      %h2 #{group_type.name}
+  %br.clear

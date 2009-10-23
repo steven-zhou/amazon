@@ -1,4 +1,4 @@
-$('#<%= dom_id(@email) %>').fadeOut("slow", function() {$(this).remove();});
+ $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
 $('.person_contact_toggle_button').css("display","");
 $('.person_contact_edit_delete').css("display","none");
 $('.person_contact_close').css("display","none");

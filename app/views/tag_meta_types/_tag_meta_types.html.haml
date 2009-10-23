@@ -1,0 +1,14 @@
+%ul
+  -for tag_meta_type in tag_meta_types do
+    %li{:level => "1", :id => "tag_meta_type_#{tag_meta_type.id}"}
+      %div{:level => "1", :class => tag_meta_type.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+        .options
+          = link_to_function image_tag('icon_holder.png'), :class => "new_tag_type", :tag => @category, :tag_meta_type_id => tag_meta_type.id
+          = link_to image_tag('edit_icon.png'), edit_tag_meta_type_path(tag_meta_type), :class => 'get_tag'
+          = link_to image_tag('delete_icon.png'), tag_meta_type_path(tag_meta_type), :class => 'delete'
+        .title
+          %h2 #{tag_meta_type.name}
+      %br.clear
+
+      %div{:id => "tag_types_#{tag_meta_type.id}"}
+        = render(:partial => "/tag_types/tag_types", :locals => {:tag_meta_type => tag_meta_type})

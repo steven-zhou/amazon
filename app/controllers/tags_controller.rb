@@ -1,8 +1,8 @@
 class TagsController < ApplicationController
 
   def new
-    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.new
-    @tag_type = (TagMetaType::OPTIONS[params[:tag].to_i]+"MetaType").camelize.constantize.find(params[:tag_type_id])
+    @tag = (params[:tag]+"Type").camelize.constantize.new
+    @tag_type = (params[:tag]+"MetaType").camelize.constantize.find(params[:tag_type_id])
     @tag_meta_type = @tag_type.tag_meta_type
     @tags = @tag_type.tags
     respond_to do |format|
@@ -23,7 +23,7 @@ class TagsController < ApplicationController
   end
 
   def edit
-    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.find(params[:id])
+    @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type
     @tag_meta_type = @tag_type.tag_meta_type
     @tags = @tag_type.tags
@@ -62,10 +62,9 @@ class TagsController < ApplicationController
   end
 
   def destroy
-    @tag = (TagMetaType::OPTIONS[params[:tag].to_i]+"Type").camelize.constantize.find(params[:id])
+    @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type
-    @tag.destroy
-    
+    @tag.destroy    
     respond_to do |format|
       format.js
     end
@@ -78,32 +77,32 @@ class TagsController < ApplicationController
     end
   end
 
-  def create_custom_sub_group
-    @custom_group = GroupMetaType.find_by_id(params[:id])
-    @sub_group = GroupType.new(:tag_type_id => @custom_group.id)
-    @sub_group.update_attributes(params[:group_type])
-    if @sub_group.save
-      flash.now[:message] = "Saved successfully."
-    else
-      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
+#  def create_custom_sub_group
+#    @custom_group = GroupMetaType.find_by_id(params[:group_meta_type_id])
+#    @sub_group = GroupType.new(:tag_type_id => @custom_group.id)
+#    @sub_group.update_attributes(params[:group_type])
+#    if @sub_group.save
+#      flash.now[:message] = "Saved successfully."
+#    else
+#      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
 
-  def edit_custom_sub_group
-    @custom_group = GroupType.find_by_id(params[:id])
-    @custom_group.update_attributes(params[:group_type])
-    if @custom_group.save
-      flash.now[:message] = "Saved successfully."
-    else
-      flash.now[:warning] = "Name " + @custom_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @custom__group.on(:name).nil?
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
+#  def edit_custom_sub_group
+#    @custom_group = GroupType.find_by_id(params[:id])
+#    @custom_group.update_attributes(params[:group_type])
+#    if @custom_group.save
+#      flash.now[:message] = "Saved successfully."
+#    else
+#      flash.now[:warning] = "Name " + @custom_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @custom__group.on(:name).nil?
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
 
   def security_sub_groups_finder
     @group = GroupMetaType.find_by_id(params[:id])

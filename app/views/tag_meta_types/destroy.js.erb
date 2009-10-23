@@ -1,1 +1,1 @@
-$("#tag_selection").change();
+$("#tag_meta_type_<%= escape_javascript("#{@tag_meta_type.id}")%>").fadeOut("slow", function() {$(this).remove();});

@@ -1,0 +1,31 @@
+<div id="sysbar"><!--System Bar-->
+  <div class="bar_section">
+    <div id="module_menu">
+      <div id="module_menu_top"><a href="#"></a></div>
+
+      <div id="module_menu_items" >
+        <div id="module_menu_connector">
+        </div>
+        <ul>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Core", :controller => "module", :action => "core"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Case Management", :controller => "module", :action => "case_management"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Administration", :controller => "module", :action => "administration"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Log Out", :controller => "signin", :action => "signout"  %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bar_section">
+    <%= image_tag('icon_holder.png') %>
+    <%= image_tag('icon_holder.png') %>
+  </div>
+  <div class="bar_section">
+    <%= text_field :search, :term, {:size => "20"} %>
+    <%= image_tag('icon_holder.png') %>
+  </div>
+  <div class="bar_section">
+    <%= image_tag('help_icon.png') %>
+  </div>
+</div>

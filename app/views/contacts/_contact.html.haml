@@ -2,23 +2,33 @@
 -div_for(contact, :class => 'header_container toggle_options', :field => "contact") do
   %div 
     .title
-      %h2= "#{contact.class} (#{contact.contact_meta_type.name})"
+      %h2= "#{contact.contact_meta_type.name}"
     .options{:class => 'person_contact_edit_delete person_tag',:id => 'person_contact_edit_delete', :style=>"display:none"}
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
+        -if(contact.priority_number==1)
+          = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(contact), :class => 'move_down_phone_priority',:id => 'phone_down_button', :phone_id => contact.id
+        - else
+          = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(contact),  :class => 'move_up_phone_priority',:id => 'phone_up_button', :phone_id => contact.id
         = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get edit_phone edit_option', :field => "contact", :id => 'phone_edit_button', :phone_id => contact.id
         = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete delete_phone delete_option', :field => "contact", :id => 'phone_delete_button', :phone_id => contact.id
       - elsif contact.read_attribute("type") == "Email" #contact.class == Email.new.class
+        -if(contact.priority_number==1)
+          = link_to image_tag('down_arrow.png'),move_down_email_priority_email_path(contact), :class => 'move_down_email_priority',:id => 'email_down_button', :email_id => contact.id
+        - else
+          = link_to image_tag('up_arrow.png'),move_up_email_priority_email_path(contact),  :class => 'move_up_email_priority',:id => 'email_up_button', :email_id => contact.id
         = link_to image_tag('edit_icon.png'), edit_email_path(contact), :class => 'get edit_email edit_option', :field => "contact", :id => 'email_edit_button', :email_id => contact.id
         = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete delete_email delete_option', :field => "contact", :id => 'email_delete_button', :email_id => contact.id
       - elsif contact.read_attribute("type") == "Website" #contact.class == Website.new.class
+        -if(contact.priority_number==1)
+          = link_to image_tag('down_arrow.png'),move_down_website_priority_website_path(contact), :class => 'move_down_website_priority',:id => 'website_down_button', :website_id => contact.id
+        - else
+          = link_to image_tag('up_arrow.png'),move_up_website_priority_website_path(contact),  :class => 'move_up_website_priority',:id => 'website_up_button', :website_id => contact.id
         = link_to image_tag('edit_icon.png'), edit_website_path(contact), :class => 'get edit_website edit_option', :field => "contact", :id => 'website_edit_button', :website_id => contact.id
         = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete delete_website delete_option', :field => "contact", :id => 'website_delete_button', :website_id => contact.id
-
-    %br{ :style => "clear:both;"}
+    %br.clear
   %div{:style => "float:right;"}
     = "#{contact.pre_value} #{contact.value} #{contact.post_value}".squeeze(" ").strip
     %br
     -#- if (contact.read_attribute("type") == "Phone")
-      = contact.preferrence_day_times
-    %br
+      = contact.preferrence_day_times 
     = contact.remarks

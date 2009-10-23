@@ -48,19 +48,7 @@ class RolesController < ApplicationController
   
   
     
-  def master_doc_meta_type_finder1
- 
-    @master_doc_meta_types = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", params[:master_doc_meta_meta_type_id].to_i],:order => 'name') rescue @master_doc_meta_types = MasterDocMetaType.new
   
-
-
-    #@master_doc_meta_meta_types = MasterDocMetaMetaType.find(:first, :conditions => ["id = ?", params[:master_doc_meta_meta_type_id].to_i])
-    @master_doc_meta_meta_types = MasterDocMetaMetaType.find(params[:id],:order => 'name') rescue @master_doc_meta_meta_types = MasterDocMetaMetaType.new
-    #puts "debbb---#{@master_doc_meta_meta_types.to_yaml}"
-    respond_to do |format|
-      format.js { }
-    end
-  end
 
   def meta_name_finder
 
@@ -80,12 +68,7 @@ class RolesController < ApplicationController
     end
   end
 
-  def doc_type_finder
-    @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:master_doc_meta_type_id].to_i],:order => 'name') rescue @master_doc_types = MasterDocType.new
-    respond_to do |format|
-      format.js { }
-    end
-  end
+
 
 
   

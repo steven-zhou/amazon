@@ -1,5 +1,5 @@
 -form_for @tag_meta_type, :url=> {:controller => 'tag_meta_types', :action => @tag_meta_type.new_record? ? "create" : "update", :id => @tag_meta_type.id}, :html => {:class => 'ajax_form', :id => "tag_meta_type_form2"} do |tag_meta_type|
-  %fieldset
+  .container
     .form_line
       .field_100
         =tag_meta_type.label :name, 'Name'

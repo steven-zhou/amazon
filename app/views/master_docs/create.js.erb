@@ -1,5 +1,5 @@
 <% if @masterdoc.errors.empty? -%>
-  $('#masterdocs').prepend('<%= escape_javascript(render(:partial => @masterdoc)) %>');
+  $('#masterdocs').append('<%= escape_javascript(render(:partial => @masterdoc)) %>');
   $("#new_master_doc")[0].reset();
   $("#new_master_doc").hide();
   $('#master_doc_mode').attr('mode', 'show');
