@@ -174,6 +174,9 @@ class AdministrationsController < ApplicationController
     c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
     @module_all = c
 
+  
+   @group_types = GroupType.system_user_groups
+
     respond_to do |format|
       format.html
     end

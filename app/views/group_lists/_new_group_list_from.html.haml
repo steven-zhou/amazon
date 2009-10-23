@@ -1,0 +1,20 @@
+%br
+-form_for @group_list, :url =>{:controller => "group_lists", :action => "create"}, :html => {:class => "ajax_form"} do |group_list|
+  .form_line.float_none
+    .field_30
+      = group_list.label :list_header_id, "List"
+      %select.show_list_description{:des => "group_list_list",:name => "group_list[list_header_id]"}
+        - @list_headers.each do |list|
+          %option{:value => "#{list.id}"}#{list.name}
+    .field_20
+      %label &nbsp
+      %span{:id => "group_list_list_description"}
+    .field_20{:style => "display:none;"}
+      %label &nbsp
+      %input{:name => "group_list[tag_id]", :value => "#{@group.id}"}
+    .field_20.float_right
+      %label &nbsp
+      -#= link_to_function 'clear', :class => "alt_option"
+      = submit_tag 'Submit'
+
+
