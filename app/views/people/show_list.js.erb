@@ -1,10 +1,19 @@
 $('#show_list_grid').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation })) %>');
 
+$('#show_list_grid').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  width: 600,
+  buttons: {
+  }
+});
 
+$('#show_list_grid').dialog('open');
 $("#search_list_results").flexigrid(
 
 {
-url: '/show_list_grids/show_list_grid',
+url: '/grids/show_list_grid',
 dataType: 'json',
 colModel : [
 {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
@@ -26,7 +35,7 @@ searchitems : [
 sortname: "grid_object_id",
 sortorder: "asc",
 usepager: true,
-title: '',
+title: 'People List',
 useRp: true,
 rp: 20,
 showTableToggleBtn: false,
@@ -35,13 +44,3 @@ height: 'auto'
 });
 
 
-$('#show_list_grid').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  width: 600,
-  buttons: {
-  }
-});
-
-$('#show_list_grid').dialog('open');

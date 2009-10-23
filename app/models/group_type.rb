@@ -32,6 +32,11 @@ class GroupType < Tag
     self.remove_from_list
   end
 
+  def self.system_user_groups
+   c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
+   @group_types = c.group_types rescue @group_types = Array.new
+
+  end
 
 end
 

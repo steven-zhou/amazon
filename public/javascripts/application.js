@@ -2827,8 +2827,8 @@ $(function(){
 $(function(){
 
     $("#edit_role_condition_form").live('click', function(){
-      $("#role_condition_edit_role_container").hide();
-      $('#role_condition_role_type_id').attr("disabled", false);
+        $("#role_condition_edit_role_container").hide();
+        $('#role_condition_role_type_id').attr("disabled", false);
     });
 });
 
@@ -2842,6 +2842,7 @@ $(function(){
     });
 });
 
+
 /*  Address Post Code */
 $(function(){
     $('table#address_postcode tbody tr').live('click',function(){
@@ -2854,5 +2855,75 @@ $(function(){
             dataType: "script"
         });
         $('#address_form_assistant').dialog('close');
+            });
+});
+
+/* Organisation Lookup*/
+$(function(){
+    $(".organisation_lookup").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url:"/organisations/lookup.js",
+            data:'update_field='+$(this).attr('update_field'),
+            dataType: "script"
+        });
+    });
+
+    $("table#organisation_lookup_grid tbody tr").live("dblclick", function(){
+        $.ajax({
+            type: "GET",
+            url:"/organisations/lookup_fill.js",
+            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#organisation_lookup_grid").attr('update_field'),
+            dataType: "script"
+                    });
+
+    });
+});
+
+/*group----list*/
+$(function(){
+    $(".edit_logo").live('click', function(){
+
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+        
+         $(this).closest('.options').css("display","none");
+        $.ajax({
+            type:'GET',
+            url: "/"+$(this).attr('controller')+"/" + $(this).attr('data_id') + "/edit.js",
+            data: "data_id="+$(this).attr('data_id'),
+            dataType:"script"
+
+        });
+    });
+});
+
+
+$(function(){
+    $('.new_logo').live('click', function(){        
+        $("#new_" + $(this).attr('field')+ "_form").toggle('blind');      
+    });
+});
+
+
+$(function(){
+    $('.close_logo').live('click', function(){
+        $("#new_" + $(this).attr('field')+ "_form").toggle('blind');
+         $("#" + $(this).attr('field')+ "_edit_container").html('');
+          $(".container_selected").removeClass("container_selected");
+    });
+});
+
+
+$(function(){
+    $('.show_list_description').live('change', function(){
+        $.ajax({
+           type: "GET",
+           url: "/group_lists" + "/show_list_des.js",
+           data: "list_id=" + $(this).val(),
+           dataType:"script"
+        });
+
+
     });
 });

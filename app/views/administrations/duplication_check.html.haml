@@ -1,9 +1,9 @@
-=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+#header
+  #page_title
+    %h1 Duplication Check
+  #lol
+  %br.clear
 
-=link_to('System Setting', :controller => "administrations", :action => "system_setting")
-=link_to('System Management', :controller => "administrations", :action => "system_management")
-=link_to('Query/List', :controller => "administrations", :action => "list_management")
-%h3{:style => "display:inline;"} Duplication Formula
 #tabs{:style => "width:96%;"}
   = render :partial => 'duplication_formula_menu'
   #Personal
