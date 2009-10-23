@@ -1,5 +1,5 @@
 -form_for @tag, :url => {:controller => 'tags', :action => @tag.new_record? ? "create" : "update", :id => @tag.id}, :html => {:id => "tag_form2", :class => 'ajax_form'} do |tag|
-  %fieldset
+  .container
     .form_line
       .field_100
         =tag.label :name, 'Name'

@@ -3,10 +3,12 @@
     $('#personal_formula_list').append('<%= escape_javascript(render(:partial => @duplication_formula_detail)) %>');
     $('#fields_personal_duplication').val('');
     $('#personal_length').val('');
+    $(".descriptions_personal_duplication").css("display", "none");
   <%- else %>
     $('#organisational_formula_list').append('<%= escape_javascript(render(:partial => @duplication_formula_detail)) %>');
     $('#fields_organisational_duplication').val('');
     $('#organisational_length').val('');
+    $(".descriptions_organisational_duplication").css("display", "none");
   <%- end %>
   $('#<%= dom_id(@duplication_formula_detail) %>').effect('slide', {direction:'right'});
 <% end -%>

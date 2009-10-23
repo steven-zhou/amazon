@@ -3,6 +3,7 @@
 - routing[:administrations][:custom_groups]             = {:controller => "configuration", :action => "custom_groups" }
 - routing[:administrations][:query_tables]              = {:controller => "configuration", :action => "query_tables" }
 - routing[:administrations][:master_docs]               = {:controller => "configuration", :action => "master_docs" }
+- routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
 - routing[:administrations][:roles_management]          = {:controller => "configuration", :action => "roles_management" }
 - routing[:administrations][:contact_types]             = {:controller => "configuration", :action => "contact_types" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
@@ -36,6 +37,8 @@
             = link_to "#{image_tag('icon_holder.png')} Query Tables", :controller => "administrations", :action => "query_tables"
           %li{:id => action == "master_docs" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Master Docs", :controller => "administrations", :action => "master_docs"
+          %li{:id => action == "role_conditions" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Role Conditions", :controller => "administrations", :action => "role_conditions"
           %li{:id => action == "roles_managment" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Roles Management", :controller => "administrations", :action => "roles_management"
           %li{:id => action == "contact_types" ? "selected" : ""}
