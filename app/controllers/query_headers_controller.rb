@@ -51,66 +51,82 @@ class QueryHeadersController < ApplicationController
 
   def run
     @query_header = QueryHeader.find(params[:id].to_i)
-    @people = @query_header.run
-    top = params[:top]
-    if(top=="number")
-      value = params[:top_number].to_i
-    else
-      value = params[:top_percent].to_i*@people.size/100
-    end
-
-    @people = @people[0,value] if (value>0)
-    @query_header.result_size = @people.size
-    @query_header.save
-
-    #clear query result temp table, and save result to temp table
-    QueryResultGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @query_result_columns = Array.new
-
-    if @query_header.query_selections.empty?
-      @query_result_columns << "First Name"
-      @query_result_columns << "Family Name"
-      @people.each do |person|
-        @qrg = QueryResultGrid.new
-        @qrg.login_account_id = session[:user]
-        @qrg.grid_object_id = person.id
-        @qrg.field_1 = person.first_name        
-        @qrg.field_2 = person.family_name        
-        @qrg.save
+    
+    runtime_params = Array.new
+    @query_header.query_criterias.each do |i|
+      if i.value == "?"
+        runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
       end
-    else
-      @query_header.query_selections.each do |i|
-        @query_result_columns << i.field_name
+    end
+    @runtime = false
+    if runtime_params.empty?
+      #no runtime parmas
+      @people = @query_header.run
+      top = params[:top]
+      if(top=="number")
+        value = params[:top_number].to_i
+      else
+        value = params[:top_percent].to_i*@people.size/100
       end
-      @query_result_columns = @query_result_columns[0, 10]
-      @people.each do |person|
-        @qrg = QueryResultGrid.new
-        @qrg.login_account_id = session[:user]
-        @qrg.grid_object_id = person.id
-        @query_header.query_selections.each do |i|
-          if i.sequence<=10
-            if i.table_name == "people"
-              if i.data_type == "Integer FK"
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
-              else
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
-              end              
-            else
-              if i.data_type == "Integer FK"
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
-              else
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
-              end
-            end
-          end
+
+      @people = @people[0,value] if (value>0)
+      @query_header.result_size = @people.size
+      @query_header.save
+
+      #clear query result temp table, and save result to temp table
+      QueryResultGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+      @query_result_columns = Array.new
+
+      if @query_header.query_selections.empty?
+        @query_result_columns << "First Name"
+        @query_result_columns << "Family Name"
+        @people.each do |person|
+          @qrg = QueryResultGrid.new
+          @qrg.login_account_id = session[:user]
+          @qrg.grid_object_id = person.id
+          @qrg.field_1 = person.first_name        
+          @qrg.field_2 = person.family_name        
           @qrg.save
         end
+      else
+        @query_header.query_selections.each do |i|
+          @query_result_columns << i.field_name
+        end
+        @query_result_columns = @query_result_columns[0, 10]
+        @people.each do |person|
+          @qrg = QueryResultGrid.new
+          @qrg.login_account_id = session[:user]
+          @qrg.grid_object_id = person.id
+          @query_header.query_selections.each do |i|
+            if i.sequence<=10
+              if i.table_name == "people"
+                if i.data_type == "Integer FK"
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
+                else
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
+                end              
+              else
+                if i.data_type == "Integer FK"
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
+                else
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
+                end
+              end
+            end
+            @qrg.save
+          end
+        end
       end
+      @list_header = ListHeader.new
+    else
+      #contain runtime params, make a copy of existing query, and change the value to be the value inputed by user
+      @runtime = true
+
     end
-    @list_header = ListHeader.new
+
     respond_to do |format|
       format.js
     end

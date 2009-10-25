@@ -1,0 +1,12 @@
+.container
+  %h1 Please input runtime parameter(s)
+  -form_for :query, :url =>{:controller => "query_headers", :action => "runtime_run"}, :html => {:class => 'ajax_form'} do |f|
+    %input{:style => "display:none;", :value => @query_header.id, :name => "id"}
+
+    -@query_header.query_criterias.each do |i|
+      - if i.value == "?"
+        .form_line
+          %label #{i.table_name}.#{i.field_name}
+          %input{:name => "#{i.table_name}[#{i.field_name}]"}
+    
+        = submit_tag "Run"
