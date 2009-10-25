@@ -6,10 +6,15 @@
   .field_20
     = relationship.label :related_person_id, 'System ID'
     = relationship.text_field :related_person_id
-  .field_40
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => "relationship_related_person_id"
+  .field_30
     %label#related_person_name_container{:style => "font-size:17px;display:inline;"}
     %br
   .field_20
     
     %input{:name => "relationship[source_person_id]", :value => "#{@person.id}", :class => "hidden"}
   %br{:style=>"clear: both;"}
+
+

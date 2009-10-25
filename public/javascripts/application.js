@@ -2845,7 +2845,7 @@ $(function(){
 
 /*  Address Post Code */
 $(function(){
-    $('table#address_postcode tbody tr').live('click',function(){
+    $('table#address_postcode tbody tr').live('dblclick',function(){
         $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
         $.ajax({
@@ -2924,6 +2924,29 @@ $(function(){
            dataType:"script"
         });
 
+
+    });
+});
+
+
+/* Person Lookup*/
+$(function(){
+    $(".person_lookup").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url:"/people/lookup.js",
+            data:'update_field='+$(this).attr('update_field'),
+            dataType: "script"
+        });
+    });
+
+    $("table#person_lookup_grid tbody tr").live("dblclick", function(){
+        $.ajax({
+            type: "GET",
+            url:"/people/lookup_fill.js",
+            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#person_lookup_grid").attr('update_field'),
+            dataType: "script"
+                    });
 
     });
 });
