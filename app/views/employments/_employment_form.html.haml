@@ -78,6 +78,9 @@
     .field_25
       =employment.label :hired_by, "Hired By"
       =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
+    .field_5
+      %label &nbsp;
+      = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by"
     .field_25
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_recruiter.nil?)
@@ -198,3 +201,5 @@
       .field_100
         =employment.label :terminated_remarks, "Termination Remarks"
         =employment.text_field :termination_remarks, :disabled=>@employment.status == false
+
+

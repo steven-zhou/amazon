@@ -1,5 +1,9 @@
 <% if @email.errors.empty? -%>
+  <%if @organisation.nil? -%>
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+  <% else %>
+  $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
+  <% end -%>
   $("#new_email")[0].reset();
   $("#new_contact").hide();
   $('.person_contact_close').css("display","none");
@@ -9,3 +13,5 @@
   $('#contact_mode').attr('mode', 'show');
   $('.new_option[field="contact"]').css("display","");
 <% end -%>
+
+

@@ -1,0 +1,2 @@
+class PersonLookupGrid < Grid
+end

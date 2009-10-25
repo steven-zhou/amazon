@@ -11,11 +11,11 @@ class Organisation < ActiveRecord::Base
   has_many :employees, :through => :employments, :source => :employee
   has_many :addresses, :as => :addressable, :order => "priority_number ASC"
   has_one :image, :as => :imageable
-  has_many :contacts, :as => :contactable
-  has_many :phones, :as => :contactable
-  has_many :faxes, :as => :contactable
-  has_many :emails, :as => :contactable
-  has_many :websites, :as => :contactable
+  has_many :contacts, :as => :contactable, :order => "priority_number ASC"
+  has_many :phones, :as => :contactable, :order => "priority_number ASC"
+  has_many :faxes, :as => :contactable, :order => "priority_number ASC"
+  has_many :emails, :as => :contactable, :order => "priority_number ASC"
+  has_many :websites, :as => :contactable, :order => "priority_number ASC"
   has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
   has_many :keyword_links, :as => :taggable
   has_many :keywords, :through => :keyword_links,:uniq => true

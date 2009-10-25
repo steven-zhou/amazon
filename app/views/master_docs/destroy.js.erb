@@ -1,4 +1,4 @@
- $('#masterdocs').html('<%= escape_javascript(render(:partial => "/master_docs/master_doc",:collection => @person.master_docs)) %>');
+ $('#masterdocs').html('<%= escape_javascript(render(:partial => "/master_docs/master_doc",:collection => @current_object.master_docs)) %>');
 $('.person_master_doc_edit_delete').css("display","none");
 $('.person_master_doc_toggle_button').css("display","");
 $('.person_master_doc_close').css("display","none");
