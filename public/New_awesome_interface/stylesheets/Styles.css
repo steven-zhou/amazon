@@ -57,16 +57,18 @@ body {
 	background-repeat:no-repeat;
 	height: 15px;
 	width: 190px;
+	float: right;
 }
 
 #app #lc #menu #menu_active .item {
 	background-color: #f6f6f6;
-	height: 120px;
+	height: auto;
 	width: 180px;
 	-moz-border-radius-topleft: 10px;
 	-moz-border-radius-bottomleft: 10px;
 	background-image: none;
-	padding: 5px;
+	padding: 10px 0 10px 10px ;
+	float: right;
 }
 
 	#app #lc #menu #menu_active .item ul {
@@ -77,7 +79,7 @@ body {
 
 #app #lc #menu #menu_active .item li {
 	float: left;
-	padding: 2px 4px 2px 2px;
+	padding: 0 0 0 4px;
 }
 
 
@@ -87,6 +89,7 @@ body {
 	background-repeat:no-repeat;
 	height: 15px;
 	width: 190px;
+	float: right;
 }
 
 
@@ -114,10 +117,9 @@ body {
 
 #app #main #sysbar .bar_section:first-child {
 	border-left: none;
-	width: 17%;
-	background-image:url(../images/icon_black.png);
-	background-repeat:no-repeat;
-	background-position: 35px 5px;
+	width: 12%;
+	padding-top: 2px;
+	
 }
 
 #app #main #sysbar .bar_section {
@@ -145,55 +147,55 @@ body {
 /*------------------------------*/
 
 #app #main #sysbar .bar_section #module_menu #module_menu_top {
-	height: 32px;
+	height: 68px;
 	cursor: pointer;
-}
-#app #main #sysbar .bar_section #module_menu #module_menu_items #module_menu_connector #module_menu_connector_1 {
-	background-color: #f6f6f6;
-	display: block;
-	float: left;
-	height: 13px;
-	width: 30px;
-}
-#app #main #sysbar .bar_section #module_menu #module_menu_items #module_menu_connector #module_menu_connector_2 {
-	background-color: #F6f6f6;
-	
-	background-repeat: no-repeat;
-	background-position: right bottom;
-	width:100%;
-	height:10px;
-	float:left;
+	background-image:url(../images/icon_black.png);
+	background-repeat:no-repeat;
+	background-position: 9px 3px;
 }
 
+#app #main #sysbar .bar_section #module_menu #module_menu_top.hover {
+	height: 68px;
+	cursor: pointer;
+	margin-left: -22px;
+	position: relative;
+	width: 147px;
+	background-image:url(../images/module_mentop.png);
+	background-repeat:no-repeat;
+	background-position: top;
+	
+}
 
 #app #main #sysbar .bar_section #module_menu #module_menu_connector {
-	background-image: url(../images/module_menu_connector.png);
-	background-repeat: no-repeat;
-	background-position: center bottom;
-	margin-left: -10px;
-	background-color: transparent;
-	margin: 0;
-	width: 100%;
 	z-index:999;
 	position: relative;
-	height:23px;
+	height:68px;
 	}
+	/* Menu top end */
 #app #main #sysbar .bar_section #module_menu #module_menu_items {
-	margin-left: -10px;
-	background-color: transparent;
-	margin: -0px 0 0 -15px;
-	width: 100%;
+
+	width: 147px;
+	margin-left: -22px;
 	z-index:999;
 	position: relative;
 	display: none;
+	left: 0px;
+	top: 0px;
 	}
-#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:100%; box-shadow: 5px 5px #CCC;}
-#app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color:#f6f6f6; height:40px; padding: 0 0 0 10px; border-bottom: 1px solid #ccc;}
-#app #main #sysbar .bar_section #module_menu #module_menu_items li:first-child {margin-top: 3px; -moz-border-radius-topleft:10px; -moz-border-radius-topright:10px;}
-#app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { -moz-border-radius-bottomleft:10px; -moz-border-radius-bottomright:10px;}
+	
+	/* Rounded bottom */
+#app #main #sysbar .bar_section #module_menu #module_menu_bottom {
+	background-image: url(../images/module_menbottom.png);
+	background-repeat: no-repeat;
+	background-position: left;
+	height: 18px;
+}
 
-#app #main #sysbar .bar_section #module_menu #module_menu_items li.hover { background: transparent url(../images/module_menu_hover.jpg) repeat-x;}
-
+#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:147px;background-image: url(../images/module_menmiddle.png);	background-repeat:repeat-y;	background-position: center;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color: transparent; height:40px; padding: 5px 0 0 10px; border-bottom: 1px solid #ccc; margin-right: 9px; font-family: Arial, Helvetica, sans-serif;	font-size: 18px; font-style: normal; font-weight: normal; color: #666;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { padding-bottom:0px;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li.hover {background-color: transparent; background-image: url(../images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li img { vertical-align:text-bottom; margin-right: 5px;}
 
 
 
@@ -204,9 +206,988 @@ body {
 #content {
 	background-color: #f6f6f6;
 	width:100%;
-	height: 500px;
-	margin-top: 10px;
+	min-height: 500px;
+	margin-top: 5px;
 	margin-bottom: 10px;
 	padding: 10px;
 	-moz-border-radius: 15px;
+	float:left;
+}
+
+/* header wrapper */
+#app #main #content #header {
+    height: 40px;
+    width: 100%;
+}
+/* page title area */
+#app #main #content #header #page_title {
+    width: 49%;
+    height: 40px;
+    float:left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    color: #2C2C2C;
+    margin-left: 1%;
+}
+/* list of lists area */
+#app #main #content #header #lol {
+    float: right;
+    height: 40px;
+    width: 49%;
+    margin-right: 1%;
+    text-align: right;
+}
+/* interface blue container*/
+#app #main #content .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#app #main #content .container.green_container {
+    background-image:url(../images/container_green_bg.png) !important;
+}
+
+#app #main #content .container.orange_container {
+    background-image:url(../images/container_orange_bg.png) !important;
+}
+
+/* removes double margin from last div */
+#app #main #content .container div:last-child {
+    margin-bottom: 0px;
+}
+
+#app #main #content .container.single_container {
+    margin-bottom:10px !important;
+}
+
+/* blue container title*/
+#app #main #content .container h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+#app #main #content .container .title {
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#app #main #content .container .options {
+    float: right;
+    display:inline;
+}
+
+#app #main #content .container div.header_container .title h1{
+    margin: 0 0 0 0 !important;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+/*blue container second title*/
+#app #main #content .container h2 {
+    font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+/*blue container body copy */
+#app #main #content .container p {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 16px;
+    margin-bottom: 5px;
+}
+/* form line wrapper */
+#app #main #content .container .form_line {
+    float: left;
+    height: 40px;
+    width: 100%;
+}
+/* filed label properties */
+#app #main #content .container .form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+/* field properties */
+#app #main #content .container input {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 96%;
+    height: 18px;
+
+}
+
+#app #main #content .container input[type=button] {
+    width:auto;
+    height:auto;
+}
+
+#app #main #content .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
+/* dropdown properties */
+#app #main #content .container select {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:20px;
+    width: 100%;
+    height: 24px;
+}
+
+/* Form field place holders */
+
+/* Common properties */
+#app #main #content .container .form_line .field_2,
+#app #main #content .container .form_line .field_5,
+#app #main #content .container .form_line .field_10,
+#app #main #content .container .form_line .field_15,
+#app #main #content .container .form_line .field_20,
+#app #main #content .container .form_line .field_22,
+#app #main #content .container .form_line .field_23,
+#app #main #content .container .form_line .field_25,
+#app #main #content .container .form_line .field_27,
+#app #main #content .container .form_line .field_30,
+#app #main #content .container .form_line .field_33,
+#app #main #content .container .form_line .field_34,
+#app #main #content .container .form_line .field_35,
+#app #main #content .container .form_line .field_38,
+#app #main #content .container .form_line .field_40,
+#app #main #content .container .form_line .field_45,
+#app #main #content .container .form_line .field_50,
+#app #main #content .container .form_line .field_55,
+#app #main #content .container .form_line .field_60,
+#app #main #content .container .form_line .field_66,
+#app #main #content .container .form_line .field_70,
+#app #main #content .container .form_line .field_72,
+#app #main #content .container .form_line .field_75,
+#app #main #content .container .form_line .field_80,
+#app #main #content .container .form_line .field_85,
+#app #main #content .container .form_line .field_90,
+#app #main #content .container .form_line .field_100 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+/* unique properties */
+#app #main #content .container .form_line .field_2 {width: 2%;}
+#app #main #content .container .form_line .field_5 {width: 5%;}
+#app #main #content .container .form_line .field_10 {width: 10%;}
+#app #main #content .container .form_line .field_15 {width: 15%;}
+#app #main #content .container .form_line .field_20 {width: 20%;}
+#app #main #content .container .form_line .field_22 {width: 22%;}
+#app #main #content .container .form_line .field_23 {width: 23%;}
+#app #main #content .container .form_line .field_25 {width: 25%;}
+#app #main #content .container .form_line .field_27 {width: 27%;}
+#app #main #content .container .form_line .field_30 {width: 30%;}
+#app #main #content .container .form_line .field_33 {width: 33%;}
+#app #main #content .container .form_line .field_34 {width: 34%;}
+#app #main #content .container .form_line .field_35 {width: 35%;}
+#app #main #content .container .form_line .field_38 {width: 38%;}
+#app #main #content .container .form_line .field_40 {width: 40%;}
+#app #main #content .container .form_line .field_45 {width: 45%;}
+#app #main #content .container .form_line .field_50 {width: 50%;}
+#app #main #content .container .form_line .field_55 {width: 55%;}
+#app #main #content .container .form_line .field_60 {width: 60%;}
+#app #main #content .container .form_line .field_66 {width: 66%;}
+#app #main #content .container .form_line .field_70 {width: 70%;}
+#app #main #content .container .form_line .field_72 {width: 72%;}
+#app #main #content .container .form_line .field_75 {width: 75%;}
+#app #main #content .container .form_line .field_80 {width: 80%;}
+#app #main #content .container .form_line .field_85 {width: 85%;}
+#app #main #content .container .form_line .field_90 {width: 90%;}
+#app #main #content .container .form_line .field_100 {width: 100%;}
+
+/* remove margin from .form_field last div */
+#app #main #content .container .form_line div:last-child {
+    margin: 0px;
+}
+
+#app #main #content #left_content {
+    min-height: 300px;
+    background-color:#F6F6F6;
+    float: left;
+    width: 49.5%;
+    margin-right: 0.5%;
+}
+#app #main #content #right_content {
+    min-height: 500px;
+    float: right;
+    width: 49.5%;
+    margin-left: 0.5%;
+}
+
+/* For when we are using the whole page, not only two columns */
+#app #main #content #content_full_page {
+    min-height: 500px;
+    background-color:#F6F6F6;
+    float: left;
+    width: 98%;
+    margin-right: 1%;
+    margin-left: 1%;
+}
+
+/* content footer - not in use at the moment */
+#app #main #content #footer {
+    width: 100%;
+    height: 5px;
+    float:left;
+}
+
+/*list header*/
+select#compiler_options option.selected {
+    display: none;
+}
+
+div#content div#left{
+    width: 49%;
+    float: left;
+}
+
+div#content div#right {
+    width: 49%;
+    float: left;
+    margin-left: 2%;
+}
+
+div.container div.header_container {
+    display: inline;
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px !important;
+}
+
+
+
+div.container div.header_container .title {
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+div.container div.header_container .title h1{
+    margin: 0 0 0 0 !important;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+div.container div.header_container h1 {
+    margin:0 0 0 35px;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+div.container div.header_container .options {
+
+    float: right;
+    display:inline;
+}
+
+
+div#show_lists div.container {
+    padding:1% !important;
+    width:45% !important;
+    margin-right: 1%;
+}
+
+div#list_compiler_form .form_line.field_select_line {
+    height:auto !important;
+}
+
+div#list_compiler_form select.field_select {
+    height:auto !important;
+}
+
+/* query header */
+div#show_queries div.container {
+    width:45% !important;
+    padding:1% !important;
+    margin-right: 1%;
+}
+
+div#new_query select.field_select {
+    height:auto !important;
+}
+
+div#new_query .form_line.field_select_line {
+    height:auto !important;
+}
+
+div#new_query div.description_label {
+    margin:50px 0 25px 0;
+    height:40px;
+}
+
+div#new_query input[type=submit] {
+    width:160px !important;
+    height:24px !important;
+    float:right;
+}
+
+div#edit_query select.field_select {
+    height:auto !important;
+}
+
+div#edit_query .form_line.field_select_line {
+    height:auto !important;
+}
+
+div#edit_query div.description_label {
+    margin:50px 0 25px 0;
+    height:40px;
+}
+
+div#edit_query input[type=submit] {
+    width:160px !important;
+    height:24px !important;
+    float:right;
+}
+
+div.highlight {
+    background-color : red;
+}
+
+.hidden {
+    display:none;
+}
+
+.option {
+    display:none;
+}
+
+
+/*this is for lol*/
+div.field_62 {
+    margin: 0px 0px 0px 0px;
+    float: right;
+    display:inline;
+}
+
+/*Person--LIST header*/
+#app #main #content #header .lolfont_center{
+
+    text-align:center;
+    font-size:13px;
+}
+
+#app #main #content #header  .lolfont_left{
+
+    text-align:left;
+    font-size:13px;
+}
+
+#app #main #content #header  #lol_select {
+    margin: 0 3px 0 0;
+    float: left;
+}
+#app #main #content #header  #lol_select #select_tag {
+    display:block;
+    width:300px;
+    float:left;
+    margin:12px 13px 0 0;
+}
+
+#app #main #content #header #loleft{
+    float: left;
+
+}
+
+#app #main #content #header #loright{
+    float: right;
+    width:240px;
+
+}
+
+#app #main #content #header #loleft .arrow_block{
+    float: left;
+    margin:0 8px 0 0;
+
+}
+
+#app #main #content #header #loleft .arrow_block a {
+    float: left;
+    padding:1px 5px 4px 2px;
+}
+
+/*Person--show*/
+
+
+#app #main #content #left_content #photo_info{
+
+    margin:0px 0px 20px 0;
+    height: 120px;
+}
+
+#app #main #content #right_content #photo_info{
+
+    margin:0px 0px 20px 0;
+    height: 70px;
+}
+
+#app #main #content #left_content #photo_info #imageshow{
+    margin:10px 10px 0px 5px;
+}
+#app #main #content #left_content #photo_info #person_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
+
+img.small {
+    width: 90px;
+    height: 90px;
+}
+
+img.medium {
+    width: 120px;
+    height: 120px;
+}
+img.thumb {
+    width:61px;
+    height: 61px;
+    float: left;
+}
+
+
+#photo_info{
+    margin:0px 0px 10px 0;
+    height: 100px;
+}
+
+#app #main #content  .container_icon { /*For find people page*/
+
+    font-family:Arial, Helvetica, sans-serif;
+
+
+    background-repeat:repeat;
+    color: #232323;
+    float: right;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+
+}
+
+.container_icon_color{
+
+    background-image:url(../images/container_bg.png);
+}
+/*Temp*/
+
+p.submit{ /*This is for the submit button*/
+    text-align: right;
+    padding-right:3px;
+}
+
+.left {
+    float:left;
+}
+
+.right {
+    float:right;
+}
+form#person_names_form.edit_person input#person_custom_id{
+    float:right;
+    width: 200px !important;
+}
+
+form#add_person.new_person input#person_custom_id{
+    float:right;
+    width: 200px !important;
+}
+
+form#add_person.new_person input#image_image_file{
+
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+form#person_names_form.edit_person input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+a.alt_option{
+    color:#000000;
+    font-size:15px;
+    line-height:16px;
+    padding:1px;
+    margin:2px 10px 0px 5px;
+    float: right;
+}
+
+p.submit{
+    text-align: right;
+    padding-right:3px;
+}
+
+#app #main #content div#accordion02 .container { /*For find people page*/
+    float:none !important;
+    margin-bottom:10px !important;
+}
+
+
+
+#app #main #content #header #lol #loright #show_list_icon{
+    float:left !important;
+    margin-top:5px;
+    margin-left:5px;
+}
+
+/*Temp*/
+
+
+
+/*TAB*/
+/*contact*/
+form.contact_form {
+    display:none;
+}
+
+form.active {
+    display:block;
+}
+
+div.keywordleft {
+    width: 30%;
+    margin-left: 5%;
+    float: left;
+}
+div#keywords_right {
+    width: 30%;
+    margin-right: 5%;
+    float: right;
+}
+
+#keywords_middle {
+    width: 20%;
+    margin: 0 5% 0 5%;
+
+    padding-top: 80px;
+    text-align: center;
+    float: left;
+}
+
+#keywords select{
+    min-height:325px;
+
+}
+
+
+/*relationship*/
+
+div.id_container {
+    float:left;
+    margin: 0% 1%;
+    width: 18%;
+}
+
+div.name_container{
+    float:left;
+    margin: 0% 1%;
+    width: 38%;
+}
+
+div.delete_container{
+    float:right;
+    margin: 0% 1%;
+    width: 18%;
+    text-align: right;
+}
+
+div.info_warning {
+    display:block;
+    border: 0px;
+    width: 95%;
+    padding: 1%;
+    margin: 8px 8px 8px 8px;
+    float:left;
+    background-color:silver;
+}
+
+.highlight_for_person_role{
+    font-size:14px;
+    color:red;
+
+}
+
+/*Organisation Show*/
+#app #main #content #left_content #photo_info #organisation_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
+
+.hidden_tab {
+    position: absolute; left: -10000px;
+}
+
+/* Organisation New*/
+form#add_organisation.new_organisation input#organisation_custom_id{
+    float:right;
+    width: 200px !important;
+}
+
+form#add_organisation.new_organisation input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+/*Organisation Edit*/
+form#organisation_names_form input#image_image_file{
+    height: 25px !important;
+    width: 150px !important;
+    font-size:14px;
+    line-height:16px;
+}
+
+#app #main #content #header #lol_organisations {
+    margin: 4px 3px 0 0;
+    float: left;
+}
+
+
+/*Grids*/
+.flexigrid input, .flexigrid select {
+    width:auto !important;
+}
+
+/*UI light-box*/
+.ui-dialog .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 1%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.ui-dialog #content .container h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+.ui-dialog .container .form_line {
+    float: left;
+    height: 40px;
+    width: 100%;
+}
+
+.ui-dialog .container .form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+
+.ui-dialog .container input[type=button] {
+    width:auto;
+    height:auto;
+}
+
+.ui-dialog .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
+
+.ui-dialog .container input {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 96%;
+    height: 18px;
+}
+
+.ui-dialog .container .form_line .field_15,
+.ui-dialog .container .form_line .field_20,
+.ui-dialog .container .form_line .field_25,
+.ui-dialog .container .form_line .field_27,
+.ui-dialog .container .form_line .field_30,
+.ui-dialog .container .form_line .field_33,
+.ui-dialog .container .form_line .field_34,
+.ui-dialog .container .form_line .field_35,
+.ui-dialog .container .form_line .field_40,
+.ui-dialog .container .form_line .field_45,
+.ui-dialog .container .form_line .field_50,
+.ui-dialog .container .form_line .field_55,
+.ui-dialog .container .form_line .field_60,
+.ui-dialog .container .form_line .field_66,
+.ui-dialog .container .form_line .field_70,
+.ui-dialog .container .form_line .field_75,
+.ui-dialog .container .form_line .field_80,
+.ui-dialog .container .form_line .field_85 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.ui-dialog .container .form_line .field_15 {width: 15%;}
+.ui-dialog .container .form_line .field_20 {width: 20%;}
+.ui-dialog .container .form_line .field_25 {width: 25%;}
+.ui-dialog .container .form_line .field_27 {width: 27%;}
+.ui-dialog .container .form_line .field_30 {width: 30%;}
+.ui-dialog .container .form_line .field_33 {width: 33%;}
+.ui-dialog .container .form_line .field_34 {width: 34%;}
+.ui-dialog .container .form_line .field_35 {width: 35%;}
+.ui-dialog .container .form_line .field_40 {width: 40%;}
+.ui-dialog .container .form_line .field_45 {width: 45%;}
+.ui-dialog .container .form_line .field_50 {width: 50%;}
+.ui-dialog .container .form_line .field_55 {width: 55%;}
+.ui-dialog .container .form_line .field_60 {width: 60%;}
+.ui-dialog .container .form_line .field_66 {width: 66%;}
+.ui-dialog .container .form_line .field_70 {width: 70%;}
+.ui-dialog .container .form_line .field_75 {width: 75%;}
+.ui-dialog .container .form_line .field_80 {width: 80%;}
+.ui-dialog .container .form_line .field_85 {width: 85%;}
+
+/* Administration */
+
+/* System Data */
+
+
+
+.system_data_entry_inactive {
+    background-color: #B2BDC5;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+.system_data_entry_active {
+    background-color: #B2E3C5;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+.system_data_entry_selected {
+    background-color: #B2CADA;
+    width: 29%;
+    margin: 1%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+}
+
+/* table */
+table#name_card {
+    width:92%;
+}
+
+td.w2 {
+    width:2%;
+}
+
+td.w20 {
+    width:20%;
+}
+
+td.w25 {
+    width:25%;
+}
+
+td.w32 {
+    width:32%;
+}
+
+td.w40 {
+    width:40%;
+}
+
+td a {
+    display:inline;
+}
+
+td.textright {
+    text-align:right;
+}
+
+/* Admin --- user account */
+
+
+.container_inactive {  
+    background-color: #B2BDC5;
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+
+    min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.container_active {
+    background-color: #B2E3C5;
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+
+
+    font-family:Arial, Helvetica, sans-serif;
+    min-height: 10px;
+}
+
+.container_selected {
+    background-color: #B2CADA;
+    width: 95%;
+    margin: 1%;
+    float: left;
+    padding: 1.8%;
+    -moz-border-radius: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+
+#app #main #content .container .form_line .wrapimage {
+    float: left;
+    height: 40px;
+    margin-left: 210px;
+    position:absolute;
+    padding: 5px 0px 0px 0px ;
+}
+
+
+#app #main #content .container .container_inactive .title{
+
+
+    float: left;
+    height: 20px;
+    font-size: 17px;
+    font-weight:normal;
+
+}
+
+#app #main #content .container .container_active .title{
+
+
+    float: left;
+    height: 20px;
+    font-size: 17px;
+    font-weight:normal;
+
+}
+
+
+#app #main #content .container .half_container{
+    float: left;
+    width: 46%;
+    margin-left: 10px;
+    margin-bottom: 0px;
+    padding: 1%;
+}
+
+
+.inline{
+
+    display:inline !important;
+}
+
+/*Report tab css*/
+
+.report_left_tab{
+    float:left;
+    margin-left:0.5%;
+    min-height:500px;
+    width:500px;
+
+}
+
+
+/*Admin User group*/
+
+.container_edit{
+   
+    width:6% !important;
+    margin-bottom:0px !important;
+    margin-top:70px;
+    margin-left:20px !important;
+    padding:1% 1% 0 1% !important;
+    -moz-border-radius-bottomleft:0px !important;
+     -moz-border-radius-bottomright:0px !important;
+}
+
+
+#app #main #content #right_content .container .container .left input {
+	width: 15px;
+	vertical-align: middle;
+}
+#app #main #content #right_content .container .container .left label {
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+	display: inline;
 }
