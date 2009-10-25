@@ -1,13 +1,10 @@
 class SigninController < ApplicationController
 
-  before_filter :check_authentication, :except => [:login, :signout]
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request]
   layout nil
 
   # Allows a user to log in.
   def login
-
-
-
     if request.post?
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
@@ -23,46 +20,39 @@ class SigninController < ApplicationController
         @temp_list = TempList.find_by_login_account_id(session[:user])
         @temp_list.destroy unless @temp_list.nil?
         #create a temp list for all people on the lists(group lists and user lists)
-          @temp_list = TempList.new(:name => "List of all people", :list_size => 0, :last_date_generated => Date.today(), :status => true, :source => "Temp List", :source_type => "T", :allow_duplication => false, :login_account_id => session[:user])
-          @temp_list.save
-          temp_list_id = @temp_list.id
-          person_ids = Array.new
+        @temp_list = TempList.new(:name => "List of all people", :list_size => 0, :last_date_generated => Date.today(), :status => true, :source => "Temp List", :source_type => "T", :allow_duplication => false, :login_account_id => session[:user])
+        @temp_list.save
+        temp_list_id = @temp_list.id
+        person_ids = Array.new
 
-          #people on group list
-          LoginAccount.find(session[:user]).list_headers.each do |i|
-            @list_header = ListHeader.find(i)
-            @list_details = @list_header.list_details
-            @list_details.each do |list_detail|
-              person_ids << list_detail.person_id unless person_ids.include?(list_detail.person_id)
-            end
+        #people on group list
+        LoginAccount.find(session[:user]).list_headers.each do |i|
+          @list_header = ListHeader.find(i)
+          @list_details = @list_header.list_details
+          @list_details.each do |list_detail|
+            person_ids << list_detail.person_id unless person_ids.include?(list_detail.person_id)
           end
+        end
 
-          #people on user list
-          LoginAccount.find(session[:user]).user_lists.each do |i|
-            @list_header = ListHeader.find(i.list_header_id)
-            @list_details = @list_header.list_details
-            @list_details.each do |list_detail|
-              person_ids << list_detail.person_id unless person_ids.include?(list_detail.person_id)
-            end
+        #people on user list
+        LoginAccount.find(session[:user]).user_lists.each do |i|
+          @list_header = ListHeader.find(i.list_header_id)
+          @list_details = @list_header.list_details
+          @list_details.each do |list_detail|
+            person_ids << list_detail.person_id unless person_ids.include?(list_detail.person_id)
           end
+        end
 
-          person_ids.each do |i|
-            @list_detail = ListDetail.new(:list_header_id => temp_list_id, :person_id => i)
-            @list_detail.save
-          end
+        person_ids.each do |i|
+          @list_detail = ListDetail.new(:list_header_id => temp_list_id, :person_id => i)
+          @list_detail.save
+        end
           
 
-        if (session[:intended_action] != nil && session[:intended_controller] != nil)
-          #puts "***** DEBUG Redirecting to the intended action and controller"          
-          redirect_to :action => session[:intended_action],  :controller => session[:intended_controller]
-        else
-          #puts "***** DEBUG going to welcome_url"
-          redirect_to welcome_url
-        end
+        redirect_to welcome_url
       rescue
         # If we threw an exception for not logging
         #  in ok we will send a warning to the end user
-        #puts "**** DEBUG Rescued!"
         #flash.now[:warning] = flash_message(:type => "login_error")
         #rescue rescue_message = "your group do not have permissions"
         if login_account.nil?
@@ -92,6 +82,49 @@ class SigninController < ApplicationController
     session[:login_account_info] = nil
     
     redirect_to login_url
+  end
+
+  def password_reset_get_login_account
+    username = params[:username]
+    email_address = params[:email]
+    @login_account = LoginAccount.find(:first, :conditions => ["user_name = ? AND security_email = ?", username, email_address])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def reset_password_request
+    username = params[:password_reset_username]
+    email_address = params[:password_reset_email_address]
+    @login_account = LoginAccount.find(:first, :conditions => ["user_name = ? AND security_email = ?", username, email_address])
+
+    @password_rest = false
+
+    answer_1 = params[:password_reset_answer_1]
+    answer_2 = params[:password_reset_answer_2]
+    answer_3 = params[:password_reset_answer_3]
+
+    if (!@login_account.account_locked? && @login_account.question1_answer.to_s == answer_1.to_s && @login_account.question2_answer.to_s == answer_2.to_s && @login_account.question3_answer.to_s == answer_3.to_s )
+      # valid
+      @login_account.access_attempts_count = 0
+      @login_account.access_attempt_ip = request.remote_ip
+      @login_account.save
+      @password_reset = "true"
+      # Change the user's password, send out an email, update the view
+    else
+      #invalid
+      @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? 1 : (@login_account.access_attempts_count + 1))
+      @login_account.access_attempt_ip = request.remote_ip
+      @login_account.save
+      @password_reset = "false"
+
+      # Update the view, either warn about 3 attempts or announce the account has been locked
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
   end
 
 
