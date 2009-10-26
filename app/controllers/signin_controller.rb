@@ -153,12 +153,14 @@ class SigninController < ApplicationController
   def username_retrieval_request
     email_address = params[:username_retrieval_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
+    
+    puts "E #{email_address} LA #{@login_account.to_yaml}"
 
     @username_retrieval = false
 
-    answer_1 = params[:username_request_answer_1]
-    answer_2 = params[:username_request_answer_2]
-    answer_3 = params[:username_request_answer_3]
+    answer_1 = params[:username_retrieval_answer_1]
+    answer_2 = params[:username_retrieval_answer_2]
+    answer_3 = params[:username_retrieval_answer_3]
 
     if (!@login_account.account_locked? && @login_account.question1_answer.to_s.downcase == answer_1.to_s.downcase && @login_account.question2_answer.to_s.downcase == answer_2.to_s.downcase && @login_account.question3_answer.to_s.downcase == answer_3.to_s.downcase )
       # valid
