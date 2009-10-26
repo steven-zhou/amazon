@@ -8,4 +8,4 @@
         = link_to image_tag('close_icon.png'), email_path(@email), :class => 'get'
       %br{ :style=>"clear: both;"}
       = render :partial => 'email_form', :locals => { :email => email }
-      = submit_tag 'Submit'
+      = submit_tag 'Submit' ,:id => "submit_email_field_edit"

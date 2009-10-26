@@ -19,7 +19,7 @@
 .form_line
   .field_40{:style => "width: 39%;"}
     = address.label :town, 'Suburb'
-    = address.text_field :town ,:id => @address.new_record? ? "address_town" : "address_#{@address.id}_town"
+    = address.text_field :town ,:id => @address.new_record? ? "address_town" : "address_#{@address.id}_town" ,:style => "width:99%;"
 
   .field_5{:style => "margin-right: 4px;"}
     = address.label :postal_code, '&nbsp'
