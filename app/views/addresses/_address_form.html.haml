@@ -17,13 +17,13 @@
     = address.label :street_name, 'Street Name'
     = address.text_field :street_name
 .form_line
-  .field_40
+  .field_40{:style => "width: 39%;"}
     = address.label :town, 'Suburb'
     = address.text_field :town ,:id => @address.new_record? ? "address_town" : "address_#{@address.id}_town"
 
-  .field_5
+  .field_5{:style => "margin-right: 4px;"}
     = address.label :postal_code, '&nbsp'
-    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>@address.new_record? ? "address_town" : "address_#{@address.id}_town",:update_field2 =>@address.new_record? ? "address_state" : "address_#{@address.id}_state" ,:update_field3 => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code"
+    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>@address.new_record? ? "address_town" : "address_#{@address.id}_town",:update_field2 =>@address.new_record? ? "address_state" : "address_#{@address.id}_state" ,:update_field3 => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code",:update_field4 => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"
   .field_40
     = address.label :state, 'State/Province'
     = address.text_field :state , :id => @address.new_record? ? "address_state" : "address_#{@address.id}_state"
@@ -33,7 +33,7 @@
     = address.text_field :postal_code, :id => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code"
   .field_45
     = address.label :country, 'Country'
-    = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
+    = address.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"}
 
 
 

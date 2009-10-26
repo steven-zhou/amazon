@@ -448,42 +448,42 @@ class PeopleController < ApplicationController
  
      
     if(params[:current_operation] == "edit_list")
-       @postcodes = DomesticPostcode.find(:all)
+      @postcodes = DomesticPostcode.find(:all)
       @current_action = "edit"
-       @address = Address.new
-    @phone = Phone.new
-    @email = Email.new
-    @fax = Fax.new
-    @website = Website.new
-    @masterdoc = MasterDoc.new
-    @relationship = Relationship.new
-    @employment = Employment.new
-    @note = Note.new
-    @image = @person.image unless (@person.nil? || @person.image.nil?)
-    @role = Role.new
-    @person_role = PersonRole.new
-    @person_group = PersonGroup.new
+      @address = Address.new
+      @phone = Phone.new
+      @email = Email.new
+      @fax = Fax.new
+      @website = Website.new
+      @masterdoc = MasterDoc.new
+      @relationship = Relationship.new
+      @employment = Employment.new
+      @note = Note.new
+      @image = @person.image unless (@person.nil? || @person.image.nil?)
+      @role = Role.new
+      @person_role = PersonRole.new
+      @person_group = PersonGroup.new
       render 'show_edit_left.js'
 
     else
-       @primary_phone = @person.primary_phone
-    @primary_email = @person.primary_email
-    @primary_fax = @person.primary_fax
-    @primary_website = @person.primary_website
-    @primary_address = @person.primary_address
-    @primary_employment = @person.primary_employment
-    @other_phones = @person.other_phones
-    @other_emails = @person.other_emails
-    @other_faxes = @person.other_faxes
-    @other_websites = @person.other_websites
-    @other_addresses = @person.other_addresses
-    @notes = @person.notes
-    @person_role = @person.person_roles
+      @primary_phone = @person.primary_phone
+      @primary_email = @person.primary_email
+      @primary_fax = @person.primary_fax
+      @primary_website = @person.primary_website
+      @primary_address = @person.primary_address
+      @primary_employment = @person.primary_employment
+      @other_phones = @person.other_phones
+      @other_emails = @person.other_emails
+      @other_faxes = @person.other_faxes
+      @other_websites = @person.other_websites
+      @other_addresses = @person.other_addresses
+      @notes = @person.notes
+      @person_role = @person.person_roles
       @current_action = "show"
       respond_to do |format|
         format.js
       end
-#    redirect_to :action => "show", :id => @person.id
+      #    redirect_to :action => "show", :id => @person.id
     end
 
 
@@ -602,19 +602,47 @@ class PeopleController < ApplicationController
     @postcode_town = params[:update_field1]
     @postcode_state = params[:update_field2]
     @postcode_post_code = params[:update_field3]
+    @postcode_country = params[:update_field4]
 
-     respond_to do |format|
+    respond_to do |format|
       format.js
     end
   end
 
+
+  def  show_postcode
+
+    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
+     @postcode = Postcode.find(:all)
+
+     @postcode.each do |i|
+       @spc = ShowPostcodeGrid.new
+        @spc.login_account_id = session[:user]
+        @spc.grid_object_id = i.id
+        @spc.field_1 = i.state
+        @spc.field_2 = i.suburb
+        @spc.field_3 = i.postcode
+        @spc.field_4 = i.country.short_name
+        @spc.save
+     end
+
+    end
+
+     respond_to do |format|
+      format.js
+    end
+
+      
+   
+  end
+
   def lookup  #  look up person in the list
-     @update_field = params[:update_field]
+    @update_field = params[:update_field]
     if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
       @templist = TempList.find_by_login_account_id(session[:user])
       @people = @templist.people_on_list
-       @people.each do |j|
+      @people.each do |j|
 
         @solg = PersonLookupGrid.new
         @solg.login_account_id = session[:user]
@@ -637,12 +665,12 @@ class PeopleController < ApplicationController
   end
 
 
-   def lookup_fill
-     @update_field = params[:update_field]
+  def lookup_fill
+    @update_field = params[:update_field]
     @person = Person.find(params[:id].to_i)
     respond_to do |format|
       format.js
     end
-   end
+  end
 
 end

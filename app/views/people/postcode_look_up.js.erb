@@ -2,4 +2,5 @@
 $('#<%=escape_javascript("#{@postcode_town}") %>').val("<%=escape_javascript("#{@postcode.suburb}")%>");
 $('#<%=escape_javascript("#{@postcode_state}") %>').val("<%=escape_javascript("#{@postcode.state}")%>");
 $('#<%=escape_javascript("#{@postcode_post_code}") %>').val("<%=escape_javascript("#{@postcode.postcode}")%>");
+$('#<%=escape_javascript("#{@postcode_country}") %>').val("<%=escape_javascript("#{@postcode.country.short_name}")%>");
 $('#<%=escape_javascript("#{@postcode_post_code}") %>').focus();

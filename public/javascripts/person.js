@@ -484,100 +484,18 @@ $(document).ready(function() {
 $(document).ready(function() {
 
     $('.launch_address_assistant').live('click', function() {
-        $('#address_form_assistant').dialog({
-            modal: true,
-            resizable: true,
-            draggable: true,
-            width: 600,
-            buttons: {
-        }
-        });
+
+       $.ajax({
+                type: "GET",
+                url: "/people/show_postcode.js",
+                dataType: "script"
+            });  
         $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
         $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
         $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
+        $('#address_postcode_input').attr("update_field4", $(this).attr("update_field4"));
 
-        $('#address_form_assistant').dialog('open');
-        
-        $('#address_postcode').flexigrid({
-            url: '/grids/show_postcode_grid',
-            dataType: 'json',
-            colModel : [
-            {
-                display: 'ID',
-                name : 'id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
-
-            {
-                display: 'State',
-                name : 'field_1',
-                width : 50,
-                sortable : true,
-                align: 'left'
-            },
-
-            {
-                display: 'Suburb',
-                name : 'field_2',
-                width : 50,
-                sortable : true,
-                align: 'left'
-            },
-
-            {
-                display: 'Postcode',
-                name : 'field_3',
-                width : 120,
-                sortable : true,
-                align: 'left'
-            },
-
-            {
-                display: 'Country',
-                name : 'field_4',
-                width : 80,
-                sortable : true,
-                align: 'left'
-            }
-
-        
-            ],
-            searchitems : [
-            {
-                display: 'State',
-                name : 'field_1'
-            },
-
-            {
-                display: 'Suburb',
-                name : 'field_2'
-            },
-
-            {
-                display: 'Postcode',
-                name : 'field_3'
-            },
-
-            {
-                display: 'Country',
-                name : 'field_4'
-            }
-
-            ],
-            sortname: "id",
-            sortorder: "asc",
-            usepager: true,
-            title: '',
-            useRp: true,
-            rp: 20,
-            showTableToggleBtn: false,
-            width: 'auto',
-            height: 'auto'
-        });
-        
-    });
+ });
 });
 
 $(function(){
@@ -585,6 +503,10 @@ $(function(){
         $('table#address_assistant tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");
 
+    });
+
+    $('table#address_assistant tbody tr').live('mouseover',function(){
+       $(this).css("cursor", "pointer");
     });
 });
 

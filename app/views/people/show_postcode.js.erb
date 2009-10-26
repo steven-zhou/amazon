@@ -1,0 +1,90 @@
+ $('#address_form_assistant').dialog({
+            modal: true,
+            resizable: true,
+            draggable: true,
+            width: 600,
+            buttons: {
+        }
+        });
+
+
+        $('#address_form_assistant').dialog('open');
+
+        $('#address_postcode').flexigrid({
+            url: '/grids/show_postcode_grid',
+            dataType: 'json',
+            colModel : [
+            {
+                display: 'ID',
+                name : 'id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'State',
+                name : 'field_1',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Suburb',
+                name : 'field_2',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Postcode',
+                name : 'field_3',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Country',
+                name : 'field_4',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            }
+
+
+            ],
+            searchitems : [
+            {
+                display: 'State',
+                name : 'field_1'
+            },
+
+            {
+                display: 'Suburb',
+                name : 'field_2'
+            },
+
+            {
+                display: 'Postcode',
+                name : 'field_3'
+            },
+
+            {
+                display: 'Country',
+                name : 'field_4'
+            }
+
+            ],
+            sortname: "id",
+            sortorder: "asc",
+            usepager: true,
+            title: '',
+            useRp: true,
+            rp: 20,
+            showTableToggleBtn: false,
+            width: 'auto',
+            height: 'auto'
+        });
