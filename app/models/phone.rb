@@ -21,6 +21,15 @@ class Phone < Contact
   #  Callbacks
   ################
   #++
+
+  ##################
+  # Phone input validation
+  validates_numericality_of :post_value, :only_integer => true
+  validates_numericality_of :value, :only_integer => true
+  validates_numericality_of :pre_value, :only_integer => true
+
+  ####################
+
   before_save :update_priority
   before_destroy :update_priority_before_destroy
   #--

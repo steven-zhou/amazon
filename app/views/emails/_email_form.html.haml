@@ -4,7 +4,7 @@
     = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name
   .field_75
     = email.label :value, "Value"
-    = email.text_field :value
+    = email.text_field :value ,:id => @email.new_record? ? "email_value" : "email_value_edit"
 .form_line
   .field_100
     = email.label :remarks, "Remarks"

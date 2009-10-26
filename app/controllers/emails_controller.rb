@@ -9,13 +9,30 @@ class EmailsController < ApplicationController
   
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
-    @email = @entity.emails.new(params[:email])
-    @email.save
-    @person = Person.find(session[:user])
 
-    if (params[:organisation_id])
-      @organisation = Organisation.find(@email.contactable_id)
-    end
+#    @temp = true
+
+#
+#    @check_email = Email.find_all_by_contactable_id(@entity.id)
+#
+#    @check_email.each do |i|
+#
+#      if (i.contact_meta_type_id == 2 && i.contactable_type == "Person")
+#        @temp = false
+#      end
+#    end
+#    if @temp == true
+
+      @email = @entity.emails.new(params[:email])
+      @email.save
+      @person = Person.find(session[:user])
+
+      if (params[:organisation_id])
+        @organisation = Organisation.find(@email.contactable_id)
+      end
+
+#    end
+   
     respond_to do |format|
       format.js
     end
@@ -43,17 +60,17 @@ class EmailsController < ApplicationController
 
 
     if @email.contactable_type == "Person"
-    @person = Person.find(session[:user])   # if in Person return person object to destroy.js
+      @person = Person.find(session[:user])   # if in Person return person object to destroy.js
     end
-     if @email.contactable_type == "Organisation"
-       @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
-     end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
   end
 
- def move_down_email_priority
+  def move_down_email_priority
     @current_email = Contact.find(params[:id])
 
     if(@current_email.priority_number==1)
@@ -69,14 +86,14 @@ class EmailsController < ApplicationController
       format.js
     end
 
- end
+  end
 
- def move_up_email_priority
+  def move_up_email_priority
     @up_current_email = Contact.find(params[:id])
     @up_exchange_email = @up_current_email.contactable.emails.find_by_priority_number(@up_current_email.priority_number - 1)
 
-     @up_exchange_email.priority_number = @up_exchange_email.priority_number + 1
-     @up_current_email.priority_number = @up_current_email.priority_number - 1
+    @up_exchange_email.priority_number = @up_exchange_email.priority_number + 1
+    @up_current_email.priority_number = @up_current_email.priority_number - 1
 
     @up_exchange_email.save
     @up_current_email.save
@@ -86,9 +103,9 @@ class EmailsController < ApplicationController
       format.js
     end
 
- end
+  end
 
- def move_organisation_down_email_priority
+  def move_organisation_down_email_priority
     @current_email = Contact.find(params[:id])
 
     if(@current_email.priority_number==1)
@@ -99,18 +116,18 @@ class EmailsController < ApplicationController
       @exchange_email.save
       @current_email.save
     end
-   @organisation = Organisation.find(@current_email.contactable_id)
+    @organisation = Organisation.find(@current_email.contactable_id)
     respond_to do |format|
       format.js
     end
- end
+  end
 
- def move_organisation_up_email_priority
-   @up_current_email = Contact.find(params[:id])
+  def move_organisation_up_email_priority
+    @up_current_email = Contact.find(params[:id])
     @up_exchange_email = @up_current_email.contactable.emails.find_by_priority_number(@up_current_email.priority_number - 1)
 
-     @up_exchange_email.priority_number = @up_exchange_email.priority_number + 1
-     @up_current_email.priority_number = @up_current_email.priority_number - 1
+    @up_exchange_email.priority_number = @up_exchange_email.priority_number + 1
+    @up_current_email.priority_number = @up_current_email.priority_number - 1
 
     @up_exchange_email.save
     @up_current_email.save
@@ -119,6 +136,6 @@ class EmailsController < ApplicationController
     respond_to do |format|
       format.js
     end
- end
+  end
 
 end
