@@ -15,10 +15,6 @@
   $('#flash_message').dialog('open');
 <% else %>
 
-
-
-
-
 $('#existing_group_list_list').append('<%= escape_javascript(render(:partial => "/group_lists/new_group_list", :locals =>{:group_list => @group_list })) %>');
  $('#<%= dom_id(@group_list) %>').show('slide', {direction:'right'});
 $('.add_form_close').click();

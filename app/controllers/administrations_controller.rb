@@ -80,13 +80,6 @@ class AdministrationsController < ApplicationController
   end
 
 
- 
-
-  def user_accounts
-    system_management
-    render :action => 'system_management'
-  end
-
   def user_groups
     @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
