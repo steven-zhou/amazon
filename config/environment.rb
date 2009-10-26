@@ -88,7 +88,7 @@ Rails::Initializer.run do |config|
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.smtp_settings = {
-    :address          => "127.0.0.1",
+    :address          => "mail.powernet.com.au",
     :port             => 25,
     :domain           => "amazon-development",
     :authentication   => :plain,

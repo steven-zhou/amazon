@@ -111,6 +111,16 @@ class SigninController < ApplicationController
       @login_account.save
       @password_reset = "true"
       # Change the user's password, send out an email, update the view
+
+      password = [Array.new(9){rand(256).chr}.join].pack("m").gsub(/=/, '').chomp
+      @login_account.password = password
+      @login_account.save
+
+      # Send out the email
+
+      email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
+      LoginAccountPasswordResetDispatcher.deliver(email)
+
     else
       #invalid
       @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? 1 : (@login_account.access_attempts_count + 1))
