@@ -20,7 +20,7 @@ class ListHeader < ActiveRecord::Base
   validates_uniqueness_of :name, :case_sensitive => false
   validates_presence_of :name
 
-  before_destroy :delete_all_details
+  before_destroy :delete_all_details, :delete_all_user_group_list
 
   def formatted_info
     "#{self.name} - #{self.description} : #{self.list_size} records"
@@ -39,6 +39,20 @@ class ListHeader < ActiveRecord::Base
   def delete_all_details
     self.list_details.each do |list_detail|
       list_detail.destroy
+    end
+  end
+
+  def delete_all_user_group_list
+
+    unless self.group_lists.nil? 
+      self.group_lists.each do |gl|
+        gl.destroy
+      end
+    end
+    unless self.user_lists.nil?
+      self.user_lists.each do |ul|
+        ul.destroy
+      end
     end
   end
 end
