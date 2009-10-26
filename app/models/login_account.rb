@@ -3,9 +3,14 @@ class LoginAccount < ActiveRecord::Base
 
 
   belongs_to :person
-  belongs_to :security_question, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
-  belongs_to :security_question, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
-  belongs_to :security_question, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
+
+  validates_presence_of :security_question1_id, :message => "you must select three security questions."
+  validates_presence_of :security_question2_id, :message => "you must select three security questions."
+  validates_presence_of :security_question3_id, :message => "you must select three security questions."
+
+  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
+  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
+  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
 
   
   has_many :user_groups, :foreign_key => "user_id"
@@ -109,6 +114,10 @@ class LoginAccount < ActiveRecord::Base
   end
 
 
+
+  def account_locked?
+    self.access_attempts_count.nil? ? false : (self.access_attempts_count > 3)
+  end
 
   private
 

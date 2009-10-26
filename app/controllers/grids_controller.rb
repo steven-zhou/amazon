@@ -750,7 +750,7 @@ class GridsController < ApplicationController
 
 
 
-   def show_person_contacts_report_grid
+  def show_person_contacts_report_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -828,7 +828,7 @@ class GridsController < ApplicationController
   end
 
 
-   def show_organisation_contacts_report_grid
+  def show_organisation_contacts_report_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -905,4 +905,274 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+
+
+  def show_postcode_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @person_postcode_grid = Postcode.find(:all,
+        :conditions => ["country_id = ?", Country.find_by_short_name("Australia").id],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+
+      count = Postcode.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      @person_postcode_grid = Postcode.find(:all,
+
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" like ? AND country_id = ? ", query,Country.find_by_short_name("Australia").id])
+
+      count = Postcode.count(:all,
+
+        :conditions=>[qtype +" like ? AND country_id = ? ", query,Country.find_by_short_name("Australia").id])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @person_postcode_grid.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.state,
+          u.suburb,
+          u.postcode,
+          "Australia",
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+   
+  def show_list_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "grid_object_id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+
+      @people = ShowListGrid.find(:all,
+        :conditions => ["login_account_id = ?", session[:user]],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ShowListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      @people = ShowListGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+      count = ShowListGrid.count(:all,
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5]}}
+
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_organisation_list_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "grid_object_id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @organisation = ShowOrganisationListGrid.find(:all,
+        :conditions => ["login_account_id = ?", session[:user]],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ShowOrganisationListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @organisation = ShowOrganisationListGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+      count = ShowOrganisationListGrid.count(:all,
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @organisation.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_person_lookup_grid
+     page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "grid_object_id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @person_lookup = PersonLookupGrid.find(:all,
+        :conditions => ["login_account_id = ?", session[:user]],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = PersonLookupGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @person_lookup = PersonLookupGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+      count = PersonLookupGrid.count(:all,
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @person_lookup.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
 end

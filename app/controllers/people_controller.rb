@@ -597,5 +597,52 @@ class PeopleController < ApplicationController
 
   end
 
+  def postcode_look_up
+    @postcode = Postcode.find(params[:id])
+    @postcode_town = params[:update_field1]
+    @postcode_state = params[:update_field2]
+    @postcode_post_code = params[:update_field3]
+
+     respond_to do |format|
+      format.js
+    end
+  end
+
+  def lookup  #  look up person in the list
+     @update_field = params[:update_field]
+    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
+
+      @templist = TempList.find_by_login_account_id(session[:user])
+      @people = @templist.people_on_list
+       @people.each do |j|
+
+        @solg = PersonLookupGrid.new
+        @solg.login_account_id = session[:user]
+        @solg.grid_object_id = j.id
+        @solg.field_1 = j.first_name
+        @solg.field_2 = j.family_name
+        @solg.field_3 = j.primary_address.first_line unless j.primary_address.blank?
+        @solg.field_4 = j.primary_phone.value unless j.primary_phone.blank?
+        @solg.field_5 = j.primary_email.address unless j.primary_email.blank?
+        
+        @solg.save
+        
+       
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+
+   def lookup_fill
+     @update_field = params[:update_field]
+    @person = Person.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+   end
 
 end

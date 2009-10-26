@@ -50,9 +50,9 @@
     .top
     .item
       - if @current_controller != "query_headers"
-        = link_to "Query", :controller => "query_headers", :action => "new"
+        = link_to "Query Manager", :controller => "query_headers", :action => "new"
       - else
-        Query
+        Query Manager
         %ul
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
@@ -65,9 +65,9 @@
     .top
     .item
       - if @current_controller != "list_headers"
-        = link_to "List", :controller => "list_headers", :action => "new"
+        = link_to "List of list", :controller => "list_headers", :action => "new"
       - else
-        List
+        List of list
         %ul
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} New", :controller => "list_headers", :action => "new"

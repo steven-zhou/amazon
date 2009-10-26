@@ -67,6 +67,8 @@ class AdministrationsController < ApplicationController
   end
 
   def contact_types
+    @tag_meta_types = ContactMetaMetaType.find(:all)
+    @category = "Contact"
     respond_to do |format|
       format.html
     end

@@ -1,0 +1,4 @@
+$('#organisation_lookup_dialog').dialog('close');
+$('#<%= escape_javascript("#{@update_field}") %>').val('<%= escape_javascript("#{@organisation.id}") %>');
+$('#<%= escape_javascript("#{@update_field}") %>').change();
+$('#<%= escape_javascript("#{@update_field}") %>').focus();
