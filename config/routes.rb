@@ -4,12 +4,13 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search_lists => :get, :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
+    :collection => {:find => :get, :search_lists => :get, :lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
-    :name_card => :get
-   
+    :name_card => :get,
+    :postcode_look_up =>:get
+
   } do |person|
     person.resources :addresses, :member => {:set_primary_address => :post}
     person.resources :phones
@@ -88,16 +89,17 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :duplication_formula_details
 
-  map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get}
+  map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-                                    :list_compile_grid => :get, :organisation_search_grid => :get, :duplication_organisations_grid => :get,
+                                    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get,
 
                                     :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
                                        
-  map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get}
-  map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get}
-  map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get}
-  map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get}
+  map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
+  map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
+  map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get,:move_organisation_down_website_priority=>:get, :move_organisation_up_website_priority => :get}
+  map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}
+  map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -71,8 +71,10 @@ $(function() {
    
     $(".clear_form").click(function(){
 
-       if(confirm("Are you sure?","Warning","Yes","No",3))
-          {$('#'+$(this).parents("form").get(0).id)[0].reset();}           
+        if(confirm("Are you sure?","Warning","Yes","No",3))
+        {
+            $('#'+$(this).parents("form").get(0).id)[0].reset();
+        }
     });
 
 
@@ -481,32 +483,100 @@ $(document).ready(function() {
 
 $(document).ready(function() {
 
-    $('#launch_address_assistant').live('click', function() {
+    $('.launch_address_assistant').live('click', function() {
         $('#address_form_assistant').dialog({
             modal: true,
-            width: 650,
-            height: 500,
             resizable: true,
-            draggable :true,
+            draggable: true,
+            width: 600,
             buttons: {
-                Select: function() {
-                    $('#address_town').val($('tr.selected > td')[0].innerHTML);
-                    $('#address_state').val($('tr.selected > td')[1].innerHTML);
-                    $('#address_postal_code').val($('tr.selected > td')[2].innerHTML);
-
-                    $('#person_addresses_attributes_0_town').val($('tr.selected > td')[0].innerHTML);
-                    $('#person_addresses_attributes_0_state').val($('tr.selected > td')[1].innerHTML);
-                    $('#person_addresses_attributes_0_postal_code').val($('tr.selected > td')[2].innerHTML);
-
-                    $('#organisation_addresses_attributes_0_town').val($('tr.selected > td')[0].innerHTML);
-                    $('#organisation_addresses_attributes_0_state').val($('tr.selected > td')[1].innerHTML);
-                    $('#organisation_addresses_attributes_0_postal_code').val($('tr.selected > td')[2].innerHTML);
-
-                    $(this).dialog('close');
-                }
-            }
+        }
         });
+        $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
+        $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
+        $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
+
         $('#address_form_assistant').dialog('open');
+        
+        $('#address_postcode').flexigrid({
+            url: '/grids/show_postcode_grid',
+            dataType: 'json',
+            colModel : [
+            {
+                display: 'ID',
+                name : 'id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'State',
+                name : 'field_1',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Suburb',
+                name : 'field_2',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Postcode',
+                name : 'field_3',
+                width : 120,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Country',
+                name : 'field_4',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            }
+
+        
+            ],
+            searchitems : [
+            {
+                display: 'State',
+                name : 'field_1'
+            },
+
+            {
+                display: 'Suburb',
+                name : 'field_2'
+            },
+
+            {
+                display: 'Postcode',
+                name : 'field_3'
+            },
+
+            {
+                display: 'Country',
+                name : 'field_4'
+            }
+
+            ],
+            sortname: "id",
+            sortorder: "asc",
+            usepager: true,
+            title: '',
+            useRp: true,
+            rp: 20,
+            showTableToggleBtn: false,
+            width: 'auto',
+            height: 'auto'
+        });
+        
     });
 });
 

@@ -1,5 +1,9 @@
 <% if @website.errors.empty? -%>
-  $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+  <%if @organisation.nil? -%>
+    $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+  <% else %>
+    $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
+  <% end -%>
   $("#new_website")[0].reset();
   $("#new_contact").hide();
   $('.person_contact_close').css("display","none");

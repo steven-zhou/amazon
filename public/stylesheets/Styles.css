@@ -110,13 +110,23 @@ body {
 
 #app #main #sysbar .bar_section #module_menu #module_menu_items li.hover { background: transparent url(/images/module_menu_hover.jpg) repeat-x;}
 
-.module_menu_item{ text-align: left; }
+.module_menu_item{
+    text-align: left;
+    vertical-align: middle;
+}
+
+.module_menu_item img {
+    vertical-align: middle;
+}
 
 .bar_section {
     vertical-align: middle;
     text-align: right;
 }
 
+.bar_section img {
+    vertical-align: middle;
+}
 
 
 /* End Module Menu */

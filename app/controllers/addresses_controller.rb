@@ -37,7 +37,12 @@ class AddressesController < ApplicationController
     @address = Address.find(params[:id])
     @address.destroy
 
-  @person = Person.find(session[:user])
+    if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
+      @current_object = Person.find(session[:user])
+    end
+    if @address.addressable_type == "Organisation"
+      @current_object =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -75,8 +80,8 @@ class AddressesController < ApplicationController
     @up_current_address = Address.find(params[:id])
     @up_exchange_address = @up_current_address.addressable.addresses.find_by_priority_number(@up_current_address.priority_number - 1)
     
-     @up_exchange_address.priority_number = @up_exchange_address.priority_number + 1
-     @up_current_address.priority_number = @up_current_address.priority_number - 1
+    @up_exchange_address.priority_number = @up_exchange_address.priority_number + 1
+    @up_current_address.priority_number = @up_current_address.priority_number - 1
     
     @up_exchange_address.save
     @up_current_address.save
@@ -85,5 +90,38 @@ class AddressesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def move_down_organisation_address_priority
+    @current_address = Address.find(params[:id])
+
+    if(@current_address.priority_number==1)
+      @exchange_address = @current_address.addressable.addresses.find_by_priority_number(2)
+
+      @exchange_address.priority_number = 1
+      @current_address.priority_number = 2
+      @exchange_address.save
+      @current_address.save
+    end
+    @organisation = Organisation.find(@current_address.addressable_id)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def move_up_organisation_address_priority
+     @up_current_address = Address.find(params[:id])
+    @up_exchange_address = @up_current_address.addressable.addresses.find_by_priority_number(@up_current_address.priority_number - 1)
+
+    @up_exchange_address.priority_number = @up_exchange_address.priority_number + 1
+    @up_current_address.priority_number = @up_current_address.priority_number - 1
+
+    @up_exchange_address.save
+    @up_current_address.save
+     @organisation = Organisation.find(@up_current_address.addressable_id)
+    respond_to do |format|
+      format.js
+    end
+
   end
 end
