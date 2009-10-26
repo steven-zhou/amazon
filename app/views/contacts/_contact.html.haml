@@ -7,12 +7,14 @@
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
-            = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(contact), :class => 'move_down_phone_priority',:id => 'phone_down_button', :phone_id => contact.id
+            -if(!contact.contactable.phones.second.nil?)
+              = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(contact), :class => 'move_down_phone_priority',:id => 'phone_down_button', :phone_id => contact.id
           - else
             = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(contact),  :class => 'move_up_phone_priority',:id => 'phone_up_button', :phone_id => contact.id
         -if contact.contactable_type == "Organisation"
           -if(contact.priority_number==1)
-            = link_to image_tag('down_arrow.png'),move_organisation_down_phone_priority_phone_path(contact), :class => 'get move_down_phone_priority',:id => 'phone_organisation_down_button', :organisation_phone_id => contact.id
+            -if(!contact.contactable.phones.second.nil?)
+              = link_to image_tag('down_arrow.png'),move_organisation_down_phone_priority_phone_path(contact), :class => 'get move_down_phone_priority',:id => 'phone_organisation_down_button', :organisation_phone_id => contact.id
           - else
             = link_to image_tag('up_arrow.png'),move_organisation_up_phone_priority_phone_path(contact),  :class => 'get move_up_phone_priority',:id => 'phone_organisation_up_button', :organisation_phone_id => contact.id
         = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get edit_phone edit_option', :field => "contact", :id => 'phone_edit_button', :phone_id => contact.id
@@ -20,12 +22,14 @@
       - elsif contact.read_attribute("type") == "Email" #contact.class == Email.new.class
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
-            = link_to image_tag('down_arrow.png'),move_down_email_priority_email_path(contact), :class => 'move_down_email_priority',:id => 'email_down_button', :email_id => contact.id
+            -if(!contact.contactable.emails.second.nil?)
+              = link_to image_tag('down_arrow.png'),move_down_email_priority_email_path(contact), :class => 'move_down_email_priority',:id => 'email_down_button', :email_id => contact.id
           - else
             = link_to image_tag('up_arrow.png'),move_up_email_priority_email_path(contact),  :class => 'move_up_email_priority',:id => 'email_up_button', :email_id => contact.id
         -if contact.contactable_type == "Organisation"
           -if(contact.priority_number==1)
-            = link_to image_tag('down_arrow.png'),move_organisation_down_email_priority_email_path(contact), :class => 'get',:id => 'email_down_button', :email_id => contact.id
+            -if(!contact.contactable.emails.second.nil?)
+              = link_to image_tag('down_arrow.png'),move_organisation_down_email_priority_email_path(contact), :class => 'get',:id => 'email_down_button', :email_id => contact.id
           - else
             = link_to image_tag('up_arrow.png'),move_organisation_up_email_priority_email_path(contact),  :class => 'get',:id => 'email_up_button', :email_id => contact.id
 
@@ -34,12 +38,14 @@
       - elsif contact.read_attribute("type") == "Website" #contact.class == Website.new.class
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
-            = link_to image_tag('down_arrow.png'),move_down_website_priority_website_path(contact), :class => 'move_down_website_priority',:id => 'website_down_button', :website_id => contact.id
+            -if(!contact.contactable.websites.second.nil?)
+              = link_to image_tag('down_arrow.png'),move_down_website_priority_website_path(contact), :class => 'move_down_website_priority',:id => 'website_down_button', :website_id => contact.id
           - else
             = link_to image_tag('up_arrow.png'),move_up_website_priority_website_path(contact),  :class => 'move_up_website_priority',:id => 'website_up_button', :website_id => contact.id
         -if contact.contactable_type == "Organisation"
           -if(contact.priority_number==1)
-            = link_to image_tag('down_arrow.png'),move_organisation_down_website_priority_website_path(contact), :class => 'get',:id => 'website_down_button', :website_id => contact.id
+            -if(!contact.contactable.websites.second.nil?)
+              = link_to image_tag('down_arrow.png'),move_organisation_down_website_priority_website_path(contact), :class => 'get',:id => 'website_down_button', :website_id => contact.id
           - else
             = link_to image_tag('up_arrow.png'),move_organisation_up_website_priority_website_path(contact),  :class => 'get',:id => 'website_up_button', :website_id => contact.id
 

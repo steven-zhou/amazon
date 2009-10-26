@@ -2848,13 +2848,22 @@ $(function(){
     $('table#address_postcode tbody tr').live('dblclick',function(){
         $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
+
         $.ajax({
             type: 'GET',
             url: "/people/"+$(this).attr('id').substring(3)+"/postcode_look_up.js",
-            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3"),
+            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3")+'&update_field4='+$("#address_postcode_input").attr("update_field4"),
             dataType: "script"
         });
         $('#address_form_assistant').dialog('close');
+            });
+});
+
+
+$(function(){
+    $('table#address_postcode tbody tr').live('click',function(){
+        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
             });
 });
 
@@ -2877,6 +2886,14 @@ $(function(){
             dataType: "script"
                     });
 
+    });
+
+     $("table#organisation_lookup_grid tbody tr").live("click", function(){
+      $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+    });
+     $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
+       $(this).css("cursor", "pointer");
     });
 });
 
@@ -2947,6 +2964,12 @@ $(function(){
             data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#person_lookup_grid").attr('update_field'),
             dataType: "script"
                     });
+
+    });
+
+        $("table#person_lookup_grid tbody tr").live("click", function(){
+        $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
 
     });
 });

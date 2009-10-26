@@ -19,6 +19,10 @@ class AddressesController < ApplicationController
     @entity = Person.find(params[:person_id]) rescue @entity = Organisation.find(params[:organisation_id])
     @address = @entity.addresses.new(params[:address])
     @address.save
+    @person = Person.find(session[:user])
+    if (params[:organisation_id])
+      @organisation = Organisation.find(params[:organisation_id])
+    end
     respond_to do |format|
       format.js
     end

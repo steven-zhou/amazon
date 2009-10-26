@@ -1,0 +1,2 @@
+class ShowPostcodeGrid < Grid
+end

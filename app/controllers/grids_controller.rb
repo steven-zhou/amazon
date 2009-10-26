@@ -916,7 +916,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "id"
+      sortname = "grid_object_id"
     end
 
     if (!sortorder)
@@ -928,7 +928,9 @@ class GridsController < ApplicationController
     end
 
     if (!rp)
+
       rp = 20
+
     end
 
     start = ((page-1) * rp).to_i
@@ -936,29 +938,30 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @person_postcode_grid = Postcode.find(:all,
-        :conditions => ["country_id = ?", Country.find_by_short_name("Australia").id],
+      @show_postcode = ShowPostcodeGrid.find(:all,
+        :conditions => ["login_account_id = ?", session[:user]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
 
-      count = Postcode.count(:all)
+      count = ShowPostcodeGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+
     end
 
     # User provided search terms
     if(query != "%%")
 
-      @person_postcode_grid = Postcode.find(:all,
+      @show_postcode = ShowPostcodeGrid.find(:all,
 
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND country_id = ? ", query,Country.find_by_short_name("Australia").id])
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
 
-      count = Postcode.count(:all,
+      count = ShowPostcodeGrid.count(:all,
 
-        :conditions=>[qtype +" like ? AND country_id = ? ", query,Country.find_by_short_name("Australia").id])
+        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -966,13 +969,16 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @person_postcode_grid.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.state,
-          u.suburb,
-          u.postcode,
-          "Australia",
-        ]}}
+
+    return_data[:rows] = @show_postcode.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5,
+          u.field_6]}}
+
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
