@@ -596,7 +596,8 @@ $(function(){
         $(this).parent().toggleClass("open");
         $("li").removeClass("active");
         $(this).parent().addClass("active");
-
+        $(".toggle_multilevel_options").removeClass("container_selected");
+        $(this).addClass("container_selected");
     });
 
     $(".toggle_multilevel_options").live("mouseover", function(){
@@ -2953,7 +2954,7 @@ $(function(){
 
 //system bar menu
 $(document).ready(function() {
-    $("#module_menu_top").click(function() {
+    $("div#module_menu_top").click(function() {
         if($("div#module_menu_top").attr("class")==""){
             $("div#module_menu_top").addClass("hover");
             $("div#module_menu_items").css("display", "");
@@ -2970,6 +2971,12 @@ $(document).ready(function() {
         function(){
             $("div#module_menu_top").removeClass("hover");
             $("div#module_menu_items").fadeOut("fast");
+        });
+
+    $("div#module_menu_items").hover(
+        function(){},
+        function(){
+            $("div#module_menu_top").removeClass("hover");
         });
 
     $("div#module_menu_items li").hover(
