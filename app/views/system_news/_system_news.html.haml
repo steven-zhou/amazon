@@ -1,0 +1,6 @@
+-div_for(system_news, :class => 'container') do
+  .title
+    %h2 #{system_news.description}
+  .right
+    - unless system_news.event_date.nil?
+      %h2 #{system_news.event_date.strftime("%d-%m-%Y")}
