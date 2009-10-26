@@ -72,7 +72,7 @@ body {
 	cursor: pointer;
 	margin-left: -22px;
 	position: relative;
-	width: 147px;
+	width: 180px;
 	background-image:url(../images/module_mentop.png);
 	background-repeat:no-repeat;
 	background-position: top;
@@ -87,7 +87,7 @@ body {
 	/* Menu top end */
 #app #main #sysbar .bar_section #module_menu #module_menu_items {
 
-	width: 147px;
+	width: 180px;
 	margin-left: -22px;
 	z-index:999;
 	position: relative;
@@ -104,7 +104,7 @@ body {
 	height: 18px;
 }
 
-#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:147px;background-image: url(../images/module_menmiddle.png);	background-repeat:repeat-y;	background-position: center;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:180px;background-image: url(../images/module_menmiddle.png);	background-repeat:repeat-y;	background-position: center;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color: transparent; height:40px; padding: 5px 0 0 10px; border-bottom: 1px solid #ccc; margin-right: 9px; font-family: Arial, Helvetica, sans-serif;	font-size: 18px; font-style: normal; font-weight: normal; color: #666;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { padding-bottom:0px;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li.hover {background-color: transparent; background-image: url(../images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
