@@ -2950,3 +2950,19 @@ $(function(){
 
     });
 });
+
+
+/*user--list*/
+
+$(function(){
+    $('.show_user_list_description').live('change', function(){
+        $.ajax({
+           type: "GET",
+           url: "/user_lists" + "/show_list_des.js",
+           data: "list_id=" + $(this).val(),
+           dataType:"script"
+
+        });
+
+    });
+});

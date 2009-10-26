@@ -1274,7 +1274,7 @@ div.tag ul li.active {
 
 
 
-div#group_list_show_group ul li{
+div#content_full_page ul li{
     width:50%;
     float:left;
 }
@@ -1325,6 +1325,7 @@ div#content_full_page .add_container {
     min-height: 10px;
 }
 
+
 div.tag .container_active{
     padding:10px;
 }
@@ -1346,3 +1347,17 @@ div.duplication_check .form_line.field_select_line {
     height:auto !important;
 }
 
+/*user_list*/
+
+#app #main #content div#existing_user_list_list .container_active_50 {
+
+    width: 45%;
+    margin: 1%;
+    float: left;
+    padding: 1.5%;
+    -moz-border-radius: 10px;
+    background-image:url(../images/container_bg.png);
+    background-repeat:repeat;
+    font-family:Arial, Helvetica, sans-serif;
+    min-height: 10px;
+}
