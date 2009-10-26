@@ -49,83 +49,122 @@ class QueryHeadersController < ApplicationController
     end
   end
 
-  def run
+  def check_runtime
     @query_header = QueryHeader.find(params[:id].to_i)
-    
     runtime_params = Array.new
     @query_header.query_criterias.each do |i|
       if i.value == "?"
         runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
       end
     end
-    @runtime = false
-    if runtime_params.empty?
-      #no runtime parmas
-      @people = @query_header.run
-      top = params[:top]
-      if(top=="number")
-        value = params[:top_number].to_i
-      else
-        value = params[:top_percent].to_i*@people.size/100
+
+    @runtime = runtime_params.empty? ? false : true
+    if @runtime
+      #ask for runtime param(s)
+      @top = params[:top]
+      @top_number = params[:top_number]
+      @top_percent = params[:top_precent]
+      render "check_runtime.js"
+    else
+      #run the query
+      redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_precent]
+    end
+  end
+
+  def copy_runtime
+    @query_header_old = QueryHeader.find(params[:id].to_i)
+    @query_header_new = QueryHeader.new
+    @query_header_new.name = QueryHeader.random_name
+    @query_header_new.group = "temp"
+    @query_header_new.status = true
+    @query_header_new.save
+    @query_header_old.query_criterias.each do |i|
+      @query_criteria = QueryCriteria.new(i.attributes)
+      if @query_criteria.value == "?"
+        @query_criteria.value = params[@query_criteria.table_name.to_sym][@query_criteria.field_name.to_sym]
       end
+      @query_criteria.query_header_id = @query_header_new.id
+      @query_criteria.save
+    end
 
-      @people = @people[0,value] if (value>0)
-      @query_header.result_size = @people.size
-      @query_header.save
+    @query_header_old.query_selections.each do |i|
+      @query_selection = QuerySelection.new(i.attributes)
+      @query_selection.query_header_id = @query_header_new.id
+      @query_selection.save
+    end
 
-      #clear query result temp table, and save result to temp table
-      QueryResultGrid.find_all_by_login_account_id(session[:user]).each do |i|
-        i.destroy
+    @query_header_old.query_sorters.each do |i|
+      @query_sorter = QuerySorter.new(i.attributes)
+      @query_sorter.query_header_id = @query_header_new.id
+      @query_sorter.save
+    end
+
+    redirect_to :action => "run", :id => @query_header_new.id, :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_precent]
+  end
+
+  def run
+    @query_header = QueryHeader.find(params[:id].to_i)
+
+    @people = @query_header.run
+    top = params[:top]
+    if(top=="number")
+      value = params[:top_number].to_i
+    else
+      value = params[:top_percent].to_i*@people.size/100
+    end
+
+    @people = @people[0,value] if (value>0)
+    @query_header.result_size = @people.size
+    @query_header.save
+
+    #clear query result temp table, and save result to temp table
+    QueryResultGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @query_result_columns = Array.new
+
+    if @query_header.query_selections.empty?
+      @query_result_columns << "First Name"
+      @query_result_columns << "Family Name"
+      @people.each do |person|
+        @qrg = QueryResultGrid.new
+        @qrg.login_account_id = session[:user]
+        @qrg.grid_object_id = person.id
+        @qrg.field_1 = person.first_name
+        @qrg.field_2 = person.family_name
+        @qrg.save
       end
-
-      @query_result_columns = Array.new
-
-      if @query_header.query_selections.empty?
-        @query_result_columns << "First Name"
-        @query_result_columns << "Family Name"
-        @people.each do |person|
-          @qrg = QueryResultGrid.new
-          @qrg.login_account_id = session[:user]
-          @qrg.grid_object_id = person.id
-          @qrg.field_1 = person.first_name        
-          @qrg.field_2 = person.family_name        
-          @qrg.save
-        end
-      else
+    else
+      @query_header.query_selections.each do |i|
+        @query_result_columns << i.field_name
+      end
+      @query_result_columns = @query_result_columns[0, 10]
+      @people.each do |person|
+        @qrg = QueryResultGrid.new
+        @qrg.login_account_id = session[:user]
+        @qrg.grid_object_id = person.id
         @query_header.query_selections.each do |i|
-          @query_result_columns << i.field_name
-        end
-        @query_result_columns = @query_result_columns[0, 10]
-        @people.each do |person|
-          @qrg = QueryResultGrid.new
-          @qrg.login_account_id = session[:user]
-          @qrg.grid_object_id = person.id
-          @query_header.query_selections.each do |i|
-            if i.sequence<=10
-              if i.table_name == "people"
-                if i.data_type == "Integer FK"
-                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
-                else
-                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
-                end              
+          if i.sequence<=10
+            if i.table_name == "people"
+              if i.data_type == "Integer FK"
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
               else
-                if i.data_type == "Integer FK"
-                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
-                else
-                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
-                end
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
+              end
+            else
+              if i.data_type == "Integer FK"
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
+              else
+                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
               end
             end
-            @qrg.save
           end
+          @qrg.save
         end
       end
-      @list_header = ListHeader.new
-    else
-      #contain runtime params, make a copy of existing query, and change the value to be the value inputed by user
-      @runtime = true
-
     end
+    @list_header = ListHeader.new
 
     respond_to do |format|
       format.js
@@ -188,19 +227,19 @@ class QueryHeadersController < ApplicationController
 
       @query_header_old.query_criterias.each do |i|
         @query_criteria = QueryCriteria.new(i.attributes)
-        @query_criteria.query_header = @query_header
+        @query_criteria.query_header_id = @query_header.id
         @query_criteria.save
       end
 
       @query_header_old.query_selections.each do |i|
         @query_selection = QuerySelection.new(i.attributes)
-        @query_selection.query_header = @query_header
+        @query_selection.query_header_id = @query_header.id
         @query_selection.save
       end
 
       @query_header_old.query_sorters.each do |i|
         @query_sorter = QuerySorter.new(i.attributes)
-        @query_sorter.query_header = @query_header
+        @query_sorter.query_header_id = @query_header.id
         @query_sorter.save
       end
       flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")

@@ -1,7 +1,10 @@
 .container
   %h1 Please input runtime parameter(s)
-  -form_for :query, :url =>{:controller => "query_headers", :action => "runtime_run"}, :html => {:class => 'ajax_form'} do |f|
+  -form_for :query, :url =>{:controller => "query_headers", :action => "copy_runtime"}, :html => {:class => 'ajax_form'} do |f|
     %input{:style => "display:none;", :value => @query_header.id, :name => "id"}
+    %input{:style => "display:none;", :value => @top, :name => "top"}
+    %input{:style => "display:none;", :value => @top_number, :name => "top_number"}
+    %input{:style => "display:none;", :value => @top_precent, :name => "top_precent"}
 
     -@query_header.query_criterias.each do |i|
       - if i.value == "?"
@@ -9,4 +12,4 @@
           %label #{i.table_name}.#{i.field_name}
           %input{:name => "#{i.table_name}[#{i.field_name}]"}
     
-        = submit_tag "Run"
+    = submit_tag "Run"

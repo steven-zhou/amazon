@@ -1411,7 +1411,7 @@ $(function(){
         }
         $.ajax({
             type: "GET",
-            url: "/query_headers/run.js",
+            url: "/query_headers/check_runtime.js",
             data: temp,
             dataType: "script"
         });
@@ -1429,7 +1429,7 @@ $(function(){
         }
         $.ajax({
             type: "GET",
-            url: "/query_headers/run.js",
+            url: "/query_headers/check_runtime.js",
             data: temp,
             dataType: "script"
         });
