@@ -2714,6 +2714,7 @@ $(function(){
 $(function(){
     $('#edit_role_form').live('click', function(){
         $('#role_role_type_id').attr("disabled", false);
+        $(".container_selected").removeClass("container_selected");
     });
 
 });
@@ -2827,6 +2828,7 @@ $(function(){
 $(function(){
 
     $("#edit_role_condition_form").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
         $("#role_condition_edit_role_container").hide();
         $('#role_condition_role_type_id').attr("disabled", false);
     });
@@ -2986,10 +2988,10 @@ $(document).ready(function() {
 $(function(){
     $('.show_user_list_description').live('change', function(){
         $.ajax({
-           type: "GET",
-           url: "/user_lists" + "/show_list_des.js",
-           data: "list_id=" + $(this).val(),
-           dataType:"script"
+            type: "GET",
+            url: "/user_lists" + "/show_list_des.js",
+            data: "list_id=" + $(this).val(),
+            dataType:"script"
 
         });
 

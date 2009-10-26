@@ -394,6 +394,7 @@ body {
 #app #main #content .container .form_line .field_2,
 #app #main #content .container .form_line .field_5,
 #app #main #content .container .form_line .field_10,
+#app #main #content .container .form_line .field_11,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_22,
@@ -426,6 +427,7 @@ body {
 #app #main #content .container .form_line .field_2 {width: 2%;}
 #app #main #content .container .form_line .field_5 {width: 5%;}
 #app #main #content .container .form_line .field_10 {width: 10%;}
+#app #main #content .container .form_line .field_11 {width: 11%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
@@ -1143,8 +1145,8 @@ td.textright {
 #app #main #content .container .form_line .wrapimage {
     float: left;
     height: 40px;
-    margin-left: 210px;
-    position:absolute;
+    margin-left: -35px;
+    position:relative;
     padding: 5px 0px 0px 0px ;
 }
 
@@ -1343,4 +1345,11 @@ div.duplication_check .form_line.field_select_line {
     background-repeat:repeat;
     font-family:Arial, Helvetica, sans-serif;
     min-height: 10px;
+}
+
+/*checkbox style*/
+.checkbox_style{
+
+    width:auto !important;
+
 }
