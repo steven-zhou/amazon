@@ -7,7 +7,7 @@
       - if @current_controller != "people"
         = link_to "Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id
       - else
-        Person
+        <p>Person</p>
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "people", :action => "show", :id => @person.id
@@ -30,7 +30,7 @@
       - if @current_controller != "organisations"
         = link_to "Organisation", :controller => "organisations", :action => "show", :id => (@organisation.nil?) ? "" : @organisation.id
       - else
-        Organisation
+        <p>Organisation</p>
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "organisations", :action => "show", :id => @organisation.id
@@ -52,7 +52,7 @@
       - if @current_controller != "query_headers"
         = link_to "Query", :controller => "query_headers", :action => "new"
       - else
-        Query
+        <p>Query</p>
         %ul
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
@@ -67,7 +67,7 @@
       - if @current_controller != "list_headers"
         = link_to "List of list", :controller => "list_headers", :action => "new"
       - else
-        List of list
+        <p>List of list</p>
         %ul
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} New", :controller => "list_headers", :action => "new"
@@ -84,7 +84,7 @@
       - if @current_controller != "reports"
         = link_to "Reporting", :controller => "reports", :action => "index"
       - else
-        Reporting
+        <p>Reporting</p>
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Default Report", :controller => "reports", :action => "index"
@@ -97,7 +97,7 @@
       - if @current_controller != "data_managers"
         = link_to "Import/Export", :controller => "data_managers", :action => "import_index"
       - else
-        Import/Export
+        <p>Import/Export</p>
         %ul
           %li{:id => @current_action == "import_index" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Import", :controller => "data_managers", :action => "import_index"

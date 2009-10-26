@@ -27,7 +27,7 @@
       - if controller != "configuration"
         = link_to controller == "configuration" ? "#{image_tag('icon_holder.png')} Configuration" :"Configuration", :controller => "administrations", :action => "system_data"
       -else
-        Configuration
+        <p>Configuration</p>
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} System Data", :controller => "administrations", :action => "system_data"
@@ -54,7 +54,7 @@
       - if controller != "security"
         = link_to controller == "security" ? "#{image_tag('icon_holder.png')} Security" :"Security", :controller => "administrations", :action => "access_permissions"
       - else
-        Security
+        <p>Security</p>
         %ul
           %li{:id => action == "access_permissions" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
@@ -73,7 +73,7 @@
       - if controller != "users"
         = link_to controller == "users" ? "#{image_tag('icon_holder.png')} Users" :"Users", :controller => "administrations", :action => "user_accounts"
       - else
-        Users
+        <p>Users</p>
         %ul
           %li{:id => action == "user_accounts" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} User Account", :controller => "administrations", :action => "user_accounts"

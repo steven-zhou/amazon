@@ -7,7 +7,7 @@
       - if @current_controller != "people"
         = link_to "Person", :controller => "people", :action => "show", :id => (@person.nil?) ? "" : @person.id
       - else
-        Person
+        <p>Person</p>
         %ul
           %li{:id =>""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "people", :action => "show", :id => @person.id
@@ -30,7 +30,7 @@
       - if @current_controller != "organisations"
         = link_to "Organisation", :controller => "organisations", :action => "show", :id => (@organisation.nil?) ? "" : @organisation.id
       - else
-        Organisation
+        <p>Organisation</p>
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Profile", :controller => "organisations", :action => "show", :id => @organisation.id
@@ -52,7 +52,7 @@
       - if @current_controller != "query_headers"
         = link_to "Query", :controller => "query_headers", :action => "new"
       - else
-        Query
+        <p>Query</p>
         %ul
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} New", :controller => "query_headers", :action => "new"
@@ -67,7 +67,7 @@
       - if @current_controller != "list_headers"
         = link_to "List of List", :controller => "list_headers", :action => "new"
       - else
-        List
+        <p>List</p>
         %ul
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} New", :controller => "list_headers", :action => "new"
@@ -84,7 +84,7 @@
       - if @current_controller != "reports"
         = link_to "Report", :controller => "reports", :action => "index"
       - else
-        Report
+        <p>Report</p>
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Reporting", :controller => "reports", :action => "index"
@@ -94,5 +94,5 @@
   %li{:id => @current_controller == "importer" ? "menu_active" : ""}
     .top
     .item
-      Import/Export
+      <p>Import/Export</p>
     .bottom
