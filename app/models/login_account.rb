@@ -10,8 +10,9 @@ class LoginAccount < ActiveRecord::Base
   
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
+
   has_many :user_lists, :foreign_key => "user_id"
-#  has_many :user_list_headers, :through => :user_lists, :uniq => true
+  has_many :user_list_headers, :through => :user_lists,:source => :user_list_header,  :uniq => true
   
   validates_presence_of :person_id
 

@@ -99,6 +99,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get}
   map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
+  map.resources :user_lists, :collection => {:show_list_des => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 

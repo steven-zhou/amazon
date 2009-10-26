@@ -20,7 +20,7 @@
 
 
 $('#existing_group_list_list').append('<%= escape_javascript(render(:partial => "/group_lists/new_group_list", :locals =>{:group_list => @group_list })) %>');
- $('#<%= dom_id(@group_list) %>').effect('slide', {direction:'right'});
+ $('#<%= dom_id(@group_list) %>').show('slide', {direction:'right'});
 $('.add_form_close').click();
 $('#group_list_show_group').html(" <%= escape_javascript(render(:partial => '/group_lists/header_group_list_group')) %>");
 $('#group_list_group_'+ '<%=escape_javascript("#{@select_group_id}")%>').addClass("container_selected");

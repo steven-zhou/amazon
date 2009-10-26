@@ -1,0 +1,27 @@
+.container_edit.container
+  .options_left{:style => "margin-right:10px;"}
+    = image_tag('edit_icon.png', :class => "edit_icon_right")
+  %h3 Edit
+  %br
+
+.container
+  .options
+    = link_to_function image_tag('close_icon.png'), :class => "close_option close_logo", :field => "user_list_user"
+  %br
+  .container.add_container
+    %div#user_list_add_bar
+      .options
+        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_option close_logo add_form_close", :field => "user_list"
+      .title
+        = link_to_function image_tag('add_icon.png'),:class => "new_option new_logo", :field => "user_list"
+        &nbsp
+      %h2 Assign List
+    %input{:id => "user_list_mode", :mode => "show", :style => "display:none;"}
+
+    %div#new_user_list_form{:style => "display:none;"}
+      = render :partial => "/user_lists/new_user_list_form"
+
+  %div#existing_user_list_list
+
+
+
