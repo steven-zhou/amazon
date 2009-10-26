@@ -5,7 +5,7 @@ class ModifyLoginAccounts < ActiveRecord::Migration
   end
 
   def self.down
-    drop_column :login_accounts, :access_attempt_ip
-    drop_column :login_accounts, :access_attempts_count
+    remove_column :login_accounts, :access_attempt_ip
+    remove_column :login_accounts, :access_attempts_count
   end
 end

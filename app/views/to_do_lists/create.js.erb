@@ -1,0 +1,7 @@
+<% if @to_do_list.errors.empty? -%>
+  $('#to_do_lists').prepend('<%= escape_javascript(render(:partial => "/to_do_lists/to_do_list", :locals => {:to_do_list => @to_do_list})) %>');
+  $('#<%= dom_id(@to_do_list) %>').effect('slide', {direction:'right'});
+  $("#to_do_list_description").val('');
+<% end -%>
+
+

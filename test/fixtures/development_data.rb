@@ -58,6 +58,9 @@ robert_tingle_login = LoginAccount.create(
   :password => "password",
   :security_email => "powernet@powernet.com",
   :password_confirmation => "password",
+  :security_question1_id => "89",
+  :security_question2_id => "89",
+  :security_question3_id => "89",
   :question1_answer => "1",
   :question2_answer => "2",
   :question3_answer => "3"
@@ -221,8 +224,7 @@ permission = GroupPermission.create(:system_permission_type_id => show.id, :user
 puts "Adding the first login account to the primary list"
 
 pl = PrimaryList.first
-la = LoginAccount.first
-pl.group_types << la.group_types.first
+pl.group_types << pg.group_type
 
 
 puts "Creating passport for Robert Tingle"

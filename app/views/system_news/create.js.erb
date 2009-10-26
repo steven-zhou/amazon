@@ -1,0 +1,7 @@
+<% if @system_news.errors.empty? -%>
+  $('#system_news').prepend('<%= escape_javascript(render(:partial => "/system_news/system_news", :locals => {:system_news => @system_news})) %>');
+  $('#<%= dom_id(@system_news) %>').effect('slide', {direction:'right'});
+  $("system_news_description").val('');
+<% end -%>
+
+
