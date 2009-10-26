@@ -91,6 +91,9 @@
     .field_25
       =employment.label :report_to, "Report To"
       =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
+    .field_5
+      %label &nbsp;
+      = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to"
     .field_25
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_supervisor.nil?)
@@ -155,6 +158,9 @@
       .field_22
         =employment.label :suspended_by, "Suspended By"
         =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
+      .field_5
+        %label &nbsp;
+        = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_suspended_by" : "employment_#{@employment.id}_suspended_by"
       .field_25
         %label &nbsp;
         -if (!@employment.new_record? && !@employment.emp_suspender.nil?)
@@ -190,6 +196,9 @@
       .field_25
         =employment.label :terminated_by, "Terminated By"
         =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
+      .field_5
+        %label &nbsp;
+        = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_terminated_by" : "employment_#{@employment.id}_terminated_by"
       .field_25
         %label &nbsp;
         -if (!@employment.new_record? && !@employment.emp_terminator.nil?)

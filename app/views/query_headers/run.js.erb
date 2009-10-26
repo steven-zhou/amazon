@@ -1,13 +1,4 @@
-<%- if @runtime%>
-  $("#runtime_form").html('<%= escape_javascript(render(:partial => "queries/runtime_form")) %>');
-  $("#runtime_form").dialog({
-  modal: true,
-  resizable: true,
-  draggable: true
-  });
-  $("#runtime_form").dialog('open');
-
-<%- else %>
+  $("#runtime_form").dialog('close');
   $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
   $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
 
@@ -51,5 +42,3 @@
   });
 
   $('#result_div').dialog('open');
-
-<%- end %>

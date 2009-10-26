@@ -1,0 +1,7 @@
+  $("#runtime_form").html('<%= escape_javascript(render(:partial => "queries/runtime_form")) %>');
+  $("#runtime_form").dialog({
+  modal: true,
+  resizable: true,
+  draggable: true
+  });
+  $("#runtime_form").dialog('open');
