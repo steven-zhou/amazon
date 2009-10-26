@@ -62,7 +62,7 @@ body {
 #app #main #sysbar .bar_section #module_menu #module_menu_top {
 	height: 68px;
 	cursor: pointer;
-	background-image:url(../images/icon_black.png);
+	background-image:url(../images/icon_ds.png);
 	background-repeat:no-repeat;
 	background-position: 9px 3px;
 }
