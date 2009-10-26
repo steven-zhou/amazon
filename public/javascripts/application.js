@@ -1667,17 +1667,91 @@ $(function(){
     });
 });
 
+/*validation section*/
 $(function(){
     $(".integer_field").live('keyup', function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0){
-                alert("This field has be an integer and great than zero!");
+                alert("This field has be an integer!");
                 $(this).focus();
                 $(this).val('');
             }
         }
     });
+});
+
+
+
+
+
+check_email_field = function(){
+         _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
+        if($('#email_value').val()!=""){
+            if((!_valid)){
+                alert("This field should be am email !");
+                $('#email_value').focus();
+                return false;
+        }
+}
+}
+
+check_email_field_edit = function(){
+         _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
+        if($('#email_value_edit').val()!=""){
+            if((!_valid)){
+                alert("This field should be am email !");
+                $('#email_value').focus();
+                return false;
+        }
+}
+}
+
+$(function(){
+    $("#submit_email_field").live('click', check_email_field);
+});
+$(function(){
+    $("#submit_email_field_edit").live('click', check_email_field_edit);
+});
+
+check_website_field = function(){
+   _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value").val());
+              if($('#website_value').val()!=""){
+            if((!_valid)){
+                alert("This field should be website format !");
+                $(this).focus();
+                return false;
+
+
+            }
+        }
+
+}
+
+check_website_field_edit = function(){
+   _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value_edit").val());
+              if($('#website_value_edit').val()!=""){
+            if((!_valid)){
+                alert("This field should be website format !");
+                $(this).focus();
+                return false;
+
+
+            }
+        }
+
+}
+
+
+
+
+
+$(function(){
+    $("#submit_website_field").live('click', check_website_field);
+});
+
+$(function(){
+    $("#submit_website_field_edit").live('click', check_website_field_edit);
 });
 
 
@@ -2967,6 +3041,12 @@ $(function(){
         });
 
     });
+
+      $("table#person_lookup_grid tbody tr").live("click", function(){
+        $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+
+    });
 });
 
 //system bar menu
@@ -3020,11 +3100,7 @@ $(function(){
     });
 
 
-        $("table#person_lookup_grid tbody tr").live("click", function(){
-        $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-
-    });
+      
 });
 
 

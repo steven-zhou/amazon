@@ -21,3 +21,9 @@ Factory.define :male_title, :class => "Title" do |f|
   f.description "title"
   f.status true
 end
+
+Factory.define :security_question do |f|
+  f.name "What is your name?"
+  f.description "name"
+  f.status true
+end

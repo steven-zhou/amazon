@@ -16,6 +16,8 @@ class Email < Contact
   ################
   #++
   validates_presence_of :value
+  validates_format_of :value, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
+
   before_save :update_priority
   before_destroy :update_priority_before_destroy
   #--
@@ -33,6 +35,9 @@ class Email < Contact
   end
 
   private
+
+  
+  
   def update_priority
     #self.move_to_bottom
     self.priority_number = self.contactable.emails.length + 1 if self.new_record?
