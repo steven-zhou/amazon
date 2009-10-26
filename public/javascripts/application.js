@@ -596,7 +596,8 @@ $(function(){
         $(this).parent().toggleClass("open");
         $("li").removeClass("active");
         $(this).parent().addClass("active");
-
+        $(".toggle_multilevel_options").removeClass("container_selected");
+        $(this).addClass("container_selected");
     });
 
     $(".toggle_multilevel_options").live("mouseover", function(){
@@ -2850,14 +2851,23 @@ $(function(){
     $('table#address_postcode tbody tr').live('dblclick',function(){
         $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
+
         $.ajax({
             type: 'GET',
             url: "/people/"+$(this).attr('id').substring(3)+"/postcode_look_up.js",
-            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3"),
+            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3")+'&update_field4='+$("#address_postcode_input").attr("update_field4"),
             dataType: "script"
         });
         $('#address_form_assistant').dialog('close');
     });
+});
+
+
+$(function(){
+    $('table#address_postcode tbody tr').live('click',function(){
+        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+            });
 });
 
 /* Organisation Lookup*/
@@ -2879,6 +2889,14 @@ $(function(){
             dataType: "script"
         });
 
+    });
+
+     $("table#organisation_lookup_grid tbody tr").live("click", function(){
+      $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+    });
+     $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
+       $(this).css("cursor", "pointer");
     });
 });
 
@@ -2955,7 +2973,7 @@ $(function(){
 
 //system bar menu
 $(document).ready(function() {
-    $("#module_menu_top").click(function() {
+    $("div#module_menu_top").click(function() {
         if($("div#module_menu_top").attr("class")==""){
             $("div#module_menu_top").addClass("hover");
             $("div#module_menu_items").css("display", "");
@@ -2972,6 +2990,12 @@ $(document).ready(function() {
         function(){
             $("div#module_menu_top").removeClass("hover");
             $("div#module_menu_items").fadeOut("fast");
+        });
+
+    $("div#module_menu_items").hover(
+        function(){},
+        function(){
+            $("div#module_menu_top").removeClass("hover");
         });
 
     $("div#module_menu_items li").hover(
@@ -2996,4 +3020,14 @@ $(function(){
         });
 
     });
+
+
+        $("table#person_lookup_grid tbody tr").live("click", function(){
+        $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+
+    });
 });
+
+
+

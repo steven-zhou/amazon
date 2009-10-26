@@ -1,0 +1,7 @@
+.container
+  %h1 System News
+  #system_news
+    = render :partial => "system_news/system_news", :collection => SystemNews.all
+
+  #new_system_news
+    = render :partial => "system_news/new_system_news"

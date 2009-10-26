@@ -19,6 +19,7 @@ class EmploymentsController < ApplicationController
     @person = Person.find(params[:person_id].to_i)
     @employment = @person.employments.new(params[:employment])
     @employment.save
+    @person = Person.find(session[:user])
     respond_to do |format|
       format.js
     end
@@ -36,6 +37,7 @@ class EmploymentsController < ApplicationController
   def destroy
     @employment = Employment.find(params[:id].to_i)
     @employment.destroy
+    
     respond_to do |format|
       format.js
     end

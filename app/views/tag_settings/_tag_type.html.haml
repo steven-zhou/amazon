@@ -17,11 +17,12 @@
       %br.clear
     .form_line
       .field_100
-        =tag_type.label :status, 'Status'
-        =tag_type.radio_button :status, true, :style => "width:10%", :checked => true
+        = tag_type.label :status, 'Status'
+        - if @tag_type.new_record?
+          = tag_type.check_box :status, :checked => true
+        -else
+          = tag_type.check_box :status
         %label{:style => "display:inline"} Active
-        =tag_type.radio_button :status, false, :style => "width:10%"
-        %label{:style => "display:inline"} Inactive
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type", :name =>"tag_meta_type", :value => @tag_meta_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type_id", :name =>"tag_meta_type_id", :value => @tag_meta_type.id}

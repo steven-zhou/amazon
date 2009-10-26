@@ -9,8 +9,6 @@
         = f.text_field :description, :disabled => @query_header.status == false
       .field_25
         = f.label :status, 'Status'
-        = f.radio_button :status, "true", :style => "width:40%;display:inline;"
+        = f.check_box :status
         = f.label :status, 'Active', :style => "width:40%;display:inline;"
-        = f.radio_button :status, "false", :style => "width:40%;display:inline;"
-        = f.label :status, 'Inactive', :style => "width:40%;display:inline;"
       %br.clear

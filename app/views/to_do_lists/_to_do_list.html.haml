@@ -1,0 +1,9 @@
+-div_for(to_do_list, :class => 'container') do
+  .title
+    %h2 #{to_do_list.description}
+  .left
+    %input{:type => "checkbox"}
+    %label Done
+  .right
+    - unless to_do_list.due_date.nil?
+      %h2 #{to_do_list.due_date.strftime("%d-%m-%Y")}

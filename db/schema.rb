@@ -9,7 +9,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091023061412) do
+
+ActiveRecord::Schema.define(:version => 20091026051223) do
+
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -537,12 +539,29 @@ ActiveRecord::Schema.define(:version => 20091023061412) do
     t.boolean  "role_status"
   end
 
+<<<<<<< HEAD:db/schema.rb
   create_table "show_organisation_grids", :force => true do |t|
+=======
+  create_table "show_postcode_grids", :force => true do |t|
+>>>>>>> 82922c944ec8ad16b084e3b2762526f6bb728731:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD:db/schema.rb
   create_table "show_organisation_list_grids", :force => true do |t|
+=======
+  create_table "show_postcodes", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "system_news", :force => true do |t|
+    t.text     "description"
+    t.datetime "event_date"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+>>>>>>> 82922c944ec8ad16b084e3b2762526f6bb728731:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -580,6 +599,17 @@ ActiveRecord::Schema.define(:version => 20091023061412) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "category"
+  end
+
+  create_table "to_do_lists", :force => true do |t|
+    t.text     "description"
+    t.string   "status"
+    t.datetime "due_date"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.integer  "login_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "user_groups", :force => true do |t|
