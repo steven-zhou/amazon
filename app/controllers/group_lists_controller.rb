@@ -22,6 +22,8 @@ class GroupListsController < ApplicationController
     @list_headers = ListHeader.find :all
     @group_list = GroupList.new
     @group_lists = @group.group_lists
+
+    
     respond_to do |format|
       format.js
     end

@@ -101,6 +101,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
+  map.resources :user_lists, :collection => {:show_list_des => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 

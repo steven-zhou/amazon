@@ -1,0 +1,24 @@
+<% unless flash[:error].nil? %>
+ $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
+ $("#flash_message").dialog( {
+ modal:true,
+ position: 'top',
+ buttons: {
+
+ OK: function(){
+
+ $(this).dialog('close');
+ }
+ }
+ });
+
+  $('#flash_message').dialog('open');
+<% else %>
+
+$('#existing_user_list_list').append('<%= escape_javascript(render(:partial => "/user_lists/new_user_list", :locals =>{:user_list => @user_list })) %>');
+ $('#<%= dom_id(@user_list) %>').effect('slide', {direction:'right'});
+$('.add_form_close').click();
+$('#user_list_show_group').html(" <%= escape_javascript(render(:partial => '/user_lists/header_user_list_user')) %>");
+$('#user_list_group_'+ '<%=escape_javascript("#{@select_login_account_id}")%>').addClass("container_selected");
+
+<%end%>

@@ -1,0 +1,7 @@
+-for i in @user_lists
+  
+  -div_for(i, :class => "container_active_50  half_container toggle_options", :field => "user_list") do
+    .options{:style => "display:none;"}
+      = link_to image_tag('delete_icon.png'), user_list_path(i), :class => "delete"
+    .title{:style => "height:20px;"}
+      = i.user_list_header.name

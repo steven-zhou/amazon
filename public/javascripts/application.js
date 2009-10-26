@@ -79,7 +79,7 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
-     $('a.move_down_website_priority').live('click', function() {
+    $('a.move_down_website_priority').live('click', function() {
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
@@ -596,7 +596,8 @@ $(function(){
         $(this).parent().toggleClass("open");
         $("li").removeClass("active");
         $(this).parent().addClass("active");
-
+        $(".toggle_multilevel_options").removeClass("container_selected");
+        $(this).addClass("container_selected");
     });
 
     $(".toggle_multilevel_options").live("mouseover", function(){
@@ -2856,7 +2857,7 @@ $(function(){
             dataType: "script"
         });
         $('#address_form_assistant').dialog('close');
-            });
+    });
 });
 
 
@@ -2884,7 +2885,7 @@ $(function(){
             url:"/organisations/lookup_fill.js",
             data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#organisation_lookup_grid").attr('update_field'),
             dataType: "script"
-                    });
+        });
 
     });
 
@@ -2904,7 +2905,7 @@ $(function(){
         $(".container_selected").removeClass("container_selected");
         $(this).closest('.toggle_options').addClass("container_selected");
         
-         $(this).closest('.options').css("display","none");
+        $(this).closest('.options').css("display","none");
         $.ajax({
             type:'GET',
             url: "/"+$(this).attr('controller')+"/" + $(this).attr('data_id') + "/edit.js",
@@ -2926,8 +2927,8 @@ $(function(){
 $(function(){
     $('.close_logo').live('click', function(){
         $("#new_" + $(this).attr('field')+ "_form").toggle('blind');
-         $("#" + $(this).attr('field')+ "_edit_container").html('');
-          $(".container_selected").removeClass("container_selected");
+        $("#" + $(this).attr('field')+ "_edit_container").html('');
+        $(".container_selected").removeClass("container_selected");
     });
 });
 
@@ -2935,10 +2936,10 @@ $(function(){
 $(function(){
     $('.show_list_description').live('change', function(){
         $.ajax({
-           type: "GET",
-           url: "/group_lists" + "/show_list_des.js",
-           data: "list_id=" + $(this).val(),
-           dataType:"script"
+            type: "GET",
+            url: "/group_lists" + "/show_list_des.js",
+            data: "list_id=" + $(this).val(),
+            dataType:"script"
         });
 
 
@@ -2963,9 +2964,61 @@ $(function(){
             url:"/people/lookup_fill.js",
             data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#person_lookup_grid").attr('update_field'),
             dataType: "script"
-                    });
+        });
 
     });
+});
+
+//system bar menu
+$(document).ready(function() {
+    $("div#module_menu_top").click(function() {
+        if($("div#module_menu_top").attr("class")==""){
+            $("div#module_menu_top").addClass("hover");
+            $("div#module_menu_items").css("display", "");
+        }else{
+            $("div#module_menu_top").removeClass("hover");
+            $("div#module_menu_items").fadeOut("fast");
+        }
+    });
+
+    $("div#module_menu").hover(
+        function(){
+            $("div#module_menu_items").fadeOut("fast");
+        },
+        function(){
+            $("div#module_menu_top").removeClass("hover");
+            $("div#module_menu_items").fadeOut("fast");
+        });
+
+    $("div#module_menu_items").hover(
+        function(){},
+        function(){
+            $("div#module_menu_top").removeClass("hover");
+        });
+
+    $("div#module_menu_items li").hover(
+        function(){
+            $(this).addClass("hover","fast");
+        },
+        function(){
+            $(this).removeClass("hover", "normal");
+        });
+});
+
+/*user--list*/
+
+$(function(){
+    $('.show_user_list_description').live('change', function(){
+        $.ajax({
+           type: "GET",
+           url: "/user_lists" + "/show_list_des.js",
+           data: "list_id=" + $(this).val(),
+           dataType:"script"
+
+        });
+
+    });
+
 
         $("table#person_lookup_grid tbody tr").live("click", function(){
         $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
@@ -2973,3 +3026,6 @@ $(function(){
 
     });
 });
+
+
+
