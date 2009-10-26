@@ -119,6 +119,7 @@ class SigninController < ApplicationController
       # Send out the email
 
       email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
+      puts "Email: #{email}"
       LoginAccountPasswordResetDispatcher.deliver(email)
 
     else
