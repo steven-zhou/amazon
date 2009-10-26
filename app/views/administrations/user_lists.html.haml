@@ -1,19 +1,30 @@
-=image_tag('help_icon.png', :class => 'help_icon', :style => "padding:0.2em")
+#header
+  #page_title
+    %h1 User Lists
+  #lol
+    %br.clear
+%input{:id => "user_list_user_mode", :mode => "show", :style => "display:none"}
+%br
+#content_full_page
+  %div#user_list_show_group
+    %ul
+      - @login_accounts.each do |i|
+        %li
+          - status = i.login_status ? "container_active" : "container_inactive"
+          .user_list_each_user{:class => "#{status} toggle_options", :id => "user_list_user_#{i.id}", :field => "user_list_user"}
+            .options{:style => "display:none;"}
+              = image_tag('edit_icon.png', :class => 'edit_option edit_logo', :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user")
+            .title
+              = i.id
+              \--
+              = i.user_name
+              (
+              = i.person.name
+              )
+              \--
+              = i.user_list_headers.size
+              &nbsp
+              lists
 
-=link_to('System Setting', :controller => "administrations", :action => "system_setting")
-%h3{:style => "display:inline;"} System Management
-=link_to('Query/List', :controller => "administrations", :action => "list_management")
-=link_to('Duplication Formula', :controller => "administrations", :action => "duplication_formula")
-#tabs{:style => "width:96%;"}
-  = render :partial => 'system_management_menu'
-  #RolesManagement
-    = render :partial => '/roles_management/roles_management_tab', :locals => {:role => @role}
-  #SystemUsers
-    = render :partial => '/user_management/user_tab'
-  #AssignGroups
-    = render :partial => '/group_lists/group_list_tab'
-  #GroupPermission
-    = render :partial => '/group_permissions/group_permission_tab'
-
-
-
+  %br.clear
+  %div#user_list_user_edit_container

@@ -57,7 +57,10 @@
 .form_line
   .field_25
     = person_role.label :assigned_by, 'Assigned By'
-    = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
+    = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id ,:id => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}"
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}"
   .field_25
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_assigner.nil?)
@@ -67,7 +70,10 @@
 .form_line
   .field_25
     = person_role.label :approved_by, "Approved By"
-    = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
+    = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id, :id => @person_role.new_record? ? "person_role_approved_by" : "person_role_approved_by_#{@person_role.id}"
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_approved_by" : "person_role_approved_by_#{@person_role.id}"
   .field_25
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
@@ -78,7 +84,10 @@
 .form_line
   .field_25
     = person_role.label :supervised_by, "Supervised By"
-    = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container", :person_role_id=> @person_role.new_record? ? 0 : @person_role.id
+    = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container", :person_role_id=> @person_role.new_record? ? 0 : @person_role.id, :id => @person_role.new_record? ? "person_role_supervised_by" : "person_role_supervised_by_#{@person_role.id}"
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_supervised_by" : "person_role_supervised_by_#{@person_role.id}"
   .field_25
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_superviser.nil?)
@@ -88,7 +97,10 @@
 .form_line
   .field_25
     = person_role.label :managed_by, "Managed By"
-    = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id
+    = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id ,:id => @person_role.new_record? ? "person_role_managed_by" : "person_role_managed_by_#{@person_role.id}"
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_managed_by" : "person_role_managed_by_#{@person_role.id}"
   .field_25
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_manager.nil?)

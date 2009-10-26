@@ -31,7 +31,15 @@ class MasterDocsController < ApplicationController
   def destroy
     @masterdoc = MasterDoc.find(params[:id])
     @masterdoc.destroy
-    @person = Person.find(session[:user])
+
+
+
+    if @masterdoc.entity_type == "Person"             # if in Person return person object to destroy.js
+      @current_object = Person.find(session[:user])
+    end
+    if @masterdoc.entity_type == "Organisation"
+      @current_object =Organisation.find(@masterdoc.entity_id)  # if in organisation return organisation object to destroy.js
+    end
     render "destroy.js"
   end
 
@@ -68,5 +76,39 @@ class MasterDocsController < ApplicationController
       format.js
     end
 
+  end
+
+  def move_organisation_down_master_doc_priority
+
+      @current_master_doc = MasterDoc.find(params[:id])
+
+    if(@current_master_doc.priority_number==1)
+      @exchange_master_doc = @current_master_doc.entity.master_docs.find_by_priority_number(2)
+
+      @exchange_master_doc.priority_number = 1
+      @current_master_doc.priority_number = 2
+      @exchange_master_doc.save
+      @current_master_doc.save
+    end
+    @organisation = Organisation.find(@current_master_doc.entity_id)
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+    def move_organisation_up_master_doc_priority
+    @up_curren_master_doc = MasterDoc.find(params[:id])
+    @up_exchange_master_doc = @up_curren_master_doc.entity.master_docs.find_by_priority_number(@up_curren_master_doc.priority_number - 1)
+
+    @up_exchange_master_doc.priority_number = @up_exchange_master_doc.priority_number + 1
+    @up_curren_master_doc.priority_number = @up_curren_master_doc.priority_number - 1
+
+    @up_exchange_master_doc.save
+    @up_curren_master_doc.save
+     @organisation = Organisation.find(@up_curren_master_doc.entity_id)
+    respond_to do |format|
+      format.js
+    end
   end
 end

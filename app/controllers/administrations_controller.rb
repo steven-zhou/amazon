@@ -80,13 +80,6 @@ class AdministrationsController < ApplicationController
   end
 
 
- 
-
-  def user_accounts
-    system_management
-    render :action => 'system_management'
-  end
-
   def user_groups
     @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
@@ -95,11 +88,6 @@ class AdministrationsController < ApplicationController
     end
   end
 
-  def user_lists
-    respond_to do |format|
-      format.html
-    end
-  end
 
   def duplication_check
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting
@@ -179,18 +167,7 @@ class AdministrationsController < ApplicationController
 
 
  def user_lists
-    @role = Role.new
-    @role_condition = RoleCondition.new
-    @role_type = RoleType.new
-    @login_account = LoginAccount.new
-    @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
-    @user_group = UserGroup.new
-    @group_all = Array.new
-    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
-    @group_all = c.group_types rescue @group_all = Array.new
-    @module_all = Array.new
-    c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
-    @module_all = c
+    @login_accounts = LoginAccount.find(:all)
     respond_to do |format|
       format.html
     end

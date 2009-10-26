@@ -26,7 +26,7 @@ class Person < ActiveRecord::Base
   has_many :role_supervisers, :through => :person_roles, :source => :role_superviser
   has_many :role_managers, :through => :person_roles, :source => :role_manager
   has_many :roles, :through => :person_roles, :uniq => true
-  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no"
+  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no asc"
   has_many :emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
   has_many :emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
   has_many :emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
