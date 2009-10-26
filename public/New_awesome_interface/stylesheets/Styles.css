@@ -72,9 +72,9 @@ body {
 }
 
 	#app #lc #menu #menu_active .item ul {
-	float:left;
-	display:block;
-	padding:2px
+            float:left;
+            display:block;
+            padding:2px
 	}
 
 #app #lc #menu #menu_active .item li {
