@@ -54,6 +54,8 @@ body {
     vertical-align: text-top;
 }
 
+/* For messages when you don't want to use a lightbox / flash (eg we're in a lightbox already) */
+
 
 /*------------------------------*/
 /* ---- SYSTEM MODULE MENU -----*/

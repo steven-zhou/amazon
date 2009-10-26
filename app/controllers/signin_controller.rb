@@ -1,6 +1,6 @@
 class SigninController < ApplicationController
 
-  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request]
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request]
   layout nil
 
   # Allows a user to log in.
@@ -85,8 +85,8 @@ class SigninController < ApplicationController
   end
 
   def password_reset_get_login_account
-    username = params[:username]
-    email_address = params[:email]
+    username = params[:password_reset_username]
+    email_address = params[:password_reset_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["user_name = ? AND security_email = ?", username, email_address])
     respond_to do |format|
       format.js
@@ -98,34 +98,36 @@ class SigninController < ApplicationController
     email_address = params[:password_reset_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["user_name = ? AND security_email = ?", username, email_address])
 
-    @password_rest = false
+    @password_reset = false
 
     answer_1 = params[:password_reset_answer_1]
     answer_2 = params[:password_reset_answer_2]
     answer_3 = params[:password_reset_answer_3]
 
-    if (!@login_account.account_locked? && @login_account.question1_answer.to_s == answer_1.to_s && @login_account.question2_answer.to_s == answer_2.to_s && @login_account.question3_answer.to_s == answer_3.to_s )
+    if (!@login_account.account_locked? && @login_account.question1_answer.to_s.downcase == answer_1.to_s.downcase && @login_account.question2_answer.to_s.downcase == answer_2.to_s.downcase && @login_account.question3_answer.to_s.downcase == answer_3.to_s.downcase )
       # valid
-      @login_account.access_attempts_count = 0
+      @login_account.access_attempts_count = 3
       @login_account.access_attempt_ip = request.remote_ip
       @login_account.save
       @password_reset = "true"
       # Change the user's password, send out an email, update the view
 
-      password = [Array.new(9){rand(256).chr}.join].pack("m").gsub(/=/, '').chomp
+      password = LoginAccount.generate_password
       @login_account.password = password
+      # @login_account.password_by_admin = true
       @login_account.save
 
       # Send out the email
 
       email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
-      puts "Email: #{email}"
+
       LoginAccountPasswordResetDispatcher.deliver(email)
 
     else
       #invalid
-      @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? 1 : (@login_account.access_attempts_count + 1))
+      @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? (3 - 1) : (@login_account.access_attempts_count - 1))
       @login_account.access_attempt_ip = request.remote_ip
+      @login_account.login_status = false
       @login_account.save
       @password_reset = "false"
 
@@ -138,5 +140,55 @@ class SigninController < ApplicationController
 
   end
 
+
+  def username_retrieval_get_login_account
+    email_address = params[:username_retrieval_email_address]
+    @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def username_retrieval_request
+    email_address = params[:username_retrieval_email_address]
+    @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
+
+    @username_retrieval = false
+
+    answer_1 = params[:username_request_answer_1]
+    answer_2 = params[:username_request_answer_2]
+    answer_3 = params[:username_request_answer_3]
+
+    if (!@login_account.account_locked? && @login_account.question1_answer.to_s.downcase == answer_1.to_s.downcase && @login_account.question2_answer.to_s.downcase == answer_2.to_s.downcase && @login_account.question3_answer.to_s.downcase == answer_3.to_s.downcase )
+      # valid
+      @login_account.access_attempts_count = 3
+      @login_account.access_attempt_ip = request.remote_ip
+      @login_account.save
+      @username_retrieval = "true"
+
+      @login_account.save
+
+      # Send out the email
+
+      # email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
+      # LoginAccountPasswordResetDispatcher.deliver(email)
+
+    else
+      #invalid
+      @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? (3 - 1) : (@login_account.access_attempts_count - 1))
+      @login_account.access_attempt_ip = request.remote_ip
+      @login_account.login_status = false
+      @login_account.save
+      @username_retrieval = "false"
+
+      # Update the view, either warn about 3 attempts or announce the account has been locked
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
 
 end

@@ -3,7 +3,7 @@
 
 body {
 	background-color: #030A13;
-	background-image:url(../images/signin_bg.jpg);
+	background-image:url(/images/signin_bg.jpg);
 	background-repeat:no-repeat;
 	background-position:left top;
 }
@@ -33,7 +33,7 @@ h1 {
 }
 
 #signin_container #signin_logo {
-	background-image:url(../images/Amazon-logo.png);
+	background-image:url(/images/Amazon-logo.png);
 	background-repeat:no-repeat;
 	background-position:right center;
 	width: 240px;
@@ -42,7 +42,7 @@ h1 {
 	
 }
 #signin_container #shadow_bar {
-	background-image:url(../images/shadow_bar.png);
+	background-image:url(/images/shadow_bar.png);
 	background-position:center center;
 	background-repeat:no-repeat;
 	height: 280px;
@@ -130,3 +130,17 @@ h1 {
     padding-top: 0.5em;
 }
 
+#login_username_retrieval {
+    background-color: white;
+}
+
+#login_username_retrieval h1 img {
+    display: inline;
+    vertical-align: middle;
+}
+
+#login_username_retrieval td {
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 0.5em;
+}
