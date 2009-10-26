@@ -22,6 +22,8 @@ class QueryCriteria < ActiveRecord::Base
 
   private
   def assign_sequence
+    puts "*************#{self.query_header.to_yaml}**********************88"
+    puts "*************#{self.query_header.query_criterias.length}**********************99"
     self.sequence = self.query_header.query_criterias.length+1
   end
 

@@ -99,3 +99,34 @@ h1 {
 	margin-bottom: 5px;
 	margin-left: 5px;
 }
+
+#login_help_screen {
+    background-color: white;
+}
+
+#login_help_screen h1 img {
+    display: inline;
+    vertical-align: middle;
+}
+
+#login_help_screen li {
+    padding-top: 7px;
+    padding-left: 10px;
+
+}
+
+#login_password_reset {
+    background-color: white;
+}
+
+#login_password_reset h1 img {
+    display: inline;
+    vertical-align: middle;
+}
+
+#login_password_reset td {
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 0.5em;
+}
+
