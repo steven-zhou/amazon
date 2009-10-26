@@ -112,9 +112,12 @@ class LoginAccount < ActiveRecord::Base
   end
 
 
+  def self.generate_password
+    [Array.new(9){rand(256).chr}.join].pack("m").gsub(/=/, '').chomp
+  end
 
   def account_locked?
-    self.access_attempts_count.nil? ? false : (self.access_attempts_count > 3)
+    self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
   end
 
   private

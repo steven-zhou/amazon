@@ -34,14 +34,10 @@
             resizable: false,
             draggable :false,
             height: 450,
-            width: 700,
-            buttons: {
-              Close: function() {
-                $(this).dialog('close');
-              }
-            }
+            width: 700
           }
         );
+          $("#login_help_screen").dialog("open");
         });
       
       }
@@ -57,57 +53,57 @@
             resizable: false,
             draggable :false,
             height: 750,
-            width: 800,
-            buttons: {
-              Close: function() {
-                $(this).dialog('close');
-              }
-            }
+            width: 800
           }
 
         );
+          $('#login_password_reset').dialog("open");
+          $("#password_reset_username").val("");
+          $("#password_reset_email_address").val("");
+          $("#password_reset_username").attr("disabled", false);
+          $("#password_reset_email_address").attr("disabled", false);
+          $("#password_reset_submit").show();
+          $("#login_password_reset_security_questions").html("<div id='login_password_reset_security_questions'></div>");
         });
-        }
-      )
-    </script>
-    <!-- Used to bring up the security questions for the password reset screen -->
-    <script type="text/javascript">
-      $(function() {
-        $("#password_reset_email_address").live('keyup', function(){
-          $.ajax({
-            type: "GET",
-            url: "/signin/password_reset_get_login_account",
-            data: 'username=' + $('#password_reset_username').val() + '&email=' + $('#password_reset_email_address').val(),
-            dataType: "script"
-          });
-        }
-      );
+
       }
     )
     </script>
+    <!-- Used to display the the username retrieval screen -->
     <script type="text/javascript">
       $(function() {
-        $("#password_reset_username").live('keyup', function(){
-          $.ajax({
-            type: "GET",
-            url: "/signin/password_reset_get_login_account",
-            data: 'username=' + $('#password_reset_username').val() + '&email=' + $('#password_reset_email_address').val(),
-            dataType: "script"
-          });
-        }
-      );
+        $('#forgot_username').live('click', function(){
+        $('#login_help_screen').dialog('close');
+        $('#login_username_retrieval').dialog( {
+            modal: true,
+            resizable: false,
+            draggable :false,
+            height: 750,
+            width: 800
+          }
+
+        );
+          $('#login_username_retrieval').dialog("open");
+          $("#password_reset_email_address").val("");
+          $("#password_reset_email_address").attr("disabled", false);
+          $("#password_reset_submit").show();
+          $("#login_password_reset_security_questions").html("<div id='login_password_reset_security_questions'></div>");
+        });
+
       }
     )
     </script>
+
     <div id="login_help_screen" style="display:none;">
       <h1><%= image_tag("/images/icon-life-ring.jpg") %> Login Assistant</h1>
       <p>If you are experiencing difficulty logging in please select from one of the options below, or contact your system administrator:</p>
       <ul>
+        <li><a href="#" id ="forgot_username">I have forgotten my username</a></li>
         <li><a href="#" id ="forgot_password">I have forgotten my password</a></li>
       </ul>
     </div>
     <div id="login_password_reset" style="display:none;">
-      <% form_tag("/signin/reset_password_request", :class => "ajax_form") do -%>
+      <% form_tag("/signin/password_reset_get_login_account", :class => "ajax_form") do -%>
         <h1><%= image_tag("/images/icon-life-ring.jpg") %> Password Reset</h1>
         <p>Please complete the form below to have a new password emailed to you:</p>
         <table>
@@ -123,13 +119,39 @@
             <td><strong>Email Address:</strong></td>
             <td><%= text_field_tag :password_reset_email_address, nil, :size => "20" %></td>
           </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><%= submit_tag("Submit", :id => "password_reset_submit") %></td>
+          </tr>
         </table>
+        <%  end -%>
         <div id="login_password_reset_security_questions">
 
         </div>
-      <%  end -%>
     </div>
+    <!-- Username retrieval -->
+    <div id="login_username_retrieval" style="display:none;">
+      <% form_tag("/signin/username_retrieval_get_login_account", :class => "ajax_form") do -%>
+        <h1><%= image_tag("/images/icon-life-ring.jpg") %> Username Retrieval</h1>
+        <p>Please complete the form below to have your username emailed to you:</p>
+        <table>
+          <tr>
+            <td><strong>Your IP:</strong></td>
+            <td><%= "#{request.remote_ip}" %></td>
+          </tr>
+            <td><strong>Email Address:</strong></td>
+            <td><%= text_field_tag :username_retrieval_email_address, nil, :size => "20" %></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td><%= submit_tag("Submit", :id => "username_retrieval_submit") %></td>
+          </tr>
+        </table>
+        <%  end -%>
+        <div id="username_retrieval_security_questions">
 
+        </div>
+    </div>
     <!-- End hidden stuff for people having problems logging in -->
     <div id="signin_container", title="Login Assistance">
          <div id="signin_logo">
