@@ -90,7 +90,7 @@ Rails::Initializer.run do |config|
   config.action_mailer.smtp_settings = {
     :address          => "mail.powernet.com.au",
     :port             => 25,
-    :domain           => "powernet.com.au",
+    :domain           => "powernetsystems.asia",
     :authentication => :login,
     :user_name => "powernet@powernet.com.au",
     :password => "tenrewop",
