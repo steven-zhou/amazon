@@ -25,26 +25,26 @@
     .top
     .item
       - if controller != "configuration"
-        = link_to controller == "configuration" ? "#{image_tag('icon_holder.png')} Configuration" :"Configuration", :controller => "administrations", :action => "system_data"
+        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Configuration", :controller => "administrations", :action => "system_data"
       -else
         <p>Configuration</p>
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} System Data", :controller => "administrations", :action => "system_data"
+            = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data", :controller => "administrations", :action => "system_data"
           %li{:id => action == "custom_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
+            = link_to "#{image_tag('Icons/Admin/Configuration/custom_group.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
           %li{:id => action == "query_tables" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Query Tables", :controller => "administrations", :action => "query_tables"
           %li{:id => action == "master_docs" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Master Docs", :controller => "administrations", :action => "master_docs"
+            = link_to "#{image_tag('Icons/Admin/Configuration/MasterDocs.png')} Master Docs", :controller => "administrations", :action => "master_docs"
           %li{:id => action == "role_conditions" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Role Conditions", :controller => "administrations", :action => "role_conditions"
           %li{:id => action == "roles_managment" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Roles Management", :controller => "administrations", :action => "roles_management"
+            = link_to "#{image_tag('Icons/Admin/Configuration/roles.png')} Roles Management", :controller => "administrations", :action => "roles_management"
           %li{:id => action == "contact_types" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Contact Types", :controller => "administrations", :action => "contact_types"
+            = link_to "#{image_tag('Icons/Admin/Configuration/contact_types.png')} Contact Types", :controller => "administrations", :action => "contact_types"
           %li{:id => action == "duplication_check" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Duplication Check", :controller => "administrations", :action => "duplication_check"
+            = link_to "#{image_tag('Icons/Admin/Configuration/duplications.png')} Duplication Check", :controller => "administrations", :action => "duplication_check"
     .bottom
 
   - # Security Menu
@@ -52,18 +52,18 @@
     .top
     .item
       - if controller != "security"
-        = link_to controller == "security" ? "#{image_tag('icon_holder.png')} Security" :"Security", :controller => "administrations", :action => "access_permissions"
+        = link_to "#{image_tag('Icons/Admin/Security/security.png')} Security", :controller => "administrations", :action => "access_permissions"
       - else
         <p>Security</p>
         %ul
           %li{:id => action == "access_permissions" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
           %li{:id => action == "group_permissions" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Group Permissions", :controller => "administrations", :action => "group_permissions"
+            = link_to "#{image_tag('Icons/Admin/Security/group_permissions.png')} Group Permissions", :controller => "administrations", :action => "group_permissions"
           %li{:id => action == "group_lists" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Group Lists", :controller => "administrations", :action => "group_lists"
+            = link_to "#{image_tag('Icons/Admin/Security/group_list.png')} Group Lists", :controller => "administrations", :action => "group_lists"
           %li{:id => action == "security_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Security Groups", :controller => "administrations", :action => "security_groups"
+            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Group Manager", :controller => "administrations", :action => "security_groups"
     .bottom
 
   - # Users Menu
@@ -71,15 +71,15 @@
     .top
     .item
       - if controller != "users"
-        = link_to controller == "users" ? "#{image_tag('icon_holder.png')} Users" :"Users", :controller => "administrations", :action => "user_accounts"
+        = link_to "#{image_tag('Icons/Admin/Users/users.png')} Users", :controller => "administrations", :action => "user_accounts"
       - else
         <p>Users</p>
         %ul
           %li{:id => action == "user_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Account", :controller => "administrations", :action => "user_accounts"
+            = link_to "#{image_tag('Icons/Admin/Users/user_accounts.png')} User Account", :controller => "administrations", :action => "user_accounts"
           %li{:id => action == "user_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Group", :controller => "administrations", :action => "user_groups"
+            = link_to "#{image_tag('Icons/Admin/Users/user_groups.png')} User Group", :controller => "administrations", :action => "user_groups"
           %li{:id => action == "user_lists" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User List", :controller => "administrations", :action => "user_lists"
+            = link_to "#{image_tag('Icons/Admin/Users/users_lists.png')} User List", :controller => "administrations", :action => "user_lists"
 
     .bottom

@@ -163,7 +163,7 @@ class SigninController < ApplicationController
     answer_3 = params[:username_retrieval_answer_3]
 
     if (!@login_account.account_locked? && @login_account.question1_answer.to_s.downcase == answer_1.to_s.downcase && @login_account.question2_answer.to_s.downcase == answer_2.to_s.downcase && @login_account.question3_answer.to_s.downcase == answer_3.to_s.downcase )
-      # valid
+
       @login_account.access_attempts_count = 3
       @login_account.access_attempt_ip = request.remote_ip
       @login_account.save
@@ -177,7 +177,7 @@ class SigninController < ApplicationController
       # LoginAccountPasswordResetDispatcher.deliver(email)
 
     else
-      #invalid
+
       @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? (3 - 1) : (@login_account.access_attempts_count - 1))
       @login_account.access_attempt_ip = request.remote_ip
       @login_account.login_status = false
