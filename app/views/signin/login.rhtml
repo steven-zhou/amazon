@@ -107,6 +107,20 @@
       }
     )
     </script>
+<!-- Used to regenerate captchas on request -->
+    <script type="text/javascript">
+      $(function() {
+        $('#regenerate_captcha').live('click', function(){
+          $.ajax({
+            type: "GET",
+            url: "/signin/captcha",
+            data: '',
+            dataType: "script"
+          });
+        });
+      }
+    );
+    </script>
 
     <div id="login_help_screen" style="display:none;">
       <h1><%= image_tag("/images/icon-life-ring.jpg") %> Login Assistant</h1>
