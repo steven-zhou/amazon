@@ -10,5 +10,5 @@
     .field_100
       = w.label :remarks, "Remarks"
       = w.text_field :remarks
-  = submit_tag 'Submit' , :id => "submit_website_field"
+  = submit_tag 'Submit' , :id => "submit_website_field" ,:check_field => website.new_record? ? "website_value" : "website_value_edit"
   %br{:style=>"clear:both;"}

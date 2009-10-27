@@ -11,5 +11,5 @@
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
 
-  = submit_tag 'Submit', :id => "submit_email_field"
+  = submit_tag 'Submit', :id => "submit_email_field" , :check_field =>email.new_record? ? "email_value" : "email_value_edit"
   %br{:style=>"clear:both;"}

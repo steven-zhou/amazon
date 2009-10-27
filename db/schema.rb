@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091027020637) do
+ActiveRecord::Schema.define(:version => 20091027072436) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -104,6 +104,11 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.boolean  "duplication_space"
     t.string   "type"
     t.string   "group"
+  end
+
+  create_table "duplication_personal_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "employments", :force => true do |t|
@@ -275,6 +280,7 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.integer  "security_question3_id"
     t.text     "access_attempt_ip"
     t.integer  "access_attempts_count"
+    t.boolean  "password_by_admin"
   end
 
   create_table "master_docs", :force => true do |t|
@@ -314,6 +320,11 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.integer  "noteable_id"
     t.string   "noteable_type"
     t.integer  "note_type_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ogansisation_contacts_report_grids", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -420,6 +431,11 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.datetime "updated_at"
   end
 
+  create_table "person_lookup_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "person_roles", :force => true do |t|
     t.integer  "person_id"
     t.integer  "role_id"
@@ -520,6 +536,16 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.string   "description"
     t.string   "remarks"
     t.boolean  "role_status"
+  end
+
+  create_table "show_postcode_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "show_postcodes", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "simple_captcha_data", :force => true do |t|

@@ -1,6 +1,16 @@
   $("#runtime_form").dialog('close');
   $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
   $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
+  
+$('#result_div').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 700,
+  width: 1300
+  });
+  $('#result_div').dialog('option', 'title', 'Query Results');
+  $('#result_div').dialog('open');
 
   $("#query_result_grid").flexigrid({
   url: '/grids/query_result_grid',
@@ -33,12 +43,4 @@
   height: 300
   });
 
-  $('#result_div').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 700,
-  width: 1300
-  });
-  $('#result_div').dialog('option', 'title', 'Query Results');
-  $('#result_div').dialog('open');
+  

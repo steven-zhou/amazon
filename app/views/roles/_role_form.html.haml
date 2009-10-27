@@ -6,14 +6,17 @@
     .field_25
       = role.label :remarks, 'Remark'
       = role.text_field :remarks
-    .field_10
+    -#.field_10
       = role.label :role_status, 'Status'
       = role.radio_button :role_status, true, :checked => true, :style => "width:10%;"
       %label.inline Active
-    .field_10
+    -#.field_10
       = role.label :role_status, '&nbsp'
       = role.radio_button :role_status, false, :style => "width:10%"
       %label.inline Inactive
+    .field_10
+      = role.label :role_status, 'Active'
+      = role.check_box :role_status, :checked => true, :class => "checkbox_style"
       = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
-  = link_to_function 'clear', :class => "clear_form alt_option"
+  -#= link_to_function 'clear', :class => "clear_form alt_option"
   = submit_tag 'Submit'
