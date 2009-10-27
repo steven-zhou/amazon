@@ -2,7 +2,8 @@
 
   <%- if @login_account.nil? %>
     <script type="text/javascript">
-    $(function() {
+      $('#username_retrieval_account_invalid').dialog("open");
+      $(function() {
           $('#username_retrieval_account_invalid').dialog( {
             modal: true,
             resizable: false,
