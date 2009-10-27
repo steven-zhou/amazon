@@ -1,7 +1,7 @@
 .container
 
   -if organisation.image.nil?
-    = image_tag 'no_photo.jpeg', {:class => "thumb"}
+    = image_tag 'Icons/System/image-missing.png', {:class => "thumb"}
   -else
     = image_tag thumb_image_path(organisation.image.id), {:class => "thumb"}
 

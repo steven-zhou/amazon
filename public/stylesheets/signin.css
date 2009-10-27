@@ -144,3 +144,7 @@ h1 {
     padding-left: 1em;
     padding-top: 0.5em;
 }
+
+span.small_font {
+    font-size: small;
+}

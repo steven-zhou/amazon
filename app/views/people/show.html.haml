@@ -9,7 +9,7 @@
     %div#photo_info
       %div#imageshow{:style => "float:left;"}
         -if @person.image.nil?
-          = image_tag 'no_photo.jpeg', :class => "small"
+          = image_tag 'Icons/System/image-missing.png', :class => "small"
         -else
           = image_tag(image_path(@person.image.id), :class => "small")
     

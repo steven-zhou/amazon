@@ -21,6 +21,15 @@ class Phone < Contact
   #  Callbacks
   ################
   #++
+
+  ##################
+  # Phone input validation
+
+  validates_numericality_of :value, :only_integer => true
+  validates_presence_of :value
+
+  ####################
+
   before_save :update_priority
   before_destroy :update_priority_before_destroy
   #--
@@ -49,6 +58,12 @@ class Phone < Contact
   # Return a concatenation of all numbers joined by a space
   def complete_number
     "#{self.pre_value} #{self.value} #{self.post_value}".squeeze(" ").strip
+  end
+
+    def phone_type
+    @phone_type = Array.new
+    @phone_type <<  TagType.find(self.contact_meta_type_id)
+    return @phone_type
   end
 
 

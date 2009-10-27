@@ -3,7 +3,7 @@
 %br{ :style => "clear:both;"}
 %div#imageshow{:style => "float:left;"}
   -if entity.image.nil?
-    = image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
+    = image_tag 'Icons/System/image-missing.png', :id => "photo",:class => "medium"
   -else
     = image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
 

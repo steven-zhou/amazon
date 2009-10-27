@@ -1,0 +1,61 @@
+#columns
+{
+	width: 100%;
+}
+
+#columns td
+{
+	padding: 0 5px;
+	vertical-align: top;
+	width: 30%;
+}
+
+.portlet
+{
+	background: #ffe;
+	border-color: #fff #665 #665 #fff;
+	border-style: solid;
+	border-width: 1px;
+	cursor: move;
+	margin: 0 0 10px;
+	width: 100%;
+}
+
+.portlet_topper
+{
+	background: #eed;
+	padding: 5px 10px;
+}
+
+.portlet_topper a
+{
+	color: #443;
+	font-weight: bold;
+}
+
+.portlet_content
+{
+	border-top: 1px solid #998;
+	padding: 10px;
+        height:300px;
+}
+
+.portlet_content p
+{
+	line-height: 150%;
+	text-align: justify;
+}
+
+.portlet_bottom
+{
+	background: #ccc;
+	font-size: 1px;
+	line-height: 1px;
+	overflow: hidden;
+	height: 5px;
+}
+
+.sort_placeholder
+{
+	background: #bba;
+}

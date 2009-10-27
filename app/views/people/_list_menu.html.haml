@@ -5,15 +5,15 @@
     %div
       -unless @list_header.new_record? && @person.new_record?
         .arrow_block
-          = link_to((image_tag 'back.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.at(0)) : edit_person_path(@p.at(0)))
-          = link_to((image_tag 'back.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.at((@p.index(@person))-1)) : edit_person_path(@p.at((@p.index(@person))-1)))
+          = link_to((image_tag 'Icons/Core/Lol/go-first.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.at(0)) : edit_person_path(@p.at(0)))
+          = link_to((image_tag 'Icons/Core/Lol/go-previous.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.at((@p.index(@person))-1)) : edit_person_path(@p.at((@p.index(@person))-1)))
         = text_field_tag 'person_id', @person.id, {:disabled=> (@list_headers.blank?), :onblur => 'this.form.submit()',:id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px"}
         .arrow_block
           -if @p.index(@person) != @p.index(@p.last)
-            = link_to((image_tag 'go.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p[@p.index(@person)+1]) : edit_person_path(@p[@p.index(@person)+1]))
+            = link_to((image_tag 'Icons/Core/Lol/go-next.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p[@p.index(@person)+1]) : edit_person_path(@p[@p.index(@person)+1]))
           -else
-            = link_to((image_tag 'go.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.first) : edit_person_path(@p.first))
-          = link_to((image_tag 'go.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.fetch(-1)) : edit_person_path(@p.fetch(-1)))
+            = link_to((image_tag 'Icons/Core/Lol/go-next.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.first) : edit_person_path(@p.first))
+          = link_to((image_tag 'Icons/Core/Lol/go-last.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.fetch(-1)) : edit_person_path(@p.fetch(-1)))
   %div#loright
     .lolfont_left
       = label_tag 'list_header_id', 'List'
@@ -28,7 +28,7 @@
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
     #show_list_icon
       - if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
-        =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list"
+        =link_to_function image_tag('application_view_detail.png'), :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list"
       - else
-        =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list"
+        =link_to_function image_tag('application_view_detail.png'), :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list"
   %br.clear

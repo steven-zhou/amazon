@@ -1,0 +1,14 @@
+-form_for([@person,website], :html => {:class => 'contact_form ajax_form add_website'}) do |w|
+  .form_line
+    .field_20
+      = w.label :contact_meta_type_id, 'Type'
+      = w.collection_select :contact_meta_type_id, Contact.website_types - @person.personal_website_types, :id, :name
+    .field_75
+      = w.label :value, "Value"
+      = w.text_field :value, :id => website.new_record? ? "website_value" : "website_value_edit", :value => website.new_record? ? "http://" : website.value
+  .form_line
+    .field_100
+      = w.label :remarks, "Remarks"
+      = w.text_field :remarks
+  = submit_tag 'Submit' , :id => "submit_website_field" ,:check_field => website.new_record? ? "website_value" : "website_value_edit"
+  %br{:style=>"clear:both;"}

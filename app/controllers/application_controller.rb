@@ -4,8 +4,16 @@
 class ApplicationController < ActionController::Base
  
   include ExceptionNotifiable
+
  
   helper :all # include all helpers, all the time
+
+
+  # include SimpleCaptcha::ControllerHelpers
+
+
+
+
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store

@@ -1,6 +1,8 @@
 class SigninController < ApplicationController
 
-  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request]
+  include SimpleCaptcha::ControllerHelpers
+
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha]
   layout nil
 
   # Allows a user to log in.
@@ -88,6 +90,7 @@ class SigninController < ApplicationController
     username = params[:password_reset_username]
     email_address = params[:password_reset_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["user_name = ? AND security_email = ?", username, email_address])
+    @login_account = nil unless (!@login_account.nil? && simple_captcha_valid?) # We want to no proceeed if they got the captcha wrong
     respond_to do |format|
       format.js
     end
@@ -119,9 +122,8 @@ class SigninController < ApplicationController
 
       # Send out the email
 
-      email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
-
-      LoginAccountPasswordResetDispatcher.deliver(email)
+      # email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
+      # LoginAccountPasswordResetDispatcher.deliver(email)
 
     else
       #invalid
@@ -144,6 +146,7 @@ class SigninController < ApplicationController
   def username_retrieval_get_login_account
     email_address = params[:username_retrieval_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
+    @login_account = nil unless (!@login_account.nil? && simple_captcha_valid?) # We want to no proceeed if they got the captcha wrong
     respond_to do |format|
       format.js
     end
@@ -156,12 +159,12 @@ class SigninController < ApplicationController
 
     @username_retrieval = false
 
-    answer_1 = params[:username_request_answer_1]
-    answer_2 = params[:username_request_answer_2]
-    answer_3 = params[:username_request_answer_3]
+    answer_1 = params[:username_retrieval_answer_1]
+    answer_2 = params[:username_retrieval_answer_2]
+    answer_3 = params[:username_retrieval_answer_3]
 
     if (!@login_account.account_locked? && @login_account.question1_answer.to_s.downcase == answer_1.to_s.downcase && @login_account.question2_answer.to_s.downcase == answer_2.to_s.downcase && @login_account.question3_answer.to_s.downcase == answer_3.to_s.downcase )
-      # valid
+
       @login_account.access_attempts_count = 3
       @login_account.access_attempt_ip = request.remote_ip
       @login_account.save
@@ -171,11 +174,11 @@ class SigninController < ApplicationController
 
       # Send out the email
 
-      # email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
-      # LoginAccountPasswordResetDispatcher.deliver(email)
+      # email = LoginAccountUsernameRetrievalDispatcher.create_email_notification(@login_account)
+      # LoginAccountUsernameRetrievalDispatcher.deliver(email)
 
     else
-      #invalid
+
       @login_account.access_attempts_count = (@login_account.access_attempts_count.nil? ? (3 - 1) : (@login_account.access_attempts_count - 1))
       @login_account.access_attempt_ip = request.remote_ip
       @login_account.login_status = false
@@ -189,6 +192,12 @@ class SigninController < ApplicationController
       format.js
     end
 
+  end
+
+  def captcha
+    respond_to do |format|
+      format.js
+    end
   end
 
 end

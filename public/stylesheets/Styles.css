@@ -42,7 +42,7 @@ body {
     background-repeat: repeat-y;
     -moz-border-radius-topleft: 10px;
     -moz-border-radius-bottomleft: 10px;
-    width: 120px;
+    width: 140px;
     height: 22px;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -180,11 +180,16 @@ body {
     padding: 10px 0 10px 10px ;
     float: right;
 }
-#app #lc #menu #menu_active .item img {
+
+img {
+    vertical-align:middle;
+}
+
+/*#app #lc #menu #menu_active .item img {
     vertical-align:text-bottom;
     margin-right: 5px;
 }
-
+*/
 #app #lc #menu #menu_active .item ul {
     float:left;
     display:block;
@@ -240,7 +245,7 @@ body {
     background-color: #f6f6f6;
     width:100%;
     float: left;
-    min-height: 500px;
+    min-height: 700px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
@@ -461,14 +466,12 @@ body {
 }
 
 #app #main #content #left_content {
-    min-height: 500px;
     background-color:#F6F6F6;
     float: left;
     width: 49.5%;
     margin-right: 0.5%;
 }
 #app #main #content #right_content {
-    min-height: 500px;
     float: right;
     width: 49.5%;
     margin-left: 0.5%;

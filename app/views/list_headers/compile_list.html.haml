@@ -16,18 +16,22 @@
         #extra_form
           %h1 Extra Attributes
           .form_line
-            %input{:type => "checkbox", :style => "display:inline;", :id =>"allow_duplication", :value => "true"}
-            %label{:style => "display:inline;"} Allow Duplication
-            %br.clear
+            .field_2
+              %input{:type => "checkbox", :style => "width:auto;float:left;", :id =>"allow_duplication", :value => "true"}
+            .field_70
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
+
           .form_line
-            %input{:type => "radio", :name => "top", :style => "display:inline;", :value => "number", :id => "top_number", :checked => true}
-            %label{:style => "display:inline;"} Top&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            %input{:style => "width:30%;display:inline;", :id => "top_number_value", :class => "integer_field"}
-            %br.clear
-          .form_line
-            %input{:type => "radio", :name => "top", :style => "display:inline;", :value => "percent", :id => "top_percent"}
-            %label{:style => "display:inline;"} Percent
-            %input{:style => "width:30%;display:inline;", :disabled => true, :id => "top_percent_value", :class => "integer_field"}
+            .field_2
+              %input{:type => "radio", :name => "query_top", :value => "number", :id => "top_number", :checked => true}
+            .field_5
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Top
+            .field_2
+              %input{:type => "radio", :name => "query_top", :value => "precent", :id => "top_percent"}
+            .field_10
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Precent
+            .field_30
+              %input{:id => "top_value", :class => "integer_field"}
             %br.clear
 
 
@@ -56,5 +60,4 @@
     %br.clear
 
 #compile_result_div{:style => "display:none;"}
-  %h1 Compile Results
   #compile_result

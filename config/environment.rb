@@ -85,16 +85,10 @@ Rails::Initializer.run do |config|
 
   config.action_mailer.delivery_method = :smtp  # :smtp for live, test for test
   config.action_mailer.perform_deliveries = true # true for live, false for test
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    #    :enable_starttls_auto => true,
-    #    :address          => "mail.powernet.com.au",
-    #    :port             => 25,
-    #    :domain           => "powernetsystems.asia",
-    #    :authentication => :login,
-    #    :user_name => "powernet@powernet.com.au",
-    #    :password => "tenrewop",
+
     :enable_starttls_auto => true,
     :address  => "mail.powernet.com.au",
     :port => 25,
@@ -109,6 +103,8 @@ Rails::Initializer.run do |config|
 #    :authentication => :plain,
 #    :user_name => "stevenzhou2011@gmail.com",
 #    :password => "19820825"
+
+
   }
 
 end

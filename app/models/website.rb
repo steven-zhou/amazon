@@ -25,12 +25,18 @@ class Website < Contact
   ################
   #++
 
-
+  validates_presence_of :value
 
   # Return the address of the email
   # Convenience method to access value
   def address
     read_attribute(:value)
+  end
+
+   def website_type
+    @website_type = Array.new
+    @website_type <<  TagType.find(self.contact_meta_type_id)
+    return @website_type
   end
 
   private

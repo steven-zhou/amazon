@@ -50,6 +50,7 @@ class QueryHeadersController < ApplicationController
   end
 
   def check_runtime
+    puts "****#{params[:top]}*********#{params[:top_number]}***********#{params[:top_percent]}******111111111111**"
     @query_header = QueryHeader.find(params[:id].to_i)
     runtime_params = Array.new
     @query_header.query_criterias.each do |i|
@@ -63,11 +64,11 @@ class QueryHeadersController < ApplicationController
       #ask for runtime param(s)
       @top = params[:top]
       @top_number = params[:top_number]
-      @top_percent = params[:top_precent]
+      @top_percent = params[:top_percent]
       render "check_runtime.js"
     else
       #run the query
-      redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_precent]
+      redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
     end
   end
 
@@ -99,12 +100,12 @@ class QueryHeadersController < ApplicationController
       @query_sorter.save
     end
 
-    redirect_to :action => "run", :id => @query_header_new.id, :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_precent]
+    
+    redirect_to :action => "run", :id => @query_header_new.id, :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
   end
 
   def run
     @query_header = QueryHeader.find(params[:id].to_i)
-
     @people = @query_header.run
     top = params[:top]
     if(top=="number")

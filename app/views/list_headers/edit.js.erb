@@ -1,4 +1,16 @@
 $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
+
+
+$('#edit_list').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 700,
+  width: 1300
+});
+$('#edit_list').dialog('option', 'title', 'Edit List');
+$('#edit_list').dialog('open');
+
 $('#list_edit_grid').flexigrid({
         url: '/grids/list_edit_grid',
         dataType: 'json',
@@ -22,12 +34,4 @@ $('#list_edit_grid').flexigrid({
         height: 300
     });
 
-$('#edit_list').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 700,
-  width: 1300
-});
 
-$('#edit_list').dialog('open');

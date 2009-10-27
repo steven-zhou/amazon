@@ -1,0 +1,47 @@
+-form_for([@person,phone], :html => {:class => 'active contact_form ajax_form add_phone'}) do |p|
+  .form_line
+    .field_20
+      = p.label :contact_meta_type_id, 'Type'
+      = p.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types, :id, :name
+    .field_15
+      = p.label :pre_value, "Pre Value"
+      = p.text_field :pre_value,:class => "integer_field"
+    .field_40
+      = p.label :value, "value"
+      = p.text_field :value , :class => "integer_field "
+    .field_15
+      = p.label :post_value, "Pos value"
+      = p.text_field :post_value
+    %br.clear
+  -#.form_line
+    .field_25
+      = p.label :monday_hours, "Monday"
+      = p.select :monday_hours, Phone::AVAILABILITY
+    .field_25
+      = p.label :tuesday_hours, "Tuesday"
+      = p.select :tuesday_hours, Phone::AVAILABILITY
+    .field_25
+      = p.label :wednesday_hours, "Wednesday"
+      = p.select :wednesday_hours, Phone::AVAILABILITY
+    .field_25
+      = p.label :thursday_hours, "Thursday"
+      = p.select :thursday_hours, Phone::AVAILABILITY
+    %br.clear
+  -#.form_line
+    .field_25
+      = p.label :friday_hours, "Friday"
+      = p.select :friday_hours, Phone::AVAILABILITY
+    .field_25
+      = p.label :saturdayday_hours, "Saturday"
+      = p.select :saturday_hours, Phone::AVAILABILITY
+    .field_25
+      = p.label :sunday_hours, "Sunday"
+      = p.select :sunday_hours, Phone::AVAILABILITY
+    %br.clear
+  .form_line
+    .field_100
+      = p.label :remarks, "Remarks"
+      = p.text_field :remarks
+    %br.clear
+  = submit_tag 'Submit' ,:id => "contact_phone_submit" ,:check_field => "phone_value"
+  %br{ :style=>"clear: both;"}
