@@ -1,4 +1,5 @@
   <%if @organisation.nil? -%>
+  $('#website_type').html('<%= escape_javascript(render(:partial => "websites/personal_website_type" ,:locals => {:website => @website_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
   <% else %>
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');

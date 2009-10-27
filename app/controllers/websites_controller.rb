@@ -16,6 +16,8 @@ class WebsitesController < ApplicationController
      if (params[:organisation_id])
       @organisation = Organisation.find(@website.contactable_id)
     end
+
+    @website_new = Website.new
     respond_to do |format|
       format.js
     end
@@ -23,6 +25,7 @@ class WebsitesController < ApplicationController
 
   def edit
     @website = Website.find(params[:id].to_i)
+    @person = Person.find(session[:user])
     respond_to do |format|
       format.js
     end
@@ -48,6 +51,8 @@ class WebsitesController < ApplicationController
      if @website.contactable_type == "Organisation"
        @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
      end
+
+    @website_new = Website.new
     respond_to do |format|
       format.js
     end

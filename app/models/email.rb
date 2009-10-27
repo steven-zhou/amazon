@@ -8,7 +8,7 @@ class Email < Contact
   #++
 
   belongs_to :person
-  
+  #  belongs_to :contactmetatype
 
   #--
   ################
@@ -17,7 +17,7 @@ class Email < Contact
   #++
   validates_presence_of :value
   validates_format_of :value, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
-
+  #  validates :only_one_personal_email
   before_save :update_priority
   before_destroy :update_priority_before_destroy
   #--
@@ -33,10 +33,26 @@ class Email < Contact
   def address 
     read_attribute(:value)
   end
-
+  def email_type
+    @email_type = Array.new
+    @email_type <<  TagType.find(self.contact_meta_type_id)
+    return @email_type
+  end
   private
 
-  
+  #  def self.only_one_personal_email(person_id)
+  #    @p = Person.find(person_id)
+  #    @p.emails.each do |i|
+  #      if  i.contact_meta_type_id == 2
+  #        i.contactable_type != "Person"
+  #      end
+  #    end
+  #  end
+
+  #  def only_one_personal_email
+  #  Email.find(:all, :conditions => ["contact_meta_type_id = ?", TagType.find_by_name("Personal").id])
+  #  end
+
   
   def update_priority
     #self.move_to_bottom

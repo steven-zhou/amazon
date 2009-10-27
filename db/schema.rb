@@ -532,12 +532,14 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.boolean  "role_status"
   end
 
+
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
 
   create_table "system_news", :force => true do |t|
     t.text     "description"
