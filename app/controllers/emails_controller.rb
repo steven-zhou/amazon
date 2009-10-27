@@ -2,6 +2,8 @@ class EmailsController < ApplicationController
 
   def show
     @email = Email.find(params[:id])
+        @email_new = Email.new
+    @person = Person.find(session[:user])
     respond_to do |format|
       format.js
     end
@@ -33,6 +35,8 @@ class EmailsController < ApplicationController
 
   def update
     @email = Email.find(params[:id].to_i)
+    @email_new = Email.new
+    @person = Person.find(session[:user])
     respond_to do |format|
       if @email.update_attributes(params[:email])  
         format.js { render 'show.js' }

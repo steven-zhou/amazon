@@ -1,3 +1,4 @@
+$('#phone_type').html('<%= escape_javascript(render(:partial => "phones/personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
 $('#<%= dom_id(@phone, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => 'contacts/contact', :locals => {:contact => @phone})) %>");
 $('.person_contact_toggle_button').css("display","");
  $('#contact_hidden_tab').attr('mode','show');

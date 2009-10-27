@@ -2,6 +2,8 @@ class PhonesController < ApplicationController
   
   def show
     @phone = Phone.find(params[:id].to_i)
+      @person = Person.find(session[:user])
+     @phone_new = Phone.new
     respond_to do |format|
       format.js
     end
@@ -31,6 +33,7 @@ class PhonesController < ApplicationController
   def edit
     @phone= Phone.find(params[:id].to_i)
     @person = Person.find(session[:user])
+ 
     respond_to do |format|
       format.js
     end
@@ -38,6 +41,8 @@ class PhonesController < ApplicationController
 
   def update
     @phone = Phone.find(params[:id].to_i)
+    @person = Person.find(session[:user])
+     @phone_new = Phone.new
     respond_to do |format|
       if @phone.update_attributes(params[:phone])  
         format.js { render 'show.js' }
