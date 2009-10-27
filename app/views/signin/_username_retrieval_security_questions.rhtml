@@ -2,6 +2,7 @@
 
   <%- if @login_account.nil? %>
     <script type="text/javascript">
+      $('#username_retrieval_account_invalid').dialog("open");
       $(function() {
           $('#username_retrieval_account_invalid').dialog( {
             modal: true,
@@ -12,8 +13,12 @@
           })
       }
     );
-    $('#username_retrieval_account_invalid').dialog("open");
-    </script>
+
+    if ( $('#username_retrieval_account_invalid').dialog("isOpen") == "true") {
+      $('#username_retrieval_account_invalid').dialog("destroy");
+      $('#username_retrieval_account_invalid').dialog("open");
+    }
+  </script>
     <div style="display:none;background-color:white;" id="username_retrieval_account_invalid">The account details you entered were invalid.</div>
   <%- elsif @login_account.account_locked? %>
     <script type="text/javascript">
