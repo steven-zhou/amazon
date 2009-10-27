@@ -11,7 +11,8 @@
             width: 350
           })
       }
-    )
+    );
+    $('#username_retrieval_account_invalid').dialog("open");
     </script>
     <div style="display:none;background-color:white;" id="username_retrieval_account_invalid">The account details you entered were invalid.</div>
   <%- elsif @login_account.account_locked? %>
@@ -25,7 +26,8 @@
             width: 350
           })
       }
-    )
+    );
+    $('#username_retrieval_account_locked').dialog("open");
     </script>
     <div style="display:none;background-color:white;" id="username_retrieval_account_locked">This account has been locked, you cannot retrieve your username at this time. Please see your Systems Administrator.</div>
   <%- else %>
