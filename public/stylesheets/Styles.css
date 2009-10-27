@@ -464,14 +464,12 @@ img {
 }
 
 #app #main #content #left_content {
-    min-height: 500px;
     background-color:#F6F6F6;
     float: left;
     width: 49.5%;
     margin-right: 0.5%;
 }
 #app #main #content #right_content {
-    min-height: 500px;
     float: right;
     width: 49.5%;
     margin-left: 0.5%;
