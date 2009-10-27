@@ -33,6 +33,12 @@ class Website < Contact
     read_attribute(:value)
   end
 
+   def website_type
+    @website_type = Array.new
+    @website_type <<  TagType.find(self.contact_meta_type_id)
+    return @website_type
+  end
+
   private
 
   def update_priority

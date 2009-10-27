@@ -1,5 +1,6 @@
  
  <%if @organisation.nil? -%>
+  $('#phone_type').html('<%= escape_javascript(render(:partial => "phones/personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
   <% else %>
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');

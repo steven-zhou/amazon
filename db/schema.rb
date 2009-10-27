@@ -430,11 +430,6 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.datetime "updated_at"
   end
 
-  create_table "person_lookup_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "person_roles", :force => true do |t|
     t.integer  "person_id"
     t.integer  "role_id"
@@ -535,16 +530,6 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.string   "description"
     t.string   "remarks"
     t.boolean  "role_status"
-  end
-
-  create_table "show_postcode_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "show_postcodes", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "system_news", :force => true do |t|

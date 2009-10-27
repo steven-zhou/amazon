@@ -202,12 +202,39 @@ class Person < ActiveRecord::Base
     # @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
   end
 
+  def personal_email_types
+    @personal_email_types = Array.new
+      self.emails.each do |email|
+      @personal_email_types <<  TagType.find(email.contact_meta_type_id)
+      end
+      return @personal_email_types
+  end
+
+  def personal_phone_types
+    @personal_phone_types = Array.new
+    self.phones.each do |phone|
+       @personal_phone_types <<  TagType.find(phone.contact_meta_type_id)
+    end
+
+    return @personal_phone_types
+  end
+
+    def personal_website_types
+    @personal_website_types = Array.new
+    self.websites.each do |website|
+       @personal_website_types <<  TagType.find(website.contact_meta_type_id)
+    end
+
+    return @personal_website_types
+  end
 
   #
   # Returns the first and family name
   def name
     "#{self.first_name} #{self.family_name}".squeeze(" ").strip
   end
+
+
   
   # Returns the full name and title
   def full_name_and_title

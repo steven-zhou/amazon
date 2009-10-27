@@ -1715,7 +1715,7 @@ $(function(){
 });
 
 check_website_field = function(){
-   _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value").val());
+   _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value").val());
               if($('#website_value').val()!=""){
             if((!_valid)){
                 alert("This field should be website format !");
