@@ -3195,6 +3195,8 @@ $(function(){
 
     });
 
+    });
+
     /*Contact form add button form to default phone form*/
     $(function(){
         $(".clear_form_to_phone").live("click", function(){

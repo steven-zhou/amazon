@@ -15,6 +15,7 @@ class SigninController < ApplicationController
        
         @group_types = LoginAccount.validate_group(session[:user])
         @system_permission_types = LoginAccount.validate_permission(session[:user])
+        #@login_account.update_password = false
         #login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
         session[:login_account_info] = login_account
 
