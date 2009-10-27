@@ -3212,3 +3212,28 @@ $(function(){
 
 
 });
+
+
+$(function(){
+    $(".clear_form_to_address").live("click", function(){
+
+
+        if($("#address_address_type_id").val() == null)
+            {
+                $("#address_building_name").attr('readonly','readonly');
+                $("#address_suite_unit").attr('readonly','readonly');
+                $("#address_street_number").attr('readonly','readonly');
+                $("#address_street_name").attr('readonly','readonly');
+                $("#address_town").attr('readonly','readonly');
+                $("#address_state").attr('readonly','readonly');
+                 $("#address_postal_code").attr('readonly','readonly');
+                $("#address_country_id").attr('readonly','readonly');
+                $("#address_submit_button").attr('readonly','readonly');
+
+            }
+
+    });
+
+
+
+});

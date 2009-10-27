@@ -156,6 +156,15 @@ class Organisation < ActiveRecord::Base
 
   end
 
+    def personal_address_types
+    @personal_address_types = Array.new
+    self.addresses.each do |address|
+       @personal_address_types <<  AmazonSetting.find(address.address_type_id)
+    end
+
+    return @personal_address_types
+  end
+
 
     #--
     ###################
