@@ -737,16 +737,16 @@ div.field_62 {
 
 img.small {
     width: 90px;
-    height: 90px;
+    height: 99px;
 }
 
 img.medium {
     width: 120px;
-    height: 120px;
+    height: 132px;
 }
 img.thumb {
-    width:61px;
-    height: 61px;
+    width:60px;
+    height: 66px;
     float: left;
 }
 
@@ -768,6 +768,7 @@ img.thumb {
                                        min-height: 10px;
                                        -moz-border-radius-topleft:10px;
                                        -moz-border-radius-topright:10px;
+                                       margin-right:10px;
 
 }
 

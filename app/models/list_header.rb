@@ -7,7 +7,7 @@ class ListHeader < ActiveRecord::Base
  
 
   
-  has_many :people_on_list, :through => :list_details, :source => :person
+  has_many :people_on_list, :through => :list_details, :source => :person, :order => "person_id"
 
   has_many :user_lists
   has_many :login_accounts, :through => :user_lists, :uniq => true

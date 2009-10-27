@@ -500,15 +500,15 @@ formatCurrency= function(num){
 
 
 // Administration Menu
-
-$(function(){
-    $(".close_option").live('click', function(){
-        $("#system_data_add_entry_form").hide();
-        $("#custom_group_entry_form").hide();
-        $("#query_table_add_entry_form").hide();
-        $("#access_permission_add_entry_form").hide();
-    });
-});
+//
+//$(function(){
+//    $(".close_option").live('click', function(){
+//        $("#system_data_add_entry_form").hide();
+//        $("#custom_group_entry_form").hide();
+//        $("#query_table_add_entry_form").hide();
+//        $("#access_permission_add_entry_form").hide();
+//    });
+//});
 
 // Configuration
 
@@ -2789,6 +2789,8 @@ $(function(){
     $('.active_organisation_info_tab').live('click',function(){
         $('.organisation_info_tab').removeClass('hidden_tab');
         $("#"+$(this).attr("hidden_id_name")).addClass('hidden_tab');
+        $(".container_icon").removeClass("container_icon_color");
+        $(this).parent().addClass("container_icon_color");
     });
 });
 
