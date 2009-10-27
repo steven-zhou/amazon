@@ -1,7 +1,9 @@
 <% if @address.errors.empty? -%>
   <%if @organisation.nil? -%>
+  $('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/personal_address_type",:locals => {:address => @address_new })) %>');
   $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @person.addresses)) %>');
   <% else %>
+  $('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/organisation_personal_address_type",:locals => {:address => @address_new })) %>');
   $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @organisation.addresses)) %>');
   <% end -%>
   $("#new_address")[0].reset();

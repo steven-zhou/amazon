@@ -1,5 +1,11 @@
- $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @current_object.addresses)) %>');
+ <%if @organisation.nil? -%>
 
+$('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/personal_address_type",:locals => {:address => @address_new })) %>');
+$('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @person.addresses)) %>');
+ <% else %>
+$('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/organisation_personal_address_type",:locals => {:address => @address_new })) %>');
+$('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @organisation.addresses)) %>');
+<%end%>
 $('.person_address_edit_delete').css("display","none");
 $('.person_address_toggle_button').css("display","");
 $('.person_address_close').css("display","none");
