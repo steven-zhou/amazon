@@ -107,6 +107,20 @@
       }
     )
     </script>
+<!-- Used to regenerate captchas on request -->
+    <script type="text/javascript">
+      $(function() {
+        $('#regenerate_captcha').live('click', function(){
+          $.ajax({
+            type: "GET",
+            url: "/signin/captcha",
+            data: '',
+            dataType: "script"
+          });
+        });
+      }
+    );
+    </script>
 
     <div id="login_help_screen" style="display:none;">
       <h1><%= image_tag("/images/icon-life-ring.jpg") %> Login Assistant</h1>
@@ -191,8 +205,7 @@
           <label>Username</label>
           <input class="field" type="text" size="28" name="user_name" />
           <label>Password</label>
-          <input class="field" type="password" size="25" name="password" />&nbsp;
-          <a href="#"><!-- Need to implement a tooltip to show the password hint --><img src="/images/password_hint.png" alt="Password_hint" width="20" height="22" border="0" /></a><br />
+          <input class="field" type="password" size="28" name="password" /><br />
           <a href="#" id="login_assistant">Having difficulty logging in?</a><br />
           <input id="signin_button" type="submit" value="Sign In" />
         <% end -%>
