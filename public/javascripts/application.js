@@ -1638,9 +1638,9 @@ $(function(){
         temp += "login_account_id=" + $("#login_account_id").val();
         temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
         if($("#top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#top_number_value").val();
+            temp += "&top=number&top_number=" + $("#top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#top_value").val();
         }
 
         $.ajax({
@@ -1655,14 +1655,12 @@ $(function(){
 
 $(function(){
     $("#top_number").click(function(){
-        $("#top_percent_value").val('');
-        $("#top_percent_value").attr("disabled",true);
-        $("#top_number_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
     $("#top_percent").click(function(){
-        $("#top_number_value").val('');
-        $("#top_number_value").attr("disabled",true);
-        $("#top_percent_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
