@@ -1,5 +1,5 @@
-if ("<%= escape_javascript(@password_reset) %>" == "true") {
-  $("#login_password_reset_security_questions").html("<%= escape_javascript(render(:partial => "/signin/password_reset_success"))%>");
+if ("<%= escape_javascript(@username_retrieval) %>" == "true") {
+  $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "/signin/username_retrieval_success"))%>");
 } else {
-  $("#login_password_reset_security_questions").html("<%= escape_javascript(render(:partial => "/signin/password_reset_fail"))%>");
+  $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "/signin/username_retrieval_fail"))%>");
 }

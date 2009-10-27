@@ -8,5 +8,6 @@
       %h2 #{tag_meta_type.name}
   %br.clear
 
-  %div{:id => "tag_types_#{tag_meta_type.id}"}
-    = render(:partial => "/tag_types/tag_types", :locals => {:tag_meta_type => tag_meta_type})
+  - if tag_meta_type.status
+    %div{:id => "tag_types_#{tag_meta_type.id}"}
+      = render(:partial => "/tag_types/tag_types", :locals => {:tag_meta_type => tag_meta_type})

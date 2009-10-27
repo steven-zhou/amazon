@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
+
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
@@ -91,9 +93,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-                                    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get,
+    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get,
 
-                                    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
+    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
