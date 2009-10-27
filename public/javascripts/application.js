@@ -1407,9 +1407,9 @@ $(function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
         if($("#query_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1513,15 +1513,13 @@ $(function(){
 });
 
 $(function(){
-    $("#query_top_number").click(function(){
-        $("#query_top_percent_value").val('');
-        $("#query_top_percent_value").attr("disabled",true);
-        $("#query_top_number_value").attr("disabled",false);
+    $("#query_top_number").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
-    $("#query_top_percent").click(function(){
-        $("#query_top_number_value").val('');
-        $("#query_top_number_value").attr("disabled",true);
-        $("#query_top_percent_value").attr("disabled",false);
+    $("#query_top_percent").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1675,6 +1673,17 @@ $(function(){
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0){
                 alert("This field has be an integer!");
+                $(this).focus();
+                $(this).val('');
+            }
+        }
+    });
+
+    $(".precent_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
+                alert("This field has be an integer between 0 and 100!");
                 $(this).focus();
                 $(this).val('');
             }
