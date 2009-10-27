@@ -1,3 +1,4 @@
+  $('#email_type').html('<%= escape_javascript(render(:partial => "emails/personal_email_type" ,:locals => {:email => @email_new})) %>');
 $('#<%= dom_id(@email, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => 'contacts/contact', :locals => {:contact => @email})) %>");
 $('.person_contact_toggle_button').css("display","");
  $('#contact_hidden_tab').attr('mode','show');

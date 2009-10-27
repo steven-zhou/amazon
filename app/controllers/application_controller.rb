@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   include ExceptionNotifiable
 
+
+  include SimpleCaptcha::ControllerHelpers
+
+
   helper :all # include all helpers, all the time - how super helpful is that!?
 
   # See ActionController::RequestForgeryProtection for details

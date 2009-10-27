@@ -106,11 +106,6 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.string   "group"
   end
 
-  create_table "duplication_personal_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "employments", :force => true do |t|
     t.integer  "person_id"
     t.integer  "organisation_id"
@@ -323,11 +318,6 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.datetime "updated_at"
   end
 
-  create_table "ogansisation_contacts_report_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "organisation_groups", :force => true do |t|
     t.integer  "organisation_id"
     t.integer  "tag_id"
@@ -532,14 +522,12 @@ ActiveRecord::Schema.define(:version => 20091027020637) do
     t.boolean  "role_status"
   end
 
-
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
 
   create_table "system_news", :force => true do |t|
     t.text     "description"
