@@ -1,6 +1,6 @@
 class SigninController < ApplicationController
 
-  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request]
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha]
   layout nil
 
   # Allows a user to log in.
@@ -88,6 +88,7 @@ class SigninController < ApplicationController
     username = params[:password_reset_username]
     email_address = params[:password_reset_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["user_name = ? AND security_email = ?", username, email_address])
+    @login_account = nil unless (!@login_account.nil? && simple_captcha_valid?) # We want to no proceeed if they got the captcha wrong
     respond_to do |format|
       format.js
     end
@@ -144,6 +145,7 @@ class SigninController < ApplicationController
   def username_retrieval_get_login_account
     email_address = params[:username_retrieval_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
+    @login_account = nil unless (!@login_account.nil? && simple_captcha_valid?) # We want to no proceeed if they got the captcha wrong
     respond_to do |format|
       format.js
     end
@@ -153,8 +155,6 @@ class SigninController < ApplicationController
   def username_retrieval_request
     email_address = params[:username_retrieval_email_address]
     @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
-    
-    puts "E #{email_address} LA #{@login_account.to_yaml}"
 
     @username_retrieval = false
 
@@ -191,6 +191,12 @@ class SigninController < ApplicationController
       format.js
     end
 
+  end
+
+  def captcha
+    respond_to do |format|
+      format.js
+    end
   end
 
 end
