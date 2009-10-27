@@ -1,9 +1,33 @@
 <div id="username_retrieval_security_questions">
 
   <%- if @login_account.nil? %>
-    <div style="border: 1px solid red;width:90%;padding:5%;background-color:#ffbdcb;">The account details you entered were invalid.</div>
+    <script type="text/javascript">
+      $(function() {
+          $('#username_retrieval_account_invalid').dialog( {
+            modal: true,
+            resizable: false,
+            draggable :false,
+            height: 200,
+            width: 350
+          })
+      }
+    )
+    </script>
+    <div style="display:none;background-color:white;" id="username_retrieval_account_invalid">The account details you entered were invalid.</div>
   <%- elsif @login_account.account_locked? %>
-    <div style="border: 1px solid red;width:90%;padding:5%;background-color:#ffbdcb;">This account has been locked, you cannot retrieve your username at this time. Please see your Systems Administrator.</div>
+    <script type="text/javascript">
+      $(function() {
+          $('#username_retrieval_account_locked').dialog( {
+            modal: true,
+            resizable: false,
+            draggable :false,
+            height: 200,
+            width: 350
+          })
+      }
+    )
+    </script>
+    <div style="display:none;background-color:white;" id="username_retrieval_account_locked">This account has been locked, you cannot retrieve your username at this time. Please see your Systems Administrator.</div>
   <%- else %>
     <% form_tag("/signin/username_retrieval_request", :class => "ajax_form") do -%>
     <input type="hidden" name="username_retrieval_email_address" value="<%= h @login_account.security_email %>" />
