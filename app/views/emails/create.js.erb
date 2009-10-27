@@ -1,5 +1,7 @@
-<% if @email.errors.empty? -%>
+
+ <% if @email.errors.empty? -%>
   <%if @organisation.nil? -%>
+  $('#email_type').html('<%= escape_javascript(render(:partial => "emails/personal_email_type" ,:locals => {:email => @email_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
   <% else %>
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
@@ -13,5 +15,6 @@
   $('#contact_mode').attr('mode', 'show');
   $('.new_option[field="contact"]').css("display","");
 <% end -%>
+
 
 

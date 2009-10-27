@@ -60,6 +60,12 @@ class Phone < Contact
     "#{self.pre_value} #{self.value} #{self.post_value}".squeeze(" ").strip
   end
 
+    def phone_type
+    @phone_type = Array.new
+    @phone_type <<  TagType.find(self.contact_meta_type_id)
+    return @phone_type
+  end
+
 
   def preferrence_day_times
     "Monday(#{prefer_time(self.monday_hours)}) " +

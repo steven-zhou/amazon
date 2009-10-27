@@ -2,6 +2,8 @@ class PhonesController < ApplicationController
   
   def show
     @phone = Phone.find(params[:id].to_i)
+      @person = Person.find(session[:user])
+     @phone_new = Phone.new
     respond_to do |format|
       format.js
     end
@@ -15,6 +17,7 @@ class PhonesController < ApplicationController
     @phone = @entity.phones.new(params[:phone])
     @phone.save
     @person = Person.find(session[:user])
+    @phone_new = Phone.new
     if (params[:organisation_id])
       @organisation = Organisation.find(@phone.contactable_id)
     end
@@ -29,6 +32,8 @@ class PhonesController < ApplicationController
   
   def edit
     @phone= Phone.find(params[:id].to_i)
+    @person = Person.find(session[:user])
+ 
     respond_to do |format|
       format.js
     end
@@ -36,6 +41,8 @@ class PhonesController < ApplicationController
 
   def update
     @phone = Phone.find(params[:id].to_i)
+    @person = Person.find(session[:user])
+     @phone_new = Phone.new
     respond_to do |format|
       if @phone.update_attributes(params[:phone])  
         format.js { render 'show.js' }
@@ -61,6 +68,8 @@ class PhonesController < ApplicationController
     if @phone.contactable_type == "Organisation"
       @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
     end
+
+      @phone_new = Phone.new
     respond_to do |format|
       format.js
     end
