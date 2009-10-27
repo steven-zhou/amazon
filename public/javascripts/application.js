@@ -500,15 +500,15 @@ formatCurrency= function(num){
 
 
 // Administration Menu
-
-$(function(){
-    $(".close_option").live('click', function(){
-        $("#system_data_add_entry_form").hide();
-        $("#custom_group_entry_form").hide();
-        $("#query_table_add_entry_form").hide();
-        $("#access_permission_add_entry_form").hide();
-    });
-});
+//
+//$(function(){
+//    $(".close_option").live('click', function(){
+//        $("#system_data_add_entry_form").hide();
+//        $("#custom_group_entry_form").hide();
+//        $("#query_table_add_entry_form").hide();
+//        $("#access_permission_add_entry_form").hide();
+//    });
+//});
 
 // Configuration
 
