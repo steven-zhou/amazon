@@ -1,7 +1,7 @@
 <%- if @query_header.query_criterias.empty? %>
-  $('#sql_statement').html('No Criteria Entered')
+  $('#sql_statement').html('No Criteria Entered');
 <%- else %>
-  $('#sql_statement').html('<%= escape_javascript("#{@query_header.sql_statements}") %>')
+  $('#sql_statement').html('<%= escape_javascript("#{@query_header.sql_statements}") %>');
 <%- end %>
 
 $('#sql_div').dialog({
@@ -15,5 +15,11 @@ $('#sql_div').dialog({
     }
   }
 });
-$('#sql_div').dialog('option', 'title', 'SQL Statement');
+
+<%- if @query_header.query_criterias.empty? %>
+  $('#sql_div').dialog('option', 'title', 'Error');
+<%- else %>
+  $('#sql_div').dialog('option', 'title', 'SQL Statement');
+<%- end %>
+
 $('#sql_div').dialog('open');
