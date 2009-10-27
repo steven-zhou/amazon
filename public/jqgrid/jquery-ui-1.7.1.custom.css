@@ -391,7 +391,7 @@
 .ui-slider-vertical .ui-slider-range-max { top: 0; }/* Tabs
 ----------------------------------*/
 .ui-tabs { zoom: 1; }
-.ui-tabs .ui-tabs-nav { list-style: none; position: relative;}
+.ui-tabs .ui-tabs-nav { list-style: none; position: relative;padding-left:1.2em;}
 .ui-tabs .ui-tabs-nav li a { float: left; text-decoration: none; /*padding: .5em 1em;*/ }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected { padding-bottom: 1px; border-bottom-width: 0; }
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected a, .ui-tabs .ui-tabs-nav li.ui-state-disabled a, .ui-tabs .ui-tabs-nav li.ui-state-processing a { cursor: text; }
