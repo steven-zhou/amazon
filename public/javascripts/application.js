@@ -1724,7 +1724,7 @@ $(function(){
 });
 
 check_email_field = function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
     if($('#email_value').val()!=""){
         if((!_valid)){
             alert("This field should be am email !");
@@ -1735,7 +1735,7 @@ check_email_field = function(){
 }
 
 check_email_field_edit = function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
     if($('#email_value_edit').val()!=""){
         if((!_valid)){
             alert("This field should be am email !");
