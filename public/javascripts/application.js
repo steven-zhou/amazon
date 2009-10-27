@@ -1393,6 +1393,7 @@ $(function(){
                 resizable: true,
                 draggable: true
             });
+            $('#save_form').dialog('option', 'title', 'New Query');
             $('#save_form').dialog('open');
         }else{
             $('#edit_query_header').doAjaxSubmit();
@@ -3119,6 +3120,24 @@ $(function(){
         $(".person_edit_tab").removeClass("active");
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
+    });
+});
+
+//organisatiomn eidt tabs image change
+$(function(){
+    $(".organisation_edit_tab:not(.active)").live("mouseover", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+".png");
+    });
+
+    $(".organisation_edit_tab:not(.active)").live("mouseout", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_BW.png");
+    });
+
+    $(".organisation_edit_tab:not(.active)").live("mousedown", function(){
+        $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
+        $(".organisation_edit_tab").removeClass("active");
+        $(this).addClass("active");
+        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_title.png");
     });
 });
 

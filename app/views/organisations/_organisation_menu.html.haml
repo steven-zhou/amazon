@@ -1,24 +1,25 @@
 %ul
   %li
-    %a{:href=>"#Contact"} 
-      = image_tag('tab_icons/contacts.png', :title=> 'Contact')
+    %a{:href=>"#Contact", :title=> 'Contact', :class => "organisation_edit_tab active", :field => "contact"}
+      = image_tag('Icons/Core/Org/tabs/contact_title.png')
   %li
-    %a{:href=>"#Address", :title=> 'Address'} 
-      = image_tag('tab_icons/address.png')
+    %a{:href=>"#Address", :title=> 'Address', :class => "organisation_edit_tab", :field => "address"}
+      = image_tag('Icons/Core/Org/tabs/address_BW.png')
   %li
-    %a{:href=>"#Keyword", :title=> 'Keywords'} 
-      =image_tag('tab_icons/keywords.png')
+    %a{:href=>"#Keyword", :title=> 'Keywords', :class => "organisation_edit_tab", :field => "keywords"}
+      =image_tag('Icons/Core/Org/tabs/keywords_BW.png')
   %li
-    %a{:href=>"#MasterDocs",:title=> 'Master Docs'}
-      = image_tag('tab_icons/masterdoc.png')
+    %a{:href=>"#MasterDocs",:title=> 'Master Docs', :class => "organisation_edit_tab", :field => "masterdocs"}
+      = image_tag('Icons/Core/Org/tabs/masterdocs_BW.png')
   %li
-    %a{:href=>"#Note", :title=> 'Note'} 
-      = image_tag('tab_icons/notes.png')
+    %a{:href=>"#Note", :title=> 'Note', :class => "organisation_edit_tab", :field => "notes"}
+      = image_tag('Icons/Core/Org/tabs/notes_BW.png')
 
   %li
-    %a{:href=>"#Employee", :title=> 'Employee', :id =>"show_organisation_employees"} Employee
+    %a{:href=>"#Employee", :title=> 'Employee', :id =>"show_organisation_employees", :class => "organisation_edit_tab", :field => "employee"}
+      = image_tag('Icons/Core/Org/tabs/employee_BW.png')
 
   %li
-    %a{:href=>"#Group", :title=> "Group"}
-      = Group
+    %a{:href=>"#Group", :title=> "Group", :class => "organisation_edit_tab", :field => "groups"}
+      = image_tag('Icons/Core/Org/tabs/groups_BW.png')
 

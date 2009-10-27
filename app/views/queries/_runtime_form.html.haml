@@ -1,5 +1,4 @@
 .container
-  %h1 Please input runtime parameter(s)
   -form_for :query, :url =>{:controller => "query_headers", :action => "copy_runtime"}, :html => {:class => 'ajax_form'} do |f|
     %input{:style => "display:none;", :value => @query_header.id, :name => "id"}
     %input{:style => "display:none;", :value => @top, :name => "top"}
