@@ -1424,10 +1424,10 @@ $(function(){
     $("#run_button_edit").live('click', function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
-        if($("#query_edit_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",

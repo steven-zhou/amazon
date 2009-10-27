@@ -50,6 +50,7 @@ class QueryHeadersController < ApplicationController
   end
 
   def check_runtime
+    puts "****#{params[:top]}*********#{params[:top_number]}***********#{params[:top_percent]}******111111111111**"
     @query_header = QueryHeader.find(params[:id].to_i)
     runtime_params = Array.new
     @query_header.query_criterias.each do |i|
