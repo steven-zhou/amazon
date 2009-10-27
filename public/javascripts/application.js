@@ -3104,4 +3104,22 @@ $(function(){
 });
 
 
+//person eidt tabs image change
+$(function(){
+    $(".person_edit_tab:not(.active)").live("mouseover", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+".png");
+    });
+
+    $(".person_edit_tab:not(.active)").live("mouseout", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_BW.png");
+    });
+
+    $(".person_edit_tab:not(.active)").live("mousedown", function(){
+        $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
+        $(".person_edit_tab").removeClass("active");
+        $(this).addClass("active");
+        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
+    });
+});
+
 
