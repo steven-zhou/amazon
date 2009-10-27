@@ -85,15 +85,11 @@ Rails::Initializer.run do |config|
 
   config.action_mailer.delivery_method = :smtp  # :smtp for live, test for test
   config.action_mailer.perform_deliveries = true # true for live, false for test
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
     :address          => "mail.powernet.com.au",
     :port             => 25,
-    :domain           => "powernetsystems.asia",
-    :authentication => :login,
-    :user_name => "powernet@powernet.com.au",
-    :password => "tenrewop",
   }
 
 end

@@ -28,7 +28,7 @@
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
     #show_list_icon
       - if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
-        =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list"
+        =link_to_function image_tag('application_view_detail.png'), :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list"
       - else
-        =link_to_function 'Show List', :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list"
+        =link_to_function image_tag('application_view_detail.png'), :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list"
   %br.clear
