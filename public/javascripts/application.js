@@ -1407,9 +1407,9 @@ $(function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
         if($("#query_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1424,10 +1424,10 @@ $(function(){
     $("#run_button_edit").live('click', function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
-        if($("#query_edit_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1513,15 +1513,13 @@ $(function(){
 });
 
 $(function(){
-    $("#query_top_number").click(function(){
-        $("#query_top_percent_value").val('');
-        $("#query_top_percent_value").attr("disabled",true);
-        $("#query_top_number_value").attr("disabled",false);
+    $("#query_top_number").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
-    $("#query_top_percent").click(function(){
-        $("#query_top_number_value").val('');
-        $("#query_top_number_value").attr("disabled",true);
-        $("#query_top_percent_value").attr("disabled",false);
+    $("#query_top_percent").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1640,9 +1638,9 @@ $(function(){
         temp += "login_account_id=" + $("#login_account_id").val();
         temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
         if($("#top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#top_number_value").val();
+            temp += "&top=number&top_number=" + $("#top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#top_value").val();
         }
 
         $.ajax({
@@ -1657,14 +1655,12 @@ $(function(){
 
 $(function(){
     $("#top_number").click(function(){
-        $("#top_percent_value").val('');
-        $("#top_percent_value").attr("disabled",true);
-        $("#top_number_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
     $("#top_percent").click(function(){
-        $("#top_number_value").val('');
-        $("#top_number_value").attr("disabled",true);
-        $("#top_percent_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1675,6 +1671,17 @@ $(function(){
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0){
                 alert("This field has to be integer!");
+                $(this).focus();
+                $(this).val('');
+            }
+        }
+    });
+
+    $(".precent_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
+                alert("This field has be an integer between 0 and 100!");
                 $(this).focus();
                 $(this).val('');
             }
