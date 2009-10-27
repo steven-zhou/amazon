@@ -3,6 +3,7 @@
     $('#website_type').html('<%= escape_javascript(render(:partial => "websites/personal_website_type" ,:locals => {:website => @website_new})) %>');
     $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
   <% else %>
+    $('#website_type').html('<%= escape_javascript(render(:partial => "websites/personal_website_type" ,:locals => {:website => @website_new})) %>');
     $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
   <% end -%>
   $("#new_website")[0].reset();

@@ -1407,9 +1407,9 @@ $(function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
         if($("#query_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1424,10 +1424,10 @@ $(function(){
     $("#run_button_edit").live('click', function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
-        if($("#query_edit_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1513,15 +1513,13 @@ $(function(){
 });
 
 $(function(){
-    $("#query_top_number").click(function(){
-        $("#query_top_percent_value").val('');
-        $("#query_top_percent_value").attr("disabled",true);
-        $("#query_top_number_value").attr("disabled",false);
+    $("#query_top_number").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
-    $("#query_top_percent").click(function(){
-        $("#query_top_number_value").val('');
-        $("#query_top_number_value").attr("disabled",true);
-        $("#query_top_percent_value").attr("disabled",false);
+    $("#query_top_percent").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1640,9 +1638,9 @@ $(function(){
         temp += "login_account_id=" + $("#login_account_id").val();
         temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
         if($("#top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#top_number_value").val();
+            temp += "&top=number&top_number=" + $("#top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#top_value").val();
         }
 
         $.ajax({
@@ -1657,14 +1655,12 @@ $(function(){
 
 $(function(){
     $("#top_number").click(function(){
-        $("#top_percent_value").val('');
-        $("#top_percent_value").attr("disabled",true);
-        $("#top_number_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
     $("#top_percent").click(function(){
-        $("#top_number_value").val('');
-        $("#top_number_value").attr("disabled",true);
-        $("#top_percent_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1674,7 +1670,18 @@ $(function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0){
-                alert("This field has be an integer!");
+                alert("This field has to be integer!");
+                $(this).focus();
+                $(this).val('');
+            }
+        }
+    });
+
+    $(".precent_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
+                alert("This field has be an integer between 0 and 100!");
                 $(this).focus();
                 $(this).val('');
             }
@@ -1682,9 +1689,39 @@ $(function(){
     });
 });
 
+check_empty_value = function(){
+  
+    if( $("#"+$(this).attr("check_field")).val()== "")
+        {
+
+            alert("The value field can not be empty!");
+            return false;
+        }
+}
+
+$(function(){
+    $("#contact_phone_submit").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#contact_phone_submit_edit").live('click', check_empty_value);
+});
 
 
+$(function(){
+    $("#submit_email_field").live('click', check_empty_value);
+});
 
+$(function(){
+    $("#submit_email_field_edit").live('click', check_empty_value);
+});
+$(function(){
+    $("#submit_website_field").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#submit_website_field_edit").live('click', check_empty_value);
+});
 
 check_email_field = function(){
          _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
@@ -1702,7 +1739,7 @@ check_email_field_edit = function(){
         if($('#email_value_edit').val()!=""){
             if((!_valid)){
                 alert("This field should be am email !");
-                $('#email_value').focus();
+                $('#email_value_edit').focus();
                 return false;
         }
 }
@@ -3146,6 +3183,32 @@ $(function(){
 $(function(){
     $(".clear_form_to_phone").live("click", function(){
         $("#select_contact_type").val("Phone").change();
+
+        if($("#phone_contact_meta_type_id").val() == null)
+            {
+                $("#phone_pre_value").attr('readonly','readonly');
+                $("#phone_value").attr('readonly','readonly');
+                $("#phone_post_value").attr('readonly','readonly');
+                $("#phone_remarks").attr('readonly','readonly');
+                $("#contact_phone_submit").attr('readonly','readonly');
+
+            }
+
+            if($("#email_contact_meta_type_id").val() == null)
+            {
+                $("#email_remarks").attr('readonly','readonly');
+                $("#email_value").attr('readonly','readonly');
+                $("#submit_email_field").attr('readonly','readonly')
+            }
+
+            if($("#website_contact_meta_type_id").val() == null)
+            {
+                $("#website_value").attr('readonly','readonly');
+                $("#website_remarks").attr('readonly','readonly');
+                $("#submit_website_field").attr('readonly','readonly')
+            }
     });
+
+
 
 });

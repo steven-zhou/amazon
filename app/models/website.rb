@@ -25,7 +25,7 @@ class Website < Contact
   ################
   #++
 
-
+  validates_presence_of :value
 
   # Return the address of the email
   # Convenience method to access value

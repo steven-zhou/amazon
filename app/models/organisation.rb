@@ -92,7 +92,7 @@ class Organisation < ActiveRecord::Base
     @primary_email ||= self.emails.select {|email| email.priority_number == 1}.first
   end
 
-   def secondary_email
+  def secondary_email
     @secondary_email ||= self.emails.select {|email| email.priority_number == 2}.first
   end
 
@@ -103,7 +103,7 @@ class Organisation < ActiveRecord::Base
   def primary_website
     @primary_website ||= self.websites.select {|website| website.priority_number == 1}.first
   end
- def secondary_website
+  def secondary_website
     @secondary_website ||= self.websites.select {|website| website.priority_number == 2}.first
   end
   def other_phones
@@ -131,40 +131,65 @@ class Organisation < ActiveRecord::Base
     # @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
   end
 
-
-  #--
-  ###################
-  #  Private Methods
-  ###################
-  #++
-
-  def siblings
-    parents = self.related_people.find(:all, :conditions => {'relationships.relationship_type_id' => [RelationshipType.find_by_name('Father'),RelationshipType.find_by_name('Mother')]})
-    siblings = parents.collect{|parent| parent.source_people.of_type('Father').concat(parent.source_people.of_type('Mother'))}.flatten.uniq
-    siblings.delete(self)
-    return siblings
+  def personal_email_types
+    @personal_email_types = Array.new
+    self.emails.each do |email|
+      @personal_email_types <<  TagType.find(email.contact_meta_type_id)
+    end
+    return @personal_email_types
   end
 
-  #--
-  ###################
-  #  Private Methods
-  ###################
-  #++
+  def personal_phone_types
+    @personal_phone_types = Array.new
+    self.phones.each do |phone|
+      @personal_phone_types <<  TagType.find(phone.contact_meta_type_id)
+    end
 
-  private
+    return @personal_phone_types
+  end
 
-  def insert_duplication_value
-    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
-    unless @organisational_duplication_formula.nil?
-      self.duplication_value = ""
-      @organisational_duplication_formula.duplication_formula_details.each do |i|
-        if i.is_foreign_key
-          self.duplication_value += self.__send__(i.field_name.to_sym).name[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
-        else
-          self.duplication_value += self.__send__(i.field_name.to_sym)[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+  def personal_website_types
+    @personal_website_types = Array.new
+    self.websites.each do |website|
+      @personal_website_types <<  TagType.find(website.contact_meta_type_id)
+    end
+
+  end
+
+
+    #--
+    ###################
+    #  Private Methods
+    ###################
+    #++
+
+    def siblings
+      parents = self.related_people.find(:all, :conditions => {'relationships.relationship_type_id' => [RelationshipType.find_by_name('Father'),RelationshipType.find_by_name('Mother')]})
+      siblings = parents.collect{|parent| parent.source_people.of_type('Father').concat(parent.source_people.of_type('Mother'))}.flatten.uniq
+      siblings.delete(self)
+      return siblings
+    end
+
+    #--
+    ###################
+    #  Private Methods
+    ###################
+    #++
+
+    private
+
+    def insert_duplication_value
+      @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+      unless @organisational_duplication_formula.nil?
+        self.duplication_value = ""
+        @organisational_duplication_formula.duplication_formula_details.each do |i|
+          if i.is_foreign_key
+            self.duplication_value += self.__send__(i.field_name.to_sym).name[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+          else
+            self.duplication_value += self.__send__(i.field_name.to_sym)[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+          end
         end
       end
     end
-  end
 
-end
+  end

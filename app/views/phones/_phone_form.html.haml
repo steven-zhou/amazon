@@ -10,11 +10,10 @@
     = phone.text_field :pre_value,:class => "integer_field"
   .field_40
     = phone.label :value, "value"
-    = phone.text_field :value , :class => "integer_field"
+    = phone.text_field :value , :class => "integer_field empty_field" , :id => "phone_value_edit"
   .field_15
     = phone.label :post_value, "Pos value"
-    = phone.text_field :post_value,:class => "integer_field"
-  %br.clear
+    = phone.text_field :post_value
 -#.form_line
   .field_25
     = phone.label :monday_hours, "Monday"
