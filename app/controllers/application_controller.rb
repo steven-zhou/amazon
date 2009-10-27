@@ -2,9 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-
+ 
   include ExceptionNotifiable
-
+ 
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
@@ -57,12 +57,15 @@ class ApplicationController < ActionController::Base
     when "too short" then "#{options[:field]} is too short"
     when "format error" then "#{options[:field]} format is wrong"
     when "same_person_error" then "#{options[:field]} can not same as source person"
-
+    when "too_long_name" then "#{options[:field]} should be shorter"
+    when "too_short_name" then "#{options[:field]} should be longer"
       # Default
     when "default" then " #{options[:message]}"
     end
 
     options[:message] ?  result : result + " #{options[:message]}"
   end
+
+
 
 end

@@ -88,12 +88,27 @@ Rails::Initializer.run do |config|
   config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.smtp_settings = {
-    :address          => "mail.powernet.com.au",
-    :port             => 25,
-    :domain           => "powernetsystems.asia",
-    :authentication => :login,
+    #    :enable_starttls_auto => true,
+    #    :address          => "mail.powernet.com.au",
+    #    :port             => 25,
+    #    :domain           => "powernetsystems.asia",
+    #    :authentication => :login,
+    #    :user_name => "powernet@powernet.com.au",
+    #    :password => "tenrewop",
+    :enable_starttls_auto => true,
+    :address  => "mail.powernet.com.au",
+    :port => 25,
+    :domain => "powernetsystems.asia",
+    :authentication => :plain,
     :user_name => "powernet@powernet.com.au",
     :password => "tenrewop",
+
+#    :enable_starttls_auto => true,
+#    :address => "smtp.gmail.com",
+#    :port => 587,
+#    :authentication => :plain,
+#    :user_name => "stevenzhou2011@gmail.com",
+#    :password => "19820825"
   }
 
 end

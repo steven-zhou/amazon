@@ -95,6 +95,9 @@
     .field_23
       = login.label :access_attempts_count
       = login.text_field :access_attempts_count
+    .field_23.hidden
+      = login.label :password_by_admin
+      = login.check_box :password_by_admin, :checked => true, :class => "checkbox_style"
   %br.clear
   .form_line
   %br

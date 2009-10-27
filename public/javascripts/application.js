@@ -3029,5 +3029,20 @@ $(function(){
     });
 });
 
+/*user account*/
 
+$(function(){
+    $('#generate_new_password').live('click', function(){
+
+       $.ajax({
+            type: "Post",
+            url: "/login_accounts/generate_password.js",
+            data: "login_account_id=" + $(this).attr('login_account_id'),
+            dataType:"script"
+
+        });
+
+
+    });
+});
 

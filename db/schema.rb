@@ -9,9 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20091026051223) do
-
+ActiveRecord::Schema.define(:version => 20091027072436) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -282,6 +280,7 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.integer  "security_question3_id"
     t.text     "access_attempt_ip"
     t.integer  "access_attempts_count"
+    t.boolean  "password_by_admin"
   end
 
   create_table "master_docs", :force => true do |t|
@@ -539,18 +538,11 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.boolean  "role_status"
   end
 
-<<<<<<< HEAD:db/schema.rb
-  create_table "show_organisation_grids", :force => true do |t|
-=======
   create_table "show_postcode_grids", :force => true do |t|
->>>>>>> 82922c944ec8ad16b084e3b2762526f6bb728731:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-<<<<<<< HEAD:db/schema.rb
-  create_table "show_organisation_list_grids", :force => true do |t|
-=======
   create_table "show_postcodes", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -561,7 +553,6 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.datetime "event_date"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
->>>>>>> 82922c944ec8ad16b084e3b2762526f6bb728731:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end
