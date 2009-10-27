@@ -1674,7 +1674,7 @@ $(function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0){
-                alert("This field has be an integer!");
+                alert("This field has to be integer!");
                 $(this).focus();
                 $(this).val('');
             }
@@ -1682,9 +1682,39 @@ $(function(){
     });
 });
 
+check_empty_value = function(){
+  
+    if( $("#"+$(this).attr("check_field")).val()== "")
+        {
+
+            alert("The value field can not be empty!");
+            return false;
+        }
+}
+
+$(function(){
+    $("#contact_phone_submit").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#contact_phone_submit_edit").live('click', check_empty_value);
+});
 
 
+$(function(){
+    $("#submit_email_field").live('click', check_empty_value);
+});
 
+$(function(){
+    $("#submit_email_field_edit").live('click', check_empty_value);
+});
+$(function(){
+    $("#submit_website_field").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#submit_website_field_edit").live('click', check_empty_value);
+});
 
 check_email_field = function(){
          _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
@@ -1702,7 +1732,7 @@ check_email_field_edit = function(){
         if($('#email_value_edit').val()!=""){
             if((!_valid)){
                 alert("This field should be am email !");
-                $('#email_value').focus();
+                $('#email_value_edit').focus();
                 return false;
         }
 }
@@ -3146,6 +3176,32 @@ $(function(){
 $(function(){
     $(".clear_form_to_phone").live("click", function(){
         $("#select_contact_type").val("Phone").change();
+
+        if($("#phone_contact_meta_type_id").val() == null)
+            {
+                $("#phone_pre_value").attr('readonly','readonly');
+                $("#phone_value").attr('readonly','readonly');
+                $("#phone_post_value").attr('readonly','readonly');
+                $("#phone_remarks").attr('readonly','readonly');
+                $("#contact_phone_submit").attr('readonly','readonly');
+
+            }
+
+            if($("#email_contact_meta_type_id").val() == null)
+            {
+                $("#email_remarks").attr('readonly','readonly');
+                $("#email_value").attr('readonly','readonly');
+                $("#submit_email_field").attr('readonly','readonly')
+            }
+
+            if($("#website_contact_meta_type_id").val() == null)
+            {
+                $("#website_value").attr('readonly','readonly');
+                $("#website_remarks").attr('readonly','readonly');
+                $("#submit_website_field").attr('readonly','readonly')
+            }
     });
+
+
 
 });
