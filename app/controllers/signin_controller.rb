@@ -1,5 +1,7 @@
 class SigninController < ApplicationController
 
+  include SimpleCaptcha::ControllerHelpers
+
   before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha]
   layout nil
 
