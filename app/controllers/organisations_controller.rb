@@ -74,7 +74,7 @@ class OrganisationsController < ApplicationController
           flash.now[:warning] = "The image was not saved."
         end
       end
-
+      @organisation_new = Organisation.new
       # If the user wants to edit the record they just added
       if(params[:edit])
         flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
