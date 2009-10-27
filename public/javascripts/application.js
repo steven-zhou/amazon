@@ -30,7 +30,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -320,9 +320,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/organisations/name_finder.js",
+                    "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -337,9 +337,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/people/name_finder.js",
+                    "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -377,7 +377,7 @@ $(function()
             dataType: "script"
         });
 
-    /* }
+        /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -458,9 +458,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_meta_type_finder.js",
+                "/people/master_doc_meta_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -472,9 +472,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_type_finder.js",
+                "/people/master_doc_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -729,18 +729,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/new.js",
+                    "/amazon_settings/new.js",
                 data:
-                'type=' + $("#find_data_list_field").val(),
+                    'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/" + $(this).val() + "/edit.js",
+                    "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                'id=' + $(this).val(),
+                    'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -1116,7 +1116,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 });
 
@@ -1127,7 +1127,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 });
 
@@ -1692,11 +1692,11 @@ $(function(){
 check_empty_value = function(){
   
     if( $("#"+$(this).attr("check_field")).val()== "")
-        {
+    {
 
-            alert("The value field can not be empty!");
-            return false;
-        }
+        alert("The value field can not be empty!");
+        return false;
+    }
 }
 
 $(function(){
@@ -1724,25 +1724,25 @@ $(function(){
 });
 
 check_email_field = function(){
-         _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
-        if($('#email_value').val()!=""){
-            if((!_valid)){
-                alert("This field should be am email !");
-                $('#email_value').focus();
-                return false;
+    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
+    if($('#email_value').val()!=""){
+        if((!_valid)){
+            alert("This field should be am email !");
+            $('#email_value').focus();
+            return false;
         }
-}
+    }
 }
 
 check_email_field_edit = function(){
-         _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
-        if($('#email_value_edit').val()!=""){
-            if((!_valid)){
-                alert("This field should be am email !");
-                $('#email_value_edit').focus();
-                return false;
+    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
+    if($('#email_value_edit').val()!=""){
+        if((!_valid)){
+            alert("This field should be am email !");
+            $('#email_value_edit').focus();
+            return false;
         }
-}
+    }
 }
 
 $(function(){
@@ -1753,30 +1753,30 @@ $(function(){
 });
 
 check_website_field = function(){
-   _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value").val());
-              if($('#website_value').val()!=""){
-            if((!_valid)){
-                alert("This field should be website format !");
-                $(this).focus();
-                return false;
+    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value").val());
+    if($('#website_value').val()!=""){
+        if((!_valid)){
+            alert("This field should be website format !");
+            $(this).focus();
+            return false;
 
 
-            }
         }
+    }
 
 }
 
 check_website_field_edit = function(){
-   _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value_edit").val());
-              if($('#website_value_edit').val()!=""){
-            if((!_valid)){
-                alert("This field should be website format !");
-                $(this).focus();
-                return false;
+    _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value_edit").val());
+    if($('#website_value_edit').val()!=""){
+        if((!_valid)){
+            alert("This field should be website format !");
+            $(this).focus();
+            return false;
 
 
-            }
         }
+    }
 
 }
 
@@ -2217,79 +2217,79 @@ $(function(){
         url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'Email',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
+            {
+                display: 'Email',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2400,79 +2400,79 @@ $(function(){
         url: '/grids/organisation_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Trading As',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Trading As',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Registered Name',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Registered Name',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Website',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'Website',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'Trading As',
-            name : 'field_1'
-        },
+            {
+                display: 'Trading As',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Registered Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Registered Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Website',
-            name : 'field_5'
-        }
+            {
+                display: 'Website',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2504,79 +2504,79 @@ $(function(){   /*organisation employee list result*/
         url: '/grids/organisation_employee_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 120,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'email',
-            name : 'field_5',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'email',
+                name : 'field_5',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
+            {
+                display: 'Email',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2827,6 +2827,7 @@ $(function(){
 $(function(){
     $('#edit_role_form').live('click', function(){
         $('#role_role_type_id').attr("disabled", false);
+        $(".container_selected").removeClass("container_selected");
     });
 
 });
@@ -2940,6 +2941,7 @@ $(function(){
 $(function(){
 
     $("#edit_role_condition_form").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
         $("#role_condition_edit_role_container").hide();
         $('#role_condition_role_type_id').attr("disabled", false);
     });
@@ -2977,7 +2979,7 @@ $(function(){
     $('table#address_postcode tbody tr').live('click',function(){
         $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
-            });
+    });
 });
 
 /* Organisation Lookup*/
@@ -3001,12 +3003,12 @@ $(function(){
 
     });
 
-     $("table#organisation_lookup_grid tbody tr").live("click", function(){
-      $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
+    $("table#organisation_lookup_grid tbody tr").live("click", function(){
+        $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");
     });
-     $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
-       $(this).css("cursor", "pointer");
+    $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
+        $(this).css("cursor", "pointer");
     });
 });
 
@@ -3080,7 +3082,7 @@ $(function(){
 
     });
 
-      $("table#person_lookup_grid tbody tr").live("click", function(){
+    $("table#person_lookup_grid tbody tr").live("click", function(){
         $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
 
@@ -3100,27 +3102,27 @@ $(document).ready(function() {
     });
 
     $("div#module_menu").hover(
-        function(){
-            $("div#module_menu_items").fadeOut("fast");
-        },
-        function(){
-            $("div#module_menu_top").removeClass("hover");
-            $("div#module_menu_items").fadeOut("fast");
-        });
+    function(){
+        $("div#module_menu_items").fadeOut("fast");
+    },
+    function(){
+        $("div#module_menu_top").removeClass("hover");
+        $("div#module_menu_items").fadeOut("fast");
+    });
 
     $("div#module_menu_items").hover(
-        function(){},
-        function(){
-            $("div#module_menu_top").removeClass("hover");
-        });
+    function(){},
+    function(){
+        $("div#module_menu_top").removeClass("hover");
+    });
 
     $("div#module_menu_items li").hover(
-        function(){
-            $(this).addClass("hover","fast");
-        },
-        function(){
-            $(this).removeClass("hover", "normal");
-        });
+    function(){
+        $(this).addClass("hover","fast");
+    },
+    function(){
+        $(this).removeClass("hover", "normal");
+    });
 });
 
 /*user--list*/
@@ -3128,10 +3130,10 @@ $(document).ready(function() {
 $(function(){
     $('.show_user_list_description').live('change', function(){
         $.ajax({
-           type: "GET",
-           url: "/user_lists" + "/show_list_des.js",
-           data: "list_id=" + $(this).val(),
-           dataType:"script"
+            type: "GET",
+            url: "/user_lists" + "/show_list_des.js",
+            data: "list_id=" + $(this).val(),
+            dataType:"script"
 
         });
 
@@ -3178,13 +3180,29 @@ $(function(){
     });
 });
 
+/*user account*/
 
-/*Contact form add button form to default phone form*/
 $(function(){
-    $(".clear_form_to_phone").live("click", function(){
-        $("#select_contact_type").val("Phone").change();
+    $('#generate_new_password').live('click', function(){
 
-        if($("#phone_contact_meta_type_id").val() == null)
+        $.ajax({
+            type: "Post",
+            url: "/login_accounts/generate_password.js",
+            data: "login_account_id=" + $(this).attr('login_account_id'),
+            dataType:"script"
+
+        });
+
+    });
+
+    });
+
+    /*Contact form add button form to default phone form*/
+    $(function(){
+        $(".clear_form_to_phone").live("click", function(){
+            $("#select_contact_type").val("Phone").change();
+
+            if($("#phone_contact_meta_type_id").val() == null)
             {
                 $("#phone_pre_value").attr('readonly','readonly');
                 $("#phone_value").attr('readonly','readonly');
@@ -3207,8 +3225,8 @@ $(function(){
                 $("#website_remarks").attr('readonly','readonly');
                 $("#submit_website_field").attr('readonly','readonly')
             }
+
+        });
     });
 
 
-
-});
