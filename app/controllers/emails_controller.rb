@@ -3,7 +3,12 @@ class EmailsController < ApplicationController
   def show
     @email = Email.find(params[:id])
         @email_new = Email.new
-    @person = Person.find(@email.contactable_id)
+    if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)
+    end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -42,7 +47,12 @@ class EmailsController < ApplicationController
   def update
     @email = Email.find(params[:id].to_i)
     @email_new = Email.new
-    @person = Person.find(@email.contactable_id)
+   if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)
+    end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       if @email.update_attributes(params[:email])  
         format.js { render 'show.js' }
