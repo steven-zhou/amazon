@@ -588,12 +588,17 @@ $(function(){
     $(".multilevel_new_option").live("click", function(){
         $("li.open").removeClass("open");
         $("li.active").removeClass("active");
+        $(".toggle_multilevel_options").removeClass("container_selected");
     });
 
 
     $(".toggle_multilevel_options").live("click", function(){
-        $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
-        $(this).parent().toggleClass("open");
+        if ($(this).parent().attr("class").indexOf("open")>=0){
+            $(this).parent().removeClass("open");
+        }else{
+            $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
+            $(this).parent().addClass("open");
+        }        
         $("li").removeClass("active");
         $(this).parent().addClass("active");
         $(".toggle_multilevel_options").removeClass("container_selected");
@@ -622,6 +627,8 @@ $(function(){
     });
 
     $(".new_tag_type").live("click", function(){
+        container = $(this).parent().parent();
+        container.parent().removeClass("open");
         $.ajax({
             type: "GET",
             url: "/tag_types/new.js",
@@ -631,6 +638,8 @@ $(function(){
     });
 
     $(".new_tag").live("click", function(){
+        container = $(this).parent().parent();
+        container.parent().removeClass("open");
         $.ajax({
             type: "GET",
             url: "/tags/new.js",
@@ -641,7 +650,11 @@ $(function(){
 
     $('a.get_tag').live('click', function() {
         container = $(this).parent().parent();
-        container.click();
+        container.parent().removeClass("open");
+        $("li").removeClass("active");
+        container.parent().addClass("active");
+        $(".toggle_multilevel_options").removeClass("container_selected");
+        container.addClass("container_selected");
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
