@@ -14,7 +14,6 @@ class FeedbackController < ApplicationController
 
       email = FeedbackDispatcher.create_notify_admin(@feedback)
       FeedbackDispatcher.deliver(email)
-      puts "#{email}"
 
     respond_to do |format|
       format.js
