@@ -20,19 +20,19 @@
   .form_line
     .field_40{:style => "width: 39%;"}
       = a.label :town, 'Suburb'
-      = a.text_field :town ,:id => @address.new_record? ? "address_town" : "address_#{@address.id}_town" ,:style => "width:99%;"
+      = a.text_field :town ,:id =>"address_town",:style => "width:99%;"
 
     .field_5{:style => "margin-right: 4px;"}
       = a.label :postal_code, '&nbsp'
-      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>@address.new_record? ? "address_town" : "address_#{@address.id}_town",:update_field2 =>@address.new_record? ? "address_state" : "address_#{@address.id}_state" ,:update_field3 => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code",:update_field4 => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"
+      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"address_town" ,:update_field2 =>"address_state" ,:update_field3 => "address_postal_code" ,:update_field4 => "address_country_id"
     .field_40
       = a.label :state, 'State/Province'
-      = a.text_field :state , :id => @address.new_record? ? "address_state" : "address_#{@address.id}_state"
+      = a.text_field :state , :id => "address_state"
   .form_line
     .field_45
       = a.label :postal_code, 'Postal Code'
-      = a.text_field :postal_code, :id => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code"
+      = a.text_field :postal_code, :id => "address_postal_code" 
     .field_45
       = a.label :country, 'Country'
-      = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"}
+      = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id =>"address_country_id"}
   = submit_tag 'Submit',:id => "address_submit_button"
