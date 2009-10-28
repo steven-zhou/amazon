@@ -106,11 +106,6 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.string   "group"
   end
 
-  create_table "duplication_personal_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "employments", :force => true do |t|
     t.integer  "person_id"
     t.integer  "organisation_id"
@@ -159,8 +154,6 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
 
   create_table "feedback_items", :force => true do |t|
     t.integer  "login_account_id"
-    t.text     "controller_submitted_at"
-    t.text     "action_submitted_at"
     t.text     "subject"
     t.text     "content"
     t.text     "ip_address"
@@ -333,11 +326,6 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.integer  "noteable_id"
     t.string   "noteable_type"
     t.integer  "note_type_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "ogansisation_contacts_report_grids", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end

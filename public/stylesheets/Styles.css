@@ -1383,3 +1383,23 @@ div.duplication_check .form_line.field_select_line {
     width:auto !important;
 
 }
+
+#feedback_form {
+    display:none;
+    background:white;
+}
+
+#feedback_form table{
+    border:0px;
+    width:80%;
+}
+
+#feedback_form table td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+#feedback_confirmation {
+    display: none;
+    text-align: center;
+}
