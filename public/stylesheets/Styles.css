@@ -154,6 +154,10 @@ body {
     text-align: center;
 }
 
+#app #main #sysbar .bar_section#menu  {
+    text-align:left;
+}
+
 #app #main #sysbar .bar_section#toolbar  {
     width: 50%;
 }
@@ -311,6 +315,20 @@ img {
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;
+}
+
+#app #main #content .container_half {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 46%;
+    float: left;
+    padding: 1%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+    margin-right:2%;
 }
 
 #app #main #content .container.green_container {
