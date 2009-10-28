@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(:version => 20091028011511) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-  
+
   create_table "grids", :force => true do |t|
     t.integer "login_account_id"
     t.integer "grid_object_id"
