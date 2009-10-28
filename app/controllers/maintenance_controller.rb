@@ -20,7 +20,7 @@ class MaintenanceController < ApplicationController
       available_backups = Dir.entries(backup_directory) - ["..", "."]
       for backup in available_backups do
         backup = backup_directory_tidy(backup)
-        @backups << bacup unless backup.empty?
+        @backups << backup unless backup.empty?
       end
     end
   end
