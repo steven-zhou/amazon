@@ -2,15 +2,8 @@
 -div_for(organisation_contact, :class => 'header_container toggle_options' , :field => "contact") do
   %div
     .title
-      %h2= "#{organisation_contact.class} (#{organisation_contact.contact_meta_type.name}) "
-      .options{:style => "display:none;"}
-        = link_to image_tag('edit_icon.png', :alt => 'Edit'), :class => 'get_query edit_option', :field => "query"
-        = link_to image_tag('delete_icon.png', :alt => 'Delete'), :class => 'delete'
-    
-  %div{:style => "float:right;"}
-    = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+      %h2= "#{organisation_contact.contact_meta_type.name} " 
+    %div{:style => "float:right;"}
+      = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
     %br
-    -#- if organisation_contact.read_attribute("type") == "Phone"
-      = organisation_contact.preferrence_day_times
-    %br
-    = organisation_contact.remarks
+      = organisation_contact.remarks

@@ -1,0 +1,26 @@
+#header
+  #page_title
+    %h1 System Parameters
+  #lol
+  %br.clear
+
+.container
+  %h2 Security Parameters
+  - form_for @client_setup do |f|
+    .form_line
+      .field_20
+        = f.label :number_of_login_attempts, "Number of Login Attempts"
+        = f.text_field :number_of_login_attempts, :class => "integer_field"
+      .field_20
+        = f.label :new_account_graceperiod, "New Account Grace Period"
+        = f.text_field :new_account_graceperiod, :class => "integer_field"
+      .field_20
+        = f.label :session_timeout, "Session Timeout"
+        = f.text_field :session_timeout, :class => "integer_field"
+      .field_20
+        = f.label :password_lifetime, "User Password Lifetime"
+        = f.text_field :password_lifetime, :class => "integer_field"
+      .field_10
+        %label &nbsp;
+        = submit_tag "Submit"
+

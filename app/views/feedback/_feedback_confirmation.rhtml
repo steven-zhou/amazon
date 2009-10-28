@@ -1,0 +1,52 @@
+
+<h2>Feedback Accepted</h2>
+<br />
+<p>Thank you for your feedback.</p>
+<br />
+<p>Your feedback has been received and has been issued ticket number: <%= @feedback.id %>.</p>
+<br />
+<p>Would you like to receive email confirmation of this?</p>
+<br />
+<p><div id="issue_feedback_confirmation" style="cursor:pointer;display:inline;">Yes</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id="no_feedback_confirmation" style="cursor:pointer;display:inline;">No</div></p>
+
+<script type="text/javascript">
+  $(function() {
+    $(document).ready(function() {
+      $('#feedback_confirmation').dialog( {
+        modal: true,
+        resizable: false,
+        draggable :false,
+        height: 300,
+        width: 450
+      }
+    );
+      $("#feedback_confirmation").dialog("open");
+    });
+
+  }
+)
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('#no_feedback_confirmation').live('click', function(){
+      $("#feedback_confirmation").dialog("destroy");
+    });
+  }
+)
+</script>
+
+<script type="text/javascript">
+  $(function() {
+    $('#issue_feedback_confirmation').live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/feedback/issue_confirmation",
+            data: 'id=' + <%= escape_javascript("#{@feedback.id}") %>,
+            dataType: "script"
+        });      
+      $("#feedback_confirmation").dialog("destroy");
+    });
+  }
+)
+</script>

@@ -9,7 +9,7 @@
     %input.hidden{:id => "organisation_group_mode", :mode => "show"}
    
     .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
-      -form_for([@organisation, @organisation_group], :html => {:class => 'ajax_form'}) do |groups|
+      -form_for([@organisation, @organisation_group], :url => "/organisations/#{@organisation.id}/organisation_groups", :html => {:class => 'ajax_form'}) do |groups|
         = render :partial => '/organisation_groups/group_form', :locals => {:groups => groups}
         = submit_tag 'Submit'
       %br.clear

@@ -1,0 +1,49 @@
+<div id="feedback_form">
+  <h2>Feedback Form</h2>
+  <br />
+  <p>If you have any questions or feedback, please complete the form below.</p>
+  <br />
+
+  <% form_tag("/feedback/submit_feedback", :class => "ajax_form") do -%>
+    <table>
+      <tr>
+        <td>
+          <strong>From:</strong>
+        </td>
+        <td>
+          <%= @current_user.user_name %> (<%= @current_user.person.name %>)
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Date:</strong>
+        </td>
+        <td>
+          <%= Date.today().strftime('%a %d %b %Y') %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Subject:</strong>
+        </td>
+        <td>
+          <%= text_field_tag :feedback_item_subject, nil, :size => "30" %>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <strong>Message:</strong>
+        </td>
+        <td>
+          <%= text_area_tag :feedback_item_content, nil, :cols => "30", :rows => "15" %>
+        </td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td><%= submit_tag("Submit", :id => "feedback_submit") %></td>
+      </tr>
+
+    </table>
+  <%  end -%>
+
+</div>

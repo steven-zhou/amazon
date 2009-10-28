@@ -318,13 +318,6 @@ Website.create(
 
 # Masterdocs
 
-#Organisations
-puts "Createing Organisation for ABC"
-abc = Organisation.create(
-  :full_name => "ABC",
-  :onrecord_since => 586.days.ago
-)
-
 # Sample postcodes
 
 puts "Creating some sample postcodes"

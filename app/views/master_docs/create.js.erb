@@ -1,5 +1,6 @@
 <% if @masterdoc.errors.empty? -%>
-  $('#masterdocs').append('<%= escape_javascript(render(:partial => @masterdoc)) %>');
+  $('#masterdocs').html('<%= escape_javascript(render(:partial => "/master_docs/master_doc",:collection => @entity.master_docs)) %>');
+
   $("#new_master_doc")[0].reset();
   $("#new_master_doc").hide();
   $('#master_doc_mode').attr('mode', 'show');

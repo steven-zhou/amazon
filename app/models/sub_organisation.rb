@@ -1,0 +1,3 @@
+class SubOrganisation < Organisation
+
+end

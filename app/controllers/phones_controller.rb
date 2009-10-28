@@ -46,7 +46,12 @@ class PhonesController < ApplicationController
 
   def update
     @phone = Phone.find(params[:id].to_i)
-    @person = Person.find(@phone.contactable_id)
+    if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@phone.contactable_id)
+    end
+    if @phone.contactable_type == "Organisation"
+      @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
      @phone_new = Phone.new
     respond_to do |format|
       if @phone.update_attributes(params[:phone])  

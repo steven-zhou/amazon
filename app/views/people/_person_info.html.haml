@@ -16,9 +16,24 @@
           %h1 Contacts
 
         %br{ :style=>"clear: both;"}
+   
       #contacts
       =# Render the person's contacts
-      = render :partial => '/people/person_contact', :collection => @person.contacts
+      -if !@person.phones.blank?
+        .container
+          %h2 Phone
+          #contact_phone
+            = render :partial => '/people/person_contact', :collection => @person.phones
+      -if !@person.emails.blank?
+        .container
+          %h2 Email
+          #contact_email
+            = render :partial => '/people/person_contact', :collection => @person.emails
+      -if !@person.websites.blank?
+        .container
+          %h2 Website
+          #contact_website
+            = render :partial => '/people/person_contact', :collection => @person.websites
   #Keyword
     .container
       .header_container

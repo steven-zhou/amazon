@@ -1,4 +1,8 @@
+ <%if @organisation.nil? -%>
 $('#website_type').html('<%= escape_javascript(render(:partial => "websites/personal_website_type" ,:locals => {:website => @website_new})) %>');
+ <%else%>
+$('#website_type').html('<%= escape_javascript(render(:partial => "websites/organisation_personal_website_type" ,:locals => {:website => @website_new})) %>');
+<%end%>
 $('#<%= dom_id(@website, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => 'contacts/contact', :locals => {:contact => @website})) %>");
 $('.person_contact_toggle_button').css("display","");
  $('#contact_hidden_tab').attr('mode','show');
