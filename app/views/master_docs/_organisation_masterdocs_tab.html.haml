@@ -1,23 +1,16 @@
 -#MasterDocs Tab
 .container
   .header_container
-    .title
-      %h1 MasterDocs
-      %input{:id => "master_doc_mode" :mode => "show", :style => "display:none"}
     .options
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "master_doc", :toggle_id_name => "new_master_doc",:style => "display:none"
+    .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button new_option", :field => "master_doc", :toggle_id_name => "new_master_doc"  if (!organisation.nil? && !organisation.new_record?)
-      = image_tag('help_icon.png')
-    %br.clear
-
-  =# Initially hidden new masterdoc form
-  -form_for([@organisation,@masterdoc], :url => "/organisations/#{@organisation.id}/master_docs", :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
-    .container
-      .options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "master_doc", :toggle_id_name => "new_master_doc"
-      %h1 New Document
+    %h1 New MasterDoc
+    %input{:id => "master_doc_mode" :mode => "show", :style => "display:none"}
+    =# Initially hidden new masterdoc form
+    -form_for([@organisation,@masterdoc], :url => "/organisations/#{@organisation.id}/master_docs", :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
       = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
       = submit_tag 'Submit'
-    %br.clear
 
   #masterdocs
     =# Render the organisation's addresses

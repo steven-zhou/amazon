@@ -1,7 +1,8 @@
 - form_tag(@current_controller == "people" && @current_action == "show" ? '/people/show' : '/people/edit', :id => "person_list") do
   %div#loleft
-    .lolfont_center
-      = label_tag 'person_id', 'System ID', :style => 'clear:both'
+    .lolfont_left{:style => "margin-left: 65px;"}
+      = label_tag 'person_id', 'System ID'
+      
     %div
       -unless @list_header.new_record? && @person.new_record?
         .arrow_block
@@ -14,9 +15,9 @@
           -else
             = link_to((image_tag 'Icons/Core/Lol/go-next.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.first) : edit_person_path(@p.first))
           = link_to((image_tag 'Icons/Core/Lol/go-last.png'), @current_controller == "people" && @current_action == "show" ? person_path(@p.fetch(-1)) : edit_person_path(@p.fetch(-1)))
-  %div#loright
+  %div#loleft{:style => "margin-left: 10px;"}
     .lolfont_left
-      = label_tag 'list_header_id', 'List'
+      = label_tag 'list_header_id', 'List'     
     #lol_select
       -if @list_header.new_record? && @person.new_record?
         %select{:id => "list_header_name", :disabled => (@list_headers.blank?), :name => "list_header_id",:style => "width:150px"}
@@ -26,9 +27,13 @@
         %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
           - @list_headers.each do |r|
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
-    #show_list_icon
-      - if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
+
+  %div#loleft{:style => "margin-left: 10px;"}
+    .lolfont_left
+      = label_tag 'show_all_lists', 'Show all'
+    #lol_select{:style => "margin-top: 2px;"}
+      -if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
         =link_to_function image_tag('application_view_detail.png'), :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list"
-      - else
+      -else
         =link_to_function image_tag('application_view_detail.png'), :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list"
-  %br.clear
+%br.clear
