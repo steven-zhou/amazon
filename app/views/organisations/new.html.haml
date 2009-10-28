@@ -1,17 +1,41 @@
 - form_for @organisation, :html => {:multipart => true, :id => "add_organisation"} do |p|
   #header
     #page_title
-      %h1 Add Organisation
+      %h1 New Organisation
       %input.hidden{:id => :organisation_id, :value => @organisation.id}
     #lol
 
   #left_content
     .container
-      = p.text_field :custom_id, :class => @check_field.include?("custom_id") ? "organisational_check_field" : ""
-      %h1 Custom ID
+      %h1 Identity
+      .form_line
+        .field_50
+          = p.label :type, "Type"
+          %select{:name => "type"}
+            %option{:value => "OtherOrganisation"} OtherOrganisation
+            %option{:value => "AgentOrganisation"} AgentOrganisation
+            %option{:value => "SubOrganisation"} SubOrganisation
+        .field_40
+          = p.label :custom_id, "Custom ID"
+          = p.text_field :custom_id, :class => @check_field.include?("custom_id") ? "organisational_check_field" : ""
+      
     .container.add_name
       %h1 Name Details
-      = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
+      .form_line
+        .field_100
+          = p.label :full_name, "Full Name"
+          = p.text_field :full_name, :class => @check_field.include?("full_name") ? "organisational_check_field" : ""
+        %br.clear
+      .form_line
+        .field_100
+          = p.label :short_name, "Short Name"
+          = p.text_field :short_name, :class => @check_field.include?("short_name") ? "organisational_check_field" : ""
+        %br.clear
+      .form_line
+        .field_100
+          = p.label :trading_as, "Trading as"
+          = p.text_field :trading_as, :class => (@check_field.include?("trading_as")) ? "organisational_check_field" : ""
+        %br.clear
 
     .container
       %h1 Legal Details

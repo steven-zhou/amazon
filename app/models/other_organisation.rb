@@ -1,0 +1,3 @@
+class OtherOrganisation < Organisation
+
+end

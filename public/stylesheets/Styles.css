@@ -935,10 +935,6 @@ div.info_warning {
 }
 
 /* Organisation New*/
-form#add_organisation.new_organisation input#organisation_custom_id{
-    float:right;
-    width: 200px !important;
-}
 
 form#add_organisation.new_organisation input#image_image_file{
     height: 25px !important;
@@ -1382,4 +1378,24 @@ div.duplication_check .form_line.field_select_line {
 
     width:auto !important;
 
+}
+
+#feedback_form {
+    display:none;
+    background:white;
+}
+
+#feedback_form table{
+    border:0px;
+    width:80%;
+}
+
+#feedback_form table td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+#feedback_confirmation {
+    display: none;
+    text-align: center;
 }

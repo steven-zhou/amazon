@@ -123,8 +123,8 @@ class SigninController < ApplicationController
 
       # Send out the email
 
-      # email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
-      # LoginAccountPasswordResetDispatcher.deliver(email)
+      email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
+      LoginAccountPasswordResetDispatcher.deliver(email)
 
     else
       #invalid
@@ -175,8 +175,8 @@ class SigninController < ApplicationController
 
       # Send out the email
 
-      # email = LoginAccountUsernameRetrievalDispatcher.create_email_notification(@login_account)
-      # LoginAccountUsernameRetrievalDispatcher.deliver(email)
+      email = LoginAccountUsernameRetrievalDispatcher.create_email_notification(@login_account)
+      LoginAccountUsernameRetrievalDispatcher.deliver(email)
 
     else
 

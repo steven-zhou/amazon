@@ -1,4 +1,7 @@
 .form_line
+  .field_40
+    = p.label :typpe, 'Type'
+    = p.text_field :type, :value => @organisation.class.to_s.underscore.camelize.titleize, :disabled => true
   .field_20
     = p.label :id, 'System ID'
     = p.text_field :id, :disabled => true
