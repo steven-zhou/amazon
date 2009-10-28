@@ -2,7 +2,7 @@ class PhonesController < ApplicationController
   
   def show
     @phone = Phone.find(params[:id].to_i)
-      @person = Person.find(session[:user])
+      @person = Person.find(@phone.contactable_id)
      @phone_new = Phone.new
     respond_to do |format|
       format.js
@@ -16,7 +16,7 @@ class PhonesController < ApplicationController
     
     @phone = @entity.phones.new(params[:phone])
     @phone.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@phone.contactable_id)
     @phone_new = Phone.new
     if (params[:organisation_id])
       @organisation = Organisation.find(@phone.contactable_id)
@@ -31,9 +31,14 @@ class PhonesController < ApplicationController
   end
   
   def edit
-    @phone= Phone.find(params[:id].to_i)
-    @person = Person.find(session[:user])
- 
+     @phone =Phone.find(params[:id].to_i)
+    @person = Person.find(@phone.contactable_id)
+ if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@phone.contactable_id)
+    end
+    if @phone.contactable_type == "Organisation"
+      @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -41,7 +46,7 @@ class PhonesController < ApplicationController
 
   def update
     @phone = Phone.find(params[:id].to_i)
-    @person = Person.find(session[:user])
+    @person = Person.find(@phone.contactable_id)
      @phone_new = Phone.new
     respond_to do |format|
       if @phone.update_attributes(params[:phone])  
@@ -63,7 +68,7 @@ class PhonesController < ApplicationController
     #    end
 
     if @phone.contactable_type == "Person"
-      @person = Person.find(session[:user])   # if in Person return person object to destroy.js
+      @person = Person.find(@phone.contactable_id)   # if in Person return person object to destroy.js
     end
     if @phone.contactable_type == "Organisation"
       @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
@@ -87,7 +92,7 @@ class PhonesController < ApplicationController
       @exchange_phone.save
       @current_phone.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_phone.contactable_id)
     respond_to do |format|
       format.js
     end
@@ -104,7 +109,7 @@ class PhonesController < ApplicationController
 
     @up_exchange_phone.save
     @up_current_phone.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_phone.contactable_id)
 
     respond_to do |format|
       format.js

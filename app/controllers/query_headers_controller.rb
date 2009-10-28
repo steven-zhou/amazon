@@ -50,26 +50,31 @@ class QueryHeadersController < ApplicationController
   end
 
   def check_runtime
-    puts "****#{params[:top]}*********#{params[:top_number]}***********#{params[:top_percent]}******111111111111**"
     @query_header = QueryHeader.find(params[:id].to_i)
-    runtime_params = Array.new
-    @query_header.query_criterias.each do |i|
-      if i.value == "?"
-        runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
-      end
-    end
 
-    @runtime = runtime_params.empty? ? false : true
-    if @runtime
-      #ask for runtime param(s)
-      @top = params[:top]
-      @top_number = params[:top_number]
-      @top_percent = params[:top_percent]
-      render "check_runtime.js"
+    if @query_header.query_criterias.empty?
+      render "show_sql_statement.js"
+
     else
-      #run the query
-      redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
-    end
+      runtime_params = Array.new
+      @query_header.query_criterias.each do |i|
+        if i.value == "?"
+          runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
+        end
+      end
+
+      @runtime = runtime_params.empty? ? false : true
+      if @runtime
+        #ask for runtime param(s)
+        @top = params[:top]
+        @top_number = params[:top_number]
+        @top_percent = params[:top_percent]
+        render "check_runtime.js"
+      else
+        #run the query
+        redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
+      end
+    end    
   end
 
   def copy_runtime
@@ -166,7 +171,6 @@ class QueryHeadersController < ApplicationController
       end
     end
     @list_header = ListHeader.new
-
     respond_to do |format|
       format.js
     end

@@ -2,6 +2,13 @@ class AddressesController < ApplicationController
 
   def show
     @address = Address.find(params[:id])
+    @address_new = Address.new
+     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@address.addressable_id)
+    end
+    if @address.addressable_type == "Organisation"
+      @organisation =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -10,6 +17,12 @@ class AddressesController < ApplicationController
   def edit
     @postcodes = DomesticPostcode.find(:all)
     @address = Address.find(params[:id])
+      if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@address.addressable_id)
+    end
+    if @address.addressable_type == "Organisation"
+      @organisation =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -19,7 +32,8 @@ class AddressesController < ApplicationController
     @entity = Person.find(params[:person_id]) rescue @entity = Organisation.find(params[:organisation_id])
     @address = @entity.addresses.new(params[:address])
     @address.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@address.addressable_id)
+    @address_new = Address.new
     if (params[:organisation_id])
       @organisation = Organisation.find(params[:organisation_id])
     end
@@ -30,6 +44,13 @@ class AddressesController < ApplicationController
 
   def update
     @address = Address.find(params[:id])
+    @address_new = Address.new
+     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@address.addressable_id)
+    end
+    if @address.addressable_type == "Organisation"
+      @organisation =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       if @address.update_attributes(params[:address])  
         format.js { render 'show.js' }
@@ -40,13 +61,14 @@ class AddressesController < ApplicationController
   def destroy
     @address = Address.find(params[:id])
     @address.destroy
-
+    @person = Person.find(@address.addressable_id)
     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
-      @current_object = Person.find(session[:user])
+      @person = Person.find(@address.addressable_id)
     end
     if @address.addressable_type == "Organisation"
-      @current_object =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
+      @organisation =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
     end
+     @address_new = Address.new
     respond_to do |format|
       format.js
     end
@@ -72,7 +94,7 @@ class AddressesController < ApplicationController
       @exchange_address.save
       @current_address.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_address.addressable_id)
     respond_to do |format|
       format.js
     end
@@ -89,7 +111,7 @@ class AddressesController < ApplicationController
     
     @up_exchange_address.save
     @up_current_address.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_address.addressable_id)
 
     respond_to do |format|
       format.js

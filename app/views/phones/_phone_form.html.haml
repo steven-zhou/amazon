@@ -1,10 +1,17 @@
 .form_line
   .field_20
     = phone.label :contact_meta_type_id, 'Type'
-    -if edit == "edit"
-      = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types + @phone.phone_type, :id, :name
+    -if @organisation.nil?
+      -if edit == "edit"
+        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types + @phone.phone_type, :id, :name
+      -else
+        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types, :id, :name
     -else
-      = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types, :id, :name
+      -if edit == "edit"
+        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @organisation.personal_phone_types + @phone.phone_type, :id, :name
+      -else
+        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @organisation.personal_phone_types, :id, :name
+
   .field_15
     = phone.label :pre_value, "Pre Value"
     = phone.text_field :pre_value,:class => "integer_field"

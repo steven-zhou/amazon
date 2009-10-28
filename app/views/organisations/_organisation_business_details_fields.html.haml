@@ -16,21 +16,21 @@
   %br.clear
 .form_line
   .field_33
-    = p.label :number_of_full_time_employees,'Number of Full Time Employees'
+    = p.label :number_of_full_time_employees,'Full Time Employees'
     = p.text_field :number_of_full_time_employees, :value=>@organisation.number_of_full_time_employees, :class => @check_field.include?("number_of_full_time_employees") ? "organisational_check_field" : ""
   .field_33
-    = p.label :number_of_part_time_employees, 'Number of Part Time Employees'
+    = p.label :number_of_part_time_employees, 'Part Time Employees'
     = p.text_field :number_of_part_time_employees, :value=>@organisation.number_of_part_time_employees, :class => @check_field.include?("number_of_part_time_employees") ? "organisational_check_field" : ""
   %br.clear
 .form_line
   .field_33
-    = p.label :number_of_contractors,'Number of Contractors'
+    = p.label :number_of_contractors,'Contractors'
     = p.text_field :number_of_contractors, :value=>@organisation.number_of_contractors, :class => @check_field.include?("number_of_contractors") ? "organisational_check_field" : ""
   .field_33
-    = p.label :number_of_volunteers, 'Number of Volunteers'
+    = p.label :number_of_volunteers, 'Volunteers'
     = p.text_field :number_of_volunteers, :value=>@organisation.number_of_volunteers, :class => @check_field.include?("number_of_volunteers") ? "organisational_check_field" : ""
   .field_27
-    = p.label :number_of_other_workers, 'Number of other workers'
+    = p.label :number_of_other_workers, 'Other workers'
     = p.text_field :number_of_other_workers, :value=>@organisation.number_of_other_workers, :class => @check_field.include?("number_of_other_workers") ? "organisational_check_field" : ""
   %br.clear
 .form_line

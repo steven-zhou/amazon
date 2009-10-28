@@ -1,20 +1,27 @@
-<div id="username_retrieval_security_questions">
+
 
   <%- if @login_account.nil? %>
+
+
     <script type="text/javascript">
+      $('#username_retrieval_account_invalid').dialog("destroy");
       $(function() {
+
           $('#username_retrieval_account_invalid').dialog( {
             modal: true,
             resizable: false,
-            draggable :false,
+            draggable :true,
             height: 200,
             width: 350
-          })
+          });
       }
     );
-    $('#username_retrieval_account_invalid').dialog("open");
-    </script>
-    <div style="display:none;background-color:white;" id="username_retrieval_account_invalid">The account details you entered were invalid.</div>
+
+
+      $('#username_retrieval_account_invalid').dialog('open');
+   
+  </script>
+     <div style="display:none;background-color:white;" id="username_retrieval_account_invalid">The account details you entered were invalid.</div>
   <%- elsif @login_account.account_locked? %>
     <script type="text/javascript">
       $(function() {
@@ -54,4 +61,3 @@
     </table>
     <% end  -%>
   <%- end %>
-</div>

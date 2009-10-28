@@ -1,16 +1,17 @@
 <%  unless flash[:error].nil?%>
-$('#flash_message').html("<%=escape_javascript(flash[:error])%>");
-$('#flash_message').dialog({
-modal:true,
-position: 'top',
-buttons:{
-OK: function(){$(this).dialog('close');}
-}
-});
-$('#flash_message').dialog('open');
+  $('#flash_message').html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog({
+  modal:true,
+  position: 'top',
+  buttons:{
+  OK: function(){$(this).dialog('close');}
+  }
+  });
+  $('#flash_message').dialog('open');
 <%else%>
 
-$('#existing_role').html("<%=escape_javascript(render(:partial => "/roles/existing_role"))%>")
-$("#role_name").val('');
-$("#role_remarks").val('');
+  $('#existing_role').append('<%=escape_javascript(render(:partial => "/roles/new_created_role", :locals =>{:i => @role })) %>');
+  $('#<%= dom_id(@role) %>').show('slide');
+  $("#role_name").val('');
+  $("#role_remarks").val('');
 <%end%>

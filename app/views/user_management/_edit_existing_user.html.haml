@@ -10,22 +10,24 @@
     .form_line
       .field_5
         %span #{@login_account.person_id}
-      .field_10
-        %span{:id => "login_name_container_#{@login_account.id}"} #{@login_account.person.name}
-      .field_20
-        %label &nbsp
-        = link_to_function 'Generate new password', :style => "font-size:10px;"      
-    .form_line
       .field_15
+        %span{:id => "login_name_container_#{@login_account.id}"} #{@login_account.person.name}
+      .field_25
+        %span #{@login_account.last_login} (last login)
+      .field_25
+        %span #{@login_account.last_ip_address}(last ip address)
+      
+    .form_line
+      .field_23
         = login.label :user_name, 'User Name'
         = login.text_field :user_name, :class => "check_username_unique", :login_account_id => @login_account.id
       -#.field_27
         %label &nbsp
         %span{:id => "user_name_container_#{@login_account.id}"} &nbsp&nbsp #{@login_account.user_name}
-      .field_27
+      .field_35
         = login.label :security_email, 'Email'
         = login.text_field :security_email
-      .field_15
+      -#.field_15
         = login.label :login_status, 'Status'
         = login.radio_button :login_status, true, :style => "width:10%"
         %label{:style => "display:inline"} Active
@@ -33,13 +35,33 @@
         = login.radio_button :login_status, false, :style => "width:10%"
         %label{:style => "display:inline"} Inactive
       .field_15
+        = login.label :login_status, 'Active'
+        = login.check_box :login_status, :class => "checkbox_style"
+      .field_15
+        = login.label :system_user, 'System User'
+        = login.check_box :system_user,{:checked => true, :style => "width:10%"}
+    .form_line
+      .field_23
+        = login.label :session_timeout
+        = login.text_field :session_timeout
+      .field_23
+        = login.label :authentication_grace_period
+        = login.text_field :authentication_grace_period
+      .field_23
+        = login.label :access_attempts_count
+        = login.text_field :access_attempts_count
+      .field_20
+        %label &nbsp
+        = link_to_function 'Generate new password', :id => "generate_new_password", :login_account_id => @login_account.id
+    .form_line
+      .field_23
+        =login.label :access_attempt_ip
+        %span #{@login_account.access_attempt_ip}
+      
+    .form_line
+      .field_15{:style => "float:right;"}
         = login.label :system_user, '&nbsp'
-        = login.check_box :system_user, :style => "width:10%"
-        %label{:style => "display:inline"} System User
-      .field_22
-        = login.label :system_user, '&nbsp'
-        = submit_tag 'Sumbit',{:id => "group_secu_submit", :style=> "float:none"}
-        = button_to_function 'Delete', :class => "delete_login_account", :data_id => @login_account.id
+        = submit_tag 'Sumbit',{:style=> "float:none"}
         = link_to_function 'Clear', :class => "user_clear_edit_form clear_form",:login_account_id => @login_account.id
 
 
