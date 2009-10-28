@@ -4,7 +4,7 @@
     .container
       .header_container
         .title
-          %h1 Addresses
+          %h1 Address Detail
         %br{ :style=>"clear: both;"}
       #addresses
       =# Render the person's addresses
@@ -13,7 +13,7 @@
     .container
       .header_container
         .title
-          %h1 Contacts
+          %h1 Contact Detail
 
         %br{ :style=>"clear: both;"}
    
@@ -38,7 +38,7 @@
     .container
       .header_container
         .title
-          %h1 KeyWords
+          %h1 Keyword Detail
 
         %br{ :style=>"clear: both;"}
       #keywords
@@ -48,7 +48,7 @@
     .container
       .header_container
         .title
-          %h1 MasterDocs
+          %h1 MasterDoc Detail
 
         %br{ :style=>"clear: both;"}
       #masterdocs
@@ -59,7 +59,7 @@
     .container
       .header_container
         .title
-          %h1 Relationships
+          %h1 Relationship Detail
 
         %br{ :style=>"clear: both;"}
       #masterdocs
@@ -79,7 +79,7 @@
     .container
       .header_container
         .title
-          %h1 Notes
+          %h1 Note Detail
 
         %br{ :style=>"clear: both;"}
       #notes_list
@@ -89,7 +89,7 @@
     .container
       .header_container
         .title
-          %h1 Person Roles
+          %h1 Person Role
         %br{ :style=>"clear: both;"}
       #roles
       %ul
@@ -98,7 +98,7 @@
     .container
       .header_container
         .title
-          %h1 Employments
+          %h1 Employment Detail
         %br.clear
       #employments
         =render :partial => '/people/person_employment', :collection => @person.employments, :locals => {:person => @person}
@@ -106,7 +106,7 @@
     .container
       .header_container
         .title
-          %h1 Groups
+          %h1 Group Detail
         %br.clear
       #groups
         =render :partial => '/people/person_group', :collection => @person.person_groups, :locals => {:person => @person}

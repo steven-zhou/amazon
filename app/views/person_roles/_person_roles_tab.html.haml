@@ -5,7 +5,7 @@
       = link_to_function image_tag('close_icon.png'), :class => "clear_person_role_form person_roles_close toggle_button", :toggle_id_name => "new_person_role", :style => "display:none", :field => "person_role"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_role", :class=>"person_roles_toggle_button", :toggle_id_name => "new_person_role" if (!person.nil? && !person.new_record?)
-    %h1 Role Details
+    %h1 New Role 
     %input{:type => "text", :id => "person_role_hidden_tab" :mode => "show", :style => "display:none", :style => "display:none"}
 
     =# Initially hidden new person_role form

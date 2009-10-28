@@ -1,6 +1,6 @@
 - form_tag(@current_controller == "organisations" && @current_action == "show" ? '/organisations/show' : '/organisations/edit') do
   %div#loleft
-    .lolfont_center
+    .lolfont_left{:style => "margin-left: 65px;"}
       = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
     %div
       -unless @organisation.new_record?
@@ -14,12 +14,10 @@
           -else
             = link_to((image_tag 'Icons/Core/Lol/go-next.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.first) : edit_organisation_path(@o.first))
           = link_to((image_tag 'Icons/Core/Lol/go-last.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.fetch(-1)) : edit_organisation_path(@o.fetch(-1)))
-  %div#loright
+  %div#loleft
     .lolfont_left
-      %label &nbsp;
-    #lol_organisations
-      %h1 Organisations
-    #show_list_icon
+      = label_tag 'show_all_lists', 'Show all'
+    #lol_select{:style => "margin-top: 2px;"}
       - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
         =link_to_function image_tag('application_view_detail.png'), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list"
       - else
