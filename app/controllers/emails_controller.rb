@@ -26,8 +26,14 @@ class EmailsController < ApplicationController
 
   def edit
     @email = Email.find(params[:id])
+   if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)
+    end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
 
-    @person = Person.find(session[:user])
+   @email_new = Email.new
     respond_to do |format|
       format.js
     end
