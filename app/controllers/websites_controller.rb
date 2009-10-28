@@ -3,7 +3,12 @@ class WebsitesController < ApplicationController
   def show
     @website = Website.find(params[:id].to_i)
     @website_new = Website.new
-    @person = Person.find(@website.contactable_id)
+     if @website.contactable_type == "Person"
+      @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
+    end
+    if @website.contactable_type == "Organisation"
+      @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
