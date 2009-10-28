@@ -63,7 +63,7 @@ class OrganisationsController < ApplicationController
   end
 
   def create
-    @organisation = Organisation.new(params[:organisation])
+    @organisation = (params[:type].camelize.constantize).new(params[:organisation])
     @organisation.onrecord_since = Date.today()
     if @organisation.save
       if !params[:image].nil?
@@ -71,17 +71,17 @@ class OrganisationsController < ApplicationController
         if @image.save
           @organisation.image = @image
         else
-          flash.now[:warning] = "The image was not saved."
+          flash[:warning] = "The image was not saved."
         end
       end
       @organisation_new = Organisation.new
       # If the user wants to edit the record they just added
       if(params[:edit])
-        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
+        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
         redirect_to edit_organisation_path(@organisation)
         # If the user wants to continue adding records
       else
-        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
+        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
         redirect_to new_organisation_path
       end
     else
@@ -91,7 +91,7 @@ class OrganisationsController < ApplicationController
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
       #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      flash.now[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
+      flash[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
       render :action =>'new'
     end
   end
@@ -123,8 +123,8 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-
     @organisation = Organisation.find(params[:id])
+    type = @organisation.class.to_s.underscore
     Image.transaction do
       unless params[:image].nil?
         @image = Image.new(params[:image])
@@ -132,16 +132,16 @@ class OrganisationsController < ApplicationController
           @organisation.image.destroy unless @organisation.image.nil?
           @organisation.image = @image
         else
-          flash.now[:warning] = "The image was not saved. Please check that file was a valid image file."
+          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
         end
       end
     end
 
-    @organisation.update_attributes(params[:organisation])
-    flash.now[:warning] = "There was an error updating the person's details." unless @organisation.save
+    @organisation.update_attributes(params[type.to_sym])
+    flash[:warning] = "There was an error updating the person's details." unless @organisation.save
 
 
-    flash.now[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
+    flash[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
     if(params[:edit])
       redirect_to edit_organisation_path(@organisation)
     else

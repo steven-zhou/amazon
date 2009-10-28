@@ -38,16 +38,18 @@
     
   #contacts
     =# Render the person's contacts
-    -if !@organisation.emails.blank?
-      .container
-        %h2 Email
-        #contact_email
-          = render :partial => '/contacts/contact', :collection => @organisation.emails
     -if !@organisation.phones.blank?
       .container
         %h2 Phone
         #contact_phone
           = render :partial => '/contacts/contact', :collection => @organisation.phones
+
+    -if !@organisation.emails.blank?
+      .container
+        %h2 Email
+        #contact_email
+          = render :partial => '/contacts/contact', :collection => @organisation.emails
+   
     -if !@organisation.websites.blank?
       .container
         %h2 Website

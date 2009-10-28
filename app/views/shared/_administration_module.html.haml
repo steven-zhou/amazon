@@ -20,6 +20,22 @@
 
 %ul#menu{:style => "min-height:500px;"}
 
+  - # System Setup Menu
+  %li{:id => @current_controller == "client_setups" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "client_setups"
+        = link_to "#{image_tag('icon_holder.png')} System Setup", :controller => "client_setups", :action => "parameters"
+      - else
+        <p>System Setup</p>
+        %ul
+          %li{:id => @current_action == "parameters" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Parameters", :controller => "client_setups", :action => "parameters"
+          %li{:id => @current_action == "license_info" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} License Info", :controller => "client_setups", :action => "license_info"
+
+    .bottom
+
   - # Configuration Menu
   %li{:id => controller == "configuration" ? "menu_active" : ""}
     .top

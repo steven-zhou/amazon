@@ -1706,8 +1706,8 @@ check_empty_value = function(){
   
     if( $("#"+$(this).attr("check_field")).val()== "")
     {
-
-        alert("The value field can not be empty!");
+      var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
+        alert(error_message);
         return false;
     }
 }
@@ -1736,11 +1736,19 @@ $(function(){
     $("#submit_website_field_edit").live('click', check_empty_value);
 });
 
+$(function(){
+    $("#address_submit_button").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#address_submit_button_edit").live('click', check_empty_value);
+});
+
 check_email_field = function(){
     _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
     if($('#email_value').val()!=""){
         if((!_valid)){
-            alert("This field should be am email !");
+            alert("Invalid email address !");
             $('#email_value').focus();
             return false;
         }
@@ -1751,7 +1759,7 @@ check_email_field_edit = function(){
     _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
     if($('#email_value_edit').val()!=""){
         if((!_valid)){
-            alert("This field should be am email !");
+            alert("Invalid email address !");
             $('#email_value_edit').focus();
             return false;
         }
@@ -1766,10 +1774,10 @@ $(function(){
 });
 
 check_website_field = function(){
-    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cn|au)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value").val());
+    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
     if($('#website_value').val()!=""){
         if((!_valid)){
-            alert("This field should be website format !");
+            alert("Invalid website address !");
             $(this).focus();
             return false;
 
@@ -1780,10 +1788,10 @@ check_website_field = function(){
 }
 
 check_website_field_edit = function(){
-    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cn|au)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value_edit").val());
+    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
     if($('#website_value_edit').val()!=""){
         if((!_valid)){
-            alert("This field should be website format !");
+            alert("Invalid website address !");
             $(this).focus();
             return false;
 
@@ -3309,3 +3317,9 @@ $(function(){
 
 });
 
+
+/* disabled form */
+$(function(){
+    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("select").attr("disabled", true);
+});

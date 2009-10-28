@@ -1,4 +1,4 @@
--form_for([@organisation,address], :html => {:style => "display:none", :class => 'ajax_form'}) do |a|
+-form_for([@organisation,address], :url => "/organisations/#{@organisation.id}/addresses", :html => {:style => "display:none", :class => 'ajax_form'}) do |a|
   -# The options to edit or add an address
   .form_line{:style => "float:none;"}
     .field_25
@@ -24,7 +24,7 @@
 
     .field_5{:style => "margin-right: 4px;"}
       = a.label :postal_code, '&nbsp'
-      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 => "address_town",:update_field2 => "address_state",:update_field3 => "address_postal_code",:update_field4 => "address_country_id"
+      = link_to_function image_tag 'Icons/System/search.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 => "address_town",:update_field2 => "address_state",:update_field3 => "address_postal_code",:update_field4 => "address_country_id"
     .field_40
       = a.label :state, 'State/Province'
       = a.text_field :state , :id => "address_state"
@@ -35,4 +35,4 @@
     .field_45
       = a.label :country, 'Country'
       = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => "address_country_id"}
-  = submit_tag 'Submit', :id => "address_submit_button"
+  = submit_tag 'Submit', :id => "address_submit_button" , :check_field => "address_street_name"
