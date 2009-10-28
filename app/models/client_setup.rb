@@ -1,4 +1,4 @@
 class ClientSetup < ActiveRecord::Base
 
-  has_one :client_organisation, :foreign_key => "organisation_id"
+  belongs_to :client_organisation, :class_name => "Organisation", :foreign_key => "organisation_id"
 end
