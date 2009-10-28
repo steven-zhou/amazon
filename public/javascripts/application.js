@@ -3133,7 +3133,7 @@ $(document).ready(function() {
             $("div#module_menu_items").fadeOut("fast");
         });
 
-    $("div#module_menu_items").hover(
+    $("div#module_menu").hover(
         function(){},
         function(){
             $("div#module_menu_top").removeClass("hover");
@@ -3177,7 +3177,7 @@ $(function(){
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_BW.png");
     });
 
-    $(".person_edit_tab:not(.active)").live("mousedown", function(){
+    $(".person_edit_tab:not(.active)").live("mouseup", function(){
         $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
         $(".person_edit_tab").removeClass("active");
         $(this).addClass("active");

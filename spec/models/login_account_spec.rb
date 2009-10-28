@@ -112,7 +112,6 @@ describe LoginAccount do
       @login_account_1 = Factory.build(:login_account, :user_name => "Username", :password => "passpassword", :password_confirmation => "passpassword")
       @login_account_1.save.should == true
       @login_account_2 = Factory.build(:login_account, :user_name => "Usernamepp", :password => "Usernamepp", :password_confirmation => "Usernamepp")
-      #puts"debug--#{@login_account_2.to_yaml}"
       @login_account_2.save.should == false
     end
 

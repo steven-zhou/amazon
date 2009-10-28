@@ -1,6 +1,6 @@
 -# The options to edit or add an employment
 .form_line{:style => "float:none;"}
-  .field_25
+  .field_25{:style => "margin-right: 2px;"}
     =employment.label :organisation_id, "Organisation ID"
     =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
   .field_5
@@ -75,7 +75,7 @@
       =employment.text_field :duties_resposibilities, :disabled=>@employment.status == false
 
   .form_line
-    .field_25
+    .field_25{:style => "margin-right: 2px;"}
       =employment.label :hired_by, "Hired By"
       =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
@@ -88,7 +88,7 @@
       -else
         %span{:class=>"viewname", :id=>@employment.new_record? ? "recruiter_container_0" : "recruiter_container_#{@employment.id}"} &nbsp;
   .form_line
-    .field_25
+    .field_25{:style => "margin-right: 2px;"}
       =employment.label :report_to, "Report To"
       =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
@@ -155,7 +155,7 @@
         =employment.label :suspension_reason, "Suspension Reason"
         =employment.text_field :suspension_reason, :disabled=>@employment.status == false
     .form_line
-      .field_22
+      .field_22{:style => "margin-right: 2px;"}
         =employment.label :suspended_by, "Suspended By"
         =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
       .field_5
@@ -193,7 +193,7 @@
         =employment.label :termination_reason, "Termination Reason"
         =employment.text_field :termination_reason, :disabled=>@employment.status == false
     .form_line
-      .field_25
+      .field_25{:style => "margin-right: 2px;"}
         =employment.label :terminated_by, "Terminated By"
         =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
       .field_5

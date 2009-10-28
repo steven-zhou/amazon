@@ -55,7 +55,7 @@
   %div#warning_1
 
 .form_line
-  .field_25
+  .field_25{:style => "margin-right: 2px;"}
     = person_role.label :assigned_by, 'Assigned By'
     = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id ,:id => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}"
   .field_5
@@ -68,7 +68,7 @@
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} &nbsp;
 .form_line
-  .field_25
+  .field_25{:style => "margin-right: 2px;"}
     = person_role.label :approved_by, "Approved By"
     = person_role.text_field :approved_by, :class=>"check_person_field", :update=>"approver_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id, :id => @person_role.new_record? ? "person_role_approved_by" : "person_role_approved_by_#{@person_role.id}"
   .field_5
@@ -82,7 +82,7 @@
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "approver_container_0" : "approver_container_#{@person_role.id}"} &nbsp;
   %br{ :style=>"clear: both;"}
 .form_line
-  .field_25
+  .field_25{:style => "margin-right: 2px;"}
     = person_role.label :supervised_by, "Supervised By"
     = person_role.text_field :supervised_by, :class=>"check_person_field", :update=>"superviser_container", :person_role_id=> @person_role.new_record? ? 0 : @person_role.id, :id => @person_role.new_record? ? "person_role_supervised_by" : "person_role_supervised_by_#{@person_role.id}"
   .field_5
@@ -95,7 +95,7 @@
     -else
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} &nbsp;
 .form_line
-  .field_25
+  .field_25{:style => "margin-right: 2px;"}
     = person_role.label :managed_by, "Managed By"
     = person_role.text_field :managed_by, :class=>"check_person_field", :update=>"manager_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id ,:id => @person_role.new_record? ? "person_role_managed_by" : "person_role_managed_by_#{@person_role.id}"
   .field_5
