@@ -154,6 +154,10 @@ body {
     text-align: center;
 }
 
+#app #main #sysbar .bar_section#menu  {
+    text-align:left;
+}
+
 #app #main #sysbar .bar_section#toolbar  {
     width: 50%;
 }
