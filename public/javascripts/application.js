@@ -3223,7 +3223,7 @@ $(function(){
                 $("#phone_value").attr('readonly','readonly');
                 $("#phone_post_value").attr('readonly','readonly');
                 $("#phone_remarks").attr('readonly','readonly');
-                $("#contact_phone_submit").attr('readonly','readonly');
+                $("#contact_phone_submit").attr('disabled','disabled');
 
             }
 
@@ -3231,14 +3231,14 @@ $(function(){
             {
                 $("#email_remarks").attr('readonly','readonly');
                 $("#email_value").attr('readonly','readonly');
-                $("#submit_email_field").attr('readonly','readonly')
+                $("#submit_email_field").attr('disabled','disabled');
             }
 
             if($("#website_contact_meta_type_id").val() == null)
             {
                 $("#website_value").attr('readonly','readonly');
                 $("#website_remarks").attr('readonly','readonly');
-                $("#submit_website_field").attr('readonly','readonly')
+                $("#submit_website_field").attr('disabled','disabled');
             }
 
         });
@@ -3262,7 +3262,7 @@ $(function(){
                 $("#address_state").attr('readonly','readonly');
                 $("#address_postal_code").attr('readonly','readonly');
                 $("#address_country_id").attr('readonly','readonly');
-                $("#address_submit_button").attr('readonly','readonly');
+                $("#address_submit_button").attr('disabled','disabled');
 
             }
 
