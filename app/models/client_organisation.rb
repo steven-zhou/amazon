@@ -1,4 +1,4 @@
 class ClientOrganisation < Organisation
 
-  belongs_to :client_setup
+  has_one :client_setup
 end

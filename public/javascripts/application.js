@@ -3317,3 +3317,9 @@ $(function(){
 
 });
 
+
+/* disabled form */
+$(function(){
+    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("select").attr("disabled", true);
+});

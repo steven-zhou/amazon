@@ -1272,6 +1272,14 @@ div.tag ul li.open ul {
     display:block;
 }
 
+div.tag ul li.open ul li ul {
+    display:none;
+}
+
+div.tag ul li.open ul li.open ul {
+    display:block;
+}
+
 div.tag ul li.active {
     border-style:dashed;
     border-color:#888;

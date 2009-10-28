@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091028011511) do
+ActiveRecord::Schema.define(:version => 20091028051556) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -60,9 +60,9 @@ ActiveRecord::Schema.define(:version => 20091028011511) do
     t.integer  "number_of_login_attempts"
     t.integer  "new_account_graceperiod"
     t.integer  "session_timeout"
-    t.integer  "passward_lifetime"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "password_lifetime"
   end
 
   create_table "compile_lists", :force => true do |t|

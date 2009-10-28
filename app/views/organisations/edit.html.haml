@@ -7,7 +7,7 @@
       %br.clear
 
   #left_content
-    - form_for @organisation, :url => {:controller => "organisations", :action => "update"} , :html=>{:multipart => true, :id=>"organisation_names_form"} do |p|
+    - form_for @organisation, :url => {:controller => "organisations", :action => "update"} , :html=>{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" : "", :multipart => true, :id=>"organisation_names_form"} do |p|
       .container
         %h1 Name Details
         = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
