@@ -588,12 +588,17 @@ $(function(){
     $(".multilevel_new_option").live("click", function(){
         $("li.open").removeClass("open");
         $("li.active").removeClass("active");
+        $(".toggle_multilevel_options").removeClass("container_selected");
     });
 
 
     $(".toggle_multilevel_options").live("click", function(){
-        $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
-        $(this).parent().toggleClass("open");
+        if ($(this).parent().attr("class").indexOf("open")>=0){
+            $(this).parent().removeClass("open");
+        }else{
+            $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
+            $(this).parent().addClass("open");
+        }        
         $("li").removeClass("active");
         $(this).parent().addClass("active");
         $(".toggle_multilevel_options").removeClass("container_selected");
@@ -622,6 +627,8 @@ $(function(){
     });
 
     $(".new_tag_type").live("click", function(){
+        container = $(this).parent().parent();
+        container.parent().removeClass("open");
         $.ajax({
             type: "GET",
             url: "/tag_types/new.js",
@@ -631,6 +638,8 @@ $(function(){
     });
 
     $(".new_tag").live("click", function(){
+        container = $(this).parent().parent();
+        container.parent().removeClass("open");
         $.ajax({
             type: "GET",
             url: "/tags/new.js",
@@ -641,7 +650,11 @@ $(function(){
 
     $('a.get_tag').live('click', function() {
         container = $(this).parent().parent();
-        container.click();
+        container.parent().removeClass("open");
+        $("li").removeClass("active");
+        container.parent().addClass("active");
+        $(".toggle_multilevel_options").removeClass("container_selected");
+        container.addClass("container_selected");
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
@@ -1724,7 +1737,7 @@ $(function(){
 });
 
 check_email_field = function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
     if($('#email_value').val()!=""){
         if((!_valid)){
             alert("This field should be am email !");
@@ -1735,7 +1748,7 @@ check_email_field = function(){
 }
 
 check_email_field_edit = function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
     if($('#email_value_edit').val()!=""){
         if((!_valid)){
             alert("This field should be am email !");
@@ -1753,7 +1766,7 @@ $(function(){
 });
 
 check_website_field = function(){
-    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value").val());
+    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cn|au)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value").val());
     if($('#website_value').val()!=""){
         if((!_valid)){
             alert("This field should be website format !");
@@ -1767,7 +1780,7 @@ check_website_field = function(){
 }
 
 check_website_field_edit = function(){
-    _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value_edit").val());
+    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk|cn|au)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value_edit").val());
     if($('#website_value_edit').val()!=""){
         if((!_valid)){
             alert("This field should be website format !");
@@ -3211,23 +3224,44 @@ $(function(){
             $("#phone_post_value").attr('readonly','readonly');
             $("#phone_remarks").attr('readonly','readonly');
             $("#contact_phone_submit").attr('readonly','readonly');
+            if($("#phone_contact_meta_type_id").val() == null)
+            {
+                $("#phone_pre_value").attr('readonly','readonly');
+                $("#phone_value").attr('readonly','readonly');
+                $("#phone_post_value").attr('readonly','readonly');
+                $("#phone_remarks").attr('readonly','readonly');
+                $("#contact_phone_submit").attr('disabled','disabled');
+
+            }
+
+            if($("#email_contact_meta_type_id").val() == null)
+            {
+                $("#email_remarks").attr('readonly','readonly');
+                $("#email_value").attr('readonly','readonly');
+                $("#submit_email_field").attr('readonly','readonly')
+            }
+
+            if($("#website_contact_meta_type_id").val() == null)
+            {
+                $("#website_value").attr('readonly','readonly');
+                $("#website_remarks").attr('readonly','readonly');
+                $("#submit_website_field").attr('readonly','readonly')
+            }
+            if($("#email_contact_meta_type_id").val() == null)
+            {
+                $("#email_remarks").attr('readonly','readonly');
+                $("#email_value").attr('readonly','readonly');
+                $("#submit_email_field").attr('disabled','disabled');
+            }
+
+            if($("#website_contact_meta_type_id").val() == null)
+            {
+                $("#website_value").attr('readonly','readonly');
+                $("#website_remarks").attr('readonly','readonly');
+                $("#submit_website_field").attr('disabled','disabled');
+            }
 
         }
-
-        if($("#email_contact_meta_type_id").val() == null)
-        {
-            $("#email_remarks").attr('readonly','readonly');
-            $("#email_value").attr('readonly','readonly');
-            $("#submit_email_field").attr('readonly','readonly')
-        }
-
-        if($("#website_contact_meta_type_id").val() == null)
-        {
-            $("#website_value").attr('readonly','readonly');
-            $("#website_remarks").attr('readonly','readonly');
-            $("#submit_website_field").attr('readonly','readonly')
-        }
-
     });
 });
 
@@ -3248,5 +3282,30 @@ $(function(){
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
 
+
     });
 });
+
+
+
+$(function(){
+    $(".clear_form_to_address").live("click", function(){
+
+        if($("#address_address_type_id").val() == null)
+        {
+            $("#address_building_name").attr('readonly','readonly');
+            $("#address_suite_unit").attr('readonly','readonly');
+            $("#address_street_number").attr('readonly','readonly');
+            $("#address_street_name").attr('readonly','readonly');
+            $("#address_town").attr('readonly','readonly');
+            $("#address_state").attr('readonly','readonly');
+            $("#address_postal_code").attr('readonly','readonly');
+            $("#address_country_id").attr('readonly','readonly');
+            $("#address_submit_button").attr('disabled','disabled');
+
+        }
+
+    });
+
+});
+

@@ -2,7 +2,16 @@
 .form_line{:style => "float:none;"}
   .field_25
     = address.label :address_type_id, 'Type'
-    = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name
+    -if @organisation.nil?
+      -if edit == "edit"
+        = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types + @address.check_address_type, :id, :name
+      -else
+        = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types, :id, :name
+    -else
+      -if edit == "edit"
+        = address.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types + @address.check_address_type, :id, :name
+      -else
+        = address.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types, :id, :name
   .field_40
     = address.label :building_name, 'Building Name'
     = address.text_field :building_name   
@@ -20,6 +29,7 @@
   .field_40{:style => "width: 39%;"}
     = address.label :town, 'Suburb'
     = address.text_field :town ,:id => @address.new_record? ? "address_town" : "address_#{@address.id}_town" ,:style => "width:99%;"
+   
 
   .field_5{:style => "margin-right: 4px;"}
     = address.label :postal_code, '&nbsp'

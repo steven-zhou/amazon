@@ -2,9 +2,21 @@ class LoginAccountsController < ApplicationController
   # before_filter :put_current_user_into_model
 
   def user_name_unique
-    @error_flag = (LoginAccount.find_by_user_name(params[:user_name]).nil? && params[:length].to_i > 6 && params[:length].to_i < 30) ? false : true
-    #@login_accounts = LoginAccount.find(:all, :conditions => ["user_name=?",params[:user_name]])unless (params[:user_name].nil? || params[:user_name].empty?)
+    @error_flag_unique = (LoginAccount.find_by_user_name(params[:user_name]).nil?) ? false : true
+    @error_flag_length = ( params[:length].to_i > 6 && params[:length].to_i < 30 ) ? false : true
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
+  
+    unless @login_account.new_record? 
+      if (@login_account == LoginAccount.find_by_user_name(params[:user_name]))
+          @error_flag_unique = false
+      end
+    end
+    
+    if @error_flag_unique
+      flash.now[:error] = "The username has been taken"    
+    elsif @error_flag_length
+      flash.now[:error] = "The Username Length is wrong, please choose between 6 to 30"    
+    end
     respond_to  do |format|
       format.js
     end
