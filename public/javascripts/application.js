@@ -1737,7 +1737,7 @@ $(function(){
 });
 
 check_email_field = function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
     if($('#email_value').val()!=""){
         if((!_valid)){
             alert("This field should be am email !");
@@ -1748,7 +1748,7 @@ check_email_field = function(){
 }
 
 check_email_field_edit = function(){
-    _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
     if($('#email_value_edit').val()!=""){
         if((!_valid)){
             alert("This field should be am email !");
@@ -1780,7 +1780,7 @@ check_website_field = function(){
 }
 
 check_website_field_edit = function(){
-    _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value_edit").val());
+    _valid = /^(((ht|f)tp(s?))\:\/\/)?(www.|[a-zA-Z].)[a-zA-Z0-9\-\.]+\.(com|edu|gov|mil|net|org|biz|info|name|museum|us|ca|uk)(\:[0-9]+)*(\/($|[a-zA-Z0-9\.\,\;\?\'\\\+&%\$#\=~_\-]+))*$/.test($("#website_value_edit").val());
     if($('#website_value_edit').val()!=""){
         if((!_valid)){
             alert("This field should be website format !");
@@ -3244,4 +3244,31 @@ $(function(){
         });
     });
 
+
+
+
+
+$(function(){
+    $(".clear_form_to_address").live("click", function(){
+
+
+        if($("#address_address_type_id").val() == null)
+            {
+                $("#address_building_name").attr('readonly','readonly');
+                $("#address_suite_unit").attr('readonly','readonly');
+                $("#address_street_number").attr('readonly','readonly');
+                $("#address_street_name").attr('readonly','readonly');
+                $("#address_town").attr('readonly','readonly');
+                $("#address_state").attr('readonly','readonly');
+                 $("#address_postal_code").attr('readonly','readonly');
+                $("#address_country_id").attr('readonly','readonly');
+                $("#address_submit_button").attr('readonly','readonly');
+
+            }
+
+    });
+
+
+
+});
 

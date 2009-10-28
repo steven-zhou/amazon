@@ -2,7 +2,10 @@
 .form_line{:style => "float:none;"}
   .field_25
     = address.label :address_type_id, 'Type'
-    = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name
+    -if edit == "edit"
+      = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types + @address.check_address_type, :id, :name
+    -else
+      = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types, :id, :name
   .field_40
     = address.label :building_name, 'Building Name'
     = address.text_field :building_name   
