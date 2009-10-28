@@ -1,4 +1,4 @@
--form_for([@organisation,website], :html => {:class => 'contact_form ajax_form add_website'}) do |w|
+-form_for([@organisation,website], :url => "/organisations/#{@organisation.id}/websites", :html => {:class => 'contact_form ajax_form add_website'}) do |w|
   .form_line
     .field_20
       = w.label :contact_meta_type_id, 'Type'

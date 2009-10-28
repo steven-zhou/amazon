@@ -935,10 +935,6 @@ div.info_warning {
 }
 
 /* Organisation New*/
-form#add_organisation.new_organisation input#organisation_custom_id{
-    float:right;
-    width: 200px !important;
-}
 
 form#add_organisation.new_organisation input#image_image_file{
     height: 25px !important;

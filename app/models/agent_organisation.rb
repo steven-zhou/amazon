@@ -1,0 +1,3 @@
+class AgentOrganisation < Organisation
+
+end

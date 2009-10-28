@@ -10,7 +10,7 @@
     %br.clear
 
   =# Initially hidden new masterdoc form
-  -form_for([@organisation,@masterdoc], :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
+  -form_for([@organisation,@masterdoc], :url => "/organisations/#{@organisation.id}/master_docs", :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
     .container
       .options{:style => "float:right"}
         = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "master_doc", :toggle_id_name => "new_master_doc"
