@@ -9,7 +9,7 @@
       System Backups are currently not available. Please contact your Systems Administrator to schedule backups as soon as possible.
     - else
       %table
-        = for backup in @backups do
+        - for backup in @backups do
           %tr
             %td
               = backup
