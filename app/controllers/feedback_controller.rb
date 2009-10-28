@@ -1,6 +1,11 @@
 class FeedbackController < ApplicationController
   
 
+  def list
+    @feedback = FeedbackItem.find(:all, :order => "feedback_date ASC")
+    
+  end
+
   def submit_feedback
     @feedback = FeedbackItem.new(
       :login_account_id => @current_user.id,
