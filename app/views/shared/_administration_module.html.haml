@@ -68,7 +68,7 @@
     .top
     .item
       - if controller != "security"
-        = link_to "#{image_tag('Icons/Admin/Security/security.png')} Security Group", :controller => "administrations", :action => "access_permissions"
+        = link_to "#{image_tag('Icons/Admin/Security/security.png')} Security Group", :controller => "administrations", :action => "security_groups"
       - else
         <p>Security Groups</p>
         %ul
