@@ -104,5 +104,25 @@ class AmazonSettingsController < ApplicationController
     end
   end
 
+  def new_keyword
+    
+    @keyword_table = Keyword.new{params[:keyword]}
+    @keyword_table.type_id = params[:type_id]
+    @keyword_table.save
+#      puts "************#{params[:amazon_setting][:name]}*********************"
+#      puts "************#{params[:amazon_setting][:description]}*********************"
+#      puts "************#{params[:amazon_setting][:status]}*********************"
+#      puts "************#{params[:type_id]}*********************"
 
+#    @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
+#    @amazon_setting.update_attributes(params[:amazon_setting])
+#    if @amazon_setting.save
+#      flash.now[:message] = "Saved successfully."
+#    else
+#      flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+  end
 end

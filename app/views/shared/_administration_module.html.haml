@@ -1,5 +1,6 @@
 - routing = Hash.new{|h,k| h[k]=Hash.new(&h.default_proc) }
 - routing[:administrations][:system_data]               = {:controller => "configuration", :action => "system_data" }
+- routing[:administrations][:keyword_dict]               = {:controller => "configuration", :action => "keyword_dict" }
 - routing[:administrations][:custom_groups]             = {:controller => "configuration", :action => "custom_groups" }
 - routing[:administrations][:master_docs]               = {:controller => "configuration", :action => "master_docs" }
 - routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
@@ -45,6 +46,8 @@
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data", :controller => "administrations", :action => "system_data"
+          %li{:id => action == "keyword_dict" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Keywords", :controller => "administrations", :action => "keyword_dict"
           %li{:id => action == "custom_groups" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/custom_group.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
           %li{:id => action == "master_docs" ? "selected" : ""}
@@ -104,7 +107,7 @@
         <p>Maintenace</p>
         %ul
           %li{:id => @current_action == "system_backup" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Database Backup", :controller => "maintenance", :action => "system_backup"
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Data Backup", :controller => "maintenance", :action => "system_backup"
           %li{:id => @current_action == "system_restore" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Maintenance/database_restore.png')} Database Restore", :controller => "maintenance", :action => "system_restore"
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_restore.png')} Data Restore", :controller => "maintenance", :action => "system_restore"
     .bottom

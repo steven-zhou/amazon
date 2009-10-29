@@ -13,6 +13,14 @@ class KeywordType < AmazonSetting
   def self.active_keyword_type
     @keyword_type = KeywordType.find(:all, :conditions => ["status = true"], :order => 'name')
   end
+  
+  def self.distinct_active_keyword_type   # find all the active keyword type into the drop down list style
+    @keyword_type = KeywordType.find(:all, :conditions => ["status = true"], :order => 'name')
+    results = ""
+    @keyword_type.each {|setting| results += "<option value='"+"#{setting.id}"+"'>" + "#{setting.name}" + "</option>"}
+    return results
+  end
+  
 
   private
 

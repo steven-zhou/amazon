@@ -10,6 +10,13 @@ class AdministrationsController < ApplicationController
     end
   end
 
+
+   def keyword_dict
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def custom_groups
     @tag_meta_type = GroupMetaMetaType.find_by_name("Custom")
     @category = "Group"
@@ -160,5 +167,8 @@ class AdministrationsController < ApplicationController
       format.html
     end
   end
+
+
+
 
 end
