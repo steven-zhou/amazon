@@ -3245,17 +3245,13 @@ $(function(){
 
 $(function(){
     $(".group_permission_color").live('mouseover', function(){
-        $(this).animate({
-            color: "#FFFF00"
-        }, 300)
+        $(this).addClass("color_change");
     });
 });
 
 $(function(){
     $(".group_permission_color").live('mouseout', function(){
-        $(this).animate({
-            color: "#F7F8E0"
-        }, 300)
+        $(this).removeClass("color_change");
     });
 });
 
