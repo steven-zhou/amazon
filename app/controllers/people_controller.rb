@@ -241,8 +241,8 @@ class PeopleController < ApplicationController
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
-      flash.now[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
-      render :action =>'new'
+      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
+      redirect_to new_person_path
     end
   end
 
