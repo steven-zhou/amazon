@@ -2234,6 +2234,108 @@ $(function(){
 
 /*Grid*/
 $(function(){
+    $("#feedback_search_grid").flexigrid({
+        url: '/grids/feedback_search_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Date',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Submitted By',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Subject',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Status',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
+        ],
+        searchitems : [
+        {
+            display: 'Date',
+            name : 'field_1'
+        },
+
+        {
+            display: 'Submitted By',
+            name : 'field_2'
+        },
+
+        {
+            display: 'Subject',
+            name : 'field_3'
+        },
+
+        {
+            display: 'Status',
+            name : 'field_4'
+        },
+
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Feedback Items',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+});
+
+$(function(){
+    $('table#feedback_search_grid tbody tr').live('click',function(){
+        $('table#feedback_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        $.ajax({
+            type: 'GET',
+            url: "/feedback/show/"+$(this).attr('id').substring(3),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('table#feedback_search_grid tbody tr').live('click',function(){
+        $('table#feedback_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+
+
+
+$(function(){
     $("#people_search_grid").flexigrid({
         url: '/grids/people_search_grid',
         dataType: 'json',

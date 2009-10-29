@@ -1,0 +1,3 @@
+class FeedbackSearchGrid < Grid
+  
+end

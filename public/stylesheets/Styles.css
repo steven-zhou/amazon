@@ -1425,3 +1425,8 @@ div.duplication_check .form_line.field_select_line {
     display: none;
     text-align: center;
 }
+
+#feedback_item table td {
+    padding-right: 4em;
+    padding-top: 0.5em;
+}
