@@ -1976,129 +1976,27 @@ $(function(){
 });
 
 
-$(function(){
+//$(function(){
+//
+//    $("#system_permission_meta_meta_type_id").live('change',function(){
+//
+//        if ($(this).val()!= ""){
+//            $.ajax({
+//                type:"GET",
+//                url: "/group_permissions/show_module.js",
+//                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+//                dataType:"script"
+//
+//            });
+//            $('#permission_form').show();
+//        }else{
+//
+//            $('#permission_form').hide();
+//        }
+//
+//    });
+//});
 
-    $("#system_permission_meta_meta_type_id").live('change',function(){
-
-        if ($(this).val()!= ""){
-            $.ajax({
-                type:"GET",
-                url: "/group_permissions/show_module.js",
-                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
-                dataType:"script"
-
-            });
-            $('#permission_form').show();
-        }else{
-
-            $('#permission_form').hide();
-        }
-
-    });
-});
-
-
-$(function(){
-    $(".group_permission_color").live('mouseover', function(){
-        $(this).animate({
-            color: "#FFFF00"
-        }, 300)
-    });
-});
-
-$(function(){
-    $(".group_permission_color").live('mouseout', function(){
-        $(this).animate({
-            color: "#F7F8E0"
-        }, 300)
-    });
-});
-
-/*use for click the module show the whole thing*/
-$(function(){
-    $("#show_controllers").live('click', function(){
-        $.ajax({
-            type:"GET",
-            url:"/group_permissions/show_controllers.js",
-            data:"main_module_id="+$(this).attr('main_module_id'),
-            dataType:"script"
-
-        });
-
-    });
-
-});
-
-$(function(){
-    $(".module_select_all").live('click', function(){
-        if ($(this).attr("checked") == true){
-            $('.controller_select_all').attr("checked", true);
-            $('.method_select_all').attr("checked", true);
-        }else{
-            $('.controller_select_all').attr("checked", false);
-            $('.method_select_all').attr("checked", false);
-        }
-
-    });
-});
-
-$(function(){
-    $("#new_group_permission").live('click', function(){
-        $(this).css("display", "none");
-        $(".group_permission_delete").css("display", "none");
-
-        $.ajax({
-            type: "GET",
-            url: "/group_permissions/new.js",
-            data:"group_id="+$(this).attr('group_id'),
-            dataType: "script"
-        });
-        $("#close_new_module").css("display", "");
-    });
-});
-
-
-/*when you slecet the controller , all the method will be on*/
-$(function(){
-    $('.controller_select_all').live('click', function(){
-        if ($(this).attr('checked') == true){
-
-
-            $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
-
-
-        }else{
-
-
-            $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
-            $('.module_select_all').attr("checked", false);
-
-        }
-    });
-});
-
-
-
-$(function(){
-    $('.method_select_all').live('click', function(){
-        if ($(this).attr('checked') == false){
-            $('.module_select_all').attr("checked", false);
-            $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
-        }
-
-    });
-});
-
-$(function(){
-    $("#close_new_module").live('click', function(){
-        $(this).css("display", "none");
-     
-        $('#hide_module').html('');
-        $('#new_group_permission').css("display", "");
-        $(".group_permission_delete").css("display", "");
-      
-    });
-});
 
 
 
@@ -2762,21 +2660,21 @@ $(function(){
 
 });
 
-$(function(){
-    $('.user_name_to_person').live('change', function(){
-        if($(this).val()!= ""){
-            $.ajax({
-                type: "GET",
-                url: "/user_groups/user_name_to_person.js",
-                data: 'user_name='+$(this).val(),
-                dataType:"script"
-            });
-        }else{
-            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-        }
-       
-    });
-});
+//$(function(){
+//    $('.user_name_to_person').live('change', function(){
+//        if($(this).val()!= ""){
+//            $.ajax({
+//                type: "GET",
+//                url: "/user_groups/user_name_to_person.js",
+//                data: 'user_name='+$(this).val(),
+//                dataType:"script"
+//            });
+//        }else{
+//            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+//        }
+//
+//    });
+//});
 
 //
 //
@@ -3057,7 +2955,12 @@ $(function(){
     $('.close_logo').live('click', function(){
         $("#new_" + $(this).attr('field')+ "_form").toggle('blind');
         $("#" + $(this).attr('field')+ "_edit_container").html('');
-        $(".container_selected").removeClass("container_selected");
+        if ($(this).attr('change_color') == "false"){
+            
+        }else{
+            $(".container_selected").removeClass("container_selected");
+        }
+       
     });
 });
 
@@ -3268,7 +3171,133 @@ $(function(){
 
     });
 
+});
 
+/*new-design--group permission*/
+
+$(function(){
+
+    $(".show_module_form").live('change',function(){
+
+        if ($(this).val()!= ""){
+            $.ajax({
+                type:"GET",
+                url: "/group_permissions/show_module.js",
+                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+                dataType:"script"
+
+            });
+            $('#permission_form').show();
+        }else{
+
+            $('#permission_form').hide();
+        }
+
+    });
+});
+
+
+
+$(function(){
+    $(".group_permission_color").live('mouseover', function(){
+        $(this).animate({
+            color: "#FFFF00"
+        }, 300)
+    });
+});
+
+$(function(){
+    $(".group_permission_color").live('mouseout', function(){
+        $(this).animate({
+            color: "#F7F8E0"
+        }, 300)
+    });
+});
+
+/*use for click the module show the whole thing*/
+$(function(){
+    $("#show_controllers").live('click', function(){
+        $.ajax({
+            type:"GET",
+            url:"/group_permissions/show_controllers.js",
+            data:"main_module_id="+$(this).attr('main_module_id'),
+            dataType:"script"
+
+        });
+
+    });
 
 });
+
+$(function(){
+    $(".module_select_all").live('click', function(){
+        if ($(this).attr("checked") == true){
+            $('.controller_select_all').attr("checked", true);
+            $('.method_select_all').attr("checked", true);
+        }else{
+            $('.controller_select_all').attr("checked", false);
+            $('.method_select_all').attr("checked", false);
+        }
+
+    });
+});
+
+$(function(){
+    $("#new_group_permission").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_permission_delete").css("display", "none");
+
+        $.ajax({
+            type: "GET",
+            url: "/group_permissions/new.js",
+            data:"group_id="+$(this).attr('group_id'),
+            dataType: "script"
+        });
+        $("#close_new_module").css("display", "");
+    });
+});
+
+
+/*when you slecet the controller , all the method will be on*/
+$(function(){
+    $('.controller_select_all').live('click', function(){
+        if ($(this).attr('checked') == true){
+
+
+            $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+
+
+        }else{
+
+
+            $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
+            $('.module_select_all').attr("checked", false);
+
+        }
+    });
+});
+
+
+
+$(function(){
+    $('.method_select_all').live('click', function(){
+        if ($(this).attr('checked') == false){
+            $('.module_select_all').attr("checked", false);
+            $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
+        }
+
+    });
+});
+
+$(function(){
+    $("#close_new_module").live('click', function(){
+        $(this).css("display", "none");
+
+        $('#hide_module').html('');
+        $('#new_group_permission').css("display", "");
+        $(".group_permission_delete").css("display", "");
+
+    });
+});
+
 
