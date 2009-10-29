@@ -15,7 +15,7 @@ class ChangeLoginAccount < ActiveRecord::Migration
     remove_column :login_accounts, :security_question2_id 
     remove_column :login_accounts, :security_question3_id
 
-     add_column :login_accounts, :security_question1, :text
+    add_column :login_accounts, :security_question1, :text
     add_column :login_accounts, :security_question2, :text
     add_column :login_accounts, :security_question3, :text
   end

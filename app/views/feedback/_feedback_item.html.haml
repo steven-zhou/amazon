@@ -1,0 +1,17 @@
+.container
+  .containter
+    %h2
+      = "#{@feedback_item.id} (#{@feedback_item.status}) - #{@feedback_item.subject}"
+      %p &nbsp;
+      .container
+        = image_tag("closed_accordion.png", :style => "float:right;display:inline;display:none;", :id => "hide_feedback_details")
+        = image_tag("open_accordion.png", :style => "float:right;display:inline;",  :id => "display_feedback_details")
+        = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email} - #{@feedback_item.feedback_date.strftime('%a %d %b %Y')}"
+        %div#feedback_details{:style => "display:none;"}
+          %br.clear
+            =  "IP Address: #{@feedback_item.ip_address}"
+          %br.clear
+      Content:
+      %br
+      = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :rows => "10", :cols => "141")
+

@@ -156,12 +156,27 @@ $('.birthdatepick').live("mouseover", function(){
 
 $('.startdatepick').live("mouseover", function(){
     $("#"+$(this).attr("end_date")).datepicker('enable');
-    $(this).datepicker({
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true
-    });
+    var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    if(year!=undefined){
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date(year, month-1, day-1)
+        });
+    }else{
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+    
 });
 
 
@@ -3513,6 +3528,37 @@ $(function(){
             $("#keyword_main_contents").show();
         }
         $("#keyword_mode").attr('mode', 'show');
+    });
+});
+
+
+$(function(){
+    $("#close_edit_keyword_entry").live('click', function(){
+         $("#keyword_add_entry").css("display","");
+      $("#keyword_mode").attr('mode', 'show');
+
+       $.ajax({
+                type: "GET",
+                url: "/keywords/keywords_finder.js",
+                data: 'type=' + $("#keyword_type").val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#display_feedback_details").live('click', function(){
+        $("#display_feedback_details").hide();
+        $("#hide_feedback_details").show();
+        $("#feedback_details").show();
+    });
+});
+
+$(function(){
+    $("#hide_feedback_details").live('click', function(){
+        $("#hide_feedback_details").hide();
+        $("#display_feedback_details").show();
+        $("#feedback_details").hide();
     });
 });
 

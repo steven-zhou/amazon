@@ -45,6 +45,13 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+  def super_admin
+    @client_setup = ClientSetup.first
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def update
     @client_setup = ClientSetup.first
     if @client_setup.update_attributes(params[:client_setup])
@@ -53,6 +60,9 @@ class ClientSetupsController < ApplicationController
 
     if params[:installation]
       redirect_to installation_client_setups_path
+    elsif
+      params[:super_admin]
+      redirect_to super_admin_client_setups_path
     else
       redirect_to parameters_client_setups_path
     end
