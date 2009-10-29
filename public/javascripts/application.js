@@ -579,19 +579,19 @@ $(function(){
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
         $("#edit_system_data_entry").hide();
-           $.ajax({
-                type: "GET",
-                url: "/amazon_settings/system_settings_finder.js",
-                data: 'type=' + $("#system_data_type").val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/system_settings_finder.js",
+            data: 'type=' + $("#system_data_type").val(),
+            dataType: "script"
+        });
        
     });
 });
 
 $(function(){
     $("#system_data_close_entry").live('click', function(){
-       $("#system_data_add_entry_form").css("display","none");
+        $("#system_data_add_entry_form").css("display","none");
     });
 });
 
@@ -1719,7 +1719,7 @@ check_empty_value = function(){
   
     if( $("#"+$(this).attr("check_field")).val()== "")
     {
-      var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
+        var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
         alert(error_message);
         return false;
     }
@@ -3458,14 +3458,18 @@ $(function(){
     $("#keyword_add_entry").live('click', function(){
         $("#keyword_add_entry_form").show();
         $("#edit_keyword_entry").html("");
+
+        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+     
+        $("#keyword_type").attr("disabled",true);
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+
     });
 });
 
 $(function(){
     $("#keyword_close_entry").live('click', function(){
         $("#keyword_add_entry_form").hide();
-        
         $("#edit_keyword_entry").html("");
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
     });
@@ -3473,25 +3477,19 @@ $(function(){
 
 $(function(){
     $("#close_edit_keyword_entry").live('click', function(){
+        $("#keyword_add_entry").css("display","");
+        $("#keyword_mode").attr('mode', 'show');
         $("#keyword_add_entry_form").hide();
-
+   
         $("#edit_keyword_entry").html("");
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
-    });
-});
 
-
-$(function(){
-    $("#close_edit_keyword_entry").live('click', function(){
-         $("#keyword_add_entry").css("display","");
-      $("#keyword_mode").attr('mode', 'show');
-
-       $.ajax({
-                type: "GET",
-                url: "/keywords/keywords_finder.js",
-                data: 'type=' + $("#keyword_type").val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/keywords/keywords_finder.js",
+            data: 'type=' + $("#keyword_type").val(),
+            dataType: "script"
+        });
     });
 });
 
