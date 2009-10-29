@@ -1,0 +1,12 @@
+%br
+.title{:style => "width:70%"}
+  %h2{:style => "display:inline;"} Select System Module :
+  &nbsp
+  &nbsp
+  = collection_select :system_permission_meta_meta_type, :id, @module_all, :id, :name, {}, {:class => "show_module_form clear_select", :style => "width:40%"}
+.field_20{:style => "display:none;"}
+  %label &nbsp
+  %input{:name => "group_permission[user_group_id]", :value => "#{@group_type.id}", :id => "group_permission_user_group_id"}
+
+%br.clear
+#permission_form
