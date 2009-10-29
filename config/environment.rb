@@ -90,12 +90,12 @@ Rails::Initializer.run do |config|
   config.action_mailer.smtp_settings = {
 
     :enable_starttls_auto => true,
-    :address  => "mail.powernet.com.au",
+    :address  => "mail.memberzone.com.au",
     :port => 25,
-    :domain => "powernetsystems.asia",
+    :domain => "memberzone.com.au",
     :authentication => :plain,
-    :user_name => "powernet@powernet.com.au",
-    :password => "tenrewop",
+    :user_name => "feedback@memberzone.com.au",
+    :password => "feedback123",
 
 #    :enable_starttls_auto => true,
 #    :address => "smtp.gmail.com",
