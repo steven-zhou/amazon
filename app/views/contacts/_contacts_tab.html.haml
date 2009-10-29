@@ -4,7 +4,7 @@
       = link_to_function image_tag('close_icon.png'), :class => " person_contact_close toggle_button", :toggle_id_name => "new_contact", :style => "display:none;"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_contact ", :class=> "person_contact_toggle_button add_icon clear_form_to_phone", :toggle_id_name => "new_contact"  if (!person.nil? && !person.new_record?)
-    %h1 Add Contact
+    %h1 New Contact
     %input{:id => "contact_hidden_tab" :mode => "show", :style => "display:none"}
     =# Initially hidden new address form
     %div#new_contact{:style=>"display:none"}
@@ -31,16 +31,16 @@
     
   #contacts
     =# Render the person's contacts
-    -if !@person.emails.blank?
-      .container
-        %h2 Email
-        #contact_email
-          = render :partial => '/contacts/contact', :collection => @person.emails
     -if !@person.phones.blank?
       .container
         %h2 Phone
         #contact_phone
           = render :partial => '/contacts/contact', :collection => @person.phones
+    -if !@person.emails.blank?
+      .container
+        %h2 Email
+        #contact_email
+          = render :partial => '/contacts/contact', :collection => @person.emails
     -if !@person.websites.blank?
       .container
         %h2 Website

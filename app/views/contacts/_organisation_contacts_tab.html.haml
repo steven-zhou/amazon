@@ -1,55 +1,51 @@
 -#Contacts Tab
-
 .container
   .header_container
     .options
-      = link_to_function image_tag('add_icon.png'), :id=>"add_contact", :class=>"toggle_button new_option clear_form_to_phone", :field => "contact", :toggle_id_name => "new_contact"  if (!organisation.nil? && !organisation.new_record?)
-      = image_tag('help_icon.png')
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "contact", :toggle_id_name => "new_contact", :style => "display:none;"
     .title
-      %h1 Contact Details
-      %input{:id => "contact_mode" :mode => "show", :style => "display:none"}
-    %br{ :style=>"clear: both;"}
-
-  =# Initially hidden new address form
-  .container#new_contact{:style=>"display:none"}
-    .options{:style => "float:right"}
-      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "contact", :toggle_id_name => "new_contact"
+      = link_to_function image_tag('add_icon.png'), :id=>"add_contact", :class=>"toggle_button new_option clear_form_to_phone", :field => "contact", :toggle_id_name => "new_contact"  if (!organisation.nil? && !organisation.new_record?)
     %h1 New Contact
-     
-    %p
-      .form_line
-        .field_20
-          %select#select_contact_type
-            = for cmt in ContactMetaMetaType.all
-              %option{:value => "add_#{cmt.name.downcase}"}
-                = cmt.name
-      %br{ :style=>"clear: both;"}
+    %input{:id => "contact_mode" :mode => "show", :style => "display:none"}
+    
+    =# Initially hidden new address form
+    %div#new_contact{:style=>"display:none"}
+      %p
+        .form_line
+          .field_20
+            %select#select_contact_type
+              = for cmt in ContactMetaMetaType.all
+                %option{:value => "add_#{cmt.name.downcase}"}
+                  = cmt.name
+        %br{ :style=>"clear: both;"}
                 
         
-    #phone_type
-      = render :partial => '/phones/organisation_personal_phone_type', :locals => { :phone => @phone }
-    #email_type
-      = render :partial => "/emails/organisation_personal_email_type", :locals => {:email => @email}
-    #website_type
-      = render :partial => '/websites/organisation_personal_website_type', :locals => { :website => @website }
+      #phone_type
+        = render :partial => '/phones/organisation_personal_phone_type', :locals => { :phone => @phone }
+      #email_type
+        = render :partial => "/emails/organisation_personal_email_type", :locals => {:email => @email}
+      #website_type
+        = render :partial => '/websites/organisation_personal_website_type', :locals => { :website => @website }
         
     
 
     
   #contacts
     =# Render the person's contacts
-    -if !@organisation.emails.blank?
-      .container
-        %h2 Email
-        #contact_email
-          = render :partial => '/contacts/contact', :collection => @organisation.emails
     -if !@organisation.phones.blank?
       .container
         %h2 Phone
         #contact_phone
           = render :partial => '/contacts/contact', :collection => @organisation.phones
+
+    -if !@organisation.emails.blank?
+      .container
+        %h2 Email
+        #contact_email
+          = render :partial => '/contacts/contact', :collection => @organisation.emails
+   
     -if !@organisation.websites.blank?
       .container
-        %h2 website
+        %h2 Website
         #contact_website
           = render :partial => '/contacts/contact', :collection => @organisation.websites

@@ -18,13 +18,27 @@
 
         %br{ :style=>"clear: both;"}
       #contacts
-      =# Render the organisation's contacts
-      = render :partial => '/organisations/organisation_contact', :collection => @organisation.contacts
+      =# Render the person's contacts
+      -if !@organisation.phones.blank?
+        .container
+          %h2 Phone
+          #contact_phone
+            = render :partial => '/organisations/organisation_contact', :collection => @organisation.phones
+      -if !@organisation.emails.blank?
+        .container
+          %h2 Email
+          #contact_email
+            = render :partial => '/organisations/organisation_contact', :collection => @organisation.emails
+      -if !@organisation.websites.blank?
+        .container
+          %h2 Website
+          #contact_website
+            = render :partial => '/organisations/organisation_contact', :collection => @organisation.websites
   #Keyword
     .container
       .header_container
         .title
-          %h1 KeyWords Details
+          %h1 Keyword Details
 
         %br{ :style=>"clear: both;"}
       #keywords
@@ -34,7 +48,7 @@
     .container
       .header_container
         .title
-          %h1 MasterDocs Details
+          %h1 MasterDoc Details
 
         %br{ :style=>"clear: both;"}
       #masterdocs
@@ -45,7 +59,7 @@
     .container
       .header_container
         .title
-          %h1 Notes
+          %h1 Note Details
 
         %br{ :style=>"clear: both;"}
       #notes_list
@@ -62,7 +76,7 @@
     .container
       .header_container
         .title
-          %h1 Group
+          %h1 Group Details
 
       %br{ :style=>"clear: both;"}
       #group_list

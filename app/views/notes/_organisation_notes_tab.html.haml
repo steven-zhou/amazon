@@ -1,23 +1,17 @@
 -# The main Address tab
 .container
   .header_container
-    .title
-      %h1 Notes
-      %input{:id => "note_mode" :mode => "show", :style => "display:none"}
     .options
+      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "note", :toggle_id_name => "new_note", :style => "display:none"
+    .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"toggle_button new_option", :field => "note", :toggle_id_name => "new_note"  if (!organisation.nil? && !organisation.new_record?)
-      = image_tag('help_icon.png')
-    %br{ :style=>"clear: both;"}
+    %h1 New Note
+    %input{:id => "note_mode" :mode => "show", :style => "display:none"}
 
-
-  -form_for([@organisation,@note], :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
-    .container
-      .options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "note", :toggle_id_name => "new_note"
-      %h1 New Note
+    -form_for([@organisation,@note], :url => "/organisations/#{@organisation.id}/notes", :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
       = render :partial => '/notes/note_form', :locals => { :note => note }
       = submit_tag 'Submit'
-    %br.clear
+
 
   #notes_list
     =# Render the organisation's notes

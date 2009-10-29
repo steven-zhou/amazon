@@ -154,6 +154,10 @@ body {
     text-align: center;
 }
 
+#app #main #sysbar .bar_section#menu  {
+    text-align:left;
+}
+
 #app #main #sysbar .bar_section#toolbar  {
     width: 50%;
 }
@@ -311,6 +315,20 @@ margin-right: 5px;
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;
+}
+
+#app #main #content .container_half {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 46%;
+    float: left;
+    padding: 1%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+    margin-right:2%;
 }
 
 #app #main #content .container.green_container {
@@ -935,10 +953,6 @@ div.info_warning {
 }
 
 /* Organisation New*/
-form#add_organisation.new_organisation input#organisation_custom_id{
-    float:right;
-    width: 200px !important;
-}
 
 form#add_organisation.new_organisation input#image_image_file{
     height: 25px !important;
@@ -1276,6 +1290,14 @@ div.tag ul li.open ul {
     display:block;
 }
 
+div.tag ul li.open ul li ul {
+    display:none;
+}
+
+div.tag ul li.open ul li.open ul {
+    display:block;
+}
+
 div.tag ul li.active {
     border-style:dashed;
     border-color:#888;
@@ -1384,7 +1406,8 @@ div.duplication_check .form_line.field_select_line {
 
 }
 
-/**/
+
+/*group--permission*/
 div#show_controllers_container ul li{
     width:85%;
     float:none;
@@ -1411,4 +1434,25 @@ div#permission_form .options{
 
     }
 
+
+/*feedback--email*/
+#feedback_form {
+    display:none;
+    background:white;
+}
+
+#feedback_form table{
+    border:0px;
+    width:80%;
+}
+
+#feedback_form table td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+#feedback_confirmation {
+    display: none;
+    text-align: center;
+}
 

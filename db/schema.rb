@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091027093105) do
+
+ActiveRecord::Schema.define(:version => 20091028051556) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -41,6 +42,28 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.datetime "updated_at"
     t.string   "description"
     t.boolean  "status"
+  end
+
+  create_table "client_setups", :force => true do |t|
+    t.integer  "organisation_id"
+    t.string   "client_id"
+    t.string   "client_rego"
+    t.date     "installation_date"
+    t.date     "halt_date"
+    t.boolean  "system_status"
+    t.string   "modules_installed"
+    t.string   "system_type"
+    t.string   "system_purchase"
+    t.integer  "maximum_core_records"
+    t.string   "hosting_status"
+    t.integer  "number_of_users"
+    t.string   "message_to_super_admin"
+    t.integer  "number_of_login_attempts"
+    t.integer  "new_account_graceperiod"
+    t.integer  "session_timeout"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "password_lifetime"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -106,11 +129,6 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.string   "group"
   end
 
-  create_table "duplication_personal_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "employments", :force => true do |t|
     t.integer  "person_id"
     t.integer  "organisation_id"
@@ -159,8 +177,6 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
 
   create_table "feedback_items", :force => true do |t|
     t.integer  "login_account_id"
-    t.text     "controller_submitted_at"
-    t.text     "action_submitted_at"
     t.text     "subject"
     t.text     "content"
     t.text     "ip_address"
@@ -168,6 +184,9 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.datetime "feedback_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "response"
+    t.datetime "response_date"
+    t.integer  "responsed_to_by_id"
   end
 
   create_table "grids", :force => true do |t|
@@ -337,11 +356,6 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.datetime "updated_at"
   end
 
-  create_table "ogansisation_contacts_report_grids", :force => true do |t|
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "organisation_groups", :force => true do |t|
     t.integer  "organisation_id"
     t.integer  "tag_id"
@@ -404,6 +418,9 @@ ActiveRecord::Schema.define(:version => 20091027093105) do
     t.date     "onrecord_since"
     t.string   "business_sub_category"
     t.string   "duplication_value"
+    t.string   "type"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
   end
 
   create_table "people", :force => true do |t|

@@ -5,11 +5,11 @@
       = link_to_function image_tag('close_icon.png'), :class => "clear_group_form close_option toggle_button", :field => "organisation_group", :toggle_id_name => "new_group", :style=>"display:none"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form new_option toggle_button", :field => "organisation_group", :toggle_id_name => "new_group" if (!organisation.nil? && !organisation.new_record?)
-    %h1 Add Groups
+    %h1 New Group
     %input.hidden{:id => "organisation_group_mode", :mode => "show"}
    
     .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
-      -form_for([@organisation, @organisation_group], :html => {:class => 'ajax_form'}) do |groups|
+      -form_for([@organisation, @organisation_group], :url => "/organisations/#{@organisation.id}/organisation_groups", :html => {:class => 'ajax_form'}) do |groups|
         = render :partial => '/organisation_groups/group_form', :locals => {:groups => groups}
         = submit_tag 'Submit'
       %br.clear

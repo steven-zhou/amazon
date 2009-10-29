@@ -5,7 +5,7 @@
       = link_to_function image_tag('close_icon.png'), :class => "clear_group_form person_group_close toggle_button", :toggle_id_name => "new_group", :style=>"display:none"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form person_group_toggle_button", :toggle_id_name => "new_group"  if (!person.nil? && !person.new_record?)
-    %h1 Add Groups
+    %h1 New Group
    
     .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
       -form_for([@person, @person_group], :html => {:class => ' ajax_form'}) do |groups|

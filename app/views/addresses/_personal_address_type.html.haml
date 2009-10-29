@@ -18,11 +18,11 @@
       = a.label :street_name, 'Street Name'
       = a.text_field :street_name
   .form_line
-    .field_40{:style => "width: 39%;"}
+    .field_40{:style => "margin-right: 5px;"}
       = a.label :town, 'Suburb'
       = a.text_field :town ,:id =>"address_town",:style => "width:99%;"
 
-    .field_5{:style => "margin-right: 4px;"}
+    .field_5
       = a.label :postal_code, '&nbsp'
       = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"address_town" ,:update_field2 =>"address_state" ,:update_field3 => "address_postal_code" ,:update_field4 => "address_country_id"
     .field_40
@@ -35,4 +35,4 @@
     .field_45
       = a.label :country, 'Country'
       = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id =>"address_country_id"}
-  = submit_tag 'Submit',:id => "address_submit_button"
+  = submit_tag 'Submit',:id => "address_submit_button" ,:check_field => "address_street_name"

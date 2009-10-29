@@ -48,6 +48,8 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
   end
 
+  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get}
+
   map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
@@ -149,7 +151,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.connect '/', {:controller => "signin", :action => "login" }
-  map.welcome 'welcome', :controller => "module", :action => "core"    # After a user is logged in this is where they are sent to
+  map.welcome 'welcome', :controller => "dashboards", :action => "index"    # After a user is logged in this is where they are sent to
   map.login 'login', :controller => "signin", :action => "login"       # This should be the page a user logs in at
   
   map.connect ':controller/:action/:id'
