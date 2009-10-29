@@ -8,7 +8,7 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
     subject            "Password Reset Request"
     sent_on            Time.now
     body                :password => new_password
-    content_type        "text/html"
+    content_type        "text/plain"
 
   end
 
@@ -20,7 +20,7 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
     sent_on           Time.now
     body              :login_account => login_account, :password => password
-    content_type        "text/html"
+    content_type        "text/plain"
             
 
 
