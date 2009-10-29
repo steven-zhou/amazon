@@ -16,8 +16,10 @@ class MaintenanceController < ApplicationController
   def system_restore
     backup_directory = "/home/rails/database/backup"
     @backups = Array.new
-    if ( File.exists?(backup_directory) && File.directory?(backup_directory) && File.readable?(backup_directory) )
-      available_backups = Dir.entries(backup_directory) - ["..", "."]
+    # if ( File.exists?(backup_directory) && File.directory?(backup_directory) && File.readable?(backup_directory) )
+    if (true)
+      # available_backups = (Dir.entries(backup_directory) - ["..", "."]).stort
+      available_backups = ["2009-10-10_01-00-05", "2009-10-26_01-00-07", "2009-10-25_01-00-10", "2009-10-22_01-00-06", "2009-10-16_01-00-07", "2009-10-11_01-00-06", "2009-10-14_01-00-05", "2009-10-20_01-00-06", "2009-10-18_01-00-06", "2009-10-15_01-00-06", "2009-10-21_01-00-06", "2009-10-12_01-00-06", "2009-10-19_01-00-09", "2009-10-13_01-00-06", "2009-10-28_01-00-06", "2009-10-17_01-00-06", "2009-10-24_01-00-07", "2009-10-23_01-00-06", "2009-10-27_01-00-06", "2009-10-29_01-00-06"].sort.reverse
       for backup in available_backups do
         backup = backup_directory_tidy(backup)
         @backups << backup unless backup.empty?

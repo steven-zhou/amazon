@@ -8,12 +8,13 @@
     - if @backups.empty?
       System Backups are currently not available. Please contact your Systems Administrator to schedule backups as soon as possible.
     - else
-      %p Available System Backups
+      %h2 Available System Backups
+      %p Contact your Systems Administrator to arrange restoring data from a backup.
       %table
         - for backup in @backups do
-          .container
-              = backup
-              Contact System Admininstrator to Restore Backup
+          .container{:style => "width:26%;margin:1%;"}
+            = backup
+
 
 
 
