@@ -21,8 +21,6 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
     sent_on           Time.now
     body              :login_account => login_account, :password => password
     content_type        "text/plain"
-            
-
 
   end
 

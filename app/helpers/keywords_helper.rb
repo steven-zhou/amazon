@@ -6,7 +6,7 @@ module KeywordsHelper
     #options_for_select keywords.collect{|keyword| [keyword.name, keyword.id]}
     options = ""
     keywords.each do |keyword|
-      options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.remarks}'>#{keyword.name}</option>"
+      options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.description}'>#{keyword.name}</option>"
     end
     return options
   end
@@ -16,7 +16,7 @@ module KeywordsHelper
     options = ""
     keywords = Keyword.all - person.keywords
     keywords.each do |keyword|
-      options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.remarks}'>#{keyword.name}</option>"
+      options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.description}'>#{keyword.name}</option>"
     end
     return options
   end
