@@ -156,12 +156,27 @@ $('.birthdatepick').live("mouseover", function(){
 
 $('.startdatepick').live("mouseover", function(){
     $("#"+$(this).attr("end_date")).datepicker('enable');
-    $(this).datepicker({
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true
-    });
+    var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    if(year!=undefined){
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date(year, month-1, day-1)
+        });
+    }else{
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+    
 });
 
 
