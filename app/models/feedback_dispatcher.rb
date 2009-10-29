@@ -8,7 +8,7 @@ class FeedbackDispatcher < ActionMailer::Base
     subject          "System Feedback"
     sent_on           Time.now
     body             :feedback => feedback
-    content_type     "text/html"
+    content_type     "text/plain"
 
   end
 
@@ -21,7 +21,7 @@ class FeedbackDispatcher < ActionMailer::Base
     subject          "System Feedback Ticket #{feedback.id}"
     sent_on          Time.now
     body             :feedback => feedback
-    content_type     "text/html"
+    content_type     "text/plain"
 
   end
 

@@ -8,7 +8,7 @@ class LoginAccountUsernameRetrievalDispatcher < ActionMailer::Base
     @subject          = "Username Retrieval Request"
     @sent_on          = Time.now
     @body["username"] = login_account.user_name
-    content_type        "text/html"
+    content_type        "text/plain"
 
   end
   
