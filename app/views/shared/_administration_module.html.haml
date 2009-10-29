@@ -2,13 +2,11 @@
 - routing[:administrations][:system_data]               = {:controller => "configuration", :action => "system_data" }
 - routing[:administrations][:keyword_dict]               = {:controller => "configuration", :action => "keyword_dict" }
 - routing[:administrations][:custom_groups]             = {:controller => "configuration", :action => "custom_groups" }
-- routing[:administrations][:query_tables]              = {:controller => "configuration", :action => "query_tables" }
 - routing[:administrations][:master_docs]               = {:controller => "configuration", :action => "master_docs" }
 - routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
 - routing[:administrations][:roles_management]          = {:controller => "configuration", :action => "roles_management" }
 - routing[:administrations][:contact_types]             = {:controller => "configuration", :action => "contact_types" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
-- routing[:administrations][:access_permissions]        = {:controller => "security", :action => "access_permissions" }
 - routing[:administrations][:group_permissions]         = {:controller => "security", :action => "group_permissions" }
 - routing[:administrations][:group_lists]               = {:controller => "security", :action => "group_lists" }
 - routing[:administrations][:security_groups]           = {:controller => "security", :action => "security_groups" }
@@ -52,8 +50,6 @@
             = link_to "#{image_tag('icon_holder.png')} Keywords", :controller => "administrations", :action => "keyword_dict"
           %li{:id => action == "custom_groups" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/custom_group.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
-          %li{:id => action == "query_tables" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Configuration/query_table.png')} Query Tables", :controller => "administrations", :action => "query_tables"
           %li{:id => action == "master_docs" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/MasterDocs.png')} Master Docs", :controller => "administrations", :action => "master_docs"
           %li{:id => action == "role_conditions" ? "selected" : ""}
@@ -75,8 +71,6 @@
       - else
         <p>Security Groups</p>
         %ul
-          -#%li{:id => action == "access_permissions" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
           %li{:id => action == "security_groups" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager", :controller => "administrations", :action => "security_groups"
           %li{:id => action == "group_lists" ? "selected" : ""}
