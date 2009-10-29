@@ -1462,3 +1462,8 @@ div#permission_form .options{
     text-align: center;
 }
 
+
+#feedback_item table td {
+    padding-right: 4em;
+    padding-top: 0.5em;
+}

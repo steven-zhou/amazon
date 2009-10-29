@@ -1,5 +1,5 @@
 
-<h2>Feedback Accepted</h2>
+<h2>Confirmation of Feedback</h2>
 <br />
 <p>Thank you for your feedback.</p>
 <br />
@@ -7,7 +7,7 @@
 <br />
 <p>Would you like to receive email confirmation of this?</p>
 <br />
-<p><div id="issue_feedback_confirmation" style="cursor:pointer;display:inline;">Yes</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div id="no_feedback_confirmation" style="cursor:pointer;display:inline;">No</div></p>
+<p><%= submit_tag("Yes", :id => "issue_feedback_confirmation", :style => "display:inline;" ) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag("No", :id => "no_feedback_confirmation", :style => "display:inline;" ) %></p>
 
 <script type="text/javascript">
   $(function() {
