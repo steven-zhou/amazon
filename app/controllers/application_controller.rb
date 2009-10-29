@@ -37,6 +37,10 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     else
       @current_user = LoginAccount.find(session[:user])
+
+
+      redirect_to :controller => "dashboards", :action => "check_password", :layout => false
+ 
     end
   end
 

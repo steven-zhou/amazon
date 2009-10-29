@@ -106,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
   map.resources :user_lists, :collection => {:show_list_des => :get}
-  map.resources :dashboards
+  map.resources :dashboards, :collection => {:check_password => :get}
   map.resources :system_news
   map.resources :to_do_lists
 
