@@ -1467,3 +1467,19 @@ div#permission_form .options{
     padding-right: 4em;
     padding-top: 0.5em;
 }
+
+#feedback_item table .feedback_first_column {
+    width: 15%;
+}
+
+#feedback_item table .feedback_second_column {
+    width: 40%;
+}
+
+#feedback_item table .feedback_third_column {
+    width: 15%;
+}
+
+#feedback_item table .feedback_fourth_column {
+    width: 30%;
+}
