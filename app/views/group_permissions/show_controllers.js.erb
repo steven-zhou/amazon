@@ -1,7 +1,12 @@
 
 $('#show_controllers_container').html('<%=escape_javascript(render(:partial => '/group_permissions/controller_form1')) %>')
 
+if ($('#show_controllers_container').css("display")=="block"){
+ $('#show_controllers_container').css("display","none");
+}else{
 
+$('#show_controllers_container').css("display","");
+}
 
 if ($('.module_select_all').attr('checked') == true){
             $('.controller_select_all').attr("checked", true);

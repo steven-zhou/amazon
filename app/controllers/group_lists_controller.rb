@@ -16,7 +16,7 @@ class GroupListsController < ApplicationController
 
   
 
-  #new_design-------down
+  #*********new design************
   def edit
     @group = GroupType.find(params[:data_id])
     @list_headers = ListHeader.find :all

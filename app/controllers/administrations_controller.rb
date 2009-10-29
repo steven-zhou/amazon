@@ -128,19 +128,7 @@ class AdministrationsController < ApplicationController
 
 
   def group_permissions
-    @role = Role.new
-    @role_condition = RoleCondition.new
-    @role_type = RoleType.new
-    @login_account = LoginAccount.new
-    @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
-    @user_group = UserGroup.new
-    @group_all = Array.new
-    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
-    @group_all = c.group_types rescue @group_all = Array.new
-
-    @module_all = Array.new
-    c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
-    @module_all = c
+    @group_types = GroupType.system_user_groups
     respond_to do |format|
       format.html
     end
