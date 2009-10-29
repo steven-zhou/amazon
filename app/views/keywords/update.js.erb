@@ -1,0 +1,13 @@
+$("#edit_keyword_entry").html("");
+
+$.ajax({
+type: "GET",
+url: "/keywords/keywords_finder.js",
+data: 'type=' + $("#keyword_type").val(),
+dataType: "script"
+});
+
+$("#keyword_main_contents").show();
+$("#keyword_mode").attr('mode', 'show');
+
+$("#keyword_add_entry").css("display","");

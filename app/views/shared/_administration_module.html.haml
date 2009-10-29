@@ -1,5 +1,6 @@
 - routing = Hash.new{|h,k| h[k]=Hash.new(&h.default_proc) }
 - routing[:administrations][:system_data]               = {:controller => "configuration", :action => "system_data" }
+- routing[:administrations][:keyword_dict]               = {:controller => "configuration", :action => "keyword_dict" }
 - routing[:administrations][:custom_groups]             = {:controller => "configuration", :action => "custom_groups" }
 - routing[:administrations][:query_tables]              = {:controller => "configuration", :action => "query_tables" }
 - routing[:administrations][:master_docs]               = {:controller => "configuration", :action => "master_docs" }
@@ -47,6 +48,8 @@
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data", :controller => "administrations", :action => "system_data"
+          %li{:id => action == "keyword_dict" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Keywords", :controller => "administrations", :action => "keyword_dict"
           %li{:id => action == "custom_groups" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/custom_group.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
           %li{:id => action == "query_tables" ? "selected" : ""}

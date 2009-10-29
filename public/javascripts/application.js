@@ -3323,3 +3323,77 @@ $(function(){
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
 });
+
+/* Admin Add Keyword*/
+
+$(function(){
+    $("#keyword_add_entry").live('click', function(){
+        $("#keyword_add_entry_form").show();
+        $("#edit_keyword_entry").html("");
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+    });
+});
+
+$(function(){
+    $("#keyword_close_entry").live('click', function(){
+        $("#keyword_add_entry_form").hide();
+        
+        $("#edit_keyword_entry").html("");
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+    });
+});
+
+$(function(){
+    $("#close_edit_keyword_entry").live('click', function(){
+        $("#keyword_add_entry_form").hide();
+
+        $("#edit_keyword_entry").html("");
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+    });
+});
+
+
+$(function(){
+    $("#close_edit_keyword_entry").live('click', function(){
+         $("#keyword_add_entry").css("display","");
+      $("#keyword_mode").attr('mode', 'show');
+    });
+});
+
+$(function(){
+    $("#keyword_type").live('change', function(){
+        if($(this).val()==""){
+            $("#keyword_main_contents").hide();
+            $("#keyword_entries").html("");
+            $("#edit_keyword_entry").html("");
+        } else {
+            $("#edit_keyword_entry").html("");
+           
+        
+            $("#amazon_setting_type").val($(this).val());
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keywords_finder.js",
+                data: 'type=' + $(this).val(),
+                dataType: "script"
+            });
+            $("#keyword_main_contents").show();
+        }
+        $("#keyword_mode").attr('mode', 'show');
+    });
+});
+
+//$(function(){
+//    $("#delete_keyword_entry").live('click', function(){
+//        $(".container_selected").removeClass("container_selected");
+//        $("#edit_keyword_entry").hide();
+//        $("#keyword_add_entry_form").hide();
+//        $.ajax({
+//            type: "GET",
+//            url: "/keywords/"+ $(this).attr('keyword_id'),
+//
+//            dataType: "script"
+//        });
+//
+//    });
+//});
