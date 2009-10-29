@@ -1,9 +1,9 @@
 class LoginAccountPasswordResetDispatcher < ActionMailer::Base
 
   def email_notification(login_account, new_password)
-
+    # Goes to the end user when they request to have their password reset
     recipients         "#{login_account.security_email}"
-    from               "anthony@powernet.com.au"
+    from               "noreply@memberzone.com.au"
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
     subject            "Password Reset Request"
     sent_on            Time.now
@@ -13,8 +13,9 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
   end
 
   def registration_confirmation(login_account, password)
+    # Goes to the end user once a new account is created
     recipients       "#{login_account.security_email}"
-    from              "lei@powernet.com.au"
+    from              "noreply@memberzone.com.au"
     subject          "Thank you for registering"
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
     sent_on           Time.now
