@@ -1,0 +1,18 @@
+%div#edit_keyword_entry
+  %br.clear
+  .container
+    - form_for @keyword, :url => {:controller => "keywords", :action => "update", :id => @keyword.id, :type => KeywordType.find(@keyword.keyword_type_id).id},:html => {:class => "ajax_form"} do |p|
+      .form_line
+        = image_tag('close_icon.png', :field => "system_data", :class => "close_option", :id => "close_edit_keyword_entry", :style => "float:right;")
+        .field_30
+          = p.label :name, 'Name'
+          = p.text_field :name, {:disabled => ("disabled" if !@keyword.status)}
+        .field_35
+          = p.label :description, 'Description'
+          = p.text_field :description, {:disabled => ("disabled" if !@keyword.status)}
+        .field_30
+          = p.label :active
+          %label
+            = p.check_box :status
+
+          = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'

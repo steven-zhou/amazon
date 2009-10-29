@@ -92,7 +92,7 @@ class OrganisationsController < ApplicationController
       @postcodes = DomesticPostcode.find(:all)
       #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
       flash[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
-      render :action =>'new'
+      redirect_to new_organisation_path
     end
   end
 
@@ -144,6 +144,9 @@ class OrganisationsController < ApplicationController
     flash[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
     if(params[:edit])
       redirect_to edit_organisation_path(@organisation)
+    elsif(params[:installation])
+      flash[:message] = "Client Organisation - #{@organisation.full_name}'s information was initialized successfully."
+      redirect_to :controller => :client_setups, :action => :client_organisation
     else
       redirect_to organisation_path(@organisation)
     end
@@ -285,6 +288,7 @@ class OrganisationsController < ApplicationController
       end
     end
     if(params[:current_operation] == "edit_organisation_list")
+#      puts "**********#{@organisation.class.to_s}*********8"
       @postcodes = DomesticPostcode.find(:all)
       @address = Address.new
       @phone = Phone.new

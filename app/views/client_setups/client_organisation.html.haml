@@ -1,0 +1,73 @@
+- form_for @client_organisation, :url => {:controller => "organisations", :action => "update", :id => @client_organisation}, :html => {:multipart => true, :id => "add_organisation"} do |p|
+  #header
+    #page_title
+      %h1 Client Organisation
+      %input.hidden{:id => :organisation_id, :value => @client_organisation.id, :name => "installation"}
+    #lol
+
+  #left_content
+    .container
+      %h1 Identity
+      .form_line
+        .field_50
+          = p.label :type, "Type"
+          = p.text_field :type, :disabled => true
+        .field_40
+          = p.label :custom_id, "Custom ID"
+          = p.text_field :custom_id
+
+    .container.add_name
+      %h1 Name Details
+      .form_line
+        .field_100
+          = p.label :full_name, "Full Name"
+          = p.text_field :full_name
+        %br.clear
+      .form_line
+        .field_100
+          = p.label :short_name, "Short Name"
+          = p.text_field :short_name
+        %br.clear
+      .form_line
+        .field_100
+          = p.label :trading_as, "Trading as"
+          = p.text_field :trading_as
+        %br.clear
+
+    .container
+      %h1 Legal Details
+      .form_line
+        .field_60
+          = p.label :registered_name,"Registered Name"
+          = p.text_field :registered_name
+        .field_35
+          = p.label :registered_number, "Registered Number"
+          = p.text_field :registered_number
+        %br.clear
+      .form_line
+        .field_33
+          = p.label :registered_date, 'registered_date'
+          = p.text_field :registered_date, :class=> "datepick", :value=>@client_organisation.registered_date.to_s
+        .field_30
+          = p.label :registered_country_id, 'Country of Incorporation'
+          = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true}
+        .field_30
+          = p.label :organisation_type_id, 'Organisation Legal Type'
+          = p.collection_select :organisation_type_id, OrganisationType.active_organisation_type, :id, :name, {:include_blank => true}
+        %br.clear
+      .form_line
+        .field_33
+          = p.label :tax_file_no,'Tax File Number'
+          = p.text_field :tax_file_no
+        .field_30
+          = p.label :legal_no_1, 'Legal Number 1'
+          = p.text_field :legal_no_1
+        .field_30
+          = p.label :legal_no_2, 'Legal Number 2'
+          = p.text_field :legal_no_2
+        %br.clear
+
+    %p.submit
+      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+      = submit_tag "Submit"
+

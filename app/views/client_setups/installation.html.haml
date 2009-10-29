@@ -1,0 +1,80 @@
+#header
+  #page_title
+    %h1 License
+  #lol
+  %br.clear
+
+- form_for @client_setup do |f|
+  .container
+    %h2 Client
+    .form_line
+      %p #{@client_organisation.id}-#{@client_organisation.full_name}
+      %input{:style => "display:none;", :name => "installation"}
+    .form_line
+      .field_10
+        = f.label :client_id, "Client ID"
+        = f.text_field :client_id
+      .field_20
+        = f.label :client_rego, "Client Registration"
+        = f.text_field :client_rego
+      .field_10
+        = f.label :installation_date, "Installation Date"
+        = f.text_field :installation_date, :class => "startdatepick", :end_date => "client_setup_halt_date", :value=> @client_setup.installation_date.to_s
+      .field_10
+        = f.label :halt_date, "Halt Date"
+        = f.text_field :halt_date, :class => "enddatepick", :start_date => "client_setup_installation_date", :value=> @client_setup.halt_date.to_s
+
+    %br.clear
+    %p &nbsp;
+
+    .container
+      %h2 System
+      .form_line
+        .field_15
+          = f.label :system_type, "System Type"
+          %select{:name => "client_setup[system_type]"}
+            %option{:value => "Demo", :selected => @client_setup.system_type == "Demo"} Demo
+            %option{:value => "Live", :selected => @client_setup.system_type == "Live"} Live
+            %option{:value => "Trial", :selected => @client_setup.system_type == "Trial"} Trial
+            %option{:value => "Limited", :selected => @client_setup.system_type == "Limited"} Limited
+        .field_10
+          = f.label :hosting_status, "Hosting"
+          %select{:name => "client_setup[hosting_status]"}
+            %option{:value => "On Site", :selected => @client_setup.system_type == "On Site"} On Site
+            %option{:value => "Off Site", :selected => @client_setup.system_type == "Off Site"} Off Site
+        .field_5
+          = f.label :system_status, "Status"
+          = f.check_box :system_status
+        .field_15
+          = f.label :system_purchase, "System Purchase"
+          %select{:name => "client_setup[system_purchase]"}
+            %option{:value => "Full", :selected => @client_setup.system_type == "Full"} Full
+            %option{:value => "Hire", :selected => @client_setup.system_type == "Hire"} Hire
+            %option{:value => "Usage", :selected => @client_setup.system_type == "Usage"} Usage
+            %option{:value => "Per Member", :selected => @client_setup.system_type == "Per Member"} Per Member
+        .field_15
+          = f.label :maximum_core_records, "Maximum Core Records"
+          = f.text_field :maximum_core_records, :class => "integer_field"
+        .field_20
+          = f.label :number_of_users, "Number of System Users"
+          = f.text_field :number_of_users, :class => "integer_field"
+
+  .container
+    %h2 Security Parameters
+    .form_line
+      .field_20
+        = f.label :number_of_login_attempts, "Number of Login Attempts"
+        = f.text_field :number_of_login_attempts, :class => "integer_field"
+      .field_20
+        = f.label :new_account_graceperiod, "New Account Grace Period(Days)"
+        = f.text_field :new_account_graceperiod, :class => "integer_field"
+      .field_20
+        = f.label :session_timeout, "Session Timeout(Mins)"
+        = f.text_field :session_timeout, :class => "integer_field"
+      .field_20
+        = f.label :password_lifetime, "User Password Lifetime(Days)"
+        = f.text_field :password_lifetime, :class => "integer_field"
+      .field_10
+        %label &nbsp;
+        = submit_tag "Submit"
+
