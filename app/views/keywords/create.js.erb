@@ -1,12 +1,7 @@
 $("#keyword_mode").attr('mode', 'show');
-$.ajax({
-type: "GET",
-url: "/keywords/keywords_finder.js",
-data: 'type='+'<%= escape_javascript("#{@keyword_table.keyword_type_id}")%>',
-dataType: "script"
-});
+
 
 $("#keyword_add_entry_form").hide();
 $("#keyword_close_entry").css("display", "none");
 $("#keyword_add_entry").css("display", "");
-$("#keyword_type").attr("disabled",false);
+$("#keyword_type").attr("disabled",false).change();

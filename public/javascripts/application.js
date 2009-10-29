@@ -3474,8 +3474,8 @@ $(function(){
         $("#keyword_add_entry_form").show();
         $("#edit_keyword_entry").html("");
 
-        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
-     
+//        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+       $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
@@ -3486,6 +3486,7 @@ $(function(){
     $("#keyword_close_entry").live('click', function(){
         $("#keyword_add_entry_form").hide();
         $("#edit_keyword_entry").html("");
+        $("#keyword_type").attr("disabled",false);
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
     });
 });
@@ -3495,7 +3496,7 @@ $(function(){
         $("#keyword_add_entry").css("display","");
         $("#keyword_mode").attr('mode', 'show');
         $("#keyword_add_entry_form").hide();
-   
+       $("#keyword_type").attr("disabled",false);
         $("#edit_keyword_entry").html("");
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 

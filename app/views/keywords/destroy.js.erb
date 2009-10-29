@@ -1,9 +1,2 @@
 $("#keyword_mode").attr('mode', 'show');
-$.ajax({
-  type: "GET",
-  url: "/keywords/keywords_finder.js",
-  data: 'type=' + $("#keyword_type").val(),
-  dataType: "script"
-});
-
-
+$("#keyword_type").attr("disabled",false).change();
