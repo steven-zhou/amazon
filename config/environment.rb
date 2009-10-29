@@ -114,4 +114,4 @@ ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
 )
 
 ExceptionNotifier.exception_recipients = %w(anthony@powernet.com.au lei@powernet.com.au wei@powernet.com.au matthew@powernet.com.au)
-ExceptionNotifier.sender_address = %("anthony@powernet.com.au")
+ExceptionNotifier.sender_address = %("feedback@memberzone.com.au")
