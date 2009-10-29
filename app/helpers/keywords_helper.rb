@@ -25,7 +25,7 @@ module KeywordsHelper
   def format_keyword(keyword)
     formatted = ""
     formatted += "#{keyword.name} <br/>" unless keyword.name.blank?
-    formatted += "#{keyword.remarks} " unless keyword.remarks.blank?
+    formatted += "#{keyword.description} " unless keyword.description.blank?
    
 
 #    formatted += "#{address.third_line} <br/>" unless address.third_line.blank?
