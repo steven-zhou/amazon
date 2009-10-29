@@ -99,3 +99,18 @@
             = link_to "#{image_tag('Icons/Admin/Users/users_lists.png')} User List", :controller => "administrations", :action => "user_lists"
 
     .bottom
+
+  - # System Maintenance Menu
+  %li{:id => @current_controller == "maintenance" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "maintenance"
+        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
+      - else
+        <p>Maintenace</p>
+        %ul
+          %li{:id => @current_action == "system_backup" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Database Backup", :controller => "maintenance", :action => "system_backup"
+          %li{:id => @current_action == "system_restore" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_restore.png')} Database Restore", :controller => "maintenance", :action => "system_restore"
+    .bottom
