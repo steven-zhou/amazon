@@ -26,8 +26,11 @@ class ModuleController < ApplicationController
 
   def administration
     session[:module] = "administration"
-    redirect_to :controller => "administrations", :action => "system_data"
+    redirect_to :controller => "client_setups", :action => "parameters"
   end
 
-
+  def dashboard
+    session[:module] = "dashboard"
+    redirect_to :controller => "dashboards", :action => "index"
+  end
 end

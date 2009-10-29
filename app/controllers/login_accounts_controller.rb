@@ -26,8 +26,6 @@ class LoginAccountsController < ApplicationController
     @login_account = LoginAccount.new(params[:login_account])
     password_s = LoginAccount.generate_password
     @login_account.password = password_s
-    #  puts"----DEBUG----#{@login_account.to_yaml}"
-    # if request.post?
     if @login_account.save
       email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
       LoginAccountPasswordResetDispatcher.deliver(email)
@@ -162,18 +160,4 @@ class LoginAccountsController < ApplicationController
      
     end
   end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 end

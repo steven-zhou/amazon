@@ -8,21 +8,20 @@
   %h2 Client Info
   .form_line
     %p #{@client_organisation.id}-#{@client_organisation.full_name}
-  - form_for @client_setup do |f|
+  .disabled_form
     .form_line
       .field_10
-        = f.label :client_id, "Client ID"
-        = f.text_field :client_id
-        %input{:style => "display:none;", :name => "license"}
+        %label Client ID
+        %input{:value => @client_setup.client_id}
       .field_20
-        = f.label :client_rego, "Client Registration"
-        = f.text_field :client_rego
+        %label Client Registration
+        %input{:value => @client_setup.client_rego}
       .field_10
-        = f.label :installation_date, "Installation Date"
-        = f.text_field :installation_date, :class => "startdatepick", :end_date => "client_setup_halt_date"
+        %label Installation Date
+        %input{:value => @client_setup.installation_date}
       .field_10
-        = f.label :halt_date, "Halt Date"
-        = f.text_field :halt_date, :class => "enddatepick", :start_date => "client_setup_installation_date"
+        %label Halt Date
+        %input{:value => @client_setup.halt_date}
 
     %br.clear
     %p &nbsp;
@@ -31,23 +30,23 @@
       %h2 System Info
       .form_line
         .field_15
-          = f.label :system_type, "Type"
-          = f.text_field :system_type
+          %label Type
+          %input{:value => @client_setup.system_type}
         .field_10
-          = f.label :hosting_status, "Hosting"
-          = f.text_field :hosting_status
+          %label Hosting
+          %input{:value => @client_setup.hosting_status}
         .field_5
-          = f.label :system_status, "Status"
-          = f.check_box :system_status
+          %label Status
+          %input{:type => "checkbox", :checked => @client_setup.system_status}
         .field_15
-          = f.label :system_purchase, "System Purchase"
-          = f.text_field :system_purchase
+          %label System Purchase
+          %input{:value => @client_setup.system_purchase}
         .field_15
-          = f.label :maximum_core_records, "Maximum Core Records"
-          = f.text_field :maximum_core_records, :class => "integer_field"
+          %label Maximum Core Records
+          %input{:value => @client_setup.maximum_core_records}
         .field_20
-          = f.label :number_of_users, "Number of System Users"
-          = f.text_field :number_of_users, :class => "integer_field"
+          %label Number of System Users
+          %input{:value => @client_setup.number_of_users}
       .container
         %h3 Module Installed
         .container_half
@@ -70,5 +69,4 @@
             Module Name
           .right
             Install Time
-    = submit_tag "Submit"
 

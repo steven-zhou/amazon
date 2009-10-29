@@ -109,6 +109,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :dashboards
   map.resources :system_news
   map.resources :to_do_lists
+  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -151,7 +152,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.connect '/', {:controller => "signin", :action => "login" }
-  map.welcome 'welcome', :controller => "dashboards", :action => "index"    # After a user is logged in this is where they are sent to
+  map.welcome 'welcome', :controller => "module", :action => "dashboard"    # After a user is logged in this is where they are sent to
   map.login 'login', :controller => "signin", :action => "login"       # This should be the page a user logs in at
   
   map.connect ':controller/:action/:id'

@@ -25,14 +25,14 @@
     .top
     .item
       - if @current_controller != "client_setups"
-        = link_to "#{image_tag('Icons/System_setup.png')} System Setup", :controller => "client_setups", :action => "parameters"
+        = link_to "#{image_tag('Icons/Admin/System Setup/System_setup.png')} System Setup", :controller => "client_setups", :action => "parameters"
       - else
         <p>System Setup</p>
         %ul
           %li{:id => @current_action == "parameters" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
+            = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
           %li{:id => @current_action == "license_info" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
+            = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
 
     .bottom
 
@@ -68,18 +68,18 @@
     .top
     .item
       - if controller != "security"
-        = link_to "#{image_tag('Icons/Admin/Security/security.png')} Security", :controller => "administrations", :action => "access_permissions"
+        = link_to "#{image_tag('Icons/Admin/Security/security.png')} Security Group", :controller => "administrations", :action => "security_groups"
       - else
-        <p>Security</p>
+        <p>Security Groups</p>
         %ul
-          %li{:id => action == "access_permissions" ? "selected" : ""}
+          -#%li{:id => action == "access_permissions" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
-          %li{:id => action == "group_permissions" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Security/group_permissions.png')} Group Permissions", :controller => "administrations", :action => "group_permissions"
-          %li{:id => action == "group_lists" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Security/group_list.png')} Group Lists", :controller => "administrations", :action => "group_lists"
           %li{:id => action == "security_groups" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Group Manager", :controller => "administrations", :action => "security_groups"
+            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager", :controller => "administrations", :action => "security_groups"
+          %li{:id => action == "group_lists" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Security/group_list.png')} Lists", :controller => "administrations", :action => "group_lists"
+          %li{:id => action == "group_permissions" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Security/group_permissions.png')} Access", :controller => "administrations", :action => "group_permissions"
     .bottom
 
   - # Users Menu
@@ -98,4 +98,19 @@
           %li{:id => action == "user_lists" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Users/users_lists.png')} User List", :controller => "administrations", :action => "user_lists"
 
+    .bottom
+
+  - # System Maintenance Menu
+  %li{:id => @current_controller == "maintenance" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "maintenance"
+        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
+      - else
+        <p>Maintenace</p>
+        %ul
+          %li{:id => @current_action == "system_backup" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Database Backup", :controller => "maintenance", :action => "system_backup"
+          %li{:id => @current_action == "system_restore" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_restore.png')} Database Restore", :controller => "maintenance", :action => "system_restore"
     .bottom
