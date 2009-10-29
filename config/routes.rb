@@ -109,7 +109,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :dashboards
   map.resources :system_news
   map.resources :to_do_lists
-  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get}
+  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 

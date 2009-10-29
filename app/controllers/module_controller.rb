@@ -33,4 +33,9 @@ class ModuleController < ApplicationController
     session[:module] = "dashboard"
     redirect_to :controller => "dashboards", :action => "index"
   end
+
+  def client_setup
+    session[:module] = "client_setup"
+    redirect_to :controller => "client_setups", :action => "client_organisation"
+  end
 end
