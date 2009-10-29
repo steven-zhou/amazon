@@ -1,7 +1,7 @@
 class LoginAccountUsernameRetrievalDispatcher < ActionMailer::Base
 
   def email_notification(login_account)
-
+    # When a user has forgotten their username and wants to get it emailed to them
     @recipients       = "#{login_account.security_email}"
     @from             = "noreply@memberzone.com.au"
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
