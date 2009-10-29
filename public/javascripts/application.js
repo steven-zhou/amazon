@@ -3518,3 +3518,34 @@ $(function(){
     });
 });
 
+
+$(function(){
+    $("#close_edit_keyword_entry").live('click', function(){
+         $("#keyword_add_entry").css("display","");
+      $("#keyword_mode").attr('mode', 'show');
+
+       $.ajax({
+                type: "GET",
+                url: "/keywords/keywords_finder.js",
+                data: 'type=' + $("#keyword_type").val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#display_feedback_details").live('click', function(){
+        $("#display_feedback_details").hide();
+        $("#hide_feedback_details").show();
+        $("#feedback_details").show();
+    });
+});
+
+$(function(){
+    $("#hide_feedback_details").live('click', function(){
+        $("#hide_feedback_details").hide();
+        $("#display_feedback_details").show();
+        $("#feedback_details").hide();
+    });
+});
+
