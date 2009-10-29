@@ -1,7 +1,11 @@
 - case session[:module]
+  - when "dashboard"
+    = render :partial => "/shared/dashboard_module"
   - when "core"
     = render :partial => "/shared/core_module"
   - when "administration"
     = render :partial => "/shared/administration_module"
+  - when "client_setup"
+    = render :partial => "/shared/client_setup_module"
   - else
     = render :partial => "/shared/core_module"

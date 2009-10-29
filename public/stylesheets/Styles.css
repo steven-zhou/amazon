@@ -42,7 +42,7 @@ body {
     background-repeat: repeat-y;
     -moz-border-radius-topleft: 10px;
     -moz-border-radius-bottomleft: 10px;
-    width: 140px;
+    width: 150px;
     height: 22px;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -214,8 +214,8 @@ img {
 }
 
 /*#app #lc #menu #menu_active .item img {
-    vertical-align:text-bottom;
-    margin-right: 5px;
+vertical-align:text-bottom;
+margin-right: 5px;
 }
 */
 #app #lc #menu #menu_active .item ul {
@@ -776,17 +776,17 @@ img.thumb {
 
 #app #main #content  .container_icon { /*For find people page*/
 
-                                       font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 
 
-                                       background-repeat:repeat;
-                                       color: #232323;
-                                       float: right;
-                                       padding: 2%;
-                                       min-height: 10px;
-                                       -moz-border-radius-topleft:10px;
-                                       -moz-border-radius-topright:10px;
-                                       margin-right:10px;
+    background-repeat:repeat;
+    color: #232323;
+    float: right;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    margin-right:10px;
 
 }
 
@@ -797,8 +797,8 @@ img.thumb {
 /*Temp*/
 
 p.submit{ /*This is for the submit button*/
-          text-align: right;
-          padding-right:3px;
+    text-align: right;
+    padding-right:3px;
 }
 
 .left {
@@ -848,8 +848,8 @@ p.submit{
 }
 
 #app #main #content div#accordion02 .container { /*For find people page*/
-                                                 float:none !important;
-                                                 margin-bottom:10px !important;
+    float:none !important;
+    margin-bottom:10px !important;
 }
 
 
@@ -1349,7 +1349,7 @@ div#content_full_page .add_container {
 
 }
 
-#app #main #content div#existing_group_list_list .container_active_50 {
+#app #main #content .container_active_50 {
 
     width: 45%;
     margin: 1%;
@@ -1406,6 +1406,42 @@ div.duplication_check .form_line.field_select_line {
 
 }
 
+
+/*group--permission*/
+div#show_controllers_container ul li{
+    width:85%;
+    float:none;
+    padding-left:50px
+}
+
+div#permission_form span.select_all {
+   
+    font-size:14px;
+}
+
+div#permission_form .title {
+    cursor:pointer;
+    margin-top:2px;
+}
+
+div#permission_form .container {
+    padding:1% !important;
+}
+
+div#permission_form .options{
+        width:141px;
+         display:block;
+
+    }
+
+.color_change{
+
+    color:yellow;
+
+}
+
+
+/*feedback--email*/
 #feedback_form {
     display:none;
     background:white;
@@ -1425,6 +1461,7 @@ div.duplication_check .form_line.field_select_line {
     display: none;
     text-align: center;
 }
+
 
 #feedback_item table td {
     padding-right: 4em;

@@ -1,23 +1,25 @@
 %ul
-  - @system_permission_meta_types.each do |controller|
-    %li
-      .info_container
-        .field_33{:id => "show_methods", :style => "cursor:pointer;cursor:hand", :class => "group_permission_color toggle_button", :toggle_id_name => "show_methods_container_#{controller.id}", :controller_id => controller.id}
-          = 'Controller---'+ controller.name
-        .field_22
-          = check_box_tag "controller_ids[]", controller.id, false, :class => 'controller_select_all', :controller_id => controller.id
-          = 'Select All'
-        %br.clear
+  - for controller in @system_permission_meta_types do
+    %li{:style => "width:95%;"}
+      .container
+        .options
+          = check_box_tag "controller_ids[]", controller.id, false, :class => 'controller_select_all', :controller_id => controller.id, :style => "width:auto;vertical-align:middle;"
+          %span{:class => "select_all"} Select All
+        .title{:id => "show_methods", :class => "group_permission_color toggle_button", :toggle_id_name => "show_methods_container_#{controller.id}", :controller_id => controller.id}
+          %h2 Controller---#{controller.name}
+
+      %br.clear
       %div{:id => "show_methods_container_#{controller.id}", :style => "display:none"}
         %ul
           - controller.system_permission_types.each do |method|
-            %li
-              .info_container
-                .field_33{:style => "cursor:pointer;cursor:hand", :class => "group_permission_color", :method_id => method.id}
-                  = 'Method---'+ method.name
-                .field_22
-                  = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => controller.id
-                  = 'Allow Access'
+            %li{:style => "width:95%;"}
+              .container{:style => "float:none;margin-bottom:10px;"}
+                .options
+                  = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => controller.id, :style => "width:auto;vertical-align:middle;"
+                  %span{:class => "select_all"} Allow Access
+                .title{:class => "group_permission_color", :method_id => method.id}
+                  %h2 Method--#{method.name}
+               
                 %br.clear
 
 

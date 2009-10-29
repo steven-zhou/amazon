@@ -9,7 +9,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20091028051556) do
 
   create_table "addresses", :force => true do |t|
@@ -250,7 +249,8 @@ ActiveRecord::Schema.define(:version => 20091028051556) do
 
   create_table "keywords", :force => true do |t|
     t.string   "name"
-    t.string   "remarks"
+    t.string   "description"
+    t.boolean  "status"
     t.integer  "keyword_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
