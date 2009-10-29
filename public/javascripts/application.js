@@ -579,6 +579,19 @@ $(function(){
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
         $("#edit_system_data_entry").hide();
+           $.ajax({
+                type: "GET",
+                url: "/amazon_settings/system_settings_finder.js",
+                data: 'type=' + $("#system_data_type").val(),
+                dataType: "script"
+            });
+       
+    });
+});
+
+$(function(){
+    $("#system_data_close_entry").live('click', function(){
+       $("#system_data_add_entry_form").css("display","none");
     });
 });
 
@@ -2264,6 +2277,7 @@ $(function(){
     $('.edit_option').live('click',function(){
         $("#" + $(this).attr('field')+'_mode').attr('mode','edit');
         $('.new_option[field='+ $(this).attr('field') +']').css("display","none");
+        $(".options").css("display", "none");
     });
 });
 
@@ -3369,6 +3383,13 @@ $(function(){
     $("#close_edit_keyword_entry").live('click', function(){
          $("#keyword_add_entry").css("display","");
       $("#keyword_mode").attr('mode', 'show');
+
+       $.ajax({
+                type: "GET",
+                url: "/keywords/keywords_finder.js",
+                data: 'type=' + $("#keyword_type").val(),
+                dataType: "script"
+            });
     });
 });
 

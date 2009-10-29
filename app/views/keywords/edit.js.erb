@@ -1,3 +1,5 @@
 $("#keyword_add_entry").css("display","none");
 $("#edit_keyword_entry").replaceWith("<%= escape_javascript(render(:partial => "edit_keyword_entry"))%>");
 $("#keyword_mode").attr('mode', 'edit');
+ $(".options").css("display", "none");
+ $("#keyword_<%= @keyword.id %>").addClass("container_selected");

@@ -27,6 +27,7 @@ class Keyword < ActiveRecord::Base
   #++
 
   validates_presence_of :keyword_type_id
+  validates_presence_of :name
 
   #--
   ################
