@@ -25,14 +25,14 @@
     .top
     .item
       - if @current_controller != "client_setups"
-        = link_to "#{image_tag('Icons/System_setup.png')} System Setup", :controller => "client_setups", :action => "parameters"
+        = link_to "#{image_tag('Icons/Admin/System Setup/System_setup.png')} System Setup", :controller => "client_setups", :action => "parameters"
       - else
         <p>System Setup</p>
         %ul
           %li{:id => @current_action == "parameters" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
+            = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
           %li{:id => @current_action == "license_info" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
+            = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
 
     .bottom
 
