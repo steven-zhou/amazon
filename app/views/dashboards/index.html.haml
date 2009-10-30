@@ -6,17 +6,13 @@
   = render :partial => "system_news/system_news_part"
 
 %div#right_content
-  = render :partial => "to_do_lists/to_do_lists_part"
+  
 %br.clear
 
 %table#columns
   %tr
     %td
-      %div.portlet
-        %div.portlet_topper
-          %h1 Graphic
-        %div.portlet_content
-          %p Coming Soon
+      = render :partial => "to_do_lists/to_do_lists_part"
     %td
       %div.portlet
         %div.portlet_topper
