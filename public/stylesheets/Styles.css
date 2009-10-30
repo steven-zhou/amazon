@@ -1498,7 +1498,6 @@ div#permission_form .options{
     color:#232323;
     float:left;
     font-family:Arial,Helvetica,sans-serif;
-    margin-bottom:10px;
     padding:1%;
 }
 
@@ -1507,7 +1506,7 @@ div#permission_form .options{
 }
 
 #dashboard .system_news_container .news_content {
-    min-height:40px;
+    height:40px;
     margin-top:10px;
 }
 
