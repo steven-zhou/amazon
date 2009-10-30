@@ -13,6 +13,7 @@ class KeywordsController < ApplicationController
     #    puts "********#{params[:keyword]}***************"
     @keyword_table.keyword_type_id = params[:type_id]
     @keyword_table.save
+       puts "********#{params[:type_id]}***************"
 
     respond_to do |format|
       format.js
