@@ -14,4 +14,24 @@
       Content:
       %br
       = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :rows => "10", :cols => "141")
-
+      - if @feedback_item.response.nil? || @feedback_item.response.empty?
+        &nbsp;
+        %br.clear
+        = submit_tag("Reply", :id => "reply_to_feedback", :style => "text-align:right;")
+        %br.clear
+        %div#feedback_reply{:style => "display:none;"}
+          .container
+            = image_tag("/images/Icons/System/close.png", :style => "float:right;display:inline;", :id => "close_feedback")
+            %h2
+              Reply Message
+            .container
+              From:
+              = "#{@current_user.user_name} - #{@current_user.security_email} - #{Date.today().strftime('%a %d %b %Y')}"
+            .container
+              To:
+              = "#{@feedback_item.login_account.user_name} - #{@feedback_item.login_account.security_email}"
+            = form_tag("/feedback/submit_reply", :class => "ajax_form", :id => @feedback_item.id)
+              %p
+                Subject
+              %br
+ 
