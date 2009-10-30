@@ -12,8 +12,8 @@
           = p.label :description, 'Description'
           = p.text_field :description, {:disabled => ("disabled" if !@amazon_setting.status)}
         .field_5
-          = p.label :active, 'Active',{:style => "margin-left: 8px;"}
+          = p.label :active
           %label
-          = p.check_box :status
+          = p.check_box :status, {:style => "width:auto;"}
         .field_20{:style => "margin-top: 8px;"}
           = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
