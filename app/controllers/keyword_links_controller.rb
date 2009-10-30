@@ -1,27 +1,73 @@
 class KeywordLinksController < ApplicationController
 
   def add_key
-    @person = Person.find(params[:person_id])
+    if params[:person_id].nil?
+      @entity = Organisation.find(params[:organisation_id])
+
+    else
+     @entity = Person.find(params[:person_id])
+    end
+    
 
     unless params[:add_keywords].nil?
       params[:add_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id);
-        @person.keywords<<keyword
+        @entity.keywords<<keyword
       end
+    end 
+
+    if params[:person_id].nil?
+        render "/organisations/add_keywords.js"
+    else
+      render "/people/add_keywords.js"
     end
-    render "/people/add_keywords.js"
+    
   end
 
   def remove_key
-    @person = Person.find(params[:person_id])
+    if params[:person_id].nil?
+      @entity = Organisation.find(params[:organisation_id])
+    else
+       @entity = Person.find(params[:person_id])
+    end
+   
 
     unless params[:remove_keywords].nil?
       params[:remove_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id)
-        @person.keywords.delete(keyword)
+        @entity.keywords.delete(keyword)
       end
     end
-    render "/people/remove_keywords.js"
+      if params[:person_id].nil?
+          render "/organisations/remove_keywords.js"
+      else
+        render "/people/remove_keywords.js"
+      end
+    
   end
+
+
+#   def add_keywords
+#
+#    unless params[:add_keywords].nil?
+#      params[:add_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id);
+#        @organisation.keywords<<keyword
+#      end
+#    end
+#
+#  end
+#
+#  def remove_keywords
+#    @organisation = Organisation.find(params[:id])
+#
+#    unless params[:remove_keywords].nil?
+#      params[:remove_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id)
+#        @organisation.keywords.delete(keyword)
+#      end
+#    end
+#    render "remove_keywords.js"
+#  end
 
 end

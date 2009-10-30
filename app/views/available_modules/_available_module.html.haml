@@ -1,0 +1,5 @@
+.container_half{:class => available_module.status ? "container_active" : "container_inactive", :id => "available_module_#{available_module.id}"}
+  .left
+    #{available_module.name } - #{available_module.description}
+  .right
+    %input{:type => "checkbox", :class => "switch_module_status", :module_id => available_module.id, :checked => available_module.status}

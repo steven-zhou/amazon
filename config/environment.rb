@@ -97,12 +97,7 @@ Rails::Initializer.run do |config|
     :user_name => "feedback@memberzone.com.au",
     :password => "feedback123",
 
-#    :enable_starttls_auto => true,
-#    :address => "smtp.gmail.com",
-#    :port => 587,
-#    :authentication => :plain,
-#    :user_name => "stevenzhou2011@gmail.com",
-#    :password => "19820825"
+
 
 
   }

@@ -115,10 +115,38 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
-    $('a.delete').live('click', function() {
-        var link = $(this);
-        $.post($(this).attr('href'), "_method=delete", null, 'script');
-        return false;
+
+    $('a.delete').live('click', function(){
+    var link = $(this);
+    $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
+    $('#delete_warning_message_image').css("display","");
+    $('#delete_warning_message').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons: {
+  Yes: function(){ 
+  $.post(link.attr('href'), "_method=delete", null, 'script');
+  $(this).dialog('destroy');
+  return true;
+   },
+  No: function(){
+    $(this).dialog('destroy');
+    return true;
+
+  }
+  }
+});
+    $('#delete_warning_message').dialog('option', 'title', 'Warning');
+    $('#delete_warning_message').dialog('open');
+    return false;
+//        var link = $(this);
+//        $.post(link.attr('href'), "_method=delete", null, 'script');
+//        return false;
+
+
     }).attr("rel", "nofollow");
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
@@ -536,6 +564,7 @@ $(function(){
             $("#system_data_entries").html("");
             $("#edit_system_data_entry").html("");
         } else {
+            $("#system_data_add_entry").css("display","");
             $("#edit_system_data_entry").html("");
             $("#amazon_setting_type").val($(this).val());
             $.ajax({
@@ -556,6 +585,7 @@ $(function(){
         $(".container_selected").removeClass("container_selected");
         $(this).closest('.toggle_options').addClass("container_selected");
         $("#edit_system_data_entry").html("");
+        $("#system_data_type").attr("disabled",true);
         $("#system_data_add_entry_form").hide();
         $.ajax({
             type: "GET",
@@ -587,6 +617,7 @@ $(function(){
         $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+        $("#system_data_type").attr("disabled",true);
     });
 });
 
@@ -594,6 +625,7 @@ $(function(){
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
         $("#edit_system_data_entry").hide();
+         $("#system_data_type").attr("disabled",false);
         $.ajax({
             type: "GET",
             url: "/amazon_settings/system_settings_finder.js",
@@ -607,6 +639,8 @@ $(function(){
 $(function(){
     $("#system_data_close_entry").live('click', function(){
         $("#system_data_add_entry_form").css("display","none");
+
+        $("#system_data_type").attr("disabled",false);
     });
 });
 
@@ -3473,34 +3507,32 @@ $(function(){
     $("#keyword_add_entry").live('click', function(){
         $("#keyword_add_entry_form").show();
         $("#edit_keyword_entry").html("");
+
+//        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+       $("#type_id").val($("#keyword_type").val());
+        $("#keyword_type").attr("disabled",true);
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+
     });
 });
 
 $(function(){
     $("#keyword_close_entry").live('click', function(){
         $("#keyword_add_entry_form").hide();
-        
         $("#edit_keyword_entry").html("");
+        $("#keyword_type").attr("disabled",false);
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
     });
 });
-
-$(function(){
-    $("#close_edit_keyword_entry").live('click', function(){
-        $("#keyword_add_entry_form").hide();
-
-        $("#edit_keyword_entry").html("");
-        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
-    });
-});
-
 
 $(function(){
     $("#close_edit_keyword_entry").live('click', function(){
         $("#keyword_add_entry").css("display","");
         $("#keyword_mode").attr('mode', 'show');
-
+        $("#keyword_add_entry_form").hide();
+       $("#keyword_type").attr("disabled",false);
+        $("#edit_keyword_entry").html("");
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
         $.ajax({
             type: "GET",
             url: "/keywords/keywords_finder.js",
@@ -3509,6 +3541,20 @@ $(function(){
         });
     });
 });
+
+//$(function(){
+//    $("#close_edit_keyword_entry").live('click', function(){
+//         $("#keyword_add_entry").css("display","");
+//      $("#keyword_mode").attr('mode', 'show');
+//
+//       $.ajax({
+//                type: "GET",
+//                url: "/keywords/keywords_finder.js",
+//                data: 'type=' + $("#keyword_type").val(),
+//                dataType: "script"
+//            });
+//    });
+//});
 
 $(function(){
     $("#keyword_type").live('change', function(){
@@ -3548,3 +3594,73 @@ $(document).ready(function() {
 
 });
 
+
+
+$(function(){
+    $("#display_feedback_details").live('click', function(){
+        $("#display_feedback_details").hide();
+        $("#hide_feedback_details").show();
+        $("#feedback_details").show();
+    });
+});
+
+$(function(){
+    $("#hide_feedback_details").live('click', function(){
+        $("#hide_feedback_details").hide();
+        $("#display_feedback_details").show();
+        $("#feedback_details").hide();
+    });
+});
+
+
+/* sing out warning message*/
+
+  $('#signout').live('click', function(){
+//    $('#signout_warning_message_image').css("display","");
+//      $('#singoutmessage').css("display","");
+    $('#signout_warning_message').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons: {
+  Yes: function(){
+  window.open("/signin/signout", "_self");
+  $(this).dialog('close');
+  return true;
+   },
+  No: function(){
+    $(this).dialog('close');
+    return true;
+
+  }
+  }
+});
+ $('#signout_warning_message').dialog('option', 'title', 'Warning');
+    $('#signout_warning_message').dialog('open');
+    return false;
+    });
+
+
+/* Powernet Menu Module*/
+$(function(){
+    $(".switch_module_status").live('click', function(){
+        $.ajax({
+                type: "GET",
+                url: "/available_modules/switch_status.js",
+                data: 'id=' + $(this).attr("module_id"),
+                dataType: "script"
+            });
+    });
+});
+
+
+/* Dashboard */
+$(function(){
+    $(".read_more").live('click', function(){
+        $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
+        $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
+        $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
+    });
+});

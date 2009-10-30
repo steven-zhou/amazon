@@ -37,10 +37,7 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     else
       @current_user = LoginAccount.find(session[:user])
-
-
       redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
- 
     end
   end
 

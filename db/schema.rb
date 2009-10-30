@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091029065519) do
+ActiveRecord::Schema.define(:version => 20091030033410) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20091029065519) do
     t.boolean  "status"
   end
 
+  create_table "available_modules", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "client_setups", :force => true do |t|
     t.integer  "organisation_id"
     t.string   "client_id"
@@ -63,6 +71,29 @@ ActiveRecord::Schema.define(:version => 20091029065519) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "password_lifetime"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
+    t.string   "primary_phone_number"
+    t.string   "secondary_phone_number"
+    t.string   "primary_email_address"
+    t.string   "secondary_email_address"
+    t.string   "login_name"
+    t.string   "account_id"
+    t.string   "pin"
+    t.text     "primary_password_hash"
+    t.text     "primary_password_salt"
+    t.text     "secondary_password_hash"
+    t.text     "secondary_password_salt"
+    t.integer  "security_question1_id"
+    t.integer  "security_question2_id"
+    t.integer  "security_question3_id"
+    t.text     "question1_answer"
+    t.text     "question2_answer"
+    t.text     "question3_answer"
+    t.datetime "last_login"
+    t.datetime "last_logoff"
+    t.text     "last_ip_address"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -577,6 +608,7 @@ ActiveRecord::Schema.define(:version => 20091029065519) do
     t.integer  "updated_by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "tag_meta_types", :force => true do |t|

@@ -45,7 +45,9 @@
     </div>
 
     <!-- Feedback form used throughout the system -->
-   <%= render(:partial => "/feedback/feedback_form") %>
+    <%- unless @current_user.nil?%>
+      <%= render(:partial => "/feedback/feedback_form") %>
+    <%- end%>
     <div id="feedback_confirmation"></div>
 
 
