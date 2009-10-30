@@ -119,10 +119,38 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
-    $('a.delete').live('click', function() {
-        var link = $(this);
-        $.post($(this).attr('href'), "_method=delete", null, 'script');
-        return false;
+
+    $('a.delete').live('click', function(){
+    var link = $(this);
+    $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
+    $('#delete_warning_message_image').css("display","");
+    $('#delete_warning_message').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons: {
+  Yes: function(){ 
+  $.post(link.attr('href'), "_method=delete", null, 'script');
+  $(this).dialog('destroy');
+  return true;
+   },
+  No: function(){
+    $(this).dialog('destroy');
+    return true;
+
+  }
+  }
+});
+    $('#delete_warning_message').dialog('option', 'title', 'Warning');
+    $('#delete_warning_message').dialog('open');
+    return false;
+//        var link = $(this);
+//        $.post(link.attr('href'), "_method=delete", null, 'script');
+//        return false;
+
+
     }).attr("rel", "nofollow");
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
@@ -3573,6 +3601,37 @@ $(function(){
         $("#feedback_details").hide();
     });
 });
+
+
+/* sing out warning message*/
+
+  $('#signout').live('click', function(){
+//    $('#signout_warning_message_image').css("display","");
+//      $('#singoutmessage').css("display","");
+    $('#signout_warning_message').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons: {
+  Yes: function(){
+  window.open("/signin/signout", "_self");
+  $(this).dialog('close');
+  return true;
+   },
+  No: function(){
+    $(this).dialog('close');
+    return true;
+
+  }
+  }
+});
+ $('#signout_warning_message').dialog('option', 'title', 'Warning');
+    $('#signout_warning_message').dialog('open');
+    return false;
+    });
+
 
 /* Powernet Menu Module*/
 $(function(){

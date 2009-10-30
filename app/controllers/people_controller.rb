@@ -31,16 +31,7 @@ class PeopleController < ApplicationController
   end
   
   def show
-
-    #    @user_lists = session[:login_account_info].user_lists
-    #    @list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
-    #
-    #
-    #    @person = @list_headers.first.players.first unless @list_headers.blank?
-    #    @person = Person.new if @person.nil? || @list_headers.blank?
-
-    @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = @current_user.list_headers
+    check_user
 
     #when it is cal show action
     if request.get?
@@ -115,20 +106,10 @@ class PeopleController < ApplicationController
 
   
   def edit
-    @postcodes = DomesticPostcode.find(:all)
-    @group_types = LoginAccount.find(session[:user]).group_types
+    check_user
 
-    #@user_lists = session[:login_account_info].user_lists
-    #@list_headers = ListHeader.find(:all, :include => [:user_lists], :conditions => ["user_lists.user_id=?", session[:user]])
-    #@list_headers = ListHeader.find(:all, :include => [:group_lists, :group_types, :user_group], :conditions => ["user_groups.user_id=?", session[:user]])
-    @list_headers = Array.new
-    c = Array.new
-    @group_types.each do |group_type|
-      #a = ListHeader.find(:all, :include => [:group_lists], :conditions => ["group_lists.tag_id=?", group_type.id])
-      a = group_type.list_headers
-      c += a
-      @list_headers = c.uniq
-    end
+    @postcodes = DomesticPostcode.find(:all)
+
     if request.get?
       if @list_headers.blank?
         @list_header = ListHeader.new
@@ -407,17 +388,8 @@ class PeopleController < ApplicationController
 
 
   def show_left
-  
  
-    @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = Array.new
-    c = Array.new
-    @group_types.each do |group_type|
-      a = group_type.list_headers
-      c += a
-      @list_headers = c.uniq
-    end
-
+    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
@@ -496,47 +468,13 @@ class PeopleController < ApplicationController
 
   def search_lists
 
-    #    # @name_search = Person.find(:all, :conditions => ["first_name ILIKE ? AND family_name ILIKE ?", "%#{params[:name]}%", "%#{params[:name]}%"])
-    #    @search_list_result = Array.new
-    #
-    #    params[:person_first_name] = Hash.new
-    #    params[:person_family_name] = Hash.new
-    #    #  params[:phone_contact] = Hash.new
-    #    #  params[:email_contact] = Hash.new
-    #    params[:person_first_name][:first_name] = params[:name]
-    #    params[:person_family_name][:family_name] = params[:name]
-    #    #  params[:phone_contact][:phone_pre_value] = params[:phone]
-    #    #  params[:phone_contact][:phone_value] = params[:phone]
-    #    #  params[:phone_contact][:phone_post_value] = params[:phone]
-    #    #  params[:email_contact][:email_address] = params[:email]
-    #
-    #    @search_list_result  = PeopleSearch.by_name(params[:person_first_name])
-    #    @search_list_result  += PeopleSearch.by_name(params[:person_family_name])
-    #    #  @phone_search = PeopleSearch.by_phone(params[:phone_contact])
-    #    #  @email_search = PeopleSearch.by_email(params[:email_contact])
-    #    #  @search_list_result << @name_search
-    #    #  @search_list_result << @email_search
-    #    #  @search_list_result << @phone_search
-    #
-    #    @search_list_result.uniq
-    #   puts "********#{@search_list_result.to_yaml}********"
-
-
- 
-
     @name_search=params[:name]
     @email_search=params[:email]
     @phone_search=params[:phone]
     @list_people_id = session[:current_list_id]
     @list_people = ListHeader.find(session[:current_list_id]).people_on_list
     @search_list_result=@list_people.find(:all)
-    #    if (@name_search!="")
-    #   @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["people.first_name LIKE ? OR people.family_name LIKE ?", "%#{@name_search}%", "%#{@name_search}%"])
-    #    end
-    #    if (@email_search!="")
-    @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["contacts.value LIKE ?","%#{@email_search}%"])
-    #    @search_list_result = @search_list_result.find(:all,:include => [:contacts], :conditions => ["contacts.value LIKE ? AND contacts.type = 'Phone'","%#{@phone_search}%"])
-    #    end
+    @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["contacts.value ILIKE ?","%#{@email_search}%"])
     respond_to do |format|
       format.js
     end
@@ -670,6 +608,18 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id].to_i)
     respond_to do |format|
       format.js
+    end
+  end
+
+  private
+  def check_user
+    if session[:super_admin]
+      @group_types = GroupType.find(:all, :order => "name")
+      @list_headers = ListHeader.find(:all, :order =>"name")
+
+    else
+      @group_types = LoginAccount.find(session[:user]).group_types
+      @list_headers = @current_user.list_headers
     end
   end
 

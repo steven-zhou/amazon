@@ -12,7 +12,7 @@
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MyCase", :controller => "module", :action => "case_management"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin", :controller => "module", :action => "administration"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
-          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Log Out", :controller => "signin", :action => "signout"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Log Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
         </ul>
         <div id="module_menu_bottom" ></div>
       </div>
@@ -37,4 +37,11 @@
     <%= image_tag('Icons/System/feedback.png', :style => "cursor:pointer;", :id => "feedback") %>
     <%= link_to image_tag('Icons/System/help.png'), :controller => "feedback", :action => "list" %>
   </div>
+</div>
+
+<div id="signout_warning_message" style="display:none">
+  <%=image_tag('Icons/System/warning.png',:id => "signout_warning_message_image") %>
+  <%#*<label id="singoutmessage"  type="text"></lable>%>
+  <label id="singoutmessage" style="display: inline;">Are you sure you wish to exit the system ? </label>
+  
 </div>
