@@ -22,8 +22,8 @@
             = link_to "#{image_tag('Icons/Powernet_module/Installation.png')} Installation", :controller => "client_setups", :action => "installation"
           %li{:id => @current_action == "super_admin" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Super Admin", :controller => "client_setups", :action => "super_admin"
-          %li{:id => @current_action == "modules" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Powernet_module/modules.png')} Modules", :controller => "client_setups", :action => "modules"
+          %li{:id => @current_action == "available_modules" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Powernet_module/modules.png')} Modules", :controller => "client_setups", :action => "available_modules"
     .bottom
 
   - # Configuration Menu

@@ -3563,3 +3563,24 @@ $(function(){
     });
 });
 
+/* Powernet Menu Module*/
+$(function(){
+    $(".switch_module_status").live('click', function(){
+        $.ajax({
+                type: "GET",
+                url: "/available_modules/switch_status.js",
+                data: 'id=' + $(this).attr("module_id"),
+                dataType: "script"
+            });
+    });
+});
+
+
+/* Dashboard */
+$(function(){
+    $(".read_more").live('click', function(){
+        $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
+        $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
+        $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
+    });
+});
