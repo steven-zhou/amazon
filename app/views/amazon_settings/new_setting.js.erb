@@ -1,10 +1,8 @@
 $("#system_data_mode").attr('mode', 'show');
-$.ajax({
-  type: "GET",
-  url: "/amazon_settings/system_settings_finder.js",
-  data: 'type=' + $("#system_data_type").val(),
-  dataType: "script"
-});
+
 $("#amazon_setting_name").val("");
+$("#system_data_add_entry_form").css("display","none");
+$("#system_data_close_entry").css("display", "none");
 $("#amazon_setting_description").val("");
 $("#system_data_entries").show();
+$("#system_data_type").attr("disabled",false).change();
