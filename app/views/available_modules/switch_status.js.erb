@@ -1,0 +1,1 @@
+$('#<%= dom_id(@available_module) %>').replaceWith(" <%= escape_javascript(render(:partial => "available_modules/available_module", :locals => {:available_module => @available_module})) %>");

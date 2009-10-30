@@ -12,19 +12,30 @@
 
 .portlet
 {
-	background: #ffe;
-	border-color: #fff #665 #665 #fff;
-	border-style: solid;
-	border-width: 1px;
-	cursor: move;
-	margin: 0 0 10px;
-	width: 100%;
-}
+        font-family:Arial, Helvetica, sans-serif;
+        color: #232323;
+        background-image:url(/images/container_bg.png);
+        background-repeat:repeat;
+        width: 100%;
+        float: left;
+        min-height: 10px;
+        -moz-border-radius: 10px;
+        margin-bottom: 10px;
+        }
 
 .portlet_topper
 {
-	background: #eed;
+        width: 100%;
+        cursor: move;
 	padding: 5px 10px;
+        float:left;
+}
+
+.portlet_topper h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: normal;
+    line-height: 22px;
 }
 
 .portlet_topper a
@@ -35,10 +46,39 @@
 
 .portlet_content
 {
-	border-top: 1px solid #998;
 	padding: 10px;
-        height:300px;
+       height:300px;
+        float: left;
+        overflow: hidden;
 }
+
+.portlet_to_do_content
+{
+	padding: 10px;
+       height:245px;
+        float: left;
+        overflow: hidden;
+}
+#new_to_do
+{
+    width: 94%;
+    margin: 0% 3%;
+    padding: 10px 0px;
+    float: left;
+}
+
+#new_to_do label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+#new_to_do .field{width: 75%;float:left;}
+#new_to_do .field input {width: 90%;}
+#new_to_do .submit{width: 25%;float:right;}
 
 .portlet_content p
 {
@@ -57,5 +97,7 @@
 
 .sort_placeholder
 {
-	background: #bba;
+	border: 2px dashed #ccc;
+        -moz-border-radius: 5px;
+
 }

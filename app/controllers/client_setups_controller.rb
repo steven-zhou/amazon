@@ -38,8 +38,8 @@ class ClientSetupsController < ApplicationController
     end
   end
 
-  def modules
-    @client_setup = ClientSetup.first
+  def available_modules
+    @available_modules = AvailableModule.find(:all, :order => "name")
     respond_to do |format|
       format.html
     end
@@ -62,6 +62,9 @@ class ClientSetupsController < ApplicationController
       redirect_to installation_client_setups_path
     elsif
       params[:super_admin]
+      @client_setup.primary_password = params[:primary_password]
+      @client_setup.secondary_password = params[:secondary_password]
+      @client_setup.save
       redirect_to super_admin_client_setups_path
     else
       redirect_to parameters_client_setups_path

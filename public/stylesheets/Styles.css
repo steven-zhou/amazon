@@ -139,7 +139,7 @@ body {
 
 #app #main #sysbar .bar_section {
     padding: 0.5%;
-    height: 40px;
+    height: 39px;
     background-color: transparent;
     display: inline-block;
     border-right-width: 1px;
@@ -328,7 +328,6 @@ margin-right: 5px;
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;
-    margin-right:2%;
 }
 
 #app #main #content .container.green_container {
@@ -1482,4 +1481,66 @@ div#permission_form .options{
 
 #feedback_item table .feedback_fourth_column {
     width: 30%;
+}
+
+
+/*Dashboard*/
+#dashboard .system_news_container {
+    width:29%;
+    min-height:100px;
+    margin-right:2%;
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    color:#232323;
+    float:left;
+    font-family:Arial,Helvetica,sans-serif;
+    margin-bottom:10px;
+    padding:1%;
+}
+
+#dashboard .system_news_container.active {
+    width:95% !important;
+}
+
+#dashboard .system_news_container .news_content {
+    min-height:40px;
+    margin-top:10px;
+}
+
+#dashboard .system_news_container .read_more{
+    float:right;
+}
+
+#dashboard .system_news_container .date{
+    font-size:12px;
+    font-style:italic;
+}
+
+#dashboard #left_pad {
+    width:5%;
+    float:left;
+    height:50px;
+    margin-top:50px;
+}
+
+#dashboard #right_pad {
+    width:5%;
+    float:left;
+    height:50px;
+    margin-top:50px;
+}
+
+#dashboard #system_news_panel {
+    overflow:hidden;
+    float:left;
+    width:90%;
+}
+
+#dashboard #system_news_panel #system_news_holder {
+    overflow-x:hidden;
+    overflow-y:auto;
 }
