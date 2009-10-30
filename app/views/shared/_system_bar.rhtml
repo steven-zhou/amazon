@@ -28,13 +28,13 @@
   <div class="bar_section" id="sys_icons" >
     <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), :controller => "module", :action => "dashboard" %>
     <%= image_tag('Icons/System/user_preferences.png') %>
-    <%= image_tag('Icons/System/feedback.png', :style => "cursor:pointer;", :id => "feedback") %>
   </div>
   <div class="bar_section" id="search">
     <%= text_field :search, :term, {:size => "20"} %>
-    <%= image_tag('Icons/System/search.png') %>
+    <%= image_tag('Icons/System/sys_search.png') %>
   </div>
   <div class="bar_section" id="help">
+    <%= image_tag('Icons/System/feedback.png', :style => "cursor:pointer;", :id => "feedback") %>
     <%= link_to image_tag('Icons/System/help.png'), :controller => "feedback", :action => "list" %>
   </div>
 </div>

@@ -9,6 +9,10 @@ $(function(){
     $("#tabs2").tabs();
 });
 
+$(function(){
+    $("#datepicker").datepicker();
+});
+
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")

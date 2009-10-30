@@ -52,12 +52,30 @@
         overflow: hidden;
 }
 
+.portlet_content #datepicker
+{
+	margin-left: 25px;
+        float: left;
+        overflow: hidden;
+}
+
 .portlet_to_do_content
 {
 	padding: 10px;
        height:245px;
         float: left;
         overflow: hidden;
+}
+
+.portlet_to_do_content #to_do_lists .done_box {width: 50px; float: right;}
+.portlet_to_do_content #to_do_lists .done_box .done {width: 10px !important; height: 10px !important; display: inline;float: left;}
+.portlet_to_do_content #to_do_lists .done_box label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    line-height: 20px;
 }
 #new_to_do
 {
