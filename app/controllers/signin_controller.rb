@@ -219,6 +219,7 @@ class SigninController < ApplicationController
   def login_as_super_admin
     if @client_setup.check_primary_password(params[:password])
       session[:super_admin] = true
+      session[:user] = 0
       redirect_to welcome_url
     else
       session[:super_admin] = false
