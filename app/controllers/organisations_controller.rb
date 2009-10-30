@@ -167,29 +167,31 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  def add_keywords
-    @organisation = Organisation.find(params[:id])
+  # Move add_keywords and remove_keywords to Keyword_links Controller
 
-    unless params[:add_keywords].nil?
-      params[:add_keywords].each do |keyword_id|
-        keyword = Keyword.find(keyword_id);
-        @organisation.keywords<<keyword
-      end
-    end
-    render "add_keywords.js"
-  end
-
-  def remove_keywords
-    @organisation = Organisation.find(params[:id])
-
-    unless params[:remove_keywords].nil?
-      params[:remove_keywords].each do |keyword_id|
-        keyword = Keyword.find(keyword_id)
-        @organisation.keywords.delete(keyword)
-      end
-    end
-    render "remove_keywords.js"
-  end
+#  def add_keywords
+#    @organisation = Organisation.find(params[:id])
+#
+#    unless params[:add_keywords].nil?
+#      params[:add_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id);
+#        @organisation.keywords<<keyword
+#      end
+#    end
+#    render "add_keywords.js"
+#  end
+#
+#  def remove_keywords
+#    @organisation = Organisation.find(params[:id])
+#
+#    unless params[:remove_keywords].nil?
+#      params[:remove_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id)
+#        @organisation.keywords.delete(keyword)
+#      end
+#    end
+#    render "remove_keywords.js"
+#  end
 
   def find
     @organisation = Organisation.new
