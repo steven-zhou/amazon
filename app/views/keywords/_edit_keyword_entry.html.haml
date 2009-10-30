@@ -11,7 +11,7 @@
           = p.label :description, 'Description'
           = p.text_field :description, {:disabled => ("disabled" if !@keyword.status)}
         .field_5
-          = p.label :active, 'Active'
+          = p.label :active, 'Active',{:style => "margin-left: 8px;"}
           %label
           = p.check_box :status
         .field_20{:style => "margin-top: 8px;"}
