@@ -129,16 +129,17 @@ $(function() {
   buttons: {
   Yes: function(){ 
   $.post(link.attr('href'), "_method=delete", null, 'script');
-  $(this).dialog('close');
+  $(this).dialog('destroy');
   return true;
    },
   No: function(){
-    $(this).dialog('close');
+    $(this).dialog('destroy');
     return true;
 
   }
   }
 });
+    $('#delete_warning_message').dialog('option', 'title', 'Warning');
     $('#delete_warning_message').dialog('open');
     return false;
 //        var link = $(this);
@@ -3622,6 +3623,7 @@ $(function(){
   }
   }
 });
+ $('#signout_warning_message').dialog('option', 'title', 'Warning');
     $('#signout_warning_message').dialog('open');
     return false;
     });
