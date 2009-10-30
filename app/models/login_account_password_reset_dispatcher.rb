@@ -15,7 +15,7 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
   def registration_confirmation(login_account, password)
     # Goes to the end user once a new account is created
     recipients       "#{login_account.security_email}"
-    from              "noreply@memberzone.com.au"
+    from              "lei@memberzone.com.au"
     subject          "Thank you for registering"
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
     sent_on           Time.now

@@ -15,9 +15,10 @@
       "person.js",
       "reports.js",
       "module_menu.js",
-      "application.js"
+      "application.js",
+      "jquery.validationEngine.js"
   %>
-    <%= stylesheet_link_tag "signin" %>
+    <%= stylesheet_link_tag "signin"%>
     <%= stylesheet_link_tag "jquery-ui-custom" %>
 
   </head>
@@ -39,7 +40,7 @@
         );
           $("#login_help_screen").dialog("open");
         });
-      
+
       }
     )
     </script>
@@ -107,7 +108,7 @@
       }
     )
     </script>
-<!-- Used to regenerate captchas on request -->
+    <!-- Used to regenerate captchas on request -->
     <script type="text/javascript">
       $(function() {
         $('#regenerate_captcha').live('click', function(){
@@ -190,7 +191,7 @@
       </div>
     </div>
     <!-- End hidden stuff for people having problems logging in -->
-    <div id="signin_container", title="Login Assistance">
+    <div id="signin_container" title="Login Assistance">
          <div id="signin_logo">
 
       </div>

@@ -12,9 +12,11 @@ class SigninController < ApplicationController
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
         session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
    
-       
-        @group_types = LoginAccount.validate_group(session[:user])
+      
+     
+        @group_types = LoginAccount.validate_group(session[:user])  
         @system_permission_types = LoginAccount.validate_permission(session[:user])
+        @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
         login_account.update_password = false
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
         session[:login_account_info] = login_account
@@ -58,17 +60,22 @@ class SigninController < ApplicationController
         #  in ok we will send a warning to the end user
         #flash.now[:warning] = flash_message(:type => "login_error")
         #rescue rescue_message = "your group do not have permissions"
+         puts"*********#{@access_attempts_count.to_yaml}*******"  
         if login_account.nil?
           rescue_message = "Login Account is error"
         else if  @group_types.nil?
             rescue_message = "you do not have group"
           else if   @system_permission_types.nil?
               rescue_message = "group permission is error"
+            else if @access_attempts_count.blank?
+                rescue_message = "your account has been locked, please call admin"
+              end
             end
           end
         end
 
         flash.now[:warning] = rescue_message
+        
       end
     end
   end
