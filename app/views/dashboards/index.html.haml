@@ -1,11 +1,11 @@
-%div#header
-  %div#page_title
-    %h1 Dashboard
+#header
+  #page_title
 
-%div#left_content
-  = render :partial => "system_news/system_news_part"
-
-%div#right_content
+#dashboard
+  .container
+    %h1 System News
+    = render :partial => "system_news/system_news_part"
+  %br.clear
   
 %br.clear
 
@@ -27,3 +27,4 @@
           %p Coming Soon
 
 %div#footer
+

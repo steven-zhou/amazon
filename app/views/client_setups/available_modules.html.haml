@@ -1,0 +1,9 @@
+#header
+  #page_title
+    %h1 Modules
+  #lol
+  %br.clear
+
+.container
+  %h2 Module Installed
+  = render :partial => "available_modules/available_module", :collection => @available_modules

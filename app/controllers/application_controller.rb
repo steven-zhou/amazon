@@ -33,10 +33,12 @@ class ApplicationController < ActionController::Base
   end
 
   def check_authentication
-    unless session[:user]
-      redirect_to login_url
-    else
-      @current_user = LoginAccount.find(session[:user])
+    unless session[:super_admin]
+      unless session[:user]
+        redirect_to login_url
+      else
+        @current_user = LoginAccount.find(session[:user])
+      end
     end
   end
 
