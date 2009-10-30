@@ -10,9 +10,9 @@
         .field_35
           = p.label :description, 'Description'
           = p.text_field :description, {:disabled => ("disabled" if !@keyword.status)}
-        .field_30
-          = p.label :active
+        .field_5
+          = p.label :active, 'Active', {:style => "margin-left:2px;"}
           %label
-            = p.check_box :status
-
+          = p.check_box :status
+        .field_20{:style => "margin-top: 8px;"}
           = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
