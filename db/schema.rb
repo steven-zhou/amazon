@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091029071222) do
+ActiveRecord::Schema.define(:version => 20091030032732) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -208,7 +208,7 @@ ActiveRecord::Schema.define(:version => 20091029071222) do
     t.datetime "updated_at"
     t.text     "response"
     t.datetime "response_date"
-    t.integer  "responsed_to_by_id"
+    t.integer  "responded_to_by_id"
   end
 
   create_table "grids", :force => true do |t|
