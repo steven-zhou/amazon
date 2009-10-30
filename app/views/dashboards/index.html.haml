@@ -1,32 +1,30 @@
 #header
   #page_title
     %h1 Dashboard
-
 #dashboard
   .container
     %h1 System News
     = render :partial => "system_news/system_news_part"
   %br.clear
+  
+%br.clear
 
-  %table#columns
-    %tr
-      %td
-        %div.portlet
-          %div.portlet_topper
-            %h1 Graphic
-          %div.portlet_content
-            %p Coming Soon
-      %td
-        %div.portlet
-          %div.portlet_topper
-            %h1 Calendar
-          %div.portlet_content
-            %p Coming Soon
-      %td
-        %div.portlet
-          %div.portlet_topper
-            %h1 To Do List
-          %div.portlet_content
-            %p Coming Soon
+%table#columns
+  %tr
+    %td
+      = render :partial => "to_do_lists/to_do_lists_part"
+    %td
+      %div.portlet
+        %div.portlet_topper
+          %h1 Calendar
+        %div.portlet_content
+          %p Coming Soon
+    %td
+      %div.portlet
+        %div.portlet_topper
+          %h1 To Do List
+        %div.portlet_content
+          %p Coming Soon
 
-#footer
+%div#footer
+

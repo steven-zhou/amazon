@@ -1,7 +1,8 @@
-%div.container
-  %h1 To Do List
-  #to_do_lists
-    = render :partial => "to_do_lists/to_do_list", :collection => @to_do_lists
-
-  #new_to_do_list
-    = render :partial => "to_do_lists/new_to_do_list"
+%div.portlet
+    %div.portlet_topper
+        %h1 To Do List
+    %div.portlet_to_do_content
+        #to_do_lists
+            = render :partial => "to_do_lists/to_do_list", :collection => @to_do_lists
+    %div#new_to_do
+        = render :partial => "to_do_lists/new_to_do_list"
