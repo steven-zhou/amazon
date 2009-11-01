@@ -1,5 +1,11 @@
 #system_news
-  = render :partial => "system_news/system_news", :collection => SystemNews.all
+  #left_pad
+    = image_tag('Icons/Core/Lol/go-previous.png')
+  #system_news_panel
+    #system_news_holder
+      = render :partial => "system_news/system_news", :collection => SystemNews.all
+  #right_pad
+    = image_tag('Icons/Core/Lol/go-next.png')
 
 #new_system_news
   = render :partial => "system_news/new_system_news" if @super_admin

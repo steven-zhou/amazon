@@ -12,19 +12,19 @@
 %table#columns
   %tr
     %td
-      = render :partial => "to_do_lists/to_do_lists_part"
+      %div.portlet
+        %div.portlet_topper
+          %h1 To Do List
+        %div.portlet_content
+          %div#graph
     %td
       %div.portlet
         %div.portlet_topper
           %h1 Calendar
         %div.portlet_content
-          %p Coming Soon
+          %div#datepicker
     %td
-      %div.portlet
-        %div.portlet_topper
-          %h1 To Do List
-        %div.portlet_content
-          %p Coming Soon
+      = render :partial => "to_do_lists/to_do_lists_part"
 
 %div#footer
 
