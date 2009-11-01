@@ -48,7 +48,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
   end
 
-  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :modules => :get, :super_admin => :get}
+  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get}
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
@@ -113,7 +113,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keywords ,:collection  => {:keywords_finder => :get}
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get}
-
+  map.resources :available_modules, :collection => {:switch_status => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 

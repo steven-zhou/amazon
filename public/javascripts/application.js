@@ -536,6 +536,7 @@ $(function(){
             $("#system_data_entries").html("");
             $("#edit_system_data_entry").html("");
         } else {
+            $("#system_data_add_entry").css("display","");
             $("#edit_system_data_entry").html("");
             $("#amazon_setting_type").val($(this).val());
             $.ajax({
@@ -556,6 +557,7 @@ $(function(){
         $(".container_selected").removeClass("container_selected");
         $(this).closest('.toggle_options').addClass("container_selected");
         $("#edit_system_data_entry").html("");
+        $("#system_data_type").attr("disabled",true);
         $("#system_data_add_entry_form").hide();
         $.ajax({
             type: "GET",
@@ -587,6 +589,7 @@ $(function(){
         $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+        $("#system_data_type").attr("disabled",true);
     });
 });
 
@@ -594,6 +597,7 @@ $(function(){
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
         $("#edit_system_data_entry").hide();
+         $("#system_data_type").attr("disabled",false);
         $.ajax({
             type: "GET",
             url: "/amazon_settings/system_settings_finder.js",
@@ -607,6 +611,7 @@ $(function(){
 $(function(){
     $("#system_data_close_entry").live('click', function(){
         $("#system_data_add_entry_form").css("display","none");
+        $("#system_data_type").attr("disabled",false);
     });
 });
 
@@ -3509,6 +3514,20 @@ $(function(){
     });
 });
 
+//$(function(){
+//    $("#close_edit_keyword_entry").live('click', function(){
+//         $("#keyword_add_entry").css("display","");
+//      $("#keyword_mode").attr('mode', 'show');
+//
+//       $.ajax({
+//                type: "GET",
+//                url: "/keywords/keywords_finder.js",
+//                data: 'type=' + $("#keyword_type").val(),
+//                dataType: "script"
+//            });
+//    });
+//});
+
 $(function(){
     $("#keyword_type").live('change', function(){
         if($(this).val()==""){
@@ -3529,21 +3548,6 @@ $(function(){
             $("#keyword_main_contents").show();
         }
         $("#keyword_mode").attr('mode', 'show');
-    });
-});
-
-
-$(function(){
-    $("#close_edit_keyword_entry").live('click', function(){
-         $("#keyword_add_entry").css("display","");
-      $("#keyword_mode").attr('mode', 'show');
-
-       $.ajax({
-                type: "GET",
-                url: "/keywords/keywords_finder.js",
-                data: 'type=' + $("#keyword_type").val(),
-                dataType: "script"
-            });
     });
 });
 
@@ -3586,6 +3590,18 @@ $(function(){
     });
 });
 
+/* Powernet Menu Module*/
+$(function(){
+    $(".switch_module_status").live('click', function(){
+        $.ajax({
+                type: "GET",
+                url: "/available_modules/switch_status.js",
+                data: 'id=' + $(this).attr("module_id"),
+                dataType: "script"
+            });
+    });
+});
+
 
 
 $(function(){
@@ -3593,6 +3609,15 @@ $(function(){
         $("#hide_feedback_reply").hide();
         $("#display_feedback_reply").show();
         $("#feedback_reply").hide();
+    });
+});
+
+/* Dashboard */
+$(function(){
+    $(".read_more").live('click', function(){
+        $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
+        $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
+        $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
     });
 });
 

@@ -33,11 +33,18 @@ class ApplicationController < ActionController::Base
   end
 
   def check_authentication
-    unless session[:user]
-      redirect_to login_url
-    else
-      @current_user = LoginAccount.find(session[:user])
+    unless session[:super_admin]
+      unless session[:user]
+        redirect_to login_url
+      else
+        @current_user = LoginAccount.find(session[:user])
+      end
     end
+  end
+
+  def system_log(message, current_controller=@current_controller, current_action=@current_action)
+    system_log = SystemLog.new(:message => message, :user_id => @current_user.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+    system_log.save
   end
 
 

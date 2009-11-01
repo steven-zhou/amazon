@@ -29,10 +29,10 @@
               .field_35
                 = p.label :description, 'Description'
                 = p.text_field :description
-              .field_5
-                = p.label :active
+              .field_10
+                = p.label :active, 'Active'
                 %label
-                = p.check_box :status
+                = p.check_box :status, {:style => "width:auto;"}
               .field_20{:style => "margin-top: 8px;"}
                 = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
           

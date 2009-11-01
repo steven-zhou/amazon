@@ -1,22 +1,18 @@
-%div#header
-  %div#page_title
+#header
+  #page_title
     %h1 Dashboard
-
-%div#left_content
-  = render :partial => "system_news/system_news_part"
-
-%div#right_content
-  = render :partial => "to_do_lists/to_do_lists_part"
+#dashboard
+  .container
+    %h1 System News
+    = render :partial => "system_news/system_news_part"
+  %br.clear
+  
 %br.clear
 
 %table#columns
   %tr
     %td
-      %div.portlet
-        %div.portlet_topper
-          %h1 Graphic
-        %div.portlet_content
-          %p Coming Soon
+      = render :partial => "to_do_lists/to_do_lists_part"
     %td
       %div.portlet
         %div.portlet_topper
@@ -31,3 +27,4 @@
           %p Coming Soon
 
 %div#footer
+
