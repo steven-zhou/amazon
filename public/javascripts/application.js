@@ -3599,7 +3599,6 @@ $(function(){
     });
 });
 
-<<<<<<< HEAD:public/javascripts/application.js
 $(function(){
     $("#reply_to_feedback").live('click', function(){
         $("#reply_to_feedback").hide();
