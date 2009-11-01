@@ -159,7 +159,7 @@ body {
 }
 
 #app #main #sysbar .bar_section#toolbar  {
-    width: 52%;
+    width: 51%;
 }
 
 #app #main #sysbar .bar_section#sys_icons {
@@ -167,7 +167,7 @@ body {
 }
 
 #app #main #sysbar .bar_section#search {
-    width: 17%;
+    width: 18%;
 }
 
 #app #main #sysbar .bar_section#help {
