@@ -142,11 +142,6 @@ $(function() {
     $('#delete_warning_message').dialog('option', 'title', 'Warning');
     $('#delete_warning_message').dialog('open');
     return false;
-//        var link = $(this);
-//        $.post(link.attr('href'), "_method=delete", null, 'script');
-//        return false;
-
-
     }).attr("rel", "nofollow");
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
