@@ -1,5 +1,5 @@
 -div_for(user_list, :class => "container_active_50  half_container toggle_options", :field => "user_list") do
   .options{:style => "display:none;"}
-    = link_to image_tag('delete_icon.png'), user_list_path(user_list), :class => "delete"
+    = link_to image_tag('delete_icon.png'), user_list_path(user_list), :class => "delete" ,:field => "User List"
   .title{:style => "height:20px;"}
     = user_list.user_list_header.name

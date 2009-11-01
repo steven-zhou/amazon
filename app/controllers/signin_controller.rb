@@ -149,15 +149,14 @@ class SigninController < ApplicationController
   private
   
   def login_as_user
-    begin
+  begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
         session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
-
-
         @group_types = LoginAccount.validate_group(session[:user])
         @system_permission_types = LoginAccount.validate_permission(session[:user])
-        #@login_account.update_password = false
-        #login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+        @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
+        login_account.update_password = false
+        login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
         session[:login_account_info] = login_account
 
         #clear temp list data
@@ -205,11 +204,15 @@ class SigninController < ApplicationController
             rescue_message = "you do not have group"
           else if   @system_permission_types.nil?
               rescue_message = "group permission is error"
+            else if @access_attempts_count.blank?
+                rescue_message = "your account has been locked, please call admin"
+              end
             end
           end
         end
 
         flash.now[:warning] = rescue_message
+
       end
   end
 

@@ -26,19 +26,19 @@ class LoginAccount < ActiveRecord::Base
   #--------sepcial for user
 
   validates_presence_of :password_hash, :if => :user_update?
-  validates_presence_of :password, :message => "password can't be blank", :if => :user_update?
+  validates_presence_of :password, :if => :user_update?
   validates_length_of :password, :within => 6..30, :too_long => "pick a shorter password", :too_short => "pick a longer password", :if => :user_update?
   validates_confirmation_of :password,  :message => "password confirmation is different with password", :if => :user_update?
   validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of password is wrong.", :if => :user_update?
-  validates_presence_of :security_question1_id, :message => "you must select three security questions.", :if => :user_update?
-  validates_presence_of :security_question2_id, :message => "you must select three security questions.", :if => :user_update?
-  validates_presence_of :security_question3_id, :message => "you must select three security questions.", :if => :user_update?
+  validates_presence_of :question1_answer, :message => "you must type three security questions answer.", :if => :user_update?
+  validates_presence_of :question2_answer, :message => "you must type three security questions answer.", :if => :user_update?
+  validates_presence_of :question3_answer, :message => "you must type three security questions answer.", :if => :user_update?
   
   attr_accessor :password, :password_confirmation
   attr_accessor :update_password
 
 
-   default_scope :order => "id ASC"
+  default_scope :order => "id ASC"
 
 
   def self.authenticate(user_name, password)
@@ -77,6 +77,16 @@ class LoginAccount < ActiveRecord::Base
     @system_permission_types
   end
 
+  def self.validate_attempts_count(user_id)
+    login_account = LoginAccount.find_by_id(user_id)
+
+    @access_attempts_count = login_account.access_attempts_count
+    if (@access_attempts_count.to_i <= 0)
+      raise "your account has been locked, please call admin"
+    end
+    @access_attempts_count
+  end
+  
   def list_headers
     list_headers = Array.new
     for group_type in self.group_types do

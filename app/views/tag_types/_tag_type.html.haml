@@ -3,7 +3,7 @@
     .options
       = link_to_function image_tag('Icons/System/add_child.png'), :class => "new_tag", :tag => @category, :tag_type_id => tag_type.id unless (@category == "Table" || @category == "Contact" || tag_type.status == false || tag_type.tag_meta_type.status == false)
       = link_to image_tag('edit_icon.png'), edit_tag_type_path(tag_type), :class => 'get_tag'
-      = link_to image_tag('delete_icon.png'), tag_type_path(tag_type), :class => 'delete'
+      = link_to image_tag('delete_icon.png'), tag_type_path(tag_type), :class => 'delete', :field => "TagType"
     .title
       %h2 #{tag_type.name}
   %br.clear

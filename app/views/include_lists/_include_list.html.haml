@@ -2,5 +2,5 @@
   .title
     %h3= include_list.list_header.name
   .options
-    = link_to image_tag('delete_icon.png'), include_list_path(include_list), :class => 'delete'
+    = link_to image_tag('delete_icon.png'), include_list_path(include_list), :class => 'delete', :field => "List"
   %br.clear
