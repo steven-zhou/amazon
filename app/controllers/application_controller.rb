@@ -5,15 +5,7 @@ class ApplicationController < ActionController::Base
  
   include ExceptionNotifiable
 
- 
   helper :all # include all helpers, all the time
-
-
-  # include SimpleCaptcha::ControllerHelpers
-
-
-
-
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -40,6 +32,11 @@ class ApplicationController < ActionController::Base
         @current_user = LoginAccount.find(session[:user])
       end
     end
+  end
+
+  def system_log(message, current_controller=@current_controller, current_action=@current_action)
+    system_log = SystemLog.new(:message => message, :user_id => @current_user.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+    system_log.save
   end
 
 
