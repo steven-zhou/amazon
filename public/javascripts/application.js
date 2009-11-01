@@ -146,11 +146,6 @@ $(function() {
     $('#delete_warning_message').dialog('option', 'title', 'Warning');
     $('#delete_warning_message').dialog('open');
     return false;
-//        var link = $(this);
-//        $.post(link.attr('href'), "_method=delete", null, 'script');
-//        return false;
-
-
     }).attr("rel", "nofollow");
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
@@ -643,6 +638,7 @@ $(function(){
 $(function(){
     $("#system_data_close_entry").live('click', function(){
         $("#system_data_add_entry_form").css("display","none");
+
         $("#system_data_type").attr("disabled",false);
     });
 });
@@ -3536,7 +3532,6 @@ $(function(){
        $("#keyword_type").attr("disabled",false);
         $("#edit_keyword_entry").html("");
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
-
         $.ajax({
             type: "GET",
             url: "/keywords/keywords_finder.js",
@@ -3586,6 +3581,20 @@ $(function(){
 
 
 
+$(document).ready(function() {
+    $(".admin_password_reset").validationEngine({
+        validationEventTriggers:"keyup blur",
+        success :  false,
+
+        failure : function() {
+            callFailFunction()
+        }
+
+    });
+
+});
+
+
 $(function(){
     $("#display_feedback_details").live('click', function(){
         $("#display_feedback_details").hide();
@@ -3602,6 +3611,28 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#reply_to_feedback").live('click', function(){
+        $("#reply_to_feedback").hide();
+        $("#feedback_reply").show();
+    });
+});
+
+$(function(){
+    $("#close_feedback").live('click', function(){
+        $("#feedback_reply").hide();
+        $("#reply_to_feedback").show();
+    });
+});
+
+
+$(function(){
+    $("#display_feedback_reply").live('click', function(){
+        $("#display_feedback_reply").hide();
+        $("#hide_feedback_reply").show();
+        $("#feedback_reply").show();
+    });
+});
 
 /* sing out warning message*/
 
@@ -3645,6 +3676,15 @@ $(function(){
     });
 });
 
+
+
+$(function(){
+    $("#hide_feedback_reply").live('click', function(){
+        $("#hide_feedback_reply").hide();
+        $("#display_feedback_reply").show();
+        $("#feedback_reply").hide();
+    });
+});
 
 /* Dashboard */
 $(function(){

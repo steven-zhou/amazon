@@ -1041,6 +1041,7 @@ form#organisation_names_form input#image_image_file{
 .ui-dialog .container .form_line .field_15,
 .ui-dialog .container .form_line .field_20,
 .ui-dialog .container .form_line .field_25,
+.ui-dialog .container .form_line .field_23,
 .ui-dialog .container .form_line .field_27,
 .ui-dialog .container .form_line .field_30,
 .ui-dialog .container .form_line .field_33,
@@ -1063,6 +1064,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog .container .form_line .field_15 {width: 15%;}
 .ui-dialog .container .form_line .field_20 {width: 20%;}
+.ui-dialog .container .form_line .field_23 {width: 23%;}
 .ui-dialog .container .form_line .field_25 {width: 25%;}
 .ui-dialog .container .form_line .field_27 {width: 27%;}
 .ui-dialog .container .form_line .field_30 {width: 30%;}
@@ -1080,6 +1082,14 @@ form#organisation_names_form input#image_image_file{
 .ui-dialog .container .form_line .field_80 {width: 80%;}
 .ui-dialog .container .form_line .field_85 {width: 85%;}
 
+
+.ui-dialog .container select {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:20px;
+    width: 100%;
+    height: 24px;
+}
 /* Administration */
 
 /* System Data */
@@ -1467,6 +1477,171 @@ div#permission_form .options{
     padding-right: 4em;
     padding-top: 0.5em;
 }
+
+
+/*password reset*/
+#reset_password_container {
+	background-color:#FFF;
+	min-height: 665px;
+	width: 640px;
+	margin-top: 15%;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	-moz-border-radius: 15px;
+}
+
+#reset_password_container #header {
+    height: 40px;
+    width: 100%;
+}
+/* page title area */
+#reset_password_container #page_title {
+    width: 100%;
+    height: 40px;
+    float:left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    color: #2C2C2C;
+    margin-left: 1%;
+}
+
+#reset_password_container h1 {
+    color: #2C2C2C;
+    font-size:21px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+#reset_password_container .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#reset_password_container .container .form_line {
+    float: left;
+    height: 40px;
+    width: 100%;
+}
+/* filed label properties */
+#reset_password_container .container .form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+/* field properties */
+#reset_password_container .container input {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 96%;
+    height: 18px;
+
+}
+
+
+#reset_password_container .container .form_line .field_2,
+#reset_password_container .container .form_line .field_5,
+#reset_password_container .container .form_line .field_10,
+#reset_password_container .container .form_line .field_11,
+#reset_password_container .container .form_line .field_15,
+#reset_password_container .container .form_line .field_20,
+#reset_password_container .container .form_line .field_22,
+#reset_password_container .container .form_line .field_23,
+#reset_password_container .container .form_line .field_25,
+#reset_password_container .container .form_line .field_27,
+#reset_password_container .container .form_line .field_30,
+#reset_password_container .container .form_line .field_33,
+#reset_password_container .container .form_line .field_34,
+#reset_password_container .container .form_line .field_35,
+#reset_password_container .container .form_line .field_38,
+#reset_password_container .container .form_line .field_40,
+#reset_password_container .container .form_line .field_45,
+#reset_password_container .container .form_line .field_50,
+#reset_password_container .container .form_line .field_55,
+#reset_password_container .container .form_line .field_60,
+#reset_password_container .container .form_line .field_66,
+#reset_password_container .container .form_line .field_70,
+#reset_password_container .container .form_line .field_72,
+#reset_password_container .container .form_line .field_75,
+#reset_password_container .container .form_line .field_80,
+#reset_password_container .container .form_line .field_85,
+#reset_password_container .container .form_line .field_90,
+#reset_password_container .container .form_line .field_100 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+/* unique properties */
+#reset_password_container .container .form_line .field_2 {width: 2%;}
+#reset_password_container .container .form_line .field_5 {width: 5%;}
+#reset_password_container .container .form_line .field_10 {width: 10%;}
+#reset_password_container .container .form_line .field_11 {width: 11%;}
+#reset_password_container .container .form_line .field_15 {width: 15%;}
+#reset_password_container .container .form_line .field_20 {width: 20%;}
+#reset_password_container .container .form_line .field_22 {width: 22%;}
+#reset_password_container .container .form_line .field_23 {width: 23%;}
+#reset_password_container .container .form_line .field_25 {width: 25%;}
+#reset_password_container .container .form_line .field_27 {width: 27%;}
+#reset_password_container .container .form_line .field_30 {width: 30%;}
+#reset_password_container .container .form_line .field_33 {width: 33%;}
+#reset_password_container .container .form_line .field_34 {width: 34%;}
+#reset_password_container .container .form_line .field_35 {width: 35%;}
+#reset_password_container .container .form_line .field_38 {width: 38%;}
+#reset_password_container .container .form_line .field_40 {width: 40%;}
+#reset_password_container .container .form_line .field_45 {width: 45%;}
+#reset_password_container .container .form_line .field_50 {width: 50%;}
+#reset_password_container .container .form_line .field_55 {width: 55%;}
+#reset_password_container .container .form_line .field_60 {width: 60%;}
+#reset_password_container .container .form_line .field_66 {width: 66%;}
+#reset_password_container .container .form_line .field_70 {width: 70%;}
+#reset_password_container .container .form_line .field_72 {width: 72%;}
+#reset_password_container .container .form_line .field_75 {width: 75%;}
+#reset_password_container .container .form_line .field_80 {width: 80%;}
+#reset_password_container .container .form_line .field_85 {width: 85%;}
+#reset_password_container .container .form_line .field_90 {width: 90%;}
+#reset_password_container .container .form_line .field_100 {width: 100%;}
+
+/* remove margin from .form_field last div */
+#reset_password_container .container .form_line div:last-child {
+    margin: 0px;
+}
+
+
+#reset_password_container .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
+
+
+#psr_score { display: none; padding-left: 10px; }
+#psr_verify { display: inline; padding-left: 10px; }
+#psr_strength_notice { display: none; padding-left: 10px; }
+
+.psr_Weak { display: none; }
+.psr_Medium { display: none; }
+.psr_Strong { display: none; }
+.psr_Excellent { display: none; }
+
+#reset_password_container #psr_score { display: none; padding-left: 10px; }
+#reset_password_container #psr_verify { display: block; padding-left: 10px;color:red;margin-top:10px; }
+#reset_password_container #psr_strength_notice { display: none; padding-left: 10px; }
 
 #feedback_item table .feedback_first_column {
     width: 15%;

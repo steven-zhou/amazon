@@ -33,7 +33,7 @@
 				// Define position of the tooltip
 				var pos			= jInput.offset();
 				var win			= getWindow();
-				var dir			= "left";
+				var dir			= "right";
 				var top			= pos.top;
 				var left		= (pos.left + jInput.width());
 				jTooltip.appendTo(document.body);
