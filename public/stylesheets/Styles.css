@@ -159,32 +159,33 @@ body {
 }
 
 #app #main #sysbar .bar_section#toolbar  {
-    width: 50%;
-}
-
-#app #main #sysbar .bar_section#search {
-    width: 21%;
+    width: 52%;
 }
 
 #app #main #sysbar .bar_section#sys_icons {
-    width: 10%;
+    width: 8%;
+}
+
+#app #main #sysbar .bar_section#search {
+    width: 17%;
 }
 
 #app #main #sysbar .bar_section#help {
-    width: 3%;
+    width: 7%;
+     border-right: none;
 }
 
 #app #main #sysbar .bar_section#help img {
     vertical-align: middle;
-    padding-top: 6px;
+    padding-top: 0px;
 }
 
 
 
-#app #main #sysbar .bar_section:last-child {
+/*#app #main #sysbar .bar_section:last-child {
     border-right: none;
     width: 4%;
-}
+}*/
 
 /* End system bar */
 

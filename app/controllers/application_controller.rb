@@ -5,15 +5,7 @@ class ApplicationController < ActionController::Base
  
   include ExceptionNotifiable
 
- 
   helper :all # include all helpers, all the time
-
-
-  # include SimpleCaptcha::ControllerHelpers
-
-
-
-
 
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
@@ -39,6 +31,11 @@ class ApplicationController < ActionController::Base
       @current_user = LoginAccount.find(session[:user])
       redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
     end
+  end
+
+  def system_log(message, current_controller=@current_controller, current_action=@current_action)
+    system_log = SystemLog.new(:message => message, :user_id => @current_user.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+    system_log.save
   end
 
 

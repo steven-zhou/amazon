@@ -56,4 +56,24 @@ class FeedbackController < ApplicationController
     end
   end
 
+  def submit_reply
+
+    @feedback_item = FeedbackItem.find(params[:id])
+    @feedback_item.response = params[:feedback_reply_content]
+    @feedback_item.response_date = Date.today()
+    @feedback_item.responded_to_by_id = @current_user.id
+    @feedback_item.status = "Replied To"
+    @feedback_item.save
+
+    subject = params[:feedback_reply_subject]
+
+    email = FeedbackDispatcher.create_reply_to_feedback(@feedback_item, subject)
+    FeedbackDispatcher.deliver(email)
+    
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
 end
