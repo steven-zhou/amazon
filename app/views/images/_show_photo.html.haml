@@ -1,5 +1,5 @@
 .options{:style=>"float:right"}
-  = link_to image_tag('delete_icon.png'), image_path(entity.image.id), :class => "delete", :id => "delete_photo" unless entity.image.nil? ,:field => "Photo"
+  = link_to image_tag('delete_icon.png'), image_path(entity.image.id),:field => "Photo", :class => "delete", :id => "delete_photo" unless entity.image.nil?
 %br{ :style => "clear:both;"}
 %div#imageshow{:style => "float:left;"}
   -if entity.image.nil?

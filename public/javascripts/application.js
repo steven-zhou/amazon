@@ -34,7 +34,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -121,32 +121,39 @@ $(function() {
 
 
     $('a.delete').live('click', function(){
-    var link = $(this);
-    $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
-    $('#delete_warning_message_image').css("display","");
-    $('#delete_warning_message').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 'auto',
-  width: 600,
-  buttons: {
-  Yes: function(){ 
-  $.post(link.attr('href'), "_method=delete", null, 'script');
-  $(this).dialog('destroy');
-  return true;
-   },
-  No: function(){
-    $(this).dialog('destroy');
-    return true;
+        var link = $(this);
+        $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
+        $('#delete_warning_message_image').css("display","");
+        $('#delete_warning_message').dialog({
+            modal: true,
+            resizable: true,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+                Yes: function(){
+                    $.post(link.attr('href'), "_method=delete", null, 'script');
+                    $(this).dialog('destroy');
+                    return true;
+                },
+                No: function(){
+                    $(this).dialog('destroy');
+                    return true;
 
-  }
-  }
-});
-    $('#delete_warning_message').dialog('option', 'title', 'Warning');
-    $('#delete_warning_message').dialog('open');
-    return false;
+                }
+            }
+        });
+        $('#delete_warning_message').dialog('option', 'title', 'Warning');
+   
+        $('#delete_warning_message').parent().find("a").css("display","none");
+        $('#delete_warning_message').dialog('open');
+  
+        //    a.css("display","none");
+        //  a.attr("class","ui-dialog-titlebar-lock");
+        //  a.find("span").attr("class","ui-icon ui-icon-lock");
+        return false;
     }).attr("rel", "nofollow");
+
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
@@ -362,9 +369,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/organisations/name_finder.js",
+                    "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -379,9 +386,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/people/name_finder.js",
+                    "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -419,7 +426,7 @@ $(function()
             dataType: "script"
         });
 
-    /* }
+        /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -500,9 +507,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_meta_type_finder.js",
+                "/people/master_doc_meta_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -514,9 +521,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_type_finder.js",
+                "/people/master_doc_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -624,7 +631,7 @@ $(function(){
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
         $("#edit_system_data_entry").hide();
-         $("#system_data_type").attr("disabled",false);
+        $("#system_data_type").attr("disabled",false);
         $.ajax({
             type: "GET",
             url: "/amazon_settings/system_settings_finder.js",
@@ -803,18 +810,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/new.js",
+                    "/amazon_settings/new.js",
                 data:
-                'type=' + $("#find_data_list_field").val(),
+                    'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/" + $(this).val() + "/edit.js",
+                    "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                'id=' + $(this).val(),
+                    'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -1190,7 +1197,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 });
 
@@ -1201,7 +1208,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 });
 
@@ -2197,76 +2204,76 @@ $(function(){
         url: '/grids/feedback_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Date',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Date',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Submitted By',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Submitted By',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Subject',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Subject',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'IP Address',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'IP Address',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Status',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Status',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
 
         ],
         searchitems : [
-        {
-            display: 'Date',
-            name : 'field_1'
-        },
+            {
+                display: 'Date',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Submitted By',
-            name : 'field_2'
-        },
+            {
+                display: 'Submitted By',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Subject',
-            name : 'field_3'
-        },
+            {
+                display: 'Subject',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Status',
-            name : 'field_4'
-        },
+            {
+                display: 'Status',
+                name : 'field_4'
+            },
 
         ],
         sortname: "grid_object_id",
@@ -2412,79 +2419,79 @@ $(function(){
         url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'Email',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
+            {
+                display: 'Email',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2596,79 +2603,79 @@ $(function(){
         url: '/grids/organisation_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Trading As',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Trading As',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Registered Name',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Registered Name',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Website',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'Website',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'Trading As',
-            name : 'field_1'
-        },
+            {
+                display: 'Trading As',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Registered Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Registered Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Website',
-            name : 'field_5'
-        }
+            {
+                display: 'Website',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2700,79 +2707,79 @@ $(function(){   /*organisation employee list result*/
         url: '/grids/organisation_employee_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 120,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'email',
-            name : 'field_5',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'email',
+                name : 'field_5',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
+            {
+                display: 'Email',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -3293,38 +3300,32 @@ $(function(){
 });
 
 //system bar menu
-$(document).ready(function() {
+$(function(){
     $("div#module_menu_top").click(function() {
         if($("div#module_menu_top").attr("class")==""){
             $("div#module_menu_top").addClass("hover");
-            $("div#module_menu_items").css("display", "");
+            $("div#module_menu_items").fadeIn("fast");
         }else{
             $("div#module_menu_top").removeClass("hover");
             $("div#module_menu_items").fadeOut("fast");
         }
     });
 
-    $("div#module_menu").hover(
-        function(){
-            $("div#module_menu_items").fadeOut("fast");
-        },
-        function(){
-            $("div#module_menu_top").removeClass("hover");
-            $("div#module_menu_items").fadeOut("fast");
-        });
 
     $("div#module_menu").hover(
-        function(){},
-        function(){
-            $("div#module_menu_top").removeClass("hover");
-        });
+    function(){},
+    function(){
+        $("div#module_menu_top").removeClass("hover");
+        $("div#module_menu_items").fadeOut("fast");
+    });
+
 
     $("div#module_menu_items li").hover(
         function(){
-            $(this).addClass("hover","fast");
+            $(this).removeClass("hover","fast");
         },
         function(){
-            $(this).removeClass("hover", "normal");
+            $(this).addClass("hover", "normal");
         });
 });
 
@@ -3465,7 +3466,7 @@ $(function(){
             height: 650,
             width: 800
         }
-        );
+    );
         $("#feedback_form").dialog("open");
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
@@ -3620,8 +3621,8 @@ $(function(){
         $("#keyword_add_entry_form").show();
         $("#edit_keyword_entry").html("");
 
-//        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
-       $("#type_id").val($("#keyword_type").val());
+        //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+        $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
@@ -3642,7 +3643,7 @@ $(function(){
         $("#keyword_add_entry").css("display","");
         $("#keyword_mode").attr('mode', 'show');
         $("#keyword_add_entry_form").hide();
-       $("#keyword_type").attr("disabled",false);
+        $("#keyword_type").attr("disabled",false);
         $("#edit_keyword_entry").html("");
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
         $.ajax({
@@ -3697,14 +3698,12 @@ $(function(){
 $(document).ready(function() {
     $(".admin_password_reset").validationEngine({
         validationEventTriggers:"keyup blur",
+
         success :  false,
 
-        failure : function() {
-            callFailFunction()
-        }
+        failure : function() { callFailFunction()  }
 
     });
-
 });
 
 
@@ -3733,43 +3732,44 @@ $(function(){
 
 /* sing out warning message*/
 
-  $('#signout').live('click', function(){
-//    $('#signout_warning_message_image').css("display","");
-//      $('#singoutmessage').css("display","");
+$('#signout').live('click', function(){
+    //    $('#signout_warning_message_image').css("display","");
+    //      $('#singoutmessage').css("display","");
     $('#signout_warning_message').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 'auto',
-  width: 600,
-  buttons: {
-  Yes: function(){
-  window.open("/signin/signout", "_self");
-  $(this).dialog('close');
-  return true;
-   },
-  No: function(){
-    $(this).dialog('close');
-    return true;
+        modal: true,
+        resizable: true,
+        draggable: true,
+        height: 'auto',
+        width: 'auto',
+        buttons: {
+            Yes: function(){
+                window.open("/signin/signout", "_self");
+                $(this).dialog('close');
+                return true;
+            },
+            No: function(){
+                $(this).dialog('close');
+                return true;
 
-  }
-  }
-});
- $('#signout_warning_message').dialog('option', 'title', 'Warning');
+            }
+        }
+    });
+    $('#signout_warning_message').dialog('option', 'title', 'Warning');
+    $('#signout_warning_message').parent().find("a").css("display","none");
     $('#signout_warning_message').dialog('open');
     return false;
-    });
+});
 
 
 /* Powernet Menu Module*/
 $(function(){
     $(".switch_module_status").live('click', function(){
         $.ajax({
-                type: "GET",
-                url: "/available_modules/switch_status.js",
-                data: 'id=' + $(this).attr("module_id"),
-                dataType: "script"
-            });
+            type: "GET",
+            url: "/available_modules/switch_status.js",
+            data: 'id=' + $(this).attr("module_id"),
+            dataType: "script"
+        });
     });
 });
 

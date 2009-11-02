@@ -20,7 +20,7 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     sent_on           Time.now
     body              :login_account => login_account, :password => password
-    content_type        "text/plain"
+    content_type        "text/html"
 
   end
 
