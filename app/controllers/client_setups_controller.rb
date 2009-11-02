@@ -72,8 +72,17 @@ class ClientSetupsController < ApplicationController
   end
 
   def system_log
+  end
 
-    @system_log_entries = SystemLog.find(:all, :order => "created_at DESC")
+  def search_system_log
+
+    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
+    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
+    action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
+
+    @system_log_entries = SystemLog.find_by_sql(["SELECT * FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.controller LIKE ? AND s.action LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, controller, action])
     SystemLogSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -90,6 +99,11 @@ class ClientSetupsController < ApplicationController
       @slsg.field_6 = log_entry.message
       @slsg.save
     end
+
+    respond_to do |format|
+      format.js
+    end
+
 
   end
   
