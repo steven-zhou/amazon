@@ -33,7 +33,7 @@ class LoginAccountsController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id")if(!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?( "can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("password can't be blank"))
-       flash.now[:error] = flash_message(:type => "field_missing", :field => "access_attempts_count")if(!@login_account.errors[:access_attempts_count].nil? && @login_account.errors.on(:access_attempts_count).include?( "can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "access_attempts_count")if(!@login_account.errors[:access_attempts_count].nil? && @login_account.errors.on(:access_attempts_count).include?( "can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "session_timeout")if(!@login_account.errors[:session_timeout].nil? && @login_account.errors.on(:session_timeout).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "authentication_grace_period")if(!@login_account.errors[:authentication_grace_period].nil? && @login_account.errors.on(:authentication_grace_period).include?("password can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
@@ -57,6 +57,9 @@ class LoginAccountsController < ApplicationController
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
     @login_account = LoginAccount.find(params[:id])
     @groups = @login_account.group_types
+    @session_timeout = @login_account.session_timeout
+    @grace_period = @login_account.authentication_grace_period
+    @access_attempts_count = @login_account.access_attempts_count
 
     respond_to do |format|
       format.js
@@ -66,19 +69,19 @@ class LoginAccountsController < ApplicationController
   def update
     @login_account = LoginAccount.find(params[:id].to_i)
     @login_account.update_password = false
-      if @login_account.update_attributes(params[:login_account])
-        flash.now[:message] = " Saved successfully"
-      else
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
-        flash.now[:error] = flash_message(:type => "too_short_name", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a longer name"))
-        flash.now[:error] = flash_message(:type => "too_long_name", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a shorter name"))
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
-        flash.now[:error] = flash_message(:type => "format error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
-      end
-      @login_accounts = LoginAccount.find(:all)
-      render "update.js"
+    if @login_account.update_attributes(params[:login_account])
+      flash.now[:message] = " Saved successfully"
+    else
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "too_short_name", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a longer name"))
+      flash.now[:error] = flash_message(:type => "too_long_name", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a shorter name"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
+      flash.now[:error] = flash_message(:type => "format error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
+    end
+    @login_accounts = LoginAccount.find(:all)
+    render "update.js"
   end
 
   def destroy
