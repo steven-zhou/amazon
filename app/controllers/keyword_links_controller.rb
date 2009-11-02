@@ -9,12 +9,19 @@ class KeywordLinksController < ApplicationController
     end
     
 
-    unless params[:add_keywords].nil?
+    if (!params[:add_keywords].nil?)
       params[:add_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id);
         @entity.keywords<<keyword
       end
-    end 
+    end
+
+     if (!params[:add_organisation_keywords].nil?)
+      params[:add_organisation_keywords].each do |keyword_id|
+        keyword = Keyword.find(keyword_id);
+        @entity.keywords<<keyword
+      end
+    end
 
     if params[:person_id].nil?
         render "/organisations/add_keywords.js"
@@ -32,8 +39,15 @@ class KeywordLinksController < ApplicationController
     end
    
 
-    unless params[:remove_keywords].nil?
+   if (!params[:remove_keywords].nil?)
       params[:remove_keywords].each do |keyword_id|
+        keyword = Keyword.find(keyword_id)
+        @entity.keywords.delete(keyword)
+      end
+    end
+
+     if (!params[:remove_organisation_keywords].nil?)
+      params[:remove_organisation_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id)
         @entity.keywords.delete(keyword)
       end

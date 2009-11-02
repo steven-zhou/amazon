@@ -3,9 +3,9 @@
 
 body {
 	background-color: #030A13;
-	background-image:url(/images/signin_bg.jpg);
+	background-image:url(/images/bg3.jpg);
 	background-repeat:no-repeat;
-	background-position:left top;
+	background-position:center -300px;
 }
 h1 {
 	color:#333;

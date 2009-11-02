@@ -13,7 +13,7 @@
     %br.clear
 
     %form#keywords
-      %input{:style => "display:none", :name => "person_id", :value => person.id}
+      %input{:style => "display:none",:id=> "person_id",  :name => "person_id", :value => person.id}
       #keywords_left.keywordleft
         = label_tag :add_keywords,"Avaliable Keywords"
         = select_tag :add_keywords,unselected_keyword_options(person),{:multiple => true, :size => 20, :style => "width:100% !important;float:left;"}

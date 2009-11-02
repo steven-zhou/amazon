@@ -8,15 +8,15 @@
     
 
   - if (!organisation.nil? && !organisation.new_record?)
-    #keyword_types.keywordleft
+    #keyword_organisation_types.keywordleft
       = label_tag :keyword_type_id, "Keyword Types"
       = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br{ :style=>"clear: both;"}
     %form#keywords
-      %input{:style => "display:none", :name => "organisation_id", :value => organisation.id}
+      %input{:style => "display:none",:id => "organisation_id", :name => "organisation_id", :value => organisation.id}
       #keywords_left.keywordleft
         = label_tag :add_keywords,"Keywords"
-        = select_tag :add_keywords,unselected_keyword_options(organisation),{:multiple => true,:size => 20}
+        = select_tag :add_organisation_keywords,unselected_keyword_options(organisation),{:multiple => true,:size => 20}
       #keywords_middle.middle
         = link_to image_tag('go.png'),add_key_keyword_links_path, :id=>"add_keywords_link",:class => "post",:data_id => "keywords"
         %br
@@ -25,5 +25,5 @@
         = link_to image_tag('back.png'),remove_key_keyword_links_path,:id=>"remove_keywords_link",:class => "post",:data_id => "keywords"
       #keywords_right.right
         = label_tag :remove_keywords,"Selected Keywords"
-        = select_tag :remove_keywords,selected_keyword_options(organisation),{:multiple => true,:size => 20}
+        = select_tag :remove_organisation_keywords,selected_keyword_options(organisation),{:multiple => true,:size => 20}
       %br{ :style=>"clear: both;"}

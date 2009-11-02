@@ -30,7 +30,7 @@ class RelationshipsController < ApplicationController
       flash.now[:error] = flash_message(:type => "same_person_error", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be same as source person"))
     end
 
-    
+     @relationship_new = Relationship.new
     respond_to do |format|
       format.js{}
     end
@@ -50,7 +50,7 @@ class RelationshipsController < ApplicationController
     else
       @relationship.destroy
     end
-   
+   @relationship_new = Relationship.new
     
     respond_to do |format|
       format.js

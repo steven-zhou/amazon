@@ -121,37 +121,49 @@ $(function() {
 
 
     $('a.delete').live('click', function(){
-        var link = $(this);
-        $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
-        $('#delete_warning_message_image').css("display","");
-        $('#delete_warning_message').dialog({
-            modal: true,
-            resizable: true,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
-                Yes: function(){
-                    $.post(link.attr('href'), "_method=delete", null, 'script');
-                    $(this).dialog('destroy');
-                    return true;
-                },
-                No: function(){
-                    $(this).dialog('destroy');
-                    return true;
 
-                }
-            }
-        });
-        $('#delete_warning_message').dialog('option', 'title', 'Warning');
+    var link = $(this);
+    if($(this).attr("error_message_field" != "undefine"))
+    {$('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");}
+    else
+        {
+            $('#delete_message_text').html("Are  you sure you wish to delete ? ");
+        }
+    $('#delete_warning_message_image').css("display","");
+    $('#delete_warning_message').dialog({
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+
+  No: function(){
+    $(this).dialog('destroy');
+    return true;
+
+  },
+    Yes: function(){
+  $.post(link.attr('href'), "_method=delete", null, 'script');
+  $(this).dialog('destroy');
+  return true;
+   }
+  }
+});
+    $('#delete_warning_message').dialog('option', 'title', 'Warning');
    
-        $('#delete_warning_message').parent().find("a").css("display","none");
-        $('#delete_warning_message').dialog('open');
-  
-        //    a.css("display","none");
-        //  a.attr("class","ui-dialog-titlebar-lock");
-        //  a.find("span").attr("class","ui-icon ui-icon-lock");
-        return false;
+    $('#delete_warning_message').parent().find("a").css("display","none");
+     $("#delete_warning_message").parent().css('background-color','#D1DDE6');
+     $("#delete_warning_message").css('background-color','#D1DDE6');
+//      $("#delete_warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+    $('#delete_warning_message').dialog('open');
+   
+//    a.css("display","none");
+//  a.attr("class","ui-dialog-titlebar-lock");
+//  a.find("span").attr("class","ui-icon ui-icon-lock");
+    return false;
+
     }).attr("rel", "nofollow");
 
 
@@ -289,8 +301,42 @@ $(document).ready(function(){
     showTooltip();
 });
 
-$("#keyword_types").live("change", showKeyword);
 
+
+$("#keyword_types").live("change", showKeyword);
+/*organisation keyword*/
+showOrganisationKeyword = function(){
+    $("#add_organisation_keywords option:selected").removeAttr("selected");
+    $("#add_organisation_keywords").find("option").hide();
+    $("#keyword_organisation_types").find("option:selected").each(function(){
+        if($(this).val() == ""){
+            $("#add_organisation_keywords").find("option").show();
+        }else{
+            $("#add_organisation_keywords option[class=" + $(this).text() + "]").show();
+        }
+    });
+}
+
+showOrganisationTooltip = function(){
+    $("#add_organisation_keywords option ,#remove_organisation_keywords option").each(function(){
+        $(this).qtip({
+            content: $(this).attr('remark'),
+            position: {
+                corner: {
+                    target: 'leftMiddle',
+                    tooltip: 'rightMiddle'
+                }
+            },
+            style : {
+                tip: true
+            }
+        });
+    });
+}
+
+
+
+$("#keyword_organisation_types").live("change", showOrganisationKeyword);
 /* Relationships */
 $(function(){
     $("input[type='text']#relationship_related_person_id").change(function(){
@@ -1750,7 +1796,7 @@ $(function(){
     $(".integer_field").live('keyup', function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
-            if((!_valid) || $(this).val()<=0){
+            if((!_valid) || $(this).val()<0){
                 alert("This field has to be integer!");
                 $(this).focus();
                 $(this).val('');
@@ -3392,7 +3438,7 @@ $(function(){
         $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_BW.png");
     });
 
-    $(".organisation_edit_tab:not(.active)").live("mousedown", function(){
+    $(".organisation_edit_tab:not(.active)").live("mouseup", function(){
         $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
         $(".organisation_edit_tab").removeClass("active");
         $(this).addClass("active");
@@ -3752,26 +3798,31 @@ $('#signout').live('click', function(){
     //    $('#signout_warning_message_image').css("display","");
     //      $('#singoutmessage').css("display","");
     $('#signout_warning_message').dialog({
-        modal: true,
-        resizable: true,
-        draggable: true,
-        height: 'auto',
-        width: 'auto',
-        buttons: {
-            Yes: function(){
-                window.open("/signin/signout", "_self");
-                $(this).dialog('close');
-                return true;
-            },
-            No: function(){
-                $(this).dialog('close');
-                return true;
 
-            }
-        }
-    });
-    $('#signout_warning_message').dialog('option', 'title', 'Warning');
-    $('#signout_warning_message').parent().find("a").css("display","none");
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+
+  No: function(){
+    $(this).dialog('close');
+    return true;
+
+  },
+    Yes: function(){
+  window.open("/signin/signout", "_self");
+  $(this).dialog('close');
+  return true;
+   }
+  }
+});
+ $('#signout_warning_message').dialog('option', 'title', 'Warning');
+     $('#signout_warning_message').parent().find("a").css("display","none");
+         $("#signout_warning_message").parent().css('background-color','#D1DDE6');
+     $("#signout_warning_message").css('background-color','#D1DDE6');
+
     $('#signout_warning_message').dialog('open');
     return false;
 });
@@ -3805,5 +3856,81 @@ $(function(){
         $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
         $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
         $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
+    });
+});
+
+/*Keyword double click0*/
+
+$(function(){
+    $("#add_keywords").live('dblclick', function(){
+  
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/add_key.js",
+                data: 'person_id=' + $('#person_id').val()+"&add_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#remove_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/remove_key.js",
+                data: 'person_id=' + $('#person_id').val()+"&remove_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#add_organisation_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/add_key.js",
+                data: 'organisation_id=' + $('#organisation_id').val()+"&add_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#remove_organisation_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/remove_key.js",
+                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+//TO DO LIST
+$(function(){
+    $("#new_to_do").live('click', function(){
+        $('#new_to_do_dialog').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#new_to_do_dialog').dialog('option', 'title', 'To Do List');
+            $('#new_to_do_dialog').dialog('open');
+    });
+});
+
+// System News
+$(function(){
+    $("#new_system_news").live('click', function(){
+        $('#new_system_news_dialog').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#new_system_news_dialog').dialog('option', 'title', 'System News');
+            $('#new_system_news_dialog').dialog('open');
     });
 });

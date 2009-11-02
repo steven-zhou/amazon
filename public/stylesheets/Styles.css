@@ -3,10 +3,10 @@
 /* CSS Document */
 
 body {
-    background-image:url(/images/body_bg.jpg);
-    background-position: top left;
+    background-image:url(/images/bg3.jpg);
+    background-position: top center;
     background-repeat:no-repeat;
-    background-color: #030A13;
+    background-color: #003;
 }
 
 
@@ -1723,4 +1723,19 @@ div#permission_form .options{
 #dashboard #system_news_panel #system_news_holder {
     overflow-x:hidden;
     overflow-y:auto;
+}
+
+
+
+  .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
 }
