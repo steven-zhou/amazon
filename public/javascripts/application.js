@@ -3196,7 +3196,7 @@ $(function(){
 });
 
 //system bar menu
-$(document).ready(function() {
+$(function(){
     $("div#module_menu_top").click(function() {
         if($("div#module_menu_top").attr("class")==""){
             $("div#module_menu_top").addClass("hover");
@@ -3207,28 +3207,22 @@ $(document).ready(function() {
         }
     });
 
-    $("div#module_menu").hover(
-    function(){
-        $("div#module_menu_items").fadeOut("fast");
-    },
-    function(){
-        $("div#module_menu_top").removeClass("hover");
-        $("div#module_menu_items").fadeOut("fast");
-    });
 
     $("div#module_menu").hover(
     function(){},
     function(){
         $("div#module_menu_top").removeClass("hover");
+        $("div#module_menu_items").fadeOut("fast");
     });
 
+
     $("div#module_menu_items li").hover(
-    function(){
-        $(this).addClass("hover","fast");
-    },
-    function(){
-        $(this).removeClass("hover", "normal");
-    });
+        function(){
+            $(this).removeClass("hover","fast");
+        },
+        function(){
+            $(this).addClass("hover", "normal");
+        });
 });
 
 /*user--list*/
