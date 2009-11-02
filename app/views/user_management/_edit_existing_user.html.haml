@@ -43,13 +43,33 @@
     .form_line
       .field_23
         = login.label :session_timeout
-        = login.text_field :session_timeout
+        -#= login.text_field :session_timeout, :readonly => true
+        %select{:name => "login_account[session_timeout]"}
+          %option{:value => "0", :selected => @session_timeout == 0} Unlimited
+          %option{:value => "5", :selected => @session_timeout == 5} 5
+          %option{:value => "10", :selected => @session_timeout == 10} 10
+          %option{:value => "20", :selected => @session_timeout == 20} 20
+          %option{:value => "30", :selected => @session_timeout == 30} 30
       .field_23
-        = login.label :authentication_grace_period
-        = login.text_field :authentication_grace_period
+        -#= login.label :authentication_grace_period
+        -#= login.text_field :authentication_grace_period, :readonly => true
+        = login.label :authentication_grace_period, "New Account Grace Period(Days)"
+        %select{:name => "login_account[authentication_grace_period]"}
+          %option{:value => "0", :selected => @grace_period == 0} Unlimited
+          %option{:value => "7", :selected => @grace_period == 7} 7
+          %option{:value => "14", :selected => @grace_period == 14} 14
+          %option{:value => "21", :selected => @grace_period == 21} 21
+          %option{:value => "28", :selected => @grace_period == 28} 28
       .field_23
-        = login.label :access_attempts_count
-        = login.text_field :access_attempts_count
+        -#= login.label :access_attempts_count
+        -#= login.text_field :access_attempts_count, :readonly => true
+        = login.label :access_attempts_count, "access_attempts_count(num)"
+        %select{:name => "login_account[access_attempts_count]"}
+          %option{:value => "0", :selected => @access_attempts_count == 0} Unlimited
+          %option{:value => "3", :selected => @access_attempts_count == 3} 3
+          %option{:value => "4", :selected => @access_attempts_count == 4} 4
+          %option{:value => "5", :selected => @access_attempts_count == 5} 5
+          %option{:value => "6", :selected => @access_attempts_count == 6} 6
       .field_20
         %label &nbsp
         = link_to_function 'Generate new password', :id => "generate_new_password", :login_account_id => @login_account.id

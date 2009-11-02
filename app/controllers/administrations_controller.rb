@@ -146,6 +146,7 @@ class AdministrationsController < ApplicationController
     @login_account = LoginAccount.new
     @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
    @session_timeout = ClientSetup.first.session_timeout
+  
    @grace_period = ClientSetup.first.new_account_graceperiod
    @access_attempts_count = ClientSetup.first.number_of_login_attempts
    
