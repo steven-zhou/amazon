@@ -60,6 +60,7 @@ class LoginAccountsController < ApplicationController
     @session_timeout = @login_account.session_timeout
     @grace_period = @login_account.authentication_grace_period
     @access_attempts_count = @login_account.access_attempts_count
+    @password_lifetime = @login_account.password_lifetime
 
     respond_to do |format|
       format.js
