@@ -142,18 +142,13 @@ class AdministrationsController < ApplicationController
   end
 
  def user_accounts
-    @role = Role.new
-    @role_condition = RoleCondition.new
-    @role_type = RoleType.new
+  
     @login_account = LoginAccount.new
     @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
-    @user_group = UserGroup.new
-    @group_all = Array.new
-    c = GroupMetaType.find(:first, :conditions => ["name=?","System Users"])
-    @group_all = c.group_types rescue @group_all = Array.new
-    @module_all = Array.new
-    c = GroupMetaMetaType.find(:all, :conditions => ["type=?","SystemPermissionMetaMetaType"])rescue c = Array.new
-    @module_all = c
+   @session_timeout = ClientSetup.first.session_timeout
+   @grace_period = ClientSetup.first.new_account_graceperiod
+   @access_attempts_count = ClientSetup.first.number_of_login_attempts
+   
     respond_to do |format|
       format.html
     end
