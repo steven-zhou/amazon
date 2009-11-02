@@ -17,6 +17,7 @@ class LoginAccount < ActiveRecord::Base
 
   #for---both---admin---user----
   validates_presence_of :person_id, :user_name, :security_email
+  #:access_attempts_count, :session_timeout, :authentication_grace_period
   validates_uniqueness_of :person_id, :user_name, :security_email
   validate :person_must_exist
   validates_length_of :user_name, :within => 6..30, :too_long => "pick a shorter name", :too_short => "pick a longer name"
@@ -43,11 +44,17 @@ class LoginAccount < ActiveRecord::Base
 
   def self.authenticate(user_name, password)
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
-    if login_account.blank? ||
-        Digest::SHA256.hexdigest(password + login_account.password_salt) != login_account.password_hash
+
+    if login_account.nil?
       raise "Username or password invalid"
+    elsif Digest::SHA256.hexdigest(password + login_account.password_salt) != login_account.password_hash
+      login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
+      login_account.save
+      raise "Username or password invalid"
+    else
+      login_account
     end
-    login_account
+
   end
 
 

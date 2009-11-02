@@ -64,7 +64,9 @@ robert_tingle_login = LoginAccount.create(
   :question1_answer => "1",
   :question2_answer => "2",
   :question3_answer => "3",
-  :access_attempts_count => 3
+  :access_attempts_count => 3,
+  :session_timeout => 3,
+  :authentication_grace_period => 3
 )
 
 puts "Creating Jackie Chan"

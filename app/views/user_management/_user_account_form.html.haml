@@ -88,15 +88,15 @@
   .form_line
     .field_23
       = login.label :session_timeout, "Session Timeout(Mins)"
-      %input{:id => "login_account_session_timeout", :class => "integer_field", :name => "login_account[session_timeout]", :value => "#{@session_timeout}"}
+      %input{:id => "login_account_session_timeout", :class => "integer_field", :name => "login_account[session_timeout]", :value => "#{@session_timeout}", :readonly => true}
       -#= login.text_field :session_timeout, :class => "integer_field"
     .field_23
       = login.label :authentication_grace_period, "New Account Grace Period(Days)"
-      %input{:id => "login_account_authentication_grace_period", :class => "integer_field", :name => "login_account[authentication_grace_period]", :value => "#{@grace_period}"}
+      %input{:id => "login_account_authentication_grace_period", :class => "integer_field", :name => "login_account[authentication_grace_period]", :value => "#{@grace_period}", :readonly => true}
       -#= login.text_field :authentication_grace_period, :class => "integer_field"
     .field_23
       = login.label :access_attempts_count, "access_attempts_count(num)"
-      %input{:id => "login_account_access_attempts_count", :class => "integer_field", :name => "login_account[access_attempts_count]", :value => "#{@access_attempts_count}"}
+      %input{:id => "login_account_access_attempts_count", :class => "integer_field", :name => "login_account[access_attempts_count]", :value => "#{@access_attempts_count}", :readonly => true}
       -#= login.text_field :access_attempts_count, :class => "integer_field"
     .field_23.hidden
       = login.label :password_by_admin

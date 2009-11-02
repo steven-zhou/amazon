@@ -43,13 +43,13 @@
     .form_line
       .field_23
         = login.label :session_timeout
-        = login.text_field :session_timeout
+        = login.text_field :session_timeout, :readonly => true
       .field_23
         = login.label :authentication_grace_period
-        = login.text_field :authentication_grace_period
+        = login.text_field :authentication_grace_period, :readonly => true
       .field_23
         = login.label :access_attempts_count
-        = login.text_field :access_attempts_count
+        = login.text_field :access_attempts_count, :readonly => true
       .field_20
         %label &nbsp
         = link_to_function 'Generate new password', :id => "generate_new_password", :login_account_id => @login_account.id
