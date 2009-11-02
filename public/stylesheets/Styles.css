@@ -1724,3 +1724,18 @@ div#permission_form .options{
     overflow-x:hidden;
     overflow-y:auto;
 }
+
+
+
+  .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}

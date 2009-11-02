@@ -2,13 +2,15 @@
   <%if @organisation.nil? -%>
   $('#phone_type').html('<%= escape_javascript(render(:partial => "phones/personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+    $('.person_contact_close').css("display","none");
   <% else %>
    $('#phone_type').html('<%= escape_javascript(render(:partial => "phones/organisation_personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
+  $('.organisation_contact_close').css("display","none");
   <% end -%>
   $("#new_phone")[0].reset();
   $("#new_contact").hide();
-  $('.person_contact_close').css("display","none");
+
   $('#contact_hidden_tab').attr('mode','show');
   $('.person_contact_toggle_button').css("display","");
   $('#<%= dom_id(@phone) %>').effect('slide', {direction:'right'});

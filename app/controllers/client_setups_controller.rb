@@ -70,4 +70,27 @@ class ClientSetupsController < ApplicationController
       redirect_to parameters_client_setups_path
     end
   end
+
+  def system_log
+
+    @system_log_entries = SystemLog.find(:all, :order => "created_at DESC")
+    SystemLogSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @system_log_entries.each do |log_entry|
+      @slsg = SystemLogSearchGrid.new
+      @slsg.login_account_id = session[:user]
+      @slsg.grid_object_id = log_entry.id
+      @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
+      @slsg.field_2 = "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})"
+      @slsg.field_3 = log_entry.ip_address
+      @slsg.field_4 = log_entry.controller
+      @slsg.field_5 = log_entry.action
+      @slsg.field_6 = log_entry.message
+      @slsg.save
+    end
+
+  end
+  
 end

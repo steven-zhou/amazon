@@ -2,5 +2,5 @@
   .title
     %h3= exclude_list.list_header.name
   .options
-    = link_to image_tag('delete_icon.png'), exclude_list_path(exclude_list), :class => 'delete' ,:field => "List"
+    = link_to image_tag('delete_icon.png'), exclude_list_path(exclude_list), :class => 'delete' ,:field => "List",:error_message_field => "List"
   %br.clear

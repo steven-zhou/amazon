@@ -1,6 +1,6 @@
 - routing = Hash.new{|h,k| h[k]=Hash.new(&h.default_proc) }
 - routing[:administrations][:system_data]               = {:controller => "configuration", :action => "system_data" }
-- routing[:administrations][:keyword_dict]               = {:controller => "configuration", :action => "keyword_dict" }
+- routing[:administrations][:keyword_dict]              = {:controller => "configuration", :action => "keyword_dict" }
 - routing[:administrations][:custom_groups]             = {:controller => "configuration", :action => "custom_groups" }
 - routing[:administrations][:master_docs]               = {:controller => "configuration", :action => "master_docs" }
 - routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
@@ -32,6 +32,8 @@
             = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
           %li{:id => @current_action == "license_info" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
+          %li{:id => @current_action == "system_log" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} System Log", :controller => "client_setups", :action => "system_log"
 
     .bottom
 

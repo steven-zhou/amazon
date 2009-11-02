@@ -9,7 +9,8 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091102043458) do
+ActiveRecord::Schema.define(:version => 20091102044832) do
+
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -345,6 +346,7 @@ ActiveRecord::Schema.define(:version => 20091102043458) do
     t.integer  "access_attempts_count"
     t.boolean  "password_by_admin"
     t.string   "type"
+    t.integer  "password_lifetime"
   end
 
   create_table "master_docs", :force => true do |t|
@@ -603,7 +605,7 @@ ActiveRecord::Schema.define(:version => 20091102043458) do
   end
 
   create_table "system_logs", :force => true do |t|
-    t.integer  "login_account_id"
+    t.integer  "user_id"
     t.text     "message"
     t.text     "controller"
     t.text     "action"
