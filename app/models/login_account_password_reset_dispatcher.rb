@@ -4,7 +4,7 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
     # Goes to the end user when they request to have their password reset
     recipients         "#{login_account.security_email}"
     from               "noreply@memberzone.com.au"
-    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
+    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     subject            "Password Reset Request"
     sent_on            Time.now
     body                :password => new_password
@@ -17,7 +17,7 @@ class LoginAccountPasswordResetDispatcher < ActionMailer::Base
     recipients       "#{login_account.security_email}"
     from              "noreply@memberzone.com.au"
     subject          "Thank you for registering"
-    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
+    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     sent_on           Time.now
     body              :login_account => login_account, :password => password
     content_type        "text/plain"

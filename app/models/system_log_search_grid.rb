@@ -1,0 +1,3 @@
+class SystemLogSearchGrid < Grid
+  
+end

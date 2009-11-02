@@ -4,7 +4,7 @@ class FeedbackDispatcher < ActionMailer::Base
     # When feedback comes in send notification to the admin
     recipients       "feedback@memberzone.com.au"
     from             "feedback@memberzone.com.au"
-    headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
+    headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     subject          "System Feedback"
     sent_on           Time.now
     body             :feedback => feedback
@@ -17,7 +17,7 @@ class FeedbackDispatcher < ActionMailer::Base
     # If they user requests confirmation of feedback send it to them
     recipients       "#{feedback.login_account.security_email}"
     from             "feedback@memberzone.com.au"
-    headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
+    headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     subject          "System Feedback Ticket #{feedback.id}"
     sent_on          Time.now
     body             :feedback => feedback
@@ -29,7 +29,7 @@ class FeedbackDispatcher < ActionMailer::Base
     # When the admin replies to a users' feedback
     recipients       "#{feedback.login_account.security_email}"
     from             "feedback@memberzone.com.au"
-    headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'powernet@powernet.com.au'}
+    headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     subject          "#{subject}"
     sent_on          Time.now
     body             :feedback => feedback
