@@ -3387,7 +3387,7 @@ $(function(){
         $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_BW.png");
     });
 
-    $(".organisation_edit_tab:not(.active)").live("mousedown", function(){
+    $(".organisation_edit_tab:not(.active)").live("mouseup", function(){
         $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
         $(".organisation_edit_tab").removeClass("active");
         $(this).addClass("active");
