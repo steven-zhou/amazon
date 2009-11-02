@@ -59,7 +59,6 @@ class LoginAccount < ActiveRecord::Base
 
 
   def self.validate_group(user_id)
-    #@group_types = LoginAccount.find_by_id(user_id).group_types
     login_account = LoginAccount.find(:first, :conditions => ['id = ?', user_id])
     @group_types = login_account.group_types
     if @group_types.blank?
@@ -74,7 +73,6 @@ class LoginAccount < ActiveRecord::Base
     @system_permission_types = Array.new
     @group_types.each do |group|
       @system_permission_types += group.system_permission_types
-
     end
     @system_permission_types.uniq
 

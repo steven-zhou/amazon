@@ -2,7 +2,10 @@
   #page_title
     %h1 Dashboard
 #dashboard
-  .container
+  .container    
+    .options{:style => "float:right;"}
+      = link_to_function image_tag("add_icon.png")
+      = link_to_function image_tag("edit_icon.png")
     %h1 System News
     = render :partial => "system_news/system_news_part"
   %br.clear

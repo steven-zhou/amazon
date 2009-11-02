@@ -1,6 +1,6 @@
 %tr{:id => "list_detail_#{@list_detail.id}"}
   %td
-    =link_to image_tag("delete_icon.png", :alt => "Delete"), list_detail_path(@list_detail), :class => "delete"
+    =link_to image_tag("delete_icon.png", :alt => "Delete"), list_detail_path(@list_detail), :class => "delete",:error_message_field => "List"
   %td= @list_detail.person.id
   -if @list_detail.list_header.query_header.query_selections.empty?
     %td= i.person.name

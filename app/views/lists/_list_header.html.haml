@@ -4,5 +4,5 @@
       %h3= @list_header.name
       %input{:style => "display:none", :name => (type=="merge") ? "merge_list_array[]" : "exclude_list_array[]", :value => @list_header.id}
     .options
-      = link_to_function image_tag('delete_icon.png'), :class => 'delete_list', :delete_id => type+"#{@list_header.id}"
+      = link_to_function image_tag('delete_icon.png'), :class => 'delete delete_list', :delete_id => type+"#{@list_header.id}", :error_message_field => "List"
     %br.clear

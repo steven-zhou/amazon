@@ -2,7 +2,7 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :field => "note", :toggle_id_name => "new_note", :style => "display:none"
+      = link_to_function image_tag('close_icon.png'), :class => "organisation_note_close clear_form toggle_button close_option", :field => "note", :toggle_id_name => "new_note", :style => "display:none"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"toggle_button new_option", :field => "note", :toggle_id_name => "new_note"  if (!organisation.nil? && !organisation.new_record?)
     %h1 New Note

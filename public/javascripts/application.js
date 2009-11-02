@@ -121,37 +121,48 @@ $(function() {
 
 
     $('a.delete').live('click', function(){
-        var link = $(this);
-        $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
-        $('#delete_warning_message_image').css("display","");
-        $('#delete_warning_message').dialog({
-            modal: true,
-            resizable: true,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
-                Yes: function(){
-                    $.post(link.attr('href'), "_method=delete", null, 'script');
-                    $(this).dialog('destroy');
-                    return true;
-                },
-                No: function(){
-                    $(this).dialog('destroy');
-                    return true;
 
-                }
-            }
-        });
-        $('#delete_warning_message').dialog('option', 'title', 'Warning');
+    var link = $(this);
+    if($(this).attr("error_message_field" != "undefine"))
+    {$('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");}
+    else
+        {
+            $('#delete_message_text').html("Are  you sure you wish to delete ? ");
+        }
+    $('#delete_warning_message_image').css("display","");
+    $('#delete_warning_message').dialog({
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+  Yes: function(){ 
+  $.post(link.attr('href'), "_method=delete", null, 'script');
+  $(this).dialog('destroy');
+  return true;
+   },
+  No: function(){
+    $(this).dialog('destroy');
+    return true;
+
+  }
+  }
+});
+    $('#delete_warning_message').dialog('option', 'title', 'Warning');
    
-        $('#delete_warning_message').parent().find("a").css("display","none");
-        $('#delete_warning_message').dialog('open');
-  
-        //    a.css("display","none");
-        //  a.attr("class","ui-dialog-titlebar-lock");
-        //  a.find("span").attr("class","ui-icon ui-icon-lock");
-        return false;
+    $('#delete_warning_message').parent().find("a").css("display","none");
+     $("#delete_warning_message").parent().css('background-color','#D1DDE6');
+     $("#delete_warning_message").css('background-color','#D1DDE6');
+//      $("#delete_warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+    $('#delete_warning_message').dialog('open');
+   
+//    a.css("display","none");
+//  a.attr("class","ui-dialog-titlebar-lock");
+//  a.find("span").attr("class","ui-icon ui-icon-lock");
+    return false;
+
     }).attr("rel", "nofollow");
 
 
@@ -1750,7 +1761,7 @@ $(function(){
     $(".integer_field").live('keyup', function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
-            if((!_valid) || $(this).val()<=0){
+            if((!_valid) || $(this).val()<0){
                 alert("This field has to be integer!");
                 $(this).focus();
                 $(this).val('');
@@ -3736,26 +3747,30 @@ $('#signout').live('click', function(){
     //    $('#signout_warning_message_image').css("display","");
     //      $('#singoutmessage').css("display","");
     $('#signout_warning_message').dialog({
-        modal: true,
-        resizable: true,
-        draggable: true,
-        height: 'auto',
-        width: 'auto',
-        buttons: {
-            Yes: function(){
-                window.open("/signin/signout", "_self");
-                $(this).dialog('close');
-                return true;
-            },
-            No: function(){
-                $(this).dialog('close');
-                return true;
 
-            }
-        }
-    });
-    $('#signout_warning_message').dialog('option', 'title', 'Warning');
-    $('#signout_warning_message').parent().find("a").css("display","none");
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+  Yes: function(){
+  window.open("/signin/signout", "_self");
+  $(this).dialog('close');
+  return true;
+   },
+  No: function(){
+    $(this).dialog('close');
+    return true;
+
+  }
+  }
+});
+ $('#signout_warning_message').dialog('option', 'title', 'Warning');
+     $('#signout_warning_message').parent().find("a").css("display","none");
+         $("#signout_warning_message").parent().css('background-color','#D1DDE6');
+     $("#signout_warning_message").css('background-color','#D1DDE6');
+
     $('#signout_warning_message').dialog('open');
     return false;
 });
@@ -3789,5 +3804,55 @@ $(function(){
         $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
         $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
         $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
+    });
+});
+
+/*Keyword double click0*/
+
+$(function(){
+    $("#add_keywords").live('dblclick', function(){
+  
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/add_key.js",
+                data: 'person_id=' + $('#person_id').val()+"&add_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#remove_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/remove_key.js",
+                data: 'person_id=' + $('#person_id').val()+"&remove_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#add_organisation_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/add_key.js",
+                data: 'organisation_id=' + $('#organisation_id').val()+"&add_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#remove_organisation_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/remove_key.js",
+                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_keywords="+$(this).val(),
+                dataType: "script"
+            });
     });
 });

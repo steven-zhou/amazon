@@ -18,5 +18,5 @@
   -if @amazonsetting.new_record?
     = submit_tag 'Submit'
   -else
-    = button_to_function 'Delete', :class => "delete_system_data", :style => "float:right;", :data_id => @amazonsetting.id
+    = button_to_function 'Delete', :class => "delete delete_system_data", :style => "float:right;", :data_id => @amazonsetting.id,:error_message_field => "System Data"
     = submit_tag 'Submit'
