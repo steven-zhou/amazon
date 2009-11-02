@@ -2,7 +2,7 @@ class FeedbackController < ApplicationController
   
 
   def list
-    @feedback = FeedbackItem.find(:all, :order => "feedback_date ASC")
+    @feedback = FeedbackItem.find(:all, :order => "feedback_date DESC")
 
     #clear temple table and save result into temple table
     FeedbackSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -16,7 +16,8 @@ class FeedbackController < ApplicationController
       @psg.field_1 = feedback.feedback_date.strftime('%a %d %b %Y')
       @psg.field_2 = feedback.submitted_by
       @psg.field_3 = feedback.subject
-      @psg.field_4 = feedback.status
+      @psg.field_4 = feedback.ip_address
+      @psg.field_5 = feedback.status
       @psg.save
     end
     
