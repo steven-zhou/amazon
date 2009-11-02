@@ -49,6 +49,9 @@ class PeopleController < ApplicationController
           @person = Person.new if @person.nil?
           @p = Array.new
           @p = @list_header.people_on_list
+
+          puts "#{@person.to_yaml}***************888888888"
+          puts "99999999#{@p.to_yaml}************************99999999999"
         else  #when there is id come---click the narrow button
           unless session[:current_list_id].blank?
             @list_header = ListHeader.find(session[:current_list_id])
