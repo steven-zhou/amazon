@@ -42,7 +42,7 @@
         = login.check_box :system_user,{:checked => true, :style => "width:10%"}
     .form_line
       .field_23
-        = login.label :session_timeout
+        = login.label :session_timeout, "Session Timeout(Mins)"
         -#= login.text_field :session_timeout, :readonly => true
         %select{:name => "login_account[session_timeout]"}
           %option{:value => "0", :selected => @session_timeout == 0} Unlimited
