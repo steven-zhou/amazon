@@ -30,6 +30,7 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       else
         @current_user = LoginAccount.find(session[:user])
+        redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
       end
     end
   end
@@ -57,6 +58,7 @@ class ApplicationController < ActionController::Base
     when "login_error" then "The login credentials you supplied were incorrect"
     when "login_group_error" then "you do not have groups"
     when "login_permission_error" then "you do not have permissions"
+    when "login_count_error" then "your account locked, call admin please"
     when "field_missing" then "You did not fill out the required field #{options[:field]}"
     when "uniqueness_error" then "#{options[:field]} has already existed"
     when "not exist" then "#{options[:field]} not exist in system"

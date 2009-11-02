@@ -645,6 +645,7 @@ $(function(){
 $(function(){
     $("#system_data_close_entry").live('click', function(){
         $("#system_data_add_entry_form").css("display","none");
+
         $("#system_data_type").attr("disabled",false);
     });
 });
@@ -2236,12 +2237,21 @@ $(function(){
         },
 
         {
-            display: 'Status',
+            display: 'IP Address',
             name : 'field_4',
             width : 180,
             sortable : true,
             align: 'left'
         },
+
+        {
+            display: 'Status',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
+
 
         ],
         searchitems : [
@@ -3538,7 +3548,6 @@ $(function(){
        $("#keyword_type").attr("disabled",false);
         $("#edit_keyword_entry").html("");
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
-
         $.ajax({
             type: "GET",
             url: "/keywords/keywords_finder.js",
@@ -3585,21 +3594,16 @@ $(function(){
     });
 });
 
-$(function(){
-    $("#display_feedback_details").live('click', function(){
-        $("#display_feedback_details").hide();
-        $("#hide_feedback_details").show();
-        $("#feedback_details").show();
+
+
+
+$(document).ready(function() {
+    $(".admin_password_reset").validationEngine({
+        validationEventTriggers:"keyup blur",
+        success :  false
     });
 });
 
-$(function(){
-    $("#hide_feedback_details").live('click', function(){
-        $("#hide_feedback_details").hide();
-        $("#display_feedback_details").show();
-        $("#feedback_details").hide();
-    });
-});
 
 $(function(){
     $("#reply_to_feedback").live('click', function(){

@@ -602,7 +602,7 @@ ActiveRecord::Schema.define(:version => 20091101120158) do
   end
 
   create_table "system_logs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "login_account_id"
     t.text     "message"
     t.text     "controller"
     t.text     "action"
