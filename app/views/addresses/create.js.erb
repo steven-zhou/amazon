@@ -2,9 +2,11 @@
   <%if @organisation.nil? -%>
   $('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/personal_address_type",:locals => {:address => @address_new })) %>');
   $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @person.addresses)) %>');
+   $('.person_address_toggle_button').css("display","");
   <% else %>
   $('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/organisation_personal_address_type",:locals => {:address => @address_new })) %>');
   $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @organisation.addresses)) %>');
+    $('.organisation_contact_close').css("display","");
   <% end -%>
   $("#new_address")[0].reset();
   $("#new_address").hide();
@@ -12,7 +14,8 @@
   $('#address_mode').attr('mode','show');
   $('.new_option[field="address"]').css("display","");
    $('#address_hidden_tab').attr('mode','show');
-  $('.person_address_toggle_button').css("display","");
+
+
   $('.person_address_close').css("display","none");
   $('#<%= dom_id(@address) %>').effect('slide', {direction:'right'});  
 <% end -%>
