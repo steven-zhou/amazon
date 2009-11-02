@@ -85,7 +85,6 @@ class EmailsController < ApplicationController
     respond_to do |format|
       format.js
     end
-
   end
 
   def move_up_email_priority
