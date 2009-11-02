@@ -33,7 +33,7 @@
           %li{:id => @current_action == "license_info" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
           %li{:id => @current_action == "system_log" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} System Log", :controller => "client_setups", :action => "system_log"
+            = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} System Log", :controller => "client_setups", :action => "system_log"
 
     .bottom
 
@@ -49,15 +49,15 @@
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data", :controller => "administrations", :action => "system_data"
           %li{:id => action == "keyword_dict" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Keywords", :controller => "administrations", :action => "keyword_dict"
+            = link_to "#{image_tag('Icons/Admin/Configuration/keywords.png')} Keywords", :controller => "administrations", :action => "keyword_dict"
           %li{:id => action == "custom_groups" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/custom_group.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
           %li{:id => action == "master_docs" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/MasterDocs.png')} Master Docs", :controller => "administrations", :action => "master_docs"
-          %li{:id => action == "role_conditions" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Role Conditions", :controller => "administrations", :action => "role_conditions"
           %li{:id => action == "roles_management" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/roles.png')} Roles Management", :controller => "administrations", :action => "roles_management"
+          %li{:id => action == "role_conditions" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Configuration/roles_conditions.png')} Role Conditions", :controller => "administrations", :action => "role_conditions"
           %li{:id => action == "contact_types" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/contact_types.png')} Contact Types", :controller => "administrations", :action => "contact_types"
           %li{:id => action == "duplication_check" ? "selected" : ""}
