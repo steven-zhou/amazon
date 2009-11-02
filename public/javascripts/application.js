@@ -3856,3 +3856,29 @@ $(function(){
             });
     });
 });
+
+//TO DO LIST
+$(function(){
+    $("#new_to_do").live('click', function(){
+        $('#new_to_do_dialog').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#new_to_do_dialog').dialog('option', 'title', 'To Do List');
+            $('#new_to_do_dialog').dialog('open');
+    });
+});
+
+// System News
+$(function(){
+    $("#new_system_news").live('click', function(){
+        $('#new_system_news_dialog').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#new_system_news_dialog').dialog('option', 'title', 'System News');
+            $('#new_system_news_dialog').dialog('open');
+    });
+});
