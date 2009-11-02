@@ -12,10 +12,10 @@
       %input{:style => "display:none;", :name => "installation"}
     .form_line
       .field_10
-        = f.label :client_id, "Client ID"
+        = f.label :client_id, "Registration ID"
         = f.text_field :client_id
       .field_20
-        = f.label :client_rego, "Client Registration"
+        = f.label :client_rego, "Registration Number"
         = f.text_field :client_rego
       .field_10
         = f.label :installation_date, "Installation Date"
@@ -43,7 +43,7 @@
             %option{:value => "On Site", :selected => @client_setup.system_type == "On Site"} On Site
             %option{:value => "Off Site", :selected => @client_setup.system_type == "Off Site"} Off Site
         .field_5
-          = f.label :system_status, "Status"
+          = f.label :system_status, "Active"
           = f.check_box :system_status
         .field_15
           = f.label :system_purchase, "System Purchase"
@@ -64,16 +64,36 @@
     .form_line
       .field_20
         = f.label :number_of_login_attempts, "Number of Login Attempts"
-        = f.text_field :number_of_login_attempts, :class => "integer_field"
+        %select{:name => "client_setup[number_of_login_attempts]"}
+          %option{:value => "0", :selected => @client_setup.number_of_login_attempts == 0} Unlimited
+          %option{:value => "3", :selected => @client_setup.number_of_login_attempts == 3} 3
+          %option{:value => "4", :selected => @client_setup.number_of_login_attempts == 4} 4
+          %option{:value => "5", :selected => @client_setup.number_of_login_attempts == 5} 5
+          %option{:value => "6", :selected => @client_setup.number_of_login_attempts == 6} 6
       .field_20
-        = f.label :new_account_graceperiod, "New Account Grace Period(Days)"
-        = f.text_field :new_account_graceperiod, :class => "integer_field"
+        = f.label :new_account_graceperiod, "New Account Grace Period (Days)"
+        %select{:name => "client_setup[new_account_graceperiod]"}
+          %option{:value => "0", :selected => @client_setup.new_account_graceperiod == 0} Unlimited
+          %option{:value => "7", :selected => @client_setup.new_account_graceperiod == 7} 7
+          %option{:value => "14", :selected => @client_setup.new_account_graceperiod == 14} 14
+          %option{:value => "21", :selected => @client_setup.new_account_graceperiod == 21} 21
+          %option{:value => "28", :selected => @client_setup.new_account_graceperiod == 28} 28
       .field_20
-        = f.label :session_timeout, "Session Timeout(Mins)"
-        = f.text_field :session_timeout, :class => "integer_field"
+        = f.label :session_timeout, "Session Timeout (Mins)"
+        %select{:name => "client_setup[session_timeout]"}
+          %option{:value => "0", :selected => @client_setup.session_timeout == 0} Unlimited
+          %option{:value => "5", :selected => @client_setup.session_timeout == 5} 5
+          %option{:value => "10", :selected => @client_setup.session_timeout == 10} 10
+          %option{:value => "20", :selected => @client_setup.session_timeout == 20} 20
+          %option{:value => "30", :selected => @client_setup.session_timeout == 30} 30
       .field_20
-        = f.label :password_lifetime, "User Password Lifetime(Days)"
-        = f.text_field :password_lifetime, :class => "integer_field"
+        = f.label :password_lifetime, "User Password Lifetime (Days)"
+        %select{:name => "client_setup[password_lifetime]"}
+          %option{:value => "0", :selected => @client_setup.password_lifetime == 0} Unlimited
+          %option{:value => "15", :selected => @client_setup.password_lifetime == 15} 15
+          %option{:value => "30", :selected => @client_setup.password_lifetime == 30} 30
+          %option{:value => "60", :selected => @client_setup.password_lifetime == 60} 60
+          %option{:value => "90", :selected => @client_setup.password_lifetime == 90} 90
       .field_10
         %label &nbsp;
         = submit_tag "Submit"

@@ -9,10 +9,13 @@
     .container
       %h1 Identity
       .form_line
+        .field_20
+          = p.label :id, "System ID"
+          = p.text_field :id, :disabled => true
         .field_50
           = p.label :type, "Type"
           = p.text_field :type, :disabled => true
-        .field_40
+        .field_23
           = p.label :custom_id, "Custom ID"
           = p.text_field :custom_id
 
