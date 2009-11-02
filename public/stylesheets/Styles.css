@@ -1482,7 +1482,7 @@ div#permission_form .options{
 /*password reset*/
 #reset_password_container {
 	background-color:#FFF;
-	min-height: 665px;
+	min-height: 40px;
 	width: 640px;
 	margin-top: 15%;
 	margin-right: auto;
