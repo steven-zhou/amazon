@@ -129,7 +129,7 @@ $(function() {
   resizable: true,
   draggable: true,
   height: 'auto',
-  width: 600,
+  width: 'auto',
   buttons: {
   Yes: function(){ 
   $.post(link.attr('href'), "_method=delete", null, 'script');
@@ -144,9 +144,16 @@ $(function() {
   }
 });
     $('#delete_warning_message').dialog('option', 'title', 'Warning');
+   
+    $('#delete_warning_message').parent().find("a").css("display","none");
     $('#delete_warning_message').dialog('open');
+  
+//    a.css("display","none");
+//  a.attr("class","ui-dialog-titlebar-lock");
+//  a.find("span").attr("class","ui-icon ui-icon-lock");
     return false;
     }).attr("rel", "nofollow");
+
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
@@ -3631,7 +3638,7 @@ $(function(){
   resizable: true,
   draggable: true,
   height: 'auto',
-  width: 600,
+  width: 'auto',
   buttons: {
   Yes: function(){
   window.open("/signin/signout", "_self");
@@ -3646,6 +3653,7 @@ $(function(){
   }
 });
  $('#signout_warning_message').dialog('option', 'title', 'Warning');
+     $('#signout_warning_message').parent().find("a").css("display","none");
     $('#signout_warning_message').dialog('open');
     return false;
     });
