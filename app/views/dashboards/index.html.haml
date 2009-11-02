@@ -4,7 +4,7 @@
 #dashboard
   .container    
     .options{:style => "float:right;"}
-      = link_to_function image_tag("add_icon.png")
+      = link_to_function image_tag("add_icon.png"), :id => "new_system_news"
       = link_to_function image_tag("edit_icon.png")
     %h1 System News
     = render :partial => "system_news/system_news_part"
@@ -30,3 +30,8 @@
       = render :partial => "to_do_lists/to_do_lists_part"
 
 %div#footer
+
+#new_to_do_dialog{:style => "display:none"}
+  = render :partial => "to_do_lists/new_to_do_list"
+#new_system_news_dialog{:style => "display:none"}
+  = render :partial => "system_news/new_system_news"
