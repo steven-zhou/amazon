@@ -2368,7 +2368,12 @@ $(function(){
 //    $('#system_log_end_date').datepicker();
 //});
 
-
+$(function(){
+    $('table#system_log_search_grid tbody tr').live('click',function(){
+        $('table#system_log_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
 
 //$(function(){
 //    $("#system_log_search_grid").flexigrid({
