@@ -18,7 +18,7 @@
           - else
             = link_to image_tag('up_arrow.png'),move_organisation_up_phone_priority_phone_path(contact),  :class => 'get move_up_phone_priority',:id => 'phone_organisation_up_button', :organisation_phone_id => contact.id
         = link_to image_tag('edit_icon.png'), edit_phone_path(contact), :class => 'get edit_phone edit_option', :field => "contact", :id => 'phone_edit_button', :phone_id => contact.id
-        = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete delete_phone delete_option', :field => "contact", :id => 'phone_delete_button', :phone_id => contact.id
+        = link_to image_tag('delete_icon.png'), phone_path(contact), :class => 'delete delete_phone delete_option', :field => "contact", :id => 'phone_delete_button', :phone_id => contact.id,:error_message_field => contact.contact_meta_type.name+ " Phone Contact"
       - elsif contact.read_attribute("type") == "Email" #contact.class == Email.new.class
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
@@ -34,7 +34,7 @@
             = link_to image_tag('up_arrow.png'),move_organisation_up_email_priority_email_path(contact),  :class => 'get',:id => 'email_up_button', :email_id => contact.id
 
         = link_to image_tag('edit_icon.png'), edit_email_path(contact), :class => 'get edit_email edit_option', :field => "contact", :id => 'email_edit_button', :email_id => contact.id
-        = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete delete_email delete_option', :field => "contact", :id => 'email_delete_button', :email_id => contact.id
+        = link_to image_tag('delete_icon.png'), email_path(contact), :class => 'delete delete_email delete_option', :field => "contact", :id => 'email_delete_button', :email_id => contact.id,:error_message_field => contact.contact_meta_type.name+ " Email Contact"
       - elsif contact.read_attribute("type") == "Website" #contact.class == Website.new.class
         -if contact.contactable_type == "Person"
           -if(contact.priority_number==1)
@@ -50,7 +50,7 @@
             = link_to image_tag('up_arrow.png'),move_organisation_up_website_priority_website_path(contact),  :class => 'get',:id => 'website_up_button', :website_id => contact.id
 
         = link_to image_tag('edit_icon.png'), edit_website_path(contact), :class => 'get edit_website edit_option', :field => "contact", :id => 'website_edit_button', :website_id => contact.id
-        = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete delete_website delete_option', :field => "contact", :id => 'website_delete_button', :website_id => contact.id
+        = link_to image_tag('delete_icon.png'), website_path(contact), :class => 'delete delete_website delete_option', :field => "contact", :id => 'website_delete_button', :website_id => contact.id,:error_message_field => contact.contact_meta_type.name+ " Website Contact"
     %br.clear
   %div{:style => "float:right;"}
     = "#{contact.pre_value} #{contact.value} #{contact.post_value}".squeeze(" ").strip

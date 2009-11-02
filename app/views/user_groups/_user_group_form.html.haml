@@ -40,7 +40,7 @@
       - status = i.login_account.login_status ? "container_active" : "container_inactive"
       -div_for(i, :class => "#{status} half_container toggle_options" , :id => "existing_user_in_group", :login_account_id => i.login_account.id, :field => "user_group") do
         .options{:style => "display:none"}
-          = link_to image_tag('delete_icon.png'), user_group_path(i), :class => 'delete',:id => 'delete_user_group' , :field => "User Group"
+          = link_to image_tag('delete_icon.png'), user_group_path(i), :class => 'delete',:id => 'delete_user_group' , :field => "User Group",:error_message_field => "User Group"
         .title
           = i.login_account.person_id
           \-

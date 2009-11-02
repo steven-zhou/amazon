@@ -5,5 +5,5 @@
     .options{:style => "display:none;"}
       = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query edit_option', :field => "query"
       = link_to image_tag('Icons/System/clone.png', :alt => 'SaveAs'), copy_query_header_path(saved_query), :class => 'get_query'
-      = link_to image_tag('delete_icon.png', :alt => 'Delete'), query_header_path(saved_query), :class => 'delete',:field => "Query"
+      = link_to image_tag('delete_icon.png', :alt => 'Delete'), query_header_path(saved_query), :class => 'delete',:field => "Query",:error_message_field =>"Query"
     %br.clear

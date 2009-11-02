@@ -3,7 +3,7 @@
     %li
       .info_container
         %div
-          = button_to_function 'Delete', :class => "delete_tag_type", :style => "float:right;", :tag_type_id => i.id
+          = button_to_function 'Delete', :class => "delete delete_tag_type", :style => "float:right;", :tag_type_id => i.id,:error_message_field => "Tag Types"
           = button_to_function 'Edit', :class => "edit_tag_type", :style => "float:right;", :tag_type_id => i.id
           = button_to_function 'Add children', :class => "add_tag", :style => "float:right;", :tag_type_id => i.id unless (@tag_meta_type.class == ContactMetaMetaType || @tag_meta_type.class == TableMetaMetaType)
         %div{:tag_types_id => i.id, :class => "toggle_button show_tags", :toggle_id_name => "tag_show_#{i.id}"}          

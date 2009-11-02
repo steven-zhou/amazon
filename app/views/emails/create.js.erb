@@ -3,13 +3,15 @@
   <%if @organisation.nil? -%>
   $('#email_type').html('<%= escape_javascript(render(:partial => "emails/personal_email_type" ,:locals => {:email => @email_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+    $('.person_contact_close').css("display","none");
   <% else %>
   $('#email_type').html('<%= escape_javascript(render(:partial => "emails/organisation_personal_email_type" ,:locals => {:email => @email_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
-  <% end -%>
+   $('.organisation_contact_close').css("display","none");
+<% end -%>
   $("#new_email")[0].reset();
   $("#new_contact").hide();
-  $('.person_contact_close').css("display","none");
+
    $('#contact_hidden_tab').attr('mode','show');
   $('.person_contact_toggle_button').css("display","");
   $('#<%= dom_id(@email) %>').effect('slide', {direction:'right'});
