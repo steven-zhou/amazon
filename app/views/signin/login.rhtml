@@ -15,9 +15,10 @@
       "person.js",
       "reports.js",
       "module_menu.js",
-      "application.js"
+      "application.js",
+      "jquery.validationEngine.js"
   %>
-    <%= stylesheet_link_tag "signin" %>
+    <%= stylesheet_link_tag "signin"%>
     <%= stylesheet_link_tag "jquery-ui-custom" %>
 
   </head>
@@ -39,7 +40,7 @@
         );
           $("#login_help_screen").dialog("open");
         });
-      
+
       }
     )
     </script>
@@ -47,8 +48,8 @@
     <script type="text/javascript">
       $(function() {
         $('#forgot_password').live('click', function(){
-        $('#login_help_screen').dialog('close');
-        $('#login_password_reset').dialog( {
+          $('#login_help_screen').dialog('close');
+          $('#login_password_reset').dialog( {
             modal: true,
             resizable: false,
             draggable :false,
@@ -62,7 +63,14 @@
           $("#password_reset_email_address").val("");
           $("#password_reset_username").attr("disabled", false);
           $("#password_reset_email_address").attr("disabled", false);
+          $.ajax({
+            type: "GET",
+            url: "/signin/captcha",
+            data: '',
+            dataType: "script"
+          });
           $("#password_reset_submit").show();
+          $("#password_captcha").show();
           $("#login_password_reset_security_questions").html("<div id='login_password_reset_security_questions'></div>");
         });
 
@@ -73,8 +81,8 @@
     <script type="text/javascript">
       $(function() {
         $('#forgot_username').live('click', function(){
-        $('#login_help_screen').dialog('close');
-        $('#login_username_retrieval').dialog( {
+          $('#login_help_screen').dialog('close');
+          $('#login_username_retrieval').dialog( {
             modal: true,
             resizable: false,
             draggable :false,
@@ -87,11 +95,32 @@
           $("#username_retrieval_email_address").val("");
           $("#username_retrieval_email_address").attr("disabled", false);
           $("#username_retrieval_submit").show();
+          $.ajax({
+            type: "GET",
+            url: "/signin/captcha",
+            data: '',
+            dataType: "script"
+          });
+          $("#username_retrieval_captcha").show();
           $("#username_retrieval_security_questions").html("<div id='username_retrieval_security_questions'></div>");
         });
 
       }
     )
+    </script>
+    <!-- Used to regenerate captchas on request -->
+    <script type="text/javascript">
+      $(function() {
+        $('#regenerate_captcha').live('click', function(){
+          $.ajax({
+            type: "GET",
+            url: "/signin/captcha",
+            data: '',
+            dataType: "script"
+          });
+        });
+      }
+    );
     </script>
 
     <div id="login_help_screen" style="display:none;">
@@ -119,15 +148,19 @@
             <td><strong>Email Address:</strong></td>
             <td><%= text_field_tag :password_reset_email_address, nil, :size => "20" %></td>
           </tr>
-          <tr>
+          <tr id="password_captcha">
             <td>&nbsp;</td>
-            <td><%= submit_tag("Submit", :id => "password_reset_submit") %></td>
+            <td><div class="captcha"></div></td>
+          </tr>
+          <tr id="password_reset_submit">
+            <td>&nbsp;</td>
+            <td><%= submit_tag("Submit") %></td>
           </tr>
         </table>
-        <%  end -%>
-        <div id="login_password_reset_security_questions">
+      <%  end -%>
+      <div id="login_password_reset_security_questions">
 
-        </div>
+      </div>
     </div>
     <!-- Username retrieval -->
     <div id="login_username_retrieval" style="display:none;">
@@ -139,21 +172,26 @@
             <td><strong>Your IP:</strong></td>
             <td><%= "#{request.remote_ip}" %></td>
           </tr>
+          <tr>
             <td><strong>Email Address:</strong></td>
             <td><%= text_field_tag :username_retrieval_email_address, nil, :size => "20" %></td>
           </tr>
-          <tr>
+          <tr id="username_retrieval_captcha">
             <td>&nbsp;</td>
-            <td><%= submit_tag("Submit", :id => "username_retrieval_submit") %></td>
+            <td><div class="captcha"></div></td>
+          </tr>
+          <tr id="username_retrieval_submit">
+            <td>&nbsp;</td>
+            <td><%= submit_tag("Submit") %></td>
           </tr>
         </table>
-        <%  end -%>
-        <div id="username_retrieval_security_questions">
+      <%  end -%>
+      <div id="username_retrieval_security_questions">
 
-        </div>
+      </div>
     </div>
     <!-- End hidden stuff for people having problems logging in -->
-    <div id="signin_container", title="Login Assistance">
+    <div id="signin_container" title="Login Assistance">
          <div id="signin_logo">
 
       </div>
@@ -168,8 +206,7 @@
           <label>Username</label>
           <input class="field" type="text" size="28" name="user_name" />
           <label>Password</label>
-          <input class="field" type="password" size="25" name="password" />&nbsp;
-          <a href="#"><!-- Need to implement a tooltip to show the password hint --><img src="/images/password_hint.png" alt="Password_hint" width="20" height="22" border="0" /></a><br />
+          <input class="field" type="password" size="28" name="password" /><br />
           <a href="#" id="login_assistant">Having difficulty logging in?</a><br />
           <input id="signin_button" type="submit" value="Sign In" />
         <% end -%>

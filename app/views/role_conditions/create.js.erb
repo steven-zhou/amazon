@@ -1,20 +1,15 @@
 <%  unless flash[:error].nil?%>
-$('#flash_message').html("<%=escape_javascript(flash[:error])%>");
-$('#flash_message').dialog({
-modal:true,
-position: 'top',
-buttons:{
-OK: function(){$(this).dialog('close');}
-}
-});
-$('#flash_message').dialog('open');
+  $('#flash_message').html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog({
+  modal:true,
+  position: 'top',
+  buttons:{
+  OK: function(){$(this).dialog('close');}
+  }
+  });
+  $('#flash_message').dialog('open');
 <%else%>
-
-
-
   $("#close_role_condition_assign").click();
- 
-
-   $('#role_condition_assigned').append('<%= escape_javascript(render(:partial => "role_conditions/new_conditions", :locals =>{:r => @role_condition })) %>');
- $('#<%= dom_id(@role_condition) %>').show('slide');
+  $('#role_condition_assigned').append('<%= escape_javascript(render(:partial => "role_conditions/new_conditions", :locals =>{:r => @role_condition })) %>');
+  $('#<%= dom_id(@role_condition) %>').show('slide');
 <%end%>

@@ -1,11 +1,11 @@
 -# The options to edit or add an employment
 .form_line{:style => "float:none;"}
-  .field_25
+  .field_25{:style => "margin-right: 2px;"}
     =employment.label :organisation_id, "Organisation ID"
     =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
   .field_5
     %label &nbsp;
-    = link_to_function image_tag("icon_holder.png"), :class => "organisation_lookup", :update_field => "employment_organisation_id"
+    = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "employment_organisation_id"
   .field_40
     %label &nbsp;
     -if @employment.new_record?
@@ -75,12 +75,12 @@
       =employment.text_field :duties_resposibilities, :disabled=>@employment.status == false
 
   .form_line
-    .field_25
+    .field_25{:style => "margin-right: 2px;"}
       =employment.label :hired_by, "Hired By"
       =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
       %label &nbsp;
-      = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by"
+      = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by"
     .field_25
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_recruiter.nil?)
@@ -88,12 +88,12 @@
       -else
         %span{:class=>"viewname", :id=>@employment.new_record? ? "recruiter_container_0" : "recruiter_container_#{@employment.id}"} &nbsp;
   .form_line
-    .field_25
+    .field_25{:style => "margin-right: 2px;"}
       =employment.label :report_to, "Report To"
       =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
       %label &nbsp;
-      = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to"
+      = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to"
     .field_25
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_supervisor.nil?)
@@ -155,12 +155,12 @@
         =employment.label :suspension_reason, "Suspension Reason"
         =employment.text_field :suspension_reason, :disabled=>@employment.status == false
     .form_line
-      .field_22
+      .field_22{:style => "margin-right: 2px;"}
         =employment.label :suspended_by, "Suspended By"
         =employment.text_field :suspended_by, :class=>"find_person_field", :update=>"suspender_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
       .field_5
         %label &nbsp;
-        = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_suspended_by" : "employment_#{@employment.id}_suspended_by"
+        = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_suspended_by" : "employment_#{@employment.id}_suspended_by"
       .field_25
         %label &nbsp;
         -if (!@employment.new_record? && !@employment.emp_suspender.nil?)
@@ -193,12 +193,12 @@
         =employment.label :termination_reason, "Termination Reason"
         =employment.text_field :termination_reason, :disabled=>@employment.status == false
     .form_line
-      .field_25
+      .field_25{:style => "margin-right: 2px;"}
         =employment.label :terminated_by, "Terminated By"
         =employment.text_field :terminated_by, :class=>"find_person_field", :update=>"terminator_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
       .field_5
         %label &nbsp;
-        = link_to_function image_tag("icon_holder.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_terminated_by" : "employment_#{@employment.id}_terminated_by"
+        = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_terminated_by" : "employment_#{@employment.id}_terminated_by"
       .field_25
         %label &nbsp;
         -if (!@employment.new_record? && !@employment.emp_terminator.nil?)

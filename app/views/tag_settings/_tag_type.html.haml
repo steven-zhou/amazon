@@ -19,9 +19,9 @@
       .field_100
         = tag_type.label :status, 'Status'
         - if @tag_type.new_record?
-          = tag_type.check_box :status, :checked => true
+          = tag_type.check_box :status, :checked => true, :style => "width:auto;"
         -else
-          = tag_type.check_box :status
+          = tag_type.check_box :status, :style => "width:auto;"
         %label{:style => "display:inline"} Active
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type", :name =>"tag_meta_type", :value => @tag_meta_type.class.to_s}

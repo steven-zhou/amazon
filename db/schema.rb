@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091026051223) do
+ActiveRecord::Schema.define(:version => 20091101120158) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -41,6 +41,59 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.datetime "updated_at"
     t.string   "description"
     t.boolean  "status"
+  end
+
+  create_table "available_modules", :force => true do |t|
+    t.string   "name"
+    t.string   "description"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "client_setups", :force => true do |t|
+    t.integer  "organisation_id"
+    t.string   "client_id"
+    t.string   "client_rego"
+    t.date     "installation_date"
+    t.date     "halt_date"
+    t.boolean  "system_status"
+    t.string   "modules_installed"
+    t.string   "system_type"
+    t.string   "system_purchase"
+    t.integer  "maximum_core_records"
+    t.string   "hosting_status"
+    t.integer  "number_of_users"
+    t.string   "message_to_super_admin"
+    t.integer  "number_of_login_attempts"
+    t.integer  "new_account_graceperiod"
+    t.integer  "session_timeout"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "password_lifetime"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.date     "date_of_birth"
+    t.string   "primary_phone_number"
+    t.string   "secondary_phone_number"
+    t.string   "primary_email_address"
+    t.string   "secondary_email_address"
+    t.string   "login_name"
+    t.string   "account_id"
+    t.string   "pin"
+    t.text     "primary_password_hash"
+    t.text     "primary_password_salt"
+    t.text     "secondary_password_hash"
+    t.text     "secondary_password_salt"
+    t.integer  "security_question1_id"
+    t.integer  "security_question2_id"
+    t.integer  "security_question3_id"
+    t.text     "question1_answer"
+    t.text     "question2_answer"
+    t.text     "question3_answer"
+    t.datetime "last_login"
+    t.datetime "last_logoff"
+    t.text     "last_ip_address"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -152,6 +205,20 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.integer  "termination_method_id"
   end
 
+  create_table "feedback_items", :force => true do |t|
+    t.integer  "login_account_id"
+    t.text     "subject"
+    t.text     "content"
+    t.text     "ip_address"
+    t.text     "status"
+    t.datetime "feedback_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "response"
+    t.datetime "response_date"
+    t.integer  "responded_to_by_id"
+  end
+
   create_table "grids", :force => true do |t|
     t.integer "login_account_id"
     t.integer "grid_object_id"
@@ -213,10 +280,11 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
 
   create_table "keywords", :force => true do |t|
     t.string   "name"
-    t.string   "remarks"
     t.integer  "keyword_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "status"
+    t.string   "description"
   end
 
   create_table "languages", :force => true do |t|
@@ -275,6 +343,7 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.integer  "security_question3_id"
     t.text     "access_attempt_ip"
     t.integer  "access_attempts_count"
+    t.boolean  "password_by_admin"
   end
 
   create_table "master_docs", :force => true do |t|
@@ -380,6 +449,9 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.date     "onrecord_since"
     t.string   "business_sub_category"
     t.string   "duplication_value"
+    t.string   "type"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
   end
 
   create_table "people", :force => true do |t|
@@ -522,6 +594,23 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.boolean  "role_status"
   end
 
+  create_table "simple_captcha_data", :force => true do |t|
+    t.string   "key",        :limit => 40
+    t.string   "value",      :limit => 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "system_logs", :force => true do |t|
+    t.integer  "login_account_id"
+    t.text     "message"
+    t.text     "controller"
+    t.text     "action"
+    t.text     "ip_address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "system_news", :force => true do |t|
     t.text     "description"
     t.datetime "event_date"
@@ -529,6 +618,7 @@ ActiveRecord::Schema.define(:version => 20091026051223) do
     t.integer  "updated_by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "title"
   end
 
   create_table "tag_meta_types", :force => true do |t|

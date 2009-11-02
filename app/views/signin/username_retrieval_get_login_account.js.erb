@@ -1,7 +1,7 @@
 if ( "<%= escape_javascript(@login_account.nil?.to_s) %>" == "false") {
-
   $("#username_retrieval_email_address").attr("disabled", true);
   $("#username_retrieval_submit").hide();
+  $("#username_retrieval_captcha").hide();
 }
-
+ $('#username_retrieval_account_invalid').dialog('destroy');
 $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "username_retrieval_security_questions"))%>");

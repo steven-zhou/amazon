@@ -4,8 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon - Beyond the Horizon - Now with Metrox!</title>
 
-    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","jpassword"%>
-    <%= stylesheet_link_tag  "jquery.wysiwyg"%>
+    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","jpassword", "portlets", "signin.css", "validationEngine.jquery.css"%>
     <%= jqgrid_stylesheets %>
     <%= jqgrid_javascripts %>
     <%= javascript_include_tag  "flexigrid.js",
@@ -13,13 +12,13 @@
       "jquery.qtip.min.js",
       "jquery.form.js",
       "jquery.jpassword.js",
-      "jquery.wysiwyg.js",
       "application.js",
       "person.js",
       "reports.js",
-      "module_menu.js",
-      :cache => true %>
-
+      "config.js",
+      "interface.js",
+      "jquery.validationEngine.js"
+%>
 
 
     <%= yield_authenticity_token %>
@@ -42,6 +41,12 @@
         <br style="clear: both;"/>
       </div>
     </div>
+
+    <!-- Feedback form used throughout the system -->
+    <%- unless @current_user.nil?%>
+      <%= render(:partial => "/feedback/feedback_form") %>
+    <%- end%>
+    <div id="feedback_confirmation"></div>
 
 
   </body>

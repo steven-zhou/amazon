@@ -14,19 +14,20 @@
   $('#flash_message').dialog('open');
 
 <% else %>
-
-  $("#flash_feedback").html("<%= escape_javascript(flash[:message]) %>");
-  $('#flash_feedback').fadeIn("slow");
-  $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
-
-  
  
-  $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
- 
-  $('#edit_user').html('');
-  $(".add_user").show();
+
+    $("#flash_feedback").html("<%= escape_javascript(flash[:message]) %>");
+    $('#flash_feedback').fadeIn("slow");
+    $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
+
+
+
+    $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
+
+    $('#edit_user').html('');
+    $(".add_user").show();
 
 
 
 
-  <%end%>
+<%end%>

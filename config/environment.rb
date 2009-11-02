@@ -85,15 +85,21 @@ Rails::Initializer.run do |config|
 
   config.action_mailer.delivery_method = :smtp  # :smtp for live, test for test
   config.action_mailer.perform_deliveries = true # true for live, false for test
-  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address          => "mail.powernet.com.au",
-    :port             => 25,
-    :domain           => "powernetsystems.asia",
-    :authentication => :login,
-    :user_name => "powernet@powernet.com.au",
-    :password => "tenrewop",
+
+    :enable_starttls_auto => true,
+    :address  => "mail.memberzone.com.au",
+    :port => 25,
+    :domain => "memberzone.com.au",
+    :authentication => :plain,
+    :user_name => "feedback@memberzone.com.au",
+    :password => "feedback123",
+
+
+
+
   }
 
 end
@@ -103,4 +109,4 @@ ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
 )
 
 ExceptionNotifier.exception_recipients = %w(anthony@powernet.com.au lei@powernet.com.au wei@powernet.com.au matthew@powernet.com.au)
-ExceptionNotifier.sender_address = %("Rails Powernet Development Server" <rails@powernet.com.au>)
+ExceptionNotifier.sender_address = %("feedback@memberzone.com.au")

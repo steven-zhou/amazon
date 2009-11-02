@@ -1,0 +1,72 @@
+#header
+  #page_title
+    %h1 License Info
+  #lol
+  %br.clear
+
+.container
+  %h2 Client Info
+  .form_line
+    %p #{@client_organisation.id}-#{@client_organisation.full_name}
+  .disabled_form
+    .form_line
+      .field_10
+        %label Client ID
+        %input{:value => @client_setup.client_id}
+      .field_20
+        %label Client Registration
+        %input{:value => @client_setup.client_rego}
+      .field_10
+        %label Installation Date
+        %input{:value => @client_setup.installation_date}
+      .field_10
+        %label Halt Date
+        %input{:value => @client_setup.halt_date}
+
+    %br.clear
+    %p &nbsp;
+
+    .container
+      %h2 System Info
+      .form_line
+        .field_15
+          %label Type
+          %input{:value => @client_setup.system_type}
+        .field_10
+          %label Hosting
+          %input{:value => @client_setup.hosting_status}
+        .field_5
+          %label Status
+          %input{:type => "checkbox", :checked => @client_setup.system_status}
+        .field_15
+          %label System Purchase
+          %input{:value => @client_setup.system_purchase}
+        .field_15
+          %label Maximum Core Records
+          %input{:value => @client_setup.maximum_core_records}
+        .field_20
+          %label Number of System Users
+          %input{:value => @client_setup.number_of_users}
+      .container
+        %h3 Module Installed
+        .container_half
+          .left
+            Module Name
+          .right
+            Install Time
+        .container_half
+          .left
+            Module Name
+          .right
+            Install Time
+        .container_half
+          .left
+            Module Name
+          .right
+            Install Time
+        .container_half
+          .left
+            Module Name
+          .right
+            Install Time
+

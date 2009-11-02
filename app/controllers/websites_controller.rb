@@ -2,6 +2,13 @@ class WebsitesController < ApplicationController
   
   def show
     @website = Website.find(params[:id].to_i)
+    @website_new = Website.new
+     if @website.contactable_type == "Person"
+      @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
+    end
+    if @website.contactable_type == "Organisation"
+      @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -11,11 +18,13 @@ class WebsitesController < ApplicationController
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @website = @entity.websites.new(params[:website])
     @website.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@website.contactable_id)
 
-     if (params[:organisation_id])
+    if (params[:organisation_id])
       @organisation = Organisation.find(@website.contactable_id)
     end
+
+    @website_new = Website.new
     respond_to do |format|
       format.js
     end
@@ -23,6 +32,13 @@ class WebsitesController < ApplicationController
 
   def edit
     @website = Website.find(params[:id].to_i)
+
+    if @website.contactable_type == "Person"
+      @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
+    end
+    if @website.contactable_type == "Organisation"
+      @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -30,6 +46,13 @@ class WebsitesController < ApplicationController
 
   def update
     @website = Website.find(params[:id].to_i)
+    @website_new = Website.new
+     if @website.contactable_type == "Person"
+      @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
+    end
+    if @website.contactable_type == "Organisation"
+      @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       if @website.update_attributes(params[:website])
         format.js { render 'show.js' }
@@ -40,14 +63,16 @@ class WebsitesController < ApplicationController
   def destroy
     @website = Website.find(params[:id].to_i)
     @website.destroy
-    @person = Person.find(session[:user])
+    @person = Person.find(@website.contactable_id)
 
-     if @website.contactable_type == "Person"
-    @person = Person.find(session[:user])   # if in Person return person object to destroy.js
+    if @website.contactable_type == "Person"
+      @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
     end
-     if @website.contactable_type == "Organisation"
-       @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
-     end
+    if @website.contactable_type == "Organisation"
+      @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
+
+    @website_new = Website.new
     respond_to do |format|
       format.js
     end
@@ -55,7 +80,7 @@ class WebsitesController < ApplicationController
 
 
   def move_down_website_priority
-     @current_website = Contact.find(params[:id])
+    @current_website = Contact.find(params[:id])
 
     if(@current_website.priority_number==1)
       @exchange_website = @current_website.contactable.websites.find_by_priority_number(2)
@@ -65,7 +90,7 @@ class WebsitesController < ApplicationController
       @exchange_website.save
       @current_website.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_website.contactable_id)
     respond_to do |format|
       format.js
     end
@@ -76,12 +101,12 @@ class WebsitesController < ApplicationController
     @up_current_website = Contact.find(params[:id])
     @up_exchange_website = @up_current_website.contactable.websites.find_by_priority_number(@up_current_website.priority_number - 1)
 
-     @up_exchange_website.priority_number = @up_exchange_website.priority_number + 1
-     @up_current_website.priority_number = @up_current_website.priority_number - 1
+    @up_exchange_website.priority_number = @up_exchange_website.priority_number + 1
+    @up_current_website.priority_number = @up_current_website.priority_number - 1
 
     @up_exchange_website.save
     @up_current_website.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_website)
 
     respond_to do |format|
       format.js
@@ -112,11 +137,11 @@ class WebsitesController < ApplicationController
     @up_current_website = Contact.find(params[:id])
     @up_exchange_website =  @up_current_website.contactable.websites.find_by_priority_number( @up_current_website.priority_number - 1)
 
-     @up_exchange_website.priority_number = @up_exchange_website.priority_number + 1
-      @up_current_website.priority_number =  @up_current_website.priority_number - 1
+    @up_exchange_website.priority_number = @up_exchange_website.priority_number + 1
+    @up_current_website.priority_number =  @up_current_website.priority_number - 1
 
     @up_exchange_website.save
-     @up_current_website.save
+    @up_current_website.save
     @organisation = Organisation.find( @up_current_website.contactable_id)
 
     respond_to do |format|

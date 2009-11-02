@@ -7,5 +7,5 @@
       .options
         = link_to image_tag('close_icon.png'), email_path(@email), :class => 'get'
       %br{ :style=>"clear: both;"}
-      = render :partial => 'email_form', :locals => { :email => email }
-      = submit_tag 'Submit' ,:id => "submit_email_field_edit"
+      = render :partial => 'email_form', :locals => { :email => email,:edit => "edit" }
+      = submit_tag 'Submit' ,:id => "submit_email_field_edit" , :check_field => "email_value_edit"

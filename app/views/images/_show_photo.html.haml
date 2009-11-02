@@ -1,9 +1,9 @@
 .options{:style=>"float:right"}
-  = link_to image_tag('delete_icon.png'), image_path(entity.image.id), :class => "delete", :id => "delete_photo" unless entity.image.nil?
+  = link_to image_tag('delete_icon.png'), image_path(entity.image.id),:field => "Photo", :class => "delete", :id => "delete_photo" unless entity.image.nil?
 %br{ :style => "clear:both;"}
 %div#imageshow{:style => "float:left;"}
   -if entity.image.nil?
-    = image_tag 'no_photo.jpeg', :id => "photo",:class => "medium"
+    = image_tag 'Icons/System/image-missing.png', :id => "photo",:class => "medium"
   -else
     = image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
 

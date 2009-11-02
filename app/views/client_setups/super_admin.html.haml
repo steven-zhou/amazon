@@ -1,0 +1,83 @@
+#header
+  #page_title
+    %h1 Super Admin Setup
+  #lol
+  %br.clear
+
+- form_for @client_setup do |f|
+  %input{:name => "super_admin", :style => "display:none;"}
+  .container
+    %h2 Admin Profile
+    .form_line
+      .field_20
+        = f.label :first_name, "First Name"
+        = f.text_field :first_name
+      .field_20
+        = f.label :last_name, "Last Name"
+        = f.text_field :last_name
+      .field_20
+        = f.label :date_of_birth, "Date of Birth"
+        = f.text_field :date_of_birth, :class => "birthdatepick", :value => @client_setup.date_of_birth.to_s
+    .form_line
+      .field_20
+        = f.label :primary_phone_number, "Primary Phone Number"
+        = f.text_field :primary_phone_number
+      .field_20
+        = f.label :secondary_phone_number, "Secondary Phone Number"
+        = f.text_field :secondary_phone_number
+      .field_20
+        = f.label :primary_email_address, "Primary Email Address"
+        = f.text_field :primary_email_address
+      .field_20
+        = f.label :secondary_email_address, "Secondary Email Address"
+        = f.text_field :secondary_email_address
+  .container
+    %h2 Login Details
+    .form_line
+      .field_20
+        = f.label :login_name, "Login Name"
+        = f.text_field :login_name
+      .field_20
+        = f.label :account_id, "Account ID"
+        = f.text_field :account_id
+      .field_20
+        = f.label :pin, "PIN"
+        = f.text_field :pin
+    .form_line
+      .field_20
+        %label Primary Password
+        %input{:id => "primary_password", :name => "primary_password", :class => "password jpassword-lefttop"}
+      .field_20
+        %label Primary Password Confirmation
+        %input{:id => "primary_password_confirmation", :name => "primary_password_confirmation"}
+      .field_20
+        %label Secondary Password
+        %input{:id => "secondary_password", :name => "secondary_password", :class => "password jpassword-lefttop"}
+      .field_20
+        %label Secondary Password Confirmation
+        %input{:id => "secondary_password_confirmation", :name => "secondary_password_confirmation"}
+  .container
+    %h2 Security Questions
+    .form_line
+      .field_40
+        = f.label :security_question1_id, "Security Question 1"
+        = f.collection_select :security_question1_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
+      .field_40
+        = f.label :question1_answer, "Answer to Question 1"
+        = f.text_field :question1_answer
+    .form_line
+      .field_40
+        = f.label :security_question2_id, "Security Question 2"
+        = f.collection_select :security_question2_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
+      .field_40
+        = f.label :question2_answer, "Answer to Question 2"
+        = f.text_field :question2_answer
+    .form_line
+      .field_40
+        = f.label :security_question3_id, "Security Question 3"
+        = f.collection_select :security_question3_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
+      .field_40
+        = f.label :question3_answer, "Answer to Question 3"
+        = f.text_field :question3_answer
+    .form_line
+      = submit_tag "Submit"

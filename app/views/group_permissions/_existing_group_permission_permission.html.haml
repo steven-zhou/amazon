@@ -1,0 +1,15 @@
+-for i in  @group_permissions
+  -div_for(i, :class => "container_active_50  half_container toggle_options", :field => "group_permission") do
+    .options{:style => "display:none;"}
+      = link_to image_tag('delete_icon.png'),  group_permission_path(i), :class => "delete", :field => "Group Permission"
+    .title{:style => "height:20px;"}
+      = i.id
+      \--
+      = i.system_permission_type.system_permission_meta_type.system_permission_meta_meta_type.name
+      \--
+      = i.system_permission_type.system_permission_meta_type.name
+      \--
+      = i.system_permission_type.name
+
+
+%br.clear

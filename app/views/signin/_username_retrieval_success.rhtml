@@ -1,5 +1,18 @@
 <div id="username_retrieval_security_questions">
-
-  <div style="border: 1px solid green;width:90%;padding:5%;background-color:#c8ffbd;">An email has been sent to your registered email address with your username.</div>
+    <script type="text/javascript">
+      $(function() {
+          $('#username_retrieval_success').dialog( {
+            modal: true,
+            resizable: false,
+            draggable :false,
+            height: 200,
+            width: 350
+          })
+      }
+    );
+    $('#username_retrieval_success').dialog("open");
+    $('#login_username_retrieval').dialog('destroy');
+    </script>
+  <div style="display:none;background-color:white;" id="username_retrieval_success">An email has been sent to your registered email address with your username.</div>
 
 </div>

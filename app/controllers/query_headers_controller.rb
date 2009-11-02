@@ -51,24 +51,30 @@ class QueryHeadersController < ApplicationController
 
   def check_runtime
     @query_header = QueryHeader.find(params[:id].to_i)
-    runtime_params = Array.new
-    @query_header.query_criterias.each do |i|
-      if i.value == "?"
-        runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
-      end
-    end
 
-    @runtime = runtime_params.empty? ? false : true
-    if @runtime
-      #ask for runtime param(s)
-      @top = params[:top]
-      @top_number = params[:top_number]
-      @top_percent = params[:top_precent]
-      render "check_runtime.js"
+    if @query_header.query_criterias.empty?
+      render "show_sql_statement.js"
+
     else
-      #run the query
-      redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_precent]
-    end
+      runtime_params = Array.new
+      @query_header.query_criterias.each do |i|
+        if i.value == "?"
+          runtime_params << {"#{i.table_name}" => "#{i.field_name}"}
+        end
+      end
+
+      @runtime = runtime_params.empty? ? false : true
+      if @runtime
+        #ask for runtime param(s)
+        @top = params[:top]
+        @top_number = params[:top_number]
+        @top_percent = params[:top_percent]
+        render "check_runtime.js"
+      else
+        #run the query
+        redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
+      end
+    end    
   end
 
   def copy_runtime
@@ -99,12 +105,12 @@ class QueryHeadersController < ApplicationController
       @query_sorter.save
     end
 
-    redirect_to :action => "run", :id => @query_header_new.id, :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_precent]
+    
+    redirect_to :action => "run", :id => @query_header_new.id, :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
   end
 
   def run
     @query_header = QueryHeader.find(params[:id].to_i)
-
     @people = @query_header.run
     top = params[:top]
     if(top=="number")
@@ -165,7 +171,6 @@ class QueryHeadersController < ApplicationController
       end
     end
     @list_header = ListHeader.new
-
     respond_to do |format|
       format.js
     end

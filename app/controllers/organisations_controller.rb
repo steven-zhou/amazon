@@ -63,7 +63,7 @@ class OrganisationsController < ApplicationController
   end
 
   def create
-    @organisation = Organisation.new(params[:organisation])
+    @organisation = (params[:type].camelize.constantize).new(params[:organisation])
     @organisation.onrecord_since = Date.today()
     if @organisation.save
       if !params[:image].nil?
@@ -71,17 +71,17 @@ class OrganisationsController < ApplicationController
         if @image.save
           @organisation.image = @image
         else
-          flash.now[:warning] = "The image was not saved."
+          flash[:warning] = "The image was not saved."
         end
       end
-
+      @organisation_new = Organisation.new
       # If the user wants to edit the record they just added
       if(params[:edit])
-        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
+        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
         redirect_to edit_organisation_path(@organisation)
         # If the user wants to continue adding records
       else
-        flash.now[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
+        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)}>edit details</a>)"
         redirect_to new_organisation_path
       end
     else
@@ -91,12 +91,13 @@ class OrganisationsController < ApplicationController
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
       #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      flash.now[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
-      render :action =>'new'
+      flash[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
+      redirect_to new_organisation_path
     end
   end
 
   def edit
+    @super_admin = session[:super_admin] ? true : false
     @o = Organisation.find(:all, :order => "id")
     @postcodes = DomesticPostcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
@@ -123,8 +124,8 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-
     @organisation = Organisation.find(params[:id])
+    type = @organisation.class.to_s.underscore
     Image.transaction do
       unless params[:image].nil?
         @image = Image.new(params[:image])
@@ -132,18 +133,21 @@ class OrganisationsController < ApplicationController
           @organisation.image.destroy unless @organisation.image.nil?
           @organisation.image = @image
         else
-          flash.now[:warning] = "The image was not saved. Please check that file was a valid image file."
+          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
         end
       end
     end
 
-    @organisation.update_attributes(params[:organisation])
-    flash.now[:warning] = "There was an error updating the person's details." unless @organisation.save
+    @organisation.update_attributes(params[type.to_sym])
+    flash[:warning] = "There was an error updating the person's details." unless @organisation.save
 
 
-    flash.now[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
+    flash[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
     if(params[:edit])
       redirect_to edit_organisation_path(@organisation)
+    elsif(params[:installation])
+      flash[:message] = "Client Organisation - #{@organisation.full_name}'s information was initialized successfully."
+      redirect_to :controller => :client_setups, :action => :client_organisation
     else
       redirect_to organisation_path(@organisation)
     end
@@ -164,29 +168,31 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  def add_keywords
-    @organisation = Organisation.find(params[:id])
+  # Move add_keywords and remove_keywords to Keyword_links Controller
 
-    unless params[:add_keywords].nil?
-      params[:add_keywords].each do |keyword_id|
-        keyword = Keyword.find(keyword_id);
-        @organisation.keywords<<keyword
-      end
-    end
-    render "add_keywords.js"
-  end
-
-  def remove_keywords
-    @organisation = Organisation.find(params[:id])
-
-    unless params[:remove_keywords].nil?
-      params[:remove_keywords].each do |keyword_id|
-        keyword = Keyword.find(keyword_id)
-        @organisation.keywords.delete(keyword)
-      end
-    end
-    render "remove_keywords.js"
-  end
+#  def add_keywords
+#    @organisation = Organisation.find(params[:id])
+#
+#    unless params[:add_keywords].nil?
+#      params[:add_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id);
+#        @organisation.keywords<<keyword
+#      end
+#    end
+#    render "add_keywords.js"
+#  end
+#
+#  def remove_keywords
+#    @organisation = Organisation.find(params[:id])
+#
+#    unless params[:remove_keywords].nil?
+#      params[:remove_keywords].each do |keyword_id|
+#        keyword = Keyword.find(keyword_id)
+#        @organisation.keywords.delete(keyword)
+#      end
+#    end
+#    render "remove_keywords.js"
+#  end
 
   def find
     @organisation = Organisation.new
@@ -285,6 +291,7 @@ class OrganisationsController < ApplicationController
       end
     end
     if(params[:current_operation] == "edit_organisation_list")
+#      puts "**********#{@organisation.class.to_s}*********8"
       @postcodes = DomesticPostcode.find(:all)
       @address = Address.new
       @phone = Phone.new

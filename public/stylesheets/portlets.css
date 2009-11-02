@@ -1,0 +1,123 @@
+#columns
+{
+	width: 100%;
+}
+
+#columns td
+{
+	padding: 0 5px;
+	vertical-align: top;
+	width: 30%;
+}
+
+.portlet
+{
+        font-family:Arial, Helvetica, sans-serif;
+        color: #232323;
+        background-image:url(/images/container_bg.png);
+        background-repeat:repeat;
+        width: 100%;
+        float: left;
+        min-height: 10px;
+        -moz-border-radius: 10px;
+        margin-bottom: 10px;
+        }
+
+.portlet_topper
+{
+        width: 100%;
+        cursor: move;
+	padding: 5px 10px;
+        float:left;
+}
+
+.portlet_topper h1 {
+    color: #2C2C2C;
+    font-size:18px;
+    font-weight: normal;
+    line-height: 22px;
+}
+
+.portlet_topper a
+{
+	color: #443;
+	font-weight: bold;
+}
+
+.portlet_content
+{
+	padding: 10px;
+       height:300px;
+        float: left;
+        overflow: hidden;
+}
+
+.portlet_content #datepicker
+{
+	margin-left: 25px;
+        float: left;
+        overflow: hidden;
+}
+
+.portlet_to_do_content
+{
+	padding: 10px;
+       height:245px;
+        float: left;
+        overflow: hidden;
+}
+
+.portlet_to_do_content #to_do_lists .done_box {width: 50px; float: right;}
+.portlet_to_do_content #to_do_lists .done_box .done {width: 10px !important; height: 10px !important; display: inline;float: left;}
+.portlet_to_do_content #to_do_lists .done_box label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    line-height: 20px;
+}
+#new_to_do
+{
+    width: 94%;
+    margin: 0% 3%;
+    padding: 10px 0px;
+    float: left;
+}
+
+#new_to_do label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+#new_to_do .field{width: 75%;float:left;}
+#new_to_do .field input {width: 90%;}
+#new_to_do .submit{width: 25%;float:right;}
+
+.portlet_content #graph { background:url("../images/graph.png") center center no-repeat; width: 300px; height: 200px;float:left;}
+
+.portlet_content p
+{
+	line-height: 150%;
+	text-align: justify;
+}
+
+.portlet_bottom
+{
+	background: #ccc;
+	font-size: 1px;
+	line-height: 1px;
+	overflow: hidden;
+	height: 5px;
+}
+
+.sort_placeholder
+{
+	border: 2px dashed #ccc;
+        -moz-border-radius: 5px;
+
+}

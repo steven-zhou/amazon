@@ -220,7 +220,7 @@ $("#email_edit_button").live('click',function(){
 
 $(".delete_email").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
-    $('.edit_email[email_id='+ $(this).attr('email_id') +']').css("display", "none");
+//    $('.edit_email[email_id='+ $(this).attr('email_id') +']').css("display", "none");
 });
 
     
@@ -235,13 +235,13 @@ $("#phone_edit_button").live('click',function(){
 
 $(".delete_phone").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
-    $('.edit_phone[phone_id='+ $(this).attr('phone_id') +']').css("display", "none");
+//    $('.edit_phone[phone_id='+ $(this).attr('phone_id') +']').css("display", "none");
 });
 
 
 $(".delete_fax").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
-    $('.edit_fax[fax_id='+ $(this).attr('fax_id') +']').css("display", "none");
+//    $('.edit_fax[fax_id='+ $(this).attr('fax_id') +']').css("display", "none");
 });
 
 
@@ -254,7 +254,7 @@ $("#website_edit_button").live('click',function(){
 
 $(".delete_website").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
-    $('.edit_website[website_id='+ $(this).attr('website_id') +']').css("display", "none");
+//    $('.edit_website[website_id='+ $(this).attr('website_id') +']').css("display", "none");
 });
     
 /* Person address  */
@@ -278,7 +278,7 @@ $("#address_edit_button").live('click',function(){
 
 $(".delete_address").live('click',function(){
     $('.person_address_toggle_button').css("display","");
-    $('.edit_address[address_id='+ $(this).attr('address_id') +']').css("display", "none");
+//    $('.edit_address[address_id='+ $(this).attr('address_id') +']').css("display", "none");
 });
 
 $(".person_address_close").live('click',function(){
@@ -323,7 +323,7 @@ $("#master_doc_edit_button").live('click',function(){
 
 $(".delete_master_doc").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
-    $('.edit_master_doc[master_doc_id='+ $(this).attr('master_doc_id') +']').css("display", "none");
+//    $('.edit_master_doc[master_doc_id='+ $(this).attr('master_doc_id') +']').css("display", "none");
 });
 
 
@@ -383,7 +383,7 @@ $(".edit_note").live('click',function(){
 
 $(".delete_note").live('click',function(){
     $('.person_notes_toggle_button').css("display","");
-    $('.edit_note[note_id='+ $(this).attr('note_id') +']').css("display", "none");
+//    $('.edit_note[note_id='+ $(this).attr('note_id') +']').css("display", "none");
 });
 
 $("#note_edit_close_button").live('click',function(){
@@ -442,7 +442,7 @@ $("#role_edit_button").live('click',function(){
 
 $(".delete_role").live('click',function(){
     $('.person_roles_toggle_button').css("display","");
-    $('.edit_role[role_id='+ $(this).attr('role_id') +']').css("display", "none");
+//    $('.edit_role[role_id='+ $(this).attr('role_id') +']').css("display", "none");
 });
 
 $(".person_roles_close").live('click',function(){
@@ -531,3 +531,5 @@ $(function(){
         });
     });
 });
+
+

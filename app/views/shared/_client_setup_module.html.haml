@@ -1,0 +1,43 @@
+- routing = Hash.new{|h,k| h[k]=Hash.new(&h.default_proc) }
+- routing[:administrations][:query_tables]              = {:controller => "configuration", :action => "query_tables" }
+- routing[:administrations][:access_permissions]        = {:controller => "configuration", :action => "access_permissions" }
+-
+- controller = routing[@current_controller.to_sym][@current_action.to_sym][:controller]
+- action = routing[@current_controller.to_sym][@current_action.to_sym][:action]
+
+%ul#menu{:style => "min-height:500px;"}
+
+  - # Client Setup Menu
+  %li{:id => @current_controller == "client_setups" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "client_setups"
+        = link_to "#{image_tag('Icons/Powernet_module/client_setup.png')} Client Setup", :controller => "client_setups", :action => "client_organisation"
+      - else
+        <p>Client Setup</p>
+        %ul
+          %li{:id => @current_action == "client_organisation" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Org/org.png')} Organisation", :controller => "client_setups", :action => "client_organisation"
+          %li{:id => @current_action == "installation" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Powernet_module/Installation.png')} Installation", :controller => "client_setups", :action => "installation"
+          %li{:id => @current_action == "super_admin" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Super Admin", :controller => "client_setups", :action => "super_admin"
+          %li{:id => @current_action == "available_modules" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Powernet_module/modules.png')} Modules", :controller => "client_setups", :action => "available_modules"
+    .bottom
+
+  - # Configuration Menu
+  %li{:id => controller == "configuration" ? "menu_active" : ""}
+    .top
+    .item
+      - if controller != "configuration"
+        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Configuration", :controller => "administrations", :action => "query_tables"
+      -else
+        <p>Configuration</p>
+        %ul
+          %li{:id => action == "query_tables" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Configuration/query_table.png')} Query Tables", :controller => "administrations", :action => "query_tables"
+          %li{:id => action == "access_permissions" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
+
+    .bottom

@@ -11,10 +11,26 @@ $('#flash_message').dialog( {
       }
     }
   });
+  $('#flash_message').dialog('option', 'title', 'Error');
 $('#flash_message').dialog('open');
 <%- else %>
 
 $('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results", :locals => {:people => @people})) %>');
+$('#compile_result_div').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  height: 700,
+  width: 1300,
+  buttons: {
+    Ok: function() {
+      $(this).dialog('close');
+    }
+  }
+});
+$('#compile_result_div').dialog('option', 'title', 'Compile Result');
+$('#compile_result_div').dialog('open');
+
 
 $("#list_compile_grid").flexigrid({
         url: '/grids/list_compile_grid',
@@ -39,20 +55,7 @@ $("#list_compile_grid").flexigrid({
         height: 300
     });
 
-$('#compile_result_div').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  height: 700,
-  width: 1300,
-  buttons: {
-    Ok: function() {
-      $(this).dialog('close');
-    }
-  }
-});
 
-$('#compile_result_div').dialog('open');
 
 
 <%- end %>

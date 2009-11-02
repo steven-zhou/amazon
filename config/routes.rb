@@ -1,5 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
+
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
@@ -34,7 +36,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :organisations, :shallow=>true,
     :collection => {:find => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get},
-    :member => {:add_keywords => :post, :remove_keywords => :post, :name_card => :get} do |organisation|
+    :member => {:name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
     organisation.resources :faxes
@@ -46,9 +48,11 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
   end
 
-  map.resources :administrations, :collection => {:system_setting => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
+  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get}
 
-  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
+  map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
+
+  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post, :role_condition_show_roles => :get, :condition_meta_type_finder => :get, :doc_type_finder => :get}
@@ -70,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
     query_header.resources :query_criterias
   end
 
-  map.resources :login_accounts, :collection => {:user_name_unique => :get}
+  map.resources :login_accounts, :collection => {:user_name_unique => :get, :generate_password => :post}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get, :user_name_to_person => :get}
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
@@ -91,9 +95,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-                                    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get,
+    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get,
 
-                                    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
+    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
@@ -102,9 +106,14 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
   map.resources :user_lists, :collection => {:show_list_des => :get}
-  map.resources :dashboards
+  map.resources :dashboards, :collection => {:check_password => :get, :update_password => :post}
   map.resources :system_news
   map.resources :to_do_lists
+
+  map.resources :keywords ,:collection  => {:keywords_finder => :get}
+
+  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get}
+  map.resources :available_modules, :collection => {:switch_status => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -147,7 +156,7 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
 
   map.connect '/', {:controller => "signin", :action => "login" }
-  map.welcome 'welcome', :controller => "module", :action => "core"    # After a user is logged in this is where they are sent to
+  map.welcome 'welcome', :controller => "module", :action => "dashboard"    # After a user is logged in this is where they are sent to
   map.login 'login', :controller => "signin", :action => "login"       # This should be the page a user logs in at
   
   map.connect ':controller/:action/:id'

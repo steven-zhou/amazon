@@ -1,0 +1,46 @@
+#header
+  #page_title
+    %h1  Keywords Dictionary
+  #lol
+    %br.clear
+#content_full_page
+  .container
+    - form_for Keyword.new, :html => {:class => "ajax_form"} do |p|
+      Select Keyword Type:
+      %select#keyword_type.clear_select{:style => "display:inline;width:20%;"}
+        %option
+          = KeywordType.distinct_active_keyword_type
+
+      %br.clear
+      %input{:id => "keyword_mode", :style => "display:none;", :mode => "show"}
+      %div#keyword_main_contents{:style => "display:none;"}
+        .container#keywork_add_data
+          %div
+            = image_tag("close_icon.png" , :id=> "keyword_close_entry",:class => "close_option", :style => "display:none;float:right;", :field => "keyword")
+            = image_tag("add_icon.png" , :size => "19x18", :id => "keyword_add_entry", :class => "new_option", :field => "keyword")
+            New Keyword
+          %input{:style => "display:none;", :name=>"type_id",:type_id => "",:id => "type_id"}
+          %div#keyword_add_entry_form{:style => "display:none;",:type_id => ""}
+            %br.clear
+            = p.text_field :type, {:style => "display:none"}
+            .form_line
+              .field_30
+                = p.label :name, 'Name'
+                = p.text_field :name
+              .field_35
+                = p.label :description, 'Description'
+                = p.text_field :description
+              .field_5
+                = p.label :active
+                %label
+                = p.check_box :status, {:style => "width:auto;"}
+              .field_20{:style => "margin-top: 8px;"}
+                = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+
+        %div#keyword_entries
+
+        %br.clear
+
+    %div#edit_keyword_entry
+
+    

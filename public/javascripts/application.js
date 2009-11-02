@@ -9,6 +9,10 @@ $(function(){
     $("#tabs2").tabs();
 });
 
+$(function(){
+    $("#datepicker").datepicker();
+});
+
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
@@ -30,7 +34,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-        + "=" + encodeURIComponent(window._auth_token);
+            + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -115,11 +119,41 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
-    $('a.delete').live('click', function() {
+
+    $('a.delete').live('click', function(){
         var link = $(this);
-        $.post($(this).attr('href'), "_method=delete", null, 'script');
+        $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("field") + " ? ");
+        $('#delete_warning_message_image').css("display","");
+        $('#delete_warning_message').dialog({
+            modal: true,
+            resizable: true,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+                Yes: function(){
+                    $.post(link.attr('href'), "_method=delete", null, 'script');
+                    $(this).dialog('destroy');
+                    return true;
+                },
+                No: function(){
+                    $(this).dialog('destroy');
+                    return true;
+
+                }
+            }
+        });
+        $('#delete_warning_message').dialog('option', 'title', 'Warning');
+   
+        $('#delete_warning_message').parent().find("a").css("display","none");
+        $('#delete_warning_message').dialog('open');
+  
+        //    a.css("display","none");
+        //  a.attr("class","ui-dialog-titlebar-lock");
+        //  a.find("span").attr("class","ui-icon ui-icon-lock");
         return false;
     }).attr("rel", "nofollow");
+
 
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
@@ -156,12 +190,27 @@ $('.birthdatepick').live("mouseover", function(){
 
 $('.startdatepick').live("mouseover", function(){
     $("#"+$(this).attr("end_date")).datepicker('enable');
-    $(this).datepicker({
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true
-    });
+    var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+    day = arr_dateText[0];
+    month = arr_dateText[1];
+    year = arr_dateText[2];
+    if(year!=undefined){
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true,
+            maxDate: new Date(year, month-1, day-1)
+        });
+    }else{
+        $(this).datepicker({
+            dateFormat: 'dd-mm-yy',
+            altFormat: 'mm-dd-yy',
+            changeMonth: true,
+            changeYear: true
+        });
+    }
+    
 });
 
 
@@ -320,9 +369,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/organisations/name_finder.js",
+                    "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -337,9 +386,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/people/name_finder.js",
+                    "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -377,7 +426,7 @@ $(function()
             dataType: "script"
         });
 
-    /* }
+        /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -458,9 +507,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_meta_type_finder.js",
+                "/people/master_doc_meta_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -472,9 +521,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-            "/people/master_doc_type_finder.js",
+                "/people/master_doc_type_finder.js",
             data:
-            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -500,15 +549,15 @@ formatCurrency= function(num){
 
 
 // Administration Menu
-
-$(function(){
-    $(".close_option").live('click', function(){
-        $("#system_data_add_entry_form").hide();
-        $("#custom_group_entry_form").hide();
-        $("#query_table_add_entry_form").hide();
-        $("#access_permission_add_entry_form").hide();
-    });
-});
+//
+//$(function(){
+//    $(".close_option").live('click', function(){
+//        $("#system_data_add_entry_form").hide();
+//        $("#custom_group_entry_form").hide();
+//        $("#query_table_add_entry_form").hide();
+//        $("#access_permission_add_entry_form").hide();
+//    });
+//});
 
 // Configuration
 
@@ -521,6 +570,7 @@ $(function(){
             $("#system_data_entries").html("");
             $("#edit_system_data_entry").html("");
         } else {
+            $("#system_data_add_entry").css("display","");
             $("#edit_system_data_entry").html("");
             $("#amazon_setting_type").val($(this).val());
             $.ajax({
@@ -541,6 +591,7 @@ $(function(){
         $(".container_selected").removeClass("container_selected");
         $(this).closest('.toggle_options').addClass("container_selected");
         $("#edit_system_data_entry").html("");
+        $("#system_data_type").attr("disabled",true);
         $("#system_data_add_entry_form").hide();
         $.ajax({
             type: "GET",
@@ -572,6 +623,7 @@ $(function(){
         $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
+        $("#system_data_type").attr("disabled",true);
     });
 });
 
@@ -579,6 +631,22 @@ $(function(){
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
         $("#edit_system_data_entry").hide();
+        $("#system_data_type").attr("disabled",false);
+        $.ajax({
+            type: "GET",
+            url: "/amazon_settings/system_settings_finder.js",
+            data: 'type=' + $("#system_data_type").val(),
+            dataType: "script"
+        });
+       
+    });
+});
+
+$(function(){
+    $("#system_data_close_entry").live('click', function(){
+        $("#system_data_add_entry_form").css("display","none");
+
+        $("#system_data_type").attr("disabled",false);
     });
 });
 
@@ -588,12 +656,17 @@ $(function(){
     $(".multilevel_new_option").live("click", function(){
         $("li.open").removeClass("open");
         $("li.active").removeClass("active");
+        $(".toggle_multilevel_options").removeClass("container_selected");
     });
 
 
     $(".toggle_multilevel_options").live("click", function(){
-        $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
-        $(this).parent().toggleClass("open");
+        if ($(this).parent().attr("class").indexOf("open")>=0){
+            $(this).parent().removeClass("open");
+        }else{
+            $("li.open[level="+ $(this).parent().attr("level")+"]").removeClass("open");
+            $(this).parent().addClass("open");
+        }        
         $("li").removeClass("active");
         $(this).parent().addClass("active");
         $(".toggle_multilevel_options").removeClass("container_selected");
@@ -622,6 +695,8 @@ $(function(){
     });
 
     $(".new_tag_type").live("click", function(){
+        container = $(this).parent().parent();
+        container.parent().removeClass("open");
         $.ajax({
             type: "GET",
             url: "/tag_types/new.js",
@@ -631,6 +706,8 @@ $(function(){
     });
 
     $(".new_tag").live("click", function(){
+        container = $(this).parent().parent();
+        container.parent().removeClass("open");
         $.ajax({
             type: "GET",
             url: "/tags/new.js",
@@ -641,7 +718,11 @@ $(function(){
 
     $('a.get_tag').live('click', function() {
         container = $(this).parent().parent();
-        container.click();
+        container.parent().removeClass("open");
+        $("li").removeClass("active");
+        container.parent().addClass("active");
+        $(".toggle_multilevel_options").removeClass("container_selected");
+        container.addClass("container_selected");
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
@@ -729,18 +810,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/new.js",
+                    "/amazon_settings/new.js",
                 data:
-                'type=' + $("#find_data_list_field").val(),
+                    'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                "/amazon_settings/" + $(this).val() + "/edit.js",
+                    "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                'id=' + $(this).val(),
+                    'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -1116,7 +1197,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 });
 
@@ -1127,7 +1208,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-        );
+    );
     });
 });
 
@@ -1393,6 +1474,7 @@ $(function(){
                 resizable: true,
                 draggable: true
             });
+            $('#save_form').dialog('option', 'title', 'New Query');
             $('#save_form').dialog('open');
         }else{
             $('#edit_query_header').doAjaxSubmit();
@@ -1406,9 +1488,9 @@ $(function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
         if($("#query_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_top_number_value").val();
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1423,10 +1505,10 @@ $(function(){
     $("#run_button_edit").live('click', function(){
         var temp = "";
         temp += 'id=' + $("#query_header_id").val();
-        if($("#query_edit_top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#query_edit_top_number_value").val();
+        if($("#query_top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#query_top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#query_edit_top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#query_top_value").val();
         }
         $.ajax({
             type: "GET",
@@ -1512,15 +1594,13 @@ $(function(){
 });
 
 $(function(){
-    $("#query_top_number").click(function(){
-        $("#query_top_percent_value").val('');
-        $("#query_top_percent_value").attr("disabled",true);
-        $("#query_top_number_value").attr("disabled",false);
+    $("#query_top_number").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
-    $("#query_top_percent").click(function(){
-        $("#query_top_number_value").val('');
-        $("#query_top_number_value").attr("disabled",true);
-        $("#query_top_percent_value").attr("disabled",false);
+    $("#query_top_percent").live('click', function(){
+        $("#query_top_value").val('');
+        $("#query_top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1639,9 +1719,9 @@ $(function(){
         temp += "login_account_id=" + $("#login_account_id").val();
         temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
         if($("#top_number").attr("checked")==true){
-            temp += "&top=number&top_number=" + $("#top_number_value").val();
+            temp += "&top=number&top_number=" + $("#top_value").val();
         }else{
-            temp += "&top=percent&top_percent=" + $("#top_percent_value").val();
+            temp += "&top=percent&top_percent=" + $("#top_value").val();
         }
 
         $.ajax({
@@ -1656,14 +1736,12 @@ $(function(){
 
 $(function(){
     $("#top_number").click(function(){
-        $("#top_percent_value").val('');
-        $("#top_percent_value").attr("disabled",true);
-        $("#top_number_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.precent_field").removeClass("precent_field").addClass("integer_field");
     });
     $("#top_percent").click(function(){
-        $("#top_number_value").val('');
-        $("#top_number_value").attr("disabled",true);
-        $("#top_percent_value").attr("disabled",false);
+        $("#top_value").val('');
+        $("#top_value.integer_field").removeClass("integer_field").addClass("precent_field");
     });
 });
 
@@ -1673,7 +1751,18 @@ $(function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0){
-                alert("This field has be an integer!");
+                alert("This field has to be integer!");
+                $(this).focus();
+                $(this).val('');
+            }
+        }
+    });
+
+    $(".precent_field").live('keyup', function(){
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
+                alert("This field has be an integer between 0 and 100!");
                 $(this).focus();
                 $(this).val('');
             }
@@ -1681,30 +1770,68 @@ $(function(){
     });
 });
 
+check_empty_value = function(){
+  
+    if( $("#"+$(this).attr("check_field")).val()== "")
+    {
+        var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
+        alert(error_message);
+        return false;
+    }
+}
+
+$(function(){
+    $("#contact_phone_submit").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#contact_phone_submit_edit").live('click', check_empty_value);
+});
 
 
+$(function(){
+    $("#submit_email_field").live('click', check_empty_value);
+});
 
+$(function(){
+    $("#submit_email_field_edit").live('click', check_empty_value);
+});
+$(function(){
+    $("#submit_website_field").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#submit_website_field_edit").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#address_submit_button").live('click', check_empty_value);
+});
+
+$(function(){
+    $("#address_submit_button_edit").live('click', check_empty_value);
+});
 
 check_email_field = function(){
-         _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value').val());
-        if($('#email_value').val()!=""){
-            if((!_valid)){
-                alert("This field should be am email !");
-                $('#email_value').focus();
-                return false;
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
+    if($('#email_value').val()!=""){
+        if((!_valid)){
+            alert("Invalid email address !");
+            $('#email_value').focus();
+            return false;
         }
-}
+    }
 }
 
 check_email_field_edit = function(){
-         _valid = /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
-        if($('#email_value_edit').val()!=""){
-            if((!_valid)){
-                alert("This field should be am email !");
-                $('#email_value').focus();
-                return false;
+    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
+    if($('#email_value_edit').val()!=""){
+        if((!_valid)){
+            alert("Invalid email address !");
+            $('#email_value_edit').focus();
+            return false;
         }
-}
+    }
 }
 
 $(function(){
@@ -1715,30 +1842,30 @@ $(function(){
 });
 
 check_website_field = function(){
-   _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value").val());
-              if($('#website_value').val()!=""){
-            if((!_valid)){
-                alert("This field should be website format !");
-                $(this).focus();
-                return false;
+    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
+    if($('#website_value').val()!=""){
+        if((!_valid)){
+            alert("Invalid website address !");
+            $(this).focus();
+            return false;
 
 
-            }
         }
+    }
 
 }
 
 check_website_field_edit = function(){
-   _valid = /^(((h|H?)(t|T?)(t|T?)(p|P?)(s|S?))\:)?(www.|[a-zA-Z0-9].)[a-zA-Z0-9\-\.]+\.[a-zA-Z]*$/.test($("#website_value_edit").val());
-              if($('#website_value_edit').val()!=""){
-            if((!_valid)){
-                alert("This field should be website format !");
-                $(this).focus();
-                return false;
+    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
+    if($('#website_value_edit').val()!=""){
+        if((!_valid)){
+            alert("Invalid website address !");
+            $(this).focus();
+            return false;
 
 
-            }
         }
+    }
 
 }
 
@@ -1925,129 +2052,27 @@ $(function(){
 });
 
 
-$(function(){
+//$(function(){
+//
+//    $("#system_permission_meta_meta_type_id").live('change',function(){
+//
+//        if ($(this).val()!= ""){
+//            $.ajax({
+//                type:"GET",
+//                url: "/group_permissions/show_module.js",
+//                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+//                dataType:"script"
+//
+//            });
+//            $('#permission_form').show();
+//        }else{
+//
+//            $('#permission_form').hide();
+//        }
+//
+//    });
+//});
 
-    $("#system_permission_meta_meta_type_id").live('change',function(){
-
-        if ($(this).val()!= ""){
-            $.ajax({
-                type:"GET",
-                url: "/group_permissions/show_module.js",
-                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
-                dataType:"script"
-
-            });
-            $('#permission_form').show();
-        }else{
-
-            $('#permission_form').hide();
-        }
-
-    });
-});
-
-
-$(function(){
-    $(".group_permission_color").live('mouseover', function(){
-        $(this).animate({
-            color: "#FFFF00"
-        }, 300)
-    });
-});
-
-$(function(){
-    $(".group_permission_color").live('mouseout', function(){
-        $(this).animate({
-            color: "#F7F8E0"
-        }, 300)
-    });
-});
-
-/*use for click the module show the whole thing*/
-$(function(){
-    $("#show_controllers").live('click', function(){
-        $.ajax({
-            type:"GET",
-            url:"/group_permissions/show_controllers.js",
-            data:"main_module_id="+$(this).attr('main_module_id'),
-            dataType:"script"
-
-        });
-
-    });
-
-});
-
-$(function(){
-    $(".module_select_all").live('click', function(){
-        if ($(this).attr("checked") == true){
-            $('.controller_select_all').attr("checked", true);
-            $('.method_select_all').attr("checked", true);
-        }else{
-            $('.controller_select_all').attr("checked", false);
-            $('.method_select_all').attr("checked", false);
-        }
-
-    });
-});
-
-$(function(){
-    $("#new_group_permission").live('click', function(){
-        $(this).css("display", "none");
-        $(".group_permission_delete").css("display", "none");
-
-        $.ajax({
-            type: "GET",
-            url: "/group_permissions/new.js",
-            data:"group_id="+$(this).attr('group_id'),
-            dataType: "script"
-        });
-        $("#close_new_module").css("display", "");
-    });
-});
-
-
-/*when you slecet the controller , all the method will be on*/
-$(function(){
-    $('.controller_select_all').live('click', function(){
-        if ($(this).attr('checked') == true){
-
-
-            $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
-
-
-        }else{
-
-
-            $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
-            $('.module_select_all').attr("checked", false);
-
-        }
-    });
-});
-
-
-
-$(function(){
-    $('.method_select_all').live('click', function(){
-        if ($(this).attr('checked') == false){
-            $('.module_select_all').attr("checked", false);
-            $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
-        }
-
-    });
-});
-
-$(function(){
-    $("#close_new_module").live('click', function(){
-        $(this).css("display", "none");
-     
-        $('#hide_module').html('');
-        $('#new_group_permission').css("display", "");
-        $(".group_permission_delete").css("display", "");
-      
-    });
-});
 
 
 
@@ -2175,83 +2200,194 @@ $(function(){
 
 /*Grid*/
 $(function(){
+    $("#feedback_search_grid").flexigrid({
+        url: '/grids/feedback_search_grid',
+        dataType: 'json',
+        colModel : [
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Date',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Submitted By',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Subject',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'IP Address',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Status',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
+
+
+        ],
+        searchitems : [
+            {
+                display: 'Date',
+                name : 'field_1'
+            },
+
+            {
+                display: 'Submitted By',
+                name : 'field_2'
+            },
+
+            {
+                display: 'Subject',
+                name : 'field_3'
+            },
+
+            {
+                display: 'Status',
+                name : 'field_4'
+            },
+
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Feedback Items',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+});
+
+$(function(){
+    $('table#feedback_search_grid tbody tr').live('click',function(){
+        $('table#feedback_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        $.ajax({
+            type: 'GET',
+            url: "/feedback/show/"+$(this).attr('id').substring(3),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('table#feedback_search_grid tbody tr').live('click',function(){
+        $('table#feedback_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+
+
+
+$(function(){
     $("#people_search_grid").flexigrid({
         url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'Email',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
+            {
+                display: 'Email',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2307,6 +2443,7 @@ $(function(){
     $('.edit_option').live('click',function(){
         $("#" + $(this).attr('field')+'_mode').attr('mode','edit');
         $('.new_option[field='+ $(this).attr('field') +']').css("display","none");
+        $(".options").css("display", "none");
     });
 });
 
@@ -2362,79 +2499,79 @@ $(function(){
         url: '/grids/organisation_search_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Trading As',
-            name : 'field_1',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Trading As',
+                name : 'field_1',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Registered Name',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Registered Name',
+                name : 'field_2',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Website',
-            name : 'field_5',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'Website',
+                name : 'field_5',
+                width : 180,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'Trading As',
-            name : 'field_1'
-        },
+            {
+                display: 'Trading As',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Registered Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Registered Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Website',
-            name : 'field_5'
-        }
+            {
+                display: 'Website',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2466,79 +2603,79 @@ $(function(){   /*organisation employee list result*/
         url: '/grids/organisation_employee_grid',
         dataType: 'json',
         colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'ID',
+                name : 'grid_object_id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2',
+                width : 50,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Address',
+                name : 'field_3',
+                width : 120,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
 
-        {
-            display: 'email',
-            name : 'field_5',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        }
+            {
+                display: 'email',
+                name : 'field_5',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            }
         ],
         searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
+            {
+                display: 'First Name',
+                name : 'field_1'
+            },
 
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
+            {
+                display: 'Family Name',
+                name : 'field_2'
+            },
 
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
+            {
+                display: 'Address',
+                name : 'field_3'
+            },
 
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
+            {
+                display: 'Phone',
+                name : 'field_4'
+            },
 
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
+            {
+                display: 'Email',
+                name : 'field_5'
+            }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2711,21 +2848,21 @@ $(function(){
 
 });
 
-$(function(){
-    $('.user_name_to_person').live('change', function(){
-        if($(this).val()!= ""){
-            $.ajax({
-                type: "GET",
-                url: "/user_groups/user_name_to_person.js",
-                data: 'user_name='+$(this).val(),
-                dataType:"script"
-            });
-        }else{
-            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-        }
-       
-    });
-});
+//$(function(){
+//    $('.user_name_to_person').live('change', function(){
+//        if($(this).val()!= ""){
+//            $.ajax({
+//                type: "GET",
+//                url: "/user_groups/user_name_to_person.js",
+//                data: 'user_name='+$(this).val(),
+//                dataType:"script"
+//            });
+//        }else{
+//            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+//        }
+//
+//    });
+//});
 
 //
 //
@@ -2751,6 +2888,8 @@ $(function(){
     $('.active_organisation_info_tab').live('click',function(){
         $('.organisation_info_tab').removeClass('hidden_tab');
         $("#"+$(this).attr("hidden_id_name")).addClass('hidden_tab');
+        $(".container_icon").removeClass("container_icon_color");
+        $(this).parent().addClass("container_icon_color");
     });
 });
 
@@ -2789,6 +2928,7 @@ $(function(){
 $(function(){
     $('#edit_role_form').live('click', function(){
         $('#role_role_type_id').attr("disabled", false);
+        $(".container_selected").removeClass("container_selected");
     });
 
 });
@@ -2902,6 +3042,7 @@ $(function(){
 $(function(){
 
     $("#edit_role_condition_form").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
         $("#role_condition_edit_role_container").hide();
         $('#role_condition_role_type_id').attr("disabled", false);
     });
@@ -2939,7 +3080,7 @@ $(function(){
     $('table#address_postcode tbody tr').live('click',function(){
         $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
-            });
+    });
 });
 
 /* Organisation Lookup*/
@@ -2963,12 +3104,12 @@ $(function(){
 
     });
 
-     $("table#organisation_lookup_grid tbody tr").live("click", function(){
-      $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
+    $("table#organisation_lookup_grid tbody tr").live("click", function(){
+        $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
         $(this).addClass("selected");
     });
-     $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
-       $(this).css("cursor", "pointer");
+    $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
+        $(this).css("cursor", "pointer");
     });
 });
 
@@ -3002,7 +3143,12 @@ $(function(){
     $('.close_logo').live('click', function(){
         $("#new_" + $(this).attr('field')+ "_form").toggle('blind');
         $("#" + $(this).attr('field')+ "_edit_container").html('');
-        $(".container_selected").removeClass("container_selected");
+        if ($(this).attr('change_color') == "false"){
+            
+        }else{
+            $(".container_selected").removeClass("container_selected");
+        }
+       
     });
 });
 
@@ -3042,7 +3188,7 @@ $(function(){
 
     });
 
-      $("table#person_lookup_grid tbody tr").live("click", function(){
+    $("table#person_lookup_grid tbody tr").live("click", function(){
         $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
 
@@ -3050,38 +3196,32 @@ $(function(){
 });
 
 //system bar menu
-$(document).ready(function() {
+$(function(){
     $("div#module_menu_top").click(function() {
         if($("div#module_menu_top").attr("class")==""){
             $("div#module_menu_top").addClass("hover");
-            $("div#module_menu_items").css("display", "");
+            $("div#module_menu_items").fadeIn("fast");
         }else{
             $("div#module_menu_top").removeClass("hover");
             $("div#module_menu_items").fadeOut("fast");
         }
     });
 
-    $("div#module_menu").hover(
-        function(){
-            $("div#module_menu_items").fadeOut("fast");
-        },
-        function(){
-            $("div#module_menu_top").removeClass("hover");
-            $("div#module_menu_items").fadeOut("fast");
-        });
 
-    $("div#module_menu_items").hover(
-        function(){},
-        function(){
-            $("div#module_menu_top").removeClass("hover");
-        });
+    $("div#module_menu").hover(
+    function(){},
+    function(){
+        $("div#module_menu_top").removeClass("hover");
+        $("div#module_menu_items").fadeOut("fast");
+    });
+
 
     $("div#module_menu_items li").hover(
         function(){
-            $(this).addClass("hover","fast");
+            $(this).removeClass("hover","fast");
         },
         function(){
-            $(this).removeClass("hover", "normal");
+            $(this).addClass("hover", "normal");
         });
 });
 
@@ -3090,10 +3230,10 @@ $(document).ready(function() {
 $(function(){
     $('.show_user_list_description').live('change', function(){
         $.ajax({
-           type: "GET",
-           url: "/user_lists" + "/show_list_des.js",
-           data: "list_id=" + $(this).val(),
-           dataType:"script"
+            type: "GET",
+            url: "/user_lists" + "/show_list_des.js",
+            data: "list_id=" + $(this).val(),
+            dataType:"script"
 
         });
 
@@ -3104,4 +3244,446 @@ $(function(){
 });
 
 
+//person eidt tabs image change
+$(function(){
+    $(".person_edit_tab:not(.active)").live("mouseover", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+".png");
+    });
 
+    $(".person_edit_tab:not(.active)").live("mouseout", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_BW.png");
+    });
+
+    $(".person_edit_tab:not(.active)").live("mouseup", function(){
+        $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
+        $(".person_edit_tab").removeClass("active");
+        $(this).addClass("active");
+        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
+    });
+});
+
+//organisatiomn eidt tabs image change
+$(function(){
+    $(".organisation_edit_tab:not(.active)").live("mouseover", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+".png");
+    });
+
+    $(".organisation_edit_tab:not(.active)").live("mouseout", function(){
+        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_BW.png");
+    });
+
+    $(".organisation_edit_tab:not(.active)").live("mousedown", function(){
+        $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
+        $(".organisation_edit_tab").removeClass("active");
+        $(this).addClass("active");
+        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_title.png");
+    });
+});
+
+/*user account*/
+
+$(function(){
+    $('#generate_new_password').live('click', function(){
+
+        $.ajax({
+            type: "Post",
+            url: "/login_accounts/generate_password.js",
+            data: "login_account_id=" + $(this).attr('login_account_id'),
+            dataType:"script"
+
+        });
+
+    });
+
+});
+
+/*Contact form add button form to default phone form*/
+$(function(){
+    $(".clear_form_to_phone").live("click", function(){
+        $("#select_contact_type").val("Phone").change();
+
+        if($("#phone_contact_meta_type_id").val() == null)
+        {
+            $("#phone_pre_value").attr('readonly','readonly');
+            $("#phone_value").attr('readonly','readonly');
+            $("#phone_post_value").attr('readonly','readonly');
+            $("#phone_remarks").attr('readonly','readonly');
+            $("#contact_phone_submit").attr('readonly','readonly');
+            if($("#phone_contact_meta_type_id").val() == null)
+            {
+                $("#phone_pre_value").attr('readonly','readonly');
+                $("#phone_value").attr('readonly','readonly');
+                $("#phone_post_value").attr('readonly','readonly');
+                $("#phone_remarks").attr('readonly','readonly');
+                $("#contact_phone_submit").attr('disabled','disabled');
+
+            }
+
+            if($("#email_contact_meta_type_id").val() == null)
+            {
+                $("#email_remarks").attr('readonly','readonly');
+                $("#email_value").attr('readonly','readonly');
+                $("#submit_email_field").attr('readonly','readonly')
+            }
+
+            if($("#website_contact_meta_type_id").val() == null)
+            {
+                $("#website_value").attr('readonly','readonly');
+                $("#website_remarks").attr('readonly','readonly');
+                $("#submit_website_field").attr('readonly','readonly')
+            }
+            if($("#email_contact_meta_type_id").val() == null)
+            {
+                $("#email_remarks").attr('readonly','readonly');
+                $("#email_value").attr('readonly','readonly');
+                $("#submit_email_field").attr('disabled','disabled');
+            }
+
+            if($("#website_contact_meta_type_id").val() == null)
+            {
+                $("#website_value").attr('readonly','readonly');
+                $("#website_remarks").attr('readonly','readonly');
+                $("#submit_website_field").attr('disabled','disabled');
+            }
+
+        }
+    });
+});
+
+
+/*Contact form add button form to default phone form*/
+$(function(){
+    $("#feedback").live("click", function(){
+
+        $('#feedback_form').dialog( {
+            modal: true,
+            resizable: false,
+            draggable :false,
+            height: 650,
+            width: 800
+        }
+    );
+        $("#feedback_form").dialog("open");
+        $("#feedback_item_subject").val("");
+        $("#feedback_item_content").val("");
+
+
+    });
+});
+
+
+
+$(function(){
+    $(".clear_form_to_address").live("click", function(){
+
+        if($("#address_address_type_id").val() == null)
+        {
+            $("#address_building_name").attr('readonly','readonly');
+            $("#address_suite_unit").attr('readonly','readonly');
+            $("#address_street_number").attr('readonly','readonly');
+            $("#address_street_name").attr('readonly','readonly');
+            $("#address_town").attr('readonly','readonly');
+            $("#address_state").attr('readonly','readonly');
+            $("#address_postal_code").attr('readonly','readonly');
+            $("#address_country_id").attr('readonly','readonly');
+            $("#address_submit_button").attr('disabled','disabled');
+
+        }
+    });
+});
+
+/*new-design--group permission*/
+
+$(function(){
+
+    $(".show_module_form").live('change',function(){
+
+        if ($(this).val()!= ""){
+            $.ajax({
+                type:"GET",
+                url: "/group_permissions/show_module.js",
+                data:"system_permission_module_id="+$(this).val() + '&group_id=' + $("#group_permission_user_group_id").val(),
+                dataType:"script"
+
+            });
+            $('#permission_form').show();
+        }else{
+
+            $('#permission_form').hide();
+        }
+
+    });
+});
+
+
+
+$(function(){
+    $(".group_permission_color").live('mouseover', function(){
+        $(this).addClass("color_change");
+    });
+});
+
+$(function(){
+    $(".group_permission_color").live('mouseout', function(){
+        $(this).removeClass("color_change");
+    });
+});
+
+/*use for click the module show the whole thing*/
+$(function(){
+    $("#show_controllers").live('click', function(){
+        $.ajax({
+            type:"GET",
+            url:"/group_permissions/show_controllers.js",
+            data:"main_module_id="+$(this).attr('main_module_id'),
+            dataType:"script"
+
+        });
+
+    });
+
+});
+
+$(function(){
+    $(".module_select_all").live('click', function(){
+        if ($(this).attr("checked") == true){
+            $('.controller_select_all').attr("checked", true);
+            $('.method_select_all').attr("checked", true);
+        }else{
+            $('.controller_select_all').attr("checked", false);
+            $('.method_select_all').attr("checked", false);
+        }
+
+    });
+});
+
+$(function(){
+    $("#new_group_permission").live('click', function(){
+        $(this).css("display", "none");
+        $(".group_permission_delete").css("display", "none");
+
+        $.ajax({
+            type: "GET",
+            url: "/group_permissions/new.js",
+            data:"group_id="+$(this).attr('group_id'),
+            dataType: "script"
+        });
+        $("#close_new_module").css("display", "");
+    });
+});
+
+/*when you slecet the controller , all the method will be on*/
+$(function(){
+    $('.controller_select_all').live('click', function(){
+        if ($(this).attr('checked') == true){
+            $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+        }else{
+            $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
+            $('.module_select_all').attr("checked", false);
+        }
+    });
+});
+
+$(function(){
+    $('.method_select_all').live('click', function(){
+        if ($(this).attr('checked') == false){
+            $('.module_select_all').attr("checked", false);
+            $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
+        }
+    });
+});
+
+$(function(){
+    $("#close_new_module").live('click', function(){
+        $(this).css("display", "none");
+        $('#hide_module').html('');
+        $('#new_group_permission').css("display", "");
+        $(".group_permission_delete").css("display", "");
+    });
+});
+
+
+/* disabled form */
+$(function(){
+    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("select").attr("disabled", true);
+});
+
+
+/* Admin Add Keyword*/
+
+$(function(){
+    $("#keyword_add_entry").live('click', function(){
+        $("#keyword_add_entry_form").show();
+        $("#edit_keyword_entry").html("");
+
+        //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+        $("#type_id").val($("#keyword_type").val());
+        $("#keyword_type").attr("disabled",true);
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+
+    });
+});
+
+$(function(){
+    $("#keyword_close_entry").live('click', function(){
+        $("#keyword_add_entry_form").hide();
+        $("#edit_keyword_entry").html("");
+        $("#keyword_type").attr("disabled",false);
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+    });
+});
+
+$(function(){
+    $("#close_edit_keyword_entry").live('click', function(){
+        $("#keyword_add_entry").css("display","");
+        $("#keyword_mode").attr('mode', 'show');
+        $("#keyword_add_entry_form").hide();
+        $("#keyword_type").attr("disabled",false);
+        $("#edit_keyword_entry").html("");
+        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+        $.ajax({
+            type: "GET",
+            url: "/keywords/keywords_finder.js",
+            data: 'type=' + $("#keyword_type").val(),
+            dataType: "script"
+        });
+    });
+});
+
+//$(function(){
+//    $("#close_edit_keyword_entry").live('click', function(){
+//         $("#keyword_add_entry").css("display","");
+//      $("#keyword_mode").attr('mode', 'show');
+//
+//       $.ajax({
+//                type: "GET",
+//                url: "/keywords/keywords_finder.js",
+//                data: 'type=' + $("#keyword_type").val(),
+//                dataType: "script"
+//            });
+//    });
+//});
+
+$(function(){
+    $("#keyword_type").live('change', function(){
+        if($(this).val()==""){
+            $("#keyword_main_contents").hide();
+            $("#keyword_entries").html("");
+            $("#edit_keyword_entry").html("");
+        } else {
+            $("#edit_keyword_entry").html("");
+           
+        
+            $("#amazon_setting_type").val($(this).val());
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keywords_finder.js",
+                data: 'type=' + $(this).val(),
+                dataType: "script"
+            });
+            $("#keyword_main_contents").show();
+        }
+        $("#keyword_mode").attr('mode', 'show');
+    });
+});
+
+
+
+
+$(document).ready(function() {
+    $(".admin_password_reset").validationEngine({
+        validationEventTriggers:"keyup blur",
+
+        success :  false,
+
+        failure : function() { callFailFunction()  }
+
+    });
+});
+
+
+$(function(){
+    $("#reply_to_feedback").live('click', function(){
+        $("#reply_to_feedback").hide();
+        $("#feedback_reply").show();
+    });
+});
+
+$(function(){
+    $("#close_feedback").live('click', function(){
+        $("#feedback_reply").hide();
+        $("#reply_to_feedback").show();
+    });
+});
+
+
+$(function(){
+    $("#display_feedback_reply").live('click', function(){
+        $("#display_feedback_reply").hide();
+        $("#hide_feedback_reply").show();
+        $("#feedback_reply").show();
+    });
+});
+
+/* sing out warning message*/
+
+$('#signout').live('click', function(){
+    //    $('#signout_warning_message_image').css("display","");
+    //      $('#singoutmessage').css("display","");
+    $('#signout_warning_message').dialog({
+        modal: true,
+        resizable: true,
+        draggable: true,
+        height: 'auto',
+        width: 'auto',
+        buttons: {
+            Yes: function(){
+                window.open("/signin/signout", "_self");
+                $(this).dialog('close');
+                return true;
+            },
+            No: function(){
+                $(this).dialog('close');
+                return true;
+
+            }
+        }
+    });
+    $('#signout_warning_message').dialog('option', 'title', 'Warning');
+    $('#signout_warning_message').parent().find("a").css("display","none");
+    $('#signout_warning_message').dialog('open');
+    return false;
+});
+
+
+/* Powernet Menu Module*/
+$(function(){
+    $(".switch_module_status").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/available_modules/switch_status.js",
+            data: 'id=' + $(this).attr("module_id"),
+            dataType: "script"
+        });
+    });
+});
+
+
+
+$(function(){
+    $("#hide_feedback_reply").live('click', function(){
+        $("#hide_feedback_reply").hide();
+        $("#display_feedback_reply").show();
+        $("#feedback_reply").hide();
+    });
+});
+
+/* Dashboard */
+$(function(){
+    $(".read_more").live('click', function(){
+        $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
+        $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
+        $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
+    });
+});

@@ -4,14 +4,12 @@
     -div_for(i, :style => "width:50%;float:left;") do
       .info_container
         .head_container
-          = link_to image_tag('delete_icon.png'), group_permission_path(i), :class => 'delete group_permission_delete', :style => "float:right;"
+          = link_to image_tag('delete_icon.png'), group_permission_path(i), :class => 'delete group_permission_delete', :style => "float:right;", :field => "Permission"
           = i.id
           \--
           = i.system_permission_type.system_permission_meta_type.system_permission_meta_meta_type.name
           \--
           = i.system_permission_type.system_permission_meta_type.name
           \--
-          = i.system_permission_type.name
-       
-          
+          = i.system_permission_type.name          
 %br.clear

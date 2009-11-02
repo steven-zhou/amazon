@@ -5,8 +5,9 @@ describe OrganisationsController do
   before(:each) do
     @primary_list = Factory(:primary_list)
     @organisation = Factory.build(:google)
-    @attributes = Factory.attributes_for(:google)
+    @attributes = @organisation.attributes
     @person = Factory(:person)
+    ClientOrganisation.stub!(:new).and_return(@organisation)
     Organisation.stub!(:find).and_return(@organisation)
     session[:user] = Factory(:login_account).id
   end
@@ -17,8 +18,9 @@ describe OrganisationsController do
   end
 
   def post_create(options = {})
+    options[:type] ||= "ClientOrganisation"
     options[:organisation] ||= @attributes
-    post :create, {:organisation => @attributes}
+    post :create, options
   end
 
   def get_edit(options = {})
@@ -96,13 +98,11 @@ describe OrganisationsController do
   describe "POST 'create'" do
     context "when params are valid" do
       before(:each) do
-        Organisation.stub!(:new).and_return(@organisation)
         @organisation.stub!(:save).and_return(true)
-        session[:user] = Factory(:login_account).id
       end
 
       it "should build the organisation" do
-        Organisation.should_receive(:new).with(hash_including(@attributes)).and_return(@organisation)
+        ClientOrganisation.should_receive(:new).with(hash_including(@attributes)).and_return(@organisation)
         post_create
       end
 
@@ -123,37 +123,9 @@ describe OrganisationsController do
 
     end
 
-    context "when params are invalid" do
-
-      before(:each) do
-        @invalid = Factory.build(:invalid_organisation)
-        @invalid.emails.build()
-        @invalid.addresses.build()
-        @invalid.phones.build()
-        @invalid.faxes.build()
-        @invalid.websites.build()
-        Organisation.stub!(:new).and_return(@invalid)
-        @organisation.stub!(:save).and_return(false)
-      end
-
-      it "should render new if unsucessful" do
-        post_create
-        response.should render_template('new')
-      end
-
-      it "should flash an error message if unsuccessful" do
-        post_create
-        flash[:warning].should have_at_least(1).things
-      end
-
-    end
   end
 
   describe "GET 'edit'" do
-
-    before(:each) do
-      Organisation.stub!(:find).and_return(@organisation)
-    end
 
     it "should find the correctly set @organisation if params[:organisation_id] is specified" do
       get_edit(:organisation_id => @organisation.id)
@@ -168,8 +140,6 @@ describe OrganisationsController do
 
    describe "PUT :update" do
     it "should get the request organisation general info" do
-      session[:user] = Factory(:login_account).id
-      @organisation = Factory(:google)
       Organisation.should_receive(:find).with(@organisation.id.to_s).and_return(@organisation)
       put_update :organisation_id => @organisation.id
     end

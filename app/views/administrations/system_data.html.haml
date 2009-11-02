@@ -15,9 +15,9 @@
     %div#system_data_main_contents{:style => "display:none;"}
       .container#system_data_add_data
         %div
-          = image_tag("close_icon.png" , :class => "close_option", :style => "display:none;float:right;", :field => "system_data")
+          = image_tag("close_icon.png" , :class => "close_option", :id=> "system_data_close_entry",:style => "display:none;float:right;", :field => "system_data")
           = image_tag("add_icon.png" , :size => "19x18", :id => "system_data_add_entry", :class => "new_option", :field => "system_data")
-          Add Data
+          New Data
         %div#system_data_add_entry_form{:style => "display:none;"}
           %br.clear
           - form_for AmazonSetting.new, :url => {:controller => "amazon_settings", :action => "new_setting"}, :html => {:class => "ajax_form"} do |p|
@@ -29,10 +29,11 @@
               .field_35
                 = p.label :description, 'Description'
                 = p.text_field :description
-              .field_30
-                = p.label :active
+              .field_10
+                = p.label :active, 'Active'
                 %label
-                  = p.check_box :status
+                = p.check_box :status, {:style => "width:auto;"}
+              .field_20{:style => "margin-top: 8px;"}
                 = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
           
 

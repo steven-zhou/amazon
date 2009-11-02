@@ -1,13 +1,12 @@
 - routing = Hash.new{|h,k| h[k]=Hash.new(&h.default_proc) }
 - routing[:administrations][:system_data]               = {:controller => "configuration", :action => "system_data" }
+- routing[:administrations][:keyword_dict]               = {:controller => "configuration", :action => "keyword_dict" }
 - routing[:administrations][:custom_groups]             = {:controller => "configuration", :action => "custom_groups" }
-- routing[:administrations][:query_tables]              = {:controller => "configuration", :action => "query_tables" }
 - routing[:administrations][:master_docs]               = {:controller => "configuration", :action => "master_docs" }
 - routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
 - routing[:administrations][:roles_management]          = {:controller => "configuration", :action => "roles_management" }
 - routing[:administrations][:contact_types]             = {:controller => "configuration", :action => "contact_types" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
-- routing[:administrations][:access_permissions]        = {:controller => "security", :action => "access_permissions" }
 - routing[:administrations][:group_permissions]         = {:controller => "security", :action => "group_permissions" }
 - routing[:administrations][:group_lists]               = {:controller => "security", :action => "group_lists" }
 - routing[:administrations][:security_groups]           = {:controller => "security", :action => "security_groups" }
@@ -20,31 +19,47 @@
 
 %ul#menu{:style => "min-height:500px;"}
 
+  - # System Setup Menu
+  %li{:id => @current_controller == "client_setups" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "client_setups"
+        = link_to "#{image_tag('Icons/Admin/System Setup/System_setup.png')} System Setup", :controller => "client_setups", :action => "parameters"
+      - else
+        <p>System Setup</p>
+        %ul
+          %li{:id => @current_action == "parameters" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
+          %li{:id => @current_action == "license_info" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
+
+    .bottom
+
   - # Configuration Menu
   %li{:id => controller == "configuration" ? "menu_active" : ""}
     .top
     .item
       - if controller != "configuration"
-        = link_to controller == "configuration" ? "#{image_tag('icon_holder.png')} Configuration" :"Configuration", :controller => "administrations", :action => "system_data"
+        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Configuration", :controller => "administrations", :action => "system_data"
       -else
         <p>Configuration</p>
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} System Data", :controller => "administrations", :action => "system_data"
+            = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data", :controller => "administrations", :action => "system_data"
+          %li{:id => action == "keyword_dict" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Keywords", :controller => "administrations", :action => "keyword_dict"
           %li{:id => action == "custom_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
-          %li{:id => action == "query_tables" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Query Tables", :controller => "administrations", :action => "query_tables"
+            = link_to "#{image_tag('Icons/Admin/Configuration/custom_group.png')} Custom Groups", :controller => "administrations", :action => "custom_groups"
           %li{:id => action == "master_docs" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Master Docs", :controller => "administrations", :action => "master_docs"
+            = link_to "#{image_tag('Icons/Admin/Configuration/MasterDocs.png')} Master Docs", :controller => "administrations", :action => "master_docs"
           %li{:id => action == "role_conditions" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Role Conditions", :controller => "administrations", :action => "role_conditions"
-          %li{:id => action == "roles_managment" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Roles Management", :controller => "administrations", :action => "roles_management"
+          %li{:id => action == "roles_management" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Configuration/roles.png')} Roles Management", :controller => "administrations", :action => "roles_management"
           %li{:id => action == "contact_types" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Contact Types", :controller => "administrations", :action => "contact_types"
+            = link_to "#{image_tag('Icons/Admin/Configuration/contact_types.png')} Contact Types", :controller => "administrations", :action => "contact_types"
           %li{:id => action == "duplication_check" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Duplication Check", :controller => "administrations", :action => "duplication_check"
+            = link_to "#{image_tag('Icons/Admin/Configuration/duplications.png')} Duplication Check", :controller => "administrations", :action => "duplication_check"
     .bottom
 
   - # Security Menu
@@ -52,18 +67,16 @@
     .top
     .item
       - if controller != "security"
-        = link_to controller == "security" ? "#{image_tag('icon_holder.png')} Security" :"Security", :controller => "administrations", :action => "access_permissions"
+        = link_to "#{image_tag('Icons/Admin/Security/security.png')} Security Group", :controller => "administrations", :action => "security_groups"
       - else
-        <p>Security</p>
+        <p>Security Groups</p>
         %ul
-          %li{:id => action == "access_permissions" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Access Permissions", :controller => "administrations", :action => "access_permissions"
-          %li{:id => action == "group_permissions" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Group Permissions", :controller => "administrations", :action => "group_permissions"
-          %li{:id => action == "group_lists" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Group Lists", :controller => "administrations", :action => "group_lists"
           %li{:id => action == "security_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Security Groups", :controller => "administrations", :action => "security_groups"
+            = link_to "#{image_tag('Icons/Admin/Security/group_manager.png')} Manager", :controller => "administrations", :action => "security_groups"
+          %li{:id => action == "group_lists" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Security/group_list.png')} Lists", :controller => "administrations", :action => "group_lists"
+          %li{:id => action == "group_permissions" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Security/group_permissions.png')} Access", :controller => "administrations", :action => "group_permissions"
     .bottom
 
   - # Users Menu
@@ -71,15 +84,30 @@
     .top
     .item
       - if controller != "users"
-        = link_to controller == "users" ? "#{image_tag('icon_holder.png')} Users" :"Users", :controller => "administrations", :action => "user_accounts"
+        = link_to "#{image_tag('Icons/Admin/Users/users.png')} Users", :controller => "administrations", :action => "user_accounts"
       - else
         <p>Users</p>
         %ul
           %li{:id => action == "user_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Account", :controller => "administrations", :action => "user_accounts"
+            = link_to "#{image_tag('Icons/Admin/Users/user_accounts.png')} User Account", :controller => "administrations", :action => "user_accounts"
           %li{:id => action == "user_groups" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User Group", :controller => "administrations", :action => "user_groups"
+            = link_to "#{image_tag('Icons/Admin/Users/user_groups.png')} User Group", :controller => "administrations", :action => "user_groups"
           %li{:id => action == "user_lists" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} User List", :controller => "administrations", :action => "user_lists"
+            = link_to "#{image_tag('Icons/Admin/Users/users_lists.png')} User List", :controller => "administrations", :action => "user_lists"
 
+    .bottom
+
+  - # System Maintenance Menu
+  %li{:id => @current_controller == "maintenance" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "maintenance"
+        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
+      - else
+        <p>Maintenace</p>
+        %ul
+          %li{:id => @current_action == "system_backup" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Data Backup", :controller => "maintenance", :action => "system_backup"
+          %li{:id => @current_action == "system_restore" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Admin/Maintenance/database_restore.png')} Data Restore", :controller => "maintenance", :action => "system_restore"
     .bottom

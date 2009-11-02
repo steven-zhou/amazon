@@ -1,7 +1,7 @@
 - form_for @person, :html => {:multipart => true, :id => "add_person"} do |p|
   #header
     #page_title
-      %h1 Add Person
+      %h1 New Person
       %input.hidden{:id => :person_id, :value => @person.id}
     #lol
   #left_content
@@ -47,4 +47,4 @@
 %br.clear
 
   #personal_check_duplication
-    
+

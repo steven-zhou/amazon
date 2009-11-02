@@ -1,4 +1,12 @@
+ <%if @organisation.nil? -%>
+
+$('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/personal_address_type",:locals => {:address => @address_new })) %>');
 $('#<%= dom_id(@address, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @address)) %>");
+ <% else %>
+$('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/organisation_personal_address_type",:locals => {:address => @address_new })) %>');
+$('#<%= dom_id(@address, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @address)) %>");
+
+<%end%>
 
 $('.person_address_toggle_button').css("display","");
 $('#address_hidden_tab').attr('mode','show');

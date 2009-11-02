@@ -7,12 +7,12 @@
       %br.clear
 
   #left_content
-    - form_for @organisation, :html=>{:multipart => true, :id=>"organisation_names_form"} do |p|
-      .container
+    - form_for @organisation, :url => {:controller => "organisations", :action => "update"} , :html=>{:class => (@super_admin || @organisation.class.to_s != "ClientOrganisation") ? "" : "disabled_form", :multipart => true, :id=>"organisation_names_form"} do |p|
+      .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" : ""}
         %h1 Name Details
         = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
         %input.hidden{:id => :organisation_id, :value => @organisation.id}
-      .container
+      .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" : ""}
         %h1 Legal Details
         = render :partial => 'organisation_legal_details_fields', :locals => {:p => p}
       .container
@@ -26,26 +26,29 @@
     
 
   #right_content
-    #tabs
-      = render :partial => 'organisation_menu'
-      #Address
-        = render :partial => "/addresses/organisation_addresses_tab",:locals =>{:organisation => @organisation}
-      #Contact
-        = render :partial => "/contacts/organisation_contacts_tab", :locals => {:organisation => @organisation}
-      #Keyword
-        = render :partial => "/keywords/organisation_keywords_tab",:locals =>{:organisation => @organisation}
-      #MasterDocs
-        = render :partial => "/master_docs/organisation_masterdocs_tab", :locals =>{:organisation => @organisation}
-      #Note
-        = render :partial => "/notes/organisation_notes_tab",:locals =>{:organisation => @organisation}
+    - if @super_admin || @organisation.class.to_s != "ClientOrganisation"
+      #tabs
+        = render :partial => 'organisation_menu'
+        #Address
+          = render :partial => "/addresses/organisation_addresses_tab",:locals =>{:organisation => @organisation}
+        #Contact
+          = render :partial => "/contacts/organisation_contacts_tab", :locals => {:organisation => @organisation}
+        #Keyword
+          = render :partial => "/keywords/organisation_keywords_tab",:locals =>{:organisation => @organisation}
+        #MasterDocs
+          = render :partial => "/master_docs/organisation_masterdocs_tab", :locals =>{:organisation => @organisation}
+        #Note
+          = render :partial => "/notes/organisation_notes_tab",:locals =>{:organisation => @organisation}
 
-      #Employee
-        = render :partial => '/organisations/organisation_employee'
+        #Employee
+          = render :partial => '/organisations/organisation_employee'
 
-      #Group
-        = render :partial => "/organisation_groups/group_tab", :locals => {:organisation => @organisation}
-
+        #Group
+          = render :partial => "/organisation_groups/group_tab", :locals => {:organisation => @organisation}
+    -else
+      = render :partial => "/organisations/organisation_info"
   #duplication_box
   #show_organisation_list_grid
   #organisation_lookup_dialog
+
  

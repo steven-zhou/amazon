@@ -1,0 +1,55 @@
+.container
+  .containter
+    %h2
+      = "#{@feedback_item.id} (#{@feedback_item.status}) - #{@feedback_item.subject}"
+      %p &nbsp;
+      .container
+        = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
+      Content:
+      %br
+      = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :style => "width:100%;")
+      - if (@feedback_item.response.nil? || @feedback_item.response.empty? )
+        &nbsp;
+        %br.clear
+        = submit_tag("Reply", :id => "reply_to_feedback", :style => "text-align:right;")
+- if (@feedback_item.response.nil? || @feedback_item.response.empty? )
+  %br.clear
+  %div#feedback_reply{:style => "display:none;"}
+    .container
+      = image_tag("/images/Icons/System/close.png", :style => "float:right;display:inline;", :id => "close_feedback")
+      %br.clear
+      %h2
+        Reply Message
+      %br.clear
+        .container
+          From:
+          = "#{@current_user.user_name} - #{@current_user.security_email} - #{Date.today().strftime('%a %d %b %Y')}"
+        .container
+          To:
+          = "#{@feedback_item.login_account.user_name} - #{@feedback_item.login_account.security_email}"
+        - form_tag("/feedback/submit_reply", :class => "ajax_form") do
+          %input{:style => "display:none;", :name => "id", :value => "#{@feedback_item.id}", :type => "text"}
+          %br.clear
+          %p Subject
+          = text_field_tag :feedback_reply_subject, "Reply to: #{@feedback_item.subject} - #{@feedback_item.id}", :style => "width:100%;"
+          %br.clear
+          %p Content
+          = text_area_tag :feedback_reply_content, nil, :style => "width:100%;"
+          %br.clear
+          %p
+          = submit_tag "Send", :id => "feedback_reply_submit", :style => "text-align:right;"
+- else
+  %br.clear
+  .container
+    %h2
+      = image_tag("closed_accordion.png", :style => "float:right;display:inline;display:none;", :id => "hide_feedback_reply")
+      = image_tag("open_accordion.png", :style => "float:right;display:inline;",  :id => "display_feedback_reply")
+      Reply Message
+      %p &nbsp;
+      %div#feedback_reply{:style => "display:none;"}
+        .container
+          = "Replied to by: #{@feedback_item.responder.person.name} on #{@feedback_item.response_date.strftime('%a %d %b %Y')}"
+        %br.clear
+        %p
+          Content
+        = text_area_tag :display_feedback_reply, "#{@feedback_item.response}", :style => "width:100%;"

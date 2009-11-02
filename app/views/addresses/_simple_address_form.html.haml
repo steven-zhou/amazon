@@ -18,37 +18,33 @@
     = address.label :street_name, 'Street Name'
     = address.text_field :street_name
   %br.clear
-.form_line{:style =>'min-height:55px;'}
-  .field_45
+.form_line
+  .field_40{:style => "margin: 0px;"}
     = address.label :town, 'Suburb/Town'
     = address.text_field :town
-    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
+  .field_5
+    %label &nbsp;
+    -if !@person.nil?
+      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"person_addresses_attributes_0_town", :update_field2 =>"person_addresses_attributes_0_state",:update_field3 => "person_addresses_attributes_0_postal_code", :update_field4 => "person_addresses_attributes_0_country_id"
+    -else
+      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"organisation_addresses_attributes_0_town", :update_field2 =>"organisation_addresses_attributes_0_state",:update_field3 => "organisation_addresses_attributes_0_postal_code", :update_field4 => "organisation_addresses_attributes_0_country_id"
   .field_45
     = address.label :state, 'State/Province'
     = address.text_field :state
-    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
   %br.clear
-.form_line{:style =>'min-height:55px;'}
+.form_line
   .field_45
     = address.label :postal_code, 'Postal Code'
     = address.text_field :postal_code
-    = link_to_function image_tag 'application_view_detail.png', :style => 'display:inline', :id => "launch_address_assistant"
   .field_45
     = address.label :country, 'Country'
     = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
   %br.clear
 
 
-%div#address_form_assistant{:style => "display:none"}
-
-  Suburb:
-  %input{:type => "text", :id => "address_assistant_suburb", :class => "address_assistant_search", :size => "15"}
-  State:
-  %input{:type => "text", :id => "address_assistant_state", :class => "address_assistant_search" , :size => "5"}
-  Postcode:
-  %input{:type => "text", :id => "address_assistant_postcode", :class => "address_assistant_search", :size => "5"}
-
-  = render :partial => "/addresses/address_assistant"
+%div#address_form_assistant
+  %table#address_postcode
+  %input{ :style => "display:none",:id => "address_postcode_input", :update_field1 => " ",:update_field2 => " " ,:update_field3 => " "}
 
 -#.field_33
 -#= address.label :district, 'District'

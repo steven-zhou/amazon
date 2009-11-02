@@ -66,6 +66,12 @@ class Address < ActiveRecord::Base
   def formatted_value
     "#{self.building_name} #{self.suite_unit} #{self.street_number} #{self.street_name} #{self.town} #{self.district} #{self.region} #{self.state} #{self.postal_code} #{self.country_short_name}".squeeze(" ").strip
   end
+
+   def check_address_type
+    @address_type = Array.new
+    @address_type <<  AmazonSetting.find(self.address_type_id)
+    return @address_type
+  end
   
   #--
   ###################

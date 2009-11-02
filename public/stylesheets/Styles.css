@@ -42,7 +42,7 @@ body {
     background-repeat: repeat-y;
     -moz-border-radius-topleft: 10px;
     -moz-border-radius-bottomleft: 10px;
-    width: 120px;
+    width: 150px;
     height: 22px;
     padding: 10px;
     font-family: Arial, Helvetica, sans-serif;
@@ -62,54 +62,54 @@ body {
 /*------------------------------*/
 
 #app #main #sysbar .bar_section #module_menu #module_menu_top {
-	height: 68px;
-	cursor: pointer;
-	background-image:url(../images/icon_ds.png);
-	background-repeat:no-repeat;
-	background-position: 9px 3px;
+    height: 68px;
+    cursor: pointer;
+    background-image:url(/images/icon_ds.png);
+    background-repeat:no-repeat;
+    background-position: 9px 3px;
 }
 
 #app #main #sysbar .bar_section #module_menu #module_menu_top.hover {
-	height: 68px;
-	cursor: pointer;
-	margin-left: -22px;
-	position: relative;
-	width: 180px;
-	background-image:url(../images/module_mentop.png);
-	background-repeat:no-repeat;
-	background-position: top;
+    height: 68px;
+    cursor: pointer;
+    margin-left: -22px;
+    position: relative;
+    width: 180px;
+    background-image:url(/images/module_mentop.png);
+    background-repeat:no-repeat;
+    background-position: top;
 
 }
 
 #app #main #sysbar .bar_section #module_menu #module_menu_connector {
-	z-index:999;
-	position: relative;
-	height:68px;
-	}
-	/* Menu top end */
+    z-index:999;
+    position: relative;
+    height:68px;
+}
+/* Menu top end */
 #app #main #sysbar .bar_section #module_menu #module_menu_items {
 
-	width: 180px;
-	margin-left: -22px;
-	z-index:999;
-	position: relative;
-	display: none;
-	left: 0px;
-	top: 0px;
-	}
-
-	/* Rounded bottom */
-#app #main #sysbar .bar_section #module_menu #module_menu_bottom {
-	background-image: url(../images/module_menbottom.png);
-	background-repeat: no-repeat;
-	background-position: left;
-	height: 18px;
+    width: 180px;
+    margin-left: -22px;
+    z-index:999;
+    position: relative;
+    display: none;
+    left: 0px;
+    top: 0px;
 }
 
-#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:180px;background-image: url(../images/module_menmiddle.png);	background-repeat:repeat-y;	background-position: center;}
+/* Rounded bottom */
+#app #main #sysbar .bar_section #module_menu #module_menu_bottom {
+    background-image: url(/images/module_menbottom.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 18px;
+}
+
+#app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:180px;background-image: url(/images/module_menmiddle.png);	background-repeat:repeat-y;	background-position: center;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color: transparent; height:40px; padding: 5px 0 0 10px; border-bottom: 1px solid #ccc; margin-right: 9px; font-family: Arial, Helvetica, sans-serif;	font-size: 18px; font-style: normal; font-weight: normal; color: #666;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { padding-bottom:0px;}
-#app #main #sysbar .bar_section #module_menu #module_menu_items li.hover {background-color: transparent; background-image: url(../images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li.hover {background-color: transparent; background-image: url(/images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li img { vertical-align:text-bottom; margin-right: 5px;}
 
 
@@ -120,43 +120,72 @@ body {
 
 
 #sysbar {
-	background-image:url(../images/sysbar_bg.jpg);
-	background-repeat:repeat-x;
-	width: 100%;
-	height: 50px;
-	margin-top: 15px;
-	margin-bottom: 10px;
-	padding: 0px 10px;
-	-moz-border-radius: 15px;
+    background-image:url(/images/sysbar_bg.jpg);
+    background-repeat:repeat-x;
+    width: 100%;
+    height: 50px;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    padding: 0px 10px;
+    -moz-border-radius: 15px;
 }
 
 #app #main #sysbar .bar_section:first-child {
-	border-left: none;
-	width: 12%;
-	padding-top: 2px;
+    border-left: none;
+    width: 10%;
+    padding-top: 2px;
 
 }
 
 #app #main #sysbar .bar_section {
-	padding: 0.5%;
-	height: 40px;
-	width: 37%;
-	background-color: transparent;
-	display: inline-block;
-	border-right-width: 1px;
-	border-left-width: 1px;
-	border-right-style: solid;
-	border-left-style: solid;
-	border-right-color: #FFF;
-	border-left-color: #BBB;
-	margin-left: 0px;
-	line-height: 35px;
-	float:left;
+    padding: 0.5%;
+    height: 39px;
+    background-color: transparent;
+    display: inline-block;
+    border-right-width: 1px;
+    border-left-width: 1px;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-right-color: #FFF;
+    border-left-color: #BBB;
+    margin-left: 0px;
+    line-height: 35px;
+    float:left;
+    text-align: center;
 }
-#app #main #sysbar .bar_section:last-child {
-	border-right: none;
-	width: 4%;
+
+#app #main #sysbar .bar_section#menu  {
+    text-align:left;
 }
+
+#app #main #sysbar .bar_section#toolbar  {
+    width: 51%;
+}
+
+#app #main #sysbar .bar_section#sys_icons {
+    width: 8%;
+}
+
+#app #main #sysbar .bar_section#search {
+    width: 18%;
+}
+
+#app #main #sysbar .bar_section#help {
+    width: 7%;
+     border-right: none;
+}
+
+#app #main #sysbar .bar_section#help img {
+    vertical-align: middle;
+    padding-top: 0px;
+}
+
+
+
+/*#app #main #sysbar .bar_section:last-child {
+    border-right: none;
+    width: 4%;
+}*/
 
 /* End system bar */
 
@@ -180,11 +209,16 @@ body {
     padding: 10px 0 10px 10px ;
     float: right;
 }
-#app #lc #menu #menu_active .item img {
-    vertical-align:text-bottom;
-    margin-right: 5px;
+
+img {
+    vertical-align:middle;
 }
 
+/*#app #lc #menu #menu_active .item img {
+vertical-align:text-bottom;
+margin-right: 5px;
+}
+*/
 #app #lc #menu #menu_active .item ul {
     float:left;
     display:block;
@@ -240,7 +274,7 @@ body {
     background-color: #f6f6f6;
     width:100%;
     float: left;
-    min-height: 500px;
+    min-height: 700px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
@@ -279,6 +313,19 @@ body {
     width: 96%;
     float: left;
     padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#app #main #content .container_half {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 46%;
+    float: left;
+    padding: 1%;
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;
@@ -396,6 +443,7 @@ body {
 #app #main #content .container .form_line .field_2,
 #app #main #content .container .form_line .field_5,
 #app #main #content .container .form_line .field_10,
+#app #main #content .container .form_line .field_11,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_22,
@@ -428,6 +476,7 @@ body {
 #app #main #content .container .form_line .field_2 {width: 2%;}
 #app #main #content .container .form_line .field_5 {width: 5%;}
 #app #main #content .container .form_line .field_10 {width: 10%;}
+#app #main #content .container .form_line .field_11 {width: 11%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
@@ -459,14 +508,12 @@ body {
 }
 
 #app #main #content #left_content {
-    min-height: 500px;
     background-color:#F6F6F6;
     float: left;
     width: 49.5%;
     margin-right: 0.5%;
 }
 #app #main #content #right_content {
-    min-height: 500px;
     float: right;
     width: 49.5%;
     margin-left: 0.5%;
@@ -509,7 +556,7 @@ div.container div.header_container {
     display: inline;
     font-family:Arial, Helvetica, sans-serif;
     color: #232323;
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
     background-repeat:repeat;
     width: 96%;
     float: left;
@@ -708,16 +755,16 @@ div.field_62 {
 
 img.small {
     width: 90px;
-    height: 90px;
+    height: 99px;
 }
 
 img.medium {
     width: 120px;
-    height: 120px;
+    height: 132px;
 }
 img.thumb {
-    width:61px;
-    height: 61px;
+    width:60px;
+    height: 66px;
     float: left;
 }
 
@@ -729,28 +776,29 @@ img.thumb {
 
 #app #main #content  .container_icon { /*For find people page*/
 
-                                       font-family:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
 
 
-                                       background-repeat:repeat;
-                                       color: #232323;
-                                       float: right;
-                                       padding: 2%;
-                                       min-height: 10px;
-                                       -moz-border-radius-topleft:10px;
-                                       -moz-border-radius-topright:10px;
+    background-repeat:repeat;
+    color: #232323;
+    float: right;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    margin-right:10px;
 
 }
 
 .container_icon_color{
 
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
 }
 /*Temp*/
 
 p.submit{ /*This is for the submit button*/
-          text-align: right;
-          padding-right:3px;
+    text-align: right;
+    padding-right:3px;
 }
 
 .left {
@@ -800,8 +848,8 @@ p.submit{
 }
 
 #app #main #content div#accordion02 .container { /*For find people page*/
-                                                 float:none !important;
-                                                 margin-bottom:10px !important;
+    float:none !important;
+    margin-bottom:10px !important;
 }
 
 
@@ -905,10 +953,6 @@ div.info_warning {
 }
 
 /* Organisation New*/
-form#add_organisation.new_organisation input#organisation_custom_id{
-    float:right;
-    width: 200px !important;
-}
 
 form#add_organisation.new_organisation input#image_image_file{
     height: 25px !important;
@@ -940,7 +984,7 @@ form#organisation_names_form input#image_image_file{
 .ui-dialog .container {
     font-family:Arial, Helvetica, sans-serif;
     color: #232323;
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
     background-repeat:repeat;
     width: 96%;
     float: left;
@@ -997,6 +1041,7 @@ form#organisation_names_form input#image_image_file{
 .ui-dialog .container .form_line .field_15,
 .ui-dialog .container .form_line .field_20,
 .ui-dialog .container .form_line .field_25,
+.ui-dialog .container .form_line .field_23,
 .ui-dialog .container .form_line .field_27,
 .ui-dialog .container .form_line .field_30,
 .ui-dialog .container .form_line .field_33,
@@ -1019,6 +1064,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog .container .form_line .field_15 {width: 15%;}
 .ui-dialog .container .form_line .field_20 {width: 20%;}
+.ui-dialog .container .form_line .field_23 {width: 23%;}
 .ui-dialog .container .form_line .field_25 {width: 25%;}
 .ui-dialog .container .form_line .field_27 {width: 27%;}
 .ui-dialog .container .form_line .field_30 {width: 30%;}
@@ -1036,6 +1082,14 @@ form#organisation_names_form input#image_image_file{
 .ui-dialog .container .form_line .field_80 {width: 80%;}
 .ui-dialog .container .form_line .field_85 {width: 85%;}
 
+
+.ui-dialog .container select {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:20px;
+    width: 100%;
+    height: 24px;
+}
 /* Administration */
 
 /* System Data */
@@ -1145,8 +1199,8 @@ td.textright {
 #app #main #content .container .form_line .wrapimage {
     float: left;
     height: 40px;
-    margin-left: 210px;
-    position:absolute;
+    margin-left: -35px;
+    position:relative;
     padding: 5px 0px 0px 0px ;
 }
 
@@ -1219,7 +1273,7 @@ td.textright {
     float: left;
     padding: 1.5%;
     -moz-border-radius: 10px;
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
     background-repeat:repeat;
     font-family:Arial, Helvetica, sans-serif;
     min-height: 10px;
@@ -1243,6 +1297,14 @@ div.tag ul li ul {
 }
 
 div.tag ul li.open ul {
+    display:block;
+}
+
+div.tag ul li.open ul li ul {
+    display:none;
+}
+
+div.tag ul li.open ul li.open ul {
     display:block;
 }
 
@@ -1297,14 +1359,14 @@ div#content_full_page .add_container {
 
 }
 
-#app #main #content div#existing_group_list_list .container_active_50 {
+#app #main #content .container_active_50 {
 
     width: 45%;
     margin: 1%;
     float: left;
     padding: 1.5%;
     -moz-border-radius: 10px;
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
     background-repeat:repeat;
     font-family:Arial, Helvetica, sans-serif;
     min-height: 10px;
@@ -1341,8 +1403,319 @@ div.duplication_check .form_line.field_select_line {
     float: left;
     padding: 1.5%;
     -moz-border-radius: 10px;
-    background-image:url(../images/container_bg.png);
+    background-image:url(/images/container_bg.png);
     background-repeat:repeat;
     font-family:Arial, Helvetica, sans-serif;
     min-height: 10px;
+}
+
+/*checkbox style*/
+.checkbox_style{
+
+    width:auto !important;
+
+}
+
+
+/*group--permission*/
+div#show_controllers_container ul li{
+    width:85%;
+    float:none;
+    padding-left:50px
+}
+
+div#permission_form span.select_all {
+   
+    font-size:14px;
+}
+
+div#permission_form .title {
+    cursor:pointer;
+    margin-top:2px;
+}
+
+div#permission_form .container {
+    padding:1% !important;
+}
+
+div#permission_form .options{
+        width:141px;
+         display:block;
+
+    }
+
+.color_change{
+
+    color:yellow;
+
+}
+
+
+/*feedback--email*/
+#feedback_form {
+    display:none;
+    background:white;
+}
+
+#feedback_form table{
+    border:0px;
+    width:80%;
+}
+
+#feedback_form table td {
+    padding: 5px;
+    vertical-align: top;
+}
+
+#feedback_confirmation {
+    display: none;
+    text-align: center;
+}
+
+
+#feedback_item table td {
+    padding-right: 4em;
+    padding-top: 0.5em;
+}
+
+
+/*password reset*/
+#reset_password_container {
+	background-color:#FFF;
+	min-height: 40px;
+	width: 640px;
+	margin-top: 15%;
+	margin-right: auto;
+	margin-bottom: auto;
+	margin-left: auto;
+	-moz-border-radius: 15px;
+}
+
+#reset_password_container #header {
+    height: 40px;
+    width: 100%;
+}
+/* page title area */
+#reset_password_container #page_title {
+    width: 100%;
+    height: 40px;
+    float:left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    color: #2C2C2C;
+    margin-left: 1%;
+}
+
+#reset_password_container h1 {
+    color: #2C2C2C;
+    font-size:21px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+#reset_password_container .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+#reset_password_container .container .form_line {
+    float: left;
+    height: 40px;
+    width: 100%;
+}
+/* filed label properties */
+#reset_password_container .container .form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+/* field properties */
+#reset_password_container .container input {
+    font-size:14px;
+    font:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 96%;
+    height: 18px;
+
+}
+
+
+#reset_password_container .container .form_line .field_2,
+#reset_password_container .container .form_line .field_5,
+#reset_password_container .container .form_line .field_10,
+#reset_password_container .container .form_line .field_11,
+#reset_password_container .container .form_line .field_15,
+#reset_password_container .container .form_line .field_20,
+#reset_password_container .container .form_line .field_22,
+#reset_password_container .container .form_line .field_23,
+#reset_password_container .container .form_line .field_25,
+#reset_password_container .container .form_line .field_27,
+#reset_password_container .container .form_line .field_30,
+#reset_password_container .container .form_line .field_33,
+#reset_password_container .container .form_line .field_34,
+#reset_password_container .container .form_line .field_35,
+#reset_password_container .container .form_line .field_38,
+#reset_password_container .container .form_line .field_40,
+#reset_password_container .container .form_line .field_45,
+#reset_password_container .container .form_line .field_50,
+#reset_password_container .container .form_line .field_55,
+#reset_password_container .container .form_line .field_60,
+#reset_password_container .container .form_line .field_66,
+#reset_password_container .container .form_line .field_70,
+#reset_password_container .container .form_line .field_72,
+#reset_password_container .container .form_line .field_75,
+#reset_password_container .container .form_line .field_80,
+#reset_password_container .container .form_line .field_85,
+#reset_password_container .container .form_line .field_90,
+#reset_password_container .container .form_line .field_100 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+/* unique properties */
+#reset_password_container .container .form_line .field_2 {width: 2%;}
+#reset_password_container .container .form_line .field_5 {width: 5%;}
+#reset_password_container .container .form_line .field_10 {width: 10%;}
+#reset_password_container .container .form_line .field_11 {width: 11%;}
+#reset_password_container .container .form_line .field_15 {width: 15%;}
+#reset_password_container .container .form_line .field_20 {width: 20%;}
+#reset_password_container .container .form_line .field_22 {width: 22%;}
+#reset_password_container .container .form_line .field_23 {width: 23%;}
+#reset_password_container .container .form_line .field_25 {width: 25%;}
+#reset_password_container .container .form_line .field_27 {width: 27%;}
+#reset_password_container .container .form_line .field_30 {width: 30%;}
+#reset_password_container .container .form_line .field_33 {width: 33%;}
+#reset_password_container .container .form_line .field_34 {width: 34%;}
+#reset_password_container .container .form_line .field_35 {width: 35%;}
+#reset_password_container .container .form_line .field_38 {width: 38%;}
+#reset_password_container .container .form_line .field_40 {width: 40%;}
+#reset_password_container .container .form_line .field_45 {width: 45%;}
+#reset_password_container .container .form_line .field_50 {width: 50%;}
+#reset_password_container .container .form_line .field_55 {width: 55%;}
+#reset_password_container .container .form_line .field_60 {width: 60%;}
+#reset_password_container .container .form_line .field_66 {width: 66%;}
+#reset_password_container .container .form_line .field_70 {width: 70%;}
+#reset_password_container .container .form_line .field_72 {width: 72%;}
+#reset_password_container .container .form_line .field_75 {width: 75%;}
+#reset_password_container .container .form_line .field_80 {width: 80%;}
+#reset_password_container .container .form_line .field_85 {width: 85%;}
+#reset_password_container .container .form_line .field_90 {width: 90%;}
+#reset_password_container .container .form_line .field_100 {width: 100%;}
+
+/* remove margin from .form_field last div */
+#reset_password_container .container .form_line div:last-child {
+    margin: 0px;
+}
+
+
+#reset_password_container .container input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
+
+
+#psr_score { display: none; padding-left: 10px; }
+#psr_verify { display: inline; padding-left: 10px; }
+#psr_strength_notice { display: none; padding-left: 10px; }
+
+.psr_Weak { display: none; }
+.psr_Medium { display: none; }
+.psr_Strong { display: none; }
+.psr_Excellent { display: none; }
+
+#reset_password_container #psr_score { display: none; padding-left: 10px; }
+#reset_password_container #psr_verify { display: block; padding-left: 10px;color:red;margin-top:10px; }
+#reset_password_container #psr_strength_notice { display: none; padding-left: 10px; }
+
+#feedback_item table .feedback_first_column {
+    width: 15%;
+}
+
+#feedback_item table .feedback_second_column {
+    width: 40%;
+}
+
+#feedback_item table .feedback_third_column {
+    width: 15%;
+}
+
+#feedback_item table .feedback_fourth_column {
+    width: 30%;
+}
+
+
+/*Dashboard*/
+#dashboard .system_news_container {
+    width:29%;
+    min-height:100px;
+    margin-right:2%;
+    -moz-border-radius-bottomleft:10px;
+    -moz-border-radius-bottomright:10px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    color:#232323;
+    float:left;
+    font-family:Arial,Helvetica,sans-serif;
+    padding:1%;
+}
+
+#dashboard .system_news_container.active {
+    width:95% !important;
+}
+
+#dashboard .system_news_container .news_content {
+    height:40px;
+    margin-top:10px;
+}
+
+#dashboard .system_news_container .read_more{
+    float:right;
+}
+
+#dashboard .system_news_container .date{
+    font-size:12px;
+    font-style:italic;
+}
+
+#dashboard #left_pad {
+    width:5%;
+    float:left;
+    height:50px;
+    margin-top:50px;
+}
+
+#dashboard #right_pad {
+    width:5%;
+    float:left;
+    height:50px;
+    margin-top:50px;
+}
+
+#dashboard #system_news_panel {
+    overflow:hidden;
+    float:left;
+    width:90%;
+}
+
+#dashboard #system_news_panel #system_news_holder {
+    overflow-x:hidden;
+    overflow-y:auto;
 }

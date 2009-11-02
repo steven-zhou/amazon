@@ -4,7 +4,7 @@
       %div{:level => "3", :class => tag.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
         %div.options
           = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag'
-          = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete'
+          = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete' ,:field => "Tag"
         .title
           %h3 #{tag.name}
       %br.clear

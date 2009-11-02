@@ -11,7 +11,7 @@
   .container.add_container
     %div#group_list_add_bar
       .options
-        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_option close_logo add_form_close", :field => "group_list"
+        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_option close_logo add_form_close", :field => "group_list",:change_color => false
       .title
         = link_to_function image_tag('add_icon.png'),:class => "new_option new_logo", :field => "group_list"
         &nbsp

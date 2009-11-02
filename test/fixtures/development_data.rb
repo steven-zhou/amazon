@@ -63,7 +63,8 @@ robert_tingle_login = LoginAccount.create(
   :security_question3_id => "89",
   :question1_answer => "1",
   :question2_answer => "2",
-  :question3_answer => "3"
+  :question3_answer => "3",
+  :access_attempts_count => 3
 )
 
 puts "Creating Jackie Chan"
@@ -317,13 +318,6 @@ Website.create(
 # Keywords
 
 # Masterdocs
-
-#Organisations
-puts "Createing Organisation for ABC"
-abc = Organisation.create(
-  :full_name => "ABC",
-  :onrecord_since => 586.days.ago
-)
 
 # Sample postcodes
 

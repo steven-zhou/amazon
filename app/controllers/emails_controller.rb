@@ -2,6 +2,13 @@ class EmailsController < ApplicationController
 
   def show
     @email = Email.find(params[:id])
+        @email_new = Email.new
+    if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)
+    end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       format.js
     end
@@ -9,30 +16,14 @@ class EmailsController < ApplicationController
   
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
-
-#    @temp = true
-
-#
-#    @check_email = Email.find_all_by_contactable_id(@entity.id)
-#
-#    @check_email.each do |i|
-#
-#      if (i.contact_meta_type_id == 2 && i.contactable_type == "Person")
-#        @temp = false
-#      end
-#    end
-#    if @temp == true
-
+   
       @email = @entity.emails.new(params[:email])
       @email.save
-      @person = Person.find(session[:user])
-
+      @person = Person.find(@email.contactable_id)
+      @email_new = Email.new
       if (params[:organisation_id])
         @organisation = Organisation.find(@email.contactable_id)
       end
-
-#    end
-   
     respond_to do |format|
       format.js
     end
@@ -40,6 +31,14 @@ class EmailsController < ApplicationController
 
   def edit
     @email = Email.find(params[:id])
+   if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)
+    end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
+
+   @email_new = Email.new
     respond_to do |format|
       format.js
     end
@@ -47,6 +46,13 @@ class EmailsController < ApplicationController
 
   def update
     @email = Email.find(params[:id].to_i)
+    @email_new = Email.new
+   if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)
+    end
+    if @email.contactable_type == "Organisation"
+      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+    end
     respond_to do |format|
       if @email.update_attributes(params[:email])  
         format.js { render 'show.js' }
@@ -58,9 +64,9 @@ class EmailsController < ApplicationController
     @email = Email.find(params[:id].to_i)
     @email.destroy
 
-
+    @email_new = Email.new
     if @email.contactable_type == "Person"
-      @person = Person.find(session[:user])   # if in Person return person object to destroy.js
+      @person = Person.find(@email.contactable_id)   # if in Person return person object to destroy.js
     end
     if @email.contactable_type == "Organisation"
       @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
@@ -81,7 +87,7 @@ class EmailsController < ApplicationController
       @exchange_email.save
       @current_email.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_email.contactable_id)
     respond_to do |format|
       format.js
     end
@@ -96,7 +102,7 @@ class EmailsController < ApplicationController
 
     @up_exchange_email.save
     @up_current_email.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_email.contactable_id)
 
     respond_to do |format|
       format.js
