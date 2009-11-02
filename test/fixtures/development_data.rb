@@ -368,3 +368,7 @@ d = DomesticPostcode.new(:country_id => c.id, :suburb => "Gordon", :state => "NS
 d.save
 d = DomesticPostcode.new(:country_id => c.id, :suburb => "Killara", :state => "NSW", :postcode => "2013")
 d.save
+
+c = ClientSetup.new(:first_name=>"member", :last_name=>"zone")
+c.save
+

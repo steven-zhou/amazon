@@ -6,7 +6,7 @@
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"person_relationship_toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
     %h1 New Relationship
-    %input{:type => "text", :id => "relationship_hidden_tab" :mode => "show", :style => "display:none"}
+    %input{:type => "text", :id => "relationship_hidden_tab", :mode => "show", :style => "display:none"}
     
     =# Initially hidden new address form
     #relationship_type
