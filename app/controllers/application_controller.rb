@@ -25,11 +25,13 @@ class ApplicationController < ActionController::Base
   end
 
   def check_authentication
-    unless session[:user]
-      redirect_to login_url
-    else
-      @current_user = LoginAccount.find(session[:user])
-      redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
+    unless session[:super_admin]
+      unless session[:user]
+        redirect_to login_url
+      else
+        @current_user = LoginAccount.find(session[:user])
+        redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
+      end
     end
   end
 
