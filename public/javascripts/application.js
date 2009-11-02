@@ -3387,7 +3387,7 @@ $(function(){
         $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_BW.png");
     });
 
-    $(".organisation_edit_tab:not(.active)").live("mousedown", function(){
+    $(".organisation_edit_tab:not(.active)").live("mouseup", function(){
         $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
         $(".organisation_edit_tab").removeClass("active");
         $(this).addClass("active");
@@ -3854,5 +3854,31 @@ $(function(){
                 data: 'organisation_id=' + $('#organisation_id').val()+"&remove_keywords="+$(this).val(),
                 dataType: "script"
             });
+    });
+});
+
+//TO DO LIST
+$(function(){
+    $("#new_to_do").live('click', function(){
+        $('#new_to_do_dialog').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#new_to_do_dialog').dialog('option', 'title', 'To Do List');
+            $('#new_to_do_dialog').dialog('open');
+    });
+});
+
+// System News
+$(function(){
+    $("#new_system_news").live('click', function(){
+        $('#new_system_news_dialog').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#new_system_news_dialog').dialog('option', 'title', 'System News');
+            $('#new_system_news_dialog').dialog('open');
     });
 });

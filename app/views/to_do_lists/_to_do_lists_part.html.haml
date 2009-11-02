@@ -1,7 +1,7 @@
 %div.portlet
   %div.portlet_topper
     .options{:style => "float:right;"}
-      = link_to_function image_tag("add_icon.png")
+      = link_to_function image_tag("add_icon.png"), :id => "new_to_do"
       = link_to_function image_tag("edit_icon.png")
     %h1 To Do List
   %div.portlet_to_do_content
