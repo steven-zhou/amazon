@@ -3593,14 +3593,8 @@ $(function(){
 $(document).ready(function() {
     $(".admin_password_reset").validationEngine({
         validationEventTriggers:"keyup blur",
-        success :  false,
-
-        failure : function() {
-            callFailFunction()
-        }
-
+        success :  false
     });
-
 });
 
 
