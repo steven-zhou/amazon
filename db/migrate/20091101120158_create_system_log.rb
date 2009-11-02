@@ -1,7 +1,7 @@
 class CreateSystemLog < ActiveRecord::Migration
   def self.up
     create_table :system_logs do |t|
-      t.column :user_id, :integer
+      t.column :login_account_id, :integer
       t.column :message, :text
       t.column :controller, :text
       t.column :action, :text

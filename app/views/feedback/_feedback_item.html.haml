@@ -4,16 +4,10 @@
       = "#{@feedback_item.id} (#{@feedback_item.status}) - #{@feedback_item.subject}"
       %p &nbsp;
       .container
-        = image_tag("closed_accordion.png", :style => "float:right;display:inline;display:none;", :id => "hide_feedback_details")
-        = image_tag("open_accordion.png", :style => "float:right;display:inline;",  :id => "display_feedback_details")
-        = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email} - #{@feedback_item.feedback_date.strftime('%a %d %b %Y')}"
-        %div#feedback_details{:style => "display:none;"}
-          %br.clear
-            =  "IP Address: #{@feedback_item.ip_address}"
-          %br.clear
+        = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
       Content:
       %br
-      = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :rows => "10", :cols => "141")
+      = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :style => "width:100%;")
       - if (@feedback_item.response.nil? || @feedback_item.response.empty? )
         &nbsp;
         %br.clear
@@ -37,10 +31,10 @@
           %input{:style => "display:none;", :name => "id", :value => "#{@feedback_item.id}", :type => "text"}
           %br.clear
           %p Subject
-          = text_field_tag :feedback_reply_subject, "Reply to: #{@feedback_item.subject} - #{@feedback_item.id}"
+          = text_field_tag :feedback_reply_subject, "Reply to: #{@feedback_item.subject} - #{@feedback_item.id}", :style => "width:100%;"
           %br.clear
           %p Content
-          = text_area_tag :feedback_reply_content, nil, :cols => "136", :rows => "10"
+          = text_area_tag :feedback_reply_content, nil, :style => "width:100%;"
           %br.clear
           %p
           = submit_tag "Send", :id => "feedback_reply_submit", :style => "text-align:right;"
@@ -58,4 +52,4 @@
         %br.clear
         %p
           Content
-        = text_area_tag :display_feedback_reply, "#{@feedback_item.response}", :cols => "136", :rows => "10"
+        = text_area_tag :display_feedback_reply, "#{@feedback_item.response}", :style => "width:100%;"

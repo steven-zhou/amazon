@@ -80,7 +80,7 @@ class GridsController < ApplicationController
     end
 
     if (!sortorder)
-      sortorder = "asc"
+      sortorder = "desc"
     end
 
     if (!page)
@@ -126,7 +126,8 @@ class GridsController < ApplicationController
           u.field_1,
           u.field_2,
           u.field_3,
-          u.field_4]}}
+          u.field_4,
+          u.field_5]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

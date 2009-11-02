@@ -1,7 +1,7 @@
 class SystemLog < ActiveRecord::Base
 
   
-  belongs_to :user
+  belongs_to :login_account
   validates_presence_of :user_id
   validates_presence_of :message
   
