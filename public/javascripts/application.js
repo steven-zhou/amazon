@@ -3193,7 +3193,7 @@ $(document).ready(function() {
     $("div#module_menu_top").click(function() {
         if($("div#module_menu_top").attr("class")==""){
             $("div#module_menu_top").addClass("hover");
-            $("div#module_menu_items").css("display", "");
+            $("div#module_menu_items").fadeIn("fast");
         }else{
             $("div#module_menu_top").removeClass("hover");
             $("div#module_menu_items").fadeOut("fast");
