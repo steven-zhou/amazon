@@ -1284,6 +1284,19 @@ div.tag ul li ul {
     padding-left:50px;
 }
 
+div.tag ul li {
+    background-image:url(/images/tag_tree_middle.png);
+    background-repeat:repeat-y;
+    padding-left:40px;
+}
+
+div.tag ul li:last-child {
+    background-image:url(/images/tag_tree_end.png);
+    background-repeat:no-repeat;
+    padding-left:40px;
+}
+
+
 div.tag ul li .options {
     display:none !important;
 }
@@ -1307,14 +1320,6 @@ div.tag ul li.open ul li ul {
 div.tag ul li.open ul li.open ul {
     display:block;
 }
-
-div.tag ul li.active {
-    border-style:dashed;
-    border-color:#888;
-    border-width:3px;
-}
-
-
 
 /*group-list*/
 
@@ -1718,4 +1723,19 @@ div#permission_form .options{
 #dashboard #system_news_panel #system_news_holder {
     overflow-x:hidden;
     overflow-y:auto;
+}
+
+
+
+  .container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
 }

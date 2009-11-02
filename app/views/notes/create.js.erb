@@ -6,6 +6,8 @@
   $('.new_option[field="note"]').css("display","");
   $('#note_hidden_tab').attr('mode','show');
   $('.person_notes_toggle_button').css("display","");
+  $('.organisation_note_close').css("display","none");
+
   $('.person_notes_close').css("display","none");
   $('#<%= dom_id(@note) %>').effect('slide', {direction:'right'});
 <% end -%>

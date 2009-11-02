@@ -1,6 +1,6 @@
 -for i in @group_lists 
   -div_for(i, :class => "container_active_50  half_container toggle_options", :field => "group_list") do
     .options{:style => "display:none;"}
-      = link_to image_tag('delete_icon.png'), group_list_path(i), :class => "delete",:field => "Group List"
+      = link_to image_tag('delete_icon.png'), group_list_path(i), :class => "delete",:field => "Group List",:error_message_field => "Group List"
     .title{:style => "height:20px;"}
       = i.list_header.name

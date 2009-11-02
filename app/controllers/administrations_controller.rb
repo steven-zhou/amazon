@@ -148,6 +148,7 @@ class AdministrationsController < ApplicationController
    @session_timeout = ClientSetup.first.session_timeout
    @grace_period = ClientSetup.first.new_account_graceperiod
    @access_attempts_count = ClientSetup.first.number_of_login_attempts
+   @password_lifetime = ClientSetup.first.password_lifetime
    
     respond_to do |format|
       format.html

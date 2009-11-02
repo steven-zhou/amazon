@@ -69,13 +69,13 @@ $(function() {
     });
 
    
-    $(".clear_form").click(function(){
-
-        if(confirm("Are you sure?","Warning","Yes","No",3))
-        {
-            $('#'+$(this).parents("form").get(0).id)[0].reset();
-        }
-    });
+//    $(".clear_form").click(function(){
+//
+//        if(confirm("Are you sure?","Warning","Yes","No",3))
+//        {
+//            $('#'+$(this).parents("form").get(0).id)[0].reset();
+//        }
+//    });
 
 
    

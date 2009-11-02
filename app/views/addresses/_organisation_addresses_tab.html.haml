@@ -2,7 +2,7 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "clear_form toggle_button close_option", :toggle_id_name => "new_address", :style => "display:none;" , :field => "address"
+      = link_to_function image_tag('close_icon.png'), :class => "organisation_address_close clear_form toggle_button close_option", :toggle_id_name => "new_address", :style => "display:none;" , :field => "address"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"toggle_button new_option clear_form_to_address", :field => "address", :toggle_id_name => "new_address" if (!organisation.nil? && !organisation.new_record?)
     %h1 New Address

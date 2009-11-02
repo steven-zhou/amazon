@@ -4,7 +4,7 @@
     .title
       %h2= format_group(organisation_group)
     .options{:id =>'organisation_group_delete_button',:class =>'organisation_group_delete_button', :style => "display:none;"}
-      = link_to image_tag('delete_icon.png'), organisation_group_path(organisation_group), :class => 'delete delete_option', :field => "organisation_group"
+      = link_to image_tag('delete_icon.png'), organisation_group_path(organisation_group), :class => 'delete delete_option', :field => "organisation_group",:error_message_field => organisation_group.group_type.name + " Group"
   %br.clear
     %div{:style => "float:right;"}
       =link_to_function 'view other group members', :id => "show_other_group_members_organisations", :class => "alt_option", :organisation_group_id => organisation_group.id, :organisation_id => organisation_group.group_owner.id

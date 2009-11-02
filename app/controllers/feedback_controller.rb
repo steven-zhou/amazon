@@ -2,7 +2,7 @@ class FeedbackController < ApplicationController
   
 
   def list
-    @feedback = FeedbackItem.find(:all, :order => "feedback_date DESC")
+    @feedback = FeedbackItem.find(:all, :order => "created_at DESC")
 
     #clear temple table and save result into temple table
     FeedbackSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|

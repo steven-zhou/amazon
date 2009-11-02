@@ -17,7 +17,7 @@
         - else
           = link_to image_tag('up_arrow.png'),move_organisation_up_master_doc_priority_master_doc_path(master_doc), :class => 'get',:id => 'organisation_master_doc_up_button', :organisation_master_doc_id => master_doc.id
       = link_to image_tag('edit_icon.png'), edit_master_doc_path(master_doc), :class => 'get edit_master_doc edit_option', :field => "master_doc", :id => 'master_doc_edit_button', :master_doc_id => master_doc.id
-      = link_to image_tag('delete_icon.png'), master_doc_path(master_doc), :class => 'delete delete_master_doc delete_option', :field => "master_doc", :id => 'master_doc_delete_button', :master_doc_id => master_doc.id
+      = link_to image_tag('delete_icon.png'), master_doc_path(master_doc), :class => 'delete delete_master_doc delete_option', :field => "master_doc", :id => 'master_doc_delete_button', :master_doc_id => master_doc.id,:error_message_field => master_doc.master_doc_type.name + " MasterDoc"
     %br.clear
   %div{:style => "float:right;"}
     = format_masterdoc(master_doc)

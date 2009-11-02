@@ -5,6 +5,6 @@
       =type
   %br{ :style=>"clear: both;"}
   - if type == "Siblings" || type == "Children"
-    = render :partial => 'relationships/auto_generated_person', :collection => relations
+    = render :partial => 'relationships/auto_generated_person', :collection => relations, :locals => {:type => type}
   - else
-    =render :partial => 'relationships/person', :collection => relations
+    =render :partial => 'relationships/person', :collection => relations, :locals => {:type => type}

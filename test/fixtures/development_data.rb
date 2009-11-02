@@ -56,7 +56,7 @@ robert_tingle_login = LoginAccount.create(
   :person_id => robert_tingle.id,
   :user_name => "username",
   :password => "password",
-  :security_email => "powernet@powernet.com",
+  :security_email => "feedback@memberzone.com.au",
   :password_confirmation => "password",
   :security_question1_id => "89",
   :security_question2_id => "89",
@@ -64,7 +64,9 @@ robert_tingle_login = LoginAccount.create(
   :question1_answer => "1",
   :question2_answer => "2",
   :question3_answer => "3",
-  :access_attempts_count => 3
+  :access_attempts_count => 3,
+  :session_timeout => 3,
+  :authentication_grace_period => 3
 )
 
 puts "Creating Jackie Chan"
