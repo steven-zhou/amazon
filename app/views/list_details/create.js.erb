@@ -28,7 +28,7 @@ $('#list_edit_grid').flexigrid({
  $('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
 $('#flash_message').dialog( {
         modal: true,
-        resizable: true,
+         resizable: false,
         draggable :true,
         buttons: {
           Ok: function() {

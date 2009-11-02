@@ -137,16 +137,17 @@ $(function() {
   height: 'auto',
   width: 'auto',
   buttons: {
-  Yes: function(){ 
-  $.post(link.attr('href'), "_method=delete", null, 'script');
-  $(this).dialog('destroy');
-  return true;
-   },
+
   No: function(){
     $(this).dialog('destroy');
     return true;
 
-  }
+  },
+    Yes: function(){
+  $.post(link.attr('href'), "_method=delete", null, 'script');
+  $(this).dialog('destroy');
+  return true;
+   }
   }
 });
     $('#delete_warning_message').dialog('option', 'title', 'Warning');
@@ -300,8 +301,42 @@ $(document).ready(function(){
     showTooltip();
 });
 
-$("#keyword_types").live("change", showKeyword);
 
+
+$("#keyword_types").live("change", showKeyword);
+/*organisation keyword*/
+showOrganisationKeyword = function(){
+    $("#add_organisation_keywords option:selected").removeAttr("selected");
+    $("#add_organisation_keywords").find("option").hide();
+    $("#keyword_organisation_types").find("option:selected").each(function(){
+        if($(this).val() == ""){
+            $("#add_organisation_keywords").find("option").show();
+        }else{
+            $("#add_organisation_keywords option[class=" + $(this).text() + "]").show();
+        }
+    });
+}
+
+showOrganisationTooltip = function(){
+    $("#add_organisation_keywords option ,#remove_organisation_keywords option").each(function(){
+        $(this).qtip({
+            content: $(this).attr('remark'),
+            position: {
+                corner: {
+                    target: 'leftMiddle',
+                    tooltip: 'rightMiddle'
+                }
+            },
+            style : {
+                tip: true
+            }
+        });
+    });
+}
+
+
+
+$("#keyword_organisation_types").live("change", showOrganisationKeyword);
 /* Relationships */
 $(function(){
     $("input[type='text']#relationship_related_person_id").change(function(){
@@ -3754,16 +3789,17 @@ $('#signout').live('click', function(){
   height: 'auto',
   width: 'auto',
   buttons: {
-  Yes: function(){
-  window.open("/signin/signout", "_self");
-  $(this).dialog('close');
-  return true;
-   },
+
   No: function(){
     $(this).dialog('close');
     return true;
 
-  }
+  },
+    Yes: function(){
+  window.open("/signin/signout", "_self");
+  $(this).dialog('close');
+  return true;
+   }
   }
 });
  $('#signout_warning_message').dialog('option', 'title', 'Warning');

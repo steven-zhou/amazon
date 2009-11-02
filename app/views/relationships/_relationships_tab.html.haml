@@ -9,10 +9,8 @@
     %input{:type => "text", :id => "relationship_hidden_tab" :mode => "show", :style => "display:none"}
     
     =# Initially hidden new address form
-    -form_for([@person,@relationship], :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|     
-      = render :partial => '/relationships/relationship_form', :locals => { :relationship => relationship }
-      = submit_tag 'Submit'
-    
+    #relationship_type
+      = render :partial => '/relationships/personal_relationship_type', :locals => { :relationship => @relationship }
   
   =# Render the person's addresses 
   = render :partial => '/relationships/relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
