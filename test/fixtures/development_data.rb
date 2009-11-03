@@ -1,6 +1,6 @@
 puts "Before importing this sample data for the development database make sure you've done a rake db:populate first."
 
-
+#mo
 # People
 
 puts "Creating sample people."
