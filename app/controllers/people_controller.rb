@@ -33,7 +33,7 @@ class PeopleController < ApplicationController
   def show
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
-    puts "*******************#{@list_headers.to_yaml}******************888"
+
     #when it is cal show action
     if request.get?
       if @list_headers.blank?

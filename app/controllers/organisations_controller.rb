@@ -97,7 +97,7 @@ class OrganisationsController < ApplicationController
   end
 
   def edit
-    @super_admin = session[:super_admin] ? true : false
+    @super_admin = LoginAccount.find(session[:user]).class.to_s == "SuperAdmin" ? true : false
     @o = Organisation.find(:all, :order => "id")
     @postcodes = DomesticPostcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)

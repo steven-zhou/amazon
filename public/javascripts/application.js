@@ -1668,13 +1668,13 @@ $(function(){
 
 $(function(){
     $("#list_header_name").change(function(){
-        $("#person_list").submit();
+        $("#person_list_edit").submit();
     });
 });
 
 $(function(){
     $("#list_header_name2").change(function(){
-        $("#person_list_edit").submit();
+        $("#person_list").submit();
     });
 });
 
