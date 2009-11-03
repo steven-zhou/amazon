@@ -1,0 +1,19 @@
+#header
+  #page_title
+    %h1 Member Zone Account Setup
+  #lol
+  %br.clear
+
+- form_for @client_setup do |f|
+  %input{:name => "member_zone", :style => "display:none;"}
+  .container
+    %h2 Login Details
+    .form_line
+      .field_20
+        %label Super Password
+        %input{:id => "primary_password", :name => "primary_password", :class => "password jpassword-lefttop"}
+      .field_20
+        %label Super Password Confirmation
+        %input{:id => "primary_password_confirmation", :name => "primary_password_confirmation"}
+    .form_line
+      = submit_tag "Submit"

@@ -52,6 +52,13 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+  def member_zone
+    @client_setup = ClientSetup.first
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def update
     @client_setup = ClientSetup.first
     if @client_setup.update_attributes(params[:client_setup])
