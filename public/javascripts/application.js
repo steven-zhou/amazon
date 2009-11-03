@@ -3920,10 +3920,10 @@ $(function(){
     $("#new_to_do").live('click', function(){
         $('#new_to_do_dialog').dialog( {
                 modal: true,
-                  resizable: false,
+                resizable: false,
                 width: 600,
                 height: 175,
-                draggable: false
+                draggable: true
             });
             $('#new_to_do_dialog').dialog('option', 'title', 'New To Do Entry');
             $('#new_to_do_dialog').dialog('open');
@@ -3938,7 +3938,7 @@ $(function(){
                 resizable: false,
                 width: 600,
                 height: 400,
-                draggable: false
+                draggable: true
             });
             $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
             $('#new_system_news_dialog').dialog('open');
