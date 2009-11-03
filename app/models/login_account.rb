@@ -103,9 +103,7 @@ class LoginAccount < ActiveRecord::Base
     self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
   end
 
-  def user_update?
-    update_password
-  end
+
 
   private
 
@@ -119,9 +117,7 @@ class LoginAccount < ActiveRecord::Base
     
   end
 
-  def person_must_exist
-    errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
-  end
+  
   #
   #  def user_update?
   #    LoginAccount.current_user.group_types.each do |group|

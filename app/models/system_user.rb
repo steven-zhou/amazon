@@ -41,5 +41,14 @@ class SystemUser < LoginAccount
   default_scope :order => "id ASC"
 
 
+  def user_update?
+    update_password
+  end
+
+  private
+
+  def person_must_exist
+    errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
+  end
 
 end
