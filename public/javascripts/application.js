@@ -3886,24 +3886,24 @@ $(function(){
 /*Keyword double click0*/
 
 $(function(){
-    $("#add_keywords").live('dblclick', function(){
+    $("#add_person_keywords").live('dblclick', function(){
   
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/add_key.js",
-                data: 'person_id=' + $('#person_id').val()+"&add_keywords="+$(this).val(),
+                data: 'person_id=' + $('#person_id').val()+"&add_person_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
 });
 
 $(function(){
-    $("#remove_keywords").live('dblclick', function(){
+    $("#remove_person_keywords").live('dblclick', function(){
 
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/remove_key.js",
-                data: 'person_id=' + $('#person_id').val()+"&remove_keywords="+$(this).val(),
+                data: 'person_id=' + $('#person_id').val()+"&remove_person_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
