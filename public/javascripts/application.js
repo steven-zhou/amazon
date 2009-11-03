@@ -3862,10 +3862,12 @@ $(function(){
     $("#new_to_do").live('click', function(){
         $('#new_to_do_dialog').dialog( {
                 modal: true,
-                resizable: true,
-                draggable: true
+                  resizable: false,
+                width: 600,
+                height: 175,
+                draggable: false
             });
-            $('#new_to_do_dialog').dialog('option', 'title', 'To Do List');
+            $('#new_to_do_dialog').dialog('option', 'title', 'New To Do Entry');
             $('#new_to_do_dialog').dialog('open');
     });
 });
@@ -3875,10 +3877,12 @@ $(function(){
     $("#new_system_news").live('click', function(){
         $('#new_system_news_dialog').dialog( {
                 modal: true,
-                resizable: true,
-                draggable: true
+                resizable: false,
+                width: 600,
+                height: 400,
+                draggable: false
             });
-            $('#new_system_news_dialog').dialog('option', 'title', 'System News');
+            $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
             $('#new_system_news_dialog').dialog('open');
     });
 });
