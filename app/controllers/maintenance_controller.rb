@@ -44,4 +44,13 @@ class MaintenanceController < ApplicationController
 
   end
 
+
+  def import_postcodes
+    
+  end
+
+  def import_postcode_file
+    # This is where a submitted postcode form gets uploaded to
+  end
+
 end

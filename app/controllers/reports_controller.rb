@@ -17,16 +17,6 @@ class ReportsController < ApplicationController
   end
 
   def preview_report
-    #    @report_format = params[:report][:requested_format]
-    #    @report_list = ListHeader.find_by_id(params[:list_header_id].to_i)
-
-    #    if !report_format_valid(@report_format) || @report_list.nil?
-    #      flash[:error] = flash_message(:type => "field_missing", :field => "report list") if @report_list.nil?
-    #      flash[:error] = flash_message(:message => "There was an error generating a report in the format you specified.") if !report_format_valid(@report_format)
-    #      redirect_to :action => "create", :controller => "reports"
-    #    else
-    #      # Do nothing, render the page...
-    #    end
 
     @person_report_format = params[:report][:requested_format]
 
@@ -43,9 +33,6 @@ class ReportsController < ApplicationController
       @pcr.grid_object_id = i.id
       @pcr.field_1 = @person.first_name
       @pcr.field_2 = @person.family_name
-      #        @pcr.field_3 = @person.primary_address.first_line unless i.primary_address.blank?
-      #        @pcr.field_4 = @person.primary_phone.value unless i.primary_phone.blank?
-      #        @pcr.field_5 = @person.primary_email.address unless i.primary_email.blank?
       @pcr.save
     end
 
@@ -68,9 +55,6 @@ class ReportsController < ApplicationController
       i.destroy
     end
     if(@person_report_format == "Contact Report")
-
-      
-
        
       @person_report_list.list_details.each do |i|
         @pcr = PersonContactsReportGrid.new # person contacts report
