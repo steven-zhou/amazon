@@ -1,0 +1,25 @@
+<%- if @keyword_assigned.nil?%>
+
+$('#keyword_delete_button').click();
+
+<%else%>
+
+
+ $('#keyword_already_assigned').dialog({
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+  "Close": function(){
+    $(this).dialog('close');
+    return false;
+  }
+  }
+});
+$('#keyword_already_assigned').dialog('option', 'title', 'ERROR');
+$('#keyword_already_assigned').parent().find("a").css("display","none");
+$('#keyword_already_assigned').dialog('open');
+$("#keyword_mode").attr('mode', 'show');
+<%end%>

@@ -110,7 +110,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :system_news
   map.resources :to_do_lists
 
-  map.resources :keywords ,:collection  => {:keywords_finder => :get}
+  map.resources :keywords ,:collection  => {:keywords_finder => :get,:check_destroy => :get}
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get}
   map.resources :available_modules, :collection => {:switch_status => :get}

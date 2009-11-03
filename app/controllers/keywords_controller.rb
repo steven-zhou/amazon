@@ -31,22 +31,21 @@ class KeywordsController < ApplicationController
   def update
 
     @keyword_table= Keyword.find(params[:id].to_i)
-    @keyword_assigned = KeywordLink.find_by_keyword_id(@keyword_table.id)
-    if @keyword_assigned.nil?
+   
     if @keyword_table.status == true
 
-     @keyword_table.name = params[:keyword][:name]
-     @keyword_table.description = params[:keyword][:description]
+      @keyword_table.name = params[:keyword][:name]
+      @keyword_table.description = params[:keyword][:description]
 
-    @keyword_table.status = params[:keyword][:status]
+      @keyword_table.status = params[:keyword][:status]
     else
 
-     @keyword_table.status = params[:keyword][:status]
+      @keyword_table.status = params[:keyword][:status]
     end
 
 
     @keyword_table.save
-    end
+   
 
     respond_to do |format|
       format.js  
@@ -58,10 +57,9 @@ class KeywordsController < ApplicationController
 
   def destroy
     keyword = Keyword.find(params[:id])
-    @keyword_assigned = KeywordLink.find_by_keyword_id(keyword.id)
-    if @keyword_assigned.nil?
-       keyword.destroy
-    end
+ 
+      keyword.destroy
+  
    
     respond_to do |format|
       format.js
@@ -74,6 +72,14 @@ class KeywordsController < ApplicationController
       format.js
     end
 
+  end
+
+  def check_destroy
+    keyword = Keyword.find(params[:id])
+    @keyword_assigned = KeywordLink.find_by_keyword_id(keyword.id)
+    respond_to do |format|
+      format.js
+    end
   end
 
   
