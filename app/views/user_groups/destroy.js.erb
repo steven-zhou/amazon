@@ -1,2 +1,3 @@
 $('#<%= dom_id(@user_group) %>').fadeOut('slow', function() {$(this).remove();});
  $('#group_display').replaceWith(" <%= escape_javascript(render(:partial => 'group_display')) %>");
+ $('#group_type_'+ '<%=escape_javascript("#{@select_group_type_id}")%>').addClass("container_selected");

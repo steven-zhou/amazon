@@ -1,7 +1,8 @@
 class UserGroupsController < ApplicationController
 
-  def show
-    @group = GroupType.find(params[:group_type_id])
+
+  def edit
+    @group = GroupType.find(params[:data_id])
     @login_accounts = @group.login_accounts
     @user_group = UserGroup.new
     @user_groups = @group.user_groups
@@ -22,6 +23,7 @@ class UserGroupsController < ApplicationController
         @login_account = @user_group.login_account
         @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
         @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+        @select_group_type_id = @user_group.group_type.id
       else
         flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
         flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
