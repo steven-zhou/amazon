@@ -159,6 +159,30 @@ class ReportsController < ApplicationController
 
   end
 
+  def generate_system_log_pdf
+    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
+    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    log_controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
+    log_action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
+
+    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action as \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.controller LIKE ? AND s.action LIKE ? ORDER BY s.id ASC", user_name, start_date, end_date, log_controller, log_action])
+    @type = "System Log Report"
+    @report_format = "system_log_report"
+
+
+    if OutputPdf.system_log_report_format_valid(@report_format) && !@system_log_entries.nil?
+      pdf = OutputPdf.generate_system_log_report_pdf(@type,@system_log_entries, @report_format)
+    end
+
+    respond_to do |format|
+      format.pdf {send_data(pdf.render, :filename => "system_log_report.pdf", :type => "application/pdf")}
+    end
+
+
+  end
+
+
   def organisation_contacts_report_grid
 
     @organisation_report_format = params[:request_format]
@@ -208,7 +232,6 @@ class ReportsController < ApplicationController
   end
 
 
-
   def generate_report
 
     report_format = params[:report][:requested_format]
@@ -232,7 +255,8 @@ class ReportsController < ApplicationController
 
   def report_format_valid(report_format)
     [
-      "Contact Report"
+      "Contact Report",
+      "System Log Report"
     ].include?(report_format.to_s)
 
   end

@@ -20,6 +20,15 @@ module OutputPdf
       {"Website" => "website"},
       {"Address" => "address"}]}
 
+  SYSTEM_LOG_REPORT_FORMAT = {"system_log_report" => [{"ID" => "id"},
+      {"Date" => "created_at"},
+      {"User" => "login_account.user_name"},
+      {"IP Address" => "ip_address"},
+      {"Controller" => "controller"},
+      {"Action" => "action"},
+      {"Message" => "message"}]}
+
+
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
                           
@@ -33,6 +42,10 @@ module OutputPdf
   # validate personal report format
   def self.organisational_report_format_valid(format)
     OutputPdf::ORGANISATIONAL_REPORT_FORMAT.has_key?(format.to_s)
+  end
+
+  def self.system_log_report_format_valid(format)
+    OutputPdf::SYSTEM_LOG_REPORT_FORMAT.has_key?(format.to_s)
   end
 
   #  generate personal report in pdf
@@ -85,6 +98,14 @@ module OutputPdf
     return pdf
   end
 
+  def self.generate_system_log_report_pdf(report_type, system_log_entries, report_format)
+    pdf = PDF::Writer.new
+    generate_report_header(pdf, nil, nil, nil, nil, {:title => "System Log"})
+    generate_system_log_report_body(pdf, system_log_entries)
+    return pdf
+  end
+
+
   # generate pdf from source (non_report)
   # private method - generate_pdf
   # geneare_pdf(source_type, source_id, header_settings={}, body_settings={})
@@ -113,16 +134,6 @@ module OutputPdf
 
   private
 
- 
-  # private method - generate_report_header
-  # geneare_report_header(pdf, source_type, source_id, format, header_settings={})
-  # options in header_settings:
-  #       image(image)                      = path of image
-  #       title(report title)               = string(e.g. "Person Contact Report")
-  #       image_position(position of image) = "left"/"center"/"right"
-  #       title_position(position of title) = "left"/"center"/"right"
-  #       font(font)                     = any font(e.g. "Times-Roman)
-  #       font_size(font_size)           = any integer(e.g. 32)
   def self.generate_report_header(pdf, source_type, source_id, format,list_report, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
@@ -138,16 +149,7 @@ module OutputPdf
     pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
   end
 
-  # private method - generate_personal_report_body
-  # geneare_personal_report_body(pdf, source_type, source_id, format, body_settings={})
-  # options in body_settings:
-  #       show_lines(position of lines) = "outer"/"inner"
-  #       show_headings(display or not) = true/false
-  #       orientation(orientation)      = "left"/"center"/"right"
-  #       position(position)            = "left"/"center"/"right"
-  #       bold_header(header bold?)     = true/false
-  #       font_size(font_size)          = any integer(e.g. 32)
-  #       text_align(alignment)         = "left"/"center"/"right"
+
   def self.generate_personal_report_body(pdf, source_type, source_id, format, body_settings={})
     body_settings[:show_lines] ||= "outer"
     body_settings[:show_headings] ||= true
@@ -242,16 +244,6 @@ module OutputPdf
 
   end
 
-  # private method - generate_organisational_report_body
-  # geneare_organisational_report_body(pdf, source_type, source_id, format, body_settings={})
-  # options in body_settings:
-  #       show_lines(position of lines) = "outer"/"inner"
-  #       show_headings(display or not) = true/false
-  #       orientation(orientation)      = "left"/"center"/"right"
-  #       position(position)            = "left"/"center"/"right"
-  #       bold_header(header bold?)     = true/false
-  #       font_size(font_size)          = any integer(e.g. 32)
-  #       text_align(alignment)         = "left"/"center"/"right"
   def self.generate_organisational_report_body(pdf, source_type, source_id, format, body_settings={})
     body_settings[:show_lines] ||= "outer"
     body_settings[:show_headings] ||= true
@@ -337,7 +329,7 @@ module OutputPdf
 
           end
         end
-             data << data_row
+        data << data_row
       end
  
 
@@ -346,14 +338,67 @@ module OutputPdf
     end
   end
 
+  def self.generate_system_log_report_body(pdf, system_log_entries)
 
-  # private method - generate_header
-  # geneare_header(pdf, source_type, source_id, header_settings={})
-  # options in header_settings:
-  #       image_position(position of image) = "left"/"center"/"right"
-  #       title_position(position of title) = "left"/"center"/"right"
-  #       font(font)                     = any font(e.g. "Times-Roman)
-  #       font_size(font_size)           = any integer(e.g. 32)
+    if system_log_entries.empty?
+      pdf.text "No matching records found.", :font_size => 32, :justification => :center
+      return
+    end
+
+    PDF::SimpleTable.new do |tab|
+
+      tab.column_order.push(*%w(system_id log_date user ip_address controller action message))
+
+      tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
+        col.heading = "ID"
+      }
+
+      tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
+        col.heading = "Date"
+      }
+
+      tab.columns["user"] = PDF::SimpleTable::Column.new("user") { |col|
+        col.heading = "User"
+      }
+
+      tab.columns["ip_address"] = PDF::SimpleTable::Column.new("ip_address") { |col|
+        col.heading = "IP Address"
+      }
+
+      tab.columns["controller"] = PDF::SimpleTable::Column.new("controller") { |col|
+        col.heading = "Controller"
+      }
+
+      tab.columns["action"] = PDF::SimpleTable::Column.new("action") { |col|
+        col.heading = "Action"
+      }
+
+      tab.columns["message"] = PDF::SimpleTable::Column.new("message") { |col|
+        col.heading = "Message"
+      }
+
+
+      tab.show_lines    = :outer
+      tab.show_headings = true
+      tab.orientation   = :center
+      tab.position      = :center
+      tab.bold_headings = false
+
+      data = Array.new
+
+      for log_entry in system_log_entries do
+
+        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})", "ip_address" => "#{log_entry.ip_address}", "controller" => "#{log_entry.controller}", "action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
+
+      end
+
+      tab.data.replace data
+      tab.render_on(pdf)
+    end
+
+  end
+
+
   def self.generate_header(pdf, source_type, source_id, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
@@ -369,16 +414,6 @@ module OutputPdf
     pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position]
   end
 
-  # private method - generate_body
-  # geneare_body(pdf, source_type, source_id, body_settings={})
-  # options in body_settings:
-  #       show_lines(position of lines) = "outer"/"inner"
-  #       show_headings(display or not) = true/false
-  #       orientation(orientation)      = "left"/"center"/"right"
-  #       position(position)            = "left"/"center"/"right"
-  #       bold_header(header bold?)     = true/false
-  #       font_size(font_size)          = any integer(e.g. 32)
-  #       text_align(alignment)         = "left"/"center"/"right"
   def self.generate_body(pdf, source_type, source_id, body_settings={})
     body_settings[:show_lines] ||= "outer"
     body_settings[:show_headings] ||= true

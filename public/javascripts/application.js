@@ -2357,6 +2357,13 @@ $(function(){
 $(function(){
     $('#system_log_search_submit').live('click',function(){
         $('#system_log_search_results').show();
+        $('#system_log_export_options').show();
+        $('#system_log_export_user_name').val($('#user_name').val());
+        $('#system_log_export_start_date').val($('#system_log_start_date').val());
+        $('#system_log_export_end_date').val($('#system_log_end_date').val());
+        $('#system_log_export_log_controller').val($('#log_controller').val());
+        $('#system_log_export_log_action').val($('#log_action').val());
+
     });
 });
 
