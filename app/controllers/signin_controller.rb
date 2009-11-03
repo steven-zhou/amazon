@@ -2,7 +2,7 @@ class SigninController < ApplicationController
 
   include SimpleCaptcha::ControllerHelpers
 
-  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha, :ask_for_power_password]
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha, :ask_for_power_password, :login_as_super_user]
   layout nil
 
   # Allows a user to log in.
@@ -10,20 +10,19 @@ class SigninController < ApplicationController
     if request.post?
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
-        session[:user] = login_account.id
-        @group_types = LoginAccount.validate_group(session[:user])
-        @system_permission_types = LoginAccount.validate_permission(session[:user])
-        @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
-
-        if login_account.class.to_s == "SystemUser"          
+        
+        if login_account.class.to_s == "SystemUser"
+          session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+          @group_types = LoginAccount.validate_group(session[:user])
+          @system_permission_types = LoginAccount.validate_permission(session[:user])
+          @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
           login_account.update_password = false
           create_temp_list
-          login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-             # This will throw an exception if we do not have a valid login_account due to log in failing
+          login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())          
           session[:login_account_info] = login_account
           redirect_to welcome_url
         else
-          redirect_to :action => "ask_for_power_password"
+          redirect_to :action => "ask_for_power_password", :user_name => params[:user_name]
         end
   
         
@@ -180,11 +179,38 @@ class SigninController < ApplicationController
   end
 
   def ask_for_power_password
+    @user_name = params[:user_name]
     render "ask_for_power_password", :layout => "reset_password"
   end
 
   def login_as_super_user
-    
+    begin
+      login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
+      session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+      puts "*************#{session[:user]}*******************8888888888"
+      @group_types = LoginAccount.validate_group(session[:user])
+      @system_permission_types = LoginAccount.validate_permission(session[:user])
+      @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
+      login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+      session[:login_account_info] = login_account
+      redirect_to welcome_url
+    rescue
+      if login_account.nil?
+        rescue_message = "Login Account is error"
+      else if  @group_types.nil?
+          rescue_message = "you do not have group"
+        else if   @system_permission_types.nil?
+            rescue_message = "group permission is error"
+          else if @access_attempts_count.blank?
+              rescue_message = "your account has been locked, please call admin"
+            end
+          end
+        end
+      end
+
+      flash.now[:warning] = rescue_message
+      render "ask_for_power_password", :layout => "reset_password"
+    end
   end
 
   private

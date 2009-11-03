@@ -25,6 +25,22 @@ class LoginAccount < ActiveRecord::Base
 
   end
 
+  def self.authenticate_super_user(user_name, password)
+    @client_setup = ClientSetup.first
+    if user_name == "MemberZone"
+      if Digest::SHA256.hexdigest(password + @client_setup.member_zone_power_password_salt) != @client_setup.member_zone_power_password_hash
+        raise "Power password invalid"
+      end
+    end
+    if user_name == "SuperAdmin"
+      if Digest::SHA256.hexdigest(password + @client_setup.super_admin_power_password_salt) != @client_setup.super_admin_power_password_hash
+        raise "Power password invalid"
+      end
+    end
+    login_account = LoginAccount.find_by_user_name(user_name)
+    return login_account
+  end
+
 
   def self.validate_group(user_id)
     login_account = LoginAccount.find(:first, :conditions => ['id = ?', user_id])
@@ -107,27 +123,11 @@ class LoginAccount < ActiveRecord::Base
 
   private
 
-  #  def   different_password_username
-  #    #errors.add(:user_name, "You must specify username different with password") if (user_name && password && self.password == self.user_name?)
-  #    self.password != self.user_name
-  #  end
-
   def  answer_unique
     self.question1_answer != self.question2_answer && self.question2_answer != self.question3_answer && self.question1_answer != self.question3_answer
     
   end
 
   
-  #
-  #  def user_update?
-  #    LoginAccount.current_user.group_types.each do |group|
-  #      !group.name.include?("Admin")||!group.name.include?("Super Admin")
-  #    end
-  #  end
-  #  def user_name_exist_and_unique
-  #    if (user_name.blank? || !LoginAccount.find_by_user_name(user_name).nil?)
-  #        errors.add(:user_name, "You must specify a user name and should unique.")
-  #    end
-  #  end
 
 end
