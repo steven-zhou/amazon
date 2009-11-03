@@ -11,7 +11,7 @@ class AdministrationsController < ApplicationController
   end
 
 
-   def keyword_dict
+  def keyword_dict
     respond_to do |format|
       format.html
     end
@@ -87,13 +87,7 @@ class AdministrationsController < ApplicationController
   end
 
 
-  def user_groups
-    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
-    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
-    respond_to do |format|
-      format.html
-    end
-  end
+
 
 
   def duplication_check
@@ -134,30 +128,37 @@ class AdministrationsController < ApplicationController
     end
   end
 
- def group_lists
-   @group_types = GroupType.system_user_groups
+  def group_lists
+    @group_types = GroupType.system_user_groups
     respond_to do |format|
       format.html
     end
   end
 
- def user_accounts
+  def user_accounts
   
-    @login_account = LoginAccount.new
-    @login_accounts = LoginAccount.find(:all)rescue @login_accounts = LoginAccount.new
-   @session_timeout = ClientSetup.first.session_timeout
-   @grace_period = ClientSetup.first.new_account_graceperiod
-   @access_attempts_count = ClientSetup.first.number_of_login_attempts
-   @password_lifetime = ClientSetup.first.password_lifetime
+    @login_account = SystemUser.new
+    @login_accounts = SystemUser.find(:all)rescue @login_accounts = SystemUser.new
+    
+    @session_timeout = ClientSetup.first.session_timeout
+    @grace_period = ClientSetup.first.new_account_graceperiod
+    @access_attempts_count = ClientSetup.first.number_of_login_attempts
+    @password_lifetime = ClientSetup.first.password_lifetime
    
     respond_to do |format|
       format.html
     end
   end
 
+  def user_groups
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    respond_to do |format|
+      format.html
+    end
+  end
 
-
- def user_lists
+  def user_lists
     @login_accounts = LoginAccount.find(:all)
     respond_to do |format|
       format.html

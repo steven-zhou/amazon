@@ -2,9 +2,7 @@
   $("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
   $('#flash_message').dialog( {
   modal: true,
-  resizable: false,
-  draggable: true,
-  <%#*position: 'top',%>
+
   buttons: {
   Ok: function() {
   $(this).dialog('close');
