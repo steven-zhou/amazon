@@ -6,7 +6,7 @@
   <%- end %>
 </div>
 
-<div id="flash_feedback" style="display:none;position:absolute;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
+<div id="flash_feedback" style="display:none;position:fixed;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
   <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
     <%= flash[:message] %>
   <%- end %>
