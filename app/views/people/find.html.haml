@@ -21,7 +21,7 @@
         %h2 Name Details
         .form_line
           .field_20
-            = p.label :primary_title_id, 'Title'
+            = p.label :primary_title_id, '1st Title'
             = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}
           .field_40
             = p.label :first_name, "First Names"
