@@ -68,11 +68,15 @@ class ClientSetupsController < ApplicationController
     if params[:installation]
       redirect_to installation_client_setups_path
     elsif
-      params[:super_admin]
-      @client_setup.primary_password = params[:primary_password]
-      @client_setup.secondary_password = params[:secondary_password]
+      params[:super_admin]      
+      @client_setup.super_admin_power_password = params[:password]
       @client_setup.save
       redirect_to super_admin_client_setups_path
+    elsif
+      params[:member_zone]
+      @client_setup.member_zone_power_password = params[:password]
+      @client_setup.save
+      redirect_to member_zone_client_setups_path
     else
       redirect_to parameters_client_setups_path
     end

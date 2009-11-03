@@ -1286,36 +1286,7 @@ $(function(){
     });
 });
 
-//$(function(){
-//    $("#login_account_user_name").live('change', function(){
-//
-//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-//            $('#user_length').dialog( {
-//                modal: true,
-//                resizable: true,
-//                draggable: true
-//            });
-//            $('#user_length').dialog('open');
-//        }
-//    });
-//});
 
-
-//$(function(){
-//    $("#login_account_password").live('change', function(){
-//
-//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-//
-//            $('#password_length').dialog( {
-//                modal: true,
-//                resizable: true,
-//                draggable: true
-//            });
-//            $('#password_length').dialog('open');
-//        }
-//
-//    });
-//});
 
 
 $(function(){
@@ -1333,25 +1304,6 @@ $(function(){
 
     });
 });
-
-
-
-
-
-
-//$(function(){
-//    $(".edit_login_account").live('click', function(){
-//
-//
-//
-//        $.ajax({
-//            type: "GET",
-//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-//            data:'id='+$(this).attr('login_account_id'),
-//            dataType: "script"
-//        });
-//    });
-//});
 
 
 
@@ -3932,5 +3884,29 @@ $(function(){
             });
             $('#new_system_news_dialog').dialog('option', 'title', 'System News');
             $('#new_system_news_dialog').dialog('open');
+    });
+});
+
+//Member Zone Super User Password Confirmation
+$(function(){
+    $("#repeat_password").live('change', function(){
+        if ($(this).val()!= $('#password').val()){
+            $('#password_error').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
+                  OK: function(){
+                    $(this).dialog('destroy');
+                    return true;
+
+                  }
+                }
+            });
+            $('#password_error').dialog('option', 'title', 'Error');
+            $('#password_error').dialog('open');
+        }else{
+            $('#password_submit').attr('disabled',false);
+        }
     });
 });

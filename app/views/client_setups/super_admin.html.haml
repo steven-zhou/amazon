@@ -46,32 +46,13 @@
     .form_line
       .field_20
         %label Super Password
-        %input{:id => "secondary_password", :name => "secondary_password", :class => "password jpassword-lefttop"}
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
       .field_20
         %label Super Password Confirmation
-        %input{:id => "secondary_password_confirmation", :name => "secondary_password_confirmation"}
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
+    .form_line
+      = submit_tag "Submit", :disabled => true, :id => "password_submit"
+
+#password_error{:style => "display:none;"}
   .container
-    %h2 Security Questions
-    .form_line
-      .field_40
-        = f.label :security_question1_id, "Security Question 1"
-        = f.collection_select :security_question1_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
-      .field_40
-        = f.label :question1_answer, "Answer to Question 1"
-        = f.text_field :question1_answer
-    .form_line
-      .field_40
-        = f.label :security_question2_id, "Security Question 2"
-        = f.collection_select :security_question2_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
-      .field_40
-        = f.label :question2_answer, "Answer to Question 2"
-        = f.text_field :question2_answer
-    .form_line
-      .field_40
-        = f.label :security_question3_id, "Security Question 3"
-        = f.collection_select :security_question3_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
-      .field_40
-        = f.label :question3_answer, "Answer to Question 3"
-        = f.text_field :question3_answer
-    .form_line
-      = submit_tag "Submit"
+    %p Two password are not matched

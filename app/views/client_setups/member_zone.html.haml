@@ -11,9 +11,13 @@
     .form_line
       .field_20
         %label Super Password
-        %input{:id => "primary_password", :name => "primary_password", :class => "password jpassword-lefttop"}
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
       .field_20
         %label Super Password Confirmation
-        %input{:id => "primary_password_confirmation", :name => "primary_password_confirmation"}
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
     .form_line
-      = submit_tag "Submit"
+      = submit_tag "Submit", :disabled => true, :id => "password_submit"
+
+#password_error{:style => "display:none;"}
+  .container
+    %p Two password are not matched

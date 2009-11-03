@@ -400,3 +400,25 @@ d.save
 d = DomesticPostcode.new(:country_id => c.id, :suburb => "Killara", :state => "NSW", :postcode => "2013")
 d.save
 
+puts "Creating Sample Modules Data"
+AvailableModulde.create(
+  :name => "Fundrising",
+  :description => "Fundrising",
+  :status => true
+)
+AvailableModulde.create(
+  :name => "MyCase",
+  :description => "MyCase",
+  :status => true
+)
+AvailableModulde.create(
+  :name => "MemberZone",
+  :description => "MemberZone",
+  :status => true
+)
+AvailableModulde.create(
+  :name => "UnknownModule",
+  :description => "UnknownModule",
+  :status => true
+)
+

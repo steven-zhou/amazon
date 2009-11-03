@@ -14,15 +14,15 @@ class ClientSetup < ActiveRecord::Base
     Digest::SHA256.hexdigest(password + self.secondary_password_salt) == self.secondary_password_hash
   end
 
-  def primary_password=(pass)
+  def member_zone_power_password=(pass)
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
-    self.primary_password_salt, self.primary_password_hash =
+    self.member_zone_power_password_salt, self.member_zone_power_password_hash =
       salt, Digest::SHA256.hexdigest(pass + salt)
   end
 
-  def secondary_password=(pass)
+  def super_admin_power_password=(pass)
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
-    self.secondary_password_salt, self.secondary_password_hash =
+    self.super_admin_power_password_salt, self.super_admin_power_password_hash =
       salt, Digest::SHA256.hexdigest(pass + salt)
   end
 end
