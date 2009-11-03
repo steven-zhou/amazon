@@ -87,13 +87,7 @@ class AdministrationsController < ApplicationController
   end
 
 
-  def user_groups
-    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
-    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
-    respond_to do |format|
-      format.html
-    end
-  end
+
 
 
   def duplication_check
@@ -156,7 +150,13 @@ class AdministrationsController < ApplicationController
     end
   end
 
-
+  def user_groups
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    respond_to do |format|
+      format.html
+    end
+  end
 
   def user_lists
     @login_accounts = LoginAccount.find(:all)
