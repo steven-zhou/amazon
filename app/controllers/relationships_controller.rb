@@ -39,7 +39,7 @@ class RelationshipsController < ApplicationController
   def remove_relation
     @source_person = Person.find(params[:person_id].to_i)
     @related_person = Person.find(params[:related_person_id].to_i)
-    
+    @person = Person.find(params[:person_id].to_i)
     @relationship = Relationship.find_by_source_person_id_and_related_person_id(@source_person, @related_person)
     if (@relationship.relationship_type.name == 'Spouse')
       @source_person_spouse = Person.find(params[:related_person_id].to_i)
