@@ -209,7 +209,7 @@ class SigninController < ApplicationController
       end
 
       flash.now[:warning] = rescue_message
-      render "ask_for_power_password", :layout => "reset_password"
+      render "login"
     end
   end
 
