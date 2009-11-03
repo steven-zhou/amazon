@@ -27,7 +27,7 @@
 {
         width: 100%;
         cursor: move;
-	padding: 5px 10px;
+	padding: 10px;
         float:left;
 }
 
@@ -35,8 +35,10 @@
     color: #2C2C2C;
     font-size:18px;
     font-weight: normal;
-    line-height: 22px;
+    line-height: 20px;
 }
+
+.portlet_topper .options {float:right; width: 20%;}
 
 .portlet_topper a
 {
@@ -62,11 +64,11 @@
 .portlet_to_do_content
 {
 	padding: 10px;
-       height:245px;
+       height:300px;
         float: left;
         overflow: hidden;
 }
-
+.portlet_to_do_content #to_do_lists {width: 100%; float: left;}
 .portlet_to_do_content #to_do_lists .done_box {width: 50px; float: right;}
 .portlet_to_do_content #to_do_lists .done_box .done {width: 10px !important; height: 10px !important; display: inline;float: left;}
 .portlet_to_do_content #to_do_lists .done_box label {
@@ -77,7 +79,7 @@
     text-decoration: none;
     line-height: 20px;
 }
-#new_to_do
+#new_to_do_box
 {
     width: 94%;
     margin: 0% 3%;

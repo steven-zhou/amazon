@@ -537,10 +537,15 @@ $(function(){
 $(function(){
     //adding a new title or changing an exist one
 
-    var title = false;
-    var fn = false;
-    var ln = false;
+    var title = true;
+    var fn = true;
+    var ln = true;
     
+    //checking status and then appending person_primary_title_id
+    $('select#person_primary_title_id').focus(function(){
+        if($('select#person_primary_title_id').find('option:selected').html().length == 0)
+            title = false;
+    });
     $('select#person_primary_title_id').change(function(){
         if(title == false){
             update_primary();
@@ -548,7 +553,11 @@ $(function(){
         }
     });
 
-    //appending person_first_name after first_name
+    //checking status and appending person_first_name after first_name
+    $('input#person_first_name').focus(function(){
+        if($('input#person_first_name').val().length == 0)
+            fn = false;
+    });
     $('input#person_first_name').bind("blur", function(){
         if(fn == false){
             update_primary();
@@ -556,13 +565,16 @@ $(function(){
         }
     });
 
-    //appending person_family_name after title
+    //checking status and appending person_family_name after title
+    $('input#person_family_name').focus(function(){
+        if($('input#person_family_name').val().length == 0)
+            ln = false;
+    });
     $('input#person_family_name').bind("blur", function(){
         if(ln == false){
             update_primary();
             ln = true;
         }
-
     });
 
     //if #person_primary_salutation lose focus, check it and it is not allowed to be empty

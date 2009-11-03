@@ -58,7 +58,7 @@ $(document).ready(
 			{
 				accept: 'portlet',
 				helperclass: 'sort_placeholder',
-				opacity: 0.7,
+				opacity: 0.5,
 				tolerance: 'intersect'
 			}
 		);

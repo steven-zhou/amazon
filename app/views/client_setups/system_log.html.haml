@@ -41,3 +41,13 @@
   .container#system_log_search_results{:style => "display:none;"}
     %table#system_log_search_grid
 
+  .container#system_log_export_options{:style => "display:none;"}
+    - form_tag("/reports/generate_system_log_pdf") do
+      %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
+      %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
+      %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
+      %input{:name => "log_controller", :style => "display:none;", :id => "system_log_export_log_controller"}
+      %input{:name => "log_action", :style => "display:none;", :id => "system_log_export_log_action"}
+      = submit_tag("Export PDF")
+
+

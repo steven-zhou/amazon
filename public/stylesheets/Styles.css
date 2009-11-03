@@ -986,7 +986,7 @@ form#organisation_names_form input#image_image_file{
     color: #232323;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
-    width: 96%;
+    width: 98%;
     float: left;
     padding: 1%;
     min-height: 10px;
@@ -1667,9 +1667,9 @@ div#permission_form .options{
 
 /*Dashboard*/
 #dashboard .system_news_container {
-    width:29%;
+    width:290px;
     min-height:100px;
-    margin-right:2%;
+    margin-right:15px;
     -moz-border-radius-bottomleft:10px;
     -moz-border-radius-bottomright:10px;
     -moz-border-radius-topleft:10px;
@@ -1679,11 +1679,11 @@ div#permission_form .options{
     color:#232323;
     float:left;
     font-family:Arial,Helvetica,sans-serif;
-    padding:1%;
+    padding:10px;
 }
 
 #dashboard .system_news_container.active {
-    width:95% !important;
+    width: 900px !important;
 }
 
 #dashboard .system_news_container .news_content {
@@ -1712,6 +1712,7 @@ div#permission_form .options{
     float:left;
     height:50px;
     margin-top:50px;
+    text-align: right;
 }
 
 #dashboard #system_news_panel {
@@ -1721,11 +1722,60 @@ div#permission_form .options{
 }
 
 #dashboard #system_news_panel #system_news_holder {
-    overflow-x:hidden;
-    overflow-y:auto;
+    overflow: hidden;
+   float: none;
+   width:250%;
+}
+.dashboard_form {
+    color:#232323;
+    float:left;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+    width:100%;
+}
+.dashboard_form label { font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;}
+
+.dashboard_form .form_line {
+    float: left;
+    height: auto;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
+/* field properties */
+.dashboard_form input {
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 100%;
+    height: 18px;
 
+}
+.dashboard_form textarea {
+    font-size:14px;
+    font-family:Arial, Helvetica, sans-serif;
+    line-height:16px;
+    width: 100%;
+    height: 200px;
+
+}
+
+.dashboard_form input[type=button] {
+    width:auto;
+    height:auto;
+}
+
+.dashboard_form input[type=submit] {
+    width:auto;
+    height:auto;
+    float:right;
+}
 
   .container {
     font-family:Arial, Helvetica, sans-serif;

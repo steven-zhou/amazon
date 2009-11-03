@@ -15,8 +15,8 @@
     %div#system_data_main_contents{:style => "display:none;"}
       .container#system_data_add_data
         %div
-          = image_tag("close_icon.png" , :class => "close_option", :id=> "system_data_close_entry",:style => "display:none;float:right;", :field => "system_data")
-          = image_tag("add_icon.png" , :size => "19x18", :id => "system_data_add_entry", :class => "new_option", :field => "system_data")
+          = link_to_function image_tag("close_icon.png" , :class => "close_option", :id=> "system_data_close_entry",:style => "display:none;float:right;", :field => "system_data")
+          = link_to_function image_tag("add_icon.png" , :size => "19x18", :id => "system_data_add_entry", :class => "new_option", :field => "system_data")
           New Data
         %div#system_data_add_entry_form{:style => "display:none;"}
           %br.clear
