@@ -7,11 +7,13 @@ class KeywordLinksController < ApplicationController
     else
      @entity = Person.find(params[:person_id])
     end
-    
 
-    if (!params[:add_keywords].nil?)
-      params[:add_keywords].each do |keyword_id|
+
+
+    if (!params[:add_person_keywords].nil?)
+      params[:add_person_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id);
+        @selected_class = keyword.keyword_type_name
         @entity.keywords<<keyword
       end
     end
@@ -39,9 +41,10 @@ class KeywordLinksController < ApplicationController
     end
    
 
-   if (!params[:remove_keywords].nil?)
-      params[:remove_keywords].each do |keyword_id|
+   if (!params[:remove_person_keywords].nil?)
+      params[:remove_person_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id)
+        @selected_class = keyword.keyword_type_name
         @entity.keywords.delete(keyword)
       end
     end

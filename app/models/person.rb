@@ -238,12 +238,14 @@ class Person < ActiveRecord::Base
   end
 
 
-   #find all relate relationship
+   #find all relate relationship include father and mother
 
       def personal_relationship_type
         @personal_relationship_type = Array.new
           self.people_as_source.each do |relation|
-       @personal_relationship_type <<  AmazonSetting.find(relation.relationship_type_id)
+            if AmazonSetting.find(relation.relationship_type_id).name == "Father" or AmazonSetting.find(relation.relationship_type_id).name =="Mother"
+              @personal_relationship_type <<  AmazonSetting.find(relation.relationship_type_id)
+            end  
     end
       return @personal_relationship_type
       end

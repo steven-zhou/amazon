@@ -1,16 +1,4 @@
-<%- if @keyword_assigned.nil?%>
+
 $("#keyword_mode").attr('mode', 'show');
 $("#keyword_type").attr("disabled",false).change();
 
-<%else%>
-
- $('#keyword_already_assigned').dialog({
-  modal: true,
-  resizable: false,
-  draggable: true,
-  height: 'auto',
-  width: 'auto',
-});
-$('#keyword_already_assigned').dialog('option', 'title', 'ERROR');
-$('#keyword_already_assigned').dialog('open');
-<%end%>

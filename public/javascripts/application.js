@@ -167,6 +167,8 @@ $(function() {
     }).attr("rel", "nofollow");
 
 
+
+
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
@@ -268,19 +270,22 @@ $("#edit_photo_link").live("click",function() {
 
 /*Keywords*/
 showKeyword = function(){
-    $("#add_keywords option:selected").removeAttr("selected");
-    $("#add_keywords").find("option").hide();
-    $("#keyword_types").find("option:selected").each(function(){
+    $("#add_person_keywords option:selected").removeAttr("selected");
+    $("#add_person_keywords").find("option").hide();
+//    alert($("#keyword_keyword_type_id").find("option:selected").text());
+    $("#keyword_person_types").find("option:selected").each(function(){
         if($(this).val() == ""){
-            $("#add_keywords").find("option").show();
-        }else{
-            $("#add_keywords option[class=" + $(this).text() + "]").show();
+            $("#add_person_keywords").find("option").show();
+        }else{      
+          $("#add_person_keywords option[class=" + $(this).text() + "]").show();
+//             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
+             
         }
     });
 }
 
 showTooltip = function(){
-    $("#add_keywords option ,#remove_keywords option").each(function(){
+    $("#add_person_keywords option ,#remove_person_keywords option").each(function(){
         $(this).qtip({
             content: $(this).attr('remark'),
             position: {
@@ -296,14 +301,14 @@ showTooltip = function(){
     });
 }
 
-$(document).ready(function(){
-    showKeyword();
-    showTooltip();
-});
+//$(document).ready(function(){
+//    showKeyword();
+//    showTooltip();
+//});
 
 
 
-$("#keyword_keyword_type_id ").live("change", showKeyword);
+$("#keyword_person_types").live("change", showKeyword);
 /*organisation keyword*/
 showOrganisationKeyword = function(){
     $("#add_organisation_keywords option:selected").removeAttr("selected");
@@ -333,8 +338,6 @@ showOrganisationTooltip = function(){
         });
     });
 }
-
-
 
 $("#keyword_organisation_types").live("change", showOrganisationKeyword);
 /* Relationships */
@@ -374,9 +377,17 @@ $(function(){
         });      
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
+
         
     });
 });
+
+$(function(){
+    $('table#search_list_results tbody tr').live('mouseover',function(){
+       $(this).css("cursor","pointer");
+    });
+});
+
 
 
 /*role*/
@@ -3903,6 +3914,17 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".check_delete ").live('click', function(){
+
+     $.ajax({
+                type: "GET",
+                url: "/keywords/check_destroy.js",
+                data: 'id=' + $(this).attr("keyword_id"),
+                dataType: "script"
+            });
+    });
+});
 $(function(){
     $("#remove_organisation_keywords").live('dblclick', function(){
 
