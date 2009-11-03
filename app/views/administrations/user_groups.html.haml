@@ -3,16 +3,18 @@
     %h1 User Groups
   #lol
     %br.clear
-%input{:id => "group_type_mode", :mode => "show", :style => "display:none"}
+%input{:id => "user_group_group_mode", :mode => "show", :style => "display:none"}
 %br
 #content_full_page
   %div#group_display
-    %ul{:style => "list-style-type:none;padding-left:0px;"}
+    %ul
       - @group_types.each do |i|
-        %li{:style => "width:50%;float:left;"}
-          .group_type_tab.toggle_options{:class => "container_active", :id => "group_type_#{i.id}", :field => "group_type"}
+        %li
+          - status = i.status ? "container_active" : "container_inactive"
+          - status_flag = i.status ? "" : "hidden"
+          .group_type_tab.toggle_options{:class => "#{status} toggle_options", :id => "group_type_#{i.id}", :field => "user_group_group"}
             .options{:style=> "display:inline;float:right;display:none;"}
-              = image_tag('edit_icon.png', :class => 'edit_option', :id => 'user_group_edit_button', :group_type_id => i.id)
+              = image_tag('edit_icon.png', :class => '#{status_flag} edit_option edit_logo', :id => 'user_group_edit_button', :controller => "user_groups", :data_id => i.id, :field => "user_group_group")
             .title
               = i.name
               \-
@@ -21,4 +23,8 @@
               users
             
 
-  %div#user_group_form
+  %div#user_group_group_edit_container
+
+
+
+

@@ -2921,20 +2921,21 @@ $(function(){
 
 /*user_group  new design*/
 
-$(function(){
-    $('#user_group_edit_button').live('click', function(){
-        $(".container_selected").removeClass("container_selected");
-        $(this).closest('.toggle_options').addClass("container_selected");
+//$(function(){
+//    $('#user_group_edit_button').live('click', function(){
+//        $(".container_selected").removeClass("container_selected");
+//        $(this).closest('.toggle_options').addClass("container_selected");
+//
+//        $.ajax({
+//            type:'GET',
+//            url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
+//            data: "group_type_id="+$(this).attr('group_type_id'),
+//            dataType:"script"
+//
+//        });
+//    });
+//});
 
-        $.ajax({
-            type:'GET',
-            url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
-            data: "group_type_id="+$(this).attr('group_type_id'),
-            dataType:"script"
-
-        });
-    });
-});
 
 $(function(){
 

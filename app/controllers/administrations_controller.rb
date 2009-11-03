@@ -159,7 +159,7 @@ class AdministrationsController < ApplicationController
   end
 
   def user_lists
-    @login_accounts = LoginAccount.find(:all)
+    @login_accounts = SystemUser.find(:all)
     respond_to do |format|
       format.html
     end
