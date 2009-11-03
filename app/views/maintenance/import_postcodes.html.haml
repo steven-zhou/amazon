@@ -5,8 +5,14 @@
     %br.clear
 #content_full_page
   .container
-    %p
     - form_tag("/maintenance/import_postcode_file", :class => "ajax_form") do
+
+      %div#import_postcodes_columns{:style => "display:none;"}
+
+      %div#import_postcode_parameters{:style => "display:none;"}
+
+      %div#import_postcode_summary{:style => "display:none;"}
+
 
 
   
