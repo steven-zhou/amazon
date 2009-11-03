@@ -13,7 +13,7 @@ class KeywordsController < ApplicationController
     #    puts "********#{params[:keyword]}***************"
     @keyword_table.keyword_type_id = params[:type_id]
     @keyword_table.save
-       puts "********#{params[:type_id]}***************"
+
 
     respond_to do |format|
       format.js
@@ -31,6 +31,8 @@ class KeywordsController < ApplicationController
   def update
 
     @keyword_table= Keyword.find(params[:id].to_i)
+    @keyword_assigned = KeywordLink.find_by_keyword_id(@keyword_table.id)
+    if @keyword_assigned.nil?
     if @keyword_table.status == true
 
      @keyword_table.name = params[:keyword][:name]
@@ -44,7 +46,7 @@ class KeywordsController < ApplicationController
 
 
     @keyword_table.save
-  
+    end
 
     respond_to do |format|
       format.js  
@@ -56,7 +58,11 @@ class KeywordsController < ApplicationController
 
   def destroy
     keyword = Keyword.find(params[:id])
-    keyword.destroy
+    @keyword_assigned = KeywordLink.find_by_keyword_id(keyword.id)
+    if @keyword_assigned.nil?
+       keyword.destroy
+    end
+   
     respond_to do |format|
       format.js
     end

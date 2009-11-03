@@ -303,7 +303,7 @@ $(document).ready(function(){
 
 
 
-$("#keyword_types").live("change", showKeyword);
+$("#keyword_keyword_type_id ").live("change", showKeyword);
 /*organisation keyword*/
 showOrganisationKeyword = function(){
     $("#add_organisation_keywords option:selected").removeAttr("selected");
@@ -3823,6 +3823,7 @@ $('#signout').live('click', function(){
     return true;
 
   },
+ 
     Yes: function(){
   window.open("/signin/signout", "_self");
   $(this).dialog('close');
@@ -3926,10 +3927,12 @@ $(function(){
     $("#new_to_do").live('click', function(){
         $('#new_to_do_dialog').dialog( {
                 modal: true,
-                resizable: true,
-                draggable: true
+                  resizable: false,
+                width: 600,
+                height: 175,
+                draggable: false
             });
-            $('#new_to_do_dialog').dialog('option', 'title', 'To Do List');
+            $('#new_to_do_dialog').dialog('option', 'title', 'New To Do Entry');
             $('#new_to_do_dialog').dialog('open');
     });
 });
@@ -3939,10 +3942,12 @@ $(function(){
     $("#new_system_news").live('click', function(){
         $('#new_system_news_dialog').dialog( {
                 modal: true,
-                resizable: true,
-                draggable: true
+                resizable: false,
+                width: 600,
+                height: 400,
+                draggable: false
             });
-            $('#new_system_news_dialog').dialog('option', 'title', 'System News');
+            $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
             $('#new_system_news_dialog').dialog('open');
     });
 });

@@ -1,8 +1,9 @@
 - form_for @to_do_list, :html => {:class => "ajax_form"} do |f|
-  .form_line
-    .field
-      =f.label :description, "New To-Do"
-      =f.text_field :description
-    .submit
-      %label &nbsp;
-      = submit_tag "Add to List"
+  .dashboard_form
+    .form_line
+      .field_100
+        =f.label :description, "New To-Do"
+        =f.text_field :description
+      .submit
+        %label &nbsp;
+        = submit_tag "Add to List"

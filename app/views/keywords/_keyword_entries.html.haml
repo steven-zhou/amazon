@@ -7,3 +7,5 @@
         = link_to (image_tag('delete_icon.png'), keyword_path(setting), :class => 'delete delete_keyword delete_option',:error_message_field => "Keyword", :field => "keyword", :id => 'keyword_delete_button', :keyword_id => setting.id) unless !setting.status
       .title
         = setting.name
+#keyword_already_assigned{:style=> "display:none;"}
+  =label_tag :keyword_already_assigned_warning_message, "This Keyword can not delete.It already assigned."
