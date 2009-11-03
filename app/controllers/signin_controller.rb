@@ -2,28 +2,30 @@ class SigninController < ApplicationController
 
   include SimpleCaptcha::ControllerHelpers
 
-  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha]
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha, :ask_for_power_password]
   layout nil
 
   # Allows a user to log in.
   def login
     if request.post?
       begin
-        login_account = LoginAccount.authenticate(params[:user_name], params[:password])
-        session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
-        puts "********#{session[:user]}*******8888888888"
+        login_account = LoginAccount.authenticate(params[:user_name], params[:password])       
         @group_types = LoginAccount.validate_group(session[:user])
         @system_permission_types = LoginAccount.validate_permission(session[:user])
         @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
 
-        if login_account.class.to_s == "SystemUser"
+        if login_account.class.to_s == "SystemUser"          
           login_account.update_password = false
           create_temp_list
+          login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+          session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+          session[:login_account_info] = login_account
+          redirect_to welcome_url
+        else
+          redirect_to :action => "ask_for_power_password"
         end
   
-        login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-        session[:login_account_info] = login_account
-        redirect_to welcome_url
+        
       rescue
         # If we threw an exception for not logging
         #  in ok we will send a warning to the end user
@@ -174,6 +176,14 @@ class SigninController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+  def ask_for_power_password
+    render "ask_for_power_password", :layout => "reset_password"
+  end
+
+  def login_as_super_user
+    
   end
 
   private
