@@ -90,7 +90,7 @@
     .field_23
       = login.label :access_attempts_count, "Access_attempts_count(num)"
       %select{:name => "login_account[access_attempts_count]"}
-        %option{:value => "0", :selected => @access_attempts_count == 0} Unlimited
+        %option{:value => "99999", :selected => @access_attempts_count == 0} Unlimited
         %option{:value => "3", :selected => @access_attempts_count == 3} 3
         %option{:value => "4", :selected => @access_attempts_count == 4} 4
         %option{:value => "5", :selected => @access_attempts_count == 5} 5
@@ -100,7 +100,7 @@
     .field_23
       = login.label :authentication_grace_period, "New Account Grace Period(Days)"
       %select{:name => "login_account[authentication_grace_period]"}
-        %option{:value => "0", :selected => @grace_period == 0} Unlimited
+        %option{:value => "99999", :selected => @grace_period == 0} Unlimited
         %option{:value => "7", :selected => @grace_period == 7} 7
         %option{:value => "14", :selected => @grace_period == 14} 14
         %option{:value => "21", :selected => @grace_period == 21} 21
@@ -112,7 +112,7 @@
       -#= login.text_field :session_timeout, :class => "integer_field"
       = login.label :session_timeout, "Session Timeout(Mins)"
       %select{:name => "login_account[session_timeout]"}
-        %option{:value => "0", :selected => @session_timeout == 0} Unlimited
+        %option{:value => "99999", :selected => @session_timeout == 0} Unlimited
         %option{:value => "5", :selected => @session_timeout == 5} 5
         %option{:value => "10", :selected => @session_timeout == 10} 10
         %option{:value => "20", :selected => @session_timeout == 20} 20
@@ -120,7 +120,7 @@
     .field_23
       = login.label :password_lifetime, "User Password Lifetime (Days)"
       %select{:name => "login_account[password_lifetime]"}
-        %option{:value => "0", :selected => @password_lifetime == 0} Unlimited
+        %option{:value => "99999", :selected => @password_lifetime == 0} Unlimited
         %option{:value => "15", :selected => @password_lifetime == 15} 15
         %option{:value => "30", :selected => @password_lifetime == 30} 30
         %option{:value => "60", :selected => @password_lifetime == 60} 60
