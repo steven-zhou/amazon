@@ -536,23 +536,40 @@ $(function(){
 /* person_primary_salutation @ tao*/
 $(function(){
     //adding a new title or changing an exist one
-    $('select#person_primary_title_id').change(function(){        
-        update_primary();
+
+    var title = false;
+    var fn = false;
+    var ln = false;
+    
+    $('select#person_primary_title_id').change(function(){
+        if(title == false){
+            update_primary();
+            title = true;
+        }
     });
 
     //appending person_first_name after first_name
-    $('input#person_first_name').bind("blur keyup", function(){
-        update_primary();
+    $('input#person_first_name').bind("blur", function(){
+        if(fn == false){
+            update_primary();
+            fn = true;
+        }
     });
 
     //appending person_family_name after title
-    $('input#person_family_name').bind("blur keyup", function(){
-        update_primary();
+    $('input#person_family_name').bind("blur", function(){
+        if(ln == false){
+            update_primary();
+            ln = true;
+        }
+
     });
 
     //if #person_primary_salutation lose focus, check it and it is not allowed to be empty
     $('input#person_primary_salutation').blur(function(){
-        update_primary();
+        if($('input#person_primary_salutation').val().length == 0){
+            update_primary();
+        }
     });
 
     //update value of input#person_primary_salutation
