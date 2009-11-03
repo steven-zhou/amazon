@@ -75,6 +75,12 @@ class LoginAccount < ActiveRecord::Base
     self.user_lists.each do |i|
       custom_lists << ListHeader.find(i.list_header_id)
     end
+    custom_lists.uniq
+  end
+
+  def all_lists
+    temp_list = TempList.find_all_by_login_account_id(self.id)
+    (self.list_headers + self.custom_lists + temp_list).uniq
   end
 
 

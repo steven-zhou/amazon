@@ -31,8 +31,9 @@ class PeopleController < ApplicationController
   end
   
   def show
-    check_user
-
+    @group_types = LoginAccount.find(session[:user]).group_types
+    @list_headers = @current_user.all_lists
+    puts "*******************#{@list_headers.to_yaml}******************888"
     #when it is cal show action
     if request.get?
       if @list_headers.blank?
@@ -49,9 +50,6 @@ class PeopleController < ApplicationController
           @person = Person.new if @person.nil?
           @p = Array.new
           @p = @list_header.people_on_list
-
-          puts "#{@person.to_yaml}***************888888888"
-          puts "99999999#{@p.to_yaml}************************99999999999"
         else  #when there is id come---click the narrow button
           unless session[:current_list_id].blank?
             @list_header = ListHeader.find(session[:current_list_id])
@@ -109,7 +107,8 @@ class PeopleController < ApplicationController
 
   
   def edit
-    check_user
+    @group_types = LoginAccount.find(session[:user]).group_types
+    @list_headers = @current_user.all_lists
 
     @postcodes = DomesticPostcode.find(:all)
 
@@ -611,18 +610,6 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:id].to_i)
     respond_to do |format|
       format.js
-    end
-  end
-
-  private
-  def check_user
-    if session[:super_admin]
-      @group_types = GroupType.find(:all, :order => "name")
-      @list_headers = ListHeader.find(:all, :order =>"name")
-
-    else
-      @group_types = LoginAccount.find(session[:user]).group_types
-      @list_headers = @current_user.list_headers
     end
   end
 

@@ -1,4 +1,4 @@
-class SuperAdmin < ActiveRecord::Base
+class SuperAdmin < LoginAccount
 
 
   def user_list_headers

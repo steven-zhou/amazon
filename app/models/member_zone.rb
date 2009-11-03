@@ -1,4 +1,4 @@
-class MemberZone < ActiveRecord::Base
+class MemberZone < LoginAccount
 
   def user_list_headers
     []

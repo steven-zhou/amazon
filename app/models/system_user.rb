@@ -1,4 +1,4 @@
-class SystemUser < ActiveRecord::Base
+class SystemUser < LoginAccount
 
   belongs_to :person
   belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"

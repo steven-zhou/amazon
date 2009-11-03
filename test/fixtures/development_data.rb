@@ -1,31 +1,22 @@
 puts "Before importing this sample data for the development database make sure you've done a rake db:populate first."
+
 puts "Creating sample SystemPermission data"
-
 mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true)
-
 mdmt = SystemPermissionMetaType.create(:name => "Address_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
-
 show = SystemPermissionType.create(:name => "Address_show", :system_permission_meta_type => mdmt, :status => true)
 edit = SystemPermissionType.create(:name => "Address_edit", :system_permission_meta_type => mdmt, :status => true)
 create = SystemPermissionType.create(:name => "Address_create", :system_permission_meta_type => mdmt, :status => true)
 update = SystemPermissionType.create(:name => "Address_update", :system_permission_meta_type => mdmt, :status => true)
 destroy = SystemPermissionType.create(:name => "Address_destroy", :system_permission_meta_type => mdmt, :status => true)
-
 mdmt0 = SystemPermissionMetaType.create(:name => "Note_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
-
 show0 = SystemPermissionType.create(:name => "Note_show", :system_permission_meta_type => mdmt0, :status => true)
 edit0 = SystemPermissionType.create(:name => "Note_edit", :system_permission_meta_type => mdmt0, :status => true)
 create0 = SystemPermissionType.create(:name => "Note_create", :system_permission_meta_type => mdmt0, :status => true)
 update0 = SystemPermissionType.create(:name => "Note_update", :system_permission_meta_type => mdmt0, :status => true)
 destroy0 = SystemPermissionType.create(:name => "Note_destroy", :system_permission_meta_type => mdmt0, :status => true)
 
-
-
-
 mdmmt1 = SystemPermissionMetaMetaType.create(:name => "Admin", :status => true)
-
 mdmt1 = SystemPermissionMetaType.create(:name => "group_list_controller", :system_permission_meta_meta_type => mdmmt1, :status => true)
-
 showlist1 = SystemPermissionType.create(:name => "group_list_show_list", :system_permission_meta_type => mdmt1, :status => true)
 create1 = SystemPermissionType.create(:name => "group_list_create", :system_permission_meta_type => mdmt1, :status => true)
 destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_permission_meta_type => mdmt1, :status => true)
@@ -63,11 +54,14 @@ UserGroup.create(:user_id => memberzone.id, :group_id => superuser.id)
 UserGroup.create(:user_id => superadmin.id, :group_id => superuser.id)
 
 
-puts "Assign Permission to group pg"
-permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => superuser.id)
+puts "Assign Permission to Super User Group"
+GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => superuser.id)
 
 
-#mo
+puts "Assign List to Super User Group"
+GroupList.create(:tag_id => superuser.id, :list_header_id => PrimaryList.first.id)
+
+
 # People
 
 puts "Creating sample people."
@@ -240,11 +234,10 @@ puts "Creating sample Group data."
 mdmmt = GroupMetaMetaType.create(:name => "Security", :status => true)
 
 mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => mdmmt, :status => true)
-super_admin = GroupType.create(:name => "Super Admin", :group_meta_type => mdmt, :status => true)
 admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true)
 operators = GroupType.create(:name => "Operators", :group_meta_type => mdmt, :status => true)
 volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :status => true)
-
+auditor = GroupType.create(:name => "Auditor", :group_meta_type => mdmt, :status => true)
 mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
 
 mdmmt = GroupMetaMetaType.create(:name => "Custom", :status => true)

@@ -11,21 +11,18 @@ class SigninController < ApplicationController
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
         session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+        puts "********#{session[:user]}*******8888888888"
         @group_types = LoginAccount.validate_group(session[:user])
         @system_permission_types = LoginAccount.validate_permission(session[:user])
         @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
 
-        if login_accout.class.to_s == "SystemUser"
+        if login_account.class.to_s == "SystemUser"
           login_account.update_password = false
           create_temp_list
         end
   
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
         session[:login_account_info] = login_account
-
-        
-
-
         redirect_to welcome_url
       rescue
         # If we threw an exception for not logging
