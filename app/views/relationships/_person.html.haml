@@ -5,5 +5,5 @@
   %div.name_container
     = person.name
   %div.delete_container{:class => "person_tag", :style => "display:none"}
-    = link_to image_tag('/images/delete_icon.png'), remove_relation_person_relationships_path(@person,:related_person_id => person.id), :class => :delete,:error_message_field => type 
+    = link_to image_tag('/images/delete_icon.png'), remove_relation_person_relationships_path(@person,:related_person_id => person.id), :class => :delete,:error_message_field => type + " Relationship"
   %br{ :style => "clear:both;"}
