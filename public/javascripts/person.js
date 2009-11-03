@@ -69,13 +69,13 @@ $(function() {
     });
 
    
-//    $(".clear_form").click(function(){
-//
-//        if(confirm("Are you sure?","Warning","Yes","No",3))
-//        {
-//            $('#'+$(this).parents("form").get(0).id)[0].reset();
-//        }
-//    });
+    //    $(".clear_form").click(function(){
+    //
+    //        if(confirm("Are you sure?","Warning","Yes","No",3))
+    //        {
+    //            $('#'+$(this).parents("form").get(0).id)[0].reset();
+    //        }
+    //    });
 
 
    
@@ -535,42 +535,59 @@ $(function(){
 
 /* person_primary_salutation @ tao*/
 $(function(){
-    //store current primary value
-    var current_primary = $('#person_primary_salutation').val();
-    
     //adding a new title or changing an exist one
-    $('select#person_primary_title_id').change(function(){        
-        var new_title = $('select#person_primary_title_id').find('option:selected').html();
-        if(current_primary.length > 0){
-            var old_title = current_primary.substring(0, current_primary.indexOf(" ", 0));
-            current_primary = current_primary.replace(old_title, new_title);
-            $('#person_primary_salutation').val(current_primary);
-        }
-        else{
-            current_primary += new_title;
-            current_primary += " ";
-            $('#person_primary_salutation').val(current_primary);
+
+    var title = true;
+    var fn = true;
+    var ln = true;
+    
+    //checking status and then appending person_primary_title_id
+    $('select#person_primary_title_id').focus(function(){
+        if($('select#person_primary_title_id').find('option:selected').html().length == 0)
+            title = false;
+    });
+    $('select#person_primary_title_id').change(function(){
+        if(title == false){
+            update_primary();
+            title = true;
         }
     });
 
-    //appending person_family_name after title
-    $('input#person_family_name').bind("blur keyup", function(){
-        var old_familyname = current_primary.substring(current_primary.indexOf(" ", 0)+1);
-        var input_char = $(this).val();
-        if (old_familyname.length > 0 ){
-            current_primary = current_primary.replace(old_familyname, input_char);
+    //checking status and appending person_first_name after first_name
+    $('input#person_first_name').focus(function(){
+        if($('input#person_first_name').val().length == 0)
+            fn = false;
+    });
+    $('input#person_first_name').bind("blur", function(){
+        if(fn == false){
+            update_primary();
+            fn = true;
         }
-        else{
-            current_primary += input_char;
-        }        
-        $('#person_primary_salutation').val(current_primary);
+    });
+
+    //checking status and appending person_family_name after title
+    $('input#person_family_name').focus(function(){
+        if($('input#person_family_name').val().length == 0)
+            ln = false;
+    });
+    $('input#person_family_name').bind("blur", function(){
+        if(ln == false){
+            update_primary();
+            ln = true;
+        }
     });
 
     //if #person_primary_salutation lose focus, check it and it is not allowed to be empty
-    $('#person_primary_salutation').blur(function(){
-        if ($('#person_primary_salutation').val().length == 0){
-            $('#person_primary_salutation').val($('select#person_primary_title_id').find('option:selected').html() 
-                                                    + " " + $('input#person_family_name').val());
+    $('input#person_primary_salutation').blur(function(){
+        if($('input#person_primary_salutation').val().length == 0){
+            update_primary();
         }
     });
+
+    //update value of input#person_primary_salutation
+    function update_primary(){
+        $('input#person_primary_salutation').val($('select#person_primary_title_id').find('option:selected').html()
+            + " " + $('input#person_first_name').val()
+            + " " + $('input#person_family_name').val());
+    }
 });

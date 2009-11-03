@@ -4,6 +4,40 @@
   #lol
     %br.clear
 #content_full_page
-  .container
+  .container#system_log_search
+    %h2 Search
+    - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
+      %table
+        %tr
+          %td{:style => "padding:0.5em"}
+            Username:
+          %td{:style => "padding:0.5em"}
+            = text_field_tag :user_name, nil, :style => "width:150px;"
+          %td{:style => "padding:0.5em"}
+            &nbsp;
+          %td{:style => "padding:0.5em"}
+            &nbsp;
+        %tr
+          %td{:style => "padding:0.5em"}
+            Start Date:
+          %td{:style => "padding:0.5em"}
+            %input{:name => "start_date", :style => "width:150px;", :id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
+          %td{:style => "padding:0.5em"}
+            End Date:
+          %td{:style => "padding:0.5em"}
+            %input{:name => "end_date", :style => "width:150px;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
+        %tr
+          %td{:style => "padding:0.5em"}
+            Controller:
+          %td{:style => "padding:0.5em"}
+            = text_field_tag :log_controller, nil, :style => "width:150px;"
+          %td{:style => "padding:0.5em"}
+            Action:
+          %td{:style => "padding:0.5em"}
+            = text_field_tag :log_action, nil, :style => "width:150px;"
+
+      = submit_tag("Search", :id => "system_log_search_submit")
+
+  .container#system_log_search_results{:style => "display:none;"}
     %table#system_log_search_grid
 

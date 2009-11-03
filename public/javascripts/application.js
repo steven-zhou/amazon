@@ -137,16 +137,17 @@ $(function() {
   height: 'auto',
   width: 'auto',
   buttons: {
-  Yes: function(){ 
-  $.post(link.attr('href'), "_method=delete", null, 'script');
-  $(this).dialog('destroy');
-  return true;
-   },
+
   No: function(){
     $(this).dialog('destroy');
     return true;
 
-  }
+  },
+    Yes: function(){
+  $.post(link.attr('href'), "_method=delete", null, 'script');
+  $(this).dialog('destroy');
+  return true;
+   }
   }
 });
     $('#delete_warning_message').dialog('option', 'title', 'Warning');
@@ -300,8 +301,42 @@ $(document).ready(function(){
     showTooltip();
 });
 
-$("#keyword_types").live("change", showKeyword);
 
+
+$("#keyword_keyword_type_id ").live("change", showKeyword);
+/*organisation keyword*/
+showOrganisationKeyword = function(){
+    $("#add_organisation_keywords option:selected").removeAttr("selected");
+    $("#add_organisation_keywords").find("option").hide();
+    $("#keyword_organisation_types").find("option:selected").each(function(){
+        if($(this).val() == ""){
+            $("#add_organisation_keywords").find("option").show();
+        }else{
+            $("#add_organisation_keywords option[class=" + $(this).text() + "]").show();
+        }
+    });
+}
+
+showOrganisationTooltip = function(){
+    $("#add_organisation_keywords option ,#remove_organisation_keywords option").each(function(){
+        $(this).qtip({
+            content: $(this).attr('remark'),
+            position: {
+                corner: {
+                    target: 'leftMiddle',
+                    tooltip: 'rightMiddle'
+                }
+            },
+            style : {
+                tip: true
+            }
+        });
+    });
+}
+
+
+
+$("#keyword_organisation_types").live("change", showOrganisationKeyword);
 /* Relationships */
 $(function(){
     $("input[type='text']#relationship_related_person_id").change(function(){
@@ -2320,109 +2355,130 @@ $(function(){
 
 
 $(function(){
-    $("#system_log_search_grid").flexigrid({
-        url: '/grids/system_log_search_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Date',
-            name : 'field_1',
-            width : 160,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'User',
-            name : 'field_2',
-            width : 180,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'IP Address',
-            name : 'field_3',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        },
-        {
-            display: 'Controller',
-            name : 'field_4',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Action',
-            name : 'field_5',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Message',
-            name : 'field_6',
-            width : 270,
-            sortable : true,
-            align: 'left'
-        },
-
-        ],
-        searchitems : [
-        {
-            display: 'Date',
-            name : 'field_1'
-        },
-
-        {
-            display: 'User',
-            name : 'field_2'
-        },
-
-        {
-            display: 'IP Address',
-            name : 'field_3'
-        },
-
-        {
-            display: 'Controller',
-            name : 'field_4'
-        },
-
-        {
-            display: 'Action',
-            name : 'field_5'
-        },
-        {
-            display: 'Message',
-            name : 'field_6'
-        },
-
-        ],
-        sortname: "grid_object_id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'System Log Entries',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
+    $('#system_log_search_submit').live('click',function(){
+        $('#system_log_search_results').show();
     });
 });
 
+//$(function(){
+//    $('#system_log_start_date').datepicker();
+//});
+//
+//$(function(){
+//    $('#system_log_end_date').datepicker();
+//});
+
+$(function(){
+    $('table#system_log_search_grid tbody tr').live('click',function(){
+        $('table#system_log_search_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+//$(function(){
+//    $("#system_log_search_grid").flexigrid({
+//        url: '/grids/system_log_search_grid',
+//        dataType: 'json',
+//        colModel : [
+//        {
+//            display: 'ID',
+//            name : 'grid_object_id',
+//            width : 40,
+//            sortable : true,
+//            align: 'left'
+//        },
+//
+//        {
+//            display: 'Date',
+//            name : 'field_1',
+//            width : 160,
+//            sortable : true,
+//            align: 'left'
+//        },
+//
+//        {
+//            display: 'User',
+//            name : 'field_2',
+//            width : 180,
+//            sortable : true,
+//            align: 'left'
+//        },
+//
+//        {
+//            display: 'IP Address',
+//            name : 'field_3',
+//            width : 120,
+//            sortable : true,
+//            align: 'left'
+//        },
+//        {
+//            display: 'Controller',
+//            name : 'field_4',
+//            width : 100,
+//            sortable : true,
+//            align: 'left'
+//        },
+//
+//        {
+//            display: 'Action',
+//            name : 'field_5',
+//            width : 100,
+//            sortable : true,
+//            align: 'left'
+//        },
+//
+//        {
+//            display: 'Message',
+//            name : 'field_6',
+//            width : 270,
+//            sortable : true,
+//            align: 'left'
+//        },
+//
+//        ],
+//        searchitems : [
+//        {
+//            display: 'Date',
+//            name : 'field_1'
+//        },
+//
+//        {
+//            display: 'User',
+//            name : 'field_2'
+//        },
+//
+//        {
+//            display: 'IP Address',
+//            name : 'field_3'
+//        },
+//
+//        {
+//            display: 'Controller',
+//            name : 'field_4'
+//        },
+//
+//        {
+//            display: 'Action',
+//            name : 'field_5'
+//        },
+//        {
+//            display: 'Message',
+//            name : 'field_6'
+//        },
+//
+//        ],
+//        sortname: "grid_object_id",
+//        sortorder: "asc",
+//        usepager: true,
+//        title: 'System Log Entries',
+//        useRp: true,
+//        rp: 20,
+//        showTableToggleBtn: false,
+//        width: 'auto',
+//        height: 'auto'
+//    });
+//});
+//
 
 
 $(function(){
@@ -3754,16 +3810,18 @@ $('#signout').live('click', function(){
   height: 'auto',
   width: 'auto',
   buttons: {
-  Yes: function(){
-  window.open("/signin/signout", "_self");
-  $(this).dialog('close');
-  return true;
-   },
+
   No: function(){
     $(this).dialog('close');
     return true;
 
-  }
+  },
+ 
+    Yes: function(){
+  window.open("/signin/signout", "_self");
+  $(this).dialog('close');
+  return true;
+   }
   }
 });
  $('#signout_warning_message').dialog('option', 'title', 'Warning');

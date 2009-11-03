@@ -8,7 +8,7 @@
     
 
   - if (!organisation.nil? && !organisation.new_record?)
-    #keyword_types.keywordleft
+    #keyword_organisation_types.keywordleft
       = label_tag :keyword_type_id, "Keyword Types"
       = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br{ :style=>"clear: both;"}

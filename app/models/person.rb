@@ -237,6 +237,18 @@ class Person < ActiveRecord::Base
     return @personal_address_types
   end
 
+
+   #find all relate relationship
+
+      def personal_relationship_type
+        @personal_relationship_type = Array.new
+          self.people_as_source.each do |relation|
+       @personal_relationship_type <<  AmazonSetting.find(relation.relationship_type_id)
+    end
+      return @personal_relationship_type
+      end
+
+
   #
   # Returns the first and family name
   def name

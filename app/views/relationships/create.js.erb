@@ -1,8 +1,10 @@
 <% unless flash[:error].nil? %>
+
   $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
   $("#flash_message").dialog( {
   modal:true,
-  position: 'top',
+  resizable: false,
+  <%#*position: 'top',%>
   buttons: {
 
   OK: function(){
@@ -13,12 +15,14 @@
   });
 
   $('#flash_message').dialog('open');
+  $('#flash_message').dialog('option', 'title', 'ERROR');
 <% else %>
 
 
 
   <% if @relationship.errors.empty? -%>
-    $('#<%= @relationship.relationship_type.name.gsub(/ /,'_').underscore %>').append('<%= escape_javascript(render(:partial => "person", :locals => {:person => @relationship.related_person})) %>');
+     $('#relationship_type').html('<%= escape_javascript(render(:partial => '/relationships/personal_relationship_type' ,:locals => { :relationship => @relationship_new })) %>');
+    $('#<%= @relationship.relationship_type.name.gsub(/ /,'_').underscore %>').append('<%= escape_javascript(render(:partial => "person", :locals => {:person => @relationship.related_person,:type => @relationship.relationship_type.name.gsub(/ /,'_').underscore})) %>');
     $('#<%= dom_id(@related_person) %>').effect('slide', {direction:'right'});
     <% if @relationship.relationship_type.name == 'Father' || @relationship.relationship_type.name == 'Mother' -%>
       $('#siblings').replaceWith('<%= escape_javascript(render :partial => "/relationships/relationship_container", :locals => {:type => "Siblings", :relations => @source_person.siblings}) %>');
@@ -30,4 +34,15 @@
     $('.person_relationship_close').css("display","none");
     $('#relationship_hidden_tab').attr('mode','show');
   <%end%>
+
+    $(function(){
+    $("input[type='text']#relationship_related_person_id").change(function(){
+        $.ajax({
+            type: "GET",
+            url: "/people/name_finder.js",
+            data: 'person_id='+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
 <% end -%>

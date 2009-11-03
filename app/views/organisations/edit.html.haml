@@ -8,11 +8,11 @@
 
   #left_content
     - form_for @organisation, :url => {:controller => "organisations", :action => "update"} , :html=>{:class => (@super_admin || @organisation.class.to_s != "ClientOrganisation") ? "" : "disabled_form", :multipart => true, :id=>"organisation_names_form"} do |p|
-      .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" : ""}
+      .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" :""}
         %h1 Name Details
         = render :partial => 'organisation_name_details_fields', :locals => {:p => p}
         %input.hidden{:id => :organisation_id, :value => @organisation.id}
-      .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" : ""}
+      .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" :""}
         %h1 Legal Details
         = render :partial => 'organisation_legal_details_fields', :locals => {:p => p}
       .container
