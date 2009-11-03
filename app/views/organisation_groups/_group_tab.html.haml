@@ -1,7 +1,7 @@
 -# The main Keyword tab
 .container
   .header_container
-    .options{:id => 'organisation_group_close_button'}
+    .options{:id => 'person_group_close_button'}
       = link_to_function image_tag('close_icon.png'), :class => "clear_group_form close_option toggle_button", :field => "organisation_group", :toggle_id_name => "new_group", :style=>"display:none"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form new_option toggle_button", :field => "organisation_group", :toggle_id_name => "new_group" if (!organisation.nil? && !organisation.new_record?)
