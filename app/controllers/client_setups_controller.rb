@@ -102,5 +102,17 @@ class ClientSetupsController < ApplicationController
 
 
   end
+
+  def system_log_verify_user_name
+
+    login_account = LoginAccount.find_by_user_name(params[:user_name])
+
+    @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
   
 end

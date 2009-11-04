@@ -3985,3 +3985,16 @@ $(function(){
     });
 
 });
+
+
+$(function(){
+    $("#user_name").blur(function(){
+        $.ajax({
+            type: "GET",
+            url: "/client_setups/system_log_verify_user_name.js",
+            data: 'user_name='+$(this).val(),
+            dataType: "script"
+        });
+
+    });
+});
