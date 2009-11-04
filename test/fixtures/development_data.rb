@@ -24,9 +24,9 @@ destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_pe
 
 
 puts "Creating Super Group."
-supermetatype = GroupMetaMetaType.create(:name => "Super", :status => true)
-supergroup = GroupMetaType.create(:name => "System Group", :group_meta_meta_type => supermetatype, :status => true)
-superuser = GroupType.create(:name => "Super User", :group_meta_type => supergroup, :status => true)
+supermetatype = GroupMetaMetaType.create(:name => "MemberZone", :status => true)
+supergroup = GroupMetaType.create(:name => "Power Group", :group_meta_meta_type => supermetatype, :status => true)
+superuser = GroupType.create(:name => "Power User", :group_meta_type => supergroup, :status => true)
 
 
 puts "Creating Member Zone Super User"
