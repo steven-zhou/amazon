@@ -193,9 +193,8 @@ class GridsController < ApplicationController
           u.field_1,
           u.field_2,
           u.field_3,
-          u.field_4,
-          u.field_5,
-          u.field_6]}}
+          u.field_4
+        ]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

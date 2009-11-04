@@ -24,8 +24,6 @@ module OutputPdf
       {"Date" => "created_at"},
       {"User" => "login_account.user_name"},
       {"IP Address" => "ip_address"},
-      {"Controller" => "controller"},
-      {"Action" => "action"},
       {"Message" => "message"}]}
 
 
@@ -347,7 +345,7 @@ module OutputPdf
 
     PDF::SimpleTable.new do |tab|
 
-      tab.column_order.push(*%w(system_id log_date user ip_address controller action message))
+      tab.column_order.push(*%w(system_id log_date user ip_address message))
 
       tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
         col.heading = "ID"
@@ -365,14 +363,6 @@ module OutputPdf
         col.heading = "IP Address"
       }
 
-      tab.columns["controller"] = PDF::SimpleTable::Column.new("controller") { |col|
-        col.heading = "Controller"
-      }
-
-      tab.columns["action"] = PDF::SimpleTable::Column.new("action") { |col|
-        col.heading = "Action"
-      }
-
       tab.columns["message"] = PDF::SimpleTable::Column.new("message") { |col|
         col.heading = "Message"
       }
@@ -388,7 +378,7 @@ module OutputPdf
 
       for log_entry in system_log_entries do
 
-        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})", "ip_address" => "#{log_entry.ip_address}", "controller" => "#{log_entry.controller}", "action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
+        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})", "ip_address" => "#{log_entry.ip_address}", "message" => "#{log_entry.message}" }
 
       end
 
