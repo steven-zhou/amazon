@@ -4,8 +4,8 @@
     .title
       %h3= address.address_type.name
     .options
-      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get'
-      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete', :field => "Address",:error_message_field => address.address_type.name
+      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get', :title=>"Edit"
+      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete', :field => "Address",:error_message_field => address.address_type.name, :title=>"Remove"
     %br.clear
   .display_container
     = format_address(address)

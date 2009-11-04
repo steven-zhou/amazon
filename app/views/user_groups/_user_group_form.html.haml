@@ -9,7 +9,7 @@
   .container{:style => "padding:1.5% 1% 1.5% 1%;margin-left:10px;"}
     %div#add_user_to_group
       .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_groups", :id => "close_user_group", :style => "display:none;", :field => "user_group"
+        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_groups", :id => "close_user_group", :style => "display:none;", :field => "user_group", :title=>"Close"
       .title
         = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_groups", :flag_name => "user_groups", :field => "user_group"
         &nbsp

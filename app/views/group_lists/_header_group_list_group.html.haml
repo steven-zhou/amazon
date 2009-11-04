@@ -4,7 +4,7 @@
       - status = i.status ? "container_active" : "container_inactive"
       .group_list_each_group{:class => "#{status} toggle_options", :id => "group_list_group_#{i.id}", :field => "group_list_group"}
         .options{:style => "display:none;"}
-          = image_tag('edit_icon.png', :class => 'edit_option edit_logo', :id => 'group_list_group_edit_button', :controller => "group_lists", :data_id => i.id, :field => "group_list_group")
+          = link_to_function image_tag('edit_icon.png', :class => 'edit_option edit_logo', :id => 'group_list_group_edit_button', :controller => "group_lists", :data_id => i.id, :field => "group_list_group"), :title=>"Edit"
         .title
           = i.name
           \--

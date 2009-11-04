@@ -4,6 +4,6 @@
     .title
       %h3= query_criteria.formatted_info
     .options
-      = link_to image_tag('edit_icon.png'), edit_query_criteria_path(query_criteria), :class => 'get' if (query_criteria.query_header.status == true)
-      = link_to image_tag('delete_icon.png'), query_criteria_path(query_criteria), :class => 'delete' if (query_criteria.query_header.status == true) ,:field => "Query Criteria",:error_message_field =>"Query Criteria"
+      = link_to image_tag('edit_icon.png'), edit_query_criteria_path(query_criteria), :class => 'get' if (query_criteria.query_header.status == true), title=>"Edit"
+      = link_to image_tag('delete_icon.png'), query_criteria_path(query_criteria), :class => 'delete' if (query_criteria.query_header.status == true) ,:field => "Query Criteria",:error_message_field =>"Query Criteria", title=>"Remove"
     %br.clear
