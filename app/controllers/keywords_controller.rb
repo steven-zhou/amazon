@@ -32,17 +32,17 @@ class KeywordsController < ApplicationController
 
     @keyword_table= Keyword.find(params[:id].to_i)
    
-    if @keyword_table.status == true
-
-      @keyword_table.name = params[:keyword][:name]
-      @keyword_table.description = params[:keyword][:description]
-
-      @keyword_table.status = params[:keyword][:status]
-    else
-
-      @keyword_table.status = params[:keyword][:status]
-    end
-
+#    if @keyword_table.status == true
+#
+#      @keyword_table.name = params[:keyword][:name]
+#      @keyword_table.description = params[:keyword][:description]
+#
+#      @keyword_table.status = params[:keyword][:status]
+#    else
+#
+#      @keyword_table.status = params[:keyword][:status]
+#    end
+    @keyword_table.update_attributes(params[:keyword])
 
     @keyword_table.save
    
@@ -68,6 +68,7 @@ class KeywordsController < ApplicationController
 
   def keywords_finder
     @type = Keyword.find_all_by_keyword_type_id(params[:type])
+
     respond_to do |format|
       format.js
     end
