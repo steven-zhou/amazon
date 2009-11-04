@@ -13,7 +13,7 @@
             Username:
           %td{:style => "padding:0.5em"}
             = text_field_tag :user_name, nil, :style => "width:150px;"
-          %td{:style => "padding:0.5em"}
+          %td{:style => "padding:0.5em" :id => "system_log_user_name_check"}
             &nbsp;
           %td{:style => "padding:0.5em"}
             &nbsp;
@@ -26,15 +26,6 @@
             End Date:
           %td{:style => "padding:0.5em"}
             %input{:name => "end_date", :style => "width:150px;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
-        %tr
-          %td{:style => "padding:0.5em"}
-            Controller:
-          %td{:style => "padding:0.5em"}
-            = text_field_tag :log_controller, nil, :style => "width:150px;"
-          %td{:style => "padding:0.5em"}
-            Action:
-          %td{:style => "padding:0.5em"}
-            = text_field_tag :log_action, nil, :style => "width:150px;"
 
       = submit_tag("Search", :id => "system_log_search_submit")
 
@@ -46,8 +37,6 @@
       %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
       %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
       %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
-      %input{:name => "log_controller", :style => "display:none;", :id => "system_log_export_log_controller"}
-      %input{:name => "log_action", :style => "display:none;", :id => "system_log_export_log_action"}
       = submit_tag("Export PDF")
 
 
