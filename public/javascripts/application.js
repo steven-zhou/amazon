@@ -2958,7 +2958,6 @@ $(function(){
     
         $.ajax({
             type: 'GET',
-
             url: "/people/check_duplication.js",
             data: personal_data_string + "&id="+$("#person_id").val(),
             dataType: "script"
@@ -3014,7 +3013,12 @@ $(function(){
 /*personal check field restart button*/
 personal_check_duplication_restart_button = function(){
 
-    window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+
+//alert($('#system_id_tag').val());
+    if($('#system_id_tag').val() != null)
+        { window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");}
+        else
+            {window.open("/people/new", "_self");}
     return false;
 }
 
