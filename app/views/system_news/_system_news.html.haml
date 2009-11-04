@@ -1,6 +1,6 @@
 -div_for(system_news, :class => 'system_news_container') do
   .title
-    %h2#{system_news.title}
+    %h2 #{system_news.title}
 
   .options{:style => "display:none;"}
     = link_to_function image_tag("close_icon.png"), :title=>"Close"
