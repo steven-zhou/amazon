@@ -1,14 +1,14 @@
 .info_container
   .header_container
     .options_left
-      = link_to_function image_tag('add_icon.png'), :id => "new_group_list"
+      = link_to_function image_tag('add_icon.png'), {:id => "new_group_list"}, {:title="New Group List"}
       &nbsp
     %h3 Add New
 
   -form_for @group_list, :html => {:style => "display:none", :class => 'ajax_form'} do |group_list|
     %div
       -#.options{:style => "float:right"}
-        = link_to_function image_tag('close_icon.png'), :class => "clear_group_list toggle_button", :toggle_id_name => "new_group_list"
+        = link_to_function image_tag('close_icon.png'), {:class => "clear_group_list toggle_button", :toggle_id_name => "new_group_list"}, {:title=>"Close"}
       = render :partial => '/group_lists/list_form', :locals => {:group_list => group_list }
       = submit_tag 'Submit'
     %br.clear

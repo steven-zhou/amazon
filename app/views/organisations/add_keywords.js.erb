@@ -1,3 +1,5 @@
+var temp_select_class = $('#keyword_organisation_keyword_type_id').find('option:selected').html();
 $('#keywords_tab').replaceWith(" <%= escape_javascript(render(:partial => "keywords/organisation_keywords_tab", :locals => { :organisation => @entity })) %>");
+$('#keyword_organisation_keyword_type_id').val(temp_select_class).change();
 <%#*showKeyword();%>
 <%#*showTooltip();%>

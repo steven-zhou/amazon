@@ -5,10 +5,10 @@
   .container
     %h1 Super Admin Message: insert message tag here
 
-  .container    
+  .container 
     .options{:style => "float:right;"}
-      = link_to_function image_tag("add_icon.png"), :id => "new_system_news"
-      = link_to_function image_tag("edit_icon.png")
+      = link_to_function image_tag("add_icon.png"), {:id => "new_system_news"}, {:title=>"New System News"}
+      = link_to_function image_tag("edit_icon.png"), {}, {:title=>"Edit System News"}
     %h1 System News
     = render :partial => "system_news/system_news_part"
   %br.clear

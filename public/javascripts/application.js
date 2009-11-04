@@ -310,6 +310,7 @@ showTooltip = function(){
 
 
 $("#keyword_person_types").live("change", showKeyword);
+
 /*organisation keyword*/
 showOrganisationKeyword = function(){
     $("#add_organisation_keywords option:selected").removeAttr("selected");
@@ -341,6 +342,7 @@ showOrganisationTooltip = function(){
 }
 
 $("#keyword_organisation_types").live("change", showOrganisationKeyword);
+
 /* Relationships */
 $(function(){
     $("input[type='text']#relationship_related_person_id").change(function(){
@@ -3956,7 +3958,19 @@ $(function(){
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/add_key.js",
-                data: 'organisation_id=' + $('#organisation_id').val()+"&add_keywords="+$(this).val(),
+                data: 'organisation_id=' + $('#organisation_id').val()+"&add_organisation_keywords="+$(this).val(),
+                dataType: "script"
+            });
+    });
+});
+
+$(function(){
+    $("#remove_organisation_keywords").live('dblclick', function(){
+
+     $.ajax({
+                type: "POST",
+                url: "/keyword_links/remove_key.js",
+                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_organisation_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
@@ -3973,17 +3987,7 @@ $(function(){
             });
     });
 });
-$(function(){
-    $("#remove_organisation_keywords").live('dblclick', function(){
 
-     $.ajax({
-                type: "POST",
-                url: "/keyword_links/remove_key.js",
-                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_keywords="+$(this).val(),
-                dataType: "script"
-            });
-    });
-});
 
 //TO DO LIST
 $(function(){
