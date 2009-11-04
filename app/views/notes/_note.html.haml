@@ -5,8 +5,8 @@
       -#= "#{note.id} #{note.note_type.name}"
       %h2= h note.created_at.to_s(:long)
     .options{:class => 'person_notes_edit_delete person_tag', :style => "display:none;"}
-      = link_to image_tag('edit_icon.png'), edit_note_path(note), :class => 'get edit_note edit_option', :note_id => note.id, :field => "note"
-      = link_to image_tag('delete_icon.png'), note_path(note), :class => 'delete delete_note delete_option', :note_id => note.id, :field => "note",:error_message_field => note.note_type.name+" Note"
+      = link_to image_tag('edit_icon.png'), edit_note_path(note), :class => 'get edit_note edit_option', :note_id => note.id, :field => "note", :title=>"Edit"
+      = link_to image_tag('delete_icon.png'), note_path(note), :class => 'delete delete_note delete_option', :note_id => note.id, :field => "note",:error_message_field => note.note_type.name+" Note", :title=>"Remove"
     %br.clear
   %div{:style => "float:right;"}
     .attr_name

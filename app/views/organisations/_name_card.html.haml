@@ -34,7 +34,4 @@
           Business Type :
           = "#{organisation.business_type.name}" unless organisation.business_type.nil?
         %td
-        %td.textright
-          = link_to 'Go to Profile', organisation unless organisation.blank?
-          or
-          = link_to 'Edit', edit_organisation_path(organisation) unless organisation.blank?
+        

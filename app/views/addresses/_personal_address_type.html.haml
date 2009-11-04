@@ -24,7 +24,7 @@
 
     .field_5
       = a.label :postal_code, '&nbsp'
-      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"address_town" ,:update_field2 =>"address_state" ,:update_field3 => "address_postal_code" ,:update_field4 => "address_country_id"
+      = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"address_town" ,:update_field2 =>"address_state" ,:update_field3 => "address_postal_code" ,:update_field4 => "address_country_id", :title=>"Postcode"
     .field_40
       = a.label :state, 'State/Province'
       = a.text_field :state , :id => "address_state"

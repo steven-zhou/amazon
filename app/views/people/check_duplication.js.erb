@@ -17,7 +17,8 @@ $('#personal_check_duplication').dialog({
           }
   }
 });
-$('#personal_check_duplication').dialog('option', 'title', 'Duplication Check');
+ $('#personal_check_duplication').parent().find("a").css("display","none");
+ $('#personal_check_duplication').dialog('option', 'title', 'Possible Duplication Found');
 $('#personal_check_duplication').dialog('open');
 
   $("#person_check_field").flexigrid(
@@ -55,6 +56,6 @@ height: 'auto'
 
 
 
- $('#person_check_field').dialog('option', 'title', 'Possible Duplication Found');
+
 
 <%- end%>

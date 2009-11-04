@@ -6,7 +6,7 @@
       .title
         %h3= format_group(person_group)
       .options
-        = link_to image_tag('close_icon.png'), person_group_path(person_group), :class => 'get'
+        = link_to image_tag('close_icon.png'), person_group_path(person_group), :class => 'get', :title=>"Close"
       %br{ :style=>"clear: both;"}
     = render :partial => '/person_groups/group_form'
     = submit_tag 'Submit'
