@@ -3,7 +3,7 @@
     %h2 #{system_news.title}
 
   .options{:style => "display:none;"}
-    = link_to_function image_tag("close_icon.png")
+    = link_to_function image_tag("close_icon.png"), :title=>"Close"
   %br.clear
 
   .date
@@ -11,10 +11,10 @@
       %span{:style => "font-style:italic;"} #{system_news.event_date.strftime("%d-%m-%Y")}
 
   .news_content{:id => "short_description_#{system_news.id}"}
-    %p #{system_news.short_description}
+    %p#{system_news.short_description}
 
   .news_content.hidden{:id => "description_#{system_news.id}"}
-    %p #{system_news.description}
+    %p#{system_news.description}
 
   .read_more
     = link_to_function "read more", :class => "read_more", :news_id => system_news.id

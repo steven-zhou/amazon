@@ -16,7 +16,7 @@
       %div#keyword_main_contents{:style => "display:none;"}
         .container#keywork_add_data
           %div
-            = link_to_function image_tag("close_icon.png" , :id=> "keyword_close_entry",:class => "close_option", :style => "display:none;float:right;", :field => "keyword")
+            = link_to_function image_tag("close_icon.png" , :id=> "keyword_close_entry",:class => "close_option", :style => "display:none;float:right;", :field => "keyword"), :title=>"Close"
             = link_to_function image_tag("add_icon.png" , :size => "19x18", :id => "keyword_add_entry", :class => "new_option", :field => "keyword")
             New Keyword
           %input{:style => "display:none;", :name=>"type_id",:type_id => "",:id => "type_id"}

@@ -6,10 +6,10 @@
     .options{:class => 'person_employments_edit_delete person_tag', :style => "display:none;"}
       -if(employment.sequence_no==1)
         -if(!employment.employee.employments.second.nil?)
-          = link_to image_tag('down_arrow.png'),move_down_employment_priority_employment_path(employment), :class => 'get',:id => 'employment_down_button', :employment_id => employment.id
+          = link_to image_tag('down_arrow.png'),move_down_employment_priority_employment_path(employment), :class => 'get',:id => 'employment_down_button', :employment_id => employment.id, :title=>"Move Down"
       - else
-        = link_to image_tag('up_arrow.png'),move_up_employment_priority_employment_path(employment), :class => 'get',:id => 'employment_up_button', :employment_id => employment.id
-      = link_to image_tag('edit_icon.png'), edit_employment_path(employment), :class => 'get' ,:id => 'employments_edit_button'
+        = link_to image_tag('up_arrow.png'),move_up_employment_priority_employment_path(employment), :class => 'get',:id => 'employment_up_button', :employment_id => employment.id, title=>"Move Up"
+      = link_to image_tag('edit_icon.png'), edit_employment_path(employment), :class => 'get' ,:id => 'employments_edit_button', title=>"Edit"
     %br{ :style => "clear:both;"}
   %div{:style => "float:right;"}
     = format_employment(employment)

@@ -7,17 +7,17 @@
       -if(address.addressable_type == "Person")
         -if(address.priority_number==1)
           -if(!address.addressable.addresses.second.nil?)
-            = link_to image_tag('down_arrow.png'),move_down_address_priority_address_path(address), :class => 'move_down_address_priority',:id => 'address_down_button', :address_id => address.id
+            = link_to image_tag('down_arrow.png'),move_down_address_priority_address_path(address), :class => 'move_down_address_priority',:id => 'address_down_button', :address_id => address.id, :title=>"Move Down"
         - else
           = link_to image_tag('up_arrow.png'),move_up_address_priority_address_path(address), :class => 'move_up_address_priority',:id => 'address_up_button', :address_id => address.id
       -if(address.addressable_type == "Organisation")
         -if(address.priority_number==1)
           -if(!address.addressable.addresses.second.nil?)
-            = link_to image_tag('down_arrow.png'),move_down_organisation_address_priority_address_path(address), :class => 'get move_organisation_down_address_priority',:id => 'organisation_address_down_button'
+            = link_to image_tag('down_arrow.png'),move_down_organisation_address_priority_address_path(address), :class => 'get move_organisation_down_address_priority',:id => 'organisation_address_down_button', :title=>"Move Down"
         - else
           = link_to image_tag('up_arrow.png'),move_up_organisation_address_priority_address_path(address), :class => 'get move_organisation_up_address_priority',:id => 'organisation_address_up_button'
-      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get edit_address edit_option', :id => 'address_edit_button' , :address_id => address.id, :field => "address"
-      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete delete_address',:id => 'address_delete_button', :address_id => address.id, :field => "address",:error_message_field => address.address_type.name + " Address"
+      = link_to image_tag('edit_icon.png'), edit_address_path(address), :class => 'get edit_address edit_option', :id => 'address_edit_button' , :address_id => address.id, :field => "address", :title=>"Edit"
+      = link_to image_tag('delete_icon.png'), address_path(address), :class => 'delete delete_address',:id => 'address_delete_button', :address_id => address.id, :field => "address",:error_message_field => address.address_type.name + " Address", :title=>"Remove"
     %br.clear
   %div{:style => "float:right;"}
     = format_address(address)

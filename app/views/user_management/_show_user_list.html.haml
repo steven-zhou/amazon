@@ -7,8 +7,8 @@
       - status = i.login_status ? "container_active" : "container_inactive"
       .show_users.toggle_options{:class => status , :person_id => i.person_id, :id => "login_account_#{i.id}", :login_account_id => i.id, :field => "login_account"}
         .options{:style => "display:none",:id => "login_icon"}
-          = link_to image_tag('edit_icon.png'), edit_login_account_path(i), :class => 'get edit_login_account edit_option', :id => 'login_account_edit_button' , :login_account_id => i.id,:field => "login_account"
-          = link_to image_tag('delete_icon.png'), login_account_path(i), :class => 'delete delete_login_account',:id => 'login_account_delete_button', :login_account_id => i.id ,:field => "List",:error_message_field => "List"
+          = link_to image_tag('edit_icon.png'), edit_login_account_path(i), :class => 'get edit_login_account edit_option', :id => 'login_account_edit_button' , :login_account_id => i.id,:field => "login_account", :title=>"Edit"
+          = link_to image_tag('delete_icon.png'), login_account_path(i), :class => 'delete delete_login_account',:id => 'login_account_delete_button', :login_account_id => i.id ,:field => "List",:error_message_field => "List", :title=>"Remove"
         .title
           = i.person_id
           \-

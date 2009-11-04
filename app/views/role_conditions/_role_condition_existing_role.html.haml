@@ -3,7 +3,7 @@
   - status_flag = i.role_status ? "" : "hidden"
   -div_for(i, :class => "#{status}  toggle_options" , :id => "role_condition_existing_role", :role_id => i.id, :field => "condition_role", :style => "padding:1%;width:29%;") do
     .options{:style => "display:none", :class => "role_condition_options"}
-      = link_to_function image_tag('edit_icon.png'),  :class => "#{status_flag} edit_option", :role_id => i.id, :field => "condition_role", :id => "role_condition_role_click"
+      = link_to_function image_tag('edit_icon.png'),  :class => "#{status_flag} edit_option", :role_id => i.id, :field => "condition_role", :id => "role_condition_role_click", :title=>"Edit"
     .title
       = i.id
       \-

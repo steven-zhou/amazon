@@ -1,6 +1,6 @@
 .container
   .options
-    = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_edit_account", :class =>  "close_option", :field => "login_account")
+    = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_edit_account", :class =>  "close_option", :field => "login_account", :title=>"Close")
   .options_left{:style => "margin-right:10px;"}
     = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
   %h3 Edit User
@@ -9,13 +9,13 @@
   -form_for @login_account, :html => {:class => 'ajax_form edit_login'} do |login|
     .form_line
       .field_5
-        %span #{@login_account.person_id}
+        %span#{@login_account.person_id}
       .field_15
         %span{:id => "login_name_container_#{@login_account.id}"} #{@login_account.person.name}
       .field_25
-        %span #{@login_account.last_login} (last login)
+        %span#{@login_account.last_login} (last login)
       .field_25
-        %span #{@login_account.last_ip_address}(last ip address)
+        %span#{@login_account.last_ip_address}(last ip address)
       
     .form_line
       .field_23

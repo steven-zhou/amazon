@@ -4,7 +4,7 @@
     .title
       %h2= employees.organisation.full_name
     .options{:class => 'person_employments_edit_delete person_tag', :style => "display:none;"}
-      = link_to image_tag('edit_icon.png')
+      = link_to image_tag('edit_icon.png'), title=>"Edit"
     %br{ :style => "clear:both;"}
   %div{:style => "float:right;"}
     = format_employee(employees)
