@@ -74,8 +74,8 @@ class LoginAccountsController < ApplicationController
       flash.now[:message] = " Saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
-      flash.now[:error] = flash_message(:type => "too_short_name", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a longer name"))
-      flash.now[:error] = flash_message(:type => "too_long_name", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a shorter name"))
+      flash.now[:error] = flash_message(:type => "too_short", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a longer name"))
+      flash.now[:error] = flash_message(:type => "too_long", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a shorter name"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
