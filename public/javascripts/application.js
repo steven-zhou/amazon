@@ -4013,11 +4013,19 @@ $(function(){
                 modal: true,
                 resizable: false,
                 width: 600,
-                height: 400,
+                height: 500,
                 draggable: true
             });
             $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
             $('#new_system_news_dialog').dialog('open');
+    });
+
+    $("#manage_system_news").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/system_news.js",
+            dataType: "script"
+        });
     });
 });
 

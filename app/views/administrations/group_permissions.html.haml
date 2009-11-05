@@ -14,7 +14,7 @@
           - status_flag = i.status ? "" : "hidden"
           .group_permission_each_group{:class => "#{status} toggle_options", :id => "group_permission_group_#{i.id}", :field => "group_permission_group"}
             .options{:style => "display:none;"}
-              = link_to_function image_tag('edit_icon.png', :class => "#{status_flag} edit_option edit_logo", :id => 'group_permission_group_edit_button', :controller => "group_permissions", :data_id => i.id, :field => "group_permission_group"), title=>"Edit"
+              = link_to_function image_tag('edit_icon.png', :class => "#{status_flag} edit_option edit_logo", :id => 'group_permission_group_edit_button', :controller => "group_permissions", :data_id => i.id, :field => "group_permission_group"), :title=>"Edit"
             .title
               = i.name
               \--
