@@ -842,8 +842,8 @@ form#add_person.new_person input#person_custom_id{
 
 form#add_person.new_person input#image_image_file{
 
-    height: 25px !important;
-    width: 150px !important;
+    height: 30px !important;
+    width: 150px ;
     font-size:14px;
     line-height:16px;
 }
@@ -1835,5 +1835,12 @@ margin-right:10px;
     height:15px;
     width:15px;
     float:right;*/
+
+}
+
+
+
+#app #left_content #new_pic_upload{
+    float:right;
 
 }

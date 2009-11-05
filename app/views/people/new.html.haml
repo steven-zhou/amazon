@@ -16,11 +16,13 @@
       = render :partial => 'person_details_fields', :locals => {:p => p}
 
     .container
-      %h1 Picture
-      %br
-      .form_line
-        = label :image, :id, "Picture"
-        = file_field :image, :image_file,:class=>@personal_check_field.include?("image") ? "personal_check_field":""
+      .left
+        %h1 Picture
+      .right
+        .form_line
+          -#= label :image, :id, "Picture"
+          = file_field :image, :image_file,:class=>@personal_check_field.include?("image") ? "personal_check_field":""
+      %br.clear
 
   #right_content
     .container.address_form
