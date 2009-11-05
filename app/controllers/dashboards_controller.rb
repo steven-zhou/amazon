@@ -41,7 +41,7 @@ class DashboardsController < ApplicationController
     rescue
       redirect_to  login_url
        flash[:error] = "your old password is wrong!!, you have only #{@current_user.access_attempts_count - 1} choice"
-       @current_user.update_password = false
+       @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count -= 1
       @current_user.save
     end
