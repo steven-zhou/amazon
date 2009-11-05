@@ -1,7 +1,7 @@
 .header_container.container.toggle_options{:field => "list"}
   %div
     .title
-      %h2#{saved_list.formatted_info}
+      %h2 #{saved_list.formatted_info}
     .options{:style => "display:none;"}
       = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_list_header_path(saved_list), :class => 'get_list', :title=>"Edit"
       = link_to image_tag('Icons/System/clone.png', :alt => 'SaveAs'), copy_list_header_path(saved_list), :class => 'get_list', :title=>"Save As"
