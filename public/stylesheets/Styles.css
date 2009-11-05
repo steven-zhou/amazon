@@ -990,7 +990,7 @@ div.info_warning {
 
 form#add_organisation.new_organisation input#image_image_file{
     height: 25px !important;
-    width: 150px !important;
+    width: 150px ;
     font-size:14px;
     line-height:16px;
 }
