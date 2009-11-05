@@ -4023,18 +4023,9 @@ $(function(){
     $("#manage_system_news").live('click', function(){
         $.ajax({
             type: "GET",
-            url: "/system_news/index.js",
+            url: "/system_news.js",
             dataType: "script"
         });
-//        $('#manage_system_news_dialog').dialog( {
-//                modal: true,
-//                resizable: false,
-//                width: 800,
-//                height: 600,
-//                draggable: true
-//            });
-//            $('#manage_system_news_dialog').dialog('option', 'title', 'System News Manager');
-//            $('#manage_system_news_dialog').dialog('open');
     });
 });
 

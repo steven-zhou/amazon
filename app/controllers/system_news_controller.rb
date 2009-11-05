@@ -1,8 +1,8 @@
 class SystemNewsController < ApplicationController
 
   def index
-    @active_system_news = SystemNews.find(:all, :conditions => ["status = ?", true], :order => "name")
-    @inactive_system_news = SystemNews.find(:all, :conditions => ["status = ?", false], :order => "name")
+    @active_system_news = SystemNews.find(:all, :conditions => ["status = ?", true], :order => "created_at")
+    @inactive_system_news = SystemNews.find(:all, :conditions => ["status = ?", false], :order => "created_at")
   end
 
   def create
