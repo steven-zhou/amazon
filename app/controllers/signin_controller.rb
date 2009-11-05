@@ -263,13 +263,13 @@ class SigninController < ApplicationController
       #flash.now[:warning] = flash_message(:type => "login_error")
       #rescue rescue_message = "your group do not have permissions"
       if login_account.nil?
-        rescue_message = "Login Account is error"
+        rescue_message = flash_message(:type => "login_error")
       else if  @group_types.nil?
-          rescue_message = "you do not have group"
+          rescue_message = flash_message(:type => "login_group_error")
         else if   @system_permission_types.nil?
-            rescue_message = "group permission is error"
+            rescue_message = flash_message(:type => "login_permission_error")
           else if @access_attempts_count.blank?
-              rescue_message = "your account has been locked, please call admin"
+              rescue_message = flash_message(:type => "login_count_error")
             end
           end
         end
