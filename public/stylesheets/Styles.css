@@ -107,7 +107,7 @@ body {
 }
 
 #app #main #sysbar .bar_section #module_menu #module_menu_items ul {width:180px;background-image: url(/images/module_menmiddle.png);	background-repeat:repeat-y;	background-position: center;}
-#app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color: transparent; height:40px; padding: 5px 0 0 10px; border-bottom: 1px solid #ccc; margin-right: 9px; font-family: Arial, Helvetica, sans-serif;	font-size: 18px; font-style: normal; font-weight: normal; color: #666;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li {background-color: transparent; height:40px; padding: 5px 0 0 10px; f-bottom: 1px solid #ccc; margin-right: 9px; font-family: Arial, Helvetica, sans-serif;	font-size: 18px; font-style: normal; font-weight: normal; color: #666;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { padding-bottom:0px;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li.hover {background-color: transparent; background-image: url(/images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li img { vertical-align:text-bottom; margin-right: 5px;}
@@ -172,7 +172,7 @@ body {
 
 #app #main #sysbar .bar_section#help {
     width: 7%;
-     border-right: none;
+    border-right: none;
 }
 
 #app #main #sysbar .bar_section#help img {
@@ -183,8 +183,8 @@ body {
 
 
 /*#app #main #sysbar .bar_section:last-child {
-    border-right: none;
-    width: 4%;
+border-right: none;
+width: 4%;
 }*/
 
 /* End system bar */
@@ -285,6 +285,16 @@ margin-right: 5px;
     height: 40px;
     width: 100%;
 }
+
+#app #main #content #header label{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
 /* page title area */
 #app #main #content #header #page_title {
     width: 49%;
@@ -296,11 +306,17 @@ margin-right: 5px;
     color: #2C2C2C;
     margin-left: 1%;
 }
+
+#app #main #content #header #page_title h1 {
+    font-size:24px;
+    font-weight:bold;
+    line-height:26px;
+}
 /* list of lists area */
 #app #main #content #header #lol {
     float: right;
     height: 40px;
-    width: 49%;
+    width: 45%;
     margin-right: 1%;
     text-align: right;
 }
@@ -351,7 +367,7 @@ margin-right: 5px;
 /* blue container title*/
 #app #main #content .container h1 {
     color: #2C2C2C;
-    font-size:18px;
+    font-size:20px;
     font-weight: bold;
     line-height: 22px;
     margin-bottom: 5px;
@@ -380,7 +396,7 @@ margin-right: 5px;
 }
 /*blue container second title*/
 #app #main #content .container h2 {
-    font-size:16px;
+    font-size:18px;
     font-weight: bold;
     line-height: 20px;
     margin-bottom: 5px;
@@ -694,7 +710,7 @@ div.field_62 {
 
 #app #main #content #header  #lol_select {
     margin: 0 3px 0 0;
-    float: left;
+    float: right;
 }
 #app #main #content #header  #lol_select #select_tag {
     display:block;
@@ -756,11 +772,13 @@ div.field_62 {
 img.small {
     width: 90px;
     height: 99px;
+
 }
 
 img.medium {
     width: 120px;
     height: 132px;
+
 }
 img.thumb {
     width:60px;
@@ -780,13 +798,29 @@ img.thumb {
 
 
     background-repeat:repeat;
-    color: #232323;
+    color: #2C2C2C;
     float: right;
-    padding: 2%;
-    min-height: 10px;
+    padding: 10px 15px;
+    height: 20px;
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
-    margin-right:10px;
+
+
+    font-size:20px;
+
+
+
+}
+
+#app #main #content  .container_icon h1 {
+
+
+ color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
 
 }
 
@@ -820,8 +854,8 @@ form#add_person.new_person input#person_custom_id{
 
 form#add_person.new_person input#image_image_file{
 
-    height: 25px !important;
-    width: 150px !important;
+    height: 30px !important;
+    width: 150px ;
     font-size:14px;
     line-height:16px;
 }
@@ -996,7 +1030,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog #content .container h1 {
     color: #2C2C2C;
-    font-size:18px;
+    font-size:20px;
     font-weight: bold;
     line-height: 22px;
     margin-bottom: 5px;
@@ -1430,7 +1464,7 @@ div#show_controllers_container ul li{
 }
 
 div#permission_form span.select_all {
-   
+
     font-size:14px;
 }
 
@@ -1444,10 +1478,10 @@ div#permission_form .container {
 }
 
 div#permission_form .options{
-        width:141px;
-         display:block;
+    width:141px;
+    display:block;
 
-    }
+}
 
 .color_change{
 
@@ -1486,14 +1520,14 @@ div#permission_form .options{
 
 /*password reset*/
 #reset_password_container {
-	background-color:#FFF;
-	min-height: 40px;
-	width: 640px;
-	margin-top: 15%;
-	margin-right: auto;
-	margin-bottom: auto;
-	margin-left: auto;
-	-moz-border-radius: 15px;
+    background-color:#FFF;
+    min-height: 40px;
+    width: 640px;
+    margin-top: 15%;
+    margin-right: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    -moz-border-radius: 15px;
 }
 
 #reset_password_container #header {
@@ -1723,8 +1757,8 @@ div#permission_form .options{
 
 #dashboard #system_news_panel #system_news_holder {
     overflow: hidden;
-   float: none;
-   width:250%;
+    float: none;
+    width:250%;
 }
 .dashboard_form {
     color:#232323;
@@ -1743,7 +1777,7 @@ div#permission_form .options{
 
 .dashboard_form .form_line {
     float: left;
-    height: auto;
+    height: auto !important;
     width: 100%;
     margin-bottom: 20px;
 }
@@ -1777,7 +1811,7 @@ div#permission_form .options{
     float:right;
 }
 
-  .container {
+.container {
     font-family:Arial, Helvetica, sans-serif;
     color: #232323;
     background-image:url(/images/container_bg.png);
@@ -1785,6 +1819,52 @@ div#permission_form .options{
     width: 96%;
     float: left;
     padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.profile_tab_left{
+
+     background-image:none;
+    background-position: bottom left;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: right;
+
+
+}
+
+.profile_tab_right{
+      background-image:none;
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: right;
+    margin-right:10px;
+
+
+}
+
+#app #left_content #new_pic_upload{
+    float:right;
+
+}
+
+
+
+#app #main #content .full_container {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    width: 98%;
+    float: left;
+    padding: 1%;
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;

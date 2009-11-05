@@ -6,10 +6,6 @@
     = link_to_function image_tag("close_icon.png"), :title=>"Close"
   %br.clear
 
-  .date
-    - unless system_news.event_date.nil?
-      %span{:style => "font-style:italic;"} #{system_news.event_date.strftime("%d-%m-%Y")}
-
   .news_content{:id => "short_description_#{system_news.id}"}
     %p #{system_news.short_description}
 

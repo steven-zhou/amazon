@@ -1,7 +1,22 @@
 <% if @system_news.errors.empty? -%>
-  $('#system_news_holder').prepend('<%= escape_javascript(render(:partial => "/system_news/system_news", :locals => {:system_news => @system_news})) %>');
-  $('#<%= dom_id(@system_news) %>').effect('slide', {direction:'right'});
+  $('#system_news_container').html('<%= escape_javascript(render(:partial => "system_news/system_news_part", :locals => {:current_news => SystemNews.first_three})) %>');
+  $('#news_offset_number').val('0');
   $('#new_system_news_dialog').dialog('close');
+  <%- else %>
+  $("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+$('#flash_message').dialog( {
+    modal: true,
+     resizable: false,
+    draggable: true,
+    position: 'top',
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+$('#flash_message').dialog('open');
 <% end -%>
 
 

@@ -1,9 +1,8 @@
 class DashboardsController < ApplicationController
 
-  def index
-   
-   
+  def index   
     @system_news = SystemNews.new
+    @current_news = SystemNews.first_three
     @super_admin = (session[:super_admin]==true) ? true : false
     @to_do_list = ToDoList.new
     @to_do_lists = ToDoList.find_all_by_login_account_id(session[:user])
