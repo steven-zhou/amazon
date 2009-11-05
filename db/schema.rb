@@ -11,7 +11,6 @@
 
 ActiveRecord::Schema.define(:version => 20091102044832) do
 
-
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
     t.string   "suite_unit"
@@ -345,7 +344,6 @@ ActiveRecord::Schema.define(:version => 20091102044832) do
     t.text     "access_attempt_ip"
     t.integer  "access_attempts_count"
     t.boolean  "password_by_admin"
-    t.string   "type"
     t.integer  "password_lifetime"
   end
 
@@ -605,7 +603,7 @@ ActiveRecord::Schema.define(:version => 20091102044832) do
   end
 
   create_table "system_logs", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "login_account_id"
     t.text     "message"
     t.text     "controller"
     t.text     "action"
