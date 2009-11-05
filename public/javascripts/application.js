@@ -3925,6 +3925,11 @@ $(function(){
         $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
         $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
         $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
+        if ($(this).html()=="read more"){
+            $(this).html("read less");
+        }else{
+            $(this).html("read more");
+        }
     });
 });
 
