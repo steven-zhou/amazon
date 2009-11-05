@@ -46,10 +46,12 @@
       = render :partial => 'organisation_business_details_fields', :locals => {:p => p}
 
     .container
-      %h1 Organisation Logo
-      .form_line
-        = label :image, :id, "Logo"
-        = file_field :image, :image_file, {:size => "30"}
+      .left
+        %h1 Organisation Logo
+      .right
+        .form_line
+        
+          = file_field :image, :image_file, {:size => "30"}
 
   #right_content
     .container.address_form

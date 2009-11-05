@@ -74,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
     query_header.resources :query_criterias
   end
 
-  map.resources :login_accounts, :collection => {:user_name_unique => :get, :generate_password => :post}
+  map.resources :login_accounts, :collection => {:user_name_unique => :get, :generate_password => :post, :change_password => :get, :update_password => :post}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get, :user_name_to_person => :get}
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
@@ -107,7 +107,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
   map.resources :user_lists, :collection => {:show_list_des => :get}
   map.resources :dashboards, :collection => {:check_password => :get, :update_password => :post}
-  map.resources :system_news
+  map.resources :system_news, :member => {:switch => :get}, :collection => {:pre_three => :get, :next_three => :get}
   map.resources :to_do_lists
 
   map.resources :keywords ,:collection  => {:keywords_finder => :get,:check_destroy => :get}

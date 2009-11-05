@@ -112,9 +112,13 @@ class LoginAccount < ActiveRecord::Base
 
   def password=(pass)
     @password=pass
+    if (!self.password_salt.nil? && !self.password_hash.nil?)
+      self.password_last_salt = self.password_salt
+      self.password_last_hash = self.password_hash
+    end
+    self.password_updated_at = Time.now()
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
-    self.password_salt, self.password_hash =
-      salt, Digest::SHA256.hexdigest(@password + salt)
+    self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(@password + salt)
   end
 
 

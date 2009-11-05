@@ -1,11 +1,8 @@
-#system_news
+#system_news  
   #left_pad
-    = image_tag('Icons/Core/Lol/go-previous.png')
+    = link_to_function image_tag('Icons/Core/Lol/go-previous.png'), :id => "pre_three_news" if current_news != SystemNews.first_three
   #system_news_panel
     #system_news_holder
-      = render :partial => "system_news/system_news", :collection => SystemNews.all
+      = render :partial => "system_news/system_news", :collection => current_news
   #right_pad
-    = image_tag('Icons/Core/Lol/go-next.png')
-
-#new_system_news
-  = render :partial => "system_news/system_news_form" if @super_admin
+    = link_to_function image_tag('Icons/Core/Lol/go-next.png'), :id => "next_three_news" if current_news != SystemNews.last_three

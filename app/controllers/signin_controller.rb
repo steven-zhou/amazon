@@ -2,15 +2,20 @@ class SigninController < ApplicationController
 
   include SimpleCaptcha::ControllerHelpers
 
-  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha]
+  before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha, :grace_period_check]
   layout nil
 
   # Allows a user to log in.
   def login
     if request.post?
       begin
+
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
         session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+
+        grace_period_check(login_account) if login_account.last_login.nil?
+        password_lifetime_check(login_account)
+
         @group_types = LoginAccount.validate_group(session[:user])
         @system_permission_types = LoginAccount.validate_permission(session[:user])
         @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
@@ -87,6 +92,7 @@ class SigninController < ApplicationController
     session[:current_person_id] = nil
     session[:login_account_info] = nil
     session[:super_admin] = nil
+    session[:last_event] = nil
     redirect_to login_url
   end
 
@@ -285,4 +291,31 @@ class SigninController < ApplicationController
       render "login"
     end
   end
+
+  def grace_period_check(login_account)
+    if ( !login_account.authentication_grace_period.nil? && login_account.authentication_grace_period.to_i > 0)
+      # If we have no timeout or if timeout is not defined or if we have not had a last event record
+     
+      if( ( (Time.now - login_account.created_at) / (24 * 60 * 60) ) > login_account.authentication_grace_period )
+        # We are outside the grace period, delete the account
+
+        login_account.destroy
+        flash[:warning] = flash_message(:type => "grace_period_expired")
+        session[:user] = nil
+        render "login"
+      else
+        # Let's assume there is no grace period set
+        return # do nothing
+      end
+
+    end
+
+  end
+
+  def password_lifetime_check(login_account)
+    if( ( ( (Time.now - login_account.password_updated_at) / (24 * 60 * 60) ) > login_account.password_lifetime.to_i) && !login_account.password_lifetime.nil? )
+      redirect_to :controller => "login_accounts", :action => "change_password"
+    end
+  end
+
 end

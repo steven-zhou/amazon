@@ -10,7 +10,7 @@
     %div#photo_info
       %div#imageshow{:style => "float:left;"}
         -if @organisation.image.nil?
-          = image_tag 'Icons/System/image-missing.png', :class => "small"
+          = image_tag 'Icons/System/image-missing.png', :class => "medium"
         -else
           = image_tag(image_path(@organisation.image.id), :class => "small")
       %div#organisation_name
@@ -30,14 +30,20 @@
     .container
       %h1 Contacts
       .container
-        Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_phone.nil? ? "None assigned": @primary_phone.number
+        .left
+          Phone
+        .right
+          = @primary_phone.nil? ? "None assigned": @primary_phone.number
       .container
-        Website &nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_website.nil? ? "None assigned": @primary_website.value
+        .left
+          Website &nbsp;&nbsp;&nbsp;&nbsp;
+        .right
+          = @primary_website.nil? ? "None assigned": @primary_website.value
       .container
-        Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_email.nil? ? "None assigned": @primary_email.value
+        .left
+          Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        .right
+          = @primary_email.nil? ? "None assigned": @primary_email.value
    
 
 
@@ -58,17 +64,27 @@
   
 
   #right_content
-    #photo_info
+    #photo_info{:style => "margin-bottom:35px;"}
+    .profile_tab_right{:field =>"organization_info"}
     .container_icon{:align => 'center'}
-      = link_to_function "#{image_tag('person_details.png')} Organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"active_organisation_info_tab", :hidden_id_name => "business_info"
+      = link_to_function "<h1>Organisational</h1>",  :id=>"organisational", :class=>"show_hide_button", :show_id_name => "organisation_info",:hide_id_name => "business_info"
+    .profile_tab_left{:field =>"organization_info"}
+    .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
     .container_icon{:align => 'center', :class => "container_icon_color"}
+      = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "organisation_info"
+    .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
+
+
+    -#.container_icon{:align => 'center'}
+      = link_to_function "#{image_tag('person_details.png')} Organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"active_organisation_info_tab", :hidden_id_name => "business_info"
+    -#.container_icon{:align => 'center', :class => "container_icon_color"}
       = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"active_organisation_info_tab", :hidden_id_name => "organisation_info"
 
  
-    .container#organisation_info{:class => "organisation_info_tab hidden_tab"}
+    .container#organisation_info{:style=>"display:none"}
       = render :partial => 'organisation_info'
     
-    .container#business_info{:class => "organisation_info_tab"}
+    .container#business_info
       .container
         %h2 System Module X
         %br
