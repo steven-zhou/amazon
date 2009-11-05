@@ -9,7 +9,7 @@
     %div#photo_info
       %div#imageshow{:style => "float:left;"}
         -if @person.image.nil?
-          = image_tag 'Icons/System/image-missing.png', :class => "small"
+          = image_tag 'Icons/System/image-missing.png', :class => "medium"
         -else
           = image_tag(image_path(@person.image.id), :class => "small")
     
@@ -31,14 +31,20 @@
     .container
       %h1 Primary Contacts
       .container
-        Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_phone.nil? ? "None assigned": @primary_phone.number
+        .left
+          Phone
+        .right
+          = @primary_phone.nil? ? "None assigned": @primary_phone.number
       .container
-        Website &nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_website.nil? ? "None assigned": @primary_website.value
+        .left
+          Website
+        .right
+          = @primary_website.nil? ? "None assigned": @primary_website.value
       .container
-        Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_email.nil? ? "None assigned": @primary_email.value
+        .left
+          Email
+        .right
+          = @primary_email.nil? ? "None assigned": @primary_email.value
 
     .container
       %h1= @primary_address.nil? ? "Primary Address" : "Primary Address"
@@ -47,7 +53,8 @@
 
     .container
       %h1 Notes
-      .container
+      - note1_status = @person.notes.first.blank? ? "hidden" : ""
+      .container{:class => "#{note1_status}"}
         %div.left
           = @person.notes.blank? ? "No Notes": @person.notes.first.id
           = @person.notes.first.note_type.name unless @person.notes.blank?
@@ -57,7 +64,8 @@
           = @person.notes.first.label unless @person.notes.blank?
           = @person.notes.first.short_description unless @person.notes.blank?
         %br.clear
-      .container
+      - note2_status = @person.notes.second.blank? ? "hidden" : ""
+      .container{:class => "#{note2_status}"}
         %div.left
           = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
           = @person.notes.second.note_type.name unless @person.notes.second.blank?
@@ -79,11 +87,14 @@
 
   #right_content
     #photo_info
+    .pppp.personright{:field =>"person_info", :style => "display:none;"}
     .container_icon{:align => 'center'}
-      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info"
+      = link_to_function "<h1>Personal</h1>",  :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info", :color_id => "1"
+    .pppp.personleft{:field =>"person_info", :style => "display:none;"}
+    .pppp.personright{:field =>"business_info"}
     .container_icon{:align => 'center', :class => "container_icon_color"}
-      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
-  
+      = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
+    .pppp.personleft{:field =>"business_info"}
      
 
  
