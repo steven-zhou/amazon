@@ -1,4 +1,5 @@
 .container#active_news
+  %input{:style => "display:none;", :id => "system_news_mode", :mode => "show"}
   %h2 Active News
   - if @active_system_news.empty?
     %p No Record
