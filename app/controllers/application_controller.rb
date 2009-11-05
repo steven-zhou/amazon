@@ -30,7 +30,9 @@ class ApplicationController < ActionController::Base
         redirect_to login_url
       else
         @current_user = LoginAccount.find(session[:user])
+        check_session_timeout(@current_user)
         redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
+        session[:last_event] = Time.now()
       end
     end
   end
@@ -55,17 +57,21 @@ class ApplicationController < ActionController::Base
     when "object_updated_successfully" then "The #{options[:object]} was updated."
 
       # Errors
-    when "login_error" then "The login credentials you supplied were incorrect."
-    when "login_group_error" then "Your login account is not associated with any groups. Please see your System Administrator."
-    when "login_permission_error" then "You do not have the appropriate level of permissions to log into the system. Please see your System Administrator."
-    when "login_count_error" then "Your account has been locked. Please see your System Administrator."
-    when "field_missing" then "You did not fill out the required field #{options[:field]}."
-    when "uniqueness_error" then "The value you entered for #{options[:field]} already exists. Please ensure this value is unique and try again."
-    when "not exist" then "The value you entered for #{options[:field]} does not exist in system"
-    when "too_long" then "The value you entered for #{options[:field]} is too long."
-    when "too_short" then "The value you entered for #{options[:field]} is too short."
-    when "format error" then "The format of #{options[:field]} is incorrect."
-    when "same_person_error" then "#{options[:field]} cannot be the same as the source person."
+    when "login_error"                  then "The login credentials you supplied were incorrect."
+    when "login_group_error"            then "Your login account is not associated with any groups. Please see your System Administrator."
+    when "login_permission_error"       then "You do not have the appropriate level of permissions to log into the system. Please see your System Administrator."
+    when "session_timeout"              then "Your login session has timed out. For security reasons you will need to log in again."
+    when "grace_period_expired"         then "You have attempted to login after the grace period for your account. Your account has been deleted. Please see your Systems Administrator."
+    when "login_count_error"            then "Your account has been locked. Please see your System Administrator."
+    when "password_confirm_error"       then "The new password you entered did not match your confirmation password. Please try again."
+    when "password_change_ok"           then "Your password was successfully changed."
+    when "field_missing"                then "You did not fill out the required field #{options[:field]}."
+    when "uniqueness_error"             then "The value you entered for #{options[:field]} already exists. Please ensure this value is unique and try again."
+    when "not exist"                    then "The value you entered for #{options[:field]} does not exist in system"
+    when "too_long"                     then "The value you entered for #{options[:field]} is too long."
+    when "too_short"                    then "The value you entered for #{options[:field]} is too short."
+    when "format error"                 then "The format of #{options[:field]} is incorrect."
+    when "same_person_error"            then "#{options[:field]} cannot be the same as the source person."
       # Default
     when "default" then " #{options[:message]}"
     end
@@ -74,5 +80,29 @@ class ApplicationController < ActionController::Base
   end
 
 
+  private
+
+  def check_session_timeout(current_user)
+    if ( !current_user.session_timeout.nil? && current_user.session_timeout.to_i > 0 && !session[:last_event].nil?)
+    # If we have no timeout or if timeout is not defined or if we have not had a last event record
+
+      if ( (current_user.session_timeout.to_i * 60 ) < (Time.now - session[:last_event]))
+        # The session has timed out, set a message, boot them out....
+        session[:user] = nil
+        session[:last_event] = nil
+        flash[:warning] = flash_message(:type => "session_timeout")
+        redirect_to login_url
+      else
+        # We have not timed out...
+        session[:last_event] = Time.now()
+      end
+
+    else
+      # Let's assume there is no timeout set
+      session[:last_event] = Time.now()
+      return # do nothing
+    end
+
+  end
 
 end

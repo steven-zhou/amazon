@@ -74,7 +74,7 @@ ActionController::Routing::Routes.draw do |map|
     query_header.resources :query_criterias
   end
 
-  map.resources :login_accounts, :collection => {:user_name_unique => :get, :generate_password => :post}
+  map.resources :login_accounts, :collection => {:user_name_unique => :get, :generate_password => :post, :change_password => :get, :update_password => :post}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get, :user_name_to_person => :get}
 
   map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
