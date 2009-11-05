@@ -1,0 +1,13 @@
+- form_for @system_news, :url => {:controller => "system_news", :action => @system_news.record? ? "create" : "update"}, :html => {:class => "ajax_form"} do |f|
+  .dashboard_form
+    .form_line
+      .field_100
+        =f.label :title, "Title"
+        =f.text_field :title
+    .form_line
+      .field_100
+        = f.label :description, "Body"
+        = f.text_area :description
+    .form_line
+      .field_20
+        = submit_tag "Publish"
