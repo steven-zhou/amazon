@@ -58,15 +58,16 @@ robert_tingle_login = LoginAccount.create(
   :password => "password",
   :security_email => "feedback@memberzone.com.au",
   :password_confirmation => "password",
-  :security_question1_id => "89",
-  :security_question2_id => "89",
-  :security_question3_id => "89",
+  :security_question1_id => SecurityQuestion.find(:all)[0].id,
+  :security_question2_id => SecurityQuestion.find(:all)[1].id,
+  :security_question3_id => SecurityQuestion.find(:all)[2].id,
   :question1_answer => "1",
   :question2_answer => "2",
   :question3_answer => "3",
   :access_attempts_count => 3,
-  :session_timeout => 3,
-  :authentication_grace_period => 3
+  :session_timeout => 30,   # 30 mins
+  :authentication_grace_period => 3, # 3 days
+  :password_lifetime => 20 # 20 days
 )
 
 puts "Creating Jackie Chan"
