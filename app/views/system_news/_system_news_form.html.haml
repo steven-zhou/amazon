@@ -1,4 +1,4 @@
-- form_for @system_news, :url => {:controller => "system_news", :action => @system_news.record? ? "create" : "update"}, :html => {:class => "ajax_form"} do |f|
+- form_for @system_news, :url => {:controller => "system_news", :action => @system_news.new_record? ? "create" : "update"}, :html => {:class => "ajax_form"} do |f|
   .dashboard_form
     .form_line
       .field_100
@@ -6,7 +6,11 @@
         =f.text_field :title
     .form_line
       .field_100
-        = f.label :description, "Body"
+        = f.label :event_date, "Event Date"
+        = f.text_field :event_date, :class => "datepick"
+    .form_line
+      .field_100
+        = f.label :description, "Description"
         = f.text_area :description
     .form_line
       .field_20

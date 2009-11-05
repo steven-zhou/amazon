@@ -7,8 +7,8 @@
 
   .container 
     .options{:style => "float:right;"}
-      = link_to_function image_tag("add_icon.png"), {:id => "new_system_news"}, {:title=>"New System News"}
-      = link_to_function image_tag("edit_icon.png"), {}, {:title=>"Edit System News"}
+      = link_to_function image_tag("add_icon.png"), :id => "new_system_news", :title=>"New System News"
+      = link_to_function image_tag("edit_icon.png"), :title=>"Manage System News", :id => "manage_system_news"
     %h1 System News
     = render :partial => "system_news/system_news_part"
   %br.clear
@@ -37,4 +37,6 @@
 #new_to_do_dialog{:style => "display:none"}
   = render :partial => "to_do_lists/new_to_do_list"
 #new_system_news_dialog{:style => "display:none"}
-  = render :partial => "system_news/new_system_news"
+  = render :partial => "system_news/system_news_form"
+#manage_system_news_dialog{:style => "display:none"}
+  = render :partial => "system_news/system_news_manager"
