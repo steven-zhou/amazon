@@ -113,6 +113,57 @@ class LoginAccountsController < ApplicationController
     end
   end
 
+  def change_password
+    @login_account = @current_user
+    render :layout => 'reset_password'
+  end
+
+  def update_password
+
+    old_password = params[:old_password]
+    new_password = params[:login_account][:password]
+    new_password_confirmation = params[:login_account][:password_confirmation]
+    answer_1 = params[:login_account][:question1_answer]
+    answer_2 = params[:login_account][:question2_answer]
+    answer_3 = params[:login_account][:question3_answer]
+    
+    # If the old password or security answers is wrong decrease access_attempts_count
+    # If the access_attempts_count == 0 kick them out
+
+    if (@current_user.account_locked? || @current_account.question1_answer.downcase != answer_1.downcase || @current_account.question2_answer.downcase != answer_2.downcase || @current_account.question3_answer.downcase != answer_3.downcase)
+      flash[:warning] = flash_message(:type => "login_error")
+      @current_user.access_attempts_count -= 1
+      @current_user.save
+      redirect_to :action => "change_password"
+    end
+
+
+    begin
+      # Check that the old password was correct
+      LoginAccount.authenticate(@current_user.user_name, old_password)
+    rescue
+      flash[:warning] = flash_message(:type => "login_error")
+      @current_user.access_attempts_count -= 1
+      @current_user.save
+      redirect_to :action => "change_password"
+    end
+
+    if (new_password != new_password_confirmation)
+      flash[:warning] = flash_message(:type => "password_confirm_error")
+      redirect_to :action => "change_password"
+    end
+
+    # Change the password
+
+    @current_user.password = new_password
+    @current_user.save
+    flash[:feedback] = flash_message(:type => "password_change_ok")
+    
+    redirect_to login_url
+
+
+  end
+
 
   protected
   def identify_the_admin
