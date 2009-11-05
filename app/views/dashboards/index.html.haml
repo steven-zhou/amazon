@@ -12,7 +12,7 @@
     %h1 System News
     %input#news_offset_number{:style => "display:none;", :value => 0}
     #system_news_container
-      = render :partial => "system_news/system_news_part"
+      = render :partial => "system_news/system_news_part", :locals => {:current_news => @current_news}
   %br.clear
   
 %br.clear
