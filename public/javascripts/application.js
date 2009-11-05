@@ -4008,12 +4008,13 @@ $(function(){
 
 // System News
 $(function(){
-    $("#new_system_news").live('click', function(){
+    $("#new_news").live('click', function(){
+        $('#new_system_news_dialog').find("form").get(0).reset();
         $('#new_system_news_dialog').dialog( {
                 modal: true,
                 resizable: false,
                 width: 600,
-                height: 500,
+                height: 400,
                 draggable: true
             });
             $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
@@ -4024,6 +4025,24 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/system_news.js",
+            dataType: "script"
+        });
+    });
+
+    $("#pre_three_news").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/system_news/pre_three.js",
+            data: "news_offset_number=" + $('#news_offset_number').val(),
+            dataType: "script"
+        });
+    });
+
+    $("#next_three_news").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/system_news/next_three.js",
+            data: "news_offset_number=" + $('#news_offset_number').val(),
             dataType: "script"
         });
     });

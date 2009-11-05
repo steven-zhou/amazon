@@ -1,0 +1,2 @@
+$('#manage_system_news_dialog').html('<%= escape_javascript(render(:partial => "/system_news/system_news_manager")) %>');
+$('#system_news_holder').html('<%= escape_javascript(render(:partial =>"system_news/system_news", :collection => SystemNews.first_three )) %>');

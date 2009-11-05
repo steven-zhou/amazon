@@ -1777,7 +1777,7 @@ div#permission_form .options{
 
 .dashboard_form .form_line {
     float: left;
-    height: auto;
+    height: auto !important;
     width: 100%;
     margin-bottom: 20px;
 }

@@ -1,0 +1,2 @@
+$('#system_news_detail_<%= escape_javascript("#{@system_news.id}") %>').fadeOut("slow", function() {$(this).remove();});
+$('#system_news_holder').html('<%= escape_javascript(render(:partial =>"system_news/system_news", :collection => SystemNews.first_three )) %>');
