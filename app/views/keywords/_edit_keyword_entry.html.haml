@@ -3,7 +3,7 @@
   .container
     - form_for @keyword, :url => {:controller => "keywords", :action => "update", :id => @keyword.id, :type => KeywordType.find(@keyword.keyword_type_id).id},:html => {:class => "ajax_form"} do |p|
       .form_line
-        = link_to_function image_tag('close_icon.png', :field => "system_data", :class => "close_option", :id => "close_edit_keyword_entry", :style => "float:right;")
+        = link_to_function image_tag('close_icon.png', :field => "system_data", :class => "close_option", :id => "close_edit_keyword_entry", :style => "float:right;"), :title=>"Close"
         .field_30
           = p.label :name, 'Name'
           = p.text_field :name, {:disabled => ("disabled" if !@keyword.status)}

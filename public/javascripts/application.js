@@ -9,6 +9,7 @@ $(function(){
     $("#tabs2").tabs();
 });
 
+
 $(function(){
     $("#datepicker").datepicker();
 });
@@ -167,6 +168,8 @@ $(function() {
     }).attr("rel", "nofollow");
 
 
+
+
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
@@ -268,19 +271,22 @@ $("#edit_photo_link").live("click",function() {
 
 /*Keywords*/
 showKeyword = function(){
-    $("#add_keywords option:selected").removeAttr("selected");
-    $("#add_keywords").find("option").hide();
-    $("#keyword_types").find("option:selected").each(function(){
+    $("#add_person_keywords option:selected").removeAttr("selected");
+    $("#add_person_keywords").find("option").hide();
+//    alert($("#keyword_keyword_type_id").find("option:selected").text());
+    $("#keyword_person_types").find("option:selected").each(function(){
         if($(this).val() == ""){
-            $("#add_keywords").find("option").show();
-        }else{
-            $("#add_keywords option[class=" + $(this).text() + "]").show();
+            $("#add_person_keywords").find("option").show();
+        }else{      
+          $("#add_person_keywords option[class=" + $(this).text() + "]").show();
+//             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
+             
         }
     });
 }
 
 showTooltip = function(){
-    $("#add_keywords option ,#remove_keywords option").each(function(){
+    $("#add_person_keywords option ,#remove_person_keywords option").each(function(){
         $(this).qtip({
             content: $(this).attr('remark'),
             position: {
@@ -296,14 +302,15 @@ showTooltip = function(){
     });
 }
 
-$(document).ready(function(){
-    showKeyword();
-    showTooltip();
-});
+//$(document).ready(function(){
+//    showKeyword();
+//    showTooltip();
+//});
 
 
 
-$("#keyword_keyword_type_id ").live("change", showKeyword);
+$("#keyword_person_types").live("change", showKeyword);
+
 /*organisation keyword*/
 showOrganisationKeyword = function(){
     $("#add_organisation_keywords option:selected").removeAttr("selected");
@@ -334,9 +341,8 @@ showOrganisationTooltip = function(){
     });
 }
 
-
-
 $("#keyword_organisation_types").live("change", showOrganisationKeyword);
+
 /* Relationships */
 $(function(){
     $("input[type='text']#relationship_related_person_id").change(function(){
@@ -364,19 +370,42 @@ $(function(){
 
 
 /* Show Summary list*/
+
 $(function(){
-    $('table#search_list_results tbody tr').live('click',function(){   
+    $('table#search_list_results tbody tr').live('dblclick',function(){
+       // alert($('table#search_list_results').attr('current_operation'));
+      if ($('table#search_list_results').attr('current_operation') == "edit_list")
+      {window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");}
+      if ($('table#search_list_results').attr('current_operation') == "show_list")
+      {window.open("/people/"+$(this).attr("id").substring(3)+"/","_self");}
+    });
+});
+
+$(function(){
+    $('table#search_list_results tbody tr').live('click',function(){
         $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
             data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
             dataType: "script"
-        });      
+        });
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
-        
+
+
     });
 });
+
+
+
+
+
+$(function(){
+    $('table#search_list_results tbody tr').live('mouseover',function(){
+       $(this).css("cursor","pointer");
+    });
+});
+
 
 
 /*role*/
@@ -2195,18 +2224,18 @@ $(function(){
 
 
 
-$(function(){
-    $("#show_list_select").live('click',function(){
-        window.open("/people/"+ $('#system_id_tag').val(), "_self");
-    });
-});
-
-
-$(function(){
-    $("#edit_list_select").live('click',function(){
-        window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
-    });
-});
+//$(function(){
+//    $("#show_list_select").live('click',function(){
+//        window.open("/people/"+ $('#system_id_tag').val(), "_self");
+//    });
+//});
+//
+//
+//$(function(){
+//    $("#edit_list_select").live('click',function(){
+//        window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+//    });
+//});
 
 $(function(){
     $("#show_all_organisations").live('click',function(){
@@ -2361,8 +2390,6 @@ $(function(){
         $('#system_log_export_user_name').val($('#user_name').val());
         $('#system_log_export_start_date').val($('#system_log_start_date').val());
         $('#system_log_export_end_date').val($('#system_log_end_date').val());
-        $('#system_log_export_log_controller').val($('#log_controller').val());
-        $('#system_log_export_log_action').val($('#log_action').val());
 
     });
 });
@@ -2592,6 +2619,13 @@ $(function(){
 });
 
 $(function(){
+    $('table#people_search_grid tbody tr').live('dblclick',function(){
+     {window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");}
+    });
+});
+
+
+$(function(){
     $('table#query_result_grid tbody tr').live('click',function(){
         $('table#query_result_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
@@ -2642,6 +2676,18 @@ $(function(){
 });
 
 /*Organisation Grid*/
+
+$(function(){
+    $('table#search_organisations_list_results tbody tr').live('dblclick',function(){
+     if ($('table#search_organisations_list_results').attr('current_operation') == "edit_organisation_list")
+      {window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");}
+      if ($('table#search_organisations_list_results').attr('current_operation') == "show_organisation_list")
+      {window.open("/organisations/"+$(this).attr("id").substring(3)+"/","_self");}
+
+    });
+});
+
+
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('click',function(){
 
@@ -2659,18 +2705,18 @@ $(function(){
 });
 
 
-$(function(){
-    $("#show_organisation_list_select").live('click',function(){
-        window.open("/organisations/"+ $('#system_id_tag').val(), "_self");
-    });
-});
-
-
-$(function(){
-    $("#edit_organisation_list_select").live('click',function(){
-        window.open("/organisations/"+ $('#system_id_tag').val()+"/edit", "_self");
-    });
-});
+//$(function(){
+//    $("#show_organisation_list_select").live('click',function(){
+//        window.open("/organisations/"+ $('#system_id_tag').val(), "_self");
+//    });
+//});
+//
+//
+//$(function(){
+//    $("#edit_organisation_list_select").live('click',function(){
+//        window.open("/organisations/"+ $('#system_id_tag').val()+"/edit", "_self");
+//    });
+//});
 
 $(function(){
     $("#organisation_search_grid").flexigrid({
@@ -2772,6 +2818,12 @@ $(function(){
             url: "/organisations/"+$(this).attr('id').substring(3)+"/name_card.js",
             dataType: "script"
         });
+    });
+});
+
+$(function(){
+    $('table#organisation_search_grid tbody tr').live('dblclick',function(){
+      {window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");}
     });
 });
 
@@ -2904,7 +2956,6 @@ $(function(){
     
         $.ajax({
             type: 'GET',
-
             url: "/people/check_duplication.js",
             data: personal_data_string + "&id="+$("#person_id").val(),
             dataType: "script"
@@ -2960,7 +3011,12 @@ $(function(){
 /*personal check field restart button*/
 personal_check_duplication_restart_button = function(){
 
-    window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+
+//alert($('#system_id_tag').val());
+    if($('#system_id_tag').val() != null)
+        { window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");}
+        else
+            {window.open("/people/new", "_self");}
     return false;
 }
 
@@ -3875,24 +3931,24 @@ $(function(){
 /*Keyword double click0*/
 
 $(function(){
-    $("#add_keywords").live('dblclick', function(){
+    $("#add_person_keywords").live('dblclick', function(){
   
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/add_key.js",
-                data: 'person_id=' + $('#person_id').val()+"&add_keywords="+$(this).val(),
+                data: 'person_id=' + $('#person_id').val()+"&add_person_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
 });
 
 $(function(){
-    $("#remove_keywords").live('dblclick', function(){
+    $("#remove_person_keywords").live('dblclick', function(){
 
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/remove_key.js",
-                data: 'person_id=' + $('#person_id').val()+"&remove_keywords="+$(this).val(),
+                data: 'person_id=' + $('#person_id').val()+"&remove_person_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
@@ -3904,7 +3960,7 @@ $(function(){
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/add_key.js",
-                data: 'organisation_id=' + $('#organisation_id').val()+"&add_keywords="+$(this).val(),
+                data: 'organisation_id=' + $('#organisation_id').val()+"&add_organisation_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
@@ -3916,11 +3972,24 @@ $(function(){
      $.ajax({
                 type: "POST",
                 url: "/keyword_links/remove_key.js",
-                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_keywords="+$(this).val(),
+                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_organisation_keywords="+$(this).val(),
                 dataType: "script"
             });
     });
 });
+
+$(function(){
+    $(".check_delete ").live('click', function(){
+
+     $.ajax({
+                type: "GET",
+                url: "/keywords/check_destroy.js",
+                data: 'id=' + $(this).attr("keyword_id"),
+                dataType: "script"
+            });
+    });
+});
+
 
 //TO DO LIST
 $(function(){
@@ -3949,5 +4018,32 @@ $(function(){
             });
             $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
             $('#new_system_news_dialog').dialog('open');
+    });
+});
+
+$(function(){
+    $("#show_import_postcode_columns").live('click', function(){
+        $('#import_postcodes_columns').dialog( {
+                modal: true,
+                resizable: false,
+                width: 600,
+                height: 400,
+                draggable: true
+            });
+            $('#import_postcodes_columns').dialog('open');
+    });
+
+});
+
+
+$(function(){
+    $("#user_name").blur(function(){
+        $.ajax({
+            type: "GET",
+            url: "/client_setups/system_log_verify_user_name.js",
+            data: 'user_name='+$(this).val(),
+            dataType: "script"
+        });
+
     });
 });

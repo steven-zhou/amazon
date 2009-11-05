@@ -19,7 +19,7 @@ class Keyword < ActiveRecord::Base
   
   belongs_to :keyword_type, :class_name => "KeywordType", :foreign_key => "keyword_type_id"
 
-
+ default_scope :order => "name ASC"
     #--
   ################
   #  Validations

@@ -1,3 +1,4 @@
+
 $('#show_list_grid').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation })) %>');
 
 $('#show_list_grid').dialog({

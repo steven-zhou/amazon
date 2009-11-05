@@ -5,8 +5,32 @@
     %br.clear
 #content_full_page
   .container
-    %p
-    - form_tag("/maintenance/import_postcode_file", :class => "ajax_form") do
+    - form_tag("/maintenance/import_postcode_file", :multipart => true) do
+
+      %br.clear
+      Country
+      %br.clear
+      = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false}, {:style => "width:15%;"}
+
+      %p
+
+      %br.clear
+      Postcode data file
+      %br.clear
+      = file_field :postcode_file, nil
+
+      %p
+
+      %br.clear
+      %div#show_import_postcode_columns
+        Proceed
+
+      %div#import_postcodes_columns{:style => "display:none;"}
+
+      %div#import_postcode_parameters{:style => "display:none;"}
+
+      %div#import_postcode_summary{:style => "display:none;"}
+
 
 
   

@@ -2,7 +2,7 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "organisation_masterdoc_close clear_form toggle_button close_option", :field => "master_doc", :toggle_id_name => "new_master_doc",:style => "display:none"
+      = link_to_function image_tag('close_icon.png'), :class => "organisation_masterdoc_close clear_form toggle_button close_option", :field => "master_doc", :toggle_id_name => "new_master_doc",:style => "display:none", :title=>"Close"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"toggle_button new_option", :field => "master_doc", :toggle_id_name => "new_master_doc"  if (!organisation.nil? && !organisation.new_record?)
     %h1 New MasterDoc

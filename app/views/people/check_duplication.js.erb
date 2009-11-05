@@ -3,20 +3,22 @@ $('#personal_check_duplication').html("<%= escape_javascript(render(:partial => 
 
 $('#personal_check_duplication').dialog({
   modal: true,
-  resizable: true,
+  resizable: false,
+  position: "center",
   draggable: true,
-  height: 600,
-  width: 800,
+  height: 'auto',
+  width: 'auto',
   buttons:{
-          Continue: function(){
+          "Continue to edit": function(){
           $(this).dialog('close');
           },
-          "Restart": function(){
+          "Clear to restart": function(){
           personal_check_duplication_restart_button();
           }
   }
 });
-$('#personal_check_duplication').dialog('option', 'title', 'Duplication Check');
+ $('#personal_check_duplication').parent().find("a").css("display","none");
+ $('#personal_check_duplication').dialog('option', 'title', 'Possible Duplication Found');
 $('#personal_check_duplication').dialog('open');
 
   $("#person_check_field").flexigrid(

@@ -5,7 +5,7 @@
     .header_container
       .options
         -#= link_to_function image_tag('closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "new_user"
-        = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_account", :style => "display:none;")
+        = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_account", :style => "display:none;", :title=>"Close")
       .options_left{:style => "margin-right:10px;"}
         = link_to_function image_tag('add_icon.png'), :id => "add_user", :class => "toggle_button", :toggle_id_name => "new_user"
         &nbsp

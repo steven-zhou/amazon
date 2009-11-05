@@ -33,7 +33,4 @@
           Religion :
           = "#{person.religion.name}" unless person.religion.nil?
         %td
-        %td.textright
-          = link_to 'Go to Profile', person unless person.blank?
-          or
-          = link_to 'Edit', edit_person_path(person) unless person.blank?
+   

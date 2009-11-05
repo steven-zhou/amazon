@@ -14,7 +14,7 @@
           - status_flag = i.login_status ? "" : "hidden"
           .user_list_each_user{:class => "#{status} toggle_options", :id => "user_list_user_#{i.id}", :field => "user_list_user"}
             .options{:style => "display:none;"}
-              = image_tag('edit_icon.png', :class => "#{status_flag} edit_option edit_logo", :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user")
+              = link_to_function image_tag('edit_icon.png', :class => "#{status_flag} edit_option edit_logo", :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user"), :title=>"Edit"
             .title
               = i.id
               \--

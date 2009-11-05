@@ -4,7 +4,7 @@
     .title
       %h2= organisation_address.address_type.name
       .options{:style => "display:none;"}
-        = link_to image_tag('edit_icon.png', :alt => 'Edit'), :class => 'get_query edit_option'
-        = link_to image_tag('delete_icon.png', :alt => 'Delete'), :class => 'delete' ,:field => "Address",:error_message_field => organisation_address.address_type.name
+        = link_to image_tag('edit_icon.png', :alt => 'Edit'), :class => 'get_query edit_option', title=>"Edit"
+        = link_to image_tag('delete_icon.png', :alt => 'Delete'), :class => 'delete' ,:field => "Address",:error_message_field => organisation_address.address_type.name, title=>"Remove"
   %div{:style => "float:right;"}
     = format_address(organisation_address)

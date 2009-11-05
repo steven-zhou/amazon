@@ -46,6 +46,8 @@ class MaintenanceController < ApplicationController
 
 
   def import_postcodes
+    # This screen is for us selecting the file and all the parameters for
+    # the postcode import...
     
   end
 
