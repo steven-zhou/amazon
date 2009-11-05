@@ -4,22 +4,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon | A new world of possibilities | Now with microwave!!</title>
 
-    <%= javascript_include_tag "jquery.min.js",
-      "jquery-ui.min.js",
-      "flexigrid.js",
+    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","jpassword", "portlets", "signin.css", "validationEngine.jquery.css"%>
+    <%= jqgrid_stylesheets %>
+    <%= jqgrid_javascripts %>
+    <%= javascript_include_tag  "flexigrid.js",
       "jquery.dataTables.min.js",
       "jquery.qtip.min.js",
       "jquery.form.js",
       "jquery.jpassword.js",
-      "jquery.wysiwyg.js",
+      "application.js",
       "person.js",
       "reports.js",
-      "module_menu.js",
-      "application.js",
+      "config.js",
+      "interface.js",
       "jquery.validationEngine.js"
-  %>
-    <%= stylesheet_link_tag "signin"%>
-    <%= stylesheet_link_tag "jquery-ui-custom" %>
+%>
+
+
 
   </head>
 
