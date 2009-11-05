@@ -1,24 +1,26 @@
-<div id="flash_message" style="display:none;">
+<!-- For flash error, warning, process_end and help message -->
+
+<div id="flash_message" style="display:none;background-color:#D1DDE6;padding-top:2em;padding-bottom:2em;padding-left:3em;padding-right:3em;">
   <%- if flash[:error] %>
     <%= flash[:error] %>
   <%- elsif flash[:warning] %>
     <%= flash[:warning] %>
-  <%- end %>
+  <%- elsif flash[:process_end] %>
+    <%= flash[:process_end] %>
+  <%- elsif flash[:help] %>
+    <%= flash[:help] %>
+ <%- end %>
 </div>
 
-<div id="flash_feedback" style="display:none;position:fixed;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
-  <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
-    <%= flash[:message] %>
-  <%- end %>
-</div>
-
-<%- if flash[:error] || flash[:warning] %>
+<%- if flash[:error] || flash[:warning] || flash[:process_end] || flash[:help] %>
   <script type="text/javascript">
     $(function() {
       $('#flash_message').dialog( {
-        modal: true,
-         resizable: false,
-        draggable :true,
+      modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
         buttons: {
           Ok: function() {
             $(this).dialog('close');
@@ -27,16 +29,34 @@
       }
 
     );
-    <%- if flash[:error] %>
-    $('#flash_message').dialog( 'option', 'title', 'Error');
-    <%- else %>
-    $('#flash_message').dialog( 'option', 'title', 'Warning');
-    <%- end %>
-    $('#flash_message').dialog( 'open');
+
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+
+<%- if flash[:error] %>
+      $('#flash_message').dialog( 'option', 'title', 'Error');
+    <%- elsif flash[:warning] %>
+      $('#flash_message').dialog( 'option', 'title', 'Warning');
+    <%- elsif flash[:process_end] %>
+      $('#flash_message').dialog( 'option', 'title', 'Completed Task');
+    <%- elsif flash[:help] %>
+      $('#flash_message').dialog( 'option', 'title', 'Help');
+  <%- end %>
+      $('#flash_message').dialog( 'open');
     }
   )
   </script>
 <% end %>
+
+
+
+<!-- For feedback message -->
+
+ <div id="flash_feedback" style="display:none;position:fixed;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
+  <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
+    <%= flash[:message] %>
+  <%- end %>
+</div>
 
 <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
   <script type="text/javascript">

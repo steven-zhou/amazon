@@ -38,10 +38,14 @@ $(function() {
 
     $(".show_hide_button").live('click', function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
+          $('.pppp[field='+ $(this).attr('show_id_name') +']').css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
+        $('.pppp[field='+ $(this).attr('hide_id_name') +']').css("display","none");
         $(".container_icon").removeClass("container_icon_color");
         $(this).parent().addClass("container_icon_color");
-          
+         
+
+           $('.pppp[field='+ $(this).attr('show_id_name') +']').removeClass('hidden');
     });
     /*
 	  Replaces text of the toggle link, with the alt_text,

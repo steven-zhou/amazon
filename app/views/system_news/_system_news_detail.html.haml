@@ -1,0 +1,17 @@
+.container{:id => "system_news_detail_#{system_news_detail.id}"}
+  .options{:style => "float:right;"}
+    = link_to_function image_tag("icon_holder.png"), :title=>"Switch"
+    = link_to_function image_tag("edit_icon.png"), :title=>"Edit"
+    = link_to_function image_tag("delete_icon.png"), :title=>"Delete"
+  .title
+    %h2 #{system_news_detail.title}
+
+  .date
+    - unless system_news_detail.event_date.nil?
+      %span{:style => "font-style:italic;"} #{system_news_detail.event_date.strftime("%d-%m-%Y")}
+
+  .news_content{:id => "short_description_detail_#{system_news_detail.id}"}
+    %p #{system_news_detail.short_description}
+
+  .news_content.hidden{:id => "description_detail_#{system_news_detail.id}"}
+    %p #{system_news_detail.description}
