@@ -5,7 +5,7 @@
       .title
         %h1 Edit Address
       .options
-        = link_to image_tag('close_icon.png'), address_path(@address), :class => 'get', :id => 'address_edit_close_button', :title=>"Close"
+        = link_to image_tag('close_icon.png'), address_path(@address), :class => 'get_close', :id => 'address_edit_close_button', :title=>"Close",:field => "address"
       %br{ :style=>"clear: both;"}
       = render :partial => '/addresses/address_form', :locals => { :address => address,:edit => "edit" }
       = submit_tag 'Submit' , :id => "address_submit_button_edit" , :check_field => "address_street_name_edit"

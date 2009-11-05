@@ -4,7 +4,7 @@
     .title
       %h1 Edit Phone
     .options
-      = link_to image_tag('close_icon.png'), phone_path(@phone), :class => 'get', :field => "contact", :title=>"Close"
+      = link_to image_tag('close_icon.png'), phone_path(@phone), :class => 'get_close', :field => "contact", :title=>"Close"
     %br{ :style=>"clear: both;"}
     = render :partial => 'phone_form', :locals => { :phone => phone,:edit => "edit" }
     = submit_tag 'Submit' ,:id => "contact_phone_submit_edit" ,:check_field => "phone_value_edit"

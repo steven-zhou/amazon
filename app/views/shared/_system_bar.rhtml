@@ -6,13 +6,13 @@
       <div id="module_menu_items" >
 
         <ul>
-          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} Core", :controller => "module", :action => "core"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MyCase", :controller => "module", :action => "case_management"  %></li>
-          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin", :controller => "module", :action => "administration"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
-          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Log Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Sign Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
         </ul>
         <div id="module_menu_bottom" ></div>
       </div>
@@ -61,4 +61,11 @@
 <div id="show_organisation_list_grid" >
 </div>
 <div id="personal_check_duplication" >
+</div>
+
+<div id="check_left_input_change_or_not" >
+ <input type="hidden" name="check_left_input_change" id="check_left_input_change" value="false" />
+</div>
+<div id="check_right_input_change_or_not" >
+ <input type="hidden" name="check_right_input_change" id="check_right_input_change" value="false" />
 </div>
