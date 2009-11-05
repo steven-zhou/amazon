@@ -20,6 +20,8 @@ class SigninController < ApplicationController
           create_temp_list
           login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())          
           session[:login_account_info] = login_account
+          login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
+          login_account.save
           redirect_to welcome_url
         else
           redirect_to :action => "ask_for_power_password", :user_name => params[:user_name]

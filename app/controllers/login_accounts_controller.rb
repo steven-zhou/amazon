@@ -2,7 +2,7 @@ class LoginAccountsController < ApplicationController
  
   def user_name_unique
     @error_flag_unique = (LoginAccount.find_by_user_name(params[:user_name]).nil?) ? false : true
-    @error_flag_length = ( params[:length].to_i > 6 && params[:length].to_i < 30 ) ? false : true
+    @error_flag_length = ( params[:length].to_i < 6 || params[:length].to_i > 30 || params[:length].blank? ) ? true : false
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
   
     unless @login_account.new_record? 
@@ -108,7 +108,7 @@ class LoginAccountsController < ApplicationController
     if @login_account.save
       email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
       LoginAccountPasswordResetDispatcher.deliver(email)
-      flash.now[:message] = " change the password already"
+      flash.now[:message] = "change the password already, check your email please"
     end
     respond_to do |format|
       format.js
