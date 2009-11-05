@@ -14,12 +14,13 @@
           -else
             = link_to((image_tag 'Icons/Core/Lol/go-next.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.first) : edit_organisation_path(@o.first), :title=>"Next")
           = link_to((image_tag 'Icons/Core/Lol/go-last.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.fetch(-1)) : edit_organisation_path(@o.fetch(-1)), :title=>"Last")
-  %div#loleft
-    .lolfont_left
+  .right
+    %div#loleft
+      .lolfont_left
       
-    #lol_select{:style => "margin-top: 12px;"}
-      - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
-        =link_to_function image_tag('application_view_detail.png',:size => "25x25"), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list", :title => "Show Organisation List"
-      - else
-        =link_to_function image_tag('application_view_detail.png',:size => "25x25"), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list", :title => "Show Organisation List"
-  %br.clear
+      #lol_select{:style => "margin-top: 12px;"}
+        - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
+          =link_to_function image_tag('application_view_detail.png',:size => "25x25"), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list", :title => "Show Organisation List"
+        - else
+          =link_to_function image_tag('application_view_detail.png',:size => "25x25"), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list", :title => "Show Organisation List"
+    %br.clear
