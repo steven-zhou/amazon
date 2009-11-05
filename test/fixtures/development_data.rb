@@ -38,6 +38,11 @@ memberzone = MemberZone.create(
   :authentication_grace_period => 3
 )
 
+puts "Set password for member zone user"
+client_setup = ClientSetup.first
+client_setup.member_zone_power_password = "123456"
+client_setup.super_admin_power_password = "123456"
+client_setup.save
 
 puts "Creating Super Admin"
 superadmin = SuperAdmin.create(
@@ -401,22 +406,22 @@ d = DomesticPostcode.new(:country_id => c.id, :suburb => "Killara", :state => "N
 d.save
 
 puts "Creating Sample Modules Data"
-AvailableModulde.create(
+AvailableModule.create(
   :name => "Fundrising",
   :description => "Fundrising",
   :status => true
 )
-AvailableModulde.create(
+AvailableModule.create(
   :name => "MyCase",
   :description => "MyCase",
   :status => true
 )
-AvailableModulde.create(
+AvailableModule.create(
   :name => "MemberZone",
   :description => "MemberZone",
   :status => true
 )
-AvailableModulde.create(
+AvailableModule.create(
   :name => "UnknownModule",
   :description => "UnknownModule",
   :status => true
