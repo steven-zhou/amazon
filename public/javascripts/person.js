@@ -69,13 +69,44 @@ $(function() {
     });
 
    
-    //    $(".clear_form").click(function(){
-    //
-    //        if(confirm("Are you sure?","Warning","Yes","No",3))
-    //        {
-    //            $('#'+$(this).parents("form").get(0).id)[0].reset();
-    //        }
-    //    });
+    $(".clear_form").click(function(){
+
+        var link = $(this);
+
+        $('#message_text').html("Are you sure you wish to clear the data ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return true;
+
+                },
+                Yes: function(){
+                    $('#'+link.parents("form").get(0).id)[0].reset();
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+
+            
+           
+
+    });
 
 
    
@@ -154,6 +185,39 @@ $(function() {
 
 /* Person Group */
 
+//person_close_button_warning_message = function(){
+//    $('#warning_message_text').html("Are you sure you wish to close this form ? ");
+//    $('#warning_message_image').css("display","");
+//    $('#warning_message').dialog({
+//  modal: true,
+//  resizable: false,
+//  draggable: true,
+//  height: 'auto',
+//  width: 'auto',
+//  buttons: {
+//
+//  No: function(){
+//    $(this).dialog('destroy');
+//    return false;
+//
+//  },
+//    Yes: function(){
+//  $(this).dialog('destroy');
+//  return true;
+//   }
+//  }
+//});
+//    $('#warning_message').dialog('option', 'title', 'Warning');
+//
+//    $('#warning_message').parent().find("a").css("display","none");
+//     $("#warning_message").parent().css('background-color','#D1DDE6');
+//     $("#warning_message").css('background-color','#D1DDE6');
+//
+//    $('#warning_message').dialog('open');
+//
+//
+//};
+
 $('#person_group_close_button').live('click',function(){
     $('.person_group_delete_button').css("display","");
 });
@@ -199,16 +263,50 @@ $(".person_contact_toggle_button").live('click', function(){
 
 
 $(".person_contact_close").live('click',function(){
-  
-    $('.person_contact_edit_delete').css("display","none");
 
-    $(this).css("display","none");
-    $('.person_contact_toggle_button').css("display","");
-    $('#contact_hidden_tab').attr('mode','show');
+    var link = $(this);
+    $('#warning_message_text').html("Are you sure you wish to close this form ? ");
+    $('#warning_message_image').css("display","");
+    $('#warning_message').dialog({
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 'auto',
+        buttons: {
 
-    $("#new_phone")[0].reset();
-    $("#new_email")[0].reset();
-    $("#new_website")[0].reset();
+            No: function(){
+                $(this).dialog('destroy');
+                return false;
+
+            },
+            Yes: function(){
+                $('#'+link.attr('toggle_id_name')).toggle('blind');
+                $('.person_contact_edit_delete').css("display","none");
+                link.css("display","none");
+                $('.person_contact_toggle_button').css("display","");
+                $('#contact_hidden_tab').attr('mode','show');
+
+                $("#new_phone")[0].reset();
+                $("#new_email")[0].reset();
+                $("#new_website")[0].reset();
+
+                $(this).dialog('destroy');
+                return true;
+            }
+        }
+    });
+    $('#warning_message').dialog('option', 'title', 'Warning');
+
+    $('#warning_message').parent().find("a").css("display","none");
+    $("#warning_message").parent().css('background-color','#D1DDE6');
+    $("#warning_message").css('background-color','#D1DDE6');
+
+    $('#warning_message').dialog('open');
+
+
+ 
+
     
 });
     

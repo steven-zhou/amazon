@@ -5,7 +5,7 @@
       .title
         %h1 Edit Email
       .options
-        = link_to image_tag('close_icon.png'), email_path(@email), :class => 'get', :title=>"Close"
+        = link_to image_tag('close_icon.png'), email_path(@email), :class => 'get_close', :title=>"Close"
       %br{ :style=>"clear: both;"}
       = render :partial => 'email_form', :locals => { :email => email,:edit => "edit" }
       = submit_tag 'Submit' ,:id => "submit_email_field_edit" , :check_field => "email_value_edit"
