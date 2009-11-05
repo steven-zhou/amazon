@@ -5,7 +5,6 @@ class DashboardsController < ApplicationController
    
     @system_news = SystemNews.new
     @super_admin = (session[:super_admin]==true) ? true : false
-    puts "**********************#{@super_admin}*****************"
     @to_do_list = ToDoList.new
     @to_do_lists = ToDoList.find_all_by_login_account_id(session[:user])
     respond_to do |format|
@@ -35,8 +34,8 @@ class DashboardsController < ApplicationController
         flash[:error] = flash_message(:type => "field_missing", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("can't be blank"))
         flash[:error] = flash_message(:type => "format error", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("regular expression of password is wrong."))
         flash[:error] = flash_message(:type => "field_missing", :field => "repeat_password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?( "password confirmation is different with password"))
-        flash[:error] = flash_message(:type => "too_short_name", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a longer name"))
-        flash[:error] = flash_message(:type => "too_long_name", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a shorter name"))
+        flash[:error] = flash_message(:type => "too_short", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a longer name"))
+        flash[:error] = flash_message(:type => "too_long", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("pick a shorter name"))
         flash[:error] = flash_message(:type => "field_missing", :field => "question1_answer")if(!@login_account.errors[:question1_answer].nil? && @login_account.errors.on(:question1_answer).include?("you must type three security questions answer."))
         flash[:error] = flash_message(:type => "field_missing", :field => "question2_answer")if(!@login_account.errors[:question2_answer].nil? && @login_account.errors.on(:question2_answer).include?("you must type three security questions answer."))
         flash[:error] = flash_message(:type => "field_missing", :field => "question3_answer")if(!@login_account.errors[:question3_answer].nil? && @login_account.errors.on(:question3_answer).include?("you must type three security questions answer."))

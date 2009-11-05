@@ -2602,8 +2602,6 @@ $(function(){
         $('#system_log_export_user_name').val($('#user_name').val());
         $('#system_log_export_start_date').val($('#system_log_start_date').val());
         $('#system_log_export_end_date').val($('#system_log_end_date').val());
-        $('#system_log_export_log_controller').val($('#log_controller').val());
-        $('#system_log_export_log_action').val($('#log_action').val());
 
     });
 });
@@ -4270,13 +4268,50 @@ $(function(){
 $(function(){
     $("#new_system_news").live('click', function(){
         $('#new_system_news_dialog').dialog( {
-            modal: true,
-            resizable: false,
-            width: 600,
-            height: 400,
-            draggable: true
+
+                modal: true,
+                resizable: false,
+                width: 600,
+                height: 500,
+                draggable: true
+            });
+            $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
+            $('#new_system_news_dialog').dialog('open');
+
+    });
+
+    $("#manage_system_news").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/system_news.js",
+            dataType: "script"
         });
-        $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
-        $('#new_system_news_dialog').dialog('open');
+    });
+});
+
+$(function(){
+    $("#show_import_postcode_columns").live('click', function(){
+        $('#import_postcodes_columns').dialog( {
+                modal: true,
+                resizable: false,
+                width: 600,
+                height: 400,
+                draggable: true
+            });
+            $('#import_postcodes_columns').dialog('open');
+    });
+
+});
+
+
+$(function(){
+    $("#user_name").blur(function(){
+        $.ajax({
+            type: "GET",
+            url: "/client_setups/system_log_verify_user_name.js",
+            data: 'user_name='+$(this).val(),
+            dataType: "script"
+        });
+
     });
 });

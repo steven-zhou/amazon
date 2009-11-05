@@ -1,0 +1,13 @@
+.container#active_news
+  %h2 Active News
+  - if @active_system_news.empty?
+    %p No Record
+  - else
+    = render :partial => "system_news/system_news_detail", :collection => @active_system_news
+
+.container#inactive_news
+  %h2 Inactive News
+  - if @inactive_system_news.empty?
+    %p No Record
+  - else
+    = render :partial => "system_news/system_news_detail", :collection => @inactive_system_news
