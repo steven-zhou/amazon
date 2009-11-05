@@ -15,7 +15,7 @@ class SystemNews < ActiveRecord::Base
   end
 
   def self.last_three
-    active_number = SystemNews.find_all_by_status(true).size
+    active_number = SystemNews.find(:all, :conditions => ["status = ?", true]).size
     offset_left = active_number % 3
     offset_number = active_number / 3
     SystemNews.find(:all, :conditions => ["status = ?", true], :order => "created_at DESC", :offset => (offset_left == 0) ? (offset_number-1)*3 : offset_number*3, :limit => 3)
