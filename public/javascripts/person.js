@@ -38,9 +38,13 @@ $(function() {
 
     $(".show_hide_button").live('click', function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
-          $('.pppp[field='+ $(this).attr('show_id_name') +']').css("display","");
+        $('.profile_tab_right[field='+ $(this).attr('show_id_name') +']').css("background-image","url(/images/round_right.png)");
+         $('.profile_tab_left[field='+ $(this).attr('show_id_name') +']').css("background-image","url(/images/round_left.png)");
+      //    $('.pppp[field='+ $(this).attr('show_id_name') +']').css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
-        $('.pppp[field='+ $(this).attr('hide_id_name') +']').css("display","none");
+          $('.profile_tab_right[field='+ $(this).attr('hide_id_name') +']').css("background-image","none");
+         $('.profile_tab_left[field='+ $(this).attr('hide_id_name') +']').css("background-image","none");
+       // $('.pppp[field='+ $(this).attr('hide_id_name') +']').css("display","none");
         $(".container_icon").removeClass("container_icon_color");
         $(this).parent().addClass("container_icon_color");
          

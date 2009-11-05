@@ -316,7 +316,7 @@ margin-right: 5px;
 #app #main #content #header #lol {
     float: right;
     height: 40px;
-    width: 40%;
+    width: 45%;
     margin-right: 1%;
     text-align: right;
 }
@@ -710,7 +710,7 @@ div.field_62 {
 
 #app #main #content #header  #lol_select {
     margin: 0 3px 0 0;
-    float: left;
+    float: right;
 }
 #app #main #content #header  #lol_select #select_tag {
     display:block;
@@ -800,14 +800,26 @@ img.thumb {
     background-repeat:repeat;
     color: #2C2C2C;
     float: right;
-    padding: 2%;
-    min-height: 10px;
+    padding: 10px 15px;
+    height: 20px;
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
-    
+
 
     font-size:20px;
 
+
+
+}
+
+#app #main #content  .container_icon h1 {
+
+
+ color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
 
 
 }
@@ -1812,33 +1824,31 @@ div#permission_form .options{
     margin-bottom: 10px;
 }
 
-.personleft{
-     background-image:url(/images/round_left.png);
+
+
+.profile_tab_left{
+
+     background-image:none;
     background-position: bottom left;
     background-repeat:no-repeat;
-    height: 42px;
+    height: 40px;
     width: 8px;
     float: right;
-   
+
+
 }
 
-.personright{
-
-    background-image:url(/images/round_right.png);
+.profile_tab_right{
+      background-image:none;
     background-position: bottom right;
     background-repeat:no-repeat;
-  height: 42px;
+    height: 40px;
     width: 8px;
     float: right;
-margin-right:10px;
-    /*background-image:url(/images/round_right.png);
-    height:15px;
-    width:15px;
-    float:right;*/
+    margin-right:10px;
+
 
 }
-
-
 
 #app #left_content #new_pic_upload{
     float:right;
