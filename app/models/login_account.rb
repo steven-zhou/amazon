@@ -5,7 +5,7 @@ class LoginAccount < ActiveRecord::Base
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
 
-#---------------------validate------------------------------------
+  #---------------------validate------------------------------------
   validates_uniqueness_of :user_name, :case_sensitive => false
 
 
@@ -124,19 +124,19 @@ class LoginAccount < ActiveRecord::Base
     password
   end
 
-  def account_locked?
-    self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
+  # Makes sure the new password is not the same as the old password or the current password
+  def new_password_valid?(password)
+    ( (Digest::SHA256.hexdigest(password + self.password_last_salt) != self.password_last_hash) &&
+        (Digest::SHA256.hexdigest(password + self.password_salt) != self.password_hash) )
   end
 
 
 
   private
-
-  def  answer_unique
-    self.question1_answer != self.question2_answer && self.question2_answer != self.question3_answer && self.question1_answer != self.question3_answer
-    
+  
+  def account_locked?
+    self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
   end
 
-  
 
 end

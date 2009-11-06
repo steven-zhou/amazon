@@ -116,8 +116,14 @@ class LoginAccountsController < ApplicationController
   end
 
   def change_password
-    @login_account = @current_user
-    render :layout => 'reset_password'
+    if (@current_user.account_locked?)
+      session[:user] = nil
+      flash[:warning] = flash_message(:type => "login_count_error")
+      redirect_to login_url
+    else
+      @login_account = @current_user
+      render :layout => 'reset_password'
+    end
   end
 
   def update_password
@@ -132,37 +138,51 @@ class LoginAccountsController < ApplicationController
     # If the old password or security answers is wrong decrease access_attempts_count
     # If the access_attempts_count == 0 kick them out
 
-    if (@current_user.account_locked? || @current_account.question1_answer.downcase != answer_1.downcase || @current_account.question2_answer.downcase != answer_2.downcase || @current_account.question3_answer.downcase != answer_3.downcase)
-      flash[:warning] = flash_message(:type => "login_error")
-      @current_user.access_attempts_count -= 1
-      @current_user.save
-      redirect_to :action => "change_password"
-    end
-
+    password_valid = true
 
     begin
       # Check that the old password was correct
       LoginAccount.authenticate(@current_user.user_name, old_password)
     rescue
-      flash[:warning] = flash_message(:type => "login_error")
+      password_valid = false
+    end
+
+    if (@current_user.account_locked?)
+      session[:user] = nil
+      flash[:warning] = flash_message(:type => "login_count_error")
+      redirect_to login_url
+    elsif (@current_user.question1_answer.downcase != answer_1.downcase || @current_user.question2_answer.downcase != answer_2.downcase || @current_user.question3_answer.downcase != answer_3.downcase)
+      # If the answers supplied were invalid
+      flash[:warning] = flash_message(:type => "supplied_info_incorrect")
       @current_user.access_attempts_count -= 1
       @current_user.save
       redirect_to :action => "change_password"
-    end
-
-    if (new_password != new_password_confirmation)
+    elsif(!password_valid)
+      # If they supplied an invalid password
+      flash[:warning] = flash_message(:type => "supplied_info_incorrect")
+      @current_user.access_attempts_count -= 1
+      @current_user.save
+      redirect_to :action => "change_password"
+    elsif (new_password != new_password_confirmation)
+      # If they got the new password and password confirmation wrong
       flash[:warning] = flash_message(:type => "password_confirm_error")
       redirect_to :action => "change_password"
+    elsif(!@current_user.new_password_valid?(new_password))
+      # Check the new password is not the same as the old password
+      flash[:warning] = flash_message(:type => "new_password_equals_old_password")
+      redirect_to :action => "change_password"
+    else
+      # Change the password
+      @current_user.update_password = true
+      @current_user.password = new_password
+      if @current_user.save
+        flash[:warning] = flash_message(:type => "password_change_ok")
+        redirect_to login_url
+      else
+        flash[:warning] = flash_message(:type => "set_password_error")
+        redirect_to :action => "change_password"
+      end
     end
-
-    # Change the password
-
-    @current_user.password = new_password
-    @current_user.save
-    flash[:feedback] = flash_message(:type => "password_change_ok")
-    
-    redirect_to login_url
-
 
   end
 

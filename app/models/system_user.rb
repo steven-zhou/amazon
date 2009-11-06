@@ -51,4 +51,8 @@ class SystemUser < LoginAccount
     errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
   end
 
+  def  answer_unique
+  self.question1_answer != self.question2_answer && self.question2_answer != self.question3_answer && self.question1_answer != self.question3_answer
+end
+
 end

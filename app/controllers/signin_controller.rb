@@ -10,14 +10,11 @@ class SigninController < ApplicationController
   def login
     if request.post?
       begin
-
-        login_account = LoginAccount.authenticate(params[:user_name], params[:password])
-        
-        if login_account.class.to_s == "SystemUser"
-          session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+        login_account = LoginAccount.authenticate(params[:user_name], params[:password])        
+        if login_account.class.to_s == "SystemUser"          
           grace_period_check(login_account) if login_account.last_login.nil?
           password_lifetime_check(login_account)
-
+          session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
           @group_types = LoginAccount.validate_group(session[:user])
           @system_permission_types = LoginAccount.validate_permission(session[:user])
           @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
