@@ -131,8 +131,8 @@ class LoginAccount < ActiveRecord::Base
 
   # Makes sure the new password is not the same as the old password or the current password
   def new_password_valid?(password)
-    ( (Digest::SHA256.hexdigest(password + login_account.password_last_salt) != login_account.password_last_hash) &&
-        (Digest::SHA256.hexdigest(password + login_account.password_salt) != login_account.password_hash) )
+    ( (Digest::SHA256.hexdigest(password + self.password_last_salt) != self.password_last_hash) &&
+        (Digest::SHA256.hexdigest(password + self.password_salt) != self.password_hash) )
   end
 
 def account_locked?

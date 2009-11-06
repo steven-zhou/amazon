@@ -165,7 +165,7 @@ class LoginAccountsController < ApplicationController
       # If they got the new password and password confirmation wrong
       flash[:warning] = flash_message(:type => "password_confirm_error")
       redirect_to :action => "change_password"
-    elsif(!@current_account.new_password_valid?(new_password))
+    elsif(!@current_user.new_password_valid?(new_password))
       # Check the new password is not the same as the old password
       flash[:warning] = flash_message(:type => "new_password_equals_old_password")
       redirect_to :action => "change_password"
@@ -174,10 +174,11 @@ class LoginAccountsController < ApplicationController
       @current_user.update_password = true
       @current_user.password = new_password
       if @current_user.save
-        flash[:warning] = flash_message(:type => "password_set_error")
-        redirect_to :action => "change_password"
+        flash[:warning] = flash_message(:type => "password_change_ok")
+        redirect_to login_url
       else
-
+        flash[:warning] = flash_message(:type => "set_password_error")
+        redirect_to :action => "change_password"
       end
     end
 
