@@ -1,0 +1,23 @@
+#header
+  #page_title
+    %h1 Member Zone Account Setup
+  #lol
+  %br.clear
+
+- form_for @client_setup do |f|
+  %input{:name => "member_zone", :style => "display:none;"}
+  .container
+    %h2 Login Details
+    .form_line
+      .field_20
+        %label Super Password
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
+      .field_20
+        %label Super Password Confirmation
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
+    .form_line
+      = submit_tag "Submit", :disabled => true, :id => "password_submit"
+
+#password_error{:style => "display:none;"}
+  .container
+    %p Two password are not matched

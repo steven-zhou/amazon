@@ -25,17 +25,16 @@ class ApplicationController < ActionController::Base
   end
 
   def check_authentication
-    unless session[:super_admin]
-      unless session[:user]
-        redirect_to login_url
-      else
-        @current_user = LoginAccount.find(session[:user])
-        check_session_timeout(@current_user)
-        redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
-        session[:last_event] = Time.now()
-      end
+    unless session[:user]
+      redirect_to login_url
+    else
+      @current_user = LoginAccount.find(session[:user])
+      check_session_timeout(@current_user)
+      redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
+      session[:last_event] = Time.now()
     end
   end
+
 
   def system_log(message, current_controller=@current_controller, current_action=@current_action)
     system_log = SystemLog.new(:message => message, :user_id => @current_user.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
@@ -84,7 +83,7 @@ class ApplicationController < ActionController::Base
 
   def check_session_timeout(current_user)
     if ( !current_user.session_timeout.nil? && current_user.session_timeout.to_i > 0 && !session[:last_event].nil?)
-    # If we have no timeout or if timeout is not defined or if we have not had a last event record
+      # If we have no timeout or if timeout is not defined or if we have not had a last event record
 
       if ( (current_user.session_timeout.to_i * 60 ) < (Time.now - session[:last_event]))
         # The session has timed out, set a message, boot them out....

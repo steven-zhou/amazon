@@ -1,4 +1,4 @@
-$('#<%= dom_id(@login_account) %>').fadeOut("slow", function() {$(this).remove();});
+$('#login_account_'+'<%= @login_account.id %>').fadeOut("slow", function() {$(this).remove();});
 
 
 

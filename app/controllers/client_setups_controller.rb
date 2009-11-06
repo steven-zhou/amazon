@@ -52,6 +52,13 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+  def member_zone
+    @client_setup = ClientSetup.first
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def update
     @client_setup = ClientSetup.first
     if @client_setup.update_attributes(params[:client_setup])
@@ -61,11 +68,15 @@ class ClientSetupsController < ApplicationController
     if params[:installation]
       redirect_to installation_client_setups_path
     elsif
-      params[:super_admin]
-      @client_setup.primary_password = params[:primary_password]
-      @client_setup.secondary_password = params[:secondary_password]
+      params[:super_admin]      
+      @client_setup.super_admin_power_password = params[:password]
       @client_setup.save
       redirect_to super_admin_client_setups_path
+    elsif
+      params[:member_zone]
+      @client_setup.member_zone_power_password = params[:password]
+      @client_setup.save
+      redirect_to member_zone_client_setups_path
     else
       redirect_to parameters_client_setups_path
     end
@@ -90,7 +101,7 @@ class ClientSetupsController < ApplicationController
       @slsg.login_account_id = session[:user]
       @slsg.grid_object_id = log_entry.id
       @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
-      @slsg.field_2 = "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})"
+      @slsg.field_2 = (login_account.class.to_s == "SystemUser")? "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})" : "#{log_entry.login_account.user_name}"
       @slsg.field_3 = log_entry.ip_address
       @slsg.field_4 = log_entry.message
       @slsg.save

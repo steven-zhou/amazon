@@ -1,45 +1,13 @@
 require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
-
-  belongs_to :person
-  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
-  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
-  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
-  
+  attr_accessor :password
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
 
-  has_many :user_lists, :foreign_key => "user_id"
-  has_many :user_list_headers, :through => :user_lists,:source => :user_list_header,  :uniq => true
+#---------------------validate------------------------------------
+  validates_uniqueness_of :user_name
 
-  #---------------------validate------------------------------------
-
-  #for---both---admin---user----
-  validates_presence_of :person_id, :user_name, :security_email
-  #:access_attempts_count, :session_timeout, :authentication_grace_period
-  validates_uniqueness_of :person_id, :user_name, :security_email
-  validate :person_must_exist
-  validates_length_of :user_name, :within => 6..30, :too_long => "pick a shorter name", :too_short => "pick a longer name"
-  validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of username is wrong."
-  validates_format_of :security_email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
-
-  #--------sepcial for user
-
-  validates_presence_of :password_hash, :if => :user_update?
-  validates_presence_of :password, :if => :user_update?
-  validates_length_of :password, :within => 6..30, :too_long => "pick a shorter password", :too_short => "pick a longer password", :if => :user_update?
-  validates_confirmation_of :password,  :message => "password confirmation is different with password", :if => :user_update?
-  validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of password is wrong.", :if => :user_update?
-  validates_presence_of :question1_answer, :message => "you must type three security questions answer.", :if => :user_update?
-  validates_presence_of :question2_answer, :message => "you must type three security questions answer.", :if => :user_update?
-  validates_presence_of :question3_answer, :message => "you must type three security questions answer.", :if => :user_update?
-  
-  attr_accessor :password, :password_confirmation
-  attr_accessor :update_password
-
-
-  default_scope :order => "id ASC"
 
 
   def self.authenticate(user_name, password)
@@ -55,6 +23,22 @@ class LoginAccount < ActiveRecord::Base
       login_account
     end
 
+  end
+
+  def self.authenticate_super_user(user_name, password)
+    @client_setup = ClientSetup.first
+    if user_name == "MemberZone"
+      if Digest::SHA256.hexdigest(password + @client_setup.member_zone_power_password_salt) != @client_setup.member_zone_power_password_hash
+        raise "Power password invalid"
+      end
+    end
+    if user_name == "SuperAdmin"
+      if Digest::SHA256.hexdigest(password + @client_setup.super_admin_power_password_salt) != @client_setup.super_admin_power_password_hash
+        raise "Power password invalid"
+      end
+    end
+    login_account = LoginAccount.find_by_user_name(user_name)
+    return login_account
   end
 
 
@@ -107,6 +91,12 @@ class LoginAccount < ActiveRecord::Base
     self.user_lists.each do |i|
       custom_lists << ListHeader.find(i.list_header_id)
     end
+    custom_lists.uniq
+  end
+
+  def all_lists
+    temp_list = TempList.find_all_by_login_account_id(self.id)
+    (self.list_headers + self.custom_lists + temp_list).uniq
   end
 
 
@@ -133,35 +123,15 @@ class LoginAccount < ActiveRecord::Base
     self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
   end
 
-  def user_update?
-    update_password
-  end
+
 
   private
-
-  #  def   different_password_username
-  #    #errors.add(:user_name, "You must specify username different with password") if (user_name && password && self.password == self.user_name?)
-  #    self.password != self.user_name
-  #  end
 
   def  answer_unique
     self.question1_answer != self.question2_answer && self.question2_answer != self.question3_answer && self.question1_answer != self.question3_answer
     
   end
 
-  def person_must_exist
-    errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
-  end
-  #
-  #  def user_update?
-  #    LoginAccount.current_user.group_types.each do |group|
-  #      !group.name.include?("Admin")||!group.name.include?("Super Admin")
-  #    end
-  #  end
-  #  def user_name_exist_and_unique
-  #    if (user_name.blank? || !LoginAccount.find_by_user_name(user_name).nil?)
-  #        errors.add(:user_name, "You must specify a user name and should unique.")
-  #    end
-  #  end
+  
 
 end

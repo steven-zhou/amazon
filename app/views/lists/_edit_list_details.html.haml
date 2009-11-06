@@ -8,13 +8,11 @@
         =f.label :description, "Description"
         =f.text_field :description, :disabled => @list_header.status == false
       .field_15
-        =f.label :allow_duplication, "Duplication"
+        =f.label :allow_duplication, "Allow Duplication"
         =f.check_box :allow_duplication, :style => "width:30%;display:inline"
-        =f.label :allow_duplication, "Allow", :style => "width:30%;display:inline"
       .field_20
-        = f.label :status, 'Status'
+        = f.label :status, 'Active'
         = f.check_box :status
-        = f.label :status, 'Active', :style => "width:40%;display:inline;"
       .field_10{:style => "float:right"}
         = f.label :status, "&nbsp;"
         =submit_tag "Submit"

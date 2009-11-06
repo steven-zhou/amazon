@@ -10,8 +10,12 @@
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MyCase", :controller => "module", :action => "case_management"  %></li>
+          <%- if @current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone"%>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin", :controller => "module", :action => "administration"  %></li>
+          <%- end %>
+          <%- if @current_user.class.to_s == "MemberZone"%>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
+          <%- end %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Log Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
         </ul>
         <div id="module_menu_bottom" ></div>

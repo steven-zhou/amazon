@@ -35,7 +35,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-            + "=" + encodeURIComponent(window._auth_token);
+        + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -123,47 +123,49 @@ $(function() {
 
     $('a.delete').live('click', function(){
 
-    var link = $(this);
-    if($(this).attr("error_message_field" != "undefine"))
-    {$('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");}
-    else
+        var link = $(this);
+        if($(this).attr("error_message_field" != "undefine"))
+        {
+            $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");
+        }
+        else
         {
             $('#delete_message_text').html("Are  you sure you wish to delete ? ");
         }
-    $('#delete_warning_message_image').css("display","");
-    $('#delete_warning_message').dialog({
-  modal: true,
-  resizable: false,
-  draggable: true,
-  height: 'auto',
-  width: 'auto',
-  buttons: {
+        $('#delete_warning_message_image').css("display","");
+        $('#delete_warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
 
-  No: function(){
-    $(this).dialog('destroy');
-    return true;
+                No: function(){
+                    $(this).dialog('destroy');
+                    return true;
 
-  },
-    Yes: function(){
-  $.post(link.attr('href'), "_method=delete", null, 'script');
-  $(this).dialog('destroy');
-  return true;
-   }
-  }
-});
-    $('#delete_warning_message').dialog('option', 'title', 'Warning');
+                },
+                Yes: function(){
+                    $.post(link.attr('href'), "_method=delete", null, 'script');
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#delete_warning_message').dialog('option', 'title', 'Warning');
    
-    $('#delete_warning_message').parent().find("a").css("display","none");
-     $("#delete_warning_message").parent().css('background-color','#D1DDE6');
-     $("#delete_warning_message").css('background-color','#D1DDE6');
-//      $("#delete_warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+        $('#delete_warning_message').parent().find("a").css("display","none");
+        $("#delete_warning_message").parent().css('background-color','#D1DDE6');
+        $("#delete_warning_message").css('background-color','#D1DDE6');
+        //      $("#delete_warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
 
-    $('#delete_warning_message').dialog('open');
+        $('#delete_warning_message').dialog('open');
    
-//    a.css("display","none");
-//  a.attr("class","ui-dialog-titlebar-lock");
-//  a.find("span").attr("class","ui-icon ui-icon-lock");
-    return false;
+        //    a.css("display","none");
+        //  a.attr("class","ui-dialog-titlebar-lock");
+        //  a.find("span").attr("class","ui-icon ui-icon-lock");
+        return false;
 
     }).attr("rel", "nofollow");
 
@@ -209,14 +211,9 @@ $('.startdatepick').live("mouseover", function(){
     day = arr_dateText[0];
     month = arr_dateText[1];
     year = arr_dateText[2];
+    
     if(year!=undefined){
-        $(this).datepicker({
-            dateFormat: 'dd-mm-yy',
-            altFormat: 'mm-dd-yy',
-            changeMonth: true,
-            changeYear: true,
-            maxDate: new Date(year, month-1, day-1)
-        });
+        $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));        
     }else{
         $(this).datepicker({
             dateFormat: 'dd-mm-yy',
@@ -273,13 +270,13 @@ $("#edit_photo_link").live("click",function() {
 showKeyword = function(){
     $("#add_person_keywords option:selected").removeAttr("selected");
     $("#add_person_keywords").find("option").hide();
-//    alert($("#keyword_keyword_type_id").find("option:selected").text());
+    //    alert($("#keyword_keyword_type_id").find("option:selected").text());
     $("#keyword_person_types").find("option:selected").each(function(){
         if($(this).val() == ""){
             $("#add_person_keywords").find("option").show();
         }else{      
-          $("#add_person_keywords option[class=" + $(this).text() + "]").show();
-//             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
+            $("#add_person_keywords option[class=" + $(this).text() + "]").show();
+        //             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
              
         }
     });
@@ -373,11 +370,15 @@ $(function(){
 
 $(function(){
     $('table#search_list_results tbody tr').live('dblclick',function(){
-       // alert($('table#search_list_results').attr('current_operation'));
-      if ($('table#search_list_results').attr('current_operation') == "edit_list")
-      {window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");}
-      if ($('table#search_list_results').attr('current_operation') == "show_list")
-      {window.open("/people/"+$(this).attr("id").substring(3)+"/","_self");}
+        // alert($('table#search_list_results').attr('current_operation'));
+        if ($('table#search_list_results').attr('current_operation') == "edit_list")
+        {
+            window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
+        }
+        if ($('table#search_list_results').attr('current_operation') == "show_list")
+        {
+            window.open("/people/"+$(this).attr("id").substring(3)+"/","_self");
+        }
     });
 });
 
@@ -402,7 +403,7 @@ $(function(){
 
 $(function(){
     $('table#search_list_results tbody tr').live('mouseover',function(){
-       $(this).css("cursor","pointer");
+        $(this).css("cursor","pointer");
     });
 });
 
@@ -444,9 +445,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/organisations/name_finder.js",
+                "/organisations/name_finder.js",
                 data:
-                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -461,9 +462,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/people/name_finder.js",
+                "/people/name_finder.js",
                 data:
-                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -501,7 +502,7 @@ $(function()
             dataType: "script"
         });
 
-        /* }
+    /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -582,9 +583,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/people/master_doc_meta_type_finder.js",
+            "/people/master_doc_meta_type_finder.js",
             data:
-                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -596,9 +597,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/people/master_doc_type_finder.js",
+            "/people/master_doc_type_finder.js",
             data:
-                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -885,18 +886,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/amazon_settings/new.js",
+                "/amazon_settings/new.js",
                 data:
-                    'type=' + $("#find_data_list_field").val(),
+                'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                    "/amazon_settings/" + $(this).val() + "/edit.js",
+                "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                    'id=' + $(this).val(),
+                'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -1234,7 +1235,7 @@ $(function(){
 });
 
 $(function(){
-    $(".check_login_id").live('change', function(){
+    $(".check_login_id").blur(function(){
         if($(this).val()!= ""){
             $.ajax({
                 type: "GET",
@@ -1244,48 +1245,110 @@ $(function(){
             });
         }else{
             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-        }
-    });
-});
+            $('#login_name_invalid').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
 
-$(function(){
-    $(".check_username_unique").live('change', function(){
-        if($(this).val()!= ""){
-            $.ajax({
-                type: "GET",
-                url: "/login_accounts/user_name_unique.js",
-                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
-                dataType:"script"
+                    OK: function(){
+
+                        $(this).dialog('close');
+                    }
+                }
             });
+            $('#login_name_invalid').dialog('open');
+        }
+    });
+});
+
+
+
+
+$(function(){
+    $(".check_username_unique").blur(function(){
+      
+        $.ajax({
+            type: "GET",
+            url: "/login_accounts/user_name_unique.js",
+            data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
+            dataType:"script"
+        });
+
+    });
+});
+
+$(function(){
+    $(".user_email_new").blur(function(){
+        _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid)){
+                $('#invalid_email').dialog( {
+                    modal: true,
+                    resizable: true,
+                    draggable: true,
+                    buttons: {
+
+                        OK: function(){
+
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('#invalid_email').dialog('open');
+                $('.user_email_new').focus();
+                return false;
+            }
         }else{
-            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+            $('#invalid_email').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
+
+                    OK: function(){
+
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            $('#invalid_email').dialog('open');
         }
     });
 });
 
 
-
-$(function(){
-    $('#login_account_user_name').live("focus", function(){
-        $(this).qtip(
-        {
-            content: 'username must between 6~20<br>username can\'t the same as password',
-            style: 'dark'
-        }
-    );
-    });
-});
-
-$(function(){
-    $('#login_account_user_name').live("mouseover", function(){
-        $(this).qtip(
-        {
-            content: 'username must between 6~20<br>username can\'t the same as password',
-            style: 'dark'
-        }
-    );
-    });
-});
+//check_email_field = function(){
+//    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
+//    if($('#email_value').val()!=""){
+//        if((!_valid)){
+//            alert("Invalid email address !");
+//            $('#email_value').focus();
+//            return false;
+//        }
+//    }
+//}
+//$(function(){
+//    $('#login_account_user_name').live("focus", function(){
+//        $(this).qtip(
+//        {
+//            content: 'username must between 6~20<br>username can\'t the same as password',
+//            style: 'dark'
+//        }
+//    );
+//    });
+//});
+//
+//$(function(){
+//    $('#login_account_user_name').live("mouseover", function(){
+//        $(this).qtip(
+//        {
+//            content: 'username must between 6~20<br>username can\'t the same as password',
+//            style: 'dark'
+//        }
+//    );
+//    });
+//});
 
 
 $(function() {
@@ -1320,36 +1383,7 @@ $(function(){
     });
 });
 
-//$(function(){
-//    $("#login_account_user_name").live('change', function(){
-//
-//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-//            $('#user_length').dialog( {
-//                modal: true,
-//                resizable: true,
-//                draggable: true
-//            });
-//            $('#user_length').dialog('open');
-//        }
-//    });
-//});
 
-
-//$(function(){
-//    $("#login_account_password").live('change', function(){
-//
-//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-//
-//            $('#password_length').dialog( {
-//                modal: true,
-//                resizable: true,
-//                draggable: true
-//            });
-//            $('#password_length').dialog('open');
-//        }
-//
-//    });
-//});
 
 
 $(function(){
@@ -1367,25 +1401,6 @@ $(function(){
 
     });
 });
-
-
-
-
-
-
-//$(function(){
-//    $(".edit_login_account").live('click', function(){
-//
-//
-//
-//        $.ajax({
-//            type: "GET",
-//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-//            data:'id='+$(this).attr('login_account_id'),
-//            dataType: "script"
-//        });
-//    });
-//});
 
 
 
@@ -1697,13 +1712,13 @@ $(function(){
 
 $(function(){
     $("#list_header_name").change(function(){
-        $("#person_list").submit();
+        $("#person_list_edit").submit();
     });
 });
 
 $(function(){
     $("#list_header_name2").change(function(){
-        $("#person_list_edit").submit();
+        $("#person_list").submit();
     });
 });
 
@@ -2279,76 +2294,76 @@ $(function(){
         url: '/grids/feedback_search_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Date',
-                name : 'field_1',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Date',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Submitted By',
-                name : 'field_2',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Submitted By',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Subject',
-                name : 'field_3',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Subject',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'IP Address',
-                name : 'field_4',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'IP Address',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Status',
-                name : 'field_5',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Status',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
 
         ],
         searchitems : [
-            {
-                display: 'Date',
-                name : 'field_1'
-            },
+        {
+            display: 'Date',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Submitted By',
-                name : 'field_2'
-            },
+        {
+            display: 'Submitted By',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Subject',
-                name : 'field_3'
-            },
+        {
+            display: 'Subject',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Status',
-                name : 'field_4'
-            },
+        {
+            display: 'Status',
+            name : 'field_4'
+        },
 
         ],
         sortname: "grid_object_id",
@@ -2520,79 +2535,79 @@ $(function(){
         url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'First Name',
-                name : 'field_1',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Email',
-                name : 'field_5',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            }
+        {
+            display: 'Email',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {
-                display: 'First Name',
-                name : 'field_1'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3'
-            },
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
 
-            {
-                display: 'Email',
-                name : 'field_5'
-            }
+        {
+            display: 'Email',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2620,7 +2635,9 @@ $(function(){
 
 $(function(){
     $('table#people_search_grid tbody tr').live('dblclick',function(){
-     {window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");}
+    {
+        window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
+    }
     });
 });
 
@@ -2679,10 +2696,14 @@ $(function(){
 
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('dblclick',function(){
-     if ($('table#search_organisations_list_results').attr('current_operation') == "edit_organisation_list")
-      {window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");}
-      if ($('table#search_organisations_list_results').attr('current_operation') == "show_organisation_list")
-      {window.open("/organisations/"+$(this).attr("id").substring(3)+"/","_self");}
+        if ($('table#search_organisations_list_results').attr('current_operation') == "edit_organisation_list")
+        {
+            window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
+        }
+        if ($('table#search_organisations_list_results').attr('current_operation') == "show_organisation_list")
+        {
+            window.open("/organisations/"+$(this).attr("id").substring(3)+"/","_self");
+        }
 
     });
 });
@@ -2723,79 +2744,79 @@ $(function(){
         url: '/grids/organisation_search_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Trading As',
-                name : 'field_1',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Trading As',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Registered Name',
-                name : 'field_2',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Registered Name',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Website',
-                name : 'field_5',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            }
+        {
+            display: 'Website',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {
-                display: 'Trading As',
-                name : 'field_1'
-            },
+        {
+            display: 'Trading As',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Registered Name',
-                name : 'field_2'
-            },
+        {
+            display: 'Registered Name',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3'
-            },
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
 
-            {
-                display: 'Website',
-                name : 'field_5'
-            }
+        {
+            display: 'Website',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2823,7 +2844,9 @@ $(function(){
 
 $(function(){
     $('table#organisation_search_grid tbody tr').live('dblclick',function(){
-      {window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");}
+    {
+        window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
+    }
     });
 });
 
@@ -2833,79 +2856,79 @@ $(function(){   /*organisation employee list result*/
         url: '/grids/organisation_employee_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'First Name',
-                name : 'field_1',
-                width : 50,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1',
+            width : 50,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2',
-                width : 50,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2',
+            width : 50,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3',
-                width : 120,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 120,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4',
-                width : 80,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 80,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'email',
-                name : 'field_5',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            }
+        {
+            display: 'email',
+            name : 'field_5',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {
-                display: 'First Name',
-                name : 'field_1'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3'
-            },
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
 
-            {
-                display: 'Email',
-                name : 'field_5'
-            }
+        {
+            display: 'Email',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -3012,11 +3035,15 @@ $(function(){
 personal_check_duplication_restart_button = function(){
 
 
-//alert($('#system_id_tag').val());
+    //alert($('#system_id_tag').val());
     if($('#system_id_tag').val() != null)
-        { window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");}
-        else
-            {window.open("/people/new", "_self");}
+    { 
+        window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
+    }
+    else
+    {
+        window.open("/people/new", "_self");
+    }
     return false;
 }
 
@@ -3037,20 +3064,8 @@ $(function(){
 
 /*user_group  new design*/
 
-$(function(){
-    $('#user_group_edit_button').live('click', function(){
-        $(".container_selected").removeClass("container_selected");
-        $(this).closest('.toggle_options').addClass("container_selected");
 
-        $.ajax({
-            type:'GET',
-            url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
-            data: "group_type_id="+$(this).attr('group_type_id'),
-            dataType:"script"
 
-        });
-    });
-});
 
 $(function(){
 
@@ -3443,11 +3458,11 @@ $(function(){
 
 
     $("div#module_menu").hover(
-    function(){},
-    function(){
-        $("div#module_menu_top").removeClass("hover");
-        $("div#module_menu_items").fadeOut("fast");
-    });
+        function(){},
+        function(){
+            $("div#module_menu_top").removeClass("hover");
+            $("div#module_menu_items").fadeOut("fast");
+        });
 
 
     $("div#module_menu_items li").hover(
@@ -3596,7 +3611,7 @@ $(function(){
             height: 650,
             width: 800
         }
-    );
+        );
         $("#feedback_form").dialog("open");
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
@@ -3831,7 +3846,9 @@ $(document).ready(function() {
 
         success :  false,
 
-        failure : function() { callFailFunction()  }
+        failure : function() { 
+            callFailFunction()
+        }
 
     });
 });
@@ -3867,30 +3884,30 @@ $('#signout').live('click', function(){
     //      $('#singoutmessage').css("display","");
     $('#signout_warning_message').dialog({
 
-  modal: true,
-  resizable: false,
-  draggable: true,
-  height: 'auto',
-  width: 'auto',
-  buttons: {
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 'auto',
+        buttons: {
 
-  No: function(){
-    $(this).dialog('close');
-    return true;
+            No: function(){
+                $(this).dialog('close');
+                return true;
 
-  },
+            },
  
-    Yes: function(){
-  window.open("/signin/signout", "_self");
-  $(this).dialog('close');
-  return true;
-   }
-  }
-});
- $('#signout_warning_message').dialog('option', 'title', 'Warning');
-     $('#signout_warning_message').parent().find("a").css("display","none");
-         $("#signout_warning_message").parent().css('background-color','#D1DDE6');
-     $("#signout_warning_message").css('background-color','#D1DDE6');
+            Yes: function(){
+                window.open("/signin/signout", "_self");
+                $(this).dialog('close');
+                return true;
+            }
+        }
+    });
+    $('#signout_warning_message').dialog('option', 'title', 'Warning');
+    $('#signout_warning_message').parent().find("a").css("display","none");
+    $("#signout_warning_message").parent().css('background-color','#D1DDE6');
+    $("#signout_warning_message").css('background-color','#D1DDE6');
 
     $('#signout_warning_message').dialog('open');
     return false;
@@ -3938,60 +3955,61 @@ $(function(){
 $(function(){
     $("#add_person_keywords").live('dblclick', function(){
   
-     $.ajax({
-                type: "POST",
-                url: "/keyword_links/add_key.js",
-                data: 'person_id=' + $('#person_id').val()+"&add_person_keywords="+$(this).val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "POST",
+            url: "/keyword_links/add_key.js",
+            data: 'person_id=' + $('#person_id').val()+"&add_person_keywords="+$(this).val(),
+            dataType: "script"
+        });
     });
 });
 
 $(function(){
     $("#remove_person_keywords").live('dblclick', function(){
 
-     $.ajax({
-                type: "POST",
-                url: "/keyword_links/remove_key.js",
-                data: 'person_id=' + $('#person_id').val()+"&remove_person_keywords="+$(this).val(),
-                dataType: "script"
-            });
+
+        $.ajax({
+            type: "POST",
+            url: "/keyword_links/remove_key.js",
+            data: 'person_id=' + $('#person_id').val()+"&remove_person_keywords="+$(this).val(),
+            dataType: "script"
+        });
     });
 });
 
 $(function(){
     $("#add_organisation_keywords").live('dblclick', function(){
 
-     $.ajax({
-                type: "POST",
-                url: "/keyword_links/add_key.js",
-                data: 'organisation_id=' + $('#organisation_id').val()+"&add_organisation_keywords="+$(this).val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "POST",
+            url: "/keyword_links/add_key.js",
+            data: 'organisation_id=' + $('#organisation_id').val()+"&add_organisation_keywords="+$(this).val(),
+            dataType: "script"
+        });
     });
 });
 
 $(function(){
     $("#remove_organisation_keywords").live('dblclick', function(){
 
-     $.ajax({
-                type: "POST",
-                url: "/keyword_links/remove_key.js",
-                data: 'organisation_id=' + $('#organisation_id').val()+"&remove_organisation_keywords="+$(this).val(),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "POST",
+            url: "/keyword_links/remove_key.js",
+            data: 'organisation_id=' + $('#organisation_id').val()+"&remove_organisation_keywords="+$(this).val(),
+            dataType: "script"
+        });
     });
 });
 
 $(function(){
     $(".check_delete ").live('click', function(){
 
-     $.ajax({
-                type: "GET",
-                url: "/keywords/check_destroy.js",
-                data: 'id=' + $(this).attr("keyword_id"),
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/keywords/check_destroy.js",
+            data: 'id=' + $(this).attr("keyword_id"),
+            dataType: "script"
+        });
     });
 });
 
@@ -4000,14 +4018,14 @@ $(function(){
 $(function(){
     $("#new_to_do").live('click', function(){
         $('#new_to_do_dialog').dialog( {
-                modal: true,
-                resizable: false,
-                width: 600,
-                height: 175,
-                draggable: true
-            });
-            $('#new_to_do_dialog').dialog('option', 'title', 'New To Do Entry');
-            $('#new_to_do_dialog').dialog('open');
+            modal: true,
+            resizable: false,
+            width: 600,
+            height: 175,
+            draggable: true
+        });
+        $('#new_to_do_dialog').dialog('option', 'title', 'New To Do Entry');
+        $('#new_to_do_dialog').dialog('open');
     });
 });
 
@@ -4016,14 +4034,14 @@ $(function(){
     $("#new_news").live('click', function(){
         $('#new_system_news_dialog').find("form").get(0).reset();
         $('#new_system_news_dialog').dialog( {
-                modal: true,
-                resizable: false,
-                width: 600,
-                height: 400,
-                draggable: true
-            });
-            $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
-            $('#new_system_news_dialog').dialog('open');
+            modal: true,
+            resizable: false,
+            width: 600,
+            height: 400,
+            draggable: true
+        });
+        $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
+        $('#new_system_news_dialog').dialog('open');
     });
 
     $("#manage_system_news").live('click', function(){
@@ -4053,16 +4071,42 @@ $(function(){
     });
 });
 
+//Member Zone Super User Password Confirmation
+$(function(){
+    $("#repeat_password").live('change', function(){
+        if ($(this).val()!= $('#password').val()){
+            $('#password_error').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
+                    OK: function(){
+                        $(this).dialog('destroy');
+                        return true;
+
+                    }
+                }
+            });
+            $('#password_error').dialog('option', 'title', 'Error');
+            $('#password_error').dialog('open');
+        }else{
+            $('#password_submit').attr('disabled',false);
+        }
+    });
+
+
+});
+
 $(function(){
     $("#show_import_postcode_columns").live('click', function(){
         $('#import_postcodes_columns').dialog( {
-                modal: true,
-                resizable: false,
-                width: 600,
-                height: 400,
-                draggable: true
-            });
-            $('#import_postcodes_columns').dialog('open');
+            modal: true,
+            resizable: false,
+            width: 600,
+            height: 400,
+            draggable: true
+        });
+        $('#import_postcodes_columns').dialog('open');
     });
 
 });
