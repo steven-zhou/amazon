@@ -1,19 +1,41 @@
 <div id="sysbar"><!--System Bar-->
   <div class="bar_section" id ="menu">
     <div id="module_menu">
-      <div id="module_menu_top" title="System Menu"><a href="#"></a></div>
+      <div id="module_menu_top" title="System Menu">
+
+            <%- if session[:module] == "core" %>
+               <%= "#{image_tag('Icons/System/module menu/core.png')} System Core" %>
+            <%- end %>
+            <%- if session[:module] == "administration" %>
+              <%= "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools" %>
+            <%- end %>
+            <%- if session[:module] == "client_setup" %>
+              <%= "#{image_tag('icon_holder.png')} MemberZone" %>
+            <%- end %>
+            <%- if session[:module] == "dashboard" %>
+              <%= "#{image_tag('icon_ds.png')}" %>
+            <%- end %>
+      </div>
 
       <div id="module_menu_items" >
 
         <ul>
-          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
-          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
+          <%- if session[:module] != "core" %>
+            <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
+          <%- end %>
+          <%- if session[:module] != "membership" %>
+            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
+          <%- end %>
+          <%- if session[:module] != "fundraising" %>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
+          <%- end %>
+          <%- if session[:module] != "case_management" %>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MyCase", :controller => "module", :action => "case_management"  %></li>
-          <%- if @current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone"%>
+          <%- end %>
+          <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
           <%- end %>
-          <%- if @current_user.class.to_s == "MemberZone"%>
+          <%- if (@current_user.class.to_s == "MemberZone" && session[:module] != "client_setup") %>
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
           <%- end %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Sign Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
