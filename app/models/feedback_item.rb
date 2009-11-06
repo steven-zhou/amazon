@@ -8,7 +8,7 @@ class FeedbackItem < ActiveRecord::Base
   # validates_presence_of :content
 
   def submitted_by
-    self.login_account.person.name
+  (self.login_account.class.to_s == "SystemUser")?  self.login_account.person.name : self.login_account.user_name
   end
 
 

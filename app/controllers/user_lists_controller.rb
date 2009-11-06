@@ -1,7 +1,7 @@
 class UserListsController < ApplicationController
 
   def edit
-    @login_account = LoginAccount.find(params[:data_id])
+    @login_account = SystemUser.find(params[:data_id])
     @list_headers = ListHeader.find :all
     @user_list = UserList.new
     @user_lists = @login_account.user_lists
@@ -27,8 +27,8 @@ class UserListsController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "list_header_id")if (!@user_list.errors[:list_header_id].nil? && @user_list.errors.on(:list_header_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "list_header_id")if(!@user_list.errors[:list_header_id].nil? && @user_list.errors.on(:list_header_id).include?("has already been taken"))
     end
-    @login_account = LoginAccount.find(params[:user_list][:user_id])
-     @login_accounts = LoginAccount.find(:all)
+    @login_account = SystemUser.find(params[:user_list][:user_id])
+     @login_accounts = SystemUser.find(:all)
     @select_login_account_id = @login_account.id
     respond_to do |format|
       format.js
@@ -38,7 +38,7 @@ class UserListsController < ApplicationController
   def destroy
     @user_list = UserList.find(params[:id])
     @user_list.destroy
-    @login_accounts = LoginAccount.find(:all)
+    @login_accounts = SystemUser.find(:all)
     @select_login_account_id = @user_list.user_id
     respond_to do |format|
       format.js
