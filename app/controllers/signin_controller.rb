@@ -315,7 +315,7 @@ class SigninController < ApplicationController
   end
 
   def password_lifetime_check(login_account)
-    if( ( ( (Time.now - login_account.password_updated_at) / (24 * 60 * 60) ) > login_account.password_lifetime.to_i) && !login_account.password_lifetime.nil? )
+    if( ( ( (!login_account.password_lifetime.nil? && login_account.password_lifetime.to_i > 0) && (Time.now - login_account.password_updated_at) / (24 * 60 * 60) ) > login_account.password_lifetime.to_i) )
       redirect_to :controller => "login_accounts", :action => "change_password"
     end
   end
