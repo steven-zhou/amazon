@@ -19,9 +19,8 @@
       .left
         %h1 Picture
       .right
-        .form_line
-          -#= label :image, :id, "Picture"
-          = file_field :image, :image_file,:class=>@personal_check_field.include?("image") ? "personal_check_field":""
+        -#= label :image, :id, "Picture"
+        = file_field :image, :image_file,:class=>@personal_check_field.include?("image") ? "personal_check_field":""
       %br.clear
 
   #right_content
@@ -42,7 +41,7 @@
           = render :partial => 'websites/simple_website_form', :locals => {:website=> website}
     
     %p.submit
-      = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right;font-size:15px;"
+      = link_to_function 'Clear', :class => "clear_form alt_option"
       //= submit_tag "Submit and Edit", :name => 'edit'
       = submit_tag "Submit"
       

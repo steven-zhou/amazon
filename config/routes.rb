@@ -108,7 +108,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_lists, :collection => {:show_list_des => :get}
   map.resources :dashboards, :collection => {:check_password => :get, :update_password => :post}
   map.resources :system_news, :member => {:switch => :get}, :collection => {:pre_three => :get, :next_three => :get}
-  map.resources :to_do_lists
+  map.resources :to_do_lists, :member => {:swtich => :get}
 
   map.resources :keywords ,:collection  => {:keywords_finder => :get,:check_destroy => :get}
 

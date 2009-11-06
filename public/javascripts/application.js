@@ -4381,6 +4381,7 @@ $(function(){
 //TO DO LIST
 $(function(){
     $("#new_to_do").live('click', function(){
+        $('#new_to_do_dialog').find("form").get(0).reset();
         $('#new_to_do_dialog').dialog( {
             modal: true,
             resizable: false,
