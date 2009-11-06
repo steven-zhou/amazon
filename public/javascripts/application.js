@@ -4493,12 +4493,15 @@ $(function(){
 
 /*Check all input field change or not*/
 
-//$(function(){
-//    $("#content").find('input').live('change', function(){
-//
-//        $('#check_input_change').val("true");
-//    });
-//});
+$(function(){
+
+
+    $("#content").find('input').live('change', function(){
+    if (("#content").find('#left_content')==null ||  ("#content").find('#right_content')==null)
+      { $('#check_input_change').val("true");}
+   
+   });
+});
 
 $(function(){
     $("#content #left_content").find('input').live('change', function(){
@@ -4531,24 +4534,26 @@ check_input_change = function(){
                 $('#check_right_input_change').val("false");}
 //     }
 
-       if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
-            {
-           
-              $('#check_input_change').val("true");
-            }
-        else
-            {
-                  
-              $('#check_input_change').val("false");
-            }
+     
 
 }
 
 $(function(){
     $('#lc a').live('click', function(){
-        
-        check_input_change();
 
+        if($('#check_right_input_change').val() == "false")
+        {check_input_change();}
+
+  if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+              $('#check_input_change').val("true");
+            }
+        else
+            {
+
+              $('#check_input_change').val("false");
+            }
         var link = $(this);
 
         if($('#check_input_change').val() == "false"  )
@@ -4692,30 +4697,12 @@ $(function(){
     }).attr("rel", "nofollow");
 });
 
-$(function(){
-    $('#left_content input[type="submit"]').live('click', function(){
-        $('#check_left_input_change').val("false");
 
-    });
-});
-      
-$(function(){
-    $('#right_content input[type="submit"]').live('click', function(){
-     if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
-            {
-        $('#check_right_input_change').val("true");
-            }
-        else
-            {
-                   $('#check_right_input_change').val("false");
-            }
-    });
-});
 
 $(function(){
     $('#content input[type="submit"]').live('click', function(){
 
-        $('#check_input_change').val("false");
+//        $('#check_input_change').val("false");
 
     });
 });
@@ -4728,12 +4715,15 @@ $(function(){
     $("#Contact").find('input').live('change', function(){
       
 //        $('#check_right_input_change').val("true");
+
         $('#contact_input_change_or_not').val("true");
 
     });
 
     $('#Contact input[type="submit"]').live('click', function(){
+        alert("a");
         $('#contact_input_change_or_not').val("false");
+             alert("b");
     });
 
 });
@@ -4826,6 +4816,29 @@ $(function(){
 
     });
 
+});
+
+
+$(function(){
+    $('#left_content input[type="submit"]').live('click', function(){
+        $('#check_left_input_change').val("false");
+
+    });
+});
+
+$(function(){
+    $('#right_content input[type="submit"]').live('click', function(){
+     if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+            {
+        $('#check_right_input_change').val("true");
+        alert("c");
+            }
+        else
+            {
+                   $('#check_right_input_change').val("false");
+                       alert("d");
+            }
+    });
 });
 
 //$(function(){
