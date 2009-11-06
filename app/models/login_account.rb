@@ -130,9 +130,6 @@ class LoginAccount < ActiveRecord::Base
         (Digest::SHA256.hexdigest(password + self.password_salt) != self.password_hash) )
   end
 
-
-
-  private
   
   def account_locked?
     self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
