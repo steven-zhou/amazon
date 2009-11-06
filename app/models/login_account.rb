@@ -129,39 +129,45 @@ class LoginAccount < ActiveRecord::Base
     password
   end
 
-  def account_locked?
-    self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
+  # Makes sure the new password is not the same as the old password or the current password
+  def new_password_valid?(password)
+    ( (Digest::SHA256.hexdigest(password + login_account.password_last_salt) != login_account.password_last_hash) &&
+        (Digest::SHA256.hexdigest(password + login_account.password_salt) != login_account.password_hash) )
   end
 
-  def user_update?
-    update_password
-  end
+def account_locked?
+  self.access_attempts_count.nil? ? false : (self.access_attempts_count <= 0)
+end
 
-  private
+def user_update?
+  update_password
+end
 
-  #  def   different_password_username
-  #    #errors.add(:user_name, "You must specify username different with password") if (user_name && password && self.password == self.user_name?)
-  #    self.password != self.user_name
-  #  end
+private
 
-  def  answer_unique
-    self.question1_answer != self.question2_answer && self.question2_answer != self.question3_answer && self.question1_answer != self.question3_answer
+#  def   different_password_username
+#    #errors.add(:user_name, "You must specify username different with password") if (user_name && password && self.password == self.user_name?)
+#    self.password != self.user_name
+#  end
+
+def  answer_unique
+  self.question1_answer != self.question2_answer && self.question2_answer != self.question3_answer && self.question1_answer != self.question3_answer
     
-  end
+end
 
-  def person_must_exist
-    errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
-  end
-  #
-  #  def user_update?
-  #    LoginAccount.current_user.group_types.each do |group|
-  #      !group.name.include?("Admin")||!group.name.include?("Super Admin")
-  #    end
-  #  end
-  #  def user_name_exist_and_unique
-  #    if (user_name.blank? || !LoginAccount.find_by_user_name(user_name).nil?)
-  #        errors.add(:user_name, "You must specify a user name and should unique.")
-  #    end
-  #  end
+def person_must_exist
+  errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
+end
+#
+#  def user_update?
+#    LoginAccount.current_user.group_types.each do |group|
+#      !group.name.include?("Admin")||!group.name.include?("Super Admin")
+#    end
+#  end
+#  def user_name_exist_and_unique
+#    if (user_name.blank? || !LoginAccount.find_by_user_name(user_name).nil?)
+#        errors.add(:user_name, "You must specify a user name and should unique.")
+#    end
+#  end
 
 end
