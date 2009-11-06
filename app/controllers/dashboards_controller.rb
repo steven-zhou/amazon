@@ -1,9 +1,9 @@
 class DashboardsController < ApplicationController
 
+
   def index   
     @system_news = SystemNews.new
     @current_news = SystemNews.first_three
-    @super_admin = (session[:super_admin]==true) ? true : false
     @to_do_list = ToDoList.new
     @to_do_lists = ToDoList.find_all_by_login_account_id(session[:user])
     respond_to do |format|
@@ -42,8 +42,8 @@ class DashboardsController < ApplicationController
       end
     rescue
       redirect_to  login_url
-       flash[:error] = "your old password is wrong!!, you have only #{@current_user.access_attempts_count - 1} choice"
-       @current_user.update_password = false
+      flash[:error] = "your old password is wrong!!, you have only #{@current_user.access_attempts_count - 1} choice"
+      @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count -= 1
       @current_user.save
     end

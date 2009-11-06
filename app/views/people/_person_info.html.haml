@@ -110,4 +110,12 @@
         %br.clear
       #groups
         =render :partial => '/people/person_group', :collection => @person.person_groups, :locals => {:person => @person}
+  #PersonDetail
+    .container
+      -#.header_container
+        .title
+          %h1 Group Detail
+        %br.clear
+      #persondetail
+        =render :partial => '/people/person_details',:locals => {:p => @person}
 

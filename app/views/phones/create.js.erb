@@ -6,7 +6,7 @@
   <% else %>
    $('#phone_type').html('<%= escape_javascript(render(:partial => "phones/organisation_personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
-  $('.organisation_contact_close').css("display","none");
+   $('.close_option[field="organisation_contact"]').css("display","none");
   <% end -%>
   $("#new_phone")[0].reset();
   $("#new_contact").hide();

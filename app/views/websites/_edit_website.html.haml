@@ -5,7 +5,7 @@
       .title
         %h1 Edit Website
       .options
-        = link_to image_tag('close_icon.png'), website_path(@website), :class => 'get_close', :title=>"Close"
+        = link_to image_tag('close_icon.png'), website_path(@website), :class => 'get_close', :title=>"Close",:field => "contact"
       %br.clear
       = render :partial => 'website_form', :locals => { :website => website,:edit => "edit" }
       = submit_tag 'Submit',:id=>"submit_website_field_edit" , :check_field => "website_value_edit"

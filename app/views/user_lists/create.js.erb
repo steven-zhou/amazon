@@ -2,8 +2,6 @@
  $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
  $("#flash_message").dialog( {
  modal:true,
-   resizable: false,
- <%#*position: 'top',%>
  buttons: {
 
  OK: function(){
@@ -20,6 +18,6 @@ $('#existing_user_list_list').append('<%= escape_javascript(render(:partial => "
  $('#<%= dom_id(@user_list) %>').effect('slide', {direction:'right'});
 $('.add_form_close').click();
 $('#user_list_show_group').html(" <%= escape_javascript(render(:partial => '/user_lists/header_user_list_user')) %>");
-$('#user_list_group_'+ '<%=escape_javascript("#{@select_login_account_id}")%>').addClass("container_selected");
+$('#user_list_user_'+ '<%=escape_javascript("#{@select_login_account_id}")%>').addClass("container_selected");
 
 <%end%>
