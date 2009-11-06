@@ -1,22 +1,24 @@
 .container_edit.container
-  .options
-    -#= link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_user_group_form", :class =>  "close_option", :field => "user_group")
   .options_left{:style => "margin-right:10px;"}
-    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
+    = image_tag('edit_icon.png', :class => "edit_icon_right")
   %h3 Edit
   %br
+
 .container
-  .container{:style => "padding:1.5% 1% 1.5% 1%;margin-left:10px;"}
+  .options
+    = link_to_function image_tag('close_icon.png'), :class => "close_option close_logo", :field => "user_group_group"
+  %br
+  .container.add_container
     %div#add_user_to_group
       .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option",:flag_name => "user_groups", :id => "close_user_group", :style => "display:none;", :field => "user_group", :title=>"Close"
+        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_logo close_option add_form_close", :field => "user_group", :change_color => false, :title=>"Close"
       .title
-        = link_to_function image_tag('add_icon.png'), :id => "add_user_group", :class => "toggle_button add_flag new_option", :toggle_id_name => "new_user_groups", :flag_name => "user_groups", :field => "user_group"
+        = link_to_function image_tag('add_icon.png'), :class => "new_option new_logo", :field => "user_group"
         &nbsp
       %h2 Assign User
     %input{:id => "user_group_mode", :mode => "show", :style => "display:none"}
 
-    %div#new_user_groups{:style => "display:none"}
+    %div#new_user_group_form{:style => "display:none;"}
       -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
         .form_line{:style => "float:none"}
           .field_10

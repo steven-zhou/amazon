@@ -81,19 +81,13 @@ ActiveRecord::Schema.define(:version => 20091105032704) do
     t.string   "login_name"
     t.string   "account_id"
     t.string   "pin"
-    t.text     "primary_password_hash"
-    t.text     "primary_password_salt"
-    t.text     "secondary_password_hash"
-    t.text     "secondary_password_salt"
-    t.integer  "security_question1_id"
-    t.integer  "security_question2_id"
-    t.integer  "security_question3_id"
-    t.text     "question1_answer"
-    t.text     "question2_answer"
-    t.text     "question3_answer"
     t.datetime "last_login"
     t.datetime "last_logoff"
     t.text     "last_ip_address"
+    t.text     "member_zone_power_password_hash"
+    t.text     "member_zone_power_password_salt"
+    t.text     "super_admin_power_password_hash"
+    t.text     "super_admin_power_password_salt"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -157,6 +151,7 @@ ActiveRecord::Schema.define(:version => 20091105032704) do
     t.boolean  "duplication_space"
     t.string   "type"
     t.string   "group"
+    t.boolean  "status"
   end
 
   create_table "employments", :force => true do |t|
@@ -345,6 +340,7 @@ ActiveRecord::Schema.define(:version => 20091105032704) do
     t.integer  "access_attempts_count"
     t.boolean  "password_by_admin"
     t.integer  "password_lifetime"
+    t.string   "type"
     t.datetime "password_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"

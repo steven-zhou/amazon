@@ -45,39 +45,14 @@
         = f.text_field :pin
     .form_line
       .field_20
-        %label Primary Password
-        %input{:id => "primary_password", :name => "primary_password", :class => "password jpassword-lefttop"}
+        %label Super Password
+        %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
       .field_20
-        %label Primary Password Confirmation
-        %input{:id => "primary_password_confirmation", :name => "primary_password_confirmation"}
-      .field_20
-        %label Secondary Password
-        %input{:id => "secondary_password", :name => "secondary_password", :class => "password jpassword-lefttop"}
-      .field_20
-        %label Secondary Password Confirmation
-        %input{:id => "secondary_password_confirmation", :name => "secondary_password_confirmation"}
+        %label Super Password Confirmation
+        %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
+    .form_line
+      = submit_tag "Submit", :disabled => true, :id => "password_submit"
+
+#password_error{:style => "display:none;"}
   .container
-    %h2 Security Questions
-    .form_line
-      .field_40
-        = f.label :security_question1_id, "Security Question 1"
-        = f.collection_select :security_question1_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
-      .field_40
-        = f.label :question1_answer, "Answer to Question 1"
-        = f.text_field :question1_answer
-    .form_line
-      .field_40
-        = f.label :security_question2_id, "Security Question 2"
-        = f.collection_select :security_question2_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
-      .field_40
-        = f.label :question2_answer, "Answer to Question 2"
-        = f.text_field :question2_answer
-    .form_line
-      .field_40
-        = f.label :security_question3_id, "Security Question 3"
-        = f.collection_select :security_question3_id, SecurityQuestion.all, :id, :name, {:include_blank => true}
-      .field_40
-        = f.label :question3_answer, "Answer to Question 3"
-        = f.text_field :question3_answer
-    .form_line
-      = submit_tag "Submit"
+    %p Two password are not matched

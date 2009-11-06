@@ -255,6 +255,7 @@ $(function() {
                 }
             }
         });
+
         $('#warning_message').dialog('option', 'title', 'Warning');
    
         $('#warning_message').parent().find("a").css("display","none");
@@ -313,14 +314,9 @@ $('.startdatepick').live("mouseover", function(){
     day = arr_dateText[0];
     month = arr_dateText[1];
     year = arr_dateText[2];
+    
     if(year!=undefined){
-        $(this).datepicker({
-            dateFormat: 'dd-mm-yy',
-            altFormat: 'mm-dd-yy',
-            changeMonth: true,
-            changeYear: true,
-            maxDate: new Date(year, month-1, day-1)
-        });
+        $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));        
     }else{
         $(this).datepicker({
             dateFormat: 'dd-mm-yy',
@@ -1342,7 +1338,7 @@ $(function(){
 });
 
 $(function(){
-    $(".check_login_id").live('change', function(){
+    $(".check_login_id").blur(function(){
         if($(this).val()!= ""){
             $.ajax({
                 type: "GET",
@@ -1352,28 +1348,38 @@ $(function(){
             });
         }else{
             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-        }
-    });
-});
+            $('#login_name_invalid').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
 
-$(function(){
-    $(".check_username_unique").live('change', function(){
-        if($(this).val()!= ""){
-            $.ajax({
-                type: "GET",
-                url: "/login_accounts/user_name_unique.js",
-                data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
-                dataType:"script"
+                    OK: function(){
+
+                        $(this).dialog('close');
+                    }
+                }
             });
-        }else{
-            $("#login_name_container_"+$(this).attr('login_account_id')).html("");
+            $('#login_name_invalid').dialog('open');
         }
     });
 });
 
 
 
+
 $(function(){
+
+    $(".check_username_unique").blur(function(){
+      
+        $.ajax({
+            type: "GET",
+            url: "/login_accounts/user_name_unique.js",
+            data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
+            dataType:"script"
+        });
+});
+
     $('#login_account_user_name').live("focus", function(){
         $(this).qtip(
         {
@@ -1385,15 +1391,76 @@ $(function(){
 });
 
 $(function(){
-    $('#login_account_user_name').live("mouseover", function(){
-        $(this).qtip(
-        {
-            content: 'username must between 6~20<br>username can\'t the same as password',
-            style: 'dark'
+    $(".user_email_new").blur(function(){
+        _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($(this).val());
+        if($(this).val()!=""){
+            if((!_valid)){
+                $('#invalid_email').dialog( {
+                    modal: true,
+                    resizable: true,
+                    draggable: true,
+                    buttons: {
+
+                        OK: function(){
+
+                            $(this).dialog('close');
+                        }
+                    }
+                });
+                $('#invalid_email').dialog('open');
+                $('.user_email_new').focus();
+                return false;
+            }
+        }else{
+            $('#invalid_email').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
+
+                    OK: function(){
+
+                        $(this).dialog('close');
+                    }
+                }
+            });
+            $('#invalid_email').dialog('open');
         }
-        );
     });
 });
+
+
+//check_email_field = function(){
+//    _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
+//    if($('#email_value').val()!=""){
+//        if((!_valid)){
+//            alert("Invalid email address !");
+//            $('#email_value').focus();
+//            return false;
+//        }
+//    }
+//}
+//$(function(){
+//    $('#login_account_user_name').live("focus", function(){
+//        $(this).qtip(
+//        {
+//            content: 'username must between 6~20<br>username can\'t the same as password',
+//            style: 'dark'
+//        }
+//    );
+//    });
+//});
+//
+//$(function(){
+//    $('#login_account_user_name').live("mouseover", function(){
+//        $(this).qtip(
+//        {
+//            content: 'username must between 6~20<br>username can\'t the same as password',
+//            style: 'dark'
+//        }
+//    );
+//    });
+//});
 
 
 $(function() {
@@ -1428,36 +1495,7 @@ $(function(){
     });
 });
 
-//$(function(){
-//    $("#login_account_user_name").live('change', function(){
-//
-//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-//            $('#user_length').dialog( {
-//                modal: true,
-//                resizable: true,
-//                draggable: true
-//            });
-//            $('#user_length').dialog('open');
-//        }
-//    });
-//});
 
-
-//$(function(){
-//    $("#login_account_password").live('change', function(){
-//
-//        if ($(this).val().length < 6 ||$(this).val().length > 30 ){
-//
-//            $('#password_length').dialog( {
-//                modal: true,
-//                resizable: true,
-//                draggable: true
-//            });
-//            $('#password_length').dialog('open');
-//        }
-//
-//    });
-//});
 
 
 $(function(){
@@ -1475,25 +1513,6 @@ $(function(){
 
     });
 });
-
-
-
-
-
-
-//$(function(){
-//    $(".edit_login_account").live('click', function(){
-//
-//
-//
-//        $.ajax({
-//            type: "GET",
-//            url: "/login_accounts/" + $(this).attr('login_account_id') + "/edit.js",
-//            data:'id='+$(this).attr('login_account_id'),
-//            dataType: "script"
-//        });
-//    });
-//});
 
 
 
@@ -1583,7 +1602,7 @@ $(function(){
     $("#fields_criteria").live('change', function(){
         $(".descriptions_criteria").css("display", "none");
         $("#description_criteria_"+$(this).val()).css("display", "");
-        if ($(this).val().indexOf("date") > 0){
+        if ($(this).val()!=null && $(this).val().indexOf("date") > 0){
             if ($(this).val() == "birth_date"){
                 $("#query_criteria_value").datepicker({
                     dateFormat: 'dd-mm-yy',
@@ -1806,13 +1825,13 @@ $(function(){
 
 $(function(){
     $("#list_header_name").change(function(){
-        $("#person_list").submit();
+        $("#person_list_edit").submit();
     });
 });
 
 $(function(){
     $("#list_header_name2").change(function(){
-        $("#person_list_edit").submit();
+        $("#person_list").submit();
     });
 });
 
@@ -3410,20 +3429,8 @@ $(function(){
 
 /*user_group  new design*/
 
-$(function(){
-    $('#user_group_edit_button').live('click', function(){
-        $(".container_selected").removeClass("container_selected");
-        $(this).closest('.toggle_options').addClass("container_selected");
 
-        $.ajax({
-            type:'GET',
-            url: "/user_groups/" + $(this).attr('group_type_id') + ".js",
-            data: "group_type_id="+$(this).attr('group_type_id'),
-            dataType:"script"
 
-        });
-    });
-});
 
 $(function(){
 
@@ -4428,6 +4435,32 @@ $(function(){
             dataType: "script"
         });
     });
+});
+
+//Member Zone Super User Password Confirmation
+$(function(){
+    $("#repeat_password").live('change', function(){
+        if ($(this).val()!= $('#password').val()){
+            $('#password_error').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true,
+                buttons: {
+                    OK: function(){
+                        $(this).dialog('destroy');
+                        return true;
+
+                    }
+                }
+            });
+            $('#password_error').dialog('option', 'title', 'Error');
+            $('#password_error').dialog('open');
+        }else{
+            $('#password_submit').attr('disabled',false);
+        }
+    });
+
+
 });
 
 $(function(){

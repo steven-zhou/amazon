@@ -14,6 +14,7 @@ class Phone < Contact
   #  Assocations
   ################
   #++
+
   
   belongs_to :person
   #--
