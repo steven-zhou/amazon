@@ -1,10 +1,10 @@
--#header
+#header
   #page_title
     %h1 Role Manager
   #lol
     %br.clear
 
-#tabs
+-##tabs
   = render :partial => 'roles/role_menu'
   %br
   #Role
@@ -13,3 +13,18 @@
     = render :partial => '/role_conditions/role_condition_management'
         
 
+.tab_switch{:style => "margin-left:15px;"}
+  .profile_tab_left.left{:field =>"role_part", :style => "background-image:url(/images/round_left.png);"}
+  .container_icon.left{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "<h1>Role</h1>",:class=>"show_hide_button", :show_id_name => "role_part",:hide_id_name => "role_condition_part"
+  .profile_tab_right.left{:field =>"role_part", :style => "background-image:url(/images/round_right.png);"}
+  .profile_tab_left.left{:field =>"role_condition_part"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Role Condition</h1>", :class=>"show_hide_button", :show_id_name => "role_condition_part",:hide_id_name => "role_part"
+  .profile_tab_right.left{:field =>"role_condition_part"}
+
+#role_part
+  = render :partial => '/roles/role_management'
+
+#role_condition_part{:style=>"display:none"}
+  = render :partial => '/role_conditions/role_condition_management'

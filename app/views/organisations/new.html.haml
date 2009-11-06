@@ -48,10 +48,8 @@
     .container
       .left
         %h1 Organisation Logo
-      .right
-        .form_line
-        
-          = file_field :image, :image_file, {:size => "30"}
+      .right    
+        = file_field :image, :image_file, {:size => "30"}
 
   #right_content
     .container.address_form
