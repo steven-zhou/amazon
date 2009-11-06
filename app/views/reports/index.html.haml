@@ -1,9 +1,27 @@
-%h1 Reports
-#tabs
+#header
+  #page_title
+    %h1 Reports
+-#tabs
   = render :partial => 'reports/import_menu'
   #Person
-    = render :partial => '/reports/person_report_tab'
+    
   #Organisation
     = render :partial => '/reports/organisation_report_tab'
 
+.tab_switch
+  .profile_tab_left.left{:field =>"person_part", :style => "background-image:url(/images/round_left.png);"}
+  .container_icon.left{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "<h1>Person</h1>",:class=>"show_hide_button", :show_id_name => "person_part",:hide_id_name => "organisation_part"
+  .profile_tab_right.left{:field =>"person_part", :style => "background-image:url(/images/round_right.png);"}
+  .profile_tab_left.left{:field =>"organisation_part"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Organisation</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "organisation_part",:hide_id_name => "person_part"
+  .profile_tab_right.left{:field =>"organisation_part"}
 
+#person_part
+  = render :partial => '/reports/person_report_tab'
+
+#organisation_part{:style=>"display:none"}
+  = render :partial => '/reports/organisation_report_tab'
+
+ 

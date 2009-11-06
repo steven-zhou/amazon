@@ -1,0 +1,2 @@
+$('#system_news_detail_<%= escape_javascript("#{@system_news.id}") %>').replaceWith('<%= escape_javascript(render(:partial =>"system_news/system_news_detail", :locals => {:system_news_detail => @system_news})) %>');
+$('#system_news_mode').attr("mode","show");

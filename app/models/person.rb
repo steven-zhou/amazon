@@ -75,6 +75,7 @@ class Person < ActiveRecord::Base
   belongs_to :origin_country, :class_name => "Country", :foreign_key => "origin_country_id"
   belongs_to :residence_country, :class_name => "Country", :foreign_key => "residence_country_id"
   belongs_to :nationality, :class_name => "Country", :foreign_key => "nationality_id"
+   belongs_to :other_nationality, :class_name => "Country", :foreign_key => "other_nationality_id"
   belongs_to :gender, :class_name => "Gender", :foreign_key => "gender_id"
   
 

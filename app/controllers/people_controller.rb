@@ -56,6 +56,7 @@ class PeopleController < ApplicationController
             @p = Array.new
             @p = @list_header.people_on_list
             @person = Person.find_by_id(params[:id].to_i)
+            @person = @list_headers.first.people_on_list.first if @person.nil?
             session[:current_person_id] = @person.id
             #else
           end
@@ -128,6 +129,7 @@ class PeopleController < ApplicationController
             @p = Array.new
             @p = @list_header.people_on_list
             @person = Person.find_by_id(params[:id].to_i)
+            @person = @list_headers.first.people_on_list.first if @person.nil?
             session[:current_person_id] = @person.id
           end
         else

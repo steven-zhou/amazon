@@ -1,0 +1,5 @@
+-div_for(to_do, :class => 'container') do
+  .options{:style => "float:right;"}
+    = link_to_function image_tag("icon_holder.png")
+  .title
+    %h2 #{to_do.description}
