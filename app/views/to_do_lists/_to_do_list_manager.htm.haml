@@ -1,0 +1,12 @@
+.container
+  %h2 Processing
+  #processing_to_dos
+    = render :partial => "to_do_lists/to_do", :collection => @processing_to_do
+
+  %h2 New
+  #new_to_dos
+    = render :partial => "to_do_lists/to_do", :collection => @new_to_do
+
+  %h2 Completed
+  #completed_to_dos
+    = render :partial => "to_do_lists/to_do", :collection => @completed_to_do

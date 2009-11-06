@@ -5,10 +5,11 @@
   .container
     %h1 Super Admin Message: insert message tag here
 
-  .container 
-    .options{:style => "float:right;"}
-      = link_to_function image_tag("add_icon.png"), :id => "new_news", :title=>"New System News"
-      = link_to_function image_tag("edit_icon.png"), :title=>"Manage System News", :id => "manage_system_news"
+  .container
+    - if @super_admin
+      .options{:style => "float:right;"}
+        = link_to_function image_tag("add_icon.png"), :id => "new_news", :title=>"New System News"
+        = link_to_function image_tag("edit_icon.png"), :title=>"Manage System News", :id => "manage_system_news"
     %h1 System News
     %input#news_offset_number{:style => "display:none;", :value => 0}
     #system_news_container
@@ -36,8 +37,10 @@
 
 %div#footer
 
-#new_to_do_dialog{:style => "display:none"}
-  = render :partial => "to_do_lists/new_to_do_list"
-#new_system_news_dialog{:style => "display:none"}
+#new_to_do_dialog{:style => "display:none;"}
+  = render :partial => "to_do_lists/to_do_list_form"
+#manage_to_do_dialog{:style => "display:none;"}
+
+#new_system_news_dialog{:style => "display:none;"}
   = render :partial => "system_news/system_news_form"
-#manage_system_news_dialog{:style => "display:none"}
+#manage_system_news_dialog{:style => "display:none;"}
