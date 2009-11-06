@@ -200,6 +200,8 @@ class SigninController < ApplicationController
       @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
       login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
       session[:login_account_info] = login_account
+      login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
+      login_account.save
       redirect_to welcome_url
     rescue
       if login_account.nil?
