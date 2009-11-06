@@ -1570,7 +1570,7 @@ $(function(){
     $("#fields_criteria").live('change', function(){
         $(".descriptions_criteria").css("display", "none");
         $("#description_criteria_"+$(this).val()).css("display", "");
-        if ($(this).val().indexOf("date") > 0){
+        if ($(this).val()!=null && $(this).val().indexOf("date") > 0){
             if ($(this).val() == "birth_date"){
                 $("#query_criteria_value").datepicker({
                     dateFormat: 'dd-mm-yy',
