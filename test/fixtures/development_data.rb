@@ -34,7 +34,7 @@ memberzone = MemberZone.create(
   :user_name => "MemberZone",
   :password => "memberzone",
   :access_attempts_count => 3,
-  :session_timeout => 3,
+  :session_timeout => 30,
   :authentication_grace_period => 3
 )
 
@@ -49,7 +49,7 @@ superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
   :password => "superadmin",
   :access_attempts_count => 3,
-  :session_timeout => 3,
+  :session_timeout => 30,
   :authentication_grace_period => 3
 )
 
