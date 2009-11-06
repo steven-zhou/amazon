@@ -116,26 +116,56 @@ $(function() {
     //To use for the person contact edit close button to show the warning message
 
     $('a.get_close').live('click', function() {
-   var change_type = "false";
-      if($(this).attr('field')== "contact")
-          {
+        var change_type = "false";
+        if($(this).attr('field')== "contact")
+        {
             change_type =$('#contact_input_change_or_not').val();
-          }
-             if($(this).attr('field')== "address")
-          {
+            $('#contact_input_change_or_not').val("false");
+        }
+        if($(this).attr('field')== "address")
+        {
             change_type =$('#address_input_change_or_not').val();
-          }
+            $('#address_input_change_or_not').val("false");
+        }
 
-             if($(this).attr('field')== "master_doc")
-          {
+        if($(this).attr('field')== "master_doc")
+        {
             change_type =$('#master_doc_input_change_or_not').val();
-          }
+            $('#master_doc_input_change_or_not').val("false");
+        }
 
-             if($(this).attr('field')== "relationship")
-          {
+        if($(this).attr('field')== "relationship")
+        {
             change_type =$('#relationship_input_change_or_not').val();
-          }
+            $('#relationship_input_change_or_not').val("false");
+        }
 
+        if($(this).attr('field')== "note")
+        {
+            change_type =$('#notes_input_change_or_not').val();
+            $('#notes_input_change_or_not').val("false");
+        }
+
+        if($(this).attr('field')== "person_role")
+        {
+            change_type =$('#role_input_change_or_not').val();
+            $('#role_input_change_or_not').val("false");
+        }
+
+        if($(this).attr('field')== "employment")
+        {
+            change_type =$('#employment_input_change_or_not').val();
+            $('#employment_input_change_or_not').val("false");
+        }
+        if($(this).attr('field')== "group")
+        {
+            change_type =$('#group_input_change_or_not').val();
+            $('#group_input_change_or_not').val("false");
+        }
+        //                if($(this).attr('field')== "organisation_contact")
+        //          {
+        //            change_type =$('#organisation_contact_input_change_or_not').val();
+        //          }
         var link = $(this);
         if(change_type=="true" )
         {
@@ -155,7 +185,9 @@ $(function() {
 
                     },
                     Yes: function(){
+
                         $.get(link.attr('href'), null ,null, 'script');
+
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -171,11 +203,11 @@ $(function() {
           
         }
         else
-            {
-                  $.get(link.attr('href'), null ,null, 'script');
-                    return false;
-            }
-     return false;
+        {
+            $.get(link.attr('href'), null ,null, 'script');
+            return false;
+        }
+        return false;
     });
 
     //To use this function, please add data_id attributes to the link and the element id point to should be the form
@@ -2906,38 +2938,92 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        $('#warning_message_text').html("Are you sure you wish to close this form ? ");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
+        if  ($(this).parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value') == "true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
 
-                No: function(){
-                    $(this).dialog('destroy');
-                    return false;
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
 
-                },
-                Yes: function(){
-                    $("#" + link.attr('field')+'_mode').attr('mode','show');
-                    link.css("display","none");
-                    $('.new_option[field='+ link.attr('field') +']').css("display","");
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        link.parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value','false');
+                        $(this).dialog('destroy');
+                      
+                        return true;
+                    }
 
-                    $(this).dialog('destroy');
-                    return true;
                 }
+
+           
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+              return false;
+        }
+        else if ( $('#check_input_change').val()=="true")
+            {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                       $('#check_input_change').val("false");
+                        $(this).dialog('destroy');                  
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
             }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
+        else
+            {
+                  $('#'+link.attr('toggle_id_name')).toggle('blind');
+                  $("#" + link.attr('field')+'_mode').attr('mode','show');
+                  link.css("display","none");
+                  $('.new_option[field='+ link.attr('field') +']').css("display","");
 
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-
-        $('#warning_message').dialog('open');
+            }
 
    
     });
@@ -2945,6 +3031,7 @@ $(function(){
 
 $(function(){
     $('.new_option').live('click',function(){
+
         $("#" + $(this).attr('field')+'_mode').attr('mode','new');
         $(this).css("display","none");
         $('.close_option[field='+ $(this).attr('field') +']').css("display","");
@@ -3822,51 +3909,51 @@ $(function(){
     $(".clear_form_to_phone").live("click", function(){
         $("#select_contact_type").val("Phone").change();
 
-//        if($("#phone_contact_meta_type_id").val() == null)
-//        {
-//            $("#phone_pre_value").attr('readonly','readonly');
-//            $("#phone_value").attr('readonly','readonly');
-//            $("#phone_post_value").attr('readonly','readonly');
-//            $("#phone_remarks").attr('readonly','readonly');
-//            $("#contact_phone_submit").attr('readonly','readonly');
-            if($("#phone_contact_meta_type_id").val() == null)
-            {
-                $("#phone_pre_value").attr('readonly','readonly');
-                $("#phone_value").attr('readonly','readonly');
-                $("#phone_post_value").attr('readonly','readonly');
-                $("#phone_remarks").attr('readonly','readonly');
-                $("#contact_phone_submit").attr('disabled','disabled');
+        //        if($("#phone_contact_meta_type_id").val() == null)
+        //        {
+        //            $("#phone_pre_value").attr('readonly','readonly');
+        //            $("#phone_value").attr('readonly','readonly');
+        //            $("#phone_post_value").attr('readonly','readonly');
+        //            $("#phone_remarks").attr('readonly','readonly');
+        //            $("#contact_phone_submit").attr('readonly','readonly');
+        if($("#phone_contact_meta_type_id").val() == null)
+        {
+            $("#phone_pre_value").attr('readonly','readonly');
+            $("#phone_value").attr('readonly','readonly');
+            $("#phone_post_value").attr('readonly','readonly');
+            $("#phone_remarks").attr('readonly','readonly');
+            $("#contact_phone_submit").attr('disabled','disabled');
 
-            }
+        }
 
-            if($("#email_contact_meta_type_id").val() == null)
-            {
-                $("#email_remarks").attr('readonly','readonly');
-                $("#email_value").attr('readonly','readonly');
-                $("#submit_email_field").attr('readonly','readonly')
-            }
+        if($("#email_contact_meta_type_id").val() == null)
+        {
+            $("#email_remarks").attr('readonly','readonly');
+            $("#email_value").attr('readonly','readonly');
+            $("#submit_email_field").attr('readonly','readonly')
+        }
 
-            if($("#website_contact_meta_type_id").val() == null)
-            {
-                $("#website_value").attr('readonly','readonly');
-                $("#website_remarks").attr('readonly','readonly');
-                $("#submit_website_field").attr('readonly','readonly')
-            }
-//            if($("#email_contact_meta_type_id").val() == null)
-//            {
-//                $("#email_remarks").attr('readonly','readonly');
-//                $("#email_value").attr('readonly','readonly');
-//                $("#submit_email_field").attr('disabled','disabled');
-//            }
-//
-//            if($("#website_contact_meta_type_id").val() == null)
-//            {
-//                $("#website_value").attr('readonly','readonly');
-//                $("#website_remarks").attr('readonly','readonly');
-//                $("#submit_website_field").attr('disabled','disabled');
-//            }
+        if($("#website_contact_meta_type_id").val() == null)
+        {
+            $("#website_value").attr('readonly','readonly');
+            $("#website_remarks").attr('readonly','readonly');
+            $("#submit_website_field").attr('readonly','readonly')
+        }
+    //            if($("#email_contact_meta_type_id").val() == null)
+    //            {
+    //                $("#email_remarks").attr('readonly','readonly');
+    //                $("#email_value").attr('readonly','readonly');
+    //                $("#submit_email_field").attr('disabled','disabled');
+    //            }
+    //
+    //            if($("#website_contact_meta_type_id").val() == null)
+    //            {
+    //                $("#website_value").attr('readonly','readonly');
+    //                $("#website_remarks").attr('readonly','readonly');
+    //                $("#submit_website_field").attr('disabled','disabled');
+    //            }
 
-//        }
+    //        }
     });
 });
 
@@ -4305,14 +4392,14 @@ $(function(){
         $('#new_system_news_dialog').find("form").get(0).reset();
         $('#new_system_news_dialog').dialog( {
 
-                modal: true,
-                resizable: false,
-                width: 600,
-                height: 400,
-                draggable: true
-            });
-            $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
-            $('#new_system_news_dialog').dialog('open');
+            modal: true,
+            resizable: false,
+            width: 600,
+            height: 400,
+            draggable: true
+        });
+        $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
+        $('#new_system_news_dialog').dialog('open');
 
     });
 
@@ -4373,15 +4460,23 @@ $(function(){
 /*Check all input field change or not*/
 
 $(function(){
+    $("#content").find('input').live('change', function(){
+
+        $('#check_input_change').val("true");
+    });
+});
+
+$(function(){
     $("#content #left_content").find('input').live('change', function(){
         $('#check_left_input_change').val("true");
-
+        $('#check_input_change').val("true");
     });
 });
 
 $(function(){
     $("#content #right_content").find('input').live('change', function(){
         $('#check_right_input_change').val("true");
+        $('#check_input_change').val("true");
 
     });
 });
@@ -4389,7 +4484,7 @@ $(function(){
 $(function(){
     $('#lc a').live('click', function(){
         var link = $(this);
-        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false" )
+        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false" &&$('#check_input_change').val() == "false"  )
         {
             window.open(link.attr('href'),"_self");
     
@@ -4416,6 +4511,7 @@ $(function(){
                         window.open(link.attr('href'),"_self");
                         $('#check_left_input_change').val("false");
                         $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -4461,8 +4557,9 @@ $(function(){
                     },
                     Yes: function(){
                         window.open(link.attr('href'),"_self");
-                       $('#check_left_input_change').val("false");
+                        $('#check_left_input_change').val("false");
                         $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -4508,8 +4605,9 @@ $(function(){
                     },
                     Yes: function(){
                         window.open(link.attr('href'),"_self");
-                         $('#check_left_input_change').val("false");
+                        $('#check_left_input_change').val("false");
                         $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -4530,6 +4628,7 @@ $(function(){
 $(function(){
     $('#left_content input[type="submit"]').live('click', function(){
         $('#check_left_input_change').val("false");
+
     });
 });
       
@@ -4537,6 +4636,15 @@ $(function(){
     $('#right_content input[type="submit"]').live('click', function(){
     
         $('#check_right_input_change').val("false");
+
+    });
+});
+
+$(function(){
+    $('#content input[type="submit"]').live('click', function(){
+
+        $('#check_input_change').val("false");
+
     });
 });
 
@@ -4546,13 +4654,14 @@ $(function(){
 
 $(function(){
     $("#Contact").find('input').live('change', function(){
+      
         $('#check_right_input_change').val("true");
-        $('#contact_input_change_or_not').val("true")
+        $('#contact_input_change_or_not').val("true");
+
     });
 
-      $('#Contact input[type="submit"]').live('click', function(){
-      $('#contact_input_change_or_not').val("false");
-
+    $('#Contact input[type="submit"]').live('click', function(){
+        $('#contact_input_change_or_not').val("false");
     });
 
 });
@@ -4564,8 +4673,8 @@ $(function(){
         $('#address_input_change_or_not').val("true")
     });
 
-      $('#Address input[type="submit"]').live('click', function(){
-      $('#address_input_change_or_not').val("false");
+    $('#Address input[type="submit"]').live('click', function(){
+        $('#address_input_change_or_not').val("false");
 
     });
 
@@ -4577,8 +4686,8 @@ $(function(){
         $('#master_doc_input_change_or_not').val("true")
     });
 
-      $('#MasterDocs input[type="submit"]').live('click', function(){
-      $('#master_doc_input_change_or_not').val("false");
+    $('#MasterDocs input[type="submit"]').live('click', function(){
+        $('#master_doc_input_change_or_not').val("false");
 
     });
 
@@ -4588,12 +4697,127 @@ $(function(){
 $(function(){
     $("#Rels").find('input').live('change', function(){
         $('#check_right_input_change').val("true");
-        $('#relationship_input_change_or_not').val("true")
+        $('#relationship_input_change_or_not').val("true");
     });
 
-      $('#Rels input[type="submit"]').live('click', function(){
-      $('#relationship_input_change_or_not').val("false");
+    $('#Rels input[type="submit"]').live('click', function(){
+        $('#relationship_input_change_or_not').val("false");
 
     });
 
+});
+
+$(function(){
+    $("#Note").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+     
+        $('#notes_input_change_or_not').val("true");
+    
+    });
+    
+      $("#Note").find('textarea').live('change', function(){
+        $('#check_right_input_change').val("true");
+    
+        $('#notes_input_change_or_not').val("true");
+
+    });
+
+
+
+    $('#Note input[type="submit"]').live('click', function(){
+        $('#notes_input_change_or_not').val("false");
+
+    });
+
+});
+
+$(function(){
+    $("#Role").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#role_input_change_or_not').val("true");
+    });
+
+    $('#Role input[type="submit"]').live('click', function(){
+        $('#role_input_change_or_not').val("false");
+
+    });
+
+});
+$(function(){
+    $("#Employment").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#employment_input_change_or_not').val("true");
+    });
+
+    $('#Employment input[type="submit"]').live('click', function(){
+        $('#employment_input_change_or_not').val("false");
+
+    });
+
+});
+
+$(function(){
+    $("#Group").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#group_input_change_or_not').val("true");
+    });
+
+    $('#Group input[type="submit"]').live('click', function(){
+        $('#group_input_change_or_not').val("false");
+
+    });
+
+});
+
+/*organisation close option*/
+$(function(){
+    $('.organisation_close_option').live('click',function(){
+        var link = $(this);
+
+        if( $('#contact_input_change_or_not').val() == "false")
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+
+
+        }
+        else{
+            $('#warning_message_text').html("Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('.organisation_contact_toggle_button').css("display","");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+        }
+
+    });
 });
