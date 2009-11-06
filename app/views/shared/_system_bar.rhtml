@@ -38,8 +38,8 @@
     <%= link_to image_tag('Icons/System/sys_search.png'),{},{:title=>"Search"} %>
   </div>
   <div class="bar_section" id="help">
-    <%= link_to image_tag('Icons/System/feedback.png', :style => "cursor:pointer;", :id => "feedback"), {}, {:title=>"Feedback"} %>
-    <%= link_to image_tag('Icons/System/help.png'), {:controller => "feedback", :action => "list"}, {:title=>"Help"} %>
+    <%= link_to_function image_tag('Icons/System/feedback.png'), {:id => "feedback"} %>
+   
   </div>
 
 </div>
