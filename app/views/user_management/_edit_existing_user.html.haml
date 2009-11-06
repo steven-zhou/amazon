@@ -14,15 +14,15 @@
       .field_23
         = login.label :security_email, 'Email'
         = login.text_field :security_email,  :id => "login_account_security_email" , :name => "login_account[security_email]",:disabled => true
-      .field_11
+      .field_10
         = login.label :login_status, 'Active'
         = login.check_box :login_status, :class => "checkbox_style", :id => "login_account_login_status" , :name => "login_account[login_status]"
-      .field_11{:class => @login_account.login_status ? "" : "hidden"}
+      .field_10{:class => @login_account.login_status ? "" : "hidden"}
         = login.label :system_user, 'System User'
         = login.check_box :system_user,{:style => "width:10%", :id => "login_account_system_user" , :name => "login_account[system_user]"}
-      .field_20{:class => @login_account.login_status ? "" : "hidden"}
+      .field_17{:class => @login_account.login_status ? "" : "hidden"}
         %label &nbsp
-        = link_to_function 'Generate new password', :id => "generate_new_password", :login_account_id => @login_account.id
+        = link_to_function 'Generate new password', :id => "generate_new_password",:class =>"alt_option", :login_account_id => @login_account.id
     .form_line{:style => "height:20px;"}
     .form_line
       .field_23

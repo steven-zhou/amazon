@@ -85,7 +85,7 @@ class ApplicationController < ActionController::Base
   private
 
   def check_session_timeout(current_user)
-    if ( !current_user.session_timeout.nil? && current_user.session_timeout.to_i > 0 && !session[:last_event].nil?)
+    if ( !session[:last_event].nil? && session[:last_event].to_i != 0 && !current_user.session_timeout.nil? && current_user.session_timeout.to_i > 0)
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
 
       if ( (current_user.session_timeout.to_i * 60 ) < (Time.now - session[:last_event]))
