@@ -294,10 +294,7 @@ $(".person_contact_toggle_button").live('click', function(){
 
 
 $(".person_contact_close").live('click',function(){
-
     var link = $(this);
-
-
     if( $('#contact_input_change_or_not').val() == "false")
     {
         $('#'+link.attr('toggle_id_name')).toggle('blind');
@@ -340,7 +337,8 @@ $(".person_contact_close").live('click',function(){
                     $("#new_email")[0].reset();
                     $("#new_website")[0].reset();
                     $('#contact_input_change_or_not').val("false");
-                    $('#check_right_input_change').val("false");
+//                    $('#check_right_input_change').val("false");
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -461,7 +459,9 @@ $(".person_address_close").live('click',function(){
                     link.css("display","none");
                     $('.person_address_toggle_button').css("display","");
                     $('#address_input_change_or_not').val("false");
+//                    $('#check_right_input_change').val("false");
                     $('#address_hidden_tab').attr('mode','show');
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -537,6 +537,8 @@ $(".person_master_doc_close").live('click',function(){
                     $('.person_master_doc_toggle_button').css("display","");
                     $('#master_doc_input_change_or_not').val("false");
                     $('#master_doc_hidden_tab').attr('mode','show');
+//                    $('#check_right_input_change').val("false");
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }

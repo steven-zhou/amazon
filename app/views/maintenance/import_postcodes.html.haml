@@ -7,31 +7,83 @@
   .container
     - form_tag("/maintenance/import_postcode_file", :multipart => true) do
 
-      %br.clear
-      Country
-      %br.clear
-      = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false}, {:style => "width:15%;"}
+      %div#postcode_import_settings
+        %br.clear
+        Country
+        %br.clear
+        = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false}, {:style => "width:15%;"}
 
-      %p
+        %p
 
-      %br.clear
-      Postcode data file
-      %br.clear
-      = file_field :postcode_file, nil
+        %br.clear
+        Postcode data file
+        %br.clear
+        = file_field :postcode_file, nil
 
-      %p
+        %p
 
-      %br.clear
-      %div#show_import_postcode_columns
-        Proceed
+        %br.clear
+        %button{:type => "button", :style => "float:right;", :id => "show_import_postcode_columns"} Proceed
 
       %div#import_postcodes_columns{:style => "display:none;"}
+        %h2
+          Enter column numbers
+        %br.clear
+        %p
+          For the following fields, please enter the number of the column it corresponds to in the data file. If there is no match please leave the value blank.
+        %br.clear
+        %table
+          %tr
+            %td{:style => "padding:1em;"}
+              Suburb:
+            %td{:style => "padding:1em;"}
+              = text_field_tag :suburb, nil, :size => "2", :class => "check_postcode_columns integer_field"
+          %tr
+            %td{:style => "padding:1em;"}
+              State:
+            %td{:style => "padding:1em;"}
+              = text_field_tag :state, nil, :size => "2", :class => "check_postcode_columns integer_field"
+          %tr
+            %td{:style => "padding:1em;"}
+              Postcode:
+            %td{:style => "padding:1em;"}
+              = text_field_tag :postcode, nil, :size => "2", :class => "check_postcode_columns integer_field"
+        %br.clear
+        %button{:type => "button", :style => "float:right;", :id => "show_import_postcode_parameters"} Proceed
+
 
       %div#import_postcode_parameters{:style => "display:none;"}
+        %h2 Configure data import options
+        %br.clear
+        %p
+          Number of lines to skip at the start of the file (blank defaults to zero):
+        %br.clear
+          = text_field_tag :header_lines, nil, :size => "2", :class => "check_postcode_columns integer_field"
+          lines.
+        %p
+        %br.clear
+        %p
+
+          For imported data:
+        %br.clear
+        %p
+          = radio_button("update_option", nil, "append", :checked => "checked")
+          Append Records
+          = radio_button("update_option", nil, "update")
+          Update Records
+          = radio_button("update_option", nil, "overwrite")
+          Overwrite Records
+        %br.clear
+        %p
+        %button{:type => "button", :style => "float:right;", :id => "show_import_postcode_summary"} Proceed
 
       %div#import_postcode_summary{:style => "display:none;"}
+        %h2 Are you sure that you want to proceed?
+        %br.clear
+        %p
+          Continuing will make changes to the database.
+        %br.clear
+        %p
 
-
-
-  
-    
+        = submit_tag("Proceed")
+        %button{:type => "button", :style => "float:right;", :id => "import_postcode_start_again"} Start Again

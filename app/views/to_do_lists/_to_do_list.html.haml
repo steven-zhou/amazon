@@ -1,9 +1,14 @@
--div_for(to_do_list, :class => 'container') do
-  .title
-    %h2 #{to_do_list.description}
-  .done_box
-    %input.done{:type => "checkbox"}
-    %label Done
-  .right
-    - unless to_do_list.due_date.nil?
-      %h2 #{to_do_list.due_date.strftime("%d-%m-%Y")}
+.container
+  %h2 Processing
+  #processing_to_dos
+    - if @processing_to_do.nil?
+      %p{:style => "text-align:center;"} No Entry
+    - else
+      = render :partial => "to_do_lists/to_do", :collection => @processing_to_do
+
+  %h2 New
+  #new_to_dos
+    - if @processing_to_do.nil?
+      %p{:style => "text-align:center;"} No Entry
+    - else
+      = render :partial => "to_do_lists/to_do", :collection => @new_to_do

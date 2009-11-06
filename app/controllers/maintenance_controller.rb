@@ -27,6 +27,33 @@ class MaintenanceController < ApplicationController
     end
   end
 
+    def import_postcodes
+    # This screen is for us selecting the file and all the parameters for
+    # the postcode import...
+
+  end
+
+  def import_postcode_file
+    # This is where a submitted postcode form gets uploaded to
+    suburb = params[:suburb]
+    state = params[:state]
+    postcode = params[:postcode]
+    header_lines = params[:header_lines]
+    country_id = params[:import_postcode][:country_id]
+    update_option = params[:update_option]
+
+    puts "Suburb #{suburb}"
+    puts "State #{state}"
+    puts "Postcode #{postcode}"
+    puts "Header Lines #{header_lines}"
+    puts "Country ID #{country_id}"
+    puts "Update Option #{update_option}"
+
+    render :nothing => true
+
+
+  end
+
   private
 
   def backup_directory_tidy(directory)
@@ -44,15 +71,5 @@ class MaintenanceController < ApplicationController
 
   end
 
-
-  def import_postcodes
-    # This screen is for us selecting the file and all the parameters for
-    # the postcode import...
-    
-  end
-
-  def import_postcode_file
-    # This is where a submitted postcode form gets uploaded to
-  end
 
 end
