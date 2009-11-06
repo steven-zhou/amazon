@@ -2,12 +2,12 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "clear_tab person_notes_close toggle_button", :toggle_id_name => "new_note", :style => "display:none", :field => "note", :title=>"Close"
+      = link_to_function image_tag('close_icon.png'), :class => "clear_tab person_notes_close", :toggle_id_name => "new_note", :style => "display:none", :field => "note", :title=>"Close"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"person_notes_toggle_button", :toggle_id_name => "new_note"  if (!person.nil? && !person.new_record?)
     %h1 New Note
     %input{:type => "text", :id => "note_hidden_tab", :mode => "show", :style => "display:none", :style => "display:none"}
-
+    %input{:id => "notes_input_change_or_not", :style => "display:none", :value => "false"}
     -form_for([@person,@note], :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
       = render :partial => '/notes/note_form', :locals => { :note => note }
       = submit_tag 'Submit'
