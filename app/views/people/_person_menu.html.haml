@@ -26,5 +26,9 @@
   %li
     %a{:href=>"#Group", :title => 'Group', :class => "person_edit_tab", :field => "groups"}
       = image_tag('Icons/Core/Person/tabs/groups_BW.png')
+  -if @current_action == "show"
+    %li
+      %a{:href=>"#PersonDetail", :title => 'Personal Detail', :class => "person_edit_tab", :field => "person_detail"}
+        = image_tag('Icons/Core/Person/tabs/person_detail_BW.png')
 
   

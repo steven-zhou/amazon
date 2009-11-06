@@ -1,6 +1,9 @@
-.container#new_query
-  %h1 Add New Query
-
+%div
+  #header
+    #page_title
+      %h1 Add New Query
+  
+#new_query
   #new_form
     #left
       .container
@@ -58,12 +61,12 @@
         = render :partial => "queries/query_sorter_list"
     %br.clear
     
-    = link_to_function 'clear', :style => "float:right;", :id => "clear_button", :action => "new"
+    = link_to_function 'clear', :class => "alt_option", :id => "clear_button", :action => "new"
     = button_to_function 'Save', :id => "save_button", :action => "new", :style => "float:right;margin-right:20px;"
     = button_to_function 'Run Query', :id => "run_button", :action => "new", :style => "float:right;margin-right:20px;"
     %input#query_header_id{:style => "display:none;", :value => "#{@query_header.id}"}
     %input#current_action_global{:style => "display:none;", :value => "new"}
-    = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "new"
+    = link_to_function 'view SQL statements',:class => "alt_option float_none", :id => "show_sql_statements", :action => "new"
     
 #save_form{:style => "display:none;"}
   = render :partial => "queries/new_query_header"

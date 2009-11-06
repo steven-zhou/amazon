@@ -39,17 +39,17 @@ $(function() {
     $(".show_hide_button").live('click', function(){
         $('#'+$(this).attr('show_id_name')).css("display","");
         $('.profile_tab_right[field='+ $(this).attr('show_id_name') +']').css("background-image","url(/images/round_right.png)");
-         $('.profile_tab_left[field='+ $(this).attr('show_id_name') +']').css("background-image","url(/images/round_left.png)");
-      //    $('.pppp[field='+ $(this).attr('show_id_name') +']').css("display","");
+        $('.profile_tab_left[field='+ $(this).attr('show_id_name') +']').css("background-image","url(/images/round_left.png)");
+        //    $('.pppp[field='+ $(this).attr('show_id_name') +']').css("display","");
         $('#'+$(this).attr('hide_id_name')).css("display","none");
-          $('.profile_tab_right[field='+ $(this).attr('hide_id_name') +']').css("background-image","none");
-         $('.profile_tab_left[field='+ $(this).attr('hide_id_name') +']').css("background-image","none");
-       // $('.pppp[field='+ $(this).attr('hide_id_name') +']').css("display","none");
+        $('.profile_tab_right[field='+ $(this).attr('hide_id_name') +']').css("background-image","none");
+        $('.profile_tab_left[field='+ $(this).attr('hide_id_name') +']').css("background-image","none");
+        // $('.pppp[field='+ $(this).attr('hide_id_name') +']').css("display","none");
         $(".container_icon").removeClass("container_icon_color");
         $(this).parent().addClass("container_icon_color");
          
 
-           $('.pppp[field='+ $(this).attr('show_id_name') +']').removeClass('hidden');
+        $('.pppp[field='+ $(this).attr('show_id_name') +']').removeClass('hidden');
     });
     /*
 	  Replaces text of the toggle link, with the alt_text,
@@ -193,42 +193,11 @@ $(function() {
 
 /* Person Group */
 
-//person_close_button_warning_message = function(){
-//    $('#warning_message_text').html("Are you sure you wish to close this form ? ");
-//    $('#warning_message_image').css("display","");
-//    $('#warning_message').dialog({
-//  modal: true,
-//  resizable: false,
-//  draggable: true,
-//  height: 'auto',
-//  width: 'auto',
-//  buttons: {
-//
-//  No: function(){
-//    $(this).dialog('destroy');
-//    return false;
-//
-//  },
-//    Yes: function(){
-//  $(this).dialog('destroy');
-//  return true;
-//   }
-//  }
-//});
-//    $('#warning_message').dialog('option', 'title', 'Warning');
-//
-//    $('#warning_message').parent().find("a").css("display","none");
-//     $("#warning_message").parent().css('background-color','#D1DDE6');
-//     $("#warning_message").css('background-color','#D1DDE6');
-//
-//    $('#warning_message').dialog('open');
-//
-//
-//};
 
-$('#person_group_close_button').live('click',function(){
-    $('.person_group_delete_button').css("display","");
-});
+//$('#person_group_close_button').live('click',function(){
+//
+//    $('.person_group_delete_button').css("display","");
+//});
 
 $(".person_group_toggle_button").live('click', function(){
     if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
@@ -241,13 +210,67 @@ $(".person_group_toggle_button").live('click', function(){
 });
 
 $(".person_group_close").live('click',function(){
-    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-        $('.person_group_delete_button').css("display","none");
-    else
-        $('.person_group_delete_button').css("display","");
 
-    $(this).css("display","none");
-    $('.person_group_toggle_button').css("display","");
+
+    var link = $(this);
+    if( $('#group_input_change_or_not').val() == "false")
+    {
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+        if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+            $('.person_group_delete_button').css("display","none");
+        else
+            $('.person_group_delete_button').css("display","");
+
+        link.css("display","none");
+        $('.person_group_toggle_button').css("display","");
+
+
+    }
+    else
+    {
+        $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+                    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+                        $('.person_group_delete_button').css("display","none");
+                    else
+                        $('.person_group_delete_button').css("display","");
+
+                    link.css("display","none");
+                    $('.person_group_toggle_button').css("display","");
+
+                    $('#group_input_change_or_not').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+    }
+  
 });
 
 /* Person Group */
@@ -271,10 +294,7 @@ $(".person_contact_toggle_button").live('click', function(){
 
 
 $(".person_contact_close").live('click',function(){
-
     var link = $(this);
-
-
     if( $('#contact_input_change_or_not').val() == "false")
     {
         $('#'+link.attr('toggle_id_name')).toggle('blind');
@@ -317,7 +337,8 @@ $(".person_contact_close").live('click',function(){
                     $("#new_email")[0].reset();
                     $("#new_website")[0].reset();
                     $('#contact_input_change_or_not').val("false");
-                    $('#check_right_input_change').val("false");
+//                    $('#check_right_input_change').val("false");
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -438,7 +459,9 @@ $(".person_address_close").live('click',function(){
                     link.css("display","none");
                     $('.person_address_toggle_button').css("display","");
                     $('#address_input_change_or_not').val("false");
+//                    $('#check_right_input_change').val("false");
                     $('#address_hidden_tab').attr('mode','show');
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -514,6 +537,8 @@ $(".person_master_doc_close").live('click',function(){
                     $('.person_master_doc_toggle_button').css("display","");
                     $('#master_doc_input_change_or_not').val("false");
                     $('#master_doc_hidden_tab').attr('mode','show');
+//                    $('#check_right_input_change').val("false");
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -565,9 +590,9 @@ $(".person_relationship_toggle_button").live('click', function(){
 $(".person_relationship_close").live('click',function(){
 
     var link = $(this);
-    if( $('#master_doc_input_change_or_not').val() == "false")
+    if( $('#relationship_input_change_or_not').val() == "false")
     {
-       $('#'+link.attr('toggle_id_name')).toggle('blind');
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
         $('.person_tag').css("display","none");
         $('#related_person_name_container').html('');
         link.css("display","none");
@@ -594,7 +619,7 @@ $(".person_relationship_close").live('click',function(){
 
                 },
                 Yes: function(){
-                   $('#'+link.attr('toggle_id_name')).toggle('blind');
+                    $('#'+link.attr('toggle_id_name')).toggle('blind');
                     $('.person_tag').css("display","none");
                     $('#related_person_name_container').html('');
 
@@ -639,12 +664,68 @@ $(".person_notes_toggle_button").live('click', function(){
 });
 
 $(".person_notes_close").live('click',function(){
- 
-    $('.person_notes_edit_delete').css("display","none");
 
-    $(this).css("display","none");
-    $('.person_notes_toggle_button').css("display","");
-    $('#note_hidden_tab').attr('mode','show');
+
+    var link = $(this);
+    if( $('#notes_input_change_or_not').val() == "false")
+    {
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+        $('.person_notes_edit_delete').css("display","none");
+
+        link.css("display","none");
+        $('.person_notes_toggle_button').css("display","");
+        $('#note_hidden_tab').attr('mode','show');
+
+
+    }
+    else
+    {
+        $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+                    $('.person_notes_edit_delete').css("display","none");
+
+                    link.css("display","none");
+                    $('.person_notes_toggle_button').css("display","");
+                    $('#note_hidden_tab').attr('mode','show');
+
+                    $('#notes_input_change_or_not').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+    }
+
+
+
+
+ 
+  
 });
 
 $(".edit_note").live('click',function(){
@@ -676,12 +757,60 @@ $(".person_employments_toggle_button").live('click', function(){
 
 
 $(".person_employments_close").live('click',function(){
-    
-    $('.person_employments_edit_delete').css("display","none");
+    var link = $(this);
+    if( $('#employment_input_change_or_not').val() == "false")
+    {
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
 
-    $(this).css("display","none");
-    $('.person_employments_toggle_button').css("display","");
-    $('#employment_hidden_tab').attr('mode','show');
+        $('.person_employments_edit_delete').css("display","none");
+
+        link.css("display","none");
+        $('.person_employments_toggle_button').css("display","");
+        $('#employment_hidden_tab').attr('mode','show');
+
+
+    }
+    else
+    {
+        $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+                    $('.person_employments_edit_delete').css("display","none");
+
+                    link.css("display","none");
+                    $('.person_employments_toggle_button').css("display","");
+                    $('#employment_hidden_tab').attr('mode','show');
+
+                    $('#employment_input_change_or_not').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+    }
 });
 
 $("#employments_edit_button").live('click',function(){
@@ -718,10 +847,59 @@ $(".delete_role").live('click',function(){
 });
 
 $(".person_roles_close").live('click',function(){
-    $('.person_roles_edit_delete').css("display","none");
-    $(this).css("display","none");
-    $('.person_roles_toggle_button').css("display","");
-    $('#person_role_hidden_tab').attr('mode','show');
+
+
+    var link = $(this);
+    if( $('#role_input_change_or_not').val() == "false")
+    {
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+        $('.person_roles_edit_delete').css("display","none");
+        link.css("display","none");
+        $('.person_roles_toggle_button').css("display","");
+        $('#person_role_hidden_tab').attr('mode','show');
+
+    }
+    else
+    {
+        $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+                    $('.person_roles_edit_delete').css("display","none");
+                    link.css("display","none");
+                    $('.person_roles_toggle_button').css("display","");
+                    $('#person_role_hidden_tab').attr('mode','show');
+
+                    $('#role_input_change_or_not').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+    }
 });
 
 

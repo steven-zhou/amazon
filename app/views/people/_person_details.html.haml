@@ -1,0 +1,54 @@
+.form_line
+  .field_30
+    = label_tag :date_of_birth, "Date of Birth"
+    = label_tag :date_of_birth, @person.birth_date.nil? ? "" : @person.birth_date.to_s
+  .field_30
+    = label_tag :gender, 'Gender'
+    = label_tag :gender, @person.gender.nil? ? "" :@person.gender.name.to_s
+  %br.clear
+.form_line
+  .field_30
+    = label_tag :marital_status, 'Marital Status'
+    = label_tag :marital_status, @person.marital_status.nil? ? "" :@person.marital_status.name.to_s
+  .field_30
+    = label_tag :religion_id, 'Religion'
+    = label_tag :religion_id, @person.religion.nil? ? "" :@person.religion.name.to_s
+  %br.clear
+.form_line
+  .field_30
+    = label_tag :origin_country_id,'Country of Origin'
+    = label_tag :origin_country_id, @person.origin_country.nil? ? "": @person.origin_country.short_name.to_s
+   
+  .field_30
+    = label_tag :nationality_id, 'Nationality'
+    = label_tag :nationality_id, @person.nationality.nil? ? "" :@person.nationality.short_name.to_s
+    
+  .field_30
+    = label_tag :language_id, 'Language'
+    = label_tag :language_id, @person.language.nil? ? "" : @person.language.name.to_s
+    
+  %br.clear
+.form_line
+  .field_30
+    = label_tag :residence_country_id,"Country of Residence"
+    = label_tag :residence_country_id,@person.residence_country.nil? ? "" :@person.residence_country.short_name.to_s
+    
+  .field_30
+    = label_tag :other_nationality_id,"Other Nationality"
+    = label_tag :residence_country_id,@person.other_nationality.nil? ? "" : @person.other_nationality.short_name.to_s
+    
+  .field_30
+    = label_tag :other_language,"Other Language"
+    = label_tag :other_language,@person.other_language.nil? ? "" : @person.other_language.id
+    
+  %br.clear
+.form_line
+  .field_30
+    = label_tag :industry_sector,"Industry Sector"
+    = label_tag :industry_sector,@person.industry_sector.nil? ? "" : @person.industry_sector.name.to_s
+    
+  .field_60
+    = label_tag :interests,"Interests"
+    = label_tag :industry_sector,@person.interests.nil? ? "" : @person.interests
+   
+  %br.clear

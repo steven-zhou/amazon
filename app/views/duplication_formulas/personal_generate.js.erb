@@ -1,5 +1,32 @@
 <% unless flash[:message].nil? %>
-$('#flash_feedback').html('<%= escape_javascript(flash[:message])%>')
-$('#flash_feedback').fadeIn("slow");
-$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+
+
+ $('#confirm_message_text').html("Duplication Value Is Re-generated");
+            $('#confirm_message_image').css("display","");
+            $('#confirm_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#confirm_message').dialog('option', 'title', 'Comfirm');
+
+            $('#confirm_message').parent().find("a").css("display","none");
+            $("#confirm_message").parent().css('background-color','#D1DDE6');
+            $("#confirm_message").css('background-color','#D1DDE6');
+
+            $('#confirm_message').dialog('open');
+
+
+
+
+
+
 <%- end %>

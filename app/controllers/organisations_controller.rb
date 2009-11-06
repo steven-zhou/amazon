@@ -99,11 +99,13 @@ class OrganisationsController < ApplicationController
 
 
   def edit
-    @super_admin = LoginAccount.find(session[:user]).class.to_s == "SuperAdmin" ? true : false
+    @current_user = LoginAccount.find(session[:user])
+    @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = Organisation.find(:all, :order => "id")
     @postcodes = DomesticPostcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
+    @organisation = Organisation.find(params[:id].to_i)
+    @organisation = @o[0] if @organisation.nil?
     @address = Address.new
     @phone = Phone.new
     @email = Email.new

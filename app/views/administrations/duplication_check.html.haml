@@ -4,10 +4,26 @@
   #lol
   %br.clear
 
-#tabs{:style => "width:96%;"}
+-#tabs{:style => "width:96%;"}
   = render :partial => 'duplication_formula_menu'
   #Personal
     = render :partial => '/duplication_formulas/personal_duplication_formula'
 
   #Organisational
     = render :partial => '/duplication_formulas/organisational_duplication_formula'
+
+.tab_switch
+  .profile_tab_left.left{:field =>"person_part", :style => "background-image:url(/images/round_left.png);"}
+  .container_icon.left{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "<h1>Person</h1>",:class=>"show_hide_button", :show_id_name => "person_part",:hide_id_name => "organisation_part"
+  .profile_tab_right.left{:field =>"person_part", :style => "background-image:url(/images/round_right.png);"}
+  .profile_tab_left.left{:field =>"organisation_part"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Organisation</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "organisation_part",:hide_id_name => "person_part"
+  .profile_tab_right.left{:field =>"organisation_part"}
+
+#person_part
+  = render :partial => '/duplication_formulas/personal_duplication_formula'
+
+#organisation_part{:style=>"display:none"}
+  = render :partial => '/duplication_formulas/organisational_duplication_formula'

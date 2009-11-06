@@ -66,7 +66,7 @@
     = button_to_function 'Run Query', :id => "run_button_edit", :action => "edit", :disabled => "disabled", :style => "float:right;margin-right:20px;"
     %input#query_header_id{:style => "display:none;"}
     %input#current_action_global{:style => "display:none;"}
-    = link_to_function 'view SQL statements', :id => "show_sql_statements", :action => "edit"
+    = link_to_function 'view SQL statements', :class => "alt_option float_none", :id => "show_sql_statements", :action => "edit"
 
 #sql_div{:style => "display:none;"}
   #sql_statement
