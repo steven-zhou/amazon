@@ -2,10 +2,10 @@
   #page_title
     %h1 Dashboard
 #dashboard
-  .container
+  .full_container
     %h1 Super Admin Message: insert message tag here
 
-  .container 
+  .full_container
     .options{:style => "float:right;"}
       = link_to_function image_tag("add_icon.png"), :id => "new_news", :title=>"New System News"
       = link_to_function image_tag("edit_icon.png"), :title=>"Manage System News", :id => "manage_system_news"
