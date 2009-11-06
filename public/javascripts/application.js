@@ -3033,7 +3033,7 @@ $(function(){
             $("#warning_message").css('background-color','#D1DDE6');
 
             $('#warning_message').dialog('open');
-            return false;
+              return false;
             }
         else
             {
@@ -3044,7 +3044,7 @@ $(function(){
 
             }
 
-   
+
     });
 });
 
@@ -4492,32 +4492,65 @@ $(function(){
 
 /*Check all input field change or not*/
 
-$(function(){
-    $("#content").find('input').live('change', function(){
-
-        $('#check_input_change').val("true");
-    });
-});
+//$(function(){
+//    $("#content").find('input').live('change', function(){
+//
+//        $('#check_input_change').val("true");
+//    });
+//});
 
 $(function(){
     $("#content #left_content").find('input').live('change', function(){
         $('#check_left_input_change').val("true");
-        $('#check_input_change').val("true");
+//        $('#check_input_change').val("true");
     });
 });
 
 $(function(){
     $("#content #right_content").find('input').live('change', function(){
         $('#check_right_input_change').val("true");
-        $('#check_input_change').val("true");
+//        $('#check_input_change').val("true");
 
     });
 });
 
+check_input_change = function(){
+
+//    if($('#check_right_input_change').val() == "false")
+//    {
+        
+        if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+            {
+                 
+                 $('#check_right_input_change').val("true");
+            }
+       else
+            {
+             
+                $('#check_right_input_change').val("false");}
+//     }
+
+       if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+           
+              $('#check_input_change').val("true");
+            }
+        else
+            {
+                  
+              $('#check_input_change').val("false");
+            }
+
+}
+
 $(function(){
     $('#lc a').live('click', function(){
+        
+        check_input_change();
+
         var link = $(this);
-        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false" &&$('#check_input_change').val() == "false"  )
+
+        if($('#check_input_change').val() == "false"  )
         {
             window.open(link.attr('href'),"_self");
     
@@ -4667,9 +4700,14 @@ $(function(){
       
 $(function(){
     $('#right_content input[type="submit"]').live('click', function(){
-    
-        $('#check_right_input_change').val("false");
-
+     if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+            {
+        $('#check_right_input_change').val("true");
+            }
+        else
+            {
+                   $('#check_right_input_change').val("false");
+            }
     });
 });
 
@@ -4688,7 +4726,7 @@ $(function(){
 $(function(){
     $("#Contact").find('input').live('change', function(){
       
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#contact_input_change_or_not').val("true");
 
     });
@@ -4702,7 +4740,7 @@ $(function(){
 
 $(function(){
     $("#Address").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#address_input_change_or_not').val("true")
     });
 
@@ -4715,7 +4753,7 @@ $(function(){
 
 $(function(){
     $("#MasterDocs").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#master_doc_input_change_or_not').val("true")
     });
 
@@ -4729,7 +4767,7 @@ $(function(){
 
 $(function(){
     $("#Rels").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#relationship_input_change_or_not').val("true");
     });
 
@@ -4742,14 +4780,14 @@ $(function(){
 
 $(function(){
     $("#Note").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
      
         $('#notes_input_change_or_not').val("true");
     
     });
     
       $("#Note").find('textarea').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
     
         $('#notes_input_change_or_not').val("true");
 
@@ -4766,7 +4804,7 @@ $(function(){
 
 $(function(){
     $("#Role").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#role_input_change_or_not').val("true");
     });
 
@@ -4778,7 +4816,7 @@ $(function(){
 });
 $(function(){
     $("#Employment").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#employment_input_change_or_not').val("true");
     });
 
@@ -4789,18 +4827,18 @@ $(function(){
 
 });
 
-$(function(){
-    $("#Group").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
-        $('#group_input_change_or_not').val("true");
-    });
-
-    $('#Group input[type="submit"]').live('click', function(){
-        $('#group_input_change_or_not').val("false");
-
-    });
-
-});
+//$(function(){
+//    $("#Group").find('input').live('change', function(){
+////        $('#check_right_input_change').val("true");
+//        $('#group_input_change_or_not').val("true");
+//    });
+//
+//    $('#Group input[type="submit"]').live('click', function(){
+//        $('#group_input_change_or_not').val("false");
+//
+//    });
+//
+//});
 
 /*organisation close option*/
 $(function(){
