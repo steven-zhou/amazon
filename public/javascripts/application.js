@@ -47,6 +47,7 @@ $(function() {
         return false;
     }).attr("rel", "nofollow");
 
+
     $('a.move_down_address_priority').live('click', function() {
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
@@ -103,10 +104,79 @@ $(function() {
     }).attr("rel", "nofollow");
 
     $('a.move_up_master_doc_priority').live('click', function() {
+
+
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
     }).attr("rel", "nofollow");
+
+
+
+    //To use for the person contact edit close button to show the warning message
+
+    $('a.get_close').live('click', function() {
+   var change_type = "false";
+      if($(this).attr('field')== "contact")
+          {
+            change_type =$('#contact_input_change_or_not').val();
+          }
+             if($(this).attr('field')== "address")
+          {
+            change_type =$('#address_input_change_or_not').val();
+          }
+
+             if($(this).attr('field')== "master_doc")
+          {
+            change_type =$('#master_doc_input_change_or_not').val();
+          }
+
+             if($(this).attr('field')== "relationship")
+          {
+            change_type =$('#relationship_input_change_or_not').val();
+          }
+
+        var link = $(this);
+        if(change_type=="true" )
+        {
+            $('#warning_message_text').html("Are you sure? Some data did not save! ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $.get(link.attr('href'), null ,null, 'script');
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+          
+        }
+        else
+            {
+                  $.get(link.attr('href'), null ,null, 'script');
+                    return false;
+            }
+     return false;
+    });
 
     //To use this function, please add data_id attributes to the link and the element id point to should be the form
     $('a.post').live('click', function(){
@@ -124,16 +194,16 @@ $(function() {
     $('a.delete').live('click', function(){
 
         var link = $(this);
-        if($(this).attr("error_message_field" != "undefine"))
+        if($(this).attr("error_message_field" != null))
         {
-            $('#delete_message_text').html("Are  you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");
+            $('#warning_message_text').html("Are you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");
         }
         else
         {
-            $('#delete_message_text').html("Are  you sure you wish to delete ? ");
+            $('#warning_message_text').html("Are you sure you wish to delete ? ");
         }
-        $('#delete_warning_message_image').css("display","");
-        $('#delete_warning_message').dialog({
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
             modal: true,
             resizable: false,
             draggable: true,
@@ -153,14 +223,15 @@ $(function() {
                 }
             }
         });
-        $('#delete_warning_message').dialog('option', 'title', 'Warning');
-   
-        $('#delete_warning_message').parent().find("a").css("display","none");
-        $("#delete_warning_message").parent().css('background-color','#D1DDE6');
-        $("#delete_warning_message").css('background-color','#D1DDE6');
-        //      $("#delete_warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
 
-        $('#delete_warning_message').dialog('open');
+        $('#warning_message').dialog('option', 'title', 'Warning');
+   
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
    
         //    a.css("display","none");
         //  a.attr("class","ui-dialog-titlebar-lock");
@@ -1266,6 +1337,7 @@ $(function(){
 
 
 $(function(){
+
     $(".check_username_unique").blur(function(){
       
         $.ajax({
@@ -1274,7 +1346,15 @@ $(function(){
             data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
             dataType:"script"
         });
+});
 
+    $('#login_account_user_name').live("focus", function(){
+        $(this).qtip(
+        {
+            content: 'username must between 6~20<br>username can\'t the same as password',
+            style: 'dark'
+        }
+        );
     });
 });
 
@@ -1410,6 +1490,7 @@ $(function(){
       
         $('#user_name_container_' + $(this).attr('login_account_id')).html('');     
     })
+
 });
 
 
@@ -1838,23 +1919,70 @@ $(function(){
 /*validation section*/
 $(function(){
     $(".integer_field").live('keyup', function(){
+
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<0){
-                alert("This field has to be integer!");
-                $(this).focus();
-                $(this).val('');
+                var link = $(this);
+   
+                $('#error_message_text').html("This field has to be integer! ");
+
+                $('#error_message_image').css("display","");
+                $('#error_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
+                        "Close": function(){
+                            link.focus();
+                            link.val('');
+                            $(this).dialog('destroy');
+                            return true;
+                        }
+                    }
+                });
+                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').parent().find("a").css("display","none");
+                $("#error_message").parent().css('background-color','#D1DDE6');
+                $("#error_message").css('background-color','#D1DDE6');
+                $('#error_message').dialog('open');
             }
         }
+        return false;
     });
 
     $(".precent_field").live('keyup', function(){
         _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
-                alert("This field has be an integer between 0 and 100!");
-                $(this).focus();
-                $(this).val('');
+                var link = $(this);
+
+                $('#error_message_text').html("This field has be an integer between 0 and 100! ");
+
+                $('#error_message_image').css("display","");
+                $('#error_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
+                        "Close": function(){
+                            link.focus();
+                            link.val('');
+                            $(this).dialog('destroy');
+                            return true;
+                        }
+                    }
+                });
+                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').parent().find("a").css("display","none");
+                $("#error_message").parent().css('background-color','#D1DDE6');
+                $("#error_message").css('background-color','#D1DDE6');
+                $('#error_message').dialog('open');
+              
             }
         }
     });
@@ -1865,7 +1993,31 @@ check_empty_value = function(){
     if( $("#"+$(this).attr("check_field")).val()== "")
     {
         var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
-        alert(error_message);
+        var link = $(this);
+
+        $('#error_message_text').html(error_message);
+
+        $('#error_message_image').css("display","");
+        $('#error_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+                "Close": function(){
+                    link.focus();
+
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#error_message').dialog('option', 'title', 'ERROR');
+        $('#error_message').parent().find("a").css("display","none");
+        $("#error_message").parent().css('background-color','#D1DDE6');
+        $("#error_message").css('background-color','#D1DDE6');
+        $('#error_message').dialog('open');
         return false;
     }
 }
@@ -1906,9 +2058,33 @@ check_email_field = function(){
     _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
     if($('#email_value').val()!=""){
         if((!_valid)){
-            alert("Invalid email address !");
-            $('#email_value').focus();
-            return false;
+            var link = $(this);
+
+            $('#error_message_text').html("Invalid email address !");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+       
+   
         }
     }
 }
@@ -1917,9 +2093,31 @@ check_email_field_edit = function(){
     _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#email_value_edit').val());
     if($('#email_value_edit').val()!=""){
         if((!_valid)){
-            alert("Invalid email address !");
-            $('#email_value_edit').focus();
-            return false;
+            var link = $(this);
+
+            $('#error_message_text').html("Invalid email address !");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
         }
     }
 }
@@ -1935,8 +2133,32 @@ check_website_field = function(){
     _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
     if($('#website_value').val()!=""){
         if((!_valid)){
-            alert("Invalid website address !");
-            $(this).focus();
+            var link = $(this);
+
+            $('#error_message_text').html("Invalid website address !");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+ 
             return false;
 
 
@@ -1949,8 +2171,32 @@ check_website_field_edit = function(){
     _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
     if($('#website_value_edit').val()!=""){
         if((!_valid)){
-            alert("Invalid website address !");
-            $(this).focus();
+            var link = $(this);
+
+            $('#error_message_text').html("Invalid website address !");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+    
             return false;
 
 
@@ -2678,9 +2924,41 @@ $(function(){
 
 $(function(){
     $('.close_option').live('click',function(){
-        $("#" + $(this).attr('field')+'_mode').attr('mode','show');
-        $(this).css("display","none");
-        $('.new_option[field='+ $(this).attr('field') +']').css("display","");
+        var link = $(this);
+        $('#warning_message_text').html("Are you sure you wish to close this form ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $("#" + link.attr('field')+'_mode').attr('mode','show');
+                    link.css("display","none");
+                    $('.new_option[field='+ link.attr('field') +']').css("display","");
+
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+
+   
     });
 });
 
@@ -3037,7 +3315,7 @@ personal_check_duplication_restart_button = function(){
 
     //alert($('#system_id_tag').val());
     if($('#system_id_tag').val() != null)
-    { 
+    {
         window.open("/people/"+ $('#system_id_tag').val()+"/edit", "_self");
     }
     else
@@ -3551,13 +3829,13 @@ $(function(){
     $(".clear_form_to_phone").live("click", function(){
         $("#select_contact_type").val("Phone").change();
 
-        if($("#phone_contact_meta_type_id").val() == null)
-        {
-            $("#phone_pre_value").attr('readonly','readonly');
-            $("#phone_value").attr('readonly','readonly');
-            $("#phone_post_value").attr('readonly','readonly');
-            $("#phone_remarks").attr('readonly','readonly');
-            $("#contact_phone_submit").attr('readonly','readonly');
+//        if($("#phone_contact_meta_type_id").val() == null)
+//        {
+//            $("#phone_pre_value").attr('readonly','readonly');
+//            $("#phone_value").attr('readonly','readonly');
+//            $("#phone_post_value").attr('readonly','readonly');
+//            $("#phone_remarks").attr('readonly','readonly');
+//            $("#contact_phone_submit").attr('readonly','readonly');
             if($("#phone_contact_meta_type_id").val() == null)
             {
                 $("#phone_pre_value").attr('readonly','readonly');
@@ -3581,21 +3859,21 @@ $(function(){
                 $("#website_remarks").attr('readonly','readonly');
                 $("#submit_website_field").attr('readonly','readonly')
             }
-            if($("#email_contact_meta_type_id").val() == null)
-            {
-                $("#email_remarks").attr('readonly','readonly');
-                $("#email_value").attr('readonly','readonly');
-                $("#submit_email_field").attr('disabled','disabled');
-            }
+//            if($("#email_contact_meta_type_id").val() == null)
+//            {
+//                $("#email_remarks").attr('readonly','readonly');
+//                $("#email_value").attr('readonly','readonly');
+//                $("#submit_email_field").attr('disabled','disabled');
+//            }
+//
+//            if($("#website_contact_meta_type_id").val() == null)
+//            {
+//                $("#website_value").attr('readonly','readonly');
+//                $("#website_remarks").attr('readonly','readonly');
+//                $("#submit_website_field").attr('disabled','disabled');
+//            }
 
-            if($("#website_contact_meta_type_id").val() == null)
-            {
-                $("#website_value").attr('readonly','readonly');
-                $("#website_remarks").attr('readonly','readonly');
-                $("#submit_website_field").attr('disabled','disabled');
-            }
-
-        }
+//        }
     });
 });
 
@@ -3891,13 +4169,13 @@ $('#signout').live('click', function(){
         width: 'auto',
         buttons: {
 
-            No: function(){
+            "No ": function(){
                 $(this).dialog('close');
                 return true;
 
             },
  
-            Yes: function(){
+            "Yes": function(){
                 window.open("/signin/signout", "_self");
                 $(this).dialog('close');
                 return true;
@@ -3967,7 +4245,6 @@ $(function(){
 $(function(){
     $("#remove_person_keywords").live('dblclick', function(){
 
-
         $.ajax({
             type: "POST",
             url: "/keyword_links/remove_key.js",
@@ -4034,14 +4311,16 @@ $(function(){
     $("#new_news").live('click', function(){
         $('#new_system_news_dialog').find("form").get(0).reset();
         $('#new_system_news_dialog').dialog( {
-            modal: true,
-            resizable: false,
-            width: 600,
-            height: 400,
-            draggable: true
-        });
-        $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
-        $('#new_system_news_dialog').dialog('open');
+
+                modal: true,
+                resizable: false,
+                width: 600,
+                height: 400,
+                draggable: true
+            });
+            $('#new_system_news_dialog').dialog('option', 'title', 'New System News Entry');
+            $('#new_system_news_dialog').dialog('open');
+
     });
 
     $("#manage_system_news").live('click', function(){
@@ -4122,4 +4401,232 @@ $(function(){
         });
 
     });
+});
+
+/*Check all input field change or not*/
+
+$(function(){
+    $("#content #left_content").find('input').live('change', function(){
+        $('#check_left_input_change').val("true");
+
+    });
+});
+
+$(function(){
+    $("#content #right_content").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+
+    });
+});
+
+$(function(){
+    $('#lc a').live('click', function(){
+        var link = $(this);
+        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false" )
+        {
+            window.open(link.attr('href'),"_self");
+    
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Some data did not saved. Are you sure ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        window.open(link.attr('href'),"_self");
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+    }).attr("rel", "nofollow");
+});
+
+$(function(){
+    $('#sysbar a').live('click', function(){
+        var link = $(this);
+        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false")
+        {
+            window.open(link.attr('href'),"_self");
+           
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Some data did not saved. Are you sure ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        window.open(link.attr('href'),"_self");
+                       $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+    }).attr("rel", "nofollow");
+});
+
+
+$(function(){
+    $('#lol a').live('click', function(){
+        var link = $(this);
+        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false")
+        {
+            window.open(link.attr('href'),"_self"); 
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Some data did not saved. Are you sure ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        window.open(link.attr('href'),"_self");
+                         $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+    }).attr("rel", "nofollow");
+});
+
+$(function(){
+    $('#left_content input[type="submit"]').live('click', function(){
+        $('#check_left_input_change').val("false");
+    });
+});
+      
+$(function(){
+    $('#right_content input[type="submit"]').live('click', function(){
+    
+        $('#check_right_input_change').val("false");
+    });
+});
+
+
+
+/*check contact input field change or not*/
+
+$(function(){
+    $("#Contact").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#contact_input_change_or_not').val("true")
+    });
+
+      $('#Contact input[type="submit"]').live('click', function(){
+      $('#contact_input_change_or_not').val("false");
+
+    });
+
+});
+
+
+$(function(){
+    $("#Address").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#address_input_change_or_not').val("true")
+    });
+
+      $('#Address input[type="submit"]').live('click', function(){
+      $('#address_input_change_or_not').val("false");
+
+    });
+
+});
+
+$(function(){
+    $("#MasterDocs").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#master_doc_input_change_or_not').val("true")
+    });
+
+      $('#MasterDocs input[type="submit"]').live('click', function(){
+      $('#master_doc_input_change_or_not').val("false");
+
+    });
+
+});
+
+
+$(function(){
+    $("#Rels").find('input').live('change', function(){
+        $('#check_right_input_change').val("true");
+        $('#relationship_input_change_or_not').val("true")
+    });
+
+      $('#Rels input[type="submit"]').live('click', function(){
+      $('#relationship_input_change_or_not').val("false");
+
+    });
+
 });

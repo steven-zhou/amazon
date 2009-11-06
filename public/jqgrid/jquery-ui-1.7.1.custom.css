@@ -354,7 +354,7 @@
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
 .ui-dialog .ui-dialog-content { border: 0; padding: .5em 1em; background: white; overflow: auto; zoom: 1; }
 .ui-dialog .ui-dialog-buttonpane { text-align: center; background-image: none; margin: .5em 0; padding: .5em 1em; }
-.ui-dialog .ui-dialog-buttonpane button {  margin: .5em 2em; cursor: pointer; padding: .2em .6em; line-height: 1.4em; width:auto; overflow:visible; }
+.ui-dialog .ui-dialog-buttonpane button {  margin: 0.05em 2em 0.2em 2em; cursor: pointer; padding: .2em .6em; line-height: 1.4em; width:100px; overflow:visible; }
 .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; display:none !important;}
 .ui-draggable .ui-dialog-titlebar { cursor: move; text-align: center;  }
 /* Progressbar
