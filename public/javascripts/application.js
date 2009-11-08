@@ -4465,25 +4465,7 @@ $(function(){
 
 // Postcode stuff
 
-$(function(){
-    $("#show_import_postcode_columns").live('click', function(){
-        if($('#postcode_file_').val() == '') {
-            alert("Please select a file for upload.");
-        } else {
 
-            $('#import_postcodes_columns').dialog( {
-                modal: true,
-                resizable: false,
-                width: 600,
-                height: 400,
-                draggable: true
-            });
-            $('#import_postcodes_columns').dialog('option', 'title', 'Select data file columns');
-            $('#import_postcodes_columns').dialog('open');
-        }
-    });
-
-});
 
 $(function(){
     $(".check_postcode_columns").blur(function(){
@@ -4494,7 +4476,6 @@ $(function(){
 
     });
 });
-
 
 $(function(){
     // Ensure that the person entered at least one column
@@ -4522,22 +4503,6 @@ $(function(){
     });
 });
 
-$(function(){
-    // Ensure that the person entered at least one column
-    $("#show_import_postcode_summary").live('click', function(){
-            $('#import_postcode_parameters').dialog('close');
-            $('#postcode_import_settings').hide();
-            $('#import_postcode_summary').show();
-    });
-});
-
-$(function(){
-    // Ensure that the person entered at least one column
-    $("#import_postcode_start_again").live('click', function(){
-            $('#postcode_import_settings').show();
-            $('#import_postcode_summary').hide();
-    });
-});
 
 
 

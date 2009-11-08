@@ -1,5 +1,7 @@
 class MaintenanceController < ApplicationController
 
+  require 'csv'
+
   # This relies heavily on the backup script in lib/tasks/backup_db.rake.
   # It assumes that in the specified backup directory the only thing the directory
   # contains are folder in the following format:
@@ -27,7 +29,7 @@ class MaintenanceController < ApplicationController
     end
   end
 
-    def import_postcodes
+  def import_postcodes
     # This screen is for us selecting the file and all the parameters for
     # the postcode import...
 
@@ -42,15 +44,67 @@ class MaintenanceController < ApplicationController
     country_id = params[:import_postcode][:country_id]
     update_option = params[:update_option]
 
-    puts "Suburb #{suburb}"
-    puts "State #{state}"
-    puts "Postcode #{postcode}"
-    puts "Header Lines #{header_lines}"
-    puts "Country ID #{country_id}"
-    puts "Update Option #{update_option}"
+    puts "Suburb #{suburb} State #{state} Postcode #{postcode} Header Lines #{header_lines} Update #{update_option}"
 
-    render :nothing => true
+    country = Country.find_by_id(country_id)
 
+    header_lines = 0 if (header_lines.empty?)
+
+    if (params[:postcode_file].nil? || country.nil? || (suburb.empty? && state.empty? || postcode.empty?))
+
+      flash[:warning] = flash_message(:type => "field_missing", :field => "postcode data file") if params[:postcode_file].nil?
+      flash[:warning] = flash_message(:type => "field_missing", :field => "postcode country") if country.nil?
+      flash[:warning] = flash_message(:type => "field_missing", :field => "column numbers") if (suburb.empty? && state.empty? || postcode.empty?)
+      redirect_to :action => "import_postcodes" , :controller => "maintenance" and return
+    else
+
+      puts "Update options is #{update_option}"
+      puts "Does it equal overwrite? #{update_option.to_s == 'overwrite'}"
+      DomesticPostcode.destroy_all if update_option.to_s == "overwrite"
+
+      row_success = 0
+      row_fail = 0
+
+      i = 1 # We start at the first line
+      while row = params[:postcode_file].first.gets
+
+        if i <= "#{header_lines}".to_i
+          # Do nothing
+        else
+          data = row.split(/,/)
+
+          if update_option == "update"
+            # Find existing matching records
+          else
+            dp = DomesticPostcode.new
+            suburb_index = suburb.to_i - 1
+            state_index = state.to_i - 1
+            postcode_index = postcode.to_i - 1
+
+
+            dp.suburb = "#{cleanup_csv_cell(data[suburb_index])}" if suburb_index >= 0
+            dp.state = "#{cleanup_csv_cell(data[state_index]).upcase}" if state_index >= 0
+            dp.postcode = "#{cleanup_csv_cell(data[postcode_index])}" if postcode_index >= 0
+            dp.country = country
+
+            if dp.save
+              row_success += 1
+            else
+              row_fail += 1
+            end
+
+          end
+
+        end
+        
+        i += 1
+
+      end
+
+      flash[:message] = flash_message(:message => "#{row_success} records were processed correctly. #{row_fail} rows had errors.")
+      redirect_to :action => "import_postcodes" , :controller => "maintenance" and return
+
+    end
 
   end
 
@@ -69,6 +123,10 @@ class MaintenanceController < ApplicationController
     return "#{directory_date} #{directory_time}"
 
 
+  end
+
+  def cleanup_csv_cell(data)
+    (data.nil? || data.empty?) ? "" : data.gsub(/\"/,'').humanize
   end
 
 
