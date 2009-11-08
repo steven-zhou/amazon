@@ -126,8 +126,7 @@ class MaintenanceController < ApplicationController
   end
 
   def cleanup_csv_cell(data)
-    data.gsub(/\"/,'').humanize
-
+    (data.nil? || data.empty?) ? "" : data.gsub(/\"/,'').humanize
   end
 
 
