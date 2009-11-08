@@ -68,7 +68,7 @@ class MaintenanceController < ApplicationController
       i = 1 # We start at the first line
       while row = params[:postcode_file].first.gets
 
-        if i < header_lines
+        if i <= "#{header_lines}".to_i
           # Do nothing
         else
           data = row.split(/,/)
