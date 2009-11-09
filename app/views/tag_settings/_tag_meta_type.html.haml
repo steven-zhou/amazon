@@ -17,12 +17,11 @@
       %br.clear
     .form_line
       .field_100
-        = tag_meta_type.label :status, 'Status'
+        = tag_meta_type.label :status, 'Active'
         - if @tag_meta_type.new_record?
           = tag_meta_type.check_box :status, :checked => true, :style => "width:auto;"
         -else
           = tag_meta_type.check_box :status, :style => "width:auto;"
-        %label{:style => "display:inline;"} Active
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_meta_type.class.to_s}
       %br.clear
     = submit_tag 'Submit', :style => "width:75px;"

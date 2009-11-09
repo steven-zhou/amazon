@@ -4,11 +4,11 @@
   #lol
     %br.clear
 #content_full_page
-  .container
+  .full_container
     - form_for Keyword.new, :html => {:class => "ajax_form"} do |p|
       .left
-        %h1 Select Keyword Type:
-      %select#keyword_type.clear_select{:style => "display:inline;width:20%;"}
+        %h1{:style => "margin:5px 0 0 0;"} Select Keyword Type:
+      %select#keyword_type.clear_select{:style => "display:inline;width:20%;margin:5px 0 0 0;"}
         %option
           = KeywordType.distinct_active_keyword_type
 
@@ -16,7 +16,7 @@
       %br
       %input{:id => "keyword_mode", :style => "display:none;", :mode => "show"}
       %div#keyword_main_contents{:style => "display:none;"}
-        .container#keywork_add_data
+        .full_container#keywork_add_data
           .options
             = link_to_function image_tag("close_icon.png" , :id=> "keyword_close_entry",:class => "close_option", :style => "display:none;float:right;", :field => "keyword"), :title=>"Close"
           .title

@@ -9,7 +9,7 @@
   - else
     - personal_descriptions += "<label class='descriptions_personal_duplication' id='description_personal_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
 
-.container.duplication_check
+.container.duplication_check{:style => "width:98%;padding:1%;"}
   = button_to_function "Re-generate Duplication Value", :id => "generate_personal_duplication", :style => "float:right;"
   = button_to_function "Load Default Setting", :id => "load_personal_duplication", :style => "float:right;"
   %h1 Personal Duplication Formula
@@ -20,7 +20,7 @@
       #left{:style => "width:30%;margin: 0pt 5px 5px 19px;"}
         .form_line
           = f.label :duplication_space, "Duplication Space"
-          = f.radio_button :duplication_space, true, :style =>"display:inline;width:25%;"
+          = f.radio_button :duplication_space, true, :style =>"display:inline;width:25%;height:auto;"
           = f.label :duplication_space, "Primary List", :style =>"display:inline;width:75%;"
           %br
           = f.radio_button :duplication_space, false, :style =>"display:inline;width:25%;"

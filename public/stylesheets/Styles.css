@@ -64,7 +64,7 @@ body {
 #app #main #sysbar .bar_section #module_menu #module_menu_top {
     height: 68px;
     cursor: pointer;
-/*    background-image:url(/images/icon_ds.png);
+    /*    background-image:url(/images/icon_ds.png);
     background-repeat:no-repeat;
     background-position: 9px 3px;*/
 }
@@ -433,6 +433,13 @@ margin-right: 5px;
     line-height: 20px;
     margin-bottom: 5px;
 }
+
+#app #main #content .full_container h3 {
+    font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
 /*blue container body copy */
 #app #main #content .container p {
     font-size: 14px;
@@ -772,11 +779,11 @@ div#show_lists div.container {
     margin-right: 1%;
 }
 
- .form_line.field_select_line {
+.form_line.field_select_line {
     height:auto !important;
 }
 
- select.field_select {
+select.field_select {
     height:auto !important;
 }
 
@@ -931,7 +938,7 @@ img.medium {
 
 }
 img.thumb {
-   /* width:60px;
+    /* width:60px;
     height: 66px;*/
     width:120px;
     height:132px;
@@ -1027,7 +1034,7 @@ a.alt_option{
     float: right;
     margin:2px 15px 0px 10px;
     padding:1px;
-    line-height:16px; 
+    line-height:16px;
 }
 
 p.submit{
@@ -1143,7 +1150,7 @@ div.info_warning {
 /* Organisation New*/
 
 form#add_organisation.new_organisation input#image_image_file{
-      height: auto !important;
+    height: auto !important;
     width: 150px ;
     font-size:14px;
     line-height:16px;
@@ -1350,7 +1357,7 @@ td.textright {
 .container_inactive {  
     background-color: #B2BDC5;
     width: 95%;
-    margin: 1%;
+    margin: 0.5%;
     float: left;
     padding: 1%;
     -moz-border-radius: 10px;
@@ -1361,8 +1368,8 @@ td.textright {
 
 .container_active {
     background-color: #B2E3C5;
-    width: 95%;
-    margin: 1%;
+    width: 96%;
+    margin: 0.5%;
     float: left;
     padding: 1%;
     -moz-border-radius: 10px;
@@ -1375,7 +1382,7 @@ td.textright {
 .container_selected {
     background-color: #B2CADA;
     width: 95%;
-    margin: 1%;
+    margin: 0.5%;
     float: left;
     padding: 1%;
     -moz-border-radius: 10px;
@@ -1439,27 +1446,20 @@ td.textright {
 }
 
 
-/*Admin User group*/
 
-.container_edit{
 
-    width:6% !important;
-    margin-bottom:0px !important;
-    margin-top:70px;
-    margin-left:20px !important;
-    padding:1% 1% 0 1% !important;
-    -moz-border-radius-bottomleft:0px !important;
-    -moz-border-radius-bottomright:0px !important;
-}
+
+
+
 
 /*role*/
 
 #app #main #content div#role_condition_assigned .container_active_30 {
 
-    width: 28.3%;
+    width: 29%;
     margin: 1%;
     float: left;
-    padding: 1.5%;
+    padding: 1%;
     -moz-border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
@@ -1487,6 +1487,7 @@ div.tag ul li:last-child {
 
 div.tag ul li .options {
     display:none !important;
+    float:right;
 }
 
 div.tag ul li .options.active{
@@ -1523,6 +1524,14 @@ div#content_full_page .options {
 
     display:inline;
     float:right;
+
+}
+
+div#content_full_page h3 {
+    font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
 
 }
 
@@ -2000,8 +2009,8 @@ div#permission_form .options{
 }
 
 .tab_switch{
-   margin-left:3px;
-   margin-right:4px;
+    margin-left:3px;
+    margin-right:4px;
 
 }
 #app #left_content #new_pic_upload{
@@ -2019,4 +2028,51 @@ div#permission_form .options{
     font-weight:bold !important;
     color: #154073 !important;
     text-decoration:underline;
+}
+
+
+
+/*the edit small container*/
+
+
+.tab_corner{
+
+    margin-left:20px;
+    margin-top:40px;
+     margin-bottom:0px !important;
+
+}
+.container_edit{
+
+    font-family:Arial, Helvetica, sans-serif;
+    background-image:url(/images/container_bg.png);
+    background-repeat:repeat;
+    color: #2C2C2C;
+    float: left;
+    padding: 8px 8px;
+    height: 20px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    font-size:20px;
+    width:7% !important;
+}
+
+
+.profile_tab_left_corner{
+
+    background-image:url(/images/round_left.png);
+    background-position: bottom left;
+    background-repeat:no-repeat;
+    height: 36px;
+    width: 8px;
+
+}
+
+.profile_tab_right_corner{
+    background-image: url(/images/round_right.png);
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 36px;
+    width: 8px;
+
 }

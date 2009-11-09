@@ -24,7 +24,6 @@
           &nbsp
         %h2 New Data
         %div#system_data_add_entry_form{:style => "display:none;"}
-          %br.clear
           - form_for AmazonSetting.new, :url => {:controller => "amazon_settings", :action => "new_setting"}, :html => {:class => "ajax_form"} do |p|
             = p.text_field :type, {:style => "display:none"}
             .form_line
