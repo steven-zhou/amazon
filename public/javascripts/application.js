@@ -4523,9 +4523,22 @@ $(function(){
 $(function(){
 
 
-    $("#content").find('input').live('change', function(){
-    if (("#content").find('#left_content')==null ||  ("#content").find('#right_content')==null)
-      { $('#check_input_change').val("true");}
+    $("#content input").live('change', function(){
+     left_content = $("#content").find("#left_content");
+     right_content = $("#content").find("#right_content");
+//     alert( left_content.length);
+//     alert( right_content.length);
+         if (left_content.length > 0 &&  right_content.length > 0)
+      {
+//          $('#check_input_change').val("true");
+//          alert( $('#check_input_change').val());
+      }
+      else
+          {
+
+             $('#check_input_change').val("true");
+//             alert( $('#check_input_change').val());
+          }
    
    });
 });
@@ -4539,7 +4552,15 @@ $(function(){
 
 $(function(){
     $("#content #right_content").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+        right_tab = $("#right_content").find("#tabs");
+        if(right_tab.length <= 0)
+            {
+             $('#check_right_input_change').val("true");
+//               alert($('#check_right_input_change').val());
+            }
+
+
+//        $('#check_right_input_change').val("true");
 //        $('#check_input_change').val("true");
 
     });
@@ -4568,10 +4589,24 @@ check_input_change = function(){
 $(function(){
     $('#lc a').live('click', function(){
 
-        if($('#check_right_input_change').val() == "false")
-        {check_input_change();}
+         right_tab = $("#content #right_content").find("#tabs");
+//         alert(right_tab.length);
+          if(right_tab.length > 0)
+            {
+             check_input_change();
+            }
+         
+       
+     left_content = $("#content").find("#left_content");
+     right_content = $("#content").find("#right_content");
+//     alert( left_content.length);
+//     alert( right_content.length);
+         if (left_content.length > 0 &&  right_content.length > 0)
+      {
+//          $('#check_input_change').val("true");
+//          alert( $('#check_input_change').val());
 
-  if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+      if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
             {
 
               $('#check_input_change').val("true");
@@ -4581,6 +4616,7 @@ $(function(){
 
               $('#check_input_change').val("false");
             }
+      }
         var link = $(this);
 
         if($('#check_input_change').val() == "false"  )
@@ -4726,13 +4762,13 @@ $(function(){
 
 
 
-$(function(){
-    $('#content input[type="submit"]').live('click', function(){
-
-//        $('#check_input_change').val("false");
-
-    });
-});
+//$(function(){
+//    $('#content input[type="submit"]').live('click', function(){
+//
+////        $('#check_input_change').val("false");
+//
+//    });
+//});
 
 
 
@@ -4748,9 +4784,9 @@ $(function(){
     });
 
     $('#Contact input[type="submit"]').live('click', function(){
-        alert("a");
+//        alert("a");
         $('#contact_input_change_or_not').val("false");
-             alert("b");
+//             alert("b");
     });
 
 });
@@ -4858,12 +4894,12 @@ $(function(){
      if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
             {
         $('#check_right_input_change').val("true");
-        alert("c");
+     
             }
         else
             {
                    $('#check_right_input_change').val("false");
-                       alert("d");
+                      
             }
     });
 });
