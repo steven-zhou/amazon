@@ -931,8 +931,10 @@ img.medium {
 
 }
 img.thumb {
-    width:60px;
-    height: 66px;
+   /* width:60px;
+    height: 66px;*/
+    width:120px;
+    height:132px;
     float: left;
 }
 
@@ -1311,7 +1313,7 @@ form#organisation_names_form input#image_image_file{
 
 /* table */
 table#name_card {
-    width:92%;
+    width:87%;
 }
 
 td.w2 {
