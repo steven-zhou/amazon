@@ -11,11 +11,11 @@ class SigninController < ApplicationController
     if request.post?
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])        
+        session[:last_event] = Time.now()
         if login_account.class.to_s == "SystemUser"          
           grace_period_check(login_account) if login_account.last_login.nil?
           password_lifetime_check(login_account)
           session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
-          session[:last_event] = Time.now()
           @group_types = LoginAccount.validate_group(session[:user])
           @system_permission_types = LoginAccount.validate_permission(session[:user])
           @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
@@ -60,6 +60,7 @@ class SigninController < ApplicationController
     login_account = LoginAccount.find_by_id(session[:user])
     @temp_list = TempList.find_by_login_account_id(session[:user])
     @temp_list.destroy unless @temp_list.nil?
+    system_log("Login Account ID #{@current_user.id} -  #{@current_user.user_name} logged out of the system.")
     login_account.update_attributes(:last_logoff => Time.now()) unless login_account.nil?
     session[:user] = nil
     session[:current_list_id] = nil

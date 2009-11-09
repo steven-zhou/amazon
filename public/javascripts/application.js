@@ -1378,7 +1378,7 @@ $(function(){
             data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
             dataType:"script"
         });
-});
+    });
 
     $('#login_account_user_name').live("focus", function(){
         $(this).qtip(
@@ -2996,10 +2996,10 @@ $(function(){
             $("#warning_message").css('background-color','#D1DDE6');
 
             $('#warning_message').dialog('open');
-              return false;
+            return false;
         }
         else if ( $('#check_input_change').val()=="true")
-            {
+        {
             $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
@@ -3020,7 +3020,7 @@ $(function(){
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
-                       $('#check_input_change').val("false");
+                        $('#check_input_change').val("false");
                         $(this).dialog('destroy');                  
                         return true;
                     }
@@ -3033,16 +3033,16 @@ $(function(){
             $("#warning_message").css('background-color','#D1DDE6');
 
             $('#warning_message').dialog('open');
-              return false;
-            }
+            return false;
+        }
         else
-            {
-                  $('#'+link.attr('toggle_id_name')).toggle('blind');
-                  $("#" + link.attr('field')+'_mode').attr('mode','show');
-                  link.css("display","none");
-                  $('.new_option[field='+ link.attr('field') +']').css("display","");
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
 
-            }
+        }
 
 
     });
@@ -3965,7 +3965,6 @@ $(function(){
 });
 
 
-/*Contact form add button form to default phone form*/
 $(function(){
     $("#feedback").live("click", function(){
 
@@ -3980,7 +3979,29 @@ $(function(){
         $("#feedback_form").dialog("open");
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
+        $('#feedback_form_submit_button').attr('disabled', true);
 
+    });
+});
+
+
+$(function() {
+    $('#feedback_item_subject').keyup(function() {
+        if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
+            $('#feedback_form_submit_button').attr('disabled', true);
+        } else {
+            $('#feedback_form_submit_button').removeAttr('disabled');
+        }
+    });
+});
+
+$(function() {
+    $('#feedback_item_content').keyup(function() {
+        if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
+            $('#feedback_form_submit_button').attr('disabled', true);
+        } else {
+            $('#feedback_form_submit_button').removeAttr('disabled');
+        }
     });
 });
 
@@ -4484,7 +4505,7 @@ $(function(){
         var l = $('.check_postcode_columns').length;
 
         for (i = 0; i < l; i++) {
-         total = total + $('#'+$('.check_postcode_columns')[i].id).val();
+            total = total + $('#'+$('.check_postcode_columns')[i].id).val();
         }
         if(total != '') {
             $('#import_postcodes_columns').dialog('close');
@@ -4495,7 +4516,7 @@ $(function(){
                 height: 275,
                 draggable: true
             });
-           $('#import_postcode_parameters').dialog('open');
+            $('#import_postcode_parameters').dialog('open');
             $('#import_postcode_parameters').dialog('option', 'title', 'Postcode upload parameters');
         } else {
             alert("You must nominate at least one column.")
@@ -4524,29 +4545,29 @@ $(function(){
 
 
     $("#content input").live('change', function(){
-     left_content = $("#content").find("#left_content");
-     right_content = $("#content").find("#right_content");
-//     alert( left_content.length);
-//     alert( right_content.length);
-         if (left_content.length > 0 &&  right_content.length > 0)
-      {
-//          $('#check_input_change').val("true");
-//          alert( $('#check_input_change').val());
-      }
-      else
-          {
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        //     alert( left_content.length);
+        //     alert( right_content.length);
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+        //          $('#check_input_change').val("true");
+        //          alert( $('#check_input_change').val());
+        }
+        else
+        {
 
-             $('#check_input_change').val("true");
-//             alert( $('#check_input_change').val());
-          }
+            $('#check_input_change').val("true");
+        //             alert( $('#check_input_change').val());
+        }
    
-   });
+    });
 });
 
 $(function(){
     $("#content #left_content").find('input').live('change', function(){
         $('#check_left_input_change').val("true");
-//        $('#check_input_change').val("true");
+    //        $('#check_input_change').val("true");
     });
 });
 
@@ -4554,32 +4575,33 @@ $(function(){
     $("#content #right_content").find('input').live('change', function(){
         right_tab = $("#right_content").find("#tabs");
         if(right_tab.length <= 0)
-            {
-             $('#check_right_input_change').val("true");
-//               alert($('#check_right_input_change').val());
-            }
+        {
+            $('#check_right_input_change').val("true");
+        //               alert($('#check_right_input_change').val());
+        }
 
 
-//        $('#check_right_input_change').val("true");
-//        $('#check_input_change').val("true");
+    //        $('#check_right_input_change').val("true");
+    //        $('#check_input_change').val("true");
 
     });
 });
 
 check_input_change = function(){
 
-//    if($('#check_right_input_change').val() == "false")
-//    {
+    //    if($('#check_right_input_change').val() == "false")
+    //    {
         
-        if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
-            {
+    if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+    {
                  
-                 $('#check_right_input_change').val("true");
-            }
-       else
-            {
+        $('#check_right_input_change').val("true");
+    }
+    else
+    {
              
-                $('#check_right_input_change').val("false");}
+        $('#check_right_input_change').val("false");
+    }
 //     }
 
      
@@ -4589,34 +4611,34 @@ check_input_change = function(){
 $(function(){
     $('#lc a').live('click', function(){
 
-         right_tab = $("#content #right_content").find("#tabs");
-//         alert(right_tab.length);
-          if(right_tab.length > 0)
-            {
-             check_input_change();
-            }
+        right_tab = $("#content #right_content").find("#tabs");
+        //         alert(right_tab.length);
+        if(right_tab.length > 0)
+        {
+            check_input_change();
+        }
          
        
-     left_content = $("#content").find("#left_content");
-     right_content = $("#content").find("#right_content");
-//     alert( left_content.length);
-//     alert( right_content.length);
-         if (left_content.length > 0 &&  right_content.length > 0)
-      {
-//          $('#check_input_change').val("true");
-//          alert( $('#check_input_change').val());
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        //     alert( left_content.length);
+        //     alert( right_content.length);
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            //          $('#check_input_change').val("true");
+            //          alert( $('#check_input_change').val());
 
-      if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
             {
 
-              $('#check_input_change').val("true");
+                $('#check_input_change').val("true");
             }
-        else
+            else
             {
 
-              $('#check_input_change').val("false");
+                $('#check_input_change').val("false");
             }
-      }
+        }
         var link = $(this);
 
         if($('#check_input_change').val() == "false"  )
@@ -4777,16 +4799,16 @@ $(function(){
 $(function(){
     $("#Contact").find('input').live('change', function(){
       
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
 
         $('#contact_input_change_or_not').val("true");
 
     });
 
     $('#Contact input[type="submit"]').live('click', function(){
-//        alert("a");
+        //        alert("a");
         $('#contact_input_change_or_not').val("false");
-//             alert("b");
+    //             alert("b");
     });
 
 });
@@ -4794,7 +4816,7 @@ $(function(){
 
 $(function(){
     $("#Address").find('input').live('change', function(){
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
         $('#address_input_change_or_not').val("true")
     });
 
@@ -4807,7 +4829,7 @@ $(function(){
 
 $(function(){
     $("#MasterDocs").find('input').live('change', function(){
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
         $('#master_doc_input_change_or_not').val("true")
     });
 
@@ -4821,7 +4843,7 @@ $(function(){
 
 $(function(){
     $("#Rels").find('input').live('change', function(){
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
         $('#relationship_input_change_or_not').val("true");
     });
 
@@ -4834,14 +4856,14 @@ $(function(){
 
 $(function(){
     $("#Note").find('input').live('change', function(){
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
      
         $('#notes_input_change_or_not').val("true");
     
     });
     
-      $("#Note").find('textarea').live('change', function(){
-//        $('#check_right_input_change').val("true");
+    $("#Note").find('textarea').live('change', function(){
+        //        $('#check_right_input_change').val("true");
     
         $('#notes_input_change_or_not').val("true");
 
@@ -4858,7 +4880,7 @@ $(function(){
 
 $(function(){
     $("#Role").find('input').live('change', function(){
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
         $('#role_input_change_or_not').val("true");
     });
 
@@ -4870,7 +4892,7 @@ $(function(){
 });
 $(function(){
     $("#Employment").find('input').live('change', function(){
-//        $('#check_right_input_change').val("true");
+        //        $('#check_right_input_change').val("true");
         $('#employment_input_change_or_not').val("true");
     });
 
@@ -4891,16 +4913,16 @@ $(function(){
 
 $(function(){
     $('#right_content input[type="submit"]').live('click', function(){
-     if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
-            {
-        $('#check_right_input_change').val("true");
+        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+        {
+            $('#check_right_input_change').val("true");
      
-            }
+        }
         else
-            {
-                   $('#check_right_input_change').val("false");
+        {
+            $('#check_right_input_change').val("false");
                       
-            }
+        }
     });
 });
 
@@ -4969,3 +4991,4 @@ $(function(){
 
     });
 });
+

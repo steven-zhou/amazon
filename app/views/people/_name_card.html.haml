@@ -2,7 +2,7 @@
   -if person.image.nil?
     = image_tag 'Icons/System/image-missing.png', {:class => "thumb"}
   -else
-    = image_tag thumb_image_path(person.image.id), {:class => "thumb"}
+    = image_tag image_path(person.image.id), {:class => "thumb"}
   %div{:style=>"width:86%;height:132px;float:right;"}
     %div{:style=>"width:40%;height:100%;float:left;"}
       .form_line{:style=>"height:30px;margin-top:10px;"}
