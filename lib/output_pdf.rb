@@ -20,6 +20,12 @@ module OutputPdf
       {"Website" => "website"},
       {"Address" => "address"}]}
 
+  SYSTEM_LOG_REPORT_FORMAT = {"system_log_report" => [{"ID" => "id"},
+      {"Date" => "created_at"},
+      {"User" => "login_account.user_name"},
+      {"IP Address" => "ip_address"},
+      {"Message" => "message"}]}
+
 
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
@@ -517,7 +523,7 @@ module OutputPdf
       pdf.stroke_color! Color::Black
       pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
       s = 6
-      t = "Report Generated #{Time.now()}"
+      t = "Report Generated #{Time.now().strftime('%A %d %B %Y %H:%M:%S')}"
       w = pdf.text_width(t, s) / 2.0
       x = pdf.margin_x_middle
       y = pdf.absolute_bottom_margin
