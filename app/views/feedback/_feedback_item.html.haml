@@ -11,8 +11,9 @@
       - if (@feedback_item.response.nil? || @feedback_item.response.empty? )
         &nbsp;
         %br.clear
-        = submit_tag("Reply", :id => "reply_to_feedback", :style => "text-align:right;")
-- if (@feedback_item.response.nil? || @feedback_item.response.empty? )
+        - if @feedback_item.response_date.nil?
+          = submit_tag("Reply", :id => "reply_to_feedback", :style => "text-align:right;")
+- if (@feedback_item.response_date.nil?)
   %br.clear
   %div#feedback_reply{:style => "display:none;"}
     .container
@@ -34,7 +35,7 @@
           = text_field_tag :feedback_reply_subject, "Reply to: #{@feedback_item.subject} - #{@feedback_item.id}", :style => "width:100%;"
           %br.clear
           %p Content
-          = text_area_tag :feedback_reply_content, nil, :style => "width:100%;"
+          = text_area_tag :feedback_reply_content, nil, :style => "width:100%;min-height:300px;"
           %br.clear
           %p
           = submit_tag "Send", :id => "feedback_reply_submit", :style => "text-align:right;"
@@ -52,4 +53,4 @@
         %br.clear
         %p
           Content
-        = text_area_tag :display_feedback_reply, "#{@feedback_item.response}", :style => "width:100%;"
+        = text_area_tag :display_feedback_reply, "#{@feedback_item.response}", :style => "width:100%;min-height:300px;"
