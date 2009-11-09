@@ -64,7 +64,11 @@ class QueryHeader < ActiveRecord::Base
       operator_arr = QueryCriteria::OPERATORS[i.operator]
 
       if(i.data_type == "Integer FK")
-        value_clauses.push(i.field_name.camelize.constantize.find(:all, :conditions => ["name #{operator_arr[0]} ?", "#{operator_arr[1]}#{i.value}#{operator_arr[2]}"]))
+        if(i.field_name == "country")
+          value_clauses.push(i.field_name.camelize.constantize.find(:all, :conditions => ["short_name #{operator_arr[0]} ?", "#{operator_arr[1]}#{i.value}#{operator_arr[2]}"]))
+        else
+          value_clauses.push(i.field_name.camelize.constantize.find(:all, :conditions => ["name #{operator_arr[0]} ?", "#{operator_arr[1]}#{i.value}#{operator_arr[2]}"]))
+        end
       else
         value_clauses.push("#{operator_arr[1]}#{i.value}#{operator_arr[2]}")
       end
@@ -147,6 +151,16 @@ class QueryHeader < ActiveRecord::Base
     from_clauses.join(" JOIN ")
   end
 
+  def sql_value_clauses
+    sql_value_clauses = Array.new
+    sql_operator_arr = Array.new
+    self.query_criterias.find(:all, :order => "sequence").each do |i|
+      sql_operator_arr = QueryCriteria::OPERATORS[i.operator]
+      sql_value_clauses.push("#{sql_operator_arr[1]}#{i.value}#{sql_operator_arr[2]}")
+    end
+    sql_value_clauses
+  end
+
   def condition_sql_clauses
     condition_clauses = Array.new
     operator_arr = Array.new
@@ -159,8 +173,8 @@ class QueryHeader < ActiveRecord::Base
       end
     end
 
-    value_clauses = self.value_clauses
-    condition_clauses.each_index {|x| condition_clauses[x] = condition_clauses[x] + " " + value_clauses[x]}
+    sql_value_clauses = self.sql_value_clauses
+    condition_clauses.each_index {|x| condition_clauses[x] = condition_clauses[x] + " " + sql_value_clauses[x]}
     condition_clauses
   end
 

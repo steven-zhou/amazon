@@ -2091,7 +2091,7 @@ div#permission_form .options{
 }
 /*Person Detail Div*/
 
-  .person_detail {
+  .display_field_bg {
 
     color: #232323;
     background-image:url(/images/display_field_bg.png);
