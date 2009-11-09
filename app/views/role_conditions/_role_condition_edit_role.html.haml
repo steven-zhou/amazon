@@ -1,11 +1,11 @@
-.container_edit.container
-  .options
-    -#= link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_user_group_form", :class =>  "close_option", :field => "user_group")
-  .options_left{:style => "margin-right:10px;"}
-    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
-  %h3 Edit
-  %br
-.container#role_condition_edit_role
+.tab_corner
+  .container_corner.profile_tab_left_corner.left
+  .container_edit
+    .options_left{:style => "margin-right:10px;"}
+      = image_tag('edit_icon.png', :class => "edit_icon_right")
+    %h3 Edit
+  .container_corner.profile_tab_right_corner.left
+.full_container#role_condition_edit_role
   %div
     .options
       = link_to_function image_tag('close_icon.png'), :class => "close_option", :id => "edit_role_condition_form",  :field => "condition_role", :flag_name => "role_condition", :title=>"Close"
@@ -18,19 +18,17 @@
           = role.label :remarks, 'Remark'
           = role.text_field :remarks, :disabled => true
         .field_10
-          = role.label :role_status, 'Status'
-          = role.radio_button :role_status, true, :checked => true, :style => "width:10%;"
-          %label.inline Active
-        .field_10
-          = role.label :role_status, '&nbsp'
-          = role.radio_button :role_status, false, :style => "width:10%"
-          %label.inline Inactive
+          = role.label :role_status, 'Active'
+          = role.check_box :role_status
           = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
-    %div#assgin_role_condition.container
+    %br.clear
+    %br.clear
+
+    %div#assgin_role_condition.full_container
       .options
         = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role_condition_assign", :id => "close_role_condition_assign", :style => "display:none;", :field => "role_condition", :title=>"Close"
       .title
-        = link_to_function image_tag('add_icon.png'), :class => "toggle_button new_option add_flag", :toggle_id_name => "new_role_condition_assign", :flag_name => "role_condition_assign", :field => "role_condition", :id => "add_role_condition_assign"
+        = link_to_function image_tag('add_icon.png', :size => "22x22"), :class => "toggle_button new_option add_flag", :toggle_id_name => "new_role_condition_assign", :flag_name => "role_condition_assign", :field => "role_condition", :id => "add_role_condition_assign"
         &nbsp
       %h2 Assign New Condition
 
@@ -38,9 +36,8 @@
       %div#new_role_condition_assign{:style => "display:none;"}
         = render :partial => 'role_conditions/assign_role_condition_form'
     %br
-    Existing Conditions
+    %h2 Existing Conditions
     %input{:id => "role_condition_mode", :mode => "show", :style => "display:none"}
-    %br
     %div#role_condition_assigned
       = render :partial => 'role_conditions/existing_conditions'
 

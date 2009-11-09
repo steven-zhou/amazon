@@ -2,7 +2,7 @@
   #left
     .form_line
       = f.label :table_name, 'Select Table'
-      = f.collection_select :table_name, TableMetaMetaType.find(:all, :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "sorter", :class => "clear_select show_fields", :disabled => @query_header.status == false}
+      = f.collection_select :table_name, TableMetaMetaType.find(:all, :conditions => ["category != ?", "organisation"], :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "sorter", :class => "clear_select show_fields", :disabled => @query_header.status == false}
       %br.clear
     .form_line.field_select_line
       = f.label :field_name, 'Select Field'

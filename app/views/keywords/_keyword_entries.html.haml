@@ -1,12 +1,12 @@
 %div#keyword_entries
   - for setting in @type
     - setting_status = setting.status ? "container_active" : "container_inactive"
-    %div{:class => "#{setting_status} toggle_options", :keyword_id => setting.id, :id => "keyword_#{setting.id}", :style => "width:26%;", :field => "keyword" }
+    %div{:class => "#{setting_status} toggle_options", :keyword_id => setting.id, :id => "keyword_#{setting.id}", :style => "width:30%;", :field => "keyword" }
       .options{:style => "display:none;"}
         = link_to image_tag('edit_icon.png'), edit_keyword_path(setting), :class => 'get edit_keyword edit_option', :field => "keyword", :id => 'edit_current_keyword_entry', :keyword_id => setting.id, :title=>"Edit"
         = link_to_function (image_tag('delete_icon.png'), :class => 'check_delete ', :field => "keyword", :id => 'keyword_check_delete_button', :keyword_id => setting.id, :title=>"Remove") unless !setting.status
         = link_to image_tag('delete_icon.png'), keyword_path(setting), :class => 'delete delete_keyword delete_option',:error_message_field => "Keyword", :field => "keyword", :id => 'keyword_delete_button', :keyword_id => setting.id, :style => "display:none", :title=>"Remove"
       .title                                     
-        = setting.name
+        %h3= h "#{setting.name}"
 #keyword_already_assigned{:style=> "display:none;"}
   =label_tag :keyword_already_assigned_warning_message, "keyword can not be deleted. It has been assigned."

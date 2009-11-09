@@ -1,7 +1,7 @@
 -div_for(duplication_formula_detail, :class => 'info_container') do
   .header_container
     .title
-      %h3= duplication_formula_detail.formatted_info
+      %h2= duplication_formula_detail.formatted_info
     .options
       = link_to image_tag('delete_icon.png'), duplication_formula_detail_path(duplication_formula_detail), :class => 'delete', :field => "Formula detail",:error_message_field => "Formula detail", :title=>"Remove"
     %br.clear

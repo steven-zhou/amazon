@@ -1,6 +1,11 @@
 %div#edit_system_data_entry
-  %br.clear
-
+  .tab_corner
+    .container_corner.profile_tab_left_corner.left
+    .container_edit
+      .options_left{:style => "margin-right:10px;"}
+        = image_tag('edit_icon.png', :class => "edit_icon_right")
+      %h3 Edit
+    .container_corner.profile_tab_right_corner.left
   .container
     - form_for @amazon_setting, :url => {:controller => "amazon_settings", :action => "update_setting", :id => @amazon_setting.id, :type => @amazon_setting.class.name}, :html => {:class => "ajax_form"} do |p|
       .form_line

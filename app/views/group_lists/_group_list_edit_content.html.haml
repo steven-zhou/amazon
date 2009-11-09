@@ -1,10 +1,11 @@
-.container_edit.container
-  .options_left{:style => "margin-right:10px;"}
-    = link_to_function image_tag('edit_icon.png'), :class => "edit_icon_right"
-  %h3 Edit
-  %br
-
-.container
+.tab_corner
+  .container_corner.profile_tab_left_corner.left
+  .container_edit
+    .options_left{:style => "margin-right:10px;"}
+      = image_tag('edit_icon.png', :class => "edit_icon_right")
+    %h3 Edit
+  .container_corner.profile_tab_right_corner.left
+.full_container
   .options
     = link_to_function image_tag('close_icon.png'), :class => "close_option close_logo", :field => "group_list_group", :title=>"Close"
   %br
