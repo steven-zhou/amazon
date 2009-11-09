@@ -1,4 +1,4 @@
-.container.toggle_options{:id => "to_do_detail_#{to_do_detail.id}", :field => "to_do"}
+.container.toggle_options{:id => "to_do_detail_#{to_do_detail.id}", :field => "to_do", :style => "height:20px;"}
   .options{:style => "float:right;display:none;"}
     = link_to image_tag("icon_holder.png"), switch_to_do_list_path(to_do_detail), :class => "get", :title=>"Switch"
     = link_to image_tag("edit_icon.png"), edit_to_do_list_path(to_do_detail), :class => "get", :title=>"Edit"

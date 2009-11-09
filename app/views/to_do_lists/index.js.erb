@@ -1,10 +1,10 @@
-$('#manage_system_news_dialog').html('<%= escape_javascript(render(:partial => "/system_news/system_news_manager")) %>');
-$('#manage_system_news_dialog').dialog( {
+$('#manage_to_do_dialog').html('<%= escape_javascript(render(:partial => "/to_do_lists/to_do_list_manager")) %>');
+$('#manage_to_do_dialog').dialog( {
   modal: true,
-  resizable: false,
+    resizable: false,
   width: 800,
   height: 600,
   draggable: true
 });
-$('#manage_system_news_dialog').dialog('option', 'title', 'System News Manager');
-$('#manage_system_news_dialog').dialog('open');
+$('#manage_to_do_dialog').dialog('option', 'title', 'To Do Manager');
+$('#manage_to_do_dialog').dialog('open');
