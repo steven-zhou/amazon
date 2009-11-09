@@ -58,7 +58,7 @@
     %div.person_detail
       =@person.industry_sector.nil? ? "" : @person.industry_sector.name.to_s
     
-  .field_60
+  .field_30
     = label_tag :interests,"Interests", {:style => "color: #232323;"}
     %div.person_detail
       = @person.interests.nil? ? "" : @person.interests
