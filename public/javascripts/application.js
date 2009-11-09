@@ -3321,7 +3321,9 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
+
                        clear_organisation_form(link);
+
                         $(this).dialog('destroy');                  
                         return true;
                     }
@@ -3341,6 +3343,7 @@ $(function(){
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
+
             link.css("display","none");
             $('.new_option[field='+ link.attr('field') +']').css("display","");
 
@@ -4374,7 +4377,6 @@ $(function(){
 });
 
 
-/*Contact form add button form to default phone form*/
 $(function(){
     $("#feedback").live("click", function(){
 
@@ -4389,7 +4391,29 @@ $(function(){
         $("#feedback_form").dialog("open");
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
+        $('#feedback_form_submit_button').attr('disabled', true);
 
+    });
+});
+
+
+$(function() {
+    $('#feedback_item_subject').keyup(function() {
+        if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
+            $('#feedback_form_submit_button').attr('disabled', true);
+        } else {
+            $('#feedback_form_submit_button').removeAttr('disabled');
+        }
+    });
+});
+
+$(function() {
+    $('#feedback_item_content').keyup(function() {
+        if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
+            $('#feedback_form_submit_button').attr('disabled', true);
+        } else {
+            $('#feedback_form_submit_button').removeAttr('disabled');
+        }
     });
 });
 
@@ -5074,15 +5098,20 @@ $(function(){
     $("#content input").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
-     
+
+        //     alert( left_content.length);
+        //     alert( right_content.length);
         if (left_content.length > 0 &&  right_content.length > 0)
         {
+        //          $('#check_input_change').val("true");
+        //          alert( $('#check_input_change').val());
 
         }
         else
         {
 
             $('#check_input_change').val("true");
+
         }
    
     });
@@ -5530,3 +5559,4 @@ $(function(){
 
     });
 });
+
