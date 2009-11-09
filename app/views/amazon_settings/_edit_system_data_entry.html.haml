@@ -4,7 +4,7 @@
   .container
     - form_for @amazon_setting, :url => {:controller => "amazon_settings", :action => "update_setting", :id => @amazon_setting.id, :type => @amazon_setting.class.name}, :html => {:class => "ajax_form"} do |p|
       .form_line
-        = link_to_function image_tag('close_icon.png', :field => "system_data", :class => "close_option", :id => "close_edit_system_data_entry", :style => "float:right;"), :title=>"Close"
+        = link_to_function image_tag('close_icon.png'), :field => "system_data", :class => "close_option", :id => "close_edit_system_data_entry", :style => "float:right;", :title=>"Close"
         .field_30
           = p.label :name, 'Name'
           = p.text_field :name, {:disabled => ("disabled" if !@amazon_setting.status)}
