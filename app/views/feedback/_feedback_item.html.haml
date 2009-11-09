@@ -38,7 +38,7 @@
           = text_area_tag :feedback_reply_content, nil, :style => "width:100%;min-height:300px;"
           %br.clear
           %p
-          = submit_tag "Send", :id => "feedback_reply_submit", :style => "text-align:right;"
+          = submit_tag "Send", :id => "feedback_reply_submit", :style => "text-align:right;", :disabled => true
 - else
   %br.clear
   .container
@@ -54,3 +54,24 @@
         %p
           Content
         = text_area_tag :display_feedback_reply, "#{@feedback_item.response}", :style => "width:100%;min-height:300px;"
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $(function() {
+  $('#feedback_reply_subject').keyup(function() {
+  if($('#feedback_reply_subject').val() == '' || $('#feedback_reply_content').val() == '') {
+  $('#feedback_reply_submit').attr('disabled', true);
+  } else {
+  $('#feedback_reply_submit').removeAttr('disabled');
+  }
+  });
+  });
+
+  $(function() {
+  $('#feedback_reply_content').keyup(function() {
+  if($('#feedback_reply_subject').val() == '' || $('#feedback_reply_content').val() == '') {
+  $('#feedback_reply_submit').attr('disabled', true);
+  } else {
+  $('#feedback_reply_submit').removeAttr('disabled');
+  }
+  });
+  });

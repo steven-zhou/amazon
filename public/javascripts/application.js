@@ -35,7 +35,7 @@ $(document).ready(function() {
             xhr.setRequestHeader("Content-Type", s.contentType);
         }
         s.data = s.data + encodeURIComponent(window._auth_token_name)
-            + "=" + encodeURIComponent(window._auth_token);
+        + "=" + encodeURIComponent(window._auth_token);
     });
 });
 
@@ -379,7 +379,7 @@ showKeyword = function(){
             $("#add_person_keywords").find("option").show();
         }else{      
             $("#add_person_keywords option[class=" + $(this).text() + "]").show();
-            //             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
+        //             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
              
         }
     });
@@ -548,9 +548,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/organisations/name_finder.js",
+                "/organisations/name_finder.js",
                 data:
-                    'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -565,9 +565,9 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/people/name_finder.js",
+                "/people/name_finder.js",
                 data:
-                    'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
                 dataType: "script"
             });
         }else{
@@ -605,7 +605,7 @@ $(function()
             dataType: "script"
         });
 
-        /* }
+    /* }
         else{
             if($(this).attr('person_group_id').val()!="")
                 {
@@ -686,9 +686,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/people/master_doc_meta_type_finder.js",
+            "/people/master_doc_meta_type_finder.js",
             data:
-                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -700,9 +700,9 @@ $(function(){
         $.ajax({
             type: "GET",
             url:
-                "/people/master_doc_type_finder.js",
+            "/people/master_doc_type_finder.js",
             data:
-                'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
+            'id='+$(this).val()+'&master_doc_id='+$(this).attr('master_doc_id'),
             dataType: "script"
         });
     });
@@ -989,18 +989,18 @@ $(function(){
             $.ajax({
                 type: "GET",
                 url:
-                    "/amazon_settings/new.js",
+                "/amazon_settings/new.js",
                 data:
-                    'type=' + $("#find_data_list_field").val(),
+                'type=' + $("#find_data_list_field").val(),
                 dataType: "script"
             });
         }else{
             $.ajax({
                 type: "GET",
                 url:
-                    "/amazon_settings/" + $(this).val() + "/edit.js",
+                "/amazon_settings/" + $(this).val() + "/edit.js",
                 data:
-                    'id=' + $(this).val(),
+                'id=' + $(this).val(),
                 dataType: "script"
             });
         }
@@ -1386,7 +1386,7 @@ $(function(){
             content: 'username must between 6~20<br>username can\'t the same as password',
             style: 'dark'
         }
-    );
+        );
     });
 });
 
@@ -2572,76 +2572,76 @@ $(function(){
         url: '/grids/feedback_search_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Date',
-                name : 'field_1',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Date',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Submitted By',
-                name : 'field_2',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Submitted By',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Subject',
-                name : 'field_3',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Subject',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'IP Address',
-                name : 'field_4',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'IP Address',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Status',
-                name : 'field_5',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Status',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
 
         ],
         searchitems : [
-            {
-                display: 'Date',
-                name : 'field_1'
-            },
+        {
+            display: 'Date',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Submitted By',
-                name : 'field_2'
-            },
+        {
+            display: 'Submitted By',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Subject',
-                name : 'field_3'
-            },
+        {
+            display: 'Subject',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Status',
-                name : 'field_4'
-            },
+        {
+            display: 'Status',
+            name : 'field_4'
+        },
 
         ],
         sortname: "grid_object_id",
@@ -2813,79 +2813,79 @@ $(function(){
         url: '/grids/people_search_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'First Name',
-                name : 'field_1',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Email',
-                name : 'field_5',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            }
+        {
+            display: 'Email',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {
-                display: 'First Name',
-                name : 'field_1'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3'
-            },
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
 
-            {
-                display: 'Email',
-                name : 'field_5'
-            }
+        {
+            display: 'Email',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -2913,9 +2913,9 @@ $(function(){
 
 $(function(){
     $('table#people_search_grid tbody tr').live('dblclick',function(){
-        {
-            window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
-        }
+    {
+        window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");
+    }
     });
 });
 
@@ -3109,79 +3109,79 @@ $(function(){
         url: '/grids/organisation_search_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Trading As',
-                name : 'field_1',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Trading As',
+            name : 'field_1',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Registered Name',
-                name : 'field_2',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Registered Name',
+            name : 'field_2',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Website',
-                name : 'field_5',
-                width : 180,
-                sortable : true,
-                align: 'left'
-            }
+        {
+            display: 'Website',
+            name : 'field_5',
+            width : 180,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {
-                display: 'Trading As',
-                name : 'field_1'
-            },
+        {
+            display: 'Trading As',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Registered Name',
-                name : 'field_2'
-            },
+        {
+            display: 'Registered Name',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3'
-            },
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
 
-            {
-                display: 'Website',
-                name : 'field_5'
-            }
+        {
+            display: 'Website',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -3209,9 +3209,9 @@ $(function(){
 
 $(function(){
     $('table#organisation_search_grid tbody tr').live('dblclick',function(){
-        {
-            window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
-        }
+    {
+        window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
+    }
     });
 });
 
@@ -3221,79 +3221,79 @@ $(function(){   /*organisation employee list result*/
         url: '/grids/organisation_employee_grid',
         dataType: 'json',
         colModel : [
-            {
-                display: 'ID',
-                name : 'grid_object_id',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'ID',
+            name : 'grid_object_id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'First Name',
-                name : 'field_1',
-                width : 50,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1',
+            width : 50,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2',
-                width : 50,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2',
+            width : 50,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3',
-                width : 120,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Address',
+            name : 'field_3',
+            width : 120,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4',
-                width : 80,
-                sortable : true,
-                align: 'left'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4',
+            width : 80,
+            sortable : true,
+            align: 'left'
+        },
 
-            {
-                display: 'email',
-                name : 'field_5',
-                width : 40,
-                sortable : true,
-                align: 'left'
-            }
+        {
+            display: 'email',
+            name : 'field_5',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        }
         ],
         searchitems : [
-            {
-                display: 'First Name',
-                name : 'field_1'
-            },
+        {
+            display: 'First Name',
+            name : 'field_1'
+        },
 
-            {
-                display: 'Family Name',
-                name : 'field_2'
-            },
+        {
+            display: 'Family Name',
+            name : 'field_2'
+        },
 
-            {
-                display: 'Address',
-                name : 'field_3'
-            },
+        {
+            display: 'Address',
+            name : 'field_3'
+        },
 
-            {
-                display: 'Phone',
-                name : 'field_4'
-            },
+        {
+            display: 'Phone',
+            name : 'field_4'
+        },
 
-            {
-                display: 'Email',
-                name : 'field_5'
-            }
+        {
+            display: 'Email',
+            name : 'field_5'
+        }
         ],
         sortname: "grid_object_id",
         sortorder: "asc",
@@ -3823,20 +3823,20 @@ $(function(){
 
 
     $("div#module_menu").hover(
-    function(){},
-    function(){
-        $("div#module_menu_top").removeClass("hover");
-        $("div#module_menu_items").fadeOut("fast");
-    });
+        function(){},
+        function(){
+            $("div#module_menu_top").removeClass("hover");
+            $("div#module_menu_items").fadeOut("fast");
+        });
 
 
     $("div#module_menu_items li").hover(
-    function(){
-        $(this).removeClass("hover","fast");
-    },
-    function(){
-        $(this).addClass("hover", "normal");
-    });
+        function(){
+            $(this).removeClass("hover","fast");
+        },
+        function(){
+            $(this).addClass("hover", "normal");
+        });
 });
 
 /*user--list*/
@@ -3946,21 +3946,21 @@ $(function(){
             $("#website_remarks").attr('readonly','readonly');
             $("#submit_website_field").attr('readonly','readonly')
         }
-        //            if($("#email_contact_meta_type_id").val() == null)
-        //            {
-        //                $("#email_remarks").attr('readonly','readonly');
-        //                $("#email_value").attr('readonly','readonly');
-        //                $("#submit_email_field").attr('disabled','disabled');
-        //            }
-        //
-        //            if($("#website_contact_meta_type_id").val() == null)
-        //            {
-        //                $("#website_value").attr('readonly','readonly');
-        //                $("#website_remarks").attr('readonly','readonly');
-        //                $("#submit_website_field").attr('disabled','disabled');
-        //            }
+    //            if($("#email_contact_meta_type_id").val() == null)
+    //            {
+    //                $("#email_remarks").attr('readonly','readonly');
+    //                $("#email_value").attr('readonly','readonly');
+    //                $("#submit_email_field").attr('disabled','disabled');
+    //            }
+    //
+    //            if($("#website_contact_meta_type_id").val() == null)
+    //            {
+    //                $("#website_value").attr('readonly','readonly');
+    //                $("#website_remarks").attr('readonly','readonly');
+    //                $("#submit_website_field").attr('disabled','disabled');
+    //            }
 
-        //        }
+    //        }
     });
 });
 
@@ -3975,7 +3975,7 @@ $(function(){
             height: 650,
             width: 800
         }
-    );
+        );
         $("#feedback_form").dialog("open");
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
@@ -3988,9 +3988,9 @@ $(function(){
 $(function() {
     $('#feedback_item_subject').keyup(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
-          $('#feedback_form_submit_button').attr('disabled', true);
+            $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-          $('#feedback_form_submit_button').removeAttr('disabled');
+            $('#feedback_form_submit_button').removeAttr('disabled');
         }
     });
 });
@@ -3998,13 +3998,12 @@ $(function() {
 $(function() {
     $('#feedback_item_content').keyup(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
-          $('#feedback_form_submit_button').attr('disabled', true);
+            $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-          $('#feedback_form_submit_button').removeAttr('disabled');
+            $('#feedback_form_submit_button').removeAttr('disabled');
         }
     });
 });
-
 
 
 
@@ -4552,14 +4551,14 @@ $(function(){
         //     alert( right_content.length);
         if (left_content.length > 0 &&  right_content.length > 0)
         {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
+        //          $('#check_input_change').val("true");
+        //          alert( $('#check_input_change').val());
         }
         else
         {
 
             $('#check_input_change').val("true");
-            //             alert( $('#check_input_change').val());
+        //             alert( $('#check_input_change').val());
         }
    
     });
@@ -4568,7 +4567,7 @@ $(function(){
 $(function(){
     $("#content #left_content").find('input').live('change', function(){
         $('#check_left_input_change').val("true");
-        //        $('#check_input_change').val("true");
+    //        $('#check_input_change').val("true");
     });
 });
 
@@ -4578,12 +4577,12 @@ $(function(){
         if(right_tab.length <= 0)
         {
             $('#check_right_input_change').val("true");
-            //               alert($('#check_right_input_change').val());
+        //               alert($('#check_right_input_change').val());
         }
 
 
-        //        $('#check_right_input_change').val("true");
-        //        $('#check_input_change').val("true");
+    //        $('#check_right_input_change').val("true");
+    //        $('#check_input_change').val("true");
 
     });
 });
@@ -4601,8 +4600,9 @@ check_input_change = function(){
     else
     {
              
-        $('#check_right_input_change').val("false");}
-    //     }
+        $('#check_right_input_change').val("false");
+    }
+//     }
 
      
 
@@ -4808,7 +4808,7 @@ $(function(){
     $('#Contact input[type="submit"]').live('click', function(){
         //        alert("a");
         $('#contact_input_change_or_not').val("false");
-        //             alert("b");
+    //             alert("b");
     });
 
 });
