@@ -1,4 +1,5 @@
 <div id="feedback_form">
+
   <h2>Feedback Form</h2>
   <br />
   <p>If you have any questions or feedback, please complete the form below.</p>
@@ -6,6 +7,14 @@
 
   <% form_tag("/feedback/submit_feedback", :class => "ajax_form") do -%>
     <table>
+      <tr>
+        <td>
+          <strong>To:</strong>
+        </td>
+        <td>
+          feedback at memberzone dot com dot au
+        </td>
+      </tr>
       <tr>
         <td>
           <strong>From:</strong>
@@ -40,7 +49,7 @@
       </tr>
       <tr>
         <td>&nbsp;</td>
-        <td><%= submit_tag("Submit", :id => "feedback_submit") %></td>
+        <td><%= submit_tag("Submit", :id => "feedback_submit", :disabled => true, :id => 'feedback_form_submit_button') %></td>
       </tr>
 
     </table>
