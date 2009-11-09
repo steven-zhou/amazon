@@ -20,12 +20,6 @@ module OutputPdf
       {"Website" => "website"},
       {"Address" => "address"}]}
 
-  SYSTEM_LOG_REPORT_FORMAT = {"system_log_report" => [{"ID" => "id"},
-      {"Date" => "created_at"},
-      {"User" => "login_account.user_name"},
-      {"IP Address" => "ip_address"},
-      {"Message" => "message"}]}
-
 
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
@@ -145,6 +139,8 @@ module OutputPdf
     pdf.image header_settings[:image], :justification => header_settings[:image_position].to_sym
     pdf.select_font header_settings[:font]
     pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
+
+    generate_footer(pdf)
   end
 
 
@@ -397,11 +393,12 @@ module OutputPdf
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
     header_settings[:font_size] ||= 32
-
-
     pdf.image header_settings[:image], :justification => header_settings[:image_position]
     pdf.select_font header_settings[:font]
     pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position]
+
+    generate_footer(pdf)
+
   end
 
   def self.generate_body(pdf, source_type, source_id, body_settings={})
@@ -510,6 +507,28 @@ module OutputPdf
       return field_one
     else
       return "#{field_one} \n #{field_two}"
+    end
+  end
+
+
+  def self.generate_footer(pdf)
+    pdf.open_object do |heading|
+      pdf.save_state
+      pdf.stroke_color! Color::Black
+      pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
+      s = 6
+      t = "Report Generated #{Time.now()}"
+      w = pdf.text_width(t, s) / 2.0
+      x = pdf.margin_x_middle
+      y = pdf.absolute_bottom_margin
+      pdf.add_text(x - w, y, t, s)
+      x = pdf.absolute_left_margin
+      w = pdf.absolute_right_margin
+      y -= (pdf.font_height(s) * 1.01)
+      pdf.line(x, y, w, y).stroke
+      pdf.restore_state
+      pdf.close_object
+      pdf.add_object(heading, :all_pages)
     end
   end
   
