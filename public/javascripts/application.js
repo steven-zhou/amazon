@@ -4994,6 +4994,14 @@ $(function(){
         $('#new_to_do_dialog').dialog('option', 'title', 'New To Do Entry');
         $('#new_to_do_dialog').dialog('open');
     });
+
+    $("#manage_to_do").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/to_do_lists.js",
+            dataType: "script"
+        });
+    });
 });
 
 // System News

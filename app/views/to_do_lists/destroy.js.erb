@@ -1,3 +1,2 @@
-$('#system_news_detail_<%= escape_javascript("#{@system_news.id}") %>').fadeOut("slow", function() {$(this).remove();});
-$('#system_news_container').html('<%= escape_javascript(render(:partial => "system_news/system_news_part", :locals => {:current_news => SystemNews.first_three})) %>');
-$('#news_offset_number').val('0');
+$('#to_do_detail_<%= escape_javascript("#{@to_do_list.id}") %>').fadeOut("slow", function() {$(this).remove();});
+$('#to_do_lists').html('<%= escape_javascript(render(:partial => "to_do_lists/to_do_list")) %>');
