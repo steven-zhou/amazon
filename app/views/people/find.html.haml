@@ -94,7 +94,7 @@
           .field_60
             = p.label :interests,"Interests"
             = p.text_field :interests
-        = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+        = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "left_find_by_person"
         = submit_tag 'Find', {:id => "find_button" }
         %br.clear
 
@@ -119,7 +119,7 @@
               = email.text_field :value
             %br.clear
           %p.submit
-            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+            = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_email"
             = submit_tag 'Find'
           %br.clear
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
@@ -140,7 +140,7 @@
               = phone.text_field :post_value
           %br.clear
           %p.submit
-            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+            = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_phone"
             = submit_tag 'Find'
           %br.clear
     %h3
@@ -192,7 +192,7 @@
               = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
             %br.clear
           %p.submit
-            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+            = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_address"
             = submit_tag 'Find'
           %br.clear
     %h3

@@ -1,66 +1,66 @@
 .form_line
   .field_30
     = label_tag :date_of_birth, "Date of Birth", {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       =@person.birth_date.nil? ? "" : @person.birth_date.to_s
   .field_30
     = label_tag :gender, 'Gender', {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       =@person.gender.nil? ? "" :@person.gender.name.to_s
   %br.clear
 .form_line
   .field_30
     = label_tag :marital_status, 'Marital Status', {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       =@person.marital_status.nil? ? "" :@person.marital_status.name.to_s
   .field_30
     = label_tag :religion_id, 'Religion', {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       = @person.religion.nil? ? "" :@person.religion.name.to_s
   %br.clear
 .form_line
   .field_30
     = label_tag :origin_country_id,'Country of Origin', {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       = @person.origin_country.nil? ? "": @person.origin_country.short_name.to_s
    
   .field_30
     = label_tag :nationality_id, 'Nationality', {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       =@person.nationality.nil? ? "" :@person.nationality.short_name.to_s
     
   .field_30
     = label_tag :language_id, 'Language', {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       = @person.language.nil? ? "" : @person.language.name.to_s
     
   %br.clear
 .form_line
   .field_30
     = label_tag :residence_country_id,"Country of Residence", {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       = @person.residence_country.nil? ? "" :@person.residence_country.short_name.to_s
     
   .field_30
     = label_tag :other_nationality_id,"Other Nationality", {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       =@person.other_nationality.nil? ? "" : @person.other_nationality.short_name.to_s
     
   .field_30
     = label_tag :other_language,"Other Language", {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       = @person.other_language.nil? ? "" : @person.other_language.id
     
   %br.clear
 .form_line
   .field_30
     = label_tag :industry_sector,"Industry Sector", {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       =@person.industry_sector.nil? ? "" : @person.industry_sector.name.to_s
     
   .field_30
     = label_tag :interests,"Interests", {:style => "color: #232323;"}
-    %div.person_detail
+    %div.display_field_bg
       = @person.interests.nil? ? "" : @person.interests
    
   %br.clear
