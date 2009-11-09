@@ -14,13 +14,15 @@
       .form_line{:style=>"height:20px;"}
         .field_100{:style=>"height:100%;font-size:12px;"}
           #{person.onrecord_since.to_s}
-    %div{:style=>"width:60%;height:100%;float:right;"}
       .form_line{:style=>"height:20px;margin-top:30px;"}
-        .field_100{:style=>"height:100%;width:49%;"}
+        .field_100{:style=>"height:100%;width:40%;"}
+          = label_tag :customerid, "Customer ID"
+        .field_100{:style=>"height:100%;width:30%;"}
           = label_tag :employer, "Employer"
-        .field_100{:style=>"height:100%;width:49%;"}
+        .field_100{:style=>"height:100%;width:30%;"}
           = label_tag :role, "Role"
       .form_line
+        .field_100{
         .field_100{:style=>"width:48%;font-size:13px;padding-left: 1%;"}
           = person.employers.first.nil? ? "" : person.employers.first.full_name
         .field_100{:style=>"width:48%;font-size:13px;padding-left: 1%;"}
