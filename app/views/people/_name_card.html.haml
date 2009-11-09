@@ -4,31 +4,32 @@
   -else
     = image_tag image_path(person.image.id), {:class => "thumb"}
   %div{:style=>"width:86%;height:132px;float:right;"}
-    %div{:style=>"width:40%;height:100%;float:left;"}
-      .form_line{:style=>"height:30px;margin-top:10px;"}
+    %div{:style=>"width:100%;height:100%;float:left;"}
+      .form_line
         .field_100{:style=>"height:100%;"}
           %h1 #{person.id} #{person.name}
-      .form_line{:style=>"height:20px;"}
-        .field_100{:style=>"height:100%;font-size:12px;"}
-          #{person.custom_id}
-      .form_line{:style=>"height:20px;"}
-        .field_100{:style=>"height:100%;font-size:12px;"}
-          #{person.onrecord_since.to_s}
-    %div{:style=>"width:60%;height:100%;float:right;"}
-      .form_line{:style=>"height:20px;margin-top:30px;"}
-        .field_100{:style=>"height:100%;width:49%;"}
-          = label_tag :employer, "Employer"
-        .field_100{:style=>"height:100%;width:49%;"}
-          = label_tag :role, "Role"
       .form_line
-        .field_100{:style=>"width:48%;font-size:13px;padding-left: 1%;"}
-          = person.employers.first.nil? ? "" : person.employers.first.full_name
-        .field_100{:style=>"width:48%;font-size:13px;padding-left: 1%;"}
+        .field_22
+          = label_tag :customerid, "Customer ID", {:style => "color: #232323;"}
+          %div.display_field_bg
+            #{person.custom_id}
+        .field_22{:style=>"margin-left:140px;"}
+          = label_tag :employer, "Employer", {:style => "color: #232323;"}
+          %div.display_field_bg
+            = person.employers.first.nil? ? "" : person.employers.first.full_name
+        .field_22{:style=>"margin-left:20px;"}
+          = label_tag :role, "Role", {:style => "color: #232323;"}
+          %div.display_field_bg
           = person.roles.first.nil? ? "" : person.roles.first.name
-      .form_line{:style=>"height:20px;"}
-        .field_100{:style=>"height:100%;"}
-          = label_tag :groups, "Groups"
-      .form_line{:style=>"height:20px;"}
-        .field_100{:style=>"width:100%;font-size:13px;padding-left: 1%;"}
-          = person.group_types.first.nil? ? "" : person.group_types.first.name
-          = person.group_types.first.nil? ? "" : person.group_types.first.type
+        %br.clear
+      .form_line
+        .field_22
+          = label_tag :on_record_since, "On Record Since", {:style => "color: #232323;"}
+          %div.display_field_bg
+            #{person.onrecord_since.to_s}
+        .field_22{:style=>"margin-left:140px;"}
+          = label_tag :groups, "Groups", {:style => "color: #232323;"}
+          %div.display_field_bg
+            = person.group_types.first.nil? ? "" : person.group_types.first.name
+            = person.group_types.first.nil? ? "" : person.group_types.first.type
+        %br.clear

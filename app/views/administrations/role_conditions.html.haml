@@ -4,10 +4,12 @@
   #lol
   %br.clear
 
-.container
-  .container
-    = link_to_function image_tag("add_icon.png" , :size => "19x18"), :class => "multilevel_new_option new_tag_meta_type", :tag => @category
-    New Meta Type
+.full_container
+  .full_container
+    .title
+      = link_to_function image_tag("add_icon.png" ,:size => "22x22"), :class => "multilevel_new_option new_tag_meta_type", :tag => @category
+      &nbsp
+    %h1 New Meta Type
   %br.clear
 
   .tag

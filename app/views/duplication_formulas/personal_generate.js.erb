@@ -1,7 +1,7 @@
 <% unless flash[:message].nil? %>
 
 
- $('#confirm_message_text').html("Duplication Value Is Re-generated");
+ $('#confirm_message_text').html("Re-generate Duplication Value completely successful.");
             $('#confirm_message_image').css("display","");
             $('#confirm_message').dialog({
                 modal: true,
@@ -16,7 +16,7 @@
                     }
                 }
             });
-            $('#confirm_message').dialog('option', 'title', 'Comfirm');
+            $('#confirm_message').dialog('option', 'title', 'Confirmation');
 
             $('#confirm_message').parent().find("a").css("display","none");
             $("#confirm_message").parent().css('background-color','#D1DDE6');
