@@ -1,7 +1,8 @@
 .form_line
   .field_30
     = label_tag :date_of_birth, "Date of Birth"
-    = label_tag :date_of_birth, @person.birth_date.nil? ? "" : @person.birth_date.to_s
+    %div.person_detail
+      = label_tag :date_of_birth, @person.birth_date.nil? ? "" : @person.birth_date.to_s
   .field_30
     = label_tag :gender, 'Gender'
     = label_tag :gender, @person.gender.nil? ? "" :@person.gender.name.to_s

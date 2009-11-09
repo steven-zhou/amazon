@@ -1880,3 +1880,16 @@ div#permission_form .options{
     color: #154073 !important;
     text-decoration:underline;
 }
+/*Person Detail Div*/
+#app #main #content .person_detail {
+    font-family:Arial, Helvetica, sans-serif;
+    color: #232323;
+    background-image:url(/images/display_field_bg.png);
+/*    background-repeat:repeat;*/
+ /*   width: 96%;
+    float: left;
+    padding: 2%;
+    min-height: 10px;
+    -moz-border-radius: 10px;
+    margin-bottom: 10px;*/
+}

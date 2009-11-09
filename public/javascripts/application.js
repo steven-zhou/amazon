@@ -823,9 +823,60 @@ $(function(){
 
 $(function(){
     $("#system_data_close_entry").live('click', function(){
-        $("#system_data_add_entry_form").css("display","none");
 
-        $("#system_data_type").attr("disabled",false);
+            var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+            {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                       $('#check_input_change').val("false");
+                       $("#system_data_add_entry_form").css("display","none");
+                      $("#system_data_type").attr("disabled",false);
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+              return false;
+            }
+        else
+            {
+                  $('#'+link.attr('toggle_id_name')).toggle('blind');
+                  $("#" + link.attr('field')+'_mode').attr('mode','show');
+                  link.css("display","none");
+                  $('.new_option[field='+ link.attr('field') +']').css("display","");
+                  $("#system_data_add_entry_form").css("display","none");
+                  $("#system_data_type").attr("disabled",false);
+
+            }
+
+
+        
     });
 });
 
@@ -4762,13 +4813,19 @@ $(function(){
 
 
 
-//$(function(){
-//    $('#content input[type="submit"]').live('click', function(){
-//
-////        $('#check_input_change').val("false");
-//
-//    });
-//});
+$(function(){
+    $('#content input[type="submit"]').live('click', function(){
+
+     left_content = $("#content").find("#left_content");
+     right_content = $("#content").find("#right_content");
+         if (!(left_content.length > 0 &&  right_content.length > 0))
+      {
+
+
+          $('#check_input_change').val("false");
+      }
+    });
+});
 
 
 
