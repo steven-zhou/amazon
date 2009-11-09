@@ -460,6 +460,7 @@ margin-right: 5px;
 #app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_11,
 #app #main #content .container .form_line .field_15,
+#app #main #content .container .form_line .field_17,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_22,
 #app #main #content .container .form_line .field_23,
@@ -493,6 +494,7 @@ margin-right: 5px;
 #app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_11 {width: 11%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
+#app #main #content .container .form_line .field_17 {width: 17%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
 #app #main #content .container .form_line .field_23 {width: 23%;}
@@ -621,11 +623,11 @@ div#show_lists div.container {
     margin-right: 1%;
 }
 
-div#list_compiler_form .form_line.field_select_line {
+ .form_line.field_select_line {
     height:auto !important;
 }
 
-div#list_compiler_form select.field_select {
+ select.field_select {
     height:auto !important;
 }
 
@@ -780,8 +782,10 @@ img.medium {
 
 }
 img.thumb {
-    width:60px;
-    height: 66px;
+   /* width:60px;
+    height: 66px;*/
+    width:120px;
+    height:132px;
     float: left;
 }
 
@@ -1160,7 +1164,7 @@ form#organisation_names_form input#image_image_file{
 
 /* table */
 table#name_card {
-    width:92%;
+    width:87%;
 }
 
 td.w2 {

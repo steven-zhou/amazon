@@ -294,10 +294,7 @@ $(".person_contact_toggle_button").live('click', function(){
 
 
 $(".person_contact_close").live('click',function(){
-
     var link = $(this);
-
-
     if( $('#contact_input_change_or_not').val() == "false")
     {
         $('#'+link.attr('toggle_id_name')).toggle('blind');
@@ -341,6 +338,7 @@ $(".person_contact_close").live('click',function(){
                     $("#new_website")[0].reset();
                     $('#contact_input_change_or_not').val("false");
                     $('#check_right_input_change').val("false");
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -461,7 +459,9 @@ $(".person_address_close").live('click',function(){
                     link.css("display","none");
                     $('.person_address_toggle_button').css("display","");
                     $('#address_input_change_or_not').val("false");
+                    $('#check_right_input_change').val("false");
                     $('#address_hidden_tab').attr('mode','show');
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -537,6 +537,8 @@ $(".person_master_doc_close").live('click',function(){
                     $('.person_master_doc_toggle_button').css("display","");
                     $('#master_doc_input_change_or_not').val("false");
                     $('#master_doc_hidden_tab').attr('mode','show');
+                    $('#check_right_input_change').val("false");
+//                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -625,6 +627,7 @@ $(".person_relationship_close").live('click',function(){
                     $('.person_relationship_toggle_button').css("display","");
                     $('#relationship_hidden_tab').attr('mode','show');
                     $('#relationship_input_change_or_not').val("false");
+                    $('#check_right_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -702,7 +705,7 @@ $(".person_notes_close").live('click',function(){
                     link.css("display","none");
                     $('.person_notes_toggle_button').css("display","");
                     $('#note_hidden_tab').attr('mode','show');
-
+                    $('#check_right_input_change').val("false");
                     $('#notes_input_change_or_not').val("false");
                     $(this).dialog('destroy');
                     return true;
@@ -793,7 +796,7 @@ $(".person_employments_close").live('click',function(){
                     link.css("display","none");
                     $('.person_employments_toggle_button').css("display","");
                     $('#employment_hidden_tab').attr('mode','show');
-
+                    $('#check_right_input_change').val("false");
                     $('#employment_input_change_or_not').val("false");
                     $(this).dialog('destroy');
                     return true;
@@ -882,7 +885,7 @@ $(".person_roles_close").live('click',function(){
                     link.css("display","none");
                     $('.person_roles_toggle_button').css("display","");
                     $('#person_role_hidden_tab').attr('mode','show');
-
+                    $('#check_right_input_change').val("false");
                     $('#role_input_change_or_not').val("false");
                     $(this).dialog('destroy');
                     return true;

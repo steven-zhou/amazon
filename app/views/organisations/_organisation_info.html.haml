@@ -3,7 +3,7 @@
   = render :partial => 'organisation_menu'
   #Address
     .container
-      .header_container
+      -#.header_container
         .title
           %h1 Address Details
         %br{ :style=>"clear: both;"}
@@ -12,7 +12,7 @@
       = render :partial => '/organisations/organisation_address', :collection => @organisation.addresses
   #Contact
     .container
-      .header_container
+      -#.header_container
         .title
           %h1 Contact Details
 
@@ -36,7 +36,7 @@
             = render :partial => '/organisations/organisation_contact', :collection => @organisation.websites
   #Keyword
     .container
-      .header_container
+      -#.header_container
         .title
           %h1 Keyword Details
 
@@ -46,7 +46,7 @@
       = render :partial => '/organisations/organisation_keyword', :collection => @organisation.keywords
   #MasterDocs
     .container
-      .header_container
+      -#.header_container
         .title
           %h1 MasterDoc Details
 
@@ -57,7 +57,7 @@
 
   #Note
     .container
-      .header_container
+      -#.header_container
         .title
           %h1 Note Details
 
@@ -74,7 +74,7 @@
 
   #Group
     .container
-      .header_container
+      -#.header_container
         .title
           %h1 Group Details
 

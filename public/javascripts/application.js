@@ -3033,7 +3033,7 @@ $(function(){
             $("#warning_message").css('background-color','#D1DDE6');
 
             $('#warning_message').dialog('open');
-            return false;
+              return false;
             }
         else
             {
@@ -3044,7 +3044,7 @@ $(function(){
 
             }
 
-   
+
     });
 });
 
@@ -3981,7 +3981,6 @@ $(function(){
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
 
-
     });
 });
 
@@ -4464,19 +4463,47 @@ $(function(){
 
 });
 
-$(function(){
-    $("#show_import_postcode_columns").live('click', function(){
-        $('#import_postcodes_columns').dialog( {
-            modal: true,
-            resizable: false,
-            width: 600,
-            height: 400,
-            draggable: true
-        });
-        $('#import_postcodes_columns').dialog('open');
-    });
+// Postcode stuff
 
+
+
+$(function(){
+    $(".check_postcode_columns").blur(function(){
+        if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
+            alert("You must enter a positive value for the column number.");
+            $(this).val('');
+        };
+
+    });
 });
+
+$(function(){
+    // Ensure that the person entered at least one column
+    $("#show_import_postcode_parameters").live('click', function(){
+        var total = '';
+        var l = $('.check_postcode_columns').length;
+
+        for (i = 0; i < l; i++) {
+         total = total + $('#'+$('.check_postcode_columns')[i].id).val();
+        }
+        if(total != '') {
+            $('#import_postcodes_columns').dialog('close');
+            $('#import_postcode_parameters').dialog( {
+                modal: true,
+                resizable: false,
+                width: 600,
+                height: 275,
+                draggable: true
+            });
+           $('#import_postcode_parameters').dialog('open');
+            $('#import_postcode_parameters').dialog('option', 'title', 'Postcode upload parameters');
+        } else {
+            alert("You must nominate at least one column.")
+        }
+    });
+});
+
+
 
 
 $(function(){
@@ -4494,31 +4521,105 @@ $(function(){
 /*Check all input field change or not*/
 
 $(function(){
-    $("#content").find('input').live('change', function(){
 
-        $('#check_input_change').val("true");
-    });
+
+    $("#content input").live('change', function(){
+     left_content = $("#content").find("#left_content");
+     right_content = $("#content").find("#right_content");
+//     alert( left_content.length);
+//     alert( right_content.length);
+         if (left_content.length > 0 &&  right_content.length > 0)
+      {
+//          $('#check_input_change').val("true");
+//          alert( $('#check_input_change').val());
+      }
+      else
+          {
+
+             $('#check_input_change').val("true");
+//             alert( $('#check_input_change').val());
+          }
+   
+   });
 });
 
 $(function(){
     $("#content #left_content").find('input').live('change', function(){
         $('#check_left_input_change').val("true");
-        $('#check_input_change').val("true");
+//        $('#check_input_change').val("true");
     });
 });
 
 $(function(){
     $("#content #right_content").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
-        $('#check_input_change').val("true");
+        right_tab = $("#right_content").find("#tabs");
+        if(right_tab.length <= 0)
+            {
+             $('#check_right_input_change').val("true");
+//               alert($('#check_right_input_change').val());
+            }
+
+
+//        $('#check_right_input_change').val("true");
+//        $('#check_input_change').val("true");
 
     });
 });
 
+check_input_change = function(){
+
+//    if($('#check_right_input_change').val() == "false")
+//    {
+        
+        if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+            {
+                 
+                 $('#check_right_input_change').val("true");
+            }
+       else
+            {
+             
+                $('#check_right_input_change').val("false");}
+//     }
+
+     
+
+}
+
 $(function(){
     $('#lc a').live('click', function(){
+
+         right_tab = $("#content #right_content").find("#tabs");
+//         alert(right_tab.length);
+          if(right_tab.length > 0)
+            {
+             check_input_change();
+            }
+         
+       
+     left_content = $("#content").find("#left_content");
+     right_content = $("#content").find("#right_content");
+//     alert( left_content.length);
+//     alert( right_content.length);
+         if (left_content.length > 0 &&  right_content.length > 0)
+      {
+//          $('#check_input_change').val("true");
+//          alert( $('#check_input_change').val());
+
+      if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+              $('#check_input_change').val("true");
+            }
+        else
+            {
+
+              $('#check_input_change').val("false");
+            }
+      }
         var link = $(this);
-        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false" &&$('#check_input_change').val() == "false"  )
+
+        if($('#check_input_change').val() == "false"  )
         {
             window.open(link.attr('href'),"_self");
     
@@ -4596,7 +4697,7 @@ $(function(){
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
-                    }
+                    }%button
                 }
             });
             $('#warning_message').dialog('option', 'title', 'Warning');
@@ -4659,28 +4760,15 @@ $(function(){
     }).attr("rel", "nofollow");
 });
 
-$(function(){
-    $('#left_content input[type="submit"]').live('click', function(){
-        $('#check_left_input_change').val("false");
 
-    });
-});
-      
-$(function(){
-    $('#right_content input[type="submit"]').live('click', function(){
-    
-        $('#check_right_input_change').val("false");
 
-    });
-});
-
-$(function(){
-    $('#content input[type="submit"]').live('click', function(){
-
-        $('#check_input_change').val("false");
-
-    });
-});
+//$(function(){
+//    $('#content input[type="submit"]').live('click', function(){
+//
+////        $('#check_input_change').val("false");
+//
+//    });
+//});
 
 
 
@@ -4689,13 +4777,16 @@ $(function(){
 $(function(){
     $("#Contact").find('input').live('change', function(){
       
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
+
         $('#contact_input_change_or_not').val("true");
 
     });
 
     $('#Contact input[type="submit"]').live('click', function(){
+//        alert("a");
         $('#contact_input_change_or_not').val("false");
+//             alert("b");
     });
 
 });
@@ -4703,7 +4794,7 @@ $(function(){
 
 $(function(){
     $("#Address").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#address_input_change_or_not').val("true")
     });
 
@@ -4716,7 +4807,7 @@ $(function(){
 
 $(function(){
     $("#MasterDocs").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#master_doc_input_change_or_not').val("true")
     });
 
@@ -4730,7 +4821,7 @@ $(function(){
 
 $(function(){
     $("#Rels").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#relationship_input_change_or_not').val("true");
     });
 
@@ -4743,14 +4834,14 @@ $(function(){
 
 $(function(){
     $("#Note").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
      
         $('#notes_input_change_or_not').val("true");
     
     });
     
       $("#Note").find('textarea').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
     
         $('#notes_input_change_or_not').val("true");
 
@@ -4767,7 +4858,7 @@ $(function(){
 
 $(function(){
     $("#Role").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#role_input_change_or_not').val("true");
     });
 
@@ -4779,7 +4870,7 @@ $(function(){
 });
 $(function(){
     $("#Employment").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
+//        $('#check_right_input_change').val("true");
         $('#employment_input_change_or_not').val("true");
     });
 
@@ -4790,18 +4881,41 @@ $(function(){
 
 });
 
+
 $(function(){
-    $("#Group").find('input').live('change', function(){
-        $('#check_right_input_change').val("true");
-        $('#group_input_change_or_not').val("true");
-    });
-
-    $('#Group input[type="submit"]').live('click', function(){
-        $('#group_input_change_or_not').val("false");
+    $('#left_content input[type="submit"]').live('click', function(){
+        $('#check_left_input_change').val("false");
 
     });
-
 });
+
+$(function(){
+    $('#right_content input[type="submit"]').live('click', function(){
+     if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+            {
+        $('#check_right_input_change').val("true");
+     
+            }
+        else
+            {
+                   $('#check_right_input_change').val("false");
+                      
+            }
+    });
+});
+
+//$(function(){
+//    $("#Group").find('input').live('change', function(){
+////        $('#check_right_input_change').val("true");
+//        $('#group_input_change_or_not').val("true");
+//    });
+//
+//    $('#Group input[type="submit"]').live('click', function(){
+//        $('#group_input_change_or_not').val("false");
+//
+//    });
+//
+//});
 
 /*organisation close option*/
 $(function(){

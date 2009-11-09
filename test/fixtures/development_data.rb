@@ -133,7 +133,10 @@ robert_tingle_login = SystemUser.create(
   :access_attempts_count => 3,
   :session_timeout => 30,   # 30 mins
   :authentication_grace_period => 3, # 3 days
-  :password_lifetime => 20 # 20 days
+  :password_lifetime => 20, # 20 days
+  :login_status => true,
+  :password_by_admin => false,
+  :system_user => true
 )
 
 puts "Creating Jackie Chan"
