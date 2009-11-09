@@ -1,6 +1,5 @@
 <% if @to_do_list.errors.empty? -%>
-  $('#new_to_dos').append('<%= escape_javascript(render(:partial => "/to_do_lists/to_do", :locals => {:to_do => @to_do_list})) %>');
-  $('#<%= dom_id(@to_do_list) %>').effect('slide', {direction:'right'});
+  $('#to_do_lists').html('<%= escape_javascript(render(:partial => "/to_do_lists/to_do_list")) %>');
   $('#new_to_do_dialog').dialog('close');
 <%- else %>
   $("#flash_message").html("<%= escape_javascript(flash[:error]) %>");

@@ -80,8 +80,26 @@ $(function() {
     $(".clear_form").click(function(){
 
         var link = $(this);
+//       left_content = $("#content").find("#left_content");
+//       right_content = $("#content").find("#right_content");
+//        if (!(left_content.length > 0 &&  right_content.length > 0))
+//        {
+//            $('#check_input_change').val("false");
+//        }
+//
+//        if ( $('#check_input_change').val()=="false" )
+//            {
+//                if ($('#check_left_input_change').val()=="true" || $('#check_right_input_change').val()=="true" )
+//                    {
+//
+//                        $('#check_input_change').val("true");
+//                    }
+//
+//            }
 
-        $('#message_text').html("Are you sure you wish to clear the data ? ");
+//        if( $('#check_input_change').val()=="true")
+//      {
+          $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
             modal: true,
@@ -98,6 +116,9 @@ $(function() {
                 },
                 Yes: function(){
                     $('#'+link.parents("form").get(0).id)[0].reset();
+                    $('#check_input_change').val("false");
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -113,7 +134,7 @@ $(function() {
 
             
            
-
+//      }
     });
 
 
@@ -130,15 +151,25 @@ $(function() {
     $(".clear_group_form").click(function(){
         $('.find_group_meta_type').val("").change();
     })
-
-    $(".clear_employment_form").click(function () {
-        $("#new_employment")[0].reset();
+//
+//    $(".clear_employment_form").click(function () {
+//        $("#new_employment")[0].reset();
+//        $('#organisation_name_container_0').html('');
+//        $('#recruiter_container_0').html('');
+//        $('#supervisor_container_0').html('');
+//        $('#suspender_container_0').html('');
+//        $('#terminator_container_0').html('');
+//    })
+//
+    clear_employment_form = function()
+    {
+         $("#new_employment")[0].reset();
         $('#organisation_name_container_0').html('');
         $('#recruiter_container_0').html('');
         $('#supervisor_container_0').html('');
         $('#suspender_container_0').html('');
         $('#terminator_container_0').html('');
-    })
+    }
 
     $("#new_employment").submit( function(){
         $('#organisation_name_container_0').html('');
@@ -152,7 +183,18 @@ $(function() {
     $("#accordion01").accordion();
     $("#accordion02").accordion();
 
-    $(".clear_person_role_form").click(function(){
+//    $(".clear_person_role_form").click(function(){
+//        $("#new_person_role")[0].reset();
+//        $('#assigner_container_0').html('');
+//        $('#approver_container_0').html('');
+//        $('#approver_container_0').val('');
+//        $('#superviser_container_0').html('');
+//        $('#manager_container_0').html('');
+//        $('#role_role_type_id').change();
+//    })
+
+    clear_person_role_form = function(){
+
         $("#new_person_role")[0].reset();
         $('#assigner_container_0').html('');
         $('#approver_container_0').html('');
@@ -160,7 +202,7 @@ $(function() {
         $('#superviser_container_0').html('');
         $('#manager_container_0').html('');
         $('#role_role_type_id').change();
-    })
+    }
 
 
     $("#new_person_role").submit( function(){
@@ -338,7 +380,7 @@ $(".person_contact_close").live('click',function(){
                     $("#new_website")[0].reset();
                     $('#contact_input_change_or_not').val("false");
                     $('#check_right_input_change').val("false");
-//                    $('#check_input_change').val("false");
+                    //                    $('#check_input_change').val("false");
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -435,6 +477,10 @@ $(".person_address_close").live('click',function(){
         link.css("display","none");
         $('.person_address_toggle_button').css("display","");
         $('#address_hidden_tab').attr('mode','show');
+        if (link.attr('field') != ""){
+
+            $("#new_"+link.attr('field'))[0].reset();
+        }
     }
     else
     {
@@ -461,7 +507,9 @@ $(".person_address_close").live('click',function(){
                     $('#address_input_change_or_not').val("false");
                     $('#check_right_input_change').val("false");
                     $('#address_hidden_tab').attr('mode','show');
-//                    $('#check_input_change').val("false");
+                    if (link.attr('field') != ""){
+                        $("#new_"+link.attr('field'))[0].reset();
+                    }
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -510,7 +558,10 @@ $(".person_master_doc_close").live('click',function(){
         link.css("display","none");
         $('.person_master_doc_toggle_button').css("display","");
         $('#master_doc_hidden_tab').attr('mode','show');
+        if (link.attr('field') != ""){
 
+            $("#new_"+link.attr('field'))[0].reset();
+        }
 
     }
     else
@@ -538,7 +589,10 @@ $(".person_master_doc_close").live('click',function(){
                     $('#master_doc_input_change_or_not').val("false");
                     $('#master_doc_hidden_tab').attr('mode','show');
                     $('#check_right_input_change').val("false");
-//                    $('#check_input_change').val("false");
+                    if (link.attr('field') != ""){
+
+                        $("#new_"+link.attr('field'))[0].reset();
+                    }
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -598,6 +652,10 @@ $(".person_relationship_close").live('click',function(){
         link.css("display","none");
         $('.person_relationship_toggle_button').css("display","");
         $('#relationship_hidden_tab').attr('mode','show');
+        if (link.attr('field') != ""){
+
+            $("#new_"+link.attr('field'))[0].reset();
+        }
 
 
     }
@@ -628,6 +686,10 @@ $(".person_relationship_close").live('click',function(){
                     $('#relationship_hidden_tab').attr('mode','show');
                     $('#relationship_input_change_or_not').val("false");
                     $('#check_right_input_change').val("false");
+                    if (link.attr('field') != ""){
+
+                        $("#new_"+link.attr('field'))[0].reset();
+                    }
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -677,6 +739,10 @@ $(".person_notes_close").live('click',function(){
         link.css("display","none");
         $('.person_notes_toggle_button').css("display","");
         $('#note_hidden_tab').attr('mode','show');
+        if (link.attr('field') != ""){
+
+                        $("#new_"+link.attr('field'))[0].reset();
+                    }
 
 
     }
@@ -707,6 +773,10 @@ $(".person_notes_close").live('click',function(){
                     $('#note_hidden_tab').attr('mode','show');
                     $('#check_right_input_change').val("false");
                     $('#notes_input_change_or_not').val("false");
+                    if (link.attr('field') != ""){
+
+                        $("#new_"+link.attr('field'))[0].reset();
+                    }
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -768,8 +838,8 @@ $(".person_employments_close").live('click',function(){
         link.css("display","none");
         $('.person_employments_toggle_button').css("display","");
         $('#employment_hidden_tab').attr('mode','show');
-
-
+        clear_employment_form();
+     
     }
     else
     {
@@ -798,6 +868,8 @@ $(".person_employments_close").live('click',function(){
                     $('#employment_hidden_tab').attr('mode','show');
                     $('#check_right_input_change').val("false");
                     $('#employment_input_change_or_not').val("false");
+                    clear_employment_form();
+                   
                     $(this).dialog('destroy');
                     return true;
                 }
@@ -859,6 +931,7 @@ $(".person_roles_close").live('click',function(){
         link.css("display","none");
         $('.person_roles_toggle_button').css("display","");
         $('#person_role_hidden_tab').attr('mode','show');
+        clear_person_role_form();
 
     }
     else
@@ -887,6 +960,7 @@ $(".person_roles_close").live('click',function(){
                     $('#person_role_hidden_tab').attr('mode','show');
                     $('#check_right_input_change').val("false");
                     $('#role_input_change_or_not').val("false");
+                    clear_person_role_form();
                     $(this).dialog('destroy');
                     return true;
                 }

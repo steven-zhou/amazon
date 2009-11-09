@@ -10,7 +10,7 @@
       %div
         .options
           -#= link_to_function image_tag('closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "new_user"
-          = link_to_function image_tag('close_icon.png'), :id => "close_new_account", :style => "display:none;", :class => "close_option", :field => "login_account", :title=>"Close"
+          = link_to_function image_tag('close_icon.png'), :id => "close_new_account", :style => "display:none;", :field => "login_account", :title=>"Close"
         .title
           = link_to_function image_tag('add_icon.png'), :id => "add_user", :class => "toggle_button new_option", :toggle_id_name => "new_user", :field => "login_account"
           &nbsp

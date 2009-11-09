@@ -4,6 +4,9 @@ class ToDoListsController < ApplicationController
     @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
     @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
     @completed_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "completed", session[:user]], :order => "created_at")
+    respond_to do |format|
+      format.js
+    end
   end
   
   def create
@@ -14,6 +17,8 @@ class ToDoListsController < ApplicationController
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "description") if (!@to_do_list.errors[:description].nil? && @to_do_list.errors.on(:description) == "has already been taken")
       flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@to_do_list.errors[:description].nil? && @to_do_list.errors.on(:description) == "can't be blank")
     end
+    @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
+    @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
     respond_to do |format|
       format.js
     end
@@ -22,6 +27,9 @@ class ToDoListsController < ApplicationController
   def destroy
     @to_do_list = ToDoList.find(params[:id].to_i)
     @to_do_list.destroy
+    @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
+    @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
+    @completed_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "completed", session[:user]], :order => "created_at")
     respond_to do |format|
       format.js
     end
@@ -60,6 +68,9 @@ class ToDoListsController < ApplicationController
   def update
     @to_do_list = ToDoList.find(params[:id].to_i)
     @to_do_list.update_attributes(params[:to_do_list])
+    @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
+    @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
+    @completed_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "completed", session[:user]], :order => "created_at")
     respond_to do |format|
       format.js
     end

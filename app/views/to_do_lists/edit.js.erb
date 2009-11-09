@@ -1,2 +1,3 @@
-$('#system_news_detail_<%= escape_javascript("#{@system_news.id}") %>').html('<%= escape_javascript(render(:partial =>"system_news/edit_system_news_form")) %>');
-$('#system_news_mode').attr("mode","edit");
+$('#to_do_detail_<%= escape_javascript("#{@to_do_list.id}") %>').html('<%= escape_javascript(render(:partial =>"to_do_lists/edit_to_do_list_form")) %>');
+$('#to_do_detail_<%= escape_javascript("#{@to_do_list.id}") %>').css('height','auto');
+$('#to_do_mode').attr("mode","edit");
