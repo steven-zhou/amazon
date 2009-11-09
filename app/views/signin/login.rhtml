@@ -203,6 +203,7 @@
       <div id="signin_form">
         <%= render(:partial => "/shared/flash_messages") %>
         <h1> System Sign In </h1>
+        <div id="signin_form_wrapper">
         <% form_tag(:controller => "signin", :action => "login") do -%>
           <label>Username</label>
           <input class="field" type="text" size="28" name="user_name" />
@@ -211,11 +212,10 @@
           <a href="#" id="login_assistant">Having difficulty logging in?</a><br />
           <input id="signin_button" type="submit" value="Sign In" />
         <% end -%>
+        </div>
       </div>
 
-      <div id="signin_extra_form">
-        
-      </div>
+      
     </div>
   </body>
 </html>

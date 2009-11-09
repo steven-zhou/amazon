@@ -8,10 +8,12 @@ class SystemNewsController < ApplicationController
   def create
     @system_news = SystemNews.new(params[:system_news])
     @system_news.status = true
-    unless @system_news.save
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "has already been taken")
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "can't be blank")
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@system_news.errors[:description].nil? && @system_news.errors.on(:description) == "can't be blank")
+    if @system_news.save
+      system_log("#{@current_user.user_name} post a new news(ID - #{@system_news.id})")
+    else
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "has already been taken")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "can't be blank")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@system_news.errors[:description].nil? && @system_news.errors.on(:description) == "can't be blank")
     end
     respond_to do |format|
       format.js

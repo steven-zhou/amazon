@@ -5,8 +5,8 @@
     = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
   %br.clear
 .container#edit_query{:style => "display:none"}
-  = link_to_function image_tag('edit_icon.png'), :style => "float:left;margin-right:10px;", :title=>"Edit"
-  = link_to_function image_tag('close_icon.png'), :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;", :class => "close_option", :field => "query", :title=>"Close"
+  = link_to_function image_tag('edit_icon.png', :style => "float:left;margin-right:10px;"), :title=>"Edit"
+  = link_to_function image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;", :class => "close_option", :field => "query", :title=>"Close"
   %h1 Edit Query
 
   #edit_form

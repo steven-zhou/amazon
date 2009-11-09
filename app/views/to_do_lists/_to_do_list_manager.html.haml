@@ -1,0 +1,15 @@
+.container
+  %h2 Processing
+  %input{:style => "display:none;", :id => "to_do_mode", :mode => "show"}
+  #processing_to_dos
+    = render :partial => "to_do_lists/to_do_detail", :collection => @processing_to_do
+
+.container
+  %h2 New
+  #new_to_dos
+    = render :partial => "to_do_lists/to_do_detail", :collection => @new_to_do
+
+.container
+  %h2 Completed
+  #completed_to_dos
+    = render :partial => "to_do_lists/to_do_detail", :collection => @completed_to_do

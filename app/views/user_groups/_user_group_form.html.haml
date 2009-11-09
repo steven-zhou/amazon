@@ -6,12 +6,12 @@
 
 .container
   .options
-    = link_to_function image_tag('close_icon.png'), :class => "close_option close_logo", :field => "user_group_group"
+    = link_to_function image_tag('close_icon.png'), :class => " close_logo", :field => "user_group_group"
   %br
   .container.add_container
     %div#add_user_to_group
       .options
-        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_logo close_option add_form_close", :field => "user_group", :change_color => false, :title=>"Close"
+        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_logo  add_form_close", :field => "user_group", :change_color => false, :title=>"Close"
       .title
         = link_to_function image_tag('add_icon.png'), :class => "new_option new_logo", :field => "user_group"
         &nbsp

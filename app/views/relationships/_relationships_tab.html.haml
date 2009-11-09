@@ -2,7 +2,7 @@
 .container
   .header_container
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "clear_tab person_relationship_close ", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship", :title=>"Close"
+      = link_to_function image_tag('close_icon.png'), :class => " person_relationship_close ", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship", :title=>"Close"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"person_relationship_toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
     %h1 New Relationship
