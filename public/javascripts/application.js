@@ -169,7 +169,7 @@ $(function() {
         var link = $(this);
         if(change_type=="true" )
         {
-            $('#warning_message_text').html("Are you sure? Some data did not save! ");
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -198,7 +198,6 @@ $(function() {
             $('#warning_message').parent().find("a").css("display","none");
             $("#warning_message").parent().css('background-color','#D1DDE6');
             $("#warning_message").css('background-color','#D1DDE6');
-
             $('#warning_message').dialog('open');
           
         }
@@ -245,7 +244,7 @@ $(function() {
 
                 No: function(){
                     $(this).dialog('destroy');
-                    return true;
+                    return false;
 
                 },
                 Yes: function(){
@@ -254,6 +253,7 @@ $(function() {
                     return true;
                 }
             }
+         
         });
 
         $('#warning_message').dialog('option', 'title', 'Warning');
@@ -784,15 +784,62 @@ $(function(){
 
 $(function(){
     $("#delete_system_data_entry").live('click', function(){
-        $(".container_selected").removeClass("container_selected");
-        $("#edit_system_data_entry").hide();
-        $("#system_data_add_entry_form").hide();
-        $.ajax({
-            type: "GET",
-            url: "/amazon_settings/delete_system_data_entry.js",
-            data: 'id=' + $(this).attr('system_data_id'),
-            dataType: "script"
+
+
+        var link = $(this);
+        if($(this).attr("error_message_field" != null))
+        {
+            $('#warning_message_text').html("Are you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");
+        }
+        else
+        {
+            $('#warning_message_text').html("Are you sure you wish to delete ? ");
+        }
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $(".container_selected").removeClass("container_selected");
+                    $("#edit_system_data_entry").hide();
+                    $("#system_data_add_entry_form").hide();
+                    $.ajax({
+                        type: "GET",
+                        url: "/amazon_settings/delete_system_data_entry.js",
+                        data: 'id=' + link.attr('system_data_id'),
+                        dataType: "script"
+                    });
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
         });
+
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
+
+
+
+
+
+      
 
     });
 }); 
@@ -809,23 +856,146 @@ $(function(){
 
 $(function(){
     $("#close_edit_system_data_entry").live('click', function(){
-        $("#edit_system_data_entry").hide();
-        $("#system_data_type").attr("disabled",false);
-        $.ajax({
-            type: "GET",
-            url: "/amazon_settings/system_settings_finder.js",
-            data: 'type=' + $("#system_data_type").val(),
-            dataType: "script"
-        });
+
+
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $(".container_selected").removeClass("container_selected");
+                        $("#edit_system_data_entry").hide();
+                        $("#system_data_type").attr("disabled",false);
+                        $.ajax({
+                            type: "GET",
+                            url: "/amazon_settings/system_settings_finder.js",
+                            data: 'type=' + $("#system_data_type").val(),
+                            dataType: "script"
+                        });
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+
+            });
+
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+            //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+            $('#warning_message').dialog('open');
+
+
+
+
+
+
+
+
+
+
+
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $('#check_input_change').val("false");
+            $(".container_selected").removeClass("container_selected");
+            $("#edit_system_data_entry").hide();
+            $("#system_data_type").attr("disabled",false);
+            $.ajax({
+                type: "GET",
+                url: "/amazon_settings/system_settings_finder.js",
+                data: 'type=' + $("#system_data_type").val(),
+                dataType: "script"
+            });
+
+        }
        
     });
 });
 
 $(function(){
     $("#system_data_close_entry").live('click', function(){
-        $("#system_data_add_entry_form").css("display","none");
 
-        $("#system_data_type").attr("disabled",false);
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $("#system_data_add_entry_form").css("display","none");
+                        $("#system_data_type").attr("disabled",false);
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $("#system_data_add_entry_form").css("display","none");
+            $("#system_data_type").attr("disabled",false);
+
+        }
+
+
+        
     });
 });
 
@@ -1548,26 +1718,143 @@ $(function(){
 
 $(function(){
     $("#close_new_account").live('click', function(){
+
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $(".user_clear_form").click();
+                        $("#new_user").toggle('blind');
+                        $(".show_user_container").show();
+                        $("#close_new_account").hide();
+                        $("#add_user").show();
+                        $('#no_password').hide();
+                        $('#yes_password').hide();
+                        $('#no_username').hide();
+                        $('#yes_username').hide();
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $(".user_clear_form").click();
+            $("#new_user").toggle('blind');
+            $(".show_user_container").show();
+            $("#close_new_account").hide();
+            $("#add_user").show();
+            $('#no_password').hide();
+            $('#yes_password').hide();
+            $('#no_username').hide();
+            $('#yes_username').hide();
+
+        }
+
+
+
+
+
+
+
+
+
        
-        $(".user_clear_form").click();
-        $("#new_user").toggle('blind');
-        $(".show_user_container").show();
-        $("#close_new_account").hide();
-        $("#add_user").show();
-        $('#no_password').hide();
-        $('#yes_password').hide();
-        $('#no_username').hide();
-        $('#yes_username').hide();
+      
     });
 });
 
 $(function(){
     $("#close_edit_account").live('click', function(){
 
-        $(".add_user").show();
-        $(".container_selected").removeClass("container_selected");
-        $("#edit_user").html('');
-      
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $(".add_user").show();
+                        $(".container_selected").removeClass("container_selected");
+                        $("#edit_user").html('');
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $(".add_user").show();
+            $(".container_selected").removeClass("container_selected");
+            $("#edit_user").html('');
+
+
+        }
+
     });
 });
 
@@ -1724,6 +2011,11 @@ $(function(){
 
 $(function(){
     $("#clear_button").live('click', function(){
+
+        $('#query_top_value').val("").change();
+             $('#check_input_change').val("false");
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
         $.ajax({
             type: "GET",
             url: "/query_headers/clear.js",
@@ -1907,6 +2199,12 @@ $(function(){
 
 $(function(){
     $("#clear_compile_list").live('click', function(){
+
+        $('#top_value').val("").change();
+                    $('#check_input_change').val("false");
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
+
         $.ajax({
             type: "POST",
             url: "/compile_lists/clear.js",
@@ -2980,6 +3278,8 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         link.parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value','false');
+                        clear_organisation_form(link);
+                  
                         $(this).dialog('destroy');
                       
                         return true;
@@ -3021,6 +3321,9 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
+
+                       clear_organisation_form(link);
+
                         $(this).dialog('destroy');                  
                         return true;
                     }
@@ -3039,6 +3342,8 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
+            clear_organisation_form(link);
+
             link.css("display","none");
             $('.new_option[field='+ link.attr('field') +']').css("display","");
 
@@ -3047,6 +3352,35 @@ $(function(){
 
     });
 });
+
+clear_organisation_form = function(link){
+
+    if(link.attr('toggle_id_name')=="new_contact")
+        {
+         $("#new_phone")[0].reset();
+        $("#new_email")[0].reset();
+        $("#new_website")[0].reset();
+        }
+
+         if(link.attr('toggle_id_name')=="new_address")
+        {
+         $("#new_address")[0].reset();
+      
+        }
+
+         if(link.attr('toggle_id_name')=="new_master_doc")
+        {
+         $("#new_master_doc")[0].reset();
+
+        }
+          if(link.attr('toggle_id_name')=="new_note")
+        {
+         $("#new_note")[0].reset();
+
+        }
+
+
+}
 
 $(function(){
     $('.new_option').live('click',function(){
@@ -3748,20 +4082,98 @@ $(function(){
 
 $(function(){
     $('.new_logo').live('click', function(){        
-        $("#new_" + $(this).attr('field')+ "_form").toggle('blind');      
+        $("#new_" + $(this).attr('field')+ "_form").toggle('blind');
+        $('.close_logo').css('display','');
+        
     });
 });
 
 
 $(function(){
     $('.close_logo').live('click', function(){
-        $("#new_" + $(this).attr('field')+ "_form").toggle('blind');
-        $("#" + $(this).attr('field')+ "_edit_container").html('');
-        if ($(this).attr('change_color') == "false"){
-            
-        }else{
-            $(".container_selected").removeClass("container_selected");
+
+
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                           $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $("#new_" + link.attr('field')+ "_form").toggle('blind');
+//                       $('#new_user_group_form').css('display','none');
+                        $("#" + link.attr('field')+ "_edit_container").html('');
+                        if (link.attr('change_color') == "false"){
+
+                        }else{
+                            $(".container_selected").removeClass("container_selected");
+                        }
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
         }
+        else
+        {
+              $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+//            $('#new_user_group_form').css('display','none');
+
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $("#new_" + link.attr('field')+ "_form").toggle('blind');
+            $("#" + link.attr('field')+ "_edit_container").html('');
+            if (link.attr('change_color') == "false"){
+
+            }else{
+                $(".container_selected").removeClass("container_selected");
+            }
+        }
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
        
     });
 });
@@ -4161,27 +4573,166 @@ $(function(){
 
 $(function(){
     $("#keyword_close_entry").live('click', function(){
-        $("#keyword_add_entry_form").hide();
-        $("#edit_keyword_entry").html("");
-        $("#keyword_type").attr("disabled",false);
-        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+        
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $("#keyword_add_entry_form").hide();
+                        $("#edit_keyword_entry").html("");
+                        $("#keyword_type").attr("disabled",false);
+                        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $("#keyword_add_entry_form").hide();
+            $("#edit_keyword_entry").html("");
+            $("#keyword_type").attr("disabled",false);
+            $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+
+        }
+
+
+
+  
     });
 });
 
 $(function(){
     $("#close_edit_keyword_entry").live('click', function(){
-        $("#keyword_add_entry").css("display","");
-        $("#keyword_mode").attr('mode', 'show');
-        $("#keyword_add_entry_form").hide();
-        $("#keyword_type").attr("disabled",false);
-        $("#edit_keyword_entry").html("");
-        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
-        $.ajax({
-            type: "GET",
-            url: "/keywords/keywords_finder.js",
-            data: 'type=' + $("#keyword_type").val(),
-            dataType: "script"
-        });
+
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('#check_input_change').val("false");
+                        $(".container_selected").removeClass("container_selected");
+                        $("#keyword_add_entry").css("display","");
+                        $("#keyword_mode").attr('mode', 'show');
+                        $("#keyword_add_entry_form").hide();
+                        $("#keyword_type").attr("disabled",false);
+                        $("#edit_keyword_entry").html("");
+                        $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+                        $.ajax({
+                            type: "GET",
+                            url: "/keywords/keywords_finder.js",
+                            data: 'type=' + $("#keyword_type").val(),
+                            dataType: "script"
+                        });
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+
+            });
+
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+            //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+            $('#warning_message').dialog('open');
+
+
+
+
+
+
+
+
+
+
+
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $('#check_input_change').val("false");
+            $(".container_selected").removeClass("container_selected");
+            $("#keyword_add_entry").css("display","");
+            $("#keyword_mode").attr('mode', 'show');
+            $("#keyword_add_entry_form").hide();
+            $("#keyword_type").attr("disabled",false);
+            $("#edit_keyword_entry").html("");
+            $(".keyword_entry_selected").removeClass("keyword_entry_selected");
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keywords_finder.js",
+                data: 'type=' + $("#keyword_type").val(),
+                dataType: "script"
+            });
+
+        }
+
+
+
+
+
+
+
+
+        
     });
 });
 
@@ -4547,18 +5098,20 @@ $(function(){
     $("#content input").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
+
         //     alert( left_content.length);
         //     alert( right_content.length);
         if (left_content.length > 0 &&  right_content.length > 0)
         {
         //          $('#check_input_change').val("true");
         //          alert( $('#check_input_change').val());
+
         }
         else
         {
 
             $('#check_input_change').val("true");
-        //             alert( $('#check_input_change').val());
+
         }
    
     });
@@ -4688,8 +5241,37 @@ $(function(){
 
 $(function(){
     $('#sysbar a').live('click', function(){
+
+         right_tab = $("#content #right_content").find("#tabs");
+        //         alert(right_tab.length);
+        if(right_tab.length > 0)
+        {
+            check_input_change();
+        }
+
+
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        //     alert( left_content.length);
+        //     alert( right_content.length);
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            //          $('#check_input_change').val("true");
+            //          alert( $('#check_input_change').val());
+
+            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+                $('#check_input_change').val("true");
+            }
+            else
+            {
+
+                $('#check_input_change').val("false");
+            }
+        }
         var link = $(this);
-        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false")
+        if($('#check_input_change').val() == "false")
         {
             window.open(link.attr('href'),"_self");
            
@@ -4737,8 +5319,39 @@ $(function(){
 
 $(function(){
     $('#lol a').live('click', function(){
+
         var link = $(this);
-        if($('#check_left_input_change').val() == "false" && $('#check_right_input_change').val() == "false")
+
+         right_tab = $("#content #right_content").find("#tabs");
+        //         alert(right_tab.length);
+        if(right_tab.length > 0)
+        {
+            check_input_change();
+        }
+
+
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        //     alert( left_content.length);
+        //     alert( right_content.length);
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            //          $('#check_input_change').val("true");
+            //          alert( $('#check_input_change').val());
+
+            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+                $('#check_input_change').val("true");
+            }
+            else
+            {
+
+                $('#check_input_change').val("false");
+            }
+        }
+
+        if($('#check_input_change').val() == "false")
         {
             window.open(link.attr('href'),"_self"); 
             return false;
@@ -4784,13 +5397,28 @@ $(function(){
 
 
 
-//$(function(){
-//    $('#content input[type="submit"]').live('click', function(){
-//
-////        $('#check_input_change').val("false");
-//
-//    });
-//});
+$(function(){
+    $('#content input[type="submit"]').live('click', function(){
+
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        if (!(left_content.length > 0 &&  right_content.length > 0))
+        {
+            $('#check_input_change').val("false");
+        }
+
+
+    });
+});
+
+
+$(function(){ /*This is for button to function*/
+    $('#content input[type="button"]').live('click', function(){
+
+        $('#check_input_change').val("false");
+
+    });
+});
 
 
 
@@ -4954,7 +5582,7 @@ $(function(){
 
         }
         else{
-            $('#warning_message_text').html("Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
