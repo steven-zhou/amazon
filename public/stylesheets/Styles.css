@@ -460,6 +460,7 @@ margin-right: 5px;
 #app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_11,
 #app #main #content .container .form_line .field_15,
+#app #main #content .container .form_line .field_17,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_22,
 #app #main #content .container .form_line .field_23,
@@ -493,6 +494,7 @@ margin-right: 5px;
 #app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_11 {width: 11%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
+#app #main #content .container .form_line .field_17 {width: 17%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
 #app #main #content .container .form_line .field_23 {width: 23%;}
@@ -621,11 +623,11 @@ div#show_lists div.container {
     margin-right: 1%;
 }
 
-div#list_compiler_form .form_line.field_select_line {
+ .form_line.field_select_line {
     height:auto !important;
 }
 
-div#list_compiler_form select.field_select {
+ select.field_select {
     height:auto !important;
 }
 
@@ -796,8 +798,6 @@ img.thumb {
 #app #main #content  .container_icon { /*For find people page*/
 
     font-family:Arial, Helvetica, sans-serif;
-
-
     background-repeat:repeat;
     color: #2C2C2C;
     float: right;
@@ -805,18 +805,13 @@ img.thumb {
     height: 20px;
     -moz-border-radius-topleft:10px;
     -moz-border-radius-topright:10px;
-
-
     font-size:20px;
-
-
-
 }
 
 #app #main #content  .container_icon h1 {
 
 
- color: #2C2C2C;
+    color: #2C2C2C;
     font-size:20px;
     font-weight: bold;
     line-height: 22px;
@@ -837,7 +832,7 @@ p.submit{ /*This is for the submit button*/
 }
 
 .left {
-    float:left;
+    float:left !important;
 }
 
 .right {
@@ -855,7 +850,7 @@ form#add_person.new_person input#person_custom_id{
 
 form#add_person.new_person input#image_image_file{
 
-    height: 30px !important;
+    height: auto !important;
     width: 150px ;
     font-size:14px;
     line-height:16px;
@@ -869,12 +864,21 @@ form#person_names_form.edit_person input#image_image_file{
 }
 
 a.alt_option{
-    color:#000000;
+    /* color:#000000;
     font-size:15px;
     line-height:16px;
     padding:1px;
     margin:2px 10px 0px 5px;
+    float: right;*/
+
+    font-size: 12px ;
+    font-weight:bold ;
+    color: #154073 !important;
+    text-decoration:underline;
     float: right;
+    margin:2px 15px 0px 10px;
+    padding:1px;
+    line-height:16px; 
 }
 
 p.submit{
@@ -990,7 +994,7 @@ div.info_warning {
 /* Organisation New*/
 
 form#add_organisation.new_organisation input#image_image_file{
-    height: 25px !important;
+      height: auto !important;
     width: 150px ;
     font-size:14px;
     line-height:16px;
@@ -1390,7 +1394,7 @@ div#content_full_page .add_container {
 
 .float_none{
 
-    float:none;
+    float:none !important;
 }
 
 .float_right{
@@ -1829,28 +1833,28 @@ div#permission_form .options{
 
 .profile_tab_left{
 
-     background-image:none;
+    background-image:none;
     background-position: bottom left;
     background-repeat:no-repeat;
     height: 40px;
     width: 8px;
     float: right;
-
-
 }
 
 .profile_tab_right{
-      background-image:none;
+    background-image:none;
     background-position: bottom right;
     background-repeat:no-repeat;
     height: 40px;
     width: 8px;
     float: right;
-    margin-right:10px;
-
-
 }
 
+.tab_switch{
+   margin-left:3px;
+   margin-right:4px;
+
+}
 #app #left_content #new_pic_upload{
     float:right;
 
@@ -1869,4 +1873,12 @@ div#permission_form .options{
     min-height: 10px;
     -moz-border-radius: 10px;
     margin-bottom: 10px;
+}
+
+
+.sub_function{
+    font-size: 12px !important;
+    font-weight:bold !important;
+    color: #154073 !important;
+    text-decoration:underline;
 }

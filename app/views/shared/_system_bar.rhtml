@@ -60,8 +60,8 @@
     <%= link_to image_tag('Icons/System/sys_search.png'),{},{:title=>"Search"} %>
   </div>
   <div class="bar_section" id="help">
-    <%= link_to image_tag('Icons/System/feedback.png', :style => "cursor:pointer;", :id => "feedback"), {}, {:title=>"Feedback"} %>
-    <%= link_to image_tag('Icons/System/help.png'), {:controller => "feedback", :action => "list"}, {:title=>"Help"} %>
+    <%= link_to_function image_tag('Icons/System/feedback.png'), {:id => "feedback"} %>
+   
   </div>
 
 </div>
@@ -80,6 +80,11 @@
 <div id="error_message" >
   <%= image_tag('Icons/System/big-warning.png',:size => "100x100",:style => "display:none;",:id =>"error_message_image")%>
   <label id="error_message_text"  style ="display:inline;" />
+</div>
+
+<div id="confirm_message" >
+  <%= image_tag('Icons/System/big-warning.png',:size => "100x100",:style => "display:none;",:id =>"confirm_message_image")%>
+  <label id="confirm_message_text"  style ="display:inline;" />
 </div>
 
 <div id="show_list_grid" >

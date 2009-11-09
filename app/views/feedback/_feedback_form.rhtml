@@ -11,7 +11,7 @@
           <strong>From:</strong>
         </td>
         <td>
-          <%= @current_user.user_name %> (<%= @current_user.person.name if @current_user.class.to_s == "SystemUser"%>)
+          <%= @current_user.user_name %> <%= "( #{@current_user.person.name} )" if @current_user.class.to_s == "SystemUser"%>
         </td>
       </tr>
       <tr>

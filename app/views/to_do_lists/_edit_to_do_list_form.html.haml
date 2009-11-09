@@ -1,0 +1,5 @@
+.options{:style => "float:right;"}
+  = link_to image_tag("close_icon.png"), to_do_list_path(@to_do_list), :class => "get"
+.title
+  %h1 Edit To Do
+= render :partial => "to_do_lists/to_do_list_form"

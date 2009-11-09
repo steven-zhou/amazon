@@ -3,7 +3,7 @@ class SystemNews < ActiveRecord::Base
   belongs_to :created_by, :class_name => "LoginAccount", :foreign_key => "created_by_id"
   belongs_to :updated_by, :class_name => "LoginAccount", :foreign_key => "updated_by_id"
 
-  validates_uniqueness_of :title
+  validates_uniqueness_of :title, :case_sensitive => false
   validates_presence_of :title, :description
 
   def short_description

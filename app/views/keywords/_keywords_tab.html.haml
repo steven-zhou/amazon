@@ -1,6 +1,6 @@
 -# The main Keyword tab
 #keywords_tab.container
-  .header_container
+  -#.header_container
     .options
       = link_to_function image_tag('close_icon.png'), :class => "clear_tab person_keywords_close toggle_button", :toggle_id_name => "new_keywords", :style => "display:none", :title=>"Close"
     .title
@@ -8,15 +8,17 @@
     
   - if (!person.nil? && !person.new_record?)
     #keyword_person_types.keywordleft
-      = label_tag :keyword_type_id, "Keyword Types"
-      = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
+      .form_line
+        = label_tag :keyword_type_id, "Keyword Types"
+        = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br.clear
 
     %form#keywords
       %input{:style => "display:none",:id=> "person_id",  :name => "person_id", :value => person.id}
       #keywords_left.keywordleft
-        = label_tag :add_keywords,"Avaliable Keywords"
-        = select_tag :add_person_keywords,unselected_keyword_options(person),{:multiple => true, :size => 20, :style => "width:100% !important;float:left;"}
+        .form_line.field_select_line
+          = label_tag :add_keywords,"Avaliable Keywords"
+          = select_tag :add_person_keywords,unselected_keyword_options(person),{:multiple => true, :size => 20, :style => "width:100% !important;float:left;", :class => "field_select"}
       #keywords_middle.middle
         = link_to image_tag('go.png'),add_key_keyword_links_path, :id=>"add_keywords_link", :class => "post", :data_id => "keywords", :title=>"Add Keyword"
         %br
@@ -24,8 +26,9 @@
         %br
         = link_to image_tag('back.png'),remove_key_keyword_links_path, :id=>"remove_keywords_link", :class => "post", :data_id => "keywords", :title=>"Remove Keyword"
       #keywords_right.right
-        = label_tag :remove_keywords,"Assigned Keywords"
-        = select_tag :remove_person_keywords,selected_keyword_options(person),{:multiple => true,:size => 20, :style => "width:100% !important;float:left;"}
+        .form_line.field_select_line
+          = label_tag :remove_keywords,"Assigned Keywords"
+          = select_tag :remove_person_keywords,selected_keyword_options(person),{:multiple => true,:size => 20, :style => "width:100% !important;float:left;"}
       %br{ :style=>"clear: both;"}
 
   
