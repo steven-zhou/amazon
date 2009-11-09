@@ -1,9 +1,9 @@
 .info_container
   .header_container
     .options
-      = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), {:id => "close_new_group_list", :style => "display:none;"}, {:title=>"Close"})
+      = link_to_function image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_new_group_list", :style => "display:none;", :title=>"Close"
     .options_left
-      = link_to_function image_tag('add_icon.png'), {:id => "add_new_list", :class => "toggle_button", :toggle_id_name => "new_group_list"}, {:title=>"Add Group List"}
+      = link_to_function image_tag('add_icon.png'), :id => "add_new_list", :class => "toggle_button", :toggle_id_name => "new_group_list", :title=>"Add Group List"
       &nbsp
     %h3 Add New
 

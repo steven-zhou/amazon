@@ -4,7 +4,7 @@
       - status = i.login_status ? "container_active" : "container_inactive"
       .user_list_each_user{:class => "#{status} toggle_options", :id => "user_list_user_#{i.id}", :field => "user_list_user"}
         .options{:style => "display:none;"}
-          = link_to_function image_tag('edit_icon.png', :class => 'edit_option edit_logo', :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user"), :title=>"Edit"
+          = link_to_function image_tag('edit_icon.png'), :class => 'edit_option edit_logo', :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user", :title=>"Edit"
         .title
           = i.person.name
           \--
