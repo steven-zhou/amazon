@@ -9,25 +9,25 @@
         .field_100{:style=>"height:100%;"}
           %h1 #{person.id} #{person.name}
       .form_line
-        .field_30
+        .field_22
           = label_tag :customerid, "Customer ID", {:style => "color: #232323;"}
           %div.display_field_bg
             #{person.custom_id}
-        .field_30
+        .field_22{:style=>"margin-left:140px;"}
           = label_tag :employer, "Employer", {:style => "color: #232323;"}
           %div.display_field_bg
             = person.employers.first.nil? ? "" : person.employers.first.full_name
-        .field_30
+        .field_22{:style=>"margin-left:20px;"}
           = label_tag :role, "Role", {:style => "color: #232323;"}
           %div.display_field_bg
           = person.roles.first.nil? ? "" : person.roles.first.name
         %br.clear
       .form_line
-        .field_40
+        .field_22
           = label_tag :on_record_since, "On Record Since", {:style => "color: #232323;"}
           %div.display_field_bg
             #{person.onrecord_since.to_s}
-        .field_50
+        .field_22{:style=>"margin-left:140px;"}
           = label_tag :groups, "Groups", {:style => "color: #232323;"}
           %div.display_field_bg
             = person.group_types.first.nil? ? "" : person.group_types.first.name
