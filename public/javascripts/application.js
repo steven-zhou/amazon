@@ -2649,24 +2649,55 @@ $(function(){
 });
 
 $(function(){
-    $('#load_personal_duplication').live('mouseover', function(){
-        $('#load_personal_default').dialog( {
-            modal: true,
-            resizable: true,
-            draggable :true,
-            height: 250,
-            width: 700,
-            buttons: {
-                NO: function() {
-                    $(this).dialog('close');
-                },
-                YES: function() {
-                    window.open("/personal_duplication_formulas/set_default.html", "_self");
-                    return false;
+    $('#load_personal_duplication').live('click', function(){
+
+         $('#load_personal_message_text').html("Are you sure to load default setting? ");
+       
+            $('#load_personal_default').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        window.open("/personal_duplication_formulas/set_default.html", "_self");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
                 }
-            }
-        });
-        $('#load_personal_default').dialog('open');
+            });
+            $('#load_personal_default').dialog('option', 'title', 'Warning - Default Setting');
+
+            $('#load_personal_default').parent().find("a").css("display","none");
+            $("#load_personal_default").parent().css('background-color','#D1DDE6');
+            $("#load_personal_default").css('background-color','#D1DDE6');
+
+            $('#load_personal_default').dialog('open');
+
+//        $('#load_personal_default').dialog( {
+//            modal: true,
+//            resizable: true,
+//            draggable :true,
+//            height: 250,
+//            width: 700,
+//            buttons: {
+//                NO: function() {
+//                    $(this).dialog('close');
+//                },
+//                YES: function() {
+//                    window.open("/personal_duplication_formulas/set_default.html", "_self");
+//                    return false;
+//                }
+//            }
+//        });
+//        $('#load_personal_default').dialog('open');
     });
 });
 
@@ -5301,7 +5332,7 @@ $(function(){
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
-                    }%button
+                    }
                 }
             });
             $('#warning_message').dialog('option', 'title', 'Warning');
