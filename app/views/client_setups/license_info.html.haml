@@ -5,7 +5,7 @@
   %br.clear
 
 .container
-  %h2 Client Info
+  %h1 Client Info
   .form_line
     %p #{@client_organisation.id}-#{@client_organisation.full_name}
   .disabled_form
@@ -27,7 +27,7 @@
     %p &nbsp;
 
     .container
-      %h2 System Info
+      %h1 System Info
       .form_line
         .field_15
           %label Type
@@ -48,7 +48,7 @@
           %label Number of System Users
           %input{:value => @client_setup.number_of_users}
       .container
-        %h3 Module Installed
+        %h2 Module Installed
         .container_half
           .left
             Module Name

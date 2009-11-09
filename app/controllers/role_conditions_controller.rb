@@ -76,7 +76,7 @@ class RoleConditionsController < ApplicationController
       @role_condition.doctype_id = params[:add_doctype_id]
     end
 
-    if @role_condition.save!
+    if @role_condition.save
       flash.now[:message] = "saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "doc")if(!@role_condition.errors[:doctype_id].nil? && @role_condition.errors.on(:doctype_id).include?("can't be blank"))
