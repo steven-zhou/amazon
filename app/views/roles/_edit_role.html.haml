@@ -12,21 +12,17 @@
    
     -form_for @role, :url => {:controller => "roles", :action=> "update"}, :html => {:class => 'ajax_form'} do |role|
       .form_line{:style => "float:none;"}
-        .field_20
+        .field_30
           = role.label :name, 'Role Name'
           = role.text_field :name, :disabled=>@role.role_status == false
-        .field_25
+        .field_35
           = role.label :remarks, 'Remark'
           = role.text_field :remarks, :disabled=>@role.role_status == false
-        -#.field_10
-          = role.label :role_status, 'Status'
-          = role.radio_button :role_status, true, :checked => true, :style => "width:10%;"
-          %label.inline Active
         .field_10
           = role.label :role_status, 'Active'
           = role.check_box :role_status, :class => "checkbox_style"
           = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
-    
-      = submit_tag 'Submit'
+        .field_15{:style => "margin-top: 8px;"}
+          = submit_tag 'Submit', :style => 'display:inline;float:right;'
 
         

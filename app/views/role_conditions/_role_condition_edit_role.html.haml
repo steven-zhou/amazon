@@ -11,10 +11,10 @@
       = link_to_function image_tag('close_icon.png'), :class => "close_option", :id => "edit_role_condition_form",  :field => "condition_role", :flag_name => "role_condition", :title=>"Close"
     -form_for @role, :url => {:controller => "roles", :action=> "update"}, :html => {:class => 'ajax_form'} do |role|
       .form_line
-        .field_20
+        .field_30
           = role.label :name, 'Role Name'
           = role.text_field :name, :disabled => true
-        .field_25
+        .field_35
           = role.label :remarks, 'Remark'
           = role.text_field :remarks, :disabled => true
         .field_10
@@ -30,7 +30,7 @@
       .title
         = link_to_function image_tag('add_icon.png', :size => "22x22"), :class => "toggle_button new_option add_flag", :toggle_id_name => "new_role_condition_assign", :flag_name => "role_condition_assign", :field => "role_condition", :id => "add_role_condition_assign"
         &nbsp
-      %h2 Assign New Condition
+      %h2 Assign  Condition
 
 
       %div#new_role_condition_assign{:style => "display:none;"}

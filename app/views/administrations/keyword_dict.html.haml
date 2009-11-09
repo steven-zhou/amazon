@@ -1,21 +1,16 @@
 #header
   #page_title
     %h1 Keywords Dictionary
-  #lol
-    %br.clear
 #content_full_page
   .full_container
     - form_for Keyword.new, :html => {:class => "ajax_form"} do |p|
       .left
-        %h1{:style => "margin:5px 0 0 0;"} Select Keyword Type:
-      %select#keyword_type.clear_select{:style => "display:inline;width:20%;margin:5px 0 0 0;"}
+        %h1 Select Keyword Type:
+      %select#keyword_type.clear_select{:style => "display:inline;width:20%;"}
         %option
           = KeywordType.distinct_active_keyword_type
-
-      %br.clear
-      %br
       %input{:id => "keyword_mode", :style => "display:none;", :mode => "show"}
-      %div#keyword_main_contents{:style => "display:none;"}
+      %div#keyword_main_contents{:style => "display:none;margin:10px 0 0 0;"}
         .full_container#keywork_add_data
           .options
             = link_to_function image_tag("close_icon.png" , :id=> "keyword_close_entry",:class => "close_option", :style => "display:none;float:right;", :field => "keyword"), :title=>"Close"
@@ -25,7 +20,6 @@
           %h2  New Keyword
           %input{:style => "display:none;", :name=>"type_id",:type_id => "",:id => "type_id"}
           %div#keyword_add_entry_form{:style => "display:none;",:type_id => ""}
-            %br.clear
             = p.text_field :type, {:style => "display:none"}
             .form_line
               .field_30
