@@ -14,10 +14,18 @@
         =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
       .field_20{:style => "float:right"}
         =f.label :description, "&nbsp;"
-        %input{:style => "display:none", :name => "query_header_id", :id => "query_id_for_list"}
+        %input{:style => "display:none", :name => "query_header_id", :id => "source_id", :value => "query_#{@query_header.id}"}
         =submit_tag "Create List", :style => "width:100px;float:right"
-        =link_to("Export to XML", {:action => "query_header_to_xml", :controller => "query_headers", :id => "#{@query_header.id}"}, :target => "_blank")
   %br.clear
 
 .container
   %table#query_result_grid
+
+.container
+  %h2 Data Export
+  .form_line
+    .field_20
+      %label Export To
+      %input{:type => "button", :value => "PDF", :class => "export_button", :source => "person"}
+      %input{:type => "button", :value => "XML", :class => "export_button", :source => "person"}
+      %input{:type => "button", :value => "CSV", :class => "export_button", :source => "person"}
