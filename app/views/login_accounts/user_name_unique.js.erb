@@ -6,7 +6,11 @@
     $('#yes_username').hide();
     $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
-    modal:true,
+      modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
 
     buttons: {
 
@@ -16,7 +20,10 @@
     }
     }
     });
-
+     $('#flash_message').dialog( 'option', 'title', 'Error');
+     $('#flash_message').parent().find("a").css("display","none");
+     $("#flash_message").parent().css('background-color','#D1DDE6');
+    $("#flash_message").css('background-color','#D1DDE6');
     $('#flash_message').dialog('open');
   <%elsif @error_flag_length %>
     $('#user_name_container_0').html("UserName not taken")
@@ -25,9 +32,12 @@
 
     $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
-    modal:true,
+
+      modal: true,
       resizable: false,
-    <%#*position: 'top',%>
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
     buttons: {
 
     OK: function(){
@@ -36,6 +46,10 @@
     }
     }
     });
+       $('#flash_message').dialog( 'option', 'title', 'Error');
+     $('#flash_message').parent().find("a").css("display","none");
+     $("#flash_message").parent().css('background-color','#D1DDE6');
+    $("#flash_message").css('background-color','#D1DDE6');
 
     $('#flash_message').dialog('open');
   <%else%>
@@ -49,9 +63,11 @@
   <%if @error_flag_unique %>
    $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
-    modal:true,
+        modal: true,
       resizable: false,
-    <%#*position: 'top',%>
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
     buttons: {
 
     OK: function(){
@@ -61,6 +77,10 @@
     }
     });
 
+       $('#flash_message').dialog( 'option', 'title', 'Error');
+     $('#flash_message').parent().find("a").css("display","none");
+     $("#flash_message").parent().css('background-color','#D1DDE6');
+    $("#flash_message").css('background-color','#D1DDE6');
     $('#flash_message').dialog('open');
   <%elsif  @error_flag_length%>
    $('#user_name_container_0').html("UserName not taken")
@@ -68,9 +88,11 @@
 
     $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
-    modal:true,
+       modal: true,
       resizable: false,
-    <%#*position: 'top',%>
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
     buttons: {
 
     OK: function(){
@@ -79,6 +101,10 @@
     }
     }
     });
+           $('#flash_message').dialog( 'option', 'title', 'Error');
+     $('#flash_message').parent().find("a").css("display","none");
+     $("#flash_message").parent().css('background-color','#D1DDE6');
+    $("#flash_message").css('background-color','#D1DDE6');
 
     $('#flash_message').dialog('open');
   <%end%>

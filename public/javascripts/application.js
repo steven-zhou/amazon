@@ -1518,19 +1518,45 @@ $(function(){
             });
         }else{
             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-            $('#login_name_invalid').dialog( {
+
+            $('#error_message_text').html("Invalid Person ID");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
                 modal: true,
-                resizable: true,
+                resizable: false,
                 draggable: true,
+                height: 'auto',
+                width: 'auto',
                 buttons: {
-
                     OK: function(){
+                        $(this).dialog('destroy');
+                        return false;
 
-                        $(this).dialog('close');
                     }
                 }
             });
-            $('#login_name_invalid').dialog('open');
+            $('#error_message').dialog('option', 'title', 'ERROR');
+
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+
+            $('#error_message').dialog('open');
+
+            
+        //            $('#login_name_invalid').dialog( {
+        //                modal: true,
+        //                resizable: true,
+        //                draggable: true,
+        //                buttons: {
+        //
+        //                    OK: function(){
+        //
+        //                        $(this).dialog('close');
+        //                    }
+        //                }
+        //            });
+        //            $('#login_name_invalid').dialog('open');
         }
     });
 });
@@ -1565,36 +1591,82 @@ $(function(){
         _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($(this).val());
         if($(this).val()!=""){
             if((!_valid)){
-                $('#invalid_email').dialog( {
+                
+                $('#error_message_text').html("Invalid Email! ");
+                $('#error_message_image').css("display","");
+                $('#error_message').dialog({
                     modal: true,
-                    resizable: true,
+                    resizable: false,
                     draggable: true,
+                    height: 'auto',
+                    width: 'auto',
                     buttons: {
-
-                        OK: function(){
-
-                            $(this).dialog('close');
+                        "Close": function(){
+                            $(this).dialog('destroy');
+                            return true;
                         }
                     }
                 });
-                $('#invalid_email').dialog('open');
+                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').parent().find("a").css("display","none");
+                $("#error_message").parent().css('background-color','#D1DDE6');
+                $("#error_message").css('background-color','#D1DDE6');
+                $('#error_message').dialog('open');
+
+
+
+                //
+                //                $('#invalid_email').dialog( {
+                //                    modal: true,
+                //                    resizable: true,
+                //                    draggable: true,
+                //                    buttons: {
+                //
+                //                        OK: function(){
+                //
+                //                            $(this).dialog('close');
+                //                        }
+                //                    }
+                //                });
+                //                $('#invalid_email').dialog('open');
                 $('.user_email_new').focus();
                 return false;
             }
         }else{
-            $('#invalid_email').dialog( {
+
+            $('#error_message_text').html("Invalid Email! ");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
                 modal: true,
-                resizable: true,
+                resizable: false,
                 draggable: true,
+                height: 'auto',
+                width: 'auto',
                 buttons: {
-
-                    OK: function(){
-
-                        $(this).dialog('close');
+                    "Close": function(){
+                        $(this).dialog('destroy');
+                        return true;
                     }
                 }
             });
-            $('#invalid_email').dialog('open');
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+        //            $('#invalid_email').dialog( {
+        //                modal: true,
+        //                resizable: true,
+        //                draggable: true,
+        //                buttons: {
+        //
+        //                    OK: function(){
+        //
+        //                        $(this).dialog('close');
+        //                    }
+        //                }
+        //            });
+        //            $('#invalid_email').dialog('open');
         }
     });
 });
@@ -1654,13 +1726,42 @@ $(function() {
 
 $(function(){
     $("#login_account_password_confirmation").live('change', function(){
+
         if ($(this).val()!= $('#login_account_password').val()){
-            $('#password_confirm').dialog( {
+
+            $('#error_message_text').html("Password confirmation is different with password! ");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
                 modal: true,
-                resizable: true,
-                draggable: true
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
             });
-            $('#password_confirm').dialog('open');
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
+
+
+
+
+
+        //            $('#password_confirm').dialog( {
+        //                modal: true,
+        //                resizable: true,
+        //                draggable: true
+        //            });
+        //            $('#password_confirm').dialog('open');
         }
     });
 });
@@ -4613,9 +4714,9 @@ $(function(){
     });
 
 
-     $("#feedback").live("mouseover", function(){
-             $(this).css("cursor","pointer");
-     });
+    $("#feedback").live("mouseover", function(){
+        $(this).css("cursor","pointer");
+    });
 });
 
 
@@ -5325,7 +5426,7 @@ $(function(){
 $(function(){
 
 
-    $("#content input").live('change', function(){
+    $("#content input[type='text']").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
 
@@ -5348,14 +5449,14 @@ $(function(){
 });
 
 $(function(){
-    $("#content #left_content").find('input').live('change', function(){
+    $("#content #left_content").find("input[type='text']").live('change', function(){
         $('#check_left_input_change').val("true");
     //        $('#check_input_change').val("true");
     });
 });
 
 $(function(){
-    $("#content #right_content").find('input').live('change', function(){
+    $("#content #right_content").find("input[type='text']").live('change', function(){
         right_tab = $("#right_content").find("#tabs");
         if(right_tab.length <= 0)
         {

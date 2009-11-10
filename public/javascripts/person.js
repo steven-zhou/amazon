@@ -219,7 +219,7 @@ $(function() {
                         if (link.attr('field') == "right_find_by_address")
                         {
 
-                           $('#find_address_input_change_or_not').val("false");
+                            $('#find_address_input_change_or_not').val("false");
 
                         }
 
@@ -326,12 +326,47 @@ $(function() {
         $('#superviser_container_0').html('');
         $('#manager_container_0').html('');
   
-    })
+    });
+
+
 
     $("#delete_photo").click(function(){
-        $("#photo").attr("src", "/images/no_photo.jpeg");
-        $("#delete_photo").hide();
+
+     var link =$(this);
+        $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return true;
+
+                },
+                Yes: function(){
+                    $.post(link.attr('href'), "_method=delete", null, 'script');
+                    $("#photo").attr("src", "/images/no_photo.jpeg");
+                    $("#delete_photo").hide();
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
     });
+
+
 
     $(".user_clear_form").click(function(){
         $('#'+$(this).parents("form").get(0).id)[0].reset();

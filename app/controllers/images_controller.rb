@@ -35,6 +35,7 @@ class ImagesController < ApplicationController
 
   def destroy
     @image = Image.find(params[:id])
+     @entity = Person.find(@image.imageable.id) rescue Organisation.find(@image.imageable.id)
     @image.destroy
     respond_to do |format|
       format.js
