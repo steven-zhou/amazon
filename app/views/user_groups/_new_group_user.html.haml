@@ -1,8 +1,6 @@
 - status = user_group.login_account.login_status ? "container_active" : "container_inactive"
--div_for(user_group, :class => "#{status} half_container toggle_options" , :id => "existing_user_in_group", :login_account_id => user_group.login_account.id, :field => "user_group") do
+-div_for(user_group, :class => "#{status}  toggle_options" , :id => "existing_user_in_group", :login_account_id => user_group.login_account.id, :field => "user_group", :style=> "width:47%;") do
   .options{:id => "delete_icon", :style => "display:none"}
     = link_to image_tag('delete_icon.png'), user_group_path(user_group), :class => 'delete delete_flag',:id => 'delete_user_group',:field => "User Group",:error_message_field => "User Group"
   .title
-    = user_group.login_account.person_id
-    \-
-    = user_group.login_account.user_name
+    %h3 #{user_group.login_account.person_id}-#{ user_group.login_account.user_name}

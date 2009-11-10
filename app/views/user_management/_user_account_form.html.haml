@@ -1,6 +1,6 @@
 -form_for @login_account, :url=> {:controller => 'login_accounts',:action => 'create' , :id => @login_account.id}, :html => {:class => 'ajax_form create_account', :id => "new_login_account"} do |login|
   .form_line
-    .field_15
+    .field_10
       = login.label :person_id, 'Person System ID'
       = login.text_field :person_id,:autocomplete => "off", :class => "check_login_id validate[required]", :login_account_id => @login_account.new_record? ? 0 : @login_account.id, :id => "login_account_person_id" , :name => "login_account[person_id]"
     .field_25

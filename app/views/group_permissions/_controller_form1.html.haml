@@ -1,7 +1,7 @@
 %ul
   - for controller in @system_permission_meta_types do
     %li{:style => "width:95%;"}
-      .container
+      .full_container
         .options
           = check_box_tag "controller_ids[]", controller.id, false, :class => 'controller_select_all', :controller_id => controller.id, :style => "width:auto;vertical-align:middle;"
           %span{:class => "select_all"} Select All
@@ -13,7 +13,7 @@
         %ul
           - controller.system_permission_types.each do |method|
             %li{:style => "width:95%;"}
-              .container{:style => "float:none;margin-bottom:10px;"}
+              .full_container{:style => "float:none;margin-bottom:10px;"}
                 .options
                   = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => controller.id, :style => "width:auto;vertical-align:middle;"
                   %span{:class => "select_all"} Allow Access

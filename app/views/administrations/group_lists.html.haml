@@ -1,10 +1,7 @@
 #header
   #page_title
     %h1 Group Lists
-  #lol
-    %br.clear
 %input{:id => "group_list_group_mode", :mode => "show", :style => "display:none"}
-%br
 #content_full_page
   %div#group_list_show_group
     - for i in @group_types
@@ -14,7 +11,7 @@
         .options{:style => "display:none;"}
           = link_to_function image_tag('edit_icon.png'), :class => "#{status_flag} edit_option edit_logo", :id => 'group_list_group_edit_button', :controller => "group_lists", :data_id => i.id, :field => "group_list_group", :title=>"Edit"
         .title
-          %h1= "#{i.name}""\--""#{i.list_headers.size}""\-" "lists"
+          %h2= "#{i.name}""\--""#{i.list_headers.size}""\-" "lists"
 
   %br.clear
   %div#group_list_group_edit_container

@@ -1,5 +1,5 @@
 -div_for(group_list, :class => "container_active_50  half_container toggle_options", :field => "group_list") do
   .options{:style => "display:none;"}
-    = link_to image_tag('delete_icon.png'), group_list_path(group_list), :class => "delete",:field => "List",:error_message_field => "List"
+    = link_to image_tag('delete_icon.png'), group_list_path(group_list), :class => "delete",:field => "Group List",:error_message_field => "Group List"
   .title{:style => "height:20px;"}
-    = group_list.list_header.name
+    %h3 #{group_list.list_header.name}

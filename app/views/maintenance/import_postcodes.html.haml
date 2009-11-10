@@ -4,11 +4,11 @@
   #lol
     %br.clear
 #content_full_page
-  .container
+  .full_container
     - form_tag("/maintenance/import_postcode_file", :multipart => true) do
 
       %div#postcode_import_settings
-        %h2
+        %h1
           Select Data File and Country
 
         %br.clear
@@ -27,7 +27,7 @@
 
         %br.clear
 
-        %h2
+        %h1
           Enter column numbers
         %br.clear
         %p
@@ -51,7 +51,7 @@
               = text_field_tag :postcode, nil, :size => "2", :class => "check_postcode_columns integer_field"
         %br.clear
 
-        %h2 Configure data import options
+        %h1 Configure data import options
         %br.clear
         %p
           Number of lines to skip at the start of the file (blank defaults to zero):

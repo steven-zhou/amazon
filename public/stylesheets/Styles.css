@@ -704,7 +704,7 @@ margin-right: 5px;
     margin-left: 0.5%;
 }
 
-/* For when we are using the whole page, not only two columns */
+/* For when we are using the whole page, not only two columns 
 #app #main #content #content_full_page {
     min-height: 500px;
     background-color:#F6F6F6;
@@ -712,7 +712,7 @@ margin-right: 5px;
     width: 98%;
     margin-right: 1%;
     margin-left: 1%;
-}
+}*/
 
 /* content footer - not in use at the moment */
 #app #main #content #footer {
@@ -1403,7 +1403,7 @@ td.textright {
 
 
 
-#app #main #content .container .form_line .wrapimage {
+#app #main #content .form_line .wrapimage {
     float: left;
     height: 40px;
     margin-left: -35px;
@@ -1412,7 +1412,7 @@ td.textright {
 }
 
 
-#app #main #content .container .container_inactive .title{
+#app #main #content .container_inactive .title{
 
 
     float: left;
@@ -1433,7 +1433,7 @@ td.textright {
 }
 
 
-#app #main #content .container .half_container{
+#app #main #content  .half_container{
     float: left;
     width: 46%;
     margin-left: 10px;
@@ -1547,6 +1547,23 @@ div#content_full_page h3 {
 
 }
 
+div#content_full_page h2 {
+    font-size:18px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+
+}
+
+div#content_full_page h1 {
+     color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
 div.container_edit div.options_left .edit_icon_right{
 
     float:left;
@@ -1578,7 +1595,7 @@ div#content_full_page .add_container {
     width: 45%;
     margin: 1%;
     float: left;
-    padding: 1.5%;
+    padding: 1%;
     -moz-border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
@@ -1615,7 +1632,7 @@ div.duplication_check .form_line.field_select_line {
     width: 45%;
     margin: 1%;
     float: left;
-    padding: 1.5%;
+    padding: 1%;
     -moz-border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
