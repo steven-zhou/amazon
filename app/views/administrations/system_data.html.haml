@@ -1,21 +1,16 @@
 #header
   #page_title
     %h1 System Data
-  #lol
-    %br.clear
 #content_full_page
   .full_container
     .left
-      %h1{:style => "margin:5px 0 0 0;"} Select System Data Type:
+      %h1 Select System Data Type:
     &nbsp
-    %select#system_data_type.clear_select{:style => "display:inline;width:20%;margin:5px 0 0 0;"}
+    %select#system_data_type.clear_select{:style => "display:inline;width:20%;"}
       %option
         = AmazonSetting.distinct_setting_type
-
-    %br.clear
-    %br
     %input{:id => "system_data_mode", :style => "display:none;", :mode => "show"}
-    %div#system_data_main_contents{:style => "display:none;"}
+    %div#system_data_main_contents{:style => "display:none;margin:10px 0 0 0;"}
       .full_container#system_data_add_data
         .options
           = link_to_function image_tag("close_icon.png" , :class => "close_option", :id=> "system_data_close_entry",:style => "display:none;float:right;", :field => "system_data"), :title=>"Close"

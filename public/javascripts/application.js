@@ -2702,24 +2702,58 @@ $(function(){
 });
 
 $(function(){
-    $('#load_organisational_duplication').live('mouseover', function(){
-        $('#load_organisational_default').dialog( {
-            modal: true,
-            resizable: true,
-            draggable :true,
-            height: 250,
-            width: 700,
-            buttons: {
-                NO: function() {
-                    $(this).dialog('close');
-                },
-                YES: function() {
-                    window.open("/organisational_duplication_formulas/set_default.html", "_self");
-                    return false;
+    $('#load_organisational_duplication').live('click', function(){
+
+
+          $('#load_organisational_message_text').html("Are you sure to load default setting? ");
+
+            $('#load_organisational_default').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                         window.open("/organisational_duplication_formulas/set_default.html", "_self");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
                 }
-            }
-        });
-        $('#load_organisational_default').dialog('open');
+            });
+            $('#load_organisational_default').dialog('option', 'title', 'Warning - Default Setting');
+
+            $('#load_organisational_default').parent().find("a").css("display","none");
+            $("#load_organisational_default").parent().css('background-color','#D1DDE6');
+            $("#load_organisational_default").css('background-color','#D1DDE6');
+
+            $('#load_organisational_default').dialog('open');
+
+
+
+//        $('#load_organisational_default').dialog( {
+//            modal: true,
+//            resizable: true,
+//            draggable :true,
+//            height: 250,
+//            width: 700,
+//            buttons: {
+//                NO: function() {
+//                    $(this).dialog('close');
+//                },
+//                YES: function() {
+//                    window.open("/organisational_duplication_formulas/set_default.html", "_self");
+//                    return false;
+//                }
+//            }
+//        });
+//        $('#load_organisational_default').dialog('open');
     });
 });
 
