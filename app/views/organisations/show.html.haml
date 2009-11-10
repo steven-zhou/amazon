@@ -13,18 +13,20 @@
           = image_tag 'Icons/System/image-missing.png', :class => "medium"
         -else
           = image_tag(image_path(@organisation.image.id), :class => "small")
-      %div#organisation_name
+      %div#organisation_name{:style=>"width:360px;margin-left:130px;height:140px;"}
         - if @organisation.id.nil?
           %h1{:style=>'visibility:hidden'} Hidden
         -else
           %h1= h "#{@organisation.full_name}"
-        %br
-        .form_line
+
+        .form_line{:style=>"width: 193px; margin-top: 10px;"}
           = label_tag 'custom_id', 'Custom ID'
-          %span=@organisation.custom_id
-        .form_line
+          %div.display_field_bg{:style=>"margin-left: 4px;"}
+            =@organisation.custom_id
+        .form_line{:style=>"width: 193px; margin-top: 2px;"}
           = label_tag 'onrecord_since', 'On Record Since'
-          %span=@organisation.onrecord_since.to_s
+          %div.display_field_bg{:style=>"margin-left: 4px;"}
+            =@organisation.onrecord_since.to_s
         %br
 
     .container
