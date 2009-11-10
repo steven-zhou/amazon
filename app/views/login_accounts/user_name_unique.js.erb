@@ -4,7 +4,7 @@
     $('#user_name_container_0').html("UserName already taken")
     $('#no_username').show();
     $('#yes_username').hide();
-    $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
+    $("#flash_message_text").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
       modal: true,
       resizable: false,
@@ -20,7 +20,7 @@
     }
     }
     });
-     $('#flash_message').dialog( 'option', 'title', 'Error');
+     $('#flash_message').dialog( 'option', 'title', 'ERROR');
      $('#flash_message').parent().find("a").css("display","none");
      $("#flash_message").parent().css('background-color','#D1DDE6');
     $("#flash_message").css('background-color','#D1DDE6');
@@ -30,7 +30,7 @@
     $('#no_username').show();
     $('#yes_username').hide();
 
-    $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
+    $("#flash_message_text").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
 
       modal: true,
@@ -46,7 +46,7 @@
     }
     }
     });
-       $('#flash_message').dialog( 'option', 'title', 'Error');
+       $('#flash_message').dialog( 'option', 'title', 'ERROR');
      $('#flash_message').parent().find("a").css("display","none");
      $("#flash_message").parent().css('background-color','#D1DDE6');
     $("#flash_message").css('background-color','#D1DDE6');
@@ -61,7 +61,7 @@
 
 <%else%>
   <%if @error_flag_unique %>
-   $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
+   $("#flash_message_text").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
         modal: true,
       resizable: false,
@@ -77,7 +77,7 @@
     }
     });
 
-       $('#flash_message').dialog( 'option', 'title', 'Error');
+       $('#flash_message').dialog( 'option', 'title', 'ERROR');
      $('#flash_message').parent().find("a").css("display","none");
      $("#flash_message").parent().css('background-color','#D1DDE6');
     $("#flash_message").css('background-color','#D1DDE6');
@@ -86,7 +86,7 @@
    $('#user_name_container_0').html("UserName not taken")
 
 
-    $("#flash_message").html("<%=escape_javascript(flash.now[:error])%>");
+    $("#flash_message_text").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
        modal: true,
       resizable: false,
@@ -101,7 +101,7 @@
     }
     }
     });
-           $('#flash_message').dialog( 'option', 'title', 'Error');
+           $('#flash_message').dialog( 'option', 'title', 'ERROR');
      $('#flash_message').parent().find("a").css("display","none");
      $("#flash_message").parent().css('background-color','#D1DDE6');
     $("#flash_message").css('background-color','#D1DDE6');
