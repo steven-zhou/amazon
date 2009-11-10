@@ -1,5 +1,5 @@
 -form_tag('/group_permissions', :class => 'ajax_form',:style => "margin-top:15px;") do
-  .container
+  .full_container
     .options
       = check_box_tag "module_ids[]" , @system_permission_meta_meta_type.id, false, :class => 'module_select_all', :style => "width:auto;vertical-align:middle;"
       %span{:class => "select_all"} Select All

@@ -7,7 +7,7 @@
     %div#role_main_contents.hidden{:style => "margin:10px 0 0 0;"}
       .full_container#new_role_bar
         .options
-          = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role", :id => "close_role", :style => "display:none;", :field => "role", :title=>"Close"
+          = link_to_function image_tag('close_icon.png'), :class => "close_flag", :flag_name => "role", :id => "close_role", :style => "display:none;", :field => "role", :title=>"Close"
         .title
           = link_to_function image_tag('add_icon.png',:size => "22x22"),:class => "toggle_button new_option add_flag", :toggle_id_name => "new_role", :flag_name => "role", :field => "role", :id => "add_new_role"
           &nbsp

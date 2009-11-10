@@ -12,7 +12,5 @@
     .field_20{:style => "display:none;"}
       %label &nbsp
       %input{:name => "user_list[user_id]", :value => "#{@login_account.id}"}
-    .field_20.float_right
-      %label &nbsp
-      -#= link_to_function 'clear', :class => "alt_option"
-      = submit_tag 'Submit'
+    .field_20{:style => "margin-top: 8px;float:right"}
+      = submit_tag 'Submit', :style => 'display:inline;'

@@ -1,16 +1,11 @@
-%h1 Existing Users
+%h2 Existing Users
 %input{:id => "login_account_mode", :mode => "show", :style => "display:none"}
-%br
-%ul{:style => "list-style-type:none;padding-left:0px;"}
-  - @login_accounts.each do |i|
-    %li{:style => "width:50%;float:left;"}
-      - status = i.login_status ? "container_active" : "container_inactive"
-      .show_users.toggle_options{:class => status , :person_id => i.person_id, :id => "login_account_#{i.id}", :login_account_id => i.id, :field => "login_account"}
-        .options{:style => "display:none",:id => "login_icon"}
-          = link_to image_tag('edit_icon.png'), edit_login_account_path(i), :class => 'get edit_login_account edit_option', :id => 'login_account_edit_button' , :login_account_id => i.id,:field => "login_account", :title=>"Edit"
-          = link_to image_tag('delete_icon.png'), login_account_path(i), :class => 'delete delete_login_account',:id => 'login_account_delete_button', :login_account_id => i.id ,:field => "List",:error_message_field => "Account", :title=>"Remove"
-        .title
-          = i.person_id
-          \-
-          = i.user_name
+- for i in @login_accounts
+  - status = i.login_status ? "container_active" : "container_inactive"
+  .show_users.toggle_options{:class => status , :person_id => i.person_id, :id => "login_account_#{i.id}", :login_account_id => i.id, :field => "login_account", :style => "width:47%;"}
+    .options{:style => "display:none",:id => "login_icon"}
+      = link_to image_tag('edit_icon.png'), edit_login_account_path(i), :class => 'get edit_login_account edit_option', :id => 'login_account_edit_button' , :login_account_id => i.id,:field => "login_account", :title=>"Edit"
+      = link_to image_tag('delete_icon.png'), login_account_path(i), :class => 'delete delete_login_account',:id => 'login_account_delete_button', :login_account_id => i.id ,:field => "List",:error_message_field => "Account", :title=>"Remove"
+    .title
+      %h3= "#{i.person_id}""\-""#{i.user_name}"
           

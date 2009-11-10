@@ -102,133 +102,152 @@ $(function() {
         }
 
 
-       if($('#check_input_change').val()=="true")
-       { $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
+        if($('#check_input_change').val()=="true")
+        {
+            $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
 
-                No: function(){
-                    $(this).dialog('destroy');
-                    return true;
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return true;
 
-                },
-                Yes: function(){
-                    $('#'+link.parents("form").get(0).id)[0].reset();
-                    $('#check_input_change').val("false");
-                    $('#check_left_input_change').val("false");
-                    $('#check_right_input_change').val("false");
-                    $(this).dialog('destroy');
-                    return true;
+                    },
+                    Yes: function(){
+                        $('#'+link.parents("form").get(0).id)[0].reset();
+                        $('#check_input_change').val("false");
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
                 }
-            }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
 
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
 
-        $('#warning_message').dialog('open');
+            $('#warning_message').dialog('open');
 
             
            
-          }
+        }
     });
 
 
-$(".clear_find_form").click(function(){
+    $(".clear_find_form").click(function(){
 
         var link = $(this);
         var temp = "false";
-//        left_content = $("#content").find("#left_content");
-//        right_content = $("#content").find("#right_content");
-//        //     alert( left_content.length);
-//        //     alert( right_content.length);
-//        if (left_content.length > 0 &&  right_content.length > 0)
-//        {
-//            //          $('#check_input_change').val("true");
-//            //          alert( $('#check_input_change').val());
-//
-//            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
-//            {
-//
-//                $('#check_input_change').val("true");
-//            }
-//            else
-//            {
-//
-//                $('#check_input_change').val("false");
-//            }
-//        }
 
-          if ($(this).attr('field') == "left_find_by_person")
-              {
 
-                  temp = $('#check_left_input_change').val();
+        if ($(this).attr('field') == "left_find_by_person")
+        {
 
-              }
-               if ($(this).attr('field') == "right_find_by_email")
-              {
+            temp = $('#check_left_input_change').val();
 
-                  temp = $('#check_right_input_change').val();
 
-              }
-   if ($(this).attr('field') == "right_find_by_phone")
-              {
+        }
+        if ($(this).attr('field') == "right_find_by_email")
+        {
 
-                  temp = $('#check_right_input_change').val();
+            temp = $('#find_email_input_change_or_not').val();
 
-              }
-                 if ($(this).attr('field') == "right_find_by_address")
-              {
 
-                  temp = $('#check_right_input_change').val();
+        }
+        if ($(this).attr('field') == "right_find_by_phone")
+        {
 
-              }
+            temp = $('#find_phone_input_change_or_not').val();
 
-       if(temp=="true")
-       { $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
 
-                No: function(){
-                    $(this).dialog('destroy');
-                    return true;
+        }
+        if ($(this).attr('field') == "right_find_by_address")
+        {
 
-                },
-                Yes: function(){
-                    $('#'+link.parents("form").get(0).id)[0].reset();
-                    $('#check_input_change').val("false");
-                    $('#check_left_input_change').val("false");
-                    $('#check_right_input_change').val("false");
-                    $(this).dialog('destroy');
-                    return true;
+            temp = $('#find_address_input_change_or_not').val();
+
+        }
+
+        if(temp=="true")
+        {
+            $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return true;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.parents("form").get(0).id)[0].reset();
+                        //                    $('#check_input_change').val("false");
+                        //                    $('#check_left_input_change').val("false");
+                        //                    $('#check_right_input_change').val("false");
+                        if (link.attr('field') == "left_find_by_person")
+                        {
+
+                            $('#check_left_input_change').val("false");
+
+                        }
+                        if (link.attr('field') == "right_find_by_email")
+                        {
+                            $('#find_email_input_change_or_not').val("false");
+
+                        }
+                        if (link.attr('field') == "right_find_by_phone")
+                        {
+
+                            $('#find_phone_input_change_or_not').val("false");
+
+                        }
+                        if (link.attr('field') == "right_find_by_address")
+                        {
+
+                           $('#find_address_input_change_or_not').val("false");
+
+                        }
+
+
+                        if($('#find_email_input_change_or_not').val()=="false" && $('#find_phone_input_change_or_not').val()=="false")
+                        {
+                            $('#check_right_input_change').val("false");
+                        }
+                        else
+                        {
+                            $('#check_right_input_change').val("true");
+                        }
+                        $(this).dialog('destroy');
+                        return true;
+                    }
                 }
-            }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
 
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
 
-        $('#warning_message').dialog('open');
-
+            $('#warning_message').dialog('open');
 
 
-          }
+
+        }
     });
 
 

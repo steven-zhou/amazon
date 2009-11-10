@@ -4,4 +4,4 @@
     .options{:style => "display:none;"}
       = link_to image_tag('delete_icon.png'), user_list_path(i), :class => "delete" ,:field => "User List",:error_message_field => "User List"
     .title{:style => "height:20px;"}
-      = i.user_list_header.name
+      %h3 #{i.user_list_header.name}

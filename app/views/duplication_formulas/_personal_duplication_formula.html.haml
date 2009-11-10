@@ -10,30 +10,32 @@
     - personal_descriptions += "<label class='descriptions_personal_duplication' id='description_personal_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
 
 .container.duplication_check{:style => "width:98%;padding:1%;"}
-  = button_to_function "Re-generate Duplication Value", :id => "generate_personal_duplication", :style => "float:right;"
   = button_to_function "Load Default Setting", :id => "load_personal_duplication", :style => "float:right;"
   %h1 Personal Duplication Formula
   
 
-  #formular_form
+  #formular_form.container
     -form_for @personal_duplication_formula, :html => {:class => 'ajax_form', :id => "personal_duplication_form", :style => "margin-bottom:40px;"} do |f|
       #left{:style => "width:30%;margin: 0pt 5px 5px 19px;"}
         .form_line
-          = f.label :duplication_space, "Duplication Space"
-          = f.radio_button :duplication_space, true, :style =>"display:inline;width:25%;height:auto;"
-          = f.label :duplication_space, "Primary List", :style =>"display:inline;width:75%;"
-          %br
-          = f.radio_button :duplication_space, false, :style =>"display:inline;width:25%;"
-          = f.label :duplication_space, "Customize List", :style =>"display:inline;width:75%;"
-          %br.clear
+          .field_40
+            = f.label :duplication_space, "Duplication Space"
+            = f.radio_button :duplication_space, true, :style =>"display:inline;width:25%;height:auto;"
+            = f.label :duplication_space, "Primary List", :style =>"display:inline;width:75%;"
+            %br
+            = f.radio_button :duplication_space, false, :style =>"display:inline;width:25%;"
+            = f.label :duplication_space, "Customize List", :style =>"display:inline;width:75%;"
+          .field_35
+            = f.label :duplication_active, "Active Duplication"
+            = f.check_box :status, :checked => @personal_duplication_formula.status ? true : false, :sytle => "width:auto;"
+
+
       #right{:style => "width:65%;"}
         .form_line
           = f.label :description, "Description"
           = f.text_field :description
           = submit_tag "test", :style => "display:none;"
-          %br.clear
-      %br.clear
-
+  #create_formular_form.container
     #left{:style => "width:30%;"}
       .container
         -form_for DuplicationFormulaDetail.new, :html => {:class => 'ajax_form'} do |f|
@@ -64,6 +66,7 @@
 
     %br.clear
     %div
+      = button_to_function "Re-generate Duplication Value", :id => "generate_personal_duplication", :style => "float:right;"
       = button_to_function "Submit", :id => "apply_personal_duplication", :style => "float:right;"
       %br.clear
 
