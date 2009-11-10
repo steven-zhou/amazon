@@ -4448,9 +4448,9 @@ $(function(){
         $('#feedback_form').dialog( {
             modal: true,
             resizable: false,
-            draggable :false,
-            height: 650,
-            width: 800
+            draggable : true,
+            height: 560,
+            width: 350
         }
         );
         $("#feedback_form").dialog("open");

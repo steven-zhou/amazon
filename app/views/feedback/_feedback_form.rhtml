@@ -1,58 +1,29 @@
 <div id="feedback_form">
 
-  <h2>Feedback Form</h2>
-  <br />
-  <p>If you have any questions or feedback, please complete the form below.</p>
-  <br />
+  <div class="heading"><p>If you have any questions or feedback, please complete the form below.</p></div>
+   <% form_tag("/feedback/submit_feedback", :class => "ajax_form") do -%>
+   <div class="form_line">
+   <label>To:</label>
+   <div class="display_field_bg">feedback(at)memberzone(dot)com(dot)au</div>
+   </div>
+   <div class="form_line">
+   <label> From:</label>
+   <div class="display_field_bg"><%= @current_user.user_name %> <%= "( #{@current_user.person.name} )" if @current_user.class.to_s == "SystemUser"%></div>
+   </div>
+   <div class="form_line">
+   <label>Date:</label>
+   <div class="display_field_bg"><%= Date.today().strftime('%a %d %b %Y') %></div>
+   </div>
+   <div class="form_line">
+   <label>Subject:</label>
+   <div class="field_100"><%= text_field_tag :feedback_item_subject, nil, :size => "30" %></div>
+   </div>
+    <div class="form_line">
+   <label>Message:</label>
+   <div class="field_100"><%= text_area_tag :feedback_item_content, nil, :cols => "29", :rows => "10" %></div>
+   </div>
+   <div class="right"><%= submit_tag("Submit", :id => "feedback_submit", :disabled => true, :id => 'feedback_form_submit_button') %></div>
 
-  <% form_tag("/feedback/submit_feedback", :class => "ajax_form") do -%>
-    <table>
-      <tr>
-        <td>
-          <strong>To:</strong>
-        </td>
-        <td>
-          feedback at memberzone dot com dot au
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>From:</strong>
-        </td>
-        <td>
-          <%= @current_user.user_name %> <%= "( #{@current_user.person.name} )" if @current_user.class.to_s == "SystemUser"%>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Date:</strong>
-        </td>
-        <td>
-          <%= Date.today().strftime('%a %d %b %Y') %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Subject:</strong>
-        </td>
-        <td>
-          <%= text_field_tag :feedback_item_subject, nil, :size => "30" %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <strong>Message:</strong>
-        </td>
-        <td>
-          <%= text_area_tag :feedback_item_content, nil, :cols => "30", :rows => "15" %>
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td><%= submit_tag("Submit", :id => "feedback_submit", :disabled => true, :id => 'feedback_form_submit_button') %></td>
-      </tr>
-
-    </table>
   <%  end -%>
 
 </div>

@@ -467,6 +467,12 @@ margin-right: 5px;
     margin-bottom: 5px;
 }
 /* form line wrapper */
+ .form_line {
+    float: left;
+    min-height: 30px;
+    padding-bottom: 5px;
+    width: 100%;
+}
 #app #main #content .container .form_line {
     float: left;
     height: 40px;
@@ -479,7 +485,7 @@ margin-right: 5px;
     width: 100%;
 }
 /* filed label properties */
-#app #main #content .container .form_line label {
+label {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11px;
     font-weight: bold;
@@ -498,10 +504,11 @@ margin-right: 5px;
     display: block;
     padding-left: 3px;
 }
+
 /* field properties */
 #app #main #content .container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -510,7 +517,7 @@ margin-right: 5px;
 
 #app #main #content .full_container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -536,7 +543,7 @@ margin-right: 5px;
 /* dropdown properties */
 #app #main #content .container select {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:20px;
     width: 100%;
     height: 24px;
@@ -544,7 +551,7 @@ margin-right: 5px;
 
 #app #main #content .full_container select {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:20px;
     width: 100%;
     height: 24px;
@@ -1239,7 +1246,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog .container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -1292,7 +1299,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog .container select {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:20px;
     width: 100%;
     height: 24px;
@@ -1671,15 +1678,16 @@ div#permission_form .options{
     background:white;
 }
 
-#feedback_form table{
-    border:0px;
-    width:80%;
+#feedback_form .heading {
+    font-family: Arial, Helvetica, Sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    width: 100%;
+    padding: 0 0 10px 0;
+    line-height: 20px;
+    
 }
-
-#feedback_form table td {
-    padding: 5px;
-    vertical-align: top;
-}
+#feedback_form input {width:100%;}
 
 #feedback_confirmation {
     display: none;
@@ -1761,7 +1769,7 @@ div#permission_form .options{
 /* field properties */
 #reset_password_container .container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -2099,10 +2107,11 @@ div#permission_form .options{
 
     color: #232323;
     background-image:url(/images/display_field_bg.png);
-    background-repeat:repeat;
+    background-repeat: repeat-y;
     font-family:Arial,Helvetica,sans-serif;
     font-size:14px;
-    min-height: 13px;
-    padding: 4px 0px 4px 13px;
+    line-height: 16px;
+    min-height: 18px;
+    padding: 5px 0px 5px 10px;
     text-decoration:none;
 }
