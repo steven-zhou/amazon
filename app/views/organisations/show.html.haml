@@ -19,11 +19,11 @@
         -else
           %h1= h "#{@organisation.full_name}"
 
-        .form_line{:style=>"width: 193px; margin-top: 10px;"}
+        .form_line{:style=>"width: 350px; margin-top: 10px;"}
           = label_tag 'custom_id', 'Custom ID'
           %div.display_field_bg{:style=>"margin-left: 4px;"}
             =@organisation.custom_id
-        .form_line{:style=>"width: 193px; margin-top: 2px;"}
+        .form_line{:style=>"width: 350px; margin-top: 2px;"}
           = label_tag 'onrecord_since', 'On Record Since'
           %div.display_field_bg{:style=>"margin-left: 4px;"}
             =@organisation.onrecord_since.to_s
