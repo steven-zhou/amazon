@@ -1712,20 +1712,24 @@ div#permission_form .options{
     display: none;
     text-align: center;
 }
-#feedback_confirmation .left_image {
-    height: 300px;
-    width: 150px;
+.feedbackconfirmation .left_image {
+    height: 200px;
+    width: 120px;
     float: left;
     background-image:url(/images/feedback_ok_icon.png);
-    background-position: center center;
+    background-position: center 20px;
     background-repeat: no-repeat;
 }
 
-#feedback_confirmation .right {
-    height: 300px;
-    width: 150px;
+.feedbackconfirmation .right {
+    height: 185px;
+    width: 280px;
     float: right;
+    text-align: left;
+    margin-top: 15px;
 }
+
+.feedbackconfirmation .buttons { text-align: center;}
 
 
 

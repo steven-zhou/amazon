@@ -1,5 +1,5 @@
 
-<div id="feedback_confirmation">
+<div class="feedbackconfirmation">
 <div class="left_image">
 </div>
   <div class="right">
@@ -9,7 +9,7 @@
 <br />
 <p>Would you like to receive email confirmation of this?</p>
 <br />
-<p><%= submit_tag("Yes", :id => "issue_feedback_confirmation", :style => "display:inline;" ) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= link_to_tag("No", :id => "no_feedback_confirmation", :style => "display:inline;" ) %></p>
+<div class="buttons"><%= submit_tag("Yes", :id => "issue_feedback_confirmation", :style => "display:inline;" ) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag("No", :id => "no_feedback_confirmation", :style => "display:inline;" ) %></div>
   </div>
   </div>
 <script type="text/javascript">
@@ -19,7 +19,7 @@
         modal: true,
         resizable: false,
         draggable :false,
-        height: 300,
+        height: 250,
         width: 450
       }
     );
