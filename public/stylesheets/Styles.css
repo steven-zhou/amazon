@@ -2092,6 +2092,10 @@ div#permission_form .options{
 /*Person Detail Div*/
 
   .display_field_bg {
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-topright:5px;
 
     color: #232323;
     background-image:url(/images/display_field_bg.png);
@@ -2100,6 +2104,5 @@ div#permission_form .options{
     font-size:14px;
     min-height: 13px;
     padding: 4px 0px 4px 13px;
-    text-decoration:none
-
+    text-decoration:none;
 }

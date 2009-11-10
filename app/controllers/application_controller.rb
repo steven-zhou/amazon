@@ -35,8 +35,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def system_log(message, current_controller=@current_controller, current_action=@current_action)
-    system_log = SystemLog.new(:message => message, :login_account_id => @current_user.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+  def system_log(message, current_controller=@current_controller, current_action=@current_action, login_account=@current_user)
+    system_log = SystemLog.new(:message => message, :login_account_id => login_account.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
     system_log.save
   end
 
