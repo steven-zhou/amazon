@@ -4599,7 +4599,7 @@ $(function(){
             modal: true,
             resizable: false,
             draggable : true,
-            height: 560,
+            height: 580,
             width: 350
         }
         );
