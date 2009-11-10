@@ -8,7 +8,8 @@
     = image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
 
 %div#picedit{:style => "float:left; margin-top:40px; margin-left:20px;"}
-  = label :image, :id, "Picture"
+  .form_line{:style => "height:auto;"}
+    = label :image, :id, "Picture"
   %br.clear
   = file_field :image, :image_file
 %br.clear

@@ -67,7 +67,7 @@
             .field_30
               = p.label :marital_status, 'Marital Status'
               = p.collection_select :marital_status_id, MaritalStatus.active_marital_status, :id, :name, {:include_blank => true}
-            .field_30
+            .field_33
               = p.label :religion_id, 'Religion'
               = p.collection_select :religion_id, Religion.active_religion, :id, :name, {:include_blank => true}
           .form_line
@@ -84,19 +84,19 @@
             .field_30
               = p.label :residence_country_id,"Country of Residence"
               = p.collection_select :residence_country_id, Country.all, :id, :short_name, {:include_blank => true}
-          .field_33
-            = p.label :other_nationality_id,"Other Nationality"
-            = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
-          .field_30
-            = p.label :other_language,"Other Language"
-            = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
-        .form_line
-          .field_30
-            = p.label :industry_sector,"Industry Sector"
-            = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
-          .field_60
-            = p.label :interests,"Interests"
-            = p.text_field :interests
+            .field_33
+              = p.label :other_nationality_id,"Other Nationality"
+              = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+            .field_30
+              = p.label :other_language,"Other Language"
+              = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
+          .form_line
+            .field_30
+              = p.label :industry_sector,"Industry Sector"
+              = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
+            .field_66
+              = p.label :interests,"Interests"
+              = p.text_field :interests
         = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "left_find_by_person"
         = submit_tag 'Find', {:id => "find_button" }
         %br.clear

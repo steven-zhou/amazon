@@ -6,8 +6,8 @@
 
 - form_for @client_setup do |f|
   %input{:name => "super_admin", :style => "display:none;"}
-  .container
-    %h2 Admin Profile
+  .full_container
+    %h1 Admin Profile
     .form_line
       .field_20
         = f.label :first_name, "First Name"
@@ -31,8 +31,8 @@
       .field_20
         = f.label :secondary_email_address, "Secondary Email Address"
         = f.text_field :secondary_email_address
-  .container
-    %h2 Login Details
+  .full_container
+    %h1 Login Details
     .form_line
       .field_20
         = f.label :login_name, "Login Name"

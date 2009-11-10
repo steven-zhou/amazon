@@ -1,21 +1,18 @@
 #header
   #page_title
     %h1 License
-  #lol
-  %br.clear
-
 - form_for @client_setup do |f|
-  .container
-    %h2 Client
+  .full_container
+    %h1 Client Info
     .form_line
       %p #{@client_organisation.id}-#{@client_organisation.full_name}
       %input{:style => "display:none;", :name => "installation"}
     .form_line
       .field_10
-        = f.label :client_id, "Registration ID"
+        = f.label :client_id, "Client ID"
         = f.text_field :client_id
       .field_20
-        = f.label :client_rego, "Registration Number"
+        = f.label :client_rego, "Client Registration"
         = f.text_field :client_rego
       .field_10
         = f.label :installation_date, "Installation Date"
@@ -28,7 +25,7 @@
     %p &nbsp;
 
     .container
-      %h2 System
+      %h1 System Info
       .form_line
         .field_15
           = f.label :system_type, "System Type"
@@ -59,8 +56,8 @@
           = f.label :number_of_users, "Number of System Users"
           = f.text_field :number_of_users, :class => "integer_field"
 
-  .container
-    %h2 Security Parameters
+  .full_container
+    %h1 Security Parameters
     .form_line
       .field_20
         = f.label :number_of_login_attempts, "Number of Login Attempts"
