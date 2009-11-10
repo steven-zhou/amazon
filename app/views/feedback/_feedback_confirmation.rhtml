@@ -1,14 +1,17 @@
 
-<h2>Confirmation of Feedback</h2>
+<div class="feedbackconfirmation">
+<div class="left_image">
+</div>
+  <div class="right">
+<h2>Thank you for your feedback.</h2>
 <br />
-<p>Thank you for your feedback.</p>
-<br />
-<p>Your feedback has been received and has been issued ticket number: <%= @feedback.id %>.</p>
+<p>Your ticket number is: <%= @feedback.id %>.</p>
 <br />
 <p>Would you like to receive email confirmation of this?</p>
 <br />
-<p><%= submit_tag("Yes", :id => "issue_feedback_confirmation", :style => "display:inline;" ) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag("No", :id => "no_feedback_confirmation", :style => "display:inline;" ) %></p>
-
+<div class="buttons"><%= submit_tag("Yes", :id => "issue_feedback_confirmation", :style => "display:inline;" ) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag("No", :id => "no_feedback_confirmation", :style => "display:inline;" ) %></div>
+  </div>
+  </div>
 <script type="text/javascript">
   $(function() {
     $(document).ready(function() {
@@ -16,11 +19,15 @@
         modal: true,
         resizable: false,
         draggable :false,
-        height: 300,
+        height: 250,
         width: 450
       }
     );
+      $("#feedback_confirmation").dialog("option","title","Confirmation of Feedback");
+      $("#feedback_confirmation").parent().css('background-color','#D1DDE6');
+      $("#feedback_confirmation").css('background-color','#D1DDE6');
       $("#feedback_confirmation").dialog("open");
+
     });
 
   }

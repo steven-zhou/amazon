@@ -347,7 +347,7 @@
 }/* Dialog
 ----------------------------------*/
 .ui-dialog { position: relative; padding: .2em; width: 300px; background: white;}
-.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative; background:#97b6ce;  }
+.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative; background:#97b6ce; text-align:center; }
 .ui-dialog .ui-dialog-title { margin: .1em 0 .2em;}
 .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
 .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
