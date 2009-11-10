@@ -25,7 +25,7 @@
 
 .portlet_topper
 {
-        width: 100%;
+        width: 94%;
         cursor: move;
 	padding: 10px;
         float:left;
@@ -38,7 +38,7 @@
     line-height: 20px;
 }
 
-.portlet_topper .options {float:right; width: 20%;}
+.portlet_topper .options {float:right; width: 50px;}
 
 .portlet_topper a
 {

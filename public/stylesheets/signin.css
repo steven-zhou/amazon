@@ -57,14 +57,14 @@ h1 {
     width: 260px;
 	height: 240px;
 	float: left;
-	margin-top: 40px;
+	margin-top: 60px;
 }
 
 #signin_container #signin_form_wrapper {
     width: 210px;
 	height: auto;
 	float: left;
-	margin-top: 30px;
+	margin-top: 15px;
 }
 
 #signin_container #signin_form form label {
