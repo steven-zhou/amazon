@@ -55,12 +55,13 @@
     <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), {:controller => "module", :action => "dashboard"}, {:title=>"Dashboard"}%>
     <%= link_to image_tag('Icons/System/user_preferences.png'), {}, {:title=>"User Preferences"}%>
   </div>
+
   <div class="bar_section" id="search">
     <%= text_field :search, :term, {:size => "20"} %>
     <%= link_to image_tag('Icons/System/sys_search.png'),{},{:title=>"Search"} %>
   </div>
   <div class="bar_section" id="help">
-    <%= link_to_function image_tag('Icons/System/feedback.png'), :id => "feedback", :title=>"Feedback" %>
+    <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
     &nbsp;&nbsp;
     <%= link_to image_tag('/images/help_icon.png'), {:controller => "feedback", :action => "list"}, {:title=>"Help"} %>
   </div>
