@@ -1706,10 +1706,27 @@ div#permission_form .options{
 }
 #feedback_form input {width:100%;}
 
+#feedback_form textarea {width:100%;}
+
 #feedback_confirmation {
     display: none;
     text-align: center;
 }
+#feedback_confirmation .left_image {
+    height: 300px;
+    width: 150px;
+    float: left;
+    background-image:url(/images/feedback_ok_icon.png);
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#feedback_confirmation .right {
+    height: 300px;
+    width: 150px;
+    float: right;
+}
+
 
 
 #feedback_item table td {
