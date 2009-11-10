@@ -2013,9 +2013,9 @@ $(function(){
     $("#clear_button").live('click', function(){
 
         $('#query_top_value').val("").change();
-             $('#check_input_change').val("false");
-                    $('#check_left_input_change').val("false");
-                    $('#check_right_input_change').val("false");
+        $('#check_input_change').val("false");
+        $('#check_left_input_change').val("false");
+        $('#check_right_input_change').val("false");
         $.ajax({
             type: "GET",
             url: "/query_headers/clear.js",
@@ -2201,9 +2201,9 @@ $(function(){
     $("#clear_compile_list").live('click', function(){
 
         $('#top_value').val("").change();
-                    $('#check_input_change').val("false");
-                    $('#check_left_input_change').val("false");
-                    $('#check_right_input_change').val("false");
+        $('#check_input_change').val("false");
+        $('#check_left_input_change').val("false");
+        $('#check_right_input_change').val("false");
 
         $.ajax({
             type: "POST",
@@ -2606,7 +2606,44 @@ $(function(){
 
 $(function(){
     $('#apply_personal_duplication').live('click', function(){
-        $("#personal_duplication_form").doAjaxSubmit();
+   
+        $('#warning_message_text').html("Do you want to generate duplication value? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $("#personal_duplication_form").doAjaxSubmit();
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $.ajax({
+                        type: "GET",
+                        url: "/personal_duplication_formulas/generate.js",
+                        dataType: "script"
+                    })
+                    $("#personal_duplication_form").doAjaxSubmit();
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+
+        
     });
 });
 
@@ -2625,6 +2662,13 @@ $(function(){
 $(function(){
     $('#apply_organisational_duplication').live('click', function(){
         $("#organisational_duplication_form").doAjaxSubmit();
+        
+        
+
+
+
+
+
     });
 });
 
@@ -2651,53 +2695,53 @@ $(function(){
 $(function(){
     $('#load_personal_duplication').live('click', function(){
 
-         $('#load_personal_message_text').html("Are you sure to load default setting? ");
+        $('#load_personal_message_text').html("Are you sure to load default setting? ");
        
-            $('#load_personal_default').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
+        $('#load_personal_default').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
 
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
 
-                    },
-                    Yes: function(){
-                        window.open("/personal_duplication_formulas/set_default.html", "_self");
-                        $(this).dialog('destroy');
-                        return true;
-                    }
+                },
+                Yes: function(){
+                    window.open("/personal_duplication_formulas/set_default.html", "_self");
+                    $(this).dialog('destroy');
+                    return true;
                 }
-            });
-            $('#load_personal_default').dialog('option', 'title', 'Warning - Default Setting');
+            }
+        });
+        $('#load_personal_default').dialog('option', 'title', 'Warning - Default Setting');
 
-            $('#load_personal_default').parent().find("a").css("display","none");
-            $("#load_personal_default").parent().css('background-color','#D1DDE6');
-            $("#load_personal_default").css('background-color','#D1DDE6');
+        $('#load_personal_default').parent().find("a").css("display","none");
+        $("#load_personal_default").parent().css('background-color','#D1DDE6');
+        $("#load_personal_default").css('background-color','#D1DDE6');
 
-            $('#load_personal_default').dialog('open');
+        $('#load_personal_default').dialog('open');
 
-//        $('#load_personal_default').dialog( {
-//            modal: true,
-//            resizable: true,
-//            draggable :true,
-//            height: 250,
-//            width: 700,
-//            buttons: {
-//                NO: function() {
-//                    $(this).dialog('close');
-//                },
-//                YES: function() {
-//                    window.open("/personal_duplication_formulas/set_default.html", "_self");
-//                    return false;
-//                }
-//            }
-//        });
-//        $('#load_personal_default').dialog('open');
+    //        $('#load_personal_default').dialog( {
+    //            modal: true,
+    //            resizable: true,
+    //            draggable :true,
+    //            height: 250,
+    //            width: 700,
+    //            buttons: {
+    //                NO: function() {
+    //                    $(this).dialog('close');
+    //                },
+    //                YES: function() {
+    //                    window.open("/personal_duplication_formulas/set_default.html", "_self");
+    //                    return false;
+    //                }
+    //            }
+    //        });
+    //        $('#load_personal_default').dialog('open');
     });
 });
 
@@ -2705,55 +2749,55 @@ $(function(){
     $('#load_organisational_duplication').live('click', function(){
 
 
-          $('#load_organisational_message_text').html("Are you sure to load default setting? ");
+        $('#load_organisational_message_text').html("Are you sure to load default setting? ");
 
-            $('#load_organisational_default').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
+        $('#load_organisational_default').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
 
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
 
-                    },
-                    Yes: function(){
-                         window.open("/organisational_duplication_formulas/set_default.html", "_self");
-                        $(this).dialog('destroy');
-                        return true;
-                    }
+                },
+                Yes: function(){
+                    window.open("/organisational_duplication_formulas/set_default.html", "_self");
+                    $(this).dialog('destroy');
+                    return true;
                 }
-            });
-            $('#load_organisational_default').dialog('option', 'title', 'Warning - Default Setting');
+            }
+        });
+        $('#load_organisational_default').dialog('option', 'title', 'Warning - Default Setting');
 
-            $('#load_organisational_default').parent().find("a").css("display","none");
-            $("#load_organisational_default").parent().css('background-color','#D1DDE6');
-            $("#load_organisational_default").css('background-color','#D1DDE6');
+        $('#load_organisational_default').parent().find("a").css("display","none");
+        $("#load_organisational_default").parent().css('background-color','#D1DDE6');
+        $("#load_organisational_default").css('background-color','#D1DDE6');
 
-            $('#load_organisational_default').dialog('open');
+        $('#load_organisational_default').dialog('open');
 
 
 
-//        $('#load_organisational_default').dialog( {
-//            modal: true,
-//            resizable: true,
-//            draggable :true,
-//            height: 250,
-//            width: 700,
-//            buttons: {
-//                NO: function() {
-//                    $(this).dialog('close');
-//                },
-//                YES: function() {
-//                    window.open("/organisational_duplication_formulas/set_default.html", "_self");
-//                    return false;
-//                }
-//            }
-//        });
-//        $('#load_organisational_default').dialog('open');
+    //        $('#load_organisational_default').dialog( {
+    //            modal: true,
+    //            resizable: true,
+    //            draggable :true,
+    //            height: 250,
+    //            width: 700,
+    //            buttons: {
+    //                NO: function() {
+    //                    $(this).dialog('close');
+    //                },
+    //                YES: function() {
+    //                    window.open("/organisational_duplication_formulas/set_default.html", "_self");
+    //                    return false;
+    //                }
+    //            }
+    //        });
+    //        $('#load_organisational_default').dialog('open');
     });
 });
 
@@ -3387,7 +3431,7 @@ $(function(){
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
 
-                       clear_organisation_form(link);
+                        clear_organisation_form(link);
 
                         $(this).dialog('destroy');                  
                         return true;
@@ -3421,28 +3465,28 @@ $(function(){
 clear_organisation_form = function(link){
 
     if(link.attr('toggle_id_name')=="new_contact")
-        {
-         $("#new_phone")[0].reset();
+    {
+        $("#new_phone")[0].reset();
         $("#new_email")[0].reset();
         $("#new_website")[0].reset();
-        }
+    }
 
-         if(link.attr('toggle_id_name')=="new_address")
-        {
-         $("#new_address")[0].reset();
+    if(link.attr('toggle_id_name')=="new_address")
+    {
+        $("#new_address")[0].reset();
       
-        }
+    }
 
-         if(link.attr('toggle_id_name')=="new_master_doc")
-        {
-         $("#new_master_doc")[0].reset();
+    if(link.attr('toggle_id_name')=="new_master_doc")
+    {
+        $("#new_master_doc")[0].reset();
 
-        }
-          if(link.attr('toggle_id_name')=="new_note")
-        {
-         $("#new_note")[0].reset();
+    }
+    if(link.attr('toggle_id_name')=="new_note")
+    {
+        $("#new_note")[0].reset();
 
-        }
+    }
 
 
 }
@@ -3842,9 +3886,63 @@ $(function(){
 
 $(function(){
     $('.close_flag').live('click', function(){
-        $(this).css('display', 'none');
-        $('#add_'+$(this).attr('flag_name')).css('display', '');
-        $('#new_'+$(this).attr('flag_name')).toggle('blind');
+
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
+
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" +link.attr('field')+'_mode').attr('mode','show');
+                        link.css('display', 'none');
+                        $('#add_'+link.attr('flag_name')).css('display', '');
+                        $('#new_'+link.attr('flag_name')).toggle('blind');
+                        $('#add_new_role').css("display","");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" +link.attr('field')+'_mode').attr('mode','show');
+            link.css('display', 'none');
+            $('#add_'+link.attr('flag_name')).css('display', '');
+            $('#new_'+link.attr('flag_name')).toggle('blind');
+            $('#check_input_change').val("false");
+            $('#add_new_role').css("display","");
+            return true;
+
+        }
+
+
+   
 
     });
    
@@ -3854,9 +3952,61 @@ $(function(){
 
 $(function(){
     $('.edit_close_flag').live('click', function(){
-        $(this).css('display', 'none');
-        $('#edit_'+$(this).attr('flag_name')+"_container").html('');
+        var link = $(this);
+        if ( $('#check_input_change').val()=="true")
+        {
 
+            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" +link.attr('field')+'_mode').attr('mode','show');
+                        link.css('display', 'none');
+                        $('#edit_'+link.attr('flag_name')+"_container").html('');
+                        $('#add_new_role').css("display","");
+                        $('#check_input_change').val("false");
+                        $('#role_role_type_id').attr("disabled", false);
+                        $(".container_selected").removeClass("container_selected");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+        else
+        {
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $("#" +link.attr('field')+'_mode').attr('mode','show');
+            link.css('display', 'none');
+            $('#edit_'+link.attr('flag_name')+"_container").html('');
+            $('#add_new_role').css("display","");
+            $('#check_input_change').val("false");
+            $('#role_role_type_id').attr("disabled", false);
+            $(".container_selected").removeClass("container_selected");
+            return true;
+
+        }
     });
 
 });
@@ -3938,13 +4088,13 @@ $(function(){
 
 /*role--new--design*/
 
-$(function(){
-    $('#edit_role_form').live('click', function(){
-        $('#role_role_type_id').attr("disabled", false);
-        $(".container_selected").removeClass("container_selected");
-    });
-
-});
+//$(function(){
+//    $('#edit_role_form').live('click', function(){
+//        $('#role_role_type_id').attr("disabled", false);
+//        $(".container_selected").removeClass("container_selected");
+//    });
+//
+//});
 
 
 /*role_condition part*/
@@ -4177,13 +4327,13 @@ $(function(){
 
                     },
                     Yes: function(){
-                           $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
                         $("#new_" + link.attr('field')+ "_form").toggle('blind');
-//                       $('#new_user_group_form').css('display','none');
+                        //                       $('#new_user_group_form').css('display','none');
                         $("#" + link.attr('field')+ "_edit_container").html('');
                         if (link.attr('change_color') == "false"){
 
@@ -4206,10 +4356,10 @@ $(function(){
         }
         else
         {
-              $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             link.css("display","none");
-//            $('#new_user_group_form').css('display','none');
+            //            $('#new_user_group_form').css('display','none');
 
             $('.new_option[field='+ link.attr('field') +']').css("display","");
             $("#new_" + link.attr('field')+ "_form").toggle('blind');
@@ -4453,6 +4603,7 @@ $(function(){
             width: 800
         }
         );
+        $("#feedback_form").dialog("option","title","Feedback Form");
         $("#feedback_form").dialog("open");
         $("#feedback_item_subject").val("");
         $("#feedback_item_content").val("");
@@ -5315,7 +5466,7 @@ $(function(){
 $(function(){
     $('#sysbar a').live('click', function(){
 
-         right_tab = $("#content #right_content").find("#tabs");
+        right_tab = $("#content #right_content").find("#tabs");
         //         alert(right_tab.length);
         if(right_tab.length > 0)
         {
@@ -5395,7 +5546,7 @@ $(function(){
 
         var link = $(this);
 
-         right_tab = $("#content #right_content").find("#tabs");
+        right_tab = $("#content #right_content").find("#tabs");
         //         alert(right_tab.length);
         if(right_tab.length > 0)
         {
@@ -5693,3 +5844,90 @@ $(function(){
     });
 });
 
+/*find clear form*/
+
+$(function(){
+    $("#new_email").find('input').live('change', function(){
+        //        $('#check_right_input_change').val("true");
+        $('#find_email_input_change_or_not').val("true");
+    });
+
+    $('#new_email input[type="submit"]').live('click', function(){
+        $('#find_email_input_change_or_not').val("false");
+
+    });
+
+});
+
+$(function(){
+    $("#new_phone").find('input').live('change', function(){
+        //        $('#check_right_input_change').val("true");
+        $('#find_phone_input_change_or_not').val("true");
+    });
+
+    $('#new_phone input[type="submit"]').live('click', function(){
+        $('#find_phone_input_change_or_not').val("false");
+
+    });
+
+});
+
+$(function(){
+    $("#new_address").find('input').live('change', function(){
+        //        $('#check_right_input_change').val("true");
+        $('#find_address_input_change_or_not').val("true");
+    });
+
+    $('#new_address input[type="submit"]').live('click', function(){
+        $('#find_address_input_change_or_not').val("false");
+
+    });
+
+});
+
+/*Person check duplication active status*/
+//$(function(){
+//    $("#person_check_dups_status").live('change', function(){
+//        var link = $(this);
+////        alert($('input[name="address_type"]').val());
+//        $('#warning_message_text').html("Are you sure to change the duplication status ?");
+//        $('#warning_message_image').css("display","");
+//        $('#warning_message').dialog({
+//            modal: true,
+//            resizable: false,
+//            draggable: true,
+//            height: 'auto',
+//            width: 'auto',
+//            buttons: {
+//
+//                No: function(){
+//                    $(this).dialog('destroy');
+//                    return false;
+//
+//                },
+//                Yes: function(){
+//                    $.ajax({
+//                        type: "POST",
+//                        url: "/personal_duplication_formulas/change_status.js",
+//                        data: 'check_status='+link.val(),
+//                        dataType: "script"
+//                    });
+//                    $(this).dialog('destroy');
+//                    return true;
+//                }
+//            }
+//        });
+//        $('#warning_message').dialog('option', 'title', 'Warning');
+//
+//        $('#warning_message').parent().find("a").css("display","none");
+//        $("#warning_message").parent().css('background-color','#D1DDE6');
+//        $("#warning_message").css('background-color','#D1DDE6');
+//
+//        $('#warning_message').dialog('open');
+//
+//
+//    });
+//
+//
+//
+//});

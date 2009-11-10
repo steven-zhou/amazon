@@ -114,6 +114,7 @@
             .field_20
               = email.label :contact_meta_type_id, 'Type'
               = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name, {:include_blank => true }
+              %input{:id => "find_email_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
             .field_60
               = email.label :value, "Value"
               = email.text_field :value
@@ -129,6 +130,7 @@
             .field_15
               = phone.label :contact_meta_type_id, 'Type'
               = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name, {:include_blank => true }
+              %input{:id => "find_phone_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
             .field_15
               = phone.label :pre_value, "Pre Value"
               = phone.text_field :pre_value
@@ -155,6 +157,7 @@
             .field_40
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name
+              %input{:id => "find_address_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
 
             %br{:style=>"clear: both;"}
             -#%br.clear

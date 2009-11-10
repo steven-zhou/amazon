@@ -8,7 +8,7 @@
 .container#edit_role
   %div
     .options
-      = link_to_function image_tag('close_icon.png'), :class => "edit_close_flag close_option", :id => "edit_role_form",  :field => "role", :flag_name => "role", :title=>"Close"
+      = link_to_function image_tag('close_icon.png'), :class => "edit_close_flag", :id => "edit_role_form",  :field => "role", :flag_name => "role", :title=>"Close"
    
     -form_for @role, :url => {:controller => "roles", :action=> "update"}, :html => {:class => 'ajax_form'} do |role|
       .form_line{:style => "float:none;"}
