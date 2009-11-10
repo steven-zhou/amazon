@@ -4609,7 +4609,13 @@ $(function(){
         $("#feedback_item_content").val("");
         $('#feedback_form_submit_button').attr('disabled', true);
 
+
     });
+
+
+     $("#feedback").live("mouseover", function(){
+             $(this).css("cursor","pointer");
+     });
 });
 
 
