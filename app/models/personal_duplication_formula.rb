@@ -7,7 +7,7 @@ class PersonalDuplicationFormula < DuplicationFormula
     PersonalDuplicationFormula.find_by_group("default")
   end
 
-  def self.applied_setting
+    def self.applied_setting
     PersonalDuplicationFormula.find_by_group("applied")
   end
 

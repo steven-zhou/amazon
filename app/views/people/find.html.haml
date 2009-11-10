@@ -87,17 +87,17 @@
           .field_33
             = p.label :other_nationality_id,"Other Nationality"
             = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
-            .field_30
-              = p.label :other_language,"Other Language"
-              = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
-          .form_line
-            .field_30
-              = p.label :industry_sector,"Industry Sector"
-              = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
-            .field_60
-              = p.label :interests,"Interests"
-              = p.text_field :interests
-        = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+          .field_30
+            = p.label :other_language,"Other Language"
+            = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
+        .form_line
+          .field_30
+            = p.label :industry_sector,"Industry Sector"
+            = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
+          .field_60
+            = p.label :interests,"Interests"
+            = p.text_field :interests
+        = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "left_find_by_person"
         = submit_tag 'Find', {:id => "find_button" }
         %br.clear
 
@@ -117,12 +117,13 @@
             .field_20
               = email.label :contact_meta_type_id, 'Type'
               = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name, {:include_blank => true }
+              %input{:id => "find_email_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
             .field_60
               = email.label :value, "Value"
               = email.text_field :value
           %br.clear
           .field_20{:style => "margin-top: 26px;"}
-            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+            = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_email"
             = submit_tag 'Find'
           %br.clear
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
@@ -132,6 +133,7 @@
             .field_15
               = phone.label :contact_meta_type_id, 'Type'
               = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name, {:include_blank => true }
+              %input{:id => "find_phone_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
             .field_15
               = phone.label :pre_value, "Pre Value"
               = phone.text_field :pre_value
@@ -143,7 +145,7 @@
               = phone.text_field :post_value
           %br.clear
           .field_20{:style => "margin-top: 26px;"}
-            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+            = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_phone"
             = submit_tag 'Find'
           %br.clear
     %h3
@@ -158,6 +160,7 @@
             .field_40
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name
+              %input{:id => "find_address_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
 
             %br{:style=>"clear: both;"}
             -#%br.clear
@@ -195,7 +198,7 @@
               = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
             %br.clear
           %p.submit
-            = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
+            = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_address"
             = submit_tag 'Find'
           %br.clear
     %h3
