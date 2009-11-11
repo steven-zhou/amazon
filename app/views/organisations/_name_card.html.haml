@@ -1,37 +1,33 @@
-.container
-
+.full_container
   -if organisation.image.nil?
     = image_tag 'Icons/System/image-missing.png', {:class => "thumb"}
   -else
-    = image_tag thumb_image_path(organisation.image.id), {:class => "thumb"}
+    = image_tag image_path(organisation.image.id), {:class => "thumb"}
+  %div{:style=>"width:86%;height:132px;float:right;"}
+    %div{:style=>"width:100%;height:100%;float:left;"}
+      .form_line
+        .field_100{:style=>"height:100%;"}
+          %h1= "#{organisation.id} #{organisation.trading_as}"
+      .form_line
+        .field_30
+          = label_tag :customerid,"Custom ID"
+          %div.display_field_bg
+            = organisation.custom_id
+        .field_30
+          = label_tag :registdate, "Registration Date"
+          %div.display_field_bg
+            = organisation.registered_date.to_s
+        .field_30
+          = label_tag :other1, "Organisation Type"
+          %div.display_field_bg
+            = organisation.type.to_s
+      .form_line
+        .field_30
+          = label_tag :on_record_since, "On Record Since"
+          %div.display_field_bg
+            = organisation.onrecord_since.to_s
+        .field_30
+          = label_tag :businesscat, "Business Category"
+          %div.display_field_bg
+            = organisation.business_category.name unless organisation.business_category.nil?
 
-  %table#name_card
-    %tbody
-      %tr
-        %td.w2
-        %td.w32
-          = "#{organisation.id} - #{organisation.trading_as}"
-        %td.w32
-          = "Registration Date : #{organisation.registered_date.to_s}"
-        %td.w20
-          = h "<Other1>"
-        %td.w25
-      %tr
-        %td
-        %td
-          = "Customer ID : #{organisation.custom_id}"
-        %td
-          Business Category :
-          = "#{organisation.business_category.name}" unless organisation.business_category.nil?
-        %td
-          = h "<Other2>"
-        %td
-      %tr
-        %td
-        %td
-          = "On Record Since : #{organisation.onrecord_since.to_s}"
-        %td
-          Business Type :
-          = "#{organisation.business_type.name}" unless organisation.business_type.nil?
-        %td
-        
