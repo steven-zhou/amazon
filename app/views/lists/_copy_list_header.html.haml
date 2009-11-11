@@ -7,6 +7,6 @@
     .form_line
       = f.label :description, 'Description'
       = f.text_field :description
-      %input{:style => "display:none", :name => "source_id", :value => "#{@list_header.id}"}
+      %input{:style => "display:none", :name => "copy_source_id", :value => "#{@list_header.id}"}
     
     = submit_tag "Save", :name => "copy"

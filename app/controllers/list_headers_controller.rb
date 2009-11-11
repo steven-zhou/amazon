@@ -56,8 +56,8 @@ class ListHeadersController < ApplicationController
 
     else
 
-      if(params[:source_id]) #copy
-        @list_header_old = ListHeader.find(params[:source_id].to_i)
+      if(params[:copy_source_id]) #copy
+        @list_header_old = ListHeader.find(params[:copy_source_id].to_i)
         @list_header = @list_header_old.class.new(params[:list_header])
         @list_header.allow_duplication = @list_header_old.allow_duplication
         @list_header.list_size = 0
