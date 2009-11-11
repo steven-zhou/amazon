@@ -581,7 +581,7 @@ class PeopleController < ApplicationController
     if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
       @templist = TempList.find_by_login_account_id(session[:user])
-      @people = @templist.people_on_list
+      @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
       @people.each do |j|
 
         @solg = PersonLookupGrid.new
