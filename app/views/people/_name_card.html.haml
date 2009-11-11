@@ -7,12 +7,12 @@
     %div{:style=>"width:100%;height:100%;float:left;"}
       .form_line
         .field_100{:style=>"height:100%;"}
-          %h1 #{person.id} #{person.name}
+          %h1= "#{person.id} #{person.name}"
       .form_line
         .field_30
           = label_tag :customerid,"Customer ID"
           %div.display_field_bg
-            #{person.custom_id}
+            = person.custom_id
         .field_30
           = label_tag :employer, "Employer"
           %div.display_field_bg
@@ -20,13 +20,13 @@
         .field_30
           = label_tag :role, "Role"
           %div.display_field_bg
-          = person.roles.first.nil? ? "" : person.roles.first.name
+            = person.roles.first.nil? ? "" : person.roles.first.name
         %br.clear
       .form_line
         .field_30
           = label_tag :on_record_since, "On Record Since"
           %div.display_field_bg
-            #{person.onrecord_since.to_s}
+            = person.onrecord_since.to_s
         .field_60
           = label_tag :groups, "Groups"
           %div.display_field_bg
