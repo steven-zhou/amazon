@@ -2485,6 +2485,10 @@ $(function(){
     $("#address_submit_button_edit").live('click', check_empty_value);
 });
 
+
+
+
+
 check_email_field = function(){
     _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-zA-Z]{2,})$/.test($('#email_value').val());
     if($('#email_value').val()!=""){
@@ -2556,6 +2560,88 @@ check_email_field_edit = function(){
 $(function(){
     $("#submit_email_field").live('click', check_email_field);
 });
+
+$(function(){
+    $("#new_person_submit").live('click', function(){
+
+
+   if($('#person_emails_attributes_2_value').val()!="" ||  $('#person_websites_attributes_3_value').val()!="")
+   {   _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#person_emails_attributes_2_value').val());
+    if($('#person_emails_attributes_2_value').val()!=""){
+        if((!_valid)){
+            var link = $(this);
+
+            $('#error_message_text').html("Invalid email address !");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+        }
+    }
+
+
+    _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+    if($('#person_websites_attributes_3_value').val()!=""){
+        if((!_valid1)){
+            var link1 = $(this);
+
+            $('#error_message_text').html("Invalid website address !");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link1.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
+            return false;
+
+
+        }
+    }
+
+
+
+
+
+return false;
+   }
+    });
+});
+
 $(function(){
     $("#submit_email_field_edit").live('click', check_email_field_edit);
 });
@@ -5758,16 +5844,13 @@ $(function(){ /*This is for button to function*/
 $(function(){
     $("#Contact").find('input').live('change', function(){
       
-        //        $('#check_right_input_change').val("true");
 
         $('#contact_input_change_or_not').val("true");
 
     });
 
     $('#Contact input[type="submit"]').live('click', function(){
-        //        alert("a");
         $('#contact_input_change_or_not').val("false");
-    //             alert("b");
     });
 
 });
@@ -5775,7 +5858,6 @@ $(function(){
 
 $(function(){
     $("#Address").find('input').live('change', function(){
-        //        $('#check_right_input_change').val("true");
         $('#address_input_change_or_not').val("true")
     });
 
@@ -5788,7 +5870,6 @@ $(function(){
 
 $(function(){
     $("#MasterDocs").find('input').live('change', function(){
-        //        $('#check_right_input_change').val("true");
         $('#master_doc_input_change_or_not').val("true")
     });
 
@@ -5802,7 +5883,6 @@ $(function(){
 
 $(function(){
     $("#Rels").find('input').live('change', function(){
-        //        $('#check_right_input_change').val("true");
         $('#relationship_input_change_or_not').val("true");
     });
 
@@ -5899,57 +5979,57 @@ $(function(){
 //});
 
 /*organisation close option*/
-$(function(){
-    $('.organisation_close_option').live('click',function(){
-        var link = $(this);
-
-        if( $('#contact_input_change_or_not').val() == "false")
-        {
-            $('#'+link.attr('toggle_id_name')).toggle('blind');
-            $("#" + link.attr('field')+'_mode').attr('mode','show');
-            link.css("display","none");
-            $('.new_option[field='+ link.attr('field') +']').css("display","");
-
-
-        }
-        else{
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        $('#'+link.attr('toggle_id_name')).toggle('blind');
-                        $("#" + link.attr('field')+'_mode').attr('mode','show');
-                        link.css("display","none");
-                        $('.new_option[field='+ link.attr('field') +']').css("display","");
-                        $('.organisation_contact_toggle_button').css("display","");
-                        $(this).dialog('destroy');
-                        return true;
-                    }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
-
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
-
-            $('#warning_message').dialog('open');
-        }
-
-    });
-});
+//$(function(){
+//    $('.organisation_close_option').live('click',function(){
+//        var link = $(this);
+//
+//        if( $('#contact_input_change_or_not').val() == "false")
+//        {
+//            $('#'+link.attr('toggle_id_name')).toggle('blind');
+//            $("#" + link.attr('field')+'_mode').attr('mode','show');
+//            link.css("display","none");
+//            $('.new_option[field='+ link.attr('field') +']').css("display","");
+//
+//
+//        }
+//        else{
+//            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+//            $('#warning_message_image').css("display","");
+//            $('#warning_message').dialog({
+//                modal: true,
+//                resizable: false,
+//                draggable: true,
+//                height: 'auto',
+//                width: 'auto',
+//                buttons: {
+//
+//                    No: function(){
+//                        $(this).dialog('destroy');
+//                        return false;
+//
+//                    },
+//                    Yes: function(){
+//                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+//                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+//                        link.css("display","none");
+//                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+//                        $('.organisation_contact_toggle_button').css("display","");
+//                        $(this).dialog('destroy');
+//                        return true;
+//                    }
+//                }
+//            });
+//            $('#warning_message').dialog('option', 'title', 'Warning');
+//
+//            $('#warning_message').parent().find("a").css("display","none");
+//            $("#warning_message").parent().css('background-color','#D1DDE6');
+//            $("#warning_message").css('background-color','#D1DDE6');
+//
+//            $('#warning_message').dialog('open');
+//        }
+//
+//    });
+//});
 
 /*find clear form*/
 
@@ -5993,48 +6073,18 @@ $(function(){
 });
 
 /*Person check duplication active status*/
-//$(function(){
-//    $("#person_check_dups_status").live('change', function(){
-//        var link = $(this);
-////        alert($('input[name="address_type"]').val());
-//        $('#warning_message_text').html("Are you sure to change the duplication status ?");
-//        $('#warning_message_image').css("display","");
-//        $('#warning_message').dialog({
-//            modal: true,
-//            resizable: false,
-//            draggable: true,
-//            height: 'auto',
-//            width: 'auto',
-//            buttons: {
-//
-//                No: function(){
-//                    $(this).dialog('destroy');
-//                    return false;
-//
-//                },
-//                Yes: function(){
-//                    $.ajax({
-//                        type: "POST",
-//                        url: "/personal_duplication_formulas/change_status.js",
-//                        data: 'check_status='+link.val(),
-//                        dataType: "script"
-//                    });
-//                    $(this).dialog('destroy');
-//                    return true;
-//                }
-//            }
-//        });
-//        $('#warning_message').dialog('option', 'title', 'Warning');
-//
-//        $('#warning_message').parent().find("a").css("display","none");
-//        $("#warning_message").parent().css('background-color','#D1DDE6');
-//        $("#warning_message").css('background-color','#D1DDE6');
-//
-//        $('#warning_message').dialog('open');
-//
-//
-//    });
-//
-//
-//
-//});
+$(function(){
+    $("#switch_personal_formula_status").live('change', function(){
+        
+        $.ajax({
+            type: "GET",
+            url: "/personal_duplication_formulas/change_status.js",
+            data: 'check_status='+$(this).val(),
+            dataType: "script"
+        });
+
+    });
+
+
+
+});

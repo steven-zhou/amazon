@@ -41,12 +41,22 @@ class PersonalDuplicationFormulasController < ApplicationController
     end
   end
 
-#  def change_status
-#    status = params[:check_status]
-#    @personal_duplication_formula = PersonalDuplicationFormula.applied_setting
-#    @personal_duplication_formula.status = status
-#    @personal_duplication_formula.save
-#  end
+  def change_status
+
+    @personal_duplication_formula = PersonalDuplicationFormula.applied_setting
+
+    if @personal_duplication_formula.status
+       @personal_duplication_formula.status = false
+       @personal_duplication_formula.save
+    else
+      @personal_duplication_formula.status = true
+      @personal_duplication_formula.save
+    end
+
+     respond_to do |format|
+      format.js {render 'duplication_formulas/change_status.js'}
+    end
+  end
 
 
 end

@@ -43,7 +43,7 @@
     %p.submit
       = link_to_function 'Clear', :class => "clear_form alt_option"
       //= submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag "Submit"
+      = submit_tag "Submit",:id => "new_person_submit",:check_field => "person_emails_attributes_2_value"
       
 %br.clear
 
