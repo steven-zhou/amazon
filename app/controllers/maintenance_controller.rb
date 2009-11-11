@@ -63,6 +63,10 @@ class MaintenanceController < ApplicationController
       # process_postcode_data(suburb, state, postcode, country, header_lines, update_option, postcode_file)
       MiddleMan.worker(:postcode_import_worker).async_process_postcode_data(:arg => {:suburb => suburb, :state => state, :postcode => postcode, :country => country, :header_lines => header_lines, :update_option => update_option, :postcode_file => "#{params[:postcode_file].first.path}" })
 
+     ShowPostcodeGrid.find(:all).each do |i|
+      i.destroy
+    end
+
       flash[:warning] = flash_message(:message => "The postcode data is being added to the system in the background. Depending upon available system resources, it may take a while before all the data from the postcode import is processed.")
       redirect_to :action => "import_postcodes" , :controller => "maintenance" and return
 
