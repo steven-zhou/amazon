@@ -33,8 +33,6 @@ end
 #end
 
 
-
-
 namespace :deploy do
   %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
   puts "\n\n\n\n\n ********* IMPORTANT *********\n You will need to manually restart backgroundrb on the server you are deploying to. To do this:\n\n"

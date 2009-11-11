@@ -6,6 +6,8 @@ class PostcodeImportWorker < BackgrounDRb::MetaWorker
 
   def process_postcode_data(arg)
 
+    ShowPostcodeGrid.destroy_all # Clear out our flexigrid results table...
+
     suburb = arg[:suburb]
     state = arg[:state]
     postcode = arg[:postcode]
