@@ -439,6 +439,13 @@ margin-right: 5px;
     margin-bottom: 5px;
 }
 
+#app #main #content .container h3 {
+      font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+
 #app #main #content .full_container h2 {
     font-size:18px;
     font-weight: bold;
@@ -467,6 +474,12 @@ margin-right: 5px;
     margin-bottom: 5px;
 }
 /* form line wrapper */
+ .form_line {
+    float: left;
+    min-height: 30px;
+    padding-bottom: 5px;
+    width: 100%;
+}
 #app #main #content .container .form_line {
     float: left;
     height: 40px;
@@ -479,7 +492,7 @@ margin-right: 5px;
     width: 100%;
 }
 /* filed label properties */
-#app #main #content .container .form_line label {
+label {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11px;
     font-weight: bold;
@@ -498,10 +511,11 @@ margin-right: 5px;
     display: block;
     padding-left: 3px;
 }
+
 /* field properties */
 #app #main #content .container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -510,7 +524,7 @@ margin-right: 5px;
 
 #app #main #content .full_container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -536,7 +550,7 @@ margin-right: 5px;
 /* dropdown properties */
 #app #main #content .container select {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:20px;
     width: 100%;
     height: 24px;
@@ -544,7 +558,7 @@ margin-right: 5px;
 
 #app #main #content .full_container select {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:20px;
     width: 100%;
     height: 24px;
@@ -704,7 +718,7 @@ margin-right: 5px;
     margin-left: 0.5%;
 }
 
-/* For when we are using the whole page, not only two columns */
+/* For when we are using the whole page, not only two columns 
 #app #main #content #content_full_page {
     min-height: 500px;
     background-color:#F6F6F6;
@@ -712,7 +726,7 @@ margin-right: 5px;
     width: 98%;
     margin-right: 1%;
     margin-left: 1%;
-}
+}*/
 
 /* content footer - not in use at the moment */
 #app #main #content #footer {
@@ -806,6 +820,12 @@ div#show_queries div.container {
     margin-right: 1%;
 }
 
+div#criterias h3{
+    font-size:16px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
 div#new_query select.field_select {
     height:auto !important;
 }
@@ -1239,7 +1259,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog .container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -1292,7 +1312,7 @@ form#organisation_names_form input#image_image_file{
 
 .ui-dialog .container select {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:20px;
     width: 100%;
     height: 24px;
@@ -1403,7 +1423,7 @@ td.textright {
 
 
 
-#app #main #content .container .form_line .wrapimage {
+#app #main #content .form_line .wrapimage {
     float: left;
     height: 40px;
     margin-left: -35px;
@@ -1412,7 +1432,7 @@ td.textright {
 }
 
 
-#app #main #content .container .container_inactive .title{
+#app #main #content .container_inactive .title{
 
 
     float: left;
@@ -1433,7 +1453,7 @@ td.textright {
 }
 
 
-#app #main #content .container .half_container{
+#app #main #content  .half_container{
     float: left;
     width: 46%;
     margin-left: 10px;
@@ -1547,6 +1567,23 @@ div#content_full_page h3 {
 
 }
 
+div#content_full_page h2 {
+    font-size:18px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+
+}
+
+div#content_full_page h1 {
+     color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
 div.container_edit div.options_left .edit_icon_right{
 
     float:left;
@@ -1578,7 +1615,7 @@ div#content_full_page .add_container {
     width: 45%;
     margin: 1%;
     float: left;
-    padding: 1.5%;
+    padding: 1%;
     -moz-border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
@@ -1615,7 +1652,7 @@ div.duplication_check .form_line.field_select_line {
     width: 45%;
     margin: 1%;
     float: left;
-    padding: 1.5%;
+    padding: 1%;
     -moz-border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
@@ -1671,20 +1708,42 @@ div#permission_form .options{
     background:white;
 }
 
-#feedback_form table{
-    border:0px;
-    width:80%;
+#feedback_form .heading {
+    font-family: Arial, Helvetica, Sans-serif;
+    font-size: 18px;
+    font-weight: normal;
+    width: 100%;
+    padding: 0 0 10px 0;
+    line-height: 20px;
+    
 }
+#feedback_form input {width:100%;}
 
-#feedback_form table td {
-    padding: 5px;
-    vertical-align: top;
-}
+#feedback_form textarea {width:100%;}
 
 #feedback_confirmation {
     display: none;
     text-align: center;
 }
+.feedbackconfirmation .left_image {
+    height: 200px;
+    width: 120px;
+    float: left;
+    background-image:url(/images/feedback_ok_icon.png);
+    background-position: center 20px;
+    background-repeat: no-repeat;
+}
+
+.feedbackconfirmation .right {
+    height: 185px;
+    width: 280px;
+    float: right;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.feedbackconfirmation .buttons { text-align: center;}
+
 
 
 #feedback_item table td {
@@ -1761,7 +1820,7 @@ div#permission_form .options{
 /* field properties */
 #reset_password_container .container input {
     font-size:14px;
-    font:Arial, Helvetica, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 96%;
     height: 18px;
@@ -2092,14 +2151,18 @@ div#permission_form .options{
 /*Person Detail Div*/
 
   .display_field_bg {
+    -moz-border-radius-bottomleft:5px;
+    -moz-border-radius-bottomright:5px;
+    -moz-border-radius-topleft:5px;
+    -moz-border-radius-topright:5px;
 
     color: #232323;
     background-image:url(/images/display_field_bg.png);
-    background-repeat:repeat;
+    background-repeat: repeat-y;
     font-family:Arial,Helvetica,sans-serif;
     font-size:14px;
-    min-height: 13px;
-    padding: 4px 0px 4px 13px;
-    text-decoration:none
-
+    line-height: 16px;
+    min-height: 18px;
+    padding: 5px 0px 5px 10px;
+    text-decoration:none;
 }

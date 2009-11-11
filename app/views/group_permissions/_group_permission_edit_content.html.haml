@@ -1,19 +1,20 @@
-.container_edit.container
-  .options_left{:style => "margin-right:10px;"}
-    = image_tag('edit_icon.png', :class => "edit_icon_right")
-  %h3 Edit
-  %br
-
-.container
+.tab_corner
+  .container_corner.profile_tab_left_corner.left
+  .container_edit
+    .options_left{:style => "margin-right:10px;"}
+      = image_tag('edit_icon.png', :class => "edit_icon_right")
+    %h3 Edit
+  .container_corner.profile_tab_right_corner.left
+.full_container
   .options
     = link_to_function image_tag('close_icon.png'), :class => "close_option close_logo", :field => "group_permission_group", :title=>"Close"
-  %br
-  .container.add_container
+  
+  .full_container{:style => "margin-top:10px;"}
     %div#group_permission_add_bar
       .options
         = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_option close_logo add_form_close", :field => "group_permission",:change_color => false, :title=>"Close"
       .title
-        = link_to_function image_tag('add_icon.png'),:class => "new_option new_logo", :field => "group_permission"
+        = link_to_function image_tag('add_icon.png', :size => "22x22"),:class => "new_option new_logo", :field => "group_permission"
         &nbsp
       %h2 Assign Permission
     %input{:id => "group_permission_mode", :mode => "show", :style => "display:none;"}

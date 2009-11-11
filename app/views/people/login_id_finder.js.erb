@@ -7,14 +7,21 @@
     $('#login_name_container_0').html("Invalid ID")
     $('.user_email_new').val('')
           $('#user_group_person_check').dialog( {
-      modal: true,
+         modal: true,
+      resizable: false,
       draggable: true,
+      height: 'auto',
+      width: 'auto',
       buttons: {
       Ok: function() {
       $(this).dialog('close');
       }
       }
       });
+      $('#user_group_person_check').dialog( 'option', 'title', 'ERROR');
+     $('#user_group_person_check').parent().find("a").css("display","none");
+     $("#user_group_person_check").parent().css('background-color','#D1DDE6');
+    $("#user_group_person_check").css('background-color','#D1DDE6');
       $('#user_group_person_check').dialog('open');
 
   <%else%>
@@ -22,8 +29,11 @@
       $('#login_name_container_0').html("<%=escape_javascript("#{@person.name}")%>")
       $('.user_email_new').val("<%=escape_javascript("#{@primary_email}")%>")
         $('#user_group_wrong_login_id').dialog( {
-      modal: true,
+       modal: true,
+      resizable: false,
       draggable: true,
+      height: 'auto',
+      width: 'auto',
       buttons: {
       Ok: function() {
       $(this).dialog('close');
@@ -35,14 +45,21 @@
     <%else%>
 
       $('#person_check').dialog( {
-      modal: true,
+          modal: true,
+      resizable: false,
       draggable: true,
+      height: 'auto',
+      width: 'auto',
       buttons: {
       Ok: function() {
       $(this).dialog('close');
       }
       }
       });
+       $('#person_check').dialog( 'option', 'title', 'ERROR');
+     $('#person_check').parent().find("a").css("display","none");
+     $("#person_check").parent().css('background-color','#D1DDE6');
+    $("#person_check").css('background-color','#D1DDE6');
       $('#person_check').dialog('open');
 
 
@@ -70,6 +87,11 @@
       }
       }
       });
+
+       $('#person_check').dialog( 'option', 'title', 'Error');
+     $('#person_check').parent().find("a").css("display","none");
+     $("#person_check").parent().css('background-color','#D1DDE6');
+    $("#person_check").css('background-color','#D1DDE6');
       $('#person_check').dialog('open');
 
 

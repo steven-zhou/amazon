@@ -1,25 +1,23 @@
 #header
   #page_title
     %h1 User Accounts
-  #lol
-    %br.clear
 -#for user_management
 #content_full_page
-  .container{:class => "add_user"}
+  .full_container{:class => "add_user"}
     %div#add_user_bar
       %div
         .options
           -#= link_to_function image_tag('closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "new_user"
           = link_to_function image_tag('close_icon.png'), :id => "close_new_account", :style => "display:none;", :field => "login_account", :title=>"Close"
         .title
-          = link_to_function image_tag('add_icon.png'), :id => "add_user", :class => "toggle_button new_option", :toggle_id_name => "new_user", :field => "login_account"
+          = link_to_function image_tag('add_icon.png', :size=> "22x22"), :id => "add_user", :class => "toggle_button new_option", :toggle_id_name => "new_user", :field => "login_account"
           &nbsp
-        %h1 Add User
+        %h2 New User
 
     %div#new_user{:style => "display:none"}
       = render :partial => '/user_management/user_account_form'
 
-  .container{:class => "show_user_container"}
+  .full_container{:class => "show_user_container", :style => "margin-bottom:40px;"}
 
     %div#show_user
       = render :partial => '/user_management/show_user_list'
@@ -29,22 +27,26 @@
   %div#edit_user
 
   %div#user_length{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span username must between 6 to 30
 
   %div#password_confirm{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span password confirmation is different with password
 
   %div#password_length{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span password must between 6 to 30
 
   %div#invalid_email{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span invalid_email
 
   %div#person_check{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span the person already have login_account
 
-  %div#login_name_invalid{:style => "display:none;"}
-    %span invalid person id
+
 
 
 

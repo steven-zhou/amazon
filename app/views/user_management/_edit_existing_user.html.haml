@@ -1,10 +1,13 @@
-.container
+.tab_corner{:style => "margin-top:0;"}
+  .container_corner.profile_tab_left_corner.left
+  .container_edit
+    .options_left{:style => "margin-right:10px;"}
+      = image_tag('edit_icon.png', :class => "edit_icon_right")
+    %h3 Edit
+  .container_corner.profile_tab_right_corner.left
+.full_container
   .options
     = link_to_function (image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id =>"close_edit_account", :class =>  "close_option", :field => "login_account", :title=>"Close")
-  .options_left{:style => "margin-right:10px;"}
-    = image_tag('edit_icon.png', :style => "float:left;margin-right:10px;")
-  %h3 Edit User
-  %br
 
   -form_for @login_account, :url => {:controller => "login_accounts", :action => "update"}, :html => {:class => 'ajax_form edit_login'} do |login|
     .form_line

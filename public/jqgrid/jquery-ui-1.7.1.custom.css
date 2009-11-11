@@ -57,7 +57,7 @@
 .ui-state-default, .ui-widget-content .ui-state-default {/* border: 1px solid #c5dbec; background: #dfeffc url(images/ui-bg_glass_85_dfeffc_1x400.png) 50% 50% repeat-x;*/ font-weight: bold; color: #2e6e9e; outline: none; }
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited { color: #2e6e9e; text-decoration: none; outline: none; }
 .ui-state-hover a, .ui-state-hover a:hover { color: #1d5987; text-decoration: none; outline: none; }
-.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #e17009; outline: none; text-decoration: none; }
+.ui-state-active a, .ui-state-active a:link, .ui-state-active a:visited { color: #2C2C2C; outline: none; text-decoration: none; }
 
 /* Interaction Cues
 ----------------------------------*/
@@ -277,7 +277,7 @@
 .ui-widget-overlay { background: #000 url(../images/overlay.png) repeat; opacity: .40;filter:Alpha(Opacity=40); }
 .ui-widget-shadow { margin: -8px 0 0 -8px; padding: 8px; background: #aaaaaa url(images/ui-bg_flat_0_aaaaaa_40x100.png) 50% 50% repeat; opacity: .30;filter:Alpha(Opacity=30); -moz-border-radius: 8px; -webkit-border-radius: 8px; }/* Accordion
 ----------------------------------*/
-.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1; }
+.ui-accordion .ui-accordion-header { cursor: pointer; position: relative; margin-top: 1px; zoom: 1;-moz-border-radius-bottomleft:10px; -moz-border-radius-bottomright:10px;-moz-border-radius-topleft:10px;-moz-border-radius-topright:10px;-moz-border-radius-topright:10px;background-repeat:repeat;background-image:url(/images/container_bg.png);}
 .ui-accordion .ui-accordion-li-fix { display: inline; }
 .ui-accordion .ui-accordion-header-active { border-bottom: 0 !important; }
 .ui-accordion .ui-accordion-header a { display: block; font-size: 1em; padding: .5em .5em .5em 2.2em; }
@@ -347,14 +347,14 @@
 }/* Dialog
 ----------------------------------*/
 .ui-dialog { position: relative; padding: .2em; width: 300px; background: white;}
-.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative; background:#97b6ce;  }
+.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative; background:#97b6ce; text-align:center; }
 .ui-dialog .ui-dialog-title { margin: .1em 0 .2em;}
 .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
 .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }
 .ui-dialog .ui-dialog-titlebar-close:hover, .ui-dialog .ui-dialog-titlebar-close:focus { padding: 0; }
 .ui-dialog .ui-dialog-content { border: 0; padding: .5em 1em; background: white; overflow: auto; zoom: 1; }
 .ui-dialog .ui-dialog-buttonpane { text-align: center; background-image: none; margin: .5em 0; padding: .5em 1em; }
-.ui-dialog .ui-dialog-buttonpane button {  margin: 0.05em 2em 0.2em 2em; cursor: pointer; padding: .2em .6em; line-height: 1.4em; width:100px; overflow:visible; }
+.ui-dialog .ui-dialog-buttonpane button {  margin: 0.05em 2em 0.2em 2em; cursor: pointer; padding: .2em .6em; line-height: 1.4em; min-width:100px; overflow:visible; }
 .ui-dialog .ui-resizable-se { width: 14px; height: 14px; right: 3px; bottom: 3px; display:none !important;}
 .ui-draggable .ui-dialog-titlebar { cursor: move; text-align: center;  }
 /* Progressbar

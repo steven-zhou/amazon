@@ -1,26 +1,18 @@
 #header
   #page_title
     %h1 Groups Access
-  #lol
-    %br.clear
 %input{:id => "group_permission_group_mode", :mode => "show", :style => "display:none"}
-%br
 #content_full_page
   %div#group_permission_show_group
-    %ul
-      - @group_types.each do |i|
-        %li
-          - status = i.status ? "container_active" : "container_inactive"
-          - status_flag = i.status ? "" : "hidden"
-          .group_permission_each_group{:class => "#{status} toggle_options", :id => "group_permission_group_#{i.id}", :field => "group_permission_group"}
-            .options{:style => "display:none;"}
-              = link_to_function image_tag('edit_icon.png'), :class => "#{status_flag} edit_option edit_logo", :id => 'group_permission_group_edit_button', :controller => "group_permissions", :data_id => i.id, :field => "group_permission_group", :title=>"Edit"
-            .title
-              = i.name
-              \--
-              = i.login_accounts.size
-              &nbsp
-              users
+    - for i in  @group_types
+      - status = i.status ? "container_active" : "container_inactive"
+      - status_flag = i.status ? "" : "hidden"
+      .group_permission_each_group{:class => "#{status} toggle_options", :id => "group_permission_group_#{i.id}", :field => "group_permission_group", :style => "width:47%;"}
+        .options{:style => "display:none;"}
+          = link_to_function image_tag('edit_icon.png'), :class => "#{status_flag} edit_option edit_logo", :id => 'group_permission_group_edit_button', :controller => "group_permissions", :data_id => i.id, :field => "group_permission_group", :title=>"Edit"
+        .title
+          %h2= "#{i.name}""\--""#{i.login_accounts.size}""\-" "users"
+              
   %br.clear
   %div#group_permission_group_edit_container
 

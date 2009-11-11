@@ -1,15 +1,10 @@
 %div#group_display
-  %ul
-    - @group_types.each do |i|
-      %li
-        - status = i.status ? "container_active" : "container_inactive"
-        - status_flag = i.status ? "" : "hidden"
-        .group_type_tab.toggle_options{:class => "#{status} toggle_options", :id => "group_type_#{i.id}", :field => "user_group_group"}
-          .options{:style=> "display:inline;float:right;display:none;"}
-            = link_to_function image_tag('edit_icon.png'), :class => '#{status_flag} edit_option edit_logo', :controller => "user_groups", :data_id => i.id, :field => "user_group_group", :title=>"Edit"
-          .title
-            = i.name
-            \-
-            = i.login_accounts.size
-            &nbsp
-            users
+  - for i in @group_types
+    - status = i.status ? "container_active" : "container_inactive"
+    - status_flag = i.status ? "" : "hidden"
+    .group_type_tab.toggle_options{:class => "#{status} toggle_options", :id => "group_type_#{i.id}", :field => "user_group_group", :style => "width:47%;"}
+      .options{:style=> "display:inline;float:right;display:none;"}
+        = link_to_function image_tag('edit_icon.png'), :class => '#{status_flag} edit_option edit_logo', :controller => "user_groups", :data_id => i.id, :field => "user_group_group", :title=>"Edit"
+      .title
+        %h3= "#{i.name}""\-""#{i.login_accounts.size}" "\-" "users"
+ 

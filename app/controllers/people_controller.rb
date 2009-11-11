@@ -19,7 +19,8 @@ class PeopleController < ApplicationController
     @personal_check_field = Array.new
     
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-    unless @duplication_formula_appiled.nil?
+
+    unless @duplication_formula_appiled.status == false
       @duplication_formula_appiled.duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
       end
@@ -178,7 +179,7 @@ class PeopleController < ApplicationController
     @person_group = PersonGroup.new
     @personal_check_field = Array.new
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-    unless @duplication_formula_appiled.nil?
+    unless @duplication_formula_appiled.status == false
       @duplication_formula_appiled.duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
       end
@@ -413,7 +414,7 @@ class PeopleController < ApplicationController
 
     @personal_check_field = Array.new
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-    unless @duplication_formula_appiled.nil?
+    unless @duplication_formula_appiled.status = false
       @duplication_formula_appiled.duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
       end

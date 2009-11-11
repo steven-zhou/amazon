@@ -6,6 +6,7 @@ class PersonalDuplicationFormulasController < ApplicationController
     @personal_duplication_formula = PersonalDuplicationFormula.find(params[:id].to_i)
     @personal_duplication_formula.update_attributes(params[:personal_duplication_formula])
     @personal_duplication_formula.group = "applied"
+    @personal_duplication_formula.status = params[:personal_duplication_formula][:status]
     @personal_duplication_formula.save
     if @personal_duplication_formula.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person Duplication Formula #{@person_duplication_formula.id}.")
@@ -43,4 +44,23 @@ class PersonalDuplicationFormulasController < ApplicationController
       format.js {render 'duplication_formulas/personal_generate.js'}
     end
   end
+
+  def change_status
+
+    @personal_duplication_formula = PersonalDuplicationFormula.applied_setting
+
+    if @personal_duplication_formula.status
+       @personal_duplication_formula.status = false
+       @personal_duplication_formula.save
+    else
+      @personal_duplication_formula.status = true
+      @personal_duplication_formula.save
+    end
+
+     respond_to do |format|
+      format.js {render 'duplication_formulas/change_status.js'}
+    end
+  end
+
+
 end

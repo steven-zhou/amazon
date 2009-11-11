@@ -18,7 +18,7 @@ module PeopleSearch
         condition_clauses.push("people.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("people.#{attribute} LIKE ?")
+        condition_clauses.push("people.#{attribute} ILIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
@@ -44,7 +44,7 @@ module PeopleSearch
         condition_clauses.push("contacts.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("contacts.#{attribute} LIKE ?")
+        condition_clauses.push("contacts.#{attribute} ILIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
@@ -67,7 +67,7 @@ module PeopleSearch
         condition_clauses.push("contacts.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("contacts.#{attribute} LIKE ?")
+        condition_clauses.push("contacts.#{attribute} ILIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
@@ -91,7 +91,7 @@ module PeopleSearch
         condition_clauses.push("addresses.#{attribute} = ?")
         condition_options.push(value)
       when 'like'
-        condition_clauses.push("addresses.#{attribute} LIKE ?")
+        condition_clauses.push("addresses.#{attribute} ILIKE ?")
         condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
