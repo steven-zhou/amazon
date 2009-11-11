@@ -39,7 +39,7 @@ class SigninController < ApplicationController
         #  in ok we will send a warning to the end user
         #flash.now[:warning] = flash_message(:type => "login_error")
         #rescue rescue_message = "your group do not have permissions"
-        system_log("There was a failed login attempt to the system from IP address #{request.remote_ip}", "signin", "login", nil)
+        system_log("There was a failed login attempt to the system from IP address #{request.remote_ip} supplying username #{params[:user_name]}.", "signin", "login", nil)
         if login_account.nil?
           rescue_message = flash_message(:type => "login_error")
         else if  @group_types.nil?

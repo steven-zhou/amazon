@@ -4,7 +4,7 @@
    <% form_tag("/feedback/submit_feedback", :class => "ajax_form") do -%>
    <div class="form_line">
    <label>To:</label>
-   <div class="display_field_bg">feedback(at)memberzone(dot)com(dot)au</div>
+   <div class="display_field_bg"><%= "#{ClientSetup.first.feedback_to.gsub(/\@/, " at ").gsub(/\./, " dot ")}" %> </div>
    </div>
    <div class="form_line">
    <label> From:</label>

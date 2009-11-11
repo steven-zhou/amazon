@@ -5,7 +5,6 @@ class LoginAccount < ActiveRecord::Base
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
 
-  #---------------------validate------------------------------------
   validates_uniqueness_of :user_name, :case_sensitive => false
 
 
