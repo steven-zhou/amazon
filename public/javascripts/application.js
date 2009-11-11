@@ -3348,6 +3348,11 @@ $(function(){
     });
 });
 
+$(function(){
+    $('table#feedback_search_grid tbody tr').live('mouserover', function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 
 $(function(){
     $('#system_log_search_submit').live('click',function(){
@@ -3372,6 +3377,12 @@ $(function(){
     $('table#system_log_search_grid tbody tr').live('click',function(){
         $('table#system_log_search_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
+    });
+});
+
+$(function(){
+    $('table#system_log_search_grid tbody tr').live('mouseover', function(){
+        $(this).css('cursor',"pointer");
     });
 });
 
@@ -3592,6 +3603,11 @@ $(function(){
     });
 });
 
+$(function(){
+    $('table#people_search_grid tbody tr').live('mouseover', function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 
 $(function(){
     $('table#query_result_grid tbody tr').live('click',function(){
@@ -3600,6 +3616,11 @@ $(function(){
     });
 });
 
+$(function(){
+    $('table#query_result_grid tbody tr').live('mouseover', function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 
 /*option hover*/
 $(function(){
@@ -3785,9 +3806,6 @@ $(function(){
 
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('click',function(){
-
-
-
         $.ajax({
             type: 'GET',
             url: "/organisations/show_left.js",
@@ -3799,6 +3817,11 @@ $(function(){
     });
 });
 
+$(function(){
+    $('table#search_organisations_list_results tbody tr').live('mouseover', function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 
 //$(function(){
 //    $("#show_organisation_list_select").live('click',function(){
@@ -3924,7 +3947,11 @@ $(function(){
     });
 });
 
-
+$(function(){
+    $('table#organisation_search_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 $(function(){   /*organisation employee list result*/
     $("#organisations_employees_grid").flexigrid({
         url: '/grids/organisation_employee_grid',
@@ -4067,6 +4094,12 @@ $(function(){
         $(this).addClass('trSelected');
     });
 });
+$(function(){
+    $('table#person_check_field tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+});
+
 
 /*Organisational Duplication Check*/
 $(function(){
@@ -4133,7 +4166,11 @@ $(function(){
         window.open("/organisations/"+ $(this).attr('id').substring(3) +"/edit", "_self");
     });
 });
-
+$(function(){
+    $('table#duplication_organisations_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 
 
 /*user_group  new design*/
@@ -4512,6 +4549,12 @@ $(function(){
     });
 });
 
+$(function(){
+    $('table#address_postcode tbody tr').live('mouseover', function(){
+        $(this).css('cursor', "pointer");
+    });
+});
+
 /* Organisation Lookup*/
 $(function(){
     $(".organisation_lookup").live('click', function(){
@@ -4699,6 +4742,10 @@ $(function(){
         $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
 
+    });
+
+    $('table#person_lookup_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
     });
 });
 
