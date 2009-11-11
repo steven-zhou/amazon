@@ -14,30 +14,30 @@ set :deploy_to, "/home/rails/amazon"
 set :repository, "rails@203.23.28.91:/var/git/amazon.git"
 
 namespace :mod_rails do
-  desc <<-DESC
+    desc <<-DESC
   Restart the application altering tmp/restart.txt for mod_rails.
-  DESC
-  task :restart, :roles => :app do
-    run "touch  #{release_path}/tmp/restart.txt"
-  end
+    DESC
+    task :restart, :roles => :app do
+        run "touch  #{release_path}/tmp/restart.txt"
+    end
 end
 
-namespace :backgroundrb do
-  desc <<-DESC
-  Restart the application altering tmp/restart.txt for mod_rails.
-  DESC
-  task :restart, :roles => :app do
-    run "cd #{current_path} && ./script/backgroundrb stop"
-    run "cd #{current_path} && RAILS_ENV=production ./script/backgroundrb start > /dev/null 2>1"
-  end
-end
+#namespace :backgroundrb do
+#  desc <<-DESC
+#  Restart the application altering tmp/restart.txt for mod_rails.
+#  DESC
+#  task :restart, :roles => :app do
+#    run "cd #{current_path} && ./script/backgroundrb stop"
+#    run "cd #{current_path} && RAILS_ENV=production ./script/backgroundrb start > /dev/null 2>1"
+#  end
+#end
 
 
 
 
 namespace :deploy do
-  %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
-  %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
+    %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
+    #%w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
 end
 
 
