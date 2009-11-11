@@ -8,7 +8,7 @@
     - if @super_admin
       .options{:style => "float:right;"}
         = link_to_function image_tag("add_icon.png"), :id => "new_news", :title=>"New System News"
-        = link_to_function image_tag("edit_icon.png"), :title=>"Manage System News", :id => "manage_system_news"
+        = link_to_function image_tag("folder.png"), :title=>"Manage System News", :id => "manage_system_news"
     %h1 System News
     %input#news_offset_number{:style => "display:none;", :value => 0}
     #system_news_container
