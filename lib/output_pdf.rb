@@ -135,7 +135,7 @@ module OutputPdf
   def self.generate_report_header(pdf, source_type, source_id, format,list_report, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
-    header_settings[:title] ||= "#{format.gsub("_"," ").titleize} From <#{list_report}>"
+    header_settings[:title] ||= "#{format.gsub("_"," ").titleize} Using <#{list_report}>"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"

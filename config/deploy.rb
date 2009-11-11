@@ -22,8 +22,20 @@ namespace :mod_rails do
   end
 end
 
+namespace :backgroundrb do
+  desc <<-DESC
+  Restart backgroundrb.
+  DESC
+  task :restart, :roles => :app do
+    run "#{release_path}/script/backgroundrb stop"
+    run "#{release_path}/script/backgroundrb start"
+  end
+end
+
+
 namespace :deploy do
   %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
+  %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
 end
 
 

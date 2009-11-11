@@ -37,13 +37,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def system_log(message, current_controller=@current_controller, current_action=@current_action, login_account=@current_user)
-    system_log = SystemLog.new(:message => message, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
-    system_log.login_account_id = login_account.nil? ? nil : login_account.id
-    system_log.save
-  end
-
-
   def flash_message(options = {})
 
     options[:type] ||= "default"
@@ -109,6 +102,14 @@ class ApplicationController < ActionController::Base
       return # do nothing
     end
 
+  end
+
+ 
+  def system_log(message, current_controller=@current_controller, current_action=@current_action, login_account=@current_user)
+    system_log = SystemLog.new(:message => message, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+    system_log.login_account_id = login_account.nil? ? nil : login_account.id
+    system_log.save
+    puts "#{system_log.to_yaml}"
   end
 
 end
