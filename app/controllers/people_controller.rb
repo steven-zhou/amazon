@@ -555,6 +555,10 @@ class PeopleController < ApplicationController
     if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
       @postcode = Postcode.find(:all)
 
+      ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
       @postcode.each do |i|
         @spc = ShowPostcodeGrid.new
         @spc.login_account_id = session[:user]
