@@ -110,7 +110,7 @@ class AdministrationsController < ApplicationController
     @organisational_duplication_formula = OrganisationalDuplicationFormula.new(@organisational_duplication_formula_old.attributes)
     @organisational_duplication_formula.group = "temp"
     if @organisational_duplication_formula.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the organisational duplication formula with ID #{@organisational_duplication_forumula.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the organisational duplication formula with ID #{@organisational_duplication_formula.id}.")
       @organisational_duplication_formula_old.duplication_formula_details.each do |i|
         @duplication_formula_detail = DuplicationFormulaDetail.new(i.attributes)
         @duplication_formula_detail.duplication_formula = @organisational_duplication_formula

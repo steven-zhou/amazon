@@ -4,9 +4,10 @@ $('#organisation_lookup_dialog').dialog( {
                 modal: true,
                 resizable: true,
                 draggable: true,
-                width: 'auto',
+                width: 800,
                 height: 'auto'
             });
+            $('#organisation_lookup_dialog').dialog('option','Title','Organisation Lookup');
         $('#organisation_lookup_dialog').dialog('open');
 
         $("#organisation_lookup_grid").flexigrid({

@@ -77,18 +77,13 @@ $(function() {
     });
 
    
-    $(".clear_form").click(function(){
-
+    $(".clear_form").live('click',function(){
+  
         var link = $(this);
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
         if (left_content.length > 0 &&  right_content.length > 0)
         {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
             if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
             {
 
@@ -104,6 +99,7 @@ $(function() {
 
         if($('#check_input_change').val()=="true")
         {
+           
             $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
@@ -140,6 +136,12 @@ $(function() {
             
            
         }
+        else
+            {
+               
+                 $('#'+link.parents("form").get(0).id)[0].reset();
+
+            }
     });
 
 
