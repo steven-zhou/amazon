@@ -1,28 +1,29 @@
 <!-- For flash error, warning, process_end and help message -->
 
-<div id="flash_message" style="display:none;background-color:#D1DDE6;padding-top:2em;padding-bottom:2em;padding-left:3em;padding-right:3em;">
-  <%= image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")%>
-  <p id="flash_message_text"  style ="display:inline;" />
-  <%#- if flash[:error] %>
-    <%#= flash[:error] %>
-  <%#- elsif flash[:warning] %>
-    <%#= flash[:warning] %>
-  <%#- elsif flash[:process_end] %>
-    <%#= flash[:process_end] %>
-  <%#- elsif flash[:help] %>
-    <%#= flash[:help] %>
- <%#- end %>
+<div id="flash_message" style="display:none;background-color:#D1DDE6;padding-top:2em;padding-bottom:2em;padding-left:3em;padding-right:3em;align:left;">
+  <%= image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image", :style=>"float:left;padding:7px;")%>
+  <div id="flash_message_text" style="margin-top:20px;">
+    <%- if flash[:error] %>
+      <%= flash[:error] %>
+    <%- elsif flash[:warning] %>
+      <%= flash[:warning] %>
+    <%- elsif flash[:process_end] %>
+      <%= flash[:process_end] %>
+    <%- elsif flash[:help] %>
+      <%= flash[:help] %>
+    <%- end %>
+  </div>
 </div>
 
 <%- if flash[:error] || flash[:warning] || flash[:process_end] || flash[:help] %>
   <script type="text/javascript">
     $(function() {
       $('#flash_message').dialog( {
-      modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      maxWidth: 500,
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 800,
         buttons: {
           Ok: function() {
             $(this).dialog('destroy');
@@ -33,23 +34,23 @@
 
     );
 
- $('#flash_message').parent().find("a").css("display","none");
- $("#flash_message").parent().css('background-color','#D1DDE6');
- $("#flash_message").css('background-color','#D1DDE6');
+      $('#flash_message').parent().find("a").css("display","none");
+      $("#flash_message").parent().css('background-color','#D1DDE6');
+      $("#flash_message").css('background-color','#D1DDE6');
 
-<%- if flash[:error] %>
-      $('#flash_message').dialog( 'option', 'title', 'ERROR');
-      $('#flash_message_text').html("<%= escape_javascript(flash[:error]) %>");
+  <%- if flash[:error] %>
+        $('#flash_message').dialog( 'option', 'title', 'ERROR');
+        $('#flash_message_text').html("<%= escape_javascript(flash[:error]) %>");
 
-    <%- elsif flash[:warning] %>
-      $('#flash_message').dialog( 'option', 'title', 'WARNING');
-      $('#flash_message_text').html("<%= escape_javascript(flash[:warning]) %>");
-    <%- elsif flash[:process_end] %>
-      $('#flash_message').dialog( 'option', 'title', 'Completed Task');
-      $('#flash_message_text').html("<%= escape_javascript(flash[:process_end]) %>");
-    <%- elsif flash[:help] %>
-      $('#flash_message').dialog( 'option', 'title', 'Help');
-      $('#flash_message_text').html("<%= escape_javascript(flash[:help]) %>");
+  <%- elsif flash[:warning] %>
+        $('#flash_message').dialog( 'option', 'title', 'WARNING');
+        $('#flash_message_text').html("<%= escape_javascript(flash[:warning]) %>");
+  <%- elsif flash[:process_end] %>
+        $('#flash_message').dialog( 'option', 'title', 'Completed Task');
+        $('#flash_message_text').html("<%= escape_javascript(flash[:process_end]) %>");
+  <%- elsif flash[:help] %>
+        $('#flash_message').dialog( 'option', 'title', 'Help');
+        $('#flash_message_text').html("<%= escape_javascript(flash[:help]) %>");
   <%- end %>
       $('#flash_message').dialog( 'open');
     }
@@ -61,7 +62,7 @@
 
 <!-- For feedback message -->
 
- <div id="flash_feedback" style="display:none;position:fixed;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
+<div id="flash_feedback" style="display:none;position:fixed;top:0px;left:0px;width:100%;padding-top:10px;padding-bottom:10px;border-bottom: 1px solid #97BDA4;z-index:100;background-color:green;color:#FFF;font-family: Arial, Helvetica, Sans Serif;font-weight:bold;text-align:center;-moz-opacity:.8;opacity:0.80;filter:alpha(opacity=80);cursor:default;">
   <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
     <%= flash[:message] %>
   <%- end %>
