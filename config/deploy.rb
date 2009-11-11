@@ -27,8 +27,8 @@ namespace :backgroundrb do
   Restart backgroundrb.
   DESC
   task :restart, :roles => :app do
-    run "touch  #{release_path}/script/backgroundrb stop"
-    run "touch  #{release_path}/script/backgroundrb start"
+    run "#{release_path}/script/backgroundrb stop"
+    run "#{release_path}/script/backgroundrb start"
   end
 end
 
