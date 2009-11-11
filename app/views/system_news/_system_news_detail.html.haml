@@ -6,8 +6,5 @@
   .title
     %h2 #{system_news_detail.title}
 
-  .news_content{:id => "short_description_detail_#{system_news_detail.id}"}
-    %p #{system_news_detail.short_description}
-
-  .news_content.hidden{:id => "description_detail_#{system_news_detail.id}"}
+  .news_content{:id => "description_detail_#{system_news_detail.id}"}
     %p #{system_news_detail.description}

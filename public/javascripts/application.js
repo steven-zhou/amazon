@@ -5349,11 +5349,16 @@ $(function(){
         $(".system_news:not(#system_news_"+ $(this).attr("news_id") +")").toggleClass("hidden");
         $("#system_news_"+$(this).attr("news_id")).toggleClass("active");
         $("#system_news_"+ $(this).attr("news_id") +"> .news_content").toggleClass("hidden");
-        if ($(this).html()=="read more"){
-            $(this).html("read less");
-        }else{
-            $(this).html("read more");
-        }
+    });
+
+    $("#message_more").live('click', function(){
+        $("#message_less_container").css("display", "none");
+        $("#message_more_container").css("display", "");
+    });
+
+    $("#message_less").live('click', function(){
+        $("#message_less_container").css("display", "");
+        $("#message_more_container").css("display", "none");
     });
 });
 
