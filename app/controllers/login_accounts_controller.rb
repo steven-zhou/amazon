@@ -30,7 +30,7 @@ class LoginAccountsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Login Account with ID #{@login_account.id} and Username #{@login_account.user_name}.")
       email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
       LoginAccountPasswordResetDispatcher.deliver(email)
-      flash.now[:message] = " Saved successfully"
+      flash.now[:message] = "Saved successfully."
     else
       
       
