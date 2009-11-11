@@ -35,7 +35,7 @@ end
 
 namespace :deploy do
   %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
-  %w(start restart).each { |name| task name, :roles => :app do background_rb.restart end }
+  %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
 end
 
 
