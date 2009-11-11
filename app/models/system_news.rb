@@ -7,7 +7,7 @@ class SystemNews < ActiveRecord::Base
   validates_presence_of :title, :description
 
   def short_description
-    "#{self.description[0,80]} ..."
+    "#{self.description[0,36]} ..."
   end
 
   def self.first_three

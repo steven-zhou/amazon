@@ -40,6 +40,12 @@
           %option{:value => "30", :selected => @client_setup.password_lifetime == 30} 30
           %option{:value => "60", :selected => @client_setup.password_lifetime == 60} 60
           %option{:value => "90", :selected => @client_setup.password_lifetime == 90} 90
-      .field_10
+    .form_line{:style => "height:auto;"}
+      .field_100{:style => "height:auto;"}
+        = f.label :superadmin_message, "SuperAdmin Message"
+        = f.text_area :superadmin_message, :cols => 126, :rows =>3
+      %br.clear
+    .form_line
+      .field_10{:style => "float:right;"}
         %label &nbsp;
         = submit_tag "Submit"
