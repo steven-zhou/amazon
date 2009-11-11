@@ -1,4 +1,5 @@
 class TagMetaTypesController < ApplicationController
+  # System logging done
 
   def new
     @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.new
@@ -18,6 +19,7 @@ class TagMetaTypesController < ApplicationController
     @tag_meta_type = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
     @category = params[:type].sub(/MetaMetaType/,"")
     if @tag_meta_type.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created new TagMetaType #{@tag_meta_type.id}.")
       flash.now[:message] = "Saved successfully"
     else
       #flash.now[:error] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
@@ -33,6 +35,7 @@ class TagMetaTypesController < ApplicationController
     @tag_meta_type = params[:type].camelize.constantize.find(params[:id].to_i)
     @category = params[:type].sub(/MetaMetaType/,"")
     if @tag_meta_type.update_attributes(params[params[:type].underscore.to_sym])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated TagMetaType #{@tag_meta_type.id}.")
       flash.now[:message] = "Updated successfully."
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "can't be blank")
@@ -45,6 +48,7 @@ class TagMetaTypesController < ApplicationController
 
   def destroy
     @tag_meta_type = TagMetaType.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted TagMetaType #{@tag_meta_type.id}.")
     @tag_meta_type.destroy
     respond_to do |format|
       format.js
@@ -74,6 +78,7 @@ class TagMetaTypesController < ApplicationController
     @access_permission = SystemPermissionMetaMetaType.new
     @access_permission.update_attributes(params[:system_permission_meta_meta_type])
     if @access_permission.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created SystemPermission #{@access_permission.id}.")
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @access_permission.errors.on(:name)[0] + ", saved unsuccessfully." unless @access_permission.errors.on(:name).nil?

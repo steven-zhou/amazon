@@ -1,5 +1,5 @@
 class UserGroupsController < ApplicationController
-
+  # System Logging added
 
   def edit
     @group = GroupType.find(params[:data_id])
@@ -19,6 +19,7 @@ class UserGroupsController < ApplicationController
     unless @login_account.nil? && @person.new_record?
       @user_group = UserGroup.new(:user_id => @login_account.id, :group_id => params[:user_group][:group_id])
       if @user_group.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created User Group #{@user_group.id}.")
         flash.now[:message] = "saved successfully"
         @login_account = @user_group.login_account
         @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
@@ -44,6 +45,7 @@ class UserGroupsController < ApplicationController
 
   def destroy
     @user_group = UserGroup.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted User Group #{@user_group.id}.")
     @user_group.destroy
     @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
@@ -53,16 +55,5 @@ class UserGroupsController < ApplicationController
     end
   end
 
-#  def user_name_to_person
-#    @login_account = LoginAccount.find_by_user_name(params[:user_name])
-#    unless @login_account.nil?
-#      @person = @login_account.person
-#    end
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
-
-  
 
 end

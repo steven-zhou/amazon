@@ -1,5 +1,7 @@
 class SigninController < ApplicationController
 
+  # System logging added
+
   include SimpleCaptcha::ControllerHelpers
 
   before_filter :check_authentication, :except => [:login, :signout, :password_reset_get_login_account, :reset_password_request, :username_retrieval_get_login_account, :username_retrieval_request, :captcha, :grace_period_check, :ask_for_power_password, :login_as_super_user]
@@ -10,7 +12,8 @@ class SigninController < ApplicationController
   def login
     if request.post?
       begin
-        login_account = LoginAccount.authenticate(params[:user_name], params[:password])        
+        login_account = LoginAccount.authenticate(params[:user_name], params[:password])
+        system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", @current_controller, @current_action, login_account)
         session[:last_event] = Time.now()
         if login_account.class.to_s == "SystemUser"          
           grace_period_check(login_account) if login_account.last_login.nil?
@@ -36,6 +39,7 @@ class SigninController < ApplicationController
         #  in ok we will send a warning to the end user
         #flash.now[:warning] = flash_message(:type => "login_error")
         #rescue rescue_message = "your group do not have permissions"
+        system_log("There was a failed login attempt to the system from IP address #{request.remote_ip}", @current_controller, @current_action, nil)
         if login_account.nil?
           rescue_message = flash_message(:type => "login_error")
         else if  @group_types.nil?
@@ -54,13 +58,15 @@ class SigninController < ApplicationController
       end
     end
   end
+
   
+
   # Logs a user out.
   def signout
     login_account = LoginAccount.find_by_id(session[:user])
     @temp_list = TempList.find_by_login_account_id(session[:user])
     @temp_list.destroy unless @temp_list.nil?
-#    system_log("Login Account ID #{@current_user.id} -  #{@current_user.user_name} logged out of the system.")
+    system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged out of the system.", @current_controller, @current_action, login_account)
     login_account.update_attributes(:last_logoff => Time.now()) unless login_account.nil?
     session[:user] = nil
     session[:current_list_id] = nil
@@ -107,6 +113,8 @@ class SigninController < ApplicationController
 
       # Send out the email
 
+
+      system_log("Password reset email was sent for #{@login_account.user_name} (ID #{@login_account.id}).", @current_controller, @current_action, @login_account)
       email = LoginAccountPasswordResetDispatcher.create_email_notification(@login_account, password)
       LoginAccountPasswordResetDispatcher.deliver(email)
 
@@ -117,7 +125,7 @@ class SigninController < ApplicationController
       @login_account.login_status = false
       @login_account.save
       @password_reset = "false"
-
+      system_log("There was an invalid password reset request for #{@login_account.user_name} (ID #{@login_account.id}).", @current_controller, @current_action, @login_account)
       # Update the view, either warn about 3 attempts or announce the account has been locked
     end
 
@@ -158,7 +166,7 @@ class SigninController < ApplicationController
       @login_account.save
 
       # Send out the email
-
+      system_log("Username retrieval email sent for #{@login_account.user_name} (ID #{@login_account.id}).", @current_controller, @current_action, @login_account)
       email = LoginAccountUsernameRetrievalDispatcher.create_email_notification(@login_account)
       LoginAccountUsernameRetrievalDispatcher.deliver(email)
 
@@ -169,7 +177,7 @@ class SigninController < ApplicationController
       @login_account.login_status = false
       @login_account.save
       @username_retrieval = "false"
-
+      system_log("There was an invalid username retrieval request for #{@login_account.user_name} (ID #{@login_account.id}).", @current_controller, @current_action, @login_account)
       # Update the view, either warn about 3 attempts or announce the account has been locked
     end
 
@@ -193,6 +201,7 @@ class SigninController < ApplicationController
   def login_as_super_user
     begin
       login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
+      system_log("Super User account logged onto the system - #{login_account.user_name} (ID #{login_account.id}).", @current_controller, @current_action, login_account)
       session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
       @group_types = LoginAccount.validate_group(session[:user])
       @system_permission_types = LoginAccount.validate_permission(session[:user])
@@ -203,6 +212,7 @@ class SigninController < ApplicationController
       login_account.save
       redirect_to welcome_url
     rescue
+      system_log("Failed attempt to log in as a super user.", @current_controller, @current_action, nil)
       if login_account.nil?
         rescue_message = flash_message(:type => "login_error")
       else if  @group_types.nil?
@@ -264,7 +274,7 @@ class SigninController < ApplicationController
      
       if( ( (Time.now - login_account.created_at) / (24 * 60 * 60) ) > login_account.authentication_grace_period )
         # We are outside the grace period, delete the account
-
+        system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) attempted to login outside of the defined grace period.", @current_controller, @current_action, login_account)
         login_account.destroy
         flash[:warning] = flash_message(:type => "grace_period_expired")
         session[:user] = nil
@@ -280,6 +290,7 @@ class SigninController < ApplicationController
 
   def password_lifetime_check(login_account)
     if( ( ( (!login_account.password_lifetime.nil? && login_account.password_lifetime.to_i > 0) && (Time.now - login_account.password_updated_at) / (24 * 60 * 60) ) > login_account.password_lifetime.to_i) )
+      system_log("Password expired for #{login_account.user_name} (ID #{login_account.id}).", @current_controller, @current_action, login_account)
       redirect_to :controller => "login_accounts", :action => "change_password"
     end
   end

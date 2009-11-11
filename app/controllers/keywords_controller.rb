@@ -1,5 +1,5 @@
 class KeywordsController < ApplicationController
-
+  # System Logging done
 
   def new
 
@@ -10,10 +10,9 @@ class KeywordsController < ApplicationController
     @keyword_table.name = params[:keyword][:name]
     @keyword_table.description = params[:keyword][:description]
     @keyword_table.status = params[:keyword][:status]
-    #    puts "********#{params[:keyword]}***************"
     @keyword_table.keyword_type_id = params[:type_id]
     @keyword_table.save
-
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")
 
     respond_to do |format|
       format.js
@@ -32,17 +31,8 @@ class KeywordsController < ApplicationController
 
     @keyword_table= Keyword.find(params[:id].to_i)
    
-#    if @keyword_table.status == true
-#
-#      @keyword_table.name = params[:keyword][:name]
-#      @keyword_table.description = params[:keyword][:description]
-#
-#      @keyword_table.status = params[:keyword][:status]
-#    else
-#
-#      @keyword_table.status = params[:keyword][:status]
-#    end
     @keyword_table.update_attributes(params[:keyword])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Keyword with ID #{@keyword_table.id}.")
 
     @keyword_table.save
    
@@ -57,10 +47,8 @@ class KeywordsController < ApplicationController
 
   def destroy
     keyword = Keyword.find(params[:id])
- 
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
       keyword.destroy
-  
-   
     respond_to do |format|
       format.js
     end

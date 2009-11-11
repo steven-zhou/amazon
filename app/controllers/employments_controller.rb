@@ -1,4 +1,6 @@
 class EmploymentsController < ApplicationController
+  # System Logging added
+
 
   def show
     @employment = Employment.find(params[:id].to_i)
@@ -19,6 +21,7 @@ class EmploymentsController < ApplicationController
     @person = Person.find(params[:person_id].to_i)
     @employment = @person.employments.new(params[:employment])
     @employment.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id})  created a new Employment record with ID #{@employment.id}.")
     @person = Person.find(session[:user])
     respond_to do |format|
       format.js
@@ -29,6 +32,7 @@ class EmploymentsController < ApplicationController
     @employment = Employment.find(params[:id].to_i)
     respond_to do |format|
       if @employment.update_attributes(params[:employment][@employment.id.to_s])
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Employment ID #{@employment.id}.")
         format.js { render 'show.js' }
       end
     end
@@ -36,6 +40,7 @@ class EmploymentsController < ApplicationController
 
   def destroy
     @employment = Employment.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Employment ID #{@employment.id}.")
     @employment.destroy
     
     respond_to do |format|

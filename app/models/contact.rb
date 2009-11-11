@@ -1,5 +1,6 @@
 class Contact < ActiveRecord::Base
 
+
 #--
 ################
 #  Associations

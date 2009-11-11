@@ -1,4 +1,5 @@
 class RoleConditionsController < ApplicationController
+  # System Logging done
 
   def show_roles
     @role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
@@ -18,7 +19,7 @@ class RoleConditionsController < ApplicationController
       params[:remove_doctype_id].each do |doctype_id|
      
         @role_condition = @role.role_conditions.find(doctype_id)
-       
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) removed Role Condition #{@role_condition.id} from Role #{@role.id}.")
         @role_condition.destroy
 
       end
@@ -77,6 +78,7 @@ class RoleConditionsController < ApplicationController
     end
 
     if @role_condition.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Role #{@role_condition.id}.")
       flash.now[:message] = "saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "doc")if(!@role_condition.errors[:doctype_id].nil? && @role_condition.errors.on(:doctype_id).include?("can't be blank"))
@@ -93,6 +95,7 @@ class RoleConditionsController < ApplicationController
 
   def destroy
     @role_condition = RoleCondition.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role Condition #{@role_condition.id}.")
     @role_condition.destroy
     respond_to do |format|
       format.js

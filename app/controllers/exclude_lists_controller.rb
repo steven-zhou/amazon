@@ -1,5 +1,5 @@
 class ExcludeListsController < ApplicationController
-
+  # System Logging done
 
   def create
     @list_header_ids = Array.new
@@ -12,6 +12,7 @@ class ExcludeListsController < ApplicationController
 
       if @list_header.class.to_s != "PrimaryList"
         @exclude_list.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created ExcludeList #{@exclude_list.id}.")
         @list_header_ids << id
       else
         @flag = false
@@ -27,6 +28,7 @@ class ExcludeListsController < ApplicationController
     @exclude_list = ExcludeList.find(params[:id].to_i)
     @list_header_id = String.new
     @list_header_id = @exclude_list.list_header_id
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted ExcludeList ID #{@exclude_list.id}.")
     @exclude_list.destroy
     respond_to do |format|
       format.js
