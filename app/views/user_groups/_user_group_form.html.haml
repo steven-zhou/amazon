@@ -31,11 +31,13 @@
           .field_20
             %label &nbsp
             %input{:name => "user_group[group_id]", :value => "#{@group.id}", :class => "hidden"}
-            
+          .field_2{:style=> "float:right;",:class => "spin"}
+            %label &nbsp
           .field_20{:style => "float:right"}
             %label &nbsp
             = link_to_function 'clear', :class => "alt_option"
             = submit_tag 'Submit'
+          
 
   %div#user_group_user
     - for i in @user_groups

@@ -18,6 +18,7 @@ jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
     }
+
 });
 
 /* Authenticity token*/
@@ -278,9 +279,15 @@ $(function() {
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
-jQuery.fn.submitWithAjax = function($callback) {
+jQuery.fn.submitWithAjax = function() {
     this.live('submit', function() {
-        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
+        $.post($(this).attr("action"), $(this).serialize(), function() {$('.spin').toggleClass('spinning', false);}, "script");
+        $(this).find('.spin').each(function(){ $(this).toggleClass('spinning', true); });
+  
+
+
+         //$(this).find('input[type="submit"]').each(function(){ $(this).toggleClass('spinning', true); });
+         
         return false;
     });
     return this;
@@ -293,7 +300,12 @@ jQuery.fn.doAjaxSubmit = function($callback) {
 
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
+
 });
+
+
+
+
 
 /*Date picker */
 $('.birthdatepick').live("mouseover", function(){
@@ -450,6 +462,7 @@ $(function(){
             type: "GET",
             url: "/people/name_finder.js",
             data: 'person_id='+$(this).val(),
+
             dataType: "script"
         });
     });

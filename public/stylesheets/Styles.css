@@ -2166,3 +2166,14 @@ div#permission_form .options{
     padding: 5px 0px 5px 10px;
     text-decoration:none;
 }
+
+
+
+/*spinner*/
+
+ .spinning {
+         background: #ccc url('/images/spinner.gif') no-repeat right !important;
+
+     }
+
+
