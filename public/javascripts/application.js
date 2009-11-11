@@ -5062,6 +5062,8 @@ $(function(){
         //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
         $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
+        $("#keyword_close_entry").css("display","");
+        
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
     });
@@ -5183,19 +5185,9 @@ $(function(){
             $('#warning_message').parent().find("a").css("display","none");
             $("#warning_message").parent().css('background-color','#D1DDE6');
             $("#warning_message").css('background-color','#D1DDE6');
-            //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
 
             $('#warning_message').dialog('open');
-
-
-
-
-
-
-
-
-
-
 
         }
         else
@@ -5220,31 +5212,10 @@ $(function(){
             });
 
         }
-
-
-
-
-
-
-
-
-        
+       
     });
 });
 
-//$(function(){
-//    $("#close_edit_keyword_entry").live('click', function(){
-//         $("#keyword_add_entry").css("display","");
-//      $("#keyword_mode").attr('mode', 'show');
-//
-//       $.ajax({
-//                type: "GET",
-//                url: "/keywords/keywords_finder.js",
-//                data: 'type=' + $("#keyword_type").val(),
-//                dataType: "script"
-//            });
-//    });
-//});
 
 $(function(){
     $("#keyword_type").live('change', function(){
