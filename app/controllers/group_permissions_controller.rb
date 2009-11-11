@@ -1,10 +1,11 @@
 class GroupPermissionsController < ApplicationController
+  # System logging added here
+
 
   def show_add_container
     @group_type = GroupType.find(params[:group_id])
     @group_permission = GroupPermission.new
     @group_permissions = @group_type.group_permissions
-    #puts"---DEBUG111---#{params[:group_id].to_yaml}"
     @module_all = Array.new
     @module_all = SystemPermissionMetaMetaType.all
 
@@ -13,36 +14,6 @@ class GroupPermissionsController < ApplicationController
     end
   end
 
-
-
-
-
-  #  def show_methods
-  #    @system_permission_meta_type = SystemPermissionMetaType.find(params[:controller_id])  #controller
-  #    @system_permission_types = @system_permission_meta_type.system_permission_types
-  #    #puts"---DEBUG991---#{@system_permission_types.to_yaml}"
-  #     respond_to do |format|
-  #      format.js
-  #    end
-  #
-  #  end
-
-
-
-
-  #  def new
-  #
-  #    @group_type = GroupType.find(params[:group_id])
-  #    @group_permission = GroupPermission.new
-  #    @group_permissions = @group_type.group_permissions
-  #    @module_all = Array.new
-  #    @module_all = SystemPermissionMetaMetaType.all
-  #
-  #    respond_to do |format|
-  #      format.js
-  #    end
-  #
-  #  end
 
 
   #*********new design************
@@ -78,6 +49,7 @@ class GroupPermissionsController < ApplicationController
   def destroy
 
     @group_permission = GroupPermission.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Group Permission ID #{@group_permission.id}.")
     @group_permission.destroy
     @group_types = GroupType.system_user_groups
 
@@ -92,6 +64,7 @@ class GroupPermissionsController < ApplicationController
         params[:method_ids].each do |method_id|
           @group_permission = GroupPermission.new(:user_group_id => params[:group_id], :system_permission_type_id => method_id)
           if  @group_permission.save
+            system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Group Permission ID #{@group_permission.id}.")
             flash.now[:message]= "saved successfully"
           else
             flash.now[:error] = flash_message(:type => "field_missing", :field => "system_permission")if (!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("can't be blank"))
@@ -109,6 +82,7 @@ class GroupPermissionsController < ApplicationController
           @group_permission = GroupPermission.new(:user_group_id => params[:group_id], :system_permission_type_id => method.id)
 
           if @group_permission.save
+            system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Group Permission ID #{@group_permission.id}.")
             flash.now[:message]= "saved successfully"
           else
             flash.now[:error] = flash_message(:type => "field_missing", :field => "system_permission")if (!@group_permission.errors[:system_permission_type_id].nil? && @group_permission.errors.on(:system_permission_type_id).include?("can't be blank"))

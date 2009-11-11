@@ -1,16 +1,13 @@
 class RelationshipsController < ApplicationController
-  
+  # System Log done
+
   def create
-    #    @source_person = Person.find(params[:person_id].to_i)
-    #    @relationship = Relationship.new(params[:relationship])
-    #    @relationship.source_person= @source_person
-    #    @related_person = @relationship.related_person
-    #    @person = @source_person
-    #    @relationship.save
+
     @source_person = Person.find(params[:person_id].to_i)
     @person = @source_person
     @relationship = Relationship.new(params[:relationship])
     if @relationship.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Relationship #{@relationship.id}.")
       flash.now[:message]= "saved successfully"
       @related_person = @relationship.related_person
       @relationship_type = @relationship.relationship_type.name
@@ -41,6 +38,7 @@ class RelationshipsController < ApplicationController
     @related_person = Person.find(params[:related_person_id].to_i)
     @person = Person.find(params[:person_id].to_i)
     @relationship = Relationship.find_by_source_person_id_and_related_person_id(@source_person, @related_person)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship #{@relationship.id}.")
     if (@relationship.relationship_type.name == 'Spouse')
       @source_person_spouse = Person.find(params[:related_person_id].to_i)
       @related_person_spouse = Person.find(params[:person_id].to_i)

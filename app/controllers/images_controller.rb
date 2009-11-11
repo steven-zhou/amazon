@@ -1,4 +1,5 @@
 class ImagesController < ApplicationController
+  # System logging added
   caches_page :show
 
   def show
@@ -19,6 +20,7 @@ class ImagesController < ApplicationController
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @image = @entity.image.new(params[:image])
     @image.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Image with ID #{@image.id}.")
     respond_to do |format|
       format.js
     end
@@ -28,6 +30,7 @@ class ImagesController < ApplicationController
     @image = Image.find(params[:id])
     respond_to do |format|
       if @image.update_attributes(params[:image])
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Image ID #{@image.id}.")
         format.js { render 'show.js' }
       end
     end
@@ -35,6 +38,7 @@ class ImagesController < ApplicationController
 
   def destroy
     @image = Image.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Image ID #{@image.id}.")
     @image.destroy
     respond_to do |format|
       format.js

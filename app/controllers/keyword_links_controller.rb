@@ -1,4 +1,5 @@
 class KeywordLinksController < ApplicationController
+  # No System logging done here...
 
   def add_key
     if params[:person_id].nil?
@@ -63,28 +64,5 @@ class KeywordLinksController < ApplicationController
     
   end
 
-
-#   def add_keywords
-#
-#    unless params[:add_keywords].nil?
-#      params[:add_keywords].each do |keyword_id|
-#        keyword = Keyword.find(keyword_id);
-#        @organisation.keywords<<keyword
-#      end
-#    end
-#
-#  end
-#
-#  def remove_keywords
-#    @organisation = Organisation.find(params[:id])
-#
-#    unless params[:remove_keywords].nil?
-#      params[:remove_keywords].each do |keyword_id|
-#        keyword = Keyword.find(keyword_id)
-#        @organisation.keywords.delete(keyword)
-#      end
-#    end
-#    render "remove_keywords.js"
-#  end
 
 end

@@ -1,4 +1,6 @@
 class EmailsController < ApplicationController
+  # System Logging added...
+
 
   def show
     @email = Email.find(params[:id])
@@ -19,6 +21,7 @@ class EmailsController < ApplicationController
    
       @email = @entity.emails.new(params[:email])
       @email.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Email with ID #{@email.id}.")
       @person = Person.find(@email.contactable_id)
       @email_new = Email.new
       if (params[:organisation_id])
@@ -54,7 +57,8 @@ class EmailsController < ApplicationController
       @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
     end
     respond_to do |format|
-      if @email.update_attributes(params[:email])  
+      if @email.update_attributes(params[:email])
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Email with ID #{@email.id}.")
         format.js { render 'show.js' }
       end
     end
@@ -62,6 +66,7 @@ class EmailsController < ApplicationController
 
   def destroy
     @email = Email.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Email with ID #{@email.id}.")
     @email.destroy
 
     @email_new = Email.new

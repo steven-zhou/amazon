@@ -1,4 +1,5 @@
 class ReportsController < ApplicationController
+  # System Logging done.
 
   require "pdf/writer"
   require "pdf/simpletable"
@@ -114,12 +115,12 @@ class ReportsController < ApplicationController
     end
     
     if OutputPdf.personal_report_format_valid(@person_report_format) && !@person_report_list.nil?
-   
       pdf = OutputPdf.generate_personal_report_pdf(@type,@list_header_id, @person_report_format,@list_name)
      
     end
 
     respond_to do |format|
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) generated a Person Report PDF.")
       format.pdf {send_data(pdf.render, :filename => "person_report.pdf", :type => "application/pdf")}
     end
 
@@ -138,6 +139,7 @@ class ReportsController < ApplicationController
     end
 
     respond_to do |format|
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) generated an Organisation Report PDF.")
       format.pdf {send_data(pdf.render, :filename => "organisation_report.pdf", :type => "application/pdf")}
     end
 
@@ -158,6 +160,7 @@ class ReportsController < ApplicationController
     end
 
     respond_to do |format|
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) generated a System Log PDF.")
       format.pdf {send_data(pdf.render, :filename => "system_log_report.pdf", :type => "application/pdf")}
     end
 

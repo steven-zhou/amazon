@@ -1,4 +1,5 @@
 class ListHeadersController < ApplicationController
+  # Added System Logging
 
   def new
     respond_to do |format|
@@ -10,7 +11,6 @@ class ListHeadersController < ApplicationController
     if(params[:compile]) #Compile List
       @lcg = ListCompileGrid.find_all_by_login_account_id(session[:user])
       if(@lcg.size > 0)
-
 
         @list_header = ListHeader.new(params[:list_header])
         @list_header.last_date_generated = Date.today()
@@ -32,6 +32,7 @@ class ListHeadersController < ApplicationController
 
         ListHeader.transaction do
           if @list_header.save
+            system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new List Header with ID #{@list_header.id}.")
             @lcg.each do |i|
               @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
               @list_detail.save

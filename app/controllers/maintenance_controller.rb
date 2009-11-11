@@ -1,4 +1,5 @@
 class MaintenanceController < ApplicationController
+  # System Logging added
 
   require 'csv'
 
@@ -16,6 +17,7 @@ class MaintenanceController < ApplicationController
 
 
   def system_restore
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) viewed system backups.")
     backup_directory = "/home/rails/database/backup"
     @backups = Array.new
     # if ( File.exists?(backup_directory) && File.directory?(backup_directory) && File.readable?(backup_directory) )
@@ -36,7 +38,7 @@ class MaintenanceController < ApplicationController
   end
 
   def import_postcode_file
-    
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) ran a postcode importation.")
     # This is where a submitted postcode form gets uploaded to
     suburb = params[:suburb]
     state = params[:state]

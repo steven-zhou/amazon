@@ -1,9 +1,11 @@
 class PersonRolesController < ApplicationController
+  # Added system logging
 
   def create
     @person = Person.find(params[:person_id].to_i)
     @person_role = @person.person_roles.new(params[:person_role])
     @person_role.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person Role #{@person_role.id}.")
     respond_to do |format|
       format.js
     end
@@ -31,6 +33,7 @@ class PersonRolesController < ApplicationController
 
   def destroy
     @person_role = PersonRole.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Person Role #{@person_role.id}.")
     @person_role.destroy
 
     respond_to do |format|
@@ -41,6 +44,7 @@ class PersonRolesController < ApplicationController
   def update
     @person_role = PersonRole.find(params[:id].to_i)
     @person_role.update_attributes(params[:person_role][@person_role.id.to_s])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person Role #{@person_role.id}.")
     
     render "show.js"
   end

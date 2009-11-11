@@ -1,5 +1,6 @@
 class WebsitesController < ApplicationController
-  
+  # System logging added
+
   def show
     @website = Website.find(params[:id].to_i)
     @website_new = Website.new
