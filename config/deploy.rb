@@ -24,13 +24,15 @@ end
 
 namespace :backgroundrb do
   desc <<-DESC
-  Restart backgroundrb.
+  Restart the application altering tmp/restart.txt for mod_rails.
   DESC
   task :restart, :roles => :app do
-    run "#{release_path}/script/backgroundrb stop"
-    run "#{release_path}/script/backgroundrb start"
+    run "cd #{current_path} && ./script/backgroundrb stop"
+    run "cd #{current_path} && RAILS_ENV=production ./script/backgroundrb start > /dev/null 2>1"
   end
 end
+
+
 
 
 namespace :deploy do
