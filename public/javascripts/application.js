@@ -2685,8 +2685,6 @@ $(function(){
                     $('#error_message').dialog('open');
                 }
             }
-
-
             _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             if($('#organisation_websites_attributes_3_value').val()!=""){
                 if((!_valid1)){
@@ -2715,17 +2713,9 @@ $(function(){
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
-
                     return false;
-
-
                 }
             }
-
-
-
-
-
             return false;
         }
     });
