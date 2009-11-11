@@ -4,9 +4,11 @@
 
 <% if @login_account.new_record? %>
   <% if @person.new_record? %>
-    $('#login_name_container_0').html("Invalid ID")
+    $('#login_name_container_0').html("Invalid ID");
+    $('#error_message_text').html("Invalid ID");
+    $('#error_message_image').css("display","");
     $('.user_email_new').val('')
-          $('#user_group_person_check').dialog( {
+          $('#error_message').dialog( {
          modal: true,
       resizable: false,
       draggable: true,
@@ -14,15 +16,18 @@
       width: 'auto',
       buttons: {
       Ok: function() {
+      $('#login_account_person_id').val("");
+      $('#login_name_container_0').html("");
       $(this).dialog('close');
       }
       }
       });
-      $('#user_group_person_check').dialog( 'option', 'title', 'ERROR');
-     $('#user_group_person_check').parent().find("a").css("display","none");
-     $("#user_group_person_check").parent().css('background-color','#D1DDE6');
-    $("#user_group_person_check").css('background-color','#D1DDE6');
-      $('#user_group_person_check').dialog('open');
+
+      $('#error_message').dialog( 'option', 'title', 'ERROR');
+     $('#error_message').parent().find("a").css("display","none");
+     $("#error_message").parent().css('background-color','#D1DDE6');
+    $("#error_message").css('background-color','#D1DDE6');
+      $('#error_message').dialog('open');
 
   <%else%>
     <% if y.blank? %>
@@ -52,6 +57,8 @@
       width: 'auto',
       buttons: {
       Ok: function() {
+      $('#login_account_person_id').val("");
+      $('#login_name_container_0').html("");
       $(this).dialog('close');
       }
       }

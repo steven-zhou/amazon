@@ -1522,8 +1522,7 @@ $(function(){
             });
         }else{
             $("#login_name_container_"+$(this).attr('login_account_id')).html("");
-
-            $('#error_message_text').html("Invalid Person ID");
+            $('#error_message_text').html("Please type Person ID");
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -1533,6 +1532,7 @@ $(function(){
                 width: 'auto',
                 buttons: {
                     OK: function(){
+                  
                         $(this).dialog('destroy');
                         return false;
 
@@ -1571,13 +1571,26 @@ $(function(){
 $(function(){
 
     $(".check_username_unique").blur(function(){
-      
-        $.ajax({
+
+//        if ($('#login_account_user_name').val().length < 6 ||$('#login_account_user_name').val().length > 30 )
+//     {
+//         return false;
+//     }
+
+//     else
+//         {
+                 $.ajax({
             type: "GET",
             url: "/login_accounts/user_name_unique.js",
             data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
             dataType:"script"
         });
+
+//         }
+
+
+      
+    
     });
 
     $('#login_account_user_name').live("focus", function(){
@@ -1606,6 +1619,7 @@ $(function(){
                     width: 'auto',
                     buttons: {
                         "Close": function(){
+                            $('#login_account_security_email').val("");
                             $(this).dialog('destroy');
                             return true;
                         }
