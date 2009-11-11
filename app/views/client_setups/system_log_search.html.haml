@@ -1,0 +1,42 @@
+#header
+  #page_title
+    %h1 System Log Entries
+  #lol
+    %br.clear
+#content_full_page
+  .container#system_log_search
+    %h1 Search
+    - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
+      %table
+        %tr
+          %td{:style => "padding:0.5em"}
+            Username:
+          %td{:style => "padding:0.5em"}
+            = text_field_tag :user_name, nil, :style => "width:150px;"
+          %td{:style => "padding:0.5em", :id => "system_log_user_name_check"}
+            &nbsp;
+          %td{:style => "padding:0.5em"}
+            &nbsp;
+        %tr
+          %td{:style => "padding:0.5em"}
+            Start Date:
+          %td{:style => "padding:0.5em"}
+            %input{:name => "start_date", :style => "width:150px;", :id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
+          %td{:style => "padding:0.5em"}
+            End Date:
+          %td{:style => "padding:0.5em"}
+            %input{:name => "end_date", :style => "width:150px;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
+
+      = submit_tag("Search", :id => "system_log_search_submit")
+
+  .container#system_log_search_results{:style => "display:none;"}
+    %table#system_log_search_grid
+
+  .container#system_log_export_options{:style => "display:none;"}
+    - form_tag("/reports/generate_system_log_pdf") do
+      %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
+      %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
+      %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
+      = submit_tag("Export PDF")
+
+
