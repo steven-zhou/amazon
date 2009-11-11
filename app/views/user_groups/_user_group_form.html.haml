@@ -30,11 +30,10 @@
             %span{:id => "login_name_container_0"}
           .field_20
             %label &nbsp
-            %input{:name => "user_group[group_id]", :value => "#{@group.id}", :class => "hidden"}
-            
+            %input{:name => "user_group[group_id]", :value => "#{@group.id}", :class => "hidden"}        
           .field_20{:style => "float:right"}
             %label &nbsp
-            = link_to_function 'clear', :class => "alt_option"
+            = link_to_function 'clear', :class => "clear_form alt_option"
             = submit_tag 'Submit'
 
   %div#user_group_user
