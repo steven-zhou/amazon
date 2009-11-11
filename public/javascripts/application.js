@@ -14,6 +14,10 @@ $(function(){
     $("#datepicker").datepicker();
 });
 
+$(function(){
+    $(".focus_on_open").focus();
+});
+
 jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
