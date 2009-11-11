@@ -33,7 +33,11 @@
           %li{:id => @current_action == "license_info" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
           %li{:id => @current_action == "system_log" ? "selected" : ""}
+<<<<<<< HEAD
             = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} Audit Trail", :controller => "client_setups", :action => "system_log"
+=======
+            = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} System Log", :controller => "client_setups", :action => "system_log_search"
+>>>>>>> 18afe6c3908a101f3382fabc15ee035d07bef7ae
 
     .bottom
 

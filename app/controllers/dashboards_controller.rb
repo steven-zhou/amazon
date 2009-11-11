@@ -1,7 +1,8 @@
 class DashboardsController < ApplicationController
   # System logging completed....
 
-  def index   
+  def index
+    @superadmin_message = ClientSetup.first.superadmin_message
     @system_news = SystemNews.new
     @current_news = SystemNews.first_three
     @to_do_list = ToDoList.new

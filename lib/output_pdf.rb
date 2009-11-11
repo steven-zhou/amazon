@@ -380,7 +380,7 @@ module OutputPdf
 
       for log_entry in system_log_entries do
 
-        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})", "ip_address" => "#{log_entry.ip_address}", "message" => "#{log_entry.message}" }
+        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name}", "ip_address" => "#{log_entry.ip_address}", "message" => "#{log_entry.message}" }
 
       end
 
@@ -523,7 +523,7 @@ module OutputPdf
       pdf.stroke_color! Color::Black
       pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
       s = 6
-      t = "Report Generated #{Time.now().strftime('%A %d %B %Y %H:%M:%S')}"
+      t = "Copyright Memberzone Pty Ltd\n\nReport Generated #{Time.now().strftime('%A %d %B %Y %H:%M:%S')}"
       w = pdf.text_width(t, s) / 2.0
       x = pdf.margin_x_middle
       y = pdf.absolute_bottom_margin

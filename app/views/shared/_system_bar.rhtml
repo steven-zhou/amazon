@@ -30,7 +30,7 @@
           <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
           <%- end %>
           <%- if session[:module] != "case_management" %>
-          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MyCase", :controller => "module", :action => "case_management"  %></li>
+          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} My Case", :controller => "module", :action => "case_management"  %></li>
           <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
@@ -57,7 +57,7 @@
   </div>
 
   <div class="bar_section" id="search">
-    <%= text_field :search, :term, {:size => "20"} %>
+    <input value ="Search System" size ="20" disabled>
     <%= link_to image_tag('Icons/System/sys_search.png'),{},{:title=>"Search"} %>
   </div>
   <div class="bar_section" id="help">
