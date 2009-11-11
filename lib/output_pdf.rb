@@ -353,21 +353,31 @@ module OutputPdf
         col.heading = "ID"
       }
 
+      tab.columns["system_id"].width = 25
+
       tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
         col.heading = "Date"
       }
+
+      tab.columns["log_date"].width = 140
 
       tab.columns["user"] = PDF::SimpleTable::Column.new("user") { |col|
         col.heading = "User"
       }
 
+      tab.columns["user"].width = 100
+
       tab.columns["ip_address"] = PDF::SimpleTable::Column.new("ip_address") { |col|
         col.heading = "IP Address"
       }
 
+      tab.columns["ip_address"].width = 75
+
       tab.columns["message"] = PDF::SimpleTable::Column.new("message") { |col|
         col.heading = "Message"
       }
+
+      tab.columns["message"].width = 200
 
 
       tab.show_lines    = :outer
@@ -450,8 +460,6 @@ module OutputPdf
       end
 
 
-
-
       tab.show_lines    = body_settings[:show_lines].to_sym
       tab.show_headings = body_settings[:show_headings]
       tab.orientation   = body_settings[:orientation].to_sym
@@ -518,16 +526,16 @@ module OutputPdf
 
 
   def self.generate_footer(pdf)
-    pdf.start_page_numbering(pdf.margin_x_middle, 50, 9, nil, nil, 1)
+    pdf.start_page_numbering(pdf.margin_x_middle, 30, 9, nil, nil, 1)
     pdf.open_object do |header|
       pdf.save_state
       pdf.stroke_color! Color::Black
       pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
       s = 6
-      t = ""
+      t = "Report for #{ClientOrganisation.first.full_name}"
       w = pdf.text_width(t, s) / 2.0
       x = pdf.margin_x_middle
-      y = pdf.absolute_top_margin
+      y = pdf.absolute_top_margin + 20
       pdf.add_text(x - w, y,  t, s)
       x = pdf.absolute_left_margin
       w = pdf.absolute_right_margin
@@ -545,7 +553,7 @@ module OutputPdf
       t = "Copyright Memberzone Pty Ltd - Report Generated #{Time.now().strftime('%A %d %B %Y %H:%M:%S')}"
       w = pdf.text_width(t, s) / 2.0
       x = pdf.margin_x_middle
-      y = pdf.absolute_bottom_margin
+      y = pdf.absolute_bottom_margin - 15
       pdf.add_text(x - w, y,  t, s)
       x = pdf.absolute_left_margin
       w = pdf.absolute_right_margin
