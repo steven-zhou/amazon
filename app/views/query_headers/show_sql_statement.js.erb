@@ -5,16 +5,22 @@
 <%- end %>
 
 $('#sql_div').dialog({
-  modal: true,
-  resizable: true,
-  draggable: true,
-  width: 600,
-  buttons: {
-    Ok: function() {
-      $(this).dialog('close');
-    }
-  }
+modal: true,
+resizable: false,
+draggable: true,
+width: 600,
+buttons: {
+Ok: function() {
+$(this).dialog('close');
+}
+}
 });
+
+$('#sql_div').dialog('option', 'title', 'Warning');
+$('#sql_div').parent().find("a").css("display","none");
+$("#sql_div").parent().css('background-color','#D1DDE6');
+$("#sql_div").css('background-color','#D1DDE6');
+
 
 <%- if @query_header.query_criterias.empty? %>
   $('#sql_div').dialog('option', 'title', 'Error');

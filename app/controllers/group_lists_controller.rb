@@ -1,4 +1,5 @@
 class GroupListsController < ApplicationController
+  # System Logging added here
 
   def show_lists
 
@@ -12,9 +13,6 @@ class GroupListsController < ApplicationController
     end
   end
 
-
-
-  
 
   #*********new design************
   def edit
@@ -40,7 +38,8 @@ class GroupListsController < ApplicationController
 
     @group_list = GroupList.new(params[:group_list])
     if @group_list.save
-      flash.now[:message]= "saved successfully"
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Group List #{@group_list.id}.")
+      flash.now[:message]= "Saved successfully."
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "tag_id")if (!@group_list.errors[:tag_id].nil? && @group_list.errors.on(:tag_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "list_header_id")if (!@group_list.errors[:list_header_id].nil? && @group_list.errors.on(:list_header_id).include?("can't be blank"))
@@ -56,6 +55,7 @@ class GroupListsController < ApplicationController
   def destroy
 
     @group_list = GroupList.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Group List #{@group_list.id}.")
     @group_list.destroy
       @group_types = GroupType.system_user_groups
       @select_group_id = @group_list.group_type.id

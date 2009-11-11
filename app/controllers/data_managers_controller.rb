@@ -1,4 +1,6 @@
 class DataManagersController < ApplicationController
+  # System logging also done here...
+
 
   include OutputPdf
 
@@ -33,6 +35,8 @@ class DataManagersController < ApplicationController
     else
 #      Export Organisations
     end
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a report.")
 
     respond_to do |format|
       format.html {render 'data_managers/export.html'}      

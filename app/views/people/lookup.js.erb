@@ -5,9 +5,10 @@ $('#person_lookup_dialog').dialog( {
                 position: "center",
                 resizable: true,
                 draggable: true,
-                width: 'auto',
+                width: 770,
                 height: 'auto'
             });
+        $('#person_lookup_dialog').dialog('option','title','Person Lookup');
         $('#person_lookup_dialog').dialog('open');
 
         $("#person_lookup_grid").flexigrid({

@@ -1,4 +1,5 @@
 class AddressesController < ApplicationController
+  # System Log stuff added
 
   def show
     @address = Address.find(params[:id])
@@ -37,6 +38,7 @@ class AddressesController < ApplicationController
     if (params[:organisation_id])
       @organisation = Organisation.find(params[:organisation_id])
     end
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new address entry with ID #{@address.id}.")
     respond_to do |format|
       format.js
     end
@@ -52,7 +54,8 @@ class AddressesController < ApplicationController
       @organisation =Organisation.find(@address.addressable_id)  # if in organisation return organisation object to destroy.js
     end
     respond_to do |format|
-      if @address.update_attributes(params[:address])  
+      if @address.update_attributes(params[:address])
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for address with ID #{@address.id}.")
         format.js { render 'show.js' }
       end
     end
@@ -60,6 +63,7 @@ class AddressesController < ApplicationController
   
   def destroy
     @address = Address.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted address with ID #{@address.id}.")
     @address.destroy
     @person = Person.find(@address.addressable_id)
     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js

@@ -1,10 +1,13 @@
 class OrganisationalDuplicationFormulasController < ApplicationController
+  # Added System Logging
+
 
   def update
     @organisational_duplication_formula = OrganisationalDuplicationFormula.find(params[:id].to_i)
     @organisational_duplication_formula.update_attributes(params[:organisational_duplication_formula])
     @organisational_duplication_formula.group = "applied"
     if @organisational_duplication_formula.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisational Duplication Formula #{@organisational_duplication_formula.id}.")
       flash.now[:message] = flash_message(:message => "Organisational Duplication Formula Applied")
     else
 
@@ -19,6 +22,7 @@ class OrganisationalDuplicationFormulasController < ApplicationController
     @organisational_duplication_formula = OrganisationalDuplicationFormula.new(@organisational_duplication_formula_old.attributes)
     @organisational_duplication_formula.group = "applied"
     if @organisational_duplication_formula.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) applied the default Organisational Duplication Forumula #{@organisational_duplication_formula.id}.")
       @organisational_duplication_formula_old.duplication_formula_details.each do |i|
         @duplication_formula_detail = DuplicationFormulaDetail.new(i.attributes)
         @duplication_formula_detail.duplication_formula = @organisational_duplication_formula

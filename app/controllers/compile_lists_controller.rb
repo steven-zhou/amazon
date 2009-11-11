@@ -1,4 +1,6 @@
 class CompileListsController < ApplicationController
+  # Added System Log stuff...
+  # I believe none is required as this uses temporary tables... (AW)
 
   def clear
     @compile_lists = CompileList.find_all_by_login_account_id(params[:login_account_id])

@@ -1,4 +1,5 @@
 class PeopleController < ApplicationController
+  # Added system logging
   
   include PeopleSearch
 
@@ -195,6 +196,7 @@ class PeopleController < ApplicationController
     @person = Person.new(params[:person])
     @person.onrecord_since = Date.today()
     if @person.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
       if !params[:image].nil?
         @image = Image.new(params[:image])
         if @image.save
@@ -241,6 +243,7 @@ class PeopleController < ApplicationController
     end
 
     @person.update_attributes(params[:person])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person #{@person.id}.")
     flash[:warning] = "There was an error updating the person's details." unless @person.save
   
 

@@ -27,18 +27,23 @@
   %div#edit_user
 
   %div#user_length{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span username must between 6 to 30
 
   %div#password_confirm{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span password confirmation is different with password
 
   %div#password_length{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span password must between 6 to 30
 
   %div#invalid_email{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span invalid_email
 
   %div#person_check{:style => "display:none;"}
+    = image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image")
     %span the person already have login_account
 
 

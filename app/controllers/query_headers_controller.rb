@@ -1,5 +1,7 @@
 class QueryHeadersController < ApplicationController
 
+    # Added system logging
+
   def new
     @query_header = QueryHeader.new
     @query_header.name = QueryHeader.random_name
@@ -23,8 +25,10 @@ class QueryHeadersController < ApplicationController
         @query_header.status = true if @query_header.status.nil?
         @query_header.save
         if (params[:new])
+          system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Query Header #{@query_header.id}.")
           flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")
-        else        
+        else
+          system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated #{@query_header.id}.")
           flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "query")
         end
         @query_criteria = QueryCriteria.new
@@ -210,6 +214,7 @@ class QueryHeadersController < ApplicationController
 
   def destroy
     @query_header = QueryHeader.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
     @query_header.destroy
     respond_to do |format|
       format.js
@@ -247,6 +252,7 @@ class QueryHeadersController < ApplicationController
         @query_sorter.query_header_id = @query_header.id
         @query_sorter.save
       end
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Query Header #{@query_header.id}.")
       flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "query")
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.nil? && @query_header.errors.on(:name).include?("can't be blank"))

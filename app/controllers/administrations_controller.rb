@@ -1,4 +1,5 @@
 class AdministrationsController < ApplicationController
+  # System Logging added
 
   def index
     redirect_to :action => "system_data"
@@ -96,6 +97,7 @@ class AdministrationsController < ApplicationController
     @personal_duplication_formula = PersonalDuplicationFormula.new(@personal_duplication_formula_old.attributes)
     @personal_duplication_formula.group = "temp"
     if @personal_duplication_formula.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the personal duplication forumula with ID #{@personal_duplication_formula.id}.")
       @personal_duplication_formula_old.duplication_formula_details.each do |i|
         @duplication_formula_detail = DuplicationFormulaDetail.new(i.attributes)
         @duplication_formula_detail.duplication_formula = @personal_duplication_formula
@@ -108,6 +110,7 @@ class AdministrationsController < ApplicationController
     @organisational_duplication_formula = OrganisationalDuplicationFormula.new(@organisational_duplication_formula_old.attributes)
     @organisational_duplication_formula.group = "temp"
     if @organisational_duplication_formula.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the organisational duplication formula with ID #{@organisational_duplication_formula.id}.")
       @organisational_duplication_formula_old.duplication_formula_details.each do |i|
         @duplication_formula_detail = DuplicationFormulaDetail.new(i.attributes)
         @duplication_formula_detail.duplication_formula = @organisational_duplication_formula
@@ -164,8 +167,5 @@ class AdministrationsController < ApplicationController
       format.html
     end
   end
-
-
-
 
 end

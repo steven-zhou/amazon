@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091108231737) do
+ActiveRecord::Schema.define(:version => 20091111015627) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -84,7 +84,6 @@ ActiveRecord::Schema.define(:version => 20091108231737) do
     t.integer  "maximum_core_records"
     t.string   "hosting_status"
     t.integer  "number_of_users"
-    t.string   "message_to_super_admin"
     t.integer  "number_of_login_attempts"
     t.integer  "new_account_graceperiod"
     t.integer  "session_timeout"
@@ -108,6 +107,9 @@ ActiveRecord::Schema.define(:version => 20091108231737) do
     t.text     "member_zone_power_password_salt"
     t.text     "super_admin_power_password_hash"
     t.text     "super_admin_power_password_salt"
+    t.string   "superadmin_message"
+    t.string   "feedback_to"
+    t.string   "reply_from"
   end
 
   create_table "compile_lists", :force => true do |t|

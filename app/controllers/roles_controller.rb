@@ -1,4 +1,5 @@
 class RolesController < ApplicationController
+  # Login controller done
 
   def get_roles
 
@@ -108,6 +109,7 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(params[:role])
     if @role.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Role #{@role.id}.")
       flash.now[:message] = "saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name")if(!@role.errors[:name].nil? && @role.errors.on(:name).include?("can't be blank"))
@@ -121,6 +123,7 @@ class RolesController < ApplicationController
 
   def destroy
     @role = Role.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
     @role.destroy
     respond_to do |format|
       format.js
@@ -142,6 +145,7 @@ class RolesController < ApplicationController
     #@roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     #  puts"debug--#{@roles.to_yaml}"
     if @role.update_attributes(params[:role])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Role #{@role.id}.")
       @role_type = @role.role_type
       @roles = @role_type.roles
     end
