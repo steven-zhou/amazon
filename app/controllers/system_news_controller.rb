@@ -9,6 +9,7 @@ class SystemNewsController < ApplicationController
     @system_news = SystemNews.new(params[:system_news])
     @system_news.status = true
     if @system_news.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created new System News #{@system_news.id}.")
       system_log("#{@current_user.user_name} post a new news(ID - #{@system_news.id})")
     else
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "has already been taken")
@@ -22,6 +23,7 @@ class SystemNewsController < ApplicationController
 
   def destroy
     @system_news = SystemNews.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted System News #{@system_news.id}.")
     @system_news.destroy
     respond_to do |format|
       format.js
@@ -60,6 +62,7 @@ class SystemNewsController < ApplicationController
   def update
     @system_news = SystemNews.find(params[:id].to_i)
     @system_news.update_attributes(params[:system_news])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated System News #{@system_news.id}.")
     respond_to do |format|
       format.js
     end

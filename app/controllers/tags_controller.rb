@@ -1,4 +1,5 @@
 class TagsController < ApplicationController
+  # System Logging done
 
   def new
     @tag = (params[:tag]+"Type").camelize.constantize.new
@@ -15,6 +16,7 @@ class TagsController < ApplicationController
     @tag_type = (params[:tag_type]).camelize.constantize.find(params[:tag_type_id])
     @tag_type.tags << @tag
     if @tag.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Tag #{@tag.id}.")
       flash.now[:message] ||= " Saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag.errors.on(:name).nil? &&  @tag.errors.on(:name)[0] == "can't be blank")
@@ -36,6 +38,7 @@ class TagsController < ApplicationController
     @tag = (params[:type]).camelize.constantize.find(params[:id].to_i)
     @tag_type = @tag.tag_type
     if @tag.update_attributes(params[params[:type].underscore.to_sym])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Tag #{@tag.id}.")
       flash.now[:message] ||= " Updated successfully."
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag.errors.on(:name).nil? && @tag.errors.on(:name)[0] == "can't be blank")
@@ -64,6 +67,7 @@ class TagsController < ApplicationController
   def destroy
     @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag #{@tag.id}.")
     @tag.destroy    
     respond_to do |format|
       format.js
@@ -77,33 +81,6 @@ class TagsController < ApplicationController
     end
   end
 
-#  def create_custom_sub_group
-#    @custom_group = GroupMetaType.find_by_id(params[:group_meta_type_id])
-#    @sub_group = GroupType.new(:tag_type_id => @custom_group.id)
-#    @sub_group.update_attributes(params[:group_type])
-#    if @sub_group.save
-#      flash.now[:message] = "Saved successfully."
-#    else
-#      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
-#    end
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
-
-#  def edit_custom_sub_group
-#    @custom_group = GroupType.find_by_id(params[:id])
-#    @custom_group.update_attributes(params[:group_type])
-#    if @custom_group.save
-#      flash.now[:message] = "Saved successfully."
-#    else
-#      flash.now[:warning] = "Name " + @custom_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @custom__group.on(:name).nil?
-#    end
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
-
   def security_sub_groups_finder
     @group = GroupMetaType.find_by_id(params[:id])
     respond_to do |format|
@@ -116,6 +93,7 @@ class TagsController < ApplicationController
     @sub_group = GroupType.new(:tag_type_id => @security_group.id)
     @sub_group.update_attributes(params[:group_type])
     if @sub_group.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created GroupMetaType #{@sub_group.id}.")
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
@@ -137,6 +115,7 @@ class TagsController < ApplicationController
     @sub_group = GroupType.new(:tag_type_id => @security_group.id)
     @sub_group.update_attributes(params[:group_type])
     if @sub_group.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created GroupMetaType #{@sub_group.id}.")
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
@@ -158,6 +137,7 @@ class TagsController < ApplicationController
     @table_attribute = TableMetaType.new(:tag_meta_type_id => @query_table.id)
     @table_attribute.update_attributes(params[:table_meta_type])
     if @table_attribute.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Query Table attribute #{@table_attribute.id}.")
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @table_attribute.errors.on(:name)[0] + ", saved unsuccessfully." unless @table_attribute.on(:name).nil?
@@ -170,6 +150,7 @@ class TagsController < ApplicationController
 
   def delete_custom_group
     custom_group = GroupType.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Custom Group #{custom_group.id}.")
     custom_group.destroy
     @group = GroupMetaType.find(params[:custom_group_type_id])
     respond_to do |format|

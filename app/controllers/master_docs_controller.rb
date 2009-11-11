@@ -1,4 +1,5 @@
 class MasterDocsController < ApplicationController
+  # System Logging added
 
   def show
     @masterdoc = MasterDoc.find(params[:id])
@@ -9,6 +10,7 @@ class MasterDocsController < ApplicationController
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @masterdoc = @entity.master_docs.new(params[:master_doc])
     @masterdoc.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new MasterDoc #{@masterdoc.id}.")
     #create.js should also handle the error
     render "create.js"
   end
@@ -24,16 +26,15 @@ class MasterDocsController < ApplicationController
   def update
     @masterdoc = MasterDoc.find(params[:id])
     @masterdoc.update_attributes(params[:master_doc][@masterdoc.id.to_s])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited MasterDoc #{@masterdoc.id}.")
     #create.js should also handle the error
     render "show.js"
   end
 
   def destroy
     @masterdoc = MasterDoc.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted MasterDoc #{@masterdoc.id}.")
     @masterdoc.destroy
-
-
-
     if @masterdoc.entity_type == "Person"             # if in Person return person object to destroy.js
       @current_object = Person.find(session[:user])
     end

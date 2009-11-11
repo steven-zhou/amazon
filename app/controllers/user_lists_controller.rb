@@ -1,4 +1,5 @@
 class UserListsController < ApplicationController
+  # System logging done...
 
   def edit
     @login_account = SystemUser.find(params[:data_id])
@@ -21,6 +22,7 @@ class UserListsController < ApplicationController
 
     @user_list = UserList.new(params[:user_list])
     if @user_list.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created User List #{@user_list.id}.")
       flash.now[:message]= "saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "user_id")if (!@user_list.errors[:user_id].nil? &&@user_list.errors.on(:user_id).include?("can't be blank"))
@@ -37,6 +39,7 @@ class UserListsController < ApplicationController
 
   def destroy
     @user_list = UserList.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted User List #{@user_list.id}.")
     @user_list.destroy
     @login_accounts = SystemUser.find(:all)
     @select_login_account_id = @user_list.user_id

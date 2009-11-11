@@ -1,5 +1,5 @@
 class DashboardsController < ApplicationController
-
+  # System logging completed....
 
   def index
     @superadmin_message = ClientSetup.first.superadmin_message
@@ -32,10 +32,10 @@ class DashboardsController < ApplicationController
       @login_account.update_password = true
       if @login_account.update_attributes(params[:login_account])
         flash[:message] = " Saved successfully"
-        
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated their password.")
         redirect_to login_url
       else
-       
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update their password .")
         flash[:error] = flash_message(:type => "field_missing", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("can't be blank"))
         flash[:error] = flash_message(:type => "format error", :field => "password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?("regular expression of password is wrong."))
         flash[:error] = flash_message(:type => "field_missing", :field => "repeat_password")if(!@login_account.errors[:password].nil? && @login_account.errors.on(:password).include?( "password confirmation is different with password"))
@@ -47,6 +47,7 @@ class DashboardsController < ApplicationController
         redirect_to :action => "check_password"
       end
     rescue
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) entered an incorrect password when attempting to update their password.")
       redirect_to  login_url
       flash[:error] = "your old password is wrong!!, you have only #{@current_user.access_attempts_count - 1} choice"
       @current_user.update_password = false if @current_user.class.to_s == "SystemUser"

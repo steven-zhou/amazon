@@ -1,5 +1,7 @@
 class ClientSetupsController < ApplicationController
 
+  #System Logging added
+
   def parameters
     @client_setup = ClientSetup.first
     respond_to do |format|
@@ -62,6 +64,7 @@ class ClientSetupsController < ApplicationController
   def update
     @client_setup = ClientSetup.first
     if @client_setup.update_attributes(params[:client_setup])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       flash[:message] = "Client Setup is updated"
     end
 
@@ -71,11 +74,13 @@ class ClientSetupsController < ApplicationController
       params[:super_admin]      
       @client_setup.super_admin_power_password = params[:password]
       @client_setup.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       redirect_to super_admin_client_setups_path
     elsif
       params[:member_zone]
       @client_setup.member_zone_power_password = params[:password]
       @client_setup.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       redirect_to member_zone_client_setups_path
     else
       redirect_to parameters_client_setups_path
@@ -86,6 +91,8 @@ class ClientSetupsController < ApplicationController
   end
 
   def search_system_log
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries.")
 
     user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
     start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
