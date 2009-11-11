@@ -1,4 +1,5 @@
 class OrganisationGroupsController < ApplicationController
+  # System logging added
 
   def show
     @organisation_group = OrganisationGroup.find(params[:id])
@@ -13,6 +14,7 @@ class OrganisationGroupsController < ApplicationController
     @organisation_group = OrganisationGroup.new
     @organisation_group.organisation_id= @organisation.id
     @organisation_group.tag_id = @group.id
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created OrganisationGroup #{@organisation_group.id}.")
     @organisation_group.save
     respond_to do |format|
       format.js
@@ -33,6 +35,7 @@ class OrganisationGroupsController < ApplicationController
   def update
     @organisation_group= OrganisationGroup.find(params[:id])   
     if @organisation_group.update_attributes(params[:organisation_group])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Organisation Group #{@organisation_group.id}.")
       render 'show.js' 
     end     
   end
@@ -40,6 +43,7 @@ class OrganisationGroupsController < ApplicationController
 
   def destroy
     @organisation_group = OrganisationGroup.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Orgnanisation Group #{@organisation_group.id}.")
     @organisation_group.destroy
     respond_to do |format|
       format.js

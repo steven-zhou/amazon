@@ -1,4 +1,5 @@
 class TagTypesController < ApplicationController
+  # System Log is done...
 
   def new
     @tag_type = (params[:tag]+"MetaType").camelize.constantize.new
@@ -15,6 +16,7 @@ class TagTypesController < ApplicationController
     @tag_meta_type = (params[:tag_meta_type]).camelize.constantize.find(params[:tag_meta_type_id])
     @tag_meta_type.tag_types << @tag_type
     if @tag_type.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Tag Type #{@tag_type.id}.")
       flash.now[:message] ||= " Saved successfully"
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name)[0] == "can't be blank")
@@ -35,6 +37,7 @@ class TagTypesController < ApplicationController
     @category = params[:type].sub(/MetaType/,"")
     @tag_meta_type = @tag_type.tag_meta_type
     if @tag_type.update_attributes(params[params[:type].underscore.to_sym])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Tag Type #{@tag_type.id}.")
       flash.now[:message] ||= " Updated successfully."
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name)[0] == "can't be blank")
@@ -67,6 +70,7 @@ class TagTypesController < ApplicationController
   def destroy
     @tag_type = TagType.find(params[:id])
     @tag_meta_type = @tag_type.tag_meta_type
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag Type #{@tag_type.id}.")
     @tag_type.destroy
     respond_to do |format|
       format.js

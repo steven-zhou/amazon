@@ -1,8 +1,10 @@
 class ListDetailsController < ApplicationController
+  # System Logging Added
  
   def destroy    
     @list_detail = ListDetail.find(params[:id].to_i)
     @list_header = @list_detail.list_header
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted ListDetail ID #{@list_detail.id}.")
     @list_detail.destroy
     
     @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
@@ -26,7 +28,7 @@ class ListDetailsController < ApplicationController
         @list_detail.save
         @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
         @list_header.save
-
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) added a new List Detail #{@list_detail.id}.")
         #add new record to grid
 
         @leg = ListEditGrid.new

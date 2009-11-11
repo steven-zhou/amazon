@@ -2,6 +2,8 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+
+  # System loggin added
  
   include ExceptionNotifiable
 
@@ -36,7 +38,8 @@ class ApplicationController < ActionController::Base
   end
 
   def system_log(message, current_controller=@current_controller, current_action=@current_action, login_account=@current_user)
-    system_log = SystemLog.new(:message => message, :login_account_id => login_account.id, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+    system_log = SystemLog.new(:message => message, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
+    system_log.login_account_id = login_account.nil? ? nil : login_account.id
     system_log.save
   end
 
@@ -88,6 +91,7 @@ class ApplicationController < ActionController::Base
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
 
       if ( (current_user.session_timeout.to_i * 60 ) < (Time.now - session[:last_event]))
+        system_log("Login Account #{current_user.user_name} (ID #{current_user.id}) session timed out.", @current_controller, @current_action, current_user)
         # The session has timed out, set a message, boot them out....
         session[:user] = nil
         session[:last_event] = nil

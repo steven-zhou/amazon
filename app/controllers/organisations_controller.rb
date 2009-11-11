@@ -1,5 +1,5 @@
 class OrganisationsController < ApplicationController
-
+  # Applied system logging
   include OrganisationsSearch
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
 
@@ -66,6 +66,7 @@ class OrganisationsController < ApplicationController
     @organisation = (params[:type].camelize.constantize).new(params[:organisation])
     @organisation.onrecord_since = Date.today()
     if @organisation.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
       if !params[:image].nil?
         @image = Image.new(params[:image])
         if @image.save
@@ -143,6 +144,7 @@ class OrganisationsController < ApplicationController
     end
 
     @organisation.update_attributes(params[type.to_sym])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
     flash[:warning] = "There was an error updating the person's details." unless @organisation.save
 
 
@@ -175,31 +177,6 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  # Move add_keywords and remove_keywords to Keyword_links Controller
-
-  #  def add_keywords
-  #    @organisation = Organisation.find(params[:id])
-  #
-  #    unless params[:add_keywords].nil?
-  #      params[:add_keywords].each do |keyword_id|
-  #        keyword = Keyword.find(keyword_id);
-  #        @organisation.keywords<<keyword
-  #      end
-  #    end
-  #    render "add_keywords.js"
-  #  end
-  #
-  #  def remove_keywords
-  #    @organisation = Organisation.find(params[:id])
-  #
-  #    unless params[:remove_keywords].nil?
-  #      params[:remove_keywords].each do |keyword_id|
-  #        keyword = Keyword.find(keyword_id)
-  #        @organisation.keywords.delete(keyword)
-  #      end
-  #    end
-  #    render "remove_keywords.js"
-  #  end
 
   def find
     @organisation = Organisation.new

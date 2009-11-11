@@ -1,4 +1,5 @@
 class PhonesController < ApplicationController
+  # System log done
   
   def show
     @phone = Phone.find(params[:id].to_i)
@@ -11,20 +12,14 @@ class PhonesController < ApplicationController
   
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
-
-
-    
     @phone = @entity.phones.new(params[:phone])
     @phone.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Phone ID #{@phone.id}.")
     @person = Person.find(@phone.contactable_id)
     @phone_new = Phone.new
     if (params[:organisation_id])
       @organisation = Organisation.find(@phone.contactable_id)
     end
-
-
-
-    
     respond_to do |format|
       format.js
     end
@@ -54,7 +49,8 @@ class PhonesController < ApplicationController
     end
      @phone_new = Phone.new
     respond_to do |format|
-      if @phone.update_attributes(params[:phone])  
+      if @phone.update_attributes(params[:phone])
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Phone #{@phone.id}.")
         format.js { render 'show.js' }
       end
     end
@@ -63,6 +59,7 @@ class PhonesController < ApplicationController
   def destroy
    
     @phone = Phone.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Phone #{@phone.id}.")
     @phone.destroy
 
     #     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js

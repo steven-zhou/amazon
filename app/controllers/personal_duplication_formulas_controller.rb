@@ -1,5 +1,7 @@
 class PersonalDuplicationFormulasController < ApplicationController
 
+  # Added sytem logging
+
   def update
     @personal_duplication_formula = PersonalDuplicationFormula.find(params[:id].to_i)
     @personal_duplication_formula.update_attributes(params[:personal_duplication_formula])
@@ -7,6 +9,7 @@ class PersonalDuplicationFormulasController < ApplicationController
     @personal_duplication_formula.status = params[:personal_duplication_formula][:status]
     @personal_duplication_formula.save
     if @personal_duplication_formula.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person Duplication Formula #{@person_duplication_formula.id}.")
       flash.now[:message] = flash_message(:message => "Personal Duplication Formula Applied")
     else
 
@@ -21,6 +24,7 @@ class PersonalDuplicationFormulasController < ApplicationController
     @personal_duplication_formula = PersonalDuplicationFormula.new(@personal_duplication_formula_old.attributes)
     @personal_duplication_formula.group = "applied"
     if @personal_duplication_formula.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) applied the default Personal Duplication Formula #{@personal_duplication_formula.id}.")
       @personal_duplication_formula_old.duplication_formula_details.each do |i|
         @duplication_formula_detail = DuplicationFormulaDetail.new(i.attributes)
         @duplication_formula_detail.duplication_formula = @personal_duplication_formula

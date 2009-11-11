@@ -1,4 +1,5 @@
 class AmazonSettingsController < ApplicationController
+  # System Logging done...
 
   def new
     @amazonsetting = params[:type].camelize.constantize.new
@@ -10,6 +11,7 @@ class AmazonSettingsController < ApplicationController
   def create
     @amazonsetting = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
     if @amazonsetting.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amzonsetting.id}.")
       flash[:message] = "Saved successfully."
     else
       flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
@@ -30,6 +32,7 @@ class AmazonSettingsController < ApplicationController
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
     @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
     if @amazonsetting.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Updated successfully."
     else
       flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", updated unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
@@ -49,6 +52,7 @@ class AmazonSettingsController < ApplicationController
 
   def destroy
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{@amazonsetting.id}.")
     @amazonsetting.destroy
     @amazonsetting = AmazonSetting.distinct_setting_type
     respond_to do |format|
@@ -74,6 +78,7 @@ class AmazonSettingsController < ApplicationController
     @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
     @amazon_setting.update_attributes(params[:amazon_setting])
     if @amazon_setting.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
@@ -87,6 +92,7 @@ class AmazonSettingsController < ApplicationController
     @amazon_setting = AmazonSetting.find(params[:id].to_i)
     @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
     if @amazon_setting.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
     else
       flash.now[:warning] = flash_message(:type => "default", :message => "There was an error updating the setting.")
@@ -98,6 +104,7 @@ class AmazonSettingsController < ApplicationController
 
   def delete_system_data_entry
     amazon_setting = AmazonSetting.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
     amazon_setting.destroy
     respond_to do |format|
       format.js
@@ -109,20 +116,7 @@ class AmazonSettingsController < ApplicationController
     @keyword_table = Keyword.new{params[:keyword]}
     @keyword_table.type_id = params[:type_id]
     @keyword_table.save
-#      puts "************#{params[:amazon_setting][:name]}*********************"
-#      puts "************#{params[:amazon_setting][:description]}*********************"
-#      puts "************#{params[:amazon_setting][:status]}*********************"
-#      puts "************#{params[:type_id]}*********************"
 
-#    @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
-#    @amazon_setting.update_attributes(params[:amazon_setting])
-#    if @amazon_setting.save
-#      flash.now[:message] = "Saved successfully."
-#    else
-#      flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
-#    end
-#    respond_to do |format|
-#      format.js
-#    end
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new keyword with ID #{@keyword_table.id}.")
   end
 end

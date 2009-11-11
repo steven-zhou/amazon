@@ -1,4 +1,5 @@
 class GridsController < ApplicationController
+  # Nothing needed here for System Logs
 
   def people_search_grid
     page = (params[:page]).to_i

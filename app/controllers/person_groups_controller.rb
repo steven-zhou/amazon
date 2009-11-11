@@ -1,5 +1,5 @@
 class PersonGroupsController < ApplicationController
-
+  # System Logging added
 
 
   def show
@@ -23,7 +23,7 @@ class PersonGroupsController < ApplicationController
     @person_group.people_id= @person.id
     @person_group.tag_id = @group.id
     @person_group.save!
-        
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Person Group #{@person_group.id}.")
     #      else
     #        @person_group.update_attributes(params[:person_group])
     #      end
@@ -52,6 +52,7 @@ class PersonGroupsController < ApplicationController
     @person_group= PersonGroup.find(params[:id])
    
     if @person_group.update_attributes(params[:person_group])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person Group #{@person_group.id}.")
       render 'show.js' 
     end
      
@@ -61,6 +62,7 @@ class PersonGroupsController < ApplicationController
   def destroy
     #@group_type = Tag.find(params[:id].to_i)
     @person_group = PersonGroup.find(params[:id].to_i)
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted #{@person_group.id}.")
     @person_group.destroy
     #@group_type.group_type.destroy
     respond_to do |format|
