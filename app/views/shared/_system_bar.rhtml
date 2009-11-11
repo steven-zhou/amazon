@@ -13,7 +13,7 @@
               <%= "#{image_tag('icon_holder.png')} MemberZone" %>
             <%- end %>
             <%- if session[:module] == "dashboard" %>
-              <%= "#{image_tag('Icons/System/sysbar_dashboard.png')} Dashboard" %>
+              <%= "#{image_tag('Icons/System/module_menu.png')} System Menu" %>
             <%- end %>
       </div>
 
@@ -57,12 +57,12 @@
   </div>
 
   <div class="bar_section" id="search">
-    <%= text_field :search, :term, {:size => "20"} %>
+    <input value ="Search System" size ="20" disabled>
     <%= link_to image_tag('Icons/System/sys_search.png'),{},{:title=>"Search"} %>
   </div>
   <div class="bar_section" id="help">
     <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
-    &nbsp;&nbsp;
+    
     <%= link_to image_tag('/images/help_icon.png'), {:controller => "feedback", :action => "list"}, {:title=>"Help"} %>
   </div>
 

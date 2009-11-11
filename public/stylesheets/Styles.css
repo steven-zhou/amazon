@@ -72,7 +72,6 @@ body {
 #app #main #sysbar .bar_section #module_menu #module_menu_top {
     height: 41px;
     cursor: pointer;
-
     padding: 13px 0px 0px 24px;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 18px;
@@ -80,10 +79,10 @@ body {
     font-weight: bold;
     color: #666;
     text-decoration: none;
-
+    line-height: 35px;
 }
 
-#app #main #sysbar .bar_section #module_menu #module_menu_top img { vertical-align:middle; margin-right: 5px;}
+#app #main #sysbar .bar_section #module_menu #module_menu_top img { vertical-align:middle; margin-right: 3px;}
 
 #app #main #sysbar .bar_section #module_menu #module_menu_top.hover {
     height: 41px;
@@ -118,7 +117,7 @@ body {
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:first-child { border-top:1px solid #ccc;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li:last-child { padding-bottom:0px;}
 #app #main #sysbar .bar_section #module_menu #module_menu_items li.hover {background-color: transparent; background-image: url(/images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
-#app #main #sysbar .bar_section #module_menu #module_menu_items li img { vertical-align:text-bottom; margin-right: 5px;}
+#app #main #sysbar .bar_section #module_menu #module_menu_items li img { vertical-align:text-bottom; margin-right: 3px;}
 
 
 
@@ -143,7 +142,7 @@ body {
     width: 180px;
     padding-top: 2px;
     background-image: url(/images/down.png);
-    background-position: 167px 50%;
+    background-position: 167px 3px;
     background-repeat: no-repeat;
 
 }
