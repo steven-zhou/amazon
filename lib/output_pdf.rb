@@ -518,23 +518,42 @@ module OutputPdf
 
 
   def self.generate_footer(pdf)
-    pdf.open_object do |heading|
+    pdf.start_page_numbering(pdf.margin_x_middle, 50, 9, nil, nil, 1)
+    pdf.open_object do |header|
       pdf.save_state
       pdf.stroke_color! Color::Black
       pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
       s = 6
-      t = "Copyright Memberzone Pty Ltd\n\nReport Generated #{Time.now().strftime('%A %d %B %Y %H:%M:%S')}"
+      t = ""
       w = pdf.text_width(t, s) / 2.0
       x = pdf.margin_x_middle
-      y = pdf.absolute_bottom_margin
-      pdf.add_text(x - w, y, t, s)
+      y = pdf.absolute_top_margin
+      pdf.add_text(x - w, y,  t, s)
       x = pdf.absolute_left_margin
       w = pdf.absolute_right_margin
       y -= (pdf.font_height(s) * 1.01)
-      pdf.line(x, y, w, y).stroke
+      # pdf.line(x, y, w, y).stroke
       pdf.restore_state
       pdf.close_object
-      pdf.add_object(heading, :all_pages)
+      pdf.add_object(header, :all_pages)
+    end
+    pdf.open_object do |footer|
+      pdf.save_state
+      pdf.stroke_color! Color::Black
+      pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
+      s = 6
+      t = "Copyright Memberzone Pty Ltd - Report Generated #{Time.now().strftime('%A %d %B %Y %H:%M:%S')}"
+      w = pdf.text_width(t, s) / 2.0
+      x = pdf.margin_x_middle
+      y = pdf.absolute_bottom_margin
+      pdf.add_text(x - w, y,  t, s)
+      x = pdf.absolute_left_margin
+      w = pdf.absolute_right_margin
+      y -= (pdf.font_height(s) * 1.01)
+      # pdf.line(x, y, w, y).stroke
+      pdf.restore_state
+      pdf.close_object
+      pdf.add_object(footer, :all_pages)
     end
   end
   
