@@ -67,6 +67,21 @@
   <%- end %>
 </div>
 
+<div id="flash_message1" style="display:none;background-color:#D1DDE6;padding-top:2em;padding-bottom:2em;padding-left:3em;padding-right:3em;">
+  <%= image_tag('/images/processing.gif',:size => "100x100",:id =>"flash_message_image")%>
+  <p id="flash_message_text"  style ="display:inline;" />
+  <%#- if flash[:error] %>
+    <%#= flash[:error] %>
+  <%#- elsif flash[:warning] %>
+    <%#= flash[:warning] %>
+  <%#- elsif flash[:process_end] %>
+    <%#= flash[:process_end] %>
+  <%#- elsif flash[:help] %>
+    <%#= flash[:help] %>
+ <%#- end %>
+</div>
+
+
 <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
   <script type="text/javascript">
     $(function() {

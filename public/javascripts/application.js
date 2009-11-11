@@ -283,15 +283,9 @@ $(function() {
     jQuery('a.get, a.post, a.put, a.delete').removeAttr('onclick');
 });
 
-jQuery.fn.submitWithAjax = function() {
+jQuery.fn.submitWithAjax = function($callback) {
     this.live('submit', function() {
-        $.post($(this).attr("action"), $(this).serialize(), function() {$('.spin').toggleClass('spinning', false);}, "script");
-        $(this).find('.spin').each(function(){ $(this).toggleClass('spinning', true); });
-  
-
-
-         //$(this).find('input[type="submit"]').each(function(){ $(this).toggleClass('spinning', true); });
-         
+        $.post($(this).attr("action"), $(this).serialize(), $callback, "script");
         return false;
     });
     return this;
