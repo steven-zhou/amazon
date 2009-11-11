@@ -96,10 +96,6 @@ Rails::Initializer.run do |config|
     :authentication => :plain,
     :user_name => "feedback@memberzone.com.au",
     :password => "feedback123",
-
-
-
-
   }
 
 end
