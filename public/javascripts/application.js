@@ -3909,8 +3909,8 @@ $(function(){
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
-        width: 1010,
-        height: 300
+        width: 'auto',
+        height: 'auto'
     });
 });
 
