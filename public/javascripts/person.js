@@ -100,7 +100,7 @@ $(function() {
         if($('#check_input_change').val()=="true")
         {
            
-            $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
+            $('#warning_message_text').html("Are you sure you wish to clear the entered data ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -181,7 +181,7 @@ $(function() {
 
         if(temp=="true")
         {
-            $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
+            $('#warning_message_text').html("Are you sure you wish to clear the entered data ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -335,7 +335,7 @@ $(function() {
     $("#delete_photo").click(function(){
 
      var link =$(this);
-        $('#warning_message_text').html("Are you sure you wish to clear the data ? ");
+        $('#warning_message_text').html("Are you sure you wish to clear the photo ? ");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
             modal: true,

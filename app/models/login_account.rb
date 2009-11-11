@@ -6,6 +6,7 @@ class LoginAccount < ActiveRecord::Base
   has_many :group_types, :through => :user_groups, :uniq => true
 
   validates_uniqueness_of :user_name, :case_sensitive => false
+  validates_length_of :user_name, :within => 6..30, :too_long => "pick a shorter name", :too_short => "pick a longer name", :if => :user_update?
 
 
 
