@@ -91,7 +91,8 @@ class ApplicationController < ActionController::Base
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
 
       if ( (current_user.session_timeout.to_i * 60 ) < (Time.now - session[:last_event]))
-        system_log("Login Account #{current_user.user_name} (ID #{current_user.id}) session timed out.", @current_controller, @current_action, current_user)
+        system_log = SystemLog.new(:message => "Login Account #{current_user.user_name} (ID #{current_user.id}) session timed out.", :controller => @current_controller, :action => @current_action, :login_account_id => current_user.id, :ip_address => request.remote_ip)
+        system_log.save
         # The session has timed out, set a message, boot them out....
         session[:user] = nil
         session[:last_event] = nil
