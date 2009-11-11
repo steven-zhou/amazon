@@ -17,6 +17,7 @@ class LoginAccount < ActiveRecord::Base
       raise "Username or password invalid"
     elsif Digest::SHA256.hexdigest(password + login_account.password_salt) != login_account.password_hash
       login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
+      login_account.access_attempt_ip = request.remote_ip
       login_account.save
       raise "Username or password invalid"
     else
