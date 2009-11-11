@@ -38,7 +38,7 @@ namespace :deploy do
   puts "\n\n\n\n\n ********* IMPORTANT *********\n You will need to manually restart backgroundrb on the server you are deploying to. To do this:\n\n"
   puts "  1 - ssh into the server (ie ssh rails@<server>)\n  2 - cd amazon/current\n  3 - ./script/backgroundrb restart\n\n"
   puts " ****************************\n\n\n\n\n"
-  %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
+  # %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
 end
 
 
