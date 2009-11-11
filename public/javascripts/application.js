@@ -2569,80 +2569,81 @@ $(function(){
     $("#new_person_submit").live('click', function(){
 
 
-   if($('#person_emails_attributes_2_value').val()!="" ||  $('#person_websites_attributes_3_value').val()!="")
-   {   _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#person_emails_attributes_2_value').val());
-    if($('#person_emails_attributes_2_value').val()!=""){
-        if((!_valid)){
-            var link = $(this);
+        if($('#person_emails_attributes_2_value').val()!="" ||  $('#person_websites_attributes_3_value').val()!="")
+        {
+            _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#person_emails_attributes_2_value').val());
+            if($('#person_emails_attributes_2_value').val()!=""){
+                if((!_valid)){
+                    var link = $(this);
 
-            $('#error_message_text').html("Invalid email address !");
+                    $('#error_message_text').html("Invalid email address !");
 
-            $('#error_message_image').css("display","");
-            $('#error_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-                    "Close": function(){
-                        link.focus();
+                    $('#error_message_image').css("display","");
+                    $('#error_message').dialog({
+                        modal: true,
+                        resizable: false,
+                        draggable: true,
+                        height: 'auto',
+                        width: 'auto',
+                        buttons: {
+                            "Close": function(){
+                                link.focus();
 
-                        $(this).dialog('destroy');
-                        return true;
-                    }
+                                $(this).dialog('destroy');
+                                return true;
+                            }
+                        }
+                    });
+                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').parent().find("a").css("display","none");
+                    $("#error_message").parent().css('background-color','#D1DDE6');
+                    $("#error_message").css('background-color','#D1DDE6');
+                    $('#error_message').dialog('open');
                 }
-            });
-            $('#error_message').dialog('option', 'title', 'ERROR');
-            $('#error_message').parent().find("a").css("display","none");
-            $("#error_message").parent().css('background-color','#D1DDE6');
-            $("#error_message").css('background-color','#D1DDE6');
-            $('#error_message').dialog('open');
-        }
-    }
+            }
 
 
-    _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
-    if($('#person_websites_attributes_3_value').val()!=""){
-        if((!_valid1)){
-            var link1 = $(this);
+            _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+            if($('#person_websites_attributes_3_value').val()!=""){
+                if((!_valid1)){
+                    var link1 = $(this);
 
-            $('#error_message_text').html("Invalid website address !");
+                    $('#error_message_text').html("Invalid website address !");
 
-            $('#error_message_image').css("display","");
-            $('#error_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-                    "Close": function(){
-                        link1.focus();
+                    $('#error_message_image').css("display","");
+                    $('#error_message').dialog({
+                        modal: true,
+                        resizable: false,
+                        draggable: true,
+                        height: 'auto',
+                        width: 'auto',
+                        buttons: {
+                            "Close": function(){
+                                link1.focus();
 
-                        $(this).dialog('destroy');
-                        return true;
-                    }
+                                $(this).dialog('destroy');
+                                return true;
+                            }
+                        }
+                    });
+                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').parent().find("a").css("display","none");
+                    $("#error_message").parent().css('background-color','#D1DDE6');
+                    $("#error_message").css('background-color','#D1DDE6');
+                    $('#error_message').dialog('open');
+
+                    return false;
+
+
                 }
-            });
-            $('#error_message').dialog('option', 'title', 'ERROR');
-            $('#error_message').parent().find("a").css("display","none");
-            $("#error_message").parent().css('background-color','#D1DDE6');
-            $("#error_message").css('background-color','#D1DDE6');
-            $('#error_message').dialog('open');
+            }
+
+
+
+
 
             return false;
-
-
         }
-    }
-
-
-
-
-
-return false;
-   }
     });
 });
 
@@ -2652,80 +2653,81 @@ $(function(){
     $("#new_organisation_submit").live('click', function(){
 
 
-   if($('#organisation_emails_attributes_2_value').val()!="" ||  $('#organisation_websites_attributes_3_value').val()!="")
-   {   _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#organisation_emails_attributes_2_value').val());
-    if($('#organisation_emails_attributes_2_value').val()!=""){
-        if((!_valid)){
-            var link = $(this);
+        if($('#organisation_emails_attributes_2_value').val()!="" ||  $('#organisation_websites_attributes_3_value').val()!="")
+        {
+            _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#organisation_emails_attributes_2_value').val());
+            if($('#organisation_emails_attributes_2_value').val()!=""){
+                if((!_valid)){
+                    var link = $(this);
 
-            $('#error_message_text').html("Invalid email address !");
+                    $('#error_message_text').html("Invalid email address !");
 
-            $('#error_message_image').css("display","");
-            $('#error_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-                    "Close": function(){
-                        link.focus();
+                    $('#error_message_image').css("display","");
+                    $('#error_message').dialog({
+                        modal: true,
+                        resizable: false,
+                        draggable: true,
+                        height: 'auto',
+                        width: 'auto',
+                        buttons: {
+                            "Close": function(){
+                                link.focus();
 
-                        $(this).dialog('destroy');
-                        return true;
-                    }
+                                $(this).dialog('destroy');
+                                return true;
+                            }
+                        }
+                    });
+                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').parent().find("a").css("display","none");
+                    $("#error_message").parent().css('background-color','#D1DDE6');
+                    $("#error_message").css('background-color','#D1DDE6');
+                    $('#error_message').dialog('open');
                 }
-            });
-            $('#error_message').dialog('option', 'title', 'ERROR');
-            $('#error_message').parent().find("a").css("display","none");
-            $("#error_message").parent().css('background-color','#D1DDE6');
-            $("#error_message").css('background-color','#D1DDE6');
-            $('#error_message').dialog('open');
-        }
-    }
+            }
 
 
-    _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
-    if($('#organisation_websites_attributes_3_value').val()!=""){
-        if((!_valid1)){
-            var link1 = $(this);
+            _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
+            if($('#organisation_websites_attributes_3_value').val()!=""){
+                if((!_valid1)){
+                    var link1 = $(this);
 
-            $('#error_message_text').html("Invalid website address !");
+                    $('#error_message_text').html("Invalid website address !");
 
-            $('#error_message_image').css("display","");
-            $('#error_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-                    "Close": function(){
-                        link1.focus();
+                    $('#error_message_image').css("display","");
+                    $('#error_message').dialog({
+                        modal: true,
+                        resizable: false,
+                        draggable: true,
+                        height: 'auto',
+                        width: 'auto',
+                        buttons: {
+                            "Close": function(){
+                                link1.focus();
 
-                        $(this).dialog('destroy');
-                        return true;
-                    }
+                                $(this).dialog('destroy');
+                                return true;
+                            }
+                        }
+                    });
+                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').parent().find("a").css("display","none");
+                    $("#error_message").parent().css('background-color','#D1DDE6');
+                    $("#error_message").css('background-color','#D1DDE6');
+                    $('#error_message').dialog('open');
+
+                    return false;
+
+
                 }
-            });
-            $('#error_message').dialog('option', 'title', 'ERROR');
-            $('#error_message').parent().find("a").css("display","none");
-            $("#error_message").parent().css('background-color','#D1DDE6');
-            $("#error_message").css('background-color','#D1DDE6');
-            $('#error_message').dialog('open');
+            }
+
+
+
+
 
             return false;
-
-
         }
-    }
-
-
-
-
-
-return false;
-   }
     });
 });
 
@@ -5062,6 +5064,8 @@ $(function(){
         //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
         $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
+        $("#keyword_close_entry").css("display","");
+        
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
     });
@@ -5153,6 +5157,7 @@ $(function(){
 
                     },
                     Yes: function(){
+
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -5171,6 +5176,7 @@ $(function(){
                             data: 'type=' + $("#keyword_type").val(),
                             dataType: "script"
                         });
+
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -5183,19 +5189,9 @@ $(function(){
             $('#warning_message').parent().find("a").css("display","none");
             $("#warning_message").parent().css('background-color','#D1DDE6');
             $("#warning_message").css('background-color','#D1DDE6');
-            //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
 
             $('#warning_message').dialog('open');
-
-
-
-
-
-
-
-
-
-
 
         }
         else
@@ -5220,31 +5216,10 @@ $(function(){
             });
 
         }
-
-
-
-
-
-
-
-
-        
+       
     });
 });
 
-//$(function(){
-//    $("#close_edit_keyword_entry").live('click', function(){
-//         $("#keyword_add_entry").css("display","");
-//      $("#keyword_mode").attr('mode', 'show');
-//
-//       $.ajax({
-//                type: "GET",
-//                url: "/keywords/keywords_finder.js",
-//                data: 'type=' + $("#keyword_type").val(),
-//                dataType: "script"
-//            });
-//    });
-//});
 
 $(function(){
     $("#keyword_type").live('change', function(){
