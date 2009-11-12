@@ -2582,16 +2582,14 @@ $(function(){
 $(function(){
     $("#new_person_submit").live('click', function(){
 
-
         if($('#person_emails_attributes_2_value').val()!="" ||  $('#person_websites_attributes_3_value').val()!="")
-        {
+        { 
             _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#person_emails_attributes_2_value').val());
             if($('#person_emails_attributes_2_value').val()!=""){
                 if((!_valid)){
                     var link = $(this);
 
                     $('#error_message_text').html("Invalid email address !");
-
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
                         modal: true,
@@ -2621,7 +2619,7 @@ $(function(){
             if($('#person_websites_attributes_3_value').val()!=""){
                 if((!_valid1)){
                     var link1 = $(this);
-
+                           alert('ddd');
                     $('#error_message_text').html("Invalid website address !");
 
                     $('#error_message_image').css("display","");
@@ -2658,6 +2656,7 @@ $(function(){
 
             return false;
         }
+        return true;
     });
 });
 
@@ -2699,6 +2698,7 @@ $(function(){
                     $('#error_message').dialog('open');
                 }
             }
+                     
             _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             if($('#organisation_websites_attributes_3_value').val()!=""){
                 if((!_valid1)){
