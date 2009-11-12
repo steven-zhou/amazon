@@ -64,7 +64,7 @@
 .portlet_to_do_content
 {
 	padding: 10px;
-       height:300px;
+       min-height:300px;
         overflow: hidden;
 }
 .portlet_to_do_content #to_do_lists {width: 100%; float: left;}
