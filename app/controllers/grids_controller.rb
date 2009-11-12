@@ -45,9 +45,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = PeopleSearchGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -113,9 +113,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? ", query])
+        :conditions=>[qtype +" ilike ? ", query])
       count = FeedbackSearchGrid.count(:all,
-        :conditions=>[qtype +" like ? ", query ])
+        :conditions=>[qtype +" ilike ? ", query ])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -179,9 +179,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? ", query ])
+        :conditions=>[qtype +" ilike ? ", query ])
       count = SystemLogSearchGrid.count(:all,
-        :conditions=>[qtype +" like ? ", query])
+        :conditions=>[qtype +" ilike ? ", query])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -247,9 +247,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = OrganisationSearchGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -278,7 +278,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -313,9 +313,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = QueryResultGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -384,9 +384,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = ListEditGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -447,9 +447,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = ListCompileGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -518,11 +518,11 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
       count = ShowOtherGroupOrganisationsGrid.count(:all,
 
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -586,9 +586,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = OrganisationEmployeeGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -652,9 +652,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = ShowOtherGroupMemberGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -721,9 +721,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = OrganisationEmployeeGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -793,10 +793,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
       count = DuplicationPersonalGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -863,9 +863,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     	count = DuplicationOrganisationsGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -938,11 +938,11 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
       count = PersonContactsReportGrid.count(:all,
 
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1016,11 +1016,11 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
       count = OgansisationContactsReportGrid.count(:all,
 
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1094,11 +1094,11 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
       count = ShowPostcodeGrid.count(:all,
 
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1167,9 +1167,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = ShowListGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1233,9 +1233,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = ShowOrganisationListGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1298,9 +1298,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
       count = PersonLookupGrid.count(:all,
-        :conditions=>[qtype +" like ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
     # Construct a hash from the ActiveRecord result

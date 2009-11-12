@@ -1,7 +1,12 @@
-.container.toggle_options{:id => "to_do_detail_#{to_do_detail.id}", :field => "to_do", :style => "height:20px;"}
+.container.toggle_options{:id => "to_do_detail_#{to_do_detail.id}", :field => "to_do", :style => "height:auto;min-height:22px;"}
   .options{:style => "float:right;display:none;"}
-    = link_to image_tag("icon_holder.png"), switch_to_do_list_path(to_do_detail), :class => "get", :title=>"Switch"
+    - if to_do_detail.status == "new"
+      = link_to image_tag("Icons/System/todo.png"), switch_to_do_list_path(to_do_detail), :class => "get", :title=>"Switch"
+    -elsif to_do_detail.status == "processing"
+      = link_to image_tag("Icons/System/todo_important.png"), switch_to_do_list_path(to_do_detail), :class => "get", :title=>"Switch"
+    -else
+      = link_to image_tag("Icons/System/todo_done.png"), switch_to_do_list_path(to_do_detail), :class => "get", :title=>"Switch"
     = link_to image_tag("edit_icon.png"), edit_to_do_list_path(to_do_detail), :class => "get", :title=>"Edit"
     = link_to image_tag("delete_icon.png"), to_do_list_path(to_do_detail), :class => "delete", :title=>"Remove", :error_message_field => "To Do"
-  .title
+  .title{:style => "width:90%;font-size:13px;font-weight:bold;padding-top:3px;"}
     %h2 #{to_do_detail.description}

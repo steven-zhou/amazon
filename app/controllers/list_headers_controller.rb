@@ -223,7 +223,8 @@ class ListHeadersController < ApplicationController
   end
 
   def compile_list
-    @list_headers = ListHeader.all
+    current_user = LoginAccount.find(session[:user])
+    @list_headers = current_user.all_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
       i.destroy
