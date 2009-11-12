@@ -13,12 +13,15 @@ class SigninController < ApplicationController
     if request.post?
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
-        system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
-        session[:last_event] = Time.now()
-        if login_account.class.to_s == "SystemUser"          
+        puts"*****111******"
+        if login_account.class.to_s == "SystemUser"        
+          puts"*****222******"
           grace_period_check(login_account) if login_account.last_login.nil?
+          puts"*****333******"
           password_lifetime_check(login_account)
+             puts"*****444******"
           session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
+
           @group_types = LoginAccount.validate_group(session[:user])
           @system_permission_types = LoginAccount.validate_permission(session[:user])
           @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
@@ -28,6 +31,8 @@ class SigninController < ApplicationController
           session[:login_account_info] = login_account
           login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
           login_account.save
+          system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
+          session[:last_event] = Time.now()
           redirect_to welcome_url
         else
           redirect_to :action => "ask_for_power_password", :user_name => params[:user_name]
@@ -205,11 +210,13 @@ class SigninController < ApplicationController
       session[:user] = login_account.id   # This will throw an exception if we do not have a valid login_account due to log in failing
       @group_types = LoginAccount.validate_group(session[:user])
       @system_permission_types = LoginAccount.validate_permission(session[:user])
-      @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])
+      @access_attempts_count = LoginAccount.validate_attempts_count(session[:user])            
       login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
       session[:login_account_info] = login_account
+      
       login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
       login_account.save
+
       redirect_to welcome_url
     rescue
       system_log("Failed attempt to log in as a super user.", @current_controller, @current_action, nil)
@@ -292,6 +299,8 @@ class SigninController < ApplicationController
     if( ( ( (!login_account.password_lifetime.nil? && login_account.password_lifetime.to_i > 0) && (Time.now - login_account.password_updated_at) / (24 * 60 * 60) ) > login_account.password_lifetime.to_i) )
       system_log("Password expired for #{login_account.user_name} (ID #{login_account.id}).", "signin", "password_lifetime_check", login_account)
       redirect_to :controller => "login_accounts", :action => "change_password"
+    else
+      return
     end
   end
 
