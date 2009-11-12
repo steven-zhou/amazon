@@ -307,12 +307,9 @@ module OutputPdf
         email = format_fields(email_p, email_s)
         phone = format_fields(phone_p, phone_s)
         website = format_fields(website_p, website_s)
-        #        if(!(organisation.primary_address.blank?))
-        #          address = organisation.primary_address.first_line + organisation.primary_address.second_line
-        #        end
-
-        address = (organisation.primary_address.nil?) ? "" : organisation.primary_address.formatted_value
-
+        if(!(organisation.primary_address.blank?))
+          address = organisation.primary_address.first_line + organisation.primary_address.second_line
+        end
 
         data_row = Hash.new
         OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_index do |i|
@@ -403,12 +400,13 @@ module OutputPdf
 
   def self.generate_header(pdf, source_type, source_id, header_settings={})
     #default setting for pdf header
-    header_settings[:image] ||= "#{RAILS_ROOT}/public/images/Amazon-logo.jpg"
-    header_settings[:title] ||= "#{source_type}_#{source_id}"
+    @source = "#{source_type}_header".camelize.constantize.find(source_id.to_i)
+    header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
+    header_settings[:title] ||= "Export from #{source_type}_#{@source.name}"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
-    header_settings[:font_size] ||= 32
+    header_settings[:font_size] ||= 28
     pdf.image header_settings[:image], :justification => header_settings[:image_position]
     pdf.select_font header_settings[:font]
     pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position]
@@ -477,8 +475,10 @@ module OutputPdf
         email = format_fields(primary_e, secondary_e)
         phone = format_fields(primary_p, secondary_p)
         website = format_fields(primary_w, secondary_w)
-        address = (person.primary_address.nil?) ? "" : person.primary_address.formatted_value
-
+        address = (person.primary_address.nil?) ? "" : person.primary_address.first_line
+        if(!(person.primary_address.nil?))
+          address+="\n" + person.primary_address.second_line
+        end
         data_row = Hash.new
         if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
           data_row["id"] = "#{person.id}"
