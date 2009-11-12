@@ -4927,7 +4927,7 @@ $(function(){
             resizable: false,
             draggable : true,
             height: 580,
-            width: 350
+            width: 550
         }
         );
         $("#feedback_form").dialog("option","title","Feedback Form");
