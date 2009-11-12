@@ -13,8 +13,6 @@ class SigninController < ApplicationController
     if request.post?
       begin
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])
-        system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
-        session[:last_event] = Time.now()
         if login_account.class.to_s == "SystemUser"          
           grace_period_check(login_account) if login_account.last_login.nil?
           password_lifetime_check(login_account)
@@ -28,6 +26,8 @@ class SigninController < ApplicationController
           session[:login_account_info] = login_account
           login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
           login_account.save
+          session[:last_event] = Time.now()
+          system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
           redirect_to welcome_url
         else
           redirect_to :action => "ask_for_power_password", :user_name => params[:user_name]
@@ -272,7 +272,7 @@ class SigninController < ApplicationController
     if ( !login_account.authentication_grace_period.nil? && login_account.authentication_grace_period.to_i > 0)
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
      
-      if( ( (Time.now - login_account.created_at) / (24 * 60 * 60) ) > login_account.authentication_grace_period )
+      if( ( (Time.now - login_account.created_at) / (24 * 60 * 60) ) > login_account.authentication_grace_period.to_i )
         # We are outside the grace period, delete the account
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) attempted to login outside of the defined grace period.", "signin", "grace_period_check", login_account)
         login_account.destroy
