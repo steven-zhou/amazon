@@ -44,13 +44,23 @@ class LoginAccount < ActiveRecord::Base
   end
 
 
-  def self.validate_group(user_id)
-    login_account = LoginAccount.find(:first, :conditions => ['id = ?', user_id])
-    @group_types = login_account.group_types
-    if @group_types.blank?
-      raise "you do not have group permission"
+  def has_groups?
+    !self.group_types.empty?
+  end
+
+  def has_group_permissions?
+    for group in self.group_types do
+      return true if (group.system_permission_types.size > 0)
     end
-    @group_types
+
+    return false
+  end
+
+  def password_expired?
+    if (!self.password_lifetime.nil? && self.password_lifetime.to_i > 0)
+      return (((Time.now - self.password_updated_at) / (24 * 60 * 60))  > self.password_lifetime.to_i)
+    end
+    return false
   end
 
   def self.validate_permission(user_id)

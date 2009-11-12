@@ -19,12 +19,35 @@ class SigninController < ApplicationController
         # Check to see if the account is new and if so, are the still within their grace period
         # If not, delete the account
         begin
-          grace_period_check(login_account) if login_account.last_login.nil?
-          account_active_check(login_account)
-          
+          redirect_to :action => "ask_for_power_password" and return unless login_account.class.to_s == "SystemUser"
+          account_system_user_check(login_account) # Checks the system_user attribute
+          grace_period_check(login_account) if login_account.last_login.nil? # Check if a user logs in for the first time before the grace period expires
+          account_active_check(login_account) # Check that the login_status attribute is true
+          account_locked_check(login_account) # Check that there are remaining access_attempts_count available
+          check_groups(login_account) # Check that user belongs to at least one group
+          check_group_permissions(login_account) # Check the permissions for the groups of the login account
+          check_password_life_time(login_account)# Check if the password has expired  when expired jump to rescue no.1 case
+          #
+          #---------------------------------------------successful login-------------------------#
+          session[:user] = login_account.id
+          session[:last_event] = Time.now()
+          login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())          
+          redirect_to welcome_url
+
+          #---------------------------------------------exception erea-------------------------#
         rescue Exception => exc
-          redirect_to :action => "login" unless exc.message == "Password Lifetime Exception"
+          case exc.message
+          when "Password Lifetime Check Failed"
+            session[:user] = login_account.id
+            session[:last_event] = Time.now()
+            login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())          
+            redirect_to :controller => "login_accounts", :action => "change_password" and return
+          else
+            redirect_to :action => "login"
+          end
+         
         end
+
 
       rescue
         system_log("There was a failed login attempt to the system from IP address #{request.remote_ip} supplying username #{params[:user_name]}.", "signin", "login", nil)
@@ -269,13 +292,7 @@ class SigninController < ApplicationController
 
   end
 
-  # Check if their password needs to be changed
-  def password_lifetime_check(login_account)
-    if( ( ( (!login_account.password_lifetime.nil? && login_account.password_lifetime.to_i > 0) && (Time.now - login_account.password_updated_at) / (24 * 60 * 60) ) > login_account.password_lifetime.to_i) )
-      system_log("Password expired for #{login_account.user_name} (ID #{login_account.id}).", "signin", "password_lifetime_check", login_account)
-      redirect_to :controller => "login_accounts", :action => "change_password"
-    end
-  end
+
 
   # If we have had an invalid access attempt, record their i[ and decrease number of access attempts availabnle
   def invalid_access_attempt(login_account)
@@ -287,10 +304,48 @@ class SigninController < ApplicationController
   # Check if the user's account is active
   def account_active_check(login_account)
     unless login_account.account_active?
-        flash[:warning] = flash_message(:type => "account_inactive")
-        raise "Account Active Check Failed"
+      flash[:warning] = flash_message(:type => "account_inactive")
+      raise "Account Active Check Failed"
     end
   end
 
+  # Check if the user's account is locked
+  def account_locked_check(login_account)
+    if login_account.account_locked?
+      flash[:warning] = flash_message(:type => "login_count_error")
+      raise "Account Locked Check Failed"
+    end
+  end
+
+  def account_system_user_check(login_account)
+    unless login_account.system_user?
+      flash[:warning] = flash_message(:type => "login_invalid_account_type")
+      raise "Account System User Check Failed"
+    end
+  end
+
+  def check_groups(login_account)
+    unless login_account.has_groups?
+      flash[:warning] = flash_message(:type => "login_group_error")
+      raise "Group Check Failed"
+    end
+
+  end
+
+
+  def check_group_permissions(login_account)
+    unless login_account.has_group_permissions?
+      flash[:warning] = flash_message(:type => "login_permission_error")
+      raise "Group Permission Check Failed"
+    end
+  end
+
+  # Check if their password needs to be changed
+  def check_password_life_time(login_account)
+    if login_account.password_expired?
+      system_log("Password expired for #{login_account.user_name} (ID #{login_account.id}).", "signin", "password_lifetime_check", login_account)
+      raise "Password Lifetime Check Failed"
+    end
+  end
 
 end
