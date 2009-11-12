@@ -1,8 +1,6 @@
 # People Table
 people = TableMetaMetaType.create :name => "people", :description => "people table", :status => true, :category => "person"
 TableMetaType.create :name => "custom_id", :tag_meta_type_id => people.id, :description => "Custom ID (e.g. 100)",  :status => true, :category => "Integer"
-TableMetaType.create :name => "primary_title", :tag_meta_type_id => people.id, :description => "Primary Title (e.g. Ms)",  :status => true, :category => "Integer FK"
-TableMetaType.create :name => "second_title", :tag_meta_type_id => people.id, :description => "Second Title (e.g. Doctor)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "first_name", :tag_meta_type_id => people.id, :description => "First Name (e.g. Jane)",  :status => true, :category => "String"
 TableMetaType.create :name => "middle_name", :tag_meta_type_id => people.id, :description => "Middle Name (e.g. Mary)",  :status => true, :category => "String"
 TableMetaType.create :name => "family_name", :tag_meta_type_id => people.id, :description => "Family Name (e.g. Smith)",  :status => true, :category => "String"
@@ -15,12 +13,7 @@ TableMetaType.create :name => "primary_salutation", :tag_meta_type_id => people.
 TableMetaType.create :name => "second_salutation", :tag_meta_type_id => people.id, :description => "Second Salutation (e.g. Jane Smith)",  :status => true, :category => "String"
 TableMetaType.create :name => "industry_sector", :tag_meta_type_id => people.id, :description => "Industry Sector (e.g. IT)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "interests", :tag_meta_type_id => people.id, :description => "Interests (e.g. Cricket)",  :status => true, :category => "String"
-TableMetaType.create :name => "origin_country", :tag_meta_type_id => people.id, :description => "Origin Country (e.g. Australia)",  :status => true, :category => "Integer FK"
-TableMetaType.create :name => "residence_country", :tag_meta_type_id => people.id, :description => "Residence Country (e.g. Australia)",  :status => true, :category => "Integer FK"
-TableMetaType.create :name => "nationality", :tag_meta_type_id => people.id, :description => "Nationality (e.g. Australian)",  :status => true, :category => "Integer FK"
-TableMetaType.create :name => "other_nationality", :tag_meta_type_id => people.id, :description => "Other Nationality (e.g. Australian)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "language", :tag_meta_type_id => people.id, :description => "Language (e.g. English)",  :status => true, :category => "Integer FK"
-TableMetaType.create :name => "other_language", :tag_meta_type_id => people.id, :description => "Other Language (e.g. English)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "religion", :tag_meta_type_id => people.id, :description => "Religion (e.g. Christianity)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "onrecord_since", :tag_meta_type_id => people.id, :description => "Onrecord Since (dd-mm-yyyy e.g. 01-11-2000)",  :status => true, :category => "Date"
 TableMetaType.create :name => "marital_status", :tag_meta_type_id => people.id, :description => "Marital Status (e.g. Single)",  :status => true, :category => "Integer FK"
@@ -29,7 +22,6 @@ TableMetaType.create :name => "gender", :tag_meta_type_id => people.id, :descrip
 
 #Employments Table
 employments = TableMetaMetaType.create :name => "employments", :description => "employments table", :status => true, :category => "person"
-TableMetaType.create :name => "organisation", :tag_meta_type_id => employments.id, :description => "Employer (e.g. Google)",  :status => true, :category => "Integer FK"
 TableMetaType.create :name => "position_name", :tag_meta_type_id => employments.id, :description => "Position (e.g. Developer)",  :status => true, :category => "String"
 TableMetaType.create :name => "duties_resposibilities", :tag_meta_type_id => employments.id, :description => "Duty/Resposibility (e.g. Project Estimation)",  :status => true, :category => "String"
 TableMetaType.create :name => "annual_base_salary", :tag_meta_type_id => employments.id, :description => "Annual Salary (e.g. 50000)",  :status => true, :category => "Float"

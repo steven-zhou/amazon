@@ -1,8 +1,8 @@
 -div_for(to_do, :class => 'container') do
-  .options{:style => "float:right;"}
+  -#.options{:style => "float:right;"}
     - if to_do.status == "new"
       = link_to image_tag("icon_holder.png"), switch_to_do_list_path(to_do), :class => "get", :title=>"Switch"
     - else to_do.status == "processing"
       = link_to image_tag("icon_holder.png"), switch_to_do_list_path(to_do), :class => "get", :title=>"Switch"
   .title
-    %h2 #{to_do.description}
+    %h4 #{to_do.description}

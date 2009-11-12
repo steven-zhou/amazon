@@ -53,12 +53,12 @@
   </div>
   <div class="bar_section" id="sys_icons" >
     <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), {:controller => "module", :action => "dashboard"}, {:title=>"Dashboard"}%>
-    <%= link_to image_tag('Icons/System/user_preferences.png'), {}, {:title=>"User Preferences"}%>
+    <%= link_to_function image_tag('Icons/System/user_preferences.png'), :title=>"User Preferences", :id => "user_preferences"%>
   </div>
 
   <div class="bar_section" id="search">
     <input value ="Search System" size ="20" disabled>
-    <%= link_to image_tag('Icons/System/sys_search.png'),{},{:title=>"Search"} %>
+    <%=image_tag('Icons/System/sys_search.png', :title => "Search")%>
   </div>
   <div class="bar_section" id="help">
     <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
