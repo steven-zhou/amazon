@@ -570,6 +570,7 @@ label {
 #app #main #content .container .form_line .field_5,
 #app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_11,
+#app #main #content .container .form_line .field_12,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_17,
 #app #main #content .container .form_line .field_20,
@@ -604,6 +605,7 @@ label {
 #app #main #content .container .form_line .field_5 {width: 5%;}
 #app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_11 {width: 11%;}
+#app #main #content .container .form_line .field_12 {width: 12%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_17 {width: 17%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
@@ -640,6 +642,7 @@ label {
 #app #main #content .full_container .form_line .field_5,
 #app #main #content .full_container .form_line .field_10,
 #app #main #content .full_container .form_line .field_11,
+#app #main #content .full_container .form_line .field_12,
 #app #main #content .full_container .form_line .field_15,
 #app #main #content .full_container .form_line .field_17,
 #app #main #content .full_container .form_line .field_20,
@@ -674,6 +677,7 @@ label {
 #app #main #content .full_container .form_line .field_5 {width: 5%;}
 #app #main #content .full_container .form_line .field_10 {width: 10%;}
 #app #main #content .full_container .form_line .field_11 {width: 11%;}
+#app #main #content .full_container .form_line .field_12 {width: 12%;}
 #app #main #content .full_container .form_line .field_15 {width: 15%;}
 #app #main #content .full_container .form_line .field_17 {width: 17%;}
 #app #main #content .full_container .form_line .field_20 {width: 20%;}
@@ -2170,3 +2174,14 @@ div#permission_form .options{
     padding: 5px 0px 5px 10px;
     text-decoration:none;
 }
+
+
+
+/*spinner*/
+
+ .spinning {
+         background: url('/images/processing.gif') no-repeat right !important;
+
+     }
+
+

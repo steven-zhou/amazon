@@ -33,18 +33,18 @@ puts "Creating Member Zone Super User"
 memberzone = MemberZone.create(
   :user_name => "MemberZone",
   :password => "memberzone",
-  :access_attempts_count => 3,
+  :access_attempts_count => 9999,
   :session_timeout => 30,
-  :authentication_grace_period => 3
+  :authentication_grace_period => 9
 )
 
 puts "Creating Super Admin"
 superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
   :password => "superadmin",
-  :access_attempts_count => 3,
+  :access_attempts_count => 999999,
   :session_timeout => 30,
-  :authentication_grace_period => 3
+  :authentication_grace_period => 999
 )
 
 puts "Set password for member zone user"
@@ -130,7 +130,7 @@ robert_tingle_login = SystemUser.create(
   :question1_answer => "1",
   :question2_answer => "2",
   :question3_answer => "3",
-  :access_attempts_count => 3,
+  :access_attempts_count => 9,
   :session_timeout => 30,   # 30 mins
   :authentication_grace_period => 3, # 3 days
   :password_lifetime => 20, # 20 days

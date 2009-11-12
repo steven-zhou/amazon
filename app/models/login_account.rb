@@ -6,7 +6,6 @@ class LoginAccount < ActiveRecord::Base
   has_many :group_types, :through => :user_groups, :uniq => true
 
   validates_uniqueness_of :user_name, :case_sensitive => false
- 
 
 
 
@@ -27,15 +26,11 @@ class LoginAccount < ActiveRecord::Base
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
     if user_name == "MemberZone"
       if Digest::SHA256.hexdigest(password + @client_setup.member_zone_power_password_salt) != @client_setup.member_zone_power_password_hash
-        login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
-        login_account.save
         raise "Power password invalid"
       end
     end
     if user_name == "SuperAdmin"
       if Digest::SHA256.hexdigest(password + @client_setup.super_admin_power_password_salt) != @client_setup.super_admin_power_password_hash
-        login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
-        login_account.save
         raise "Power password invalid"
       end
     end

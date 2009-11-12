@@ -22,6 +22,7 @@ jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
     }
+
 });
 
 /* Authenticity token*/
@@ -297,7 +298,12 @@ jQuery.fn.doAjaxSubmit = function($callback) {
 
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
+
 });
+
+
+
+
 
 /*Date picker */
 $('.birthdatepick').live("mouseover", function(){
@@ -454,6 +460,7 @@ $(function(){
             type: "GET",
             url: "/people/name_finder.js",
             data: 'person_id='+$(this).val(),
+
             dataType: "script"
         });
     });
