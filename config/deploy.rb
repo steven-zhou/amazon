@@ -31,15 +31,6 @@ end
 #    run "cd #{current_path} && RAILS_ENV=production ./script/backgroundrb start > /dev/null 2>1"
 #  end
 #end
-<<<<<<< HEAD:config/deploy.rb
-
-
-
-
-namespace :deploy do
-    %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
-    #%w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
-=======
 
 
 namespace :deploy do
@@ -48,7 +39,7 @@ namespace :deploy do
   puts "  1 - ssh into the server (ie ssh rails@<server>)\n  2 - cd amazon/current\n  3 - ./script/backgroundrb restart\n\n"
   puts " ****************************\n\n\n\n\n"
   # %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
->>>>>>> fce7ebdfcff431f823a83af15efc041923a2d4a4:config/deploy.rb
+
 end
 
 
