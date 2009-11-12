@@ -5,18 +5,65 @@ if @source_type == "query"
       xml.person do
         xml.system_id(person.id)
         xml.name(person.name)
-        @query_header.query_selections.each do |i|
+
+        if @query_header.query_selections.empty?
+          #default display fields
           xml.data do
+            xml.field_name "first_name"
+            xml.field_data person.first_name.nil? ? "" : person.first_name
+          end
+          xml.data do
+            xml.field_name "family_name"
+            xml.field_data person.family_name.nil? ? "" : person.family_name
+          end
+          xml.data do
+            xml.field_name "address"
+            xml.field_data person.primary_address.nil? ? "" : person.primary_address.first_line + "\n" + person.primary_address.second_line
+          end
+          xml.data do
+            xml.field_name "email"
+            primary_e = person.primary_email.nil? ? "" : person.primary_email.address
+            secondary_e = person.secondary_email.nil? ? "" : person.secondary_email.address
+            xml.field_data primary_e + "\n" + secondary_e
+          end
+          xml.data do
+            xml.field_name "phone"
+            primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
+            secondary_p = person.secondary_phone.nil? ? "" : person.secondary_phone.complete_number
+            xml.field_data primary_p + "\n" + secondary_p
+          end
+          xml.data do
+            xml.field_name "website"
+            primary_w = person.primary_website.nil? ? "" : person.primary_website.address
+            secondary_w = person.secondary_website.nil? ? "" : person.secondary_website.address
+            xml.field_data primary_w + "\n" + secondary_w
+          end
+        else
+          #query has display fields
+          @query_header.query_selections.each do |i|
+            xml.data do
+              data_value = String.new
+              if i.table_name == "people"
+                if i.data_type.include?("Integer FK")
+                  data_value = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
+                else
+                  data_value = "#{person.__send__(i.field_name)}"
+                end
+              else
+                if i.data_type.include?("Integer FK")
+                  if(i.field_name == "country")
+                    data_value = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
+                  else
+                    data_value = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : ""
+                  end
+                else
+                  data_value = person.__send__(i.table_name.underscore.to_sym).empty? ? "" : "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}"
+                end
+              end
 
-            data_value = String.new
-            if i.table_name == "people"
-              data_value = "#{person.__send__(i.field_name.to_sym)}"
-            else
-              data_value = "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}" unless person.__send__(i.table_name.underscore.to_sym).empty?
+              xml.field_name i.field_name
+              xml.field_data data_value
             end
-
-            xml.field_name i.field_name
-            xml.field_data data_value
           end
         end
       end
@@ -28,8 +75,37 @@ else
     for person in @people do
       xml.person do
         xml.id(person.id)
-        xml.first_name(person.first_name)
-        xml.family_name(person.family_name)
+        xml.name(person.name)
+        xml.data do
+            xml.field_name "first_name"
+            xml.field_data person.first_name.nil? ? "" : person.first_name
+          end
+          xml.data do
+            xml.field_name "family_name"
+            xml.field_data person.family_name.nil? ? "" : person.family_name
+          end
+          xml.data do
+            xml.field_name "address"
+            xml.field_data person.primary_address.nil? ? "" : person.primary_address.first_line + "\n" + person.primary_address.second_line
+          end
+          xml.data do
+            xml.field_name "email"
+            primary_e = person.primary_email.nil? ? "" : person.primary_email.address
+            secondary_e = person.secondary_email.nil? ? "" : person.secondary_email.address
+            xml.field_data primary_e + "\n" + secondary_e
+          end
+          xml.data do
+            xml.field_name "phone"
+            primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
+            secondary_p = person.secondary_phone.nil? ? "" : person.secondary_phone.complete_number
+            xml.field_data primary_p + "\n" + secondary_p
+          end
+          xml.data do
+            xml.field_name "website"
+            primary_w = person.primary_website.nil? ? "" : person.primary_website.address
+            secondary_w = person.secondary_website.nil? ? "" : person.secondary_website.address
+            xml.field_data primary_w + "\n" + secondary_w
+          end
       end
     end
   end
