@@ -51,13 +51,14 @@ class ApplicationController < ActionController::Base
     when "object_updated_successfully"      then "The #{options[:object]} was updated."
 
       # Errors
-    when "login_error"                      then "The login credentials you supplied were incorrect."
-    when "login_group_error"                then "Your login account is not associated with any groups. Please see your System Administrator."
+    when "login_error"                      then "You can not login: Account information is wrong"
+    when "login_group_error"                then "You can not login: Your group "
     when "login_permission_error"           then "You do not have the appropriate level of permissions to log into the system. Please see your System Administrator."
     when "session_timeout"                  then "Your login session has timed out. For security reasons you will need to log in again."
     when "grace_period_expired"             then "You have attempted to login after the grace period for your account. Your account has been deleted. Please see your Systems Administrator."
     when "account_inactive"                 then "Your account is currently inactive. Please see your System Administrator."
     when "login_count_error"                then "Your account has been locked. Please see your System Administrator."
+    when "login_invalid_account_type"       then "Your login account is not of a valid account type to proceed."
     when "supplied_info_incorrect"          then "The details you supplied were incorrect."
     when "password_confirm_error"           then "The new password you entered did not match your confirmation password. Please try again."
     when "new_password_equals_old_password" then "The password you entered is the same as a previous password. Please pick a new password."

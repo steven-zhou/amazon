@@ -112,13 +112,13 @@ class QueryHeader < ActiveRecord::Base
       if (self.include_clauses.empty?)
         Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
       else
-        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [self.include_clauses.join(", ")], :order => "people.id")
+        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [*self.include_clauses], :order => "people.id")
       end
     else
       if (self.include_clauses.empty?)
         Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "))
       else
-        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "), :include => [self.include_clauses.join(", ")])
+        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "), :include => [*self.include_clauses])
       end
     end
   end

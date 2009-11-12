@@ -22,6 +22,7 @@ jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
     }
+
 });
 
 /* Authenticity token*/
@@ -297,7 +298,12 @@ jQuery.fn.doAjaxSubmit = function($callback) {
 
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
+
 });
+
+
+
+
 
 /*Date picker */
 $('.birthdatepick').live("mouseover", function(){
@@ -454,6 +460,7 @@ $(function(){
             type: "GET",
             url: "/people/name_finder.js",
             data: 'person_id='+$(this).val(),
+
             dataType: "script"
         });
     });
@@ -4785,6 +4792,36 @@ $(function(){
 
 
     $("div#module_menu_items li").hover(
+        function(){
+            $(this).removeClass("hover","fast");
+        },
+        function(){
+            $(this).addClass("hover", "normal");
+        });
+});
+
+//user preferences menu
+$(function(){
+    $("div#preferences_menu_top").click(function() {
+        if($("div#preferences_menu_top").attr("class")==""){
+            $("div#preferences_menu_top").addClass("hover");
+            $("div#preferences_menu_items").fadeIn("fast");
+        }else{
+            $("div#preferences_menu_top").removeClass("hover");
+            $("div#preferences_menu_items").fadeOut("fast");
+        }
+    });
+
+
+    $("div#preferences_menu").hover(
+        function(){},
+        function(){
+            $("div#preferences_menu_top").removeClass("hover");
+            $("div#preferences_menu_items").fadeOut("fast");
+        });
+
+
+    $("div#preferences_menu_items li").hover(
         function(){
             $(this).removeClass("hover","fast");
         },
