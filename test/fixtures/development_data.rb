@@ -33,18 +33,24 @@ puts "Creating Member Zone Super User"
 memberzone = MemberZone.create(
   :user_name => "MemberZone",
   :password => "memberzone",
-  :access_attempts_count => 9999,
+  :access_attempts_count => 99,
   :session_timeout => 30,
-  :authentication_grace_period => 9
+  :authentication_grace_period => 9,
+  :password_by_admin => false,
+  :password_lifetime => 365, 
+  :login_status => true
 )
 
 puts "Creating Super Admin"
 superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
   :password => "superadmin",
-  :access_attempts_count => 999999,
+  :access_attempts_count => 99,
   :session_timeout => 30,
-  :authentication_grace_period => 999
+  :authentication_grace_period => 9,
+  :password_by_admin => false,
+  :password_lifetime => 365,
+  :login_status => true
 )
 
 puts "Set password for member zone user"
