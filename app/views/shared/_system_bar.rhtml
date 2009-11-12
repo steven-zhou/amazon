@@ -3,18 +3,18 @@
     <div id="module_menu">
       <div id="module_menu_top" title="System Menu">
 
-            <%- if session[:module] == "core" %>
-               <%= "#{image_tag('Icons/System/module menu/core.png')} System Core" %>
-            <%- end %>
-            <%- if session[:module] == "administration" %>
-              <%= "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools" %>
-            <%- end %>
-            <%- if session[:module] == "client_setup" %>
-              <%= "#{image_tag('icon_holder.png')} MemberZone" %>
-            <%- end %>
-            <%- if session[:module] == "dashboard" %>
-              <%= "#{image_tag('Icons/System/module_menu.png')} System Menu" %>
-            <%- end %>
+        <%- if session[:module] == "core" %>
+          <%= "#{image_tag('Icons/System/module menu/core.png')} System Core" %>
+        <%- end %>
+        <%- if session[:module] == "administration" %>
+          <%= "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools" %>
+        <%- end %>
+        <%- if session[:module] == "client_setup" %>
+          <%= "#{image_tag('icon_holder.png')} MemberZone" %>
+        <%- end %>
+        <%- if session[:module] == "dashboard" %>
+          <%= "#{image_tag('Icons/System/module_menu.png')} System Menu" %>
+        <%- end %>
       </div>
 
       <div id="module_menu_items" >
@@ -27,16 +27,16 @@
             <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
           <%- end %>
           <%- if session[:module] != "fundraising" %>
-          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
           <%- end %>
           <%- if session[:module] != "case_management" %>
-          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} My Case", :controller => "module", :action => "case_management"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} My Case", :controller => "module", :action => "case_management"  %></li>
           <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
-          <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
           <%- end %>
           <%- if (@current_user.class.to_s == "MemberZone" && session[:module] != "client_setup") %>
-          <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
           <%- end %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Sign Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
         </ul>
@@ -52,9 +52,25 @@
 
   </div>
   <div class="bar_section" id="sys_icons" >
-    <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), {:controller => "module", :action => "dashboard"}, {:title=>"Dashboard"}%>
-    <%= link_to_function image_tag('Icons/System/user_preferences.png'), :title=>"User Preferences", :id => "user_preferences"%>
-  </div>
+    <div id="dash_icon">
+      <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), {:controller => "module", :action => "dashboard"}, {:title=>"Dashboard"}%>
+    </div>
+    <div id="user_preferences">
+    <div id="preferences_menu">
+      <div id="preferences_menu_top">
+        <%= link_to_function image_tag('Icons/System/user_preferences.png'), :title=>"User Preferences", :id => "user_preferences"%>
+      </div>
+      <div id="preferences_menu_items" style="display:none;" >
+          <div id="preferences_menu_neck" ></div>
+        <ul>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Dashboard"%></li>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Workflow"%></li>
+        </ul>
+        <div id="preferences_menu_bottom" ></div>
+      </div>
+    </div>
+    </div>
+    </div>
 
   <div class="bar_section" id="search">
     <input value ="Search System" size ="20" disabled>
@@ -62,7 +78,7 @@
   </div>
   <div class="bar_section" id="help">
     <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
-    
+
     <%= link_to image_tag('/images/help_icon.png'), {:controller => "feedback", :action => "list"}, {:title=>"Help"} %>
   </div>
 
@@ -97,12 +113,12 @@
 </div>
 
 <div id="check_input_change_or_not" >
- <input type="hidden" name="check_input_change" id="check_input_change" value="false" />
+  <input type="hidden" name="check_input_change" id="check_input_change" value="false" />
 </div>
 
 <div id="check_left_input_change_or_not" >
- <input type="hidden" name="check_left_input_change" id="check_left_input_change" value="false" />
+  <input type="hidden" name="check_left_input_change" id="check_left_input_change" value="false" />
 </div>
 <div id="check_right_input_change_or_not" >
- <input type="hidden" name="check_right_input_change" id="check_right_input_change" value="false" />
+  <input type="hidden" name="check_right_input_change" id="check_right_input_change" value="false" />
 </div>
