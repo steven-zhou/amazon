@@ -14,12 +14,12 @@ set :deploy_to, "/home/rails/amazon"
 set :repository, "rails@203.23.28.91:/var/git/amazon.git"
 
 namespace :mod_rails do
-  desc <<-DESC
+    desc <<-DESC
   Restart the application altering tmp/restart.txt for mod_rails.
-  DESC
-  task :restart, :roles => :app do
-    run "touch  #{release_path}/tmp/restart.txt"
-  end
+    DESC
+    task :restart, :roles => :app do
+        run "touch  #{release_path}/tmp/restart.txt"
+    end
 end
 
 #namespace :backgroundrb do
@@ -39,6 +39,7 @@ namespace :deploy do
   puts "  1 - ssh into the server (ie ssh rails@<server>)\n  2 - cd amazon/current\n  3 - ./script/backgroundrb restart\n\n"
   puts " ****************************\n\n\n\n\n"
   # %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
+
 end
 
 

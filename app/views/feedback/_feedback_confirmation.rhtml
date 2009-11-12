@@ -3,11 +3,11 @@
 <div class="left_image">
 </div>
   <div class="right">
-<h2>Thank you for your feedback.</h2>
+<h2>Thank you for your feedback</h2>
 <br />
-<p>Your ticket number is: <%= @feedback.id %>.</p>
+<p>Your ticket number is: <%= @feedback.id %></p>
 <br />
-<p>Would you like to receive email confirmation of this?</p>
+<p>Would you like to receive an email confirmation?</p>
 <br />
 <div class="buttons"><%= submit_tag("Yes", :id => "issue_feedback_confirmation", :style => "display:inline;" ) %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%= submit_tag("No", :id => "no_feedback_confirmation", :style => "display:inline;" ) %></div>
   </div>
@@ -25,6 +25,7 @@
     );
       $("#feedback_confirmation").dialog("option","title","Confirmation of Feedback");
       $("#feedback_confirmation").parent().css('background-color','#D1DDE6');
+      $('#feedback_confirmation').parent().find("a").css("display","none");
       $("#feedback_confirmation").css('background-color','#D1DDE6');
       $("#feedback_confirmation").dialog("open");
 
