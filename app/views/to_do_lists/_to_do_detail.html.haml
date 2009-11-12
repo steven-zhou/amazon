@@ -8,5 +8,5 @@
       = link_to image_tag("Icons/System/todo_done.png"), switch_to_do_list_path(to_do_detail), :class => "get", :title=>"Switch"
     = link_to image_tag("edit_icon.png"), edit_to_do_list_path(to_do_detail), :class => "get", :title=>"Edit"
     = link_to image_tag("delete_icon.png"), to_do_list_path(to_do_detail), :class => "delete", :title=>"Remove", :error_message_field => "To Do"
-  .title{:style => "width:90%"}
+  .title{:style => "width:90%;font-size:13px;font-weight:bold;padding-top:3px;"}
     %h2 #{to_do_detail.description}
