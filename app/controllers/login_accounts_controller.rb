@@ -72,6 +72,7 @@ class LoginAccountsController < ApplicationController
   def update
     @login_account = SystemUser.find(params[:id].to_i)
     @login_account.update_password = false
+
     if @login_account.update_attributes(params[:login_account])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Login Account ID #{@login_account.id} #{@login_account.user_name}.")
       flash.now[:message] = " Saved successfully"

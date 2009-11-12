@@ -39,11 +39,11 @@
       $("#flash_message").css('background-color','#D1DDE6');
 
   <%- if flash[:error] %>
-        $('#flash_message').dialog( 'option', 'title', 'ERROR');
+        $('#flash_message').dialog( 'option', 'title', 'Error');
         $('#flash_message_text').html("<%= escape_javascript(flash[:error]) %>");
 
   <%- elsif flash[:warning] %>
-        $('#flash_message').dialog( 'option', 'title', 'WARNING');
+        $('#flash_message').dialog( 'option', 'title', 'Warning');
         $('#flash_message_text').html("<%= escape_javascript(flash[:warning]) %>");
   <%- elsif flash[:process_end] %>
         $('#flash_message').dialog( 'option', 'title', 'Completed Task');

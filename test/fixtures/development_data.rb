@@ -38,12 +38,6 @@ memberzone = MemberZone.create(
   :authentication_grace_period => 9
 )
 
-puts "Set password for member zone user"
-client_setup = ClientSetup.first
-client_setup.member_zone_power_password = "123456"
-client_setup.super_admin_power_password = "123456"
-client_setup.save
-
 puts "Creating Super Admin"
 superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
@@ -52,6 +46,12 @@ superadmin = SuperAdmin.create(
   :session_timeout => 30,
   :authentication_grace_period => 999
 )
+
+puts "Set password for member zone user"
+client_setup = ClientSetup.first
+client_setup.member_zone_power_password = "123456"
+client_setup.super_admin_power_password = "123456"
+client_setup.save
 
 puts "Assign Group to Super Users."
 

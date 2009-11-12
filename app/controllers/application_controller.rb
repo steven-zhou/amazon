@@ -56,6 +56,7 @@ class ApplicationController < ActionController::Base
     when "login_permission_error"           then "You do not have the appropriate level of permissions to log into the system. Please see your System Administrator."
     when "session_timeout"                  then "Your login session has timed out. For security reasons you will need to log in again."
     when "grace_period_expired"             then "You have attempted to login after the grace period for your account. Your account has been deleted. Please see your Systems Administrator."
+    when "account_inactive"                 then "Your account is currently inactive. Please see your System Administrator."
     when "login_count_error"                then "Your account has been locked. Please see your System Administrator."
     when "supplied_info_incorrect"          then "The details you supplied were incorrect."
     when "password_confirm_error"           then "The new password you entered did not match your confirmation password. Please try again."
