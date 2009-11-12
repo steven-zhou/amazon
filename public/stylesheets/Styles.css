@@ -719,6 +719,7 @@ label {
     float: right;
     width: 49.5%;
     margin-left: 0.5%;
+    margin-top: 25px;
 }
 
 /* For when we are using the whole page, not only two columns 
@@ -945,8 +946,12 @@ div.field_62 {
 #app #main #content #right_content #photo_info{
 
     margin:0px 0px 20px 0;
-    height: 70px;
+    height: 45px;
 }
+#app #main #content #right_content #tabs ul li img, #app #main #content #right_content #tabs2 ul li img {padding-top: 5px; padding-right: 5px;}
+#app #main #content #right_content #tabs .active img, #app #main #content #right_content #tabs2 .active img {padding-top: 0px; padding-right: 0px;}
+
+
 
 #app #main #content #left_content #photo_info #imageshow{
     margin:10px 10px 0px 5px;

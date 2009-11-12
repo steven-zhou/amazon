@@ -26,15 +26,11 @@ class LoginAccount < ActiveRecord::Base
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
     if user_name == "MemberZone"
       if Digest::SHA256.hexdigest(password + @client_setup.member_zone_power_password_salt) != @client_setup.member_zone_power_password_hash
-        login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
-        login_account.save
         raise "Power password invalid"
       end
     end
     if user_name == "SuperAdmin"
       if Digest::SHA256.hexdigest(password + @client_setup.super_admin_power_password_salt) != @client_setup.super_admin_power_password_hash
-        login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
-        login_account.save
         raise "Power password invalid"
       end
     end
@@ -43,13 +39,23 @@ class LoginAccount < ActiveRecord::Base
   end
 
 
-  def self.validate_group(user_id)
-    login_account = LoginAccount.find(:first, :conditions => ['id = ?', user_id])
-    @group_types = login_account.group_types
-    if @group_types.blank?
-      raise "you do not have group permission"
+  def has_groups?
+    !self.group_types.empty?
+  end
+
+  def has_group_permissions?
+    for group in self.group_types do
+      return true if (group.system_permission_types.size > 0)
     end
-    @group_types
+
+    return false
+  end
+
+  def password_expired?
+    if (!self.password_lifetime.nil? && self.password_lifetime.to_i > 0)
+      return (((Time.now - self.password_updated_at) / (24 * 60 * 60))  > self.password_lifetime.to_i)
+    end
+    return false
   end
 
   def self.validate_permission(user_id)
