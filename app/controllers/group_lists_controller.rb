@@ -39,7 +39,7 @@ class GroupListsController < ApplicationController
     @group_list = GroupList.new(params[:group_list])
     if @group_list.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Group List #{@group_list.id}.")
-      flash.now[:message]= "Saved successfully."
+      flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "Group List")
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "tag_id")if (!@group_list.errors[:tag_id].nil? && @group_list.errors.on(:tag_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "list_header_id")if (!@group_list.errors[:list_header_id].nil? && @group_list.errors.on(:list_header_id).include?("can't be blank"))

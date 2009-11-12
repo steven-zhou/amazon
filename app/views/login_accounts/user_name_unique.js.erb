@@ -15,8 +15,8 @@
     buttons: {
 
     OK: function(){
-
-    $(this).dialog('close');
+ 
+    $(this).dialog('destroy');
     }
     }
     });
@@ -29,7 +29,7 @@
     $('#user_name_container_0').html("UserName not taken")
     $('#no_username').show();
     $('#yes_username').hide();
-
+    
     $("#flash_message_text").html("<%=escape_javascript(flash.now[:error])%>");
     $("#flash_message").dialog( {
 
@@ -41,8 +41,8 @@
     buttons: {
 
     OK: function(){
-
-    $(this).dialog('close');
+   $('#login_account_user_name').val("");
+    $(this).dialog('destroy');
     }
     }
     });
@@ -72,7 +72,7 @@
 
     OK: function(){
 
-    $(this).dialog('close');
+    $(this).dialog('destroy');
     }
     }
     });
@@ -97,7 +97,7 @@
 
     OK: function(){
 
-    $(this).dialog('close');
+    $(this).dialog('destroy');
     }
     }
     });
