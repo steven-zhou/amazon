@@ -18,8 +18,8 @@
  $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <% else %>
-
-  $("#flash_feedback").html("<%= escape_javascript(flash[:message]) %>");
+ $('#flash_message').dialog('destroy');
+  $("#flash_feedback").html("New Login Account Was Saved Successfully");
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
 
