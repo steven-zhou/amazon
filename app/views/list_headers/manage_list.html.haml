@@ -2,7 +2,7 @@
   %h1 Existing Lists
   %input.hidden{:id => "list_mode", :mode => "show"}
   #show_lists
-    = render :partial => "lists/saved_list", :collection => ListHeader.sortall
+    = render :partial => "lists/saved_list", :collection => @list_headers
   %br.clear
 
 .container#edit_list.hidden

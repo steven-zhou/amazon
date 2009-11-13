@@ -96,7 +96,8 @@ class LoginAccount < ActiveRecord::Base
 
   def custom_lists
     custom_lists = Array.new
-    self.user_lists.each do |i|
+    user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
+    user_lists.each do |i|
       custom_lists << ListHeader.find(i.list_header_id)
     end
     custom_lists.uniq
