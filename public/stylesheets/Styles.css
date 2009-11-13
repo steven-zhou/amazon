@@ -2261,8 +2261,6 @@ div#permission_form .options{
     text-decoration:none;
 }
 
-
-
 /*spinner*/
 
  .spinning {
@@ -2270,4 +2268,23 @@ div#permission_form .options{
 
      }
 
+  /* WHO AM I DIV*/
+  #whoami {
+      height:26px;
+      width:175px;
+      padding:10px;
+      position: fixed;
+      z-index: 100;
+      bottom: 0%;
+      left: 0%;
+      background: #f6f6f6 url('/images/container_bg.png') repeat ;
+      -moz-border-radius-topright: 15px;
+      font-size: 11px;
+      font-weight: bold;
+      font-family: Arial,Helvetica,Sans-serif;
+      color: #333;
+      line-height: 13px;
+
+
+  }
 

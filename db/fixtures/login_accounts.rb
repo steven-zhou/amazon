@@ -24,6 +24,10 @@ create1 = SystemPermissionType.create(:name => "group_list_create", :system_perm
 destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_permission_meta_type => mdmt1, :status => true)
 
 
+puts "Initializing Custom Group."
+custom = GroupMetaMetaType.create(:name => "Custom", :status => true)
+security = GroupMetaMetaType.create(:name => "Security", :status => true)
+GroupMetaType.create(:name => "System Users", :group_meta_meta_type => security, :status => true)
 
 puts "Initializing Super Group."
 supermetatype = GroupMetaMetaType.create(:name => "MemberZone", :status => true)
