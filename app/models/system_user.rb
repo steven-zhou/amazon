@@ -20,7 +20,7 @@ class SystemUser < LoginAccount
   validates_uniqueness_of :person_id, :security_email
   validate :person_must_exist
   validates_length_of :user_name, :within => 6..30, :too_long => "pick a shorter name", :too_short => "pick a longer name"
-  validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i, :message => "regular expression of username is wrong."
+  validates_format_of :user_name, :with => /^[A-Za-z0-9!@$%^&*()_#]+$/i, :message => "regular expression of username is wrong"
   validates_format_of :security_email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
 
   #--------sepcial for user

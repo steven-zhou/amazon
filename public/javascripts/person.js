@@ -100,7 +100,7 @@ $(function() {
         if($('#check_input_change').val()=="true")
         {
            
-            $('#warning_message_text').html("Are you sure you wish to clear the entered data ? ");
+            $('#warning_message_text').html("Are You Sure You Wish to Clear The Entered Data? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -181,7 +181,7 @@ $(function() {
 
         if(temp=="true")
         {
-            $('#warning_message_text').html("Are you sure you wish to clear the entered data ? ");
+            $('#warning_message_text').html("Are You Sure You Wish to Clear The Entered Data ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
