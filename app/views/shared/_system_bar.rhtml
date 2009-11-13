@@ -52,15 +52,16 @@
 
   </div>
   <div class="bar_section" id="sys_icons" >
-    <div style="width:38px;float:left;">
+    <div id="dash_icon">
       <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), {:controller => "module", :action => "dashboard"}, {:title=>"Dashboard"}%>
     </div>
+    <div id="user_preferences">
     <div id="preferences_menu">
       <div id="preferences_menu_top">
         <%= link_to_function image_tag('Icons/System/user_preferences.png'), :title=>"User Preferences", :id => "user_preferences"%>
       </div>
-      <div id="preferences_menu_items" >
-
+      <div id="preferences_menu_items" style="display:none;" >
+          <div id="preferences_menu_neck" ></div>
         <ul>
           <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} My Dashboard", :id => "save_my_dashboard"%></li>
           <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} My Workflow"%></li>
@@ -69,7 +70,8 @@
         <div id="preferences_menu_bottom" ></div>
       </div>
     </div>
-  </div>
+    </div>
+    </div>
 
   <div class="bar_section" id="search">
     <input value ="Search System" size ="20" disabled>
