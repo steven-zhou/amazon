@@ -8,10 +8,9 @@
       .field_20
         =f.label :description, "List Description"
         =f.text_field :description
-      .field_20
-        =f.label :allow_duplication, "&nbsp;"
-        =f.check_box :allow_duplication, :style => "width:30%;display:inline"
-        =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;display:inline"
+      .field_30
+        =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;"
+        =f.check_box :allow_duplication, :style => "width:30%;"
       .field_20{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "query_header_id", :id => "query_header_id", :value => @query_header.id}

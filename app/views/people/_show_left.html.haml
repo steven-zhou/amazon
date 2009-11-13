@@ -9,36 +9,45 @@
     %div#photo_info
       %div#imageshow{:style => "float:left;"}
         -if @person.image.nil?
-          = image_tag 'Icons/System/image-missing.png', :class => "small"
+          = image_tag 'Icons/System/image-missing.png', :class => "medium"
         -else
-          = image_tag(image_path(@person.image.id), :class => "small")
+          = image_tag(image_path(@person.image.id), :class => "medium")
 
 
-      %div#person_name
+      %div#person_name{:style=>"width:360px;margin-left:130px;height:140px;"}
         - if @person.id.nil?
           %h1{:style=>'visibility:hidden'} Hidden
         -else
           %h1= h "#{@person.name}"
-        %br
-        .form_line
-          = label_tag 'custom_id', 'Custom ID'
-          %span=@person.custom_id
-        .form_line
-          = label_tag 'onrecord_since', 'On Record Since'
-          %span=@person.onrecord_since.to_s
+        .form_line{:style=>"width: 193px; margin-top: 10px;"}
+          %div#customerid{:style=>"width:193px;"}
+            = label_tag :customerid, "Custom ID",:style=>"font-size: 12px;"
+            %div.display_field_bg{:style=>"margin-left: 4px;"}
+              = @person.custom_id
+        .form_line{:style=>"width:193px;margin-top:2px;"}
+          %div#onrecordsince{:style=>"width:193px;"}
+            = label_tag :on_record_since, "On Record Since",:style=>"font-size: 12px;"
+            %div.display_field_bg{:style=>"margin-left: 4px;"}
+              = @person.onrecord_since.to_s
         %br
 
     .container
       %h1 Primary Contacts
       .container
-        Phone &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_phone.nil? ? "None assigned": @primary_phone.number
+        .left
+          Phone
+        .right
+          = @primary_phone.nil? ? "None assigned": @primary_phone.number
       .container
-        Website &nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_website.nil? ? "None assigned": @primary_website.value
+        .left
+          Website
+        .right
+          = @primary_website.nil? ? "None assigned": @primary_website.value
       .container
-        Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        = @primary_email.nil? ? "None assigned": @primary_email.value
+        .left
+          Email
+        .right
+          = @primary_email.nil? ? "None assigned": @primary_email.value
 
     .container
       %h1= @primary_address.nil? ? "Primary Address" : "Primary Address"
@@ -47,7 +56,8 @@
 
     .container
       %h1 Notes
-      .container
+      - note1_status = @person.notes.first.blank? ? "hidden" : ""
+      .container{:class => "#{note1_status}"}
         %div.left
           = @person.notes.blank? ? "No Notes": @person.notes.first.id
           = @person.notes.first.note_type.name unless @person.notes.blank?
@@ -57,7 +67,8 @@
           = @person.notes.first.label unless @person.notes.blank?
           = @person.notes.first.short_description unless @person.notes.blank?
         %br.clear
-      .container
+      - note2_status = @person.notes.second.blank? ? "hidden" : ""
+      .container{:class => "#{note2_status}"}
         %div.left
           = @person.notes.second.blank? ? "No Notes": @person.notes.second.id
           = @person.notes.second.note_type.name unless @person.notes.second.blank?
@@ -78,12 +89,16 @@
 
 
   #right_content
-    #photo_info
-    .container_icon{:align => 'center'}
-      = link_to_function "#{image_tag('person_details.png')} Personal", :style=>"font-size:17px;", :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info"
-    .container_icon{:align => 'center', :class => "container_icon_color"}
-      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info"
-
+    #photo_info{:style => "margin-bottom:35px;"}
+    .tab_switch
+      .profile_tab_right{:field =>"person_info"}
+      .container_icon{:align => 'center'}
+        = link_to_function "<h1>Personal</h1>",  :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info", :color_id => "1"
+      .profile_tab_left{:field =>"person_info"}
+      .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
+      .container_icon{:align => 'center', :class => "container_icon_color"}
+        = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
+      .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
 
 
 

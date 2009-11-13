@@ -4,6 +4,10 @@
     %div.display_field_bg
       =@person.birth_date.nil? ? "" : @person.birth_date.to_s
   .field_30
+    = label_tag :age,"Age", {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
+  .field_30
     = label_tag :gender, 'Gender', {:style => "color: #232323;"}
     %div.display_field_bg
       =@person.gender.nil? ? "" :@person.gender.name.to_s
@@ -40,7 +44,6 @@
     = label_tag :residence_country_id,"Country of Residence", {:style => "color: #232323;"}
     %div.display_field_bg
       = @person.residence_country.nil? ? "" :@person.residence_country.short_name.to_s
-    
   .field_30
     = label_tag :other_nationality_id,"Other Nationality", {:style => "color: #232323;"}
     %div.display_field_bg

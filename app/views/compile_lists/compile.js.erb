@@ -18,15 +18,12 @@ $('#flash_message').dialog('open');
 $('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results", :locals => {:people => @people})) %>');
 $('#compile_result_div').dialog({
   modal: true,
+  position: 'center',
   resizable: true,
   draggable: true,
-  height: 700,
-  width: 1300,
-  buttons: {
-    Ok: function() {
-      $(this).dialog('close');
-    }
-  }
+  height: 'auto',
+  width: 1300
+
 });
 $('#compile_result_div').dialog('option', 'title', 'Compile Result');
 $('#compile_result_div').dialog('open');
