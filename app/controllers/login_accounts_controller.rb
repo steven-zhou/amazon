@@ -2,20 +2,27 @@ class LoginAccountsController < ApplicationController
   # System Logging done...
  
   def user_name_unique
+  
     @error_flag_unique = (LoginAccount.find_by_user_name(params[:user_name]).nil?) ? false : true
     @error_flag_length = ( params[:length].to_i < 6 || params[:length].to_i > 30 || params[:length].blank? ) ? true : false
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
-  
-    unless @login_account.new_record? 
+
+    unless @login_account.new_record?
       if (@login_account == LoginAccount.find_by_user_name(params[:user_name]))
         @error_flag_unique = false
       end
     end
-    
+  puts @error_flag_unique
+  puts @error_flag_length
+
     if @error_flag_unique
-      flash.now[:error] = "The username has been taken"    
+
+      flash.now[:error] = "The username has been taken or length is wrong, please choose between 6 to 30 "
+      puts flash.now[:error]
     elsif @error_flag_length
-      flash.now[:error] = "The Username Length is wrong, please choose between 6 to 30"    
+   
+      flash.now[:error] = "The username has been taken or length is wrong, please choose between 6 to 30"
+      puts flash.now[:error]
     end
     respond_to  do |format|
       format.js

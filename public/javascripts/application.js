@@ -174,7 +174,7 @@ $(function() {
         var link = $(this);
         if(change_type=="true" )
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -280,7 +280,7 @@ $(function() {
         var link = $(this);
         if($(this).attr("error_message_field" != null))
         {
-            $('#warning_message_text').html("Are you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");
+            $('#warning_message_text').html("Are You Sure You Wish to Delete This "  + $(this).attr("error_message_field") + " ? ");
         }
         else
         {
@@ -920,7 +920,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1005,7 +1005,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1664,7 +1664,7 @@ $(function(){
         if($(this).val()!=""){
             if((!_valid)){
                 
-                $('#error_message_text').html("Invalid Email! ");
+                $('#error_message_text').html("Invalid Email Address ");
                 $('#error_message_image').css("display","");
                 $('#error_message').dialog({
                     modal: true,
@@ -1707,7 +1707,7 @@ $(function(){
             }
         }else{
 
-            $('#error_message_text').html("Invalid Email! ");
+            $('#error_message_text').html("Invalid Email Address ");
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -1790,7 +1790,7 @@ $(function(){
 
         if ($(this).val()!= $('#login_account_password').val()){
 
-            $('#error_message_text').html("Password confirmation is different with password! ");
+            $('#error_message_text').html("Passwords DO NOT Match ");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -1884,7 +1884,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are you Sure You Wish to EXIT ?");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1965,7 +1965,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -2417,7 +2417,7 @@ $(function(){
             if((!_valid) || $(this).val()<0){
                 var link = $(this);
    
-                $('#error_message_text').html("This field has to be integer! ");
+                $('#error_message_text').html("Entered Value Must be Integer Only ");
 
                 $('#error_message_image').css("display","");
                 $('#error_message').dialog({
@@ -2451,7 +2451,7 @@ $(function(){
             if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
                 var link = $(this);
 
-                $('#error_message_text').html("This field has be an integer between 0 and 100! ");
+                $('#error_message_text').html("Entered Value Must be in Range 00 - 100 Only ");
 
                 $('#error_message_image').css("display","");
                 $('#error_message').dialog({
@@ -2556,7 +2556,7 @@ check_email_field = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Email !");
+            $('#error_message_text').html("Invalid Email Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2591,7 +2591,7 @@ check_email_field_edit = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Email !");
+            $('#error_message_text').html("Invalid Email Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2632,7 +2632,7 @@ $(function(){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid email address!");
+                    $('#error_message_text').html("Invalid Email Address");
 
 
                     $('#error_message_image').css("display","");
@@ -2714,7 +2714,7 @@ $(function(){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid Email !");
+                    $('#error_message_text').html("Invalid Email Address");
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -3710,7 +3710,7 @@ $(function(){
         var link = $(this);
         if  ($(this).parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value') == "true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -3753,7 +3753,7 @@ $(function(){
         }
         else if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -4251,7 +4251,7 @@ $(function(){
         if ( $('#check_input_change').val()=="true")
         {
 
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -4317,7 +4317,7 @@ $(function(){
         if ( $('#check_input_change').val()=="true")
         {
 
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -4678,7 +4678,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5202,7 +5202,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5223,7 +5223,7 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
-                        $("#keyword_add_entry_form").hide();
+                        $("#keyword_add_entry_form").css('display','none');
                         $("#edit_keyword_entry").html("");
                         $("#keyword_type").attr("disabled",false);
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -5266,7 +5266,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -6194,7 +6194,7 @@ $(function(){
 //
 //        }
 //        else{
-//            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+//            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
 //            $('#warning_message_image').css("display","");
 //            $('#warning_message').dialog({
 //                modal: true,

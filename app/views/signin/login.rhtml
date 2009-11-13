@@ -36,12 +36,13 @@
             resizable: false,
             draggable :false,
             height: 250,
-            width: 550
+            width: 575
           }
         );
           $("#login_help_screen").parent().css('background-color','#D1DDE6');
           $("#login_help_screen").css('background-color','#D1DDE6');
           $('#login_help_screen').dialog('option', 'title', 'Login Assistant');
+          $(".login_help_content").show();
           $("#login_help_screen").dialog("open");
         });
 
