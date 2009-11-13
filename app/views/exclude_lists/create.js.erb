@@ -12,12 +12,18 @@ $('#flash_message').dialog( {
   resizable: false,
     draggable: true,
     position: 'centre',
+    height: 'auto',
+    width: 'auto',
     buttons: {
       Ok: function() {
         $(this).dialog('close');
       }
     }
   });
+
+          $('#flash_message').parent().find("a").css("display","none");
+            $("#flash_message").parent().css('background-color','#D1DDE6');
+            $("#flash_message").css('background-color','#D1DDE6');
 $('#flash_message').dialog('open');
 <%- end %>
 $("#compiler_options").val('');

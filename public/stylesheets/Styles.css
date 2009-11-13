@@ -955,7 +955,9 @@ div#edit_query input[type=submit] {
 }
 
 div.highlight {
-    background-color : red;
+    /*background-color : red;*/
+
+    background-image: url(/images/container_red_bg.png) !important;
 }
 
 .hidden {
@@ -2138,6 +2140,7 @@ div#permission_form .options{
     height:auto;
     float:right;
 }
+
 
 .container {
     font-family:Arial, Helvetica, sans-serif;

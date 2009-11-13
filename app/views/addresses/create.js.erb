@@ -7,7 +7,7 @@
   $('#address_check_type').html('<%= escape_javascript(render(:partial => "/addresses/organisation_personal_address_type",:locals => {:address => @address_new })) %>');
   $('#addresses').html('<%= escape_javascript(render(:partial => "/addresses/address",:collection => @organisation.addresses)) %>');
     $('.organisation_address_close').css("display","none");
-    $('.close_option[field="note"]').css("display","none");
+    $('.close_option[field="address"]').css("display","none");
 
   <% end -%>
   $("#new_address")[0].reset();

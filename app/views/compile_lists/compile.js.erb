@@ -4,6 +4,8 @@ $('#flash_message').dialog( {
     modal: true,
       resizable: false,
     draggable: true,
+      height: 'auto',
+      width: 'auto',
     <%#*position: 'top',%>
     buttons: {
       Ok: function() {
@@ -11,7 +13,13 @@ $('#flash_message').dialog( {
       }
     }
   });
-  $('#flash_message').dialog('option', 'title', 'Error');
+
+
+   $('#flash_message').parent().find("a").css("display","none");
+   $("#flash_message").parent().css('background-color','#D1DDE6');
+   $("#flash_message").css('background-color','#D1DDE6');
+
+$('#flash_message').dialog('option', 'title', 'Error');
 $('#flash_message').dialog('open');
 <%- else %>
 

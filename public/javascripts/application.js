@@ -2228,6 +2228,62 @@ $(function(){
 
 $(function(){
     $("#close_edit_query").live('click', function(){
+       var link = $(this);
+        if($('#check_input_change').val()=="true")
+       {
+           $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $("#new_query").css('display','');
+        $(".highlight").removeClass("highlight");
+        link.css("display", "none");
+        $("#edit_query").css("display", "none");
+        $("#" + link.attr('field')+'_mode').attr('mode','show');
+        $('#edit_query_form').html('');
+        $('#edit_query_list').html('');
+        $('#edit_selection_form').html('');
+        $('#edit_selection_list').html('');
+        $('#edit_sorter_form').html('');
+        $('#edit_sorter_list').html('');
+        $('#check_input_change').val('false');
+
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
+     return false;
+
+
+
+
+
+         }
+    else
+        {
+
         $("#new_query").css('display','');
         $(".highlight").removeClass("highlight");
         $(this).css("display", "none");
@@ -2238,6 +2294,8 @@ $(function(){
         $('#edit_selection_list').html('');
         $('#edit_sorter_form').html('');
         $('#edit_sorter_list').html('');
+
+        }
     });
 });
 
@@ -3767,11 +3825,9 @@ $(function(){
            
             });
             $('#warning_message').dialog('option', 'title', 'Warning');
-
             $('#warning_message').parent().find("a").css("display","none");
             $("#warning_message").parent().css('background-color','#D1DDE6');
             $("#warning_message").css('background-color','#D1DDE6');
-
             $('#warning_message').dialog('open');
             return false;
         }
