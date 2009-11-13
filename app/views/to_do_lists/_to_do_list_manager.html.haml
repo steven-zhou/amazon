@@ -1,4 +1,4 @@
-.container
+.container.container_active
   %h2 Processing
   %input{:style => "display:none;", :id => "to_do_mode", :mode => "show"}
   #processing_to_dos
@@ -15,7 +15,7 @@
     - else
       = render :partial => "to_do_lists/to_do_detail", :collection => @new_to_do
 
-.container
+.container.container_inactive
   %h2 Completed
   #completed_to_dos
     - if @completed_to_do.empty?

@@ -122,8 +122,8 @@ h1 {
         float: left;
     }
     .login_help_content{
-        height: 180px;
-        width: 450px;
+        min-height: 180px;
+        width: 350px;
         margin-top: 20px;
         float: left;
     }
@@ -148,7 +148,7 @@ h1 {
         -moz-border-radius: 10px;
         height: 20px;
         padding:10px;
-        margin-top: 15px;
+        margin: 7px auto;
     }
 
       .login_help_content li:hover {
@@ -159,7 +159,9 @@ h1 {
         text-decoration: underline;
 
     }
-
+    .login_help_content #password_captcha {float: left; width: 100%;}
+    .login_help_content #password_reset_submit, .login_help_content #username_retrieval_submit {float: left; width:100%; text-align: right;}
+    .login_help_content input[type=text] { width: 200px;}
 
 #login_help_screen h1 img {
     display: inline;
@@ -203,6 +205,11 @@ h1 {
 span.small_font {
     font-size: small;
 }
+ /* SIMPLE CAPTCHA CSS STYLING*/
+ #simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}
+#simple_captcha .form_line #captcha_image img{width: 110px !important; height:30px; background-color: #fff;}
 
+
+  
 
 

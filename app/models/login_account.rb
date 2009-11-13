@@ -4,6 +4,7 @@ class LoginAccount < ActiveRecord::Base
   attr_accessor :password
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
+  has_many :dashboard_preferences
 
   validates_uniqueness_of :user_name, :case_sensitive => false
 

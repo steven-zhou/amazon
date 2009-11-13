@@ -391,9 +391,11 @@ class PeopleController < ApplicationController
 
   def show_left
  
-    check_user
+#    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
+    @list_headers = @current_user.all_lists
+ 
     @p = Array.new
     @p = @list_header.people_on_list
     @primary_phone = @person.primary_phone
