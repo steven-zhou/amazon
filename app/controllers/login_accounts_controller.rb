@@ -131,13 +131,16 @@ class LoginAccountsController < ApplicationController
 
   def update_password
 
-    old_password = params[:old_password]
-    new_password = params[:login_account][:password]
-    new_password_confirmation = params[:login_account][:password_confirmation]
-    answer_1 = params[:login_account][:question1_answer]
-    answer_2 = params[:login_account][:question2_answer]
-    answer_3 = params[:login_account][:question3_answer]
-    
+    old_password = params[:old_password].nil? ? "" : params[:old_password]
+    new_password = (params[:system_user].nil? || params[:system_user][:password].nil?) ? "" : params[:system_user][:password]
+    new_password_confirmation = (params[:system_user].nil? || params[:system_user][:password_confirmation].nil?) ? "" : params[:system_user][:password_confirmation]
+    answer_1 = (params[:system_user].nil? || params[:system_user][:question1_answer].nil?) ? "" : params[:system_user][:question1_answer]
+    answer_2 = (params[:system_user].nil? || params[:system_user][:question2_answer].nil?) ? "" : params[:system_user][:question2_answer]
+    answer_3 = (params[:system_user].nil? || params[:system_user][:question3_answer].nil?) ? "" : params[:system_user][:question3_answer]
+
+
+
+
     # If the old password or security answers is wrong decrease access_attempts_count
     # If the access_attempts_count == 0 kick them out
 
@@ -158,14 +161,14 @@ class LoginAccountsController < ApplicationController
     elsif (@current_user.question1_answer.downcase != answer_1.downcase || @current_user.question2_answer.downcase != answer_2.downcase || @current_user.question3_answer.downcase != answer_3.downcase)
       # If the answers supplied were invalid
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) supplied invalid security question answers when attempting to change their password.")
-      flash[:warning] = flash_message(:type => "supplied_info_incorrect")
+      flash[:warning] = flash_message(:message => "The answers to your security questions were wrong.")
       @current_user.access_attempts_count -= 1
       @current_user.save
       redirect_to :action => "change_password"
     elsif(!password_valid)
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) supplied an invalid old password when attempging to change their password.")
       # If they supplied an invalid password
-      flash[:warning] = flash_message(:type => "supplied_info_incorrect")
+      flash[:warning] = flash_message(:type => "set_password_error")
       @current_user.access_attempts_count -= 1
       @current_user.save
       redirect_to :action => "change_password"
