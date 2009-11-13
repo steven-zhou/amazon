@@ -2484,7 +2484,7 @@ check_empty_value = function(){
   
     if( $("#"+$(this).attr("check_field")).val()== "")
     {
-        var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
+        var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" Must be Filled"
         var link = $(this);
 
         $('#error_message_text').html(error_message);
@@ -2666,7 +2666,7 @@ $(function(){
                 if((!_valid1)){
                     var link1 = $(this);
 
-                    $('#error_message_text').html("Invalid website address!");
+                    $('#error_message_text').html("Invalid Website Address");
 
 
                     $('#error_message_image').css("display","");
@@ -2746,7 +2746,7 @@ $(function(){
                 if((!_valid1)){
                     var link1 = $(this);
 
-                    $('#error_message_text').html("Invalid Website !");
+                    $('#error_message_text').html("Invalid Website Address");
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2788,7 +2788,7 @@ check_website_field = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Website !");
+            $('#error_message_text').html("Invalid Website Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2826,7 +2826,7 @@ check_website_field_edit = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Website!");
+            $('#error_message_text').html("Invalid Website Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2930,7 +2930,7 @@ $(function(){
 $(function(){
     $('#apply_personal_duplication').live('click', function(){
    
-        $('#warning_message_text').html("Do you want to generate duplication value? ");
+        $('#warning_message_text').html("You Have Applied a New Duplication Formula Successfully, Do You Wish to Re-Generate the People Duplication Index Now? ");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
             modal: true,
@@ -3018,7 +3018,7 @@ $(function(){
 $(function(){
     $('#load_personal_duplication').live('click', function(){
 
-        $('#load_personal_message_text').html("Are you sure to load default setting? ");
+        $('#load_personal_message_text').html("Are You Sure You Wish to Load the System Default Setting? ");
        
         $('#load_personal_default').dialog({
             modal: true,
@@ -3072,7 +3072,7 @@ $(function(){
     $('#load_organisational_duplication').live('click', function(){
 
 
-        $('#load_organisational_message_text').html("Are you sure to load default setting? ");
+        $('#load_organisational_message_text').html("Are You Sure You Wish to Load the System Default Setting? ");
 
         $('#load_organisational_default').dialog({
             modal: true,
@@ -5651,7 +5651,7 @@ $(function(){
 $(function(){
     $(".check_postcode_columns").blur(function(){
         if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
-            alert("You must enter a positive value for the column number.");
+            alert("Invalild Post Code Value");
             $(this).val('');
         };
 
@@ -5679,7 +5679,7 @@ $(function(){
             $('#import_postcode_parameters').dialog('open');
             $('#import_postcode_parameters').dialog('option', 'title', 'Postcode upload parameters');
         } else {
-            alert("You must nominate at least one column.")
+            alert("All Fields Must be Filled")
         }
     });
 });
@@ -5820,7 +5820,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5897,7 +5897,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5976,7 +5976,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,

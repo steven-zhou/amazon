@@ -1,9 +1,9 @@
 <% if @organisation.nil? %>
   <% if @employment.new_record? %>
-    $("#organisation_name_container_0").html("Invalid ID");
+    $("#organisation_name_container_0").html("Organisation Does Not Exist on File");
     $("#employment_organisation_id").focus();
    <% else %>
-   $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").html("Invalid ID");
+   $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").html("Organisation Does Not Exist on File");
    $("#employment_<%=escape_javascript("#{@employment.id}")%>_organisation_id").focus();
    <%  end %>
 <% else %>

@@ -73,7 +73,7 @@ class OrganisationsController < ApplicationController
         if @image.save
           @organisation.image = @image
         else
-          flash[:warning] = "The image was not saved."
+          flash[:warning] = "There Was an Error to Save the Selected Image."
         end
       end
       @organisation_new = Organisation.new
@@ -94,7 +94,7 @@ class OrganisationsController < ApplicationController
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
       #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      flash[:warning] = "There was an error creating a new organisation profile. Please check you entered a full name."
+      flash[:warning] = "Organisation Profile Has NOT been Created Due to Data Errors"
       redirect_to new_organisation_path
     end
   end
@@ -139,17 +139,17 @@ class OrganisationsController < ApplicationController
           @organisation.image.destroy unless @organisation.image.nil?
           @organisation.image = @image
         else
-          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
+          flash[:warning] = "There Was an Error to Save the Selected Image"
         end
       end
     end
 
     @organisation.update_attributes(params[type.to_sym])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
-    flash[:warning] = "There was an error updating the person's details." unless @organisation.save
+    flash[:warning] = "Organisation Update Has NOT been Submitted Due to Data Errors" unless @organisation.save
 
 
-    flash[:message] = "#{@organisation.full_name}'s information was updated successfully." unless !flash[:warning].nil?
+    flash[:message] = "#{@organisation.full_name}'s Details Have been Updated Successfully." unless !flash[:warning].nil?
     #modified by Tao, remove 'Submit and Close' button.
     #if(params[:edit])
     #    redirect_to edit_organisation_path(@organisation)

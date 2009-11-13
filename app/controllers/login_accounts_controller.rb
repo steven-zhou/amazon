@@ -17,11 +17,11 @@ class LoginAccountsController < ApplicationController
 
     if @error_flag_unique
 
-      flash.now[:error] = "The username has been taken or length is wrong, please choose between 6 to 30 "
+      flash.now[:error] = "The Required User Name Is Unavailable or Username Must Be Between 6 and 30 Characters Long "
       puts flash.now[:error]
     elsif @error_flag_length
    
-      flash.now[:error] = "The username has been taken or length is wrong, please choose between 6 to 30"
+      flash.now[:error] = "The Required User Name Is Unavailable or Username Must Be Between 6 and 30 Characters Long"
       puts flash.now[:error]
     end
     respond_to  do |format|
@@ -37,7 +37,7 @@ class LoginAccountsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Login Account with ID #{@login_account.id} and Username #{@login_account.user_name}.")
       email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
       LoginAccountPasswordResetDispatcher.deliver(email)
-      flash.now[:message] = "Saved successfully."
+      flash.now[:message] = "New User Account is Saved successfully."
     else
       
       
@@ -82,7 +82,7 @@ class LoginAccountsController < ApplicationController
 
     if @login_account.update_attributes(params[:login_account])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Login Account ID #{@login_account.id} #{@login_account.user_name}.")
-      flash.now[:message] = " Saved successfully"
+      flash.now[:message] = " New User Account is Saved successfully."
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "too_short", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a longer name"))
@@ -118,7 +118,7 @@ class LoginAccountsController < ApplicationController
     if @login_account.save
       email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
       LoginAccountPasswordResetDispatcher.deliver(email)
-      flash.now[:message] = "change the password already, check your email please"
+      flash.now[:message] = "A New Password Has Been Generated and Sent to User by Email"
     end
     respond_to do |format|
       format.js
