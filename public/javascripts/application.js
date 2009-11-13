@@ -10,6 +10,7 @@ $(function(){
 });
 
 
+
 $(function(){
     $("#datepicker").datepicker();
 });
@@ -2660,12 +2661,16 @@ $(function(){
                 }
                
             }
-
-    _valid1 = /^((https|http|ftp|rtsp|mms):\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+           var valid_temp;
+    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+    _valid2 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
 // _valid1 = /^(http|https|ftp):\/\/[\w-]+[\.\w-]*\.[\w-]+(\/[^\s]*)?$/.test($("#person_websites_attributes_3_value").val());
-          
+          if (_valid1==true || _valid2 ==true)
+              {
+                  valid_temp = true;
+              }
           if($('#person_websites_attributes_3_value').val()!="" && $('#person_websites_attributes_3_value').val()!="http://"  ){
-                if((!_valid1)){
+                if((!valid_temp)){
                     var link1 = $(this);
 
                     $('#error_message_text').html("Invalid Website Address");
@@ -2742,10 +2747,17 @@ $(function(){
                     return false;
                 }
             }
+
+              var valid_temp_organisation;
                      
             _valid1 = /(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
+            _valid2 = /(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
+            if (_valid1==true || _valid2 ==true)
+              {
+                  valid_temp_organisation = true;
+              }
             if($('#organisation_websites_attributes_3_value').val()!=""&& $('#organisation_websites_attributes_3_value').val()!="http://" ){
-                if((!_valid1)){
+                if((!valid_temp_organisation)){
                     var link1 = $(this);
 
                     $('#error_message_text').html("Invalid Website Address");
@@ -2785,9 +2797,16 @@ $(function(){
 });
 
 check_website_field = function(){
+    var check_valid_temp;
     _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
-    if($('#website_value').val()!=""){
-        if((!_valid)){
+    _valid1 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
+    if (_valid1==true || _valid2 ==true)
+              {
+                  check_valid_temp = true;
+              }
+
+   if($('#website_value').val()!=""){
+        if((!check_valid_temp)){
             var link = $(this);
 
             $('#error_message_text').html("Invalid Website Address");
