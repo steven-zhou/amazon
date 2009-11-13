@@ -6346,4 +6346,18 @@ $(function(){
     });
 
 });
-
+$(function(){
+    $("#whoami").css({'opacity':'0.3'});
+    $("#whoami").mouseover(
+            function(){
+                $(this).fadeTo('fast',1 );
+            });
+            
+    $("#whoami").mouseout(
+            function (){
+                $(this).fadeTo('fast',0.3 );
+          });
+        return false; 
+   
+     
+});
