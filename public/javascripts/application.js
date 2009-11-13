@@ -2531,6 +2531,9 @@ $(function(){
 $(function(){
     $("#submit_email_field_edit").live('click', check_empty_value);
 });
+
+
+
 $(function(){
     $("#submit_website_field").live('click', check_empty_value);
 });
