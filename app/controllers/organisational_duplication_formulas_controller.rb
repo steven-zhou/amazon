@@ -8,7 +8,7 @@ class OrganisationalDuplicationFormulasController < ApplicationController
     @organisational_duplication_formula.group = "applied"
     if @organisational_duplication_formula.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisational Duplication Formula #{@organisational_duplication_formula.id}.")
-      flash.now[:message] = flash_message(:message => "Organisational Duplication Formula Applied")
+      flash.now[:message] = flash_message(:message => "Organisational Duplication Formula Applied Successfully")
     else
 
     end
@@ -28,7 +28,7 @@ class OrganisationalDuplicationFormulasController < ApplicationController
         @duplication_formula_detail.duplication_formula = @organisational_duplication_formula
         @duplication_formula_detail.save
       end
-      flash[:message] = flash_message(:message => "Default Organisational Duplication Formula Applied")
+      flash[:message] = flash_message(:message => "Organisational Duplication Formula Applied Successfully")
       redirect_to duplication_check_administrations_path()
     end
   end
@@ -37,7 +37,7 @@ class OrganisationalDuplicationFormulasController < ApplicationController
     Organisation.all.each do |organisation|
       organisation.save
     end
-    flash.now[:message] = flash_message(:message => "Organisational Duplication Value Is Re-generated")
+    flash.now[:message] = flash_message(:message => "Re-Generating the Organisational Duplication Index Has been Completed Successfully")
     respond_to do |format|
       format.js {render 'duplication_formulas/organisational_generate.js'}
     end

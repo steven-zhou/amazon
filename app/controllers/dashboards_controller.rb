@@ -60,7 +60,7 @@ class DashboardsController < ApplicationController
     rescue
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) entered an incorrect password when attempting to update their password.")
       redirect_to  login_url
-      flash[:error] = "your old password is wrong!!, you have only #{@current_user.access_attempts_count - 1} choice"
+      flash[:error] = "Invalid Password Entered, You Have only #{@current_user.access_attempts_count - 1} Attempts Left"
       @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count -= 1
       @current_user.online_status = false

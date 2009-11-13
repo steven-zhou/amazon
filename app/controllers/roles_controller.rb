@@ -38,9 +38,9 @@ class RolesController < ApplicationController
 
     #puts"--DEBUG--#{@array_diff.to_yaml}"
     if ((array1 & array2) == array1)
-      flash.now[:message] = "this person is a good choice."
+      flash.now[:message] = "Selected Person Matches Role Conditions"
     else
-      flash.now[:warning] = "This person do not have enough qualifications."
+      flash.now[:warning] = "Selected Person Does Not Match Role Conditions"
     end
     respond_to do |format|
       format.js { }
