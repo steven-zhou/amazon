@@ -1,7 +1,17 @@
-#tabs
-  = render :partial => 'import_menu'
-  #Person
-    = render :partial => '/data_managers/person_import_tab'
+.tab_switch
+  .profile_tab_left.left{:field =>"person_part", :style => "background-image:url(/images/round_left.png);"}
+  .container_icon.left{:align => 'center', :class => "container_icon_color"}
+    = link_to_function "<h1>Person</h1>",:class=>"show_hide_button", :show_id_name => "person_part",:hide_id_name => "organisation_part"
+  .profile_tab_right.left{:field =>"person_part", :style => "background-image:url(/images/round_right.png);"}
+  .profile_tab_left.left{:field =>"organisation_part"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Organisation</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "organisation_part",:hide_id_name => "person_part"
+  .profile_tab_right.left{:field =>"organisation_part"}
 
-  #Organisation
-    = render :partial => '/data_managers/organisation_import_tab'
+#person_part
+  = render :partial => '/data_managers/person_import_tab'
+
+#organisation_part{:style=>"display:none"}
+  = render :partial => '/data_managers/organisation_import_tab'
+
+

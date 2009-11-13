@@ -82,7 +82,7 @@ body {
     line-height: 35px;
 }
 
-#app #main #sysbar .bar_section #module_menu #module_menu_top img { vertical-align:middle; margin-right: 3px;}
+#app #main #sysbar .bar_section #module_menu #module_menu_top img { vertical-align:middle;}
 
 #app #main #sysbar .bar_section #module_menu #module_menu_top.hover {
     height: 41px;
@@ -122,6 +122,90 @@ body {
 
 
 /* End Module Menu */
+
+
+/*------------------------------*/
+/* ---- User Preference MENU -----*/
+/*------------------------------*/
+
+#app #main #sysbar #sys_icons.bar_section {
+    text-align:center;
+
+}
+
+#app #main #sysbar #sys_icons.bar_section #dash_icon{width:38px;float:left;height:39px;}
+
+#app #main #sysbar .bar_section #user_preferences {
+    float:left;
+    width: 38px;
+}
+
+#app #main #sysbar .bar_section #preferences_menu {
+    float:left;
+    width: 58px;
+    position: relative;
+    left: -10px;
+    top: -10px;
+}
+
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_top {
+    height: 39px;
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: bold;
+    color: #666;
+    text-decoration: none;
+    line-height: 35px;
+    padding: 10px 0 0 10px;
+}
+
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_top img { vertical-align:middle;}
+
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_top.hover {
+    height: 39px;
+    cursor: pointer;
+    position: relative;
+    width: 46px;
+    background-image:url(/images/user_prefer_menu/user_prefer_menu_top.png);
+    background-repeat:no-repeat;
+    background-position: left top;
+ }
+
+
+/* Menu top end */
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_neck {
+    background-image: url(/images/user_prefer_menu/user_prefer_menu_top_connector.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 21px;
+}
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items {
+    margin-left: 0px;
+    width: 160px;
+    z-index:999;
+    position: relative;
+    left: -51px;
+}
+
+/* Rounded bottom */
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_bottom {
+    background-image: url(/images/user_prefer_menu/user_prefer_menu_bottom.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    height: 18px;
+}
+
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items ul {text-align: left; width:151px;padding-left: 8px; background-image: url(/images/user_prefer_menu/user_prefer_menu_middle.png);	background-repeat:repeat-y;	background-position: left;}
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items li {background-color: transparent; height:40px; padding: 5px 0 0 10px; border-bottom: 1px solid #ccc; margin-right: 8px; font-family: Arial, Helvetica, sans-serif;	font-size: 18px; font-style: normal; font-weight: normal; color: #666;}
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items li:first-child { border-top:1px solid #ccc;}
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items li:last-child { padding-bottom:0px;}
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items li img { vertical-align:text-bottom; margin-right: 3px;}
+#app #main #sysbar .bar_section #preferences_menu #preferences_menu_items li.hover {background-color: transparent; background-image: url(/images/menu_bg_hover.png); background-repeat: no-repeat; background-position: left top;}
+
+
+/* End User Preference Menu */
 
 /* System Bar */
 
@@ -173,7 +257,9 @@ body {
 }
 
 #app #main #sysbar .bar_section#sys_icons {
-    width: 8%;
+    height: 38px;
+    padding: 12px 10px 0 15px;
+    width: 7%;
 }
 
 #app #main #sysbar .bar_section#search {
@@ -185,9 +271,9 @@ body {
     border-right: none;
 }
 
-#app #main #sysbar .bar_section#help img {
+#app #main #sysbar .bar_section img {
     vertical-align: middle;
-    padding-top: 0px;
+    padding-right: 5px;
 }
 
 
@@ -570,6 +656,7 @@ label {
 #app #main #content .container .form_line .field_5,
 #app #main #content .container .form_line .field_10,
 #app #main #content .container .form_line .field_11,
+#app #main #content .container .form_line .field_12,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_17,
 #app #main #content .container .form_line .field_20,
@@ -604,6 +691,7 @@ label {
 #app #main #content .container .form_line .field_5 {width: 5%;}
 #app #main #content .container .form_line .field_10 {width: 10%;}
 #app #main #content .container .form_line .field_11 {width: 11%;}
+#app #main #content .container .form_line .field_12 {width: 12%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_17 {width: 17%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
@@ -640,6 +728,7 @@ label {
 #app #main #content .full_container .form_line .field_5,
 #app #main #content .full_container .form_line .field_10,
 #app #main #content .full_container .form_line .field_11,
+#app #main #content .full_container .form_line .field_12,
 #app #main #content .full_container .form_line .field_15,
 #app #main #content .full_container .form_line .field_17,
 #app #main #content .full_container .form_line .field_20,
@@ -674,6 +763,7 @@ label {
 #app #main #content .full_container .form_line .field_5 {width: 5%;}
 #app #main #content .full_container .form_line .field_10 {width: 10%;}
 #app #main #content .full_container .form_line .field_11 {width: 11%;}
+#app #main #content .full_container .form_line .field_12 {width: 12%;}
 #app #main #content .full_container .form_line .field_15 {width: 15%;}
 #app #main #content .full_container .form_line .field_17 {width: 17%;}
 #app #main #content .full_container .form_line .field_20 {width: 20%;}
@@ -715,6 +805,7 @@ label {
     float: right;
     width: 49.5%;
     margin-left: 0.5%;
+    margin-top: 25px;
 }
 
 /* For when we are using the whole page, not only two columns 
@@ -941,8 +1032,12 @@ div.field_62 {
 #app #main #content #right_content #photo_info{
 
     margin:0px 0px 20px 0;
-    height: 70px;
+    height: 45px;
 }
+#app #main #content #right_content #tabs ul li img, #app #main #content #right_content #tabs2 ul li img {padding-top: 5px; padding-right: 5px;}
+#app #main #content #right_content #tabs .active img, #app #main #content #right_content #tabs2 .active img {padding-top: 0px; padding-right: 0px;}
+
+
 
 #app #main #content #left_content #photo_info #imageshow{
     margin:10px 10px 0px 5px;
@@ -1765,7 +1860,8 @@ div#permission_form .options{
 
 #reset_password_container #header {
     height: 40px;
-    width: 100%;
+    width: 96%;
+    padding: 0 2%;
 }
 /* page title area */
 #reset_password_container #page_title {
@@ -1776,8 +1872,7 @@ div#permission_form .options{
     font-size: 20px;
     line-height: 30px;
     color: #2C2C2C;
-    margin-left: 1%;
-}
+   }
 
 #reset_password_container h1 {
     color: #2C2C2C;
@@ -1793,12 +1888,12 @@ div#permission_form .options{
     color: #232323;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
-    width: 96%;
+    width: 92%;
     float: left;
     padding: 2%;
     min-height: 10px;
     -moz-border-radius: 10px;
-    margin-bottom: 10px;
+    margin: 10px 2%;
 }
 
 #reset_password_container .container .form_line {
@@ -2165,3 +2260,14 @@ div#permission_form .options{
     padding: 5px 0px 5px 10px;
     text-decoration:none;
 }
+
+
+
+/*spinner*/
+
+ .spinning {
+         background: url('/images/processing.gif') no-repeat right !important;
+
+     }
+
+

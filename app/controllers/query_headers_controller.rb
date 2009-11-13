@@ -158,13 +158,21 @@ class QueryHeadersController < ApplicationController
           if i.sequence<=10
             if i.table_name == "people"
               if i.data_type == "Integer FK"
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
+                if(i.field_name == "country")
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).short_name) unless person.__send__(i.field_name.to_sym).nil?
+                else
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
+                end
               else
                 @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym))
               end
             else
               if i.data_type == "Integer FK"
-                @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) unless (person.__send__(i.table_name.underscore.to_sym).empty? && person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
+                if(i.field_name == "country")
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name) if (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
+                else
+                  @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name) if (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?)
+                end
               else
                 @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)) unless person.__send__(i.table_name.underscore.to_sym).empty?
               end

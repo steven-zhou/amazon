@@ -47,7 +47,7 @@
 /* Component containers
 ----------------------------------*/
 .ui-widget { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1.1em; }
-.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Lucida Grande, Lucida Sans, Arial, sans-serif; font-size: 1em; }
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button { font-family: Arial, sans-serif; font-size: 14px;}
 .ui-widget-content a { color: #222222; }
 .ui-widget-header { /*border: 1px solid #4297d7; background: #5c9ccc url(images/ui-bg_gloss-wave_55_5c9ccc_500x100.png) 50% 50% repeat-x;*/ font-weight: bold; }
 .ui-widget-header a { color: #ffffff; }
@@ -347,7 +347,7 @@
 }/* Dialog
 ----------------------------------*/
 .ui-dialog { position: relative; padding: .2em; width: 300px; background: white;}
-.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em 1em; position: relative; background:#97b6ce; text-align:center; }
+.ui-dialog .ui-dialog-titlebar { padding: .5em .3em .3em .5em; position: relative; background:#97b6ce; text-align:center; }
 .ui-dialog .ui-dialog-title { margin: .1em 0 .2em;}
 .ui-dialog .ui-dialog-titlebar-close { position: absolute; right: .3em; top: 50%; width: 19px; margin: -10px 0 0 0; padding: 1px; height: 18px; }
 .ui-dialog .ui-dialog-titlebar-close span { display: block; margin: 1px; }

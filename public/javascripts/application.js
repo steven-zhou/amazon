@@ -22,6 +22,7 @@ jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
     }
+
 });
 
 /* Authenticity token*/
@@ -345,7 +346,12 @@ jQuery.fn.doAjaxSubmit = function($callback) {
 
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
+
 });
+
+
+
+
 
 /*Date picker */
 $('.birthdatepick').live("mouseover", function(){
@@ -502,6 +508,7 @@ $(function(){
             type: "GET",
             url: "/people/name_finder.js",
             data: 'person_id='+$(this).val(),
+
             dataType: "script"
         });
     });
@@ -4827,6 +4834,36 @@ $(function(){
         });
 });
 
+//user preferences menu
+$(function(){
+    $("div#preferences_menu_top").click(function() {
+        if($("div#preferences_menu_top").attr("class")==""){
+            $("div#preferences_menu_top").addClass("hover");
+            $("div#preferences_menu_items").fadeIn("fast");
+        }else{
+            $("div#preferences_menu_top").removeClass("hover");
+            $("div#preferences_menu_items").fadeOut("fast");
+        }
+    });
+
+
+    $("div#preferences_menu").hover(
+        function(){},
+        function(){
+            $("div#preferences_menu_top").removeClass("hover");
+            $("div#preferences_menu_items").fadeOut("fast");
+        });
+
+
+    $("div#preferences_menu_items li").hover(
+        function(){
+            $(this).removeClass("hover","fast");
+        },
+        function(){
+            $(this).addClass("hover", "normal");
+        });
+});
+
 /*user--list*/
 
 $(function(){
@@ -4961,7 +4998,7 @@ $(function(){
             resizable: false,
             draggable : true,
             height: 580,
-            width: 350
+            width: 550
         }
         );
         $("#feedback_form").dialog("option","title","Feedback Form");
@@ -6250,6 +6287,7 @@ $(function(){
 
 });
 
+
 /* Show Person Age*/
 
 
@@ -6269,6 +6307,28 @@ $(function(){
 }
 );
 
+    });
 
+
+/*Save My Dashboard*/
+
+$(function(){
+    $("#save_my_dashboard").click(function(){
+        var my_box = [];
+        for(i=1; i<=3; i++){
+            var len = $("#column"+i).find(".portlet").length;
+            var my_column = [];
+            for(j=0; j<len; j++){
+                my_column[j] = $('#'+($("#column"+i).find(".portlet"))[j].id).attr('box_id');
+            }
+            my_box[i] = my_column.join(",");
+        }
+        $.ajax({
+            type: "GET",
+            url: "/dashboards/save_dashboard.js",
+            data: 'column1='+my_box[1]+'&column2='+my_box[2]+'&column3='+my_box[3],
+            dataType: "script"
+        });
+    });
 
 });
