@@ -63,8 +63,11 @@
       <div id="preferences_menu_items" style="display:none;" >
           <div id="preferences_menu_neck" ></div>
         <ul>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Dashboard"%></li>
+          <%- if session[:module] == "dashboard" %>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Dashboard", :id => "save_my_dashboard"%></li>
+          <%- end%>
           <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Workflow"%></li>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} MyAccount"%></li>
         </ul>
         <div id="preferences_menu_bottom" ></div>
       </div>
@@ -106,8 +109,18 @@
 </div>
 
 <div id="show_list_grid" >
+  <div id ="show_list_content"></div>
+    <div id ="show_list_message" style="display:none">
+  <p style="float:left;display:inline;">single click to display</p>
+  <p style="float:right;display:inline;">double click to select</p>
+    </div>
 </div>
 <div id="show_organisation_list_grid" >
+  <div id ="show_organisation_list_content"></div>
+  <div id ="show_organisation_list_message" style="display:none">
+  <p style="float:left;display:inline;">single click to display</p>
+  <p style="float:right;display:inline;">double click to select</p>
+  </div>
 </div>
 <div id="personal_check_duplication" >
 </div>

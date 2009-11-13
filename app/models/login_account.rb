@@ -4,6 +4,7 @@ class LoginAccount < ActiveRecord::Base
   attr_accessor :password
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
+  has_many :dashboard_preferences
 
   validates_uniqueness_of :user_name, :case_sensitive => false
 
@@ -127,9 +128,17 @@ class LoginAccount < ActiveRecord::Base
   end
 
   # Makes sure the new password is not the same as the old password or the current password
-  def new_password_valid?(password)
-    ( (Digest::SHA256.hexdigest(password + self.password_last_salt) != self.password_last_hash) &&
-        (Digest::SHA256.hexdigest(password + self.password_salt) != self.password_hash) )
+  def new_password_valid?(password)  
+    # If your new password is the same as the your current password return false
+    if (Digest::SHA256.hexdigest(password + self.password_salt) == self.password_hash)
+      return false
+      # If do not have an old password return true
+    elsif (self.password_last_salt.nil? || self.password_last_hash.nil?)
+      return true
+    else
+      # Check if new password is different to your old password
+      (Digest::SHA256.hexdigest(password + self.password_last_salt) != self.password_last_hash)
+    end
   end
 
   

@@ -2,6 +2,9 @@ class DashboardsController < ApplicationController
   # System logging completed....
 
   def index
+    @column1 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "1"], :order => "id")
+    @column2 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "2"], :order => "id")
+    @column3 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "3"], :order => "id")
     @superadmin_message = ClientSetup.first.superadmin_message
     @system_news = SystemNews.new
     @current_news = SystemNews.first_three
@@ -53,6 +56,30 @@ class DashboardsController < ApplicationController
       @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count -= 1
       @current_user.save
+    end
+  end
+
+  def save_dashboard
+    @dashboard_preferences = DashboardPreference.find(:all, :conditions => ["login_account_id = ?", session[:user]])
+    @dashboard_preferences.each do |i|
+      i.destroy
+    end
+    boxes1 = params[:column1].split(",")
+    boxes2 = params[:column2].split(",")
+    boxes3 = params[:column3].split(",")
+    save_boxes(1, boxes1)
+    save_boxes(2, boxes2)
+    save_boxes(3, boxes3)
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def save_boxes(column, boxes)
+    boxes.each do |i|
+      @dashboard_preferences = DashboardPreference.new(:login_account_id => session[:user], :column_id => column, :box_id => i)
+      @dashboard_preferences.save
     end
   end
 end

@@ -178,7 +178,21 @@ module OutputPdf
       end
 
       OutputPdf::PERSONAL_REPORT_FORMAT[format].each_index do |i|
+
         tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]) { |col| col.heading = "#{OutputPdf::PERSONAL_REPORT_FORMAT[format][i].keys[0]}"}
+
+           case OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]
+            when "address" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+            when "phone" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 80
+            when "email" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+            when "website" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+            when "id" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 40
+            when "first_name" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 70
+            when "family_name" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width =80
+            end
+        
+        
+        #        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[1]
       end
 
       tab.show_lines    = body_settings[:show_lines].to_sym
@@ -273,6 +287,17 @@ module OutputPdf
 
       OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_index do |i|
         tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]) { |col| col.heading = OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].keys[0]}
+         case OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]
+            when "full_name" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 70
+            when "registered_name" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 90
+            when "email" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 90
+            when "website" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width =100
+            when "address" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+            when "phone" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 80
+            when "id" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 40
+            end
+     
+#        tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[1]
       end
 
 
@@ -351,6 +376,7 @@ module OutputPdf
       }
 
       tab.columns["system_id"].width = 25
+
 
       tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
         col.heading = "Date"

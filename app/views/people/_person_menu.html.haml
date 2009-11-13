@@ -1,7 +1,14 @@
 %ul
+  -if @current_action == "show"
+    %li
+      %a{:href=>"#PersonDetail", :title => 'Personal Detail', :class => "person_edit_tab active", :field => "person_detail"}
+        = image_tag('Icons/Core/Person/tabs/person_detail_title.png')
   %li
-    %a{:href=>"#Contact", :title=> 'Contact', :class => "person_edit_tab active", :field => "contact"}
-      = image_tag('Icons/Core/Person/tabs/contact_title.png')
+    %a{:href=>"#Contact", :title=> 'Contact', :class => @current_action == "show" ? "person_edit_tab" : "person_edit_tab active", :field => "contact"}
+      - if @current_action == "show"
+        = image_tag('Icons/Core/Person/tabs/contact_BW.png')
+      - else
+        = image_tag('Icons/Core/Person/tabs/contact_title.png')
   %li
     %a{:href=>"#Address", :title=> 'Address', :class => "person_edit_tab", :field => "address"}
       = image_tag('Icons/Core/Person/tabs/address_BW.png')
