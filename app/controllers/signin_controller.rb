@@ -63,55 +63,6 @@ class SigninController < ApplicationController
     end
   end
 
-  def ask_for_power_password
-    @user_name = params[:user_name]
-    render "ask_for_power_password", :layout => "reset_password"
-  end
-
-
-  def login_as_super_user
-    begin
-      login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
-      #system_log("Super User account logged onto the system - #{login_account.user_name} (ID #{login_account.id}).", "signin", "login_as_super_user", login_account)
-      begin
-        #grace_period_check(login_account) if login_account.last_login.nil? # Check if a user logs in for the first time before the grace period expires
-        account_active_check(login_account) # Check that the login_status attribute is true
-        account_locked_check(login_account) # Check that there are remaining access_attempts_count available
-        check_groups(login_account) # Check that user belongs to at least one group
-        check_group_permissions(login_account) # Check the permissions for the groups of the login account
-        check_online_status(login_account) if login_account.class.to_s == "SuperAdmin"#check the account has already online or not, if true, you can not login.
-
-        #---------------------------------------------successful login-------------------------#
-        session[:user] = login_account.id
-        session[:last_event] = Time.now()
-        login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-        login_account.access_attempts_count = 99
-        #login_account.online_status = true
-        login_account.save
-        system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
-        redirect_to welcome_url
-
-        #---------------------------------------------exception erea-------------------------#
-      rescue Exception => exc
-        case exc.message
-        when "Password Lifetime Check Failed"
-          session[:user] = login_account.id
-          session[:last_event] = Time.now()
-          login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-          redirect_to :controller => "login_accounts", :action => "change_password" and return
-        else
-          redirect_to :action => "login"
-        end
-      end
-    rescue
-      system_log("There was a failed login attempt to the system from IP address #{request.remote_ip} supplying username #{params[:user_name]}.", "signin", "login", nil)
-      login_account = LoginAccount.find_by_user_name(params[:user_name])
-      invalid_access_attempt(login_account) unless login_account.nil?
-      flash.now[:warning] = flash_message(:type => "login_error")
-      render "login"
-    end
-  end
-
 
   # Logs a user out.
   def signout
@@ -263,7 +214,7 @@ class SigninController < ApplicationController
         login_account.save
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
         redirect_to welcome_url
- #---------------------------------------------exception erea-------------------------#
+        #---------------------------------------------exception erea-------------------------#
       rescue Exception => exc
         case exc.message
         when "Password Lifetime Check Failed"
