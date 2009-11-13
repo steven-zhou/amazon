@@ -5220,7 +5220,7 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
-                        $("#keyword_add_entry_form").hide();
+                        $("#keyword_add_entry_form").css('display','none');
                         $("#edit_keyword_entry").html("");
                         $("#keyword_type").attr("disabled",false);
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
