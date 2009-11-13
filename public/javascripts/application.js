@@ -2625,15 +2625,15 @@ $(function(){
 $(function(){
     $("#new_person_submit").live('click', function(){
 
-
         if($('#person_emails_attributes_2_value').val()!="" ||  $('#person_websites_attributes_3_value').val()!="")
-        {
+        { 
             _valid = /^([^@\s]+)@((?:[-a-z0-9A-Z]+\.)+[a-z]{2,})$/.test($('#person_emails_attributes_2_value').val());
             if($('#person_emails_attributes_2_value').val()!=""){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid Email !");
+                    $('#error_message_text').html("Invalid email address!");
+
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2666,7 +2666,8 @@ $(function(){
                 if((!_valid1)){
                     var link1 = $(this);
 
-                    $('#error_message_text').html("Invalid Website !");
+                    $('#error_message_text').html("Invalid website address!");
+
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2739,6 +2740,7 @@ $(function(){
                     return false;
                 }
             }
+                     
             _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             if($('#organisation_websites_attributes_3_value').val()!=""){
                 if((!_valid1)){
@@ -4271,6 +4273,7 @@ $(function(){
                         $('#add_'+link.attr('flag_name')).css('display', '');
                         $('#new_'+link.attr('flag_name')).toggle('blind');
                         $('#add_new_role').css("display","");
+                        $('#role_role_type_id').attr("disabled", false);
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -6288,6 +6291,17 @@ $(function(){
 });
 
 
+
+//add_new_role in Role Manager for control role_type dropdown list
+$(function(){
+    $("#new_role_bar #add_new_role").live('click',function(){
+        $('#role_role_type_id').attr("disabled", true);
+    });
+    $("#new_role_bar #close_role").live('click', function(){
+        $('#role_role_type_id').attr("disabled", false);
+    });
+});
+
 /* Show Person Age*/
 
 
@@ -6332,3 +6346,4 @@ $(function(){
     });
 
 });
+
