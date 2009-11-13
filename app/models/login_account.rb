@@ -18,7 +18,6 @@ class LoginAccount < ActiveRecord::Base
     else
       login_account
     end
-
   end
 
   def self.authenticate_super_user(user_name, password)
@@ -47,7 +46,6 @@ class LoginAccount < ActiveRecord::Base
     for group in self.group_types do
       return true if (group.system_permission_types.size > 0)
     end
-
     return false
   end
 
