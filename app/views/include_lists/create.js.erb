@@ -1,9 +1,10 @@
 <% if @include_list.errors.empty? -%>
   $('#include_lists').html('<%= escape_javascript(render(:partial => "include_lists/include_list", :collection => @include_lists)) %>');
-  $("#compiler_options").val('');
+  
   <%- @list_header_ids.each do |i| %>
     $('#list_header_<%= escape_javascript("#{i}")%>').addClass("selected");
   <%- end %>
 <% end -%>
+    $("#compiler_options").val('');
 
 
