@@ -3,9 +3,9 @@
 /* CSS Document */
 
 body {
-    background-image:url(/images/bg3.jpg);
+    background-image:url(/images/bg4.jpg);
     background-position: top center;
-    background-repeat:no-repeat;
+    background-repeat:repeat;
     background-color: #000;
 }
 
@@ -253,13 +253,13 @@ body {
 }
 
 #app #main #sysbar .bar_section#toolbar  {
-    width: 39%;
+    width: 37%;
 }
 
 #app #main #sysbar .bar_section#sys_icons {
     height: 38px;
     padding: 12px 10px 0 15px;
-    width: 7%;
+    width: 8%;
 }
 
 #app #main #sysbar .bar_section#search {
@@ -717,6 +717,7 @@ label {
 #app #main #content .container .form_line .field_85 {width: 85%;}
 #app #main #content .container .form_line .field_90 {width: 90%;}
 #app #main #content .container .form_line .field_100 {width: 100%;}
+.field_100 textarea {width: 99%;}
 
 
 
@@ -2045,7 +2046,7 @@ div#permission_form .options{
 }
 
 #dashboard .system_news_container.active {
-    width: 900px !important;
+    width: 870px !important;
 }
 
 #dashboard .system_news_container .news_content {

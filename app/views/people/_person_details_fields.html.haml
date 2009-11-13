@@ -4,7 +4,7 @@
     = p.text_field :birth_date, :class=>@personal_check_field.include?("birth_date")?"personal_check_field birthdatepick":"birthdatepick", :value=>@person.birth_date.to_s
   .field_30
     = p.label :age,"Age"
-    %p{:id => "person_age",:style => "margin-left:10px;margin-top:4px;"}
+    %div.display_field_bg{:id => "person_age"}
       = @person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
   .field_30
     = p.label :gender, 'Gender'

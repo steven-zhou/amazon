@@ -2531,6 +2531,9 @@ $(function(){
 $(function(){
     $("#submit_email_field_edit").live('click', check_empty_value);
 });
+
+
+
 $(function(){
     $("#submit_website_field").live('click', check_empty_value);
 });
@@ -6371,12 +6374,12 @@ $(function(){
     $("#whoami").css({'opacity':'0.3'});
     $("#whoami").mouseover(
             function(){
-                $(this).fadeTo('fast',1 );
+                $(this).stop().fadeTo('fast',1 );
             });
             
     $("#whoami").mouseout(
             function (){
-                $(this).fadeTo('fast',0.3 );
+                $(this).stop().fadeTo('fast',0.3 );
           });
         return false; 
    
