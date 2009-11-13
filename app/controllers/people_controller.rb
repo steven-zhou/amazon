@@ -202,7 +202,7 @@ class PeopleController < ApplicationController
         if @image.save
           @person.image = @image
         else
-          flash[:warning] = "The image was not saved."
+          flash[:warning] = "There Was an Error to Save the Selected Image."
         end
       end
 
@@ -222,8 +222,19 @@ class PeopleController < ApplicationController
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
-      flash[:warning] = "There Was an Erro to Create a New User Account"
-      redirect_to new_person_path
+      @image = Image.new
+
+       @personal_check_field = Array.new
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.status == false
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
+
+      flash[:error] = "There Was an Error to Create a New User"
+#      redirect_to new_person_path
+       render :action => "new"
     end
   end
 

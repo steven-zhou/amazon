@@ -11,24 +11,17 @@ class LoginAccountsController < ApplicationController
     #      if (@login_account == LoginAccount.find_by_user_name(params[:user_name]))
     #        @error_flag_unique = false
     #      end
-    #    end
-    
-    if  @error_flag_length
-      flash.now[:error] = "The Username Length is wrong, please choose between 6 to 30"
-    elsif @error_flag_unique
-      flash.now[:error] = "The username has been taken"
-
-
+    #    end 
       if @error_flag_unique
-        flash.now[:error] = "The Required User Name Is Unavailable or Username Must Be Between 6 and 30 Characters Long "
+        flash.now[:error] = "The Required User Name Is Unavailable"
       elsif @error_flag_length
-        flash.now[:error] = "The Required User Name Is Unavailable or Username Must Be Between 6 and 30 Characters Long"
+        flash.now[:error] = " Username Must Be Between 6 and 30 Characters Long"
       end
       respond_to  do |format|
         format.js
       end
-    end
   end
+
 
     def create
       @login_account = SystemUser.new(params[:login_account])
@@ -39,8 +32,8 @@ class LoginAccountsController < ApplicationController
         email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
         LoginAccountPasswordResetDispatcher.deliver(email)
         flash.now[:message] = "New User Account is Saved successfully."
-      else
-      
+
+      else      
         if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
           flash.now[:error] = flash_message(:type => "format error", :field => "security_email")
         elsif(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
@@ -67,13 +60,16 @@ class LoginAccountsController < ApplicationController
           flash.now[:error] = flash_message(:type => "field_missing", :field => "access_attempts_count")
         elsif(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
           flash.now[:error] = flash_message(:type => "field_missing", :field => "security_email")
-        elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
+        elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?( "can't be blank"))
+
           flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")
         elsif(!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?( "can't be blank"))
           flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id")
         else
+
           flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
         end
+
       end
       @login_accounts = SystemUser.find(:all)
       respond_to  do |format|
@@ -94,10 +90,10 @@ class LoginAccountsController < ApplicationController
       end
     end
 
+
     def update
       @login_account = SystemUser.find(params[:id].to_i)
       @login_account.update_password = false
-
       if @login_account.update_attributes(params[:login_account])
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Login Account ID #{@login_account.id} #{@login_account.user_name}.")
         flash.now[:message] = " New User Account is Saved successfully."
