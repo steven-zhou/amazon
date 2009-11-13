@@ -34,8 +34,8 @@ class SigninController < ApplicationController
           login_account.update_password = false
           create_temp_list
           login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-          login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
-          login_account.online_status = true
+          #login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
+          #login_account.online_status = true
           login_account.save
           system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
           redirect_to welcome_url
@@ -74,7 +74,7 @@ class SigninController < ApplicationController
       login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
       #system_log("Super User account logged onto the system - #{login_account.user_name} (ID #{login_account.id}).", "signin", "login_as_super_user", login_account)
       begin
-        grace_period_check(login_account) if login_account.last_login.nil? # Check if a user logs in for the first time before the grace period expires
+        #grace_period_check(login_account) if login_account.last_login.nil? # Check if a user logs in for the first time before the grace period expires
         account_active_check(login_account) # Check that the login_status attribute is true
         account_locked_check(login_account) # Check that there are remaining access_attempts_count available
         check_groups(login_account) # Check that user belongs to at least one group
@@ -86,7 +86,7 @@ class SigninController < ApplicationController
         session[:last_event] = Time.now()
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
         login_account.access_attempts_count = 99
-        login_account.online_status = true
+        #login_account.online_status = true
         login_account.save
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
         redirect_to welcome_url

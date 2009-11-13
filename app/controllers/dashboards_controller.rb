@@ -11,6 +11,10 @@ class DashboardsController < ApplicationController
     @to_do_list = ToDoList.new
     @to_do_lists = ToDoList.find_all_by_login_account_id(session[:user])
     @current_user = LoginAccount.find(session[:user])
+    @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
+    @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
+    @current_user.online_status = true
+    @current_user.save
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
      @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
     @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
@@ -55,6 +59,7 @@ class DashboardsController < ApplicationController
       flash[:error] = "your old password is wrong!!, you have only #{@current_user.access_attempts_count - 1} choice"
       @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count -= 1
+      @current_user.online_status = false
       @current_user.save
     end
   end
