@@ -63,16 +63,16 @@
     <p>Please answer the following security questions:</p>
     <table>
       <tr>
-        <td><strong><%= @login_account.security_question_1.name %></strong></td>
-        <td><%= text_field :username_retrieval_answer_1, nil %></td>
+        <td><label><%= @login_account.security_question_1.name %></label>
+        <%= text_field :username_retrieval_answer_1, nil %></td>
       </tr>
       <tr>
-        <td><strong><%= @login_account.security_question_2.name %></strong></td>
-        <td><%= text_field :username_retrieval_answer_2, nil %></td>
+        <td><label><%= @login_account.security_question_2.name %></label>
+        <%= text_field :username_retrieval_answer_2, nil %></td>
       </tr>
       <tr>
-        <td><strong><%= @login_account.security_question_3.name %></strong></td>
-        <td><%= text_field :username_retrieval_answer_3, nil %></td>
+        <td><label><%= @login_account.security_question_3.name %></label>
+        <%= text_field :username_retrieval_answer_3, nil %></td>
       </tr>
       <tr>
         <td></td>
