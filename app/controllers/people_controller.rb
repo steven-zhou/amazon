@@ -232,7 +232,7 @@ class PeopleController < ApplicationController
       end
     end
 
-      flash[:error] = "There Was an Error to Create a New User"
+      flash.now[:error] = "There Was an Error to Create a New User"
 #      redirect_to new_person_path
        render :action => "new"
     end
