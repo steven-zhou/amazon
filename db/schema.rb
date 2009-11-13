@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(:version => 20091112072639) do
     t.datetime "password_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "online_status"
   end
 
   create_table "master_docs", :force => true do |t|

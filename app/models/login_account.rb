@@ -19,7 +19,6 @@ class LoginAccount < ActiveRecord::Base
     else
       login_account
     end
-
   end
 
   def self.authenticate_super_user(user_name, password)
@@ -48,7 +47,6 @@ class LoginAccount < ActiveRecord::Base
     for group in self.group_types do
       return true if (group.system_permission_types.size > 0)
     end
-
     return false
   end
 
@@ -96,7 +94,8 @@ class LoginAccount < ActiveRecord::Base
 
   def custom_lists
     custom_lists = Array.new
-    self.user_lists.each do |i|
+    user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
+    user_lists.each do |i|
       custom_lists << ListHeader.find(i.list_header_id)
     end
     custom_lists.uniq
@@ -128,9 +127,17 @@ class LoginAccount < ActiveRecord::Base
   end
 
   # Makes sure the new password is not the same as the old password or the current password
-  def new_password_valid?(password)
-    ( (Digest::SHA256.hexdigest(password + self.password_last_salt) != self.password_last_hash) &&
-        (Digest::SHA256.hexdigest(password + self.password_salt) != self.password_hash) )
+  def new_password_valid?(password)  
+    # If your new password is the same as the your current password return false
+    if (Digest::SHA256.hexdigest(password + self.password_salt) == self.password_hash)
+      return false
+      # If do not have an old password return true
+    elsif (self.password_last_salt.nil? || self.password_last_hash.nil?)
+      return true
+    else
+      # Check if new password is different to your old password
+      (Digest::SHA256.hexdigest(password + self.password_last_salt) != self.password_last_hash)
+    end
   end
 
   
