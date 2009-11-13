@@ -4237,6 +4237,7 @@ $(function(){
                         $('#add_'+link.attr('flag_name')).css('display', '');
                         $('#new_'+link.attr('flag_name')).toggle('blind');
                         $('#add_new_role').css("display","");
+                        $('#role_role_type_id').attr("disabled", false);
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -6242,4 +6243,15 @@ $(function(){
 
 
 
+});
+
+
+//add_new_role in Role Manager for control role_type dropdown list
+$(function(){
+    $("#new_role_bar #add_new_role").live('click',function(){
+        $('#role_role_type_id').attr("disabled", true);
+    });
+    $("#new_role_bar #close_role").live('click', function(){
+        $('#role_role_type_id').attr("disabled", false);
+    });
 });
