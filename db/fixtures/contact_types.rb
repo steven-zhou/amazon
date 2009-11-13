@@ -1,3 +1,4 @@
+puts "Initializing Contact Type"
 ContactMetaMetaType.create :name => "Email",    :status => true
 ContactMetaMetaType.create :name => "Phone",    :status => true
 ContactMetaMetaType.create :name => "Website",    :status => true

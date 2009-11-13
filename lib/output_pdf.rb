@@ -91,7 +91,7 @@ module OutputPdf
   #       text_align(alignment)             = "left"/"center"/"right"
   def self.generate_organisational_report_pdf(source_type, source_id, format, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
-    generate_report_header(pdf, source_type, source_id, format, header_settings)
+    generate_report_header(pdf, source_type, source_id, format, nil, {:title => "Organisaiton Contact Report"})
     generate_organisational_report_body(pdf, source_type, source_id, format, body_settings)
     return pdf
   end
@@ -271,7 +271,7 @@ module OutputPdf
       #organisational query
     else
       #list - all organisations
-      @organisations = Organisation.find(:all, :order => "id")
+      @organisations = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
     end
 
     if @organisations.empty?

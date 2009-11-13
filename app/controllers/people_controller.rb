@@ -222,7 +222,7 @@ class PeopleController < ApplicationController
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
-      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
+      flash[:warning] = "There Was an Erro to Create a New User Account"
       redirect_to new_person_path
     end
   end
@@ -237,7 +237,7 @@ class PeopleController < ApplicationController
           @person.image.destroy unless @person.image.nil?
           @person.image = @image
         else
-          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
+          flash[:warning] = "There Was an Error to Save the Selected Image."
         end
       end
     end

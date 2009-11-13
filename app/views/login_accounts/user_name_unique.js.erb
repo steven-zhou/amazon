@@ -1,7 +1,7 @@
 
   <%if @error_flag_unique %>
    $('#flash_message').dialog('destroy');
-    $('#user_name_container_0').html("UserName already taken")
+    $('#user_name_container_0').html("UserName already taken");
     $('#no_username').show();
     $('#yes_username').hide();
     $("#flash_message_text").html("");
@@ -27,8 +27,9 @@
     $("#flash_message").css('background-color','#D1DDE6');
     $('#flash_message').dialog('open');
   <%elsif @error_flag_length %>
+
    $('#flash_message').dialog('destroy');
-    $('#user_name_container_0').html("UserName not taken")
+    $('#user_name_container_0').html("UserName not taken");
     $('#no_username').show();
     $('#yes_username').hide();
       $("#flash_message_text").html("");
@@ -59,4 +60,6 @@
     $('#no_username').hide();
     $('#yes_username').show();
 
+
   <%end%>
+
