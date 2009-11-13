@@ -25,7 +25,7 @@ $('#flash_message').dialog('open');
  $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
  $('#flash_feedback').fadeIn("slow");
  $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
- $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
+ $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
 <%- result = "<option value='#{@list_header.id}' id='list_header_#{@list_header.id}'>#{@list_header.name}</option>" %>
  $('#compiler_options').append('<%= escape_javascript(result) %>');
 <% end %>
