@@ -19,7 +19,6 @@ class LoginAccount < ActiveRecord::Base
     else
       login_account
     end
-
   end
 
   def self.authenticate_super_user(user_name, password)
@@ -48,7 +47,6 @@ class LoginAccount < ActiveRecord::Base
     for group in self.group_types do
       return true if (group.system_permission_types.size > 0)
     end
-
     return false
   end
 
@@ -96,7 +94,8 @@ class LoginAccount < ActiveRecord::Base
 
   def custom_lists
     custom_lists = Array.new
-    self.user_lists.each do |i|
+    user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
+    user_lists.each do |i|
       custom_lists << ListHeader.find(i.list_header_id)
     end
     custom_lists.uniq
