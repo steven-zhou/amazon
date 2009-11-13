@@ -6243,3 +6243,26 @@ $(function(){
 
 
 });
+
+
+/*Save My Dashboard*/
+
+$(function(){
+    $("#save_my_dashboard").click(function(){
+        var my_box = [];
+        for(i=1; i<=3; i++){
+            var len = $("#column"+i).find(".portlet").length;
+            var my_column = [];
+            for(j=0; j<len; j++){
+                my_column[j] = $('#'+($("#column"+i).find(".portlet"))[j].id).attr('box_id');
+            }
+            my_box[i] = my_column.join(",");
+        }
+        $.ajax({
+            type: "GET",
+            url: "/dashboards/save_dashboard.js",
+            data: 'column1='+my_box[1]+'&column2='+my_box[2]+'&column3='+my_box[3],
+            dataType: "script"
+        });
+    });
+});
