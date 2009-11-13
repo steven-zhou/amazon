@@ -205,7 +205,7 @@ class SigninController < ApplicationController
       login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
       #system_log("Super User account logged onto the system - #{login_account.user_name} (ID #{login_account.id}).", "signin", "login_as_super_user", login_account)
       begin
-.
+
         #---------------------------------------------successful login-------------------------#
         session[:user] = login_account.id
         session[:last_event] = Time.now()
