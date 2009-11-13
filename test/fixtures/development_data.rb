@@ -332,13 +332,13 @@ Phone.create(
   :value => "0410258698"
 )
 
-puts "Creating Phone for Jackie Chan"
-Phone.create(
-  :contactable => robert_tingle,
-  :contact_meta_type_id => phone_home.id,
-  :pre_value => "02",
-  :value => "82564521"
-)
+#puts "Creating Phone for Jackie Chan"
+#Phone.create(
+#  :contactable => robert_tingle,
+#  :contact_meta_type_id => phone_home.id,
+#  :pre_value => "02",
+#  :value => "82564521"
+#)
 
 puts "Creating Phone for Karen Smith"
 Phone.create(
