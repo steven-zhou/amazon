@@ -1,4 +1,5 @@
-$('#show_organisation_list_grid').html('<%= escape_javascript(render(:partial => "/organisations/search_list_results", :locals =>{:organisations => @organisations, :current_operation => @current_operation })) %>');
+$('#show_organisation_list_content').html('<%= escape_javascript(render(:partial => "/organisations/search_list_results", :locals =>{:organisations => @organisations, :current_operation => @current_operation })) %>');
+$('#show_organisation_list_message').css('display','');
 $('#show_organisation_list_grid').dialog({
   modal: true,
   resizable: false,

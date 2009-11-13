@@ -3,7 +3,7 @@
     %h1 Dashboard
 #dashboard
   - unless @superadmin_message == ""
-    .full_container#superadmin_message{:style => "background-color:#B2E3C5;font:bold 18px/20px arial,sans-serif;"}
+    .full_container#superadmin_message{:style => "background-image:url(/images/container_orange_bg.png);font:bold 20px Arial,Helvatica,sans-serif; text-align: center;"}
       - if @superadmin_message.length > 100        
         #message_less_container
           %p
@@ -11,7 +11,7 @@
             = link_to_function "more", :id => "message_more"
       #message_more_container{:style => (@superadmin_message.length > 100) ? "display:none" : ""}
         = link_to_function image_tag("close_icon.png"), :style => "float:right;", :id => "message_less" if @superadmin_message.length > 100
-        %p #{@superadmin_message}
+        %h2 #{@superadmin_message}
 
   .full_container
     - if @super_admin
@@ -27,21 +27,25 @@
 %br.clear
 
 %table#columns
-  %tr
-    %td
-      %div.portlet
-        %div.portlet_topper
-          %h1 Sample Graph
-        %div.portlet_content
-          %div#graph
-    %td
-      %div.portlet
-        %div.portlet_topper
-          %h1 Calendar
-        %div.portlet_content
-          %div#datepicker
-    %td
-      = render :partial => "to_do_lists/to_do_lists_part"
+  - if @column1.empty? && @column2.empty? && @column3.empty?
+    %tr
+      %td#column1
+        = render :partial => "dashboards/box_1"
+      %td#column2
+        = render :partial => "dashboards/box_2"
+      %td#column3
+        = render :partial => "dashboards/box_3"
+  -else
+    %tr
+      %td#column1
+        - @column1.each do |i|
+          = render :partial => "dashboards/box_#{i.box_id}"
+      %td#column2
+        - @column2.each do |i|
+          = render :partial => "dashboards/box_#{i.box_id}"
+      %td#column3
+        - @column3.each do |i|
+          = render :partial => "dashboards/box_#{i.box_id}"
 
 %div#footer
 

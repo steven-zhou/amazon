@@ -125,47 +125,47 @@ $(function() {
         if($(this).attr('field')== "contact")
         {
             change_type =$('#contact_input_change_or_not').val();
-            $('#contact_input_change_or_not').val("false");
+ 
         }
         if($(this).attr('field')== "address")
         {
             change_type =$('#address_input_change_or_not').val();
-            $('#address_input_change_or_not').val("false");
+
         }
 
         if($(this).attr('field')== "master_doc")
         {
             change_type =$('#master_doc_input_change_or_not').val();
-            $('#master_doc_input_change_or_not').val("false");
+
         }
 
         if($(this).attr('field')== "relationship")
         {
             change_type =$('#relationship_input_change_or_not').val();
-            $('#relationship_input_change_or_not').val("false");
+
         }
 
         if($(this).attr('field')== "note")
         {
             change_type =$('#notes_input_change_or_not').val();
-            $('#notes_input_change_or_not').val("false");
+
         }
 
         if($(this).attr('field')== "person_role")
         {
             change_type =$('#role_input_change_or_not').val();
-            $('#role_input_change_or_not').val("false");
+
         }
 
         if($(this).attr('field')== "employment")
         {
             change_type =$('#employment_input_change_or_not').val();
-            $('#employment_input_change_or_not').val("false");
+ 
         }
         if($(this).attr('field')== "group")
         {
             change_type =$('#group_input_change_or_not').val();
-            $('#group_input_change_or_not').val("false");
+
         }
         //                if($(this).attr('field')== "organisation_contact")
         //          {
@@ -185,11 +185,59 @@ $(function() {
                 buttons: {
 
                     No: function(){
+
+
                         $(this).dialog('destroy');
+
                         return false;
 
                     },
                     Yes: function(){
+                        
+                         if(link.attr('field')== "contact")
+        {
+
+            $('#contact_input_change_or_not').val("false");
+        }
+        if(link.attr('field')== "address")
+        {
+          
+            $('#address_input_change_or_not').val("false");
+        }
+
+        if(link.attr('field')== "master_doc")
+        {
+           
+            $('#master_doc_input_change_or_not').val("false");
+        }
+
+        if(link.attr('field')== "relationship")
+        {
+          
+            $('#relationship_input_change_or_not').val("false");
+        }
+
+        if(link.attr('field')== "note")
+        {
+           $('#notes_input_change_or_not').val("false");
+        }
+
+        if(link.attr('field')== "person_role")
+        {
+
+            $('#role_input_change_or_not').val("false");
+        }
+
+        if(link.attr('field')== "employment")
+        {
+
+            $('#employment_input_change_or_not').val("false");
+        }
+        if(link.attr('field')== "group")
+        {
+
+            $('#group_input_change_or_not').val("false");
+        }
 
                         $.get(link.attr('href'), null ,null, 'script');
 
@@ -1632,7 +1680,7 @@ $(function(){
                         }
                     }
                 });
-                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').dialog('option', 'title', 'Error');
                 $('#error_message').parent().find("a").css("display","none");
                 $("#error_message").parent().css('background-color','#D1DDE6');
                 $("#error_message").css('background-color','#D1DDE6');
@@ -1674,24 +1722,12 @@ $(function(){
                     }
                 }
             });
-            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').dialog('option', 'title', 'Error');
             $('#error_message').parent().find("a").css("display","none");
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
             $('#error_message').dialog('open');
-        //            $('#invalid_email').dialog( {
-        //                modal: true,
-        //                resizable: true,
-        //                draggable: true,
-        //                buttons: {
-        //
-        //                    OK: function(){
-        //
-        //                        $(this).dialog('close');
-        //                    }
-        //                }
-        //            });
-        //            $('#invalid_email').dialog('open');
+       
         }
     });
 });
@@ -1770,7 +1806,7 @@ $(function(){
                     }
                 }
             });
-            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').dialog('option', 'title', 'Error');
             $('#error_message').parent().find("a").css("display","none");
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
@@ -2393,7 +2429,7 @@ $(function(){
                     buttons: {
                         "Close": function(){
                             link.focus();
-                            link.val('');
+//                            link.val('');
                             $(this).dialog('destroy');
                             return true;
                         }
@@ -2433,7 +2469,7 @@ $(function(){
                         }
                     }
                 });
-                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').dialog('option', 'title', 'Error');
                 $('#error_message').parent().find("a").css("display","none");
                 $("#error_message").parent().css('background-color','#D1DDE6');
                 $("#error_message").css('background-color','#D1DDE6');
@@ -2469,7 +2505,7 @@ check_empty_value = function(){
                 }
             }
         });
-        $('#error_message').dialog('option', 'title', 'ERROR');
+        $('#error_message').dialog('option', 'title', 'Error');
         $('#error_message').parent().find("a").css("display","none");
         $("#error_message").parent().css('background-color','#D1DDE6');
         $("#error_message").css('background-color','#D1DDE6');
@@ -2520,7 +2556,7 @@ check_email_field = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid email address !");
+            $('#error_message_text').html("Invalid Email !");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2555,7 +2591,7 @@ check_email_field_edit = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid email address !");
+            $('#error_message_text').html("Invalid Email !");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2573,7 +2609,7 @@ check_email_field_edit = function(){
                     }
                 }
             });
-            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').dialog('option', 'title', 'Error');
             $('#error_message').parent().find("a").css("display","none");
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
@@ -2596,7 +2632,9 @@ $(function(){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid email address !");
+                    $('#error_message_text').html("Invalid email address!");
+
+
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
                         modal: true,
@@ -2609,25 +2647,27 @@ $(function(){
                                 link.focus();
 
                                 $(this).dialog('destroy');
-                                return true;
+                                return false;
                             }
                         }
                     });
-                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').dialog('option', 'title', 'Error');
                     $('#error_message').parent().find("a").css("display","none");
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
+                 return false;
                 }
+               
             }
-
 
             _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
             if($('#person_websites_attributes_3_value').val()!=""){
                 if((!_valid1)){
                     var link1 = $(this);
-                           alert('ddd');
-                    $('#error_message_text').html("Invalid website address !");
+
+                    $('#error_message_text').html("Invalid website address!");
+
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2641,27 +2681,21 @@ $(function(){
                                 link1.focus();
 
                                 $(this).dialog('destroy');
-                                return true;
+                                return false;
                             }
                         }
                     });
-                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').dialog('option', 'title', 'Error');
                     $('#error_message').parent().find("a").css("display","none");
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
-
-                    return false;
-
-
+                return false;
                 }
+             
             }
 
-
-
-
-
-            return false;
+          
         }
         return true;
     });
@@ -2680,7 +2714,7 @@ $(function(){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid email address !");
+                    $('#error_message_text').html("Invalid Email !");
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2694,15 +2728,16 @@ $(function(){
                                 link.focus();
 
                                 $(this).dialog('destroy');
-                                return true;
+                                return false;
                             }
                         }
                     });
-                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').dialog('option', 'title', 'Error');
                     $('#error_message').parent().find("a").css("display","none");
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
+                    return false;
                 }
             }
                      
@@ -2711,7 +2746,7 @@ $(function(){
                 if((!_valid1)){
                     var link1 = $(this);
 
-                    $('#error_message_text').html("Invalid website address !");
+                    $('#error_message_text').html("Invalid Website !");
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2725,11 +2760,11 @@ $(function(){
                                 link1.focus();
 
                                 $(this).dialog('destroy');
-                                return true;
+                                return false;
                             }
                         }
                     });
-                    $('#error_message').dialog('option', 'title', 'ERROR');
+                    $('#error_message').dialog('option', 'title', 'Error');
                     $('#error_message').parent().find("a").css("display","none");
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
@@ -2737,8 +2772,9 @@ $(function(){
                     return false;
                 }
             }
-            return false;
+          
         }
+        return true;
     });
 });
 
@@ -2752,7 +2788,7 @@ check_website_field = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid website address !");
+            $('#error_message_text').html("Invalid Website !");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2770,7 +2806,7 @@ check_website_field = function(){
                     }
                 }
             });
-            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').dialog('option', 'title', 'Error');
             $('#error_message').parent().find("a").css("display","none");
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
@@ -2790,7 +2826,7 @@ check_website_field_edit = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid website address !");
+            $('#error_message_text').html("Invalid Website!");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2808,7 +2844,7 @@ check_website_field_edit = function(){
                     }
                 }
             });
-            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').dialog('option', 'title', 'Error');
             $('#error_message').parent().find("a").css("display","none");
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
@@ -5671,14 +5707,8 @@ $(function(){
     $("#content input[type='text']").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
-
-        //     alert( left_content.length);
-        //     alert( right_content.length);
         if (left_content.length > 0 &&  right_content.length > 0)
-        {
-        //          $('#check_input_change').val("true");
-        //          alert( $('#check_input_change').val());
-
+        { 
         }
         else
         {
@@ -5686,7 +5716,22 @@ $(function(){
             $('#check_input_change').val("true");
 
         }
-   
+    });
+
+
+      $("#content").find('textarea').live('change', function(){
+       
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+        }
+        else
+        {
+
+            $('#check_input_change').val("true");
+
+        }
     });
 });
 
@@ -5775,7 +5820,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not saved. Are you sure ? ");
+            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5852,7 +5897,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not saved. Are you sure ? ");
+            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5931,7 +5976,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not saved. Are you sure ? ");
+            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -6246,6 +6291,7 @@ $(function(){
 });
 
 
+
 //add_new_role in Role Manager for control role_type dropdown list
 $(function(){
     $("#new_role_bar #add_new_role").live('click',function(){
@@ -6255,3 +6301,49 @@ $(function(){
         $('#role_role_type_id').attr("disabled", false);
     });
 });
+
+/* Show Person Age*/
+
+
+
+$(function(){
+    $("#person_birth_date").live('change', function(){
+
+     if($("#person_birth_date").val()!= "")
+  { var current_year = new Date();
+  $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
+  }
+  else
+      {
+
+           $('#person_age').html('').change();
+      }
+}
+);
+
+    });
+
+
+/*Save My Dashboard*/
+
+$(function(){
+    $("#save_my_dashboard").click(function(){
+        var my_box = [];
+        for(i=1; i<=3; i++){
+            var len = $("#column"+i).find(".portlet").length;
+            var my_column = [];
+            for(j=0; j<len; j++){
+                my_column[j] = $('#'+($("#column"+i).find(".portlet"))[j].id).attr('box_id');
+            }
+            my_box[i] = my_column.join(",");
+        }
+        $.ajax({
+            type: "GET",
+            url: "/dashboards/save_dashboard.js",
+            data: 'column1='+my_box[1]+'&column2='+my_box[2]+'&column3='+my_box[3],
+            dataType: "script"
+        });
+    });
+
+});
+

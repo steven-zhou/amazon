@@ -19,6 +19,7 @@ class OrganisationsController < ApplicationController
         @check_field << i.field_name
       end
     end
+
     respond_to do |format|
       format.html
     end
@@ -263,6 +264,7 @@ class OrganisationsController < ApplicationController
   #organisation grid show left part
   def show_left
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
+    @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = Organisation.find(:all, :order => "id")
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if @organisation.nil?

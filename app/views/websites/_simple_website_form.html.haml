@@ -5,5 +5,5 @@
     = website.collection_select :contact_meta_type_id, Contact.website_types, :id, :name
   .field_70
     = website.label :value, "Website"
-    = website.text_field :value
+    = website.text_field :value , :value => "http://"
   %br.clear
