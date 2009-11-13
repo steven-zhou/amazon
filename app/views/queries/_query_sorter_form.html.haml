@@ -14,9 +14,9 @@
       %label &nbsp;
     .form_line
       = f.radio_button :ascending, true, :checked => true, :style => "width:20%;display:inline;", :disabled => @query_header.status == false
-      = f.label :ascending, "Ascending", :style => "width:20%;display:inline;"
+      = f.label :ascending, "Ascending", :style => "width:10%;display:inline;"
       = f.radio_button :ascending, false, :style => "width:20%;display:inline;", :disabled => @query_header.status == false
-      = f.label :ascending, "Descending", :style => "width:20%;display:inline;"
+      = f.label :ascending, "Descending", :style => "width:10%;display:inline;"
     = submit_tag "Add Attribute", :disabled => @query_header.status == false
 
   %br.clear
