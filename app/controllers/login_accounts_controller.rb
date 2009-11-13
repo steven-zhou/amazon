@@ -33,7 +33,6 @@ class LoginAccountsController < ApplicationController
         LoginAccountPasswordResetDispatcher.deliver(email)
         flash.now[:message] = "New User Account is Saved successfully."
 
-
       else      
         if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
           flash.now[:error] = flash_message(:type => "format error", :field => "security_email")
@@ -70,7 +69,6 @@ class LoginAccountsController < ApplicationController
 
           flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
         end
-       flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
 
       end
       @login_accounts = SystemUser.find(:all)
