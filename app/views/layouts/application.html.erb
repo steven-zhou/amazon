@@ -46,7 +46,7 @@
       <%= render(:partial => "/feedback/feedback_form") %>
     <%- end%>
     <div id="feedback_confirmation"></div>
-
+    <div id="whoami"><%="Welcome #{@current_user.user_name}"  %><br/> <%= "Sign In Time: #{@current_user.last_login.strftime('%d/%m/%y - %H:%M')}" %> </div>
 
   </body>
 </html>
