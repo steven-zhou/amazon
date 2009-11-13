@@ -128,7 +128,7 @@ class ReportsController < ApplicationController
   end
 
   def generate_organisation_report_pdf
-    @organisation_report_list = Organisation.find(:all, :order => "id")
+    @organisation_report_list = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
     @type ="List"
     @organisation_report_format = "organisaiton_contact_report"
 
@@ -172,7 +172,7 @@ class ReportsController < ApplicationController
 
     @organisation_report_format = params[:request_format]
 
-    @organisation_report_list = Organisation.find(:all, :order => "id")
+    @organisation_report_list = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
 
     if(@organisation_report_format == "Contact Report")
 

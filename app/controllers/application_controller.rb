@@ -51,8 +51,10 @@ class ApplicationController < ActionController::Base
     when "object_updated_successfully"      then "The #{options[:object]} was updated."
 
       # Errors
+    when "login_online_error"               then "You can not login: Another Person Is Online "
     when "login_error"                      then "You can not login: Account information is wrong."
     when "login_group_error"                then "You can not login: Your account does not have the right group access."
+
     when "login_permission_error"           then "You do not have the appropriate level of permissions to log into the system. Please see your System Administrator."
     when "session_timeout"                  then "Your login session has timed out. For security reasons you will need to log in again."
     when "grace_period_expired"             then "You have attempted to login after the grace period for your account. Your account has been deleted. Please see your Systems Administrator."
@@ -91,6 +93,7 @@ class ApplicationController < ActionController::Base
         # The session has timed out, set a message, boot them out....
         session[:user] = nil
         session[:last_event] = nil
+        current_user.update_attribute(:online_status => false )
         flash[:warning] = flash_message(:type => "session_timeout")
         redirect_to login_url
       else

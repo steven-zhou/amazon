@@ -37,17 +37,15 @@ class ListHeadersController < ApplicationController
               @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
               @list_detail.save
             end
+            #assign new saved list to group or user
+            assign_group_or_user
             flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
           else
             flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))
             flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("has already been taken"))
           end
         end
-        #save to the user list
-        @user_list=UserList.new
-        @user_list.user_id = session[:user]
-        @user_list.list_header_id = @list_header.id
-        @user_list.save
+        
 
       else
         flash.now[:error] = flash_message(:message => "list can't be empty")
@@ -73,7 +71,8 @@ class ListHeadersController < ApplicationController
               @list_detail.save
             end
           end
-
+          #assign new saved list to group or user
+          assign_group_or_user
           flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list (copy)")
         else
           flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))
@@ -102,7 +101,8 @@ class ListHeadersController < ApplicationController
                 @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
                 @list_detail.save
               end
-
+              #assign new saved list to group or user
+              assign_group_or_user
               flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "list")
             else
               flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@list_header.errors.on(:name).nil? && @list_header.errors.on(:name).include?("can't be blank"))
@@ -217,6 +217,7 @@ class ListHeadersController < ApplicationController
   end
 
   def manage_list
+    @list_headers = @current_user.all_lists
     respond_to do |format|
       format.html
     end
@@ -231,6 +232,21 @@ class ListHeadersController < ApplicationController
     end
     respond_to do |format|
       format.html
+    end
+  end
+
+  private
+  def assign_group_or_user
+    if LoginAccount.find(session[:user]).class.to_s == "SystemUser"
+      @user_list=UserList.new
+      @user_list.user_id = session[:user]
+      @user_list.list_header_id = @list_header.id
+      @user_list.save
+    else
+      @group_list=GroupList.new
+      @group_list.tag_id = GroupType.find_by_name("Power User").id
+      @group_list.list_header_id = @list_header.id
+      @group_list.save
     end
   end
 end
