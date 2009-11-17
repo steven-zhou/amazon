@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
         # The session has timed out, set a message, boot them out....
         session[:user] = nil
         session[:last_event] = nil
-        current_user.update_attribute(:online_status => false )
+        current_user.update_attribute(:online_status, false)
         flash[:warning] = flash_message(:type => "session_timeout")
         redirect_to login_url
       else
