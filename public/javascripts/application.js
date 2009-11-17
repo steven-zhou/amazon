@@ -2409,6 +2409,36 @@ $(function(){
 });
 
 /*validation section*/
+
+//validate the phone value which will be correct just if there is no Alphabet
+$(function(){
+    $(".phone_value_filed").live('keyup', function(){
+        _valid = /^[a-zA-Z]+$/.test($(this).val());
+        //if phone value contain any one alphabet, _valid will be true, and error message box will be popup
+        if(_valid){
+            var link = $(this);
+            $('#error_message_text').html("Phone value cannot contain alphabet!");
+            $('#error_message_text').css("display","");
+            $('#error_message_text').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        link.focus();
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            return false;
+        }
+        return true;
+    });
+});
+
 $(function(){
     $(".integer_field").live('keyup', function(){
 
