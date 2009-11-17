@@ -42,7 +42,7 @@
       =employment.label :position_name, "Name"
       =employment.text_field :position_name, :disabled=>@employment.status == false
     .field_22
-      =employment.label :position_title_id, "Description"
+      =employment.label :position_title_id, "Title"
       =employment.collection_select :position_title_id, PositionTitle.active_position_title, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
     .field_22
       =employment.label :commenced_date, "Start Date"

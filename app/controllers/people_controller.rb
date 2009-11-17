@@ -15,7 +15,7 @@ class PeopleController < ApplicationController
     @person.emails.build
     @person.websites.build
     @image = Image.new
-    @postcodes = DomesticPostcode.find(:all)
+    #@postcodes = DomesticPostcode.find(:all)
     @personal_check_field = Array.new
     
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
@@ -112,7 +112,7 @@ class PeopleController < ApplicationController
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
 
-    @postcodes = DomesticPostcode.find(:all)
+    #@postcodes = DomesticPostcode.find(:all)
 
     if request.get?
       if @list_headers.blank?
@@ -221,7 +221,7 @@ class PeopleController < ApplicationController
       @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
-      @postcodes = DomesticPostcode.find(:all)
+      #@postcodes = DomesticPostcode.find(:all)
       @image = Image.new
 
        @personal_check_field = Array.new
@@ -232,7 +232,7 @@ class PeopleController < ApplicationController
       end
     end
 
-      flash[:error] = "There Was an Error to Create a New User"
+      flash.now[:error] = "There Was an Error to Create a New User"
 #      redirect_to new_person_path
        render :action => "new"
     end
@@ -402,7 +402,7 @@ class PeopleController < ApplicationController
 
   def show_left
  
-#    check_user
+    #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @list_headers = @current_user.all_lists
@@ -427,7 +427,7 @@ class PeopleController < ApplicationController
 
     @personal_check_field = Array.new
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-    unless @duplication_formula_appiled.status = false
+    unless @duplication_formula_appiled.status == false
       @duplication_formula_appiled.duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
       end
@@ -435,7 +435,7 @@ class PeopleController < ApplicationController
  
      
     if(params[:current_operation] == "edit_list")
-      @postcodes = DomesticPostcode.find(:all)
+      #@postcodes = DomesticPostcode.find(:all)
       @current_action = "edit"
       @address = Address.new
       @phone = Phone.new
@@ -591,7 +591,18 @@ class PeopleController < ApplicationController
 
   def lookup  #  look up person in the list
     @update_field = params[:update_field]
-    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
+
+    if !(PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?)
+
+        PersonLookupGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+    end
+
+
+
+#    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
       @templist = TempList.find_by_login_account_id(session[:user])
       @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
@@ -609,7 +620,7 @@ class PeopleController < ApplicationController
         @solg.save
         
        
-      end
+#      end
     end
     respond_to do |format|
       format.js

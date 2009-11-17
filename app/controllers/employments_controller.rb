@@ -20,9 +20,36 @@ class EmploymentsController < ApplicationController
   def create
     @person = Person.find(params[:person_id].to_i)
     @employment = @person.employments.new(params[:employment])
-    @employment.save
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id})  created a new Employment record with ID #{@employment.id}.")
-    @person = Person.find(session[:user])
+    if @employment.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id})  created a new Employment record with ID #{@employment.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create employment record.")
+      #----------------------------presence - of----
+      if(!@employment.errors[:commenced_date].nil? && @employment.errors.on(:commenced_date).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "Position--Start Date")
+      elsif(!@employment.errors[:organisation].nil? && @employment.errors.on(:organisation).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Organisation")
+      elsif(!@employment.errors[:emp_recruiter].nil? && @employment.errors.on(:emp_recruiter).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Position--Hire By")
+        #-----------------------validate--person_must_be_valid------------------------
+      elsif(!@employment.errors[:report_to].nil? && @employment.errors.on(:report_to).include?("can't be invalid"))
+        flash.now[:error] = flash_message(:type => "invalid_data", :field => "Position--Report To")
+      elsif(!@employment.errors[:terminated_by].nil? && @employment.errors.on(:terminated_by).include?("can't be invalid"))
+        flash.now[:error] = flash_message(:type => "invalid_data", :field => "Termination --Terminated_by")
+      elsif(!@employment.errors[:suspended_by].nil? && @employment.errors.on(:suspended_by).include?("can't be invalid"))
+        flash.now[:error] = flash_message(:type => "invalid_data", :field => "Suspension --Suspended_by")
+
+           #-----------------------validate--end_date_must_be_equal_or_after_commence_date----------------------
+      elsif(!@employment.errors[:term_end_date].nil? && @employment.errors.on(:term_end_date).include?("can't be before commence date"))
+        flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "Position --Term End Date")
+      elsif(!@employment.errors[:suspension_end_date].nil? && @employment.errors.on(:suspension_end_date).include?("can't be before suspension start date"))
+        flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "Suspension --Suspension End Date")
+      elsif(!@employment.errors[:termination_date].nil? && @employment.errors.on(:termination_date).include?("can't be before termination_notice_date"))
+        flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "Termination --Termination Date")
+      else
+        flash.now[:error]= "Some input field invalid, Please check it again"
+      end
+    end
     respond_to do |format|
       format.js
     end
@@ -48,7 +75,7 @@ class EmploymentsController < ApplicationController
     end
   end
 
- def move_down_employment_priority
+  def move_down_employment_priority
     @current_employment = Employment.find(params[:id])
 
     if(@current_employment.sequence_no==1)
@@ -64,10 +91,10 @@ class EmploymentsController < ApplicationController
       format.js
     end
 
- end
+  end
 
- def move_up_employment_priority
-  @up_current_employment = Employment.find(params[:id])
+  def move_up_employment_priority
+    @up_current_employment = Employment.find(params[:id])
     @up_exchange_employment = @up_current_employment.employee.employments.find_by_sequence_no(@up_current_employment.sequence_no - 1)
 
     @up_exchange_employment.sequence_no = @up_exchange_employment.sequence_no + 1
@@ -80,5 +107,5 @@ class EmploymentsController < ApplicationController
     respond_to do |format|
       format.js
     end
- end
+  end
 end

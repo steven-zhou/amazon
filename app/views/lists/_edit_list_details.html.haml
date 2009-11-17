@@ -1,18 +1,18 @@
 .container
-  -form_for @list_header, :html => {:class => 'ajax_form'} do |f|
+  -form_for @list_header,:url => list_header_path(@list_header), :html => {:class => 'ajax_form'} do |f|
     .form_line
       .field_25
         =f.label :name, "Name"
-        =f.text_field :name, :disabled => @list_header.status == false
+        =f.text_field :name, :disabled => @list_header.status == false, :name => "list_header[name]"
       .field_25
         =f.label :description, "Description"
-        =f.text_field :description, :disabled => @list_header.status == false
+        =f.text_field :description, :disabled => @list_header.status == false, :name => "list_header[description]"
       .field_15
         =f.label :allow_duplication, "Allow Duplication"
-        =f.check_box :allow_duplication, :style => "width:30%;display:inline"
+        =f.check_box :allow_duplication, :style => "width:30%;display:inline", :name => "list_header[allow_duplication]"
       .field_20
         = f.label :status, 'Active'
-        = f.check_box :status
+        = f.check_box :status, :name => "list_header[status]"
       .field_10{:style => "float:right"}
         = f.label :status, "&nbsp;"
         =submit_tag "Submit"

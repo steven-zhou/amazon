@@ -4,5 +4,27 @@ if ( "<%= escape_javascript(@login_account.nil?.to_s) %>" == "false") {
   $("#username_retrieval_captcha").hide();
   $(".login_help_content").hide();
 }
- $('#username_retrieval_account_invalid').dialog('destroy');
 $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "username_retrieval_security_questions"))%>");
+ <%- if @login_account.nil? %>
+$('#username_retrieval_security_questions').dialog( {
+            modal: true,
+            resizable: false,
+            draggable :true,
+            height: 'auto',
+            width: 350,
+             buttons: {
+                        "Retry": function(){
+
+                            $(this).dialog('destroy');
+                            return true;
+                        }
+                    }
+
+          });
+
+          $('#username_retrieval_security_questions').dialog('option', 'title', 'ERROR');
+          $('#username_retrieval_security_questions').parent().find("a").css("display","none");
+          $("#username_retrieval_security_questions").parent().css('background-color','#D1DDE6');
+          $("#username_retrieval_security_questions").css('background-color','#D1DDE6');
+          $('#username_retrieval_security_questions').dialog('open');
+ <%- end %>
