@@ -11,7 +11,7 @@ class OrganisationsController < ApplicationController
     @organisation.emails.build
     @organisation.websites.build
     @image = Image.new
-    @postcodes = DomesticPostcode.find(:all)
+    #@postcodes = DomesticPostcode.find(:all)
     @check_field = Array.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
@@ -92,9 +92,9 @@ class OrganisationsController < ApplicationController
       @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
       @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
-      @postcodes = DomesticPostcode.find(:all)
-      #flash.now[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      flash[:warning] = "Organisation Profile Has NOT been Created Due to Data Errors"
+      #@postcodes = DomesticPostcode.find(:all)
+      flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
+#      flash[:warning] = "Organisation Profile Has NOT been Created Due to Data Errors"
       redirect_to new_organisation_path
     end
   end
@@ -104,7 +104,7 @@ class OrganisationsController < ApplicationController
     @current_user = LoginAccount.find(session[:user])
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = Organisation.find(:all, :order => "id")
-    @postcodes = DomesticPostcode.find(:all)
+    #@postcodes = DomesticPostcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
     @organisation = @o[0] if @organisation.nil?
@@ -278,7 +278,7 @@ class OrganisationsController < ApplicationController
     end
     if(params[:current_operation] == "edit_organisation_list")
       #      puts "**********#{@organisation.class.to_s}*********8"
-      @postcodes = DomesticPostcode.find(:all)
+      #@postcodes = DomesticPostcode.find(:all)
       @address = Address.new
       @phone = Phone.new
       @email = Email.new
@@ -359,19 +359,20 @@ class OrganisationsController < ApplicationController
 
   def lookup
     @update_field = params[:update_field]
-    if ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).empty?
-      @organisations = Organisation.find(:all, :order => "id")
-      @organisations.each do |organisations|
-        @solg = ShowOrganisationListGrid.new
-        @solg.login_account_id = session[:user]
-        @solg.grid_object_id = organisations.id
-        @solg.field_1 = organisations.full_name
-        @solg.field_2 = organisations.short_name
-        @solg.field_3 = organisations.primary_address.first_line unless organisations.primary_address.blank?
-        @solg.field_4 = organisations.primary_phone.value unless organisations.primary_phone.blank?
-        @solg.field_5 = organisations.primary_email.address unless organisations.primary_email.blank?
-        @solg.save
-      end
+    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end    
+    @organisations = Organisation.find(:all, :order => "id")
+    @organisations.each do |organisations|
+      @solg = ShowOrganisationListGrid.new
+      @solg.login_account_id = session[:user]
+      @solg.grid_object_id = organisations.id
+      @solg.field_1 = organisations.full_name
+      @solg.field_2 = organisations.short_name
+      @solg.field_3 = organisations.primary_address.first_line unless organisations.primary_address.blank?
+      @solg.field_4 = organisations.primary_phone.value unless organisations.primary_phone.blank?
+      @solg.field_5 = organisations.primary_email.address unless organisations.primary_email.blank?
+      @solg.save
     end
     respond_to do |format|
       format.js

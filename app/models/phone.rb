@@ -26,7 +26,7 @@ class Phone < Contact
   ##################
   # Phone input validation
 
-  validates_numericality_of :value, :only_integer => true
+  #validates_numericality_of :value, :only_integer => true
   validates_presence_of :value
 
   ####################
