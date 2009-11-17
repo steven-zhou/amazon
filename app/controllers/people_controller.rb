@@ -591,7 +591,18 @@ class PeopleController < ApplicationController
 
   def lookup  #  look up person in the list
     @update_field = params[:update_field]
-    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
+
+    if !(PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?)
+
+        PersonLookupGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+    end
+
+
+
+#    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
       @templist = TempList.find_by_login_account_id(session[:user])
       @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
@@ -609,7 +620,7 @@ class PeopleController < ApplicationController
         @solg.save
         
        
-      end
+#      end
     end
     respond_to do |format|
       format.js

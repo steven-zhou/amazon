@@ -20,7 +20,7 @@
       
       #lol_select{:style => "margin-top: 12px;"}
         - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
-          =link_to_function image_tag('application_view_detail.png',:size => "25x25"), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list", :title => "Show Organisation List"
+          =image_tag('application_view_detail.png', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list", :title => "Show Organisation List",:size => "25x25")
         - else
-          =link_to_function image_tag('application_view_detail.png',:size => "25x25"), :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list", :title => "Show Organisation List"
+          =image_tag('application_view_detail.png', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list", :title => "Show Organisation List",:size => "25x25")
     %br.clear

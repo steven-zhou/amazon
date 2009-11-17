@@ -3314,6 +3314,12 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#show_all_list_member").live('mouseover',function(){
+        $(this).css("cursor","pointer");
+    });
+});
+
 
 //$(function(){
 //    $("#edit_all_list_member").live('click',function(){
@@ -3353,11 +3359,13 @@ $(function(){
     });
 });
 
-//$(function(){
-//   
-//      $('.text').wysiwyg();
-//
-//});
+$(function(){
+    $("#show_all_organisations").live('mouseover',function(){
+
+      $(this).css("cursor","pointer");
+    });
+});
+
 
 
 $(function(){
