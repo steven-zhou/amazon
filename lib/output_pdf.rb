@@ -24,6 +24,8 @@ module OutputPdf
       {"Date" => "created_at"},
       {"User" => "login_account.user_name"},
       {"IP Address" => "ip_address"},
+      {"Controller" => "controller"},
+      {"Action" => "action"},
       {"Message" => "message"}]}
 
 
@@ -369,38 +371,43 @@ module OutputPdf
 
     PDF::SimpleTable.new do |tab|
 
-      tab.column_order.push(*%w(system_id log_date user ip_address message))
+      tab.column_order.push(*%w(system_id log_date user ip_address log_controller log_action message))
 
       tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
         col.heading = "ID"
       }
-
       tab.columns["system_id"].width = 25
 
 
       tab.columns["log_date"] = PDF::SimpleTable::Column.new("log_date") { |col|
         col.heading = "Date"
       }
-
-      tab.columns["log_date"].width = 140
+      tab.columns["log_date"].width = 100
 
       tab.columns["user"] = PDF::SimpleTable::Column.new("user") { |col|
         col.heading = "User"
       }
-
-      tab.columns["user"].width = 100
+      tab.columns["user"].width = 75
 
       tab.columns["ip_address"] = PDF::SimpleTable::Column.new("ip_address") { |col|
         col.heading = "IP Address"
       }
-
       tab.columns["ip_address"].width = 75
+
+      tab.columns["log_controller"] = PDF::SimpleTable::Column.new("log_controller") { |col|
+        col.heading = "Controller"
+      }
+      tab.columns["log_controller"].width = 75
+
+      tab.columns["log_action"] = PDF::SimpleTable::Column.new("log_action") { |col|
+        col.heading = "Action"
+      }
+      tab.columns["log_action"].width = 100
 
       tab.columns["message"] = PDF::SimpleTable::Column.new("message") { |col|
         col.heading = "Message"
       }
-
-      tab.columns["message"].width = 200
+      tab.columns["message"].width = 120
 
 
       tab.show_lines    = :outer
@@ -413,7 +420,7 @@ module OutputPdf
 
       for log_entry in system_log_entries do
 
-        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name}", "ip_address" => "#{log_entry.ip_address}", "message" => "#{log_entry.message}" }
+        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.login_account.user_name}", "ip_address" => "#{log_entry.ip_address}", "log_controller" => "#{log_entry.controller}", "log_action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
 
       end
 
