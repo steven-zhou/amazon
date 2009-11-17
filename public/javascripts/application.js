@@ -541,6 +541,7 @@ $(function(){
         if ($('table#search_list_results').attr('current_operation') == "show_list")
         {
             window.open("/people/"+$(this).attr("id").substring(3)+"/","_self");
+          
         }
     });
 });
@@ -550,11 +551,13 @@ $(function(){
         $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
-            data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
+            data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation')+'&active_tab='+$('#search_list_results').attr('active_tab')+'&active_sub_tab='+$('#search_list_results').attr('active_sub_tab'),
             dataType: "script"
         });
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
+
+         
 
 
     });
@@ -3307,7 +3310,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#GetSubActiveTabName').val(),
             dataType: "script"
 
         });
@@ -4989,6 +4992,7 @@ $(function(){
         $(".person_edit_tab").removeClass("active");
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
+        $('#GetSubActiveTabName').val($(this).attr('field'));
     });
 });
 

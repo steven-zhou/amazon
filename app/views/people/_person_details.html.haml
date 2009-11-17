@@ -52,7 +52,7 @@
   .field_30
     = label_tag :other_language,"Other Language", {:style => "color: #232323;"}
     %div.display_field_bg
-      = @person.other_language.nil? ? "" : @person.other_language.id
+      = @person.other_language.nil? ? "" : @person.other_language.name.to_s
     
   %br.clear
 .form_line

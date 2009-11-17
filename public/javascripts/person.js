@@ -48,6 +48,8 @@ $(function() {
         $(".container_icon").removeClass("container_icon_color");
         $(this).parent().addClass("container_icon_color");
          
+        $('#GetActiveTabName').val($(this).parent().find('a').attr('show_id_name')); $
+      
 
         $('.pppp[field='+ $(this).attr('show_id_name') +']').removeClass('hidden');
     });
