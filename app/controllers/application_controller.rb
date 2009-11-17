@@ -57,7 +57,7 @@ class ApplicationController < ActionController::Base
 
     when "login_permission_error"           then "Your User Account Has No Access Permissions, Please Contact System Administrator"
     when "session_timeout"                  then "For Security Reasons, Your Session has expired Due to Inactivity, Please Re-sign Again"
-    when "grace_period_expired"             then "For Security  Reasons, The Grace Period to Activate Your Account has expired, Please Contact System Administrator "
+    when "grace_period_expired"             then "For Security Reasons. The Grace Period to Activate Your Account has expired. Please Contact System Administrator."
     when "account_inactive"                 then "Your account is currently inactive. Please see your System Administrator."
     when "login_count_error"                then "For Security Reasons, Your Account has been Locked, Please Contact System Administrator"
     when "login_invalid_account_type"       then "Your login account is not of a valid account type to proceed."

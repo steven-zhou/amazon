@@ -347,7 +347,6 @@ jQuery.fn.doAjaxSubmit = function($callback) {
 
 $(document).ready(function() {
     $(".ajax_form").submitWithAjax();
-
 });
 
 
@@ -373,9 +372,9 @@ $('.startdatepick').live("mouseover", function(){
     day = arr_dateText[0];
     month = arr_dateText[1];
     year = arr_dateText[2];
-    
+
     if(year!=undefined){
-        $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));        
+        $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));
     }else{
         $(this).datepicker({
             dateFormat: 'dd-mm-yy',
@@ -384,7 +383,7 @@ $('.startdatepick').live("mouseover", function(){
             changeYear: true
         });
     }
-    
+
 });
 
 
@@ -419,6 +418,80 @@ $('.datepick').live("mouseover", function(){
         changeYear: true
     });
 });
+
+//
+//$(document).ready(function() {
+//    $('.datepick').datepicker({
+//        showOn: 'button',
+//        buttonImage: '/images/Icons/System/calendar.png',
+//        buttonImageOnly: true,
+//        dateFormat: 'dd-mm-yy',
+//        altFormat: 'mm-dd-yy',
+//        changeMonth: true,
+//        changeYear: true,
+//        yearRange: '-200:+20'
+//    });
+//
+//    $('.birthdatepick').datepicker({
+//        showOn: 'button',
+//        buttonImage: '/images/Icons/System/calendar.png',
+//        buttonImageOnly: true,
+//        dateFormat: 'dd-mm-yy',
+//        altFormat: 'mm-dd-yy',
+//        changeMonth: true,
+//        changeYear: true,
+//        maxDate: '+0d',
+//        yearRange: '-200:+0'
+//    });
+//
+//    $('.startdatepick').datepicker({
+//        showOn: 'button',
+//        buttonImage: '/images/Icons/System/calendar.png',
+//        buttonImageOnly: true,
+//        dateFormat: 'dd-mm-yy',
+//        altFormat: 'mm-dd-yy',
+//        changeMonth: true,
+//        changeYear: true,
+//        yearRange: '-200:+20',
+//        onSelect: function(){
+//            $('.enddatepick').datepicker('enable');
+//            alert(getTime.toString());
+//        },
+//        beforeShow: function(){
+//            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+//            day = arr_dateText[0];
+//            month = arr_dateText[1];
+//            year = arr_dateText[2];
+//            $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));
+//        }
+//    });
+//
+//    $('.enddatepick').datepicker({
+//                showOn: 'button',
+//                buttonImage: '/images/Icons/System/calendar.png',
+//                buttonImageOnly: true,
+//                dateFormat: 'dd-mm-yy',
+//                altFormat: 'mm-dd-yy',
+//                changeMonth: true,
+//                changeYear: true,
+//                yearRange: '-200:+20',
+//                beforeShow: function(){
+//                    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+//                    day = arr_dateText[0];
+//                    month = arr_dateText[1];
+//                    year = arr_dateText[2];
+//                    if (year==undefined){
+//                        $(this).datepicker('disable');
+//                    }else{
+//                        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+//                    }
+//                }
+//            });
+//    $('.enddatepick').datepicker('disable');
+//});
+
+
+
 
 
 /* Photo */
@@ -6463,3 +6536,14 @@ $(function(){
     });
 
 
+/* Ajax call system */
+$(function(){
+    $(".ajax_call").live("click", function(){
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("url"),
+            data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
+            dataType: "script"
+        });
+    });
+});
