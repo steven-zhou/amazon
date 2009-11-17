@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
       # Success
     when "object_created_successfully"      then "The New #{options[:object]} is Created."
     when "object_updated_successfully"      then "The #{options[:object]} is Updated Successfully."
-
+   
       # Errors
     when "login_online_error"               then "You can not login: Another Person Is Online "
     when "login_error"                      then "One or More of the Sign In Details is Invalid,Please Try Again."
@@ -73,6 +73,8 @@ class ApplicationController < ActionController::Base
     when "too_short"                        then "The #{options[:field]} is Too Short, Please try Again"
     when "format error"                     then "Invalid Format for #{options[:field]}, Please Try Again."
     when "same_person_error"                then "#{options[:field]} Cannot be the Same as the Source Person."
+    when "invalid_data"                     then "The #{options[:field]} is invalid"
+    when "invalid_date_order"               then "The #{options[:field]} can't be before start date"
       # Default
     when "default" then " #{options[:message]}"
     end
