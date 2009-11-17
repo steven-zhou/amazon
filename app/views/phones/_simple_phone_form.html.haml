@@ -6,7 +6,7 @@
     = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name
   .field_15
     = phone.label :pre_value, "Prefix"
-    = phone.text_field :pre_value,:class => "integer_field"
+    = phone.text_field :pre_value
   .field_34
     = phone.label :value, "Number"
     = phone.text_field :value, :class => "phone_value_filed empty_field"

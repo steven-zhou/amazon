@@ -49,15 +49,15 @@ class ApplicationController < ActionController::Base
       # Success
     when "object_created_successfully"      then "The New #{options[:object]} is Created."
     when "object_updated_successfully"      then "The #{options[:object]} is Updated Successfully."
-
+   
       # Errors
     when "login_online_error"               then "You can not login: Another Person Is Online "
     when "login_error"                      then "One or More of the Sign In Details is Invalid,Please Try Again."
     when "login_group_error"                then "Your User Account Has No Security Group, Please Contact System Administrator."
 
     when "login_permission_error"           then "Your User Account Has No Access Permissions, Please Contact System Administrator"
-    when "session_timeout"                  then "For Security Reasons, The Grace Period to Activate Your Account has expired, Please Contact System Administrator"
-    when "grace_period_expired"             then "You have attempted to login after the grace period for your account. Your account has been deleted. Please see your Systems Administrator."
+    when "session_timeout"                  then "For Security Reasons, Your Session has expired Due to Inactivity, Please Re-sign Again"
+    when "grace_period_expired"             then "For Security Reasons. The Grace Period to Activate Your Account has expired. Please Contact System Administrator."
     when "account_inactive"                 then "Your account is currently inactive. Please see your System Administrator."
     when "login_count_error"                then "For Security Reasons, Your Account has been Locked, Please Contact System Administrator"
     when "login_invalid_account_type"       then "Your login account is not of a valid account type to proceed."
@@ -73,6 +73,8 @@ class ApplicationController < ActionController::Base
     when "too_short"                        then "The #{options[:field]} is Too Short, Please try Again"
     when "format error"                     then "Invalid Format for #{options[:field]}, Please Try Again."
     when "same_person_error"                then "#{options[:field]} Cannot be the Same as the Source Person."
+    when "invalid_data"                     then "The #{options[:field]} is invalid"
+    when "invalid_date_order"               then "The #{options[:field]} can't be before start date"
       # Default
     when "default" then " #{options[:message]}"
     end

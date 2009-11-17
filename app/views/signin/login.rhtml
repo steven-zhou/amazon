@@ -1,234 +1,239 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Amazon | A new world of possibilities | Now with microwave!!</title>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>Amazon | A new world of possibilities | Now with microwave!!</title>
 
-    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","jpassword", "portlets", "signin.css", "validationEngine.jquery.css"%>
-    <%= jqgrid_stylesheets %>
-    <%= jqgrid_javascripts %>
-    <%= javascript_include_tag  "flexigrid.js",
-      "jquery.dataTables.min.js",
-      "jquery.qtip.min.js",
-      "jquery.form.js",
-      "jquery.jpassword.js",
-      "application.js",
-      "person.js",
-      "reports.js",
-      "config.js",
-      "interface.js",
-      "jquery.validationEngine.js"
+  <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","jpassword", "portlets", "signin.css", "validationEngine.jquery.css"%>
+  <%= jqgrid_stylesheets %>
+  <%= jqgrid_javascripts %>
+  <%= javascript_include_tag  "flexigrid.js",
+    "jquery.dataTables.min.js",
+    "jquery.qtip.min.js",
+    "jquery.form.js",
+    "jquery.jpassword.js",
+    "application.js",
+    "person.js",
+    "reports.js",
+    "config.js",
+    "interface.js",
+    "jquery.jclock.js",
+    "jquery.validationEngine.js"
 %>
 
 
 
-  </head>
+</head>
 
-  <body>
-    <!-- Hidden stuff displayed when people are having problems logging in -->
+<body>
+<!-- Hidden stuff displayed when people are having problems logging in -->
 
     <!-- Used to display the first login helper screen, which links to the others -->
-    <script type="text/javascript">
-      $(function() {
-        $('#login_assistant').live('click', function(){
-          $('#login_help_screen').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :false,
-            height: 250,
-            width: 575
-          }
-        );
-          $("#login_help_screen").parent().css('background-color','#D1DDE6');
-          $("#login_help_screen").css('background-color','#D1DDE6');
-          $('#login_help_screen').dialog('option', 'title', 'Login Assistant');
-          $(".login_help_content").show();
-          $("#login_help_screen").dialog("open");
-        });
-
-      }
-    )
-    </script>
-    <!-- Used to display the the password reset screen -->
-    <script type="text/javascript">
-      $(function() {
-        $('#forgot_password').live('click', function(){
-          $('#login_help_screen').dialog('close');
-          $('#login_password_reset').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :false,
-            height: 350,
-            width: 550
-          }
-
-        );
-          $("#login_password_reset").parent().css('background-color','#D1DDE6');
-          $("#login_password_reset").css('background-color','#D1DDE6');
-          $('#login_password_reset').dialog('option', 'title', 'Password Reset');
-          $('#login_password_reset').dialog("open");
-          $("#password_reset_username").val("");
-          $("#password_reset_email_address").val("");
-          $("#password_reset_username").attr("disabled", false);
-          $("#password_reset_email_address").attr("disabled", false);
-          $.ajax({
-            type: "GET",
-            url: "/signin/captcha",
-            data: '',
-            dataType: "script"
-          });
-          $("#password_reset_submit").show();
-          $("#password_captcha").show();
-          $("#login_password_reset_security_questions").html("<div id='login_password_reset_security_questions'></div>");
-        });
-
-      }
-    )
-    </script>
-    <!-- Used to display the the username retrieval screen -->
-    <script type="text/javascript">
-      $(function() {
-        $('#forgot_username').live('click', function(){
-          $('#login_help_screen').dialog('close');
-          $('#login_username_retrieval').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :false,
-            height: 315,
-            width: 550
-          }
-
-        );
-          $('#login_username_retrieval').dialog('option', 'title', 'Username Retrieval');
-          $("#login_username_retrieval").parent().css('background-color','#D1DDE6');
-          $("#login_username_retrieval").css('background-color','#D1DDE6');
-          $('#login_username_retrieval').dialog("open");
-          $("#username_retrieval_email_address").val("");
-          $("#username_retrieval_email_address").attr("disabled", false);
-          $("#username_retrieval_submit").show();
-          $.ajax({
-            type: "GET",
-            url: "/signin/captcha",
-            data: '',
-            dataType: "script"
-          });
-          $("#username_retrieval_captcha").show();
-          $("#username_retrieval_security_questions").html("<div id='username_retrieval_security_questions'></div>");
-        });
-
-      }
-    )
-    </script>
-    <!-- Used to regenerate captchas on request -->
-    <script type="text/javascript">
-      $(function() {
-        $('#regenerate_captcha').live('click', function(){
-          $.ajax({
-            type: "GET",
-            url: "/signin/captcha",
-            data: '',
-            dataType: "script"
-          });
-        });
+<script type="text/javascript">
+  $(function() {
+    $('#login_assistant').live('click', function(){
+      $('#login_help_screen').dialog( {
+        modal: true,
+        resizable: false,
+        draggable :false,
+        height: 250,
+        width: 575
       }
     );
-    </script>
+      $("#login_help_screen").parent().css('background-color','#D1DDE6');
+      $("#login_help_screen").css('background-color','#D1DDE6');
+      $('#login_help_screen').dialog('option', 'title', 'Login Assistant');
+      $(".login_help_content").show();
+      $("#login_help_screen").dialog("open");
+    });
 
-    <div id="login_help_screen" style="display:none;">
-      <div class="login_help_image"></div>
-      <div class="login_help_content">
-      <h3>If you are experiencing difficulty logging in please select from one of the options below, or contact your system administrator:</h3>
-      <ul>
-        <li><a href="#" id ="forgot_username">I have forgotten my username</a></li>
-        <li><a href="#" id ="forgot_password">I have forgotten my password</a></li>
-      </ul>
-    </div>
-    </div>
+  }
+)
+</script>
+<!-- Used to display the the password reset screen -->
+<script type="text/javascript">
+  $(function() {
+    $('#forgot_password').live('click', function(){
+      $('#login_help_screen').dialog('close');
+      $('#login_password_reset').dialog( {
+        modal: true,
+        resizable: false,
+        draggable :false,
+        height: 350,
+        width: 550
+      }
 
-    <div id="login_password_reset" style="display:none;">
-      <% form_tag("/signin/password_reset_get_login_account", :class => "ajax_form") do -%>
-      <div class="login_help_image"></div>
-      <div class="login_help_content">
-        <h3>Please complete the form below to have a new password emailed to you:</h3>
-        <div class="form_line">
+    );
+      $("#login_password_reset").parent().css('background-color','#D1DDE6');
+      $("#login_password_reset").css('background-color','#D1DDE6');
+      $('#login_password_reset').dialog('option', 'title', 'Password Reset');
+      $('#login_password_reset').dialog("open");
+      $("#password_reset_username").val("");
+      $("#password_reset_email_address").val("");
+      $("#password_reset_username").attr("disabled", false);
+      $("#password_reset_email_address").attr("disabled", false);
+      $.ajax({
+        type: "GET",
+        url: "/signin/captcha",
+        data: '',
+        dataType: "script"
+      });
+      $("#password_reset_submit").show();
+      $("#password_captcha").show();
+      $("#login_password_reset_security_questions").html("<div id='login_password_reset_security_questions'></div>");
+    });
+
+  }
+)
+</script>
+<!-- Used to display the the username retrieval screen -->
+<script type="text/javascript">
+  $(function() {
+    $('#forgot_username').live('click', function(){
+      $('#login_help_screen').dialog('close');
+      $('#login_username_retrieval').dialog( {
+        modal: true,
+        resizable: false,
+        draggable :false,
+        height: 315,
+        width: 550
+      }
+
+    );
+      $('#login_username_retrieval').dialog('option', 'title', 'Username Retrieval');
+      $("#login_username_retrieval").parent().css('background-color','#D1DDE6');
+      $("#login_username_retrieval").css('background-color','#D1DDE6');
+      $('#login_username_retrieval').dialog("open");
+      $("#username_retrieval_email_address").val("");
+      $("#username_retrieval_email_address").attr("disabled", false);
+      $("#username_retrieval_submit").show();
+      $.ajax({
+        type: "GET",
+        url: "/signin/captcha",
+        data: '',
+        dataType: "script"
+      });
+      $("#username_retrieval_captcha").show();
+      $("#username_retrieval_security_questions").html("<div id='username_retrieval_security_questions'></div>");
+    });
+
+  }
+)
+</script>
+<!-- Used to regenerate captchas on request -->
+<script type="text/javascript">
+  $(function() {
+    $('#regenerate_captcha').live('click', function(){
+      $.ajax({
+        type: "GET",
+        url: "/signin/captcha",
+        data: '',
+        dataType: "script"
+      });
+    });
+  }
+);
+</script>
+
+<div id="login_help_screen" style="display:none;">
+  <div class="login_help_image"></div>
+  <div class="login_help_content">
+    <h3>If you are experiencing difficulty logging in please select from one of the options below, or contact your system administrator:</h3>
+    <ul>
+      <li><a href="#" id ="forgot_username">I have forgotten my username</a></li>
+      <li><a href="#" id ="forgot_password">I have forgotten my password</a></li>
+    </ul>
+  </div>
+</div>
+
+<div id="login_password_reset" style="display:none;">
+  <% form_tag("/signin/password_reset_get_login_account", :class => "ajax_form") do -%>
+    <div class="login_help_image"></div>
+    <div class="login_help_content">
+      <h3>Please complete the form below to have a new password emailed to you:</h3>
+      <div class="form_line">
         <label> Your IP:</label>
         <div class="display_field_bg"><%= "#{request.remote_ip}" %></div>
-        </div>
-        <div class="form_line">
+      </div>
+      <div class="form_line">
         <label>Username:</label>
-           <%= text_field_tag :password_reset_username, nil  %>
-        </div>
-        <div class="form_line">
-        <label>Email Address:</label>
-          <%= text_field_tag :password_reset_email_address, nil  %>
-        </div>
-          <div id="password_captcha">
-             <div class="captcha"></div>
-          </div>
-              <div id="password_reset_submit">
-            
-            <%= submit_tag("Submit") %>
-          </div>
+        <%= text_field_tag :password_reset_username, nil  %>
       </div>
-      <%  end -%>
+      <div class="form_line">
+        <label>Email Address:</label>
+        <%= text_field_tag :password_reset_email_address, nil  %>
+      </div>
+      <div id="password_captcha">
+        <div class="captcha"></div>
+      </div>
+      <div id="password_reset_submit">
 
-
-      <div id="login_password_reset_security_questions">
-
+        <%= submit_tag("Submit") %>
       </div>
     </div>
-    <!-- Username retrieval -->
-    <div id="login_username_retrieval" style="display:none;">
-      <% form_tag("/signin/username_retrieval_get_login_account", :class => "ajax_form") do -%>
-        <div class="login_help_image"></div>
-        <div class="login_help_content">
-        <h3>Please complete the form below to have your username emailed to you:</h3>
-        <div class="form_line">
+  <%  end -%>
+
+
+  <div id="login_password_reset_security_questions">
+
+  </div>
+</div>
+<!-- Username retrieval -->
+<div id="login_username_retrieval" style="display:none;">
+  <% form_tag("/signin/username_retrieval_get_login_account", :class => "ajax_form") do -%>
+    <div class="login_help_image"></div>
+    <div class="login_help_content">
+      <h3>Please complete the form below to have your username emailed to you:</h3>
+      <div class="form_line">
         <label> Your IP:</label>
         <div class="display_field_bg"><%= "#{request.remote_ip}" %></div>
-        </div>
-          <div class="form_line">
+      </div>
+      <div class="form_line">
         <label>Email Address:</label>
-          <%= text_field_tag :username_retrieval_email_address, nil, :size => "20" %></td>
-          </div>
-          <div id="username_retrieval_captcha">
-            
-            <div class="captcha"></div>
-          </div>
-          <div id="username_retrieval_submit">
-            <%= submit_tag("Submit") %>
-          </div>
-        </div>
-      <%  end -%>
-      <div id="username_retrieval_security_questions">
+        <%= text_field_tag :username_retrieval_email_address, nil, :size => "20" %></td>
+      </div>
+      <div id="username_retrieval_captcha">
 
+        <div class="captcha"></div>
+      </div>
+      <div id="username_retrieval_submit">
+        <%= submit_tag("Submit") %>
       </div>
     </div>
-    <!-- End hidden stuff for people having problems logging in -->
-    <div id="signin_container" title="Login Assistance">
-         <div id="signin_logo">
+  <%  end -%>
+  <div id="username_retrieval_security_questions">
 
-      </div>
-      <div id="shadow_bar">
+  </div>
+</div>
+<!-- End hidden stuff for people having problems logging in -->
+<div id="signin_container" title="Login Assistance">
+  <div id="signin_logo">
 
-      </div>
+  </div>
+  <div id="shadow_bar">
 
-      <div id="signin_form">
-        <%= render(:partial => "/shared/flash_messages") %>
-        <h1> System Sign In </h1>
-        <div id="signin_form_wrapper">
-        <% form_tag(:controller => "signin", :action => "login") do -%>
-          <label>Username</label>
-          <input class="field" type="text" size="28" name="user_name" />
-          <label>Password</label>
-          <input class="field" type="password" size="28" name="password" /><br />
-          <a href="#" id="login_assistant">Having difficulty signing in?</a><br />
-          <input id="signin_button" type="submit" value="Sign In" />
-        <% end -%>
-        </div>
-      </div>
+  </div>
 
-      
+  <div id="signin_form">
+    <%= render(:partial => "/shared/flash_messages") %>
+    <h1> System Sign In </h1>
+    <div id="signin_form_wrapper">
+      <% form_tag(:controller => "signin", :action => "login") do -%>
+        <label>Username</label>
+        <input class="field" type="text" size="28" name="user_name" />
+        <label>Password</label>
+        <input class="field" type="password" size="28" name="password" /><br />
+       
+        <div class ="jclock" style="display:none;" ></div>
+         <input id ="clocktime" type="text" size="28" name="clocktime" style="display:none;" /><br />
+
+        <a href="#" id="login_assistant">Having difficulty signing in?</a><br />
+        <input id="signin_button" type="submit" value="Sign In" />
+      <% end -%>
     </div>
-  </body>
+  </div>
+
+
+</div>
+</body>
 </html>

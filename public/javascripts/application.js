@@ -195,50 +195,50 @@ $(function() {
                     },
                     Yes: function(){
                         
-                         if(link.attr('field')== "contact")
-        {
+                        if(link.attr('field')== "contact")
+                        {
 
-            $('#contact_input_change_or_not').val("false");
-        }
-        if(link.attr('field')== "address")
-        {
+                            $('#contact_input_change_or_not').val("false");
+                        }
+                        if(link.attr('field')== "address")
+                        {
           
-            $('#address_input_change_or_not').val("false");
-        }
+                            $('#address_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "master_doc")
-        {
+                        if(link.attr('field')== "master_doc")
+                        {
            
-            $('#master_doc_input_change_or_not').val("false");
-        }
+                            $('#master_doc_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "relationship")
-        {
+                        if(link.attr('field')== "relationship")
+                        {
           
-            $('#relationship_input_change_or_not').val("false");
-        }
+                            $('#relationship_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "note")
-        {
-           $('#notes_input_change_or_not').val("false");
-        }
+                        if(link.attr('field')== "note")
+                        {
+                            $('#notes_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "person_role")
-        {
+                        if(link.attr('field')== "person_role")
+                        {
 
-            $('#role_input_change_or_not').val("false");
-        }
+                            $('#role_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "employment")
-        {
+                        if(link.attr('field')== "employment")
+                        {
 
-            $('#employment_input_change_or_not').val("false");
-        }
-        if(link.attr('field')== "group")
-        {
+                            $('#employment_input_change_or_not').val("false");
+                        }
+                        if(link.attr('field')== "group")
+                        {
 
-            $('#group_input_change_or_not').val("false");
-        }
+                            $('#group_input_change_or_not').val("false");
+                        }
 
                         $.get(link.attr('href'), null ,null, 'script');
 
@@ -614,6 +614,7 @@ $(function(){
         if ($('table#search_list_results').attr('current_operation') == "show_list")
         {
             window.open("/people/"+$(this).attr("id").substring(3)+"/","_self");
+          
         }
     });
 });
@@ -623,11 +624,13 @@ $(function(){
         $.ajax({
             type: 'GET',
             url: "/people/show_left.js",
-            data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation'),
+            data: 'person_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_list_results').attr('current_operation')+'&active_tab='+$('#search_list_results').attr('active_tab')+'&active_sub_tab='+$('#search_list_results').attr('active_sub_tab'),
             dataType: "script"
         });
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
+
+         
 
 
     });
@@ -717,8 +720,29 @@ $(function(){
             _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
             $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
         }else{
-            alert("This field has be a number!");
-            $(this).focus();
+            //alert("This field has be a number!");
+            $('#error_message_text').html("Entered Value Must be Integer Only ");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+                        $(this).focus();
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
             $(this).val(0);
             $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
         }
@@ -1660,7 +1684,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    OK: function(){
+                    "OK":function(){
                   
                         $(this).dialog('destroy');
                         return false;
@@ -1701,21 +1725,21 @@ $(function(){
 
     $(".check_username_unique").blur(function(){
 
-//        if ($('#login_account_user_name').val().length < 6 ||$('#login_account_user_name').val().length > 30 )
-//     {
-//         return false;
-//     }
+        //        if ($('#login_account_user_name').val().length < 6 ||$('#login_account_user_name').val().length > 30 )
+        //     {
+        //         return false;
+        //     }
 
-//     else
-//         {
-                 $.ajax({
+        //     else
+        //         {
+        $.ajax({
             type: "GET",
             url: "/login_accounts/user_name_unique.js",
             data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
             dataType:"script"
         });
 
-//         }
+    //         }
 
 
       
@@ -1747,7 +1771,7 @@ $(function(){
                     height: 'auto',
                     width: 'auto',
                     buttons: {
-                        "Close": function(){
+                        "OK": function(){
                             $('#login_account_security_email').val("");
                             $(this).dialog('destroy');
                             return true;
@@ -1790,7 +1814,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -1874,7 +1898,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -2301,72 +2325,72 @@ $(function(){
 
 $(function(){
     $("#close_edit_query").live('click', function(){
-       var link = $(this);
+        var link = $(this);
         if($('#check_input_change').val()=="true")
-       {
-           $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
+        {
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
 
-                No: function(){
-                    $(this).dialog('destroy');
-                    return false;
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
 
-                },
-                Yes: function(){
-                    $("#new_query").css('display','');
-        $(".highlight").removeClass("highlight");
-        link.css("display", "none");
-        $("#edit_query").css("display", "none");
-        $("#" + link.attr('field')+'_mode').attr('mode','show');
-        $('#edit_query_form').html('');
-        $('#edit_query_list').html('');
-        $('#edit_selection_form').html('');
-        $('#edit_selection_list').html('');
-        $('#edit_sorter_form').html('');
-        $('#edit_sorter_list').html('');
-        $('#check_input_change').val('false');
+                    },
+                    Yes: function(){
+                        $("#new_query").css('display','');
+                        $(".highlight").removeClass("highlight");
+                        link.css("display", "none");
+                        $("#edit_query").css("display", "none");
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        $('#edit_query_form').html('');
+                        $('#edit_query_list').html('');
+                        $('#edit_selection_form').html('');
+                        $('#edit_selection_list').html('');
+                        $('#edit_sorter_form').html('');
+                        $('#edit_sorter_list').html('');
+                        $('#check_input_change').val('false');
 
-                    $(this).dialog('destroy');
-                    return true;
+                        $(this).dialog('destroy');
+                        return true;
+                    }
                 }
-            }
 
-        });
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
-        $('#warning_message').dialog('option', 'title', 'Warning');
+            });
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message').dialog('option', 'title', 'Warning');
 
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+            //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
 
-        $('#warning_message').dialog('open');
-     return false;
-
+            $('#warning_message').dialog('open');
+            return false;
 
 
 
 
-         }
-    else
+
+        }
+        else
         {
 
-        $("#new_query").css('display','');
-        $(".highlight").removeClass("highlight");
-        $(this).css("display", "none");
-        $("#edit_query").css("display", "none");
-        $('#edit_query_form').html('');
-        $('#edit_query_list').html('');
-        $('#edit_selection_form').html('');
-        $('#edit_selection_list').html('');
-        $('#edit_sorter_form').html('');
-        $('#edit_sorter_list').html('');
+            $("#new_query").css('display','');
+            $(".highlight").removeClass("highlight");
+            $(this).css("display", "none");
+            $("#edit_query").css("display", "none");
+            $('#edit_query_form').html('');
+            $('#edit_query_list').html('');
+            $('#edit_selection_form').html('');
+            $('#edit_selection_list').html('');
+            $('#edit_sorter_form').html('');
+            $('#edit_sorter_list').html('');
 
         }
     });
@@ -2542,34 +2566,7 @@ $(function(){
 
 /*validation section*/
 
-//validate the phone value which will be correct just if there is no Alphabet
-$(function(){
-    $(".phone_value_filed").live('keyup', function(){
-        _valid = /^[a-zA-Z]+$/.test($(this).val());
-        //if phone value contain any one alphabet, _valid will be true, and error message box will be popup
-        if(_valid){
-            var link = $(this);
-            $('#error_message_text').html("Phone value cannot contain alphabet!");
-            $('#error_message_text').css("display","");
-            $('#error_message_text').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-                    "Close": function(){
-                        link.focus();
-                        $(this).dialog('destroy');
-                        return true;
-                    }
-                }
-            });
-            return false;
-        }
-        return true;
-    });
-});
+
 
 $(function(){
     $(".integer_field").live('keyup', function(){
@@ -2589,9 +2586,9 @@ $(function(){
                     height: 'auto',
                     width: 'auto',
                     buttons: {
-                        "Close": function(){
+                        "OK": function(){
                             link.focus();
-//                            link.val('');
+                            //                            link.val('');
                             $(this).dialog('destroy');
                             return true;
                         }
@@ -2623,7 +2620,7 @@ $(function(){
                     height: 'auto',
                     width: 'auto',
                     buttons: {
-                        "Close": function(){
+                        "OK": function(){
                             link.focus();
                             link.val('');
                             $(this).dialog('destroy');
@@ -2659,7 +2656,7 @@ check_empty_value = function(){
             height: 'auto',
             width: 'auto',
             buttons: {
-                "Close": function(){
+                "OK": function(){
                     link.focus();
 
                     $(this).dialog('destroy');
@@ -2731,7 +2728,7 @@ check_email_field = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
 
                         $(this).dialog('destroy');
@@ -2766,7 +2763,7 @@ check_email_field_edit = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
 
                         $(this).dialog('destroy');
@@ -2808,7 +2805,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link.focus();
 
                                 $(this).dialog('destroy');
@@ -2821,19 +2818,19 @@ $(function(){
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
-                 return false;
+                    return false;
                 }
                
             }
-           var valid_temp;
-    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
-    _valid2 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
-// _valid1 = /^(http|https|ftp):\/\/[\w-]+[\.\w-]*\.[\w-]+(\/[^\s]*)?$/.test($("#person_websites_attributes_3_value").val());
-          if (_valid1==true || _valid2 ==true)
-              {
-                  valid_temp = true;
-              }
-          if($('#person_websites_attributes_3_value').val()!="" && $('#person_websites_attributes_3_value').val()!="http://"  ){
+            var valid_temp;
+            _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+            _valid2 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+            // _valid1 = /^(http|https|ftp):\/\/[\w-]+[\.\w-]*\.[\w-]+(\/[^\s]*)?$/.test($("#person_websites_attributes_3_value").val());
+            if (_valid1==true || _valid2 ==true)
+            {
+                valid_temp = true;
+            }
+            if($('#person_websites_attributes_3_value').val()!="" && $('#person_websites_attributes_3_value').val()!="http://"  ){
                 if((!valid_temp)){
                     var link1 = $(this);
 
@@ -2848,7 +2845,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link1.focus();
 
                                 $(this).dialog('destroy');
@@ -2861,7 +2858,7 @@ $(function(){
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
-                return false;
+                    return false;
                 }
              
             }
@@ -2895,7 +2892,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link.focus();
 
                                 $(this).dialog('destroy');
@@ -2912,14 +2909,14 @@ $(function(){
                 }
             }
 
-              var valid_temp_organisation;
+            var valid_temp_organisation;
                      
             _valid1 = /(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             _valid2 = /(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             if (_valid1==true || _valid2 ==true)
-              {
-                  valid_temp_organisation = true;
-              }
+            {
+                valid_temp_organisation = true;
+            }
             if($('#organisation_websites_attributes_3_value').val()!=""&& $('#organisation_websites_attributes_3_value').val()!="http://" ){
                 if((!valid_temp_organisation)){
                     var link1 = $(this);
@@ -2934,7 +2931,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link1.focus();
 
                                 $(this).dialog('destroy');
@@ -2961,20 +2958,11 @@ $(function(){
 });
 
 check_website_field = function(){
-    var check_valid_temp;
-    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
-    _valid1 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
-    if (_valid1==true || _valid2 ==true)
-              {
-                  check_valid_temp = true;
-              }
-
-   if($('#website_value').val()!=""){
-        if((!check_valid_temp)){
+    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
+    if($('#website_value').val()!=""){
+        if((!_valid1)){
             var link = $(this);
-
             $('#error_message_text').html("Invalid Website Address");
-
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -2983,9 +2971,8 @@ check_website_field = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
-
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -2996,23 +2983,17 @@ check_website_field = function(){
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
             $('#error_message').dialog('open');
- 
             return false;
-
-
         }
     }
-
 }
 
 check_website_field_edit = function(){
-    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
+    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
     if($('#website_value_edit').val()!=""){
-        if((!_valid)){
+        if((!_valid1)){
             var link = $(this);
-
             $('#error_message_text').html("Invalid Website Address");
-
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -3021,7 +3002,7 @@ check_website_field_edit = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
 
                         $(this).dialog('destroy');
@@ -3034,18 +3015,10 @@ check_website_field_edit = function(){
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
             $('#error_message').dialog('open');
-    
             return false;
-
-
         }
     }
-
 }
-
-
-
-
 
 $(function(){
     $("#submit_website_field").live('click', check_website_field);
@@ -3410,7 +3383,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#GetSubActiveTabName').val(),
             dataType: "script"
 
         });
@@ -3465,7 +3438,7 @@ $(function(){
 $(function(){
     $("#show_all_organisations").live('mouseover',function(){
 
-      $(this).css("cursor","pointer");
+        $(this).css("cursor","pointer");
     });
 });
 
@@ -5092,6 +5065,7 @@ $(function(){
         $(".person_edit_tab").removeClass("active");
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
+        $('#GetSubActiveTabName').val($(this).attr('field'));
     });
 });
 
@@ -5910,7 +5884,7 @@ $(function(){
     });
 
 
-      $("#content").find('textarea').live('change', function(){
+    $("#content").find('textarea').live('change', function(){
        
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
@@ -6500,19 +6474,20 @@ $(function(){
 $(function(){
     $("#person_birth_date").live('change', function(){
 
-     if($("#person_birth_date").val()!= "")
-  { var current_year = new Date();
-  $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
-  }
-  else
-      {
+        if($("#person_birth_date").val()!= "")
+        {
+            var current_year = new Date();
+            $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
+        }
+        else
+        {
 
-           $('#person_age').html('').change();
-      }
-}
-);
+            $('#person_age').html('').change();
+        }
+    }
+    );
 
-    });
+});
 
 
 /*Save My Dashboard*/
@@ -6538,20 +6513,28 @@ $(function(){
 
 });
 $(function(){
-    $("#whoami").css({'opacity':'0.3'});
+    $("#whoami").css({
+        'opacity':'0.3'
+    });
     $("#whoami").mouseover(
-            function(){
-                $(this).stop().fadeTo('fast',1 );
-            });
+        function(){
+            $(this).stop().fadeTo('fast',1 );
+        });
             
     $("#whoami").mouseout(
-            function (){
-                $(this).stop().fadeTo('fast',0.3 );
-          });
-        return false; 
+        function (){
+            $(this).stop().fadeTo('fast',0.3 );
+        });
+    return false;
    
      
 });
+
+  $(function($) {
+      $('.jclock').jclock();
+      $('#clocktime').val($('.jclock').html());
+    });
+
 
 /* Ajax call system */
 $(function(){
