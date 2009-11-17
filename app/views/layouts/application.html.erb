@@ -17,6 +17,7 @@
       "reports.js",
       "config.js",
       "interface.js",
+      "jquery.jclock.js",
       "jquery.validationEngine.js"
   %>
 
@@ -46,7 +47,9 @@
       <%= render(:partial => "/feedback/feedback_form") %>
     <%- end%>
     <div id="feedback_confirmation"></div>
-    <div id="whoami"><%="Welcome #{@current_user.user_name}"  %><br/> <%= "Sign In Time: #{@current_user.last_login.strftime('%d/%m/%y - %H:%M')}" %> </div>
+    <div id="whoami"><%="Welcome #{@current_user.user_name}"  %><br/> <%= "Sign In Time: #{session[:clocktime]}" %>
+ 
+    </div>
 
   </body>
 </html>

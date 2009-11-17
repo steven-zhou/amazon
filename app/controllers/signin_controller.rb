@@ -38,6 +38,7 @@ class SigninController < ApplicationController
           #login_account.online_status = true
           login_account.save
           system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
+          session[:clocktime]= params[:clocktime]
           redirect_to welcome_url
 
           #---------------------------------------------exception erea-------------------------#
@@ -213,6 +214,7 @@ class SigninController < ApplicationController
         login_account.access_attempts_count = 99
         login_account.save
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
+        session[:clocktime]= params[:clocktime]
         redirect_to welcome_url
         #---------------------------------------------exception erea-------------------------#
       rescue Exception => exc
