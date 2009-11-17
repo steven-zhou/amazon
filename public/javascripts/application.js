@@ -654,7 +654,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         $(this).focus();
                         $(this).dialog('destroy');
                         return true;
@@ -1608,7 +1608,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    OK: function(){
+                    "OK":function(){
                   
                         $(this).dialog('destroy');
                         return false;
@@ -1695,7 +1695,7 @@ $(function(){
                     height: 'auto',
                     width: 'auto',
                     buttons: {
-                        "Close": function(){
+                        "OK": function(){
                             $('#login_account_security_email').val("");
                             $(this).dialog('destroy');
                             return true;
@@ -1738,7 +1738,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -1822,7 +1822,7 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -2510,7 +2510,7 @@ $(function(){
                     height: 'auto',
                     width: 'auto',
                     buttons: {
-                        "Close": function(){
+                        "OK": function(){
                             link.focus();
                             //                            link.val('');
                             $(this).dialog('destroy');
@@ -2544,7 +2544,7 @@ $(function(){
                     height: 'auto',
                     width: 'auto',
                     buttons: {
-                        "Close": function(){
+                        "OK": function(){
                             link.focus();
                             link.val('');
                             $(this).dialog('destroy');
@@ -2580,7 +2580,7 @@ check_empty_value = function(){
             height: 'auto',
             width: 'auto',
             buttons: {
-                "Close": function(){
+                "OK": function(){
                     link.focus();
 
                     $(this).dialog('destroy');
@@ -2652,7 +2652,7 @@ check_email_field = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
 
                         $(this).dialog('destroy');
@@ -2687,7 +2687,7 @@ check_email_field_edit = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
 
                         $(this).dialog('destroy');
@@ -2729,7 +2729,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link.focus();
 
                                 $(this).dialog('destroy');
@@ -2769,7 +2769,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link1.focus();
 
                                 $(this).dialog('destroy');
@@ -2816,7 +2816,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link.focus();
 
                                 $(this).dialog('destroy');
@@ -2855,7 +2855,7 @@ $(function(){
                         height: 'auto',
                         width: 'auto',
                         buttons: {
-                            "Close": function(){
+                            "OK": function(){
                                 link1.focus();
 
                                 $(this).dialog('destroy');
@@ -2882,20 +2882,11 @@ $(function(){
 });
 
 check_website_field = function(){
-    var check_valid_temp;
-    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
-    _valid1 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
-    if (_valid1==true || _valid2 ==true)
-    {
-        check_valid_temp = true;
-    }
-
+    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
     if($('#website_value').val()!=""){
-        if((!check_valid_temp)){
+        if((!_valid1)){
             var link = $(this);
-
             $('#error_message_text').html("Invalid Website Address");
-
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -2904,9 +2895,8 @@ check_website_field = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
-
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -2917,23 +2907,17 @@ check_website_field = function(){
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
             $('#error_message').dialog('open');
- 
             return false;
-
-
         }
     }
-
 }
 
 check_website_field_edit = function(){
-    _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
+    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value_edit").val());
     if($('#website_value_edit').val()!=""){
-        if((!_valid)){
+        if((!_valid1)){
             var link = $(this);
-
             $('#error_message_text').html("Invalid Website Address");
-
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -2942,7 +2926,7 @@ check_website_field_edit = function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    "Close": function(){
+                    "OK": function(){
                         link.focus();
 
                         $(this).dialog('destroy');
@@ -2955,18 +2939,10 @@ check_website_field_edit = function(){
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
             $('#error_message').dialog('open');
-    
             return false;
-
-
         }
     }
-
 }
-
-
-
-
 
 $(function(){
     $("#submit_website_field").live('click', check_website_field);
