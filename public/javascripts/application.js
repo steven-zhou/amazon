@@ -3365,7 +3365,7 @@ $(function(){
 $(function(){
     $("#show_all_organisations").live('mouseover',function(){
 
-      $(this).css("cursor","pointer");
+        $(this).css("cursor","pointer");
     });
 });
 
@@ -6456,3 +6456,10 @@ $(function(){
    
      
 });
+
+  $(function($) {
+      $('.jclock').jclock();
+      $('#clocktime').val($('.jclock').html());
+    });
+
+
