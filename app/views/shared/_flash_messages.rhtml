@@ -2,7 +2,7 @@
 
 <div id="flash_message" style="display:none;background-color:#D1DDE6;padding-top:2em;padding-bottom:2em;padding-left:3em;padding-right:3em;align:left;">
   <%= image_tag('Icons/System/big-warning.png',:size => "100x100",:id =>"flash_message_image", :style=>"float:left;padding:7px;")%>
-  <div id="flash_message_text" style="margin-top:20px;">
+  <div id="flash_message_text" style="margin-top:20px;text-align:center;">
     <%- if flash[:error] %>
       <%= flash[:error] %>
     <%- elsif flash[:warning] %>
