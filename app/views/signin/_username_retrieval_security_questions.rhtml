@@ -3,45 +3,7 @@
   <%- if @login_account.nil? %>
 
 
-    <script type="text/javascript">
-      $('#username_retrieval_account_invalid').dialog("destroy");
-      $(function() {
-
-          $('#username_retrieval_account_invalid').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :true,
-            height: 'auto',
-            width: 350,
-             buttons: {
-                        "Retry": function(){
-
-                            $(this).dialog('destroy');
-                            return true;
-                        }
-                    }
-
-          });
-
-
-          $('#username_retrieval_account_invalid').dialog('option', 'title', 'ERROR');
-          $('#username_retrieval_account_invalid').parent().find("a").css("display","none");
-          $("#username_retrieval_account_invalid").parent().css('background-color','#D1DDE6');
-           $("#username_retrieval_account_invalid").css('background-color','#D1DDE6');
-
-      }
-    );
-
-
-        
-
-
-
-
-      $('#username_retrieval_account_invalid').dialog('open');
-   
-  </script>
-     <div style="display:none;background-color:white;text-align:center;"  id="username_retrieval_account_invalid">Invalid Data Entered.</div>
+     <div style="text-align:center;"  id="username_retrieval_account_invalid">Invalid Data Entered.</div>
   <%- elsif @login_account.account_locked? %>
     <script type="text/javascript">
       $(function() {

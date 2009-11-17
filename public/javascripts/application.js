@@ -195,50 +195,50 @@ $(function() {
                     },
                     Yes: function(){
                         
-                         if(link.attr('field')== "contact")
-        {
+                        if(link.attr('field')== "contact")
+                        {
 
-            $('#contact_input_change_or_not').val("false");
-        }
-        if(link.attr('field')== "address")
-        {
+                            $('#contact_input_change_or_not').val("false");
+                        }
+                        if(link.attr('field')== "address")
+                        {
           
-            $('#address_input_change_or_not').val("false");
-        }
+                            $('#address_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "master_doc")
-        {
+                        if(link.attr('field')== "master_doc")
+                        {
            
-            $('#master_doc_input_change_or_not').val("false");
-        }
+                            $('#master_doc_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "relationship")
-        {
+                        if(link.attr('field')== "relationship")
+                        {
           
-            $('#relationship_input_change_or_not').val("false");
-        }
+                            $('#relationship_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "note")
-        {
-           $('#notes_input_change_or_not').val("false");
-        }
+                        if(link.attr('field')== "note")
+                        {
+                            $('#notes_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "person_role")
-        {
+                        if(link.attr('field')== "person_role")
+                        {
 
-            $('#role_input_change_or_not').val("false");
-        }
+                            $('#role_input_change_or_not').val("false");
+                        }
 
-        if(link.attr('field')== "employment")
-        {
+                        if(link.attr('field')== "employment")
+                        {
 
-            $('#employment_input_change_or_not').val("false");
-        }
-        if(link.attr('field')== "group")
-        {
+                            $('#employment_input_change_or_not').val("false");
+                        }
+                        if(link.attr('field')== "group")
+                        {
 
-            $('#group_input_change_or_not').val("false");
-        }
+                            $('#group_input_change_or_not').val("false");
+                        }
 
                         $.get(link.attr('href'), null ,null, 'script');
 
@@ -644,8 +644,29 @@ $(function(){
             _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
             $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
         }else{
-            alert("This field has be a number!");
-            $(this).focus();
+            //alert("This field has be a number!");
+            $('#error_message_text').html("Entered Value Must be Integer Only ");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "Close": function(){
+                        $(this).focus();
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
             $(this).val(0);
             $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(0));
         }
@@ -1628,21 +1649,21 @@ $(function(){
 
     $(".check_username_unique").blur(function(){
 
-//        if ($('#login_account_user_name').val().length < 6 ||$('#login_account_user_name').val().length > 30 )
-//     {
-//         return false;
-//     }
+        //        if ($('#login_account_user_name').val().length < 6 ||$('#login_account_user_name').val().length > 30 )
+        //     {
+        //         return false;
+        //     }
 
-//     else
-//         {
-                 $.ajax({
+        //     else
+        //         {
+        $.ajax({
             type: "GET",
             url: "/login_accounts/user_name_unique.js",
             data: 'user_name='+$(this).val()+'&login_account_id='+$(this).attr('login_account_id')+'&length='+$(this).val().length,
             dataType:"script"
         });
 
-//         }
+    //         }
 
 
       
@@ -2228,72 +2249,72 @@ $(function(){
 
 $(function(){
     $("#close_edit_query").live('click', function(){
-       var link = $(this);
+        var link = $(this);
         if($('#check_input_change').val()=="true")
-       {
-           $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
+        {
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
 
-                No: function(){
-                    $(this).dialog('destroy');
-                    return false;
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
 
-                },
-                Yes: function(){
-                    $("#new_query").css('display','');
-        $(".highlight").removeClass("highlight");
-        link.css("display", "none");
-        $("#edit_query").css("display", "none");
-        $("#" + link.attr('field')+'_mode').attr('mode','show');
-        $('#edit_query_form').html('');
-        $('#edit_query_list').html('');
-        $('#edit_selection_form').html('');
-        $('#edit_selection_list').html('');
-        $('#edit_sorter_form').html('');
-        $('#edit_sorter_list').html('');
-        $('#check_input_change').val('false');
+                    },
+                    Yes: function(){
+                        $("#new_query").css('display','');
+                        $(".highlight").removeClass("highlight");
+                        link.css("display", "none");
+                        $("#edit_query").css("display", "none");
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        $('#edit_query_form').html('');
+                        $('#edit_query_list').html('');
+                        $('#edit_selection_form').html('');
+                        $('#edit_selection_list').html('');
+                        $('#edit_sorter_form').html('');
+                        $('#edit_sorter_list').html('');
+                        $('#check_input_change').val('false');
 
-                    $(this).dialog('destroy');
-                    return true;
+                        $(this).dialog('destroy');
+                        return true;
+                    }
                 }
-            }
 
-        });
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
-        $('#warning_message').dialog('option', 'title', 'Warning');
+            });
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message').dialog('option', 'title', 'Warning');
 
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+            //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
 
-        $('#warning_message').dialog('open');
-     return false;
-
+            $('#warning_message').dialog('open');
+            return false;
 
 
 
 
-         }
-    else
+
+        }
+        else
         {
 
-        $("#new_query").css('display','');
-        $(".highlight").removeClass("highlight");
-        $(this).css("display", "none");
-        $("#edit_query").css("display", "none");
-        $('#edit_query_form').html('');
-        $('#edit_query_list').html('');
-        $('#edit_selection_form').html('');
-        $('#edit_selection_list').html('');
-        $('#edit_sorter_form').html('');
-        $('#edit_sorter_list').html('');
+            $("#new_query").css('display','');
+            $(".highlight").removeClass("highlight");
+            $(this).css("display", "none");
+            $("#edit_query").css("display", "none");
+            $('#edit_query_form').html('');
+            $('#edit_query_list').html('');
+            $('#edit_selection_form').html('');
+            $('#edit_selection_list').html('');
+            $('#edit_sorter_form').html('');
+            $('#edit_sorter_list').html('');
 
         }
     });
@@ -2491,7 +2512,7 @@ $(function(){
                     buttons: {
                         "Close": function(){
                             link.focus();
-//                            link.val('');
+                            //                            link.val('');
                             $(this).dialog('destroy');
                             return true;
                         }
@@ -2721,19 +2742,19 @@ $(function(){
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
-                 return false;
+                    return false;
                 }
                
             }
-           var valid_temp;
-    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
-    _valid2 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
-// _valid1 = /^(http|https|ftp):\/\/[\w-]+[\.\w-]*\.[\w-]+(\/[^\s]*)?$/.test($("#person_websites_attributes_3_value").val());
-          if (_valid1==true || _valid2 ==true)
-              {
-                  valid_temp = true;
-              }
-          if($('#person_websites_attributes_3_value').val()!="" && $('#person_websites_attributes_3_value').val()!="http://"  ){
+            var valid_temp;
+            _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+            _valid2 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+            // _valid1 = /^(http|https|ftp):\/\/[\w-]+[\.\w-]*\.[\w-]+(\/[^\s]*)?$/.test($("#person_websites_attributes_3_value").val());
+            if (_valid1==true || _valid2 ==true)
+            {
+                valid_temp = true;
+            }
+            if($('#person_websites_attributes_3_value').val()!="" && $('#person_websites_attributes_3_value').val()!="http://"  ){
                 if((!valid_temp)){
                     var link1 = $(this);
 
@@ -2761,7 +2782,7 @@ $(function(){
                     $("#error_message").parent().css('background-color','#D1DDE6');
                     $("#error_message").css('background-color','#D1DDE6');
                     $('#error_message').dialog('open');
-                return false;
+                    return false;
                 }
              
             }
@@ -2812,14 +2833,14 @@ $(function(){
                 }
             }
 
-              var valid_temp_organisation;
+            var valid_temp_organisation;
                      
             _valid1 = /(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             _valid2 = /(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
             if (_valid1==true || _valid2 ==true)
-              {
-                  valid_temp_organisation = true;
-              }
+            {
+                valid_temp_organisation = true;
+            }
             if($('#organisation_websites_attributes_3_value').val()!=""&& $('#organisation_websites_attributes_3_value').val()!="http://" ){
                 if((!valid_temp_organisation)){
                     var link1 = $(this);
@@ -2865,11 +2886,11 @@ check_website_field = function(){
     _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
     _valid1 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
     if (_valid1==true || _valid2 ==true)
-              {
-                  check_valid_temp = true;
-              }
+    {
+        check_valid_temp = true;
+    }
 
-   if($('#website_value').val()!=""){
+    if($('#website_value').val()!=""){
         if((!check_valid_temp)){
             var link = $(this);
 
@@ -5810,7 +5831,7 @@ $(function(){
     });
 
 
-      $("#content").find('textarea').live('change', function(){
+    $("#content").find('textarea').live('change', function(){
        
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
@@ -6400,19 +6421,20 @@ $(function(){
 $(function(){
     $("#person_birth_date").live('change', function(){
 
-     if($("#person_birth_date").val()!= "")
-  { var current_year = new Date();
-  $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
-  }
-  else
-      {
+        if($("#person_birth_date").val()!= "")
+        {
+            var current_year = new Date();
+            $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
+        }
+        else
+        {
 
-           $('#person_age').html('').change();
-      }
-}
-);
+            $('#person_age').html('').change();
+        }
+    }
+    );
 
-    });
+});
 
 
 /*Save My Dashboard*/
@@ -6438,17 +6460,19 @@ $(function(){
 
 });
 $(function(){
-    $("#whoami").css({'opacity':'0.3'});
+    $("#whoami").css({
+        'opacity':'0.3'
+    });
     $("#whoami").mouseover(
-            function(){
-                $(this).stop().fadeTo('fast',1 );
-            });
+        function(){
+            $(this).stop().fadeTo('fast',1 );
+        });
             
     $("#whoami").mouseout(
-            function (){
-                $(this).stop().fadeTo('fast',0.3 );
-          });
-        return false; 
+        function (){
+            $(this).stop().fadeTo('fast',0.3 );
+        });
+    return false;
    
      
 });
