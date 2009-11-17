@@ -202,7 +202,7 @@ class PeopleController < ApplicationController
         if @image.save
           @person.image = @image
         else
-          flash[:warning] = "The image was not saved."
+          flash[:warning] = "There Was an Error to Save the Selected Image."
         end
       end
 
@@ -222,8 +222,19 @@ class PeopleController < ApplicationController
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
       @postcodes = DomesticPostcode.find(:all)
-      flash[:warning] = "There was an error creating a new user profile. Please check you entered a family name."
-      redirect_to new_person_path
+      @image = Image.new
+
+       @personal_check_field = Array.new
+    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    unless @duplication_formula_appiled.status == false
+      @duplication_formula_appiled.duplication_formula_details.each do |i|
+        @personal_check_field << i.field_name
+      end
+    end
+
+      flash.now[:error] = "There Was an Error to Create a New User"
+#      redirect_to new_person_path
+       render :action => "new"
     end
   end
 
@@ -237,7 +248,7 @@ class PeopleController < ApplicationController
           @person.image.destroy unless @person.image.nil?
           @person.image = @image
         else
-          flash[:warning] = "The image was not saved. Please check that file was a valid image file."
+          flash[:warning] = "There Was an Error to Save the Selected Image."
         end
       end
     end
@@ -391,7 +402,7 @@ class PeopleController < ApplicationController
 
   def show_left
  
-#    check_user
+    #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @list_headers = @current_user.all_lists
@@ -580,7 +591,18 @@ class PeopleController < ApplicationController
 
   def lookup  #  look up person in the list
     @update_field = params[:update_field]
-    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
+
+    if !(PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?)
+
+        PersonLookupGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
+
+    end
+
+
+
+#    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
       @templist = TempList.find_by_login_account_id(session[:user])
       @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
@@ -598,7 +620,7 @@ class PeopleController < ApplicationController
         @solg.save
         
        
-      end
+#      end
     end
     respond_to do |format|
       format.js

@@ -1,4 +1,4 @@
-# People Table
+puts "Initializing Query Tables"
 people = TableMetaMetaType.create :name => "people", :description => "people table", :status => true, :category => "person"
 TableMetaType.create :name => "custom_id", :tag_meta_type_id => people.id, :description => "Custom ID (e.g. 100)",  :status => true, :category => "Integer"
 TableMetaType.create :name => "first_name", :tag_meta_type_id => people.id, :description => "First Name (e.g. Jane)",  :status => true, :category => "String"

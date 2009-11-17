@@ -47,30 +47,32 @@ class ApplicationController < ActionController::Base
     result = case options[:type]
 
       # Success
-    when "object_created_successfully"      then "A new #{options[:object]} was created."
-    when "object_updated_successfully"      then "The #{options[:object]} was updated."
+    when "object_created_successfully"      then "The New #{options[:object]} is Created."
+    when "object_updated_successfully"      then "The #{options[:object]} is Updated Successfully."
 
       # Errors
-    when "login_error"                      then "You can not login: Account information is wrong."
-    when "login_group_error"                then "You can not login: Your account does not have the right group access."
-    when "login_permission_error"           then "You do not have the appropriate level of permissions to log into the system. Please see your System Administrator."
-    when "session_timeout"                  then "Your login session has timed out. For security reasons you will need to log in again."
+    when "login_online_error"               then "You can not login: Another Person Is Online "
+    when "login_error"                      then "One or More of the Sign In Details is Invalid,Please Try Again."
+    when "login_group_error"                then "Your User Account Has No Security Group, Please Contact System Administrator."
+
+    when "login_permission_error"           then "Your User Account Has No Access Permissions, Please Contact System Administrator"
+    when "session_timeout"                  then "For Security Reasons, The Grace Period to Activate Your Account has expired, Please Contact System Administrator"
     when "grace_period_expired"             then "You have attempted to login after the grace period for your account. Your account has been deleted. Please see your Systems Administrator."
     when "account_inactive"                 then "Your account is currently inactive. Please see your System Administrator."
-    when "login_count_error"                then "Your account has been locked. Please see your System Administrator."
+    when "login_count_error"                then "For Security Reasons, Your Account has been Locked, Please Contact System Administrator"
     when "login_invalid_account_type"       then "Your login account is not of a valid account type to proceed."
-    when "supplied_info_incorrect"          then "The details you supplied were incorrect."
-    when "password_confirm_error"           then "The new password you entered did not match your confirmation password. Please try again."
-    when "new_password_equals_old_password" then "The password you entered is the same as a previous password. Please pick a new password."
-    when "set_password_error"               then "The password you entered was not a valid password. Please try again."
-    when "password_change_ok"               then "Your password was successfully changed."
-    when "field_missing"                    then "You did not fill out the required field #{options[:field]}."
-    when "uniqueness_error"                 then "The value you entered for #{options[:field]} already exists. Please ensure this value is unique and try again."
-    when "not exist"                        then "The value you entered for #{options[:field]} does not exist in system"
-    when "too_long"                         then "The value you entered for #{options[:field]} is too long."
-    when "too_short"                        then "The value you entered for #{options[:field]} is too short."
-    when "format error"                     then "The format of #{options[:field]} is incorrect."
-    when "same_person_error"                then "#{options[:field]} cannot be the same as the source person."
+    when "supplied_info_incorrect"          then "Invalid Details Entered, Please Try Again"
+    when "password_confirm_error"           then "Passwords DO NOT Match"
+    when "new_password_equals_old_password" then " New Password Can not be The Same as Old Password, Please Try Again"
+    when "set_password_error"               then "Invalid Password Entered, Please try again."
+    when "password_change_ok"               then "Password is Changed Successfully"
+    when "field_missing"                    then "Missing Required Data, #{options[:field]}."
+    when "uniqueness_error"                 then "The #{options[:field]} Already Exists. This Field Must be Unique, Please Try Again."
+    when "not exist"                        then "The #{options[:field]} Does Not Exist, Please Try Again"
+    when "too_long"                         then "The #{options[:field]} is Too Long, Please try Again"
+    when "too_short"                        then "The #{options[:field]} is Too Short, Please try Again"
+    when "format error"                     then "Invalid Format for #{options[:field]}, Please Try Again."
+    when "same_person_error"                then "#{options[:field]} Cannot be the Same as the Source Person."
       # Default
     when "default" then " #{options[:message]}"
     end
@@ -91,6 +93,7 @@ class ApplicationController < ActionController::Base
         # The session has timed out, set a message, boot them out....
         session[:user] = nil
         session[:last_event] = nil
+        current_user.update_attribute(:online_status, false)
         flash[:warning] = flash_message(:type => "session_timeout")
         redirect_to login_url
       else

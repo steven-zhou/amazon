@@ -10,6 +10,7 @@ $(function(){
 });
 
 
+
 $(function(){
     $("#datepicker").datepicker();
 });
@@ -174,7 +175,7 @@ $(function() {
         var link = $(this);
         if(change_type=="true" )
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -280,7 +281,7 @@ $(function() {
         var link = $(this);
         if($(this).attr("error_message_field" != null))
         {
-            $('#warning_message_text').html("Are you sure you wish to delete this "  + $(this).attr("error_message_field") + " ? ");
+            $('#warning_message_text').html("Are You Sure You Wish to Delete This "  + $(this).attr("error_message_field") + " ? ");
         }
         else
         {
@@ -920,7 +921,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1005,7 +1006,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1664,7 +1665,7 @@ $(function(){
         if($(this).val()!=""){
             if((!_valid)){
                 
-                $('#error_message_text').html("Invalid Email! ");
+                $('#error_message_text').html("Invalid Email Address ");
                 $('#error_message_image').css("display","");
                 $('#error_message').dialog({
                     modal: true,
@@ -1707,7 +1708,7 @@ $(function(){
             }
         }else{
 
-            $('#error_message_text').html("Invalid Email! ");
+            $('#error_message_text').html("Invalid Email Address ");
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
@@ -1790,7 +1791,7 @@ $(function(){
 
         if ($(this).val()!= $('#login_account_password').val()){
 
-            $('#error_message_text').html("Password confirmation is different with password! ");
+            $('#error_message_text').html("Passwords DO NOT Match ");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -1884,7 +1885,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are you Sure You Wish to EXIT ?");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1965,7 +1966,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -2227,6 +2228,62 @@ $(function(){
 
 $(function(){
     $("#close_edit_query").live('click', function(){
+       var link = $(this);
+        if($('#check_input_change').val()=="true")
+       {
+           $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $("#new_query").css('display','');
+        $(".highlight").removeClass("highlight");
+        link.css("display", "none");
+        $("#edit_query").css("display", "none");
+        $("#" + link.attr('field')+'_mode').attr('mode','show');
+        $('#edit_query_form').html('');
+        $('#edit_query_list').html('');
+        $('#edit_selection_form').html('');
+        $('#edit_selection_list').html('');
+        $('#edit_sorter_form').html('');
+        $('#edit_sorter_list').html('');
+        $('#check_input_change').val('false');
+
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
+     return false;
+
+
+
+
+
+         }
+    else
+        {
+
         $("#new_query").css('display','');
         $(".highlight").removeClass("highlight");
         $(this).css("display", "none");
@@ -2237,6 +2294,8 @@ $(function(){
         $('#edit_selection_list').html('');
         $('#edit_sorter_form').html('');
         $('#edit_sorter_list').html('');
+
+        }
     });
 });
 
@@ -2447,7 +2506,7 @@ $(function(){
             if((!_valid) || $(this).val()<0){
                 var link = $(this);
    
-                $('#error_message_text').html("This field has to be integer! ");
+                $('#error_message_text').html("Entered Value Must be Integer Only ");
 
                 $('#error_message_image').css("display","");
                 $('#error_message').dialog({
@@ -2481,7 +2540,7 @@ $(function(){
             if((!_valid) || $(this).val()<=0 || $(this).val()>= 100){
                 var link = $(this);
 
-                $('#error_message_text').html("This field has be an integer between 0 and 100! ");
+                $('#error_message_text').html("Entered Value Must be in Range 00 - 100 Only ");
 
                 $('#error_message_image').css("display","");
                 $('#error_message').dialog({
@@ -2514,7 +2573,7 @@ check_empty_value = function(){
   
     if( $("#"+$(this).attr("check_field")).val()== "")
     {
-        var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" field can not be empty"
+        var error_message = "The " + $("#"+$(this).attr("check_field")).attr("name") +" Must be Filled"
         var link = $(this);
 
         $('#error_message_text').html(error_message);
@@ -2560,6 +2619,9 @@ $(function(){
 $(function(){
     $("#submit_email_field_edit").live('click', check_empty_value);
 });
+
+
+
 $(function(){
     $("#submit_website_field").live('click', check_empty_value);
 });
@@ -2586,7 +2648,7 @@ check_email_field = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Email !");
+            $('#error_message_text').html("Invalid Email Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2621,7 +2683,7 @@ check_email_field_edit = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Email !");
+            $('#error_message_text').html("Invalid Email Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2662,7 +2724,7 @@ $(function(){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid email address!");
+                    $('#error_message_text').html("Invalid Email Address");
 
 
                     $('#error_message_image').css("display","");
@@ -2690,13 +2752,19 @@ $(function(){
                 }
                
             }
-
-            _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
-            if($('#person_websites_attributes_3_value').val()!=""){
-                if((!_valid1)){
+           var valid_temp;
+    _valid1 = /^((https|http|ftp|rtsp|mms)?:\/\/)(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+    _valid2 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#person_websites_attributes_3_value").val());
+// _valid1 = /^(http|https|ftp):\/\/[\w-]+[\.\w-]*\.[\w-]+(\/[^\s]*)?$/.test($("#person_websites_attributes_3_value").val());
+          if (_valid1==true || _valid2 ==true)
+              {
+                  valid_temp = true;
+              }
+          if($('#person_websites_attributes_3_value').val()!="" && $('#person_websites_attributes_3_value').val()!="http://"  ){
+                if((!valid_temp)){
                     var link1 = $(this);
 
-                    $('#error_message_text').html("Invalid website address!");
+                    $('#error_message_text').html("Invalid Website Address");
 
 
                     $('#error_message_image').css("display","");
@@ -2744,7 +2812,7 @@ $(function(){
                 if((!_valid)){
                     var link = $(this);
 
-                    $('#error_message_text').html("Invalid Email !");
+                    $('#error_message_text').html("Invalid Email Address");
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2770,13 +2838,20 @@ $(function(){
                     return false;
                 }
             }
+
+              var valid_temp_organisation;
                      
-            _valid1 = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
-            if($('#organisation_websites_attributes_3_value').val()!=""){
-                if((!_valid1)){
+            _valid1 = /(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
+            _valid2 = /(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#organisation_websites_attributes_3_value").val());
+            if (_valid1==true || _valid2 ==true)
+              {
+                  valid_temp_organisation = true;
+              }
+            if($('#organisation_websites_attributes_3_value').val()!=""&& $('#organisation_websites_attributes_3_value').val()!="http://" ){
+                if((!valid_temp_organisation)){
                     var link1 = $(this);
 
-                    $('#error_message_text').html("Invalid Website !");
+                    $('#error_message_text').html("Invalid Website Address");
 
                     $('#error_message_image').css("display","");
                     $('#error_message').dialog({
@@ -2813,12 +2888,19 @@ $(function(){
 });
 
 check_website_field = function(){
+    var check_valid_temp;
     _valid = /^(https|http|ftp|rtsp|mms)?:\/\/?(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
-    if($('#website_value').val()!=""){
-        if((!_valid)){
+    _valid1 = /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-z_!~*'()-]+\.)*([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\.[a-z]{2,6})(:[0-9]{1,4})?((\/?)|(\/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+\/?)$/.test($("#website_value").val());
+    if (_valid1==true || _valid2 ==true)
+              {
+                  check_valid_temp = true;
+              }
+
+   if($('#website_value').val()!=""){
+        if((!check_valid_temp)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Website !");
+            $('#error_message_text').html("Invalid Website Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2856,7 +2938,7 @@ check_website_field_edit = function(){
         if((!_valid)){
             var link = $(this);
 
-            $('#error_message_text').html("Invalid Website!");
+            $('#error_message_text').html("Invalid Website Address");
 
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
@@ -2960,7 +3042,7 @@ $(function(){
 $(function(){
     $('#apply_personal_duplication').live('click', function(){
    
-        $('#warning_message_text').html("Do you want to generate duplication value? ");
+        $('#warning_message_text').html("You Have Applied a New Duplication Formula Successfully, Do You Wish to Re-Generate the People Duplication Index Now? ");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
             modal: true,
@@ -3048,7 +3130,7 @@ $(function(){
 $(function(){
     $('#load_personal_duplication').live('click', function(){
 
-        $('#load_personal_message_text').html("Are you sure to load default setting? ");
+        $('#load_personal_message_text').html("Are You Sure You Wish to Load the System Default Setting? ");
        
         $('#load_personal_default').dialog({
             modal: true,
@@ -3102,7 +3184,7 @@ $(function(){
     $('#load_organisational_duplication').live('click', function(){
 
 
-        $('#load_organisational_message_text').html("Are you sure to load default setting? ");
+        $('#load_organisational_message_text').html("Are You Sure You Wish to Load the System Default Setting? ");
 
         $('#load_organisational_default').dialog({
             modal: true,
@@ -3262,6 +3344,12 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#show_all_list_member").live('mouseover',function(){
+        $(this).css("cursor","pointer");
+    });
+});
+
 
 //$(function(){
 //    $("#edit_all_list_member").live('click',function(){
@@ -3301,11 +3389,13 @@ $(function(){
     });
 });
 
-//$(function(){
-//   
-//      $('.text').wysiwyg();
-//
-//});
+$(function(){
+    $("#show_all_organisations").live('mouseover',function(){
+
+      $(this).css("cursor","pointer");
+    });
+});
+
 
 
 $(function(){
@@ -3740,7 +3830,7 @@ $(function(){
         var link = $(this);
         if  ($(this).parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value') == "true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -3773,17 +3863,15 @@ $(function(){
            
             });
             $('#warning_message').dialog('option', 'title', 'Warning');
-
             $('#warning_message').parent().find("a").css("display","none");
             $("#warning_message").parent().css('background-color','#D1DDE6');
             $("#warning_message").css('background-color','#D1DDE6');
-
             $('#warning_message').dialog('open');
             return false;
         }
         else if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -4281,7 +4369,7 @@ $(function(){
         if ( $('#check_input_change').val()=="true")
         {
 
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -4347,7 +4435,7 @@ $(function(){
         if ( $('#check_input_change').val()=="true")
         {
 
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -4708,7 +4796,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5232,7 +5320,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5253,7 +5341,7 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
-                        $("#keyword_add_entry_form").hide();
+                        $("#keyword_add_entry_form").css('display','none');
                         $("#edit_keyword_entry").html("");
                         $("#keyword_type").attr("disabled",false);
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -5296,7 +5384,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5681,7 +5769,7 @@ $(function(){
 $(function(){
     $(".check_postcode_columns").blur(function(){
         if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
-            alert("You must enter a positive value for the column number.");
+            alert("Invalild Post Code Value");
             $(this).val('');
         };
 
@@ -5709,7 +5797,7 @@ $(function(){
             $('#import_postcode_parameters').dialog('open');
             $('#import_postcode_parameters').dialog('option', 'title', 'Postcode upload parameters');
         } else {
-            alert("You must nominate at least one column.")
+            alert("All Fields Must be Filled")
         }
     });
 });
@@ -5850,7 +5938,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -5927,7 +6015,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -6006,7 +6094,7 @@ $(function(){
         }
         else
         {
-            $('#warning_message_text').html("Some data did not save. Are you sure ? ");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -6224,7 +6312,7 @@ $(function(){
 //
 //        }
 //        else{
-//            $('#warning_message_text').html("Some data has not saved. Are you sure you wish to close this form ? ");
+//            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
 //            $('#warning_message_image').css("display","");
 //            $('#warning_message').dialog({
 //                modal: true,
@@ -6315,10 +6403,10 @@ $(function(){
         });
 
     });
-
-
-
 });
+
+
+
 
 
 
@@ -6376,4 +6464,18 @@ $(function(){
     });
 
 });
-
+$(function(){
+    $("#whoami").css({'opacity':'0.3'});
+    $("#whoami").mouseover(
+            function(){
+                $(this).stop().fadeTo('fast',1 );
+            });
+            
+    $("#whoami").mouseout(
+            function (){
+                $(this).stop().fadeTo('fast',0.3 );
+          });
+        return false; 
+   
+     
+});

@@ -4,6 +4,8 @@ $('#flash_message').dialog( {
     modal: true,
      resizable: false,
     draggable: true,
+    height: 'auto',
+    width: 'auto',
     <%#*position: 'top',%>
     buttons: {
       Ok: function() {
@@ -11,6 +13,10 @@ $('#flash_message').dialog( {
       }
     }
   });
+     $('#flash_message').parent().find("a").css("display","none");
+      $("#flash_message").parent().css('background-color','#D1DDE6');
+       $("#flash_message").css('background-color','#D1DDE6');
+
   $('#flash_message').dialog('option', 'title', 'Error');
 $('#flash_message').dialog('open');
 
@@ -19,7 +25,7 @@ $('#flash_message').dialog('open');
  $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
  $('#flash_feedback').fadeIn("slow");
  $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
- $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
+ $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
 <%- result = "<option value='#{@list_header.id}' id='list_header_#{@list_header.id}'>#{@list_header.name}</option>" %>
  $('#compiler_options').append('<%= escape_javascript(result) %>');
 <% end %>
