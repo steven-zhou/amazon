@@ -2,7 +2,8 @@
   %div#loleft
     .lolfont_left{:style => "margin-left: 65px;"}
       = label_tag 'person_id', 'System ID'
-      
+    %input{:id=> "GetActiveTabName", :style => "display:none",:value=> "business_info"}
+    %input{:id=> "GetSubActiveTabName", :style => "display:none",:value=> "person_detail"}
     %div
       -unless @list_header.new_record? && @person.new_record?
         .arrow_block
@@ -34,7 +35,7 @@
      
       #lol_select{:style => "margin-top: 9px;"}
         -if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
-          =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list", :title => "Show List", :alt => "Show list")
+          =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list", :title => "Show List" ,:alt => "Show list")
         -else
           =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list", :title => "Show List", :alt => "Show list")
 %br.clear
