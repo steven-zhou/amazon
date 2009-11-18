@@ -48,12 +48,6 @@ $(function() {
         $(".container_icon").removeClass("container_icon_color");
         $(this).parent().addClass("container_icon_color");
          
-<<<<<<< HEAD:public/javascripts/person.js
-=======
-        $('#GetActiveTabName').val($(this).parent().find('a').attr('show_id_name')); 
-      
-
->>>>>>> 8b8cccf7c63181a9ca15e94e7945afbcecc2c2a5:public/javascripts/person.js
         $('.pppp[field='+ $(this).attr('show_id_name') +']').removeClass('hidden');
     });
     /*
