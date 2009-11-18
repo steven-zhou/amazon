@@ -712,6 +712,9 @@ $(".person_master_doc_close").live('click',function(){
         if (link.attr('field') != ""){
 
             $("#new_"+link.attr('field'))[0].reset();
+            $('#master_doc_meta_type_id').html("").change();
+           $('#master_doc_master_doc_type_id').html("").change();
+
         }
 
     }
@@ -743,6 +746,8 @@ $(".person_master_doc_close").live('click',function(){
                     if (link.attr('field') != ""){
 
                         $("#new_"+link.attr('field'))[0].reset();
+                        $('#master_doc_meta_type_id').html("").change();
+                        $('#master_doc_master_doc_type_id').html("").change();
                     }
                     $(this).dialog('destroy');
                     return true;

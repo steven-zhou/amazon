@@ -1382,7 +1382,7 @@ class GridsController < ApplicationController
           u.capital,
           u.iso_code,
           u.dialup_code,
-          u.main_language,
+          u.govenment_language,
           u.currency,
           u.currency_subunit]}}
     # Convert the hash to a json object

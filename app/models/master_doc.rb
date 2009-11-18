@@ -2,7 +2,8 @@ class MasterDoc < ActiveRecord::Base
   belongs_to :master_doc_type, :class_name => "MasterDocType", :foreign_key => "master_doc_type_id"  
   belongs_to :entity, :polymorphic => true
   validates_presence_of :master_doc_type_id
-
+  validates_presence_of :doc_number
+  validates_uniqueness_of :doc_number, :scope => :master_doc_type_id
   belongs_to :issue_country, :class_name => "Country", :foreign_key => "issue_country_id"
 
   before_save :update_priority

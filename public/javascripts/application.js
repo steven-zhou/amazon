@@ -3891,7 +3891,7 @@ $(function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
-                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");                        
                         link.parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value','false');
                         clear_organisation_form(link);
                   
@@ -3934,6 +3934,7 @@ $(function(){
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('.close_option[field='+ link.attr('field') +']').css("display","none");
                         $('#check_input_change').val("false");
 
                         clear_organisation_form(link);
@@ -3961,6 +3962,7 @@ $(function(){
 
             link.css("display","none");
             $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $('.close_option[field='+ link.attr('field') +']').css("display","none");
 
         }
 
@@ -3983,11 +3985,11 @@ clear_organisation_form = function(link){
       
     }
 
-    if(link.attr('toggle_id_name')=="new_master_doc")
-    {
-        $("#new_master_doc")[0].reset();
-
-    }
+//    if(link.attr('toggle_id_name')=="new_master_doc")
+//    {
+//        $("#new_master_doc")[0].reset();
+//
+//    }
     if(link.attr('toggle_id_name')=="new_note")
     {
         $("#new_note")[0].reset();
@@ -6670,7 +6672,7 @@ $(function(){
 
         {
             display: 'Main Language',
-            name : 'main_language',
+            name : 'govenment_language',
             width : 100,
             sortable : true,
             align: 'left'
@@ -6725,7 +6727,7 @@ $(function(){
 
         {
             display: 'Main Language',
-            name : 'main_language'
+            name : 'govenment_language'
         },
 
         {

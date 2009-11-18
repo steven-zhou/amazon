@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091118052018) do
+ActiveRecord::Schema.define(:version => 20091118054942) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -47,6 +47,30 @@ ActiveRecord::Schema.define(:version => 20091118052018) do
     t.string   "name"
     t.string   "description"
     t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "banks", :force => true do |t|
+    t.text     "full_name"
+    t.text     "short_name"
+    t.text     "branch_name"
+    t.text     "branch_number"
+    t.text     "address_line_1"
+    t.text     "address_line_2"
+    t.text     "address_line_3"
+    t.text     "state"
+    t.text     "postcode"
+    t.integer  "country_id"
+    t.text     "contact_person"
+    t.text     "contact_person_job_title"
+    t.text     "contact_person_email"
+    t.text     "contact_phone"
+    t.text     "contact_fax"
+    t.text     "contact_mobile"
+    t.boolean  "status"
+    t.text     "status_reason"
+    t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -155,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20091118052018) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "dialup_code"
-    t.string   "main_language"
+    t.string   "govenment_language"
   end
 
   create_table "dashboard_preferences", :force => true do |t|

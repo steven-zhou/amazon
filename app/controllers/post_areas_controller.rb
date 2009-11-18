@@ -19,6 +19,7 @@ class PostAreasController < ApplicationController
 
   def new
     @postal_area = (params[:param1]).camelize.constantize.new
+     @country_name = Country.find_by_id(session[:geo_country_id]).short_name
     if (params[:param1]== "GeographicalArea")
       @type = "geo_area"
     else
@@ -37,7 +38,13 @@ class PostAreasController < ApplicationController
      else
 
     end
-     @postal_areas = (params[:type]).camelize.constantize.find_all_by_country_id(session[:geo_country_id])
+     @country_id = session[:geo_country_id]
+    
+     if (@postal_area.class.to_s == "GeographicalArea")
+      @type = "geo_area"
+    else
+      @type = "ele_area"
+    end
     respond_to do |format|
       format.js
     end
