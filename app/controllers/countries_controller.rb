@@ -1,6 +1,13 @@
 class CountriesController < ApplicationController
   # System Log stuff added
 
+  def new
+    @country = Country.new
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def edit
     @country = Country.find(params[:id])
     respond_to do |format|
