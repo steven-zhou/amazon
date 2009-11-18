@@ -18,7 +18,7 @@ class SigninController < ApplicationController
         # Check to see if the account is new and if so, are the still within their grace period
         # If not, delete the account
         begin
-          redirect_to :action => "ask_for_power_password", :user_name => params[:user_name] and return unless login_account.class.to_s == "SystemUser"
+          redirect_to :action => "ask_for_power_password", :user_name => params[:user_name], :clocktime => params[:clocktime] and return unless login_account.class.to_s == "SystemUser"
           account_system_user_check(login_account) # Checks the system_user attribute
           grace_period_check(login_account) if login_account.last_login.nil? # Check if a user logs in for the first time before the grace period expires
           account_active_check(login_account) # Check that the login_status attribute is true
@@ -198,6 +198,7 @@ class SigninController < ApplicationController
 
   def ask_for_power_password
     @user_name = params[:user_name]
+    @clock = params[:clocktime]
     render "ask_for_power_password", :layout => "reset_password"
   end
 

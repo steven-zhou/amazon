@@ -3383,7 +3383,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#GetSubActiveTabName').val(),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
             dataType: "script"
 
         });
@@ -5066,6 +5066,7 @@ $(function(){
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
         $('#GetSubActiveTabName').val($(this).attr('field'));
+       
     });
 });
 
@@ -6530,10 +6531,64 @@ $(function(){
      
 });
 
-  $(function($) {
-      $('.jclock').jclock();
-      $('#clocktime').val($('.jclock').html());
+
+$(function($) {
+    $('.jclock').jclock();
+    $('#clocktime').val($('.jclock').html());
+});
+
+
+/*arrow block */
+$(function(){
+    $('#go_next').click(function(){
+
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
     });
+});
+
+$(function(){
+    $('#go_previous').click(function(){
+
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('#go_first').click(function(){
+
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $('#go_last').click(function(){
+
+        $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+
 
 
 /* Ajax call system */
@@ -6541,9 +6596,20 @@ $(function(){
     $(".ajax_call").live("click", function(){
         $.ajax({
             type: $(this).attr("method"),
-            url: $(this).attr("url"),
+            url: $(this).attr("url")+".js",
             data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
             dataType: "script"
         });
     });
+});
+
+
+/*CSS tab switch system*/
+$(".tab_switch_button").live('click', function(){
+    $('.active').removeClass("active");
+    $(this).addClass("active");
+    $(this).parent().addClass("active");
+    $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
+    $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
+    $('#'+$(this).attr('field')).addClass("active");
 });
