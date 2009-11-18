@@ -8,6 +8,8 @@ class Country < ActiveRecord::Base
   
   belongs_to :main_language, :class_name => "Language"
   has_many :organisations, :foreign_key => :registered_country_id
+  has_many :geographical_areas, :foreign_key => :country_id
+  has_many :electoral_areas, :foreign_key => :country_id
 
 
 
