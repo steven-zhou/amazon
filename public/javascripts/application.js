@@ -629,15 +629,8 @@ $(function(){
         });
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
-
-         
-
-
     });
 });
-
-
-
 
 
 $(function(){
@@ -3383,7 +3376,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
             dataType: "script"
 
         });
@@ -3395,6 +3388,9 @@ $(function(){
         $(this).css("cursor","pointer");
     });
 });
+
+
+
 
 
 //$(function(){
@@ -3429,7 +3425,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/organisations/show_list.js",
-            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation'),
+            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });
@@ -4032,7 +4028,7 @@ $(function(){
         $.ajax({
             type: 'GET',
             url: "/organisations/show_left.js",
-            data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
+            data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation')+'&active_tab='+$('#search_organisations_list_results').attr('active_tab')+'&active_sub_tab='+$('#search_organisations_list_results').attr('active_sub_tab'),
             dataType: "script"
         });
         $('table#search_organisations_list_results tbody tr.trSelected').removeClass('trSelected');
@@ -5067,8 +5063,6 @@ $(function(){
         $(".person_edit_tab").removeClass("active");
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
-        $('#GetSubActiveTabName').val($(this).attr('field'));
-       
     });
 });
 
@@ -6542,8 +6536,7 @@ $(function($) {
 
 /*arrow block */
 $(function(){
-    $('#go_next').click(function(){
-
+    $('.person_arrow_block').click(function(){
         $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
@@ -6554,45 +6547,17 @@ $(function(){
 });
 
 $(function(){
-    $('#go_previous').click(function(){
+    $('.organisation_arrow_block').click(function(){
 
         $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });
 });
 
-$(function(){
-    $('#go_first').click(function(){
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-
-           
-            dataType: "script"
-        });
-
-    });
-});
-
-
-$(function(){
-    $('#go_last').click(function(){
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
-    });
-});
 
 
 
