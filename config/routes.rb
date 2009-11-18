@@ -118,6 +118,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :post_areas, :collection => {:select_ajax_show => :get}
   map.resources :countries
   map.resources :postcodes
+  map.resources :languages
+  map.resources :religions
 
 
   # The priority is based upon order of creation: first created -> highest priority.
