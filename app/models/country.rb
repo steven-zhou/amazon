@@ -17,8 +17,7 @@ class Country < ActiveRecord::Base
 #++
 
   validates_presence_of :short_name, :citizenship
-
-  
-  attr_accessible :short_name, :long_name, :citizenship, :capital, :iso_code, :currency, :currency_subunit, :main_language_id
+  validates_uniqueness_of :short_name, :citizenship
+  default_scope :order => "short_name ASC"
   
 end
