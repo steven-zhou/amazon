@@ -5,7 +5,7 @@
       .title
         %h1 Edit Person Role
       .options
-        = link_to image_tag('close_icon.png'), person_role_path(@person_role), :class => 'get_close', :id => 'person_role_edit_close_button', :title=>"Close"
+        = link_to image_tag('close_icon.png'), person_role_path(@person_role), :class => 'get_close', :id => 'person_role_edit_close_button', :title=>"Close",:field => "person_role"
       %br{ :style =>"clear:both;"}
       = render :partial => '/person_roles/person_role_form',:locals => { :person_role => person_role }
       = submit_tag 'Submit'
