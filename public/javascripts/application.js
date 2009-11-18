@@ -6539,7 +6539,7 @@ $(function(){
           $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });
@@ -6551,7 +6551,7 @@ $(function(){
           $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });
@@ -6563,7 +6563,7 @@ $(function(){
           $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
       });
     });
 });
@@ -6575,7 +6575,7 @@ $(function(){
           $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });

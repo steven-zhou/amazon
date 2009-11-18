@@ -40,10 +40,7 @@ class PeopleController < ApplicationController
           @active_tab = params[:active_tab]
         @active_sub_tab = params[:active_sub_tab]
 
-      puts '************************'
-      puts  @active_tab
-      puts '************************'
-      puts  @active_sub_tab
+
 
     #when it is cal show action
     if request.get?
@@ -122,7 +119,8 @@ class PeopleController < ApplicationController
   def edit
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
-
+      @active_tab = params[:active_tab]
+        @active_sub_tab = params[:active_sub_tab]
     #@postcodes = DomesticPostcode.find(:all)
 
     if request.get?
@@ -196,7 +194,8 @@ class PeopleController < ApplicationController
       end
     end
     respond_to do |format|
-      format.html  
+      format.html
+      format.js {render 'show_edit_left.js'}
     end
   end
 

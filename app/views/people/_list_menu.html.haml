@@ -2,8 +2,7 @@
   %div#loleft
     .lolfont_left{:style => "margin-left: 65px;"}
       = label_tag 'person_id', 'System ID'
-    %input{:id=> "GetActiveTabName", :style => "display:none",:value=> "business_info"}
-    %input{:id=> "GetSubActiveTabName", :style => "display:none",:value=> "person_detail"}
+
     %div
       -unless @list_header.new_record? && @person.new_record?
         .arrow_block
