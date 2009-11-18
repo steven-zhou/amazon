@@ -2292,3 +2292,20 @@ div#permission_form .options{
 
   }
 
+
+  /*datepicker*/
+  .datepick {
+      width:78% !important;
+  }
+
+  .birthdatepick {
+      width:81% !important;
+  }
+
+  .startdatepick {
+      width:78% !important;
+  }
+
+  .enddatepick {
+      width:78% !important;
+  }

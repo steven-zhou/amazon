@@ -194,7 +194,9 @@ class GridsController < ApplicationController
           u.field_1,
           u.field_2,
           u.field_3,
-          u.field_4
+          u.field_4,
+          u.field_5,
+          u.field_6
         ]}}
 
     # Convert the hash to a json object

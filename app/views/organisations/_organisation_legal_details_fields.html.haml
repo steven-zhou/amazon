@@ -8,7 +8,7 @@
   %br.clear
 .form_line
   .field_33
-    = p.label :registered_date, 'registered_date'
+    = p.label :registered_date, 'Registered_Date'
     = p.text_field :registered_date, :class=> @check_field.include?("registered_date") ? "organisational_check_field datepick" : "datepick", :value=>@organisation.registered_date.to_s
   .field_30
     = p.label :registered_country_id, 'Country of Incorporation'
