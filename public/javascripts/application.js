@@ -6748,3 +6748,74 @@ $(function(){
         $(this).css('cursor',"pointer");
     });
 });
+
+/* Language Grid*/
+$(function(){
+    $("#show_languages_grid").flexigrid({
+        url: '/grids/show_languages_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Name',
+            name : 'name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Description',
+            name : 'description',
+            width : 200,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Name',
+            name : 'name'
+        },
+
+        {
+            display: 'Description',
+            name : 'description'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Languages',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+    $('table#show_languages_grid tbody tr').live('click',function(){
+        $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+
+    });
+
+    $('table#show_languages_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
+            dataType: "script"
+        });
+    });
+
+    $('table#show_languages_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+});
