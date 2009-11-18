@@ -10,6 +10,7 @@ class Country < ActiveRecord::Base
   has_many :organisations, :foreign_key => :registered_country_id
 
 
+
 #--
 ################ 
 #  Validation
