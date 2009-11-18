@@ -17,7 +17,7 @@ class CountriesController < ApplicationController
 
   def create
     @country = Country.new(params[:country])
-    @country.main_language = Language.find(params[:country][:main_language_id].to_i).name unless params[:country][:main_language_id].blank?
+    @country.govenment_language = Language.find(params[:country][:main_language_id].to_i).name unless params[:country][:main_language_id].blank?
     if @country.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new country entry with ID #{@country.id}.")
     else
@@ -31,8 +31,11 @@ class CountriesController < ApplicationController
 
   def update
     @country = Country.find(params[:id])
+    @country.govenment_language = Language.find(params[:country][:main_language_id].to_i).name unless params[:country][:main_language_id].blank?
     if @country.update_attributes(params[:country])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for country with ID #{@country.id}.")
+    else
+      
     end
     @countries = Country.all
     respond_to do |format|
