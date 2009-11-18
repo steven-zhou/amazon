@@ -18,9 +18,9 @@ if('<%=escape_javascript(@active_tab) %>'=="organisation_info")
   $('.profile_tab_left[field="business_info"]').css("background-image","none");
   $('.pppp[field="organisation_info"]').removeClass('hidden');
 
-  $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
-  $(".person_edit_tab").removeClass("active");
-  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
-  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Org/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
-  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
+  $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
+  $(".organisation_edit_tab").removeClass("active");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Org/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
 }

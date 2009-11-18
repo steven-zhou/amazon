@@ -3376,7 +3376,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
             dataType: "script"
 
         });
@@ -3425,7 +3425,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/organisations/show_list.js",
-            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#GetSubActiveTabName').val(),
+            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });

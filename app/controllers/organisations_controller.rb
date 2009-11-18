@@ -239,6 +239,8 @@ class OrganisationsController < ApplicationController
 
   def show_list
     @organisations = Organisation.find(:all, :order => "id")
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -268,7 +270,8 @@ class OrganisationsController < ApplicationController
     @o = Organisation.find(:all, :order => "id")
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if @organisation.nil?
-    
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
     @check_field = Array.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
