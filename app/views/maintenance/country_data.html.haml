@@ -15,11 +15,44 @@
     = link_to_function "<h1>Post Code</h1>", :class=>"tab_switch_button", :field => "post_code_page"
   .tab_switch_right.left{:field =>"post_code_page"}
 
+  .tab_switch_left.left{:field =>"geo_area_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Geo Area</h1>", :class=>"tab_switch_button", :field => "geo_area_page"
+  .tab_switch_right.left{:field =>"geo_area_page"}
+
+  .tab_switch_left.left{:field =>"electoral_area_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Electoral Area</h1>", :class=>"tab_switch_button", :field => "electoral_area_page"
+  .tab_switch_right.left{:field =>"electoral_area_page"}
+
+  .tab_switch_left.left{:field =>"language_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Language</h1>", :class=>"tab_switch_button", :field => "language_page"
+  .tab_switch_right.left{:field =>"language_page"}
+
+  .tab_switch_left.left{:field =>"religion_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Religion</h1>", :class=>"tab_switch_button", :field => "religion_page"
+  .tab_switch_right.left{:field =>"religion_page"}
+
+%br.clear
 
 #country_page.tab_switch_container.active
-  111
+  = render :partial => "countries/countries_tab"
 
 #post_code_page.tab_switch_container
   222
+
+#geo_area_page.tab_switch_container
+  333
+
+#electoral_area_page.tab_switch_container
+  444
+
+#language_page.tab_switch_container
+  555
+
+#religion_page.tab_switch_container
+  666
 
 
