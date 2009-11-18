@@ -5,6 +5,7 @@ $('#<%= dom_id(@masterdoc, :edit) %>').replaceWith(" <%= escape_javascript(rende
      $('#master_doc_hidden_tab').attr('mode','show');
      $('#master_doc_mode').attr('mode', 'show');
      $('.new_option[field="master_doc"]').css("display","");
+     $('.show_role_table').change();
 
      <%else%>
       $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
