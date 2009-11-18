@@ -6601,6 +6601,15 @@ $(function(){
             dataType: "script"
         });
     });
+
+    $(".new_ajax_call").live("click", function(){
+        $.ajax({
+            type: "GET",
+            url: $(this).attr("url")+".js",
+            data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
+            dataType: "script"
+        });
+    });
 });
 
 

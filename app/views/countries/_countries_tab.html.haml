@@ -1,10 +1,10 @@
 .full_container
   %input.hidden{:id => "country_mode", :mode => "show"}
 
-  .full_container
-    .options
-      = link_to_function image_tag('close_icon.png'), :id => "close_new_account", :style => "display:none;", :field => "country", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png', :size=> "22x22"), :id => "add_user", :class => "toggle_button new_option", :toggle_id_name => "new_user", :field => "login_account"
-      &nbsp
-      %h2 New Country
+  #new_country
+    = render :partial => "countries/new_country"
+
+  #existing_country
+    = render :partial => "countries/existing_countries"
+
+  #edit_country.hidden
