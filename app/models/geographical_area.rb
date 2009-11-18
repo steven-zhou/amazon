@@ -1,0 +1,3 @@
+class GeographicalArea < PostArea
+
+end

@@ -1,0 +1,3 @@
+class ElectoralArea < PostArea
+
+end
