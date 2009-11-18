@@ -6540,8 +6540,7 @@ $(function($) {
 
 /*arrow block */
 $(function(){
-    $('#go_next').click(function(){
-
+    $('.person_arrow_block').click(function(){
         $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
@@ -6552,45 +6551,17 @@ $(function(){
 });
 
 $(function(){
-    $('#go_previous').click(function(){
+    $('.organisation_arrow_block').click(function(){
 
         $.ajax({
             type: "GET",
             url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });
 });
 
-$(function(){
-    $('#go_first').click(function(){
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-
-           
-            dataType: "script"
-        });
-
-    });
-});
-
-
-$(function(){
-    $('#go_last').click(function(){
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
-    });
-});
 
 
 

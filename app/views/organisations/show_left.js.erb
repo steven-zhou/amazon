@@ -2,3 +2,37 @@ $('#organisation_content_container').replaceWith('<%= escape_javascript(render(:
 
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_organisation_list_menu")) %>');
 $("#tabs2").tabs();
+
+$(function(){
+    $('.organisation_arrow_block').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+if('<%=escape_javascript(@active_tab) %>'=="organisation_info"){
+$('.show_hide_button[show_id_name="organisation_info"]').parent().addClass('container_icon_color');
+ $('.show_hide_button[show_id_name="business_info"]').parent().removeClass('container_icon_color');
+ $('#organisation_info').css("display","");
+
+    $('.profile_tab_right[field="organisation_info"]').css("background-image","url(/images/round_right.png)");
+
+    $('.profile_tab_left[field="organisation_info"]').css("background-image","url(/images/round_left.png)");
+
+        $('#business_info').css("display","none");
+        $('.profile_tab_right[field="business_info"]').css("background-image","none");
+        $('.profile_tab_left[field="business_info"]').css("background-image","none");
+  $('.pppp[field="organisation_info"]').removeClass('hidden');
+
+
+
+  $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
+  $(".organisation_edit_tab").removeClass("active");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Org/tabs/"+$('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').attr("field")+"_title.png");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
+  }

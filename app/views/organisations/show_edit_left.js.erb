@@ -3,6 +3,23 @@ $('#edit_organisation_content_container').replaceWith('<%= escape_javascript(ren
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_organisation_edit_list_menu",:locals => { :organisation => @organisation})) %>');
 $("#tabs").tabs();
 $("#tabs2").tabs();
+
+$(function(){
+    $('.organisation_arrow_block').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+
+
+
+
 $('.organisational_check_field').blur(function(){
     var check_fields = [];
     var data_string = "";
@@ -28,3 +45,13 @@ $(function(){
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
 });
+
+
+
+
+  $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
+  $(".organisation_edit_tab").removeClass("active");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Org/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
+  $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
+

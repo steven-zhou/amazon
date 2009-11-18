@@ -26,6 +26,11 @@ class OrganisationsController < ApplicationController
   end
 
   def show
+
+        #get active tabs
+        @active_tab = params[:active_tab]
+        @active_sub_tab = params[:active_sub_tab]
+        
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @o = Organisation.find(:all, :order => "id")
     @organisation = Organisation.find_by_id(params[:id].to_i)
@@ -60,6 +65,8 @@ class OrganisationsController < ApplicationController
     end
     respond_to do |format|
       format.html
+        format.js {render 'show_left.js'}
+
     end
   end
 
@@ -101,6 +108,9 @@ class OrganisationsController < ApplicationController
 
 
   def edit
+
+          @active_tab = params[:active_tab]
+        @active_sub_tab = params[:active_sub_tab]
     @current_user = LoginAccount.find(session[:user])
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = Organisation.find(:all, :order => "id")
@@ -126,6 +136,7 @@ class OrganisationsController < ApplicationController
     end
     respond_to do |format|
       format.html
+      format.js {render 'show_edit_left.js'}
     end
   end
 
