@@ -6861,3 +6861,73 @@ $('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
 $('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
     $(this).css('cursor',"pointer");
 });
+
+/* Religion Grid*/
+$(function(){
+    $("#show_religions_grid").flexigrid({
+        url: '/grids/show_religions_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Name',
+            name : 'name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Description',
+            name : 'description',
+            width : 200,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Name',
+            name : 'name'
+        },
+
+        {
+            display: 'Description',
+            name : 'description'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Religions',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+    $('table#show_religions_grid tbody tr').live('click',function(){
+        $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+
+    $('table#show_religions_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
+            dataType: "script"
+        });
+    });
+
+    $('table#show_religions_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+});
