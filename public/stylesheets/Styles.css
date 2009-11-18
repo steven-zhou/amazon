@@ -2309,3 +2309,81 @@ div#permission_form .options{
   .enddatepick {
       width:78% !important;
   }
+
+
+
+  /*tab switch*/
+  .tab_switch_left{
+
+    background-image:none;
+    background-position: bottom left;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: right;
+}
+
+.tab_switch_right{
+    background-image:none;
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: right;
+}
+
+  .tab_switch_left.active{
+
+   background-image:url(/images/round_left.png);
+    background-position: bottom left;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: right;
+}
+
+.tab_switch_right.active{
+    background-image:url(/images/round_right.png);
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: right;
+}
+
+#app #main #content  .container_icon { /*For find people page*/
+
+    font-family:Arial, Helvetica, sans-serif;
+    background-repeat:repeat;
+    color: #2C2C2C;
+    float: right;
+    padding: 10px 15px;
+    height: 20px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    font-size:20px;
+}
+
+#app #main #content  .container_icon.active{
+
+    background-image:url(/images/container_bg.png);
+    font-family:Arial, Helvetica, sans-serif;
+    background-repeat:repeat;
+    color: #2C2C2C;
+    float: right;
+    padding: 10px 15px;
+    height: 20px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    font-size:20px;
+}
+
+#app #main #content .tab_switch_container {
+    position: absolute;
+    left: -10000px;
+}
+
+#app #main #content .tab_switch_container.active {
+    position: relative;
+    left:0;
+}
