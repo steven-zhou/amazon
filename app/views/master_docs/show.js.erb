@@ -1,6 +1,31 @@
+<% if @masterdoc.errors.empty? -%>
 $('#<%= dom_id(@masterdoc, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @masterdoc)) %>");
   $('.person_master_doc_edit_delete').css("display","none");
   $('.person_master_doc_toggle_button').css("display","");
      $('#master_doc_hidden_tab').attr('mode','show');
      $('#master_doc_mode').attr('mode', 'show');
      $('.new_option[field="master_doc"]').css("display","");
+
+     <%else%>
+      $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_messagee_image').css("display","");
+  $("#flash_message").dialog( {
+  modal:true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+
+  OK: function(){
+
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+
+
+     <%end%>

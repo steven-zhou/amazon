@@ -709,10 +709,10 @@ $(".person_master_doc_close").live('click',function(){
         link.css("display","none");
         $('.person_master_doc_toggle_button').css("display","");
         $('#master_doc_hidden_tab').attr('mode','show');
-        if (link.attr('field') != ""){
-
-            $("#new_"+link.attr('field'))[0].reset();
-        }
+//        if (link.attr('field') != ""){
+//
+//            $("#new_"+link.attr('field'))[0].reset();
+//        }
 
     }
     else
@@ -740,10 +740,10 @@ $(".person_master_doc_close").live('click',function(){
                     $('#master_doc_input_change_or_not').val("false");
                     $('#master_doc_hidden_tab').attr('mode','show');
                     $('#check_right_input_change').val("false");
-                    if (link.attr('field') != ""){
-
-                        $("#new_"+link.attr('field'))[0].reset();
-                    }
+//                    if (link.attr('field') != ""){
+//
+//                        $("#new_"+link.attr('field'))[0].reset();
+//                    }
                     $(this).dialog('destroy');
                     return true;
                 }

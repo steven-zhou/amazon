@@ -3985,11 +3985,11 @@ clear_organisation_form = function(link){
       
     }
 
-    if(link.attr('toggle_id_name')=="new_master_doc")
-    {
-        $("#new_master_doc")[0].reset();
-
-    }
+//    if(link.attr('toggle_id_name')=="new_master_doc")
+//    {
+//        $("#new_master_doc")[0].reset();
+//
+//    }
     if(link.attr('toggle_id_name')=="new_note")
     {
         $("#new_note")[0].reset();
