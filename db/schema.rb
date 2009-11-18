@@ -9,9 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20091118013405) do
-
+ActiveRecord::Schema.define(:version => 20091118023329) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -156,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20091118013405) do
     t.integer  "main_language_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "dialup_code"
   end
 
   create_table "dashboard_preferences", :force => true do |t|
