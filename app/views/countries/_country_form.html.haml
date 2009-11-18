@@ -1,4 +1,4 @@
-- form_for country, :class => "ajax_form" do |f|
+- form_for country, :html => {:class => "ajax_form"} do |f|
   .form_line
     .field_30
       = f.label :long_name, "Long Name"
@@ -21,7 +21,7 @@
       = f.text_field :dialup_code
     .field_15
       = f.label :main_language_id, "Main Language"
-      = f.collection_select :main_language, Language.all, :id, :name, {:include_blank => true}
+      = f.collection_select :main_language_id, Language.all, :id, :name, {:include_blank => true}
     .field_15
       = f.label :currency, "Currency"
       = f.text_field :currency

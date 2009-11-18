@@ -114,6 +114,6 @@
             = link_to "#{image_tag('Icons/Admin/Maintenance/database_restore.png')} Data Restore", :controller => "maintenance", :action => "system_restore"
           %li{:id => @current_action == "import_postcodes" ? "selected" : ""}
             = link_to "#{image_tag('/images/Icons/Core/Import_export/export.png')} Import Postcodes", :controller => "maintenance", :action => "import_postcodes"
-          %li{:id => @current_action == "country_data" ? "selected" : ""}
+          -#%li{:id => @current_action == "country_data" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Country Data", :controller => "maintenance", :action => "country_data"
     .bottom
