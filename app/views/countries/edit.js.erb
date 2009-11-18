@@ -1,0 +1,5 @@
+$('#add_new_country').css('display','none');
+$('#edit_country').css('display', '');
+$('#edit_country_form').html('<%= escape_javascript(render(:partial => "/countries/country_form", :locals => {:country => @country })) %>');
+$('#country_mode').attr('mode', 'edit');
+$('.close_option[field="country"]').css("display","");

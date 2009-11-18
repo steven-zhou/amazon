@@ -629,15 +629,8 @@ $(function(){
         });
         $('table#search_list_results tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass("trSelected");
-
-         
-
-
     });
 });
-
-
-
 
 
 $(function(){
@@ -3383,7 +3376,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
             dataType: "script"
 
         });
@@ -3395,6 +3388,9 @@ $(function(){
         $(this).css("cursor","pointer");
     });
 });
+
+
+
 
 
 //$(function(){
@@ -3429,7 +3425,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/organisations/show_list.js",
-            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation'),
+            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
             dataType: "script"
         });
     });
@@ -3934,6 +3930,7 @@ $(function(){
                     },
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $('#'+link.attr('toggle_id_name1')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
@@ -3958,6 +3955,7 @@ $(function(){
         else
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $('#'+link.attr('toggle_id_name1')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
 
@@ -4030,7 +4028,7 @@ $(function(){
         $.ajax({
             type: 'GET',
             url: "/organisations/show_left.js",
-            data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation'),
+            data: 'organisation_id='+$(this).attr('id').substring(3)+'&current_operation='+ $('#search_organisations_list_results').attr('current_operation')+'&active_tab='+$('#search_organisations_list_results').attr('active_tab')+'&active_sub_tab='+$('#search_organisations_list_results').attr('active_sub_tab'),
             dataType: "script"
         });
         $('table#search_organisations_list_results tbody tr.trSelected').removeClass('trSelected');
@@ -5065,8 +5063,6 @@ $(function(){
         $(".person_edit_tab").removeClass("active");
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
-        $('#GetSubActiveTabName').val($(this).attr('field'));
-       
     });
 });
 
@@ -6576,15 +6572,6 @@ $(function(){
             dataType: "script"
         });
     });
-
-    $(".new_ajax_call").live("click", function(){
-        $.ajax({
-            type: "GET",
-            url: $(this).attr("url")+".js",
-            data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
-            dataType: "script"
-        });
-    });
 });
 
 
@@ -6596,4 +6583,166 @@ $(".tab_switch_button").live('click', function(){
     $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
     $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
     $('#'+$(this).attr('field')).addClass("active");
+});
+
+/* Country Grid*/
+$(function(){
+    $("#show_countries_grid").flexigrid({
+        url: '/grids/show_countries_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Long Name',
+            name : 'long_name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Short Name',
+            name : 'short_name',
+            width : 80,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Citizenship',
+            name : 'citizenship',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Capital',
+            name : 'capital',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'ISO Code',
+            name : 'iso_code',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Dialup Code',
+            name : 'dialup_code',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Main Language',
+            name : 'main_language',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Currency',
+            name : 'currency',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Currency Subunit',
+            name : 'currency_subunit',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Long Name',
+            name : 'long_name'
+        },
+
+        {
+            display: 'Short Name',
+            name : 'short_name'
+        },
+
+        {
+            display: 'Citizenship',
+            name : 'citizenship'
+        },
+
+        {
+            display: 'Capital',
+            name : 'capital'
+        },
+
+        {
+            display: 'ISO Code',
+            name : 'iso_code'
+        },
+
+        {
+            display: 'Dialup Code',
+            name : 'dialup_code'
+        },
+
+        {
+            display: 'Main Language',
+            name : 'main_language'
+        },
+
+        {
+            display: 'Currency',
+            name : 'currency'
+        },
+
+        {
+            display: 'Currency Subunit',
+            name : 'currency_subunit'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Countries',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+    $('table#show_countries_grid tbody tr').live('click',function(){
+        $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        
+    });
+
+    $('table#show_countries_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
+            dataType: "script"
+        });
+    });
+
+    $('table#show_countries_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
 });

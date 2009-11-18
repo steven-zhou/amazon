@@ -508,6 +508,11 @@ margin-right: 5px;
     display:inline;
 }
 
+#app #main #content .full_container .options {
+    float: right;
+    display:inline;
+}
+
 #app #main #content .container div.header_container .title h1{
     margin: 0 0 0 0 !important;
     color: #2C2C2C;

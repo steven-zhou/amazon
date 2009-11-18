@@ -18,13 +18,16 @@
       = f.text_field :iso_code
     .field_20
       = f.label :dialup_code, "Dialup Code"
-      = f.text_field :dial_code
+      = f.text_field :dialup_code
     .field_15
       = f.label :main_language_id, "Main Language"
       = f.collection_select :main_language, Language.all, :id, :name, {:include_blank => true}
     .field_15
-      = f.label, :currency, "Currency"
-      = f.text_field, :currency
+      = f.label :currency, "Currency"
+      = f.text_field :currency
     .field_15
-      = f.label, :currency_subunit, "Currency Subunit"
-      = f.text_field, :currency_subunit
+      = f.label :currency_subunit, "Currency Subunit"
+      = f.text_field :currency_subunit
+  .form_line
+    .field_10{:style => "float:right;"}
+      = submit_tag "Submit"
