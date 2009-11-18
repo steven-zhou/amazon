@@ -97,8 +97,8 @@ class ClientSetupsController < ApplicationController
     user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
     start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
-    controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
-    action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
+    # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
+    # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
 
 
 
@@ -113,10 +113,10 @@ class ClientSetupsController < ApplicationController
       @slsg.grid_object_id = log_entry.id
       @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
       @slsg.field_2 = (@current_user.class.to_s == "SystemUser")? "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})" : "#{log_entry.login_account.user_name}"
-      @slsg.field_3 = log_entry.ip_address
-      @slsg.field_4 = log_entry.controller
-      @slsg.field_5 = log_entry.action
-      @slsg.field_6 = log_entry.message
+      @slsg.field_3 = "#{log_entry.ip_address}"
+      @slsg.field_4 = "#{log_entry.controller}"
+      @slsg.field_5 = "#{log_entry.action}"
+      @slsg.field_6 = "#{log_entry.message}"
       @slsg.save
     end
 

@@ -1,0 +1,31 @@
+
+$("#tabs2").tabs();
+
+if('<%=escape_javascript(@active_tab) %>'=="person_info")
+{$('.show_hide_button[show_id_name="person_info"]').parent().addClass('container_icon_color');
+ $('.show_hide_button[show_id_name="business_info"]').parent().removeClass('container_icon_color');
+ $('#person_info').css("display","");
+
+    $('.profile_tab_right[field="person_info"]').css("background-image","url(/images/round_right.png)");
+
+    $('.profile_tab_left[field="person_info"]').css("background-image","url(/images/round_left.png)");
+
+        $('#business_info').css("display","none");
+        $('.profile_tab_right[field="business_info"]').css("background-image","none");
+        $('.profile_tab_left[field="business_info"]').css("background-image","none");
+  $('.pppp[field="person_info"]').removeClass('hidden');
+
+
+
+  
+ $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
+ $(".person_edit_tab").removeClass("active");
+ $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
+ $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Person/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
+ $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
+
+}
+
+
+
+
