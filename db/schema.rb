@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091118001929) do
+ActiveRecord::Schema.define(:version => 20091118023329) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -154,6 +154,7 @@ ActiveRecord::Schema.define(:version => 20091118001929) do
     t.integer  "main_language_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "dialup_code"
   end
 
   create_table "dashboard_preferences", :force => true do |t|
@@ -535,6 +536,16 @@ ActiveRecord::Schema.define(:version => 20091118001929) do
     t.date     "end_date"
     t.integer  "supervised_by"
     t.integer  "managed_by"
+  end
+
+  create_table "post_areas", :force => true do |t|
+    t.integer  "country_id"
+    t.string   "country"
+    t.string   "division_name"
+    t.string   "remarks"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "postcodes", :force => true do |t|
