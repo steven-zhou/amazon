@@ -9,7 +9,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+
 ActiveRecord::Schema.define(:version => 20091118013405) do
+
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -553,7 +555,6 @@ ActiveRecord::Schema.define(:version => 20091118013405) do
     t.text    "governance"
     t.text    "province"
     t.text    "state"
-    t.text    "county"
     t.text    "region"
     t.text    "district"
     t.text    "zone"
@@ -565,6 +566,9 @@ ActiveRecord::Schema.define(:version => 20091118013405) do
     t.text    "mail_code"
     t.text    "bulk_code"
     t.integer "geographical_area_id"
+    t.text    "geographical_area"
+    t.integer "electoral_area_id"
+    t.text    "country"
   end
 
   create_table "query_criterias", :force => true do |t|
