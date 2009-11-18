@@ -4,6 +4,55 @@ $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_l
 
 $("#tabs2").tabs();
 
+$(function(){
+    $('#go_next').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('#go_previous').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $('#go_first').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+
+$(function(){
+    $('#go_last').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
 
 
 if('<%=escape_javascript(@active_tab) %>'=="person_info")

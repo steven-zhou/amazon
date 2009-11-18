@@ -37,6 +37,14 @@ class PeopleController < ApplicationController
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
 
+          @active_tab = params[:active_tab]
+        @active_sub_tab = params[:active_sub_tab]
+
+      puts '************************'
+      puts  @active_tab
+      puts '************************'
+      puts  @active_sub_tab
+
     #when it is cal show action
     if request.get?
       if @list_headers.blank?
@@ -67,6 +75,8 @@ class PeopleController < ApplicationController
     end
 
     if request.post?
+        #remember the active style of tabs
+  
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
 
@@ -100,8 +110,9 @@ class PeopleController < ApplicationController
     @person_role = @person.person_roles
     
     respond_to do |format|
-      
+
       format.html
+      format.js {render 'show_left.js'}
 
     end     
   end

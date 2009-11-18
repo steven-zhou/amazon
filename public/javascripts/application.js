@@ -3310,7 +3310,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#GetSubActiveTabName').val(),
+            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
             dataType: "script"
 
         });
@@ -4993,6 +4993,7 @@ $(function(){
         $(this).addClass("active");
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
         $('#GetSubActiveTabName').val($(this).attr('field'));
+       
     });
 });
 
@@ -6455,4 +6456,53 @@ $(function(){
     return false;
    
      
+});
+
+/*arrow block */
+$(function(){
+    $('#go_next').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('#go_previous').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('#go_first').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('#go_last').click(function(){
+
+          $.ajax({
+            type: "GET",
+            url: $(this).attr('url')+".js",
+            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('#tabs2').find('.active').attr('field'),
+            dataType: "script"
+        });
+    });
 });
