@@ -6768,3 +6768,28 @@ $(function(){
 
     });
 });
+
+
+
+
+/*GeographicalArea_grid*/
+
+    $('table#show_geographicalarea_grid tbody tr').live('click',function(){
+        $('table#show_geographicalarea_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+
+    });
+
+    $('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
+            data: '&type=GeographicalArea',
+            dataType: "script"
+        });
+    });
+
+    $('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+
+    });

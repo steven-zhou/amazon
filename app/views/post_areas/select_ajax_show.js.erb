@@ -2,6 +2,85 @@
 $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/new_geo_area"))%>');
 $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/existing_geo_area"))%>');
 
+    $("#show_geographicalarea_grid").flexigrid({
+        url: '/grids/show_geographicalarea_grid?country_id='+'<%=escape_javascript("#{@country_id}")%>',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Country Id',
+            name : 'country_id',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Country Name',
+            name : 'country_name',
+            width : 80,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Division Name',
+            name : 'division_name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Remarks',
+            name : 'remarks',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+
+        {
+            display: 'Country',
+            name : 'country_name'
+        },
+
+        {
+            display: 'Division Name',
+            name : 'division_name'
+        },
+
+        {
+            display: 'Remarks',
+            name : 'remarks'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Geographical Areas',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+
+
+
+
+
+
+
 <%else-%>
 
 <%end%>

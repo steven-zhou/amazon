@@ -1,0 +1,15 @@
+- form_for @postal_area, :url => {:controller => "post_areas", :action => "create"},  :class => "ajax_form" do |f|
+  .form_line
+    .field_30
+      = f.label :country_id, "Country Id"
+      = f.text_field :country_id, :disabled => true, :value => session[:geo_country_id]
+    .field_30
+      = f.label :division_name, "Division Name"
+      = f.text_field :division_name
+    .field_30
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
+      %input{:class => "hidden", :name => "type", :value => @postal_area.class.to_s}
+  .form_line
+    .field_10{:style => "float:right;"}
+      = submit_tag "Submit"
