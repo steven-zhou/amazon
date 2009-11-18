@@ -3930,6 +3930,7 @@ $(function(){
                     },
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $('#'+link.attr('toggle_id_name1')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
@@ -3954,6 +3955,7 @@ $(function(){
         else
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
+            $('#'+link.attr('toggle_id_name1')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
 
@@ -6584,6 +6586,7 @@ $(".tab_switch_button").live('click', function(){
 
 
 
+
 /*matain---geo_area*/
 $(function(){
     $(".select_ajax_call").live('change', function(){
@@ -6600,5 +6603,168 @@ $(function(){
             $('#existing_'+ $(this).attr('field')).html('');
             $('#edit_'+ $(this).attr('field')).html('');
         }
+    });
+});
+
+/* Country Grid*/
+$(function(){
+    $("#show_countries_grid").flexigrid({
+        url: '/grids/show_countries_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Long Name',
+            name : 'long_name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Short Name',
+            name : 'short_name',
+            width : 80,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Citizenship',
+            name : 'citizenship',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Capital',
+            name : 'capital',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'ISO Code',
+            name : 'iso_code',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Dialup Code',
+            name : 'dialup_code',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Main Language',
+            name : 'main_language',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Currency',
+            name : 'currency',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Currency Subunit',
+            name : 'currency_subunit',
+            width : 60,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Long Name',
+            name : 'long_name'
+        },
+
+        {
+            display: 'Short Name',
+            name : 'short_name'
+        },
+
+        {
+            display: 'Citizenship',
+            name : 'citizenship'
+        },
+
+        {
+            display: 'Capital',
+            name : 'capital'
+        },
+
+        {
+            display: 'ISO Code',
+            name : 'iso_code'
+        },
+
+        {
+            display: 'Dialup Code',
+            name : 'dialup_code'
+        },
+
+        {
+            display: 'Main Language',
+            name : 'main_language'
+        },
+
+        {
+            display: 'Currency',
+            name : 'currency'
+        },
+
+        {
+            display: 'Currency Subunit',
+            name : 'currency_subunit'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Countries',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+    $('table#show_countries_grid tbody tr').live('click',function(){
+        $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+        
+    });
+
+    $('table#show_countries_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
+            dataType: "script"
+        });
+    });
+
+    $('table#show_countries_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+
     });
 });

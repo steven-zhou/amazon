@@ -114,7 +114,11 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get}
   map.resources :available_modules, :collection => {:switch_status => :get}
-    map.resources :post_areas, :collection => {:select_ajax_show => :get}
+
+  map.resources :post_areas, :collection => {:select_ajax_show => :get}
+  map.resources :countries
+  map.resources :postcodes
+
 
   # The priority is based upon order of creation: first created -> highest priority.
 
