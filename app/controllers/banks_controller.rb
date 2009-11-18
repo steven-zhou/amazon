@@ -1,0 +1,3 @@
+class BanksController < ApplicationController
+
+end
