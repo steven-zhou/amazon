@@ -1,0 +1,7 @@
+<%if @type == "geo_area"%>
+$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/new_geo_area"))%>');
+$("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/existing_geo_area"))%>');
+
+<%else-%>
+
+<%end%>

@@ -6605,17 +6605,7 @@ $(function(){
             dataType: "script"
         });
     });
-
-    $(".new_ajax_call").live("click", function(){
-        $.ajax({
-            type: "GET",
-            url: $(this).attr("url")+".js",
-            data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
-            dataType: "script"
-        });
-    });
 });
-
 
 /*CSS tab switch system*/
 $(".tab_switch_button").live('click', function(){
@@ -6626,3 +6616,27 @@ $(".tab_switch_button").live('click', function(){
     $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
     $('#'+$(this).attr('field')).addClass("active");
 });
+
+
+/*matain---geo_area*/
+$(function(){
+    $(".select_ajax_call").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("url")+".js",
+                data: 'param1='+$(this).val()+'&type='+$(this).attr('type_class'),
+                dataType: "script"
+            });
+        }else{
+
+            $('#add_new_'+ $(this).attr('field')).html('');
+            $('#existing_'+ $(this).attr('field')).html('');
+            $('#edit_'+ $(this).attr('field')).html('');
+        }
+    });
+    });
+
+
+
+
