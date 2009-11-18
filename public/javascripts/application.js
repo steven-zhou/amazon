@@ -6530,10 +6530,10 @@ $(function(){
      
 });
 
-  $(function($) {
-      $('.jclock').jclock();
-      $('#clocktime').val($('.jclock').html());
-    });
+$(function($) {
+    $('.jclock').jclock();
+    $('#clocktime').val($('.jclock').html());
+});
 
 
 /* Ajax call system */
@@ -6546,4 +6546,16 @@ $(function(){
             dataType: "script"
         });
     });
+});
+
+
+/*CSS tab switch system*/
+$(".tab_switch_button").live('click', function(){
+    $('.active').removeClass("active");
+    $(this).addClass("active");
+    $(this).parent().addClass("active");
+    $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
+     $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
+      $('#'+$(this).attr('field')).addClass("active");
+
 });
