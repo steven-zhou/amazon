@@ -70,6 +70,10 @@ class MaintenanceController < ApplicationController
 
   end
 
+  def country_data
+    
+  end
+
   private
 
   def backup_directory_tidy(directory)
