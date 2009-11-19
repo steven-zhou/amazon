@@ -10,4 +10,29 @@
   
   $('.person_notes_close').css("display","none");
   $('#<%= dom_id(@note) %>').effect('slide', {direction:'right'});
+
+  <%else%>
+   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $("#flash_message").dialog( {
+  modal:true,
+  resizable: false,
+   height: 'auto',
+    width: 600,
+  <%#*position: 'top',%>
+  buttons: {
+
+  OK: function(){
+
+  $(this).dialog('close');
+  }
+  }
+  });
+
+
+
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+  $('#flash_message').dialog('option', 'title', 'Error');
 <% end -%>

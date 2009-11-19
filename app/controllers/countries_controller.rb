@@ -54,7 +54,6 @@ class CountriesController < ApplicationController
 
   def select_renew
     @country = Country.find(:all,:order => 'short_name')
-
     @update_field = params[:param1]
     
     unless @country.nil?
