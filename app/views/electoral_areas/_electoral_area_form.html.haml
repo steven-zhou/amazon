@@ -2,8 +2,8 @@
   .form_line{:style => "float:none;"}
     .field_30
       = f.label :country_id, "Country Id"
-      = f.text_field :country_id, :disabled => true, :value => session[:geo_country_id]
-      = f.text_field :country_id, :class => "hidden", :value => session[:geo_country_id]
+      = f.text_field :country_id, :disabled => true, :value => session[:ele_country_id]
+      = f.text_field :country_id, :class => "hidden", :value => session[:ele_country_id]
     .field_30.hidden
       = f.label :country_name, "Country Name"
       = f.text_field :country_name, :class => "hidden", :value => @country_name

@@ -3931,6 +3931,7 @@ $(function(){
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $('#'+link.attr('toggle_id_name1')).toggle('blind');
+                        $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
@@ -3957,6 +3958,7 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
+            $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
 
@@ -6880,21 +6882,27 @@ $(function(){
 /*GeographicalArea_grid*/
 
 $('table#show_geographicalarea_grid tbody tr').live('click',function(){
-    $('table#show_geographicalarea_grid tbody tr.trSelected').removeClass('trSelected');
-    $(this).addClass('trSelected');
+    if( $('#geo_area_mode').attr('mode') == "show"){
+        $('table#show_geographicalarea_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    }else{ $(this).removeClass('trSelected');}
 });
 
 $('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
-    $.ajax({
-        type: 'GET',
-        url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
-        data: '&type=GeographicalArea',
-        dataType: "script"
-    });
+    if( $('#geo_area_mode').attr('mode') == "show"){
+        $.ajax({
+            type: 'GET',
+            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
+            data: '&type=GeographicalArea',
+            dataType: "script"
+        });
+    }else{}
 });
 
 $('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
-    $(this).css('cursor',"pointer");
+    if( $('#geo_area_mode').attr('mode') == "show"){
+        $(this).css('cursor',"pointer");
+    }else{$(this).css('cursor',"");}
 });
 
 /* Religion Grid*/
@@ -6975,4 +6983,31 @@ $(function(){
             $(this).css('cursor',"");
         }
     });
+
+});
+
+/*ElectoralArea_grid*/
+
+$('table#show_electoral_area_grid tbody tr').live('click',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $('table#show_electoral_area_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    }else{ $(this).removeClass('trSelected');}
+});
+
+$('table#show_electoral_area_grid tbody tr').live('dblclick',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $.ajax({
+            type: 'GET',
+            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
+            data: '&type=ElectoralArea',
+            dataType: "script"
+        });
+    }else{}
+});
+
+$('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $(this).css('cursor',"pointer");
+    }else{$(this).css('cursor',"");}
 });
