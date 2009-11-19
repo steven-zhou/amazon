@@ -27,9 +27,7 @@ class BanksController < ApplicationController
   end
 
   def delete_bank_entry
-    puts "*********** DELETING Bank with id #{params[:id]}"
     @bank = Bank.find_by_id(params[:id])
-    puts "*********** Found Bank #{@bank.to_yaml}"
     @bank.destroy if !@bank.nil?
     respond_to do |format|
       format.js

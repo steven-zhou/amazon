@@ -6982,7 +6982,7 @@ $(function(){
 });
 
 $(function(){
-    $('#delete_bank_entry').click(function(){
+    $('#delete_bank_entry').live('click', function(){
        $.ajax({
             type: "GET",
             url: "/banks/delete_bank_entry",
@@ -6990,6 +6990,12 @@ $(function(){
             dataType: "script"
         });
 
+    });
+});
+
+$(function(){
+    $('#edit_bank_entry').live('click', function(){
+        $('#edit_bank_entry_form').show();
     });
 });
 
