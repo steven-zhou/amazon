@@ -21,7 +21,8 @@
       = f.text_field :dialup_code
     .field_15
       = f.label :main_language_id, "Main Language"
-      = f.collection_select :main_language_id, Language.all, :id, :name, {:include_blank => true}
+      %select{:class => "show_languages", :name => "country[main_language_id]", :id => "country_main_language", :update => "country_main_language", :field => "country"}
+      %input.hidden{:class => "update_flag", :filed => "country", :value => "true"}
     .field_15
       = f.label :currency, "Currency"
       = f.text_field :currency

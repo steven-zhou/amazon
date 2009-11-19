@@ -1,0 +1,26 @@
+.full_container
+  %input.hidden{:id => "postcode_mode", :mode => "show"}
+
+  #select_postcode
+    .full_container
+      .left
+        %h2 Select Country:
+      &nbsp
+      = collection_select :geographical_area , :country_id, Country.all, :id, :short_name, {:include_blank => true}, {:class => "select_ajax_call clear_select", :method => "GET",:url => "/postcodes/show_by_country",:field => "postcode", :style => "display:inline;width:20%;", :disabled => false}
+
+  #add_new_postcode
+    = render :partial => "postcodes/new_postcode"
+
+  #existing_postcodes
+    = render :partial => "postcodes/existing_postcodes"
+
+  #edit_postcode{:style => "display:none;margin-top:10px;float:left;width:100%;"}
+    .tab_looking_left
+    .tab_looking_icon
+      = image_tag('edit_icon.png')
+      Edit
+    .tab_looking_right
+    .full_container
+      .options
+        = link_to_function image_tag('close_icon.png'), :field => "postcode", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_postcode", :toggle_id_name1 => "add_new_postcode"
+      #edit_postcode_form

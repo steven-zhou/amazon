@@ -6588,6 +6588,23 @@ $(".tab_switch_button").live('click', function(){
 
 
 
+//Country Data
+$(function(){
+    $(".show_languages").live('click', function(){
+        if($('.update_flag[filed="'+$(this).attr('field')+'"]').val()=="true"){
+            $.ajax({
+                type: "GET",
+                url: "/languages/show_languages.js",
+                data: 'update='+$(this).attr('update'),
+                dataType: "script"
+            });
+            $('.update_flag[filed="'+$(this).attr('field')+'"]').val("false");
+        }else{
+            $('.update_flag[filed="'+$(this).attr('field')+'"]').val("true");
+        }
+    });
+});
+
 
 /*matain---geo_area*/
 $(function(){
@@ -6752,22 +6769,30 @@ $(function(){
     });
 
     $('table#show_countries_grid tbody tr').live('click',function(){
-        $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-        
+        if($('#country_mode').attr('mode')=="show"){
+            $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
+             $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
     });
 
     $('table#show_countries_grid tbody tr').live('dblclick',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
-            dataType: "script"
-        });
+        if($('#country_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
     });
 
     $('table#show_countries_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
-
+        if($('#country_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });
 
@@ -6825,20 +6850,30 @@ $(function(){
     });
 
     $('table#show_languages_grid tbody tr').live('click',function(){
-        $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
+        if($('#language_mode').attr('mode')=="show"){
+            $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }        
     });
 
     $('table#show_languages_grid tbody tr').live('dblclick',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
-            dataType: "script"
-        });
+        if($('#language_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
     });
 
     $('table#show_languages_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
+        if($('#language_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });
 
@@ -6915,19 +6950,29 @@ $(function(){
     });
 
     $('table#show_religions_grid tbody tr').live('click',function(){
-        $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
+        if($('#religion_mode').attr('mode')=="show"){
+            $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
     });
 
     $('table#show_religions_grid tbody tr').live('dblclick',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
-            dataType: "script"
-        });
+        if($('#religion_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
     });
 
     $('table#show_religions_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
+        if($('#religion_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });

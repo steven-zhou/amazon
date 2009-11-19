@@ -42,4 +42,11 @@ class PostcodesController < ApplicationController
     end
   end
 
+  def show_by_country
+    @postcodes = Postcode.find(:all, :conditions => ["country_id = ?", params[:params1]], :order => "postcode ASC")
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

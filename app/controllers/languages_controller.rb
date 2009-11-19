@@ -51,4 +51,13 @@ class LanguagesController < ApplicationController
       format.js
     end
   end
+
+  def show_languages
+    @languages = Language.find(:all, :order => 'name')
+    puts "*********#{@languages.to_yaml}**************8888888888"
+    @update = params[:update]
+    respond_to do |format|
+      format.js
+    end
+  end
 end

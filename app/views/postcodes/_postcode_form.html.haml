@@ -1,0 +1,11 @@
+- form_for postcode, :html => {:class => "ajax_form"} do |f|
+  .form_line
+    .field_30
+      = f.label :name, 'Name'
+      = f.text_field :name
+    .field_50
+      = f.label :description, 'Description'
+      = f.text_field :description
+  .form_line
+    .field_10{:style => "float:right;"}
+      = submit_tag "Submit"

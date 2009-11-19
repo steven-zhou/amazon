@@ -1,0 +1,53 @@
+$('#add_new_language').html('<%= escape_javascript(render(:partial => "/languages/new_language")) %>').css('display','');
+$('#existing_languages').html('<%= escape_javascript(render(:partial => "/languages/existing_languages")) %>');
+$('#language_mode').attr('mode', 'show');
+$('#edit_language').css('display','none');
+   $("#show_languages_grid").flexigrid({
+        url: '/grids/show_languages_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Name',
+            name : 'name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Description',
+            name : 'description',
+            width : 200,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Name',
+            name : 'name'
+        },
+
+        {
+            display: 'Description',
+            name : 'description'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Languages',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
