@@ -1,5 +1,5 @@
-- form_for @postal_area, :url => {:controller => "post_areas", :action => "create"},  :html => {:class => "ajax_form"} do |f|
-  .form_line
+- form_for @postal_area, :url => {:controller => "post_areas", :action => @postal_area.new_record? ? 'create' : 'update', :id => @postal_area.id},  :html => {:class => "ajax_form"} do |f|
+  .form_line{:style => "float:none;"}
     .field_30
       = f.label :country_id, "Country Id"
       = f.text_field :country_id, :disabled => true, :value => session[:geo_country_id]

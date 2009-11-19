@@ -1,0 +1,10 @@
+<%if @type == "geo_area"%>
+  $('#add_new_geo_area').css('display','none');
+  $('#edit_geo_area').css('display', '');
+  $('#geo_area_mode').attr('mode', 'edit');
+  $('.close_option[field="geo_area"]').css("display","");
+ $('#edit_geo_area_form').html('<%= escape_javascript(render(:partial => "/geo_areas/geo_area_form")) %>');
+ $('.select_ajax_call[field="geo_area"]').attr('disabled', true)
+<%else%>
+
+<%end%>

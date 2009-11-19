@@ -1,8 +1,9 @@
 <%if @type == "geo_area"%>
-$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/new_geo_area"))%>');
+$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/new_geo_area"))%>').css('display','');
 $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/existing_geo_area"))%>');
+$('#edit_geo_area').css('display','none');
+$('#geo_area_mode').attr('mode', 'show');
  $('.select_ajax_call[field="geo_area"]').attr('disabled', false)
- $('#geo_area_mode').attr('mode', 'show');
 $("#show_geographicalarea_grid").flexigrid({
         url: '/grids/show_geographicalarea_grid?country_id='+'<%=escape_javascript("#{@country_id}")%>',
         dataType: 'json',
@@ -77,11 +78,6 @@ $("#show_geographicalarea_grid").flexigrid({
 
 
 
-
-
-
-
-
-<%else-%>
+<%else%>
 
 <%end%>

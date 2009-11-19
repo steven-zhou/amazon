@@ -1,6 +1,6 @@
 .full_container
   .options
-    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "geo_area", :title=>"Close", :class => "close_option"
+    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "geo_area", :title=>"Close", :class => "close_option", :toggle_id_name => "new_geo_area_form"
   .title
     = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "geo_area", :title => "New",:param1 => "GeographicalArea", :method => "GET", :url => "/post_areas/new"
     &nbsp

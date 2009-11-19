@@ -1,6 +1,7 @@
 <%if @type == "geo_area"%>
   $('#new_geo_area_form').html('<%= escape_javascript(render(:partial => "/geo_areas/geo_area_form")) %>');
-
+$('#new_geo_area_form').css('display','');
+ $('.select_ajax_call[field="geo_area"]').attr('disabled', true)
 <%else%>
 
 <%end%>
