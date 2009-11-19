@@ -6850,7 +6850,9 @@ $('table#show_geographicalarea_grid tbody tr').live('click',function(){
     if( $('#geo_area_mode').attr('mode') == "show"){
         $('table#show_geographicalarea_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
-    }else{ $(this).removeClass('trSelected');}
+    }else{ 
+        $(this).removeClass('trSelected');
+    }
 });
 
 $('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
@@ -6867,7 +6869,9 @@ $('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
 $('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
     if( $('#geo_area_mode').attr('mode') == "show"){
         $(this).css('cursor',"pointer");
-    }else{$(this).css('cursor',"");}
+    }else{
+        $(this).css('cursor',"");
+    }
 });
 
 /* Religion Grid*/
@@ -6947,7 +6951,9 @@ $('table#show_electoral_area_grid tbody tr').live('click',function(){
     if( $('#electoral_area_mode').attr('mode') == "show"){
         $('table#show_electoral_area_grid tbody tr.trSelected').removeClass('trSelected');
         $(this).addClass('trSelected');
-    }else{ $(this).removeClass('trSelected');}
+    }else{ 
+        $(this).removeClass('trSelected');
+    }
 });
 
 $('table#show_electoral_area_grid tbody tr').live('dblclick',function(){
@@ -6964,5 +6970,23 @@ $('table#show_electoral_area_grid tbody tr').live('dblclick',function(){
 $('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
     if( $('#electoral_area_mode').attr('mode') == "show"){
         $(this).css('cursor',"pointer");
-    }else{$(this).css('cursor',"");}
+    }else{
+        $(this).css('cursor',"");
+    }
 });
+
+
+/*select change*/
+
+$(function(){
+    $(".select_renew_tab").live('mousedown', function(){
+        $.ajax({
+            type: "GET",
+            url:"/countries/select_renew.js",
+            data: 'param1='+ $(this).attr('param1'),
+            dataType: "script"
+        });
+    });
+});
+
+

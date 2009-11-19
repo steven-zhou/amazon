@@ -87,5 +87,4 @@ class PostAreasController < ApplicationController
     end
   end
 
-
 end

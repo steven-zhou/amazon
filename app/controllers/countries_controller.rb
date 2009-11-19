@@ -52,4 +52,22 @@ class CountriesController < ApplicationController
     end
   end
 
+  def select_renew
+    @country = Country.find(:all,:order => 'short_name')
+
+    @update_field = params[:param1]
+    
+    unless @country.nil?
+      country = String.new
+      country += "<option></option>"
+      for c in @country
+        country += "<option value= '#{c.id}'>#{c.short_name}</option>"
+        @country_new = country
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
