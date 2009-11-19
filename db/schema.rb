@@ -9,7 +9,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20091118054942) do
 
   create_table "addresses", :force => true do |t|
@@ -63,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20091118054942) do
     t.text     "state"
     t.text     "postcode"
     t.integer  "country_id"
+    t.text     "website"
+    t.text     "general_email"
     t.text     "contact_person"
     t.text     "contact_person_job_title"
     t.text     "contact_person_email"

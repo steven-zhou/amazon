@@ -1,0 +1,103 @@
+#header
+  #page_title
+    %h1 Banks
+  #lol
+    %br.clear
+#content_full_page
+  %input{:id => "bank_mode", :style => "display:none;", :mode => "show"}
+  .container
+    = image_tag('/images/closed_accordion.png', :style => "display:inline;float:right;", :id => "open_add_new_bank", :class => "new_option", :field => "bank")
+    = image_tag('/images/open_accordion.png', :style => "display:inline;float:right;display:none;", :id => "close_add_new_bank", :class => "close_option", :field => "bank")
+    = image_tag('/images/add_icon.png', :style => "display:inline;padding-bottom:7px;")
+    &nbsp;
+    %h1{:style => "display:inline;"} New Bank
+
+    %div#add_new_bank{:style => "display:none;"}
+      - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
+        .container
+          %h2 Branch Details
+          .form_line
+            .field_20
+              = f.label :full_name, 'Full Name'
+              = f.text_field :full_name
+            .field_20
+              = f.label :short_name, 'Short Name'
+              = f.text_field :short_name
+            .field_20
+              = f.label :branch_name, 'Branch Name'
+              = f.text_field :branch_name
+            .field_20
+              = f.label :short_name, 'Branch Number'
+              = f.text_field :branch_number
+          .form_line
+            .field_40
+              = f.label :address_line_1, 'Address Line 1'
+              = f.text_field :address_line_1
+            .field_40
+              = f.label :website, 'Website'
+              = f.text_field :website
+          .form_line
+            .field_40
+              = f.label :address_line_2, 'Address Line 2'
+              = f.text_field :address_line_2
+            .field_40
+              = f.label :general_email, 'General Email'
+              = f.text_field :general_email
+          .form_line
+            .field_40
+              = f.label :address_line_3, 'Address Line 3'
+              = f.text_field :address_line_3
+          .form_line
+            .field_15
+              = f.label :state, 'State'
+              = f.text_field :state
+            .field_15
+              = f.label :postcode, 'Postcode'
+              = f.text_field :postcode
+            .field_15
+              = f.label :country, 'Country'
+              = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
+        .container
+          %h2 Contact Person
+          .form_line
+            .field_20
+              = f.label :contact_person, 'Name'
+              = f.text_field :contact_person
+            .field_20
+              = f.label :contact_person_job_title, 'Job Title'
+              = f.text_field :contact_person_job_title
+            .field_50
+              = f.label :contact_person_email, 'Email Address'
+              = f.text_field :contact_person_email
+          .form_line
+            .field_20
+              = f.label :contact_phone, 'Phone Number'
+              = f.text_field :contact_person
+            .field_20
+              = f.label :contact_fax, 'Fax Number'
+              = f.text_field :contact_fax
+            .field_20
+              = f.label :contact_person_email, 'Mobile Phone'
+              = f.text_field :contact_mobile
+        .container
+          %h2 Branch Status
+          .form_line
+            .field_20
+              = f.label :status, 'Status'
+              = f.check_box :status
+            .field_20
+              = f.label :status_reason, 'Status Reason'
+              = f.text_field :status_reason
+            .field_50
+              = f.label :remarks, 'Remarks'
+              = f.text_field :remarks
+        = submit_tag "Submit"
+  %br.clear
+
+  .container
+    %h2 Existing Banks
+    %div#list_banks
+      = render :partial => "list_banks"
+
+
+

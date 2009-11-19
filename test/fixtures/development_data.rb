@@ -196,7 +196,7 @@ puts "Assign Group to person_id 1."
 pg = UserGroup.create(:user_id => robert_tingle_login.id, :group_id => admin.id)
 
 puts "Assign Permission to group pg"
-permission = GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => admin.id)
+permission = GroupPermission.create(:system_permission_type_id => SystemPermissionType.first, :user_group_id => admin.id)
 
 puts "Adding the first login account to the primary list"
 
