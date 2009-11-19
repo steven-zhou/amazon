@@ -11,6 +11,8 @@ class CreateBanks < ActiveRecord::Migration
       t.column :state, :text
       t.column :postcode, :text
       t.column :country_id, :integer
+      t.column :website, :text
+      t.column :general_email, :text
       t.column :contact_person, :text
       t.column :contact_person_job_title, :text
       t.column :contact_person_email, :text

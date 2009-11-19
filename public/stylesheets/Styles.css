@@ -2393,6 +2393,17 @@ div#permission_form .options{
     left:0;
 }
 
+/*Asterisk*/
+.asterisk{
+  color:red;
+  display:inline;
+  padding-left:5px;
+  font-size:11px;
+
+  text-decoration:none;
+}
+
+
 /*tab looking*/
 #app #main #content .tab_looking_left{
    background-image:url(/images/round_left.png);
@@ -2426,3 +2437,4 @@ div#permission_form .options{
     font-size:20px;
     text-align:center;
 }
+

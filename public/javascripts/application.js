@@ -419,80 +419,6 @@ $('.datepick').live("mouseover", function(){
     });
 });
 
-//
-//$(document).ready(function() {
-//    $('.datepick').datepicker({
-//        showOn: 'button',
-//        buttonImage: '/images/Icons/System/calendar.png',
-//        buttonImageOnly: true,
-//        dateFormat: 'dd-mm-yy',
-//        altFormat: 'mm-dd-yy',
-//        changeMonth: true,
-//        changeYear: true,
-//        yearRange: '-200:+20'
-//    });
-//
-//    $('.birthdatepick').datepicker({
-//        showOn: 'button',
-//        buttonImage: '/images/Icons/System/calendar.png',
-//        buttonImageOnly: true,
-//        dateFormat: 'dd-mm-yy',
-//        altFormat: 'mm-dd-yy',
-//        changeMonth: true,
-//        changeYear: true,
-//        maxDate: '+0d',
-//        yearRange: '-200:+0'
-//    });
-//
-//    $('.startdatepick').datepicker({
-//        showOn: 'button',
-//        buttonImage: '/images/Icons/System/calendar.png',
-//        buttonImageOnly: true,
-//        dateFormat: 'dd-mm-yy',
-//        altFormat: 'mm-dd-yy',
-//        changeMonth: true,
-//        changeYear: true,
-//        yearRange: '-200:+20',
-//        onSelect: function(){
-//            $('.enddatepick').datepicker('enable');
-//            alert(getTime.toString());
-//        },
-//        beforeShow: function(){
-//            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
-//            day = arr_dateText[0];
-//            month = arr_dateText[1];
-//            year = arr_dateText[2];
-//            $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));
-//        }
-//    });
-//
-//    $('.enddatepick').datepicker({
-//                showOn: 'button',
-//                buttonImage: '/images/Icons/System/calendar.png',
-//                buttonImageOnly: true,
-//                dateFormat: 'dd-mm-yy',
-//                altFormat: 'mm-dd-yy',
-//                changeMonth: true,
-//                changeYear: true,
-//                yearRange: '-200:+20',
-//                beforeShow: function(){
-//                    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
-//                    day = arr_dateText[0];
-//                    month = arr_dateText[1];
-//                    year = arr_dateText[2];
-//                    if (year==undefined){
-//                        $(this).datepicker('disable');
-//                    }else{
-//                        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
-//                    }
-//                }
-//            });
-//    $('.enddatepick').datepicker('disable');
-//});
-
-
-
-
 
 /* Photo */
 
@@ -6622,7 +6548,7 @@ $(function(){
 
             $('#add_new_'+ $(this).attr('field')).html('');
             $('#existing_'+ $(this).attr('field')).html('');
-            $('#edit_'+ $(this).attr('field')).html('');
+            $('#edit_'+ $(this).attr('field')+'_form').html('');
         }
     });
 });
@@ -7013,7 +6939,6 @@ $('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
 });
 
 
-
 /* Show postcode by country Grid*/
 $(function(){
     $('table#show_postcodes_by_country_grid tbody tr').live('click',function(){
@@ -7042,5 +6967,32 @@ $(function(){
             $(this).css('cursor',"");
         }
     });
+});
 
+$(function(){
+    $('#open_add_new_bank').click(function(){
+        $('#add_new_bank').show();
+        $('#open_add_new_bank').hide();
+        $('#close_add_new_bank').show();
+    });
+});
+
+$(function(){
+    $('#close_add_new_bank').click(function(){
+        $('#add_new_bank').hide();
+        $('#open_add_new_bank').show();
+        $('#close_add_new_bank').hide();
+    });
+});
+
+$(function(){
+    $('#delete_bank_entry').click(function(){
+       $.ajax({
+            type: "GET",
+            url: "/banks/delete_bank_entry",
+            data: 'id=' + $(this).attr('bank_id'),
+            dataType: "script"
+        });
+
+    });
 });

@@ -2,7 +2,7 @@
   -# The options to edit or add an address
   .form_line{:style => "float:none;"}
     .field_25
-      = a.label :address_type_id, 'Type'
+      = a.label :address_type_id, "Type<span class='asterisk'>*</span>"
       = a.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types, :id, :name
     .field_40
       = a.label :building_name, 'Building Name'
@@ -15,7 +15,7 @@
       = a.label :street_number, 'Street Number'
       = a.text_field :street_number
     .field_45
-      = a.label :street_name, 'Street Name'
+      = a.label :street_name, "Street Name<span class='asterisk'>*</span>"
       = a.text_field :street_name
   .form_line
     .field_40{:style => "margin-right: 5px;"}
