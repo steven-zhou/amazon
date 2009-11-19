@@ -1,8 +1,8 @@
-$('#add_new_language').html('<%= escape_javascript(render(:partial => "/languages/new_language")) %>');
-$('#existing_languages').html('<%= escape_javascript(render(:partial => "/languages/existing_languages")) %>');
-$('#language_mode').attr('mode', 'show');
-    $("#show_languages_grid").flexigrid({
-        url: '/grids/show_languages_grid',
+$('#add_new_religion').html('<%= escape_javascript(render(:partial => "/religions/new_religion")) %>');
+$('#existing_religions').html('<%= escape_javascript(render(:partial => "/religions/existing_religions")) %>');
+$('#religion_mode').attr('mode', 'show');
+    $("#show_religions_grid").flexigrid({
+        url: '/grids/show_religions_grid',
         dataType: 'json',
         colModel : [
         {
@@ -43,7 +43,7 @@ $('#language_mode').attr('mode', 'show');
         sortname: "id",
         sortorder: "asc",
         usepager: true,
-        title: 'Languages',
+        title: 'religions',
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,

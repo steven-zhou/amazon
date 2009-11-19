@@ -1,9 +1,9 @@
-$('#add_new_country').html('<%= escape_javascript(render(:partial => "/countries/new_country")) %>').css('display','');
-$('#existing_country').html('<%= escape_javascript(render(:partial => "/countries/existing_countries")) %>');
-$('#country_mode').attr('mode', 'show');
-$('#edit_country').css('display','none');
-    $("#show_countries_grid").flexigrid({
-        url: '/grids/show_countries_grid',
+$('#add_new_language').html('<%= escape_javascript(render(:partial => "/languages/new_language")) %>').css('display','');
+$('#existing_languages').html('<%= escape_javascript(render(:partial => "/languages/existing_languages")) %>');
+$('#language_mode').attr('mode', 'show');
+$('#edit_language').css('display','none');
+   $("#show_languages_grid").flexigrid({
+        url: '/grids/show_languages_grid',
         dataType: 'json',
         colModel : [
         {
@@ -15,127 +15,36 @@ $('#edit_country').css('display','none');
         },
 
         {
-            display: 'Long Name',
-            name : 'long_name',
+            display: 'Name',
+            name : 'name',
             width : 100,
             sortable : true,
             align: 'left'
         },
 
         {
-            display: 'Short Name',
-            name : 'short_name',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Citizenship',
-            name : 'citizenship',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Capital',
-            name : 'capital',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'ISO Code',
-            name : 'iso_code',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Dialup Code',
-            name : 'dialup_code',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Main Language',
-            name : 'govenment_language',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Currency',
-            name : 'currency',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Currency Subunit',
-            name : 'currency_subunit',
-            width : 60,
+            display: 'Description',
+            name : 'description',
+            width : 200,
             sortable : true,
             align: 'left'
         }
         ],
         searchitems : [
         {
-            display: 'Long Name',
-            name : 'long_name'
+            display: 'Name',
+            name : 'name'
         },
 
         {
-            display: 'Short Name',
-            name : 'short_name'
-        },
-
-        {
-            display: 'Citizenship',
-            name : 'citizenship'
-        },
-
-        {
-            display: 'Capital',
-            name : 'capital'
-        },
-
-        {
-            display: 'ISO Code',
-            name : 'iso_code'
-        },
-
-        {
-            display: 'Dialup Code',
-            name : 'dialup_code'
-        },
-
-        {
-            display: 'Main Language',
-            name : 'govenment_language'
-        },
-
-        {
-            display: 'Currency',
-            name : 'currency'
-        },
-
-        {
-            display: 'Currency Subunit',
-            name : 'currency_subunit'
+            display: 'Description',
+            name : 'description'
         }
         ],
         sortname: "id",
         sortorder: "asc",
         usepager: true,
-        title: 'Countries',
+        title: 'Languages',
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,

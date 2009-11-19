@@ -2392,6 +2392,7 @@ div#permission_form .options{
     position: relative;
     left:0;
 }
+
 /*Asterisk*/
 .asterisk{
   color:red;
@@ -2401,3 +2402,39 @@ div#permission_form .options{
 
   text-decoration:none;
 }
+
+
+/*tab looking*/
+#app #main #content .tab_looking_left{
+   background-image:url(/images/round_left.png);
+    background-position: bottom left;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: left;
+    margin-left:10px;
+}
+
+#app #main #content .tab_looking_right{
+    background-image:url(/images/round_right.png);
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: left;
+}
+
+#app #main #content .tab_looking_icon{
+    background-image:url(/images/container_bg.png);
+    font-family:Arial, Helvetica, sans-serif;
+    background-repeat:repeat;
+    color: #2C2C2C;
+    float: left;
+    padding: 10px 15px;
+    height: 20px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    font-size:20px;
+    text-align:center;
+}
+

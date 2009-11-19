@@ -1,0 +1,19 @@
+.full_container
+  %input.hidden{:id => "religion_mode", :mode => "show"}
+
+  #add_new_religion
+    = render :partial => "religions/new_religion"
+
+  #existing_religions
+    = render :partial => "religions/existing_religions"
+
+  #edit_religion{:style => "display:none;margin-top:10px;float:left;width:100%;"}
+    .tab_looking_left
+    .tab_looking_icon
+      = image_tag('edit_icon.png')
+      Edit
+    .tab_looking_right
+    .full_container
+      .options
+        = link_to_function image_tag('close_icon.png'), :field => "religion", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_religion", :toggle_id_name1 => "add_new_religion"
+      #edit_religion_form

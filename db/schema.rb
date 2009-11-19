@@ -9,7 +9,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20091118054942) do
 
   create_table "addresses", :force => true do |t|
@@ -566,12 +565,12 @@ ActiveRecord::Schema.define(:version => 20091118054942) do
 
   create_table "post_areas", :force => true do |t|
     t.integer  "country_id"
-    t.string   "country"
     t.string   "division_name"
     t.string   "remarks"
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country_name"
   end
 
   create_table "postcodes", :force => true do |t|

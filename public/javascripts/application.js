@@ -3931,6 +3931,7 @@ $(function(){
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $('#'+link.attr('toggle_id_name1')).toggle('blind');
+                        $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
@@ -3957,6 +3958,7 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
+            $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
 
@@ -3985,11 +3987,11 @@ clear_organisation_form = function(link){
       
     }
 
-//    if(link.attr('toggle_id_name')=="new_master_doc")
-//    {
-//        $("#new_master_doc")[0].reset();
-//
-//    }
+    //    if(link.attr('toggle_id_name')=="new_master_doc")
+    //    {
+    //        $("#new_master_doc")[0].reset();
+    //
+    //    }
     if(link.attr('toggle_id_name')=="new_note")
     {
         $("#new_note")[0].reset();
@@ -6576,7 +6578,6 @@ $(function(){
     });
 });
 
-
 /*CSS tab switch system*/
 $(".tab_switch_button").live('click', function(){
     $('.active').removeClass("active");
@@ -6585,6 +6586,28 @@ $(".tab_switch_button").live('click', function(){
     $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
     $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
     $('#'+$(this).attr('field')).addClass("active");
+});
+
+
+
+
+/*matain---geo_area*/
+$(function(){
+    $(".select_ajax_call").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("url")+".js",
+                data: 'param1='+$(this).val()+'&type='+$(this).attr('type_class'),
+                dataType: "script"
+            });
+        }else{
+
+            $('#add_new_'+ $(this).attr('field')).html('');
+            $('#existing_'+ $(this).attr('field')).html('');
+            $('#edit_'+ $(this).attr('field')+'_form').html('');
+        }
+    });
 });
 
 /* Country Grid*/
@@ -6746,5 +6769,200 @@ $(function(){
 
     $('table#show_countries_grid tbody tr').live('mouseover',function(){
         $(this).css('cursor',"pointer");
+
     });
+});
+
+
+/* Language Grid*/
+$(function(){
+    $("#show_languages_grid").flexigrid({
+        url: '/grids/show_languages_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Name',
+            name : 'name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Description',
+            name : 'description',
+            width : 200,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Name',
+            name : 'name'
+        },
+
+        {
+            display: 'Description',
+            name : 'description'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Languages',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+    $('table#show_languages_grid tbody tr').live('click',function(){
+        $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+
+    $('table#show_languages_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
+            dataType: "script"
+        });
+    });
+
+    $('table#show_languages_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+});
+
+/*GeographicalArea_grid*/
+
+$('table#show_geographicalarea_grid tbody tr').live('click',function(){
+    if( $('#geo_area_mode').attr('mode') == "show"){
+        $('table#show_geographicalarea_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    }else{ $(this).removeClass('trSelected');}
+});
+
+$('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
+    if( $('#geo_area_mode').attr('mode') == "show"){
+        $.ajax({
+            type: 'GET',
+            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
+            data: '&type=GeographicalArea',
+            dataType: "script"
+        });
+    }else{}
+});
+
+$('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
+    if( $('#geo_area_mode').attr('mode') == "show"){
+        $(this).css('cursor',"pointer");
+    }else{$(this).css('cursor',"");}
+});
+
+/* Religion Grid*/
+$(function(){
+    $("#show_religions_grid").flexigrid({
+        url: '/grids/show_religions_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Name',
+            name : 'name',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Description',
+            name : 'description',
+            width : 200,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'Name',
+            name : 'name'
+        },
+
+        {
+            display: 'Description',
+            name : 'description'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Religions',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+
+    $('table#show_religions_grid tbody tr').live('click',function(){
+        $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+
+    $('table#show_religions_grid tbody tr').live('dblclick',function(){
+        $.ajax({
+            type: 'GET',
+            url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
+            dataType: "script"
+        });
+    });
+
+    $('table#show_religions_grid tbody tr').live('mouseover',function(){
+        $(this).css('cursor',"pointer");
+    });
+
+});
+
+/*ElectoralArea_grid*/
+
+$('table#show_electoral_area_grid tbody tr').live('click',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $('table#show_electoral_area_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    }else{ $(this).removeClass('trSelected');}
+});
+
+$('table#show_electoral_area_grid tbody tr').live('dblclick',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $.ajax({
+            type: 'GET',
+            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
+            data: '&type=ElectoralArea',
+            dataType: "script"
+        });
+    }else{}
+});
+
+$('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $(this).css('cursor',"pointer");
+    }else{$(this).css('cursor',"");}
 });

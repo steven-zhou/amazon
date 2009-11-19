@@ -1,5 +1,5 @@
 $('#add_new_country').html('<%= escape_javascript(render(:partial => "/countries/new_country")) %>');
-$('#existing_country').html('<%= escape_javascript(render(:partial => "/countries/existing_countries")) %>');
+$('#existing_countries').html('<%= escape_javascript(render(:partial => "/countries/existing_countries")) %>');
 $('#country_mode').attr('mode', 'show');
     $("#show_countries_grid").flexigrid({
         url: '/grids/show_countries_grid',
