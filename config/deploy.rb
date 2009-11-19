@@ -11,7 +11,7 @@ set :use_sudo, false
 set :application, "amazon"
 set :deploy_to, "/home/rails/amazon"
 # set :repository, svn+ssh://test.example.com/repository/trunk
-set :repository, "rails@203.23.28.91:/var/git/amazon.git"
+set :repository, "rails@203.23.28.106:/var/git/amazon.git"
 
 namespace :mod_rails do
     desc <<-DESC
