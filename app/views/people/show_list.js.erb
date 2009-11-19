@@ -1,5 +1,5 @@
 
-$('#show_list_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation })) %>');
+$('#show_list_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab })) %>');
 $('#show_list_message').css('display','');
 
 $('#show_list_grid').dialog({

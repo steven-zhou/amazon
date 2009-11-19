@@ -8,8 +8,8 @@ class PersonRole < ActiveRecord::Base
 
   belongs_to :role
 
-  validates_presence_of :role_id
-  validates_presence_of :person_id
+  validates_presence_of :role_id,:assigned_by,:person_id,:start_date
+
   validates_uniqueness_of :role_id, :scope => :person_id
 
  validate :role_must_exist

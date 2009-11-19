@@ -8,7 +8,38 @@
   $('#master_doc_hidden_tab').attr('mode','show');
   $('.person_master_doc_toggle_button').css("display","");
   $('.organisation_masterdoc_close').css("display","none");
- $('.close_option[field="master_doc"]').css("display","none");
+  $('.close_option[field="master_doc"]').css("display","none");
   $('.person_master_doc_close').css("display","none");
   $('#<%= dom_id(@masterdoc) %>').effect('slide', {direction:'right'});
+
+
+  $('#master_doc_meta_meta_type_id').val("").change();
+  $('#master_doc_meta_type_id').val("").change();
+  $('#master_doc_master_doc_type_id').val("").change();
+  $('.show_role_table').change();
+<%else%>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_messagee_image').css("display","");
+  $("#flash_message").dialog( {
+  modal:true,
+  height: 'auto',
+  width: 600,
+  buttons: {
+
+  OK: function(){
+
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+
+
+
+
+
 <% end -%>

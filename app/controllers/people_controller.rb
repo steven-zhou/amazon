@@ -37,6 +37,11 @@ class PeopleController < ApplicationController
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
 
+          @active_tab = params[:active_tab]
+        @active_sub_tab = params[:active_sub_tab]
+
+
+
     #when it is cal show action
     if request.get?
       if @list_headers.blank?
@@ -67,6 +72,8 @@ class PeopleController < ApplicationController
     end
 
     if request.post?
+        #remember the active style of tabs
+  
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
 
@@ -100,8 +107,9 @@ class PeopleController < ApplicationController
     @person_role = @person.person_roles
     
     respond_to do |format|
-      
+
       format.html
+      format.js {render 'show_left.js'}
 
     end     
   end
@@ -111,7 +119,8 @@ class PeopleController < ApplicationController
   def edit
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
-
+      @active_tab = params[:active_tab]
+        @active_sub_tab = params[:active_sub_tab]
     #@postcodes = DomesticPostcode.find(:all)
 
     if request.get?
@@ -185,7 +194,8 @@ class PeopleController < ApplicationController
       end
     end
     respond_to do |format|
-      format.html  
+      format.html
+      format.js {render 'show_edit_left.js'}
     end
   end
 
@@ -372,7 +382,10 @@ class PeopleController < ApplicationController
     @p = Array.new
     @p = @list_header.people_on_list
     #clear
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
 
+     
     ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -401,7 +414,9 @@ class PeopleController < ApplicationController
 
 
   def show_left
- 
+
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])

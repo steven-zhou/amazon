@@ -18,14 +18,14 @@ class SigninController < ApplicationController
         # Check to see if the account is new and if so, are the still within their grace period
         # If not, delete the account
         begin
-          redirect_to :action => "ask_for_power_password", :user_name => params[:user_name] and return unless login_account.class.to_s == "SystemUser"
+          redirect_to :action => "ask_for_power_password", :user_name => params[:user_name], :clocktime => params[:clocktime] and return unless login_account.class.to_s == "SystemUser"
           account_system_user_check(login_account) # Checks the system_user attribute
           grace_period_check(login_account) if login_account.last_login.nil? # Check if a user logs in for the first time before the grace period expires
           account_active_check(login_account) # Check that the login_status attribute is true
           account_locked_check(login_account) # Check that there are remaining access_attempts_count available
           check_groups(login_account) # Check that user belongs to at least one group
           check_group_permissions(login_account) # Check the permissions for the groups of the login account
-          check_online_status(login_account)#check the account has already online or not, if true, you can not login.
+          #check_online_status(login_account)check the account has already online or not, if true, you can not login.
           check_password_life_time(login_account)# Check if the password has expired  when expired jump to rescue no.1 case
  
           #---------------------------------------------successful login-------------------------#
@@ -38,6 +38,7 @@ class SigninController < ApplicationController
           #login_account.online_status = true
           login_account.save
           system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
+          session[:clocktime]= params[:clocktime]
           redirect_to welcome_url
 
           #---------------------------------------------exception erea-------------------------#
@@ -197,6 +198,7 @@ class SigninController < ApplicationController
 
   def ask_for_power_password
     @user_name = params[:user_name]
+    @clock = params[:clocktime]
     render "ask_for_power_password", :layout => "reset_password"
   end
 
@@ -213,6 +215,7 @@ class SigninController < ApplicationController
         login_account.access_attempts_count = 99
         login_account.save
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
+        session[:clocktime]= params[:clocktime]
         redirect_to welcome_url
         #---------------------------------------------exception erea-------------------------#
       rescue Exception => exc

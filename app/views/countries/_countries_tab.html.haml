@@ -1,0 +1,19 @@
+.full_container
+  %input.hidden{:id => "country_mode", :mode => "show"}
+
+  #add_new_country
+    = render :partial => "countries/new_country"
+
+  #existing_countries
+    = render :partial => "countries/existing_countries"
+
+  #edit_country{:style => "display:none;margin-top:10px;float:left;"}
+    .tab_looking_left
+    .tab_looking_icon
+      = image_tag('edit_icon.png')
+      Edit
+    .tab_looking_right
+    .full_container
+      .options
+        = link_to_function image_tag('close_icon.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
+      #edit_country_form

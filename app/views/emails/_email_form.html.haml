@@ -1,6 +1,6 @@
 .form_line
   .field_20
-    = email.label :contact_meta_type_id, 'Type'
+    = email.label :contact_meta_type_id, "Type<span class='asterisk'>*</span>"
     -if @organisation.nil?
       -if edit == "edit"
         = email.collection_select :contact_meta_type_id, Contact.email_types - @person.personal_email_types + @email.email_type, :id, :name
@@ -12,7 +12,7 @@
       -else
         = email.collection_select :contact_meta_type_id, Contact.email_types - @organisation.personal_email_types, :id, :name
   .field_75
-    = email.label :value, "Value"
+    = email.label :value, "Value<span class='asterisk'>*</span>"
     = email.text_field :value ,:id => @email.new_record? ? "email_value" : "email_value_edit"
 .form_line
   .field_100

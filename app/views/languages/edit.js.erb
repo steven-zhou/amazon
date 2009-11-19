@@ -1,0 +1,5 @@
+$('#add_new_language').css('display','none');
+$('#edit_language').css('display', '');
+$('#edit_language_form').html('<%= escape_javascript(render(:partial => "/languages/language_form", :locals => {:language => @language })) %>');
+$('#language_mode').attr('mode', 'edit');
+$('.close_option[field="language"]').css("display","");

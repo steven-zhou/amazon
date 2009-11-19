@@ -9,10 +9,17 @@ class MasterDocsController < ApplicationController
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @masterdoc = @entity.master_docs.new(params[:master_doc])
-    @masterdoc.save
+    if @masterdoc.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new MasterDoc #{@masterdoc.id}.")
     #create.js should also handle the error
     render "create.js"
+    else
+#      flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@masterdoc.errors[:doc_number].nil? && @masterdoc.errors.on(:doc_number).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@masterdoc.errors[:master_doc_type_id].nil? && @masterdoc.errors.on(:master_doc_type_id).include?("can't be blank"))
+    flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Doc Number")if(!@masterdoc.errors[:doc_number].nil? && @masterdoc.errors.on(:doc_number).include?("has already been taken"))
+      render "create.js"
+    end
   end
 
   def edit
@@ -25,10 +32,16 @@ class MasterDocsController < ApplicationController
 
   def update
     @masterdoc = MasterDoc.find(params[:id])
-    @masterdoc.update_attributes(params[:master_doc][@masterdoc.id.to_s])
+   if @masterdoc.update_attributes(params[:master_doc][@masterdoc.id.to_s])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited MasterDoc #{@masterdoc.id}.")
     #create.js should also handle the error
     render "show.js"
+   else
+    flash.now[:error]= "Please Enter All Required Data"if(!@masterdoc.errors[:doc_number].nil? && @masterdoc.errors.on(:doc_number).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@masterdoc.errors[:master_doc_type_id].nil? && @masterdoc.errors.on(:master_doc_type_id).include?("can't be blank"))
+    flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Doc Number")if(!@masterdoc.errors[:doc_number].nil? && @masterdoc.errors.on(:doc_number).include?("has already been taken"))
+     render "show.js"
+   end
   end
 
   def destroy

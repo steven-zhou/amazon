@@ -1,13 +1,13 @@
 -form_for([@person,phone], :html => {:class => 'active contact_form ajax_form add_phone'}) do |p|
   .form_line
     .field_20
-      = p.label :contact_meta_type_id, 'Type'
+      = p.label :contact_meta_type_id, "Type<span class='asterisk'>*</span>"
       = p.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types, :id, :name
     .field_15
       = p.label :pre_value, "Pre Value"
       = p.text_field :pre_value
     .field_40
-      = p.label :value, "Value"
+      = p.label :value, "Value<span class='asterisk'>*</span>"
       = p.text_field :value
     .field_15
       = p.label :post_value, "Post Value"

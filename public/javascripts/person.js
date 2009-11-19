@@ -48,7 +48,6 @@ $(function() {
         $(".container_icon").removeClass("container_icon_color");
         $(this).parent().addClass("container_icon_color");
          
-
         $('.pppp[field='+ $(this).attr('show_id_name') +']').removeClass('hidden');
     });
     /*
@@ -288,13 +287,13 @@ $(function() {
         $('#terminator_container_0').html('');
     }
 
-    $("#new_employment").submit( function(){
-        $('#organisation_name_container_0').html('');
-        $('#recruiter_container_0').html('');
-        $('#supervisor_container_0').html('');
-        $('#suspender_container_0').html('');
-        $('#terminator_container_0').html('');
-    })
+//    $("#new_employment").submit( function(){
+//        $('#organisation_name_container_0').html('');
+//        $('#recruiter_container_0').html('');
+//        $('#supervisor_container_0').html('');
+//        $('#suspender_container_0').html('');
+//        $('#terminator_container_0').html('');
+//    })
 
     $("#accordion").accordion();
     $("#accordion01").accordion();
@@ -713,6 +712,9 @@ $(".person_master_doc_close").live('click',function(){
         if (link.attr('field') != ""){
 
             $("#new_"+link.attr('field'))[0].reset();
+            $('#master_doc_meta_type_id').html("").change();
+           $('#master_doc_master_doc_type_id').html("").change();
+
         }
 
     }
@@ -744,6 +746,8 @@ $(".person_master_doc_close").live('click',function(){
                     if (link.attr('field') != ""){
 
                         $("#new_"+link.attr('field'))[0].reset();
+                        $('#master_doc_meta_type_id').html("").change();
+                        $('#master_doc_master_doc_type_id').html("").change();
                     }
                     $(this).dialog('destroy');
                     return true;
