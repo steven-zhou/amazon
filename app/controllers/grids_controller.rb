@@ -1510,4 +1510,64 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
+
+  def show_religions_grid
+     page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @religion = Religion.find(:all,
+      :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = Religion.count(:all)
+     end
+
+    # User provided search terms
+    if(query != "%%")
+       @religion = Religion.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = Religion.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @religion.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.description]}}
+     # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
 end
