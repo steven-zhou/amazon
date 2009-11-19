@@ -6605,7 +6605,7 @@ $(function(){
 
             $('#add_new_'+ $(this).attr('field')).html('');
             $('#existing_'+ $(this).attr('field')).html('');
-            $('#edit_'+ $(this).attr('field')).html('');
+            $('#edit_'+ $(this).attr('field')+'_form').html('');
         }
     });
 });
