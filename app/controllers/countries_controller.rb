@@ -23,7 +23,6 @@ class CountriesController < ApplicationController
     else
       
     end
-    @countries = Country.all
     respond_to do |format|
       format.js
     end
@@ -37,7 +36,6 @@ class CountriesController < ApplicationController
     else
       
     end
-    @countries = Country.all
     respond_to do |format|
       format.js
     end

@@ -47,8 +47,8 @@ class ApplicationController < ActionController::Base
     result = case options[:type]
 
       # Success
-    when "object_created_successfully"      then "The New #{options[:object]} is Created."
-    when "object_updated_successfully"      then "The #{options[:object]} is Updated Successfully."
+    when "object_created_successfully"      then "A New #{options[:object]} was Created."
+    when "object_updated_successfully"      then "The #{options[:object]} was Updated Successfully."
    
       # Errors
     when "login_online_error"               then "You can not login: Another Person Is Online "

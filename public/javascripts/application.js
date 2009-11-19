@@ -419,80 +419,6 @@ $('.datepick').live("mouseover", function(){
     });
 });
 
-//
-//$(document).ready(function() {
-//    $('.datepick').datepicker({
-//        showOn: 'button',
-//        buttonImage: '/images/Icons/System/calendar.png',
-//        buttonImageOnly: true,
-//        dateFormat: 'dd-mm-yy',
-//        altFormat: 'mm-dd-yy',
-//        changeMonth: true,
-//        changeYear: true,
-//        yearRange: '-200:+20'
-//    });
-//
-//    $('.birthdatepick').datepicker({
-//        showOn: 'button',
-//        buttonImage: '/images/Icons/System/calendar.png',
-//        buttonImageOnly: true,
-//        dateFormat: 'dd-mm-yy',
-//        altFormat: 'mm-dd-yy',
-//        changeMonth: true,
-//        changeYear: true,
-//        maxDate: '+0d',
-//        yearRange: '-200:+0'
-//    });
-//
-//    $('.startdatepick').datepicker({
-//        showOn: 'button',
-//        buttonImage: '/images/Icons/System/calendar.png',
-//        buttonImageOnly: true,
-//        dateFormat: 'dd-mm-yy',
-//        altFormat: 'mm-dd-yy',
-//        changeMonth: true,
-//        changeYear: true,
-//        yearRange: '-200:+20',
-//        onSelect: function(){
-//            $('.enddatepick').datepicker('enable');
-//            alert(getTime.toString());
-//        },
-//        beforeShow: function(){
-//            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
-//            day = arr_dateText[0];
-//            month = arr_dateText[1];
-//            year = arr_dateText[2];
-//            $(this).datepicker('option', 'maxDate', new Date(year, month-1, day-1));
-//        }
-//    });
-//
-//    $('.enddatepick').datepicker({
-//                showOn: 'button',
-//                buttonImage: '/images/Icons/System/calendar.png',
-//                buttonImageOnly: true,
-//                dateFormat: 'dd-mm-yy',
-//                altFormat: 'mm-dd-yy',
-//                changeMonth: true,
-//                changeYear: true,
-//                yearRange: '-200:+20',
-//                beforeShow: function(){
-//                    var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
-//                    day = arr_dateText[0];
-//                    month = arr_dateText[1];
-//                    year = arr_dateText[2];
-//                    if (year==undefined){
-//                        $(this).datepicker('disable');
-//                    }else{
-//                        $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
-//                    }
-//                }
-//            });
-//    $('.enddatepick').datepicker('disable');
-//});
-
-
-
-
 
 /* Photo */
 
@@ -6590,6 +6516,23 @@ $(".tab_switch_button").live('click', function(){
 
 
 
+//Country Data
+$(function(){
+    $(".show_languages").live('click', function(){
+        if($('.update_flag[filed="'+$(this).attr('field')+'"]').val()=="true"){
+            $.ajax({
+                type: "GET",
+                url: "/languages/show_languages.js",
+                data: 'update='+$(this).attr('update'),
+                dataType: "script"
+            });
+            $('.update_flag[filed="'+$(this).attr('field')+'"]').val("false");
+        }else{
+            $('.update_flag[filed="'+$(this).attr('field')+'"]').val("true");
+        }
+    });
+});
+
 
 /*matain---geo_area*/
 $(function(){
@@ -6754,22 +6697,30 @@ $(function(){
     });
 
     $('table#show_countries_grid tbody tr').live('click',function(){
-        $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-        
+        if($('#country_mode').attr('mode')=="show"){
+            $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
+             $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
     });
 
     $('table#show_countries_grid tbody tr').live('dblclick',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
-            dataType: "script"
-        });
+        if($('#country_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
     });
 
     $('table#show_countries_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
-
+        if($('#country_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });
 
@@ -6827,20 +6778,30 @@ $(function(){
     });
 
     $('table#show_languages_grid tbody tr').live('click',function(){
-        $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
+        if($('#language_mode').attr('mode')=="show"){
+            $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }        
     });
 
     $('table#show_languages_grid tbody tr').live('dblclick',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
-            dataType: "script"
-        });
+        if($('#language_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
     });
 
     $('table#show_languages_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
+        if($('#language_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });
 
@@ -6923,20 +6884,30 @@ $(function(){
     });
 
     $('table#show_religions_grid tbody tr').live('click',function(){
-        $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
+        if($('#religion_mode').attr('mode')=="show"){
+            $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
     });
 
     $('table#show_religions_grid tbody tr').live('dblclick',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
-            dataType: "script"
-        });
+        if($('#religion_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
     });
 
     $('table#show_religions_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
+        if($('#religion_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 
 });
@@ -6965,4 +6936,63 @@ $('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
     if( $('#electoral_area_mode').attr('mode') == "show"){
         $(this).css('cursor',"pointer");
     }else{$(this).css('cursor',"");}
+});
+
+
+/* Show postcode by country Grid*/
+$(function(){
+    $('table#show_postcodes_by_country_grid tbody tr').live('click',function(){
+        if($('#postcode_mode').attr('mode')=="show"){
+            $('table#show_postcodes_by_country_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_postcodes_by_country_grid tbody tr').live('dblclick',function(){
+        if($('#postcode_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/postcodes/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_postcodes_by_country_grid tbody tr').live('mouseover',function(){
+        if($('#postcode_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+$(function(){
+    $('#open_add_new_bank').click(function(){
+        $('#add_new_bank').show();
+        $('#open_add_new_bank').hide();
+        $('#close_add_new_bank').show();
+    });
+});
+
+$(function(){
+    $('#close_add_new_bank').click(function(){
+        $('#add_new_bank').hide();
+        $('#open_add_new_bank').show();
+        $('#close_add_new_bank').hide();
+    });
+});
+
+$(function(){
+    $('#delete_bank_entry').click(function(){
+       $.ajax({
+            type: "GET",
+            url: "/banks/delete_bank_entry",
+            data: 'id=' + $(this).attr('bank_id'),
+            dataType: "script"
+        });
+
+    });
 });
