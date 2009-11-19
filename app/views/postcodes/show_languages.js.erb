@@ -1,6 +1,0 @@
-<%- options = String.new
-    @languages.each do |i|
-      options += "<option value = #{i.id}>#{i.name}</option>"
-    end
-%>
-$('#<%= escape_javascript("#{@update}") %>').html('<%= escape_javascript("#{options}") %>');

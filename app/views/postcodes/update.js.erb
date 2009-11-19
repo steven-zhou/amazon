@@ -1,9 +1,10 @@
-$('#add_new_language').html('<%= escape_javascript(render(:partial => "/languages/new_language")) %>').css('display','');
-$('#existing_languages').html('<%= escape_javascript(render(:partial => "/languages/existing_languages")) %>');
-$('#language_mode').attr('mode', 'show');
-$('#edit_language').css('display','none');
-   $("#show_languages_grid").flexigrid({
-        url: '/grids/show_languages_grid',
+$('#add_new_postcode').html('<%= escape_javascript(render(:partial => "/postcodes/new_postcode")) %>').css('display','');
+$('#existing_postcodes').html('<%= escape_javascript(render(:partial => "/postcodes/existing_postcodes")) %>');
+$('#postcode_mode').attr('mode', 'show');
+$('.select_ajax_call[field="postcode"]').attr('disabled', false)
+$('#edit_postcode').css('display','none');
+   $("#show_postcodes_by_country_grid").flexigrid({
+        url: '/grids/show_postcodes_by_country_grid',
         dataType: 'json',
         colModel : [
         {
@@ -15,16 +16,40 @@ $('#edit_language').css('display','none');
         },
 
         {
-            display: 'Name',
-            name : 'name',
+            display: 'State',
+            name : 'state',
             width : 100,
             sortable : true,
             align: 'left'
         },
 
         {
-            display: 'Description',
-            name : 'description',
+            display: 'Suburb',
+            name : 'suburb',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Postcode',
+            name : 'postcode',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Geo Area',
+            name : 'geo_area',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Electoral Area',
+            name : 'elec_area',
             width : 200,
             sortable : true,
             align: 'left'
@@ -32,19 +57,34 @@ $('#edit_language').css('display','none');
         ],
         searchitems : [
         {
-            display: 'Name',
-            name : 'name'
+            display: 'State',
+            name : 'state'
         },
 
         {
-            display: 'Description',
-            name : 'description'
+            display: 'Suburb',
+            name : 'suburb'
+        },
+
+        {
+            display: 'Postcode',
+            name : 'postcode'
+        },
+
+        {
+            display: 'Geo Area',
+            name : 'geo_area'
+        },
+
+        {
+            display: 'Electoral Area',
+            name : 'elec_area'
         }
         ],
         sortname: "id",
         sortorder: "asc",
         usepager: true,
-        title: 'Languages',
+        title: 'Postcodes',
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,

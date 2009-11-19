@@ -1,5 +1,7 @@
-$('#add_new_language').css('display','none');
-$('#edit_language').css('display', '');
-$('#edit_language_form').html('<%= escape_javascript(render(:partial => "/languages/language_form", :locals => {:language => @language })) %>');
-$('#language_mode').attr('mode', 'edit');
-$('.close_option[field="language"]').css("display","");
+$('#add_new_postcode').css('display','none');
+$('#edit_postcode').css('display', '');
+$('#edit_postcode').html('<%= escape_javascript(render(:partial => "/postcodes/edit_postcode")) %>');
+$('#edit_postcode_form').html('<%= escape_javascript(render(:partial => "/postcodes/postcode_form", :locals => {:postcode => @postcode })) %>');
+$('#postcode_mode').attr('mode', 'edit');
+$('.select_ajax_call[field="postcode"]').attr('disabled', true)
+$('.close_option[field="postcode"]').css("display","");

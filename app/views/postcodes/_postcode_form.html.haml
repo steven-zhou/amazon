@@ -1,11 +1,59 @@
 - form_for postcode, :html => {:class => "ajax_form"} do |f|
   .form_line
-    .field_30
-      = f.label :name, 'Name'
-      = f.text_field :name
-    .field_50
-      = f.label :description, 'Description'
-      = f.text_field :description
+    .field_15
+      = f.label :state, 'State'
+      = f.text_field :state
+    .field_15
+      = f.label :suburb, 'Suburb'
+      = f.text_field :suburb
+    .field_15
+      = f.label :postcode, 'Postcode'
+      = f.text_field :postcode
+    .field_15
+      = f.label :geographical_area_id, 'Geo Area'
+      = f.collection_select :geographical_area_id, GeographicalArea.all, :id, :division_name, {:include_blank => true}
+    .field_15
+      = f.label :electoral_area_id, 'Electoral Area'
+      = f.collection_select :electoral_area_id, ElectoralArea.all, :id, :division_name, {:include_blank => true}
+  .full_container
+    .title
+      %h2 More Details
+    .options
+      = link_to_function image_tag('icon_holder.png'), :class => "toggle_button", :toggle_id_name => "postcode_more"
+
+    #postcode_more.hidden.left
+      .form_line
+        .field_15
+          = f.label :governance, 'Governance'
+          = f.text_field :governance
+        .field_15
+          = f.label :province, 'Province'
+          = f.text_field :province
+        .field_15
+          = f.label :country_id, 'Country'
+          = f.text_field :country, :disabled => true, :value => Country.find(session[:postcode_country_id]).short_name
+        .field_15
+          = f.label :region, 'Region'
+          = f.text_field :region
+        .field_15
+          = f.label :district, 'District'
+          = f.text_field :district
+      .form_line
+        .field_15
+          = f.label :zone, 'Zone'
+          = f.text_field :zone
+        .field_15
+          = f.label :city, 'City'
+          = f.text_field :city
+        .field_15
+          = f.label :town, 'Town'
+          = f.text_field :town
+        .field_15
+          = f.label :mail_code, 'Mail Code'
+          = f.text_field :mail_code
+        .field_15
+          = f.label :bulk_code, 'Bulk Code'
+          = f.text_field :bulk_code
   .form_line
     .field_10{:style => "float:right;"}
       = submit_tag "Submit"

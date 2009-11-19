@@ -7011,3 +7011,36 @@ $('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
         $(this).css('cursor',"pointer");
     }else{$(this).css('cursor',"");}
 });
+
+
+
+/* Show postcode by country Grid*/
+$(function(){
+    $('table#show_postcodes_by_country_grid tbody tr').live('click',function(){
+        if($('#postcode_mode').attr('mode')=="show"){
+            $('table#show_postcodes_by_country_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_postcodes_by_country_grid tbody tr').live('dblclick',function(){
+        if($('#postcode_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/postcodes/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_postcodes_by_country_grid tbody tr').live('mouseover',function(){
+        if($('#postcode_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+
+});

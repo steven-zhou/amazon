@@ -1,7 +1,6 @@
 $('#add_new_postcode').html('<%= escape_javascript(render(:partial => "/postcodes/new_postcode")) %>');
 $('#existing_postcodes').html('<%= escape_javascript(render(:partial => "/postcodes/existing_postcodes")) %>');
 $('#postcode_mode').attr('mode', 'show');
-$('.select_ajax_call[field="postcode"]').attr('disabled', false)
    $("#show_postcodes_by_country_grid").flexigrid({
         url: '/grids/show_postcodes_by_country_grid',
         dataType: 'json',
