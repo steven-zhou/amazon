@@ -1307,6 +1307,7 @@ form#organisation_names_form input#image_image_file{
 /*Grids*/
 .flexigrid input, .flexigrid select {
     width:auto !important;
+    height: 22px !important;
 }
 
 /*UI light-box*/
