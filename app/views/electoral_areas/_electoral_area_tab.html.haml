@@ -1,0 +1,18 @@
+.full_container
+  %input.hidden{:id => "electoral_area_mode", :mode => "show"}
+
+  #select_electoral_area
+    .full_container
+      .left
+        %h2 Select Country:
+      &nbsp
+      = collection_select :geographical_area , :country_id, Country.all, :id, :short_name, {:include_blank => true}, {:class => "select_ajax_call clear_select", :method => "GET",:url => "/post_areas/select_ajax_show",:field => "electoral_area", :type_class => "ElectoralArea", :style => "display:inline;width:20%;", :disabled => false}
+
+  #add_new_electoral_area
+
+  #existing_electoral_area
+
+
+  #edit_electoral_area{:style => "display:none;margin-top:10px;float:left;width:100%"}
+    
+    #edit_electoral_area_form

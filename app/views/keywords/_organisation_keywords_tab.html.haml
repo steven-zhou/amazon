@@ -10,7 +10,7 @@
   - if (!organisation.nil? && !organisation.new_record?)
     #keyword_organisation_types.keywordleft
       .form_line
-        = label_tag :keyword_type_id, "Keyword Types"
+        = label_tag :keyword_type_id, "Keyword Type<span class='asterisk'>*</span>"
         = collection_select :keyword,:organisation_keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br.clear
     %form#keywords

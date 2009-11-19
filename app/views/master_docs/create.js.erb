@@ -18,7 +18,7 @@
   $('#master_doc_master_doc_type_id').val("").change();
   $('.show_role_table').change();
 <%else%>
-  $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_messagee_image').css("display","");
   $("#flash_message").dialog( {
   modal:true,

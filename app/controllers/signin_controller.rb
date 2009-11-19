@@ -25,7 +25,7 @@ class SigninController < ApplicationController
           account_locked_check(login_account) # Check that there are remaining access_attempts_count available
           check_groups(login_account) # Check that user belongs to at least one group
           check_group_permissions(login_account) # Check the permissions for the groups of the login account
-          check_online_status(login_account)#check the account has already online or not, if true, you can not login.
+          #check_online_status(login_account)check the account has already online or not, if true, you can not login.
           check_password_life_time(login_account)# Check if the password has expired  when expired jump to rescue no.1 case
  
           #---------------------------------------------successful login-------------------------#

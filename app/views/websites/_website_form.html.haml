@@ -1,6 +1,6 @@
 .form_line
   .field_20
-    = website.label :contact_meta_type_id, 'Type'
+    = website.label :contact_meta_type_id, "Type<span class='asterisk'>*</span>"
     -if @organisation.nil?
       -if edit == "edit"
         = website.collection_select :contact_meta_type_id, Contact.website_types - @person.personal_website_types + @website.website_type, :id, :name
@@ -12,7 +12,7 @@
       -else
         = website.collection_select :contact_meta_type_id, Contact.website_types - @organisation.personal_website_types, :id, :name
   .field_75
-    = website.label :value, "Value"
+    = website.label :value, "Value<span class='asterisk'>*</span>"
     = website.text_field :value, :id => @website.new_record? ? "website_value" : "website_value_edit", :value => @website.new_record? ? "http://" : @website.value
 .form_line
   .field_100

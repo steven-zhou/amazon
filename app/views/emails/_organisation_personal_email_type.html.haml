@@ -1,10 +1,10 @@
 -form_for([@organisation,email], :url => "/organisations/#{@organisation.id}/emails", :html => {:class => 'contact_form ajax_form add_email'}) do |f|
   .form_line
     .field_20
-      = f.label :contact_meta_type_id, 'Type'
+      = f.label :contact_meta_type_id, "Type<span class='asterisk'>*</span>"
       = f.collection_select :contact_meta_type_id, Contact.email_types - @organisation.personal_email_types, :id, :name
     .field_75
-      = f.label :value, "Value"
+      = f.label :value, "Value<span class='asterisk'>*</span>"
       = f.text_field :value ,:id => email.new_record? ? "email_value" : "email_value_edit"
   .form_line
     .field_100

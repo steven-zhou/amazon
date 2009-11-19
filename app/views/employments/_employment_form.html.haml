@@ -1,7 +1,7 @@
 -# The options to edit or add an employment
 .form_line{:style => "float:none;"}
   .field_25{:style => "margin-right: 2px;"}
-    =employment.label :organisation_id, "Organisation ID"
+    =employment.label :organisation_id, "Organisation ID<span class='asterisk'>*</span>"
     =employment.text_field :organisation_id, :class=>"find_organisation_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
   .field_5
     %label &nbsp;
@@ -21,7 +21,7 @@
 
 .form_line
   .field_23
-    =employment.label :staff_reference, "Reference Number"
+    =employment.label :staff_reference, "Reference Number<span class='asterisk'>*</span>"
     =employment.text_field :staff_reference, :disabled=>@employment.status == false
   .field_23
     =employment.label :department_id, "Department"
@@ -39,13 +39,13 @@
     .field_100 Position
   .form_line
     .field_22
-      =employment.label :position_name, "Name"
+      =employment.label :position_name, "Name<span class='asterisk'>*</span>"
       =employment.text_field :position_name, :disabled=>@employment.status == false
     .field_22
       =employment.label :position_title_id, "Title"
       =employment.collection_select :position_title_id, PositionTitle.active_position_title, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
     .field_22
-      =employment.label :commenced_date, "Start Date"
+      =employment.label :commenced_date, "Start Date<span class='asterisk'>*</span>"
       =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false
     .field_22
       =employment.label :term_end_date, "End Date"
@@ -76,7 +76,7 @@
 
   .form_line
     .field_25{:style => "margin-right: 2px;"}
-      =employment.label :hired_by, "Hired By"
+      =employment.label :hired_by, "Hired By<span class='asterisk'>*</span>"
       =employment.text_field :hired_by, :class=>"find_person_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
       %label &nbsp;

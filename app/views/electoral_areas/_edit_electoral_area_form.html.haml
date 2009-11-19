@@ -1,0 +1,27 @@
+.tab_looking_left
+.tab_looking_icon
+  = image_tag('edit_icon.png')
+  Edit
+.tab_looking_right
+.full_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :field => "electoral_area", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_electoral_area", :toggle_id_name1 => "add_new_electoral_area"
+  - form_for @postal_area, :url => {:controller => "post_areas", :action => @postal_area.new_record? ? 'create' : 'update', :id => @postal_area.id},  :html => {:class => "ajax_form"} do |f|
+    .form_line
+      .field_30
+        = f.label :country_id, "Country Id"
+        = f.text_field :country_id, :disabled => true, :value => session[:ele_country_id]
+        = f.text_field :country_id, :class => "hidden", :value => session[:ele_country_id]
+      .field_30.hidden
+        = f.label :country_name, "Country Name"
+        = f.text_field :country_name, :class => "hidden", :value => @country_name
+      .field_30
+        = f.label :division_name, "Division Name"
+        = f.text_field :division_name
+      .field_30
+        = f.label :remarks, "Remarks"
+        = f.text_field :remarks
+        %input{:class => "hidden", :name => "type", :value => @postal_area.class.to_s}
+    .form_line
+      .field_10{:style => "float:right;"}
+        = submit_tag "Submit"
