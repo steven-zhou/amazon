@@ -2395,12 +2395,18 @@ div#permission_form .options{
 
 /*Asterisk*/
 .asterisk{
-  color:red;
-  display:inline;
-  padding-left:5px;
-  font-size:11px;
+color:red;
+display:inline;
+font-size:20px;
+height:5px;
+line-height:5px;
 
-  text-decoration:none;
+padding-left:5px;
+
+text-align:center;
+text-decoration:none;
+
+vertical-align:bottom;
 }
 
 
