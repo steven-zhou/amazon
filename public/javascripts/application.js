@@ -6940,3 +6940,29 @@ $(function(){
     });
 
 });
+
+/*ElectoralArea_grid*/
+
+$('table#show_electoral_area_grid tbody tr').live('click',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $('table#show_electoral_area_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    }else{ $(this).removeClass('trSelected');}
+});
+
+$('table#show_electoral_area_grid tbody tr').live('dblclick',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $.ajax({
+            type: 'GET',
+            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
+            data: '&type=ElectoralArea',
+            dataType: "script"
+        });
+    }else{}
+});
+
+$('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
+    if( $('#electoral_area_mode').attr('mode') == "show"){
+        $(this).css('cursor',"pointer");
+    }else{$(this).css('cursor',"");}
+});

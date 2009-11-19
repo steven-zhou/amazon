@@ -6,5 +6,11 @@
  $('#edit_geo_area_form').html('<%= escape_javascript(render(:partial => "/geo_areas/geo_area_form")) %>');
  $('.select_ajax_call[field="geo_area"]').attr('disabled', true)
 <%else%>
+  $('#add_new_electoral_area').css('display','none');
+  $('#edit_electoral_area').css('display', '');
+  $('#electoral_area_mode').attr('mode', 'edit');
+  $('.close_option[field="electoral_area"]').css("display","");
+ $('#edit_electoral_area_form').html('<%= escape_javascript(render(:partial => "/electoral_areas/electoral_area_form")) %>');
+ $('.select_ajax_call[field="electoral_area"]').attr('disabled', true)
 
 <%end%>
