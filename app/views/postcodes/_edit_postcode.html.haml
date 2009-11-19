@@ -1,0 +1,9 @@
+.tab_looking_left
+.tab_looking_icon
+  = image_tag('edit_icon.png')
+  Edit
+.tab_looking_right
+.full_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :field => "postcode", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_postcode", :toggle_id_name1 => "add_new_postcode"
+  #edit_postcode_form

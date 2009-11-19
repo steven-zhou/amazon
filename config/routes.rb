@@ -116,9 +116,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :available_modules, :collection => {:switch_status => :get}
 
   map.resources :post_areas, :collection => {:select_ajax_show => :get}
-  map.resources :countries, :collection => {:select_renew => :get}
-  map.resources :postcodes
-  map.resources :languages
+  map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get}
+  map.resources :postcodes, :collection => {:show_by_country => :get}
+  map.resources :languages, :collection => {:show_languages => :get}
   map.resources :religions
 
 

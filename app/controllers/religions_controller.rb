@@ -23,7 +23,6 @@ class ReligionsController < ApplicationController
     else
 
     end
-    @religions = Religion.find(:all, :order => "name")
     respond_to do |format|
       format.js
     end
@@ -36,7 +35,6 @@ class ReligionsController < ApplicationController
     else
 
     end
-    @religions = Religion.find(:all, :order => "name")
     respond_to do |format|
       format.js
     end
@@ -45,7 +43,6 @@ class ReligionsController < ApplicationController
   def destroy
     @religion = Religion.find(params[:id])
     @religion.destroy
-    @religions = Religion.find(:all, :order => "name")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Religion with ID #{@religion.id}.")
     respond_to do |format|
       format.js

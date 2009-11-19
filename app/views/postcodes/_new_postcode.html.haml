@@ -1,0 +1,8 @@
+.full_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "postcode", :title=>"Close", :class => "close_option", :toggle_id_name => "new_postcode_form"
+  .title
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "postcode", :title => "New", :method => "GET", :url => "/postcodes/new"
+    &nbsp
+  %h2 New Postcode
+  #new_postcode_form{:style => "float:left;width:100%;"}
