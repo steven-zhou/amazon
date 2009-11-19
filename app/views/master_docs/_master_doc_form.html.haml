@@ -1,13 +1,13 @@
 -# The options to edit or add an address
 .form_line{:style => "float:none;"}
   .field_25
-    = form.label :id, 'Meta Type'
+    = form.label :id, "Meta Type<span class='asterisk'>*</span>"
     -if @masterdoc.new_record?
       = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field"})
     -else
       = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
-    = form.label :id, 'Type'
+    = form.label :id, "Type<span class='asterisk'>*</span>"
     -if @masterdoc.new_record?
       %select.find_master_doc_type_field{:id => "master_doc_meta_type_id"}
         %option
@@ -16,7 +16,7 @@
         %option{:value => @masterdocmetatype.id}
           = @masterdocmetatype.name
   .field_25
-    = form.label :id, 'Category'
+    = form.label :id, "Category<span class='asterisk'>*</span>"
     -if @masterdoc.new_record?
       %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]"}
         %option
@@ -26,7 +26,7 @@
           = @masterdoctype.name
 .form_line
   .field_25
-    = form.label :doc_number, 'Doc Number'
+    = form.label :doc_number, "Doc Number<span class='asterisk'>*</span>"
     = form.text_field :doc_number
   .field_25
     = form.label :doc_reference, 'Doc Reference'

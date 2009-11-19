@@ -15,7 +15,11 @@ class OrganisationGroupsController < ApplicationController
     @organisation_group.organisation_id= @organisation.id
     @organisation_group.tag_id = @group.id
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created OrganisationGroup #{@organisation_group.id}.")
-    @organisation_group.save
+   if @organisation_group.save
+   else
+       flash.now[:error]= "Please Enter All Required Data"if(!@organisation_group.errors[:tag_id].nil? && @organisation_group.errors.on(:tag_id).include?("can't be blank"))
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Group")if(!@organisation_group.errors[:tag_id].nil? && @organisation_group.errors.on(:tag_id).include?("has already been taken"))
+   end
     respond_to do |format|
       format.js
     end     
@@ -36,8 +40,12 @@ class OrganisationGroupsController < ApplicationController
     @organisation_group= OrganisationGroup.find(params[:id])   
     if @organisation_group.update_attributes(params[:organisation_group])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Organisation Group #{@organisation_group.id}.")
+    else
+      flash.now[:error]= flash_message(:type => "field_missing", :field => "Group Type")if(!@organisation_group.errors[:tag_id].nil? && @organisation_group.errors.on(:tag_id).include?("can't be blank"))
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Group")if(!@organisation_group.errors[:tag_id].nil? && @organisation_group.errors.on(:tag_id).include?("has already been taken"))
+    end
       render 'show.js' 
-    end     
+         
   end
 
 

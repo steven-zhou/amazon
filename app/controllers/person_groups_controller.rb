@@ -22,11 +22,13 @@ class PersonGroupsController < ApplicationController
     #       end
     @person_group.people_id= @person.id
     @person_group.tag_id = @group.id
-    @person_group.save!
+   if @person_group.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Person Group #{@person_group.id}.")
-    #      else
-    #        @person_group.update_attributes(params[:person_group])
-    #      end
+   else
+      flash.now[:error]= "Please Enter All Required Data"if(!@person_group.errors[:tag_id].nil? && @person_group.errors.on(:tag_id).include?("can't be blank"))
+      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Group")if(!@person_group.errors[:tag_id].nil? && @person_group.errors.on(:tag_id).include?("has already been taken"))
+   end
+
 
     respond_to do |format|
       format.js
