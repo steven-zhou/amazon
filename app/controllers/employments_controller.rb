@@ -27,10 +27,10 @@ class EmploymentsController < ApplicationController
       #----------------------------presence - of----
       if(!@employment.errors[:commenced_date].nil? && @employment.errors.on(:commenced_date).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Position--Start Date")
-         flash.now[:error] = "Please Enter All Required Data"
+         flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
       elsif(!@employment.errors[:organisation].nil? && @employment.errors.on(:organisation).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Organisation")
-         flash.now[:error] = "Please Enter All Required Data"
+         flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
       elsif(!@employment.errors[:emp_recruiter].nil? && @employment.errors.on(:emp_recruiter).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Position--Hire By")
          flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
@@ -69,10 +69,10 @@ class EmploymentsController < ApplicationController
       else
         if(!@employment.errors[:commenced_date].nil? && @employment.errors.on(:commenced_date).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Position--Start Date")
-          flash.now[:error] = "Please Enter All Required Data"
+          flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
       elsif(!@employment.errors[:organisation].nil? && @employment.errors.on(:organisation).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Organisation")
-          flash.now[:error] = "Please Enter All Required Data"
+          flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
       elsif(!@employment.errors[:emp_recruiter].nil? && @employment.errors.on(:emp_recruiter).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Position--Hire By")
         flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
