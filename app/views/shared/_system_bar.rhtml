@@ -27,7 +27,7 @@
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
           <%- end %>
           <%- if (@current_user.class.to_s == "MemberZone" && session[:module] != "client_setup") %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module_menu.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
           <%- end %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Sign Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
         </ul>
