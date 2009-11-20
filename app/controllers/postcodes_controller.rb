@@ -37,11 +37,9 @@ class PostcodesController < ApplicationController
       elsif(!@postcode.errors[:electoral_area_id].nil? && @postcode.errors.on(:electoral_area_id).include?("can't be blank"))
          flash.now[:error] = "Please Enter All Required Data"
 
-        #-----------------------validate--person_must_be_valid------------------------
+        #-----------------------uniqueness - of ------------------------
       elsif(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "postcode")
-      elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("has already been taken"))
-          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "state")
       elsif(!@postcode.errors[:suburb].nil? && @postcode.errors.on(:suburb).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "suburb")
       end
@@ -72,11 +70,9 @@ class PostcodesController < ApplicationController
       elsif(!@postcode.errors[:electoral_area_id].nil? && @postcode.errors.on(:electoral_area_id).include?("can't be blank"))
          flash.now[:error] = "Please Enter All Required Data"
 
-        #-----------------------validate--person_must_be_valid------------------------
+        #-----------------------uniqueness - of ------------------------
       elsif(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "postcode")
-      elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("has already been taken"))
-          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "state")
       elsif(!@postcode.errors[:suburb].nil? && @postcode.errors.on(:suburb).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "suburb")
       end

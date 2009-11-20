@@ -7,7 +7,7 @@ class Postcode < ActiveRecord::Base
 
   #Validation
   validates_presence_of :country_id, :postcode, :state, :suburb, :geographical_area_id, :electoral_area_id
-  validates_uniqueness_of :postcode, :state, :suburb, :scope => 'country_id', :case_sensitive => false
+  validates_uniqueness_of :postcode, :suburb, :scope => ['country_id', 'state'], :case_sensitive => false
 
   #Default scope
   default_scope :order => "postcode ASC"

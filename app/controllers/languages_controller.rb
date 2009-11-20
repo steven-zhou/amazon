@@ -21,7 +21,15 @@ class LanguagesController < ApplicationController
     if @language.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Language entry with ID #{@language.id}.")
     else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a language record.")
+      #----------------------------presence - of----
+      if(!@language.errors[:name].nil? && @language.errors.on(:name).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
 
+        #-----------------------uniqueness - of -----------------------
+      else(!@language.errors[:name].nil? && @language.errors.on(:name).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
+      end
     end
     respond_to do |format|
       format.js
@@ -33,7 +41,15 @@ class LanguagesController < ApplicationController
     if @language.update_attributes(params[:language])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Language with ID #{@language.id}.")
     else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a language record.")
+      #----------------------------presence - of----
+      if(!@language.errors[:name].nil? && @language.errors.on(:name).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
 
+        #-----------------------uniqueness - of -----------------------
+      else(!@language.errors[:name].nil? && @language.errors.on(:name).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
+      end
     end
     respond_to do |format|
       format.js
