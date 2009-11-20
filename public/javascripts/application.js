@@ -6881,3 +6881,54 @@ $(function(){
     });
 });
 
+
+/*Maintenance-country- message*/
+
+$(function(){
+    $('a.tab_switch_with_page_initial').live('click', function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+         $('.page_initial[field='+ link.attr('field')+']').click();
+           $('.page_initial[field='+ link.attr('field')+']').mousedown();
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                         $('.page_initial[field='+ link.attr('field')+']').click();
+                          $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+    });
+});
+
+
