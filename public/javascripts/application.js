@@ -2353,13 +2353,13 @@ $(function(){
 /*List Header of Person*/
 
 $(function(){
-    $("#list_header_name").change(function(){
+    $("#list_header_name").live('change',function(){
         $("#person_list_edit").submit();
     });
 });
 
 $(function(){
-    $("#list_header_name2").change(function(){
+    $("#list_header_name2").live('change',function(){
         $("#person_list").submit();
     });
 });
@@ -6547,7 +6547,11 @@ $(function(){
         }else{
 
             $('#add_new_'+ $(this).attr('field')).html('');
-            $('#existing_'+ $(this).attr('field')).html('');
+            if($(this).attr('field')=="postcode"){
+                $('#existing_postcodes').html('');
+            }else{
+                $('#existing_'+ $(this).attr('field')).html('');
+            }
             $('#edit_'+ $(this).attr('field')+'_form').html('');
         }
     });
@@ -6988,14 +6992,68 @@ $(function(){
 });
 
 $(function(){
+<<<<<<< HEAD:public/javascripts/application.js
     $('#delete_bank_entry').click(function(){
         $.ajax({
+=======
+    $('#delete_bank_entry').live('click', function(){
+
+        var link = $(this);
+        $('#warning_message_text').html("Are You Sure You Wish to Delete This Bank?");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $.ajax({
+                        type: "GET",
+                        url: "/banks/delete_bank_entry",
+                        data: 'id=' + link.attr('bank_id'),
+                        dataType: "script"
+                    });
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+
+    });
+});
+
+$(function(){
+    $('#edit_bank_entry').live('click', function(){
+       $.ajax({
+>>>>>>> e91f8d8ba4feb14717364c292b94d725815c1613:public/javascripts/application.js
             type: "GET",
-            url: "/banks/delete_bank_entry",
+            url: "/banks/edit_bank_entry",
             data: 'id=' + $(this).attr('bank_id'),
             dataType: "script"
         });
+    });
+});
 
+$(function(){
+    $('#edit_bank_entry_close_form').live('click', function(){
+        $('#edit_bank_entry_form').hide();
     });
 });
 
