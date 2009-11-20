@@ -1309,6 +1309,7 @@ form#organisation_names_form input#image_image_file{
 /*Grids*/
 .flexigrid input, .flexigrid select {
     width:auto !important;
+    height: 22px !important;
 }
 
 /*UI light-box*/
@@ -2189,6 +2190,7 @@ div#permission_form .options{
     margin-right:4px;
 
 }
+
 #app #left_content #new_pic_upload{
     float:right;
 

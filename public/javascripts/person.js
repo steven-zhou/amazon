@@ -321,13 +321,13 @@ $(function() {
     }
 
 
-    $("#new_person_role").submit( function(){
-        $('#assigner_container_0').html('');
-        $('#approver_container_0').html('');
-        $('#superviser_container_0').html('');
-        $('#manager_container_0').html('');
-  
-    });
+//    $("#new_person_role").submit( function(){
+//        $('#assigner_container_0').html('');
+//        $('#approver_container_0').html('');
+//        $('#superviser_container_0').html('');
+//        $('#manager_container_0').html('');
+//
+//    });
 
 
 
@@ -1132,6 +1132,12 @@ $(".person_roles_close").live('click',function(){
         $('#warning_message').dialog('open');
     }
 });
+
+$("#person_role_edit_close_button").live('click',function(){
+
+    $('#person_role_hidden_tab').attr('mode','show');
+});
+
 
 
 // Address assistant //
