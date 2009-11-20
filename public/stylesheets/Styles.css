@@ -967,6 +967,10 @@ div.highlight {
 }
 
 .hidden {
+    display:none;
+}
+
+.hidden_options {
     display:none !important;
 }
 

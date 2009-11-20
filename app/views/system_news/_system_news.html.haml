@@ -15,7 +15,7 @@
   .news_content{:id => "description_#{system_news.id}", :class => (system_news.description.length > 36) ? "hidden" : ""}
     .title
       %h2 #{system_news.title}
-    .options{:class => (system_news.description.length > 36) ? "" : "hidden"}
+    .options{:class => (system_news.description.length > 36) ? "" : "hidden_options"}
       = link_to_function image_tag("close_icon.png"), :title=>"Close", :class => "read_more", :news_id => system_news.id
     %br.clear
     %p #{system_news.description}
