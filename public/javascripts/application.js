@@ -2353,13 +2353,13 @@ $(function(){
 /*List Header of Person*/
 
 $(function(){
-    $("#list_header_name").change(function(){
+    $("#list_header_name").live('change',function(){
         $("#person_list_edit").submit();
     });
 });
 
 $(function(){
-    $("#list_header_name2").change(function(){
+    $("#list_header_name2").live('change',function(){
         $("#person_list").submit();
     });
 });
