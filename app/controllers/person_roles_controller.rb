@@ -20,6 +20,7 @@ class PersonRolesController < ApplicationController
 
   def show
     @person_role = PersonRole.find(params[:id].to_i)
+    @temp=true #to pass the show.js becasue add a @temp in update
     respond_to do |format|
       format.js
     end

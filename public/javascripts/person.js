@@ -1133,6 +1133,12 @@ $(".person_roles_close").live('click',function(){
     }
 });
 
+$("#person_role_edit_close_button").live('click',function(){
+
+    $('#person_role_hidden_tab').attr('mode','show');
+});
+
+
 
 // Address assistant //
 
