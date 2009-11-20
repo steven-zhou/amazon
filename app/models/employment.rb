@@ -38,6 +38,7 @@ class Employment < ActiveRecord::Base
   end
 
   def person_must_be_valid
+    
     errors.add(:report_to, "can't be invalid") if (!report_to.blank? && Person.find_by_id(report_to).nil?)
     errors.add(:terminated_by, "can't be invalid") if (!terminated_by.blank? && Person.find_by_id(terminated_by).nil?)
     errors.add(:suspended_by, "can't be invalid") if (!suspended_by.blank? && Person.find_by_id(suspended_by).nil?)
