@@ -25,13 +25,13 @@ $(function() {
     });
 
     $(".close_image").live('click', function(){
-        $(this).children('img').attr('src', '/images/open_accordion.png');
+        $(this).children('img').attr('src', '/images/Icons/System/collapse.png');
         $(this).removeClass('close_image');
         $(this).addClass('open_image');
     });
 
     $(".open_image").live('click', function(){
-        $(this).children('img').attr('src', '/images/closed_accordion.png');
+        $(this).children('img').attr('src', '/images/Icons/System/expand.png');
         $(this).removeClass('open_image');
         $(this).addClass('close_image');
     });

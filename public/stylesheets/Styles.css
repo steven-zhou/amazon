@@ -967,7 +967,7 @@ div.highlight {
 }
 
 .hidden {
-    display:none;
+    display:none !important;
 }
 
 .option {
@@ -2038,7 +2038,7 @@ div#permission_form .options{
 
 /*Dashboard*/
 #dashboard .system_news_container {
-    width:290px;
+    width:29%;
     min-height:100px;
     margin-right:15px;
     -moz-border-radius-bottomleft:10px;
@@ -2095,7 +2095,7 @@ div#permission_form .options{
 #dashboard #system_news_panel #system_news_holder {
     overflow: hidden;
     float: none;
-    width:250%;
+    width:100%;
 }
 .dashboard_form {
     color:#232323;

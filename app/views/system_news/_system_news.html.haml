@@ -3,7 +3,10 @@
   - if system_news.description.length > 36
     .news_content{:id => "short_description_#{system_news.id}"}
       .title
-        %h2 #{system_news.title}
+        - if system_news.title.length > 24
+          %h2 #{system_news.title[0,24]}...
+        - else
+          %h2 #{system_news.title}
       %br.clear
       %p #{system_news.short_description}
       .read_more
