@@ -3506,7 +3506,7 @@ $(function(){
         $('#system_log_export_user_name').val($('#user_name').val());
         $('#system_log_export_start_date').val($('#system_log_start_date').val());
         $('#system_log_export_end_date').val($('#system_log_end_date').val());
-
+        $('#system_log_export_status').val($('#system_log_status').val());
     });
 });
 
