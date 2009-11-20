@@ -1,3 +1,4 @@
+<% if @postcode.errors.empty? -%>
 $('#add_new_postcode').html('<%= escape_javascript(render(:partial => "/postcodes/new_postcode")) %>').css('display','');
 $('#existing_postcodes').html('<%= escape_javascript(render(:partial => "/postcodes/existing_postcodes")) %>');
 $('#postcode_mode').attr('mode', 'show');
@@ -91,3 +92,23 @@ $('#edit_postcode').css('display','none');
         width: 'auto',
         height: 'auto'
     });
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

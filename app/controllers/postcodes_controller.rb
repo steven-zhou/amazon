@@ -18,13 +18,33 @@ class PostcodesController < ApplicationController
   def create
     @postcode = Postcode.new(params[:postcode])
     @postcode.country_id = session[:postcode_country_id]
-    @postcode.country_name = Country.find(session[:postcode_country_id]).short_name unless session[:postcode_country_id].nil?
-    @postcode.geo_area = GeographicalArea.find(params[:postcode][:geographical_area_id]).division_name unless params[:postcode][:geographical_area_id].nil?
-    @postcode.elec_area = ElectoralArea.find(params[:postcode][:electoral_area_id]).division_name unless params[:postcode][:electoral_area_id].nil?
+    @postcode.country_name = Country.find(session[:postcode_country_id]).short_name unless session[:postcode_country_id].blank?
+    @postcode.geo_area = GeographicalArea.find(params[:postcode][:geographical_area_id]).division_name unless params[:postcode][:geographical_area_id].blank?
+    @postcode.elec_area = ElectoralArea.find(params[:postcode][:electoral_area_id]).division_name unless params[:postcode][:electoral_area_id].blank?
     if @postcode.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new postcode entry with ID #{@postcode.id}.")
     else
-      
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a postcode record.")
+      #----------------------------presence - of----
+      if(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:suburb].nil? && @postcode.errors.on(:suburb).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:geographical_area_id].nil? && @postcode.errors.on(:geographical_area_id).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:electoral_area_id].nil? && @postcode.errors.on(:electoral_area_id).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+
+        #-----------------------validate--person_must_be_valid------------------------
+      elsif(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "postcode")
+      elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "state")
+      elsif(!@postcode.errors[:suburb].nil? && @postcode.errors.on(:suburb).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "suburb")
+      end
     end
     respond_to do |format|
       format.js
@@ -38,6 +58,28 @@ class PostcodesController < ApplicationController
       @postcode.elec_area = ElectoralArea.find(params[:postcode][:electoral_area_id]).division_name unless params[:postcode][:electoral_area_id].nil?
       @postcode.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for postcode with ID #{@postcode.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a postcode record.")
+      #----------------------------presence - of----
+      if(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:suburb].nil? && @postcode.errors.on(:suburb).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:geographical_area_id].nil? && @postcode.errors.on(:geographical_area_id).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@postcode.errors[:electoral_area_id].nil? && @postcode.errors.on(:electoral_area_id).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+
+        #-----------------------validate--person_must_be_valid------------------------
+      elsif(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "postcode")
+      elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "state")
+      elsif(!@postcode.errors[:suburb].nil? && @postcode.errors.on(:suburb).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "suburb")
+      end
     end
     respond_to do |format|
       format.js
