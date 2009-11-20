@@ -321,13 +321,13 @@ $(function() {
     }
 
 
-    $("#new_person_role").submit( function(){
-        $('#assigner_container_0').html('');
-        $('#approver_container_0').html('');
-        $('#superviser_container_0').html('');
-        $('#manager_container_0').html('');
-  
-    });
+//    $("#new_person_role").submit( function(){
+//        $('#assigner_container_0').html('');
+//        $('#approver_container_0').html('');
+//        $('#superviser_container_0').html('');
+//        $('#manager_container_0').html('');
+//
+//    });
 
 
 
