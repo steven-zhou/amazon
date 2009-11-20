@@ -116,10 +116,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :available_modules, :collection => {:switch_status => :get}
 
   map.resources :post_areas, :collection => {:select_ajax_show => :get}
-  map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get}
+  map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get}
   map.resources :postcodes, :collection => {:show_by_country => :get}
   map.resources :languages, :collection => {:show_languages => :get}
   map.resources :religions
+ 
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

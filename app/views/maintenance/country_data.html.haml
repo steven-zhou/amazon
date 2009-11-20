@@ -7,32 +7,32 @@
 
   .tab_switch_left.active.left{:field =>"country_page"}
   .container_icon.active.left{:align => 'center'}
-    = link_to_function "<h1>Country</h1>",:class=>"tab_switch_button active", :field => "country_page"
+    = link_to_function "<h1>Country</h1>",:class=>"tab_switch_button page_initial active", :url => "/countries/page_initial",:method => "GET", :render_page => "countries/countries_tab",  :field => "country_page"
   .tab_switch_right.active.left{:field =>"country_page"}
 
   .tab_switch_left.left{:field =>"post_code_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Post Code</h1>", :class=>"tab_switch_button", :field => "post_code_page"
+    = link_to_function "<h1>Post Code</h1>", :class=>"tab_switch_button page_initial", :url => "/countries/page_initial", :method => "GET", :render_page => "postcodes/postcodes_tab", :field => "post_code_page"
   .tab_switch_right.left{:field =>"post_code_page"}
 
   .tab_switch_left.left{:field =>"geo_area_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Geo Area</h1>", :class=>"tab_switch_button", :field => "geo_area_page"
+    = link_to_function "<h1>Geo Area</h1>", :class=>"tab_switch_button page_initial", :url => "/countries/page_initial", :method => "GET", :render_page => "geo_areas/geo_areas_tab", :field => "geo_area_page"
   .tab_switch_right.left{:field =>"geo_area_page"}
 
   .tab_switch_left.left{:field =>"electoral_area_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Electoral Area</h1>", :class=>"tab_switch_button", :field => "electoral_area_page", :param1 => "electoral_area"
+    = link_to_function "<h1>Electoral Area</h1>", :class=>"tab_switch_button page_initial", :url => "/countries/page_initial", :method => "GET", :render_page => "electoral_areas/electoral_area_tab", :field => "electoral_area_page"
   .tab_switch_right.left{:field =>"electoral_area_page"}
 
   .tab_switch_left.left{:field =>"language_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Language</h1>", :class=>"tab_switch_button", :field => "language_page"
+    = link_to_function "<h1>Language</h1>", :class=>"tab_switch_button page_initial", :url => "/countries/page_initial", :method => "GET", :render_page => "languages/languages_tab", :field => "language_page"
   .tab_switch_right.left{:field =>"language_page"}
 
   .tab_switch_left.left{:field =>"religion_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Religion</h1>", :class=>"tab_switch_button", :field => "religion_page"
+    = link_to_function "<h1>Religion</h1>", :class=>"tab_switch_button page_initial", :url => "/countries/page_initial", :method => "GET", :render_page => "religions/religions_tab", :field => "religion_page"
   .tab_switch_right.left{:field =>"religion_page"}
 
 %br.clear
@@ -41,17 +41,17 @@
   = render :partial => "countries/countries_tab"
 
 #post_code_page.tab_switch_container
-  = render :partial => "postcodes/postcodes_tab"
+  
 
 #geo_area_page.tab_switch_container
-  = render :partial => "geo_areas/geo_areas_tab"
+  
 
 #electoral_area_page.tab_switch_container
-  = render :partial => "electoral_areas/electoral_area_tab"
+  
 
 #language_page.tab_switch_container
-  = render :partial => "languages/languages_tab"
+  
 
 #religion_page.tab_switch_container
-  = render :partial => "religions/religions_tab"
+  
 

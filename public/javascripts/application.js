@@ -6597,147 +6597,6 @@ $(function(){
 
 /* Country Grid*/
 $(function(){
-    $("#show_countries_grid").flexigrid({
-        url: '/grids/show_countries_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Long Name',
-            name : 'long_name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Short Name',
-            name : 'short_name',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Citizenship',
-            name : 'citizenship',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Capital',
-            name : 'capital',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'ISO Code',
-            name : 'iso_code',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Dialup Code',
-            name : 'dialup_code',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Main Language',
-            name : 'govenment_language',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Currency',
-            name : 'currency',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Currency Subunit',
-            name : 'currency_subunit',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'Long Name',
-            name : 'long_name'
-        },
-
-        {
-            display: 'Short Name',
-            name : 'short_name'
-        },
-
-        {
-            display: 'Citizenship',
-            name : 'citizenship'
-        },
-
-        {
-            display: 'Capital',
-            name : 'capital'
-        },
-
-        {
-            display: 'ISO Code',
-            name : 'iso_code'
-        },
-
-        {
-            display: 'Dialup Code',
-            name : 'dialup_code'
-        },
-
-        {
-            display: 'Main Language',
-            name : 'govenment_language'
-        },
-
-        {
-            display: 'Currency',
-            name : 'currency'
-        },
-
-        {
-            display: 'Currency Subunit',
-            name : 'currency_subunit'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Countries',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
     $('table#show_countries_grid tbody tr').live('click',function(){
         if($('#country_mode').attr('mode')=="show"){
             $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
@@ -6769,56 +6628,6 @@ $(function(){
 
 /* Language Grid*/
 $(function(){
-    $("#show_languages_grid").flexigrid({
-        url: '/grids/show_languages_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Name',
-            name : 'name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Description',
-            name : 'description',
-            width : 200,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'Name',
-            name : 'name'
-        },
-
-        {
-            display: 'Description',
-            name : 'description'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Languages',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
     $('table#show_languages_grid tbody tr').live('click',function(){
         if($('#language_mode').attr('mode')=="show"){
             $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
@@ -6879,56 +6688,6 @@ $('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
 
 /* Religion Grid*/
 $(function(){
-    $("#show_religions_grid").flexigrid({
-        url: '/grids/show_religions_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Name',
-            name : 'name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Description',
-            name : 'description',
-            width : 200,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'Name',
-            name : 'name'
-        },
-
-        {
-            display: 'Description',
-            name : 'description'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Religions',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
     $('table#show_religions_grid tbody tr').live('click',function(){
         if($('#religion_mode').attr('mode')=="show"){
             $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
@@ -7002,6 +6761,16 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".page_initial").live('mousedown', function(){
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("url")+".js",
+             data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
+            dataType: "script"
+        });
+    });
+});
 /*bank setting*/
 $(function(){
     $('#open_add_new_bank').click(function(){
@@ -7020,6 +6789,7 @@ $(function(){
 });
 
 $(function(){
+
     $('#delete_bank_entry').live('click', function(){
 
         var link = $(this);

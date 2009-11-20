@@ -1,3 +1,4 @@
+<% if @language.errors.empty? -%>
 $('#add_new_language').html('<%= escape_javascript(render(:partial => "/languages/new_language")) %>').css('display','');
 $('#existing_languages').html('<%= escape_javascript(render(:partial => "/languages/existing_languages")) %>');
 $('#language_mode').attr('mode', 'show');
@@ -51,3 +52,23 @@ $('#edit_language').css('display','none');
         width: 'auto',
         height: 'auto'
     });
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

@@ -17,3 +17,56 @@
       .options
         = link_to_function image_tag('close_icon.png'), :field => "language", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_language", :toggle_id_name1 => "add_new_language"
       #edit_language_form
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  jQuery(function(){
+  $("#show_languages_grid").flexigrid({
+  url: '/grids/show_languages_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 200,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Name',
+  name : 'name'
+  },
+
+  {
+  display: 'Description',
+  name : 'description'
+  }
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Languages',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+  });
