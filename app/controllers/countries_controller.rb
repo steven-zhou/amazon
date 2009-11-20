@@ -21,7 +21,19 @@ class CountriesController < ApplicationController
     if @country.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new country entry with ID #{@country.id}.")
     else
-      
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a country record.")
+      #----------------------------presence - of----
+      if(!@country.errors[:short_name].nil? && @country.errors.on(:short_name).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+
+        #-----------------------validate--person_must_be_valid------------------------
+      elsif(!@country.errors[:short_name].nil? && @country.errors.on(:short_name).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "short_name")
+      elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "citizenship")
+      end
     end
     respond_to do |format|
       format.js
@@ -34,7 +46,19 @@ class CountriesController < ApplicationController
     if @country.update_attributes(params[:country])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for country with ID #{@country.id}.")
     else
-      
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a country record.")
+      #----------------------------presence - of----
+      if(!@country.errors[:short_name].nil? && @country.errors.on(:short_name).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("can't be blank"))
+         flash.now[:error] = "Please Enter All Required Data"
+
+        #-----------------------validate--person_must_be_valid------------------------
+      elsif(!@country.errors[:short_name].nil? && @country.errors.on(:short_name).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "short_name")
+      elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("has already been taken"))
+          flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "citizenship")
+      end
     end
     respond_to do |format|
       format.js
