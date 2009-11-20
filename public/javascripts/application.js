@@ -6766,7 +6766,7 @@ $(function(){
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",
-             data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
+            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
             dataType: "script"
         });
     });
@@ -6890,8 +6890,8 @@ $(function(){
         var link = $(this);
         if($('#check_input_change').val() == "false")
         {
-         $('.page_initial[field='+ link.attr('field')+']').click();
-           $('.page_initial[field='+ link.attr('field')+']').mousedown();
+            $('.page_initial[field='+ link.attr('field')+']').click();
+            $('.page_initial[field='+ link.attr('field')+']').mousedown();
         }
         else
         {
@@ -6911,8 +6911,8 @@ $(function(){
 
                     },
                     Yes: function(){
-                         $('.page_initial[field='+ link.attr('field')+']').click();
-                          $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('.page_initial[field='+ link.attr('field')+']').click();
+                        $('.page_initial[field='+ link.attr('field')+']').mousedown();
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -6931,4 +6931,34 @@ $(function(){
     });
 });
 
+/*help-icon*/
 
+$(function(){
+    $('#help_icon_tab').click(function(){
+        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    ok: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+           
+    });
+});
