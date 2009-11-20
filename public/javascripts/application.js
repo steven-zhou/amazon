@@ -6063,7 +6063,27 @@ $(function(){
 
         if($('#check_input_change').val() == "false")
         {
-            window.open(link.attr('href'),"_self"); 
+            if (link.attr('url').indexOf("people") > 0)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: link.attr('url')+".js",
+                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                    dataType: "script"
+                });
+            }
+            if (link.attr('url').indexOf("organisations") > 0)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: $(this).attr('url')+".js",
+                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                    dataType: "script"
+                });
+
+            }
+
+
             return false;
         }
         else
@@ -6084,7 +6104,25 @@ $(function(){
 
                     },
                     Yes: function(){
-                        window.open(link.attr('href'),"_self");
+                        if (link.attr('url').indexOf("people") > 0)
+                        {
+                            $.ajax({
+                                type: "GET",
+                                url: link.attr('url')+".js",
+                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                                dataType: "script"
+                            });
+                        }
+                        if (link.attr('url').indexOf("organisations") > 0)
+                        {
+                            $.ajax({
+                                type: "GET",
+                                url: $(this).attr('url')+".js",
+                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                                dataType: "script"
+                            });
+
+                        }
                         $('#check_left_input_change').val("false");
                         $('#check_right_input_change').val("false");
                         $('#check_input_change').val("false");
@@ -6465,28 +6503,28 @@ $(function($) {
 
 
 /*arrow block */
-$(function(){
-    $('.person_arrow_block').click(function(){
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
-    });
-});
+//$(function(){
+//    $('.person_arrow_block').click(function(){
+//        $.ajax({
+//            type: "GET",
+//            url: $(this).attr('url')+".js",
+//            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+//            dataType: "script"
+//        });
+//    });
+//});
 
-$(function(){
-    $('.organisation_arrow_block').click(function(){
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
-    });
-});
+//$(function(){
+//    $('.organisation_arrow_block').click(function(){
+//
+//        $.ajax({
+//            type: "GET",
+//            url: $(this).attr('url')+".js",
+//            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+//            dataType: "script"
+//        });
+//    });
+//});
 
 
 
@@ -6797,7 +6835,7 @@ $(function(){
 
 $(function(){
     $('#edit_bank_entry').live('click', function(){
-       $.ajax({
+        $.ajax({
             type: "GET",
             url: "/banks/edit_bank_entry",
             data: 'id=' + $(this).attr('bank_id'),

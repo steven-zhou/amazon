@@ -21,9 +21,9 @@
       .container
         %h1{:style=>"float:left"} Picture
         = render :partial => '/images/show_photo', :locals => {:entity => @person}
-      = submit_tag 'Submit and Close', :style => 'float:right;'
-      = submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
-
+      //= submit_tag 'Submit and Close', :style => 'float:right;'
+      //= submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
+      = submit_tag 'Submit', :style => 'float:right;'
 
   #right_content
     #tabs
@@ -48,7 +48,7 @@
         = render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
 
   %br.clear
+
     #organisation_lookup_dialog
     #person_lookup_dialog
-
     
