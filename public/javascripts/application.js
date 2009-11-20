@@ -6983,19 +6983,62 @@ $(function(){
 
 $(function(){
     $('#delete_bank_entry').live('click', function(){
-       $.ajax({
-            type: "GET",
-            url: "/banks/delete_bank_entry",
-            data: 'id=' + $(this).attr('bank_id'),
-            dataType: "script"
+
+        var link = $(this);
+        $('#warning_message_text').html("Are You Sure You Wish to Delete This Bank?");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $.ajax({
+                        type: "GET",
+                        url: "/banks/delete_bank_entry",
+                        data: 'id=' + link.attr('bank_id'),
+                        dataType: "script"
+                    });
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
         });
+
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
 
     });
 });
 
 $(function(){
     $('#edit_bank_entry').live('click', function(){
-        $('#edit_bank_entry_form').show();
+       $.ajax({
+            type: "GET",
+            url: "/banks/edit_bank_entry",
+            data: 'id=' + $(this).attr('bank_id'),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('#edit_bank_entry_close_form').live('click', function(){
+        $('#edit_bank_entry_form').hide();
     });
 });
 
