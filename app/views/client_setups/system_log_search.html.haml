@@ -26,6 +26,18 @@
             End Date:
           %td{:style => "padding:0.5em"}
             %input{:name => "end_date", :style => "width:150px;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
+        %tr
+          %td{:style => "padding:0.5em"}
+            Entry Type:
+          %td{:style => "padding:0.5em"}
+            %select{:name => "status", :id => "system_log_status"}
+              %option{:value => "Live"} Live
+              %option{:value => "Archived"} Archived
+
+          %td{:style => "padding:0.5em"}
+            &nbsp;
+          %td{:style => "padding:0.5em"}
+            &nbsp;
 
       = submit_tag("Search", :id => "system_log_search_submit")
 
