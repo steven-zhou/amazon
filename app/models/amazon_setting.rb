@@ -6,7 +6,7 @@ class AmazonSetting < ActiveRecord::Base
   def self.distinct_setting_type
     @setting = AmazonSetting.find(:all, :select => "DISTINCT type", :order => "type")
     results = ""
-    @setting.each { |setting| results += "<option value='" + "#{setting.class}" + "'>" + "#{setting.class}".titleize + "</option>" }
+    @setting.each { |setting| results += "<option value='" + "#{setting.class}" + "'>" + "#{setting.class}".titleize + "</option>" if (setting.class.to_s != "Language" && setting.class.to_s != "Religion")}
     return results
   end
   

@@ -55,10 +55,10 @@
           <div id="preferences_menu_neck" ></div>
         <ul>
           <%- if session[:module] == "dashboard" %>
-            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Dashboard", :id => "save_my_dashboard"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
           <%- end%>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Workflow"%></li>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} MyAccount"%></li>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
         </ul>
         <div id="preferences_menu_bottom" ></div>
       </div>

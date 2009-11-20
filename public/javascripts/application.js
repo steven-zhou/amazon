@@ -154,6 +154,7 @@ $(function() {
 
         if($(this).attr('field')== "person_role")
         {
+         
             change_type =$('#role_input_change_or_not').val();
 
         }
@@ -176,6 +177,7 @@ $(function() {
         if(change_type=="true" )
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
