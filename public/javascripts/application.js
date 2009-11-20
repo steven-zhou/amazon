@@ -6992,10 +6992,7 @@ $(function(){
 });
 
 $(function(){
-<<<<<<< HEAD:public/javascripts/application.js
-    $('#delete_bank_entry').click(function(){
-        $.ajax({
-=======
+
     $('#delete_bank_entry').live('click', function(){
 
         var link = $(this);
@@ -7042,7 +7039,6 @@ $(function(){
 $(function(){
     $('#edit_bank_entry').live('click', function(){
        $.ajax({
->>>>>>> e91f8d8ba4feb14717364c292b94d725815c1613:public/javascripts/application.js
             type: "GET",
             url: "/banks/edit_bank_entry",
             data: 'id=' + $(this).attr('bank_id'),
