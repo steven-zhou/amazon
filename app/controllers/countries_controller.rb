@@ -55,13 +55,12 @@ class CountriesController < ApplicationController
     @update_field = params[:param1]
     if params[:param1].to_s == "electoral_area"
       @previous_country = session[:ele_country_id]
-    end
-    
+    end    
     unless @country.nil?
       country = String.new
       country += "<option></option>"
       for c in @country
-        if (c.id == @previous_country)
+        if (c.id.to_s == @previous_country.to_s)
           country += "<option value= '#{c.id}', selected >#{c.short_name}</option>"
         else
           country += "<option value= '#{c.id}'>#{c.short_name}</option>"
@@ -69,6 +68,14 @@ class CountriesController < ApplicationController
       end
     end
     @country_new = country
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
 
     respond_to do |format|
       format.js

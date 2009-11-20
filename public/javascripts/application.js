@@ -6699,7 +6699,7 @@ $(function(){
     $('table#show_countries_grid tbody tr').live('click',function(){
         if($('#country_mode').attr('mode')=="show"){
             $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
-             $(this).addClass('trSelected');
+            $(this).addClass('trSelected');
         }else{
             $(this).removeClass('trSelected');
         }
@@ -6960,6 +6960,16 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".page_initial").live('mousedown', function(){
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("url")+".js",
+             data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
+            dataType: "script"
+        });
+    });
+});
 /*bank setting*/
 $(function(){
     $('#open_add_new_bank').click(function(){
@@ -6979,7 +6989,7 @@ $(function(){
 
 $(function(){
     $('#delete_bank_entry').click(function(){
-       $.ajax({
+        $.ajax({
             type: "GET",
             url: "/banks/delete_bank_entry",
             data: 'id=' + $(this).attr('bank_id'),
