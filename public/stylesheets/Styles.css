@@ -1067,9 +1067,11 @@ img.small {
 }
 
 img.medium {
-    width: 120px;
-    height: 132px;
-
+    width: 110px;
+    height: 112px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
 }
 img.thumb {
     /* width:60px;

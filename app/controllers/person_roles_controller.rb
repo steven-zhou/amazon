@@ -9,6 +9,8 @@ class PersonRolesController < ApplicationController
     else
     flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Role")if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("has already been taken"))
     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:assigned_by].nil? && @person_role.errors.on(:assigned_by).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:start_date].nil? && @person_role.errors.on(:start_date).include?("can't be blank"))
     
     end
     respond_to do |format|
@@ -18,6 +20,7 @@ class PersonRolesController < ApplicationController
 
   def show
     @person_role = PersonRole.find(params[:id].to_i)
+    @temp=true #to pass the show.js becasue add a @temp in update
     respond_to do |format|
       format.js
     end
@@ -56,6 +59,9 @@ class PersonRolesController < ApplicationController
      else
     
      flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Role")if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("has already been taken"))
+     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("can't be blank"))
+     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:assigned_by].nil? && @person_role.errors.on(:assigned_by).include?("can't be blank"))
+     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:start_date].nil? && @person_role.errors.on(:start_date).include?("can't be blank"))
      end
 
    else
