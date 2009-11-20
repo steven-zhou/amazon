@@ -33,7 +33,7 @@ class EmploymentsController < ApplicationController
          flash.now[:error] = "Please Enter All Required Data"
       elsif(!@employment.errors[:emp_recruiter].nil? && @employment.errors.on(:emp_recruiter).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Position--Hire By")
-         flash.now[:error] = "Please Enter All Required Data"
+         flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
         #-----------------------validate--person_must_be_valid------------------------
       elsif(!@employment.errors[:report_to].nil? && @employment.errors.on(:report_to).include?("can't be invalid"))
         flash.now[:error] = flash_message(:type => "invalid_data", :field => "Report To")
@@ -53,7 +53,7 @@ class EmploymentsController < ApplicationController
       elsif(!@employment.errors[:termination_date].nil? && @employment.errors.on(:termination_date).include?("can't be before termination_notice_date"))
         flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "Termination Date")
       else
-        flash.now[:error]= "Some input field invalid, Please check it again"
+        flash.now[:error]= "Some Input Field Invalid, Please Check It Again"
       end
     end
     respond_to do |format|
@@ -75,7 +75,7 @@ class EmploymentsController < ApplicationController
           flash.now[:error] = "Please Enter All Required Data"
       elsif(!@employment.errors[:emp_recruiter].nil? && @employment.errors.on(:emp_recruiter).include?("can't be blank"))
 #        flash.now[:error] = flash_message(:type => "field_missing", :field => "Valid Position--Hire By")
-        flash.now[:error] = "Please Enter All Required Data"
+        flash.now[:error] = "Some Input Field Invalid, Please Check It Again"
         #-----------------------validate--person_must_be_valid------------------------
       elsif(!@employment.errors[:report_to].nil? && @employment.errors.on(:report_to).include?("can't be invalid"))
         flash.now[:error] = flash_message(:type => "invalid_data", :field => "Report To")
@@ -92,7 +92,7 @@ class EmploymentsController < ApplicationController
       elsif(!@employment.errors[:termination_date].nil? && @employment.errors.on(:termination_date).include?("can't be before termination_notice_date"))
         flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "Termination Date")
       else
-        flash.now[:error]= "Some input field invalid, Please check it again"
+        flash.now[:error]= "Some Input Field Invalid, Please Check It Again"
       end
 
       end
