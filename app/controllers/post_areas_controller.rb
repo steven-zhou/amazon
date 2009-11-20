@@ -31,8 +31,18 @@ class PostAreasController < ApplicationController
   def create
     @postal_area = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
     if @postal_area.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new GeographicalArea with ID #{@postal_area.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new #{@postal_area.class.to_s} with ID #{@postal_area.id}.")
     else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new #{@postal_area.class.to_s}")
+      #----------------------------presence - of--------------
+      if(!@postal_area.errors[:division_name].nil? && @postal_area.errors.on(:division_name).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+        #-----------------------validate--uniqueness------------------------
+      elsif(!@postal_area.errors[:division_name].nil? && @postal_area.errors.on(:division_name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "division_name")  
+      else
+        flash.now[:error] = "Input Error"
+      end
     end
     @country_id = session[:geo_country_id]
     @country_id_ele = session[:ele_country_id]
@@ -43,7 +53,7 @@ class PostAreasController < ApplicationController
     end
     respond_to do |format|
       format.js
-    end  
+    end
   end
 
   def edit
@@ -59,12 +69,21 @@ class PostAreasController < ApplicationController
   end
 
   def update
-    @postal_area = PostArea.find(params[:id].to_i)
-    @postal_area.update_attributes(params[params[:type].underscore.to_sym])
-    if @postal_area.save
+    @postal_area = PostArea.find(params[:id].to_i)    
+    if @postal_area.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated #{params[:type]} Setting with ID #{ @postal_area.id}.")
     else
-     
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update #{params[:type]} Setting with ID #{ @postal_area.id}.")
+      #----------------------------presence - of--------------
+      if(!@postal_area.errors[:division_name].nil? && @postal_area.errors.on(:division_name).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+        #-----------------------validate--uniqueness------------------------
+      elsif(!@postal_area.errors[:division_name].nil? && @postal_area.errors.on(:division_name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "division_name")
+      else
+        flash.now[:error] = "Input Error"
+      end
+
     end
     @country_id = session[:geo_country_id]
     @country_id_ele = session[:ele_country_id]

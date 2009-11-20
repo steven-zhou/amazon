@@ -28,7 +28,7 @@ class CountriesController < ApplicationController
       elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("can't be blank"))
          flash.now[:error] = "Please Enter All Required Data"
 
-        #-----------------------validate--person_must_be_valid------------------------
+        #-----------------------validate--uniqueness------------------------
       elsif(!@country.errors[:short_name].nil? && @country.errors.on(:short_name).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "short_name")
       elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("has already been taken"))
@@ -53,7 +53,7 @@ class CountriesController < ApplicationController
       elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("can't be blank"))
          flash.now[:error] = "Please Enter All Required Data"
 
-        #-----------------------validate--person_must_be_valid------------------------
+        #-----------------------validate--uniqueness------------------------
       elsif(!@country.errors[:short_name].nil? && @country.errors.on(:short_name).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "short_name")
       elsif(!@country.errors[:citizenship].nil? && @country.errors.on(:citizenship).include?("has already been taken"))
