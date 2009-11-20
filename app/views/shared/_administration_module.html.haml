@@ -34,7 +34,6 @@
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
           %li{:id => @current_action == "system_log" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} Audit Trail", :controller => "client_setups", :action => "system_log_search"
-
     .bottom
 
   - # Configuration Menu
@@ -100,10 +99,10 @@
     .bottom
 
   - # System Maintenance Menu
-  %li{:id => @current_controller == "maintenance" ? "menu_active" : ""}
+  %li{:id => ( @current_controller == "maintenance" || @current_controller == "banks") ? "menu_active" : ""}
     .top
     .item
-      - if @current_controller != "maintenance"
+      - if !(@current_controller == "maintenance" || @current_controller == "banks" )
         = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
       - else
         <p>Maintenace</p>
@@ -116,4 +115,6 @@
             = link_to "#{image_tag('/images/Icons/Core/Import_export/export.png')} Import Postcodes", :controller => "maintenance", :action => "import_postcodes"
           %li{:id => @current_action == "country_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/country_data.png')} Country Data", :controller => "maintenance", :action => "country_data"
+          %li{:id => @current_action == "list" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Bank Data", :controller => "banks", :action => "list"
     .bottom
