@@ -508,14 +508,12 @@ margin-right: 5px;
     display:inline;
 }
 
-#app #main #content .container div.header_container .title h1{
-    margin: 0 0 0 0 !important;
-    color: #2C2C2C;
-    font-size:20px;
-    font-weight: bold;
-    line-height: 22px;
-    font-family:Arial,Helvetica,sans-serif;
+#app #main #content .full_container .options {
+    float: right;
+    display:inline;
 }
+
+
 /*blue container second title*/
 #app #main #content .container h2 {
     font-size:18px;
@@ -857,7 +855,6 @@ div.container div.header_container {
 }
 
 
-
 div.container div.header_container .title {
     float: left;
     display:inline;
@@ -875,12 +872,11 @@ div.container div.header_container .title h1{
 }
 
 div.container div.header_container h1 {
-    margin:0 0 0 35px;
     color: #2C2C2C;
     font-size:20px;
     font-weight: bold;
     line-height: 22px;
-    font-family:Arial,Helvetica,sans-serif;
+    margin-bottom: 5px;
 }
 
 div.container div.header_container .options {
@@ -963,6 +959,10 @@ div.highlight {
 
 .hidden {
     display:none;
+}
+
+.hidden_options {
+    display:none !important;
 }
 
 .option {
@@ -1062,9 +1062,11 @@ img.small {
 }
 
 img.medium {
-    width: 120px;
-    height: 132px;
-
+    width: 110px;
+    height: 112px;
+    padding: 5px;
+    background-color: #fff;
+    border: 1px solid #ddd;
 }
 img.thumb {
     /* width:60px;
@@ -1302,6 +1304,7 @@ form#organisation_names_form input#image_image_file{
 /*Grids*/
 .flexigrid input, .flexigrid select {
     width:auto !important;
+    height: 22px !important;
 }
 
 /*UI light-box*/
@@ -2032,7 +2035,7 @@ div#permission_form .options{
 
 /*Dashboard*/
 #dashboard .system_news_container {
-    width:290px;
+    width:29%;
     min-height:100px;
     margin-right:15px;
     -moz-border-radius-bottomleft:10px;
@@ -2089,7 +2092,7 @@ div#permission_form .options{
 #dashboard #system_news_panel #system_news_holder {
     overflow: hidden;
     float: none;
-    width:250%;
+    width:100%;
 }
 .dashboard_form {
     color:#232323;
@@ -2182,6 +2185,7 @@ div#permission_form .options{
     margin-right:4px;
 
 }
+
 #app #left_content #new_pic_upload{
     float:right;
 
@@ -2387,3 +2391,55 @@ div#permission_form .options{
     position: relative;
     left:0;
 }
+
+/*Asterisk*/
+.asterisk{
+color:red;
+display:inline;
+font-size:20px;
+height:5px;
+line-height:5px;
+
+padding-left:5px;
+
+text-align:center;
+text-decoration:none;
+
+vertical-align:bottom;
+}
+
+
+/*tab looking*/
+#app #main #content .tab_looking_left{
+   background-image:url(/images/round_left.png);
+    background-position: bottom left;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: left;
+    margin-left:10px;
+}
+
+#app #main #content .tab_looking_right{
+    background-image:url(/images/round_right.png);
+    background-position: bottom right;
+    background-repeat:no-repeat;
+    height: 40px;
+    width: 8px;
+    float: left;
+}
+
+#app #main #content .tab_looking_icon{
+    background-image:url(/images/container_bg.png);
+    font-family:Arial, Helvetica, sans-serif;
+    background-repeat:repeat;
+    color: #2C2C2C;
+    float: left;
+    padding: 10px 15px;
+    height: 20px;
+    -moz-border-radius-topleft:10px;
+    -moz-border-radius-topright:10px;
+    font-size:20px;
+    text-align:center;
+}
+

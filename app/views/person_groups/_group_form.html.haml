@@ -1,13 +1,13 @@
 .form_line{:style => "float:none;"}
   .field_25
-    = label_tag :group_meta_type_id, "Group Type"
+    = label_tag :group_meta_type_id, "Group Type<span class='asterisk'>*</span>"
     = collection_select :group,:group_meta_type_id, TagType.show_meta_type, :id, :name,{:prompt => " "}, {:class => "find_group_meta_type"}
   .field_25
     = label_tag :group_type_description, " ", {:id => "group_type_description"}
 
 .form_line
   .field_25
-    = label_tag :group_meta_type_id, "Group"
+    = label_tag :group_meta_type_id, "Group<span class='asterisk'>*</span>"
     %select#group_id{:name => "person_group_id"}
       %option
   .field_25

@@ -5,7 +5,8 @@
       = link_to_function image_tag('close_icon.png'), :class => " person_master_doc_close ", :toggle_id_name => "new_master_doc", :style => "display:none", :field => "master_doc", :title=>"Close"
     .title
       = link_to_function image_tag('add_icon.png'), :id=>"add_masterdoc", :class=>"person_master_doc_toggle_button", :toggle_id_name => "new_master_doc"  if (!person.nil? && !person.new_record?)
-    %h1 New MasterDoc
+      &nbsp
+    %h1 New Master Doc
     %input{:id => "master_doc_hidden_tab", :mode => "show", :style => "display:none"}
     %input{:id => "master_doc_input_change_or_not", :style => "display:none", :value => "false"}
     =# Initially hidden new masterdoc form

@@ -1,10 +1,10 @@
 -# The options to edit or add an address
 .form_line{:style => "float:none;"}
   .field_20
-    = relationship.label :relationship_type_id, 'Type'
+    = relationship.label :relationship_type_id, "Type<span class='asterisk'>*</span>"
     = relationship.collection_select :relationship_type_id, RelationshipType.active_relationship_type - @person.personal_relationship_type, :id, :name
   .field_20{:style => "margin-right: 2px;"}
-    = relationship.label :related_person_id, 'System ID'
+    = relationship.label :related_person_id, "System ID<span class='asterisk'>*</span>"
     = relationship.text_field :related_person_id
   .field_5
     %label &nbsp;
@@ -15,6 +15,6 @@
   .field_20
     
     %input{:name => "relationship[source_person_id]", :value => "#{@person.id}", :class => "hidden"}
-  %br{:style=>"clear: both;"}
+
 
 

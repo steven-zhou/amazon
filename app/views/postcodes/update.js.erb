@@ -1,0 +1,114 @@
+<% if @postcode.errors.empty? -%>
+$('#add_new_postcode').html('<%= escape_javascript(render(:partial => "/postcodes/new_postcode")) %>').css('display','');
+$('#existing_postcodes').html('<%= escape_javascript(render(:partial => "/postcodes/existing_postcodes")) %>');
+$('#postcode_mode').attr('mode', 'show');
+$('.select_ajax_call[field="postcode"]').attr('disabled', false)
+$('#edit_postcode').css('display','none');
+   $("#show_postcodes_by_country_grid").flexigrid({
+        url: '/grids/show_postcodes_by_country_grid',
+        dataType: 'json',
+        colModel : [
+        {
+            display: 'ID',
+            name : 'id',
+            width : 40,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'State',
+            name : 'state',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Suburb',
+            name : 'suburb',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Postcode',
+            name : 'postcode',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Geo Area',
+            name : 'geo_area',
+            width : 100,
+            sortable : true,
+            align: 'left'
+        },
+
+        {
+            display: 'Electoral Area',
+            name : 'elec_area',
+            width : 200,
+            sortable : true,
+            align: 'left'
+        }
+        ],
+        searchitems : [
+        {
+            display: 'State',
+            name : 'state'
+        },
+
+        {
+            display: 'Suburb',
+            name : 'suburb'
+        },
+
+        {
+            display: 'Postcode',
+            name : 'postcode'
+        },
+
+        {
+            display: 'Geo Area',
+            name : 'geo_area'
+        },
+
+        {
+            display: 'Electoral Area',
+            name : 'elec_area'
+        }
+        ],
+        sortname: "id",
+        sortorder: "asc",
+        usepager: true,
+        title: 'Postcodes',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+    });
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

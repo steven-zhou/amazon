@@ -21,7 +21,7 @@ class Employment < ActiveRecord::Base
   belongs_to :suspension_type
   belongs_to :termination_method
 
-  validates_presence_of :organisation, :commenced_date, :emp_recruiter
+  validates_presence_of :organisation, :commenced_date, :emp_recruiter,:staff_reference,:position_name
   validates_associated :organisation, :emp_supervisor
   validates_numericality_of :weekly_nominal_hours, :hourly_rate
   validate :end_date_must_be_equal_or_after_commence_date, :person_must_be_valid
@@ -31,12 +31,14 @@ class Employment < ActiveRecord::Base
 
   protected
   def end_date_must_be_equal_or_after_commence_date
-    errors.add(:term_end_date, "can't be before commence date") if (!term_end_date.nil? && term_end_date < commenced_date)
-    errors.add(:suspension_end_date, "can't be before suspension start date") if (!suspension_end_date.nil? && suspension_end_date < suspension_start_date)
-    errors.add(:termination_date, "can't be before termination_notice_date") if (!termination_date.nil? && termination_date < termination_notice_date)
+    errors.add(:commenced_date, "can't be blank") if (commenced_date.nil? )
+    errors.add(:term_end_date, "can't be before commence date") if (!term_end_date.nil? && !commenced_date.nil? && term_end_date < commenced_date)
+    errors.add(:suspension_end_date, "can't be before suspension start date") if (!suspension_end_date.nil? && !suspension_start_date.nil? && suspension_end_date < suspension_start_date)
+    errors.add(:termination_date, "can't be before termination_notice_date") if (!termination_date.nil? && !termination_notice_date.nil? && termination_date < termination_notice_date)
   end
 
   def person_must_be_valid
+    
     errors.add(:report_to, "can't be invalid") if (!report_to.blank? && Person.find_by_id(report_to).nil?)
     errors.add(:terminated_by, "can't be invalid") if (!terminated_by.blank? && Person.find_by_id(terminated_by).nil?)
     errors.add(:suspended_by, "can't be invalid") if (!suspended_by.blank? && Person.find_by_id(suspended_by).nil?)

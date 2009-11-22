@@ -1,0 +1,3 @@
+$('#new_postcode_form').html('<%= escape_javascript(render(:partial => "/postcodes/postcode_form", :locals => {:postcode => @postcode })) %>');
+$('#new_postcode_form').css('display','');
+$('.select_ajax_call[field="postcode"]').attr('disabled', true)

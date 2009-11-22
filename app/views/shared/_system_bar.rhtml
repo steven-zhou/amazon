@@ -23,20 +23,11 @@
           <%- if session[:module] != "core" %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
           <%- end %>
-          <%- if session[:module] != "membership" %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
-          <%- end %>
-          <%- if session[:module] != "fundraising" %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Fundraising", :controller => "module", :action => "fundraising"  %></li>
-          <%- end %>
-          <%- if session[:module] != "case_management" %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} My Case", :controller => "module", :action => "case_management"  %></li>
-          <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
           <%- end %>
           <%- if (@current_user.class.to_s == "MemberZone" && session[:module] != "client_setup") %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module_menu.png')} MemberZone", :controller => "module", :action => "client_setup"  %></li>
           <%- end %>
           <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/logout.png')} Sign Out", { :controller => "signin", :action => "signout"} , :id => "signout" %></li>
         </ul>
@@ -64,10 +55,10 @@
           <div id="preferences_menu_neck" ></div>
         <ul>
           <%- if session[:module] == "dashboard" %>
-            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Dashboard", :id => "save_my_dashboard"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
           <%- end%>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} Workflow"%></li>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('icon_holder.png')} MyAccount"%></li>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
+          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
         </ul>
         <div id="preferences_menu_bottom" ></div>
       </div>
@@ -82,7 +73,7 @@
   <div class="bar_section" id="help">
     <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
 
-    <%= link_to image_tag('/images/help_icon.png'), {:controller => "feedback", :action => "list"}, {:title=>"Help"} %>
+    <%= link_to_function image_tag('/images/help_icon.png', :title=>"Help"), {:id => "help_icon_tab"} %>
   </div>
 
 </div>

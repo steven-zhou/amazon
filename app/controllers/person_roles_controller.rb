@@ -4,8 +4,15 @@ class PersonRolesController < ApplicationController
   def create
     @person = Person.find(params[:person_id].to_i)
     @person_role = @person.person_roles.new(params[:person_role])
-    @person_role.save
+    if @person_role.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person Role #{@person_role.id}.")
+    else
+    flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Role")if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("has already been taken"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:assigned_by].nil? && @person_role.errors.on(:assigned_by).include?("can't be blank"))
+    flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:start_date].nil? && @person_role.errors.on(:start_date).include?("can't be blank"))
+    
+    end
     respond_to do |format|
       format.js
     end
@@ -13,6 +20,7 @@ class PersonRolesController < ApplicationController
 
   def show
     @person_role = PersonRole.find(params[:id].to_i)
+    @temp=true #to pass the show.js becasue add a @temp in update
     respond_to do |format|
       format.js
     end
@@ -43,10 +51,27 @@ class PersonRolesController < ApplicationController
 
   def update
     @person_role = PersonRole.find(params[:id].to_i)
-    @person_role.update_attributes(params[:person_role][@person_role.id.to_s])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person Role #{@person_role.id}.")
     
-    render "show.js"
+     @temp = !params[:person_role][@person_role.id.to_s][:role_id].nil?
+   if !params[:person_role][@person_role.id.to_s][:role_id].nil?
+     if @person_role.update_attributes(params[:person_role][@person_role.id.to_s])
+     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person Role #{@person_role.id}.")
+     else
+    
+     flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Role")if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("has already been taken"))
+     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:role_id].nil? && @person_role.errors.on(:role_id).include?("can't be blank"))
+     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:assigned_by].nil? && @person_role.errors.on(:assigned_by).include?("can't be blank"))
+     flash.now[:error]= "Please Enter All Required Data"if(!@person_role.errors[:start_date].nil? && @person_role.errors.on(:start_date).include?("can't be blank"))
+     end
+
+   else
+    flash.now[:error]= "Please Enter All Required Data"
+    
+   end
+     respond_to do |format|
+      format.js {render "show.js"}
+    end
+
   end
 
 

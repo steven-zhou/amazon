@@ -1,6 +1,9 @@
 .container.toggle_options{:id => "system_news_detail_#{system_news_detail.id}", :field => "system_news"}
   .options{:style => "float:right;display:none;"}
-    = link_to image_tag("icon_holder.png"), switch_system_news_path(system_news_detail), :class => "get", :title=>"Switch"
+    - if system_news_detail.status
+      = link_to image_tag("/images/Icons/System/todo_important.png"), switch_system_news_path(system_news_detail), :class => "get", :title=>"Switch"
+    - else
+      = link_to image_tag("/images/Icons/System/todo.png"), switch_system_news_path(system_news_detail), :class => "get", :title=>"Switch"
     = link_to image_tag("edit_icon.png"), edit_system_news_path(system_news_detail), :class => "get", :title=>"Edit"
     = link_to image_tag("delete_icon.png"), system_news_path(system_news_detail), :class => "delete", :title=>"Remove", :error_message_field => "System News"
   .title

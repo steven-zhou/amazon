@@ -1,6 +1,21 @@
-<% unless flash[:error].nil? %>
 
-  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ <% if @relationship.errors.empty? -%>
+     $('#relationship_type').html('<%= escape_javascript(render(:partial => '/relationships/personal_relationship_type' ,:locals => { :relationship => @relationship_new })) %>');
+    $('#<%= @relationship.relationship_type.name.gsub(/ /,'_').underscore %>').append('<%= escape_javascript(render(:partial => "person", :locals => {:person => @relationship.related_person,:type => @relationship.relationship_type.name.gsub(/ /,'_').underscore})) %>');
+    $('#<%= dom_id(@related_person) %>').effect('slide', {direction:'right'});
+    <% if @relationship.relationship_type.name == 'Father' || @relationship.relationship_type.name == 'Mother' -%>
+      $('#siblings').replaceWith('<%= escape_javascript(render :partial => "/relationships/relationship_container", :locals => {:type => "Siblings", :relations => @source_person.siblings}) %>');
+
+    <% end %>
+    $("#new_relationship")[0].reset();
+    $("#new_relationship").hide();
+    $('.person_relationship_toggle_button').css("display","");
+    $('.person_relationship_close').css("display","none");
+    $('#relationship_hidden_tab').attr('mode','show');
+
+
+    <%else%>
+      $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $("#flash_message").dialog( {
   modal:true,
   resizable: false,
@@ -23,23 +38,7 @@
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
   $('#flash_message').dialog('option', 'title', 'Error');
-<% else %>
 
-
-
-  <% if @relationship.errors.empty? -%>
-     $('#relationship_type').html('<%= escape_javascript(render(:partial => '/relationships/personal_relationship_type' ,:locals => { :relationship => @relationship_new })) %>');
-    $('#<%= @relationship.relationship_type.name.gsub(/ /,'_').underscore %>').append('<%= escape_javascript(render(:partial => "person", :locals => {:person => @relationship.related_person,:type => @relationship.relationship_type.name.gsub(/ /,'_').underscore})) %>');
-    $('#<%= dom_id(@related_person) %>').effect('slide', {direction:'right'});
-    <% if @relationship.relationship_type.name == 'Father' || @relationship.relationship_type.name == 'Mother' -%>
-      $('#siblings').replaceWith('<%= escape_javascript(render :partial => "/relationships/relationship_container", :locals => {:type => "Siblings", :relations => @source_person.siblings}) %>');
-
-    <% end %>
-    $("#new_relationship")[0].reset();
-    $("#new_relationship").hide();
-    $('.person_relationship_toggle_button').css("display","");
-    $('.person_relationship_close').css("display","none");
-    $('#relationship_hidden_tab').attr('mode','show');
   <%end%>
 
     $(function(){
@@ -52,4 +51,3 @@
         });
     });
 });
-<% end -%>

@@ -1,0 +1,27 @@
+#header
+  #page_title
+    %h1 Banks
+  #lol
+    %br.clear
+#content_full_page
+  %input{:id => "bank_mode", :style => "display:none;", :mode => "show"}
+  .container
+    = image_tag('/images/closed_accordion.png', :style => "display:inline;float:right;", :id => "open_add_new_bank", :class => "new_option", :field => "bank")
+    = image_tag('/images/open_accordion.png', :style => "display:inline;float:right;display:none;", :id => "close_add_new_bank", :class => "close_option", :field => "bank")
+    = image_tag('/images/add_icon.png', :style => "display:inline;padding-bottom:7px;")
+    &nbsp;
+    %h1{:style => "display:inline;"} New Bank
+
+    %div#add_new_bank{:style => "display:none;"}
+      = render :partial => 'form'
+        
+  %br.clear
+
+  .container
+    %h2 Existing Banks
+    %div#list_banks
+      = render :partial => "list_banks"
+
+  %div#edit_bank_entry_form{:style => "display:none;"}
+
+

@@ -4,7 +4,10 @@
       = "#{@feedback_item.id} (#{@feedback_item.status}) - #{@feedback_item.subject}"
       %p &nbsp;
       .container
-        = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
+        - if (@feedback_item.login_account.class.to_s == "SystemUser")
+          = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
+        -else
+          = "From: (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
       Content:
       %br
       = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :style => "width:100%;")
@@ -49,7 +52,10 @@
       %p &nbsp;
       %div#feedback_reply{:style => "display:none;"}
         .container
-          = "Replied to by: #{@feedback_item.responder.person.name} on #{@feedback_item.response_date.strftime('%a %d %b %Y')}"
+          - if (@feedback_item.responder.class.to_s == "SystemUser")
+            = "Replied to by: #{@feedback_item.responder.person.name} on #{@feedback_item.response_date.strftime('%a %d %b %Y')}"
+          -else
+            = "Replied to by: #{@feedback_item.responder.user_name} on #{@feedback_item.response_date.strftime('%a %d %b %Y')}"
         %br.clear
         %p
           Content

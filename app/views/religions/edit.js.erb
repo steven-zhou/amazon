@@ -1,0 +1,5 @@
+$('#add_new_religion').css('display','none');
+$('#edit_religion').css('display', '');
+$('#edit_religion_form').html('<%= escape_javascript(render(:partial => "/religions/religion_form", :locals => {:religion => @religion })) %>');
+$('#religion_mode').attr('mode', 'edit');
+$('.close_option[field="religion"]').css("display","");
