@@ -1,3 +1,3 @@
-set :domain, "203.23.28.109"
-server "203.23.28.109", :app, :web, :db, :primary => true
+set :domain, "amazon-production"
+server "amazon-production", :app, :web, :db, :primary => true
 
