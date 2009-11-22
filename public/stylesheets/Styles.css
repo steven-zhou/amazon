@@ -513,14 +513,7 @@ margin-right: 5px;
     display:inline;
 }
 
-#app #main #content .container div.header_container .title h1{
-    margin: 0 0 0 0 !important;
-    color: #2C2C2C;
-    font-size:20px;
-    font-weight: bold;
-    line-height: 22px;
-    font-family:Arial,Helvetica,sans-serif;
-}
+
 /*blue container second title*/
 #app #main #content .container h2 {
     font-size:18px;
@@ -862,7 +855,6 @@ div.container div.header_container {
 }
 
 
-
 div.container div.header_container .title {
     float: left;
     display:inline;
@@ -880,12 +872,11 @@ div.container div.header_container .title h1{
 }
 
 div.container div.header_container h1 {
-    margin:0 0 0 35px;
     color: #2C2C2C;
     font-size:20px;
     font-weight: bold;
     line-height: 22px;
-    font-family:Arial,Helvetica,sans-serif;
+    margin-bottom: 5px;
 }
 
 div.container div.header_container .options {
