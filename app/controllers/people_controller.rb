@@ -1,8 +1,6 @@
 class PeopleController < ApplicationController
   # Added system logging
-  
   include PeopleSearch
-
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
   protect_from_forgery :except => [:post_data]
   
@@ -278,8 +276,7 @@ class PeopleController < ApplicationController
   end
 
   def search
-    @person = Person.new
-         
+    @person = Person.new   
     if params[:person]
       unless params[:person][:age].blank?
         @current_time = Time.now

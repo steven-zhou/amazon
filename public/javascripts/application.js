@@ -7194,3 +7194,42 @@ system_id_check_input_change_or_not = function()
     }
 
 }
+
+/*Find Person Age*/
+//$(function(){
+// $('#find_button').live('click',function(){
+//
+//     if($('#person_age').val()!="")
+//         {
+//            var current_year = new Date();
+////            alert(current_year);
+////            alert($('#person_age').val());
+////            alert(current_year -$('#person_age').val() );
+////             alert(current_year.getMonth());
+//             var abc = current_year.getDate()+"-"+current_year.getMonth()+"-"+(current_year.getFullYear()-parseInt($('#person_age').val()));
+//             alert(abc);
+////             alert($('#person_birth_date').val());
+//            $('#person_age').html(abc).change();
+////                       $('#person_age').html(current_year.getDay()+"-"+current_year.getMonth()+"-"+current_year.getFullYear()-parseInt($('#person_age').val())).change();
+////          alert( $('#person_age').val(current_year.+"-"+current_year.getMonth()+"-"));
+//         }
+//
+// })
+//});
+/*find keyword*/
+$(function(){
+    $('.keywordtype_change').live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keyword_name_show.js",
+                data:'keyword_type_id='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#keyword_id").html(" ");
+        }
+    });
+});
+
+
