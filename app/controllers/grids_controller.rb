@@ -203,6 +203,77 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+  def system_log_archive_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "created_at"
+    end
+
+    if (!sortorder)
+      sortorder = "DESC"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @system_log_entries = SystemLogArchiveGrid.find(:all,
+        :conditions => [],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = SystemLogArchiveGrid.count(:all, :conditions => [])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @system_log_entries = SystemLogArchiveGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? ", query ])
+      count = SystemLogArchiveGrid.count(:all,
+        :conditions=>[qtype +" ilike ? ", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @system_log_entries.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5,
+          u.field_6
+        ]}}
+
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+
+
+
 
 
   def organisation_search_grid
