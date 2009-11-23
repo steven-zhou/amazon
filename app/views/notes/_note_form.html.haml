@@ -1,4 +1,4 @@
-    .form_line{:style => "float:none;"}
+.form_line{:style => "float:none;"}
   .field_20
     = note.label :note_type_id, "Type<span class='asterisk'>*</span>"
     = note.collection_select :note_type_id, NoteType.all, :id, :name

@@ -47,8 +47,8 @@ class KeywordsController < ApplicationController
 
   def destroy
     keyword = Keyword.find(params[:id])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
-      keyword.destroy
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
+    keyword.destroy
     respond_to do |format|
       format.js
     end
@@ -57,7 +57,7 @@ class KeywordsController < ApplicationController
   def keywords_finder
     @type = Keyword.find_all_by_keyword_type_id(params[:type])
 
-#@type = Keyword.find(:all, :conditions => ["keyword_type_id = ?", params[:type]], :order => 'name')
+    #@type = Keyword.find(:all, :conditions => ["keyword_type_id = ?", params[:type]], :order => 'name')
     respond_to do |format|
       format.js
     end
@@ -73,5 +73,16 @@ class KeywordsController < ApplicationController
     end
   end
 
-  
+  def keyword_name_show
+    @keywords = Keyword.find_all_by_keyword_type_id(params[:keyword_type_id])
+      @keyword = String.new
+     
+    for keyword in @keywords    
+      @keyword += "<option value=#{keyword.id}>#{keyword.name}</option>"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

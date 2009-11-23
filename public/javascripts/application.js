@@ -7166,3 +7166,38 @@ system_id_check_input_change_or_not = function()
 //
 // })
 //});
+/*find keyword*/
+keywordshow = function(){
+    $("#add_person_keywords option:selected").removeAttr("selected");
+    $("#add_person_keywords").find("option").hide();
+    //    alert($("#keyword_keyword_type_id").find("option:selected").text());
+    $(".keywordtype_change").find("option:selected").each(function(){
+        if($(this).val() == ""){
+            $("#add_person_keywords").find("option").hide();
+        }else{
+            $("#add_person_keywords option[class=" + $(this).text() + "]").show();
+        //             $("#add_person_keywords option[class=" + $(this).text() + "]").css('display','');
+
+        }
+    });
+}
+
+
+$(function(){
+    $('.keywordtype_change').live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keyword_name_show.js",
+                data:'keyword_type_id='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#keyword_id").html(" ");
+        }
+    });
+});
+
+
+
+
