@@ -21,6 +21,7 @@ class PersonRole < ActiveRecord::Base
 
  def person_must_exist
    errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
+   
  end
 
 
