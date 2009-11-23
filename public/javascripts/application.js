@@ -635,14 +635,14 @@ $(function(){
 
 $(function(){
     $(".calculate_field").live('change', function(){
-        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
+        _valid = /^(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
         if (_valid)
         {
             _salary = $("#hour_"+$(this).attr("employment_id")).val() * $("#rate_"+$(this).attr("employment_id")).val() * 52;
             $("#salary_"+$(this).attr("employment_id")).val(formatCurrency(_salary));
         }else{
             //alert("This field has be a number!");
-            $('#error_message_text').html("Entered Value Must be Integer Only ");
+            $('#error_message_text').html("Entered Value Must Be Positive Number Only ");
             $('#error_message_image').css("display","");
             $('#error_message').dialog({
                 modal: true,
