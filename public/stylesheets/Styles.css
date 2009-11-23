@@ -798,7 +798,11 @@ label {
 
 /* remove margin from .form_field last div */
 #app #main #content .container .form_line div:last-child {
-    margin: 0px;
+    margin: 0px !important;
+}
+
+#app #main #content .full_container .form_line div:last-child {
+    margin: 0px !important;
 }
 
 #app #main #content #left_content {
@@ -2308,19 +2312,31 @@ div#permission_form .options{
 
   /*datepicker*/
   .datepick {
-      width:78% !important;
+      width:70% !important;
   }
 
   .birthdatepick {
-      width:81% !important;
+      width:80% !important;
   }
 
   .startdatepick {
-      width:78% !important;
+      width:70% !important;
   }
 
   .enddatepick {
-      width:78% !important;
+      width:70% !important;
+  }
+
+  .beforestartdatepick {
+      width:70% !important;
+  }
+
+  .role_startdatepick {
+      width:70% !important;
+  }
+
+  .role_enddatepick {
+      width:70% !important;
   }
 
 
