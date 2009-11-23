@@ -55,6 +55,16 @@
       .primary_address_and_employment
         = format_address(@primary_address) unless @primary_address.nil?
 
+    .container
+      %h1= "Legal Details"
+      .right
+        = format_legal_details(@organisation)
+
+    .container
+      %h1= "Business Details"
+      .right
+        = format_business_details(@organisation)
+      
 
     .container
       %h1 Key Personnel
@@ -63,6 +73,7 @@
 
       .container
         %h2 Contact Persons
+
   
 
   #right_content
