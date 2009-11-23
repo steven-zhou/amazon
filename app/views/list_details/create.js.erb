@@ -28,8 +28,10 @@ $('#list_edit_grid').flexigrid({
  $('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
 $('#flash_message').dialog( {
         modal: true,
-         resizable: false,
+        resizable: false,
         draggable :true,
+        height:"auto",
+        width:"auto",
         buttons: {
           Ok: function() {
             $(this).dialog('close');
@@ -38,6 +40,10 @@ $('#flash_message').dialog( {
       }
 
     );
+    $('#flash_message').dialog( 'option', 'title', 'Error');
+     $('#flash_message').parent().find("a").css("display","none");
+     $("#flash_message").parent().css('background-color','#D1DDE6');
+     $("#flash_message").css('background-color','#D1DDE6');
     $('#flash_message').dialog('open');
 
  <%- end %>

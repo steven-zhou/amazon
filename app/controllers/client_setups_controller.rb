@@ -159,7 +159,7 @@ class ClientSetupsController < ApplicationController
     user_name = ((!params[:archive_user_name].nil? && !params[:archive_user_name].empty?) ? params[:archive_user_name] : '%%')
     start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
-    status = 'Active'
+    status = 'Live'
 
     @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -193,7 +193,7 @@ class ClientSetupsController < ApplicationController
     user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
     start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
-    status = 'Active'
+    status = 'Live'
 
     @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -201,7 +201,7 @@ class ClientSetupsController < ApplicationController
     end
 
     for entry in @system_log_entries do
-      entry.status = 'Inactive'
+      entry.status = 'Archived'
       entry.save
     end
 
@@ -215,8 +215,14 @@ class ClientSetupsController < ApplicationController
 
     login_account = LoginAccount.find_by_user_name(params[:user_name])
 
-    @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
-
+    if ( params[:user_name].nil? || params[:user_name].empty? )
+          @user_name_result = ""
+    elsif (!login_account.nil? && login_account.class.to_s != "SystemUser")
+          @user_name_result = "#{params[:user_name]}"
+    else
+      @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
+    end
+    
     respond_to do |format|
       format.js
     end
@@ -227,7 +233,14 @@ class ClientSetupsController < ApplicationController
 
     login_account = LoginAccount.find_by_user_name(params[:user_name])
 
-    @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
+    if ( params[:user_name].nil? || params[:user_name].empty? )
+          @user_name_result = ""
+    elsif (!login_account.nil? && login_account.class.to_s != "SystemUser")
+          @user_name_result = "#{params[:user_name]}"
+    else
+      @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
+    end
+    
 
     respond_to do |format|
       format.js

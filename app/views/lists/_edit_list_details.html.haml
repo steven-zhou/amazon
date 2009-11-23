@@ -1,4 +1,4 @@
-.container
+.container{:style=>"width:96%"}
   -form_for @list_header,:url => list_header_path(@list_header), :html => {:class => 'ajax_form'} do |f|
     .form_line
       .field_25
@@ -9,12 +9,12 @@
         =f.text_field :description, :disabled => @list_header.status == false, :name => "list_header[description]"
       .field_15
         =f.label :allow_duplication, "Allow Duplication"
-        =f.check_box :allow_duplication, :style => "width:30%;display:inline", :name => "list_header[allow_duplication]"
-      .field_20
-        = f.label :status, 'Active'
-        = f.check_box :status, :name => "list_header[status]", :style=>"width:10px;"
-      .field_10{:style => "float:right"}
-        = f.label :status, "&nbsp;"
+        =f.check_box :allow_duplication, :style => "width:10px;", :name => "list_header[allow_duplication]"
+      .field_15
+        =f.label :status, 'Active'
+        =f.check_box :status, :name => "list_header[status]", :style=>"width:10px;"
+      .field_10{:style=>"float:left;"}
+        =f.label :status, "&nbsp;"
         =submit_tag "Submit"
 
   .form_line

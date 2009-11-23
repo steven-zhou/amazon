@@ -115,7 +115,7 @@ class ApplicationController < ActionController::Base
   def system_log(message, current_controller=@current_controller, current_action=@current_action, login_account=@current_user)
     system_log = SystemLog.new(:message => message, :controller => current_controller, :action => current_action, :ip_address => request.remote_ip)
     system_log.login_account_id = login_account.nil? ? nil : login_account.id
-    system_log.status = "Active" # Values should be one of Active, Inactive or Deleted
+    system_log.status = "Live" # Values should be one of Live, Archive
     system_log.save
     puts "#{system_log.to_yaml}"
   end

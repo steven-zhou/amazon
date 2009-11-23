@@ -276,8 +276,7 @@ class PeopleController < ApplicationController
   end
 
   def search
-    @person = Person.new
-     
+    @person = Person.new   
     if params[:person]
       unless params[:person][:age].blank?
         @current_time = Time.now

@@ -6,7 +6,7 @@
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "employment_organisation_id", :title=>"Search"
-  .field_40
+  .field_60
     %label &nbsp;
     -if @employment.new_record?
       %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} &nbsp;
@@ -20,8 +20,8 @@
     %label{:style => "display:inline"} Inactive
 
 .form_line
-  .field_25
-    =employment.label :staff_reference, "Reference Number<span class='asterisk'>*</span>"
+  .field_23
+    =employment.label :staff_reference, "Reference NO.<span class='asterisk'>*</span>"
     =employment.text_field :staff_reference, :disabled=>@employment.status == false
   .field_23
     =employment.label :department_id, "Department"
@@ -38,39 +38,41 @@
   .form_line
     .field_100 Position
   .form_line
-    .field_22
+    .field_30
       =employment.label :position_name, "Name<span class='asterisk'>*</span>"
       =employment.text_field :position_name, :disabled=>@employment.status == false
-    .field_22
+    .field_30
       =employment.label :position_title_id, "Title"
       =employment.collection_select :position_title_id, PositionTitle.active_position_title, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-    .field_22
-      =employment.label :commenced_date, "Start Date<span class='asterisk'>*</span>"
-      =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false
-    .field_22
-      =employment.label :term_end_date, "End Date"
-      =employment.text_field :term_end_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date", :value=>@employment.term_end_date.to_s, :disabled=>@employment.status == false
-
-  .form_line
-    .field_22
+    .field_33
       =employment.label :position_classification_id, "Classification"
       =employment.collection_select :position_classification_id, PositionClassification.active_position_classification, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-    .field_22
-      =employment.label :position_type_id, "Position Type"
-      =employment.collection_select :position_type_id, PositionType.active_position_type, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-    .field_22
-      =employment.label :award_agreement_id, "Award Agreement"
-      =employment.collection_select :award_agreement_id, AwardAgreement.active_award_agreement, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-    .field_22
-      =employment.label :award_other, "Award Others"
-      =employment.text_field :award_other, :disabled=>@employment.status == false
-
 
   .form_line
-    .field_22
+    .field_30
+      =employment.label :commenced_date, "Start Date<span class='asterisk'>*</span>"
+      =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false
+    .field_30
+      =employment.label :term_end_date, "End Date"
+      =employment.text_field :term_end_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date", :value=>@employment.term_end_date.to_s, :disabled=>@employment.status == false
+    .field_33
+      =employment.label :position_type_id, "Position Type"
+      =employment.collection_select :position_type_id, PositionType.active_position_type, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
+
+  .form_line
+    .field_30
+      =employment.label :award_agreement_id, "Award Agreement"
+      =employment.collection_select :award_agreement_id, AwardAgreement.active_award_agreement, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
+    .field_30
+      =employment.label :award_other, "Award Others"
+      =employment.text_field :award_other, :disabled=>@employment.status == false
+    .field_33
       =employment.label :position_status_id, "Position Status"
       =employment.collection_select :position_status_id, PositionStatus.active_position_status, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-    .field_75
+
+
+  .form_line    
+    .field_100
       =employment.label :duties_resposibilities, "Duties and Responsibilities"
       =employment.text_field :duties_resposibilities, :disabled=>@employment.status == false
 
@@ -81,7 +83,7 @@
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by", :title=>"Search"
-    .field_25
+    .field_60
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_recruiter.nil?)
         %span{:class=>"viewname", :id=>@employment.new_record? ? "recruiter_container_0" : "recruiter_container_#{@employment.id}"} #{@employment.emp_recruiter.name}
@@ -94,7 +96,7 @@
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to", :title=>"Search"
-    .field_25
+    .field_60
       %label &nbsp;
       -if (!@employment.new_record? && !@employment.emp_supervisor.nil?)
         %span{:class=>"viewname", :id=>@employment.new_record? ? "supervisor_container_0" : "supervisor_container_#{@employment.id}"} #{@employment.emp_supervisor.name}
@@ -109,27 +111,29 @@
 
   %div{:style => "display:none", :id => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"}
     .form_line{:style => "float:none;"}
-      .field_25 
+      .field_30
         =employment.label :weekly_nominal_hours, "Weekly Hours"
         =employment.text_field :weekly_nominal_hours, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.weekly_nominal_hours, :id=>@employment.new_record? ? "hour_0" : "hour_" + "#{@employment.id}", :disabled=>@employment.status == false
-      .field_22
+      .field_30
         =employment.label :hourly_rate, "Hourly Rate"
         =employment.text_field :hourly_rate, :class=>"calculate_field", :employment_id =>@employment.new_record? ? "0" : @employment.id, :value=>@employment.new_record? ? "0" : @employment.hourly_rate, :id=>@employment.new_record? ? "rate_0" : "rate_"+ "#{@employment.id}", :disabled=>@employment.status == false
-      .field_23
+      .field_33
         =employment.label :annual_base_salary, "Annual Base Salary"
         =employment.text_field :annual_base_salary, :disabled=>true, :value=>@employment.new_record? ? number_to_currency(0) : number_to_currency(@employment.annual_base_salary), :class=>"disabled", :id=>@employment.new_record? ? "salary_0" : "salary_"+ "#{@employment.id}"
-      .field_20
-        =employment.label :plus_package, "Package Plus"
-        =employment.text_field :plus_package, :disabled=>@employment.status == false
 
     .form_line
-      .field_25
+      .field_45
+        =employment.label :plus_package, "Package Plus"
+        =employment.text_field :plus_package, :disabled=>@employment.status == false
+      .field_50
         =employment.label :payment_frequency_id, "Payment Frequency"
         =employment.collection_select :payment_frequency_id, PaymentFrequency.active_payment_frequency, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-      .field_22
+
+    .form_line      
+      .field_45
         =employment.label :payment_method_id, "Payment Method"
         =employment.collection_select :payment_method_id, PaymentMethod.active_payment_method, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-      .field_22
+      .field_50
         =employment.label :payment_day_id, "Payment Day"
         =employment.collection_select :payment_day_id, PaymentDay.active_payment_day, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
 
@@ -142,18 +146,16 @@
 
   %div{:style => "display:none", :id => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"}
     .form_line{:style => "float:none;"}
-      .field_22
+      .field_30
         =employment.label :suspension_start_date, "Start Date"
         =employment.text_field :suspension_start_date, :class=>@employment.status==false ? "" : "startdatepick", :end_date=>@employment.new_record? ? "employment_suspension_end_date" : "employment_#{@employment.id}_suspension_end_date", :value=>@employment.suspension_start_date.to_s, :disabled=>@employment.status == false
-      .field_20
+      .field_30
         =employment.label :suspension_end_date, "End Date"
         =employment.text_field :suspension_end_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_suspension_start_date" : "employment_#{@employment.id}_suspension_start_date", :value=>@employment.suspension_end_date.to_s, :disabled=>@employment.status == false    
-      .field_22
+      .field_33
         =employment.label :suspension_type_id, "Suspension Type"
         =employment.collection_select :suspension_type_id, SuspensionType.active_suspension_type, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-      .field_25
-        =employment.label :suspension_reason, "Suspension Reason"
-        =employment.text_field :suspension_reason, :disabled=>@employment.status == false
+
     .form_line
       .field_22{:style => "margin-right: 2px;"}
         =employment.label :suspended_by, "Suspended By"
@@ -161,14 +163,18 @@
       .field_5
         %label &nbsp;
         = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_suspended_by" : "employment_#{@employment.id}_suspended_by", :title=>"Search"
-      .field_25
+      .field_60
         %label &nbsp;
         -if (!@employment.new_record? && !@employment.emp_suspender.nil?)
           %span{:class=>"viewname", :id=>@employment.new_record? ? "suspender_container_0" : "suspender_container_#{@employment.id}"} #{@employment.emp_suspender.name}
         -else
           %span{:class=>"viewname", :id=>@employment.new_record? ? "suspender_container_0" : "suspender_container_#{@employment.id}"} &nbsp;
+
     .form_line
-      .field_100
+      .field_25
+        =employment.label :suspension_reason, "Suspension Reason"
+        =employment.text_field :suspension_reason, :disabled=>@employment.status == false
+      .field_70
         =employment.label :suspension_remarks, "Suspension Remarks"
         =employment.text_field :suspension_remarks, :disabled=>@employment.status == false
 
@@ -180,18 +186,16 @@
 
   %div{:style => "display:none", :id => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"}
     .form_line{:style => "float:none;"}
-      .field_20
+      .field_30
         =employment.label :termination_notice_date, "Notice Date"
         =employment.text_field :termination_notice_date, :class=>@employment.status==false ? "" : "startdatepick", :end_date=>@employment.new_record? ? "employment_termination_date" : "employment_#{@employment.id}_termination_date", :value=>@employment.termination_notice_date.to_s, :disabled=>@employment.status == false
-      .field_20
+      .field_30
         =employment.label :termination_date, "End Date"
         =employment.text_field :termination_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_termination_notice_date" : "employment_#{@employment.id}_termination_notice_date", :value=>@employment.termination_date.to_s, :disabled=>@employment.status == false
-      .field_25
+      .field_33
         =employment.label :termination_method_id, "Termination Method"
         =employment.collection_select :termination_method_id, TerminationMethod.active_termination_method, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
-      .field_25
-        =employment.label :termination_reason, "Termination Reason"
-        =employment.text_field :termination_reason, :disabled=>@employment.status == false
+      
     .form_line
       .field_25{:style => "margin-right: 2px;"}
         =employment.label :terminated_by, "Terminated By"
@@ -199,7 +203,7 @@
       .field_5
         %label &nbsp;
         = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_terminated_by" : "employment_#{@employment.id}_terminated_by", :title=>"Search"
-      .field_25
+      .field_60
         %label &nbsp;
         -if (!@employment.new_record? && !@employment.emp_terminator.nil?)
           %span{:class=>"viewname", :id=>@employment.new_record? ? "terminator_container_0" : "terminator_container_#{@employment.id}"} #{@employment.emp_terminator.name}
@@ -207,7 +211,10 @@
           %span{:class=>"viewname", :id=>@employment.new_record? ? "terminator_container_0" : "terminator_container_#{@employment.id}"} &nbsp;
 
     .form_line
-      .field_100
+      .field_25
+        =employment.label :termination_reason, "Termination Reason"
+        =employment.text_field :termination_reason, :disabled=>@employment.status == false
+      .field_70
         =employment.label :terminated_remarks, "Termination Remarks"
         =employment.text_field :termination_remarks, :disabled=>@employment.status == false
 
