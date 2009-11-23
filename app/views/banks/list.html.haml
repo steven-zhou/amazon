@@ -6,12 +6,12 @@
 #content_full_page
   %input{:id => "bank_mode", :style => "display:none;", :mode => "show"}
   .container
-    = image_tag('/images/closed_accordion.png', :style => "display:inline;float:right;", :id => "open_add_new_bank", :class => "new_option", :field => "bank")
-    = image_tag('/images/open_accordion.png', :style => "display:inline;float:right;display:none;", :id => "close_add_new_bank", :class => "close_option", :field => "bank")
-    = image_tag('/images/add_icon.png', :style => "display:inline;padding-bottom:7px;")
+    = link_to_function image_tag('/images/close_icon.png'), :style => "display:inline;float:right;display:none;", :id => "close_add_new_bank", :class => "close_option", :field => "bank"
+    = link_to_function image_tag('/images/add_icon.png'), :style => "display:inline;padding-bottom:7px;", :id => "open_add_new_bank", :class => "new_option", :field => "bank"
     &nbsp;
     %h1{:style => "display:inline;"} New Bank
-
+    %br
+    %br
     %div#add_new_bank{:style => "display:none;"}
       = render :partial => 'form'
         
