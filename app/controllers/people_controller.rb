@@ -279,6 +279,11 @@ class PeopleController < ApplicationController
 
   def search
     @person = Person.new
+    @current_time = Time.now
+   params[:person][:age] = (@current_time.year-params[:person][:age].to_i).to_s
+#    puts "**********************"
+#  puts params[:person][:age]
+     
     if params[:person]
       @people = PeopleSearch.by_name(params[:person])
     elsif params[:phone]

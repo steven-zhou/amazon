@@ -6,7 +6,7 @@ class PersonGroup < ActiveRecord::Base
 
   belongs_to :group_owner, :class_name => 'Person', :foreign_key => 'people_id'
 
-   belongs_to :group_type,  :class_name => 'Tag', :foreign_key => 'tag_id'
+  belongs_to :group_type,  :class_name => 'Tag', :foreign_key => 'tag_id'
 
 
 

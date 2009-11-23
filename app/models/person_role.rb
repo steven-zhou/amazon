@@ -12,17 +12,20 @@ class PersonRole < ActiveRecord::Base
 
   validates_uniqueness_of :role_id, :scope => :person_id
 
- validate :role_must_exist
- validate :person_must_exist
+  validate :role_must_exist
+  validate :person_must_exist
 
- def role_must_exist
-   errors.add(:role_id, "You must specify a role that exists.") if (role_id && Role.find_by_id(role_id).nil?)
- end
+  def role_must_exist
+    errors.add(:role_id, "You must specify a role that exists.") if (role_id && Role.find_by_id(role_id).nil?)
+  end
 
- def person_must_exist
-   errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
-   
- end
+  def person_must_exist
+    errors.add(:person_id, "You must specify a person that exists.") if (person_id && Person.find_by_id(person_id).nil?)
+    errors.add(:role_assigner, "You must specify a person that exists.") if (assigned_by && Person.find_by_id(assigned_by).nil?)
+    errors.add(:role_approver, "You must specify a person that exists.") if (approved_by && Person.find_by_id(approved_by).nil?)
+    errors.add(:role_superviser, "You must specify a person that exists.") if (supervised_by && Person.find_by_id(supervised_by).nil?)
+    errors.add(:role_manager, "You must specify a person that exists.") if (managed_by && Person.find_by_id(managed_by).nil?)
+  end
 
 
 
