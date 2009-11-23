@@ -1,4 +1,8 @@
 $(function(){
   $('#system_log_archive_user_name_check').html("<%= escape_javascript(@user_name_result)%>");
+  if("<%= escape_javascript(@user_name_result) %>" == 'Invalid Username') {
+    $('#system_log_archive_submit').attr('disabled', 'disabled');
+  } else {
+    $('#system_log_archive_submit').attr('disabled','');
+  }
 });
-

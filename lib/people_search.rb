@@ -19,8 +19,8 @@ module PeopleSearch
         if attribute == 'age'
           condition_clauses.push("people.birth_date >= ?")
           condition_clauses.push("people.birth_date <= ?")
-          condition_options.push('01-01-'+value)
-          condition_options.push('31-12-'+value)
+          condition_options.push(value+'-01-01')
+          condition_options.push(value+'-12-31')
         else
           condition_clauses.push("people.#{attribute} = ?")
           condition_options.push(value)
