@@ -70,7 +70,7 @@ $(function() {
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
     });
 
-    $("#select_contact_type").change(function(){
+    $("#select_contact_type").live('change',function(){
         $('form.active').removeClass('active');
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
     });

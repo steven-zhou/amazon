@@ -3301,13 +3301,94 @@ $(function(){
 /* Show list*/
 $(function(){
     $("#show_all_list_member").live('click',function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/show_list.js",
-            data: 'person_id='+$(this).attr('person_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-            dataType: "script"
+        var link= $(this);
+        
+        right_tab = $("#content #right_content").find("#tabs");
+        //         alert(right_tab.length);
+        if(right_tab.length > 0)
+        {
+            check_input_change();
+        }
 
-        });
+
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        //     alert( left_content.length);
+        //     alert( right_content.length);
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            //          $('#check_input_change').val("true");
+            //          alert( $('#check_input_change').val());
+
+            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+                $('#check_input_change').val("true");
+            }
+            else
+            {
+
+                $('#check_input_change').val("false");
+            }
+        }
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+            $.ajax({
+                type: "GET",
+                url: "/people/show_list.js",
+                data: 'person_id='+link.attr('person_id')+'&current_operation='+link.attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                dataType: "script"
+
+            });
+           
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $.ajax({
+                            type: "GET",
+                            url: "/people/show_list.js",
+                            data: 'person_id='+link.attr('person_id')+'&current_operation='+link.attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                            dataType: "script"
+
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+      
     });
 });
 
@@ -3350,12 +3431,97 @@ $(function(){
 
 $(function(){
     $("#show_all_organisations").live('click',function(){
-        $.ajax({
-            type: "GET",
-            url: "/organisations/show_list.js",
-            data: 'organisation_id='+$(this).attr('organisation_id')+'&current_operation='+$(this).attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
+
+        var link= $(this);
+
+        right_tab = $("#content #right_content").find("#tabs");
+        //         alert(right_tab.length);
+        if(right_tab.length > 0)
+        {
+            check_input_change();
+        }
+
+
+        left_content = $("#content").find("#left_content");
+        right_content = $("#content").find("#right_content");
+        //     alert( left_content.length);
+        //     alert( right_content.length);
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            //          $('#check_input_change').val("true");
+            //          alert( $('#check_input_change').val());
+
+            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+                $('#check_input_change').val("true");
+            }
+            else
+            {
+
+                $('#check_input_change').val("false");
+            }
+        }
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+
+            $.ajax({
+                type: "GET",
+                url: "/organisations/show_list.js",
+                data: 'organisation_id='+link.attr('organisation_id')+'&current_operation='+link.attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                dataType: "script"
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/organisations/show_list.js",
+                            data: 'organisation_id='+link.attr('organisation_id')+'&current_operation='+link.attr('current_operation')+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                            dataType: "script"
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+
+
+
     });
 });
 
@@ -6879,29 +7045,124 @@ $(function(){
 $(function(){
     $('#help_icon_tab').click(function(){
         $('#warning_message_text').html("This Part Still Processing, Coming Soon");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
 
-                    ok: function(){
-                        $(this).dialog('destroy');
-                        return false;
+                ok: function(){
+                    $(this).dialog('destroy');
+                    return false;
 
-                    }
                 }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
 
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
 
-            $('#warning_message').dialog('open');
+        $('#warning_message').dialog('open');
            
     });
 });
+/*System ID Submit*/
+system_id_check_input_change_or_not = function()
+{
+
+    var link = $('#system_id_tag');
+    right_tab = $("#content #right_content").find("#tabs");
+    if(right_tab.length > 0)
+    {
+        check_input_change();
+    }
+
+    left_content = $("#content").find("#left_content");
+    right_content = $("#content").find("#right_content");
+    if (left_content.length > 0 &&  right_content.length > 0)
+    {
+
+        if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+        {
+
+            $('#check_input_change').val("true");
+        }
+        else
+        {
+
+            $('#check_input_change').val("false");
+        }
+    }
+
+    if($('#check_input_change').val() == "false")
+    {
+
+       $('#'+link.attr('form_name')).submit();
+        return false;
+    }
+    else
+    {
+        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+
+
+                    $('#'+link.attr('form_name')).submit();
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
+                    $('#check_input_change').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+        return false;
+    }
+
+}
+/*Find Person Age*/
+//$(function(){
+// $('#find_button').live('click',function(){
+//
+//     if($('#person_age').val()!="")
+//         {
+//            var current_year = new Date();
+////            alert(current_year);
+////            alert($('#person_age').val());
+////            alert(current_year -$('#person_age').val() );
+////             alert(current_year.getMonth());
+//             var abc = current_year.getDate()+"-"+current_year.getMonth()+"-"+(current_year.getFullYear()-parseInt($('#person_age').val()));
+//             alert(abc);
+////             alert($('#person_birth_date').val());
+//            $('#person_age').html(abc).change();
+////                       $('#person_age').html(current_year.getDay()+"-"+current_year.getMonth()+"-"+current_year.getFullYear()-parseInt($('#person_age').val())).change();
+////          alert( $('#person_age').val(current_year.+"-"+current_year.getMonth()+"-"));
+//         }
+//
+// })
+//});
