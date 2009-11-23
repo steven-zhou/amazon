@@ -2,12 +2,13 @@
 .container
   .header_container
     .options{:id => 'person_group_close_button'}
-      = link_to_function image_tag('close_icon.png'), :class => "person_group_close clear_group_form", :toggle_id_name => "new_group", :style=>"display:none", :title=>"Close"
+      = link_to_function image_tag('close_icon.png'), :class => "close_option clear_group_form", :field => "person_group", :toggle_id_name => "new_group", :style=>"display:none", :title=>"Close"
     .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"person_group_toggle_button", :toggle_id_name => "new_group"  if (!person.nil? && !person.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"new_option toggle_button", :field => "person_group", :toggle_id_name => "new_group"  if (!person.nil? && !person.new_record?)
       &nbsp
     %h1 New Group
-    %input{:id => "group_input_change_or_not", :style => "display:none", :value => "false"}
+    %input.hidden{:id => "person_group_mode", :mode => "show"}
+
     .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
       -form_for([@person, @person_group], :html => {:class => ' ajax_form'}) do |groups|
         = render :partial => '/person_groups/group_form', :locals => {:groups => groups}

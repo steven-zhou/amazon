@@ -3508,9 +3508,20 @@ $(function(){
         $('#system_log_export_user_name').val($('#user_name').val());
         $('#system_log_export_start_date').val($('#system_log_start_date').val());
         $('#system_log_export_end_date').val($('#system_log_end_date').val());
-
+        $('#system_log_export_status').val($('#system_log_status').val());
     });
 });
+
+$(function(){
+    $('#system_log_archive_submit').live('click',function(){
+        $('#system_log_archive_results').show();
+        $('#system_log_archive_options').show();
+        $('#system_log_archive_user_name').val($('#archive_user_name').val());
+        $('#system_log_archive_start_date').val($('#archive_system_log_start_date').val());
+        $('#system_log_archive_end_date').val($('#archive_system_log_end_date').val());
+    });
+});
+
 
 //$(function(){
 //    $('#system_log_start_date').datepicker();
@@ -3518,6 +3529,14 @@ $(function(){
 //
 //$(function(){
 //    $('#system_log_end_date').datepicker();
+//});
+//
+//$(function(){
+//    $('#archive_system_log_start_date').datepicker();
+//});
+//
+//$(function(){
+//    $('#archive_system_log_end_date').datepicker();
 //});
 
 $(function(){
@@ -3533,110 +3552,18 @@ $(function(){
     });
 });
 
-//$(function(){
-//    $("#system_log_search_grid").flexigrid({
-//        url: '/grids/system_log_search_grid',
-//        dataType: 'json',
-//        colModel : [
-//        {
-//            display: 'ID',
-//            name : 'grid_object_id',
-//            width : 40,
-//            sortable : true,
-//            align: 'left'
-//        },
-//
-//        {
-//            display: 'Date',
-//            name : 'field_1',
-//            width : 160,
-//            sortable : true,
-//            align: 'left'
-//        },
-//
-//        {
-//            display: 'User',
-//            name : 'field_2',
-//            width : 180,
-//            sortable : true,
-//            align: 'left'
-//        },
-//
-//        {
-//            display: 'IP Address',
-//            name : 'field_3',
-//            width : 120,
-//            sortable : true,
-//            align: 'left'
-//        },
-//        {
-//            display: 'Controller',
-//            name : 'field_4',
-//            width : 100,
-//            sortable : true,
-//            align: 'left'
-//        },
-//
-//        {
-//            display: 'Action',
-//            name : 'field_5',
-//            width : 100,
-//            sortable : true,
-//            align: 'left'
-//        },
-//
-//        {
-//            display: 'Message',
-//            name : 'field_6',
-//            width : 270,
-//            sortable : true,
-//            align: 'left'
-//        },
-//
-//        ],
-//        searchitems : [
-//        {
-//            display: 'Date',
-//            name : 'field_1'
-//        },
-//
-//        {
-//            display: 'User',
-//            name : 'field_2'
-//        },
-//
-//        {
-//            display: 'IP Address',
-//            name : 'field_3'
-//        },
-//
-//        {
-//            display: 'Controller',
-//            name : 'field_4'
-//        },
-//
-//        {
-//            display: 'Action',
-//            name : 'field_5'
-//        },
-//        {
-//            display: 'Message',
-//            name : 'field_6'
-//        },
-//
-//        ],
-//        sortname: "grid_object_id",
-//        sortorder: "asc",
-//        usepager: true,
-//        title: 'System Log Entries',
-//        useRp: true,
-//        rp: 20,
-//        showTableToggleBtn: false,
-//        width: 'auto',
-//        height: 'auto'
-//    });
-//});
-//
+$(function(){
+    $('table#system_log_archive_grid tbody tr').live('click',function(){
+        $('table#system_log_archive_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+$(function(){
+    $('table#system_log_archive_grid tbody tr').live('mouseover', function(){
+        $(this).css('cursor',"pointer");
+    });
+});
 
 
 $(function(){
@@ -5786,6 +5713,20 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/client_setups/system_log_verify_user_name.js",
+            data: 'user_name='+$(this).val(),
+            dataType: "script"
+        });
+
+    });
+});
+
+
+
+$(function(){
+    $("#archive_user_name").blur(function(){
+        $.ajax({
+            type: "GET",
+            url: "/client_setups/system_log_archive_verify_user_name.js",
             data: 'user_name='+$(this).val(),
             dataType: "script"
         });
