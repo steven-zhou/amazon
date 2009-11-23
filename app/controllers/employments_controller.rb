@@ -122,7 +122,7 @@ class EmploymentsController < ApplicationController
       @exchange_employment.save
       @current_employment.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_employment.person_id)
     respond_to do |format|
       format.js
     end
@@ -138,7 +138,7 @@ class EmploymentsController < ApplicationController
 
     @up_exchange_employment.save
     @up_current_employment.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_employment.person_id)
 
     respond_to do |format|
       format.js
