@@ -2,17 +2,17 @@
 $('#duplication_box').html("<%= escape_javascript(render(:partial => "/organisations/duplication_grid")) %>");
 
 $('#duplication_box').dialog({
-  modal: true,
-  resizable: true,
+   modal: true,
+  resizable: false,
+  position: "center",
   draggable: true,
-    position: "center",
   height: 'auto',
   width: 'auto',
   buttons: {
-                "Continue": function() {
+                "Continue to edit": function() {
                     $(this).dialog('close');
                 },
-                "Restart": function() {
+                "Clear to restart": function() {
                 <%- if @organisation_id == "" %>
                     window.open("/organisations/new", "_self");
                 <%- else %>
@@ -22,7 +22,9 @@ $('#duplication_box').dialog({
                 }
             }
 });
-$('#duplication_box').dialog('option', 'title', 'Duplication Check');
+
+$('#duplication_box').parent().find("a").css("display","none");
+$('#duplication_box').dialog('option', 'title', 'Possible Duplication Found');
 $('#duplication_box').dialog('open');
 
 $("#duplication_organisations_grid").flexigrid({

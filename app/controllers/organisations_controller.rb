@@ -65,7 +65,7 @@ class OrganisationsController < ApplicationController
     end
     respond_to do |format|
       format.html
-        format.js {render 'show_left.js'}
+      format.js {render 'show_left.js'}
 
     end
   end
@@ -133,6 +133,23 @@ class OrganisationsController < ApplicationController
       @organisational_duplication_formula.duplication_formula_details.each do |i|
         @check_field << i.field_name
       end
+    end
+
+
+    OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisation.employees.each do |organisations_employees|  #show organisation employee grid
+      @soeg = OrganisationEmployeeGrid.new
+      @soeg.login_account_id = session[:user]
+      @soeg.grid_object_id = organisations_employees.id
+      @soeg.field_1 = organisations_employees.first_name
+      @soeg.field_2 = organisations_employees.family_name
+      @soeg.field_3 = organisations_employees.primary_address.first_line unless organisations_employees.primary_address.blank?
+      @soeg.field_4 = organisations_employees.primary_phone.value unless organisations_employees.primary_phone.blank?
+      @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
+      @soeg.save
     end
     respond_to do |format|
       format.html
@@ -290,6 +307,24 @@ class OrganisationsController < ApplicationController
         @check_field << i.field_name
       end
     end
+    OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisation.employees.each do |organisations_employees|  #show organisation employee grid
+      @soeg = OrganisationEmployeeGrid.new
+      @soeg.login_account_id = session[:user]
+      @soeg.grid_object_id = organisations_employees.id
+      @soeg.field_1 = organisations_employees.first_name
+      @soeg.field_2 = organisations_employees.family_name
+      @soeg.field_3 = organisations_employees.primary_address.first_line unless organisations_employees.primary_address.blank?
+      @soeg.field_4 = organisations_employees.primary_phone.value unless organisations_employees.primary_phone.blank?
+      @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
+      @soeg.save
+    end
+
+
+    
     if(params[:current_operation] == "edit_organisation_list")
       #      puts "**********#{@organisation.class.to_s}*********8"
       #@postcodes = DomesticPostcode.find(:all)

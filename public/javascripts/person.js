@@ -70,7 +70,7 @@ $(function() {
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
     });
 
-    $("#select_contact_type").change(function(){
+    $("#select_contact_type").live('change',function(){
         $('form.active').removeClass('active');
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
     });
@@ -600,10 +600,11 @@ $(".delete_website").live('click',function(){
 $(".person_address_toggle_button").live('click', function(){
  
     $('.person_address_edit_delete').css("display","none");
+    $(this).css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     $('.person_address_close').css("display","");
-    $(this).css("display","none");
+  
     $('#address_hidden_tab').attr('mode','new');
 });
 

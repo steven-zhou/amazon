@@ -59,7 +59,7 @@
               = p.text_field :birth_date, :class=>"birthdatepick"
             .field_15
               = p.label :age,"Age"
-              = p.text_field :age, :class=>"birthdatepick"
+              = p.text_field :age
             .field_30
               = p.label :gender, 'Gender'
               = p.collection_select :gender_id, Gender.active_gender, :id, :name, {:include_blank => true}
@@ -167,42 +167,34 @@
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name
               %input{:id => "find_address_input_change_or_not", :style => "display:none", :value => "false",:class => "find_input_change_class"}
-
-            %br{:style=>"clear: both;"}
-            -#%br.clear
           .form_line
             .field_20
               = address.label :suite_unit, 'Unit Number'
               = address.text_field :suite_unit
-            .field_25
+            .field_30
               = address.label :street_number, 'Street Number'
               = address.text_field :street_number
             .field_40
               = address.label :street_name, 'Street Name'
               = address.text_field :street_name
-            %br{ :style=>"clear: both;"}
           .form_line
-            .field_30
+            .field_40
               = address.label :town, 'Suburb/Town'
-              = address.text_field :town
-            .field_33
-              = address.label :district, 'District'
-              = address.text_field :district
-            .field_30
-              = address.label :region, 'Region'
-              = address.text_field :region
-            %br{ :style=>"clear: both;"}
-          .form_line
-            .field_30
+              = address.text_field :town, :id => "person_addresses_attributes_0_town"
+            .field_5
+              %label &nbsp;
+              = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"person_addresses_attributes_0_town", :update_field2 =>"person_addresses_attributes_0_state",:update_field3 => "person_addresses_attributes_0_postal_code", :update_field4 => "person_addresses_attributes_0_country_id", :title=>"Postcode"
+            .field_45
               = address.label :state, 'State/Province'
-              = address.text_field :state
-            .field_33
+              = address.text_field :state, :id =>"person_addresses_attributes_0_state"
+          .form_line
+            .field_45
               = address.label :postal_code, 'Postal Code'
-              = address.text_field :postal_code
-            .field_30
+              = address.text_field :postal_code, :id => "person_addresses_attributes_0_postal_code"
+            .field_45
               = address.label :country, 'Country'
-              = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
-            %br.clear
+              = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}, :id => "person_addresses_attributes_0_country_id"
+
           %p.submit
             = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_address"
             = submit_tag 'Find'
@@ -221,4 +213,7 @@
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
           %br.clear
+%div#address_form_assistant
+  %table#address_postcode
+  %input{ :style => "display:none",:id => "address_postcode_input", :update_field1 => " ",:update_field2 => " " ,:update_field3 => " "}
 %br.clear

@@ -23,7 +23,7 @@ class Employment < ActiveRecord::Base
 
   validates_presence_of :organisation, :commenced_date, :emp_recruiter,:staff_reference,:position_name
   validates_associated :organisation, :emp_supervisor
-  validates_numericality_of :weekly_nominal_hours, :hourly_rate
+  validates_numericality_of :weekly_nominal_hours, :hourly_rate, :greater_than_or_equal_to => 0
   validate :end_date_must_be_equal_or_after_commence_date, :person_must_be_valid
 
   before_create :assign_priority

@@ -1,4 +1,4 @@
-- form_tag(@current_controller == "organisations" && @current_action == "show" ? '/organisations/show' : '/organisations/edit') do
+- form_tag(@current_controller == "organisations" && @current_action == "show" ? '/organisations/show' : '/organisations/edit', :id => "organisation_list") do
   %div#loleft
     .lolfont_left{:style => "margin-left: 65px;"}
       = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
@@ -9,7 +9,7 @@
           -#= link_to((image_tag 'Icons/Core/Lol/go-previous.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.at((@o.index(@organisation))-1)) : edit_organisation_path(@o.at((@o.index(@organisation))-1)), :title=>"Previous")
           = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url => @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.at(0)) : edit_organisation_path(@o.at(0)), :title=>"First")
           = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'), :url => @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.at((@o.index(@organisation))-1)) : edit_organisation_path(@o.at((@o.index(@organisation))-1)), :title=>"Previous")
-        = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'this.form.submit()',:id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px"}
+        = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'system_id_check_input_change_or_not();',:id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px",:form_name => "organisation_list"}
         .arrow_block
           -if @o.index(@organisation) != @o.index(@o.last)
             -#= link_to((image_tag 'Icons/Core/Lol/go-next.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o[@o.index(@organisation)+1]) : edit_organisation_path(@o[@o.index(@organisation)+1]), :title=>"Next")

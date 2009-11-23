@@ -4,9 +4,10 @@ module PeopleSearch
     
     equality = ['id', 'custom_id', 'primary_title_id', 'second_title_id', 'gender_id', 'religion_id',
       'origin_country_id', 'residence_country_id', 'nationality_id', 'other_nationality_id',
-      'language_id', 'other_language_id', 'birth_date', 'industry_sector_id', 'onrecord_since', 'marital_status_id']
+      'language_id', 'other_language_id', 'birth_date', 'industry_sector_id', 'onrecord_since', 'marital_status_id','age']
     like = ['first_name', 'family_name', 'maiden_name', 'middle_name', 'initials',
       'preferred_name', 'post_title', 'interests', 'primary_salutation', 'second_salutation']
+   
 
     params.delete_if {|key, value| value == "" } 
     condition_clauses = Array.new
@@ -15,8 +16,15 @@ module PeopleSearch
     params.each do |attribute,value|
       case sql_condition(attribute, equality, like)
       when 'equality'
-        condition_clauses.push("people.#{attribute} = ?")
-        condition_options.push(value)
+        if attribute == 'age'
+          condition_clauses.push("people.birth_date >= ?")
+          condition_clauses.push("people.birth_date <= ?")
+          condition_options.push('01-01-'+value)
+          condition_options.push('31-12-'+value)
+        else
+          condition_clauses.push("people.#{attribute} = ?")
+          condition_options.push(value)
+        end
       when 'like'
         condition_clauses.push("people.#{attribute} ILIKE ?")
         condition_options.push(value + '%')

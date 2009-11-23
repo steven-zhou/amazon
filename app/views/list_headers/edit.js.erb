@@ -3,7 +3,7 @@ $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/ed
 
 $('#edit_list').dialog({
   modal: true,
-  resizable: true,
+  resizable: false,
   draggable: true,
   height: 700,
   width: 1300
@@ -30,7 +30,7 @@ $('#list_edit_grid').flexigrid({
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
-        width: 670,
+        width: "auto",
         height: 300
     });
 

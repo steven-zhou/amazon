@@ -1,11 +1,13 @@
-.options{:style=>"float:right"}
-  = link_to image_tag('delete_icon.png'), image_path(entity.image.id),:error_message_field => "Photo",:field => "Photo", :class => "delete", :id => "delete_photo" unless entity.image.nil?
+
+  
 %br{ :style => "clear:both;"}
 %div#imageshow{:style => "float:left;"}
   -if entity.image.nil?
     = image_tag 'Icons/System/image-missing.png', :id => "photo",:class => "medium"
+    = link_to image_tag('delete_icon.png'), image_path(entity.image.id),:error_message_field => "Photo",:style => "vertical-align:top;",:field => "Photo", :class => "delete", :id => "delete_photo" unless entity.image.nil?
   -else
     = image_tag image_path(entity.image.id), :id => "photo", :class => "medium"
+    = link_to image_tag('delete_icon.png'), image_path(entity.image.id),:error_message_field => "Photo",:style => "vertical-align:top;",:field => "Photo", :class => "delete", :id => "delete_photo" unless entity.image.nil?
 
 %div#picedit{:style => "float:left; margin-top:40px; margin-left:20px;"}
   .form_line{:style => "height:auto;"}
