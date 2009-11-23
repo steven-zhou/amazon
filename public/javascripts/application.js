@@ -3258,7 +3258,7 @@ $(function(){
 
 $(function(){
 
-    $("#organisation_industry_sector_id").live('change', function(){
+    $(".industry_sector_change").live('change', function(){
 
         if ($(this).val()!= ""){
             $.ajax({
@@ -3279,7 +3279,7 @@ $(function(){
 
 $(function(){
 
-    $("#organisation_business_category_id").live('change', function(){
+    $(".business_category_change").live('change', function(){
 
         if ($(this).val()!= ""){
             $.ajax({
