@@ -31,7 +31,7 @@
   .field_30
     = label_tag :nationality_id, 'Nationality', {:style => "color: #232323;"}
     %div.display_field_bg
-      =@person.nationality.nil? ? "" :@person.nationality.short_name.to_s
+      =@person.nationality.nil? ? "" :@person.nationality.citizenship.to_s
     
   .field_30
     = label_tag :language_id, 'Language', {:style => "color: #232323;"}
@@ -47,7 +47,7 @@
   .field_30
     = label_tag :other_nationality_id,"Other Nationality", {:style => "color: #232323;"}
     %div.display_field_bg
-      =@person.other_nationality.nil? ? "" : @person.other_nationality.short_name.to_s
+      =@person.other_nationality.nil? ? "" : @person.other_nationality.citizenship.to_s
     
   .field_30
     = label_tag :other_language,"Other Language", {:style => "color: #232323;"}

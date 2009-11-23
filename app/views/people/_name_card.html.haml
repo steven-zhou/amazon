@@ -30,6 +30,7 @@
         .field_60
           = label_tag :groups, "Groups"
           %div.display_field_bg
+            = person.group_types.first.nil? ? "" : TagType.find(person.group_types.first.tag_type_id).name
             = person.group_types.first.nil? ? "" : person.group_types.first.name
-            = person.group_types.first.nil? ? "" : person.group_types.first.type
+            
         %br.clear
