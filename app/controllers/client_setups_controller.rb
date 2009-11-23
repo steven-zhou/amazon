@@ -111,7 +111,7 @@ class ClientSetupsController < ApplicationController
     end
   end
 
-  def system_log_search
+  def system_log_management
   end
 
   def search_system_log
@@ -121,12 +121,13 @@ class ClientSetupsController < ApplicationController
     user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
     start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
     # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
     # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
 
 
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? ORDER BY s.created_at ASC", user_name, start_date, end_date])
+    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
     SystemLogSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -151,7 +152,78 @@ class ClientSetupsController < ApplicationController
 
   end
 
+  def archive_system_log
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries for achiving.")
+
+    user_name = ((!params[:archive_user_name].nil? && !params[:archive_user_name].empty?) ? params[:archive_user_name] : '%%')
+    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    status = 'Active'
+
+    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @system_log_entries.each do |log_entry|
+      @slsg = SystemLogArchiveGrid.new
+      @slsg.login_account_id = session[:user]
+      @slsg.grid_object_id = log_entry.id
+      @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
+      @slsg.field_2 = (@current_user.class.to_s == "SystemUser")? "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})" : "#{log_entry.login_account.user_name}"
+      @slsg.field_3 = "#{log_entry.ip_address}"
+      @slsg.field_4 = "#{log_entry.controller}"
+      @slsg.field_5 = "#{log_entry.action}"
+      @slsg.field_6 = "#{log_entry.message}"
+      @slsg.save
+    end
+
+    respond_to do |format|
+      format.js
+    end
+
+
+  end
+
+  def archive_system_log_entries
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) archived System Log entries.")
+
+    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
+    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    status = 'Active'
+
+    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    for entry in @system_log_entries do
+      entry.status = 'Inactive'
+      entry.save
+    end
+
+    flash[:message] = flash_message(:type => "object_updated_successfully", :object => "System Log")
+    redirect_to :action => "system_log_management"
+
+  end
+
+
   def system_log_verify_user_name
+
+    login_account = LoginAccount.find_by_user_name(params[:user_name])
+
+    @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def system_log_archive_verify_user_name
 
     login_account = LoginAccount.find_by_user_name(params[:user_name])
 

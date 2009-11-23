@@ -1,0 +1,3 @@
+class SystemLogArchiveGrid < Grid
+  
+end
