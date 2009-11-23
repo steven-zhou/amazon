@@ -793,7 +793,11 @@ label {
 
 /* remove margin from .form_field last div */
 #app #main #content .container .form_line div:last-child {
-    margin: 0px;
+    margin: 0px !important;
+}
+
+#app #main #content .full_container .form_line div:last-child {
+    margin: 0px !important;
 }
 
 #app #main #content #left_content {
@@ -1175,9 +1179,26 @@ p.submit{
     padding-right:3px;
 }
 
-#app #main #content div#accordion02 .container { /*For find people page*/
+/*For find people page*/
+#app #main #content div#accordion02 .ui-accordion-content {
     float:none !important;
     margin-bottom:10px !important;
+    height:auto !important;
+    -moz-border-radius-topleft:0px !important;
+    -moz-border-radius-topright:0px !important;
+}
+
+#app #main #content div#accordion02 .ui-state-active {
+    -moz-border-radius-bottomleft:0px !important;
+    -moz-border-radius-bottomright:0px !important;
+}
+
+#app #main #content div#accordion02 .ui-accordion-header span {
+    display:none;
+}
+
+#app #main #content div#accordion02 :first-child {
+    margin-top:0px !important;
 }
 
 
@@ -2311,22 +2332,34 @@ div#permission_form .options{
 }
 
 
-/*datepicker*/
-.datepick {
-    width:78% !important;
-}
+  /*datepicker*/
+  .datepick {
+      width:70% !important;
+  }
 
-.birthdatepick {
-    width:81% !important;
-}
+  .birthdatepick {
+      width:70% !important;
+  }
 
-.startdatepick {
-    width:78% !important;
-}
+  .startdatepick {
+      width:70% !important;
+  }
 
-.enddatepick {
-    width:78% !important;
-}
+  .enddatepick {
+      width:70% !important;
+  }
+
+  .beforestartdatepick {
+      width:70% !important;
+  }
+
+  .role_startdatepick {
+      width:70% !important;
+  }
+
+  .role_enddatepick {
+      width:70% !important;
+  }
 
 
 
