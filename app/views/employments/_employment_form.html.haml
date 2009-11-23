@@ -104,7 +104,7 @@
 .header_container
   .form_line
     .field_100
-      =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"
+      =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"
       = "Payment"
 
   %div{:style => "display:none", :id => @employment.new_record? ? "payment_div" : "payment_div_#{@employment.id}"}
@@ -137,7 +137,7 @@
 .header_container
   .form_line
     .field_100
-      =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
+      =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"
       = "Suspension"
 
   %div{:style => "display:none", :id => @employment.new_record? ? "suspension_div" : "suspension_div_#{@employment.id}"}
@@ -175,7 +175,7 @@
 .header_container
   .form_line
     .field_full
-      =link_to_function image_tag('closed_accordion.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
+      =link_to_function image_tag('/images/Icons/System/expand.png', :style=>"float:right"), :class => "toggle_button close_image", :toggle_id_name => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"
       = "Termination"
 
   %div{:style => "display:none", :id => @employment.new_record? ? "termination_div" : "termination_div_#{@employment.id}"}

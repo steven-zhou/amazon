@@ -25,13 +25,13 @@ $(function() {
     });
 
     $(".close_image").live('click', function(){
-        $(this).children('img').attr('src', '/images/open_accordion.png');
+        $(this).children('img').attr('src', '/images/Icons/System/collapse.png');
         $(this).removeClass('close_image');
         $(this).addClass('open_image');
     });
 
     $(".open_image").live('click', function(){
-        $(this).children('img').attr('src', '/images/closed_accordion.png');
+        $(this).children('img').attr('src', '/images/Icons/System/expand.png');
         $(this).removeClass('open_image');
         $(this).addClass('close_image');
     });
@@ -600,10 +600,11 @@ $(".delete_website").live('click',function(){
 $(".person_address_toggle_button").live('click', function(){
  
     $('.person_address_edit_delete').css("display","none");
+    $(this).css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     $('.person_address_close').css("display","");
-    $(this).css("display","none");
+  
     $('#address_hidden_tab').attr('mode','new');
 });
 

@@ -16,9 +16,13 @@
     $("#person_role_description").html('<%=escape_javascript("#{@role.description}")%>')
     $("#role_masterdoc_display").html('<%=  escape_javascript("#{masterdoc}")%>');
     <% unless flash[:message].nil? %>
+       $('#warning').removeClass("info_warning");
+        $('#warning').removeClass("info_ok");
       $("#warning").html("<div class='message'>" + "<%= escape_javascript(flash[:message]) %>" +  "</div>");
-      $('#warning').addClass("info_warning");
+      $('#warning').addClass("info_ok");
     <%else%>
+         $('#warning').removeClass("info_warning");
+        $('#warning').removeClass("info_ok");
       $("#warning").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" +  "</div>");
       $('#warning').addClass("info_warning");
     <%end%>
