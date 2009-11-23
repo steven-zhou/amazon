@@ -122,7 +122,7 @@ module PeopleSearch
   end
 
   def self.by_keyword(params)
-    equality = ['id']
+    equality = ['id', 'keyword_type_id']
     like = []
     params.delete_if {|key, value| value == "" }
     condition_clauses = Array.new
