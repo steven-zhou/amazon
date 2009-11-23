@@ -34,7 +34,7 @@
   .field_25
     = form.label :security_number, 'Security Number'
     = form.text_field :security_number
-  %br.clear
+
 .form_line
   .field_25
     = form.label :short_name, 'Short Name'
@@ -42,7 +42,7 @@
   .field_70
     = form.label :long_name, 'Long Name'
     = form.text_field :long_name
-  %br.clear
+
 .form_line
   .field_25
     = form.label :name_on_doc, 'Name on Doc'
@@ -50,7 +50,7 @@
   .field_70
     = form.label :other_on_doc, 'Other on Doc'
     = form.text_field :other_on_doc
-  %br.clear
+
 .form_line
   .field_25
     = form.label :issue_date, 'Issue Date'
@@ -61,7 +61,7 @@
   .field_25
     = form.label :issue_person, 'Issue by Person'
     = form.text_field :issue_person
-  %br.clear
+
 .form_line
   .field_25
     = form.label :issue_place, 'Issue Place'
@@ -72,7 +72,7 @@
   .field_25
     = form.label :issue_country, 'Issue Country'
     = form.collection_select(:issue_country_id, Country.all, :id, :short_name)
-  %br.clear
+
 .form_line
   .field_25
     = form.label :expiry_date, 'Expiry Date'
@@ -86,6 +86,7 @@
   .field_5
     = form.label :reminder, '&nbsp'
     %label  Reminder
+
 .form_line
   .field_100
     = form.label :remarks, 'Remarks'

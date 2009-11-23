@@ -34,7 +34,7 @@
   .field_25
     = phone.label :thursday_hours, "Thursday"
     = phone.select :thursday_hours, Phone::AVAILABILITY
-  %br.clear
+
 -#.form_line
   .field_25
     = phone.label :friday_hours, "Friday"
@@ -45,9 +45,8 @@
   .field_25
     = phone.label :sunday_hours, "Sunday"
     = phone.select :sunday_hours, Phone::AVAILABILITY
-  %br.clear
+
 .form_line
   .field_100
     = phone.label :remarks, "Remarks"
     = phone.text_field :remarks
-  %br.clear

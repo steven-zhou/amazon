@@ -171,14 +171,14 @@
             .field_20
               = address.label :suite_unit, 'Unit Number'
               = address.text_field :suite_unit
-            .field_30
+            .field_23
               = address.label :street_number, 'Street Number'
               = address.text_field :street_number
-            .field_40
+            .field_45
               = address.label :street_name, 'Street Name'
               = address.text_field :street_name
           .form_line
-            .field_40
+            .field_38
               = address.label :town, 'Suburb/Town'
               = address.text_field :town, :id => "person_addresses_attributes_0_town"
             .field_5
@@ -206,8 +206,12 @@
         .container
           .form_line
             .field_40
+              = label_tag :keyword_type_id, "Keyword Type"
+              = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:include_blank => true}, :class => "keywordtype_change clear_select"
+            .field_40
               = keyword.label :name, 'Keyword'
-              = keyword.collection_select :id, Keyword.all, :id, :name, {:include_blank => true}
+              %select#keyword_id{:name => "keyword[id]"}
+              
             %br.clear
           %p.submit
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"

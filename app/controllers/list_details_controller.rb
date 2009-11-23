@@ -43,7 +43,7 @@ class ListDetailsController < ApplicationController
         flash.now[:error] = flash_message(:message => "Duplications are not allowed")
       end
     else
-      flash.now[:error] = flash_message(:message => "Person ID is not valid")
+      flash.now[:error] = flash_message(:message => "Person ID is Invalid")
     end
     respond_to do |format|
       format.js
