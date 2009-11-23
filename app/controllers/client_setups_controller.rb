@@ -61,6 +61,30 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+  def feedback_list
+    @feedback = FeedbackItem.find(:all, :order => "created_at DESC")
+
+    #clear temple table and save result into temple table
+    FeedbackSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @feedback.each do |feedback|
+      @psg = FeedbackSearchGrid.new
+      @psg.login_account_id = session[:user]
+      @psg.grid_object_id = feedback.id
+      @psg.field_1 = feedback.feedback_date.strftime('%a %d %b %Y')
+      @psg.field_2 = feedback.submitted_by
+      @psg.field_3 = feedback.subject
+      @psg.field_4 = feedback.ip_address
+      @psg.field_5 = feedback.status
+      @psg.save
+    end
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def update
     @client_setup = ClientSetup.first
     if @client_setup.update_attributes(params[:client_setup])

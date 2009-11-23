@@ -4,9 +4,9 @@ $('#person_groups').prepend('<%= escape_javascript(render(:partial => "person_gr
 
 $("#new_group").hide();
 
-$('.person_group_delete_button').css("display","");
- $('.person_group_toggle_button').css("display","");
-$('.person_group_close').css("display","none");
+$('#person_group_mode').attr('mode', 'show');
+$('.new_option[field="person_group"]').css("display","");
+$('.close_option[field="person_group"]').css("display","none");
 $('#<%= dom_id(@person_group) %>').effect('slide', {direction:'right'});
 
 $('.find_group_meta_type').val("").change();

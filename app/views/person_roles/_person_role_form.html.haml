@@ -30,21 +30,22 @@
       %span{:id=> "person_role_#{@person_role.id}_description" } #{@role.description}
 .header_container
   %h1{:style => "margin:0;"} Role Conditions
+  %br
   .form_line{:style => "height:auto !important;"}
-    .field_45{:style => "height:auto !important;"}
+    .field_48{:style => "height:auto !important;"}
       %label Role Conditions
       -if @person_role.new_record?
-        %select{:multiple => true,:size => "15", :id => "role_condition_display", :disabled=> true, :style => "float:left;min-height:250px;margin-left:10px"}
+        %select{:multiple => true,:size => "15", :id => "role_condition_display", :disabled=> true, :style => "float:left;min-height:250px;"}
       -else
-        %select{:multiple => true,:size => "15", :id => "role_condition_#{@person_role.id}_display", :disabled=> true, :style => "float:left;min-height:250px;margin-left:5px"}
+        %select{:multiple => true,:size => "15", :id => "role_condition_#{@person_role.id}_display", :disabled=> true, :style => "float:left;min-height:250px;"}
           - @role.role_conditions.each do |r|
             %option{:value => "#{r.id}" } #{r.name}
-    .field_45{:style => "height:auto !important;"}
+    .field_48{:style => "height:auto !important;"}
       %label Person Master Docs
       -if @person_role.new_record?
-        %select{:multiple => true,:size => "15", :id => "role_masterdoc_display",:disabled=> true, :style => "float:left;min-height:250px;margin-left:10px"}
+        %select{:multiple => true,:size => "15", :id => "role_masterdoc_display",:disabled=> true, :style => "float:left;min-height:250px;"}
       -else
-        %select{:multiple => true,:size => "15", :id => "role_masterdoc_#{@person_role.id}_display",:disabled=> true, :style => "float:left;min-height:250px;margin-left:5px"}
+        %select{:multiple => true,:size => "15", :id => "role_masterdoc_#{@person_role.id}_display",:disabled=> true, :style => "float:left;min-height:250px;"}
           - @masterdoc.each do |r|
             %option{:value => "#{r.master_doc_type.id}" } #{r.master_doc_type.name}
 %br.clear

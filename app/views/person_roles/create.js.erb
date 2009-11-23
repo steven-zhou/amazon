@@ -17,6 +17,13 @@
 
   $('.person_roles_close').css("display","none");
   $('#<%= dom_id(@person_role) %>').effect('slide', {direction:'right'});
+
+
+     $('#assigner_container_0').html('');
+        $('#approver_container_0').html('');
+        $('#superviser_container_0').html('');
+        $('#manager_container_0').html('');
+  
   <%else%>
 
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

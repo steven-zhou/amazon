@@ -25,13 +25,13 @@ $(function() {
     });
 
     $(".close_image").live('click', function(){
-        $(this).children('img').attr('src', '/images/open_accordion.png');
+        $(this).children('img').attr('src', '/images/Icons/System/collapse.png');
         $(this).removeClass('close_image');
         $(this).addClass('open_image');
     });
 
     $(".open_image").live('click', function(){
-        $(this).children('img').attr('src', '/images/closed_accordion.png');
+        $(this).children('img').attr('src', '/images/Icons/System/expand.png');
         $(this).removeClass('open_image');
         $(this).addClass('close_image');
     });
@@ -321,13 +321,13 @@ $(function() {
     }
 
 
-    $("#new_person_role").submit( function(){
-        $('#assigner_container_0').html('');
-        $('#approver_container_0').html('');
-        $('#superviser_container_0').html('');
-        $('#manager_container_0').html('');
-  
-    });
+//    $("#new_person_role").submit( function(){
+//        $('#assigner_container_0').html('');
+//        $('#approver_container_0').html('');
+//        $('#superviser_container_0').html('');
+//        $('#manager_container_0').html('');
+//
+//    });
 
 
 
@@ -600,10 +600,11 @@ $(".delete_website").live('click',function(){
 $(".person_address_toggle_button").live('click', function(){
  
     $('.person_address_edit_delete').css("display","none");
+    $(this).css("display","none");
 
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     $('.person_address_close').css("display","");
-    $(this).css("display","none");
+  
     $('#address_hidden_tab').attr('mode','new');
 });
 
@@ -1132,6 +1133,12 @@ $(".person_roles_close").live('click',function(){
         $('#warning_message').dialog('open');
     }
 });
+
+$("#person_role_edit_close_button").live('click',function(){
+
+    $('#person_role_hidden_tab').attr('mode','show');
+});
+
 
 
 // Address assistant //

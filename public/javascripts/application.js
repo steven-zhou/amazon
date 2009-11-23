@@ -154,6 +154,7 @@ $(function() {
 
         if($(this).attr('field')== "person_role")
         {
+         
             change_type =$('#role_input_change_or_not').val();
 
         }
@@ -176,6 +177,7 @@ $(function() {
         if(change_type=="true" )
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -6004,7 +6006,27 @@ $(function(){
 
         if($('#check_input_change').val() == "false")
         {
-            window.open(link.attr('href'),"_self"); 
+            if (link.attr('url').indexOf("people") > 0)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: link.attr('url')+".js",
+                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                    dataType: "script"
+                });
+            }
+            if (link.attr('url').indexOf("organisations") > 0)
+            {
+                $.ajax({
+                    type: "GET",
+                    url: $(this).attr('url')+".js",
+                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                    dataType: "script"
+                });
+
+            }
+
+
             return false;
         }
         else
@@ -6025,7 +6047,25 @@ $(function(){
 
                     },
                     Yes: function(){
-                        window.open(link.attr('href'),"_self");
+                        if (link.attr('url').indexOf("people") > 0)
+                        {
+                            $.ajax({
+                                type: "GET",
+                                url: link.attr('url')+".js",
+                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                                dataType: "script"
+                            });
+                        }
+                        if (link.attr('url').indexOf("organisations") > 0)
+                        {
+                            $.ajax({
+                                type: "GET",
+                                url: $(this).attr('url')+".js",
+                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                                dataType: "script"
+                            });
+
+                        }
                         $('#check_left_input_change').val("false");
                         $('#check_right_input_change').val("false");
                         $('#check_input_change').val("false");
@@ -6406,28 +6446,28 @@ $(function($) {
 
 
 /*arrow block */
-$(function(){
-    $('.person_arrow_block').click(function(){
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
-    });
-});
+//$(function(){
+//    $('.person_arrow_block').click(function(){
+//        $.ajax({
+//            type: "GET",
+//            url: $(this).attr('url')+".js",
+//            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+//            dataType: "script"
+//        });
+//    });
+//});
 
-$(function(){
-    $('.organisation_arrow_block').click(function(){
-
-        $.ajax({
-            type: "GET",
-            url: $(this).attr('url')+".js",
-            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-            dataType: "script"
-        });
-    });
-});
+//$(function(){
+//    $('.organisation_arrow_block').click(function(){
+//
+//        $.ajax({
+//            type: "GET",
+//            url: $(this).attr('url')+".js",
+//            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+//            dataType: "script"
+//        });
+//    });
+//});
 
 
 
@@ -6500,151 +6540,10 @@ $(function(){
 
 /* Country Grid*/
 $(function(){
-    $("#show_countries_grid").flexigrid({
-        url: '/grids/show_countries_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Long Name',
-            name : 'long_name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Short Name',
-            name : 'short_name',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Citizenship',
-            name : 'citizenship',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Capital',
-            name : 'capital',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'ISO Code',
-            name : 'iso_code',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Dialup Code',
-            name : 'dialup_code',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Main Language',
-            name : 'govenment_language',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Currency',
-            name : 'currency',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Currency Subunit',
-            name : 'currency_subunit',
-            width : 60,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'Long Name',
-            name : 'long_name'
-        },
-
-        {
-            display: 'Short Name',
-            name : 'short_name'
-        },
-
-        {
-            display: 'Citizenship',
-            name : 'citizenship'
-        },
-
-        {
-            display: 'Capital',
-            name : 'capital'
-        },
-
-        {
-            display: 'ISO Code',
-            name : 'iso_code'
-        },
-
-        {
-            display: 'Dialup Code',
-            name : 'dialup_code'
-        },
-
-        {
-            display: 'Main Language',
-            name : 'govenment_language'
-        },
-
-        {
-            display: 'Currency',
-            name : 'currency'
-        },
-
-        {
-            display: 'Currency Subunit',
-            name : 'currency_subunit'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Countries',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
     $('table#show_countries_grid tbody tr').live('click',function(){
         if($('#country_mode').attr('mode')=="show"){
             $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
-             $(this).addClass('trSelected');
+            $(this).addClass('trSelected');
         }else{
             $(this).removeClass('trSelected');
         }
@@ -6672,56 +6571,6 @@ $(function(){
 
 /* Language Grid*/
 $(function(){
-    $("#show_languages_grid").flexigrid({
-        url: '/grids/show_languages_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Name',
-            name : 'name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Description',
-            name : 'description',
-            width : 200,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'Name',
-            name : 'name'
-        },
-
-        {
-            display: 'Description',
-            name : 'description'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Languages',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
     $('table#show_languages_grid tbody tr').live('click',function(){
         if($('#language_mode').attr('mode')=="show"){
             $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
@@ -6782,56 +6631,6 @@ $('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
 
 /* Religion Grid*/
 $(function(){
-    $("#show_religions_grid").flexigrid({
-        url: '/grids/show_religions_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Name',
-            name : 'name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Description',
-            name : 'description',
-            width : 200,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'Name',
-            name : 'name'
-        },
-
-        {
-            display: 'Description',
-            name : 'description'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Religions',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
     $('table#show_religions_grid tbody tr').live('click',function(){
         if($('#religion_mode').attr('mode')=="show"){
             $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
@@ -6905,6 +6704,16 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".page_initial").live('mousedown', function(){
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("url")+".js",
+            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
+            dataType: "script"
+        });
+    });
+});
 /*bank setting*/
 $(function(){
     $('#open_add_new_bank').click(function(){
@@ -6923,6 +6732,7 @@ $(function(){
 });
 
 $(function(){
+
     $('#delete_bank_entry').live('click', function(){
 
         var link = $(this);
@@ -6968,7 +6778,7 @@ $(function(){
 
 $(function(){
     $('#edit_bank_entry').live('click', function(){
-       $.ajax({
+        $.ajax({
             type: "GET",
             url: "/banks/edit_bank_entry",
             data: 'id=' + $(this).attr('bank_id'),
@@ -7014,3 +6824,84 @@ $(function(){
     });
 });
 
+
+/*Maintenance-country- message*/
+
+$(function(){
+    $('a.tab_switch_with_page_initial').live('click', function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+            $('.page_initial[field='+ link.attr('field')+']').click();
+            $('.page_initial[field='+ link.attr('field')+']').mousedown();
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('.page_initial[field='+ link.attr('field')+']').click();
+                        $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+    });
+});
+
+/*help-icon*/
+
+$(function(){
+    $('#help_icon_tab').click(function(){
+        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    ok: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+           
+    });
+});

@@ -102,7 +102,8 @@ module PeopleSearch
   end
 
   def self.by_keyword(params)
-    equality = ['keyword_id']
+    equality = ['id']
+    like = []
     params.delete_if {|key, value| value == "" }
     condition_clauses = Array.new
     condition_options = Array.new
@@ -112,6 +113,9 @@ module PeopleSearch
       when 'equality'
         condition_clauses.push("keywords.#{attribute} = ?")
         condition_options.push(value)
+      when 'like'
+        condition_clauses.push("keywords.#{attribute} ILIKE ?")
+        condition_options.push(value + '%')
       else
         raise InvalidAttribute, 'Attribute must be in array', caller
       end

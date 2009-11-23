@@ -1,154 +1,176 @@
-<%if @type == "geo_area"%>
-$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/new_geo_area"))%>');
-$("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/existing_geo_area"))%>');
- $('.select_ajax_call[field="geo_area"]').attr('disabled', false)
- $('#geo_area_mode').attr('mode', 'show');
-$("#show_geographicalarea_grid").flexigrid({
-        url: '/grids/show_geographicalarea_grid?country_id='+'<%=escape_javascript("#{@country_id}")%>',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+<% if flash[:error].nil? %>
+  <%if @type == "geo_area"%>
+    $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/new_geo_area"))%>');
+    $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/existing_geo_area"))%>');
+    $('.select_ajax_call[field="geo_area"]').attr('disabled', false)
+    $('#geo_area_mode').attr('mode', 'show');
+    $("#show_geographicalarea_grid").flexigrid({
+    url: '/grids/show_geographicalarea_grid?country_id='+'<%=escape_javascript("#{@country_id}")%>',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Country Id',
-            name : 'country_id',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+    {
+    display: 'Country Id',
+    name : 'country_id',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Country Name',
-            name : 'country_name',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
+    {
+    display: 'Country Name',
+    name : 'country_name',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Division Name',
-            name : 'division_name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+    {
+    display: 'Division Name',
+    name : 'division_name',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Remarks',
-            name : 'remarks',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
+    {
+    display: 'Remarks',
+    name : 'remarks',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
+    ],
+    searchitems : [
 
-        {
-            display: 'Country',
-            name : 'country_name'
-        },
+    {
+    display: 'Country',
+    name : 'country_name'
+    },
 
-        {
-            display: 'Division Name',
-            name : 'division_name'
-        },
+    {
+    display: 'Division Name',
+    name : 'division_name'
+    },
 
-        {
-            display: 'Remarks',
-            name : 'remarks'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Geographical Areas',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
+    {
+    display: 'Remarks',
+    name : 'remarks'
+    }
+    ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: 'Geographical Areas',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
     });
-<%else-%>
-$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/new_electoral_area"))%>');
-$("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/existing_electoral_area"))%>');
- $('.select_ajax_call[field="electoral_area"]').attr('disabled', false)
- $('#electoral_area_mode').attr('mode', 'show');
-$("#show_electoral_area_grid").flexigrid({
-        url: '/grids/show_electoral_area_grid?country_id='+'<%=escape_javascript("#{@country_id_ele}")%>',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
+  <%else-%>
+    $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/new_electoral_area"))%>');
+    $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/existing_electoral_area"))%>');
+    $('.select_ajax_call[field="electoral_area"]').attr('disabled', false)
+    $('#electoral_area_mode').attr('mode', 'show');
+    $("#show_electoral_area_grid").flexigrid({
+    url: '/grids/show_electoral_area_grid?country_id='+'<%=escape_javascript("#{@country_id_ele}")%>',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Country Id',
-            name : 'country_id',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+    {
+    display: 'Country Id',
+    name : 'country_id',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Country Name',
-            name : 'country_name',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
+    {
+    display: 'Country Name',
+    name : 'country_name',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Division Name',
-            name : 'division_name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+    {
+    display: 'Division Name',
+    name : 'division_name',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
-        {
-            display: 'Remarks',
-            name : 'remarks',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
+    {
+    display: 'Remarks',
+    name : 'remarks',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
+    ],
+    searchitems : [
 
-        {
-            display: 'Country',
-            name : 'country_name'
-        },
+    {
+    display: 'Country',
+    name : 'country_name'
+    },
 
-        {
-            display: 'Division Name',
-            name : 'division_name'
-        },
+    {
+    display: 'Division Name',
+    name : 'division_name'
+    },
 
-        {
-            display: 'Remarks',
-            name : 'remarks'
-        }
-        ],
-        sortname: "id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Geographical Areas',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
+    {
+    display: 'Remarks',
+    name : 'remarks'
+    }
+    ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: 'Geographical Areas',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
     });
 
-<%end%>
+  <%end%>
+
+<% else %>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

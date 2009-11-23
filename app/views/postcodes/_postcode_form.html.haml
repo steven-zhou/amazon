@@ -11,15 +11,15 @@
       = f.text_field :postcode
     .field_15
       = f.label :geographical_area_id, 'Geo Area'
-      = f.collection_select :geographical_area_id, GeographicalArea.all, :id, :division_name, {:include_blank => true}
+      = f.collection_select :geographical_area_id, GeographicalArea.find(:all, :conditions => ['country_id=?', session[:postcode_country_id]], :order => 'division_name'), :id, :division_name, {:include_blank => true}
     .field_15
       = f.label :electoral_area_id, 'Electoral Area'
-      = f.collection_select :electoral_area_id, ElectoralArea.all, :id, :division_name, {:include_blank => true}
+      = f.collection_select :electoral_area_id, ElectoralArea.find(:all, :conditions => ['country_id=?', session[:postcode_country_id]], :order => 'division_name'), :id, :division_name, {:include_blank => true}
   .full_container
     .title
       %h2 More Details
     .options
-      = link_to_function image_tag('/images/closed_accordion.png'), :class => "toggle_button close_image", :toggle_id_name => "postcode_more"
+      = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => "postcode_more"
 
     #postcode_more.hidden.left
       .form_line

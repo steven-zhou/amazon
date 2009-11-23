@@ -1,3 +1,4 @@
+
 <% if @person_role.errors.empty? && @temp ==true  -%>
 
 $('#<%= dom_id(@person_role,:edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @person_role)) %>");
@@ -28,3 +29,4 @@ $('#<%= dom_id(@person_role,:edit) %>').replaceWith(" <%= escape_javascript(rend
   $('#flash_message').dialog('open');
 
        <%end%>
+ 

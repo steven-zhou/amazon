@@ -105,10 +105,10 @@
 
     
 
-#right_content
+#right_content{:style => "margin-top:0px;"}
   %div{:id => "accordion02"}
     %h3
-      %a{:href => "#"} Find by Contact
+      %a{:href => "#"} Find by Email
     %div.container
       -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|
         .container
@@ -126,6 +126,10 @@
             = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_email"
             = submit_tag 'Find'
           %br.clear
+
+    %h3
+      %a{:href => "#"} Find by Phone
+    %div.container
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
         .container
           %h2 Phone
@@ -148,6 +152,8 @@
             = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_phone"
             = submit_tag 'Find'
           %br.clear
+
+
     %h3
       %a{:href => "#"} Find by Address
     %div.container
