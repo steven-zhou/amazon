@@ -1,8 +1,6 @@
 class PeopleController < ApplicationController
   # Added system logging
-  
   include PeopleSearch
-
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
   protect_from_forgery :except => [:post_data]
   
