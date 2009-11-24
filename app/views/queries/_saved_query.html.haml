@@ -1,4 +1,5 @@
-.header_container.container.toggle_options{:field => "query", :class => "get_query", :query_id => saved_query.id}
+- status = saved_query.status ? "container" : "container_inactive"
+%div{:class => "#{status} toggle_options get_query", :field => "query", :query_id => saved_query.id}
   %div
     .title
       %h2 #{saved_query.formatted_info}

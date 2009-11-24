@@ -20,7 +20,7 @@ else
   file = File.open(file)
 end
 
-DomesticPostcode.destroy_all if update_option.to_s == "overwrite"
+Postcode.destroy_all if update_option.to_s == "overwrite"
 
 i = 1 # We start at the first line
 while row = file.readline
@@ -29,7 +29,7 @@ while row = file.readline
   else
     data = row.split(/,/)
 
-    dp = DomesticPostcode.new
+    dp = Postcode.new
     suburb_index = suburb_col.to_i - 1
     state_index = state_col.to_i - 1
     postcode_index = postcode_col.to_i - 1
@@ -38,6 +38,7 @@ while row = file.readline
     dp.state = ( state_index >= 0 && !data[state_index].nil? && !data[state_index].empty? ) ? data[state_index].gsub(/\"/,'').humanize.upcase : ""
     dp.postcode = ( postcode_index >= 0 && !data[postcode_index].nil? && !data[postcode_index].empty? ) ? data[postcode_index].gsub(/\"/,'').humanize : ""
     dp.country = country
+    dp.country_name = country.short_name
 
     if dp.save
       puts "Saved entry with Suburb #{dp.suburb} State #{dp.state} Postcode #{dp.postcode} Country #{country.short_name}"

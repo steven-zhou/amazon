@@ -21,7 +21,8 @@ $(function() {
         $('#'+$(this).attr('toggle_id_name')).css("display","");
         $('#'+$(this).attr('toggle_id_name1')).css("display","none");
         $('#'+$(this).attr('toggle_id_name2')).css("display","none");
-
+        $('.toggle_button2').find('img').attr('src','/images/Icons/System/expand.png');
+        $(this).find('img').attr('src','/images/Icons/System/collapse.png');
     });
 
     $(".close_image").live('click', function(){

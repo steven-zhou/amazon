@@ -1,2 +1,0 @@
-class InternationalPostcode < Postcode
-end
