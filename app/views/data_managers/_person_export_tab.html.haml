@@ -1,7 +1,7 @@
 .container
   %h2 Export Person Data
   .form_line
-    .field_20
+    .field_30
       %label Select Source
       %select#source_id
         %option
@@ -11,7 +11,7 @@
           %option{:value => "list_#{i.id}"} List_#{i.name}
         
     .field_20
-      %label Export To
+      %label &nbsp
       %input{:type => "button", :value => "PDF", :class => "export_button", :source => "person"}
       %input{:type => "button", :value => "XML", :class => "export_button", :source => "person"}
       %input{:type => "button", :value => "CSV", :class => "export_button", :source => "person"}
