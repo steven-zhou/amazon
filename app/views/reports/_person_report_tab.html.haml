@@ -8,8 +8,8 @@
             %option{:selected => "selected"}
             - @list_headers.each do |r|
               %option{:value => "list_#{r.id}"} List_#{r.name}
-            - @query.each do |i|
-              %option{:value => "query_#{i.id}"} Query_#{i.name}
+            -#- @query.each do |i|
+              -#%option{:value => "query_#{i.id}"} Query_#{i.name}
       .field_30
         %div#report_format{:style => "display:none;"}
           =tag_type.label :format, 'Report Format'
