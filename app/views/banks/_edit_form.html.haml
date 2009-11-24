@@ -44,7 +44,7 @@
           = f.label :postcode, 'Postcode'
           = f.text_field :postcode
         .field_5
-          = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode"
+          = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode"
         .field_15
           = f.label :country, 'Country'
           = collection_select :bank_update, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
