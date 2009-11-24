@@ -13,4 +13,4 @@
       = h note.label
       = "(#{note.note_type.name})"
     .attr_name
-      = truncate(note.body_text.each_line.first, 50, "...")
+      = truncate(note.body_text, 50, "...")
