@@ -1,23 +1,25 @@
 #header
   #page_title
-    %h1 Find by Organisation
+    %h1 Find Organisation
   #lol
 #left_content
   %div.container
-    %h1 Find By Organisation
-    %div.container
-      - form_for @organisation, :url => {:action => 'search'}, :html => {:method => :post} do |p|
-        .container
-          .form_line
-            .field_20
-              = p.label :id, 'System ID'
-              = p.text_field :id
-            .field_20
-              = p.label :custom_id, 'Custom ID'
-              = p.text_field :custom_id
-            .field_40
-              = p.label :onrecord_since, 'On Record Since'
-              = p.text_field :onrecord_since, :class=>"datepick"
+    %h1 Find by Organisation
+    - form_for @organisation, :url => {:action => 'search'}, :html => {:method => :post} do |p|
+      .container
+        %h2 Identity
+        .form_line
+          .field_20
+            = p.label :id, 'System ID'
+            = p.text_field :id
+          .field_20
+            = p.label :custom_id, 'Custom ID'
+            = p.text_field :custom_id
+          .field_40
+            = p.label :onrecord_since, 'On Record Since'
+            = p.text_field :onrecord_since, :class=>"datepick"
+
+      .container
         %h2 Name Details
         .form_line
           .field_100
@@ -31,6 +33,8 @@
           .field_100
             = p.label :trading_as, "Trading as"
             = p.text_field :trading_as
+
+      .container
         %h2 Legal Details
         .form_line
           .field_60
@@ -59,6 +63,8 @@
           .field_30
             = p.label :legal_no_2, 'Legal Number 2'
             = p.text_field :legal_no_2
+
+      .container
         %h2 Business Details
         .form_line
           .field_34
@@ -92,14 +98,14 @@
           .field_100
             = p.label :remarks, 'Remarks'
             = p.text_field :remarks, :value=>@organisation.remarks
-        = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "left_find_by_person"
-        = submit_tag 'Find', {:id => "find_button"}
-        %br.clear
+      = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "left_find_by_person"
+      = submit_tag 'Find', {:id => "find_button"}
+      %br.clear
 
-#right_content
+#right_content{:style => "margin-top:0px;"}
   %div{:id => "accordion02"}
     %h3
-      %a{:href => "#"} Find by Contact
+      %a{:href => "#"} Find by Email
     %div.container      
       -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|
         .container
@@ -116,6 +122,10 @@
             = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right", :field => "right_find_by_email"
             = submit_tag 'Find'
           %br.clear
+
+    %h3
+      %a{:href => "#"} Find by Phone
+    %div.container
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
         .container
           %h2 Phone
