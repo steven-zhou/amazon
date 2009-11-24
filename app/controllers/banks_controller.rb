@@ -43,7 +43,7 @@ class BanksController < ApplicationController
 
   def update
     @bank = Bank.find_by_id(params[:id])
-    if @bank.update_attributes(params[:bank])
+    if @bank.update_attributes(params[:bank_update])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Bank with ID #{@bank.id}.")
     else
       flash[:error] = flash_message(:type => "field_missing", :field => "#{@bank.errors.first.first.humanize}")
