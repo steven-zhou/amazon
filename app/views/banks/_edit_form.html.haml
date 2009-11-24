@@ -1,7 +1,7 @@
 .container
-  = link_to_function image_tag("/images/close_icon.png") , :class => "close_option", :id=> "edit_bank_entry_close_form", :style => "float:right;", :field => "bank"
+  = link_to_function image_tag("/images/close_icon.png") , :class => "close_option toggle_button", :id=> "edit_bank_entry_close_form", :style => "float:right;", :field => "bank", :toggle_id_name => "edit_bank_entry_form"
   %h3 Edit Bank
-  - form_for :bank, @bank_to_update, :url => { :action => "update" }, :html => {:class => 'ajax_form', :id => "edit_bank_entry_form"}  do |f|
+  - form_for :bank_update, @bank_to_update, :url => { :action => "update" }, :html => {:class => 'ajax_form', :id => "edit_bank_entry_form"}  do |f|
     %input{:id => "id", :name => "id", :style => "display:none;", :value => @bank_to_update.id}
     .container
       %h2 Branch Details
@@ -43,9 +43,10 @@
         .field_15
           = f.label :postcode, 'Postcode'
           = f.text_field :postcode
+          = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode"
         .field_15
           = f.label :country, 'Country'
-          = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
+          = collection_select :bank_update, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
     .container
       %h2 Contact Person
       .form_line

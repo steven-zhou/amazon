@@ -1,5 +1,5 @@
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
-  .container
+  .container{:style => ""}
     %h2 Branch Details
     .form_line
       .field_20
@@ -39,6 +39,7 @@
       .field_15
         = f.label :postcode, 'Postcode'
         = f.text_field :postcode
+        = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;', :class => "launch_address_assistant" ,:update_field1 =>"bank_address_line_3", :update_field2 =>"bank_state", :update_field3 => "bank_postcode", :update_field4 => "bank_country_id", :title=>"Postcode"
       .field_15
         = f.label :country, 'Country'
         = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
