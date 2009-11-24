@@ -582,21 +582,21 @@ class PeopleController < ApplicationController
 
   def  show_postcode
 
-    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
-      @postcode = Postcode.find(:all)
-
-      @postcode.each do |i|
-        @spc = ShowPostcodeGrid.new
-        @spc.login_account_id = session[:user]
-        @spc.grid_object_id = i.id
-        @spc.field_1 = i.state
-        @spc.field_2 = i.suburb
-        @spc.field_3 = i.postcode
-        @spc.field_4 = i.country.short_name
-        @spc.save
-      end
-
-    end
+#    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
+#      @postcode = Postcode.find(:all)
+#
+#      @postcode.each do |i|
+#        @spc = ShowPostcodeGrid.new
+#        @spc.login_account_id = session[:user]
+#        @spc.grid_object_id = i.id
+#        @spc.field_1 = i.state
+#        @spc.field_2 = i.suburb
+#        @spc.field_3 = i.postcode
+#        @spc.field_4 = i.country.short_name
+#        @spc.save
+#      end
+#
+#    end
 
     respond_to do |format|
       format.js
