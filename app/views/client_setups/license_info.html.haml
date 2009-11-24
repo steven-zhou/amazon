@@ -24,7 +24,7 @@
         %input{:value => @client_setup.halt_date}
       .field_20
         %label Home Country
-        %input{:value => Country.find(@client_setup.home_country_id).short_name}
+        %input{:value => @client_setup.home_country_id.blank? ? "" : Country.find(@client_setup.home_country_id).short_name}
 
     %br.clear
     %p &nbsp;
