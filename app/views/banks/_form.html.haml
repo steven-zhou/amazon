@@ -1,7 +1,7 @@
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
-  .container{:style => ""}
+  .container
     %h2 Branch Details
-    .form_line
+    .form_line{:style => "float:none;"}
       .field_20
         = f.label :full_name, 'Full Name'
         = f.text_field :full_name
@@ -46,7 +46,7 @@
         = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
   .container
     %h2 Contact Person
-    .form_line
+    .form_line{:style => "float:none;"}
       .field_20
         = f.label :contact_person, 'Name'
         = f.text_field :contact_person
@@ -68,7 +68,7 @@
         = f.text_field :contact_mobile
   .container
     %h2 Branch Status
-    .form_line
+    .form_line{:style => "float:none;"}
       .field_20
         = f.label :status, 'Active'
         = f.check_box :status
