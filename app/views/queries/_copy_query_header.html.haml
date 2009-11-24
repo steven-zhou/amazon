@@ -1,4 +1,4 @@
-.container
+.container{:style => "background-image:none;"}
   -form_for QueryHeader.new, :action => "copy", :html => {:class => 'ajax_form'} do |f|
     .form_line
       = f.label :name, 'Name'
