@@ -2194,6 +2194,8 @@ $(function(){
             });
             $('#save_form').dialog('option', 'title', 'New Query');
             $('#save_form').dialog('open');
+            $("#save_form").parent().css('background-color','#D1DDE6');
+            $("#save_form").css('background-color','#D1DDE6');
         }else{
             $('#edit_query_header').doAjaxSubmit();
         }
@@ -4658,7 +4660,8 @@ $(function(){
         var format = $(this).attr("value").toLowerCase();
         var source = $(this).attr("source");
         var source_id = $("#source_id").val();
-        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
+        var file_name = $("#file_name").val();
+        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
     });
 });
 

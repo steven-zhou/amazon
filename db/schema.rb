@@ -62,8 +62,6 @@ ActiveRecord::Schema.define(:version => 20091124041613) do
     t.text     "state"
     t.text     "postcode"
     t.integer  "country_id"
-    t.text     "website"
-    t.text     "general_email"
     t.text     "contact_person"
     t.text     "contact_person_job_title"
     t.text     "contact_person_email"
@@ -136,6 +134,7 @@ ActiveRecord::Schema.define(:version => 20091124041613) do
     t.string   "superadmin_message"
     t.string   "feedback_to"
     t.string   "reply_from"
+    t.integer  "home_country_id"
   end
 
   create_table "compile_lists", :force => true do |t|
