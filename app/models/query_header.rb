@@ -80,10 +80,18 @@ class QueryHeader < ActiveRecord::Base
   def sort_clauses
     sort_clauses = Array.new
     self.query_sorters.find(:all, :order => "sequence").each do |i|
-      if i.ascending
-        sort_clauses.push("#{i.table_name}.#{i.field_name}")
+      if (i.data_type == "Integer FK")
+        if i.ascending
+          sort_clauses.push("#{i.table_name}.#{i.field_name}_id")
+        else
+          sort_clauses.push("#{i.table_name}.#{i.field_name}_id DESC")
+        end
       else
-        sort_clauses.push("#{i.table_name}.#{i.field_name} DESC")
+        if i.ascending
+          sort_clauses.push("#{i.table_name}.#{i.field_name}")
+        else
+          sort_clauses.push("#{i.table_name}.#{i.field_name} DESC")
+        end
       end
     end
     sort_clauses

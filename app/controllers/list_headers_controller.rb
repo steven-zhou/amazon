@@ -154,9 +154,9 @@ class ListHeadersController < ApplicationController
 
   def update
     @list_header = ListHeader.find(params[:id].to_i)
-    @list_header.update_attributes(params[:list_header])
+  if  @list_header.update_attributes(params[:list_header])
+
     @list_header = ListHeader.find(@list_header)
-    
     if !@list_header.allow_duplication  # if allow_duplication is change to be false
 
       delete_list = Array.new
@@ -189,8 +189,11 @@ class ListHeadersController < ApplicationController
         @leg.save
       end
     end    
-    
+     else
+    flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
+  end
     @list_header = ListHeader.find(@list_header)
+ 
     respond_to do |format|
       format.js
     end

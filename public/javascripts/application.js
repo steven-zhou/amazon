@@ -413,7 +413,7 @@ $(function(){
         }
     });
 
-$('.datepick').datepicker({
+    $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -425,7 +425,7 @@ $('.datepick').datepicker({
         yearRange: '-200:+20'
     });
 
-$('.beforestartdatepick').datepicker({
+    $('.beforestartdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -445,7 +445,7 @@ $('.beforestartdatepick').datepicker({
         }
     });
 
-$('.role_startdatepick').datepicker({
+    $('.role_startdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -475,7 +475,7 @@ $('.role_startdatepick').datepicker({
         }
     });
 
-$('.role_enddatepick').datepicker({
+    $('.role_enddatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -496,26 +496,26 @@ $('.role_enddatepick').datepicker({
     });
 
 
-$('.ui-datepicker-trigger').live('mouseover', function(){
-         var endDate = $(this).parent().find('.enddatepick')
-         if(endDate.attr('start_date')!=undefined){
-             var arr_dateText = $('#'+endDate.attr('start_date')).val().split("-");
-             year = arr_dateText[2];
-             if(year==undefined){
-                 endDate.val('');
-                 endDate.datepicker('disable');
-             }
-         }else{
-             var roleEndDate = $(this).parent().find('.role_enddatepick')
-             if(roleEndDate.attr('start_date')!=undefined){
-                 var role_arr_dateText = $('#'+roleEndDate.attr('start_date')).val().split("-");
-                 year = role_arr_dateText[2];
-                 if(year==undefined){
-                     roleEndDate.val('');
-                     roleEndDate.datepicker('disable');
-                 }
-             }
-         }
+    $('.ui-datepicker-trigger').live('mouseover', function(){
+        var endDate = $(this).parent().find('.enddatepick')
+        if(endDate.attr('start_date')!=undefined){
+            var arr_dateText = $('#'+endDate.attr('start_date')).val().split("-");
+            year = arr_dateText[2];
+            if(year==undefined){
+                endDate.val('');
+                endDate.datepicker('disable');
+            }
+        }else{
+            var roleEndDate = $(this).parent().find('.role_enddatepick')
+            if(roleEndDate.attr('start_date')!=undefined){
+                var role_arr_dateText = $('#'+roleEndDate.attr('start_date')).val().split("-");
+                year = role_arr_dateText[2];
+                if(year==undefined){
+                    roleEndDate.val('');
+                    roleEndDate.datepicker('disable');
+                }
+            }
+        }
     });
 });
 /* Photo */
@@ -2242,16 +2242,50 @@ $(function(){
 $(function(){
     $("#clear_button").live('click', function(){
 
-        $('#query_top_value').val("").change();
-        $('#check_input_change').val("false");
-        $('#check_left_input_change').val("false");
-        $('#check_right_input_change').val("false");
-        $.ajax({
-            type: "GET",
-            url: "/query_headers/clear.js",
-            data:'id=' + $("#query_header_id").val(),
-            dataType: "script"
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#query_top_value').val("").change();
+                    $('#check_input_change').val("false");
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
+                    $.ajax({
+                        type: "GET",
+                        url: "/query_headers/clear.js",
+                        data:'id=' + $("#query_header_id").val(),
+                        dataType: "script"
+                    });
+
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
         });
+        $('#warning_message_text').html("Are You Sure You Wish to Clear ?  ");
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
+
+
+     
     });
 });
 
@@ -4057,11 +4091,6 @@ clear_organisation_form = function(link){
       
     }
 
-    //    if(link.attr('toggle_id_name')=="new_master_doc")
-    //    {
-    //        $("#new_master_doc")[0].reset();
-    //
-    //    }
     if(link.attr('toggle_id_name')=="new_note")
     {
         $("#new_note")[0].reset();
@@ -4657,11 +4686,17 @@ $(function(){
 /* Import and Export */
 $(function(){
     $('.export_button').live('click',function(){
-        var format = $(this).attr("value").toLowerCase();
-        var source = $(this).attr("source");
-        var source_id = $("#source_id").val();
-        var file_name = $("#file_name").val();
-        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
+
+      
+        if ($('#source_id').val()!="")
+        {
+            var format = $(this).attr("value").toLowerCase();
+            var source = $(this).attr("source");
+            var source_id = $("#source_id").val();
+            var file_name = $("#file_name").val();
+            window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
+        }
+
     });
 });
 
@@ -7188,7 +7223,7 @@ system_id_check_input_change_or_not = function()
     if($('#check_input_change').val() == "false")
     {
 
-       $('#'+link.attr('form_name')).submit();
+        $('#'+link.attr('form_name')).submit();
         return false;
     }
     else
