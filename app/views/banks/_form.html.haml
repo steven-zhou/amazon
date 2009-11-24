@@ -1,7 +1,7 @@
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
   .container
     %h2 Branch Details
-    .form_line
+    .form_line{:style => "float:none;"}
       .field_20
         = f.label :full_name, 'Full Name'
         = f.text_field :full_name
@@ -39,12 +39,14 @@
       .field_15
         = f.label :postcode, 'Postcode'
         = f.text_field :postcode
+      .field_5
+        = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_address_line_3", :update_field2 =>"bank_state", :update_field3 => "bank_postcode", :update_field4 => "bank_country_id", :title=>"Postcode"
       .field_15
         = f.label :country, 'Country'
         = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
   .container
     %h2 Contact Person
-    .form_line
+    .form_line{:style => "float:none;"}
       .field_20
         = f.label :contact_person, 'Name'
         = f.text_field :contact_person
@@ -66,9 +68,9 @@
         = f.text_field :contact_mobile
   .container
     %h2 Branch Status
-    .form_line
+    .form_line{:style => "float:none;"}
       .field_20
-        = f.label :status, 'Status'
+        = f.label :status, 'Active'
         = f.check_box :status
       .field_20
         = f.label :status_reason, 'Status Reason'

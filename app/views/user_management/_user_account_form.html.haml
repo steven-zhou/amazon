@@ -44,7 +44,7 @@
       = login.check_box :system_user,{:checked => true, :style => "width:10%", :id => "login_account_system_user" , :name => "login_account[system_user]"}
     .field_10
       -#%label{:style => "display:inline"} System User
-  %br.clear
+
   -#.form_line
     .field_23
       = login.label :password, 'Password'
@@ -130,7 +130,7 @@
     .field_23.hidden
       = login.label :password_by_admin
       = login.check_box :password_by_admin, :checked => true, :class => "checkbox_style", :id => "login_account_password_by_admin" , :name => "login_account[password_by_admin]"
-  %br.clear
+
   .form_line
   %br
 

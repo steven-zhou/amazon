@@ -12,14 +12,14 @@
     &nbsp;&nbsp
     = role.radio_button :role_status, false, :style => "width:10%"
     %label{:style => "display:inline"} Inactive
-  %br{ :style=>"clear: both;"}
+
   .field_33{:style => "display:none"}
     = role.text_field :role_type_id, {:name => "role[role_type_id]",:id => "role_type_hide"}
   .form_line
     .field_80
       = role.label :description, "Descriptions"
       = role.text_field :description, :id => "role_description1", :disabled => @role.role_status == false
-    %br.clear
+
   = submit_tag 'Sumbit',{:id => "cheatsubmit", :style => "display:none"}
 -form_for @role_condition,:html => {:class => 'ajax_form'} do |rc|
   .info_container
@@ -33,7 +33,7 @@
         %span{:class => "viewname", :id=> "mmt" }
       .field_33{:style => "display:none"}
         = rc.text_field :role_id, {:name => "role_id"}
-      %br{:style => "clear:both;"}
+
     .form_line
       .field_33
         = label :master_doc_meta_type_id, 'Condition Meta Type'
@@ -42,7 +42,7 @@
       .field_33{:style => "float:right;"}
         %label &nbsp;
         %span{:class => "viewname", :id=> "mt" }
-      %br{:style => "clear:both;"}
+
     .form_line
       .field_33
         %label Conditions

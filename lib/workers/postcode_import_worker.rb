@@ -18,7 +18,7 @@ class PostcodeImportWorker < BackgrounDRb::MetaWorker
     
     # puts "Processing Postcode Data with: Suburb Col #{suburb} State Col #{state} Postcode #{postcode} Country #{country.id} Header Lines #{header_lines} Update Option #{update_option} Postcode File #{postcode_file}"
 
-    DomesticPostcode.destroy_all if update_option.to_s == "overwrite"
+    Postcode.destroy_all if update_option.to_s == "overwrite"
 
     i = 1 # We start at the first line
     while row = postcode_file.readline
@@ -30,7 +30,7 @@ class PostcodeImportWorker < BackgrounDRb::MetaWorker
         if update_option == "update"
           # Find existing matching records
         else
-          dp = DomesticPostcode.new
+          dp = Postcode.new
           suburb_index = suburb.to_i - 1
           state_index = state.to_i - 1
           postcode_index = postcode.to_i - 1
@@ -39,6 +39,7 @@ class PostcodeImportWorker < BackgrounDRb::MetaWorker
           dp.state = ( state_index >= 0 && !data[state_index].nil? && !data[state_index].empty? ) ? data[state_index].gsub(/\"/,'').humanize.upcase : ""
           dp.postcode = ( postcode_index >= 0 && !data[postcode_index].nil? && !data[postcode_index].empty? ) ? data[postcode_index].gsub(/\"/,'').humanize : ""
           dp.country = country
+          dp.country_name = country.short_name
 
           dp.save
 

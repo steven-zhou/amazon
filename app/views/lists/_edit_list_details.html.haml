@@ -7,12 +7,18 @@
       .field_25
         =f.label :description, "Description"
         =f.text_field :description, :disabled => @list_header.status == false, :name => "list_header[description]"
-      .field_15
-        =f.label :allow_duplication, "Allow Duplication"
+      .field_2
+        =f.label :allow_duplication, '&nbsp'
         =f.check_box :allow_duplication, :style => "width:10px;", :name => "list_header[allow_duplication]"
-      .field_15
-        =f.label :status, 'Active'
+      .field_10
+        =f.label :allow_duplication, '&nbsp'
+        =f.label :allow_duplication, "Allow Duplication", :style =>"margin-top:8px;"
+      .field_2
+        =f.label :status, '&nbsp'
         =f.check_box :status, :name => "list_header[status]", :style=>"width:10px;"
+      .field_10
+        =f.label :status, '&nbsp'
+        =f.label :status, "Active", :style =>"margin-top:8px;"
       .field_10{:style=>"float:left;"}
         =f.label :status, "&nbsp;"
         =submit_tag "Submit"

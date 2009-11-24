@@ -1,5 +1,5 @@
 -form_for @tag_meta_type, :url=> {:controller => 'tag_meta_types', :action => @tag_meta_type.new_record? ? "create" : "update", :id => @tag_meta_type.id}, :html => {:class => 'ajax_form', :id => "tag_meta_type_form2"} do |tag_meta_type|
-  .container
+  .container{:style => "background-image:none;"}
     .form_line
       .field_100
         =tag_meta_type.label :name, 'Name'
@@ -17,11 +17,11 @@
       %br.clear
     .form_line
       .field_100
-        = tag_meta_type.label :status, 'Active'
         - if @tag_meta_type.new_record?
           = tag_meta_type.check_box :status, :checked => true, :style => "width:auto;"
         -else
           = tag_meta_type.check_box :status, :style => "width:auto;"
+        = tag_meta_type.label :status, 'Active', :style => "display:inline;"
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_meta_type.class.to_s}
       %br.clear
     = submit_tag 'Submit', :style => "width:75px;"

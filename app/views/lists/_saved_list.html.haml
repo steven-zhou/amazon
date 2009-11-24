@@ -1,4 +1,5 @@
-.header_container.container.toggle_options{:field => "list"}
+- status = saved_list.status ? "container" : "container_inactive"
+%div{:class => "#{status} toggle_options", :field => "list"}
   %div
     .title
       %h2 #{saved_list.formatted_info}

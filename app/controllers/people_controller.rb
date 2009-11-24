@@ -13,7 +13,7 @@ class PeopleController < ApplicationController
     @person.emails.build
     @person.websites.build
     @image = Image.new
-    #@postcodes = DomesticPostcode.find(:all)
+    #@postcodes = Postcode.find(:all)
     @personal_check_field = Array.new
     
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
@@ -119,7 +119,7 @@ class PeopleController < ApplicationController
     @list_headers = @current_user.all_lists
       @active_tab = params[:active_tab]
         @active_sub_tab = params[:active_sub_tab]
-    #@postcodes = DomesticPostcode.find(:all)
+    #@postcodes = Postcode.find(:all)
 
     if request.get?
       if @list_headers.blank?
@@ -229,7 +229,7 @@ class PeopleController < ApplicationController
       @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
       @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
       @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
-      #@postcodes = DomesticPostcode.find(:all)
+      #@postcodes = Postcode.find(:all)
       @image = Image.new
 
        @personal_check_field = Array.new
@@ -452,7 +452,7 @@ class PeopleController < ApplicationController
  
      
     if(params[:current_operation] == "edit_list")
-      #@postcodes = DomesticPostcode.find(:all)
+      #@postcodes = Postcode.find(:all)
       @current_action = "edit"
       @address = Address.new
       @phone = Phone.new

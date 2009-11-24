@@ -2194,6 +2194,8 @@ $(function(){
             });
             $('#save_form').dialog('option', 'title', 'New Query');
             $('#save_form').dialog('open');
+            $("#save_form").parent().css('background-color','#D1DDE6');
+            $("#save_form").css('background-color','#D1DDE6');
         }else{
             $('#edit_query_header').doAjaxSubmit();
         }
@@ -4684,14 +4686,17 @@ $(function(){
 /* Import and Export */
 $(function(){
     $('.export_button').live('click',function(){
+
       
         if ($('#source_id').val()!="")
         {
             var format = $(this).attr("value").toLowerCase();
             var source = $(this).attr("source");
             var source_id = $("#source_id").val();
-            window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
+            var file_name = $("#file_name").val();
+            window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
         }
+
     });
 });
 
@@ -5916,11 +5921,45 @@ $(function(){
 
 
 $(function(){
-    $(".check_postcode_columns").blur(function(){
-        if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
-            alert("Invalild Post Code Value");
-            $(this).val('');
-        };
+    $('.check_postcode_columns').blur(function(){
+
+    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+            $('#import_postcode_submit').attr("disabled", false);
+        } else {
+
+                var link = $(this);
+
+                $('#error_message_text').html("Every column number must be unique, please check your entries. ");
+
+                $('#error_message_image').css("display","");
+                $('#error_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
+                        "OK": function(){
+                            link.focus();
+                            //                            link.val('');
+                            $(this).dialog('destroy');
+                            return true;
+                        }
+                    }
+                });
+                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').parent().find("a").css("display","none");
+                $("#error_message").parent().css('background-color','#D1DDE6');
+                $("#error_message").css('background-color','#D1DDE6');
+                $('#error_message').dialog('open');
+
+
+            $('#import_postcode_submit').attr("disabled", true);
+        }
+    } else {
+        $('#import_postcode_submit').attr("disabled", true);
+    }
 
     });
 });
@@ -6963,17 +7002,17 @@ $(function(){
 /*bank setting*/
 $(function(){
     $('#open_add_new_bank').click(function(){
-        $('#add_new_bank').show();
-        $('#open_add_new_bank').hide();
-        $('#close_add_new_bank').show();
+        $('#add_new_bank').css('display','');
+        $('#open_add_new_bank').css('display','none');
+        $('#close_add_new_bank').css('display','');
     });
 });
 
 $(function(){
     $('#close_add_new_bank').click(function(){
-        $('#add_new_bank').hide();
-        $('#open_add_new_bank').show();
-        $('#close_add_new_bank').hide();
+        // $('#add_new_bank').hide();
+        // $('#open_add_new_bank').show();
+        // $('#close_add_new_bank').hide();
     });
 });
 
@@ -7035,7 +7074,7 @@ $(function(){
 
 $(function(){
     $('#edit_bank_entry_close_form').live('click', function(){
-        $('#edit_bank_entry_form').hide();
+        // $('#edit_bank_entry_form').hide();
     });
 });
 
@@ -7266,3 +7305,81 @@ $(function(){
 });
 
 
+// Address assistant //
+
+$(document).ready(function() {
+    $('#address_assistant').dataTable( {
+        "iDisplayLength":10,
+        "bLengthChange": false,
+        "bAutoWidth":false,
+        "bFilter":false,
+        "aoColumns": [
+        {
+            "sWidth":"40%"
+        },
+
+        {
+            "sWidth":"13%"
+        },
+
+        {
+            "sWidth":"22%"
+        },
+
+        {
+            "sWidth":"25%"
+        }
+        ]
+    });
+});
+
+$(document).ready(function() {
+
+    $('.launch_address_assistant').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/people/show_postcode.js",
+            dataType: "script"
+        });
+        $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
+        $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
+        $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
+        $('#address_postcode_input').attr("update_field4", $(this).attr("update_field4"));
+
+    });
+});
+
+$(function(){
+    $('table#address_assistant tbody tr').live('click',function(){
+        $('table#address_assistant tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+
+    $('table#address_assistant tbody tr').live('mouseover',function(){
+        $(this).css("cursor", "pointer");
+    });
+});
+
+$(function(){
+    $('.address_assistant_search').keyup(function() {
+        $.ajax({
+            type: "GET",
+            url: "/addresses/0/search_postcodes.js",
+            data: 'suburb='+$('#address_assistant_suburb').val()+'&state='+$('#address_assistant_state').val()+'&postcode='+$('#address_assistant_postcode').val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('.list_assistant_search').live('keyup', function() {
+        $.ajax({
+            type: "GET",
+            url: "/people/search_lists.js",
+            data: 'name='+$('#list_assistant_name').val()+'&phone='+$('#list_assistant_phone').val()+'&email='+$('#list_assistant_email').val(),
+            dataType: "script"
+        });
+    });
+});

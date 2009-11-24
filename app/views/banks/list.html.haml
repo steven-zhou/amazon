@@ -5,14 +5,14 @@
     %br.clear
 #content_full_page
   %input{:id => "bank_mode", :style => "display:none;", :mode => "show"}
-  .container
-    = image_tag('/images/closed_accordion.png', :style => "display:inline;float:right;", :id => "open_add_new_bank", :class => "new_option", :field => "bank")
-    = image_tag('/images/open_accordion.png', :style => "display:inline;float:right;display:none;", :id => "close_add_new_bank", :class => "close_option", :field => "bank")
-    = image_tag('/images/add_icon.png', :style => "display:inline;padding-bottom:7px;")
-    &nbsp;
-    %h1{:style => "display:inline;"} New Bank
-
-    %div#add_new_bank{:style => "display:none;"}
+  .full_container
+    %div#new_bank_bar
+      .options
+        = link_to_function image_tag('/images/close_icon.png'), :style => "display:none;", :id => "", :class => "close_option", :field => "bank", :toggle_id_name => "add_new_bank", :title => "Close"
+      .title
+        = link_to_function image_tag('/images/add_icon.png'), :style => "padding-bottom:7px;", :id => "open_add_new_bank", :class => "new_option", :field => "bank"
+      %h2{:style => "display:inline;"} &nbsp; New Bank
+    %div#add_new_bank{:style => "display:none;float:left;"}
       = render :partial => 'form'
         
   %br.clear
@@ -22,6 +22,10 @@
     %div#list_banks
       = render :partial => "list_banks"
 
-  %div#edit_bank_entry_form{:style => "display:none;"}
+  %div#edit_bank_entry_form{:style => "display:none;float:left;"}
+
+%div#address_form_assistant
+  %table#address_postcode
+  %input{ :style => "display:none", :id => "address_postcode_input", :update_field1 => " ", :update_field2 => " " , :update_field3 => " " , :update_field4 => " "}
 
 
