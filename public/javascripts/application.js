@@ -5883,11 +5883,17 @@ $(function(){
 
 
 $(function(){
-    $(".check_postcode_columns").blur(function(){
-        if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
-            alert("Invalild Post Code Value");
-            $(this).val('');
-        };
+    $('.check_postcode_columns').blur(function(){
+
+    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+            $('#import_postcode_submit').attr("disabled", false);
+        } else {
+            $('#import_postcode_submit').attr("disabled", true);
+        }
+    } else {
+        $('#import_postcode_submit').attr("disabled", true);
+    }
 
     });
 });
