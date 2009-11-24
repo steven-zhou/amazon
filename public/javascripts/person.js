@@ -566,8 +566,8 @@ $("#phone_edit_button").live('click',function(){
     $('.person_contact_toggle_button').css("display","none");
     $('.person_contact_edit_delete').css("display","none");
     $('#contact_hidden_tab').attr('mode','edit');
+   
 });
-
 
 
 
@@ -610,8 +610,8 @@ $(".person_address_toggle_button").live('click', function(){
 
 
 $("#address_edit_button").live('click',function(){
-    $('.person_address_toggle_button').css("display","none");
     $('.person_address_edit_delete').css("display","none");
+    $('.person_address_toggle_button').css("display","none");
     $('#address_hidden_tab').attr('mode','edit');
 });
 
@@ -686,7 +686,7 @@ $(".person_address_close").live('click',function(){
 
 
 $("#address_edit_close_button").live('click',function(){
-
+   
     $('#address_hidden_tab').attr('mode','show');
 });
 
@@ -1279,3 +1279,4 @@ $(function(){
             + " " + $('input#person_family_name').val());
     }
 });
+
