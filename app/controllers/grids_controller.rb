@@ -1126,7 +1126,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -1148,30 +1148,26 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @show_postcode = ShowPostcodeGrid.find(:all,
-        :conditions => ["login_account_id = ?", session[:user]],
+      @show_postcode = Postcode.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
 
-      count = ShowPostcodeGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = Postcode.count(:all)
 
     end
 
     # User provided search terms
     if(query != "%%")
 
-      @show_postcode = ShowPostcodeGrid.find(:all,
-
+      @show_postcode = Postcode.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ?", query])
 
-      count = ShowPostcodeGrid.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = Postcode.count(:all, :conditions=>[qtype +" ilike ?", query])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1180,14 +1176,12 @@ class GridsController < ApplicationController
     return_data[:total] = count
 
 
-    return_data[:rows] = @show_postcode.collect{|u| {:id => u.grid_object_id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2,
-          u.field_3,
-          u.field_4,
-          u.field_5,
-          u.field_6]}}
+    return_data[:rows] = @show_postcode.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.state,
+          u.suburb,
+          u.postcode,
+          u.country_name]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
