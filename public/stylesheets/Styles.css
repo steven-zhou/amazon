@@ -895,8 +895,22 @@ div.container div.header_container .options {
 
 div#show_lists div.container {
     padding:1% !important;
-    width:45% !important;
+    width:47% !important;
     margin-right: 1%;
+}
+
+div#show_lists div.container_inactive {
+    padding:1% !important;
+    width:47% !important;
+    margin-right: 1%;
+    margin-bottom: 10px;
+    margin-top:0px;
+    margin-left:0px;
+    background-color: #B2BDC5;
+    float: left;
+    -moz-border-radius: 10px;
+    min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 .form_line.field_select_line {
@@ -909,9 +923,23 @@ select.field_select {
 
 /* query header */
 div#show_queries div.container {
-    width:45% !important;
+    width:47% !important;
     padding:1% !important;
     margin-right: 1%;
+}
+
+div#show_queries div.container_inactive {
+    padding:1% !important;
+    width:47% !important;
+    margin-right: 1%;
+    margin-bottom: 10px;
+    margin-top:0px;
+    margin-left:0px;
+    background-color: #B2BDC5;
+    float: left;
+    -moz-border-radius: 10px;
+    min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
 div#criterias h3{
@@ -1272,7 +1300,7 @@ div.delete_container{
 }
 
 div.info_warning {
-     background-image:url(/images/container_orange_bg.png);
+    background-image:url(/images/container_orange_bg.png);
     background-repeat:repeat;
     width: 96%;
     float:left;
@@ -1283,7 +1311,7 @@ div.info_warning {
 }
 
 div.info_ok  {
-     background-image:url(/images/container_green_bg.png);
+    background-image:url(/images/container_green_bg.png);
     background-repeat:repeat;
     width: 96%;
     float:left;
@@ -1401,6 +1429,9 @@ form#organisation_names_form input#image_image_file{
     height: 18px;
 }
 
+.ui-dialog .container .form_line .field_2,
+.ui-dialog .container .form_line .field_5,
+.ui-dialog .container .form_line .field_10,
 .ui-dialog .container .form_line .field_15,
 .ui-dialog .container .form_line .field_20,
 .ui-dialog .container .form_line .field_25,
@@ -1424,7 +1455,9 @@ form#organisation_names_form input#image_image_file{
     height: 40px;
     margin-right: 10px;
 }
-
+.ui-dialog .container .form_line .field_2 {width: 2%;}
+.ui-dialog .container .form_line .field_5 {width: 5%;}
+.ui-dialog .container .form_line .field_10 {width: 10%;}
 .ui-dialog .container .form_line .field_15 {width: 15%;}
 .ui-dialog .container .form_line .field_20 {width: 20%;}
 .ui-dialog .container .form_line .field_23 {width: 23%;}
@@ -2217,7 +2250,7 @@ div#permission_form .options{
 }
 
 .tab_switch{
-    margin-left:3px;
+    margin-left:10px;
     margin-right:4px;
 
 }
@@ -2333,34 +2366,34 @@ div#permission_form .options{
 }
 
 
-  /*datepicker*/
-  .datepick {
-      width:70% !important;
-  }
+/*datepicker*/
+.datepick {
+    width:70% !important;
+}
 
-  .birthdatepick {
-      width:70% !important;
-  }
+.birthdatepick {
+    width:70% !important;
+}
 
-  .startdatepick {
-      width:70% !important;
-  }
+.startdatepick {
+    width:70% !important;
+}
 
-  .enddatepick {
-      width:70% !important;
-  }
+.enddatepick {
+    width:70% !important;
+}
 
-  .beforestartdatepick {
-      width:70% !important;
-  }
+.beforestartdatepick {
+    width:70% !important;
+}
 
-  .role_startdatepick {
-      width:70% !important;
-  }
+.role_startdatepick {
+    width:70% !important;
+}
 
-  .role_enddatepick {
-      width:70% !important;
-  }
+.role_enddatepick {
+    width:70% !important;
+}
 
 
 

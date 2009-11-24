@@ -15,7 +15,7 @@
               Select Data File and Country
             %br
             %span{:style =>"font-size:13px;"}
-              All fields must be filled
+              All fields must be filled.
             %br
 
           .form_line
@@ -33,7 +33,9 @@
               Enter column numbers
             %br
             %span{:style =>"font-size:13px;"}
-              For the following fields, please enter the number of the column it corresponds to in the data file. If there is no match please leave the value blank.
+              All field must be filled.
+              %br
+              For each field please enter the number of the column it corresponds to in the data file:
             %br
           .form_line
             .field_30
@@ -55,7 +57,7 @@
 
           .form_line
             .field_100
-              Number of lines to skip at the start of the file (blank defaults to zero):
+              Number of lines to skip at the start of the file:
               = text_field_tag :header_lines, nil, :class => "check_postcode_columns integer_field", :style => "display:inline;width:30px;"
           .form_line
             .field_100
@@ -71,5 +73,5 @@
         %br
    
 
-    = submit_tag("Submit")
+      = submit_tag("Submit", :disabled => true, :id => "import_postcode_submit")
 

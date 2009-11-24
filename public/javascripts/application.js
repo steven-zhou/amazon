@@ -5886,11 +5886,45 @@ $(function(){
 
 
 $(function(){
-    $(".check_postcode_columns").blur(function(){
-        if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
-            alert("Invalild Post Code Value");
-            $(this).val('');
-        };
+    $('.check_postcode_columns').blur(function(){
+
+    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+            $('#import_postcode_submit').attr("disabled", false);
+        } else {
+
+                var link = $(this);
+
+                $('#error_message_text').html("Every column number must be unique, please check your entries. ");
+
+                $('#error_message_image').css("display","");
+                $('#error_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
+                        "OK": function(){
+                            link.focus();
+                            //                            link.val('');
+                            $(this).dialog('destroy');
+                            return true;
+                        }
+                    }
+                });
+                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').parent().find("a").css("display","none");
+                $("#error_message").parent().css('background-color','#D1DDE6');
+                $("#error_message").css('background-color','#D1DDE6');
+                $('#error_message').dialog('open');
+
+
+            $('#import_postcode_submit').attr("disabled", true);
+        }
+    } else {
+        $('#import_postcode_submit').attr("disabled", true);
+    }
 
     });
 });
