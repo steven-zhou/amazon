@@ -8,70 +8,68 @@
     - form_tag("/maintenance/import_postcode_file", :multipart => true) do
 
       %div#postcode_import_settings
-        %h1
-          Select Data File and Country 
-          %span{:style =>"font-size:13px;"}
-            All fields must be filled
+        .full_container
+          %div
+          .title
+            %h1
+              Select Data File and Country
+            %br
+            %span{:style =>"font-size:13px;"}
+              All fields must be filled
+            %br
 
-        %br.clear
-        Country
-        %br.clear
-        = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false}, {:style => "width:15%;"}
+          .form_line
+            .field_25
+              = label :country_id, 'Country'
+              = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false}, {:style => "width:90%;"}
+            .field_40
+              = label :postcode_file, 'Postcode Data File'
+              = file_field :postcode_file, nil, {:style => "height:25px;"}
 
-        %p
+        .full_container
+          %div
+          .title
+            %h1
+              Enter column numbers
+            %br
+            %span{:style =>"font-size:13px;"}
+              For the following fields, please enter the number of the column it corresponds to in the data file. If there is no match please leave the value blank.
+            %br
+          .form_line
+            .field_30
+              = label :suburb, 'Suburb'
+              = text_field_tag :suburb, nil, :class => "check_postcode_columns integer_field", :style => "width:30%;"
+            .field_30
+              = label :state, 'State'
+              = text_field_tag :state, nil, :class => "check_postcode_columns integer_field", :style => "width:30%;"
+            .field_30
+              = label :state, 'Postcode'
+              = text_field_tag :postcode, nil, :class => "check_postcode_columns integer_field", :style => "width:30%;"
 
-        %br.clear
-        Postcode data file
-        %br.clear
-        = file_field :postcode_file, nil, {:style => "height:25px;"}
+        .full_container
+          %div
+          .title
+            %h1
+              Configure data import options
+            %br
 
-        %p
+          .form_line
+            .field_100
+              Number of lines to skip at the start of the file (blank defaults to zero):
+              = text_field_tag :header_lines, nil, :class => "check_postcode_columns integer_field", :style => "display:inline;width:30px;"
+          .form_line
+            .field_100
+              For imported data:
 
-        %br.clear
+          %br.clear
 
-        %h1
-          Enter column numbers
-        %br.clear
-        %p
-          For the following fields, please enter the number of the column it corresponds to in the data file. If there is no match please leave the value blank.
-        %br.clear
-        %table
-          %tr
-            %td{:style => "padding:1em;"}
-              Suburb:
-            %td{:style => "padding:1em;"}
-              = text_field_tag :suburb, nil, :size => "2", :class => "check_postcode_columns integer_field"
-          %tr
-            %td{:style => "padding:1em;"}
-              State:
-            %td{:style => "padding:1em;"}
-              = text_field_tag :state, nil, :size => "2", :class => "check_postcode_columns integer_field"
-          %tr
-            %td{:style => "padding:1em;"}
-              Postcode:
-            %td{:style => "padding:1em;"}
-              = text_field_tag :postcode, nil, :size => "2", :class => "check_postcode_columns integer_field"
-        %br.clear
-
-        %h1 Configure data import options
-        %br.clear
-        %p
-          Number of lines to skip at the start of the file (blank defaults to zero):
-          = text_field_tag :header_lines, nil, :size => "2", :class => "check_postcode_columns integer_field", :style => "display:inline;width:20px;"
-         
-        %p
-        %br.clear
-        %p
-
-          For imported data:
-        %br.clear
-        %p
-          = radio_button("update_option", nil, "append", :checked => "checked")
+          = radio_button("update_option", nil, "append", :checked => "checked", :style => "margin-left:1.5em;margin-bottom:1.5em;")
           Append Records
-          = radio_button("update_option", nil, "overwrite")
+          %br
+          = radio_button("update_option", nil, "overwrite", :style => "margin-left:1.5em;margin-bottom:1.5em;")
           Overwrite Records (deletes all previous records)
-        %br.clear
-        %p
+        %br
+   
 
-        = submit_tag("Submit")
+    = submit_tag("Submit")
 
