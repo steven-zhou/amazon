@@ -2274,7 +2274,7 @@ $(function(){
             }
 
         });
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+        $('#warning_message_text').html("Are You Sure You Wish to Clear ?  ");
         $('#warning_message').dialog('option', 'title', 'Warning');
 
         $('#warning_message').parent().find("a").css("display","none");
