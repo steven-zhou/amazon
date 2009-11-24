@@ -9,9 +9,11 @@
           %option{:value => "query_#{i.id}"} Query_#{i.name}
         - @lists.each do |i|
           %option{:value => "list_#{i.id}"} List_#{i.name}
-        
+    .field_30
+      %label File Name
+      %input{:id => "file_name"}
     .field_20
-      %label Export To
+      %label Format
       %input{:type => "button", :value => "PDF", :class => "export_button", :source => "person"}
       %input{:type => "button", :value => "XML", :class => "export_button", :source => "person"}
       %input{:type => "button", :value => "CSV", :class => "export_button", :source => "person"}

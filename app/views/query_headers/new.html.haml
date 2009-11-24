@@ -5,9 +5,12 @@
   
 #new_query
   #new_form
+    %input{:style => "display:none", :id => "query_detail_mode", :mode => "show"}
     #left
       .container
         #criteria_form{:class => "toggle_button2", :toggle_id_name => "new_criteria", :toggle_id_name1 => "new_selection", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+          .options
+            = image_tag('Icons/System/collapse.png')
           %h1 Criteria Attributes
         #new_criteria
           #new_query_form
@@ -15,6 +18,8 @@
 
       .container
         #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
+          .options
+            = image_tag('Icons/System/expand.png')
           %h1 Display Attributes
         #new_selection{:style => "display:none"}
           #new_selection_form
@@ -23,6 +28,8 @@
 
       .container
         #sort_form{:class => "toggle_button2", :toggle_id_name => "new_sorter", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_selection", :style => "cursor:pointer;cursor:hand"}
+          .options
+            = image_tag('Icons/System/expand.png')
           %h1 Sorting Attributes
         #new_sorter{:style => "display:none"}
           #new_sorter_form
@@ -62,8 +69,8 @@
     %br.clear
     
     = link_to_function 'clear', :class => "alt_option", :id => "clear_button", :action => "new"
-    = button_to_function 'Save', :id => "save_button", :action => "new", :style => "float:right;margin-right:20px;"
-    = button_to_function 'Run Query', :id => "run_button", :action => "new", :style => "float:right;margin-right:20px;"
+    = button_to_function 'Save', :id => "save_button", :action => "new", :style => "float:right;"
+    = button_to_function 'Run Query', :id => "run_button", :action => "new", :style => "float:right;"
     %input#query_header_id{:style => "display:none;", :value => "#{@query_header.id}"}
     %input#current_action_global{:style => "display:none;", :value => "new"}
     = link_to_function 'view SQL statements',:class => "alt_option float_none", :id => "show_sql_statements", :action => "new"

@@ -9,13 +9,20 @@
       .container
         %h2 Identity
         .form_line
-          .field_20
+          .field_33
+            = p.label :type, 'Type'
+            %select{:name => "organisation[type]"}
+              %option{:value => "ClientOrganisation"} Client Organisation
+              %option{:value => "OtherOrganisation"} Other Organisation
+              %option{:value => "AgentOrganisation"} Agent Organisation
+              %option{:value => "SubOrganisation"} Sub Organisation
+          .field_15
             = p.label :id, 'System ID'
             = p.text_field :id
-          .field_20
+          .field_15
             = p.label :custom_id, 'Custom ID'
             = p.text_field :custom_id
-          .field_40
+          .field_30
             = p.label :onrecord_since, 'On Record Since'
             = p.text_field :onrecord_since, :class=>"datepick"
 
