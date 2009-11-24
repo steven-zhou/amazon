@@ -1,10 +1,11 @@
 <%- if flash[:error].nil?%>
-
+<%- if @flag == true %>
+window.open("/query_headers/new", "_self");
+<%- else %>
 $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
 $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 $('#save_form').dialog('close');
-
 $("#query_mode").attr("mode", "edit");
 $(".options").css("display", "none");
 $("#close_edit_query").css("display", "");
@@ -22,6 +23,7 @@ $('#current_action_global').val('edit');
   $("#run_button_edit").attr("disabled", "disabled");
 <%- else %>
   $("#run_button_edit").removeAttr("disabled");
+<%- end %>
 <%- end %>
 <%- else %>
 $('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
