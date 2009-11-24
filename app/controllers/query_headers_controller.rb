@@ -1,6 +1,6 @@
 class QueryHeadersController < ApplicationController
 
-    # Added system logging
+  # Added system logging
 
   def new
     @query_header = QueryHeader.new
@@ -21,6 +21,12 @@ class QueryHeadersController < ApplicationController
     @query_header = QueryHeader.find(params[:id].to_i)
     if (!@query_header.query_criterias.empty?)
       if (@query_header.update_attributes(params[:query_header]))
+
+        @flag = false
+        if @query_header.group == "temp"
+          @flag = true
+        end
+
         @query_header.group = "save"
         @query_header.status = true if @query_header.status.nil?
         @query_header.save
@@ -41,6 +47,11 @@ class QueryHeadersController < ApplicationController
     else
       flash.now[:error] = flash_message(:message => "No criteria")
     end
+
+    if @flag == true
+      flash[:message] = flash_message(:type => "object_created_successfully", :object => "query")
+    end
+
     respond_to do |format|
       format.js
     end
@@ -78,7 +89,7 @@ class QueryHeadersController < ApplicationController
         #run the query
         redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
       end
-    end    
+    end
   end
 
   def copy_runtime
