@@ -1,11 +1,11 @@
 .container
-  = link_to_function image_tag("/images/close_icon.png") , :class => "close_option toggle_button", :id=> "edit_bank_entry_close_form", :style => "float:right;", :field => "bank", :toggle_id_name => "edit_bank_entry_form"
+  = link_to_function image_tag("/images/close_icon.png") , :class => "close_option", :id=> "edit_bank_entry_close_form", :style => "float:right;", :field => "bank", :toggle_id_name => "edit_bank_entry_form"
   %h3 Edit Bank
   - form_for :bank_update, @bank_to_update, :url => { :action => "update" }, :html => {:class => 'ajax_form', :id => "edit_bank_entry_form"}  do |f|
     %input{:id => "id", :name => "id", :style => "display:none;", :value => @bank_to_update.id}
     .container
       %h2 Branch Details
-      .form_line
+      .form_line{:style => "float:none;"}
         .field_20
           = f.label :full_name, 'Full Name'
           = f.text_field :full_name
