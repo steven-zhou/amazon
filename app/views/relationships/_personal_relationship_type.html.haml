@@ -1,10 +1,10 @@
 -form_for([@person,relationship], :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|
   .form_line{:style => "float:none;"}
     .field_20
-      = relationship.label :relationship_type_id, "Type<span class='asterisk'>*</span>"
+      = relationship.label :relationship_type_id, "<span class='asterisk'>*</span>Type"
       = relationship.collection_select :relationship_type_id, RelationshipType.active_relationship_type - @person.personal_relationship_type, :id, :name
     .field_20{:style => "margin-right: 2px;"}
-      = relationship.label :related_person_id, "System ID<span class='asterisk'>*</span>"
+      = relationship.label :related_person_id, "<span class='asterisk'>*</span>System ID"
       = relationship.text_field :related_person_id
     .field_5
       %label &nbsp;
