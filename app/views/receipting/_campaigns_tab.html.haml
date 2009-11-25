@@ -1,0 +1,106 @@
+.full_container
+  %input.hidden{:id => "campaign_mode", :mode => "show"}
+
+  #add_new_campaign
+    = render :partial => "receipting/new_campaign"
+
+  #existing_campaigns
+    = render :partial => "receipting/existing_campaigns"
+
+  #edit_campaign{:style => "display:none;margin-top:10px;float:left;"}
+    .tab_looking_left
+    .tab_looking_icon
+      = image_tag('edit_icon.png')
+      Edit
+    .tab_looking_right
+    .full_container
+      .options
+        = link_to_function image_tag('close_icon.png'), :field => "campaign", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_campaign", :toggle_id_name1 => "add_new_campaign"
+      #edit_campaign_form
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_campaigns_grid").flexigrid({
+  url: '/grids/show_campaigns_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Target Amount',
+  name : 'target_amount',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Start Date',
+  name : 'start_date',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'End Date',
+  name : 'end_date',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Name',
+  name : 'Name'
+  },
+
+  {
+  display: 'Start Date',
+  name : 'start_date'
+  },
+
+  {
+  display: 'End Date',
+  name : 'end_date'
+  },
+
+  {
+  display: 'Target Amount',
+  name : 'target_amount'
+  }
+
+  ],
+  sortname: "start_date, name",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Campaigns',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
