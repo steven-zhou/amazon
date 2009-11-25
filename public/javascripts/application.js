@@ -2592,13 +2592,14 @@ $(function(){
                     buttons: {
                         "OK": function(){
                             link.focus();
-                            //                            link.val('');
+                            link.val('');
+
                             $(this).dialog('destroy');
                             return true;
                         }
                     }
                 });
-                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').dialog('option', 'title', 'Error');
                 $('#error_message').parent().find("a").css("display","none");
                 $("#error_message").parent().css('background-color','#D1DDE6');
                 $("#error_message").css('background-color','#D1DDE6');

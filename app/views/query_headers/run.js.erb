@@ -1,7 +1,10 @@
+
+
 $("#runtime_form").dialog('close');
   $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
   $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
-  
+
+
 $('#result_div').dialog({
   modal: true,
   resizable: true,
@@ -42,5 +45,7 @@ $('#result_div').dialog({
   width: 'auto',
   height: 300
   });
+
+  
 
   
