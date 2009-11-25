@@ -3,9 +3,9 @@
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Meta Type"
     -if @masterdoc.new_record?
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field"})
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field"})
     -else
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Type"
     -if @masterdoc.new_record?
