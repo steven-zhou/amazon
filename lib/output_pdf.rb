@@ -483,7 +483,10 @@ module OutputPdf
         end
         tab.columns["id"] = PDF::SimpleTable::Column.new("id") {|col| col.heading = "ID"}
         QueryHeader.find(source_id.to_i).query_selections.each do |i|
-          tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.humanize}"}
+          tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.titleize}"}
+           if QueryHeader.find(source_id.to_i).query_selections.size >8 #if selection more then 8 set each column width 55, otherwise will be too wide
+             tab.columns["#{i.field_name}"].width = 55
+           end
         end
       else
         OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
@@ -492,6 +495,7 @@ module OutputPdf
 
         OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
           tab.columns["#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}"] = PDF::SimpleTable::Column.new("#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}") { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
+
         end
       end
 
@@ -527,7 +531,7 @@ module OutputPdf
                 if(i.field_name == "country")
                   data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).short_name}"
                 else
-                  data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
+                  data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).short_name}"
                 end
               else
                 data_row["#{i.field_name}"] = person.__send__(i.field_name)
@@ -537,7 +541,7 @@ module OutputPdf
                 if(i.field_name == "country")
                   data_row["#{i.field_name}"] = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
                 else
-                  data_row["#{i.field_name}"] = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : ""
+                  data_row["#{i.field_name}"] = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
                 end
               else
                 data_row["#{i.field_name}"] = person.__send__(i.table_name.underscore.to_sym).empty? ? "" : "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}"
@@ -554,7 +558,8 @@ module OutputPdf
               when "phone" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{phone}"
               when "email" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{email}"
               when "website" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{website}"
-              else data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0])}"
+              else  data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0])}"
+
               end
 
             end
