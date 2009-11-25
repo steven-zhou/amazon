@@ -435,7 +435,12 @@ module OutputPdf
     #default setting for pdf header
     @source = "#{source_type}_header".camelize.constantize.find(source_id.to_i)
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
-    header_settings[:title] ||= "Export from #{source_type}_#{@source.name}"
+    if @source.group == "temp"
+      header_settings[:title] ||= "Export From Temporary Query"
+    else
+      header_settings[:title] ||= "Export From #{source_type.titleize}_#{@source.name}"
+    end
+    
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
@@ -515,6 +520,7 @@ module OutputPdf
         data_row = Hash.new
         if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
           data_row["id"] = "#{person.id}"
+          
           QueryHeader.find(source_id.to_i).query_selections.each do |i|
             if i.table_name == "people"
               if i.data_type.include?("Integer FK")
