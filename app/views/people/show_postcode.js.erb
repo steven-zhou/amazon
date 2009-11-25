@@ -1,4 +1,4 @@
- $('#address_form_assistant').dialog({
+$('#address_form_assistant').dialog({
             modal: true,
             resizable: true,
             draggable: true,
@@ -10,7 +10,6 @@
 
         $('#address_form_assistant').dialog('option','title','Postcode');
         $('#address_form_assistant').dialog('open');
-
         $('#address_postcode').flexigrid({
             url: '/grids/show_postcode_grid',
             dataType: 'json',
@@ -25,7 +24,7 @@
 
             {
                 display: 'State',
-                name : 'field_1',
+                name : 'state',
                 width : 80,
                 sortable : true,
                 align: 'left'
@@ -33,7 +32,7 @@
 
             {
                 display: 'Suburb',
-                name : 'field_2',
+                name : 'suburb',
                 width : 80,
                 sortable : true,
                 align: 'left'
@@ -41,7 +40,7 @@
 
             {
                 display: 'Postcode',
-                name : 'field_3',
+                name : 'postcode',
                 width : 80,
                 sortable : true,
                 align: 'left'
@@ -49,7 +48,7 @@
 
             {
                 display: 'Country',
-                name : 'field_4',
+                name : 'country_name',
                 width : 80,
                 sortable : true,
                 align: 'left'
@@ -60,22 +59,22 @@
             searchitems : [
             {
                 display: 'State',
-                name : 'field_1'
+                name : 'state'
             },
 
             {
                 display: 'Suburb',
-                name : 'field_2'
+                name : 'suburb'
             },
 
             {
                 display: 'Postcode',
-                name : 'field_3'
+                name : 'postcode'
             },
 
             {
                 display: 'Country',
-                name : 'field_4'
+                name : 'country_name'
             }
 
             ],
