@@ -82,7 +82,7 @@ class TagTypesController < ApplicationController
 
   def show_types
     @group_meta_type = GroupMetaType.find(params[:group_meta_type_id].to_i) rescue @group_meta_type = GroupMetaType.new
-    @group_types = @group_meta_type.group_types.find(:all, :order => "name")
+    @group_types = @group_meta_type.group_types.find(:all,:conditions => ["status = true"], :order => "name")
     respond_to do |format|
       format.js
     end

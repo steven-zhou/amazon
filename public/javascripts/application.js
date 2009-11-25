@@ -6655,6 +6655,7 @@ $(function(){
 $(function(){
     $("#new_role_bar #add_new_role").live('click',function(){
         $('#role_role_type_id').attr("disabled", true);
+     
     });
     $("#new_role_bar #close_role").live('click', function(){
         $('#role_role_type_id').attr("disabled", false);
