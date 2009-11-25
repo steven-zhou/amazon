@@ -5471,7 +5471,6 @@ $(function(){
 
 $(function(){
     $("#keyword_close_entry").live('click', function(){
-        
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
@@ -5484,19 +5483,18 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-
                     No: function(){
                         $(this).dialog('destroy');
                         return false;
-
                     },
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
+                        $("#keyword_add_entry_form").css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
-                        $("#keyword_add_entry_form").css('display','none');
+                        
                         $("#edit_keyword_entry").html("");
                         $("#keyword_type").attr("disabled",false);
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -5526,10 +5524,6 @@ $(function(){
             $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
         }
-
-
-
-  
     });
 });
 
@@ -6655,7 +6649,6 @@ $(function(){
 $(function(){
     $("#new_role_bar #add_new_role").live('click',function(){
         $('#role_role_type_id').attr("disabled", true);
-     
     });
     $("#new_role_bar #close_role").live('click', function(){
         $('#role_role_type_id').attr("disabled", false);
