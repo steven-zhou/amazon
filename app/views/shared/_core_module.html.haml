@@ -65,14 +65,14 @@
     .top
     .item
       - if @current_controller != "list_headers"
-        = link_to "#{image_tag('Icons/Core/Lol/lol.png')} List of list", :controller => "list_headers", :action => "new"
+        = link_to "#{image_tag('Icons/Core/Lol/lol.png')} List of list", :controller => "list_headers", :action => "manage_list"
       - else
         <p>List of list</p>
         %ul
-          %li{:id => @current_action == "new" ? "selected" : ""}
+          -#%li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/add.png')} New", :controller => "list_headers", :action => "new"
           %li{:id => @current_action == "manage_list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", :controller => "list_headers", :action => "manage_list"
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Manager", :controller => "list_headers", :action => "manage_list"
           %li{:id => @current_action == "compile_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Compile", :controller => "list_headers", :action => "compile_list"
     .bottom

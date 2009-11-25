@@ -1,33 +1,3 @@
-.container{:style=>"width:96%"}
-  -form_for @list_header,:url => list_header_path(@list_header), :html => {:class => 'ajax_form'} do |f|
-    .form_line
-      .field_25
-        =f.label :name, "Name"
-        =f.text_field :name, :disabled => @list_header.status == false, :name => "list_header[name]"
-      .field_25
-        =f.label :description, "Description"
-        =f.text_field :description, :disabled => @list_header.status == false, :name => "list_header[description]"
-      .field_2
-        =f.label :allow_duplication, '&nbsp'
-        =f.check_box :allow_duplication, :style => "width:10px;", :name => "list_header[allow_duplication]"
-      .field_10
-        =f.label :allow_duplication, '&nbsp'
-        =f.label :allow_duplication, "Allow Duplication", :style =>"margin-top:8px;"
-      .field_2
-        =f.label :status, '&nbsp'
-        =f.check_box :status, :name => "list_header[status]", :style=>"width:10px;"
-      .field_10
-        =f.label :status, '&nbsp'
-        =f.label :status, "Active", :style =>"margin-top:8px;"
-      .field_10{:style=>"float:left;"}
-        =f.label :status, "&nbsp;"
-        =submit_tag "Submit"
-
-  .form_line
-    .field_100
-      %label Source
-      %lable #{@list_header.source}
-
 .container{:style => "width:30%;margin-right:4%;"}
   %h1 Add Person To List
   -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
@@ -43,4 +13,37 @@
 
 .container{:style => "width:60%"}
   -form_for @list_header, :url => "/list_headers/#{@list_header.id}/delete_details", :html => {:class => "ajax_form"} do |f|
+    %h1{:style=>"margin-bottom:5px;"}  Person On List
     %table#list_edit_grid
+
+.container{:style=>"width:96%"}
+  -form_for @list_header,:url => list_header_path(@list_header), :html => {:class => 'ajax_form'} do |f|
+    %h1 Edit List
+    .form_line
+      .field_25
+        =f.label :name, "Name"
+        =f.text_field :name, :disabled => @list_header.status == false, :name => "list_header[name]"
+      .field_25
+        =f.label :description, "Description"
+        =f.text_field :description, :disabled => @list_header.status == false, :name => "list_header[description]"
+      .field_2
+        =f.label :allow_duplication, '&nbsp'
+        =f.check_box :allow_duplication, :style => "width:10px;", :name => "list_header[allow_duplication]"
+      .field_10
+        =f.label :allow_duplication, '&nbsp'
+        =f.label :allow_duplication, "Allow Duplication", :style =>"margin-top:7px;"
+      .field_2
+        =f.label :status, '&nbsp'
+        =f.check_box :status, :name => "list_header[status]", :style=>"width:10px;"
+      .field_10
+        =f.label :status, '&nbsp'
+        =f.label :status, "Active", :style =>"margin-top:8px;"
+      .field_10{:style=>"float:left;"}
+        =f.label :status, "&nbsp;"
+        =submit_tag "Submit"
+
+  .form_line
+    .field_80
+      %label Source
+      %p{:style => "font-size:15px;"} #{@list_header.source}
+
