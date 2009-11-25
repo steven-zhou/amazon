@@ -6,7 +6,10 @@ $('#edit_list').dialog({
   resizable: false,
   draggable: true,
   height: 700,
-  width: 1100
+  width: 1100,
+  beforeclose: function() {
+  $('.highlight').removeClass('highlight');
+  }
 });
 $('#edit_list').dialog('option', 'title', 'Edit List');
 $('#edit_list').dialog('open');
