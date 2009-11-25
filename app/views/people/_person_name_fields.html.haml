@@ -1,43 +1,40 @@
 .form_line
-  .field_15
+  .field_20
     = p.label :title_id, '1st Title'
     = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
   .field_40
     = p.label :first_name, "First Names"
     = p.text_field :first_name, :class=>@personal_check_field.include?("first_name") ? "personal_check_field":""
-  .field_33
+  .field_35
     = p.label :family_name, "Family Name"
     = p.text_field :family_name, :class=>@personal_check_field.include?("family_name") ? "personal_check_field":""
-  %br.clear
 .form_line
-  .field_15
+  .field_20
     = p.label :second_title_id, '2nd Title'
     = p.collection_select :second_title_id, Title.active_title, :id, :name, {:include_blank => true},{:class=>@personal_check_field.include?("second_title") ? "personal_check_field":""}
   .field_40
     = p.label :middle_name, 'Middle Names'
     = p.text_field :middle_name, :class=>@personal_check_field.include?(":middle_name") ? "personal_check_field":""
-  .field_33
+  .field_35
     = p.label :maiden_name, 'Maiden Name'
     = p.text_field :maiden_name, :class=>@personal_check_field.include?(":maiden_name") ? "personal_check_field":""
-  %br.clear
 .form_line
-  .field_15
+  .field_20
     = p.label :initials, 'Initials'
     = p.text_field :initials, :class=>@personal_check_field.include?("initials") ? "personal_check_field":""
   .field_40
     = p.label :post_title, 'Post Name'
     = p.text_field :post_title, :class=>@personal_check_field.include?("post_title") ? "personal_check_field":""
-  .field_33
+  .field_35
     = p.label :preferred_name, 'Preferred Name'
     = p.text_field :preferred_name,:class=>@personal_check_field.include?("preferred_name") ? "personal_check_field":""
-  %br.clear
 .container
   %h2 Salutations
-  .form_line
-    .field_45
+  .form_line{:style => "margin-left:5px;"}
+    .field_47
       = p.label :primary_salutation, "Primary"
       = p.text_field :primary_salutation, :class=>@personal_check_field.include?("primary_salutation") ? "personal_check_field":""
-    .field_45
+    .field_47
       = p.label :second_salutation, "Secondary"
       = p.text_field :second_salutation, :class=>@personal_check_field.include?("second_salutation") ? "personal_check_field":""
-    %br.clear
+    
