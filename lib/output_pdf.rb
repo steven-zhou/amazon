@@ -528,10 +528,10 @@ module OutputPdf
           QueryHeader.find(source_id.to_i).query_selections.each do |i|
             if i.table_name == "people"
               if i.data_type.include?("Integer FK")
-                if(i.field_name == "country")
+                if(i.field_name == "country"||i.field_name == "origin_country"||i.field_name == "residence_country")
                   data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).short_name}"
                 else
-                  data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).short_name}"
+                  data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
                 end
               else
                 data_row["#{i.field_name}"] = person.__send__(i.field_name)
@@ -541,7 +541,7 @@ module OutputPdf
                 if(i.field_name == "country")
                   data_row["#{i.field_name}"] = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
                 else
-                  data_row["#{i.field_name}"] = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
+                  data_row["#{i.field_name}"] = (!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : ""
                 end
               else
                 data_row["#{i.field_name}"] = person.__send__(i.table_name.underscore.to_sym).empty? ? "" : "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}"
