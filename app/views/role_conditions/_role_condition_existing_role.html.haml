@@ -5,4 +5,4 @@
     .options{:style => "display:none", :class => "role_condition_options"}
       = link_to_function image_tag('edit_icon.png'),  :class => "#{status_flag} edit_option", :role_id => i.id, :field => "condition_role", :id => "role_condition_role_click", :title=>"Edit"
     .title
-      %h3= h  "#{i.id}""\-""#{i.name}"
+      %h3= h  "#{i.name}"
