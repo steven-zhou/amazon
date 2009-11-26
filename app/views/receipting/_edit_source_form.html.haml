@@ -13,8 +13,8 @@
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @source.id}
   .form_line
     .field_45
-      = f.label :name, 'Name *'
-      = f.text_field :name, :class => "edit_source_required_field", :id => "edit_source_name"
+      = f.label :name, '* Name'
+      = f.text_field :name, :class => "edit_source_required_field", :id => "edit_source_name", :disabled => true
   .form_line
     .field_25
       = f.label :description, 'Description'

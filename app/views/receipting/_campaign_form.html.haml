@@ -13,9 +13,8 @@
 - form_for :campaign, @campaign, :url => { :action => "create_campaign" }, :html => {:class => 'ajax_form'}  do |f|
   .form_line
     .field_15
-      = f.label :long_name, "Name *", :class => "required_field"
+      = f.label :long_name, "* Name", :class => "required_field"
       = f.text_field :name, :class => "new_campaign_required_field", :id => "new_campaign_name"
-  .form_line
     .field_30
       = f.label :description, "Description"
       = f.text_field :description
@@ -23,17 +22,17 @@
     .field_15
       = f.label :target_amount, "Target Amount"
       = f.text_field :target_amount
+    .field_30
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
   .form_line
     .field_15
-      = f.label :start_date, "Start Date *"
+      = f.label :start_date, "* Start Date"
       %input{:name => "start_date", :style => "width:150px;", :id => "new_campaign_start_date", :class => "startdatepick new_campaign_required_field", :end_date => "new_campaign_end_date"}
     .field_15
       = f.label :iso_code, "End Date", :class => "required_field"
       %input{:name => "end_date", :style => "width:150px;", :id => "new_campaign_end_date", :class => "enddatepick", :start_date => "new_campaign_start_date"}
   .form_line
-    .field_30
-      = f.label :remarks, "Remarks"
-      = f.text_field :remarks
     .field_10
       = f.label :status, "Active"
       = f.check_box :status, :checked => true, :class => "checkbox_style"

@@ -13,9 +13,8 @@
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @campaign.id}
   .form_line
     .field_15
-      = f.label :long_name, "Name *", :class => "required_field"
-      = f.text_field :name, :class => "edit_campaign_required_field", :id => "edit_campaign_name"
-  .form_line
+      = f.label :long_name, "* Name", :class => "required_field"
+      = f.text_field :name, :class => "edit_campaign_required_field", :id => "edit_campaign_name", :disabled => true
     .field_30
       = f.label :description, "Description"
       = f.text_field :description
@@ -23,19 +22,19 @@
     .field_15
       = f.label :target_amount, "Target Amount"
       = f.text_field :target_amount
-  .form_line
-    .field_15
-      = f.label :start_date, "Start Date *"
-      %input{:name => "start_date", :style => "width:150px;", :id => "edit_campaign_start_date", :class => "startdatepick edit_campaign_required_field", :end_date => "edit_campaign_end_date"}
-    .field_15
-      = f.label :iso_code, "End Date", :class => "required_field"
-      %input{:name => "end_date", :style => "width:150px;", :id => "edit_campaign_end_date", :class => "enddatepick", :start_date => "edit_campaign_start_date"}
-  .form_line
     .field_30
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
+  .form_line
+    .field_15
+      = f.label :start_date, "* Start Date"
+      %input{:name => "start_date", :style => "width:150px;", :id => "edit_campaign_start_date", :class => "startdatepick edit_campaign_required_field", :end_date => "edit_campaign_end_date", :value => @campaign.start_date}
+    .field_15
+      = f.label :iso_code, "End Date", :class => "required_field"
+      %input{:name => "end_date", :style => "width:150px;", :id => "edit_campaign_end_date", :class => "enddatepick", :start_date => "edit_campaign_start_date", :value => @campaign.end_date}
+  .form_line
     .field_10
-      = f.label :status, "Active *"
+      = f.label :status, "Active"
       = f.check_box :status, :checked => true, :class => "checkbox_style"
   .form_line
     .field_10{:style => "float:right;"}
