@@ -352,9 +352,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
 /*Date picker */
 $(function(){
     $(".birthdatepick").datepicker({

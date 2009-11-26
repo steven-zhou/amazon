@@ -14,10 +14,10 @@
   .form_line
     .field_15
       = f.label :start_date, "Start Date"
-      %input{:name => "start_date", :style => "width:150px;", :id => "campaign_start_date", :class => "startdatepick hasDatepicker", :end_date => "campaign_end_date"}
+      %input{:name => "start_date", :style => "width:150px;", :id => "campaign_start_date", :class => "startdatepick", :end_date => "campaign_end_date"}
     .field_15
       = f.label :iso_code, "End Date", :class => "required_field"
-      %input{:name => "end_date", :style => "width:150px;", :id => "campaign_end_date", :class => "enddatepick hasDatepicker", :start_date => "campaign_start_date"}
+      %input{:name => "end_date", :style => "width:150px;", :id => "campaign_end_date", :class => "enddatepick", :start_date => "campaign_start_date"}
   .form_line
     .field_30
       = f.label :remarks, "Remarks"
