@@ -4033,6 +4033,7 @@ $(function(){
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $('#'+link.attr('toggle_id_name1')).toggle('blind');
+                        $("#" + link.attr('enable_id')).removeAttr('disabled');
                         $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -4060,6 +4061,7 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
+            $("#" + link.attr('enable_id')).removeAttr('disabled');
             $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
@@ -7441,6 +7443,7 @@ $(function(){
                 url: "/receipting/edit_source/"+$(this).attr('id').substring(3),
                 dataType: "script"
             });
+            $('#campaign_campaign_id').attr('disabled', true);
         }
     });
 

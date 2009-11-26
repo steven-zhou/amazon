@@ -1,8 +1,20 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.new_campaign_required_field').keyup(function() {
+          if($('#new_campaign_name').val() == '' || $('#new_campaign_start_date').val() == '') {
+              $('#new_campaign_submit').attr('disabled', true);
+          } else {
+              $('#new_campaign_submit').removeAttr('disabled');
+          }
+      });
+    });
+
 - form_for :campaign, @campaign, :url => { :action => "create_campaign" }, :html => {:class => 'ajax_form'}  do |f|
   .form_line
     .field_15
-      = f.label :long_name, "Name", :class => "required_field"
-      = f.text_field :name
+      = f.label :long_name, "Name *", :class => "required_field"
+      = f.text_field :name, :class => "new_campaign_required_field", :id => "new_campaign_name"
   .form_line
     .field_30
       = f.label :description, "Description"
@@ -13,11 +25,11 @@
       = f.text_field :target_amount
   .form_line
     .field_15
-      = f.label :start_date, "Start Date"
-      %input{:name => "start_date", :style => "width:150px;", :id => "campaign_start_date", :class => "startdatepick", :end_date => "campaign_end_date"}
+      = f.label :start_date, "Start Date *"
+      %input{:name => "start_date", :style => "width:150px;", :id => "new_campaign_start_date", :class => "startdatepick new_campaign_required_field", :end_date => "new_campaign_end_date"}
     .field_15
       = f.label :iso_code, "End Date", :class => "required_field"
-      %input{:name => "end_date", :style => "width:150px;", :id => "campaign_end_date", :class => "enddatepick", :start_date => "campaign_start_date"}
+      %input{:name => "end_date", :style => "width:150px;", :id => "new_campaign_end_date", :class => "enddatepick", :start_date => "new_campaign_start_date"}
   .form_line
     .field_30
       = f.label :remarks, "Remarks"
@@ -27,4 +39,4 @@
       = f.check_box :status, :checked => true, :class => "checkbox_style"
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit"
+      = submit_tag "Submit", :disabled => true, :id => "new_campaign_submit"

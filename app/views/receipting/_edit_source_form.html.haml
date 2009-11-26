@@ -1,9 +1,20 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.edit_source_required_field').keyup(function() {
+          if($('#edit_source_name').val() == '') {
+              $('#edit_source_submit').attr('disabled', true);
+          } else {
+              $('#edit_source_submit').removeAttr('disabled');
+          }
+      });
+    });
 - form_for :source, @source, :url => {:action => "update_source"}, :html => {:class => "ajax_form"} do |f|
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @source.id}
   .form_line
     .field_45
-      = f.label :name, 'Name'
-      = f.text_field :name
+      = f.label :name, 'Name *'
+      = f.text_field :name, :class => "edit_source_required_field", :id => "edit_source_name"
   .form_line
     .field_25
       = f.label :description, 'Description'
@@ -33,4 +44,4 @@
       = f.check_box :status, :checked => true, :class => "checkbox_style"
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit"
+      = submit_tag "Submit", :disabled => false, :id => "edit_source_submit"
