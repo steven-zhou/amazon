@@ -72,9 +72,11 @@
 
 
 #load_personal_default{:style => "display:none;"}
-  .container
-    = "#{PersonalDuplicationFormula.default_setting.formatted_info}"
-    %br
-  .container
-    %label{:style => "display:inline;", :id => "load_personal_message_text"}
+  = image_tag('Icons/System/big-warning.png',:size => "100x100", :style=>"float:left;padding:7px;")
+  %br
+  %br
+  = "#{PersonalDuplicationFormula.default_setting.formatted_info}"
+  %br
+  %br
+  %div{:style => "display:inline;margin-top:20px;text-align:center;", :id => "load_personal_message_text"}
 

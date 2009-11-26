@@ -3185,7 +3185,7 @@ $(function(){
             resizable: false,
             draggable: true,
             height: 'auto',
-            width: 'auto',
+            width: 800,
             buttons: {
 
                 No: function(){
@@ -3239,7 +3239,7 @@ $(function(){
             resizable: false,
             draggable: true,
             height: 'auto',
-            width: 'auto',
+            width: 900,
             buttons: {
 
                 No: function(){
@@ -3259,7 +3259,7 @@ $(function(){
         $('#load_organisational_default').parent().find("a").css("display","none");
         $("#load_organisational_default").parent().css('background-color','#D1DDE6');
         $("#load_organisational_default").css('background-color','#D1DDE6');
-
+        $('#load_organisational_default').css('display','inline');
         $('#load_organisational_default').dialog('open');
 
 
