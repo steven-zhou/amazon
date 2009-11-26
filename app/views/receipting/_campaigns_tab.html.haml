@@ -1,13 +1,13 @@
 .full_container
-  %input.hidden{:id => "country_mode", :mode => "show"}
+  %input.hidden{:id => "campaign_mode", :mode => "show"}
 
-  #add_new_country
-    = render :partial => "countries/new_country"
+  #add_new_campaign
+    = render :partial => "receipting/new_campaign"
 
-  #existing_countries
-    = render :partial => "countries/existing_countries"
+  #existing_campaigns
+    = render :partial => "receipting/existing_campaigns"
 
-  #edit_country{:style => "display:none;margin-top:10px;float:left;"}
+  #edit_campaign{:style => "display:none;margin-top:10px;float:left;"}
     .tab_looking_left
     .tab_looking_icon
       = image_tag('edit_icon.png')
@@ -15,11 +15,11 @@
     .tab_looking_right
     .full_container
       .options
-        = link_to_function image_tag('close_icon.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
-      #edit_country_form
+        = link_to_function image_tag('close_icon.png'), :field => "campaign", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_campaign", :toggle_id_name1 => "add_new_campaign"
+      #edit_campaign_form
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_countries_grid").flexigrid({
+  $("#show_campaigns_grid").flexigrid({
   url: '/grids/show_campaigns_grid',
   dataType: 'json',
   colModel : [
@@ -65,21 +65,17 @@
 
   {
   display: 'Description',
-  name : 'remarks',
-  width : 120,
+  name : 'description',
+  width : 60,
   sortable : true,
   align: 'left'
   }
+
   ],
   searchitems : [
   {
   display: 'Name',
-  name : 'name'
-  },
-
-  {
-  display: 'Target Amount',
-  name : 'target_amount'
+  name : 'Name'
   },
 
   {
@@ -93,12 +89,13 @@
   },
 
   {
-  display: 'Description',
-  name : 'description'
+  display: 'Target Amount',
+  name : 'target_amount'
   }
+
   ],
-  sortname: "id",
-  sortorder: "start_date, name",
+  sortname: "start_date, name",
+  sortorder: "asc",
   usepager: true,
   title: 'Campaigns',
   useRp: true,

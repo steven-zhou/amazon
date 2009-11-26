@@ -10,6 +10,11 @@ class ModuleController < ApplicationController
     redirect_to :controller => "people", :action => "show"
   end
 
+  def receipting
+    session[:module] = "receipting"
+    redirect_to :controller => "receipting", :action => "campaign_data"
+  end
+
   def membership
     session[:module] = "core"
     redirect_to :controller => "people", :action => "show"

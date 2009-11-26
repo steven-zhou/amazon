@@ -4,72 +4,78 @@
   #lol
   %br.clear
 
-.container
+.full_container
   %h1 Client Info
   .form_line
-    %p #{@client_organisation.id}-#{@client_organisation.full_name}
+    %p #{@client_organisation.id} - #{@client_organisation.full_name}
   .disabled_form
     .form_line
-      .field_10
+      .field_15
         %label Client ID
-        %input{:value => @client_setup.client_id}
-      .field_20
+        .display_field_bg
+          = @client_setup.client_id
+          -#%input{:value => @client_setup.client_id}
+      .field_25
         %label Client Registration
-        %input{:value => @client_setup.client_rego}
-      .field_10
+        .display_field_bg
+          = @client_setup.client_rego
+      .field_15
         %label Installation Date
-        %input{:value => @client_setup.installation_date}
-      .field_10
+        .display_field_bg
+          = @client_setup.installation_date
+      .field_15
         %label Halt Date
-        %input{:value => @client_setup.halt_date}
-      .field_20
+        .display_field_bg
+          = @client_setup.halt_date
+      .field_25
         %label Home Country
-        %input{:value => @client_setup.home_country_id.blank? ? "" : Country.find(@client_setup.home_country_id).short_name}
+        .display_field_bg
+          = @client_setup.home_country_id.blank? ? "" : Country.find(@client_setup.home_country_id).short_name
 
     %br.clear
     %p &nbsp;
 
-    .container
-      %h1 System Info
-      .form_line
-        .field_15
-          %label Type
-          %input{:value => @client_setup.system_type}
-        .field_10
-          %label Hosting
-          %input{:value => @client_setup.hosting_status}
-        .field_5
-          %label Status
-          %input{:type => "checkbox", :checked => @client_setup.system_status}
-        .field_15
-          %label System Purchase
-          %input{:value => @client_setup.system_purchase}
-        .field_15
-          %label Maximum Core Records
-          %input{:value => @client_setup.maximum_core_records}
-        .field_20
-          %label Number of System Users
-          %input{:value => @client_setup.number_of_users}
-      .container
-        %h2 Module Installed
-        .container_half
-          .left
-            Module Name
-          .right
-            Install Time
-        .container_half
-          .left
-            Module Name
-          .right
-            Install Time
-        .container_half
-          .left
-            Module Name
-          .right
-            Install Time
-        .container_half
-          .left
-            Module Name
-          .right
-            Install Time
+.full_container
+  %h1 System Info
+  .form_line
+    .field_17
+      %label Type
+      %input{:value => @client_setup.system_type}
+    .field_10
+      %label Hosting
+      %input{:value => @client_setup.hosting_status}
+    .field_5
+      %label Status
+      %input{:type => "checkbox", :checked => @client_setup.system_status, :style => "width:50%;"}
+    .field_20
+      %label System Purchase
+      %input{:value => @client_setup.system_purchase}
+    .field_20
+      %label Maximum Core Records
+      %input{:value => @client_setup.maximum_core_records}
+    .field_20
+      %label Number of System Users
+      %input{:value => @client_setup.number_of_users}
+  .full_container
+    %h2  Installed Modules
+    .container_half
+      .left
+        Module Name
+      .right
+        Install Time
+    .container_half
+      .left
+        Module Name
+      .right
+        Install Time
+    .container_half
+      .left
+        Module Name
+      .right
+        Install Time
+    .container_half
+      .left
+        Module Name
+      .right
+        Install Time
 

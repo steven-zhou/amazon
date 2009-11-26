@@ -4,24 +4,28 @@
       .field_100
         =tag_meta_type.label :name, 'Name'
         =tag_meta_type.text_field :name, :disabled=>@tag_meta_type.status == false
-      %br.clear
+
     .form_line
       .field_100
         =tag_meta_type.label :category, 'Category'
         =tag_meta_type.text_field :category, :disabled=>@tag_meta_type.status == false
-      %br.clear
+
     .form_line
       .field_100
         =tag_meta_type.label :description, 'Description'
         =tag_meta_type.text_field :description, :disabled=>@tag_meta_type.status == false
-      %br.clear
+
     .form_line
-      .field_100
+      .field_5
+        %label &nbsp
         - if @tag_meta_type.new_record?
-          = tag_meta_type.check_box :status, :checked => true, :style => "width:auto;"
+          = tag_meta_type.check_box :status, :checked => true
         -else
-          = tag_meta_type.check_box :status, :style => "width:auto;"
-        = tag_meta_type.label :status, 'Active', :style => "display:inline;"
+          = tag_meta_type.check_box :status
+      .field_5
+        %label &nbsp
+        = tag_meta_type.label :status, 'Active', :style => "margin-top:5px;"
+
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag_meta_type.class.to_s}
-      %br.clear
+
     = submit_tag 'Submit', :style => "width:75px;"

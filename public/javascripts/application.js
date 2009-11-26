@@ -352,9 +352,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
 /*Date picker */
 $(function(){
     $(".birthdatepick").datepicker({
@@ -4631,6 +4628,7 @@ $(function(){
             $('#check_input_change').val("false");
             $('#role_role_type_id').attr("disabled", false);
             $(".container_selected").removeClass("container_selected");
+           
             return true;
 
         }
@@ -7295,10 +7293,25 @@ $(function(){
             });
         }else{
             $("#keyword_id").html(" ");
+            $("#person_find_keyword_des").html(" ");
         }
     });
 });
 
+$(function(){
+    $('#keyword_id').live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keyword_des_show.js",
+                data:'id='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#person_find_keyword_des").html(" ");
+        }
+    });
+});
 
 // Address assistant //
 
@@ -7376,5 +7389,66 @@ $(function(){
             data: 'name='+$('#list_assistant_name').val()+'&phone='+$('#list_assistant_phone').val()+'&email='+$('#list_assistant_email').val(),
             dataType: "script"
         });
+    });
+});
+
+
+/* Campaign Grid*/
+$(function(){
+    $('table#show_campaigns_grid tbody tr').live('click',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $('table#show_campaigns_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('dblclick',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipting/edit_campaign/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+/* Campaign Source Grid*/
+$(function(){
+    $('table#show_sources_by_campaign_grid tbody tr').live('click',function(){
+        if($('#sources_mode').attr('mode')=="show"){
+            $('table#show_sources_by_campaign_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_sources_by_campaign_grid tbody tr').live('dblclick',function(){
+        if($('#sources_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipting/edit_source/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });

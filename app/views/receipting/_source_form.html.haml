@@ -1,0 +1,36 @@
+- form_for source, @source, :url => {:controller => "receipting", :action => 'create_source'}, :html => {:class => "ajax_form"} do |f|
+  %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => "#{session[:source_campaign_id]}"}
+  .form_line
+    .field_45
+      = f.label :name, 'Name'
+      = f.text_field :name
+  .form_line
+    .field_25
+      = f.label :description, 'Description'
+      = f.text_field :description
+    .field_15
+      = f.label :volume, 'Volume'
+      = f.text_field :volume
+    .field_15
+      = f.label :cost, 'Cost $'
+      = f.text_field :cost
+  .form_line
+    .field_25
+      = f.label :dead_return, 'Dead Return'
+      = f.text_field :dead_return
+    .field_15
+      = f.label :letter_id, 'Default Letter ID'
+      = f.text_field :letter_id
+    .field_15
+      = f.label :account_code_id, 'Default Account Code ID'
+      = f.text_field :account_code_id
+  .form_line
+    .field_30
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
+    .field_10
+      = f.label :status, "Active"
+      = f.check_box :status, :checked => true, :class => "checkbox_style"
+  .form_line
+    .field_10{:style => "float:right;"}
+      = submit_tag "Submit"

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091124041613) do
+ActiveRecord::Schema.define(:version => 20091125034523) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -95,6 +95,18 @@ ActiveRecord::Schema.define(:version => 20091124041613) do
     t.string   "runner_info"
     t.string   "worker_key"
     t.datetime "scheduled_at"
+  end
+
+  create_table "campaigns", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.text     "target_amount"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.text     "status"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -666,6 +678,21 @@ ActiveRecord::Schema.define(:version => 20091124041613) do
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sources", :force => true do |t|
+    t.integer  "campaign_id"
+    t.text     "name"
+    t.text     "description"
+    t.integer  "volume"
+    t.text     "cost"
+    t.integer  "dead_return"
+    t.integer  "letter_id"
+    t.integer  "account_code_id"
+    t.text     "status"
+    t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

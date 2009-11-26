@@ -77,7 +77,7 @@ class KeywordsController < ApplicationController
 
   def keyword_name_show
     @keywords = Keyword.find_all_by_keyword_type_id(params[:keyword_type_id])
-      @keyword = String.new
+    @keyword = String.new
      
     for keyword in @keywords    
       @keyword += "<option value=#{keyword.id}>#{keyword.name}</option>"
@@ -87,4 +87,10 @@ class KeywordsController < ApplicationController
     end
   end
 
+  def keyword_des_show
+    @keyword= Keyword.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+  end
 end

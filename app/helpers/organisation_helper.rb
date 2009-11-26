@@ -1,14 +1,13 @@
 module OrganisationHelper
 
   def format_legal_details(org)
-    incorporation = org.country.short_name rescue incorporation = "None Assign"
-
+    
     formatted = ""
     formatted += "Registered Number: #{org.registered_number} <br/>" unless org.registered_number.blank?
     formatted += "Registered Name: #{org.registered_name} <br/>" unless org.registered_name.blank?
     formatted += "Registered Date: #{org.registered_date} <br/>" unless org.registered_date.blank?
-    formatted += "Country of Incorporation: #{incorporation} <br/>" unless incorporation.blank?
-      formatted += "Organisation Legal Type: #{org.organisation_type.name} <br/>" unless org.organisation_type.blank?
+    formatted += "Country of Incorporation: #{org.country.short_name} <br/>" unless org.country.blank?
+    formatted += "Organisation Legal Type: #{org.organisation_type.name} <br/>" unless org.organisation_type.blank?
 
     formatted += "Tax File Number: #{org.tax_file_no} <br/>" unless org.tax_file_no.blank?
     formatted += "Legal Number 1: #{org.legal_no_1} <br/>" unless org.legal_no_1.blank?
