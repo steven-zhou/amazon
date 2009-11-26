@@ -51,9 +51,6 @@ class KeywordsController < ApplicationController
      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
          keyword.destroy
 
- 
-
-
     respond_to do |format|
       format.js
     end
