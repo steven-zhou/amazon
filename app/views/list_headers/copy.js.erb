@@ -4,6 +4,10 @@ $('#copy_form').dialog( {
 modal: true,
 resizable: true,
 draggable: true,
+position: 'middle',
+ beforeclose: function() {
+  $('.highlight').removeClass('highlight');
+  }
 
 });
 

@@ -1,6 +1,6 @@
 .form_line
   .field_20
-    = phone.label :contact_meta_type_id, "Type<span class='asterisk'>*</span>"
+    = phone.label :contact_meta_type_id, "<span class='asterisk'>*</span>Type"
     -if @organisation.nil?
       -if edit == "edit"
         = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types + @phone.phone_type, :id, :name
@@ -16,7 +16,7 @@
     = phone.label :pre_value, "Pre Value"
     = phone.text_field :pre_value
   .field_40
-    = phone.label :value, "Value<span class='asterisk'>*</span>"
+    = phone.label :value, "<span class='asterisk'>*</span>Value"
     = phone.text_field :value , :class => "empty_field" , :id => "phone_value_edit"
   .field_15
     = phone.label :post_value, "Post Value"

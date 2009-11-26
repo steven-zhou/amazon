@@ -1,5 +1,5 @@
 .container
-  %h2 Query Result
+  %h2{:style => "margin-bottom:5px;"} Query Result
   %table#query_result_grid
 
 -form_for @list_header, :html => {:class => "ajax_form"} do |f|
@@ -12,10 +12,13 @@
       .field_20
         =f.label :description, "List Description"
         =f.text_field :description
-      .field_30
+      .field_2
         %label &nbsp;
         = f.check_box :allow_duplication, :style => "display:inline;"
-        = f.label :allow_duplication, "Allow Duplications", :style => "display:inline;"
+        -#= f.label :allow_duplication, "Allow Duplications", :style => "display:inline;"
+      .field_10
+        %label &nbsp;
+        = f.label :allow_duplication, "Allow Duplication", :style =>"margin-top:7px;"
       .field_20{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "query_header_id", :id => "query_header_id", :value => @query_header.id}

@@ -13,7 +13,7 @@
       %p
         .form_line
           .field_20
-            %label MetaType <span class='asterisk'>*</span>
+            %label <span class='asterisk'>*</span>MetaType 
             %select#select_contact_type
               = for cmt in ContactMetaMetaType.all
                 %option{:value => "add_#{cmt.name.downcase}"}

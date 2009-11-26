@@ -3,4 +3,34 @@ $("#selections").append("<%= escape_javascript(render(:partial => 'queries/query
 $('#<%= dom_id(@query_selection) %>').effect('slide', {direction:'right'});
 <%- else %>
 
+
+
+
+$('#warning_message_text').html("<%=escape_javascript(flash[:error])%>");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    Ok: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    }
+                    
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Error');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+
+
 <%- end %>

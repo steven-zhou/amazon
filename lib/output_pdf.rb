@@ -435,7 +435,12 @@ module OutputPdf
     #default setting for pdf header
     @source = "#{source_type}_header".camelize.constantize.find(source_id.to_i)
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
-    header_settings[:title] ||= "Export from #{source_type}_#{@source.name}"
+    if @source.group == "temp"
+      header_settings[:title] ||= "Export From Temporary Query"
+    else
+      header_settings[:title] ||= "Export From #{source_type.titleize}_#{@source.name}"
+    end
+    
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:font] ||= "Times-Roman"
@@ -478,7 +483,10 @@ module OutputPdf
         end
         tab.columns["id"] = PDF::SimpleTable::Column.new("id") {|col| col.heading = "ID"}
         QueryHeader.find(source_id.to_i).query_selections.each do |i|
-          tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.humanize}"}
+          tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.titleize}"}
+           if QueryHeader.find(source_id.to_i).query_selections.size >8 #if selection more then 8 set each column width 55, otherwise will be too wide
+             tab.columns["#{i.field_name}"].width = 55
+           end
         end
       else
         OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
@@ -487,6 +495,7 @@ module OutputPdf
 
         OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
           tab.columns["#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}"] = PDF::SimpleTable::Column.new("#{OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]}") { |col| col.heading = "#{OutputPdf::PERSON_DEFAULT_FORMAT[i].keys[0]}"}
+
         end
       end
 
@@ -515,10 +524,11 @@ module OutputPdf
         data_row = Hash.new
         if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
           data_row["id"] = "#{person.id}"
+          
           QueryHeader.find(source_id.to_i).query_selections.each do |i|
             if i.table_name == "people"
               if i.data_type.include?("Integer FK")
-                if(i.field_name == "country")
+                if(i.field_name == "country"||i.field_name == "origin_country"||i.field_name == "residence_country")
                   data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).short_name}"
                 else
                   data_row["#{i.field_name}"] = person.__send__(i.field_name).nil? ? "" : "#{person.__send__(i.field_name).name}"
@@ -548,7 +558,8 @@ module OutputPdf
               when "phone" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{phone}"
               when "email" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{email}"
               when "website" then data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{website}"
-              else data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0])}"
+              else  data_row[OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0]] = "#{person.__send__(OutputPdf::PERSON_DEFAULT_FORMAT[i].values[0])}"
+
               end
 
             end

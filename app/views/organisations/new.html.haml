@@ -23,7 +23,7 @@
       %h1 Name Details
       .form_line
         .field_100
-          = p.label :full_name, "Full Name"
+          = p.label :full_name, "<span class='asterisk'>*</span>Full Name"
           = p.text_field :full_name, :class => @check_field.include?("full_name") ? "organisational_check_field" : ""
         %br.clear
       .form_line

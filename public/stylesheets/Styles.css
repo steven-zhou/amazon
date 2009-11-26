@@ -657,22 +657,28 @@ label {
 #app #main #content .container .form_line .field_12,
 #app #main #content .container .form_line .field_15,
 #app #main #content .container .form_line .field_17,
+#app #main #content .container .form_line .field_19,
 #app #main #content .container .form_line .field_20,
 #app #main #content .container .form_line .field_22,
 #app #main #content .container .form_line .field_23,
 #app #main #content .container .form_line .field_25,
 #app #main #content .container .form_line .field_27,
 #app #main #content .container .form_line .field_30,
+#app #main #content .container .form_line .field_31,
 #app #main #content .container .form_line .field_33,
 #app #main #content .container .form_line .field_34,
 #app #main #content .container .form_line .field_35,
+#app #main #content .container .form_line .field_37,
 #app #main #content .container .form_line .field_38,
 #app #main #content .container .form_line .field_40,
 #app #main #content .container .form_line .field_45,
+#app #main #content .container .form_line .field_47,
 #app #main #content .container .form_line .field_48,
+#app #main #content .container .form_line .field_49,
 #app #main #content .container .form_line .field_50,
 #app #main #content .container .form_line .field_55,
 #app #main #content .container .form_line .field_60,
+#app #main #content .container .form_line .field_64,
 #app #main #content .container .form_line .field_66,
 #app #main #content .container .form_line .field_70,
 #app #main #content .container .form_line .field_72,
@@ -693,22 +699,28 @@ label {
 #app #main #content .container .form_line .field_12 {width: 12%;}
 #app #main #content .container .form_line .field_15 {width: 15%;}
 #app #main #content .container .form_line .field_17 {width: 17%;}
+#app #main #content .container .form_line .field_19 {width: 19%;}
 #app #main #content .container .form_line .field_20 {width: 20%;}
 #app #main #content .container .form_line .field_22 {width: 22%;}
 #app #main #content .container .form_line .field_23 {width: 23%;}
 #app #main #content .container .form_line .field_25 {width: 25%;}
 #app #main #content .container .form_line .field_27 {width: 27%;}
 #app #main #content .container .form_line .field_30 {width: 30%;}
+#app #main #content .container .form_line .field_31 {width: 31%;}
 #app #main #content .container .form_line .field_33 {width: 33%;}
 #app #main #content .container .form_line .field_34 {width: 34%;}
 #app #main #content .container .form_line .field_35 {width: 35%;}
+#app #main #content .container .form_line .field_37 {width: 37%;}
 #app #main #content .container .form_line .field_38 {width: 38%;}
 #app #main #content .container .form_line .field_40 {width: 40%;}
 #app #main #content .container .form_line .field_45 {width: 45%;}
+#app #main #content .container .form_line .field_47 {width: 47%;}
 #app #main #content .container .form_line .field_48 {width: 48%;}
+#app #main #content .container .form_line .field_49 {width: 49%;}
 #app #main #content .container .form_line .field_50 {width: 50%;}
 #app #main #content .container .form_line .field_55 {width: 55%;}
 #app #main #content .container .form_line .field_60 {width: 60%;}
+#app #main #content .container .form_line .field_64 {width: 64%;}
 #app #main #content .container .form_line .field_66 {width: 66%;}
 #app #main #content .container .form_line .field_70 {width: 70%;}
 #app #main #content .container .form_line .field_72 {width: 72%;}
@@ -1166,7 +1178,8 @@ form#person_names_form.edit_person input#person_custom_id{
 
 form#add_person.new_person input#person_custom_id{
     float:right;
-    width: 200px !important;
+    width: 33% !important;
+    margin-right: 10px;
 }
 
 form#add_person.new_person input#image_image_file{
@@ -2474,13 +2487,13 @@ div#permission_form .options{
 
 /*Asterisk*/
 .asterisk{
-    color:red;
+    color:#666666;
     display:inline;
     font-size:20px;
     height:5px;
     line-height:5px;
 
-    padding-left:5px;
+    padding-right:5px;
 
     text-align:center;
     text-decoration:none;
