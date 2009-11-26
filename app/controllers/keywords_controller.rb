@@ -47,8 +47,13 @@ class KeywordsController < ApplicationController
 
   def destroy
     keyword = Keyword.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
-    keyword.destroy
+
+     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
+         keyword.destroy
+
+ 
+
+
     respond_to do |format|
       format.js
     end

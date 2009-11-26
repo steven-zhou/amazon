@@ -5,21 +5,25 @@ $('#keyword_<%= escape_javascript("#{@keyword_id}")%>').find("#keyword_delete_bu
 <%else%>
 
 $("#keyword_mode").attr('mode', 'show');
- $('#keyword_already_assigned').dialog({
-  modal: true,
-  resizable: false,
-  draggable: true,
-  height: 'auto',
-  width: 'auto',
-  buttons: {
-  "Close": function(){
-    $(this).dialog('close');
-    return false;
-  }
-  }
-});
-$('#keyword_already_assigned').dialog('option', 'title', 'ERROR');
-$('#keyword_already_assigned').parent().find("a").css("display","none");
-$('#keyword_already_assigned').dialog('open');
+
+
+ $('#flash_message_text').html('The Keyword Already Assigned, It Can not Delete');
+  $('#flash_message').dialog({
+    modal: true,
+    resizable: false,
+    draggable :true,
+    height: "auto",
+    width: "auto",
+    buttons: {
+      Ok: function() {
+            $(this).dialog('close');
+          }
+    }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
 
 <%end%>
