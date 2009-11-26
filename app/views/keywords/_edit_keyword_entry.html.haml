@@ -16,9 +16,10 @@
         .field_35
           = p.label :description, 'Description'
           = p.text_field :description, {:disabled => ("disabled" if !@keyword.status)}
-        .field_5
+        .field_7
           = p.label :active
           %label
           = p.check_box :status, {:style => "width:auto;"}
-        .field_20{:style => "margin-top: 8px;"}
+        .field_20
+          %label &nbsp
           = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'

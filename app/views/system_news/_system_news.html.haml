@@ -8,8 +8,8 @@
         - else
           %h2 #{system_news.title}
       %br.clear
-      %p #{system_news.short_description}
-      .read_more
+      %p #{system_news.short_description[0,24]}...
+      .read_more{:style => "margin-top:10px;"}
         = link_to_function "read more", :class => "read_more", :news_id => system_news.id
 
   .news_content{:id => "description_#{system_news.id}", :class => (system_news.description.length > 36) ? "hidden" : ""}

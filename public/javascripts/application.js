@@ -4631,6 +4631,7 @@ $(function(){
             $('#check_input_change').val("false");
             $('#role_role_type_id').attr("disabled", false);
             $(".container_selected").removeClass("container_selected");
+           
             return true;
 
         }
@@ -7301,10 +7302,25 @@ $(function(){
             });
         }else{
             $("#keyword_id").html(" ");
+            $("#person_find_keyword_des").html(" ");
         }
     });
 });
 
+$(function(){
+    $('#keyword_id').live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keyword_des_show.js",
+                data:'id='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#person_find_keyword_des").html(" ");
+        }
+    });
+});
 
 // Address assistant //
 

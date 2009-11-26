@@ -5,7 +5,7 @@
       = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
     -else
       = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
-  .field_25{:style => "float:right;"}
+  .field_25{:style => "float:left;"}
     %label &nbsp;
     -if @person_role.new_record?
       %span{ :id=> "person_role_type_description" }
@@ -22,7 +22,7 @@
       %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id}
         - @roles.each do |r|
           %option{:value => "#{r.id}", :selected => (@role.id == r.id) } #{r.name}
-  .field_25{:style => "float:right;"}
+  .field_25{:style => "float:left;"}
     %label &nbsp;
     -if @person_role.new_record?
       %span{:id=> "person_role_description" }

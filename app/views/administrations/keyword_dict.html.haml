@@ -27,11 +27,12 @@
               .field_35
                 = p.label :description, 'Description'
                 = p.text_field :description
-              .field_5
+              .field_7
                 = p.label :active
                 %label
                 = p.check_box :status, {:style => "width:auto;",:checked=> "checked"}
-              .field_20{:style => "margin-top: 8px;"}
+              .field_20
+                %label &nbsp
                 = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
 
         %div#keyword_entries

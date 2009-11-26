@@ -12,7 +12,11 @@ $('#save_form').toggle('blind');
 $('#save_form').dialog( {
 modal: true,
 resizable: true,
-draggable: true
+draggable: true,
+beforeclose: function() {
+  $('.highlight').removeClass('highlight');
+  }
+
 });
 $('#save_form').dialog('option', 'title', 'Save As');
 $('#save_form').dialog('open');

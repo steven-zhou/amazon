@@ -352,7 +352,7 @@ $(function() {
                 },
                 Yes: function(){
                     $.post(link.attr('href'), "_method=delete", null, 'script');
-                    $("#photo").attr("src", "/images/no_photo.jpeg");
+                    $("#photo").attr("src", "/images/Icons/System/image-missing.png");
                     $("#delete_photo").hide();
                     $(this).dialog('destroy');
                     return true;

@@ -10,15 +10,15 @@
         .container
           %h2 Record Details
           .form_line
-            .field_20
+            .field_25
               = p.label :id, 'System ID'
               = p.text_field :id
-            .field_20
+            .field_25
               = p.label :custom_id, 'Custom ID'
               = p.text_field :custom_id
-            .field_40
+            .field_45
               = p.label :onrecord_since, 'Recorded on'
-              = p.text_field :onrecord_since, :class=>"datepick"
+              = p.text_field :onrecord_since, :class=>"datepick", :style => "width:82% !important;"
         .container
           %h2 Name Details
           .form_line
@@ -28,7 +28,7 @@
             .field_40
               = p.label :first_name, "First Names"
               = p.text_field :first_name
-            .field_33
+            .field_35
               = p.label :family_name, "Family Name"
               = p.text_field :family_name
           .form_line
@@ -38,7 +38,7 @@
             .field_40
               = p.label :middle_name, 'Middle Names'
               = p.text_field :middle_name
-            .field_33
+            .field_35
               = p.label :maiden_name, 'Maiden Name'
               = p.text_field :maiden_name
           .form_line
@@ -48,7 +48,7 @@
             .field_40
               = p.label :post_title, 'Post Names'
               = p.text_field :post_title
-            .field_33
+            .field_35
               = p.label :preferred_name, 'Preferred Names'
               = p.text_field :preferred_name
         .container
@@ -94,9 +94,9 @@
             .field_30
               = p.label :industry_sector,"Industry Sector"
               = p.collection_select :industry_sector_id, IndustrySector.active_industry_sector, :id, :name, {:include_blank => true}
-            .field_66
+            .field_64
               = p.label :interests,"Interests"
-              = p.text_field :interests
+              = p.text_field :interests, :style => "width:100%;"
         = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "left_find_by_person"
         = submit_tag 'Find', {:id => "find_button" }
         %br.clear
@@ -108,7 +108,8 @@
 #right_content{:style => "margin-top:0px;"}
   %div{:id => "accordion02"}
     %h3
-      %a{:href => "#"} Find by Email
+      %a{:href => "#"}
+        %h1 Find by Email
     %div.container
       -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|
         .container
@@ -187,7 +188,7 @@
             .field_45
               = address.label :state, 'State/Province'
               = address.text_field :state, :id =>"person_addresses_attributes_0_state"
-          .form_line
+          .form_line{:style => "margin-bottom:15px;"}
             .field_45
               = address.label :postal_code, 'Postal Code'
               = address.text_field :postal_code, :id => "person_addresses_attributes_0_postal_code"
@@ -204,15 +205,16 @@
     %div.container
       -form_for Keyword.new, :url => {:action => 'search'}, :html => {:method => :post} do |keyword|
         .container
-          .form_line
-            .field_40
+          .form_line{:style => "margin-bottom:15px;"}
+            .field_35
               = label_tag :keyword_type_id, "Keyword Type"
               = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:include_blank => true}, :class => "keywordtype_change clear_select"
-            .field_40
+            .field_35
               = keyword.label :name, 'Keyword'
               %select#keyword_id{:name => "keyword[id]"}
-              
-            %br.clear
+            .field_20
+              = keyword.label :description, '&nbsp'
+              %span{ :id=> "person_find_keyword_des" }
           %p.submit
             = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
             = submit_tag 'Find'
