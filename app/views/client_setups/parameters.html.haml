@@ -4,11 +4,11 @@
   #lol
   %br.clear
 
-.full_container
-  %h2 Security Parameters
-  - form_for @client_setup do |f|
+- form_for @client_setup do |f|
+  .full_container
+    %h1 Security Parameters
     .form_line
-      .field_20
+      .field_24
         = f.label :number_of_login_attempts, "Number of Login Attempts"
         %select{:name => "client_setup[number_of_login_attempts]"}
           %option{:value => "0", :selected => @client_setup.number_of_login_attempts == 0} Unlimited
@@ -16,7 +16,7 @@
           %option{:value => "4", :selected => @client_setup.number_of_login_attempts == 4} 4
           %option{:value => "5", :selected => @client_setup.number_of_login_attempts == 5} 5
           %option{:value => "6", :selected => @client_setup.number_of_login_attempts == 6} 6
-      .field_20
+      .field_24
         = f.label :new_account_graceperiod, "New Account Grace Period (Days)"
         %select{:name => "client_setup[new_account_graceperiod]"}
           %option{:value => "0", :selected => @client_setup.new_account_graceperiod == 0} Unlimited
@@ -24,7 +24,7 @@
           %option{:value => "14", :selected => @client_setup.new_account_graceperiod == 14} 14
           %option{:value => "21", :selected => @client_setup.new_account_graceperiod == 21} 21
           %option{:value => "28", :selected => @client_setup.new_account_graceperiod == 28} 28
-      .field_20
+      .field_24
         = f.label :session_timeout, "Session Timeout (Mins)"
         %select{:name => "client_setup[session_timeout]"}
           %option{:value => "0", :selected => @client_setup.session_timeout == 0} Unlimited
@@ -32,7 +32,7 @@
           %option{:value => "10", :selected => @client_setup.session_timeout == 10} 10
           %option{:value => "20", :selected => @client_setup.session_timeout == 20} 20
           %option{:value => "30", :selected => @client_setup.session_timeout == 30} 30
-      .field_20
+      .field_24
         = f.label :password_lifetime, "User Password Lifetime (Days)"
         %select{:name => "client_setup[password_lifetime]"}
           %option{:value => "0", :selected => @client_setup.password_lifetime == 0} Unlimited
@@ -40,12 +40,12 @@
           %option{:value => "30", :selected => @client_setup.password_lifetime == 30} 30
           %option{:value => "60", :selected => @client_setup.password_lifetime == 60} 60
           %option{:value => "90", :selected => @client_setup.password_lifetime == 90} 90
+  .full_container
+    %h1 SuperAdmin Message
     .form_line{:style => "height:auto;"}
       .field_100{:style => "height:auto;"}
         = f.label :superadmin_message, "SuperAdmin Message"
         = f.text_area :superadmin_message, :cols => 126, :rows =>3
       %br.clear
-    .form_line
-      .field_10{:style => "float:right;"}
-        %label &nbsp;
-        = submit_tag "Submit"
+  .right
+    = submit_tag "Submit"
