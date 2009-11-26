@@ -123,12 +123,13 @@ class RolesController < ApplicationController
 
   def destroy
     @role = Role.find(params[:id])
-    @check_role_assign= PersonRole.find_by_role_id(params[:id])
+#    @check_role_assign= PersonRole.find_by_role_id(params[:id])
 
    
-    if !@check_role_assign
+#    if !@check_role_assign
+  if  @role.destroy
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
-     @role.destroy
+
     else
       flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
     end

@@ -20,7 +20,7 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_countries_grid").flexigrid({
-  url: '/grids/show_campaigns_grid',
+  url: '/grids/show_countries_grid',
   dataType: 'json',
   colModel : [
   {
@@ -32,75 +32,127 @@
   },
 
   {
-  display: 'Name',
-  name : 'name',
+  display: 'Long Name',
+  name : 'long_name',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Target Amount',
-  name : 'target_amount',
+  display: 'Short Name',
+  name : 'short_name',
   width : 80,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Start Date',
-  name : 'start_date',
+  display: 'Citizenship',
+  name : 'citizenship',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'End Date',
-  name : 'end_date',
+  display: 'Capital',
+  name : 'capital',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Description',
-  name : 'remarks',
-  width : 120,
+  display: 'ISO Code',
+  name : 'iso_code',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Dialup Code',
+  name : 'dialup_code',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Main Language',
+  name : 'govenment_language',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Currency',
+  name : 'currency',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Currency Subunit',
+  name : 'currency_subunit',
+  width : 60,
   sortable : true,
   align: 'left'
   }
   ],
   searchitems : [
   {
-  display: 'Name',
-  name : 'name'
+  display: 'Long Name',
+  name : 'long_name'
   },
 
   {
-  display: 'Target Amount',
-  name : 'target_amount'
+  display: 'Short Name',
+  name : 'short_name'
   },
 
   {
-  display: 'Start Date',
-  name : 'start_date'
+  display: 'Citizenship',
+  name : 'citizenship'
   },
 
   {
-  display: 'End Date',
-  name : 'end_date'
+  display: 'Capital',
+  name : 'capital'
   },
 
   {
-  display: 'Description',
-  name : 'description'
+  display: 'ISO Code',
+  name : 'iso_code'
+  },
+
+  {
+  display: 'Dialup Code',
+  name : 'dialup_code'
+  },
+
+  {
+  display: 'Main Language',
+  name : 'govenment_language'
+  },
+
+  {
+  display: 'Currency',
+  name : 'currency'
+  },
+
+  {
+  display: 'Currency Subunit',
+  name : 'currency_subunit'
   }
   ],
   sortname: "id",
-  sortorder: "start_date, name",
+  sortorder: "asc",
   usepager: true,
-  title: 'Campaigns',
+  title: 'Countries',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,

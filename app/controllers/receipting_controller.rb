@@ -56,6 +56,13 @@ class ReceiptingController < ApplicationController
     end
   end
 
+  def copy_campaign
+    @campaign = Campaign.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   def show_by_campaign
     session[:source_campaign_id] = params[:param1]

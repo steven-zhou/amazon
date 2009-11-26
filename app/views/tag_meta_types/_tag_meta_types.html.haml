@@ -6,8 +6,8 @@
           %h2 #{tag_meta_type.name}
         .options
           = link_to_function image_tag('Icons/System/add_child.png'), :class => "new_tag_type", :title=>"New Child", :tag => @category, :tag_meta_type_id => tag_meta_type.id if tag_meta_type.status
-          = link_to image_tag('edit_icon.png'), edit_tag_meta_type_path(tag_meta_type), :class => 'get_tag', :title=>"Edit" if type=="master_doc"
-          -#= link_to image_tag('delete_icon.png'), tag_meta_type_path(tag_meta_type), :class => 'delete', :field => "Tag Meta",:error_message_field => "Tag Meta", :title=>"Remove"
+          = link_to image_tag('edit_icon.png'), edit_tag_meta_type_path(tag_meta_type), :class => 'get_tag', :title=>"Edit" if type=="edit_and_delete"
+          = link_to image_tag('delete_icon.png'), tag_meta_type_path(tag_meta_type), :class => 'delete', :field => "Tag Meta",:error_message_field => "Tag Meta", :title=>"Remove" if (type=="edit_and_delete" and tag_meta_type.status)
         
       %br.clear
 

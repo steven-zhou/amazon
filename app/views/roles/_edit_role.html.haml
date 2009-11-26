@@ -5,24 +5,25 @@
       = image_tag('edit_icon.png', :class => "edit_icon_right")
     %h3 Edit
   .container_corner.profile_tab_right_corner.left
-.container#edit_role
+.full_container#edit_role
   %div
     .options
       = link_to_function image_tag('close_icon.png'), :class => "edit_close_flag", :id => "edit_role_form",  :field => "role", :flag_name => "role", :title=>"Close"
    
     -form_for @role, :url => {:controller => "roles", :action=> "update"}, :html => {:class => 'ajax_form'} do |role|
       .form_line{:style => "float:none;"}
-        .field_30
+        .field_33
           = role.label :name, 'Role Name'
           = role.text_field :name, :disabled=>@role.role_status == false
-        .field_35
+        .field_33
           = role.label :remarks, 'Remark'
           = role.text_field :remarks, :disabled=>@role.role_status == false
-        .field_10
+        .field_5
           = role.label :role_status, 'Active'
           = role.check_box :role_status, :class => "checkbox_style"
           = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
-        .field_15{:style => "margin-top: 8px;"}
+        .field_20
+          %label &nbsp
           = submit_tag 'Submit', :style => 'display:inline;float:right;'
 
         
