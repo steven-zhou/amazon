@@ -20,7 +20,7 @@ class TagType < ActiveRecord::Base
 
   def self.show_meta_type
     @group_meta_meta_type = GroupMetaMetaType.find(:all, :conditions => ["name = ?" , 'Custom'], :order => 'name')
-    @group_meta_type = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", @group_meta_meta_type.first.id], :order => 'name')
+    @group_meta_type = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status = true", @group_meta_meta_type.first.id], :order => 'name')
   end
 
   private

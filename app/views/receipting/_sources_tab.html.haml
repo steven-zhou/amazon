@@ -1,0 +1,15 @@
+.full_container
+  %input.hidden{:id => "sources_mode", :mode => "show"}
+
+  #select_source
+    .full_container
+      .left
+        %h2 Select Campaign:
+      &nbsp
+      = collection_select :campaign , :campaign_id, Campaign.all, :id, :name, {:include_blank => true}, {:class => "select_ajax_call clear_select", :method => "GET",:url => "/receipting/show_by_campaign",:field => "campaign", :style => "display:inline;width:20%;", :disabled => false}
+
+  #add_new_source
+
+  #existing_sources
+
+  #edit_source{:style => "display:none;margin-top:10px;float:left;width:100%;"}

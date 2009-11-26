@@ -14,7 +14,7 @@ module KeywordsHelper
   #Returns keywords not belonging to a user as options
   def unselected_keyword_options(person)
     options = ""
-    keywords = Keyword.all - person.keywords
+    keywords = Keyword.find(:all, :conditions => ["status =true"]) - person.keywords
     keywords.each do |keyword|
       options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.description}'>#{keyword.name}</option>"
     end

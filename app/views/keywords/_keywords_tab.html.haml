@@ -9,7 +9,7 @@
   - if (!person.nil? && !person.new_record?)
     #keyword_person_types.keywordleft
       .form_line
-        = label_tag :keyword_type_id, "Keyword Type<span class='asterisk'>*</span>"
+        = label_tag :keyword_type_id, "<span class='asterisk'>*</span>Keyword Type"
         = collection_select :keyword,:keyword_type_id, KeywordType.active_keyword_type, :id, :name, {:prompt => "Select All"}
     %br.clear
 

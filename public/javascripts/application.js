@@ -5472,7 +5472,6 @@ $(function(){
 
 $(function(){
     $("#keyword_close_entry").live('click', function(){
-        
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
@@ -5485,19 +5484,18 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-
                     No: function(){
                         $(this).dialog('destroy');
                         return false;
-
                     },
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
+                        $("#keyword_add_entry_form").css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
-                        $("#keyword_add_entry_form").css('display','none');
+                        
                         $("#edit_keyword_entry").html("");
                         $("#keyword_type").attr("disabled",false);
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -5527,10 +5525,6 @@ $(function(){
             $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
         }
-
-
-
-  
     });
 });
 
@@ -7398,5 +7392,66 @@ $(function(){
             data: 'name='+$('#list_assistant_name').val()+'&phone='+$('#list_assistant_phone').val()+'&email='+$('#list_assistant_email').val(),
             dataType: "script"
         });
+    });
+});
+
+
+/* Campaign Grid*/
+$(function(){
+    $('table#show_campaigns_grid tbody tr').live('click',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $('table#show_campaigns_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('dblclick',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipting/edit_campaign/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+/* Campaign Source Grid*/
+$(function(){
+    $('table#show_sources_by_campaign_grid tbody tr').live('click',function(){
+        if($('#sources_mode').attr('mode')=="show"){
+            $('table#show_sources_by_campaign_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_sources_by_campaign_grid tbody tr').live('dblclick',function(){
+        if($('#sources_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipting/edit_source/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
     });
 });

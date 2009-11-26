@@ -2494,13 +2494,13 @@ div#permission_form .options{
 
 /*Asterisk*/
 .asterisk{
-    color:red;
+    color:#666666;
     display:inline;
     font-size:20px;
     height:5px;
     line-height:5px;
 
-    padding-left:5px;
+    padding-right:5px;
 
     text-align:center;
     text-decoration:none;

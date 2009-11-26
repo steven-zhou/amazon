@@ -10,7 +10,7 @@
   %br.clear
 
   .tag
-    = render :partial => "/tag_meta_types/tag_meta_types", :locals => {:tag_meta_types => @tag_meta_types}
+    = render :partial => "/tag_meta_types/tag_meta_types", :locals => {:tag_meta_types => @tag_meta_types,:type=>"contact_type"}
 
 .container#tag_meta_type_form{:style => "display:none;"}
 .container#tag_type_form{:style => "display:none;"}
