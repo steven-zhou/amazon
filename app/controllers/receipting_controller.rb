@@ -57,6 +57,63 @@ class ReceiptingController < ApplicationController
   end
 
 
+  def show_by_campaign
+    session[:source_campaign_id] = params[:param1]
+    # puts "***** DEBUG Setting session[:source_campaign_id] to #{params[:param1]} "
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def new_source
+    @source = Source.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_source
+    @source = Source.new(params[:source])
+    @source.campaign_id = params[:id]
+    if @source.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaing source with ID #{@source.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign source record.")
+      if(!@source.errors[:campaign_id].nil?)
+         flash.now[:error] = "You must select a campaign for this source."
+      elsif(!@source.errors[:name].nil?)
+         flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_source
+    @source = Source.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_source
+    @source = Source.find(params[:id])
+    if @source.update_attributes(params[:source])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for source with ID #{@source.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update source record #{@source.id}.")
+      if(!@source.errors[:campaign_id].nil?)
+         flash.now[:error] = "You must select a campaign for this source."
+      elsif(!@source.errors[:name].nil?)
+         flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]

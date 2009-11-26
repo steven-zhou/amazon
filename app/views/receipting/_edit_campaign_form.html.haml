@@ -1,5 +1,5 @@
 - form_for :campaign, @campaign, :url => { :action => "update_campaign" }, :html => {:class => 'ajax_form'}  do |f|
-  %input{:name => "id", :style => "width:0px;height:0px;", :value => @campaign.id}
+  %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @campaign.id}
   .form_line
     .field_15
       = f.label :long_name, "Name", :class => "required_field"
