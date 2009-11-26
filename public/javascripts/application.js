@@ -7455,3 +7455,17 @@ $(function(){
         }
     });
 });
+
+$(function() {
+    $('#copy_campaign').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/receipting/copy_campaign.js",
+            data: 'id=' + $(this).attr('campaign'),
+            dataType: "script"
+        });
+    });
+});
+
+

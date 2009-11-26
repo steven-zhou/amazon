@@ -37,5 +37,9 @@
       = f.label :status, "Active"
       = f.check_box :status, :checked => true, :class => "checkbox_style"
   .form_line
-    .field_10{:style => "float:right;"}
+    .field_100{:style => "float:right;"}
       = submit_tag "Submit", :disabled => false, :id => "edit_campaign_submit"
+      %button{:type => "button", :style => "float:right;", :id => "copy_campaign", :campaign => "#{@campaign.id}"}
+        Save As
+
+#campaign_save_form{:style => "display:none;"}
