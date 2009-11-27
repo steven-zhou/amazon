@@ -1,33 +1,33 @@
 - form_for country, :html => {:class => "ajax_form"} do |f|
   .form_line
-    .field_30
+    .field_36
       = f.label :long_name, "Long Name"
       = f.text_field :long_name
-    .field_15
+    .field_20
       = f.label :short_name, "Short Name", :class => "required_field"
       = f.text_field :short_name
-    .field_15
+    .field_20
       = f.label :citizenship, "Citizenship"
       = f.text_field :citizenship
-    .field_15
+    .field_20
       = f.label :capital, "Capital"
       = f.text_field :capital
   .form_line
-    .field_10
+    .field_17
       = f.label :iso_code, "ISO Code"
       = f.text_field :iso_code
-    .field_20
+    .field_17{:style=>"margin-right:15px;"}
       = f.label :dialup_code, "Dialup Code"
       = f.text_field :dialup_code
-    .field_15
+    .field_20
       = f.label :main_language_id, "Main Language"
       = f.collection_select :main_language_id, Language.all, :id, :name, {:include_blank => true}
-    .field_15
+    .field_20
       = f.label :currency, "Currency"
       = f.text_field :currency
-    .field_15
+    .field_20
       = f.label :currency_subunit, "Currency Subunit"
       = f.text_field :currency_subunit
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit"
+      = submit_tag "Submit", :style=>"margin-top:13px;margin-right:6px;"

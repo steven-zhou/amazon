@@ -8,11 +8,17 @@
     = render :partial => "countries/existing_countries"
 
   #edit_country{:style => "display:none;margin-top:10px;float:left;"}
-    .tab_looking_left
-    .tab_looking_icon
-      = image_tag('edit_icon.png')
-      Edit
-    .tab_looking_right
+    -#.tab_looking_left
+    -#.tab_looking_icon
+    -#  = image_tag('edit_icon.png')
+    -#  Edit
+    -#.tab_looking_right
+    .container_corner.profile_tab_left_corner.left
+    .container_edit
+      .options_left{:style => "margin-right:10px;"}
+        = image_tag('edit_icon.png', :class => "edit_icon_right")
+      %h3 Edit
+    .container_corner.profile_tab_right_corner.left
     .full_container
       .options
         = link_to_function image_tag('close_icon.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
