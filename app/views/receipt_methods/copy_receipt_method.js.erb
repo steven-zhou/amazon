@@ -1,0 +1,14 @@
+$('#receipt_method_save_form').html('<%= escape_javascript(render(:partial => "receipt_methods/copy_receipt_method")) %>');
+$('#receipt_method_save_form').toggle('blind');
+$('#receipt_method_save_form').dialog( {
+modal: true,
+resizable: true,
+draggable: true,
+beforeclose: function() {
+  $('.highlight').removeClass('highlight');
+  }
+});
+$('#receipt_method_save_form').dialog('option', 'title', 'Save As');
+$('#receipt_method_save_form').dialog('open');
+$("#receipt_method_save_form").parent().css('background-color','#D1DDE6');
+$("#receipt_method_save_form").css('background-color','#D1DDE6');

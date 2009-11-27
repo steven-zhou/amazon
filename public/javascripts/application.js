@@ -7428,6 +7428,18 @@ $(function(){
     });
 });
 
+$(function() {
+    $('#copy_campaign').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/receipting/copy_campaign.js",
+            data: 'id=' + $(this).attr('campaign'),
+            dataType: "script"
+        });
+    });
+});
+
 /* Campaign Source Grid*/
 $(function(){
     $('table#show_sources_by_campaign_grid tbody tr').live('click',function(){
@@ -7459,16 +7471,87 @@ $(function(){
     });
 });
 
+
+/* Receipt Account Grid*/
+$(function(){
+    $('table#show_receipt_accounts_grid tbody tr').live('click',function(){
+        if($('#receipt_account_mode').attr('mode')=="show"){
+            $('table#show_receipt_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_receipt_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#receipt_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipt_accounts/edit_receipt_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_receipt_accounts_grid tbody tr').live('mouseover',function(){
+        if($('#receipt_account_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
 $(function() {
-    $('#copy_campaign').live('click', function() {
+    $('#copy_receipt_account').live('click', function() {
 
         $.ajax({
             type: "GET",
-            url: "/receipting/copy_campaign.js",
-            data: 'id=' + $(this).attr('campaign'),
+            url: "/receipt_accounts/copy_receipt_account.js",
+            data: 'id=' + $(this).attr('receipt_account'),
             dataType: "script"
         });
     });
 });
 
+/* Receipt Method Grid*/
+$(function(){
+    $('table#show_receipt_methods_grid tbody tr').live('click',function(){
+        if($('#receipt_method_mode').attr('mode')=="show"){
+            $('table#show_receipt_methods_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
 
+    $('table#show_receipt_methods_grid tbody tr').live('dblclick',function(){
+        if($('#receipt_method_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipt_methods/edit_receipt_method/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_receipt_methods_grid tbody tr').live('mouseover',function(){
+        if($('#receipt_method_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+$(function() {
+    $('#copy_receipt_method').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/receipt_methods/copy_receipt_method.js",
+            data: 'id=' + $(this).attr('receipt_method'),
+            dataType: "script"
+        });
+    });
+});

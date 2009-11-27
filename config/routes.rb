@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :roles, :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get}
 
 
-  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get }
+  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get }
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
@@ -90,6 +90,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
+  map.resources :receipt_accounts, :collection => {:new_receipt_account => :get, :create_receipt_account => :post, :edit_receipt_account => :get, :update_receipt_account => :post, :copy_receipt_account => :get, :create_copy_of_receipt_account => :post, :destroy_receipt_account => :get }
+
+  map.resources :receipt_methods, :collection => {:new_receipt_method => :get, :create_receipt_method => :post, :edit_receipt_method => :get, :update_receipt_method => :post, :copy_receipt_method => :get, :create_copy_of_receipt_method => :post, :destroy_receipt_method => :get }
+    
   map.resources :reports, :collection => {:generate_report => :post, :generate_organisation_report_pdf => :get,:generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get, :generate_system_log_pdf => :post}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get, :change_status => :get}
@@ -98,7 +102,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get,
+    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get, :show_receipt_methods_grid => :get,
     :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}

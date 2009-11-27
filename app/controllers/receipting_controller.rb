@@ -3,7 +3,14 @@ class ReceiptingController < ApplicationController
 
   def campaign_data
 
+  end
 
+  def receipt_accounts
+
+  end
+
+  def receipt_methods
+    
   end
 
   def new_campaign

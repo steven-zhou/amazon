@@ -1,0 +1,12 @@
+.container{:style => "background-image:none;"}
+  -form_for :receipt_method, ReceiptMethod.new, :url => {:controller => "receipt_methods", :action => "create_copy_of_receipt_method"}, :html => {:class => 'ajax_form'} do |f|
+    .form_line
+      = f.label :name, 'Name'
+      = f.text_field :name, :value => ""
+    .form_line
+      = f.label :description, 'Description'
+      = f.text_field :description
+      %input{:style => "display:none", :name =>"new"}
+      %input{:style => "display:none", :name => "source_id", :value => "#{@receipt_method.id}"}
+    
+    = submit_tag "Save"

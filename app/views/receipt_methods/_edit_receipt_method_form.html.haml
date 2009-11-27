@@ -1,0 +1,42 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.edit_receipt_method_required_field').keyup(function() {
+          if($('#edit_receipt_method_name').val() == '') {
+              $('#edit_receipt_method_submit').attr('disabled', true);
+          } else {
+              $('#edit_receipt_method_submit').removeAttr('disabled');
+          }
+      });
+    });
+- form_for :receipt_method, @receipt_method, :url => {:controller => "receipt_methods", :action => "update_receipt_method" }, :html => {:class => 'ajax_form'}  do |f|
+  %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @receipt_method.id}
+  .form_line
+    .field_15
+      = f.label :long_name, "* Name", :class => "required_field"
+      = f.text_field :name, :class => "edit_receipt_method_required_field", :id => "edit_receipt_method_name", :disabled => true
+  .form_line
+    .field_30
+      = f.label :description, "Description"
+      = f.text_field :description
+    .field_30
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
+  .form_line
+    .field_30
+      = f.label :receipt_method_type_id, "Receipt Method Type"
+      = f.collection_select(:receipt_method_type_id, ReceiptMethodType.find(:all), :id, :name, {:include_blank => true})
+  .form_line
+    .field_10
+      = f.label :status, "Active"
+      = f.check_box :status, :checked => true, :class => "checkbox_style"
+  .form_line
+    .field_100{:style => "float:right;"}
+      %div{:style => "display:inline;float:right;height:100%;"}
+        = link_to "Remove", {:controller => "receipt_methods", :action => "destroy_receipt_method", :id => @receipt_method.id}, {:class => 'delete', :error_message_field => "receipt method", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+      %div{:style => "display:inline;float:right;height:100%;"}
+        = submit_tag "Submit", :disabled => false, :id => "edit_receipt_method_submit"
+        %button{:type => "button", :style => "", :id => "copy_receipt_method", :receipt_method => "#{@receipt_method.id}"}
+          Save As
+
+#receipt_method_save_form{:style => "display:none;"}
