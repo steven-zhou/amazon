@@ -1,14 +1,9 @@
 #header
   #page_title
     %h1 Role Manager
--##tabs
-  = render :partial => 'roles/role_menu'
-  %br
-  #Role
-    = render :partial => '/roles/role_management'
-  #Condition
-    = render :partial => '/role_conditions/role_condition_management'
-.tab_switch{:style => "margin-left:15px;"}
+  #lol
+    %br.clear
+-#.tab_switch{:style => "margin-left:15px;"}
   .profile_tab_left.left{:field =>"role_part", :style => "background-image:url(/images/round_left.png);"}
   .container_icon.left{:align => 'center', :class => "container_icon_color"}
     = link_to_function "<h1>Role</h1>",:class=>"show_hide_button", :show_id_name => "role_part",:hide_id_name => "role_condition_part"
@@ -17,8 +12,38 @@
   .container_icon.left{:align => 'center'}
     = link_to_function "<h1>Role Condition</h1>", :class=>"show_hide_button", :show_id_name => "role_condition_part",:hide_id_name => "role_part",:id => "click_condition"
   .profile_tab_right.left{:field =>"role_condition_part"}
-#role_part
+-#role_part
   = render :partial => '/roles/role_management'
 
-#role_condition_part{:style=>"display:none"}
+-#role_condition_part{:style=>"display:none"}
   = render :partial => '/role_conditions/role_condition_management'
+
+.tab_switch{:style => "margin-left:15px;"}
+
+  .tab_switch_left.active.left{:field =>"role_page"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to_function "<h1>Role</h1>",:class=>"tab_switch_button page_initial hidden", :url => "/roles/page_initial",:method => "GET", :render_page => "/roles/role_management", :field => "role_page"
+    = link_to_function "<h1>Role</h1>", :class=>"tab_switch_with_page_initial", :field => "role_page"
+  .tab_switch_right.active.left{:field =>"role_page"}
+
+  .tab_switch_left.left{:field =>"role_condition_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Role Condition</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/role_conditions/page_initial", :method => "GET", :render_page => "/role_conditions/role_condition_management", :field => "role_condition_page"
+    = link_to_function "<h1>Role Condition</h1>", :class=>"tab_switch_with_page_initial", :field => "role_condition_page"
+  .tab_switch_right.left{:field =>"role_condition_page"}
+
+  .tab_switch_left.left{:field =>"condition_dictionary_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Conditions Dictionary</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/role_conditions/condition_dictionary_page_initial", :method => "GET", :render_page => "/administrations/role_conditions", :field => "condition_dictionary_page"
+    = link_to_function "<h1>Conditions Dictionary</h1>", :class=>"tab_switch_with_page_initial", :field => "condition_dictionary_page"
+  .tab_switch_right.left{:field =>"condition_dictionary_page"}
+
+%br.clear
+
+#role_page.tab_switch_container.active
+  = render :partial => "/roles/role_management"
+
+#role_condition_page.tab_switch_container
+
+
+#condition_dictionary_page.tab_switch_container
