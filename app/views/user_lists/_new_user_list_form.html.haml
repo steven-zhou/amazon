@@ -6,11 +6,12 @@
       %select.show_user_list_description{:des => "user_list_list",:name => "user_list[list_header_id]"}
         - @list_headers.each do |list|
           %option{:value => "#{list.id}"}#{list.name}
-    .field_20
+    .field_25
       %label &nbsp
-      %span{:id => "user_list_list_description"}
+      %h3{:id => "user_list_list_description"}
     .field_20{:style => "display:none;"}
       %label &nbsp
       %input{:name => "user_list[user_id]", :value => "#{@login_account.id}"}
-    .field_20{:style => "margin-top: 8px;float:right"}
-      = submit_tag 'Submit', :style => 'display:inline;'
+    .field_38
+      %label &nbsp
+      = submit_tag 'Submit', :style => 'display:inline;float:right;'

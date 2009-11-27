@@ -1,8 +1,8 @@
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
-  .container
+  .full_container
     %h2 Branch Details
     .form_line{:style => "float:none;"}
-      .field_20
+      .field_36
         = f.label :full_name, "<span class='asterisk'>*</span>Full Name"
         = f.text_field :full_name
       .field_20
@@ -14,37 +14,36 @@
       .field_20
         = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
         = f.text_field :branch_number
-    .form_line
-      .field_40
-        = f.label :address_line_1, 'Address Line 1'
-        = f.text_field :address_line_1
-      .field_40
+    .form_line     
+      .field_36
         = f.label :website, 'Website'
         = f.text_field :website
-    .form_line
-      .field_40
-        = f.label :address_line_2, 'Address Line 2'
-        = f.text_field :address_line_2
-      .field_40
+      .field_42
         = f.label :general_email, 'General Email'
         = f.text_field :general_email
     .form_line
-      .field_40
-        = f.label :address_line_3, 'Address Line 3'
+      .field_36
+        = f.label :address_line_1, 'Address Line 1'
+        = f.text_field :address_line_1
+      .field_20
+        = f.label :address_line_3, 'Suburb/Town'
         = f.text_field :address_line_3
-    .form_line
-      .field_15
+      .field_2
+        = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_address_line_3", :update_field2 =>"bank_state", :update_field3 => "bank_postcode", :update_field4 => "bank_country_id", :title=>"Postcode"
+      .field_17
         = f.label :state, 'State'
         = f.text_field :state
-      .field_15
+    .form_line
+      .field_36
+        = f.label :address_line_2, 'Address Line 2'
+        = f.text_field :address_line_2
+      .field_23
         = f.label :postcode, 'Postcode'
         = f.text_field :postcode
-      .field_5
-        = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_address_line_3", :update_field2 =>"bank_state", :update_field3 => "bank_postcode", :update_field4 => "bank_country_id", :title=>"Postcode"
-      .field_15
+      .field_17
         = f.label :country, 'Country'
-        = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
-  .container
+        = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}     
+  .full_container
     %h2 Contact Person
     .form_line{:style => "float:none;"}
       .field_20
@@ -66,12 +65,15 @@
       .field_20
         = f.label :contact_person_email, 'Mobile Phone'
         = f.text_field :contact_mobile
-  .container
+  .full_container
     %h2 Branch Status
     .form_line{:style => "float:none;"}
-      .field_20
-        = f.label :status, 'Active'
+      .field_2
+        = f.label :status, '&nbsp'
         = f.check_box :status
+      .field_17
+        = f.label :status, '&nbsp'
+        = f.label :status, 'Active', :style => "margin-top:8px;"
       .field_20
         = f.label :status_reason, 'Status Reason'
         = f.text_field :status_reason
