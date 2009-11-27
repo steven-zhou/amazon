@@ -1,6 +1,6 @@
 .form_line{:style => "float:none;"}
   .field_30
-    = label :role_type_id, "<span class='asterisk'>*</span>Role Type"
+    = person_role.label :role_type_id, "<span class='asterisk'>*</span>Role Type"
     -if @person_role.new_record?
       = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
     -else

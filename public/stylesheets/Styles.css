@@ -2534,6 +2534,11 @@ div#permission_form .options{
     float: left;
 }
 
+.tab_close {
+    float: right;
+    padding-right: 15px;
+}
+
 #app #main #content .tab_looking_icon{
     background-image:url(/images/container_bg.png);
     font-family:Arial, Helvetica, sans-serif;

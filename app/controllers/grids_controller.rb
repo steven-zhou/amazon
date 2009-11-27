@@ -1493,10 +1493,10 @@ class GridsController < ApplicationController
     return_data[:rows] = @campaign.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.name,
-          u.description,
           u.target_amount,
           u.start_date,
           u.end_date,
+          u.description,
           u.status,
           u.remarks
           ]}}

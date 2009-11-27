@@ -1,9 +1,21 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.new_source_required_field').keyup(function() {
+          if($('#new_source_name').val() == '') {
+              $('#new_source_submit').attr('disabled', true);
+          } else {
+              $('#new_source_submit').removeAttr('disabled');
+          }
+      });
+    });
+
 - form_for source, @source, :url => {:controller => "receipting", :action => 'create_source'}, :html => {:class => "ajax_form"} do |f|
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => "#{session[:source_campaign_id]}"}
   .form_line
     .field_45
-      = f.label :name, 'Name'
-      = f.text_field :name
+      = f.label :name, '* Name'
+      = f.text_field :name, :class => "new_source_required_field", :id => "new_source_name"
   .form_line
     .field_25
       = f.label :description, 'Description'
@@ -33,4 +45,4 @@
       = f.check_box :status, :checked => true, :class => "checkbox_style"
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit"
+      = submit_tag "Submit", :disabled => true, :id => "new_source_submit"
