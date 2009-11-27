@@ -158,6 +158,14 @@ class ReceiptingController < ApplicationController
     end
   end
 
+ def destroy_source
+    @source = Source.find(params[:id])
+    @source.destroy
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
