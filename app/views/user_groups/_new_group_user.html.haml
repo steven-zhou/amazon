@@ -3,4 +3,4 @@
   .options{:id => "delete_icon", :style => "display:none"}
     = link_to image_tag('delete_icon.png'), user_group_path(user_group), :class => 'delete delete_flag',:id => 'delete_user_group',:field => "User Group",:error_message_field => "User Group"
   .title
-    %h3 #{user_group.login_account.person_id}-#{ user_group.login_account.user_name}
+    %h3 #{ user_group.login_account.user_name}

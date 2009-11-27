@@ -1,6 +1,6 @@
 - for bank in @banks do
   - container_status = bank.status? ? 'container_active' : 'container_inactive'
-  %div.container{:style => "margin:1%;width:44%;display:inline;", :class => "#{container_status} toggle_options", :field => "bank" }
+  %div.full_container{:style => "margin:1%;width:44%;display:inline;", :class => "#{container_status} toggle_options", :field => "bank" }
     .options{:style => "display:none;"}
       = link_to_function image_tag('edit_icon.png'), :class => 'edit_option', :bank_id => bank.id, :field => "bank", :id => "edit_bank_entry"
       = link_to_function image_tag('delete_icon.png'), :class => 'delete_option', :bank_id => bank.id, :field => "bank", :id => "delete_bank_entry"

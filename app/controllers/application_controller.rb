@@ -76,6 +76,7 @@ class ApplicationController < ActionController::Base
     when "invalid_data"                     then "The #{options[:field]} is invalid"
     when "invalid_date_order"               then "The #{options[:field]} can't be before start date"
     when "object_assigned_error"            then "The #{options[:field]} Already Assigned. It Can't be Delete"
+    when "user_group_uniqueness_error"      then "User Name Already Assigned to This Group"
       # Default
     when "default" then " #{options[:message]}"
     end

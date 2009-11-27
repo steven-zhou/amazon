@@ -1,11 +1,12 @@
 <% unless flash[:error].nil? %>
- $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
+ $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message_image').css("display","");
  $("#flash_message").dialog( {
  modal: true,
                 resizable: false,
                 draggable: true,
                 height: 'auto',
-                width: 'auto',
+                width: 600,
  buttons: {
 
  OK: function(){

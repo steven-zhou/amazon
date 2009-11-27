@@ -11,7 +11,8 @@
         .options{:style => "display:none;"}
           = link_to_function image_tag('edit_icon.png'), :class => "#{status_flag} edit_option edit_logo", :id => 'group_permission_group_edit_button', :controller => "group_permissions", :data_id => i.id, :field => "group_permission_group", :title=>"Edit"
         .title
-          %h2= "#{i.name}""\--""#{i.login_accounts.size}""\-" "users"
+          -login_account_flag = i.login_accounts.size.to_i > 1 ? "users" : "user"
+          %h2= "#{i.name}"" \- ""#{i.login_accounts.size}"" \- " "#{login_account_flag}"
               
   %br.clear
   %div#group_permission_group_edit_container
