@@ -90,11 +90,11 @@
         <p>Users</p>
         %ul
           %li{:id => action == "user_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Users/user_accounts.png')} User Account", :controller => "administrations", :action => "user_accounts"
+            = link_to "#{image_tag('Icons/Admin/Users/user_accounts.png')} Account", :controller => "administrations", :action => "user_accounts"
           %li{:id => action == "user_groups" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Users/user_groups.png')} User Group", :controller => "administrations", :action => "user_groups"
+            = link_to "#{image_tag('Icons/Admin/Users/user_groups.png')} Group", :controller => "administrations", :action => "user_groups"
           %li{:id => action == "user_lists" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Admin/Users/users_lists.png')} User List", :controller => "administrations", :action => "user_lists"
+            = link_to "#{image_tag('Icons/Admin/Users/users_lists.png')} List", :controller => "administrations", :action => "user_lists"
 
     .bottom
 

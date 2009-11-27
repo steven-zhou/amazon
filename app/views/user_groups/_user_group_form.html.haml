@@ -21,11 +21,11 @@
     %div#new_user_group_form{:style => "display:none;"}
       -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
         .form_line{:style => "float:none"}
-          .field_10
+          .field_20
             = user_group.label :user_id, 'User Name'
             %input{:name => "user_group[user_id]", :style => "display:none", :id => "user_name_id"}
             %input{:name => "user_name", :class => "user_name_to_person", :login_account_id => 0}
-          .field_40
+          .field_30
             %label &nbsp
             %span{:id => "login_name_container_0"}
           .field_20

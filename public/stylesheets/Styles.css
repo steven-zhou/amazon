@@ -747,7 +747,9 @@ label {
 /* Common properties */
 #app #main #content .full_container .form_line .field_2,
 #app #main #content .full_container .form_line .field_5,
+#app #main #content .full_container .form_line .field_6,
 #app #main #content .full_container .form_line .field_7,
+#app #main #content .full_container .form_line .field_8,
 #app #main #content .full_container .form_line .field_10,
 #app #main #content .full_container .form_line .field_11,
 #app #main #content .full_container .form_line .field_12,
@@ -784,7 +786,9 @@ label {
 /* unique properties */
 #app #main #content .full_container .form_line .field_2 {width: 2%;}
 #app #main #content .full_container .form_line .field_5 {width: 5%;}
+#app #main #content .full_container .form_line .field_6 {width: 6%;}
 #app #main #content .full_container .form_line .field_7 {width: 7%;}
+#app #main #content .full_container .form_line .field_8 {width: 8%;}
 #app #main #content .full_container .form_line .field_10 {width: 10%;}
 #app #main #content .full_container .form_line .field_11 {width: 11%;}
 #app #main #content .full_container .form_line .field_12 {width: 12%;}
