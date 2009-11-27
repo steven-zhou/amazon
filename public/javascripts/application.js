@@ -5901,6 +5901,9 @@ $(function(){
                     }
                 }
             });
+                $('#password_error').parent().find("a").css("display","none");
+                $("#password_error").parent().css('background-color','#D1DDE6');
+                $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
         }else{

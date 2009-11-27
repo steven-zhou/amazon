@@ -1,8 +1,11 @@
 <% unless flash[:message].nil? %>
-$("#feedback").html("<div class='message'>" + "<%= escape_javascript(flash[:message]) %>" +  "</div>");
+$("#flash_feedback").html("<div class='message'>" + "<%= escape_javascript(flash[:message]) %>" +  "</div>");
 $("#hiden_id").val('0');
 $("#find_data_list_field").change();
 $("#data_list_field").change();
 <% else %>
-$("#feedback").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" + "</div>");
+$("#flash_feedback").html("<div class='warning'>" + "<%= escape_javascript(flash[:warning]) %>" + "</div>");
+ $('#flash_feedback').fadeIn("slow");
+
+  $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 <% end %>
