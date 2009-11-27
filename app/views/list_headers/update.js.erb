@@ -1,5 +1,32 @@
+<% if flash.now[:error].nil?  %>
 $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
-$('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
+
+    <%else%>
+    
+    $('#error_message_text').html("<%=escape_javascript(flash[:error])%>");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+                        
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
+    <%end%>
+            $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_edit_grid').flexigrid({
         url: '/grids/list_edit_grid',
         dataType: 'json',
@@ -15,10 +42,9 @@ $('#list_edit_grid').flexigrid({
         sortname: "grid_object_id",
         sortorder: "asc",
         usepager: true,
-        title: 'People On List',
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
-        width: 670,
+        width: "auto",
         height: 300
     });

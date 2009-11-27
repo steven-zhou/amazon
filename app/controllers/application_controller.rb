@@ -67,7 +67,7 @@ class ApplicationController < ActionController::Base
     when "set_password_error"               then "Invalid Password Entered, Please try again."
     when "password_change_ok"               then "Password is Changed Successfully"
     when "field_missing"                    then "Missing Required Data, #{options[:field]}."
-    when "uniqueness_error"                 then "The #{options[:field]} Already Exists. This Field Must be Unique, Please Try Again."
+    when "uniqueness_error"                 then "The #{options[:field]} Already Exists. This Field Must be Unique. Please Try Again."
     when "not exist"                        then "The #{options[:field]} Does Not Exist, Please Try Again"
     when "too_long"                         then "The #{options[:field]} is Too Long, Please try Again"
     when "too_short"                        then "The #{options[:field]} is Too Short, Please try Again"
@@ -75,6 +75,8 @@ class ApplicationController < ActionController::Base
     when "same_person_error"                then "#{options[:field]} Cannot be the Same as the Source Person."
     when "invalid_data"                     then "The #{options[:field]} is invalid"
     when "invalid_date_order"               then "The #{options[:field]} can't be before start date"
+    when "object_assigned_error"            then "The #{options[:field]} Already Assigned. It Can't be Delete"
+    when "user_group_uniqueness_error"      then "User Name Already Assigned to This Group"
       # Default
     when "default" then " #{options[:message]}"
     end

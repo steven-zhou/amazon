@@ -1,6 +1,7 @@
-.header_container.container.toggle_options{:field => "query", :class => "get_query", :query_id => saved_query.id}
+- status = saved_query.status ? "container" : "container_inactive"
+%div{:class => "#{status} toggle_options get_query", :field => "query", :query_id => saved_query.id}
   %div
-    .title
+    .title{:style => "width:80%;"}
       %h2 #{saved_query.formatted_info}
     .options{:style => "display:none;"}
       = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query edit_option', :field => "query", :title=>"Edit"

@@ -352,9 +352,6 @@ $(document).ready(function() {
 });
 
 
-
-
-
 /*Date picker */
 $(function(){
     $(".birthdatepick").datepicker({
@@ -413,7 +410,7 @@ $(function(){
         }
     });
 
-$('.datepick').datepicker({
+    $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -425,7 +422,7 @@ $('.datepick').datepicker({
         yearRange: '-200:+20'
     });
 
-$('.beforestartdatepick').datepicker({
+    $('.beforestartdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -445,7 +442,7 @@ $('.beforestartdatepick').datepicker({
         }
     });
 
-$('.role_startdatepick').datepicker({
+    $('.role_startdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -475,7 +472,7 @@ $('.role_startdatepick').datepicker({
         }
     });
 
-$('.role_enddatepick').datepicker({
+    $('.role_enddatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -496,26 +493,26 @@ $('.role_enddatepick').datepicker({
     });
 
 
-$('.ui-datepicker-trigger').live('mouseover', function(){
-         var endDate = $(this).parent().find('.enddatepick')
-         if(endDate.attr('start_date')!=undefined){
-             var arr_dateText = $('#'+endDate.attr('start_date')).val().split("-");
-             year = arr_dateText[2];
-             if(year==undefined){
-                 endDate.val('');
-                 endDate.datepicker('disable');
-             }
-         }else{
-             var roleEndDate = $(this).parent().find('.role_enddatepick')
-             if(roleEndDate.attr('start_date')!=undefined){
-                 var role_arr_dateText = $('#'+roleEndDate.attr('start_date')).val().split("-");
-                 year = role_arr_dateText[2];
-                 if(year==undefined){
-                     roleEndDate.val('');
-                     roleEndDate.datepicker('disable');
-                 }
-             }
-         }
+    $('.ui-datepicker-trigger').live('mouseover', function(){
+        var endDate = $(this).parent().find('.enddatepick')
+        if(endDate.attr('start_date')!=undefined){
+            var arr_dateText = $('#'+endDate.attr('start_date')).val().split("-");
+            year = arr_dateText[2];
+            if(year==undefined){
+                endDate.val('');
+                endDate.datepicker('disable');
+            }
+        }else{
+            var roleEndDate = $(this).parent().find('.role_enddatepick')
+            if(roleEndDate.attr('start_date')!=undefined){
+                var role_arr_dateText = $('#'+roleEndDate.attr('start_date')).val().split("-");
+                year = role_arr_dateText[2];
+                if(year==undefined){
+                    roleEndDate.val('');
+                    roleEndDate.datepicker('disable');
+                }
+            }
+        }
     });
 });
 /* Photo */
@@ -2194,6 +2191,8 @@ $(function(){
             });
             $('#save_form').dialog('option', 'title', 'New Query');
             $('#save_form').dialog('open');
+            $("#save_form").parent().css('background-color','#D1DDE6');
+            $("#save_form").css('background-color','#D1DDE6');
         }else{
             $('#edit_query_header').doAjaxSubmit();
         }
@@ -2240,16 +2239,50 @@ $(function(){
 $(function(){
     $("#clear_button").live('click', function(){
 
-        $('#query_top_value').val("").change();
-        $('#check_input_change').val("false");
-        $('#check_left_input_change').val("false");
-        $('#check_right_input_change').val("false");
-        $.ajax({
-            type: "GET",
-            url: "/query_headers/clear.js",
-            data:'id=' + $("#query_header_id").val(),
-            dataType: "script"
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#query_top_value').val("").change();
+                    $('#check_input_change').val("false");
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
+                    $.ajax({
+                        type: "GET",
+                        url: "/query_headers/clear.js",
+                        data:'id=' + $("#query_header_id").val(),
+                        dataType: "script"
+                    });
+
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
         });
+        $('#warning_message_text').html("Are You Sure You Wish to Clear ?  ");
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
+
+
+     
     });
 });
 
@@ -2556,13 +2589,14 @@ $(function(){
                     buttons: {
                         "OK": function(){
                             link.focus();
-                            //                            link.val('');
+                            link.val('');
+
                             $(this).dialog('destroy');
                             return true;
                         }
                     }
                 });
-                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').dialog('option', 'title', 'Error');
                 $('#error_message').parent().find("a").css("display","none");
                 $("#error_message").parent().css('background-color','#D1DDE6');
                 $("#error_message").css('background-color','#D1DDE6');
@@ -3151,7 +3185,7 @@ $(function(){
             resizable: false,
             draggable: true,
             height: 'auto',
-            width: 'auto',
+            width: 800,
             buttons: {
 
                 No: function(){
@@ -3205,7 +3239,7 @@ $(function(){
             resizable: false,
             draggable: true,
             height: 'auto',
-            width: 'auto',
+            width: 900,
             buttons: {
 
                 No: function(){
@@ -3225,7 +3259,7 @@ $(function(){
         $('#load_organisational_default').parent().find("a").css("display","none");
         $("#load_organisational_default").parent().css('background-color','#D1DDE6');
         $("#load_organisational_default").css('background-color','#D1DDE6');
-
+        $('#load_organisational_default').css('display','inline');
         $('#load_organisational_default').dialog('open');
 
 
@@ -3999,6 +4033,7 @@ $(function(){
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $('#'+link.attr('toggle_id_name1')).toggle('blind');
+                        $("#" + link.attr('enable_id')).removeAttr('disabled');
                         $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -4026,6 +4061,7 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
+            $("#" + link.attr('enable_id')).removeAttr('disabled');
             $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false)
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
@@ -4055,11 +4091,6 @@ clear_organisation_form = function(link){
       
     }
 
-    //    if(link.attr('toggle_id_name')=="new_master_doc")
-    //    {
-    //        $("#new_master_doc")[0].reset();
-    //
-    //    }
     if(link.attr('toggle_id_name')=="new_note")
     {
         $("#new_note")[0].reset();
@@ -4599,6 +4630,7 @@ $(function(){
             $('#check_input_change').val("false");
             $('#role_role_type_id').attr("disabled", false);
             $(".container_selected").removeClass("container_selected");
+           
             return true;
 
         }
@@ -4655,10 +4687,17 @@ $(function(){
 /* Import and Export */
 $(function(){
     $('.export_button').live('click',function(){
-        var format = $(this).attr("value").toLowerCase();
-        var source = $(this).attr("source");
-        var source_id = $("#source_id").val();
-        window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id);
+
+      
+        if ($('#source_id').val()!="")
+        {
+            var format = $(this).attr("value").toLowerCase();
+            var source = $(this).attr("source");
+            var source_id = $("#source_id").val();
+            var file_name = $("#file_name").val();
+            window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
+        }
+
     });
 });
 
@@ -5432,7 +5471,6 @@ $(function(){
 
 $(function(){
     $("#keyword_close_entry").live('click', function(){
-        
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
@@ -5445,19 +5483,18 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-
                     No: function(){
                         $(this).dialog('destroy');
                         return false;
-
                     },
                     Yes: function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
+                        $("#keyword_add_entry_form").css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('#check_input_change').val("false");
-                        $("#keyword_add_entry_form").css('display','none');
+                        
                         $("#edit_keyword_entry").html("");
                         $("#keyword_type").attr("disabled",false);
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -5487,10 +5524,6 @@ $(function(){
             $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
         }
-
-
-
-  
     });
 });
 
@@ -5868,6 +5901,9 @@ $(function(){
                     }
                 }
             });
+                $('#password_error').parent().find("a").css("display","none");
+                $("#password_error").parent().css('background-color','#D1DDE6');
+                $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
         }else{
@@ -5883,11 +5919,45 @@ $(function(){
 
 
 $(function(){
-    $(".check_postcode_columns").blur(function(){
-        if( ($(this).val() != '')  && (($(this).val() + "0") <= 0) ) {
-            alert("Invalild Post Code Value");
-            $(this).val('');
-        };
+    $('.check_postcode_columns').blur(function(){
+
+    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+            $('#import_postcode_submit').attr("disabled", false);
+        } else {
+
+                var link = $(this);
+
+                $('#error_message_text').html("Every column number must be unique, please check your entries. ");
+
+                $('#error_message_image').css("display","");
+                $('#error_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
+                        "OK": function(){
+                            link.focus();
+                            //                            link.val('');
+                            $(this).dialog('destroy');
+                            return true;
+                        }
+                    }
+                });
+                $('#error_message').dialog('option', 'title', 'ERROR');
+                $('#error_message').parent().find("a").css("display","none");
+                $("#error_message").parent().css('background-color','#D1DDE6');
+                $("#error_message").css('background-color','#D1DDE6');
+                $('#error_message').dialog('open');
+
+
+            $('#import_postcode_submit').attr("disabled", true);
+        }
+    } else {
+        $('#import_postcode_submit').attr("disabled", true);
+    }
 
     });
 });
@@ -6578,6 +6648,9 @@ $(function(){
 
 
 
+
+
+
 //add_new_role in Role Manager for control role_type dropdown list
 $(function(){
     $("#new_role_bar #add_new_role").live('click',function(){
@@ -6930,17 +7003,17 @@ $(function(){
 /*bank setting*/
 $(function(){
     $('#open_add_new_bank').click(function(){
-        $('#add_new_bank').show();
-        $('#open_add_new_bank').hide();
-        $('#close_add_new_bank').show();
+        $('#add_new_bank').css('display','');
+        $('#open_add_new_bank').css('display','none');
+        $('#close_add_new_bank').css('display','');
     });
 });
 
 $(function(){
     $('#close_add_new_bank').click(function(){
-        $('#add_new_bank').hide();
-        $('#open_add_new_bank').show();
-        $('#close_add_new_bank').hide();
+        // $('#add_new_bank').hide();
+        // $('#open_add_new_bank').show();
+        // $('#close_add_new_bank').hide();
     });
 });
 
@@ -7002,7 +7075,7 @@ $(function(){
 
 $(function(){
     $('#edit_bank_entry_close_form').live('click', function(){
-        $('#edit_bank_entry_form').hide();
+        // $('#edit_bank_entry_form').hide();
     });
 });
 
@@ -7151,7 +7224,7 @@ system_id_check_input_change_or_not = function()
     if($('#check_input_change').val() == "false")
     {
 
-       $('#'+link.attr('form_name')).submit();
+        $('#'+link.attr('form_name')).submit();
         return false;
     }
     else
@@ -7228,8 +7301,179 @@ $(function(){
             });
         }else{
             $("#keyword_id").html(" ");
+            $("#person_find_keyword_des").html(" ");
         }
     });
 });
+
+$(function(){
+    $('#keyword_id').live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url: "/keywords/keyword_des_show.js",
+                data:'id='+$(this).val(),
+                dataType: "script"
+            });
+        }else{
+            $("#person_find_keyword_des").html(" ");
+        }
+    });
+});
+
+// Address assistant //
+
+$(document).ready(function() {
+    $('#address_assistant').dataTable( {
+        "iDisplayLength":10,
+        "bLengthChange": false,
+        "bAutoWidth":false,
+        "bFilter":false,
+        "aoColumns": [
+        {
+            "sWidth":"40%"
+        },
+
+        {
+            "sWidth":"13%"
+        },
+
+        {
+            "sWidth":"22%"
+        },
+
+        {
+            "sWidth":"25%"
+        }
+        ]
+    });
+});
+
+$(document).ready(function() {
+
+    $('.launch_address_assistant').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/people/show_postcode.js",
+            dataType: "script"
+        });
+        $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
+        $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
+        $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
+        $('#address_postcode_input').attr("update_field4", $(this).attr("update_field4"));
+
+    });
+});
+
+$(function(){
+    $('table#address_assistant tbody tr').live('click',function(){
+        $('table#address_assistant tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+
+    });
+
+    $('table#address_assistant tbody tr').live('mouseover',function(){
+        $(this).css("cursor", "pointer");
+    });
+});
+
+$(function(){
+    $('.address_assistant_search').keyup(function() {
+        $.ajax({
+            type: "GET",
+            url: "/addresses/0/search_postcodes.js",
+            data: 'suburb='+$('#address_assistant_suburb').val()+'&state='+$('#address_assistant_state').val()+'&postcode='+$('#address_assistant_postcode').val(),
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $('.list_assistant_search').live('keyup', function() {
+        $.ajax({
+            type: "GET",
+            url: "/people/search_lists.js",
+            data: 'name='+$('#list_assistant_name').val()+'&phone='+$('#list_assistant_phone').val()+'&email='+$('#list_assistant_email').val(),
+            dataType: "script"
+        });
+    });
+});
+
+
+/* Campaign Grid*/
+$(function(){
+    $('table#show_campaigns_grid tbody tr').live('click',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $('table#show_campaigns_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('dblclick',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipting/edit_campaign/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+/* Campaign Source Grid*/
+$(function(){
+    $('table#show_sources_by_campaign_grid tbody tr').live('click',function(){
+        if($('#sources_mode').attr('mode')=="show"){
+            $('table#show_sources_by_campaign_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_sources_by_campaign_grid tbody tr').live('dblclick',function(){
+        if($('#sources_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipting/edit_source/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+            $('#campaign_campaign_id').attr('disabled', true);
+        }
+    });
+
+    $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
+        if($('#campaign_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+$(function() {
+    $('#copy_campaign').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/receipting/copy_campaign.js",
+            data: 'id=' + $(this).attr('campaign'),
+            dataType: "script"
+        });
+    });
+});
+
+
 
 

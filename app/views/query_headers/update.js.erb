@@ -1,42 +1,50 @@
 <%- if flash[:error].nil?%>
-
-$('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
-$('#flash_feedback').fadeIn("slow");
-$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
-$('#save_form').dialog('close');
-
-$("#query_mode").attr("mode", "edit");
-$(".options").css("display", "none");
-$("#close_edit_query").css("display", "");
-$("#edit_query").css("display", "");
-$("#edit_header").html('<%= escape_javascript(render(:partial => "queries/edit_query_header")) %>');
-$('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
-$('#edit_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');
-$('#edit_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form")) %>');
-$('#edit_selection_list').html('<%= escape_javascript(render(:partial => "queries/query_selection_list")) %>');
-$('#edit_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form")) %>');
-$('#edit_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
-$('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>');
-$('#current_action_global').val('edit');
-<%- if @query_header.status == false  %>
-  $("#run_button_edit").attr("disabled", "disabled");
+  <%- if @flag == true %>
+    window.open("/query_headers/new", "_self");
+  <%- else %>
+    $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
+    $('#flash_feedback').fadeIn("slow");
+    $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+    $('#save_form').dialog('close');
+    $("#query_mode").attr("mode", "edit");
+    $(".options").css("display", "none");
+    $("#close_edit_query").css("display", "");
+    $("#edit_query").css("display", "");
+    $("#edit_header").html('<%= escape_javascript(render(:partial => "queries/edit_query_header")) %>');
+    $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
+    $('#edit_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');
+    $('#edit_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form")) %>');
+    $('#edit_selection_list').html('<%= escape_javascript(render(:partial => "queries/query_selection_list")) %>');
+    $('#edit_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form")) %>');
+    $('#edit_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
+    $('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>');
+    $('#current_action_global').val('edit');
+    $('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection => QueryHeader.saved_queries)) %>');
+    $('.get_query[query_id='+ '<%= escape_javascript("#{@query_header.id}") %>' +']').addClass('highlight');
+    <%- if @query_header.status == false  %>
+      $("#run_button_edit").attr("disabled", "disabled");
+    <%- else %>
+      $("#run_button_edit").removeAttr("disabled");
+    <%- end %>
+  <%- end %>
 <%- else %>
-  $("#run_button_edit").removeAttr("disabled");
-<%- end %>
-<%- else %>
-$('#flash_message').html('<%= escape_javascript(flash[:error]) %>');
-$('#flash_message').dialog( {
-        modal: true,
-      resizable: false,
-        draggable :true,
-        buttons: {
-          Ok: function() {
+  $('#flash_message_text').html('<%= escape_javascript(flash[:error]) %>');
+  $('#flash_message').dialog({
+    modal: true,
+    resizable: false,
+    draggable :true,
+    height: "auto",
+    width: "300px",
+    buttons: {
+      Ok: function() {
             $(this).dialog('close');
           }
-        }
-      }
+    }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
 
-    );
-    $('#flash_message').dialog('option', 'title', 'Error');
-    $('#flash_message').dialog('open');
 <%- end %>

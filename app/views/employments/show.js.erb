@@ -9,6 +9,7 @@ $('#<%= dom_id(@employment, :edit) %>').replaceWith(" <%= escape_javascript(rend
         $('#supervisor_container_0').html('');
         $('#suspender_container_0').html('');
         $('#terminator_container_0').html('');
+        $('#add_new_employment').css("display","");
      <%else%>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_messagee_image').css("display","");

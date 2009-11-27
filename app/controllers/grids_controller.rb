@@ -68,7 +68,6 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-
   def feedback_search_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -270,11 +269,6 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
-
-
-
-
-
 
   def organisation_search_grid
     page = (params[:page]).to_i
@@ -539,7 +533,6 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-
   def show_other_group_organisations_grid
 
     page = (params[:page]).to_i
@@ -746,8 +739,6 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
-
-
 
   def organisation_employee_grid
     page = (params[:page]).to_i
@@ -958,8 +949,6 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-
-
   def show_person_contacts_report_grid
 
     page = (params[:page]).to_i
@@ -1036,7 +1025,6 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
-
 
   def show_organisation_contacts_report_grid
 
@@ -1115,8 +1103,6 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-
-
   def show_postcode_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -1126,7 +1112,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -1148,30 +1134,26 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @show_postcode = ShowPostcodeGrid.find(:all,
-        :conditions => ["login_account_id = ?", session[:user]],
+      @show_postcode = Postcode.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
 
-      count = ShowPostcodeGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = Postcode.count(:all)
 
     end
 
     # User provided search terms
     if(query != "%%")
 
-      @show_postcode = ShowPostcodeGrid.find(:all,
-
+      @show_postcode = Postcode.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ?", query])
 
-      count = ShowPostcodeGrid.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = Postcode.count(:all, :conditions=>[qtype +" ilike ?", query])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1180,19 +1162,16 @@ class GridsController < ApplicationController
     return_data[:total] = count
 
 
-    return_data[:rows] = @show_postcode.collect{|u| {:id => u.grid_object_id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2,
-          u.field_3,
-          u.field_4,
-          u.field_5,
-          u.field_6]}}
+    return_data[:rows] = @show_postcode.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.state,
+          u.suburb,
+          u.postcode,
+          u.country_name]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
-
    
   def show_list_grid
     page = (params[:page]).to_i
@@ -1392,7 +1371,6 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-
   def show_countries_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -1456,6 +1434,72 @@ class GridsController < ApplicationController
           u.govenment_language,
           u.currency,
           u.currency_subunit]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_campaigns_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "start_date, name"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @campaign = Campaign.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = Campaign.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @campaign = Campaign.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = Campaign.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @campaign.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.target_amount,
+          u.start_date,
+          u.end_date,
+          u.description,
+          u.status,
+          u.remarks
+          ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1777,6 +1821,81 @@ class GridsController < ApplicationController
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_sources_by_campaign_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+
+      rp = 20
+
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @sources = Source.find(:all,
+        :conditions => ["campaign_id = ?", session[:source_campaign_id]],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+
+      count = Source.count(:all, :conditions => ["campaign_id = ?", session[:source_campaign_id]])
+
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      @sources = Source.find(:all,
+
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
+
+      count = Postcode.count(:all,
+
+        :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+
+    return_data[:rows] = @sources.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.description,
+          u.volume,
+          u.cost,
+          u.status]}}
+
+    # Convert the hash to a json object
+    render :text => return_data.to_json, :layout => false
   end
 
 end

@@ -1,14 +1,15 @@
 -form_for @role, :html => {:class => 'ajax_form role_main_form'} do |role|
   .form_line{:style => "float:none;"}
-    .field_30
+    .field_33
       = role.label :name, 'Role Name'
       = role.text_field :name
-    .field_35
+    .field_33
       = role.label :remarks, 'Remark'
       = role.text_field :remarks
-    .field_10
+    .field_5
       = role.label :role_status, 'Active'
       = role.check_box :role_status, :checked => true, :class => "checkbox_style"
       = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
-    .field_20{:style => "margin-top: 8px;"}
+    .field_20
+      %label &nbsp
       = submit_tag 'Submit', :style => 'display:inline;float:right;'

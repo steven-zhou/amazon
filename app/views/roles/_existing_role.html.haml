@@ -3,6 +3,6 @@
   -div_for(i, :class => "#{status}  toggle_options" , :id => "existing_role", :role_id => i.id, :field => "role", :style => "width:30%;") do
     .options{:style => "display:none", :class => "role_options"}
       = link_to_function image_tag('edit_icon.png'), :class => 'edit_role edit_option', :role_id => i.id, :field => "role", :title=>"Edit"
-      -#= link_to image_tag('delete_icon.png'), role_path(i), :class => 'delete delete_flag',:id => 'delete_role', :field => "role",:error_message_field => "Role", :title=>"Remove"
+      = link_to image_tag('delete_icon.png'), role_path(i), :class => 'delete delete_flag',:id => 'delete_role', :field => "role",:error_message_field => "Role", :title=>"Remove"
     .title
-      %h3= h  "#{i.id}""\-""#{i.name}"
+      %h3= h  "#{i.name}"

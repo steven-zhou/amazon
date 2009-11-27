@@ -11,8 +11,11 @@ class KeywordsController < ApplicationController
     @keyword_table.description = params[:keyword][:description]
     @keyword_table.status = params[:keyword][:status]
     @keyword_table.keyword_type_id = params[:type_id]
-    @keyword_table.save
+    if @keyword_table.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")
+    else
+    flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Keyword")
+    end
 
     respond_to do |format|
       format.js
@@ -47,8 +50,10 @@ class KeywordsController < ApplicationController
 
   def destroy
     keyword = Keyword.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
-    keyword.destroy
+
+     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
+         keyword.destroy
+
     respond_to do |format|
       format.js
     end
@@ -75,7 +80,7 @@ class KeywordsController < ApplicationController
 
   def keyword_name_show
     @keywords = Keyword.find_all_by_keyword_type_id(params[:keyword_type_id])
-      @keyword = String.new
+    @keyword = String.new
      
     for keyword in @keywords    
       @keyword += "<option value=#{keyword.id}>#{keyword.name}</option>"
@@ -85,4 +90,10 @@ class KeywordsController < ApplicationController
     end
   end
 
+  def keyword_des_show
+    @keyword= Keyword.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+  end
 end

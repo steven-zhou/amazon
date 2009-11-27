@@ -1,12 +1,13 @@
 .container#existing_query
   %h1 Existing Queries
-  %input.hidden{:id => "query_mode", :mode => "show"}
+  %input{:style => "display:none", :id => "query_detail_mode", :mode => "show"}
+  %input{:style => "display:none", :id => "query_mode", :mode => "show"}
   #show_queries
     = render :partial => "queries/saved_query", :collection => QueryHeader.saved_queries
   %br.clear
 .container#edit_query{:style => "display:none"}
-  = link_to_function image_tag('edit_icon.png', :style => "float:left;margin-right:10px;"), :title=>"Edit"
   = link_to_function image_tag('close_icon.png', :style => "float:right;margin-right:10px;"), :id => "close_edit_query", :style => "display:none;", :class => "close_option", :field => "query", :title=>"Close"
+  = image_tag('edit_icon.png', :class => "edit_icon_right", :style=>"float:left;")
   %h1 Edit Query
 
   #edit_form
@@ -14,13 +15,17 @@
     #left
       .container
         #criteria_form{:class => "toggle_button2", :toggle_id_name => "edit_criteria", :toggle_id_name1 => "edit_selection", :toggle_id_name2 => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
-          %h3 Criteria Attributes        
+          .right
+            = image_tag('Icons/System/collapse.png')
+          %h3 Criteria Attributes
         #edit_criteria
           #edit_query_form
           %br.clear
 
       .container
         #display_form{:class => "toggle_button2", :toggle_id_name => "edit_selection", :toggle_id_name1 => "edit_criteria", :toggle_id_name2 => "edit_sorter", :style => "cursor:pointer;cursor:hand"}
+          .right
+            = image_tag('Icons/System/expand.png')
           %h3 Display Attributes
         #edit_selection{:style => "display:none"}
           #edit_selection_form
@@ -28,6 +33,8 @@
 
       .container
         #sort_form{:class => "toggle_button2", :toggle_id_name => "edit_sorter", :toggle_id_name1 => "edit_selection", :toggle_id_name2 => "edit_criteria", :style => "cursor:pointer;cursor:hand"}
+          .right
+            = image_tag('Icons/System/expand.png')
           %h3 Sorting Attributes
         #edit_sorter{:style => "display:none"}
           #edit_sorter_form

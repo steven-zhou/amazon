@@ -13,13 +13,15 @@
       .form_line
         .field_30
           = role.label :name, 'Role Name'
-          = role.text_field :name, :disabled => true
+          .display_field_bg
+            = @role.name
         .field_35
           = role.label :remarks, 'Remark'
-          = role.text_field :remarks, :disabled => true
-        .field_10
+          .display_field_bg
+            = @role.remarks
+        .field_5
           = role.label :role_status, 'Active'
-          = role.check_box :role_status ,  :disabled => true
+          = role.check_box :role_status ,  :disabled => true, :style => "width:50%;"
           = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
     %br.clear
     %br.clear
@@ -36,7 +38,7 @@
       %div#new_role_condition_assign{:style => "display:none;"}
         = render :partial => 'role_conditions/assign_role_condition_form'
     %br
-    %h2 Existing Conditions
+    %h1 Assigned Conditions
     %input{:id => "role_condition_mode", :mode => "show", :style => "display:none"}
     %div#role_condition_assigned
       = render :partial => 'role_conditions/existing_conditions'

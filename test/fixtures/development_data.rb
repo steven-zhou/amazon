@@ -174,19 +174,21 @@ national_id_card = MasterDocType.create(:name => "National ID Card", :master_doc
 
 puts "Creating sample Group data."
 
-mdmmt = GroupMetaMetaType.create(:name => "Security", :status => true)
+#mdmmt = GroupMetaMetaType.create(:name => "Security", :status => true)
+#
+#mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => mdmmt, :status => true)
+#admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true)
+#
+#operators = GroupType.create(:name => "Operators", :group_meta_type => mdmt, :status => true)
+#volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :status => true)
+#auditor = GroupType.create(:name => "Auditor", :group_meta_type => mdmt, :status => true)
+#mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
+#
+#mdmmt = GroupMetaMetaType.create(:name => "Custom", :status => true)
+#
+#mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
 
-mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => mdmmt, :status => true)
-admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true)
-operators = GroupType.create(:name => "Operators", :group_meta_type => mdmt, :status => true)
-volunteers = GroupType.create(:name => "Volunteers", :group_meta_type => mdmt, :status => true)
-auditor = GroupType.create(:name => "Auditor", :group_meta_type => mdmt, :status => true)
-mdmt = GroupMetaType.create(:name => "Members", :group_meta_meta_type => mdmmt, :status => true)
-
-mdmmt = GroupMetaMetaType.create(:name => "Custom", :status => true)
-
-mdmt = GroupMetaType.create(:name => "Public", :group_meta_meta_type => mdmmt, :status => true)
-
+admin = GroupType.find_by_name_and_status("Admin", true)
 
 
 

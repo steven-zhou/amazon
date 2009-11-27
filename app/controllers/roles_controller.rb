@@ -123,8 +123,16 @@ class RolesController < ApplicationController
 
   def destroy
     @role = Role.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
-    @role.destroy
+    #    @check_role_assign= PersonRole.find_by_role_id(params[:id])
+
+   
+    #    if !@check_role_assign
+    if  @role.destroy
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
+
+    else
+      flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
+    end
     respond_to do |format|
       format.js
     end
@@ -154,6 +162,19 @@ class RolesController < ApplicationController
     end
   end
 
+  def page_initial
 
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @role = Role.new
+
+    respond_to do |format|
+      format.js
+    end
+  end
   
+ 
+
+
+
 end

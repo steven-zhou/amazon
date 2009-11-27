@@ -1,27 +1,30 @@
 -form_for @tag, :url => {:controller => 'tags', :action => @tag.new_record? ? "create" : "update", :id => @tag.id}, :html => {:id => "tag_form2", :class => 'ajax_form'} do |tag|
-  .container
+  .container{:style => "background-image:none;"}
     .form_line
       .field_100
         =tag.label :name, 'Name'
         =tag.text_field :name, :disabled=>(@tag.status == false)
-      %br.clear
+
     .form_line
       .field_100
         =tag.label :category, 'Category'
         =tag.text_field :category, :disabled=>(@tag.status == false)
-      %br.clear
+ 
     .form_line
       .field_100
         =tag.label :description, 'Description'
         =tag.text_field :description, :disabled=>(@tag.status == false)
-      %br.clear
+   
     .form_line
-      .field_100
-        = tag.label :status, 'Active'
+      .field_5
+        %label &nbsp
         - if @tag.new_record?
-          = tag.check_box :status, :checked => true, :style => "width:auto;"
+          = tag.check_box :status, :checked => true
         -else
-          = tag.check_box :status, :style => "width:auto;"
+          = tag.check_box :status
+      .field_5
+        %label &nbsp
+        = tag.label :status, 'Active', :style => "margin-top:5px;"
         
         %input{:style => "display:none", :id => "type", :name =>"type", :value => @tag.class.to_s}
         %input{:style => "display:none", :id => "tag_type", :name =>"tag_type", :value => @tag_type.class.to_s}

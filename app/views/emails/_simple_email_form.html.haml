@@ -5,4 +5,4 @@
     = email.collection_select :contact_meta_type_id, Contact.email_types, :id, :name
   .field_70
     = email.label :value, "Email"
-    = email.text_field :value
+    = email.text_field :value,:readonly => Contact.email_types.blank? ? true :false

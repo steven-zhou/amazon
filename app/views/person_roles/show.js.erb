@@ -1,13 +1,11 @@
 
 <% if @person_role.errors.empty? && @temp ==true  -%>
 
-$('#<%= dom_id(@person_role,:edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @person_role)) %>");
-     $('.person_roles_edit_delete').css("display","");
+  $('#<%= dom_id(@person_role,:edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @person_role)) %>");
   $('.person_roles_toggle_button').css("display","");
-
-       $('#person_role_hidden_tab').attr('mode','show');
-
-   <%else%>
+  $('#person_role_hidden_tab').attr('mode','show');
+  $('#add_new_person_role').css("display","");
+<%else%>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_messagee_image').css("display","");
   $("#flash_message").dialog( {
@@ -28,5 +26,4 @@ $('#<%= dom_id(@person_role,:edit) %>').replaceWith(" <%= escape_javascript(rend
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 
-       <%end%>
- 
+<%end%>

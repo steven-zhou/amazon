@@ -1,6 +1,6 @@
 class QueryHeadersController < ApplicationController
 
-    # Added system logging
+  # Added system logging
 
   def new
     @query_header = QueryHeader.new
@@ -21,6 +21,12 @@ class QueryHeadersController < ApplicationController
     @query_header = QueryHeader.find(params[:id].to_i)
     if (!@query_header.query_criterias.empty?)
       if (@query_header.update_attributes(params[:query_header]))
+
+        @flag = false
+        if @query_header.group == "temp"
+          @flag = true
+        end
+
         @query_header.group = "save"
         @query_header.status = true if @query_header.status.nil?
         @query_header.save
@@ -36,11 +42,16 @@ class QueryHeadersController < ApplicationController
         @query_sorter = QuerySorter.new
       else
         flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.on(:name).nil? && @query_header.errors.on(:name).include?("can't be blank"))
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.on(:name)..nil? && @query_header.errors.on(:name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.on(:name).nil? && @query_header.errors.on(:name).include?("has already been taken"))
       end
     else
       flash.now[:error] = flash_message(:message => "No criteria")
     end
+
+    if @flag == true
+      flash[:message] = flash_message(:type => "object_created_successfully", :object => "query")
+    end
+
     respond_to do |format|
       format.js
     end
@@ -78,7 +89,7 @@ class QueryHeadersController < ApplicationController
         #run the query
         redirect_to :action => "run", :id => params[:id], :top => params[:top], :top_number => params[:top_number], :top_percent => params[:top_percent]
       end
-    end    
+    end
   end
 
   def copy_runtime
@@ -114,6 +125,7 @@ class QueryHeadersController < ApplicationController
   end
 
   def run
+
     @query_header = QueryHeader.find(params[:id].to_i)
     @people = @query_header.run
     top = params[:top]
@@ -149,6 +161,8 @@ class QueryHeadersController < ApplicationController
       @query_header.query_selections.each do |i|
         @query_result_columns << i.field_name
       end
+    
+ 
       @query_result_columns = @query_result_columns[0, 10]
       @people.each do |person|
         @qrg = QueryResultGrid.new
@@ -158,7 +172,7 @@ class QueryHeadersController < ApplicationController
           if i.sequence<=10
             if i.table_name == "people"
               if i.data_type == "Integer FK"
-                if(i.field_name == "country")
+                if(i.field_name == "country" || i.field_name == "origin_country" || i.field_name == "residence_country" )
                   @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).short_name) unless person.__send__(i.field_name.to_sym).nil?
                 else
                   @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?

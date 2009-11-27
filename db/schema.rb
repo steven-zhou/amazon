@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091120032026) do
+ActiveRecord::Schema.define(:version => 20091125034523) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -62,6 +62,8 @@ ActiveRecord::Schema.define(:version => 20091120032026) do
     t.text     "state"
     t.text     "postcode"
     t.integer  "country_id"
+    t.text     "website"
+    t.text     "general_email"
     t.text     "contact_person"
     t.text     "contact_person_job_title"
     t.text     "contact_person_email"
@@ -93,6 +95,18 @@ ActiveRecord::Schema.define(:version => 20091120032026) do
     t.string   "runner_info"
     t.string   "worker_key"
     t.datetime "scheduled_at"
+  end
+
+  create_table "campaigns", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.text     "target_amount"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.boolean  "status"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -134,6 +148,7 @@ ActiveRecord::Schema.define(:version => 20091120032026) do
     t.string   "superadmin_message"
     t.string   "feedback_to"
     t.string   "reply_from"
+    t.integer  "home_country_id"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -575,7 +590,6 @@ ActiveRecord::Schema.define(:version => 20091120032026) do
 
   create_table "postcodes", :force => true do |t|
     t.integer "country_id"
-    t.text    "type"
     t.text    "governance"
     t.text    "province"
     t.text    "state"
@@ -664,6 +678,21 @@ ActiveRecord::Schema.define(:version => 20091120032026) do
   create_table "simple_captcha_data", :force => true do |t|
     t.string   "key",        :limit => 40
     t.string   "value",      :limit => 6
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sources", :force => true do |t|
+    t.integer  "campaign_id"
+    t.text     "name"
+    t.text     "description"
+    t.integer  "volume"
+    t.text     "cost"
+    t.integer  "dead_return"
+    t.integer  "letter_id"
+    t.integer  "account_code_id"
+    t.boolean  "status"
+    t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -5,11 +5,11 @@
     = phone.label :contact_meta_type_id, 'Type'
     = phone.collection_select :contact_meta_type_id, Contact.phone_types, :id, :name
   .field_15
-    = phone.label :pre_value, "Prefix"
-    = phone.text_field :pre_value
+    = phone.label :pre_value, "Pre Value"
+    = phone.text_field :pre_value, :readonly => Contact.phone_types.blank? ? true :false
   .field_34
-    = phone.label :value, "Number"
-    = phone.text_field :value, :class => "phone_value_filed empty_field"
+    = phone.label :value, "Value"
+    = phone.text_field :value, :class => "phone_value_filed empty_field",:readonly => Contact.phone_types.blank? ? true :false
   .field_15
-    = phone.label :post_value, "Suffix"
-    = phone.text_field :post_value
+    = phone.label :post_value, "Post Value"
+    = phone.text_field :post_value,:readonly => Contact.phone_types.blank? ? true :false

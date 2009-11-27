@@ -16,7 +16,6 @@ class AddressesController < ApplicationController
   end
 
   def edit
-    @postcodes = DomesticPostcode.find(:all)
     @address = Address.find(params[:id])
       if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@address.addressable_id)
@@ -79,7 +78,7 @@ class AddressesController < ApplicationController
   end
 
   def search_postcodes
-    @postcodes = DomesticPostcode.find(:all, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND postcode LIKE ?", "%#{params[:suburb]}%", "%#{params[:state]}%", "%#{params[:postcode]}%"])
+    @postcodes = Postcode.find(:all, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND postcode LIKE ?", "%#{params[:suburb]}%", "%#{params[:state]}%", "%#{params[:postcode]}%"])
     respond_to do |format|
       format.js
     end

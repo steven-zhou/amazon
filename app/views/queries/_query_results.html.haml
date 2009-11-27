@@ -1,6 +1,10 @@
+.container
+  %h2{:style => "margin-bottom:5px;"} Query Result
+  %table#query_result_grid
+
 -form_for @list_header, :html => {:class => "ajax_form"} do |f|
   .container
-    %h3 Create List
+    %h2 Create List
     .form_line
       .field_20
         =f.label :name, "List Name"
@@ -8,24 +12,27 @@
       .field_20
         =f.label :description, "List Description"
         =f.text_field :description
-      .field_30
-        =f.label :allow_duplication, "Allow Duplications", :style => "width:30%;"
-        =f.check_box :allow_duplication, :style => "width:30%;"
+      .field_2
+        %label &nbsp;
+        = f.check_box :allow_duplication, :style => "display:inline;"
+        -#= f.label :allow_duplication, "Allow Duplications", :style => "display:inline;"
+      .field_10
+        %label &nbsp;
+        = f.label :allow_duplication, "Allow Duplication", :style =>"margin-top:7px;"
       .field_20{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "query_header_id", :id => "query_header_id", :value => @query_header.id}
         %input{:style => "display:none", :name => "source_id", :id => "source_id", :value => "query_#{@query_header.id}"}
         =submit_tag "Create List", :style => "width:100px;float:right"
-  %br.clear
-
-.container
-  %table#query_result_grid
 
 .container
   %h2 Data Export
   .form_line
+    .field_30
+      %label File Name
+      %input{:id => "file_name"}
     .field_20
-      %label Export To
+      %label Format
       %input{:type => "button", :value => "PDF", :class => "export_button", :source => "person"}
       %input{:type => "button", :value => "XML", :class => "export_button", :source => "person"}
       %input{:type => "button", :value => "CSV", :class => "export_button", :source => "person"}

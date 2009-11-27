@@ -2,7 +2,7 @@
   .full_container
     .options
       = check_box_tag "module_ids[]" , @system_permission_meta_meta_type.id, false, :class => 'module_select_all', :style => "width:auto;vertical-align:middle;"
-      %span{:class => "select_all"} Select All
+      %label{:class => "select_all", :style => "display:inline;"} Select All
     .title{:id => "show_controllers",:class => "group_permission_color", :main_module_id => @system_permission_meta_meta_type.id }
       %h2 Module---#{@system_permission_meta_meta_type.name}
       
@@ -14,7 +14,7 @@
   
   %div{:id => "show_controllers_container", :style => "display:none;"}
       
-  = submit_tag 'submit'
+  = submit_tag 'Submit'
   %br.clear
     
 

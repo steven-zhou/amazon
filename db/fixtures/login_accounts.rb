@@ -27,7 +27,8 @@ destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_pe
 puts "Initializing Custom Group."
 custom = GroupMetaMetaType.create(:name => "Custom", :status => true)
 security = GroupMetaMetaType.create(:name => "Security", :status => true)
-GroupMetaType.create(:name => "System Users", :group_meta_meta_type => security, :status => true)
+mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => security, :status => true)
+admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true)
 
 puts "Initializing Super Group."
 supermetatype = GroupMetaMetaType.create(:name => "MemberZone", :status => true)
@@ -38,9 +39,9 @@ superuser = GroupType.create(:name => "Power User", :group_meta_type => supergro
 puts "Initializing Member Zone Super User"
 memberzone = MemberZone.create(
   :user_name => "MemberZone",
-  :password => "memberzone",
+  :password => "memberzone123",
   :access_attempts_count => 99,
-  :session_timeout => 30,
+  :session_timeout => 999999,
   :authentication_grace_period => 9,
   :password_by_admin => false,
   :password_lifetime => 365,

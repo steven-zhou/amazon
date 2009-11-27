@@ -12,7 +12,7 @@
       %input{:id => "keyword_mode", :style => "display:none;", :mode => "show"}
       %div#keyword_main_contents{:style => "display:none;margin:10px 0 0 0;"}
         .full_container#keywork_add_data
-          = link_to_function image_tag("close_icon.png"), :class => "close_option", :id=> "keyword_close_entry", :style => "display:none;float:right;", :field => "keyword", :title=>"Close"
+          = link_to_function image_tag("close_icon.png"), :id=> "keyword_close_entry", :style => "display:none;float:right;", :field => "keyword", :title=>"Close"
           .title
             = link_to_function image_tag("add_icon.png" , :size => "22x22", :id => "keyword_add_entry", :class => "new_option", :field => "keyword")
             &nbsp
@@ -27,11 +27,12 @@
               .field_35
                 = p.label :description, 'Description'
                 = p.text_field :description
-              .field_5
+              .field_7
                 = p.label :active
                 %label
                 = p.check_box :status, {:style => "width:auto;",:checked=> "checked"}
-              .field_20{:style => "margin-top: 8px;"}
+              .field_20
+                %label &nbsp
                 = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
 
         %div#keyword_entries

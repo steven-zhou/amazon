@@ -4,6 +4,6 @@
     %div{:class => "#{setting_status} toggle_options", :system_data_id => setting.id, :style => "width:30%;", :field => "system_data" }
       .options{:style => "display:none;"}
         = link_to_function image_tag('edit_icon.png'), :class => 'edit_option', :system_data_id => setting.id, :field => "system_data", :id => "edit_current_system_data_entry", :title=>"Edit"
-        -#= link_to_function image_tag('delete_icon.png'), :class => 'delete_option', :system_data_id => setting.id ,:error_message_field => "System Data",:field => "system_data", :id => "delete_system_data_entry", :title=>"Remove"
+        = link_to_function image_tag('delete_icon.png'), :class => 'delete_option', :system_data_id => setting.id ,:error_message_field => "System Data",:field => "system_data", :id => "delete_system_data_entry", :title=>"Remove"
       .title
         %h3= h "#{setting.name}"

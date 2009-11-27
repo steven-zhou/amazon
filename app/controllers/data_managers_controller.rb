@@ -36,15 +36,16 @@ class DataManagersController < ApplicationController
 #      Export Organisations
     end
 
+    @file_name = params[:file_name].blank? ? "export" : params[:file_name]
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a report.")
 
     respond_to do |format|
       format.html {render 'data_managers/export.html'}      
-      format.xml {send_data((render 'data_managers/export.rxml'), :filename => "export.xml", :type => "text/xml")}
-      format.csv {send_data((render 'data_managers/export.html'), :filename => "export.csv", :type => "text/csv")}
+      format.xml {send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")}
+      format.csv {send_data((render 'data_managers/export.html'), :filename => "#{@file_name}.csv", :type => "text/csv")}
       format.pdf {pdf = PDF::Writer.new
                   pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
-                  send_data(pdf.render, :filename => "report.pdf", :type => "application/pdf")}
+                  send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
     end
   end
 

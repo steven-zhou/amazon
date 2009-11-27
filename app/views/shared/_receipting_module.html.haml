@@ -1,0 +1,15 @@
+%ul#menu
+  - # Receipting Menu
+  %li{:id => @current_controller == "receipting" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "receipting"
+        = link_to "#{image_tag('/images/icon_holder.png')} Administration", :controller => "receipting", :action => "campaign_data"
+      - else
+        <p>Administration</p>
+        %ul
+          %li{:id => @current_action == "campaign_data" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Campaigns", :controller => "receipting", :action => "campaign_data"
+          %br.clear
+    .bottom
+

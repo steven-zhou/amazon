@@ -20,7 +20,9 @@
       .field_10
         = f.label :halt_date, "Halt Date"
         = f.text_field :halt_date, :class => "enddatepick", :start_date => "client_setup_installation_date", :value=> @client_setup.halt_date.to_s
-
+      .field_20
+        = f.label :home_country_id, "Home Country"
+        = f.collection_select :home_country_id, Country.all, :id, :short_name , {:include_blank => true}
     %br.clear
     %p &nbsp;
 

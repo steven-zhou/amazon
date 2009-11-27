@@ -1,13 +1,16 @@
+
+
 $("#runtime_form").dialog('close');
   $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
   $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
-  
+
+
 $('#result_div').dialog({
   modal: true,
   resizable: true,
   draggable: true,
   height: 700,
-  width: 1300
+  width: 1100
   });
   $('#result_div').dialog('option', 'title', 'Query Results');
   $('#result_div').dialog('open');
@@ -35,12 +38,14 @@ $('#result_div').dialog({
   sortname: "id",
   sortorder: "asc",
   usepager: true,
-  title: 'Query Result',
+  title: '',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,
-  width: 1010,
+  width: 'auto',
   height: 300
   });
+
+  
 
   

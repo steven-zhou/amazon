@@ -17,8 +17,9 @@ $(function() {
     $("#report_requested_format").live('change', function(){
         if($(this).val() != ""){         
             $("#report_details").css("display", "block");
+             $("#report_details").addClass("full_container");
             $("#report_submit_button").css("display", "block");
-            $("#report_sample_image").replaceWith("<img src=\"/images/" + $("#report_requested_format").val() + ".jpg\" >");
+            $("#report_sample_image").html("<img src=\"/images/" + $("#report_requested_format").val() + ".jpg\" >");
             $("#report_grid_form_container").css("display","none");
 
         } else {
@@ -60,9 +61,10 @@ $("#report_organisation_requested_format").live('change', function(){
         if($(this).val() != ""){
 
             $("#organisation_report_submit_button").css("display", "block");
-            $("#organisation_report_sample_image").replaceWith("<img src=\"/images/" + $("#report_organisation_requested_format").val() + ".jpg\" >");
+            $("#organisation_report_sample_image").html("<img src=\"/images/" + $("#report_organisation_requested_format").val() + ".jpg\" >");
             $("#organisation_report_grid_form_container").css("display","none");
             $("#organisation_report_details").css("display","");
+             $("#organisation_report_details").addClass("full_container");
 
         } else {
             $("#organisation_report_sample_image").css("display", "none");

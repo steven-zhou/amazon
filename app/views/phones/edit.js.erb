@@ -1,6 +1,6 @@
-
 $('#<%= dom_id(@phone) %>').replaceWith(" <%= escape_javascript(render(:partial => 'edit_phone')) %>");
 $('.person_contact_edit_delete').css("display","none");
 $('.person_contact_toggle_button').css("display","none");
 $('#contact_mode').attr('mode', 'edit');
 $('.new_option[field="contact"]').css("display","none");
+$('#add_new_contact').css('display','none');

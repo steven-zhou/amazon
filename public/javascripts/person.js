@@ -21,7 +21,8 @@ $(function() {
         $('#'+$(this).attr('toggle_id_name')).css("display","");
         $('#'+$(this).attr('toggle_id_name1')).css("display","none");
         $('#'+$(this).attr('toggle_id_name2')).css("display","none");
-
+        $('.toggle_button2').find('img').attr('src','/images/Icons/System/expand.png');
+        $(this).find('img').attr('src','/images/Icons/System/collapse.png');
     });
 
     $(".close_image").live('click', function(){
@@ -351,7 +352,7 @@ $(function() {
                 },
                 Yes: function(){
                     $.post(link.attr('href'), "_method=delete", null, 'script');
-                    $("#photo").attr("src", "/images/no_photo.jpeg");
+                    $("#photo").attr("src", "/images/Icons/System/image-missing.png");
                     $("#delete_photo").hide();
                     $(this).dialog('destroy');
                     return true;
@@ -566,8 +567,8 @@ $("#phone_edit_button").live('click',function(){
     $('.person_contact_toggle_button').css("display","none");
     $('.person_contact_edit_delete').css("display","none");
     $('#contact_hidden_tab').attr('mode','edit');
+   
 });
-
 
 
 
@@ -610,8 +611,8 @@ $(".person_address_toggle_button").live('click', function(){
 
 
 $("#address_edit_button").live('click',function(){
-    $('.person_address_toggle_button').css("display","none");
     $('.person_address_edit_delete').css("display","none");
+    $('.person_address_toggle_button').css("display","none");
     $('#address_hidden_tab').attr('mode','edit');
 });
 
@@ -686,7 +687,7 @@ $(".person_address_close").live('click',function(){
 
 
 $("#address_edit_close_button").live('click',function(){
-
+   
     $('#address_hidden_tab').attr('mode','show');
 });
 
@@ -1139,87 +1140,7 @@ $("#person_role_edit_close_button").live('click',function(){
     $('#person_role_hidden_tab').attr('mode','show');
 });
 
-
-
-// Address assistant //
-
-$(document).ready(function() {
-    $('#address_assistant').dataTable( {
-        "iDisplayLength":10,
-        "bLengthChange": false,
-        "bAutoWidth":false,
-        "bFilter":false,
-        "aoColumns": [
-        {
-            "sWidth":"40%"
-        },
-
-        {
-            "sWidth":"13%"
-        },
-
-        {
-            "sWidth":"22%"
-        },
-
-        {
-            "sWidth":"25%"
-        }
-        ]
-    });
-});
-
-$(document).ready(function() {
-
-    $('.launch_address_assistant').live('click', function() {
-
-        $.ajax({
-            type: "GET",
-            url: "/people/show_postcode.js",
-            dataType: "script"
-        });
-        $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
-        $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
-        $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
-        $('#address_postcode_input').attr("update_field4", $(this).attr("update_field4"));
-
-    });
-});
-
-$(function(){
-    $('table#address_assistant tbody tr').live('click',function(){
-        $('table#address_assistant tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
-
-    });
-
-    $('table#address_assistant tbody tr').live('mouseover',function(){
-        $(this).css("cursor", "pointer");
-    });
-});
-
-$(function(){
-    $('.address_assistant_search').keyup(function() {
-        $.ajax({
-            type: "GET",
-            url: "/addresses/0/search_postcodes.js",
-            data: 'suburb='+$('#address_assistant_suburb').val()+'&state='+$('#address_assistant_state').val()+'&postcode='+$('#address_assistant_postcode').val(),
-            dataType: "script"
-        });
-    });
-});
-
-$(function(){
-    $('.list_assistant_search').live('keyup', function() {
-        $.ajax({
-            type: "GET",
-            url: "/people/search_lists.js",
-            data: 'name='+$('#list_assistant_name').val()+'&phone='+$('#list_assistant_phone').val()+'&email='+$('#list_assistant_email').val(),
-            dataType: "script"
-        });
-    });
-});
-
+// Moved address assistant into the application.js file, since it was being used in other modules as well... AW
 
 /* person_primary_salutation @ tao*/
 $(function(){
@@ -1279,3 +1200,4 @@ $(function(){
             + " " + $('input#person_family_name').val());
     }
 });
+

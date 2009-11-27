@@ -57,7 +57,7 @@ class TagTypesController < ApplicationController
   end
 
   def show_fields
-    @tag_types = TableMetaType.find(:all, :conditions => ["tag_meta_type_id=?", TableMetaMetaType.find_by_name(params[:table_name]).id], :order => "name")
+    @tag_types = TableMetaType.find(:all, :conditions => ["tag_meta_type_id=? and status =true", TableMetaMetaType.find_by_name(params[:table_name]).id], :order => "name")
     @update_field = String.new
     @update_value = String.new
     @update_field = params[:update_field]
@@ -82,7 +82,7 @@ class TagTypesController < ApplicationController
 
   def show_types
     @group_meta_type = GroupMetaType.find(params[:group_meta_type_id].to_i) rescue @group_meta_type = GroupMetaType.new
-    @group_types = @group_meta_type.group_types.find(:all, :order => "name")
+    @group_types = @group_meta_type.group_types.find(:all,:conditions => ["status = true"], :order => "name")
     respond_to do |format|
       format.js
     end

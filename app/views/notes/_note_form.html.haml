@@ -1,10 +1,10 @@
 .form_line{:style => "float:none;"}
   .field_20
-    = note.label :note_type_id, "Type<span class='asterisk'>*</span>"
+    = note.label :note_type_id, "<span class='asterisk'>*</span>Type"
     = note.collection_select :note_type_id, NoteType.all, :id, :name
 
   .field_40
-    = note.label :label, "Label<span class='asterisk'>*</span>"
+    = note.label :label, "<span class='asterisk'>*</span>Label"
     = note.text_field :label
   .field_5
     = note.label :active, 'Active'
@@ -18,5 +18,5 @@
 .form_line{:style =>'min-height:140px;'}
   .field_100
     = note.label :body_text, 'Note'
-    = note.text_area :body_text,:rows => 6, :cols => 45, :class => 'rich_text_editor' 
+    = note.text_area :body_text,:rows => 6, :cols => 45, :id => "richEditor"
 

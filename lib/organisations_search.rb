@@ -4,7 +4,7 @@ module OrganisationsSearch
     
     equality = ['id', 'custom_id', 'registered_date', 'registered_country_id', 'number_of_full_time_employees', 'number_of_part_time_employees',
       'number_of_contractors', 'number_of_volunteers', 'number_of_other_workers', 'organisation_hierarchy_id',
-      'organisation_type_id', 'business_type_id', 'industry_sector_id', 'business_category_id', 'onrecord_since']
+      'organisation_type_id', 'business_type_id', 'industry_sector_id', 'business_category_id', 'onrecord_since', 'type']
     like = ['full_name', 'short_name', 'trading_as', 'registered_name', 'registered_number',
       'tax_file_no', 'legal_no_1', 'legal_no_2', 'industrial_code', 'business_mission', 'remarks']
 

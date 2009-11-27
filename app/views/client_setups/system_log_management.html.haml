@@ -20,48 +20,32 @@
 %br.clear
 
 #search_page.tab_switch_container.active
-  .container#system_log_search
-
+  .full_container#system_log_search
     - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
-      %table
-        %tr
-          %td{:style => "padding:0.5em"}
-            Username:
-          %td{:style => "padding:0.5em"}
-            = text_field_tag :user_name, nil, :style => "width:150px;"
-          %td{:style => "padding:0.5em", :id => "system_log_user_name_check"}
-            &nbsp;
-          %td{:style => "padding:0.5em"}
-            &nbsp;
-        %tr
-          %td{:style => "padding:0.5em"}
-            Start Date:
-          %td{:style => "padding:0.5em"}
-            %input{:name => "start_date", :style => "width:150px;", :id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
-          %td{:style => "padding:0.5em"}
-            End Date:
-          %td{:style => "padding:0.5em"}
-            %input{:name => "end_date", :style => "width:150px;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
-        %tr
-          %td{:style => "padding:0.5em"}
-            Entry Type:
-          %td{:style => "padding:0.5em"}
-            %select{:name => "status", :id => "system_log_status"}
-              %option{:value => ""} Any
-              %option{:value => "Live"} Live
-              %option{:value => "Archived"} Archived
+      .form_line
+        .field_22
+          %label Username
+          = text_field_tag :user_name, nil
+        .field_22
+          %label Start Date
+          %input{:name => "start_date", :style => "width:82% !important;",:id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
+        .field_22
+          %label End Date
+          %input{:name => "end_date", :style => "width:82% !important;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
+        .field_22
+          %label Entry Type
+          %select{:name => "status", :id => "system_log_status"}
+            %option{:value => ""} Any
+            %option{:value => "Live"} Live
+            %option{:value => "Archived"} Archived
 
-          %td{:style => "padding:0.5em"}
-            &nbsp;
-          %td{:style => "padding:0.5em"}
-            &nbsp;
 
       = submit_tag("Search", :id => "system_log_search_submit")
 
-  .container#system_log_search_results{:style => "display:none;"}
+  .full_container#system_log_search_results{:style => "display:none;"}
     %table#system_log_search_grid
 
-  .container#system_log_export_options{:style => "display:none;"}
+  .full_container#system_log_export_options{:style => "display:none;"}
     - form_tag("/reports/generate_system_log_pdf") do
       %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
       %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
@@ -70,35 +54,25 @@
       = submit_tag("Export PDF")
 
 #archive_page.tab_switch_container
-  .container#system_log_archive
-
+  .full_container#system_log_archive
     - form_tag("/client_setups/archive_system_log", :class => "ajax_form") do
-      %table
-        %tr
-          %td{:style => "padding:0.5em"}
-            Username:
-          %td{:style => "padding:0.5em"}
-            = text_field_tag :archive_user_name, nil, :style => "width:150px;"
-          %td{:style => "padding:0.5em", :id => "system_log_archive_user_name_check"}
-            &nbsp;
-          %td{:style => "padding:0.5em"}
-            &nbsp;
-        %tr
-          %td{:style => "padding:0.5em"}
-            Start Date:
-          %td{:style => "padding:0.5em"}
-            %input{:name => "start_date", :style => "width:150px;", :id => "archive_system_log_start_date", :class => "startdatepick", :end_date => "archive_system_log_end_date"}
-          %td{:style => "padding:0.5em"}
-            End Date:
-          %td{:style => "padding:0.5em"}
-            %input{:name => "end_date", :style => "width:150px;", :id => "archive_system_log_end_date", :class => "enddatepick", :start_date => "archive_system_log_start_date"}
+      .form_line
+        .field_27
+          %label Username
+          = text_field_tag :archive_user_name, nil
+        .field_27
+          %label Start Date
+          %input{:name => "start_date", :style => "width:82% !important;", :id => "archive_system_log_start_date", :class => "startdatepick", :end_date => "archive_system_log_end_date"}
+        .field_27
+          %label End Date
+          %input{:name => "end_date", :style => "width:82% !important;", :id => "archive_system_log_end_date", :class => "enddatepick", :start_date => "archive_system_log_start_date"}
 
       = submit_tag("Search", :id => "system_log_archive_submit")
 
-  .container#system_log_archive_results{:style => "display:none;"}
+  .full_container#system_log_archive_results{:style => "display:none;"}
     %table#system_log_archive_grid
 
-  .container#system_log_archive_options{:style => "display:none;"}
+  .full_container#system_log_archive_options{:style => "display:none;"}
     - form_tag("/client_setups/archive_system_log_entries") do
       %input{:name => "user_name", :style => "display:none;", :id => "system_log_archive_user_name"}
       %input{:name => "start_date", :style => "display:none;", :id => "system_log_archive_start_date"}
