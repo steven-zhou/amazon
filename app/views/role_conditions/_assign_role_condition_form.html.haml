@@ -1,19 +1,22 @@
 %br
 -form_for @role_condition, :html => {:class => 'ajax_form role_condition_main_form'} do |rc|
   .form_line{:style => "float:none;"}
-    .field_25
+    .field_20
       = label :master_doc_meta_meta_type_id, 'Meta_Type'
       = collection_select :master_doc_meta_meta_type, :id, MasterDocMetaMetaType.all, :id, :name, { :include_blank => true }, {:class => "find_master_doc_meta_type_field_for_role_condition",:disabled=>@role.role_status == false}
     .field_15{:style => "display:none"}
       = rc.text_field :role_id, {:name => "role_id", :id => "role_id_of_role_condition"}
-    .field_25
+    .field_20
       = label :master_doc_meta_type_id, 'Type'
       %select.find_master_doc_meta_type{:id => "master_doc_meta_type_id_for_role_condition",:disabled=>@role.role_status == false}
         %option
-    .field_25
+    .field_20
       %label Condition
       %select{:id => "doctype_id",:name => "add_doctype_id",:disabled=>@role.role_status == false}
         %option
+    .field_10
+      %label &nbsp;
+      %span{:id=>"assign_role_master_doc_description"}
     .field_20
       %label &nbsp
       = submit_tag 'Assign', :style => 'display:inline;float:right;'

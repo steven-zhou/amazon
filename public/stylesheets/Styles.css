@@ -580,6 +580,7 @@ label {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11px;
     font-weight: bold;
+    line-height: 12px;
     color: #666;
     text-decoration: none;
     display: block;
@@ -675,6 +676,7 @@ label {
 #app #main #content .container .form_line .field_33,
 #app #main #content .container .form_line .field_34,
 #app #main #content .container .form_line .field_35,
+#app #main #content .container .form_line .field_36,
 #app #main #content .container .form_line .field_37,
 #app #main #content .container .form_line .field_38,
 #app #main #content .container .form_line .field_40,
@@ -718,6 +720,7 @@ label {
 #app #main #content .container .form_line .field_33 {width: 33%;}
 #app #main #content .container .form_line .field_34 {width: 34%;}
 #app #main #content .container .form_line .field_35 {width: 35%;}
+#app #main #content .container .form_line .field_36 {width: 36%;}
 #app #main #content .container .form_line .field_37 {width: 37%;}
 #app #main #content .container .form_line .field_38 {width: 38%;}
 #app #main #content .container .form_line .field_40 {width: 40%;}
@@ -747,7 +750,9 @@ label {
 /* Common properties */
 #app #main #content .full_container .form_line .field_2,
 #app #main #content .full_container .form_line .field_5,
+#app #main #content .full_container .form_line .field_6,
 #app #main #content .full_container .form_line .field_7,
+#app #main #content .full_container .form_line .field_8,
 #app #main #content .full_container .form_line .field_10,
 #app #main #content .full_container .form_line .field_11,
 #app #main #content .full_container .form_line .field_12,
@@ -763,8 +768,10 @@ label {
 #app #main #content .full_container .form_line .field_33,
 #app #main #content .full_container .form_line .field_34,
 #app #main #content .full_container .form_line .field_35,
+#app #main #content .full_container .form_line .field_36,
 #app #main #content .full_container .form_line .field_38,
 #app #main #content .full_container .form_line .field_40,
+#app #main #content .full_container .form_line .field_42,
 #app #main #content .full_container .form_line .field_45,
 #app #main #content .full_container .form_line .field_50,
 #app #main #content .full_container .form_line .field_55,
@@ -784,7 +791,9 @@ label {
 /* unique properties */
 #app #main #content .full_container .form_line .field_2 {width: 2%;}
 #app #main #content .full_container .form_line .field_5 {width: 5%;}
+#app #main #content .full_container .form_line .field_6 {width: 6%;}
 #app #main #content .full_container .form_line .field_7 {width: 7%;}
+#app #main #content .full_container .form_line .field_8 {width: 8%;}
 #app #main #content .full_container .form_line .field_10 {width: 10%;}
 #app #main #content .full_container .form_line .field_11 {width: 11%;}
 #app #main #content .full_container .form_line .field_12 {width: 12%;}
@@ -800,8 +809,10 @@ label {
 #app #main #content .full_container .form_line .field_33 {width: 33%;}
 #app #main #content .full_container .form_line .field_34 {width: 34%;}
 #app #main #content .full_container .form_line .field_35 {width: 35%;}
+#app #main #content .full_container .form_line .field_36 {width: 36%;}
 #app #main #content .full_container .form_line .field_38 {width: 38%;}
 #app #main #content .full_container .form_line .field_40 {width: 40%;}
+#app #main #content .full_container .form_line .field_42 {width: 42%;}
 #app #main #content .full_container .form_line .field_45 {width: 45%;}
 #app #main #content .full_container .form_line .field_50 {width: 50%;}
 #app #main #content .full_container .form_line .field_55 {width: 55%;}
@@ -1580,7 +1591,8 @@ td.textright {
 
 
 .container_inactive {  
-    background-color: #B2BDC5;
+    /* background-color: #B2BDC5; */
+    background-image:url(/images/container_black_bg.png) !important;
     width: 95%;
     margin: 0.5%;
     float: left;
@@ -2356,8 +2368,8 @@ div#permission_form .options{
     background-repeat: repeat-y;
     font-family:Arial,Helvetica,sans-serif;
     font-size:14px;
-    line-height: 16px;
-    min-height: 18px;
+    line-height: 14px;
+    min-height: 14px;
     padding: 5px 0px 5px 10px;
     text-decoration:none;
 }

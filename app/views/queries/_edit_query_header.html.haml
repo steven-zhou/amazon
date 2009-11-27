@@ -8,9 +8,9 @@
         = f.label :description, 'Description'
         = f.text_field :description, :disabled => @query_header.status == false
       .field_2
-        = f.label :status, '&nbsp'
+        = f.label :status, 'Active'
         = f.check_box :status
-      .field_10
-        = f.label :status, '&nbsp'
-        = f.label :status, 'Active', :style =>"margin-top:7px;"
+      -#.field_10
+      -#  = f.label :status, '&nbsp'
+      -#  = f.label :status, 'Active', :style =>"margin-top:7px;"
       %br.clear

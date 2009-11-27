@@ -6,13 +6,14 @@
       %select.show_list_description{:des => "group_list_list",:name => "group_list[list_header_id]"}
         - @list_headers.each do |list|
           %option{:value => "#{list.id}"}#{list.name}
-    .field_20
+    .field_25
       %label &nbsp
       %span{:id => "group_list_list_description"}
     .field_20{:style => "display:none;"}
       %label &nbsp
       %input{:name => "group_list[tag_id]", :value => "#{@group.id}"}
-    .field_20{:style => "margin-top: 8px;float:right"}
-      = submit_tag 'Submit', :style => 'display:inline;'
+    .field_38
+      %label &nbsp
+      = submit_tag 'Submit', :style => 'display:inline;float:right;'
 
 

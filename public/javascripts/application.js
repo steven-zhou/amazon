@@ -5901,6 +5901,9 @@ $(function(){
                     }
                 }
             });
+                $('#password_error').parent().find("a").css("display","none");
+                $("#password_error").parent().css('background-color','#D1DDE6');
+                $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
         }else{
@@ -7526,12 +7529,26 @@ $(function(){
 
 $(function() {
     $('#copy_receipt_method').live('click', function() {
-
         $.ajax({
             type: "GET",
             url: "/receipt_methods/copy_receipt_method.js",
             data: 'id=' + $(this).attr('receipt_method'),
             dataType: "script"
+        });
+    });
+});
+
+
+/* Show Add Role Condition Description */
+
+$(function(){
+    $("#doctype_id").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
         });
     });
 });

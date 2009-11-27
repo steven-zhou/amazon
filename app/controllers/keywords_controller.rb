@@ -11,8 +11,11 @@ class KeywordsController < ApplicationController
     @keyword_table.description = params[:keyword][:description]
     @keyword_table.status = params[:keyword][:status]
     @keyword_table.keyword_type_id = params[:type_id]
-    @keyword_table.save
+    if @keyword_table.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")
+    else
+    flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Keyword")
+    end
 
     respond_to do |format|
       format.js

@@ -35,8 +35,8 @@ class PeopleController < ApplicationController
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
 
-          @active_tab = params[:active_tab]
-        @active_sub_tab = params[:active_sub_tab]
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
 
 
 
@@ -70,7 +70,7 @@ class PeopleController < ApplicationController
     end
 
     if request.post?
-        #remember the active style of tabs
+      #remember the active style of tabs
   
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
@@ -117,8 +117,8 @@ class PeopleController < ApplicationController
   def edit
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
-      @active_tab = params[:active_tab]
-        @active_sub_tab = params[:active_sub_tab]
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
     #@postcodes = Postcode.find(:all)
 
     if request.get?
@@ -232,17 +232,17 @@ class PeopleController < ApplicationController
       #@postcodes = Postcode.find(:all)
       @image = Image.new
 
-       @personal_check_field = Array.new
-    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-    unless @duplication_formula_appiled.status == false
-      @duplication_formula_appiled.duplication_formula_details.each do |i|
-        @personal_check_field << i.field_name
+      @personal_check_field = Array.new
+      @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+      unless @duplication_formula_appiled.status == false
+        @duplication_formula_appiled.duplication_formula_details.each do |i|
+          @personal_check_field << i.field_name
+        end
       end
-    end
 
       flash.now[:error] = "There Was an Error to Create a New User"
-#      redirect_to new_person_path
-       render :action => "new"
+      #      redirect_to new_person_path
+      render :action => "new"
     end
   end
 
@@ -582,21 +582,21 @@ class PeopleController < ApplicationController
 
   def  show_postcode
 
-#    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
-#      @postcode = Postcode.find(:all)
-#
-#      @postcode.each do |i|
-#        @spc = ShowPostcodeGrid.new
-#        @spc.login_account_id = session[:user]
-#        @spc.grid_object_id = i.id
-#        @spc.field_1 = i.state
-#        @spc.field_2 = i.suburb
-#        @spc.field_3 = i.postcode
-#        @spc.field_4 = i.country.short_name
-#        @spc.save
-#      end
-#
-#    end
+    #    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
+    #      @postcode = Postcode.find(:all)
+    #
+    #      @postcode.each do |i|
+    #        @spc = ShowPostcodeGrid.new
+    #        @spc.login_account_id = session[:user]
+    #        @spc.grid_object_id = i.id
+    #        @spc.field_1 = i.state
+    #        @spc.field_2 = i.suburb
+    #        @spc.field_3 = i.postcode
+    #        @spc.field_4 = i.country.short_name
+    #        @spc.save
+    #      end
+    #
+    #    end
 
     respond_to do |format|
       format.js
@@ -611,7 +611,7 @@ class PeopleController < ApplicationController
 
     if !(PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?)
 
-        PersonLookupGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      PersonLookupGrid.find_all_by_login_account_id(session[:user]).each do |i|
         i.destroy
       end
 
@@ -619,25 +619,25 @@ class PeopleController < ApplicationController
 
 
 
-#    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
+    #    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
-      @templist = TempList.find_by_login_account_id(session[:user])
-      @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
-      @people.each do |j|
+    @templist = TempList.find_by_login_account_id(session[:user])
+    @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
+    @people.each do |j|
 
-        @solg = PersonLookupGrid.new
-        @solg.login_account_id = session[:user]
-        @solg.grid_object_id = j.id
-        @solg.field_1 = j.first_name
-        @solg.field_2 = j.family_name
-        @solg.field_3 = j.primary_address.first_line unless j.primary_address.blank?
-        @solg.field_4 = j.primary_phone.value unless j.primary_phone.blank?
-        @solg.field_5 = j.primary_email.address unless j.primary_email.blank?
+      @solg = PersonLookupGrid.new
+      @solg.login_account_id = session[:user]
+      @solg.grid_object_id = j.id
+      @solg.field_1 = j.first_name
+      @solg.field_2 = j.family_name
+      @solg.field_3 = j.primary_address.first_line unless j.primary_address.blank?
+      @solg.field_4 = j.primary_phone.value unless j.primary_phone.blank?
+      @solg.field_5 = j.primary_email.address unless j.primary_email.blank?
         
-        @solg.save
+      @solg.save
         
        
-#      end
+      #      end
     end
     respond_to do |format|
       format.js
