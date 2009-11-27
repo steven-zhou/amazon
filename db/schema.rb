@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091125034523) do
+ActiveRecord::Schema.define(:version => 20091127033013) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -103,10 +103,10 @@ ActiveRecord::Schema.define(:version => 20091125034523) do
     t.text     "target_amount"
     t.date     "start_date"
     t.date     "end_date"
-    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "status"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -648,6 +648,35 @@ ActiveRecord::Schema.define(:version => 20091125034523) do
     t.boolean  "allow_duplication"
   end
 
+  create_table "receipt_accounts", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "receipt_account_type_id"
+    t.boolean  "post_to_history"
+    t.boolean  "post_to_campaign"
+    t.boolean  "send_receipt"
+    t.boolean  "status"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "receipt_methods", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "receipt_method_type_id"
+    t.boolean  "status"
+    t.text     "remarks"
+    t.text     "card_merchant_number"
+    t.text     "card_name"
+    t.text     "card_location"
+    t.text     "card_cost"
+    t.text     "card_floor_limit"
+    t.integer  "card_lines_per_page"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "relationships", :force => true do |t|
     t.integer  "source_person_id"
     t.integer  "related_person_id"
@@ -691,10 +720,10 @@ ActiveRecord::Schema.define(:version => 20091125034523) do
     t.integer  "dead_return"
     t.integer  "letter_id"
     t.integer  "account_code_id"
-    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "status"
   end
 
   create_table "system_logs", :force => true do |t|
