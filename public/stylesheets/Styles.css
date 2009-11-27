@@ -620,6 +620,11 @@ label {
     height:auto;
 }
 
+#app #main #content .full_container input[type=button] {
+    width:auto;
+    height:auto;
+}
+
 #app #main #content .container input[type=submit] {
     width:auto;
     height:auto;
