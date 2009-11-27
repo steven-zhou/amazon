@@ -63,6 +63,7 @@ class RoleConditionsController < ApplicationController
 
   def doc_type_finder
     @master_doc_types = MasterDocType.find(:all, :conditions => ["tag_type_id = ?", params[:master_doc_meta_type_id].to_i],:order => 'name') rescue @master_doc_types = MasterDocType.new
+
     respond_to do |format|
       format.js { }
     end

@@ -7,16 +7,16 @@
       %h2 Branch Details
       .form_line{:style => "float:none;"}
         .field_36
-          = f.label :full_name, 'Full Name'
+          = f.label :full_name, "<span class='asterisk'>*</span>Full Name"
           = f.text_field :full_name
         .field_20
-          = f.label :short_name, 'Short Name'
+          = f.label :short_name, "<span class='asterisk'>*</span>Short Name"
           = f.text_field :short_name
         .field_20
-          = f.label :branch_name, 'Branch Name'
+          = f.label :branch_name, "<span class='asterisk'>*</span>Branch Name"
           = f.text_field :branch_name
         .field_20
-          = f.label :short_name, 'Branch Number'
+          = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
           = f.text_field :branch_number
       .form_line
         .field_40

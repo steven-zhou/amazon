@@ -7476,4 +7476,16 @@ $(function() {
 
 
 
+/* Show Add Role Condition Description */
 
+$(function(){
+    $("#doctype_id").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
+        });
+    });
+});
