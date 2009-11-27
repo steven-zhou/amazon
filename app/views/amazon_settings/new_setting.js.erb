@@ -1,3 +1,6 @@
+
+
+<% unless flash[:message].nil? %>
 $("#system_data_mode").attr('mode', 'show');
 
 $("#amazon_setting_name").val("");
@@ -6,3 +9,28 @@ $("#system_data_close_entry").css("display", "none");
 $("#amazon_setting_description").val("");
 $("#system_data_entries").show();
 $("#system_data_type").attr("disabled",false).change();
+<% else %>
+ $('#error_message_text').html("<%=escape_javascript(flash[:warning])%> ");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+                        $(this).focus();
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'Error');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
+
+<% end %>

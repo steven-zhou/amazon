@@ -1,4 +1,6 @@
   $('#edit_campaign').hide();
+  $('#add_new_campaign').html('<%= escape_javascript(render(:partial => "/receipting/new_campaign")) %>');
+  $('#add_new_campaign').show();
   $('#existing_campaigns').html('<%= escape_javascript(render(:partial => "/receipting/existing_campaigns")) %>');
   $('#campaign_mode').attr('mode', 'show');
     $("#show_campaigns_grid").flexigrid({
