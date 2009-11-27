@@ -27,7 +27,7 @@ class UserGroupsController < ApplicationController
         @select_group_type_id = @user_group.group_type.id
       else
         flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
-        flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
+        flash.now[:error]= flash_message(:type => "user_group_uniqueness_error")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
       end
 
     else

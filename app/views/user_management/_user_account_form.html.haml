@@ -16,10 +16,10 @@
 
     .wrapimage.hidden#yes_username
       = login.label :user_name, '&nbsp'
-      = image_tag("yes_icon.png")
+      = image_tag("yes_icon.png",:title=>"Available")
     .wrapimage.hidden#no_username
       = login.label :user_name, '&nbsp'
-      = image_tag("no_icon.png")
+      = image_tag("no_icon.png",:title=>"Not Available")
     -#.field_22
       %label &nbsp
       -if @login_account.new_record?

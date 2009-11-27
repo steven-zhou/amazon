@@ -1580,7 +1580,8 @@ td.textright {
 
 
 .container_inactive {  
-    background-color: #B2BDC5;
+    /* background-color: #B2BDC5; */
+    background-image:url(/images/container_black_bg.png) !important;
     width: 95%;
     margin: 0.5%;
     float: left;
