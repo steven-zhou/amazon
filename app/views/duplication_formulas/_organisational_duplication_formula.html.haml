@@ -69,11 +69,13 @@
       %br.clear
 
 #load_organisational_default{:style => "display:none;"}
-  .container
-    = "#{OrganisationalDuplicationFormula.default_setting.formatted_info}"
-    %br
-  .container
-    %label{:style => "display:inline;", :id => "load_organisational_message_text"}
+  = image_tag('Icons/System/big-warning.png',:size => "100x100", :style=>"float:left;padding:7px;")
+  %br
+  %br
+  = "#{OrganisationalDuplicationFormula.default_setting.formatted_info}"
+  %br
+  %br
+  %div{:style => "display:inline;margin-top:20px;text-align:center;", :id => "load_organisational_message_text"}
 
 
 
