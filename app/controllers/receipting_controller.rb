@@ -96,10 +96,17 @@ class ReceiptingController < ApplicationController
 
   def show_by_campaign
     session[:source_campaign_id] = params[:param1]
-    # puts "***** DEBUG Setting session[:source_campaign_id] to #{params[:param1]} "
     respond_to do |format|
       format.js
     end
+  end
+
+  def destroy_campaign
+    @campaign = Campaign.find(params[:id])
+    @campaign.destroy
+    respond_to do |format|
+      format.js
+    end    
   end
 
   def new_source
