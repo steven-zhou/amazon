@@ -15,7 +15,7 @@ class AmazonSettingsController < ApplicationController
       flash[:message] = "Saved successfully."
 
     else
-      
+
       flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
     end
     respond_to do |format|
