@@ -38,8 +38,11 @@
       = f.check_box :status, :checked => true, :class => "checkbox_style"
   .form_line
     .field_100{:style => "float:right;"}
-      = submit_tag "Submit", :disabled => false, :id => "edit_campaign_submit"
-      %button{:type => "button", :style => "float:right;", :id => "copy_campaign", :campaign => "#{@campaign.id}"}
-        Save As
+      %div{:style => "display:inline;float:right;height:100%;"}
+        = link_to "Remove", {:controller => "receipting", :action => "destroy_campaign", :id => @campaign.id}, {:class => 'delete', :error_message_field => "campaign", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+      %div{:style => "display:inline;float:right;height:100%;"}
+        = submit_tag "Submit", :disabled => false, :id => "edit_campaign_submit"
+        %button{:type => "button", :style => "", :id => "copy_campaign", :campaign => "#{@campaign.id}"}
+          Save As
 
 #campaign_save_form{:style => "display:none;"}

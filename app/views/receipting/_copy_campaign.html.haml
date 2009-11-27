@@ -1,5 +1,5 @@
 .container{:style => "background-image:none;"}
-  -form_for :campaign, Campaign.new, :action => "copy", :html => {:class => 'ajax_form'} do |f|
+  -form_for :campaign, Campaign.new, :url => {:action => "create_copy_of_campaign"}, :html => {:class => 'ajax_form'} do |f|
     .form_line
       = f.label :name, 'Name'
       = f.text_field :name, :value => ""

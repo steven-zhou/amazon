@@ -6648,6 +6648,9 @@ $(function(){
 
 
 
+
+
+
 //add_new_role in Role Manager for control role_type dropdown list
 $(function(){
     $("#new_role_bar #add_new_role").live('click',function(){

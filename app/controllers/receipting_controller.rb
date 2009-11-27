@@ -63,13 +63,50 @@ class ReceiptingController < ApplicationController
     end
   end
 
+  def create_copy_of_campaign
+    @campaign_old = Campaign.find(params[:source_id].to_i)
+    @campaign = Campaign.new
+    @campaign.name = params[:campaign][:name]
+    @campaign.description = params[:campaign][:description]
+    @campaign.target_amount = @campaign_old.target_amount
+    @campaign.start_date = @campaign_old.start_date
+    @campaign.end_date = @campaign_old.end_date
+    @campaign.status = @campaign_old.status
+    @campaign.remarks = @campaign_old.remarks
 
-  def show_by_campaign
-    session[:source_campaign_id] = params[:param1]
-    # puts "***** DEBUG Setting session[:source_campaign_id] to #{params[:param1]} "
+    if @campaign.save
+
+      @campaign_old.sources.each do |i|
+        @source = Source.new(i.attributes)
+        @source.campaign_id = @campaign.id
+        @source.save
+      end
+
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Campaign #{@campaign.id}.")
+      flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "campaign")
+    else
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@campaign.errors.nil? && @campaign.errors.on(:name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@campaign.errors.nil? && @campaign.errors.on(:name).include?("has already been taken"))
+    end
     respond_to do |format|
       format.js
     end
+  end
+
+
+  def show_by_campaign
+    session[:source_campaign_id] = params[:param1]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_campaign
+    @campaign = Campaign.find(params[:id])
+    @campaign.destroy
+    respond_to do |format|
+      format.js
+    end    
   end
 
   def new_source
@@ -116,6 +153,14 @@ class ReceiptingController < ApplicationController
          flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
       end
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+ def destroy_source
+    @source = Source.find(params[:id])
+    @source.destroy
     respond_to do |format|
       format.js
     end

@@ -102,4 +102,26 @@ class RoleConditionsController < ApplicationController
     end
   end
 
+  def page_initial
+
+    @render_page = params[:render_page]
+    @field = params[:field]
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+   def condition_dictionary_page_initial
+
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @tag_meta_types = MasterDocMetaMetaType.find(:all, :order => "name asc")
+    @category = "MasterDoc"
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
