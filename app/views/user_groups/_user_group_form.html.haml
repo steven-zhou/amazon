@@ -35,10 +35,10 @@
             %label &nbsp
             = link_to_function 'clear', :class => "clear_form alt_option"
             = submit_tag 'Submit'
-
           
-
+    
   %div#user_group_user
+    %h1{:style => "margin-top: 20px;"} Assigned Group Users
     - for i in @user_groups
       - status = i.login_account.login_status ? "container_active" : "container_inactive"
       -div_for(i, :class => "#{status}  toggle_options" , :id => "existing_user_in_group", :login_account_id => i.login_account.id, :field => "user_group", :style=> "width:47%;") do
