@@ -13,7 +13,9 @@ class AmazonSettingsController < ApplicationController
     if @amazonsetting.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amzonsetting.id}.")
       flash[:message] = "Saved successfully."
+
     else
+      
       flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
     end
     respond_to do |format|
