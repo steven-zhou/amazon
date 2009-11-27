@@ -13,7 +13,8 @@
         .options{:style => "display:none;"}
           = link_to_function image_tag('edit_icon.png'), :class => "#{status_flag} edit_option edit_logo", :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user", :title=>"Edit"
         .title
-          %h3 #{i.id} - #{i.user_name}(#{i.person.name}) - #{i.user_list_headers.size} - lists
+          -list_flag = i.user_list_headers.size > 1 ? "lists" : "list"
+          %h3 #{i.user_name}(#{i.person.name}) - #{i.user_list_headers.size} - #{list_flag}
             
               
 

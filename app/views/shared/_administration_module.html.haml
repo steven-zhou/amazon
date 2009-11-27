@@ -105,7 +105,7 @@
       - if !(@current_controller == "maintenance" || @current_controller == "banks" )
         = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
       - else
-        <p>Maintenace</p>
+        <p>Maintenance</p>
         %ul
           %li{:id => @current_action == "system_backup" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Data Backup", :controller => "maintenance", :action => "system_backup"
