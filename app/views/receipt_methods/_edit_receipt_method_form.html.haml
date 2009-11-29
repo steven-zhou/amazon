@@ -11,8 +11,8 @@
     });
 
     $(function() {
-      $('#receipt_method_receipt_method_type_id').change(function() {
-        if($('#receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
+      $('#edit_receipt_method_receipt_method_type_id').change(function() {
+        if($('#edit_receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
             $('#edit_credit_card_info').show();
         } else {
             $('#edit_credit_card_info').hide();
@@ -21,8 +21,8 @@
     });
 
     $(document).ready(function() {
-      if($('#receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
-          $('#credit_card_info').show();
+      if($('#edit_receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
+          $('#edit_credit_card_info').show();
       }
     });
 
@@ -42,7 +42,7 @@
   .form_line
     .field_30
       = f.label :receipt_method_type_id, "Receipt Method Type"
-      = f.collection_select(:receipt_method_type_id, ReceiptMethodType.find(:all), :id, :name, {:include_blank => true})
+      = f.collection_select(:receipt_method_type_id, ReceiptMethodType.find(:all), :id, :name, {:include_blank => true}, {:id => "edit_receipt_method_receipt_method_type_id"})
 
   %div#edit_credit_card_info{:style => "display:none;"}
     .form_line
