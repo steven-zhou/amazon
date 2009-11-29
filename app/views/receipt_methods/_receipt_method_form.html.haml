@@ -12,7 +12,11 @@
 
     $(function() {
       $('#receipt_method_receipt_method_type_id').change(function() {
- 
+        if($('#receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
+            $('#credit_card_info').show();
+        } else {
+            $('#credit_card_info').hide();
+       }
       });
     });
 
@@ -33,8 +37,30 @@
     .field_30
       = f.label :receipt_method_type_id, "Receipt Method Type"
       = f.collection_select(:receipt_method_type_id, ReceiptMethodType.find(:all), :id, :name, {:include_blank => true})
+  %div#credit_card_info{:style => "display:none;"}
+    .form_line
+      .field_30
+        = f.label :card_merchant_number, "Card Merchant Number"
+        = f.text_field :card_merchant_number
+    .form_line
+      .field_25
+        = f.label :card_name, "Card Name"
+        = f.text_field :card_name
+    .form_line
+      .field_15
+        = f.label :card_name, "Card Location"
+        = f.text_field :card_location
+      .field_15
+        = f.label :card_cost, "Card Cost"
+        = f.text_field :card_cost
+    .form_line
+      .field_15
+        = f.label :card_floor_limit, "Card Floor Limit"
+        = f.text_field :card_floor_limit
+      .field_15
+        = f.label :card_cost, "Card Lines Per Page"
+        = f.text_field :card_lines_per_page, :class => "integer_field"
   .form_line
-
     .field_10
       = f.label :status, "Active"
       = f.check_box :status, :checked => false, :class => "checkbox_style"
