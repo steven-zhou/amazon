@@ -13,9 +13,9 @@
     $(function() {
       $('#receipt_method_receipt_method_type_id').change(function() {
         if($('#receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
-            $('#credit_card_info').show();
+            $('#new_credit_card_info').show();
         } else {
-            $('#credit_card_info').hide();
+            $('#new_credit_card_info').hide();
        }
       });
     });
@@ -37,7 +37,7 @@
     .field_30
       = f.label :receipt_method_type_id, "Receipt Method Type"
       = f.collection_select(:receipt_method_type_id, ReceiptMethodType.find(:all), :id, :name, {:include_blank => true})
-  %div#credit_card_info{:style => "display:none;"}
+  %div#new_credit_card_info{:style => "display:none;"}
     .form_line
       .field_30
         = f.label :card_merchant_number, "Card Merchant Number"
