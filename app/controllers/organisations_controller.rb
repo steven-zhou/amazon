@@ -125,6 +125,7 @@ class OrganisationsController < ApplicationController
     @website = Website.new
     @masterdoc = MasterDoc.new
     @note = Note.new
+    @note.active = TRUE
     @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
     @organisation_group = OrganisationGroup.new
     @check_field = Array.new
