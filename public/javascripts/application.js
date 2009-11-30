@@ -7597,6 +7597,7 @@ $(function(){
 
 /*show submit button*/
 
+
  mandantory_field = function(link)
  {
         if($('#'+link.attr('mandantory_field1')).val()=='' ||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
@@ -7609,6 +7610,7 @@ $(function(){
                $('#'+link.attr('submit_button_id')).attr('disabled', false);
 
               }
+
 
 
  }
