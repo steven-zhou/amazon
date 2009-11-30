@@ -23,7 +23,7 @@
         = render :partial => '/images/show_photo', :locals => {:entity => @person}
       //= submit_tag 'Submit and Close', :style => 'float:right;'
       //= submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
-      = submit_tag 'Submit', :style => 'float:right;'
+      = submit_tag 'Submit',:id => "edit_person_submit", :style => 'float:right;'
 
   #right_content
     #tabs

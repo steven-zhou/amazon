@@ -7,4 +7,4 @@
         = link_to image_tag('close_icon.png'), note_path(@note),:class => 'get_close', :field => "note", :id => 'note_edit_close_button', :title=>"Close"
       %br{ :style=>"clear: both;"}
       = render :partial => 'note_form', :locals => { :note => note}
-      =submit_tag 'Submit'
+      =submit_tag 'Submit',:id=>"note_edit_submit"

@@ -5,11 +5,11 @@
       = f.collection_select :contact_meta_type_id, Contact.email_types - @person.personal_email_types, :id, :name
     .field_75
       = f.label :value, "<span class='asterisk'>*</span>Value"
-      = f.text_field :value ,:id => email.new_record? ? "email_value" : "email_value_edit"
+      = f.text_field :value ,:id => email.new_record? ? "email_value" : "email_value_edit" ,:class=>"mandantory_field",:mandantory_field1=>email.new_record? ? "email_value" : "email_value_edit",:submit_button_id=>"submit_email_field"
   .form_line
     .field_100
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
 
-  = submit_tag 'Submit', :id => "submit_email_field" , :check_field =>email.new_record? ? "email_value" : "email_value_edit"
+  = submit_tag 'Submit', :id => "submit_email_field" , :check_field =>email.new_record? ? "email_value" : "email_value_edit",:disabled=> email.new_record? ? true:false
   %br{:style=>"clear:both;"}

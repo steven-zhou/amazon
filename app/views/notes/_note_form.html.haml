@@ -5,7 +5,7 @@
 
   .field_40
     = note.label :label, "<span class='asterisk'>*</span>Label"
-    = note.text_field :label
+    = note.text_field :label,:id => @note.new_record? ? "note_new_label" : "note_edit_label",:class=>"mandantory_field",:mandantory_field1=> @note.new_record? ? "note_new_label" : "note_edit_label",:submit_button_id=>@note.new_record? ? "note_new_submit" : "note_edit_submit"
   .field_5
     = note.label :active, 'Active'
     = note.check_box :active,:checked => true

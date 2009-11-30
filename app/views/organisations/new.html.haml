@@ -24,7 +24,7 @@
       .form_line
         .field_100
           = p.label :full_name, "<span class='asterisk'>*</span>Full Name"
-          = p.text_field :full_name, :class => @check_field.include?("full_name") ? "organisational_check_field" : ""
+          = p.text_field :full_name, :class => @check_field.include?("full_name") ? "organisational_check_field mandantory_field" : "",:mandantory_field1=>"organisation_full_name" ,:submit_button_id=>"new_organisation_submit"
         %br.clear
       .form_line
         .field_100
@@ -71,7 +71,7 @@
     %p.submit
       = link_to_function 'Clear', :class => "clear_form alt_option", :style=>"float:right"
       //= submit_tag "Submit and Edit", :name => 'edit'
-      = submit_tag "Submit",:id => "new_organisation_submit"
+      = submit_tag "Submit",:id => "new_organisation_submit",:disabled=>true
 
 #duplication_box
       
