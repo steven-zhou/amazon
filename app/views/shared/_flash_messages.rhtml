@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<%- if flash[:error] || flash[:warning] || flash[:process_end] || flash[:help] %>
+<%- if flash[:error] || flash[:warning] || flash[:process_end] || flash[:help] || flash[:warning_before_message]%>
   <script type="text/javascript">
     $(function() {
       $('#flash_message').dialog( {
@@ -51,6 +51,9 @@
   <%- elsif flash[:help] %>
         $('#flash_message').dialog( 'option', 'title', 'Help');
         $('#flash_message_text').html("<%= escape_javascript(flash[:help]) %>");
+  <%- elsif flash[:warning_before_message] %>
+        $('#flash_message').dialog( 'option', 'title', 'Help');
+        $('#flash_message_text').html("<%= escape_javascript(flash[:warning_before_message]) %>");
   <%- end %>
       $('#flash_message').dialog( 'open');
     }
@@ -67,8 +70,6 @@
     <%= flash[:message] %>
   <%- end %>
 </div>
-
-
 
 <%- if flash[:error].nil? && flash[:warning].nil? && flash[:message] %>
   <script type="text/javascript">
