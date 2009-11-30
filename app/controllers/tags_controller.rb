@@ -64,6 +64,13 @@ class TagsController < ApplicationController
     end
   end
 
+    def show_role_condition_description
+    @role_conditon_description = MasterDocType.find(params[:doctype_id].to_i) rescue @role_conditon_description = MasterDocType.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def destroy
     @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type

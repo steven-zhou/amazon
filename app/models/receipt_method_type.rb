@@ -1,0 +1,5 @@
+class ReceiptMethodType < AmazonSetting
+
+
+
+end

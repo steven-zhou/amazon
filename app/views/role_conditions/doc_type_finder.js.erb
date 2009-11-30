@@ -3,7 +3,7 @@
 <% if @master_doc_types.blank? %>
   $("#doctype_id").html('')
   $("#doctype_id").change()
-
+    $("#assign_role_master_doc_description").html("");
 <% else %>
 
   <%  result = String.new %>

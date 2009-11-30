@@ -8,7 +8,7 @@
       = p.text_field :pre_value
     .field_40
       = p.label :value, "<span class='asterisk'>*</span>Value"
-      = p.text_field :value
+      = p.text_field :value,:class=>"mandantory_field",:mandantory_field1=>"phone_value",:submit_button_id=>"contact_phone_submit"
     .field_15
       = p.label :post_value, "Post value"
       = p.text_field :post_value
@@ -43,5 +43,5 @@
       = p.label :remarks, "Remarks"
       = p.text_field :remarks
     %br.clear
-  = submit_tag 'Submit' ,:id => "contact_phone_submit" ,:check_field => "phone_value"
+  = submit_tag 'Submit' ,:id => "contact_phone_submit" ,:check_field => "phone_value",:disabled=>true
   %br{ :style=>"clear: both;"}

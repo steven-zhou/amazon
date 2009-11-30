@@ -12,7 +12,7 @@
     =# Initially hidden new masterdoc form
     -form_for([@organisation,@masterdoc], :url => "/organisations/#{@organisation.id}/master_docs", :html => {:style => "display:none", :class => 'ajax_form'}) do |form|
       = render :partial => '/master_docs/master_doc_form', :locals => { :form => form }
-      = submit_tag 'Submit'
+      = submit_tag 'Submit',:id=>"master_doc_new_subbmit",:disabled=>true
 
   #masterdocs
     =# Render the organisation's addresses

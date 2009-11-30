@@ -12,7 +12,7 @@
     .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
       -form_for([@organisation, @organisation_group], :url => "/organisations/#{@organisation.id}/organisation_groups", :html => {:class => 'ajax_form'}) do |groups|
         = render :partial => '/organisation_groups/group_form', :locals => {:groups => groups}
-        = submit_tag 'Submit'
+        = submit_tag 'Submit',:id=>"organisation_new_group", :disabled => true
       %br.clear
 
   #organisation_groups

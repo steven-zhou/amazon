@@ -65,7 +65,7 @@
       .field_23
         -#= login.label :access_attempts_count
         -#= login.text_field :access_attempts_count, :readonly => true
-        = login.label :access_attempts_count, "Access_Attempts_Count(num)"
+        = login.label :access_attempts_count, "Access Attempts Count (Num)"
         %select{:name => "login_account[access_attempts_count]"}
           %option{:value => "99999", :selected => @access_attempts_count == 0} Unlimited
           %option{:value => "3", :selected => @access_attempts_count == 3} 3
@@ -75,7 +75,7 @@
       .field_23
         -#= login.label :authentication_grace_period
         -#= login.text_field :authentication_grace_period, :readonly => true
-        = login.label :authentication_grace_period, "New Account Grace Period(Days)"
+        = login.label :authentication_grace_period, "New Account Grace Period (Days)"
         %select{:name => "login_account[authentication_grace_period]"}
           %option{:value => "0", :selected => @grace_period == 0} Unlimited
           %option{:value => "7", :selected => @grace_period == 7} 7
@@ -83,7 +83,7 @@
           %option{:value => "21", :selected => @grace_period == 21} 21
           %option{:value => "28", :selected => @grace_period == 28} 28
       .field_23
-        = login.label :session_timeout, "Session Timeout(Mins)"
+        = login.label :session_timeout, "Session Timeout (Mins)"
         -#= login.text_field :session_timeout, :readonly => true
         %select{:name => "login_account[session_timeout]"}
           %option{:value => "0", :selected => @session_timeout == 0} Unlimited

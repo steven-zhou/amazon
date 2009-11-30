@@ -1,22 +1,19 @@
 .form_line{:style => "float:none;"}
   .field_20
     = note.label :note_type_id, "<span class='asterisk'>*</span>Type"
-    = note.collection_select :note_type_id, NoteType.all, :id, :name
-
+    = note.collection_select :note_type_id, NoteType.all, :id, :name, {},{:disabled => (true if !@note.active)}
   .field_40
     = note.label :label, "<span class='asterisk'>*</span>Label"
-    = note.text_field :label
+
+    = note.text_field :label,:id => @note.new_record? ? "note_new_label" : "note_edit_label",:class=>"mandantory_field",:mandantory_field1=> @note.new_record? ? "note_new_label" : "note_edit_label",:submit_button_id=>@note.new_record? ? "note_new_submit" : "note_edit_submit", :disabled => ("disabled" if !@note.active)
   .field_5
     = note.label :active, 'Active'
-    = note.check_box :active,:checked => true
-  
+    = note.check_box :active, :checked => (true if @note.active)
 .form_line
   .field_90
     = note.label :short_description, 'Description'
-    = note.text_field :short_description
-
+    = note.text_field :short_description, :disabled => ("disabled" if !@note.active)
 .form_line{:style =>'min-height:140px;'}
   .field_100
     = note.label :body_text, 'Note'
-    = note.text_area :body_text,:rows => 6, :cols => 45, :id => "richEditor"
-
+    = note.text_area :body_text,:rows => 6, :cols => 45, :id => "richEditor", :disabled => ("disabled" if !@note.active)

@@ -1,0 +1,9 @@
+.container{:style => "background-image:none;"}
+  -form_for :client_bank_account, ClientBankAccount.new, :url => {:controller => "client_setups", :action => "create_copy_of_client_bank_account"}, :html => {:class => 'ajax_form'} do |f|
+    .form_line
+      = f.label :name, 'Name'
+      = f.text_field :name, :value => ""
+      %input{:style => "display:none", :name =>"new"}
+      %input{:style => "display:none", :name => "source_id", :value => "#{@client_bank_account.id}"}
+    
+    = submit_tag "Save"

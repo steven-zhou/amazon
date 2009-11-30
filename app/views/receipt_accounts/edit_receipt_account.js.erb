@@ -1,0 +1,5 @@
+$('#add_new_receipt_account').css('display','none');
+$('#edit_receipt_account').css('display', '');
+$('#edit_receipt_account_form').html('<%= escape_javascript(render(:partial => "/receipt_accounts/edit_receipt_account_form", :locals => {:receipt_account => @receipt_account })) %>');
+$('#receipt_account_mode').attr('mode', 'edit');
+$('.close_option[field="receipt_account"]').css("display","");

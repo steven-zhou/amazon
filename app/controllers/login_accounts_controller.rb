@@ -32,10 +32,11 @@ class LoginAccountsController < ApplicationController
         email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
         LoginAccountPasswordResetDispatcher.deliver(email)
         flash.now[:message] = "New User Account is Saved successfully."
-
-      else      
-        if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
-          flash.now[:error] = flash_message(:type => "format error", :field => "security_email")
+ 
+      else
+       
+       if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
+          flash.now[:error] = flash_message(:type => "format_error", :field => "security_email")
         elsif(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
           flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "security_email")
         elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
@@ -60,16 +61,16 @@ class LoginAccountsController < ApplicationController
           flash.now[:error] = flash_message(:type => "field_missing", :field => "access_attempts_count")
         elsif(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?( "can't be blank"))
           flash.now[:error] = flash_message(:type => "field_missing", :field => "security_email")
-        elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?( "can't be blank"))
+       elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?( "can't be blank"))
 
           flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")
         elsif(!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?( "can't be blank"))
           flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id")
-        else
 
+        else
           flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
         end
-
+          
       end
       @login_accounts = SystemUser.find(:all)
       respond_to  do |format|
