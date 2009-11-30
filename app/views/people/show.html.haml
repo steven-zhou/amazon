@@ -107,25 +107,8 @@
       = render :partial => 'person_info'
   
     .container#business_info
-      .container
-        %h2 Membership
-        %span Member Since: 200411111
-        %br
-        %span Number of Dependents: 2
-        %br
-        %span Membership Status: Active
-
-      .container
-        %h2 Events
-        %span Last Events:Xmas 2008 - at the Lake
-        %br
-        %span Number of Attended Events: 14
-        %br
-        %span Interested in: Family Events
-      .container
-        %h3 Case Management
-        %span Open Cases: None
-        %span Close Cases: 5
+      = render :partial => 'person_system_info'
+      
   %br.clear
 
 
