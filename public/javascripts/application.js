@@ -7593,15 +7593,13 @@ $(function(){
 
   
       if($('#'+$(this).attr('mandantory_field1')).val()=='' ||$('#'+$(this).attr('mandantory_field2')).val()=='' ||$('#'+$(this).attr('mandantory_field3')).val()==''||$('#'+$(this).attr('mandantory_field4')).val()==''||$('#'+$(this).attr('mandantory_field5')).val()==''||$('#'+$(this).attr('mandantory_field6')).val()==''||$('#'+$(this).attr('mandantory_field7')).val()==''||$('#'+$(this).attr('mandantory_field8')).val()==''||$('#'+$(this).attr('mandantory_field9')).val()==''||$('#'+$(this).attr('mandantory_field10')).val()=='')
-          {
-               $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
-
-          }
-          else
-              {
-               $('#'+$(this).attr('submit_button_id')).attr('disabled', false);
-               
-              }
+      {
+          $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
+      }
+      else
+      {
+          $('#'+$(this).attr('submit_button_id')).attr('disabled', false);
+      }
 
     });
 });
