@@ -1,0 +1,140 @@
+<% if @receipt_account.errors.empty? -%>
+<%- puts "**** #{@receipt_account.errors.to_yaml}"%>
+$('#add_new_receipt_account').html('<%= escape_javascript(render(:partial => "/receipt_accounts/new_receipt_account")) %>');
+$('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "/receipt_accounts/existing_receipt_accounts")) %>');
+$('#receipt_account_mode').attr('mode', 'show');
+  $("#show_receipt_accounts_grid").flexigrid({
+  url: '/grids/show_receipt_accounts_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 70,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Type',
+  name : 'receipt_type',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 50,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Post to History',
+  name : 'post_to_history',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Post to Campaign',
+  name : 'post_to_campaign',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Send Receipt',
+  name : 'send_receipt',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Name',
+  name : 'Name'
+  },
+
+  {
+  display: 'Receipt Type',
+  name : 'Receipt Type'
+  },
+
+  {
+  display: 'Description',
+  name : 'description'
+  },
+
+  {
+  display: 'Post to History',
+  name : 'post_to_history'
+  },
+
+  {
+  display: 'Post to Campaign',
+  name : 'post_to_campaign'
+  },
+
+  {
+  display: 'Send Receipt',
+  name : 'receipt'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
+  }
+  ],
+  sortname: "name",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Receipt Accounts',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+      modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

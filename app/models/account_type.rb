@@ -1,0 +1,4 @@
+class AccountType < AmazonSetting
+
+
+end

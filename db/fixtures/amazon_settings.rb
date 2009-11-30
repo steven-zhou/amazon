@@ -92,3 +92,21 @@ SecurityQuestion.create :name => "what is your mather's name", :status => true
 BusinessCategory.create :name => "Sales", :description => "10", :status => true
 BusinessCategory.create :name => "Wholesaler", :description => "11", :status => true
 BusinessCategory.create :name => "Service", :description => "12", :status => true
+ReceiptAccountType.create(:name => "Membership")
+ReceiptAccountType.create(:name => "Donation")
+ReceiptAccountType.create(:name => "Sundry")
+ReceiptAccountType.create(:name => "Miscellaneous")
+ReceiptMethodType.create(:name => "Cash")
+ReceiptMethodType.create(:name => "Cheque")
+ReceiptMethodType.create(:name => "Money Order")
+ReceiptMethodType.create(:name => "Credit Card")
+ReceiptMethodType.create(:name => "Direct Credit")
+ReceiptMethodType.create(:name => "Direct Debit")
+ReceiptMethodType.create(:name => "Credit Journal")
+ReceiptMethodType.create(:name => "Debit Journal")
+AccountPurpose.create(:name => "Payroll")
+AccountPurpose.create(:name => "Donation")
+AccountPurpose.create(:name => "Membership Fees")
+AccountPurpose.create(:name => "General")
+AccountType.create(:name => "Savings")
+AccountType.create(:name => "Cheque")

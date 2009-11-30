@@ -1,0 +1,102 @@
+<% if @receipt_method.errors.empty? -%>
+$('#add_new_receipt_method').html('<%= escape_javascript(render(:partial => "/receipt_methods/new_receipt_method")) %>').css('display','');
+$('#existing_receipt_methods').html('<%= escape_javascript(render(:partial => "/receipt_methods/existing_receipt_methods")) %>');
+$('#receipt_method_mode').attr('mode', 'show');
+$('#edit_receipt_method').css('display','none');
+  $("#show_receipt_methods_grid").flexigrid({
+  url: '/grids/show_receipt_methods_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 70,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Type',
+  name : 'receipt_type',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 50,
+  sortable : true,
+  align: 'left'
+  },
+
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Name',
+  name : 'Name'
+  },
+
+  {
+  display: 'Receipt Type',
+  name : 'Receipt Type'
+  },
+
+  {
+  display: 'Description',
+  name : 'description'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
+  }
+  ],
+  sortname: "name",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Receipt Methods',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

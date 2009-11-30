@@ -10,6 +10,10 @@
         %ul
           %li{:id => @current_action == "campaign_data" ? "selected" : ""}
             = link_to "#{image_tag('/images/icon_holder.png')} Campaigns", :controller => "receipting", :action => "campaign_data"
+          %li{:id => @current_action == "receipt_accounts" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Receipt Accounts", :controller => "receipting", :action => "receipt_accounts"
+          %li{:id => @current_action == "receipt_methods" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Receipt Methods", :controller => "receipting", :action => "receipt_methods"
           %br.clear
     .bottom
 

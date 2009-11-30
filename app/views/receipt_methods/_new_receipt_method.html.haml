@@ -1,0 +1,8 @@
+.full_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "receipt_method", :title=>"Close", :class => "close_option", :toggle_id_name => "new_receipt_method_form"
+  .title
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "receipt_method", :title => "New", :method => "GET", :url => "/receipt_methods/new_receipt_method"
+    &nbsp
+  %h2 New Receipt Method
+  #new_receipt_method_form{:style => "float:left;"}
