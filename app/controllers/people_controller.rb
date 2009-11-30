@@ -210,7 +210,7 @@ class PeopleController < ApplicationController
         if @image.save
           @person.image = @image
         else
-          flash[:warning] = "There Was an Error to Save the Selected Image."
+          flash[:warning_before_message] = "There Was an Error to Save the Selected Image."
         end
       end
 
