@@ -387,6 +387,10 @@ $(function(){
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $('.startdatepick').change();
+
         }
     });
 
@@ -469,7 +473,12 @@ $(function(){
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+
+        },
+        onClose: function(){
+             $(".role_startdatepick").change();
         }
+       
     });
 
     $('.role_enddatepick').datepicker({
@@ -7588,20 +7597,34 @@ $(function(){
 
 /*show submit button*/
 
-$(function(){
-    $(".mandantory_field").live('change',function(){
-
-  
-      if($('#'+$(this).attr('mandantory_field1')).val()=='' ||$('#'+$(this).attr('mandantory_field2')).val()=='' ||$('#'+$(this).attr('mandantory_field3')).val()==''||$('#'+$(this).attr('mandantory_field4')).val()==''||$('#'+$(this).attr('mandantory_field5')).val()==''||$('#'+$(this).attr('mandantory_field6')).val()==''||$('#'+$(this).attr('mandantory_field7')).val()==''||$('#'+$(this).attr('mandantory_field8')).val()==''||$('#'+$(this).attr('mandantory_field9')).val()==''||$('#'+$(this).attr('mandantory_field10')).val()=='')
+ mandantory_field = function(link)
+ {
+        if($('#'+link.attr('mandantory_field1')).val()=='' ||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
           {
-               $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
+               $('#'+link.attr('submit_button_id')).attr('disabled', true);
 
           }
           else
               {
-               $('#'+$(this).attr('submit_button_id')).attr('disabled', false);
-               
+               $('#'+link.attr('submit_button_id')).attr('disabled', false);
+
               }
+
+
+ }
+
+//$(function(){
+//    $(".mandantory_field").live('keyup',function(){
+//      mandantory_field($(this));
+//
+//
+//    });
+//});
+
+$(function(){
+    $(".mandantory_field").live('change',function(){
+   
+     mandantory_field($(this));
 
     });
 });

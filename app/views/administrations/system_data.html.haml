@@ -22,8 +22,8 @@
             = p.text_field :type, {:style => "display:none"}
             .form_line
               .field_30
-                = p.label :name, 'Name'
-                = p.text_field :name
+                = p.label :name, "<span class='asterisk'>*</span>Name"
+                = p.text_field :name,:class=>"mandantory_field",:mandantory_field1=>"amazon_setting_name",:submit_button_id=>"system_data_submit"
               .field_35
                 = p.label :description, 'Description'
                 = p.text_field :description
@@ -33,7 +33,7 @@
                 = p.check_box :status, {:style => "width:auto;",:checked=> "checked"}
               .field_20
                 %label &nbsp
-                = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+                = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit',:id=>"system_data_submit",:disabled=>true
           
 
       %div#system_data_entries
