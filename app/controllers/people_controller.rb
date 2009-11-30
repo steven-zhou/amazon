@@ -180,6 +180,7 @@ class PeopleController < ApplicationController
     @relationship = Relationship.new
     @employment = Employment.new
     @note = Note.new
+    @note.active = TRUE
     @image = @person.image unless (@person.nil? || @person.image.nil?)
     @role = Role.new
     @person_role = PersonRole.new
