@@ -5,7 +5,7 @@
       = relationship.collection_select :relationship_type_id, RelationshipType.active_relationship_type - @person.personal_relationship_type, :id, :name
     .field_20{:style => "margin-right: 2px;"}
       = relationship.label :related_person_id, "<span class='asterisk'>*</span>System ID"
-      = relationship.text_field :related_person_id
+      = relationship.text_field :related_person_id,:class=>"mandantory_field",:mandantory_field1=>"relationship_related_person_id",:submit_button_id=>"relationship_new_submit"
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "relationship_related_person_id", :title=>"Search"
@@ -15,5 +15,5 @@
     .field_20
 
     %input{:name => "relationship[source_person_id]", :value => "#{@person.id}", :class => "hidden"}
-    = submit_tag 'Submit'
+    = submit_tag 'Submit',:id=>"relationship_new_submit",:disabled =>true
   %br{:style=>"clear:both;"}

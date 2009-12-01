@@ -8,7 +8,7 @@
 .form_line
   .field_25
     = label_tag :group_meta_type_id, "<span class='asterisk'>*</span>Group"
-    %select#group_id{:name => "organisation_group_id"}
+    %select#group_id{:name => "organisation_group_id", :class=>"mandantory_field", :mandantory_field1=>"group_id" ,:submit_button_id=>"organisation_new_group"}
       %option
   .field_25
     = label_tag :group_description, " ", {:id => "group_description",:style => "margin-top:17px;"}

@@ -8,4 +8,4 @@
         = link_to image_tag('close_icon.png'), master_doc_path(@masterdoc), :class => 'get_close', :field => "master_doc", :id => 'master_doc_edit_close_button', :title=>"Close"
       %br{ :style=>"clear: both;"}
       = render :partial => '/master_docs/master_doc_form', :locals => { :form => form, :masterdoc => @masterdoc }
-      = submit_tag 'Submit'
+      = submit_tag 'Submit',:id=>"master_doc_edit_submit"

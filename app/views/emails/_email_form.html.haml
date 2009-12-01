@@ -13,7 +13,7 @@
         = email.collection_select :contact_meta_type_id, Contact.email_types - @organisation.personal_email_types, :id, :name
   .field_75
     = email.label :value, "<span class='asterisk'>*</span>Value"
-    = email.text_field :value ,:id => @email.new_record? ? "email_value" : "email_value_edit"
+    = email.text_field :value ,:id => @email.new_record? ? "email_value" : "email_value_edit",:class=>'mandantory_field', :mandantory_field1=>@email.new_record? ? "email_value" : "email_value_edit",:submit_button_id=>"submit_email_field_edit"
 .form_line
   .field_100
     = email.label :remarks, "Remarks"
