@@ -1,0 +1,9 @@
+<%- if !@person.nil? %>
+  // Pass - valid person
+    $("#edit_person_bank_account_person").html('<%= escape_javascript("#{@person.name}")%>');
+<% else  %>
+  // Epic fail - invalid person and invalid account
+    $("#edit_person_bank_account_person").html("Invalid");
+    $('#edit_person_bank_account_submit').attr('disabled', true);
+    $('#edit_person_bank_account_person_id').val('');
+<% end %>
