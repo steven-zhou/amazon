@@ -5910,9 +5910,9 @@ $(function(){
                     }
                 }
             });
-                $('#password_error').parent().find("a").css("display","none");
-                $("#password_error").parent().css('background-color','#D1DDE6');
-                $("#password_error").css('background-color','#D1DDE6');
+            $('#password_error').parent().find("a").css("display","none");
+            $("#password_error").parent().css('background-color','#D1DDE6');
+            $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
         }else{
@@ -5930,10 +5930,10 @@ $(function(){
 $(function(){
     $('.check_postcode_columns').blur(function(){
 
-    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
-        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
-            $('#import_postcode_submit').attr("disabled", false);
-        } else {
+        if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+            if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+                $('#import_postcode_submit').attr("disabled", false);
+            } else {
 
                 var link = $(this);
 
@@ -5962,11 +5962,11 @@ $(function(){
                 $('#error_message').dialog('open');
 
 
+                $('#import_postcode_submit').attr("disabled", true);
+            }
+        } else {
             $('#import_postcode_submit').attr("disabled", true);
         }
-    } else {
-        $('#import_postcode_submit').attr("disabled", true);
-    }
 
     });
 });
@@ -7023,7 +7023,7 @@ $(function(){
         // $('#add_new_bank').hide();
         // $('#open_add_new_bank').show();
         // $('#close_add_new_bank').hide();
-    });
+        });
 });
 
 $(function(){
@@ -7085,7 +7085,7 @@ $(function(){
 $(function(){
     $('#edit_bank_entry_close_form').live('click', function(){
         // $('#edit_bank_entry_form').hide();
-    });
+        });
 });
 
 
@@ -7527,6 +7527,7 @@ $(function(){
         }
     });
 
+
     $('table#show_receipt_methods_grid tbody tr').live('mouseover',function(){
         if($('#receipt_method_mode').attr('mode')=="show"){
             $(this).css('cursor',"pointer");
@@ -7627,3 +7628,4 @@ $(function(){
      mandantory_check($(this));
     });
 });
+

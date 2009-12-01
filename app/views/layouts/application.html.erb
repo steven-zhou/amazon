@@ -18,9 +18,10 @@
       "config.js",
       "interface.js",
       "jquery.jclock.js",
-      "jquery.validationEngine.js"
+      "jquery.validationEngine.js",
+      "jquery.validate.js"
   %>
- 
+
     <%= yield_authenticity_token %>
   </head>
 
@@ -47,7 +48,7 @@
     <%- end%>
     <div id="feedback_confirmation"></div>
     <div id="whoami"><%="Welcome #{@current_user.user_name}"  %><br/> <%= "Sign In Time: #{session[:clocktime]}" %>
- 
+
     </div>
 
   </body>

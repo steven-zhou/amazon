@@ -13,6 +13,11 @@ class ReceiptingController < ApplicationController
     
   end
 
+   def payment_methods
+  @tag_meta_types = PaymentMethodMetaMetaType.find(:all, :order => "name asc")
+    @category = "PaymentMethod"
+  end
+
   def new_campaign
     @campaign = Campaign.new
     respond_to do |format|
