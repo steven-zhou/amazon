@@ -1,0 +1,17 @@
+#header
+  #page_title
+    %h1 Payment Method Type
+  #lol
+  %br.clear
+
+.full_container
+  .full_container
+    %h1 If you want to create a new Payment Method Meta Type, please contact us.
+  %br.clear
+
+  .tag
+    = render :partial => "/tag_meta_types/tag_meta_types", :locals => {:tag_meta_types => @tag_meta_types,:type=>"payment_method_type"}
+
+.container#tag_meta_type_form{:style => "display:none;"}
+.container#tag_type_form{:style => "display:none;"}
+.container#tag_form{:style => "display:none;"}
