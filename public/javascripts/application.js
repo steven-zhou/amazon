@@ -7571,6 +7571,37 @@ $(function(){
 });
 
 
+/* Person Bank Account Grid*/
+$(function(){
+    $('table#show_person_bank_accounts_grid tbody tr').live('click',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $('table#show_person_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_person_bank_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/client_setups/edit_person_bank_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_person_bank_accounts_grid tbody tr').live('mouseover',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+
 
 /* Show Add Role Condition Description */
 

@@ -1,0 +1,69 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.edit_person_bank_account_required_field').keyup(function() {
+          if($('#edit_person_bank_account_person_id').val() == '' || $('#edit_person_bank_account_number').val() == '') {
+              $('#edit_person_bank_account_submit').attr('disabled', true);
+          } else {
+              $('#edit_person_bank_account_submit').removeAttr('disabled');
+          }
+      });
+    });
+
+    $(function() {
+      $(document).ready(function() {
+        $.ajax({
+            type: "GET",
+            url: "/client_setups/verify_edit_person_bank_account_person_id.js",
+            data: 'id=' + $('#edit_person_bank_account_person_id').val(),
+            dataType: "script"
+        });
+      });
+    });
+
+
+    $(function() {
+      $('#edit_person_bank_account_person_id').blur(function() {
+        $.ajax({
+            type: "GET",
+            url: "/client_setups/verify_edit_person_bank_account_person_id.js",
+            data: 'id=' + $('#edit_person_bank_account_person_id').val(),
+            dataType: "script"
+        });
+      });
+    });
+
+- form_for :person_bank_account, @person_bank_account, :url => {:controller => "client_setups", :action => "update_person_bank_account" }, :html => {:class => 'ajax_form'}  do |f|
+  %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @person_bank_account.id}
+  .form_line
+    .field_15
+      = f.label :person_id, "* Person ID", :class => "required_field"
+      = f.text_field :person_id, :class => "edit_person_bank_account_required_field", :id => "edit_person_bank_account_person_id", :disabled => false
+    .field_60
+      %div#edit_person_bank_account_person{:style => "padding-top:13px;"}
+  .form_line
+    .field_15
+      = f.label :account_number, "* Account Number", :class => "required_field"
+      = f.text_field :account_number, :class => "edit_person_bank_account_required_field", :id => "edit_person_bank_account_number", :disabled => false
+  .form_line
+    .field_30
+      = f.label :bank, "Bank"
+      = collection_select(:person_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {})
+    .field_30
+      = f.label :account_type_id, "Account Type"
+      = collection_select(:person_bank_account, :account_type_id, AccountType.find(:all), :id, :name)
+  .form_line
+    .field_30
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
+    .field_10
+      = f.label :status, "Active"
+      = f.check_box :status, :class => "checkbox_style"
+  .form_line
+    .field_100{:style => "float:right;"}
+      %div{:style => "display:inline;float:right;height:100%;"}
+        = link_to "Remove", {:controller => "client_setups", :action => "destroy_person_bank_account", :id => @person_bank_account.id}, {:class => 'delete', :error_message_field => "person bank account", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+      %div{:style => "display:inline;float:right;height:100%;"}
+        = submit_tag "Update", :disabled => false, :id => "edit_person_bank_account_submit"
+
+#person_bank_account_save_form{:style => "display:none;"}

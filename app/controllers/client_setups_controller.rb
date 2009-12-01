@@ -249,6 +249,76 @@ class ClientSetupsController < ApplicationController
   end
 
 
+  def person_bank_accounts
+
+  end
+
+
+  def new_person_bank_account
+    @person_bank_account = PersonBankAccount.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_person_bank_account
+    @person_bank_account = PersonBankAccount.new(params[:person_bank_account])
+    if @person_bank_account.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new person bank account with ID #{@person_bank_account.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a person bank account.")
+      if(!@person_bank_account.errors[:person_bank_id].nil?)
+         flash.now[:error] = "Please Select A Bank"
+      elsif(!@person_bank_account.errors[:person_person_id].nil?)
+         flash.now[:error] = "Please Select A Person"
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_person_bank_account
+    @person_bank_account = PersonBankAccount.find(params[:id])
+    if @person_bank_account.update_attributes(params[:person_bank_account])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new person bank account with ID #{@person_bank_account.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a person bank account #{@person_bank_account.id}.")
+      if(!@person_bank_account.errors[:person_bank_id].nil?)
+         flash.now[:error] = "Please Select A Bank"
+      elsif(!@person_bank_account.errors[:person_person_id].nil?)
+         flash.now[:error] = "Please Select A Person"
+      end
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_person_bank_account
+    @person_bank_account = PersonBankAccount.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_person_bank_account
+    @person_bank_account = PersonBankAccount.find(params[:id])
+    @person_bank_account.destroy
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def verify_new_person_bank_account_person_id
+    @person = Person.find_by_id(params[:id].to_i)
+  end
+
+  def verify_edit_person_bank_account_person_id
+    @person = Person.find_by_id(params[:id].to_i)
+  end
+
   def client_bank_accounts
 
   end
@@ -285,7 +355,7 @@ class ClientSetupsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a client bank account #{@client_bank_account.id}.")
       if(!@client_bank_account.errors[:client_bank_id].nil?)
-         flash.now[:error] = "Please Select A Bank Account Type"
+         flash.now[:error] = "Please Select A Bank Account"
       end
     end
     respond_to do |format|
@@ -307,5 +377,6 @@ class ClientSetupsController < ApplicationController
       format.js
     end
   end
+
 
 end

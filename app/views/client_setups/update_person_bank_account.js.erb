@@ -1,0 +1,103 @@
+<% if @person_bank_account.errors.empty? -%>
+$('#add_new_person_bank_account').html('<%= escape_javascript(render(:partial => "/client_setups/new_person_bank_account")) %>').css('display','');
+$('#existing_person_bank_accounts').html('<%= escape_javascript(render(:partial => "/client_setups/existing_person_bank_accounts")) %>');
+$('#person_bank_account_mode').attr('mode', 'show');
+$('#edit_person_bank_account').css('display','none');
+  $("#show_person_bank_accounts_grid").flexigrid({
+  url: '/grids/show_person_bank_accounts_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Person',
+  name : 'person',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Bank',
+  name : 'bank',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Account Type',
+  name : 'account_type',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 50,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Person',
+  name : 'person'
+  },
+
+  {
+  display: 'Bank',
+  name : 'bank'
+  },
+
+  {
+  display: 'Account Type',
+  name : 'account_type'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
+  }
+
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Person Bank Accounts',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+  
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
