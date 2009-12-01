@@ -3,7 +3,19 @@ class ReceiptingController < ApplicationController
 
   def campaign_data
 
+  end
 
+  def receipt_accounts
+
+  end
+
+  def receipt_methods
+    
+  end
+
+   def payment_methods
+  @tag_meta_types = PaymentMethodMetaMetaType.find(:all, :order => "name asc")
+    @category = "PaymentMethod"
   end
 
   def new_campaign

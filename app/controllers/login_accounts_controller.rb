@@ -58,23 +58,22 @@ class LoginAccountsController < ApplicationController
       elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("has already been taken"))
         flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "user_name")
 
-         #-----------------------validate--format- ------------------------
+        #-----------------------validate--format- ------------------------
       elsif(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
         flash.now[:error] = flash_message(:type => "format error", :field => "security_email")  
       elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("regular expression of username is wrong"))
         flash.now[:error] = flash_message(:type => "format error", :field => "user_name")
-          #-----------------------validate--length- ------------------------
+        #-----------------------validate--length- ------------------------
       elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?( "pick a shorter name"))
         flash.now[:error] = flash_message(:type => "too_long", :field => "user_name")
       elsif(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?( "pick a longer name"))
         flash.now[:error] = flash_message(:type => "too_short", :field => "user_name")
-          #-----------------------validate--person- ------------------------
+        #-----------------------validate--person- ------------------------
       elsif(!@login_account.errors[:person_id].nil? && @login_account.errors.on(:person_id).include?("You must specify a person that exists."))
         flash.now[:error] = flash_message(:type => "not exist", :field => "person_id")
       else
         flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
       end
-
     end
     @login_accounts = SystemUser.find(:all)
     respond_to  do |format|

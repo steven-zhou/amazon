@@ -1,0 +1,6 @@
+class AccountPurpose < AmazonSetting
+
+
+  
+
+end

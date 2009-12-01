@@ -12,7 +12,7 @@
     =# Initially hidden new person_role form
     -form_for([@person,@person_role], :html => {:style => "display:none", :class => 'ajax_form'}) do |person_role|
       = render :partial => '/person_roles/person_role_form', :locals => { :person_role => person_role }
-      = submit_tag 'Submit'
+      = submit_tag 'Submit',:id=>"role_new_submit",:disabled=>true
 
   #person_roles
     = render :partial => '/person_roles/person_role', :collection => person.person_roles

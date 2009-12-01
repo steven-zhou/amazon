@@ -387,6 +387,10 @@ $(function(){
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $('.startdatepick').change();
+
         }
     });
 
@@ -469,7 +473,12 @@ $(function(){
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+
+        },
+        onClose: function(){
+             $(".role_startdatepick").change();
         }
+       
     });
 
     $('.role_enddatepick').datepicker({
@@ -7268,27 +7277,7 @@ system_id_check_input_change_or_not = function()
 
 }
 
-/*Find Person Age*/
-//$(function(){
-// $('#find_button').live('click',function(){
-//
-//     if($('#person_age').val()!="")
-//         {
-//            var current_year = new Date();
-////            alert(current_year);
-////            alert($('#person_age').val());
-////            alert(current_year -$('#person_age').val() );
-////             alert(current_year.getMonth());
-//             var abc = current_year.getDate()+"-"+current_year.getMonth()+"-"+(current_year.getFullYear()-parseInt($('#person_age').val()));
-//             alert(abc);
-////             alert($('#person_birth_date').val());
-//            $('#person_age').html(abc).change();
-////                       $('#person_age').html(current_year.getDay()+"-"+current_year.getMonth()+"-"+current_year.getFullYear()-parseInt($('#person_age').val())).change();
-////          alert( $('#person_age').val(current_year.+"-"+current_year.getMonth()+"-"));
-//         }
-//
-// })
-//});
+
 /*find keyword*/
 $(function(){
     $('.keywordtype_change').live('change', function(){
@@ -7431,6 +7420,18 @@ $(function(){
     });
 });
 
+$(function() {
+    $('#copy_campaign').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/receipting/copy_campaign.js",
+            data: 'id=' + $(this).attr('campaign'),
+            dataType: "script"
+        });
+    });
+});
+
 /* Campaign Source Grid*/
 $(function(){
     $('table#show_sources_by_campaign_grid tbody tr').live('click',function(){
@@ -7462,17 +7463,172 @@ $(function(){
     });
 });
 
+
+/* Receipt Account Grid*/
+$(function(){
+    $('table#show_receipt_accounts_grid tbody tr').live('click',function(){
+        if($('#receipt_account_mode').attr('mode')=="show"){
+            $('table#show_receipt_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_receipt_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#receipt_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipt_accounts/edit_receipt_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_receipt_accounts_grid tbody tr').live('mouseover',function(){
+        if($('#receipt_account_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
 $(function() {
-    $('#copy_campaign').live('click', function() {
+    $('#copy_receipt_account').live('click', function() {
 
         $.ajax({
             type: "GET",
-            url: "/receipting/copy_campaign.js",
-            data: 'id=' + $(this).attr('campaign'),
+            url: "/receipt_accounts/copy_receipt_account.js",
+            data: 'id=' + $(this).attr('receipt_account'),
+            dataType: "script"
+        });
+    });
+});
+
+/* Receipt Method Grid*/
+$(function(){
+    $('table#show_receipt_methods_grid tbody tr').live('click',function(){
+        if($('#receipt_method_mode').attr('mode')=="show"){
+            $('table#show_receipt_methods_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_receipt_methods_grid tbody tr').live('dblclick',function(){
+        if($('#receipt_method_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/receipt_methods/edit_receipt_method/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+
+    $('table#show_receipt_methods_grid tbody tr').live('mouseover',function(){
+        if($('#receipt_method_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+$(function() {
+    $('#copy_receipt_method').live('click', function() {
+        $.ajax({
+            type: "GET",
+            url: "/receipt_methods/copy_receipt_method.js",
+            data: 'id=' + $(this).attr('receipt_method'),
             dataType: "script"
         });
     });
 });
 
 
+
+/* Client Bank Account Grid*/
+$(function(){
+    $('table#show_client_bank_accounts_grid tbody tr').live('click',function(){
+        if($('#client_bank_account_mode').attr('mode')=="show"){
+            $('table#show_client_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_client_bank_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#client_bank_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/client_setups/edit_client_bank_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_client_bank_accounts_grid tbody tr').live('mouseover',function(){
+        if($('#client_bank_account_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+
+
+/* Show Add Role Condition Description */
+
+$(function(){
+    $("#doctype_id").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
+        });
+    });
+});
+
+/*show submit button*/
+
+
+ mandantory_field = function(link)
+ {
+        if($('#'+link.attr('mandantory_field1')).val()=='' ||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
+          {
+               $('#'+link.attr('submit_button_id')).attr('disabled', true);
+
+          }
+          else
+              {
+               $('#'+link.attr('submit_button_id')).attr('disabled', false);
+
+              }
+
+
+
+ }
+
+//$(function(){
+//    $(".mandantory_field").live('keyup',function(){
+//      mandantory_field($(this));
+//
+//
+//    });
+//});
+
+$(function(){
+    $(".mandantory_field").live('change',function(){
+   
+     mandantory_field($(this));
+
+    });
+});
 

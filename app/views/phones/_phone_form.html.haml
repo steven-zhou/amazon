@@ -17,7 +17,7 @@
     = phone.text_field :pre_value
   .field_40
     = phone.label :value, "<span class='asterisk'>*</span>Value"
-    = phone.text_field :value , :class => "empty_field" , :id => "phone_value_edit"
+    = phone.text_field :value , :class => "empty_field" , :id => "phone_value_edit",:class=>'mandantory_field', :mandantory_field1=>"phone_value_edit",:submit_button_id=>"contact_phone_submit_edit"
   .field_15
     = phone.label :post_value, "Post Value"
     = phone.text_field :post_value

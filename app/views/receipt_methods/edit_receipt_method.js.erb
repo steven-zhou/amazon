@@ -1,0 +1,5 @@
+$('#add_new_receipt_method').css('display','none');
+$('#edit_receipt_method').css('display', '');
+$('#edit_receipt_method_form').html('<%= escape_javascript(render(:partial => "/receipt_methods/edit_receipt_method_form", :locals => {:receipt_method => @receipt_method })) %>');
+$('#receipt_method_mode').attr('mode', 'edit');
+$('.close_option[field="receipt_method"]').css("display","");

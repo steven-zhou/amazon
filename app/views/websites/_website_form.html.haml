@@ -13,7 +13,7 @@
         = website.collection_select :contact_meta_type_id, Contact.website_types - @organisation.personal_website_types, :id, :name
   .field_75
     = website.label :value, "<span class='asterisk'>*</span>Value"
-    = website.text_field :value, :id => @website.new_record? ? "website_value" : "website_value_edit", :value => @website.new_record? ? "http://" : @website.value
+    = website.text_field :value, :id => @website.new_record? ? "website_value" : "website_value_edit", :value => @website.new_record? ? "" : @website.value,:class=>'mandantory_field', :mandantory_field1=>@website.new_record? ? "website_value" : "website_value_edit",:submit_button_id=>"submit_website_field_edit"
 .form_line
   .field_100
     = website.label :remarks, "Remarks"

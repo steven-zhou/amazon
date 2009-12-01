@@ -12,7 +12,7 @@
     -# Initially hidden new employment form
     -form_for([@person,@employment], :html => {:style => "display:none", :class => 'ajax_form'}) do |employment|      
       = render :partial => '/employments/employment_form', :locals => { :employment => employment }
-      = submit_tag 'Submit'
+      = submit_tag 'Submit',:id=>"employment_new_submit" ,:disabled=>true
     
   #employments
     =# Render the person's employments

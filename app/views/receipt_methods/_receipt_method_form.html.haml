@@ -1,0 +1,69 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.new_receipt_method_required_field').keyup(function() {
+          if($('#new_receipt_method_name').val() == '') {
+              $('#new_receipt_method_submit').attr('disabled', true);
+          } else {
+              $('#new_receipt_method_submit').removeAttr('disabled');
+          }
+      });
+    });
+
+    $(function() {
+      $('#new_receipt_method_receipt_method_type_id').change(function() {
+        if($('#new_receipt_method_receipt_method_type_id :selected').text() == 'Credit Card') {
+            $('#new_credit_card_info').show();
+        } else {
+            $('#new_credit_card_info').hide();
+       }
+      });
+    });
+
+
+- form_for :receipt_method, @receipt_method, :url => {:controller => "receipt_methods", :action => "create_receipt_method" }, :html => {:class => 'ajax_form'}  do |f|
+  .form_line
+    .field_15
+      = f.label :long_name, "* Name", :class => "required_field"
+      = f.text_field :name, :class => "new_receipt_method_required_field", :id => "new_receipt_method_name", :disabled => false
+  .form_line
+    .field_30
+      = f.label :description, "Description"
+      = f.text_field :description
+    .field_30
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
+  .form_line
+    .field_30
+      = f.label :receipt_method_type_id, "Receipt Method Type"
+      = f.collection_select(:receipt_method_type_id, ReceiptMethodType.find(:all), :id, :name, {:include_blank => true}, {:id => "new_receipt_method_receipt_method_type_id"})
+  %div#new_credit_card_info{:style => "display:none;"}
+    .form_line
+      .field_30
+        = f.label :card_merchant_number, "Card Merchant Number"
+        = f.text_field :card_merchant_number
+    .form_line
+      .field_25
+        = f.label :card_name, "Card Name"
+        = f.text_field :card_name
+    .form_line
+      .field_15
+        = f.label :card_name, "Card Location"
+        = f.text_field :card_location
+      .field_15
+        = f.label :card_cost, "Card Cost"
+        = f.text_field :card_cost
+    .form_line
+      .field_15
+        = f.label :card_floor_limit, "Card Floor Limit"
+        = f.text_field :card_floor_limit
+      .field_15
+        = f.label :card_cost, "Card Lines Per Page"
+        = f.text_field :card_lines_per_page, :class => "integer_field"
+  .form_line
+    .field_10
+      = f.label :status, "Active"
+      = f.check_box :status, :checked => false, :class => "checkbox_style"
+  .form_line
+    .field_10{:style => "float:right;"}
+      = submit_tag "Submit", :disabled => true, :id => "new_receipt_method_submit"

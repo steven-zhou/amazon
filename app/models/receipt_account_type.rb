@@ -1,0 +1,3 @@
+class ReceiptAccountType < AmazonSetting
+
+end

@@ -180,6 +180,7 @@ class PeopleController < ApplicationController
     @relationship = Relationship.new
     @employment = Employment.new
     @note = Note.new
+    @note.active = TRUE
     @image = @person.image unless (@person.nil? || @person.image.nil?)
     @role = Role.new
     @person_role = PersonRole.new
@@ -210,7 +211,7 @@ class PeopleController < ApplicationController
         if @image.save
           @person.image = @image
         else
-          flash[:warning] = "There Was an Error to Save the Selected Image."
+          flash[:warning_before_message] = "There Was an Error to Save the Selected Image."
         end
       end
 

@@ -1898,4 +1898,261 @@ class GridsController < ApplicationController
     render :text => return_data.to_json, :layout => false
   end
 
+  def show_receipt_accounts_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipt_accounts = ReceiptAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ReceiptAccount.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipt_accounts = ReceiptAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = Country.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @receipt_accounts.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.receipt_account_type.name,
+          u.description,
+          u.post_to_history,
+          u.post_to_campaign,
+          u.send_receipt,
+          u.status,
+          u.remarks]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_receipt_accounts_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipt_accounts = ReceiptAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ReceiptAccount.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipt_accounts = ReceiptAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = ReceiptAccount.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @receipt_accounts.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.receipt_account_type.name,
+          u.description,
+          u.post_to_history,
+          u.post_to_campaign,
+          u.send_receipt,
+          u.status,
+          u.remarks]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_receipt_methods_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipt_methods = ReceiptMethod.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ReceiptMethod.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipt_methods = ReceiptMethod.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = ReceiptMethod.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @receipt_methods.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.receipt_method_type.name,
+          u.description,
+          u.status]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_client_bank_accounts_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @client_bank_accounts = ClientBankAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ClientBankAccount.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @client_bank_accounts = ClientBankAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = ClientBankAccount.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @client_bank_accounts.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.bank.display_name,
+          u.account_number,
+          u.account_purpose.name,
+          u.status
+          ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
 end

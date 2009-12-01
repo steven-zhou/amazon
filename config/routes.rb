@@ -49,7 +49,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get}
+  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get,
+    :client_bank_accounts => :get, :new_client_bank_account => :get, :create_client_bank_account => :post, :edit_client_bank_account => :get, :update_client_bank_account => :post, :copy_client_bank_account => :get, :create_copy_of_client_bank_account => :post, :destroy_client_bank_account => :get
+    }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
@@ -62,13 +64,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :roles, :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get}
 
 
-  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get }
+  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :payment_methods => :get }
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
   map.resources :group, :collection => {:show_group_types => :get}
   map.resources :tag_types, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get, :create_group_meta_type => :get, :custom_groups_finder => :get, :create_security_group_meta_type => :get, :security_groups_finder => :get, :create_query_table_meta_meta_type => :get, :query_tables_finder => :get, :delete_custom_group_type => :get}
-  map.resources :tags, :collection => {:show_tags => :get, :show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get, :create_query_table_atttribute => :get, :query_table_attributes_finder => :get, :delete_custom_group => :get, :edit_custom_sub_group => :get}
+  map.resources :tags, :collection => {:show_tags => :get, :show_role_condition_description=>:get,:show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get, :create_query_table_atttribute => :get, :query_table_attributes_finder => :get, :delete_custom_group => :get, :edit_custom_sub_group => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:show_sql_statement => :get, :run => :get, :clear => :get, :check_runtime => :get, :copy_runtime => :get},
     :member => {:copy => :get, :query_header_to_xml => :get} do |query_header|
@@ -90,6 +92,10 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
+  map.resources :receipt_accounts, :collection => {:new_receipt_account => :get, :create_receipt_account => :post, :edit_receipt_account => :get, :update_receipt_account => :post, :copy_receipt_account => :get, :create_copy_of_receipt_account => :post, :destroy_receipt_account => :get }
+
+  map.resources :receipt_methods, :collection => {:new_receipt_method => :get, :create_receipt_method => :post, :edit_receipt_method => :get, :update_receipt_method => :post, :copy_receipt_method => :get, :create_copy_of_receipt_method => :post, :destroy_receipt_method => :get }
+    
   map.resources :reports, :collection => {:generate_report => :post, :generate_organisation_report_pdf => :get,:generate_person_report_pdf=>:get,:preview_report => :post, :person_contacts_report_grid => :get,:organisation_contacts_report_grid => :get, :generate_system_log_pdf => :post}
 
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get, :change_status => :get}
@@ -98,7 +104,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get,
+    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get,
     :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}

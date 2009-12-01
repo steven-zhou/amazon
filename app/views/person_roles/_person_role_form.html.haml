@@ -2,9 +2,9 @@
   .field_30
     = person_role.label :role_type_id, "<span class='asterisk'>*</span>Role Type"
     -if @person_role.new_record?
-      = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+      = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select " ,:person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
     -else
-      = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
+      = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field mandantory_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
   .field_25{:style => "float:left;"}
     %label &nbsp;
     -if @person_role.new_record?
@@ -16,10 +16,10 @@
   .field_30
     = person_role.label :role_id, "<span class='asterisk'>*</span>Role"
     -if @person_role.new_record?
-      %select.show_role_table{:name => "person_role[role_id]", :id => "person_role_role_id", :person_id => @person.id, :person_role_id => "person_role_role_id"}
+      %select.show_role_table{:name => "person_role[role_id]", :id => "person_role_role_id", :person_id => @person.id, :person_role_id => "person_role_role_id",:class=>"mandantory_field",:mandantory_field1=>"person_role_role_id",:mandantory_field2=>"person_role_assigned_by",:mandantory_field3=>"person_role_start_date",:submit_button_id=>"role_new_submit"}
         %options
     -else
-      %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id}
+      %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id,:class=>"mandantory_field",:mandantory_field1=>"person_role_#{@person_role.id}_role_id",:mandantory_field2=>"person_role_assigned_by_#{@person_role.id}",:mandantory_field3=>"person_role_#{@person_role.id}_start_date",:submit_button_id=>"role_edit_submit"}
         - @roles.each do |r|
           %option{:value => "#{r.id}", :selected => (@role.id == r.id) } #{r.name}
   .field_25{:style => "float:left;"}
@@ -58,7 +58,7 @@
 .form_line
   .field_25{:style => "margin-right: 2px;"}
     = person_role.label :assigned_by, "<span class='asterisk'>*</span>Assigned By"
-    = person_role.text_field :assigned_by, :class=>"check_person_field", :update=>"assigner_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id ,:id => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}"
+    = person_role.text_field :assigned_by, :class=>"check_person_field mandantory_field", :update=>"assigner_container",:person_role_id=> @person_role.new_record? ? 0 : @person_role.id ,:id => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}",:mandantory_field1=>@person_role.new_record? ? "person_role_role_id" : "person_role_#{@person_role.id}_role_id",:mandantory_field2=>@person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}",:mandantory_field3=>@person_role.new_record? ? "person_role_start_date" : "person_role_#{@person_role.id}_start_date",:submit_button_id=>@person_role.new_record? ? "role_new_submit": "role_edit_submit"
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}", :title=>"Search"
@@ -117,7 +117,7 @@
 
   .field_25
     = person_role.label :start_date, "<span class='asterisk'>*</span>Start Date"
-    = person_role.text_field :start_date, :class=> "role_startdatepick", :end_date=>@person_role.new_record? ? "person_role_end_date" : "person_role_#{@person_role.id}_end_date", :start_date=>@person_role.new_record? ? "person_role_assignment_date" : "person_role_#{@person_role.id}_assignment_date", :value=>@person_role.start_date.to_s
+    = person_role.text_field :start_date, :class=> "role_startdatepick mandantory_field", :end_date=>@person_role.new_record? ? "person_role_end_date" : "person_role_#{@person_role.id}_end_date", :start_date=>@person_role.new_record? ? "person_role_assignment_date" : "person_role_#{@person_role.id}_assignment_date", :value=>@person_role.start_date.to_s,:mandantory_field1=>@person_role.new_record? ? "person_role_role_id":"person_role_#{@person_role.id}_role_id",:mandantory_field2=>@person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}",:mandantory_field3=>@person_role.new_record? ? "person_role_start_date":"person_role_#{@person_role.id}_start_date",:submit_button_id=>@person_role.new_record? ? "role_new_submit": "role_edit_submit"
 
   .field_25
     = person_role.label :end_date, "End Date"
