@@ -1,27 +1,39 @@
 <% if @person.new_record? %>
   <% if @person.preferred_name.nil? %>
-    $("#related_person_name_container").html('<br/>Invalid IDa');
+    $("#related_person_name_container").html('<br/>Invalid ID');
     $("#related_person_name").html('<%=escape_javascript("<br/>#{@person.name}")%>');
   <% else %>
     <% if @person_role.new_record? %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("Invalid IDb");
-    
+    $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").css('display','');
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("Invalid ID");
+      
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").fadeTo(3000,1);
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").fadeOut(3000);
       $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
 
       $(".mandantory_field").keyup();
     <% else %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").html("Invalid IDc");
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").css('display','');
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").html("Invalid ID");
+
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").fadeTo(3000,1);
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").fadeOut(3000);
+
+      $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
+       $(".mandantory_field").keyup();
     <% end %>
   <% end %>
 <% else %>
   <% if @person.preferred_name.nil? %>
     $("#related_person_name_container").html('<%=escape_javascript("<br/>#{@person.name}")%>');
-     $("#related_person_name").html('<br/>Invalid IDd');
+     $("#related_person_name").html('<br/>Invalid ID');
   <% else %>
     <% if @person_role.new_record? %>
+     $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").css('display','');
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("<%=escape_javascript("#{@person.name}")%>");
     
     <% else %>
+      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").css('display','');
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").html("<%=escape_javascript("#{@person.name}")%>");
     <%end%>
   <% end %>

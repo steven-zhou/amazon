@@ -319,11 +319,12 @@ class PeopleController < ApplicationController
   end
 
   def name_finder
-    @person = Person.find(params[:person_id].to_i) rescue @person = Person.new
+    @person = Person.find_by_id(params[:person_id]) rescue @person = Person.new
+    @person = Person.new if @person.nil?
     @employment = Employment.find(params[:employment_id].to_i) rescue @employment = Employment.new
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
     @person.preferred_name = params[:update].nil?? nil : params[:update]
-    
+    @input_field_id = params[:input_field_id]  #to clear the input field
     respond_to do |format|
       format.js {  }
     end
@@ -338,11 +339,7 @@ class PeopleController < ApplicationController
     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
     @person.preferred_name = params[:update].nil? ? nil : params[:update]
-    @input_field_id = params[:input_field_id]
-
-    puts "**********************"
-    puts params[:input_field_id]
-     puts @input_field_id
+    @input_field_id = params[:input_field_id] #to clear the input field
     respond_to do |format|
       format.js {  }
     end

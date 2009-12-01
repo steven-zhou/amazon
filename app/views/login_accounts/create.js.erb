@@ -1,6 +1,5 @@
-<% unless flash[:error].nil? %>
-  $("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
-  alert("a");
+<% unless @login_account.errors.nil? %>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {
      modal: true,
       resizable: false,

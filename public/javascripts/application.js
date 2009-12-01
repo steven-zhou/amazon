@@ -726,7 +726,7 @@ $(function(){
                 url:
                 "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id')+'&input_field_id='+$(this).attr('input_field_id'),
                 dataType: "script"
             });
         }else{
@@ -4947,6 +4947,20 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".edit_bank").live('click', function(){
+
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+   });
+});
+
+$(function(){
+    $(".close_edit_bank").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+   });
+});
+
 
 $(function(){
     $('.new_logo').live('click', function(){        
@@ -5914,9 +5928,9 @@ $(function(){
                     }
                 }
             });
-                $('#password_error').parent().find("a").css("display","none");
-                $("#password_error").parent().css('background-color','#D1DDE6');
-                $("#password_error").css('background-color','#D1DDE6');
+            $('#password_error').parent().find("a").css("display","none");
+            $("#password_error").parent().css('background-color','#D1DDE6');
+            $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
         }else{
@@ -5934,10 +5948,10 @@ $(function(){
 $(function(){
     $('.check_postcode_columns').blur(function(){
 
-    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
-        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
-            $('#import_postcode_submit').attr("disabled", false);
-        } else {
+        if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+            if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+                $('#import_postcode_submit').attr("disabled", false);
+            } else {
 
                 var link = $(this);
 
@@ -5966,11 +5980,11 @@ $(function(){
                 $('#error_message').dialog('open');
 
 
+                $('#import_postcode_submit').attr("disabled", true);
+            }
+        } else {
             $('#import_postcode_submit').attr("disabled", true);
         }
-    } else {
-        $('#import_postcode_submit').attr("disabled", true);
-    }
 
     });
 });
@@ -7027,7 +7041,7 @@ $(function(){
         // $('#add_new_bank').hide();
         // $('#open_add_new_bank').show();
         // $('#close_add_new_bank').hide();
-    });
+        });
 });
 
 $(function(){
@@ -7089,7 +7103,7 @@ $(function(){
 $(function(){
     $('#edit_bank_entry_close_form').live('click', function(){
         // $('#edit_bank_entry_form').hide();
-    });
+        });
 });
 
 
@@ -7531,6 +7545,7 @@ $(function(){
         }
     });
 
+
     $('table#show_receipt_methods_grid tbody tr').live('mouseover',function(){
         if($('#receipt_method_mode').attr('mode')=="show"){
             $(this).css('cursor',"pointer");
@@ -7584,6 +7599,42 @@ $(function(){
 });
 
 
+/* Person Bank Account Grid*/
+$(function(){
+    $('table#show_person_bank_accounts_grid tbody tr').live('click',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $('table#show_person_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_person_bank_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/client_setups/edit_person_bank_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+});
+
+// When we have a form to edit we need to disable all the fields except the status field
+
+$(function(){
+    $(".disable_on_inactive").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
+        });
+    });
+});
 
 /* Show Add Role Condition Description */
 
@@ -7631,3 +7682,4 @@ $(function(){
      mandantory_check($(this));
     });
 });
+

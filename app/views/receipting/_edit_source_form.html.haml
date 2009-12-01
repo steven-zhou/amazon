@@ -41,10 +41,10 @@
       = f.text_field :remarks
     .field_10
       = f.label :status, "Active"
-      = f.check_box :status, :checked => true, :class => "checkbox_style"
+      = f.check_box :status, :class => "checkbox_style"
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete', :error_message_field => "source", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete', :error_message_field => "source", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = submit_tag "Submit", :disabled => false, :id => "edit_source_submit"
+        = submit_tag "Update", :disabled => false, :id => "edit_source_submit"
