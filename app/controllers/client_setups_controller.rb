@@ -271,6 +271,8 @@ class ClientSetupsController < ApplicationController
          flash.now[:error] = "Please Select A Bank"
       elsif(!@person_bank_account.errors[:person_person_id].nil?)
          flash.now[:error] = "Please Select A Person"
+      elsif(!@person_bank_account.errors[:account_number].nil?)
+         flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
 
@@ -289,6 +291,8 @@ class ClientSetupsController < ApplicationController
          flash.now[:error] = "Please Select A Bank"
       elsif(!@person_bank_account.errors[:person_person_id].nil?)
          flash.now[:error] = "Please Select A Person"
+      elsif(!@person_bank_account.errors[:account_number].nil?)
+         flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
     respond_to do |format|
@@ -339,6 +343,8 @@ class ClientSetupsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a client bank account.")
       if(!@client_bank_account.errors[:client_bank_id].nil?)
          flash.now[:error] = "Please Select A Bank"
+      elsif(!@client_bank_account.errors[:account_number].nil?)
+         flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
 
@@ -356,6 +362,8 @@ class ClientSetupsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a client bank account #{@client_bank_account.id}.")
       if(!@client_bank_account.errors[:client_bank_id].nil?)
          flash.now[:error] = "Please Select A Bank Account"
+      elsif(!@client_bank_account.errors[:account_number].nil?)
+         flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
     respond_to do |format|

@@ -32,7 +32,7 @@
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "client_setups", :action => "destroy_client_bank_account", :id => @client_bank_account.id}, {:class => 'delete', :error_message_field => "client bank account", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+        = link_to "Remove", {:controller => "client_setups", :action => "destroy_client_bank_account", :id => @client_bank_account.id}, {:class => 'delete', :error_message_field => "client bank account", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"} if client_bank_account.status == true
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_client_bank_account_submit"
 

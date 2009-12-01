@@ -30,6 +30,8 @@
         %ul
           %li{:id => @current_action == "parameters" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters", :controller => "client_setups", :action => "parameters"
+          %li{:id => @current_action == "client_bank_accounts" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Bank Accounts", :controller => "client_setups", :action => "client_bank_accounts"
           %li{:id => @current_action == "license_info" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info", :controller => "client_setups", :action => "license_info"
           %li{:id => @current_action == "system_log_management" ? "selected" : ""}
