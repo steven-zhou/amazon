@@ -8,16 +8,16 @@
       .form_line{:style => "float:none;"}
         .field_36
           = f.label :full_name, "<span class='asterisk'>*</span>Full Name"
-          = f.text_field :full_name
+          = f.text_field :full_name,:id=>"bank_edit_full_name",:class=>'mandantory_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
         .field_20
           = f.label :short_name, "<span class='asterisk'>*</span>Short Name"
-          = f.text_field :short_name
+          = f.text_field :short_name,:id=>"bank_edit_short_name",:class=>'mandantory_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
         .field_20
           = f.label :branch_name, "<span class='asterisk'>*</span>Branch Name"
-          = f.text_field :branch_name
+          = f.text_field :branch_name,:id=>"bank_edit_branch_name",:class=>'mandantory_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
         .field_20
           = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
-          = f.text_field :branch_number
+          = f.text_field :branch_number,:id=>"bank_edit_branch_number",:class=>'mandantory_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
       .form_line
         .field_36
           = f.label :website, 'Website'
@@ -84,4 +84,4 @@
         .field_50
           = f.label :remarks, 'Remarks'
           = f.text_field :remarks
-    = submit_tag "Submit"
+    = submit_tag "Submit",:id=>"bank_edit_submit"

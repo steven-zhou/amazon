@@ -22,9 +22,9 @@
       -form_for @user_group, :url => {:controller => "user_groups", :action=> "create"}, :html => {:class => 'ajax_form'} do |user_group|
         .form_line{:style => "float:none"}
           .field_20
-            = user_group.label :user_id, 'User Name'
+            = user_group.label :user_id, "<span class='asterisk'>*</span>User Name"
             %input{:name => "user_group[user_id]", :style => "display:none", :id => "user_name_id"}
-            %input{:name => "user_name", :class => "user_name_to_person", :login_account_id => 0}
+            %input{:name => "user_name",:id=>"user_group_name_id", :class => "user_name_to_person mandantory_field",:mandantory_field1=>"user_group_name_id",:submit_button_id=>"user_group_new_submit", :login_account_id => 0}
           .field_30
             %label &nbsp
             %span{:id => "login_name_container_0"}
@@ -34,7 +34,7 @@
           .field_20{:style => "float:right;"}
             %label &nbsp
             = link_to_function 'clear', :class => "clear_form alt_option"
-            = submit_tag 'Submit'
+            = submit_tag 'Submit',:id=>"user_group_new_submit",:disabled=>true
           
     
   %div#user_group_user
