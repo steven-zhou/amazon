@@ -6,9 +6,9 @@
   $('#campaign_save_form').dialog('close');
   $('#existing_campaigns').html('<%= escape_javascript(render(:partial => "/receipting/existing_campaigns")) %>');
   $('#campaign_mode').attr('mode', 'show');
-    $("#show_campaigns_grid").flexigrid({
-        url: '/grids/show_campaigns_grid',
-        dataType: 'json',
+  $("#show_campaigns_grid").flexigrid({
+  url: '/grids/show_campaigns_grid',
+  dataType: 'json',
   colModel : [
   {
   display: 'ID',
@@ -21,7 +21,15 @@
   {
   display: 'Name',
   name : 'name',
-  width : 100,
+  width : 160,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 260,
   sortable : true,
   align: 'left'
   },
@@ -51,9 +59,9 @@
   },
 
   {
-  display: 'Description',
-  name : 'description',
-  width : 60,
+  display: 'Status',
+  name : 'status',
+  width : 100,
   sortable : true,
   align: 'left'
   }
@@ -78,7 +86,13 @@
   {
   display: 'Target Amount',
   name : 'target_amount'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
   }
+
 
   ],
   sortname: "start_date, name",

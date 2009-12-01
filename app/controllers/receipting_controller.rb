@@ -29,7 +29,7 @@ class ReceiptingController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign record.")
       if(!@campaign.errors[:start_date].nil?)
-         flash.now[:error] = "Please Enter A Start Date"
+         flash.now[:error] = "Please Enter A Valid Start Date"
       elsif(!@campaign.errors[:name].nil?)
          flash.now[:error] = "Please Enter A Name"
       end
@@ -41,12 +41,14 @@ class ReceiptingController < ApplicationController
 
   def update_campaign
     @campaign = Campaign.find(params[:id])
+    @campaign.start_date = params[:start_date] unless params[:start_date].nil?
+    @campaign.end_date = params[:end_date] unless params[:end_date].nil?
     if @campaign.update_attributes(params[:campaign])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new campaign entry with ID #{@campaign.id}.")
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a campaign #{@campaign.id}.")
       if(!@campaign.errors[:start_date].nil?)
-         flash.now[:error] = "Please Enter A Start Date"
+         flash.now[:error] = "Please Enter A Valid Start Date"
       elsif(!@campaign.errors[:name].nil?)
          flash.now[:error] = "Please Enter A Name"
       end
