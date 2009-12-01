@@ -45,6 +45,6 @@
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete', :error_message_field => "source", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"} unless @source.status == true
+        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete', :error_message_field => "source", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"} unless @source.status == false
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_source_submit"
