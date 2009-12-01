@@ -1,10 +1,12 @@
 
 
 $("#runtime_form").dialog('close');
-  $('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
-  $('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
+$('#sql_result').html('<%= escape_javascript(render(:partial => "queries/query_results", :locals => {:people => @people})) %>');
+$('#query_id_for_list').val('<%= escape_javascript("#{@query_header.id}") %>');
 
-
+<%if @check_query_empty.blank?%>
+  $("#list_header_name").attr("disabled", true);
+<%end%>
 $('#result_div').dialog({
   modal: true,
   resizable: true,
@@ -46,6 +48,6 @@ $('#result_div').dialog({
   height: 300
   });
 
-  
+
 
   

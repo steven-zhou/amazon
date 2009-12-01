@@ -2267,6 +2267,9 @@ $(function(){
                     $('#check_input_change').val("false");
                     $('#check_left_input_change').val("false");
                     $('#check_right_input_change').val("false");
+                    //make save_button & run_button to disabled
+                    $("#save_button").attr("disabled", true);
+                    $("#run_button").attr("disabled", true);
                     $.ajax({
                         type: "GET",
                         url: "/query_headers/clear.js",
@@ -2275,6 +2278,7 @@ $(function(){
                     });
 
                     $(this).dialog('destroy');
+                    
                     return true;
                 }
             }
