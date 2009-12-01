@@ -726,7 +726,7 @@ $(function(){
                 url:
                 "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id')+'&input_field_id='+$(this).attr('input_field_id'),
                 dataType: "script"
             });
         }else{
