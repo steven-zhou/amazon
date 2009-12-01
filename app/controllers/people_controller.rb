@@ -330,10 +330,19 @@ class PeopleController < ApplicationController
   end
 
   def role_finder
-    @person = Person.find(params[:person_id]) rescue @person = Person.new
+ 
+    @person = Person.find_by_id(params[:person_id]) rescue @person = Person.new #if input a string like "1u", it will run thee rescue, but if input a '14444', if will return nil
+
+    @person = Person.new if @person.nil?  #handle the situation when @person return nil
+
     @person_role = PersonRole.find(params[:person_role_id]) rescue @person_role = PersonRole.new
     #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
-    @person.preferred_name = params[:update].nil?? nil : params[:update]
+    @person.preferred_name = params[:update].nil? ? nil : params[:update]
+    @input_field_id = params[:input_field_id]
+
+    puts "**********************"
+    puts params[:input_field_id]
+     puts @input_field_id
     respond_to do |format|
       format.js {  }
     end

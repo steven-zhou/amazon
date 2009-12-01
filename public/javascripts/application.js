@@ -476,7 +476,7 @@ $(function(){
 
         },
         onClose: function(){
-             $(".role_startdatepick").change();
+             $(".mandantory_field").keyup();
         }
        
     });
@@ -692,7 +692,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/role_finder.js",
-            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id'),
+            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id')+'&input_field_id='+$(this).attr('id'),
             dataType: "script"
         });
     });
@@ -7598,7 +7598,7 @@ $(function(){
 /*show submit button*/
 
 
- mandantory_field = function(link)
+ mandantory_check = function(link)
  {
         if($('#'+link.attr('mandantory_field1')).val()=='' ||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
           {
@@ -7615,18 +7615,15 @@ $(function(){
 
  }
 
-//$(function(){
-//    $(".mandantory_field").live('keyup',function(){
-//      mandantory_field($(this));
-//
-//
-//    });
-//});
+$(function(){
+    $(".mandantory_dropdown_list").live('change',function(){
+      mandantory_check($(this));
+
+    });
+});
 
 $(function(){
-    $(".mandantory_field").live('change',function(){
-   
-     mandantory_field($(this));
-
+    $(".mandantory_field").live('keyup',function(){
+     mandantory_check($(this));
     });
 });
