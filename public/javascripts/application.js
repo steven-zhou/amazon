@@ -726,7 +726,7 @@ $(function(){
                 url:
                 "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id')+'&input_field_id='+$(this).attr('input_field_id'),
                 dataType: "script"
             });
         }else{
@@ -2267,6 +2267,9 @@ $(function(){
                     $('#check_input_change').val("false");
                     $('#check_left_input_change').val("false");
                     $('#check_right_input_change').val("false");
+                    //make save_button & run_button to disabled
+                    $("#save_button").attr("disabled", true);
+                    $("#run_button").attr("disabled", true);
                     $.ajax({
                         type: "GET",
                         url: "/query_headers/clear.js",
@@ -2275,6 +2278,7 @@ $(function(){
                     });
 
                     $(this).dialog('destroy');
+                    
                     return true;
                 }
             }
@@ -4943,6 +4947,20 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".edit_bank").live('click', function(){
+
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+   });
+});
+
+$(function(){
+    $(".close_edit_bank").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+   });
+});
+
 
 $(function(){
     $('.new_logo').live('click', function(){        
@@ -7581,6 +7599,42 @@ $(function(){
 });
 
 
+/* Person Bank Account Grid*/
+$(function(){
+    $('table#show_person_bank_accounts_grid tbody tr').live('click',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $('table#show_person_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_person_bank_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/client_setups/edit_person_bank_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+});
+
+// When we have a form to edit we need to disable all the fields except the status field
+
+$(function(){
+    $(".disable_on_inactive").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
+        });
+    });
+});
 
 /* Show Add Role Condition Description */
 

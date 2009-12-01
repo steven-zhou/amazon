@@ -45,6 +45,8 @@ class QueryCriteriasController < ApplicationController
     @query_header = @query_criteria.query_header
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Criteria #{@query_criteria.id}.")
     @query_criteria.destroy
+    #get current all query criteria to decide if save_button and Run_Query button should be disabled
+    @query_criteria_all = QueryCriteria.find(:all, :conditions => {:query_header_id => @query_header.id})
 #    @query_header = QueryHeader.find(@query_header.id)
 #    @query_criteria = QueryCriteria.new
     respond_to do |format|

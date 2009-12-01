@@ -40,7 +40,15 @@
   {
   display: 'Name',
   name : 'name',
-  width : 100,
+  width : 160,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 260,
   sortable : true,
   align: 'left'
   },
@@ -70,9 +78,9 @@
   },
 
   {
-  display: 'Description',
-  name : 'description',
-  width : 60,
+  display: 'Status',
+  name : 'status',
+  width : 100,
   sortable : true,
   align: 'left'
   }
@@ -97,7 +105,13 @@
   {
   display: 'Target Amount',
   name : 'target_amount'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
   }
+
 
   ],
   sortname: "start_date, name",
@@ -110,3 +124,4 @@
   width: 'auto',
   height: 'auto'
   });
+
