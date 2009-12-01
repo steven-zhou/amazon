@@ -14,18 +14,18 @@
   .form_line
     .field_15
       = f.label :account_number, "* Account Number", :class => "required_field"
-      = f.text_field :account_number, :class => "edit_client_bank_account_required_field", :id => "edit_client_bank_account_number", :disabled => false
+      = f.text_field :account_number, :class => "edit_client_bank_account_required_field", :id => "edit_client_bank_account_number", :disabled => true
   .form_line
     .field_30
       = f.label :bank, "Bank"
-      = collection_select(:client_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {})
+      = collection_select(:client_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {}, {:disabled => client_bank_account.status == false})
     .field_30
       = f.label :account_purpose_id, "Purpose"
-      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.find(:all), :id, :name)
+      = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.find(:all), :id, :name, {}, {:disabled => client_bank_account.status == false})
   .form_line
     .field_30
       = f.label :remarks, "Remarks"
-      = f.text_field :remarks
+      = f.text_field :remarks, :disabled => client_bank_account.status == false
     .field_10
       = f.label :status, "Active"
       = f.check_box :status, :class => "checkbox_style"

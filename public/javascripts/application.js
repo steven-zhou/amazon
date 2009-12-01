@@ -7601,16 +7601,21 @@ $(function(){
         }
     });
 
-    $('table#show_person_bank_accounts_grid tbody tr').live('mouseover',function(){
-        if($('#person_bank_account_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
 });
 
+// When we have a form to edit we need to disable all the fields except the status field
 
+$(function(){
+    $(".disable_on_inactive").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
+        });
+    });
+});
 
 /* Show Add Role Condition Description */
 
