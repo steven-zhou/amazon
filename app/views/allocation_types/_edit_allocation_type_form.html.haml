@@ -24,7 +24,7 @@
       = f.text_field :remarks
   .form_line
     .field_30
-      = f.label :link_module_id, "Link Module"
+      = f.label :link_module_id, "*Link Module"
       = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true})
 
 
