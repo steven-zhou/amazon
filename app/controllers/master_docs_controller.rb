@@ -49,7 +49,7 @@ class MasterDocsController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted MasterDoc #{@masterdoc.id}.")
     @masterdoc.destroy
     if @masterdoc.entity_type == "Person"             # if in Person return person object to destroy.js
-      @current_object = Person.find(session[:user])
+      @current_object = Person.find(@masterdoc.entity_id)
     end
     if @masterdoc.entity_type == "Organisation"
       @current_object =Organisation.find(@masterdoc.entity_id)  # if in organisation return organisation object to destroy.js

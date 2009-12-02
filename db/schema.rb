@@ -76,8 +76,6 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
     t.text     "state"
     t.text     "postcode"
     t.integer  "country_id"
-    t.text     "website"
-    t.text     "general_email"
     t.text     "contact_person"
     t.text     "contact_person_job_title"
     t.text     "contact_person_email"

@@ -13,56 +13,47 @@
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @allocation_type.id}
   .form_line
     .field_15
-      = f.label :long_name, "* Name", :class => "required_field"
+      = f.label :long_name, "<span class='asterisk'>*</span> Name", :class => "required_field"
       = f.text_field :name, :class => "edit_allocation_type_required_field", :id => "edit_allocation_type_name", :disabled => true
   .form_line
     .field_30
       = f.label :description, "Description"
       = f.text_field :description
     .field_30
+      = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
+      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true} ,{:class=>"mandantory_dropdown_list",:mandantory_field1=>"edit_allocation_type_name", :mandantory_field2=>"allocation_type_link_module_id", :submit_button_id=>"edit_allocation_type_submit"})
+  .form_line
+    .field_63
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
-  .form_line
-    .field_30
-      = f.label :link_module_id, "*Link Module"
-      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true})
+  
 
 
   .form_line
-    .field_2
-      = f.label :post_to_history, "&nbsp"
-      = f.check_box :post_to_history, :class => "checkbox_style"
-    .field_10
-      = f.label :post_to_history, "&nbsp"
-      = f.label :post_to_history, "Post to History", :style => "margin-top:7px;"
+    .field_17
+      = f.label :post_to_history, "Post to History"
+      = f.check_box :post_to_history, :class => "checkbox_style", :style => "margin-left:18%;"
 
-    .field_2
-      = f.label :post_to_campaign, "&nbsp"
-      = f.check_box :post_to_campaign,:class => "checkbox_style"
-    .field_10
-      = f.label :post_to_campaign, "&nbsp"
-      = f.label :post_to_campaign, "Post to Campaign", :style => "margin-top:7px;"
+    .field_17
+      = f.label :post_to_campaign, "Post to Campaign"
+      = f.check_box :post_to_campaign,:class => "checkbox_style", :style => "margin-left:18%;"
 
-    .field_2
-      = f.label :send_receipt, "&nbsp"
-      = f.check_box :send_receipt,:class => "checkbox_style"
-    .field_10
-      = f.label :send_receipt, "&nbsp"
-      = f.label :send_receipt, "Send Receipt", :style => "margin-top:7px;"
-
-    .field_2
-      = f.label :status, "&nbsp"
-      = f.check_box :status, :class => "checkbox_style"
-    .field_10
-      = f.label :status, "&nbsp"
-      = f.label :status, "Active", :style => "margin-top:7px;"
+    .field_17
+      = f.label :send_receipt, "Send Receipt"
+      = f.check_box :send_receipt,:class => "checkbox_style", :style => "margin-left:18%;"
+ 
+    .field_17
+      = f.label :status, "Active"
+      = f.check_box :status, :class => "checkbox_style", :style => "margin-left:6%;"
+  
 
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "allocation_types", :action => "destroy_allocation_type", :id => @allocation_type.id}, {:class => 'delete', :error_message_field => "receipt account", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+        = link_to "Remove", {:controller => "allocation_types", :action => "destroy_allocation_type", :id => @allocation_type.id}, {:class => 'delete alt_option', :error_message_field => "receipt account", :style => "float:right;"}
+
       %div{:style => "display:inline;float:right;height:100%;"}
-        = submit_tag "Submit", :disabled => false, :id => "edit_allocation_type_submit"
+        = submit_tag "Update", :disabled => false, :id => "edit_allocation_type_submit"
         %button{:type => "button", :style => "", :id => "copy_allocation_type", :allocation_type => "#{@allocation_type.id}"}
           Save As
 
