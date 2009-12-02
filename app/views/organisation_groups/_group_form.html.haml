@@ -2,13 +2,14 @@
   .field_25
     = label_tag :group_meta_type_id, "<span class='asterisk'>*</span>Group Type"
     = collection_select :group, :group_meta_type_id, TagType.show_meta_type, :id, :name,{:prompt => " "}, {:class => "find_group_meta_type"}
-  .field_25
-    = label_tag :group_type_description, " ", {:id => "group_type_description"}
-
+  .field_45
+    %label &nbsp;
+    %span{:id => "group_type_description"}
 .form_line
   .field_25
     = label_tag :group_meta_type_id, "<span class='asterisk'>*</span>Group"
     %select#group_id{:name => "organisation_group_id", :class=>"mandantory_dropdown_list", :mandantory_field1=>"group_id" ,:submit_button_id=>"organisation_new_group"}
       %option
-  .field_25
-    = label_tag :group_description, " ", {:id => "group_description",:style => "margin-top:17px;"}
+  .field_45
+    %label &nbsp;
+    %span{:id => "group_description"}
