@@ -111,6 +111,7 @@ class Person < ActiveRecord::Base
   accepts_nested_attributes_for :phones, :emails, :faxes, :websites,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
 
   accepts_nested_attributes_for :person_groups, :reject_if => proc { |attributes| attributes['person_group_id'].blank? }
+  accepts_nested_attributes_for :person_bank_accounts
   #--
   ################
   #  Callbacks
