@@ -13,8 +13,8 @@
     -form_for @role, :url => {:controller => "roles", :action=> "update"}, :html => {:class => 'ajax_form'} do |role|
       .form_line{:style => "float:none;"}
         .field_33
-          = role.label :name, 'Role Name'
-          = role.text_field :name, :disabled=>@role.role_status == false
+          = role.label :name, "<span class='asterisk'>*</span>Role Name"
+          = role.text_field :name,:id=>"role_edit_name",:class=>'mandantory_field',:mandantory_field1=>"role_edit_name",:submit_button_id=>"role_edit_submit", :disabled=>@role.role_status == false
         .field_33
           = role.label :remarks, 'Remark'
           = role.text_field :remarks, :disabled=>@role.role_status == false
@@ -24,6 +24,6 @@
           = role.text_field :role_type_id, :id => "role_type_id_field", :class => "hidden"
         .field_20
           %label &nbsp
-          = submit_tag 'Submit', :style => 'display:inline;float:right;'
+          = submit_tag 'Submit', :style => 'display:inline;float:right;',:id=>"role_edit_submit"
 
         

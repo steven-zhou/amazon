@@ -2,7 +2,7 @@
 $("#criterias").append("<%= escape_javascript(render(:partial => 'queries/query_criteria')) %>");
 $("#save_button").attr("disabled", false);
 $("#run_button").attr("disabled", false);
-
+$("#edit_form #run_button_edit").attr("disabled", false);
 $("#query_criteria_operator").val('');
 $("#query_criteria_value").val('');
 if ($("#new_runtime").attr('checked')==true) {

@@ -2,8 +2,8 @@
   .container{:style => "background-image:none;"}
     .form_line
       .field_100
-        =tag_type.label :name, 'Name'
-        =tag_type.text_field :name, :disabled=>(@tag_type.status == false)
+        =tag_type.label :name, "<span class='asterisk'>*</span>Name"
+        =tag_type.text_field :name,:id=>"tag_type_name",:class=>'mandantory_field',:mandantory_field1=>"tag_type_name",:submit_button_id=>"tag_type_new_submit", :disabled=>(@tag_type.status == false)
 
     .form_line
       .field_100
@@ -30,4 +30,4 @@
         %input{:style => "display:none", :id => "tag_meta_type", :name =>"tag_meta_type", :value => @tag_meta_type.class.to_s}
         %input{:style => "display:none", :id => "tag_meta_type_id", :name =>"tag_meta_type_id", :value => @tag_meta_type.id}
 
-    = submit_tag 'Submit', :style => "width:75px;"
+    = submit_tag 'Submit', :style => "width:75px;",:id=>"tag_type_new_submit",:disabled=>true

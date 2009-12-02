@@ -11,8 +11,8 @@
       .form_line
         = link_to_function image_tag('close_icon.png'), :field => "system_data", :id => "close_edit_system_data_entry", :style => "float:right;", :title=>"Close",:error_message_field=> "System Data"
         .field_30
-          = p.label :name, 'Name'
-          = p.text_field :name, {:disabled => ("disabled" if !@amazon_setting.status)}
+          = p.label :name, "<span class='asterisk'>*</span>Name"
+          = p.text_field :name,:class=>'mandantory_field',:id=>"system_data_edit_name",:mandantory_field1=>"system_data_edit_name",:submit_button_id=>"system_data_edit_submit", :disabled => ("disabled" if !@amazon_setting.status)
         .field_35
           = p.label :description, 'Description'
           = p.text_field :description, {:disabled => ("disabled" if !@amazon_setting.status)}
@@ -22,4 +22,4 @@
           = p.check_box :status, {:style => "width:auto;"}
         .field_20
           %label &nbsp
-          = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit'
+          = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit',:id=>"system_data_edit_submit"

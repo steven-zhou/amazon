@@ -2536,7 +2536,7 @@ $(function(){
         $('#check_input_change').val("false");
         $('#check_left_input_change').val("false");
         $('#check_right_input_change').val("false");
-
+          $('#compile_button').attr('disabled',true);
         $.ajax({
             type: "POST",
             url: "/compile_lists/clear.js",
@@ -5418,9 +5418,11 @@ $(function(){
         if ($(this).attr("checked") == true){
             $('.controller_select_all').attr("checked", true);
             $('.method_select_all').attr("checked", true);
+            check_access_checkbox(); //check the checkbox status
         }else{
             $('.controller_select_all').attr("checked", false);
             $('.method_select_all').attr("checked", false);
+            check_access_checkbox(); //check the checkbox status
         }
 
     });
@@ -5446,9 +5448,11 @@ $(function(){
     $('.controller_select_all').live('click', function(){
         if ($(this).attr('checked') == true){
             $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+            check_access_checkbox(); //check the checkbox status
         }else{
             $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
             $('.module_select_all').attr("checked", false);
+            check_access_checkbox(); //check the checkbox status
         }
     });
 });
@@ -5459,9 +5463,20 @@ $(function(){
             $('.module_select_all').attr("checked", false);
             $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
         }
+        check_access_checkbox(); //check the checkbox status
     });
 });
-
+//check the status of all the checkbox in permission_form,
+//submit button in the #permission_form (this is a div, not form) will be enalbed only when there is one checkbox is checked at least
+//this function can be make further reusable, i.e. make the div name as a argument for this function.
+check_access_checkbox = function(){
+    var checkbox_list = new Array;
+    checkbox_list = $("#permission_form").find("input[checked='true']");
+    if(checkbox_list.length > 0 )
+        $("#permission_form input[type='submit']").attr("disabled", false);
+    else
+        $("#permission_form input[type='submit']").attr("disabled", true);
+}
 $(function(){
     $("#close_new_module").live('click', function(){
         $(this).css("display", "none");
@@ -7655,7 +7670,9 @@ $(function(){
 
  mandantory_check = function(link)
  {
-        if($('#'+link.attr('mandantory_field1')).val()=='' ||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
+
+
+        if($('#'+link.attr('mandantory_field1')).val()==''||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
           {
                $('#'+link.attr('submit_button_id')).attr('disabled', true);
 
@@ -7672,6 +7689,7 @@ $(function(){
 
 $(function(){
     $(".mandantory_dropdown_list").live('change',function(){
+        
       mandantory_check($(this));
 
     });

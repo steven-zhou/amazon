@@ -18,33 +18,33 @@
   .form_line
     .field_25
       = f.label :description, 'Description'
-      = f.text_field :description
+      = f.text_field :description, :disabled => @source.status == false
     .field_15
       = f.label :volume, 'Volume'
-      = f.text_field :volume
+      = f.text_field :volume, :disabled => @source.status == false
     .field_15
       = f.label :cost, 'Cost $'
-      = f.text_field :cost
+      = f.text_field :cost, :disabled => @source.status == false
   .form_line
     .field_25
       = f.label :dead_return, 'Dead Return'
-      = f.text_field :dead_return
+      = f.text_field :dead_return, :disabled => @source.status == false
     .field_15
       = f.label :letter_id, 'Default Letter ID'
-      = f.text_field :letter_id
+      = f.text_field :letter_id, :disabled => @source.status == false
     .field_15
       = f.label :account_code_id, 'Default Account Code ID'
-      = f.text_field :account_code_id
+      = f.text_field :account_code_id, :disabled => @source.status == false
   .form_line
     .field_30
       = f.label :remarks, "Remarks"
-      = f.text_field :remarks
+      = f.text_field :remarks, :disabled => @source.status == false
     .field_10
       = f.label :status, "Active"
       = f.check_box :status, :class => "checkbox_style"
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete', :error_message_field => "source", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"}
+        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete', :error_message_field => "source", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"} unless @source.status == false
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_source_submit"

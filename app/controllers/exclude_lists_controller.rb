@@ -30,6 +30,7 @@ class ExcludeListsController < ApplicationController
     @list_header_id = @exclude_list.list_header_id
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted ExcludeList ID #{@exclude_list.id}.")
     @exclude_list.destroy
+
     respond_to do |format|
       format.js
     end
