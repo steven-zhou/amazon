@@ -77,7 +77,7 @@ class CompileListsController < ApplicationController
         @lcg.field_2 = person.family_name
         @lcg.save
       end
-
+      @check_list_empty=ListCompileGrid.find_all_by_login_account_id(session[:user]) #to see the list is empty or not, in order to diable the submit button
       @list_header = ListHeader.new
 
     else#Include list is empty

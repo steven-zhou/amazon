@@ -1,12 +1,12 @@
 .container{:style => "background-image:none;"}
   -form_for ListHeader.new, :html => {:class => 'ajax_form'} do |f|
     .form_line
-      = f.label :name, 'Name'
-      = f.text_field :name, :value => ""
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name, :value => "",:class=>"mandantory_field",:mandantory_field1=>"list_header_name",:submit_button_id=>"list_save_as"
     
     .form_line
       = f.label :description, 'Description'
       = f.text_field :description
       %input{:style => "display:none", :name => "copy_source_id", :value => "#{@list_header.id}"}
     
-    = submit_tag "Save", :name => "copy"
+    = submit_tag "Save", :name => "copy",:id=>"list_save_as",:disabled => true

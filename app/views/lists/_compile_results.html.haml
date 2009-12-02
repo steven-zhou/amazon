@@ -8,8 +8,8 @@
     %h3 Create List
     .form_line
       .field_25
-        =f.label :name, "List Name"
-        =f.text_field :name
+        =f.label :name, "<span class='asterisk'>*</span>List Name"
+        =f.text_field :name,:class=>'mandantory_field', :mandantory_field1=>"list_header_name",:submit_button_id=>"compile_create_list_submit"
       .field_25
         =f.label :description, "List Description"
         =f.text_field :description
@@ -26,7 +26,7 @@
       .field_25{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "compile"}
-        =submit_tag "Create List", :style => "width:100px;float:right"
+        =submit_tag "Create List", :style => "width:100px;float:right",:id=>"compile_create_list_submit",:disabled=>true
       %br.clear
 
 

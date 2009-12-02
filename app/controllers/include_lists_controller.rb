@@ -20,10 +20,12 @@ class IncludeListsController < ApplicationController
 
   def destroy
     @include_list = IncludeList.find(params[:id].to_i)
+    
     @list_header_id = String.new
     @list_header_id = @include_list.list_header_id
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted IncludeList with ID #{@include_list.id}.")
     @include_list.destroy
+    @include_list_all = IncludeList.find(:all) #to check the IncludeList is empty or not , in order to disabe the submit and clear button
     respond_to do |format|
       format.js
     end

@@ -1,8 +1,13 @@
 <% if @person.new_record? %>
   <% if @person.preferred_name.nil? %>
+    $("#related_person_name_container").css('display','');
     $("#related_person_name_container").html('<br/>Invalid ID')
+       $("#related_person_name_container").fadeTo(3000,1);
+      $("#related_person_name_container").fadeOut(3000);
+
     $("#related_person_name").html('<%=escape_javascript("<br/>#{@person.name}")%>')
-    
+   $('#relationship_related_person_id').val("");
+     $(".mandantory_field").keyup();
   <% else %>
     <% if @employment.new_record? %>
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").css('display','');
@@ -24,9 +29,10 @@
   <% end %>
 <% else %>
   <% if @person.preferred_name.nil? %>
+      $("#related_person_name_container").css('display','');
     $("#related_person_name_container").html('<%=escape_javascript("<br/>#{@person.name}")%>')
      $("#related_person_name").html('<br/>Invalid ID')
-      
+         $(".mandantory_field").keyup();
   <% else %>
     <% if @employment.new_record? %>
        $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").css('display','');

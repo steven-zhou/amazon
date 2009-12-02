@@ -1,8 +1,8 @@
 .container{:style => "background-image:none;"}
   -form_for QueryHeader.new, :action => "copy", :html => {:class => 'ajax_form'} do |f|
     .form_line
-      = f.label :name, 'Name'
-      = f.text_field :name, :value => ""
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name, :value => "", :id=>"new_copy_name", :class=>"mandantory_field", :mandantory_field1=>"new_copy_name", :submit_button_id=>"new_copy_submit"
     
     .form_line
       = f.label :description, 'Description'
@@ -10,4 +10,4 @@
       %input{:style => "display:none", :name =>"new"}
       %input{:style => "display:none", :name => "source_id", :value => "#{@query_header.id}"}
     
-    = submit_tag "Save"
+    = submit_tag "Save", :id=>"new_copy_submit", :disabled=>true

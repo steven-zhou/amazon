@@ -59,7 +59,10 @@ $("#list_compile_grid").flexigrid({
         width: 'auto',
         height: 300
     });
-
+<%if  !(@check_list_empty.size >0)%>
+$('#list_header_name').attr('disabled',true);
+$('#list_header_description').attr('disabled',true);
+<%end%>
 
 
 

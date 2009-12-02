@@ -1,2 +1,8 @@
+
+<% if @include_list_all.blank? %>
+$('#compile_button').attr('disabled',true);
+<%end%>
+
+
 $('#<%= dom_id(@include_list) %>').fadeOut("slow", function() {$(this).remove();});
 $('#list_header_<%= escape_javascript("#{@list_header_id}")%>').removeClass("selected");

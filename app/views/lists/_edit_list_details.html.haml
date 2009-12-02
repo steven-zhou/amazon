@@ -3,12 +3,13 @@
   -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
     .form_line
       .field_50
-        =f.label :person_id, "Person ID"
-        %input{:id => "person_id", :name => "person_id", :disabled => @list_header.status == false}
+        =f.label :person_id, "<span class='asterisk'>*</span>Person ID"
+        %input{:id => "person_id", :name => "person_id", :class=>"mandantory_field",:mandantory_field1=>"person_id",:submit_button_id=>"add_person_submit",:disabled => @list_header.status == false}
         %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
       .field_40{:style => "float:right;"}
         %label &nbsp;
-        =submit_tag "Add Person", :disabled => @list_header.status == false
+        =submit_tag "Add Person",:id=>"add_person_submit", :disabled =>true
+
       %br.clear
 
 .container{:style => "width:60%"}
@@ -21,8 +22,8 @@
     %h1 Edit List
     .form_line
       .field_25
-        =f.label :name, "Name"
-        =f.text_field :name, :disabled => @list_header.status == false, :name => "list_header[name]"
+        =f.label :name, "<span class='asterisk'>*</span>Name"
+        =f.text_field :name,:class=>"mandantory_field",:mandantory_field1=>"list_header_name",:submit_button_id=>"create_list_submit", :disabled => @list_header.status == false, :name => "list_header[name]"
       .field_25
         =f.label :description, "Description"
         =f.text_field :description, :disabled => @list_header.status == false, :name => "list_header[description]"
@@ -40,7 +41,7 @@
         =f.label :status, "Active", :style =>"margin-top:8px;"
       .field_10{:style=>"float:left;"}
         =f.label :status, "&nbsp;"
-        =submit_tag "Submit"
+        =submit_tag "Submit",:id=>"create_list_submit"
 
   .form_line
     .field_80
