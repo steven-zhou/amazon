@@ -30,7 +30,6 @@ class PeopleController < ApplicationController
     end
   end
   
-
   def show
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
@@ -111,8 +110,6 @@ class PeopleController < ApplicationController
 
     end     
   end
-
-  
 
   def edit
     @group_types = LoginAccount.find(session[:user]).group_types
@@ -197,9 +194,6 @@ class PeopleController < ApplicationController
       format.js {render 'show_edit_left.js'}
     end
   end
-
-
-
 
   def create
     @person = Person.new(params[:person])
@@ -371,6 +365,7 @@ class PeopleController < ApplicationController
       format.js { }
     end
   end
+
   def login_id_finder
     @person = Person.find(params[:person_id]) rescue @person = Person.new
     @login_account = LoginAccount.find(params[:login_account_id]) rescue @login_account = LoginAccount.new
@@ -381,8 +376,6 @@ class PeopleController < ApplicationController
     end
 
   end
-
- 
 
   def show_list
 
@@ -417,10 +410,6 @@ class PeopleController < ApplicationController
       format.js
     end
   end
-
-
-
-
 
   def show_left
 
@@ -500,11 +489,6 @@ class PeopleController < ApplicationController
 
   end
 
-
-
-
-
-
   def search_lists
 
     @name_search=params[:name]
@@ -518,7 +502,6 @@ class PeopleController < ApplicationController
       format.js
     end
   end
-
 
   def check_duplication
 
@@ -586,7 +569,6 @@ class PeopleController < ApplicationController
     end
   end
 
-
   def  show_postcode
 
     #    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
@@ -651,7 +633,6 @@ class PeopleController < ApplicationController
     end
 
   end
-
 
   def lookup_fill
     @update_field = params[:update_field]

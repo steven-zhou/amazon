@@ -103,10 +103,10 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.text     "target_amount"
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
   end
 
   create_table "client_bank_accounts", :force => true do |t|
@@ -737,10 +737,10 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.integer  "dead_return"
     t.integer  "letter_id"
     t.integer  "account_code_id"
+    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
   end
 
   create_table "system_logs", :force => true do |t|
