@@ -16,7 +16,7 @@
         %option{:value => @masterdocmetatype.id}
           = @masterdocmetatype.name
   .field_25
-    = form.label :id, "<span class='asterisk'>*</span>Category"
+    = form.label :id, "<span class='asterisk'>*</span>Master Doc"
     -if @masterdoc.new_record?
       %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id",:mandantory_field2=>"master_doc_doc_number",:submit_button_id=>"master_doc_new_subbmit"}
         %option
