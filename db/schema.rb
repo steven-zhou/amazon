@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091129233910) do
+ActiveRecord::Schema.define(:version => 20091202040512) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "priority_number"
+  end
+
+  create_table "allocation_types", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "link_module_id"
+    t.boolean  "post_to_history"
+    t.boolean  "post_to_campaign"
+    t.boolean  "send_receipt"
+    t.boolean  "status"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "link_module_name"
   end
 
   create_table "amazon_settings", :force => true do |t|
@@ -103,10 +117,10 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.text     "target_amount"
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
   end
 
   create_table "client_bank_accounts", :force => true do |t|
@@ -737,10 +751,10 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.integer  "dead_return"
     t.integer  "letter_id"
     t.integer  "account_code_id"
+    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
   end
 
   create_table "system_logs", :force => true do |t|

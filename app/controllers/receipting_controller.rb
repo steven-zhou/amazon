@@ -9,12 +9,16 @@ class ReceiptingController < ApplicationController
 
   end
 
+  def allocation_types
+
+  end
+
   def receipt_methods
     
   end
 
-   def receipt_types
-  @tag_meta_types = ReceiptMetaMetaType.find(:all, :order => "name asc")
+  def receipt_types
+    @tag_meta_types = ReceiptMetaMetaType.find(:all, :order => "name asc")
     @category = "Receipt"
   end
 
@@ -34,9 +38,9 @@ class ReceiptingController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign record.")
       if(!@campaign.errors[:start_date].nil?)
-         flash.now[:error] = "Please Enter A Valid Start Date"
+        flash.now[:error] = "Please Enter A Valid Start Date"
       elsif(!@campaign.errors[:name].nil?)
-         flash.now[:error] = "Please Enter A Name"
+        flash.now[:error] = "Please Enter A Name"
       end
     end
     respond_to do |format|
@@ -53,9 +57,9 @@ class ReceiptingController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a campaign #{@campaign.id}.")
       if(!@campaign.errors[:start_date].nil?)
-         flash.now[:error] = "Please Enter A Valid Start Date"
+        flash.now[:error] = "Please Enter A Valid Start Date"
       elsif(!@campaign.errors[:name].nil?)
-         flash.now[:error] = "Please Enter A Name"
+        flash.now[:error] = "Please Enter A Name"
       end
     end
     respond_to do |format|
@@ -138,9 +142,9 @@ class ReceiptingController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign source record.")
       if(!@source.errors[:campaign_id].nil?)
-         flash.now[:error] = "You must select a campaign for this source."
+        flash.now[:error] = "You must select a campaign for this source."
       elsif(!@source.errors[:name].nil?)
-         flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
+        flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
       end
     end
     respond_to do |format|
@@ -162,9 +166,9 @@ class ReceiptingController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update source record #{@source.id}.")
       if(!@source.errors[:campaign_id].nil?)
-         flash.now[:error] = "You must select a campaign for this source."
+        flash.now[:error] = "You must select a campaign for this source."
       elsif(!@source.errors[:name].nil?)
-         flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
+        flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
       end
     end
     respond_to do |format|
@@ -172,7 +176,7 @@ class ReceiptingController < ApplicationController
     end
   end
 
- def destroy_source
+  def destroy_source
     @source = Source.find(params[:id])
     @source.destroy
     respond_to do |format|
