@@ -42,6 +42,7 @@ class Person < ActiveRecord::Base
   has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ]
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
+  has_many :person_bank_accounts
 
   has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id'
   has_many :group_types, :through => :person_groups
