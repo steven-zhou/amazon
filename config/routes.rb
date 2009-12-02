@@ -66,7 +66,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :roles, :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get}
 
 
-  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :payment_methods => :get }
+  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :receipt_types => :get }
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}

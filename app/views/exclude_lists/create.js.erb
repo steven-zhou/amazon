@@ -1,5 +1,6 @@
 <% if @exclude_list.errors.empty? -%>
   $('#exclude_lists').html('<%= escape_javascript(render(:partial => "exclude_lists/exclude_list", :collection => @exclude_lists)) %>');
+
   <%- @list_header_ids.each do |i| %>
     $('#list_header_<%= escape_javascript("#{i}")%>').addClass("selected");
   <%- end %>

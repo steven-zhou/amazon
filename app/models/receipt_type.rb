@@ -1,8 +1,8 @@
-class PaymentMethodType < Tag
+class ReceiptType < Tag
 
   acts_as_list
 
-  belongs_to :payment_method_meta_type, :class_name => "PaymentMethodMetaType", :foreign_key => "tag_type_id"
+  belongs_to :receipt_meta_type, :class_name => "ReceiptMetaType", :foreign_key => "tag_type_id"
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :tag_type_id

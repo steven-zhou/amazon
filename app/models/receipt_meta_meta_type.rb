@@ -1,8 +1,8 @@
-class PaymentMethodMetaMetaType < TagMetaType
+class ReceiptMetaMetaType < TagMetaType
 
   acts_as_list
 
-  has_many :payment_method_meta_types, :class_name => "PaymentMethodMetaType", :foreign_key => "tag_meta_type_id"
+  has_many :receipt_meta_types, :class_name => "ReceiptMetaType", :foreign_key => "tag_meta_type_id"
 
   validates_presence_of :name
   validates_uniqueness_of :name

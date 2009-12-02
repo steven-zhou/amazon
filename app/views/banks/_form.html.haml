@@ -16,17 +16,17 @@
     .form_line{:style => "float:none;"}
       .field_36
         = f.label :full_name, "<span class='asterisk'>*</span>Full Name"
-        = f.text_field :full_name, :class => "new_bank_required_field", :id => "new_bank_full_name"
+        = f.text_field :full_name, :id => "new_bank_full_name",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
       .field_20
         = f.label :short_name, "<span class='asterisk'>*</span>Short Name"
-        = f.text_field :short_name, :class => "new_bank_required_field", :id => "new_bank_short_name"
+        = f.text_field :short_name,:id => "new_bank_short_name",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
       .field_20
         = f.label :branch_name, "<span class='asterisk'>*</span>Branch Name"
-        = f.text_field :branch_name, :class => "new_bank_required_field", :id => "new_bank_branch_name"
+        = f.text_field :branch_name,:id => "new_bank_branch_name",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
       .field_20
-        = f.label :branch_number, "<span class='asterisk'>*</span>Branch Number"
-        = f.text_field :branch_number, :class => "new_bank_required_field", :id => "new_bank_branch_number"
-    .form_line
+        = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
+        = f.text_field :branch_number,:id => "new_bank_branch_number",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
+    .form_line     
       .field_36
         = f.label :website, 'Website'
         = f.text_field :website
@@ -90,3 +90,4 @@
         = f.label :remarks, 'Remarks'
         = f.text_field :remarks
   = submit_tag "Submit", :id => "new_bank_submit", :disabled => true
+
