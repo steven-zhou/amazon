@@ -1,5 +1,6 @@
 /show personal notes details
--div_for(note, :class => 'header_container toggle_options',:field => "note") do
+-status = note.active ? "container_active" : "container_inactive"
+-div_for(note, :class => "header_container toggle_options #{status}",:field => "note") do
   %div
     .title
       -#= "#{note.id} #{note.note_type.name}"
