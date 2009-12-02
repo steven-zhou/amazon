@@ -3960,7 +3960,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","");
+            $(this).find('.options').css('display','').css('opacity', 0).stop().fadeTo('fast',1 );
         }
          
     });
@@ -3969,7 +3969,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseout',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","none");
+            $(this).find('.options').stop().fadeTo('fast',0).css('display','none');
         }
     });
 });

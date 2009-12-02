@@ -6,7 +6,7 @@
       = collection_select :role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "Select one type"}, {:person_id => @person.id , :class => "find_role_field clear_select " ,:person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
     -else
       = collection_select:role, :role_type_id, RoleType.active_role_type, :id, :name, {:prompt => "#{@person_role.role.role_type.name}" }, {:person_id => @person.id , :class => "find_role_field" , :person_role_id => @person_role.new_record? ? "person_role_role_id" : @person_role.id}
-  .field_25{:style => "float:left;"}
+  .field_60{:style => "float:left;"}
     %label &nbsp;
     -if @person_role.new_record?
       %span{ :id=> "person_role_type_description" }
@@ -23,7 +23,7 @@
       %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id,:class=>"mandantory_dropdown_list",:mandantory_field1=>"person_role_#{@person_role.id}_role_id",:mandantory_field2=>"person_role_assigned_by_#{@person_role.id}",:mandantory_field3=>"person_role_#{@person_role.id}_start_date",:submit_button_id=>"role_edit_submit"}
         - @roles.each do |r|
           %option{:value => "#{r.id}", :selected => (@role.id == r.id) } #{r.name}
-  .field_25{:style => "float:left;"}
+  .field_60{:style => "float:left;"}
     %label &nbsp;
     -if @person_role.new_record?
       %span{:id=> "person_role_description" }
@@ -63,7 +63,7 @@
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_assigned_by" : "person_role_assigned_by_#{@person_role.id}", :title=>"Search"
-  .field_25
+  .field_60
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_assigner.nil?)
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "assigner_container_0" : "assigner_container_#{@person_role.id}"} #{@person_role.role_assigner.name}
@@ -76,7 +76,7 @@
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_approved_by" : "person_role_approved_by_#{@person_role.id}", :title=>"Search"
-  .field_25
+  .field_60
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_approver.nil?)
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "approver_container_0" : "approver_container_#{@person_role.id}"} #{@person_role.role_approver.name}
@@ -90,7 +90,7 @@
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_supervised_by" : "person_role_supervised_by_#{@person_role.id}", :title=>"Search"
-  .field_25
+  .field_60
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_superviser.nil?)
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "superviser_container_0" : "superviser_container_#{@person_role.id}"} #{@person_role.role_superviser.name}
@@ -103,7 +103,7 @@
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @person_role.new_record? ? "person_role_managed_by" : "person_role_managed_by_#{@person_role.id}", :title=>"Search"
-  .field_25
+  .field_60
     %label &nbsp;
     -if (!@person_role.new_record? && !@person_role.role_manager.nil?)
       %span{:class=>"viewname", :id=>@person_role.new_record? ? "manager_container_0" : "manager_container_#{@person_role.id}"} #{@person_role.role_manager.name}
