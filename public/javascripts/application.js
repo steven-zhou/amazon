@@ -3960,7 +3960,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","");
+            $(this).find('.options').css('display','');
         }
          
     });
@@ -3969,7 +3969,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseout',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","none");
+            $(this).find('.options').css('display','none');
         }
     });
 });
@@ -7671,7 +7671,6 @@ $(function(){
  mandantory_check = function(link)
  {
 
-
         if($('#'+link.attr('mandantory_field1')).val()==''||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
           {
                $('#'+link.attr('submit_button_id')).attr('disabled', true);
@@ -7680,11 +7679,7 @@ $(function(){
           else
               {
                $('#'+link.attr('submit_button_id')).attr('disabled', false);
-
               }
-
-
-
  }
 
 $(function(){
@@ -7701,3 +7696,44 @@ $(function(){
     });
 });
 
+/* Allocation Type Grid*/
+$(function(){
+    $('table#show_allocation_types_grid tbody tr').live('click',function(){
+        if($('#allocation_type_mode').attr('mode')=="show"){
+            $('table#show_allocation_types_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_allocation_types_grid tbody tr').live('dblclick',function(){
+        if($('#allocation_type_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/allocation_types/edit_allocation_type/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_allocation_types_grid tbody tr').live('mouseover',function(){
+        if($('#allocation_type_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+$(function() {
+    $('#copy_allocation_type').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/allocation_types/copy_allocation_type.js",
+            data: 'id=' + $(this).attr('allocation_type'),
+            dataType: "script"
+        });
+    });
+});

@@ -1,0 +1,14 @@
+$('#allocation_type_save_form').html('<%= escape_javascript(render(:partial => "allocation_types/copy_allocation_type")) %>');
+$('#allocation_type_save_form').toggle('blind');
+$('#allocation_type_save_form').dialog( {
+modal: true,
+resizable: true,
+draggable: true,
+beforeclose: function() {
+  $('.highlight').removeClass('highlight');
+  }
+});
+$('#allocation_type_save_form').dialog('option', 'title', 'Save As');
+$('#allocation_type_save_form').dialog('open');
+$("#allocation_type_save_form").parent().css('background-color','#D1DDE6');
+$("#allocation_type_save_form").css('background-color','#D1DDE6');

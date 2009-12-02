@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091129233910) do
+ActiveRecord::Schema.define(:version => 20091202040512) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -31,6 +31,20 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "priority_number"
+  end
+
+  create_table "allocation_types", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "link_module_id"
+    t.boolean  "post_to_history"
+    t.boolean  "post_to_campaign"
+    t.boolean  "send_receipt"
+    t.boolean  "status"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "link_module_name"
   end
 
   create_table "amazon_settings", :force => true do |t|
@@ -62,8 +76,6 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.text     "state"
     t.text     "postcode"
     t.integer  "country_id"
-    t.text     "website"
-    t.text     "general_email"
     t.text     "contact_person"
     t.text     "contact_person_job_title"
     t.text     "contact_person_email"

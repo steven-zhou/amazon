@@ -31,29 +31,35 @@
 
     .container
       %h1 Contacts
-      .container
-        .left
-          Phone
-        .right
-          = @primary_phone.nil? ? "None assigned": @primary_phone.number
-      .container
-        .left
-          Website &nbsp;&nbsp;&nbsp;&nbsp;
-        .right
-          = @primary_website.nil? ? "None assigned": @primary_website.value
-      .container
-        .left
-          Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        .right
-          = @primary_email.nil? ? "None assigned": @primary_email.value
+      -unless @primary_phone.nil?
+        .container
+          .left
+            Phone
+          .right
+            = @primary_phone.number
+
+      -unless @primary_website.nil?
+        .container
+          .left
+            Website &nbsp;&nbsp;&nbsp;&nbsp;
+          .right
+            = @primary_website.value
+
+      -unless @primary_email.nil?
+        .container
+          .left
+            Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          .right
+            = @primary_email.value
    
 
 
     .container
       %h1
         = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
-      .primary_address_and_employment
-        = format_address(@primary_address) unless @primary_address.nil?
+      -unless @primary_address.nil?
+        .container.primary_address_and_employment
+          = format_address(@primary_address)
 
     .container
       %h1= "Legal Details"
@@ -116,16 +122,3 @@
         %br
         %br
         %br
-      .container
-        %h2 System Module Y
-        %br
-        %br
-        %br
-        %br
-      .container
-        %h2 System Module Z
-        %br
-        %br
-        %br
-        %br
-      
