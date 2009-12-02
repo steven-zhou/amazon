@@ -8,7 +8,7 @@
 .form_line
   .field_25
     = account.label :person_account_type, "<span class='asterisk'>*</span>Account Type"
-    = account.collection_select(:account_type_id, ReceiptAccountType.find(:all), :id, :name)
+    = account.collection_select(:account_type_id, AccountType.find(:all), :id, :name)
   .field_40
     = account.label :person_account_number, "<span class='asterisk'>*</span>Account number"
     = account.text_field :account_number
