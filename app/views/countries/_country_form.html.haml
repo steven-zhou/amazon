@@ -4,11 +4,11 @@
       = f.label :long_name, "Long Name"
       = f.text_field :long_name
     .field_20
-      = f.label :short_name, "Short Name", :class => "required_field"
-      = f.text_field :short_name
+      = f.label :short_name, "<span class='asterisk'>*</span>Short Name", :class => "required_field"
+      = f.text_field :short_name, :id=>@current_action=="new" ? "new_short_name" : "edit_short_name", :class=>"mandantory_field", :mandantory_field1=>@current_action=="new" ? "new_short_name" : "edit_short_name",:mandantory_field2=>@current_action=="new" ? "new_citizenship" : "edit_citizenship",:submit_button_id=>@current_action=="new" ? "new_submit_country" : "edit_submit_country"
     .field_20
-      = f.label :citizenship, "Citizenship"
-      = f.text_field :citizenship
+      = f.label :citizenship, "<span class='asterisk'>*</span>Citizenship"
+      = f.text_field :citizenship, :id=>@current_action=="new" ? "new_citizenship" : "edit_citizenship", :class=>"mandantory_field", :mandantory_field2=>@current_action=="new" ? "new_short_name" : "edit_short_name",:mandantory_field1=>@current_action=="new" ? "new_citizenship" : "edit_citizenship",:submit_button_id=>@current_action=="new" ? "new_submit_country" : "edit_submit_country"
     .field_20
       = f.label :capital, "Capital"
       = f.text_field :capital
@@ -30,4 +30,4 @@
       = f.text_field :currency_subunit
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit", :style=>"margin-top:13px;margin-right:6px;"
+      = submit_tag "Submit", :style=>"margin-top:13px;margin-right:6px;", :id=>@current_action=="new" ? "new_submit_country" : "edit_submit_country", :disabled=>(true if @current_action=="new")
