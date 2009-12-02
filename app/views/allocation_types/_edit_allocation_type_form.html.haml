@@ -1,14 +1,4 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      $('.edit_allocation_type_required_field').keyup(function() {
-          if($('#edit_allocation_type_name').val() == '') {
-              $('#edit_allocation_type_submit').attr('disabled', true);
-          } else {
-              $('#edit_allocation_type_submit').removeAttr('disabled');
-          }
-      });
-    });
+
 - form_for :allocation_type, @allocation_type, :url => {:controller => "allocation_types", :action => "update_allocation_type" }, :html => {:class => 'ajax_form'}  do |f|
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @allocation_type.id}
   .form_line
@@ -54,7 +44,8 @@
 
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_allocation_type_submit"
+        -#= button_to_function 'Save As', :id => "copy_allocation_type_button", :action => "copy_allocation_type", :allocation_type => "#{@allocation_type.id}"
         %button{:type => "button", :style => "", :id => "copy_allocation_type", :allocation_type => "#{@allocation_type.id}"}
           Save As
 
-#allocation_type_save_form{:style => "display:none;"}
+#allocation_type_save_form{:class => "save_form", :style => "display:none;"}

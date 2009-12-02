@@ -7737,3 +7737,22 @@ $(function() {
         });
     });
 });
+
+
+$(function(){
+    $("#copy_allocation_type_button").live('click', function(){
+       
+            $('#allocation_type_save_form').dialog('close');
+            $('#allocation_type_save_form').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#allocation_type_save_form').dialog('option', 'title', 'New Query');
+            $('#allocation_type_save_form').dialog('open');
+            $('#allocation_type_save_form').parent().css('background-color','#D1DDE6');
+            $('#allocation_type_save_form').css('background-color','#D1DDE6');
+        
+    });
+});
+

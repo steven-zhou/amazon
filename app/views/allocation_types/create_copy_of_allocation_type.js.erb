@@ -1,5 +1,6 @@
 <%- if flash[:error].nil?%>
-  $('#allocation_type_save_form').dialog('destroy');
+  $('#allocation_type_save_form').dialog('close');
+  $('.save_form').dialog('close');
   $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
