@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091129233910) do
+ActiveRecord::Schema.define(:version => 20091202044843) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -157,6 +157,26 @@ ActiveRecord::Schema.define(:version => 20091129233910) do
     t.string   "feedback_to"
     t.string   "reply_from"
     t.integer  "home_country_id"
+    t.text     "level_0_label"
+    t.text     "level_0_remarks"
+    t.text     "level_1_label"
+    t.text     "level_1_remarks"
+    t.text     "level_2_label"
+    t.text     "level_2_remarks"
+    t.text     "level_3_label"
+    t.text     "level_3_remarks"
+    t.text     "level_4_label"
+    t.text     "level_4_remarks"
+    t.text     "level_5_label"
+    t.text     "level_5_remarks"
+    t.text     "level_6_label"
+    t.text     "level_6_remarks"
+    t.text     "level_7_label"
+    t.text     "level_7_remarks"
+    t.text     "level_8_label"
+    t.text     "level_8_remarks"
+    t.text     "level_9_label"
+    t.text     "level_9_remarks"
   end
 
   create_table "compile_lists", :force => true do |t|

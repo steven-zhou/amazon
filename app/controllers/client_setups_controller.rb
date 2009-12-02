@@ -87,6 +87,25 @@ class ClientSetupsController < ApplicationController
 
   def update
     @client_setup = ClientSetup.first
+    params[:client_setup][:level_1_label] = params[:client_setup][:level_1_label].nil? ? "" : params[:client_setup][:level_1_label]
+    params[:client_setup][:level_2_label] = params[:client_setup][:level_2_label].nil? ? "" : params[:client_setup][:level_2_label]
+    params[:client_setup][:level_3_label] = params[:client_setup][:level_3_label].nil? ? "" : params[:client_setup][:level_3_label]
+    params[:client_setup][:level_4_label] = params[:client_setup][:level_4_label].nil? ? "" : params[:client_setup][:level_4_label]
+    params[:client_setup][:level_5_label] = params[:client_setup][:level_5_label].nil? ? "" : params[:client_setup][:level_5_label]
+    params[:client_setup][:level_6_label] = params[:client_setup][:level_6_label].nil? ? "" : params[:client_setup][:level_6_label]
+    params[:client_setup][:level_7_label] = params[:client_setup][:level_7_label].nil? ? "" : params[:client_setup][:level_7_label]
+    params[:client_setup][:level_8_label] = params[:client_setup][:level_8_label].nil? ? "" : params[:client_setup][:level_8_label]
+    params[:client_setup][:level_9_label] = params[:client_setup][:level_9_label].nil? ? "" : params[:client_setup][:level_9_label]
+    params[:client_setup][:level_1_remarks] = params[:client_setup][:level_1_label].nil? ? "" : params[:client_setup][:level_1_remarks]
+    params[:client_setup][:level_2_remarks] = params[:client_setup][:level_2_label].nil? ? "" : params[:client_setup][:level_2_remarks]
+    params[:client_setup][:level_3_remarks] = params[:client_setup][:level_3_label].nil? ? "" : params[:client_setup][:level_3_remarks]
+    params[:client_setup][:level_4_remarks] = params[:client_setup][:level_4_label].nil? ? "" : params[:client_setup][:level_4_remarks]
+    params[:client_setup][:level_5_remarks] = params[:client_setup][:level_5_label].nil? ? "" : params[:client_setup][:level_5_remarks]
+    params[:client_setup][:level_6_remarks] = params[:client_setup][:level_6_label].nil? ? "" : params[:client_setup][:level_6_remarks]
+    params[:client_setup][:level_7_remarks] = params[:client_setup][:level_7_label].nil? ? "" : params[:client_setup][:level_7_remarks]
+    params[:client_setup][:level_8_remarks] = params[:client_setup][:level_8_label].nil? ? "" : params[:client_setup][:level_8_remarks]
+    params[:client_setup][:level_9_remarks] = params[:client_setup][:level_9_label].nil? ? "" : params[:client_setup][:level_9_remarks]
+
     if @client_setup.update_attributes(params[:client_setup])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       flash[:message] = "Client Setup is updated"

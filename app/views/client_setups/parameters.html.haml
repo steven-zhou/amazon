@@ -1,3 +1,18 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.level_label').blur(function() {
+          if($(this).val() == '') {
+              $("#"+$(this).attr('child_label_id')).attr('disabled', true)
+              $("#"+$(this).attr('child_remarks_id')).attr('disabled', true)
+          } else {
+              $("#"+$(this).attr('child_label_id')).removeAttr('disabled');
+              $("#"+$(this).attr('child_remarks_id')).removeAttr('disabled');
+
+          }
+      });
+    });
+
 #header
   #page_title
     %h1 System Parameters
@@ -46,6 +61,110 @@
       .field_100{:style => "height:auto;"}
         = f.label :superadmin_message, "SuperAdmin Message"
         = f.text_area :superadmin_message, :cols => 126, :rows =>3
+      %br.clear
+  .full_container
+    %h1 Organisational Hierarchy
+    %br.clear
+    .form_line{:style => "height:auto;"}
+      .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+        Level
+      .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+        Label
+      .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+        Remarks
+      .full_container
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              0&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_0_label, {:class => "level_label", :child_label_id => "client_setup_level_1_label", :child_remarks_id => "client_setup_level_1_remarks"}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_0_remarks
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              1&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_1_label, {:class => "level_label", :child_label_id => "client_setup_level_2_label", :child_remarks_id => "client_setup_level_2_remarks", :disabled => @client_setup.level_0_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_1_remarks, {:disabled => @client_setup.level_0_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              2&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_2_label, {:class => "level_label", :child_label_id => "client_setup_level_3_label", :child_remarks_id => "client_setup_level_3_remarks", :disabled => @client_setup.level_1_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_2_remarks, {:disabled => @client_setup.level_1_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              3&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_3_label, {:class => "level_label", :child_label_id => "client_setup_level_4_label", :child_remarks_id => "client_setup_level_4_remarks", :disabled => @client_setup.level_2_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_3_remarks, {:disabled => @client_setup.level_2_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              4&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_4_label, {:class => "level_label", :child_label_id => "client_setup_level_5_label", :child_remarks_id => "client_setup_level_5_remarks", :disabled => @client_setup.level_3_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_4_remarks, {:disabled => @client_setup.level_3_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              5&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_5_label, {:class => "level_label", :child_label_id => "client_setup_level_6_label", :child_remarks_id => "client_setup_level_6_remarks", :disabled => @client_setup.level_4_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_5_remarks, {:disabled => @client_setup.level_4_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              6&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_6_label, {:class => "level_label", :child_label_id => "client_setup_level_7_label", :child_remarks_id => "client_setup_level_7_remarks", :disabled => @client_setup.level_5_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_6_remarks, {:disabled => @client_setup.level_5_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              7&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_7_label, {:class => "level_label", :child_label_id => "client_setup_level_8_label", :child_remarks_id => "client_setup_level_8_remarks", :disabled => @client_setup.level_6_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_7_remarks, {:disabled => @client_setup.level_6_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              8&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_8_label, {:class => "level_label", :child_label_id => "client_setup_level_9_label", :child_remarks_id => "client_setup_level_9_remarks", :disabled => @client_setup.level_7_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_8_remarks, {:disabled => @client_setup.level_7_label.empty?}
+
+        .form_line{:style => "height:auto;"}
+          .field_15{:style => "height:auto;text-align:center;font-weight:bold;"}
+            %span{:style => "font-weight:bold;"}
+              9&nbsp;&nbsp;&nbsp;
+          .field_20{:style => "height:auto;text-align:center;font-weight:bold;"}
+            = f.text_field :level_9_label, {:disabled => @client_setup.level_8_label.empty?}
+          .field_60{:style => "height:auto;text-align:center;font-weight:bold"}
+            = f.text_field :level_9_remarks, {:disabled => @client_setup.level_8_label.empty?}
+
+
       %br.clear
   .right
     = submit_tag "Submit"
