@@ -1651,7 +1651,8 @@ td.textright {
 }
 
 .container_selected {
-    background-color: #B2CADA;
+    background-image:url(/images/container_orange_bg.png) !important;
+    /*background-color: #B2CADA; */
     width: 95%;
     margin: 0.5%;
     float: left;

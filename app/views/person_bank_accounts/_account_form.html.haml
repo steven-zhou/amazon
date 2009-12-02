@@ -1,0 +1,21 @@
+.form_line{:style => "float:none;"}
+  .field_25
+    = account.label :account_id, "<span class='asterisk'>*</span>Bank"
+    = account.collection_select(:bank_id, Bank.find(:all,:conditions=>["status = true"]), :id, :full_name)
+  .field_45
+    %label &nbsp;
+    %span{:id => "person_account_description"}
+.form_line
+  .field_25
+    = account.label :person_account_type, "<span class='asterisk'>*</span>Account Type"
+    = account.collection_select(:account_type_id, ReceiptAccountType.find(:all), :id, :name)
+  .field_40
+    = account.label :person_account_number, "<span class='asterisk'>*</span>Account number"
+    = account.text_field :account_number
+  .field_15
+    = account.label :person_account_status, "Active"
+    = account.check_box :status
+.form_line
+  .field_60
+    = account.label :remarks, 'Remarks'
+    = account.text_field :remarks
