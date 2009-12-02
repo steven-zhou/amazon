@@ -1,9 +1,9 @@
 <%- if flash[:error].nil?%>
-
+  $('#allocation_type_save_form').dialog('destroy');
   $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
-  $('#allocation_type_save_form').dialog('close');
+  
   $('#existing_allocation_types').html('<%= escape_javascript(render(:partial => "/allocation_types/existing_allocation_types")) %>');
   $('#allocation_type_mode').attr('mode', 'show');
   $("#show_allocation_types_grid").flexigrid({
