@@ -3,9 +3,9 @@
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Meta Type"
     -if @masterdoc.new_record?
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id",:mandantory_field2=>"master_doc_doc_number",:submit_button_id=>"master_doc_new_subbmit"})
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, { :include_blank => true}, {:class => "find_master_doc_meta_type_field "})
     -else
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field mandantory_dropdown_list", :master_doc_id => @masterdoc.id,:mandantory_field1=>"master_doc_master_doc_type_id_#{@masterdoc.id}",:mandantory_field2=>"master_doc_#{@masterdoc.id}_doc_number",:submit_button_id=>"master_doc_edit_submit"})
+      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, { :include_blank => true, :prompt => "#{@masterdocmetametatype.name}" }, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Type"
     -if @masterdoc.new_record?
@@ -18,10 +18,10 @@
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Category"
     -if @masterdoc.new_record?
-      %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]"}
+      %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id",:mandantory_field2=>"master_doc_doc_number",:submit_button_id=>"master_doc_new_subbmit"}
         %option
     -else
-      %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]"}
+      %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id_#{@masterdoc.id}",:mandantory_field2=>"master_doc_#{@masterdoc.id}_doc_number",:submit_button_id=>"master_doc_edit_submit"}
         %option{:value => @masterdoctype.id}
           = @masterdoctype.name
 .form_line
