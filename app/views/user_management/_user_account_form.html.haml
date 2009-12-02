@@ -1,8 +1,8 @@
--form_for @login_account, :url=> {:controller => 'login_accounts',:action => 'create' , :id => @login_account.id}, :html => {:class => 'ajax_form create_account', :id => "new_login_account"} do |login|
+-form_for @login_account, :url=> {:controller => 'login_accounts',:action => 'create'}, :html => {:class => 'ajax_form create_account', :id => "new_login_account"} do |login|
   .form_line
     .field_12
       = login.label :person_id, "<span class='asterisk'>*</span>Person ID"
-      = login.text_field :person_id,:autocomplete => "off", :class => "check_login_id validate[required] integer_field", :login_account_id => @login_account.new_record? ? 0 : @login_account.id, :id => "login_account_person_id" , :name => "login_account[person_id]"
+      = login.text_field :person_id,:autocomplete => "off", :class => "check_login_id validate[required] integer_field mandantory_field",:mandantory_field1=>"login_account_person_id",:mandantory_field2=>"login_account_user_name",:mandantory_field3=>"login_account_security_email",:submit_button_id=>"user_account_new_submit", :login_account_id => @login_account.new_record? ? 0 : @login_account.id, :id => "login_account_person_id" , :name => "login_account[person_id]"
     .field_25
       %label &nbsp
       -if @login_account.new_record?
@@ -12,7 +12,7 @@
   .form_line
     .field_23{:class => "text_field"}
       = login.label :user_name, "<span class='asterisk'>*</span>User Name"
-      = login.text_field :user_name, :autocomplete => "off", :class => "check_username_unique validate[required,length[6,30]]", :login_account_id => @login_account.new_record? ? 0 : @login_account.id, :id => "login_account_user_name" , :name => "login_account[user_name]"
+      = login.text_field :user_name, :autocomplete => "off", :class => "check_username_unique validate[required,length[6,30]] mandantory_field",:mandantory_field1=>"login_account_person_id",:mandantory_field2=>"login_account_user_name",:mandantory_field3=>"login_account_security_email",:submit_button_id=>"user_account_new_submit", :login_account_id => @login_account.new_record? ? 0 : @login_account.id, :id => "login_account_user_name" , :name => "login_account[user_name]"
 
     .wrapimage.hidden#yes_username
       = login.label :user_name, '&nbsp'
@@ -28,7 +28,7 @@
         %span{:id => "user_name_container_#{@login_account.id}"} #{@login_account.user_name}
     .field_35
       = login.label :security_email, "<span class='asterisk'>*</span>Email"
-      = login.text_field :security_email, :class => "user_email_new", :id => "login_account_security_email" , :name => "login_account[security_email]"
+      = login.text_field :security_email, :class => "user_email_new mandantory_field", :mandantory_field1=>"login_account_person_id",:mandantory_field2=>"login_account_user_name",:mandantory_field3=>"login_account_security_email",:submit_button_id=>"user_account_new_submit",:id => "login_account_security_email" , :name => "login_account[security_email]"
     -#.field_15
       = login.label :login_status, 'Status'
       = login.radio_button :login_status, true, :style => "width:10%", :checked => true, :id => "login_account_login_status" , :name => "login_account[login_status]"
@@ -135,6 +135,6 @@
       = login.check_box :password_by_admin, :checked => true, :class => "checkbox_style", :id => "login_account_password_by_admin" , :name => "login_account[password_by_admin]"
 
   -#= link_to_function 'Clear', :class => "user_clear_form alt_option"
-  = submit_tag 'Submit',{:style => "margin-top:10px;"}
+  = submit_tag 'Submit',{:style => "margin-top:10px;" ,:id=>"user_account_new_submit",:disabled=>true}
   %br.clear
 

@@ -1,0 +1,5 @@
+$('#add_new_person_bank_account').css('display','none');
+$('#edit_person_bank_account').css('display', '');
+$('#edit_person_bank_account_form').html('<%= escape_javascript(render(:partial => "/client_setups/edit_person_bank_account_form", :locals => {:person_bank_account => @person_bank_account })) %>');
+$('#person_bank_account_mode').attr('mode', 'edit');
+$('.close_option[field="person_bank_account"]').css("display","");

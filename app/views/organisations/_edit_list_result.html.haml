@@ -35,7 +35,7 @@
         = render :partial => '/images/show_photo', :locals => {:entity => @organisation}
       //= submit_tag 'Submit and Close', :style => 'float:right;'
       //= submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
-      = submit_tag 'Submit', :style => 'float:right;'
+      = submit_tag 'Submit', :style => 'float:right;' ,:id=>"organisation_edit_submit"
 
   #right_content
     - if @super_admin || @organisation.class.to_s != "ClientOrganisation"

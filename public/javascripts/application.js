@@ -387,6 +387,10 @@ $(function(){
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $('.startdatepick').change();
+
         }
     });
 
@@ -469,7 +473,12 @@ $(function(){
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+
+        },
+        onClose: function(){
+             $(".mandantory_field").keyup();
         }
+       
     });
 
     $('.role_enddatepick').datepicker({
@@ -683,7 +692,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/people/role_finder.js",
-            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id'),
+            data: 'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&person_role_id='+$(this).attr('person_role_id')+'&input_field_id='+$(this).attr('id'),
             dataType: "script"
         });
     });
@@ -717,7 +726,7 @@ $(function(){
                 url:
                 "/people/name_finder.js",
                 data:
-                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id'),
+                'person_id='+$(this).val()+'&update='+$(this).attr('update')+'&employment_id='+$(this).attr('employment_id')+'&input_field_id='+$(this).attr('input_field_id'),
                 dataType: "script"
             });
         }else{
@@ -2258,6 +2267,9 @@ $(function(){
                     $('#check_input_change').val("false");
                     $('#check_left_input_change').val("false");
                     $('#check_right_input_change').val("false");
+                    //make save_button & run_button to disabled
+                    $("#save_button").attr("disabled", true);
+                    $("#run_button").attr("disabled", true);
                     $.ajax({
                         type: "GET",
                         url: "/query_headers/clear.js",
@@ -2266,6 +2278,7 @@ $(function(){
                     });
 
                     $(this).dialog('destroy');
+                    
                     return true;
                 }
             }
@@ -2523,7 +2536,7 @@ $(function(){
         $('#check_input_change').val("false");
         $('#check_left_input_change').val("false");
         $('#check_right_input_change').val("false");
-
+          $('#compile_button').attr('disabled',true);
         $.ajax({
             type: "POST",
             url: "/compile_lists/clear.js",
@@ -4934,6 +4947,20 @@ $(function(){
     });
 });
 
+$(function(){
+    $(".edit_bank").live('click', function(){
+
+        $(".container_selected").removeClass("container_selected");
+        $(this).closest('.toggle_options').addClass("container_selected");
+   });
+});
+
+$(function(){
+    $(".close_edit_bank").live('click', function(){
+        $(".container_selected").removeClass("container_selected");
+   });
+});
+
 
 $(function(){
     $('.new_logo').live('click', function(){        
@@ -5901,9 +5928,9 @@ $(function(){
                     }
                 }
             });
-                $('#password_error').parent().find("a").css("display","none");
-                $("#password_error").parent().css('background-color','#D1DDE6');
-                $("#password_error").css('background-color','#D1DDE6');
+            $('#password_error').parent().find("a").css("display","none");
+            $("#password_error").parent().css('background-color','#D1DDE6');
+            $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
         }else{
@@ -5921,10 +5948,10 @@ $(function(){
 $(function(){
     $('.check_postcode_columns').blur(function(){
 
-    if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
-        if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
-            $('#import_postcode_submit').attr("disabled", false);
-        } else {
+        if( ($('#suburb').val() != '') && ($('#state').val() != '') && ($('#postcode').val() != '') ) {
+            if( ($('#suburb').val() != $('#state').val()) && ($('#suburb').val() != $('#postcode').val()) && ($('#state').val() != $('#postcode').val()) ) {
+                $('#import_postcode_submit').attr("disabled", false);
+            } else {
 
                 var link = $(this);
 
@@ -5953,11 +5980,11 @@ $(function(){
                 $('#error_message').dialog('open');
 
 
+                $('#import_postcode_submit').attr("disabled", true);
+            }
+        } else {
             $('#import_postcode_submit').attr("disabled", true);
         }
-    } else {
-        $('#import_postcode_submit').attr("disabled", true);
-    }
 
     });
 });
@@ -7014,7 +7041,7 @@ $(function(){
         // $('#add_new_bank').hide();
         // $('#open_add_new_bank').show();
         // $('#close_add_new_bank').hide();
-    });
+        });
 });
 
 $(function(){
@@ -7076,7 +7103,7 @@ $(function(){
 $(function(){
     $('#edit_bank_entry_close_form').live('click', function(){
         // $('#edit_bank_entry_form').hide();
-    });
+        });
 });
 
 
@@ -7518,6 +7545,7 @@ $(function(){
         }
     });
 
+
     $('table#show_receipt_methods_grid tbody tr').live('mouseover',function(){
         if($('#receipt_method_mode').attr('mode')=="show"){
             $(this).css('cursor',"pointer");
@@ -7571,6 +7599,42 @@ $(function(){
 });
 
 
+/* Person Bank Account Grid*/
+$(function(){
+    $('table#show_person_bank_accounts_grid tbody tr').live('click',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $('table#show_person_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_person_bank_accounts_grid tbody tr').live('dblclick',function(){
+        if($('#person_bank_account_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/client_setups/edit_person_bank_account/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+});
+
+// When we have a form to edit we need to disable all the fields except the status field
+
+$(function(){
+    $(".disable_on_inactive").live('change',function(){
+        $.ajax({
+            type: "GET",
+            url: "/tags/show_role_condition_description.js",
+            data: 'doctype_id='+$(this).val(),
+            dataType: "script"
+
+        });
+    });
+});
 
 /* Show Add Role Condition Description */
 
@@ -7588,18 +7652,37 @@ $(function(){
 
 /*show submit button*/
 
-$(function(){
-    $(".mandantory_field").live('change',function(){
 
-  
-      if($('#'+$(this).attr('mandantory_field1')).val()=='' ||$('#'+$(this).attr('mandantory_field2')).val()=='' ||$('#'+$(this).attr('mandantory_field3')).val()==''||$('#'+$(this).attr('mandantory_field4')).val()==''||$('#'+$(this).attr('mandantory_field5')).val()==''||$('#'+$(this).attr('mandantory_field6')).val()==''||$('#'+$(this).attr('mandantory_field7')).val()==''||$('#'+$(this).attr('mandantory_field8')).val()==''||$('#'+$(this).attr('mandantory_field9')).val()==''||$('#'+$(this).attr('mandantory_field10')).val()=='')
-      {
-          $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
-      }
-      else
-      {
-          $('#'+$(this).attr('submit_button_id')).attr('disabled', false);
-      }
+ mandantory_check = function(link)
+ {
+
+
+        if($('#'+link.attr('mandantory_field1')).val()==''||$('#'+link.attr('mandantory_field2')).val()=='' ||$('#'+link.attr('mandantory_field3')).val()==''||$('#'+link.attr('mandantory_field4')).val()==''||$('#'+link.attr('mandantory_field5')).val()==''||$('#'+link.attr('mandantory_field6')).val()==''||$('#'+link.attr('mandantory_field7')).val()==''||$('#'+link.attr('mandantory_field8')).val()==''||$('#'+link.attr('mandantory_field9')).val()==''||$('#'+link.attr('mandantory_field10')).val()=='')
+          {
+               $('#'+link.attr('submit_button_id')).attr('disabled', true);
+
+          }
+          else
+              {
+               $('#'+link.attr('submit_button_id')).attr('disabled', false);
+
+              }
+
+
+
+ }
+
+$(function(){
+    $(".mandantory_dropdown_list").live('change',function(){
+        
+      mandantory_check($(this));
 
     });
 });
+
+$(function(){
+    $(".mandantory_field").live('keyup',function(){
+     mandantory_check($(this));
+    });
+});
+

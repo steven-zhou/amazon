@@ -145,7 +145,7 @@ class QueryHeadersController < ApplicationController
     end
 
     @query_result_columns = Array.new
-
+    
     if @query_header.query_selections.empty?
       @query_result_columns << "First Name"
       @query_result_columns << "Family Name"
@@ -197,6 +197,8 @@ class QueryHeadersController < ApplicationController
       end
     end
     @list_header = ListHeader.new
+    @check_query_empty=QueryResultGrid.find_all_by_login_account_id(session[:user])
+
     respond_to do |format|
       format.js
     end

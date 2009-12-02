@@ -1,19 +1,31 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.new_bank_required_field').keyup(function() {
+          if($('#new_bank_full_name').val() == '' || $('#new_bank_short_name').val() == '' || $('#new_bank_branch_name').val() == '' || $('#new_bank_branch_number').val() == '') {
+              $('#new_bank_submit').attr('disabled', true);
+          } else {
+              $('#new_bank_submit').removeAttr('disabled');
+          }
+      });
+    });
+
 - form_for :bank, @bank, :url => { :action => "create" }, :html => {:class => 'ajax_form', :id => "add_bank_form"}  do |f|
   .full_container
     %h2 Branch Details
     .form_line{:style => "float:none;"}
       .field_36
         = f.label :full_name, "<span class='asterisk'>*</span>Full Name"
-        = f.text_field :full_name
+        = f.text_field :full_name, :id => "new_bank_full_name",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
       .field_20
         = f.label :short_name, "<span class='asterisk'>*</span>Short Name"
-        = f.text_field :short_name
+        = f.text_field :short_name,:id => "new_bank_short_name",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
       .field_20
         = f.label :branch_name, "<span class='asterisk'>*</span>Branch Name"
-        = f.text_field :branch_name
+        = f.text_field :branch_name,:id => "new_bank_branch_name",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
       .field_20
         = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
-        = f.text_field :branch_number
+        = f.text_field :branch_number,:id => "new_bank_branch_number",:class=>'mandantory_field new_bank_required_field', :mandantory_field1=>"new_bank_full_name",:mandantory_field2=>"new_bank_short_name",:mandantory_field3=>"new_bank_branch_name",:mandantory_field4=>"new_bank_branch_number",:submit_button_id=>"new_bank_submit"
     .form_line     
       .field_36
         = f.label :website, 'Website'
@@ -68,16 +80,14 @@
   .full_container
     %h2 Branch Status
     .form_line{:style => "float:none;"}
-      .field_2
-        = f.label :status, '&nbsp'
-        = f.check_box :status
-      .field_17
-        = f.label :status, '&nbsp'
-        = f.label :status, 'Active', :style => "margin-top:8px;"
+      .field_20
+        = f.label :status, 'Active'
+        = f.check_box :status, :checked => true
       .field_20
         = f.label :status_reason, 'Status Reason'
         = f.text_field :status_reason
       .field_50
         = f.label :remarks, 'Remarks'
         = f.text_field :remarks
-  = submit_tag "Submit"
+  = submit_tag "Submit", :id => "new_bank_submit", :disabled => true
+

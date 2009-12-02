@@ -1,1 +1,7 @@
+//make the save_button & run_button disable 
+<%if @query_criteria_all.blank?%>
+    $("#save_button").attr("disabled", true);
+    $("#run_button").attr("disabled", true);
+    $("#edit_form #run_button_edit").attr("disabled", true);
+<%end%>
 $('#<%= dom_id(@query_criteria) %>').fadeOut("slow", function() {$(this).remove();});

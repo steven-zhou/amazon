@@ -45,10 +45,10 @@
         = f.text_field :pin
     .form_line
       .field_20
-        %label Super Password
+        =label_tag :super_passowrd, "<span class='asterisk'>*</span>Super Password"
         %input{:type => "password", :id => "password", :name => "password", :class => "password jpassword-lefttop"}
       .field_20
-        %label Super Password Confirmation
+        =label_tag :super_passowrd_confirmation, "<span class='asterisk'>*</span>Super Password Confirmation"
         %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
     .form_line
       = submit_tag "Submit", :disabled => true, :id => "password_submit"

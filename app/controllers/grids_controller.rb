@@ -1493,11 +1493,11 @@ class GridsController < ApplicationController
     return_data[:rows] = @campaign.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.name,
-          u.target_amount,
-          u.start_date,
-          u.end_date,
           u.description,
-          u.status,
+          u.target_amount,
+          u.start_date.nil? ? '' : u.start_date.strftime('%d-%m-%Y'),
+          u.end_date.nil? ? '' : u.end_date.strftime('%d-%m-%Y'),
+          (u.status? ? 'Active' : 'Inactive'),
           u.remarks
           ]}}
     # Convert the hash to a json object
@@ -1892,7 +1892,8 @@ class GridsController < ApplicationController
           u.description,
           u.volume,
           u.cost,
-          u.status]}}
+          (u.status? ? 'Active' : 'Inactive')
+        ]}}
 
     # Convert the hash to a json object
     render :text => return_data.to_json, :layout => false
@@ -1958,7 +1959,7 @@ class GridsController < ApplicationController
           u.post_to_history,
           u.post_to_campaign,
           u.send_receipt,
-          u.status,
+          (u.status? ? 'Active' : 'Inactive'),
           u.remarks]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -2024,7 +2025,7 @@ class GridsController < ApplicationController
           u.post_to_history,
           u.post_to_campaign,
           u.send_receipt,
-          u.status,
+          (u.status? ? 'Active' : 'Inactive'),
           u.remarks]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -2087,7 +2088,8 @@ class GridsController < ApplicationController
           u.name,
           u.receipt_method_type.name,
           u.description,
-          u.status]}}
+          (u.status? ? 'Active' : 'Inactive')
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2149,7 +2151,70 @@ class GridsController < ApplicationController
           u.bank.display_name,
           u.account_number,
           u.account_purpose.name,
-          u.status
+          (u.status? ? 'Active' : 'Inactive')
+          ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_person_bank_accounts_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @person_bank_accounts = PersonBankAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = PersonBankAccount.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @person_bank_accounts = PersonBankAccount.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = PersonBankAccount.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @person_bank_accounts.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.person.name,
+          u.bank.display_name,
+          u.account_type.name,
+          (u.status? ? 'Active' : 'Inactive')
           ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

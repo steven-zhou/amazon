@@ -1,5 +1,16 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.edit_bank_required_field').keyup(function() {
+          if($('#edit_bank_full_name').val() == '' || $('#edit_bank_short_name').val() == '' || $('#edit_bank_branch_name').val() == '' || $('#edit_bank_branch_number').val() == '') {
+              $('#edit_bank_submit').attr('disabled', true);
+          } else {
+              $('#edit_bank_submit').removeAttr('disabled');
+          }
+      });
+    });
 .full_container
-  = link_to_function image_tag("/images/close_icon.png") , :class => "close_option", :id=> "edit_bank_entry_close_form", :style => "float:right;", :field => "bank", :toggle_id_name => "edit_bank_entry_form"
+  = link_to_function image_tag("/images/close_icon.png") , :class => "close_option close_edit_bank", :id=> "edit_bank_entry_close_form", :style => "float:right;", :field => "bank", :toggle_id_name => "edit_bank_entry_form"
   %h1 Edit Bank
   - form_for :bank_update, @bank_to_update, :url => { :action => "update" }, :html => {:class => 'ajax_form', :id => "edit_bank_entry_form"}  do |f|
     %input{:id => "id", :name => "id", :style => "display:none;", :value => @bank_to_update.id}
@@ -8,80 +19,78 @@
       .form_line{:style => "float:none;"}
         .field_36
           = f.label :full_name, "<span class='asterisk'>*</span>Full Name"
-          = f.text_field :full_name
+          = f.text_field :full_name,:disabled => true,:id=>"bank_edit_full_name",:class=>'mandantory_field edit_bank_required_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
         .field_20
           = f.label :short_name, "<span class='asterisk'>*</span>Short Name"
-          = f.text_field :short_name
+          = f.text_field :short_name,:id=>"bank_edit_short_name",:disabled => @bank_to_update.status == false,:class=>'mandantory_field edit_bank_required_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
         .field_20
           = f.label :branch_name, "<span class='asterisk'>*</span>Branch Name"
-          = f.text_field :branch_name
+          = f.text_field :branch_name,:id=>"bank_edit_branch_name",:disabled => @bank_to_update.status == false,:class=>'mandantory_field edit_bank_required_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
         .field_20
           = f.label :short_name, "<span class='asterisk'>*</span>Branch Number"
-          = f.text_field :branch_number
+          = f.text_field :branch_number,:id=>"bank_edit_branch_number", :disabled => @bank_to_update.status == false,:class=>'mandantory_field edit_bank_required_field', :mandantory_field1=>"bank_edit_full_name",:mandantory_field2=>"bank_edit_short_name",:mandantory_field3=>"bank_edit_branch_name",:mandantory_field4=>"bank_edit_branch_number",:submit_button_id=>"bank_edit_submit"
       .form_line
         .field_36
           = f.label :website, 'Website'
-          = f.text_field :website
+          = f.text_field :website, :disabled => @bank_to_update.status == false
         .field_42
           = f.label :general_email, 'General Email'
-          = f.text_field :general_email
+          = f.text_field :general_email, :disabled => @bank_to_update.status == false
       .form_line
         .field_36
           = f.label :address_line_1, 'Address Line 1'
-          = f.text_field :address_line_1
+          = f.text_field :address_line_1, :disabled => @bank_to_update.status == false
         .field_20
           = f.label :address_line_3, 'Suburb/Town'
-          = f.text_field :address_line_3
+          = f.text_field :address_line_3, :disabled => @bank_to_update.status == false
         .field_2
-          = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode"
+          = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_update_address_line_3", :update_field2 =>"bank_update_state", :update_field3 => "bank_update_postcode", :update_field4 => "bank_update_country_id", :title=>"Postcode" if @bank_to_update.status == true
         .field_17
           = f.label :state, 'State'
-          = f.text_field :state    
+          = f.text_field :state, :disabled => @bank_to_update.status == false
       .form_line
         .field_36
           = f.label :address_line_2, 'Address Line 2'
-          = f.text_field :address_line_2
+          = f.text_field :address_line_2, :disabled => @bank_to_update.status == false
         .field_23
           = f.label :postcode, 'Postcode'
-          = f.text_field :postcode
+          = f.text_field :postcode, :disabled => @bank_to_update.status == false
         .field_17
           = f.label :country, 'Country'
-          = collection_select :bank_update, :country_id, Country.all, :id, :short_name,  {:include_blank => true}
+          = collection_select :bank_update, :country_id, Country.all, :id, :short_name,  {:include_blank => true}, {:disabled => @bank_to_update.status == false}
     .full_container
       %h2 Contact Person
       .form_line
         .field_20
           = f.label :contact_person, 'Name'
-          = f.text_field :contact_person
+          = f.text_field :contact_person, :disabled => @bank_to_update.status == false
         .field_20
           = f.label :contact_person_job_title, 'Job Title'
           = f.text_field :contact_person_job_title
         .field_50
           = f.label :contact_person_email, 'Email Address'
-          = f.text_field :contact_person_email
+          = f.text_field :contact_person_email, :disabled => @bank_to_update.status == false
       .form_line
         .field_20
           = f.label :contact_phone, 'Phone Number'
-          = f.text_field :contact_person
+          = f.text_field :contact_person, :disabled => @bank_to_update.status == false
         .field_20
           = f.label :contact_fax, 'Fax Number'
-          = f.text_field :contact_fax
+          = f.text_field :contact_fax, :disabled => @bank_to_update.status == false
         .field_20
           = f.label :contact_person_email, 'Mobile Phone'
-          = f.text_field :contact_mobile
+          = f.text_field :contact_mobile, :disabled => @bank_to_update.status == false
     .full_container
       %h2 Branch Status
       .form_line
-        .field_2
-          = f.label :status, '&nbsp'
-          = f.check_box :status
-        .field_17
-          = f.label :status, '&nbsp'
-          = f.label :status, 'Active', :style => "margin-top:8px;"
+        .field_20
+          = f.label :status, "Active"
+          = f.check_box :status, :class => "checkbox_style"
         .field_20
           = f.label :status_reason, 'Status Reason'
-          = f.text_field :status_reason
+          = f.text_field :status_reason, :disabled => @bank_to_update.status == false
         .field_50
-          = f.label :remarks, 'Remarks'
+          = f.label :remarks, 'Remarks', :disabled => @bank_to_update.status == false
+
           = f.text_field :remarks
-    = submit_tag "Submit"
+    = submit_tag "Update",:id=>"bank_edit_submit"

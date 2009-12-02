@@ -1,0 +1,112 @@
+#header
+  #page_title
+    %h1 Person Bank Accounts
+  #lol
+
+%br.clear
+
+#person_bank_accounts_page
+  .full_container
+    %input.hidden{:id => "person_bank_account_mode", :mode => "show"}
+
+    #add_new_person_bank_account
+      = render :partial => "client_setups/new_person_bank_account"
+
+    #existing_person_bank_accounts
+      = render :partial => "client_setups/existing_person_bank_accounts"
+
+    #edit_person_bank_account{:style => "display:none;margin-top:10px;float:left;"}
+      .tab_looking_left
+      .tab_looking_icon
+        = image_tag('edit_icon.png')
+        Maintenance
+      .tab_looking_right
+
+      %div.tab_close
+        .tab_looking_left
+        .tab_looking_icon
+          = link_to_function image_tag('/images/Icons/System/close.png'), :field => "person_bank_account", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_person_bank_account", :toggle_id_name1 => "add_new_person_bank_account"
+        .tab_looking_right
+          .options
+
+      .full_container
+        #edit_person_bank_account_form
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_person_bank_accounts_grid").flexigrid({
+  url: '/grids/show_person_bank_accounts_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Person',
+  name : 'person',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Bank',
+  name : 'bank',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Account Type',
+  name : 'account_type',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 50,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Person',
+  name : 'person'
+  },
+
+  {
+  display: 'Bank',
+  name : 'bank'
+  },
+
+  {
+  display: 'Account Type',
+  name : 'account_type'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
+  }
+
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Person Bank Accounts',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

@@ -1286,13 +1286,24 @@ p.submit{
     margin-top:0px !important;
 }
 
+#app #main #content div#accordion02 h3 {
+    margin-bottom:0px !important;
+}
 
+#app #main #content div#accordion02 h1 {
+    margin-bottom:0px !important;
+}
+
+#app #main #content div#accordion02 h2 {
+    margin-bottom:0px !important;
+}
 
 #app #main #content #header #lol #loright #show_list_icon{
     float:left !important;
     margin-top:5px;
     margin-left:5px;
 }
+
 
 /*Temp*/
 
@@ -2607,3 +2618,15 @@ div#permission_form .options{
     text-align:center;
 }
 
+label.error_flag{
+   width:auto;
+   color:red !important;
+   
+
+}
+
+input.error_flag{
+
+    border:1px dotted red;
+
+}

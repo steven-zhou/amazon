@@ -79,7 +79,7 @@
   .form_line
     .field_25{:style => "margin-right: 2px;"}
       =employment.label :hired_by, "<span class='asterisk'>*</span>Hired By"
-      =employment.text_field :hired_by, :class=>"find_person_field mandantory_field", :update=>"recruiter_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+      =employment.text_field :hired_by, :class=>"find_person_field mandantory_field", :update=>"recruiter_container", :input_field_id=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by", :title=>"Search"
@@ -92,7 +92,7 @@
   .form_line
     .field_25{:style => "margin-right: 2px;"}
       =employment.label :report_to, "Report To"
-      =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
+      =employment.text_field :report_to, :class=>"find_person_field",:input_field_id=>@employment.new_record? ? "employment_report_to":"employment_#{@employment.id}_report_to", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to", :title=>"Search"
