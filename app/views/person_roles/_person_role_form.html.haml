@@ -15,10 +15,10 @@
 
 .form_line
   .field_30
-    = person_role.label :role_id, "<span class='asterisk'>*</span>Role"
+    = person_role.label :person_role_id, "<span class='asterisk'>*</span>Role"
     -if @person_role.new_record?
       %select.show_role_table{:name => "person_role[role_id]", :id => "person_role_role_id", :person_id => @person.id, :person_role_id => "person_role_role_id",:class=>"mandantory_dropdown_list",:mandantory_field1=>"person_role_role_id",:mandantory_field2=>"person_role_assigned_by",:mandantory_field3=>"person_role_start_date",:submit_button_id=>"role_new_submit"}
-        %options
+        %option
     -else
       %select.show_role_table{:name => "person_role[#{@person_role.id}][role_id]", :id => "person_role_#{@person_role.id}_role_id", :person_id => @person.id, :person_role_id => @person_role.id,:class=>"mandantory_dropdown_list",:mandantory_field1=>"person_role_#{@person_role.id}_role_id",:mandantory_field2=>"person_role_assigned_by_#{@person_role.id}",:mandantory_field3=>"person_role_#{@person_role.id}_start_date",:submit_button_id=>"role_edit_submit"}
         - @roles.each do |r|

@@ -11,7 +11,7 @@
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").fadeOut(3000);
       $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
 
-      $(".mandantory_field").keyup();
+      $("#<%=escape_javascript("#{@input_field_id}")%>").keyup();
     <% else %>
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").css('display','');
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").html("Invalid ID");
@@ -20,7 +20,7 @@
       $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").fadeOut(3000);
 
       $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
-       $(".mandantory_field").keyup();
+       $("#<%=escape_javascript("#{@input_field_id}")%>").keyup();
     <% end %>
   <% end %>
 <% else %>
