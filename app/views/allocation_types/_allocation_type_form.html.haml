@@ -1,0 +1,63 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.new_allocation_type_required_field').keyup(function() {
+          if($('#new_allocation_type_name').val() == '') {
+              $('#new_allocation_type_submit').attr('disabled', true);
+          } else {
+              $('#new_allocation_type_submit').removeAttr('disabled');
+          }
+      });
+    });
+
+- form_for :allocation_type, @allocation_type, :url => {:controller => "allocation_types", :action => "create_allocation_type" }, :html => {:class => 'ajax_form'}  do |f|
+  .form_line
+    .field_15
+      = f.label :long_name, "* Name", :class => "required_field"
+      = f.text_field :name, :class => "new_allocation_type_required_field", :id => "new_allocation_type_name", :disabled => false
+  .form_line
+    .field_30
+      = f.label :description, "Description"
+      = f.text_field :description
+    .field_30
+      = f.label :link_module_id, "*Link Module"
+      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true})
+  .form_line
+    .field_63
+      = f.label :remarks, "Remarks"
+      = f.text_field :remarks
+    
+  .form_line
+    
+    .field_2
+      = f.label :post_to_history, "&nbsp"
+      = f.check_box :post_to_history, :class => "checkbox_style"
+    .field_10
+      = f.label :post_to_history, "&nbsp"
+      = f.label :post_to_history, "Post to History", :style => "margin-top:7px;"
+
+    .field_2
+      = f.label :post_to_campaign, "&nbsp"
+      = f.check_box :post_to_campaign,:class => "checkbox_style"
+    .field_10
+      = f.label :post_to_campaign, "&nbsp"
+      = f.label :post_to_campaign, "Post to Campaign", :style => "margin-top:7px;"
+
+    .field_2
+      = f.label :send_receipt, "&nbsp"
+      = f.check_box :send_receipt,:class => "checkbox_style"
+    .field_10
+      = f.label :send_receipt, "&nbsp"
+      = f.label :send_receipt, "Send Receipt", :style => "margin-top:7px;"
+  
+    .field_2
+      = f.label :status, "&nbsp"
+      = f.check_box :status, :class => "checkbox_style"
+    .field_10
+      = f.label :status, "&nbsp"
+      = f.label :status, "Active", :style => "margin-top:7px;"
+
+     
+  .form_line
+    .field_10{:style => "float:right;"}
+      = submit_tag "Submit", :disabled => true, :id => "new_allocation_type_submit"

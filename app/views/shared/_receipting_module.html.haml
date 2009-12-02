@@ -14,7 +14,9 @@
             = link_to "#{image_tag('/images/icon_holder.png')} Receipt Accounts", :controller => "receipting", :action => "receipt_accounts"
           -#%li{:id => @current_action == "receipt_methods" ? "selected" : ""}
             = link_to "#{image_tag('/images/icon_holder.png')} Receipt Methods", :controller => "receipting", :action => "receipt_methods"
-          %li{:id => @current_action == "payment_methods" ? "selected" : ""}
+          %li{:id => @current_action == "allocation_types" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Allocation Types", :controller => "receipting", :action => "allocation_types"
+          %li{:id => @current_action == "receipt_types" ? "selected" : ""}
             = link_to "#{image_tag('/images/icon_holder.png')} Receipt Types", :controller => "receipting", :action => "receipt_types"
           %br.clear
     .bottom

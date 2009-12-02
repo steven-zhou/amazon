@@ -1,19 +1,19 @@
 - form_for postcode, :url => {:controller => "postcodes", :action => postcode.new_record? ? "create" : "update"}, :html => {:class => "ajax_form"} do |f|
   .form_line
     .field_15
-      = f.label :state, 'State'
-      = f.text_field :state
+      = f.label :state, "<span class='asterisk'>*</span>State"
+      = f.text_field :state, :id=>@current_action=="new" ? "new_pc_state" : "edit_pc_state", :class=>"mandantory_field",:submit_button_id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit", :mandantory_field1=>@current_action=="new" ? "new_pc_state" : "edit_pc_state",:mandantory_field2=>@current_action=="new" ? "new_pc_suburb" : "edit_pc_suburb",:mandantory_field3=>@current_action=="new" ? "new_pc_postcode" : "edit_pc_postcode"
     .field_15
-      = f.label :suburb, 'Suburb'
-      = f.text_field :suburb
+      = f.label :suburb, "<span class='asterisk'>*</span>Suburb"
+      = f.text_field :suburb, :id=>@current_action=="new" ? "new_pc_suburb" : "edit_pc_suburb", :class=>"mandantory_field",:submit_button_id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit",:mandantory_field1=>@current_action=="new" ? "new_pc_state" : "edit_pc_state",:mandantory_field2=>@current_action=="new" ? "new_pc_suburb" : "edit_pc_suburb",:mandantory_field3=>@current_action=="new" ? "new_pc_postcode" : "edit_pc_postcode"
     .field_15
-      = f.label :postcode, 'Postcode'
-      = f.text_field :postcode
+      = f.label :postcode, "<span class='asterisk'>*</span>Postcode"
+      = f.text_field :postcode, :id=>@current_action=="new" ? "new_pc_postcode" : "edit_pc_postcode", :class=>"mandantory_field",:submit_button_id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit",:mandantory_field1=>@current_action=="new" ? "new_pc_state" : "edit_pc_state",:mandantory_field2=>@current_action=="new" ? "new_pc_suburb" : "edit_pc_suburb",:mandantory_field3=>@current_action=="new" ? "new_pc_postcode" : "edit_pc_postcode"
     .field_15
-      = f.label :geographical_area_id, 'Geo Area'
+      = f.label :geographical_area_id, "Geo Area"
       = f.collection_select :geographical_area_id, GeographicalArea.find(:all, :conditions => ['country_id=?', session[:postcode_country_id]], :order => 'division_name'), :id, :division_name, {:include_blank => true}
     .field_15
-      = f.label :electoral_area_id, 'Electoral Area'
+      = f.label :electoral_area_id, "Electoral Area"
       = f.collection_select :electoral_area_id, ElectoralArea.find(:all, :conditions => ['country_id=?', session[:postcode_country_id]], :order => 'division_name'), :id, :division_name, {:include_blank => true}
   .full_container
     .title
@@ -56,4 +56,4 @@
           = f.text_field :bulk_code
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit",:style=>"margin-top:13px;"
+      = submit_tag "Submit",:style=>"margin-top:13px;", :id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit", :disabled=>(true if @current_action=="new")

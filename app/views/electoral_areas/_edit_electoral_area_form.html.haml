@@ -16,12 +16,12 @@
         = f.label :country_name, "Country Name"
         = f.text_field :country_name, :class => "hidden", :value => @country_name
       .field_30
-        = f.label :division_name, "Division Name"
-        = f.text_field :division_name
+        = f.label :division_name, "<span class='asterisk'>*</span>Division Name"
+        = f.text_field :division_name, :id=>"edit_ele_area_division_name", :class=>"mandantory_field", :mandantory_field2=>"edit_ele_area_division_name", :submit_button_id=>"edit_ele_submit"
       .field_30
         = f.label :remarks, "Remarks"
         = f.text_field :remarks
         %input{:class => "hidden", :name => "type", :value => @postal_area.class.to_s}
     .form_line
       .field_10{:style => "float:right;"}
-        = submit_tag "Submit",:style=>"margin-top:13px;"
+        = submit_tag "Submit",:style=>"margin-top:13px;",:id=>"edit_ele_submit", :disabled=>false

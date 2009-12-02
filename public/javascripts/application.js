@@ -3960,7 +3960,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css('display','').css('opacity', 0).stop().fadeTo('fast',1 );
+            $(this).find('.options').css('display','');
         }
          
     });
@@ -3969,7 +3969,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseout',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').stop().fadeTo('fast',0).css('display','none');
+            $(this).find('.options').css('display','none');
         }
     });
 });
@@ -5418,9 +5418,11 @@ $(function(){
         if ($(this).attr("checked") == true){
             $('.controller_select_all').attr("checked", true);
             $('.method_select_all').attr("checked", true);
+            check_access_checkbox(); //check the checkbox status
         }else{
             $('.controller_select_all').attr("checked", false);
             $('.method_select_all').attr("checked", false);
+            check_access_checkbox(); //check the checkbox status
         }
 
     });
@@ -5446,9 +5448,11 @@ $(function(){
     $('.controller_select_all').live('click', function(){
         if ($(this).attr('checked') == true){
             $('.method_select_all[controller_id = ' + $(this).val() +']').attr("checked", true);
+            check_access_checkbox(); //check the checkbox status
         }else{
             $('.method_select_all[controller_id='+ $(this).val()+']').attr("checked", false);
             $('.module_select_all').attr("checked", false);
+            check_access_checkbox(); //check the checkbox status
         }
     });
 });
@@ -5459,9 +5463,20 @@ $(function(){
             $('.module_select_all').attr("checked", false);
             $('.controller_select_all[controller_id='+ $(this).attr("controller_id")+ ']').attr("checked", false);
         }
+        check_access_checkbox(); //check the checkbox status
     });
 });
-
+//check the status of all the checkbox in permission_form,
+//submit button in the #permission_form (this is a div, not form) will be enalbed only when there is one checkbox is checked at least
+//this function can be make further reusable, i.e. make the div name as a argument for this function.
+check_access_checkbox = function(){
+    var checkbox_list = new Array;
+    checkbox_list = $("#permission_form").find("input[checked='true']");
+    if(checkbox_list.length > 0 )
+        $("#permission_form input[type='submit']").attr("disabled", false);
+    else
+        $("#permission_form input[type='submit']").attr("disabled", true);
+}
 $(function(){
     $("#close_new_module").live('click', function(){
         $(this).css("display", "none");
@@ -7664,11 +7679,7 @@ $(function(){
           else
               {
                $('#'+link.attr('submit_button_id')).attr('disabled', false);
-
               }
-
-
-
  }
 
 $(function(){
@@ -7685,3 +7696,44 @@ $(function(){
     });
 });
 
+/* Allocation Type Grid*/
+$(function(){
+    $('table#show_allocation_types_grid tbody tr').live('click',function(){
+        if($('#allocation_type_mode').attr('mode')=="show"){
+            $('table#show_allocation_types_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_allocation_types_grid tbody tr').live('dblclick',function(){
+        if($('#allocation_type_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/allocation_types/edit_allocation_type/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_allocation_types_grid tbody tr').live('mouseover',function(){
+        if($('#allocation_type_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
+$(function() {
+    $('#copy_allocation_type').live('click', function() {
+
+        $.ajax({
+            type: "GET",
+            url: "/allocation_types/copy_allocation_type.js",
+            data: 'id=' + $(this).attr('allocation_type'),
+            dataType: "script"
+        });
+    });
+});

@@ -1,11 +1,11 @@
 - form_for language, :html => {:class => "ajax_form"} do |f|
   .form_line
     .field_30
-      = f.label :name, 'Name'
-      = f.text_field :name
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name, :id=>@current_action=="new" ? "new_language_name" : "edit_language_name", :class=>"mandantory_field", :mandantory_field1=>@current_action=="new" ? "new_language_name" : "edit_language_name", :submit_button_id=>@current_action=="new" ? "new_language_submit" : "edit_language_submit"
     .field_50
       = f.label :description, 'Description'
-      = f.text_field :description
+      = f.text_field :description 
   .form_line
     .field_10{:style => "float:right;"}
-      = submit_tag "Submit"
+      = submit_tag "Submit", :id=>@current_action=="new" ? "new_language_submit" : "edit_language_submit", :disabled=>(true if @current_action=="new")

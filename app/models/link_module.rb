@@ -1,0 +1,3 @@
+class LinkModule < AmazonSetting
+
+end

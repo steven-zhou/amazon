@@ -26,6 +26,7 @@ class PostcodesController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a postcode record.")
       #----------------------------presence - of----
+      # the validation of :geographical_area_id & :electoral_area_id are actually not usefull
       if(!@postcode.errors[:postcode].nil? && @postcode.errors.on(:postcode).include?("can't be blank"))
          flash.now[:error] = "Please Enter All Required Data"
       elsif(!@postcode.errors[:state].nil? && @postcode.errors.on(:state).include?("can't be blank"))
