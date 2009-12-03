@@ -4,10 +4,9 @@ class WebsitesController < ApplicationController
   def show
     @website = Website.find(params[:id].to_i)
     @website_new = Website.new
-     if @website.contactable_type == "Person"
+    if @website.contactable_type == "Person"
       @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
-    end
-    if @website.contactable_type == "Organisation"
+    else
       @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
     end
     respond_to do |format|
@@ -19,10 +18,10 @@ class WebsitesController < ApplicationController
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @website = @entity.websites.new(params[:website])
     @website.save
-    @person = Person.find(@website.contactable_id)
-
-    if (params[:organisation_id])
-      @organisation = Organisation.find(@website.contactable_id)
+    if @website.contactable_type == "Person"
+      @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
+    else
+      @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
     end
 
     @website_new = Website.new
@@ -35,8 +34,7 @@ class WebsitesController < ApplicationController
     @website = Website.find(params[:id].to_i)
     if @website.contactable_type == "Person"
       @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
-    end
-    if @website.contactable_type == "Organisation"
+    else
       @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
     end
     respond_to do |format|
@@ -47,10 +45,9 @@ class WebsitesController < ApplicationController
   def update
     @website = Website.find(params[:id].to_i)
     @website_new = Website.new
-     if @website.contactable_type == "Person"
+    if @website.contactable_type == "Person"
       @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
-    end
-    if @website.contactable_type == "Organisation"
+    else
       @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
     end
     respond_to do |format|
@@ -63,11 +60,9 @@ class WebsitesController < ApplicationController
   def destroy
     @website = Website.find(params[:id].to_i)
     @website.destroy
-    @person = Person.find(@website.contactable_id)
     if @website.contactable_type == "Person"
       @person = Person.find(@website.contactable_id)   # if in Person return person object to destroy.js
-    end
-    if @website.contactable_type == "Organisation"
+    else
       @organisation =Organisation.find(@website.contactable_id)  # if in organisation return organisation object to destroy.js
     end
     @website_new = Website.new

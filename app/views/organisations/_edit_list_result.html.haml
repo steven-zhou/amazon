@@ -11,13 +11,20 @@
       .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" :""}
         %h1 Identity
         .form_line
-          .field_50
+          .field_35
             = p.label :type, "Type"
             %select{:name => "type", :disabled => true}
               %option{:value => "OtherOrganisation", :selected => (@organisation.class.to_s == "OtherOrganisation")} OtherOrganisation
               %option{:value => "AgentOrganisation", :selected =>  (@organisation.class.to_s == "AgentOrganisation")} AgentOrganisation
               %option{:value => "SubOrganisation", :selected =>  (@organisation.class.to_s == "SubOrganisation")} SubOrganisation
-          .field_40
+          .field_34
+            = p.label :level, "<span class='asterisk'>*</span>Level"
+            %select{:name => "organisation[level]"}
+              - (0..9).each do |i|
+                - unless @client_setup.send("level_#{i}_label").blank?
+                  %option{:value => i, :selected => (@organisation.level == i)} #{i} - #{@client_setup.send("level_#{i}_label")}
+
+          .field_25
             = p.label :custom_id, "Custom ID"
             = p.text_field :custom_id
       .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" :""}

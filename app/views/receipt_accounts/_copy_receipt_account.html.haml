@@ -1,5 +1,5 @@
 .container{:style => "background-image:none;"}
-  -form_for :receipt_account, ReceiptAccount.new, :url => {:controller => "receipt_accounts", :action => "create_copy_of_receipt_account"}, :html => {:class => 'ajax_form'} do |f|
+  -form_for ReceiptAccount.new, :url => {:controller => "receipt_accounts", :action => "create_copy_of_receipt_account"}, :html => {:class => 'ajax_form'} do |f|
     .form_line
       = f.label :name, 'Name'
       = f.text_field :name, :value => ""

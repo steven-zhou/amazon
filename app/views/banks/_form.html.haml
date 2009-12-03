@@ -3,9 +3,9 @@
     $(function() {
       $('.new_bank_required_field').keyup(function() {
           if($('#new_bank_full_name').val() == '' || $('#new_bank_short_name').val() == '' || $('#new_bank_branch_name').val() == '' || $('#new_bank_branch_number').val() == '') {
-              $('#new_bank_submit').attr('disabled', true);
+              $("#"+$(this).attr('child_id')).attr('disabled', true)
           } else {
-              $('#new_bank_submit').removeAttr('disabled');
+              $("#"+$(this).attr('child_id')).removeAttr('disabled');
           }
       });
     });

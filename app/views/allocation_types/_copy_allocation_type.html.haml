@@ -1,5 +1,5 @@
 .container{:style => "background-image:none;"}
-  -form_for :allocation_type, ReceiptAccount.new, :url => {:controller => "allocation_types", :action => "create_copy_of_allocation_type"}, :html => {:class => 'ajax_form'} do |f|
+  -form_for :allocation_type, AllocationType.new, :url => {:controller => "allocation_types", :action => "create_copy_of_allocation_type"}, :html => {:class => 'ajax_form'} do |f|
     .form_line
       = f.label :name, 'Name'
       = f.text_field :name, :value => ""

@@ -11,6 +11,7 @@ class OrganisationsController < ApplicationController
     @organisation.emails.build
     @organisation.websites.build
     @image = Image.new
+    @client_setup = ClientSetup.first
     #@postcodes = Postcode.find(:all)
     @check_field = Array.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
@@ -73,6 +74,7 @@ class OrganisationsController < ApplicationController
   def create
     @organisation = (params[:type].camelize.constantize).new(params[:organisation])
     @organisation.onrecord_since = Date.today()
+    @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
     if @organisation.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
       if !params[:image].nil?
@@ -112,6 +114,7 @@ class OrganisationsController < ApplicationController
           @active_tab = params[:active_tab]
         @active_sub_tab = params[:active_sub_tab]
     @current_user = LoginAccount.find(session[:user])
+    @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = Organisation.find(:all, :order => "id")
     #@postcodes = Postcode.find(:all)
@@ -174,6 +177,9 @@ class OrganisationsController < ApplicationController
     end
 
     @organisation.update_attributes(params[type.to_sym])
+    @organisation.level = params[:organisation][:level]
+    @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
+    @organisation.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
     flash[:warning] = "Organisation Update Has NOT been Submitted Due to Data Errors" unless @organisation.save
 
