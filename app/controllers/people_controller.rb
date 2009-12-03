@@ -182,6 +182,7 @@ class PeopleController < ApplicationController
     @role = Role.new
     @person_role = PersonRole.new
     @person_group = PersonGroup.new
+    @bank_accounts = PersonBankAccount.new
     @personal_check_field = Array.new
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
     unless @duplication_formula_appiled.status == false

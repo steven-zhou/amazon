@@ -33,6 +33,20 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.integer  "priority_number"
   end
 
+  create_table "allocation_types", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.integer  "link_module_id"
+    t.boolean  "post_to_history"
+    t.boolean  "post_to_campaign"
+    t.boolean  "send_receipt"
+    t.boolean  "status"
+    t.text     "remarks"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "link_module_name"
+  end
+
   create_table "amazon_settings", :force => true do |t|
     t.string   "name"
     t.integer  "position"
@@ -103,10 +117,10 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.text     "target_amount"
     t.date     "start_date"
     t.date     "end_date"
+    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
   end
 
   create_table "client_bank_accounts", :force => true do |t|
@@ -757,10 +771,10 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.integer  "dead_return"
     t.integer  "letter_id"
     t.integer  "account_code_id"
+    t.boolean  "status"
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "status"
   end
 
   create_table "system_logs", :force => true do |t|

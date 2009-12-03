@@ -15,7 +15,7 @@
         .display_field_bg
           = @client_setup.client_id
           -#%input{:value => @client_setup.client_id}
-      .field_25
+      .field_30
         %label Client Registration
         .display_field_bg
           = @client_setup.client_rego
@@ -38,24 +38,30 @@
 .full_container
   %h1 System Info
   .form_line
-    .field_17
+    .field_15
       %label Type
-      %input{:value => @client_setup.system_type}
-    .field_10
+      .display_field_bg
+        = @client_setup.system_type
+    .field_15
       %label Hosting
-      %input{:value => @client_setup.hosting_status}
-    .field_5
+      .display_field_bg
+        = @client_setup.hosting_status
+    .field_15
       %label Status
-      %input{:type => "checkbox", :checked => @client_setup.system_status, :style => "width:50%;"}
-    .field_20
+      .display_field_bg
+        = @client_setup.system_status ? "Active" : "Inactive"
+    .field_15
       %label System Purchase
-      %input{:value => @client_setup.system_purchase}
-    .field_20
+      .display_field_bg
+        = @client_setup.system_purchase
+    .field_15
       %label Maximum Core Records
-      %input{:value => @client_setup.maximum_core_records}
-    .field_20
+      .display_field_bg
+        = @client_setup.maximum_core_records
+    .field_15
       %label Number of System Users
-      %input{:value => @client_setup.number_of_users}
+      .display_field_bg
+        = @client_setup.number_of_users
   .full_container
     %h2  Installed Modules
     .container_half

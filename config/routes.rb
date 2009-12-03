@@ -25,6 +25,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :person_groups, :collection => {:show_group_members => :get}
     person.resources :employments
     person.resources :person_roles
+    person.resources :person_bank_accounts
     person.resources :relationships, :collection => {:remove_relation => :delete}
   end
 
@@ -66,7 +67,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :roles, :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get}
 
 
-  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :receipt_types => :get }
+  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :receipt_types => :get, :allocation_types => :get}
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
@@ -106,7 +107,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get, :show_person_bank_accounts_grid => :get,
+    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get,:show_allocation_types_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get, :show_person_bank_accounts_grid => :get,
     :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
@@ -130,6 +131,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :postcodes, :collection => {:show_by_country => :get}
   map.resources :languages, :collection => {:show_languages => :get}
   map.resources :religions
+   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  
 
 

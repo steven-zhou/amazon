@@ -1,0 +1,145 @@
+<%- if flash[:error].nil?%>
+  $('#allocation_type_save_form').dialog('close');
+  $('.save_form').dialog('close');
+  $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
+  $('#flash_feedback').fadeIn("slow");
+  $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+  
+  $('#existing_allocation_types').html('<%= escape_javascript(render(:partial => "/allocation_types/existing_allocation_types")) %>');
+  $('#allocation_type_mode').attr('mode', 'show');
+  $("#show_allocation_types_grid").flexigrid({
+  url: '/grids/show_allocation_types_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 70,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Link Module',
+  name : 'link_module_name',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 50,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Post to History',
+  name : 'post_to_history',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Post to Campaign',
+  name : 'post_to_campaign',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Send Receipt',
+  name : 'send_receipt',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Name',
+  name : 'Name'
+  },
+
+  {
+  display: 'Link Module',
+  name : 'link_module_name'
+  },
+
+  {
+  display: 'Description',
+  name : 'description'
+  },
+
+  {
+  display: 'Post to History',
+  name : 'post_to_history'
+  },
+
+  {
+  display: 'Post to Campaign',
+  name : 'post_to_campaign'
+  },
+
+  {
+  display: 'Send Receipt',
+  name : 'receipt'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
+  }
+  ],
+  sortname: "name",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Receipt Accounts',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+
+<%- else %>
+  $('#flash_message_text').html('<%= escape_javascript(flash[:error]) %>');
+  $('#flash_message').dialog( {
+    modal: true,
+    resizable: false,
+    draggable :true,
+    height: "auto",
+    width: "auto",
+    buttons: {
+      Ok: function() {
+            $(this).dialog('close');
+          }
+    }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<%- end %>
+

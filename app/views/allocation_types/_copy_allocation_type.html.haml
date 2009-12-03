@@ -1,0 +1,12 @@
+.container{:style => "background-image:none;"}
+  -form_for :allocation_type, AllocationType.new, :url => {:controller => "allocation_types", :action => "create_copy_of_allocation_type"}, :html => {:class => 'ajax_form'} do |f|
+    .form_line
+      = f.label :name, 'Name'
+      = f.text_field :name, :value => ""
+    .form_line
+      = f.label :description, 'Description'
+      = f.text_field :description
+      %input{:style => "display:none", :name =>"new"}
+      %input{:style => "display:none", :name => "source_id", :value => "#{@allocation_type.id}"}
+    
+    = submit_tag "Save"

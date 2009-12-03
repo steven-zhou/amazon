@@ -29,7 +29,10 @@ h1 {
 	margin-right: auto;
 	margin-bottom: auto;
 	margin-left: auto;
-	-moz-border-radius: 15px; 
+	-moz-border-radius: 15px;
+        -webkit-border-radius:15px;
+        border-radius: 15px;
+
 }
 
 #signin_container #signin_logo {
@@ -149,13 +152,17 @@ h1 {
         -moz-border-radius: 10px;
         height: 20px;
         padding:10px;
-        margin: 7px auto;
+        margin: 20px auto;
+        -webkit-border-radius:10px;
+        border-radius: 10px;
     }
 
       .login_help_content li:hover {
         background-image: url(/images/container_green_bg.png);
         background-repeat: repeat;
         -moz-border-radius: 10px;
+        -webkit-border-radius:10px;
+        border-radius: 10px;
         font-weight: bold;
         text-decoration: underline;
 
