@@ -1,9 +1,8 @@
-class ClientBankAccount < ActiveRecord::Base
+class ClientBankAccount < BankAccount
 
-  belongs_to :bank
+ belongs_to :bank
   belongs_to :account_purpose
 
-  validates_uniqueness_of :account_number, :scope => [:bank_id]
 
 
 end

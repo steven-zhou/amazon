@@ -1,0 +1,4 @@
+$('#bank_look_up').dialog('close');
+$('#<%= escape_javascript("#{@update_field}") %>').val('<%= escape_javascript("#{@bank.id}") %>');
+$('#<%= escape_javascript("#{@update_field}") %>').change();
+$('#<%= escape_javascript("#{@update_field}") %>').focus();

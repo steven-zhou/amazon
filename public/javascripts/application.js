@@ -4026,6 +4026,46 @@ $(function(){
             $('#warning_message').dialog('open');
             return false;
         }
+        else if (link.closest('.container').find('.person_input_change_class').attr('value') == "true")
+            {
+             alert("abc");
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        link.closest('.container').find('.person_input_change_class').attr('value','false');
+                        $(this).dialog('destroy');
+
+                        return true;
+                    }
+
+                }
+
+
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+            $('#warning_message').dialog('open');
+            return false;
+            }
         else if ( $('#check_input_change').val()=="true")
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
@@ -6495,8 +6535,9 @@ $(function(){
 $(function(){
     $("#Note").find('input').live('change', function(){
         //        $('#check_right_input_change').val("true");
-     
+        
         $('#notes_input_change_or_not').val("true");
+        
     
     });
     
@@ -6536,6 +6577,19 @@ $(function(){
 
     $('#Employment input[type="submit"]').live('click', function(){
         $('#employment_input_change_or_not').val("false");
+
+    });
+
+});
+
+$(function(){
+    $("#Account").find('input').live('change', function(){
+
+        $('#person_bank_account_ainput_change_or_not').val("true");
+    });
+
+    $('#Account input[type="submit"]').live('click', function(){
+        $('#person_bank_account_input_change_or_not').val("false");
 
     });
 
@@ -7735,5 +7789,53 @@ $(function() {
             data: 'id=' + $(this).attr('allocation_type'),
             dataType: "script"
         });
+    });
+});
+
+/* Bank Look up*/
+$(function(){
+    $(".bank_lookup").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url:"/banks/lookup.js",
+            data:'update_field='+$(this).attr('update_field'),
+            dataType: "script"
+        });
+    });
+
+     $("table#bank tbody tr").live("dblclick", function(){
+        $.ajax({
+            type: "GET",
+            url:"/banks/lookup_fill.js",
+            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#bank").attr('update_field'),
+            dataType: "script"
+        });
+
+    });
+
+    $("table#bank tbody tr").live("click", function(){
+        $('table#bank tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+    });
+    $('table#bank tr').live('mouseover',function(){
+        $(this).css("cursor", "pointer");
+    });
+
+});
+
+
+
+$(function(){
+    $(".find_bank_field").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url:
+                "/banks/name_finder.js",
+                data:
+                'bank_id='+$(this).val()+'&update='+$(this).attr('update')+'&account_id='+$(this).attr('account_id')+'&input_field_id='+$(this).attr('input_field_id'),
+                dataType: "script"
+            });
+        }
     });
 });
