@@ -1,51 +1,47 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      $('.edit_receipt_account_required_field').keyup(function() {
-          if($('#edit_receipt_account_name').val() == '') {
-              $('#edit_receipt_account_submit').attr('disabled', true);
-          } else {
-              $('#edit_receipt_account_submit').removeAttr('disabled');
-          }
-      });
-    });
 - form_for :receipt_account, @receipt_account, :url => {:controller => "receipt_accounts", :action => "update_receipt_account" }, :html => {:class => 'ajax_form'}  do |f|
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @receipt_account.id}
   .form_line
     .field_15
-      = f.label :long_name, "* Name", :class => "required_field"
+      = f.label :long_name, "<span class='asterisk'>*</span> Name1"
       = f.text_field :name, :class => "edit_receipt_account_required_field", :id => "edit_receipt_account_name", :disabled => true
   .form_line
     .field_30
       = f.label :description, "Description"
-      = f.text_field :description
+      = f.text_field :description, :disabled => (@receipt_account.status == false)
     .field_30
+      = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
+      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true} ,{:disabled => (@receipt_account.status == false),:class=>"mandantory_dropdown_list",:mandantory_field1=>"edit_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id", :submit_button_id=>"edit_receipt_account_submit"})
+  .form_line
+    .field_63
       = f.label :remarks, "Remarks"
-      = f.text_field :remarks
+      = f.text_field :remarks,:disabled => (@receipt_account.status == false)
+
+
   .form_line
-    .field_30
-      = f.label :receipt_type_id, "Receipt Account Type"
-      = f.collection_select(:receipt_account_type_id, ReceiptAccountType.find(:all), :id, :name, {:include_blank => true})
-  .form_line
-    .field_10
+    .field_17
       = f.label :post_to_history, "Post to History"
-      = f.check_box :post_to_history, :checked => false, :class => "checkbox_style"
-    .field_10
+      = f.check_box :post_to_history, :class => "checkbox_style", :style => "margin-left:18%;",:disabled => (@receipt_account.status == false)
+
+    .field_17
       = f.label :post_to_campaign, "Post to Campaign"
-      = f.check_box :post_to_campaign, :checked => false, :class => "checkbox_style"
-    .field_10
+      = f.check_box :post_to_campaign,:class => "checkbox_style", :style => "margin-left:18%;",:disabled => (@receipt_account.status == false)
+
+    .field_17
       = f.label :send_receipt, "Send Receipt"
-      = f.check_box :send_receipt, :checked => true, :class => "checkbox_style"
-    .field_10
+      = f.check_box :send_receipt,:class => "checkbox_style", :style => "margin-left:18%;",:disabled => (@receipt_account.status == false)
+
+    .field_17
       = f.label :status, "Active"
-      = f.check_box :status, :checked => true, :class => "checkbox_style"
+      = f.check_box :status, :class => "checkbox_style", :style => "margin-left:6%;"
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "receipt_accounts", :action => "destroy_receipt_account", :id => @receipt_account.id}, {:class => 'delete', :error_message_field => "receipt account", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;"}
+        = link_to "Remove", {:controller => "receipt_accounts", :action => "destroy_receipt_account", :id => @receipt_account.id}, {:class => 'delete alt_option', :error_message_field => "receipt account"}
+        
       %div{:style => "display:inline;float:right;height:100%;"}
-        = submit_tag "Submit", :disabled => false, :id => "edit_receipt_account_submit"
-        %button{:type => "button", :style => "", :id => "copy_receipt_account", :receipt_account => "#{@receipt_account.id}"}
+        = submit_tag "Update", :id => "edit_receipt_account_submit"
+        = button_to_function 'Save As', :id => "copy_receipt_account", :receipt_account => "#{@receipt_account.id}"
+        -#%button{:type => "button", :style => "", :id => "copy_receipt_account", :receipt_account => "#{@receipt_account.id}"}
           Save As
 
-#receipt_account_save_form{:style => "display:none;"}
+-#receipt_account_save_form{:class => "save_form", :style => "display:none;"}

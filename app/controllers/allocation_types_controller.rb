@@ -72,7 +72,7 @@ class AllocationTypesController < ApplicationController
 
     if @allocation_type.save
 
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt account #{@allocation_type.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Allocation Type #{@allocation_type.id}.")
       flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "receipt account")
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@allocation_type.errors.nil? && @allocation_type.errors.on(:name).include?("can't be blank"))

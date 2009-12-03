@@ -9,14 +9,15 @@ class ReceiptAccountsController < ApplicationController
 
   def create_receipt_account
     @receipt_account = ReceiptAccount.new(params[:receipt_account])
+    @receipt_account.link_module_name = LinkModule.find(params[:receipt_account][:link_module_id].to_i).name rescue @receipt_account.link_module_name = ""
     if @receipt_account.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt account with ID #{@receipt_account.id}.")
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a receipt account.")
       if(!@receipt_account.errors[:name].nil?)
-         flash.now[:error] = "Please Enter A Unique Name"
-      elsif(!@receipt_account.errors[:receipt_account_type_id].nil?)
-         flash.now[:error] = "Please Select A Receipt Account Type"
+        flash.now[:error] = "Please Enter A Unique Name"
+      elsif(!@receipt_account.errors[:link_module_id].nil?)
+        flash.now[:error] = "Please Select A Link Module"
       end
     end
 
@@ -28,14 +29,19 @@ class ReceiptAccountsController < ApplicationController
 
   def update_receipt_account
     @receipt_account = ReceiptAccount.find(params[:id])
-    if @receipt_account.update_attributes(params[:receipt_account])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new receipt_account with ID #{@receipt_account.id}.")
+    if (@receipt_account.status == false)
+      @receipt_account.update_attribute(:status,params[:receipt_account][:status])
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a receipt account #{@receipt_account.id}.")
-      if(!@receipt_account.errors[:name].nil?)
-         flash.now[:error] = "Please Enter A Unique Name"
-      elsif(!@receipt_account.errors[:receipt_account_type_id].nil?)
-         flash.now[:error] = "Please Select A Receipt Account Type"
+      params[:receipt_account][:link_module_name] = LinkModule.find(params[:receipt_account][:link_module_id].to_i).name rescue params[:receipt_account][:link_module_name] = ""
+      if @receipt_account.update_attributes(params[:receipt_account])
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new receipt_account with ID #{@receipt_account.id}.")
+      else
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a receipt account #{@receipt_account.id}.")
+        if(!@receipt_account.errors[:name].nil?)
+          flash.now[:error] = "Please Enter A Unique Name"
+        elsif(!@receipt_account.errors[:link_module_id].nil?)
+          flash.now[:error] = "Please Select A Link Module"
+        end
       end
     end
     respond_to do |format|
@@ -57,12 +63,22 @@ class ReceiptAccountsController < ApplicationController
     end
   end
 
+  def copy
+
+    @receipt_account = ReceiptAccount.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
   def create_copy_of_receipt_account
     @receipt_account_old = ReceiptAccount.find(params[:source_id].to_i)
     @receipt_account = ReceiptAccount.new
     @receipt_account.name = params[:receipt_account][:name]
     @receipt_account.description = params[:receipt_account][:description]
-    @receipt_account.receipt_account_type_id = @receipt_account_old.receipt_account_type_id
+    @receipt_account.link_module_id = @receipt_account_old.link_module_id
+    @receipt_account.link_module_name = @receipt_account_old.link_module_name
     @receipt_account.post_to_history = @receipt_account_old.post_to_history
     @receipt_account.post_to_campaign = @receipt_account_old.post_to_campaign
     @receipt_account.send_receipt = @receipt_account_old.send_receipt

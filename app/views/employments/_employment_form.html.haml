@@ -51,10 +51,17 @@
   .form_line
     .field_30
       =employment.label :commenced_date, "<span class='asterisk'>*</span>Start Date"
+<<<<<<< HEAD:app/views/employments/_employment_form.html.haml
       =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick mandantory_field", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false, :style => "width:80% !important;" ,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
     .field_30
       =employment.label :term_end_date, "End Date"
       =employment.text_field :term_end_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date", :value=>@employment.term_end_date.to_s, :disabled=>@employment.status == false, :style => "width:80% !important;"
+=======
+      =employment.text_field :commenced_date, :class=>@employment.status==false ? "" : "startdatepick mandantory_field", :end_date=>@employment.new_record? ? "employment_term_end_date" : "employment_#{@employment.id}_term_end_date", :value=>@employment.commenced_date.to_s, :disabled=>@employment.status == false, :style => "width:78% !important;" ,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+    .field_30
+      =employment.label :term_end_date, "End Date"
+      =employment.text_field :term_end_date, :class=>@employment.status==false ? "" : "enddatepick", :start_date=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date", :value=>@employment.term_end_date.to_s, :disabled=>@employment.status == false, :style => "width:78% !important;"
+>>>>>>> 3197cd4efbfb0576dbe32a891223f59096d173e9:app/views/employments/_employment_form.html.haml
     .field_33
       =employment.label :position_type_id, "Position Type"
       =employment.collection_select :position_type_id, PositionType.active_position_type, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}

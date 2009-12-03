@@ -1,56 +1,82 @@
 <div id="username_retrieval_security_questions">
-
   <%- if @login_account.account_locked? %>
     <script type="text/javascript">
-      $(function() {
-          $('#username_retrieval_account_locked').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :false,
-            height: 200,
-            width: 350
-          })
-      }
-    );
-    $('#username_retrieval_account_locked').dialog("open");
+
+      $('#username_retrieval_account_locked').dialog( {
+        modal: true,
+        resizable: false,
+        draggable :true,
+        height: 'auto',
+        width: 350,
+        buttons: {
+          "OK": function(){
+
+            $(this).dialog('destroy');
+            return true;
+          }
+        }
+
+      });
+
+      $('#username_retrieval_account_locked').dialog('option', 'title', 'ERROR');
+      $('#username_retrieval_account_locked').parent().find("a").css("display","none");
+      $("#username_retrieval_account_locked").parent().css('background-color','#D1DDE6');
+      $("#username_retrieval_account_locked").css('background-color','#D1DDE6');
+      $('#username_retrieval_account_locked').dialog('open');
+
+      $('#login_username_retrieval').dialog('destroy');
+
     </script>
-    <div style="display:none;background-color:white;" id="username_retrieval_account_locked">This account has been locked, you cannot retrieve your username at this time. Please see your Systems Administrator.</div>
+    <div style="display:none;" id="username_retrieval_account_locked">This account has been locked, you cannot retrieve your username at this time. Please see your Systems Administrator.</div>
   <%- else %>
     <script type="text/javascript">
-      $(function() {
-          $('#username_retrieval_answers_incorrect').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :false,
-            height: 200,
-            width: 350
-          })
-      }
-    );
-    $('#username_retrieval_answers_incorrect').dialog("open");
+
+      $('#username_retrieval_answers_incorrect').dialog( {
+        modal: true,
+        resizable: false,
+        draggable :true,
+        height: 'auto',
+        width: 350,
+        buttons: {
+          "OK": function(){
+
+            $(this).dialog('destroy');
+            return true;
+          }
+        }
+
+      });
+
+      $('#username_retrieval_answers_incorrect').dialog('option', 'title', 'ERROR');
+      $('#username_retrieval_answers_incorrect').parent().find("a").css("display","none");
+      $("#username_retrieval_answers_incorrect").parent().css('background-color','#D1DDE6');
+      $("#username_retrieval_answers_incorrect").css('background-color','#D1DDE6');
+      $('#username_retrieval_answers_incorrect').dialog('open');
+
     </script>
-    <div style="display:none;background-color:white;" id="username_retrieval_answers_incorrect">The answers you supplied were incorrect. You are allowed a limited number of attempts before your account will be locked.</div>
+    <div style="display:none;" id="username_retrieval_answers_incorrect">The answers you supplied were incorrect. You are allowed a limited number of attempts before your account will be locked.</div>
     <% form_tag("/signin/username_retrieval_request", :class => "ajax_form") do -%>
-    <input type="hidden" name="username_retrieval_email_address" value="<%= h @login_account.security_email %>" />
-    <p>Please answer the following security questions:</p>
-    <table>
-      <tr>
-        <td><strong><%= @login_account.security_question_1.name %></strong></td>
-        <td><%= text_field :username_retrieval_answer_1, nil %></td>
-      </tr>
-      <tr>
-        <td><strong><%= @login_account.security_question_2.name %></strong></td>
-        <td><%= text_field :username_retrieval_answer_2, nil %></td>
-      </tr>
-      <tr>
-        <td><strong><%= @login_account.security_question_3.name %></strong></td>
-        <td><%= text_field :username_retrieval_answer_3, nil %></td>
-      </tr>
-      <tr>
-        <td></td>
-        <td><%= submit_tag("Submit") %></td>
-      </tr>
-    </table>
+      <input type="hidden" name="username_retrieval_email_address" value="<%= h @login_account.security_email %>" />
+      <p>Please answer the following security questions:</p>
+      <table>
+        <tr style="width:180px;">
+          <td><label><%= @login_account.security_question_1.name %></label>
+          <%= text_field :username_retrieval_answer_1, nil %></td>
+        </tr>
+        <tr style="width:180px;">
+          <td><label><%= @login_account.security_question_2.name %></label>
+          <%= text_field :username_retrieval_answer_2, nil %></td>
+        </tr>
+        <tr style="width:180px;">
+          <td><label><%= @login_account.security_question_3.name %></label>
+          <%= text_field :username_retrieval_answer_3, nil %></td>
+        </tr >
+        <tr style="width:180px;">
+          <td><%= submit_tag("Submit") %></td>
+        </tr style="width:180px;">
+      </table>
     <% end  -%>
+
   <%- end %>
+
 </div>

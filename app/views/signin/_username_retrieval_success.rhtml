@@ -1,18 +1,30 @@
 <div id="username_retrieval_security_questions">
-    <script type="text/javascript">
-      $(function() {
-          $('#username_retrieval_success').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :false,
-            height: 200,
-            width: 350
-          })
-      }
-    );
-    $('#username_retrieval_success').dialog("open");
-    $('#login_username_retrieval').dialog('destroy');
-    </script>
-  <div style="display:none;background-color:white;" id="username_retrieval_success">An email has been sent to your registered email address with your username.</div>
+  <div style="display:none;" id="username_retrieval_success">An email has been sent to your registered email address with your username.</div>
+  <script type="text/javascript">
+    $('#username_retrieval_success').dialog( {
+      modal: true,
+      resizable: false,
+      draggable :true,
+      height: 'auto',
+      width: 350,
+      buttons: {
+        "OK": function(){
 
+          $(this).dialog('destroy');
+          return true;
+        }
+      }
+
+    });
+
+    $('#login_username_retrieval').dialog('destroy');
+
+    $('#username_retrieval_success').dialog('option', 'title', 'SUCCESS');
+    $('#username_retrieval_success').parent().find("a").css("display","none");
+    $("#username_retrieval_success").parent().css('background-color','#D1DDE6');
+    $("#username_retrieval_success").css('background-color','#D1DDE6');
+    $('#username_retrieval_success').dialog('open');
+
+
+  </script>
 </div>
