@@ -1499,13 +1499,13 @@ class GridsController < ApplicationController
           u.end_date.nil? ? '' : u.end_date.strftime('%d-%m-%Y'),
           (u.status? ? 'Active' : 'Inactive'),
           u.remarks
-          ]}}
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
 
   def show_languages_grid
-     page = (params[:page]).to_i
+    page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
     qtype = params[:qtype]
@@ -1534,16 +1534,16 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @language = Language.find(:all,
-      :order => sortname+' '+sortorder,
+        :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
       count = Language.count(:all)
-     end
+    end
 
     # User provided search terms
     if(query != "%%")
-       @language = Language.find(:all,
+      @language = Language.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
@@ -1559,7 +1559,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.name,
           u.description]}}
-     # Convert the hash to a json object
+    # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
 
@@ -1627,7 +1627,7 @@ class GridsController < ApplicationController
   end
 
   def show_religions_grid
-     page = (params[:page]).to_i
+    page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
     qtype = params[:qtype]
@@ -1656,16 +1656,16 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @religion = Religion.find(:all,
-      :order => sortname+' '+sortorder,
+        :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
       count = Religion.count(:all)
-     end
+    end
 
     # User provided search terms
     if(query != "%%")
-       @religion = Religion.find(:all,
+      @religion = Religion.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
@@ -1681,7 +1681,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.name,
           u.description]}}
-     # Convert the hash to a json object
+    # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
 
@@ -1956,7 +1956,7 @@ class GridsController < ApplicationController
     return_data[:rows] = @receipt_accounts.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.name,
-          u.receipt_account_type.name,
+          u.link_module_name,
           u.description,
           u.post_to_history,
           u.post_to_campaign,
@@ -2088,7 +2088,7 @@ class GridsController < ApplicationController
           u.account_number,
           u.account_purpose.name,
           (u.status? ? 'Active' : 'Inactive')
-          ]}}
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2151,7 +2151,7 @@ class GridsController < ApplicationController
           u.bank.display_name,
           u.account_type.name,
           (u.status? ? 'Active' : 'Inactive')
-          ]}}
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
