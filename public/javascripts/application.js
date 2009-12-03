@@ -4109,13 +4109,16 @@ clear_organisation_form = function(link){
         $("#new_note")[0].reset();
 
     }
+    if(link.attr('toggle_id_name')=="new_master_doc")
+    {
+        $("#new_master_doc")[0].reset();
 
+    }
 
 }
 
 $(function(){
     $('.new_option').live('click',function(){
-
         $("#" + $(this).attr('field')+'_mode').attr('mode','new');
         $(this).css("display","none");
         $('.close_option[field='+ $(this).attr('field') +']').css("display","");
@@ -4127,7 +4130,7 @@ $(function(){
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('dblclick',function(){
         if ($('table#search_organisations_list_results').attr('current_operation') == "edit_organisation_list")
-        {
+        {toggle_button
             window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
         }
         if ($('table#search_organisations_list_results').attr('current_operation') == "show_organisation_list")
@@ -7756,3 +7759,9 @@ $(function(){
     });
 });
 
+//make the dropdown select of MasterDoc in Organization active, when open New Pannel
+$(function(){
+    $('#add_new_master_doc #add_masterdoc').live('click', function(){
+        $(".find_master_doc_meta_type_field").change();
+    });
+});

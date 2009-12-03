@@ -700,6 +700,7 @@ $(".person_master_doc_toggle_button").live('click', function(){
     $('.person_master_doc_close').css("display","");
     $(this).css("display","none");
     $('#master_doc_hidden_tab').attr('mode','new');
+    $(".find_master_doc_meta_type_field").change();
 });
 
 $(".person_master_doc_close").live('click',function(){
@@ -713,9 +714,9 @@ $(".person_master_doc_close").live('click',function(){
         $('#master_doc_hidden_tab').attr('mode','show');
         if (link.attr('field') != ""){
 
-            $("#new_"+link.attr('field'))[0].reset();
-            $('#master_doc_meta_type_id').html("").change();
-           $('#master_doc_master_doc_type_id').html("").change();
+           $("#new_"+link.attr('field'))[0].reset();
+           //$('#master_doc_meta_type_id').html("").change();
+           //$('#master_doc_master_doc_type_id').html("").change();
 
         }
 
@@ -748,8 +749,8 @@ $(".person_master_doc_close").live('click',function(){
                     if (link.attr('field') != ""){
 
                         $("#new_"+link.attr('field'))[0].reset();
-                        $('#master_doc_meta_type_id').html("").change();
-                        $('#master_doc_master_doc_type_id').html("").change();
+                        //$('#master_doc_meta_type_id').html("").change();
+                        //$('#master_doc_master_doc_type_id').html("").change();
                     }
                     $(this).dialog('destroy');
                     return true;
