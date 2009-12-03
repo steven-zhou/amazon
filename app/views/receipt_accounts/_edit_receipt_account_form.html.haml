@@ -10,7 +10,7 @@
       = f.text_field :description, :disabled => (@receipt_account.status == false)
     .field_30
       = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
-      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true} ,{:disabled => (@receipt_account.status == false),:class=>"mandantory_dropdown_list",:mandantory_field1=>"edit_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id", :submit_button_id=>"edit_receipt_account_submit"})
+      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {} ,{:disabled => (@receipt_account.status == false),:class=>"mandantory_dropdown_list",:mandantory_field1=>"edit_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id", :submit_button_id=>"edit_receipt_account_submit"})
   .form_line
     .field_63
       = f.label :remarks, "Remarks"
