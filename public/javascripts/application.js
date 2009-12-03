@@ -7759,6 +7759,7 @@ $(function(){
     });
 });
 
+//make the dropdown select of MasterDoc in Organization active, when open New Pannel
 $(function(){
     $('#add_new_master_doc #add_masterdoc').live('click', function(){
         $(".find_master_doc_meta_type_field").change();
