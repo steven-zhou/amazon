@@ -1,6 +1,5 @@
 <%- if !@login_account.nil? && !@login_account.account_locked? %>
 
-  $("#username_retrieval_email_address").attr("disabled", true);
   $("#username_retrieval_submit").hide();
   $("#username_retrieval_captcha").hide();
   $(".login_help_content").hide();

@@ -1,22 +1,23 @@
-
-<% form_tag("/signin/username_retrieval_request", :class => "ajax_form") do -%>
-  <input type="hidden" name="username_retrieval_email_address" value="<%= h @login_account.security_email %>" />
-  <p>Please answer the following security questions:</p>
-  <table>
-    <tr style="width:180px;">
-      <td><label><%= @login_account.security_question_1.name %></label>
-      <%= text_field :username_retrieval_answer_1, nil %></td>
-    </tr>
-    <tr style="width:180px;">
-      <td><label><%= @login_account.security_question_2.name %></label>
-      <%= text_field :username_retrieval_answer_2, nil %></td>
-    </tr>
-    <tr style="width:180px;">
-      <td><label><%= @login_account.security_question_3.name %></label>
-      <%= text_field :username_retrieval_answer_3, nil %></td>
-    </tr >
-    <tr style="width:180px;">
-      <td><%= submit_tag("Submit") %></td>
-    </tr style="width:180px;">
-  </table>
-<% end  -%>
+<div id ="username_retrieval_security_questions">
+  <% form_tag("/signin/username_retrieval_request", :class => "ajax_form") do -%>
+    <input type="hidden" name="username_retrieval_email_address" value="<%= h @login_account.security_email %>" />
+    <p>Please answer the following security questions:</p>
+    <table>
+      <tr style="width:180px;">
+        <td><label><%= @login_account.security_question_1.name %></label>
+        <%= text_field :username_retrieval_answer_1, nil %></td>
+      </tr>
+      <tr style="width:180px;">
+        <td><label><%= @login_account.security_question_2.name %></label>
+        <%= text_field :username_retrieval_answer_2, nil %></td>
+      </tr>
+      <tr style="width:180px;">
+        <td><label><%= @login_account.security_question_3.name %></label>
+        <%= text_field :username_retrieval_answer_3, nil %></td>
+      </tr >
+      <tr style="width:180px;">
+        <td><%= submit_tag("Submit") %></td>
+      </tr style="width:180px;">
+    </table>
+  <% end  -%>
+</div>
