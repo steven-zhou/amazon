@@ -7532,7 +7532,7 @@ $(function() {
 
         $.ajax({
             type: "GET",
-            url: "/receipt_accounts/copy_receipt_account.js",
+            url: "/receipt_accounts/copy.js",
             data: 'id=' + $(this).attr('receipt_account'),
             dataType: "script"
         });

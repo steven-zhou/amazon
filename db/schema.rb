@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091202040512) do
+ActiveRecord::Schema.define(:version => 20091203012805) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -682,7 +682,6 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
   create_table "receipt_accounts", :force => true do |t|
     t.text     "name"
     t.text     "description"
-    t.integer  "receipt_account_type_id"
     t.boolean  "post_to_history"
     t.boolean  "post_to_campaign"
     t.boolean  "send_receipt"
@@ -690,6 +689,8 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "link_module_id"
+    t.text     "link_module_name"
   end
 
   create_table "receipt_methods", :force => true do |t|

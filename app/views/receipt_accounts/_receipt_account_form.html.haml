@@ -1,44 +1,39 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      $('.new_receipt_account_required_field').keyup(function() {
-          if($('#new_receipt_account_name').val() == '') {
-              $('#new_receipt_account_submit').attr('disabled', true);
-          } else {
-              $('#new_receipt_account_submit').removeAttr('disabled');
-          }
-      });
-    });
-
 - form_for :receipt_account, @receipt_account, :url => {:controller => "receipt_accounts", :action => "create_receipt_account" }, :html => {:class => 'ajax_form'}  do |f|
   .form_line
     .field_15
-      = f.label :long_name, "* Name", :class => "required_field"
-      = f.text_field :name, :class => "new_receipt_account_required_field", :id => "new_receipt_account_name", :disabled => false
+      = f.label :long_name, "<span class='asterisk'>*</span> Name"
+      = f.text_field :name, :class => "mandantory_field", :id => "new_receipt_account_name", :mandantory_field1=>"receipt_account_link_module_id",:mandantory_field2=>"new_receipt_account_name", :submit_button_id=>"new_receipt_account_submit"
+
   .form_line
     .field_30
       = f.label :description, "Description"
       = f.text_field :description
     .field_30
+      = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
+      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id", :submit_button_id=>"new_receipt_account_submit"})
+  .form_line
+    .field_63
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
+
   .form_line
-    .field_30
-      = f.label :receipt_type_id, "Receipt Account Type"
-      = f.collection_select(:receipt_account_type_id, ReceiptAccountType.find(:all), :id, :name, {:include_blank => true})
-  .form_line
-    .field_10
+    .field_17
       = f.label :post_to_history, "Post to History"
-      = f.check_box :post_to_history, :checked => false, :class => "checkbox_style"
-    .field_10
+      = f.check_box :post_to_history, :class => "checkbox_style", :style => "margin-left:18%;"
+
+    .field_17
       = f.label :post_to_campaign, "Post to Campaign"
-      = f.check_box :post_to_campaign, :checked => false, :class => "checkbox_style"
-    .field_10
+      = f.check_box :post_to_campaign,:class => "checkbox_style", :style => "margin-left:18%;"
+
+
+    .field_17
       = f.label :send_receipt, "Send Receipt"
-      = f.check_box :send_receipt, :checked => false, :class => "checkbox_style"
-    .field_10
+      = f.check_box :send_receipt,:class => "checkbox_style", :style => "margin-left:18%;"
+
+
+    .field_17
       = f.label :status, "Active"
-      = f.check_box :status, :checked => false, :class => "checkbox_style"
+      = f.check_box :status, :class => "checkbox_style", :style => "margin-left:6%;", :checked => true
   .form_line
     .field_10{:style => "float:right;"}
       = submit_tag "Submit", :disabled => true, :id => "new_receipt_account_submit"
