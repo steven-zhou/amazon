@@ -140,8 +140,10 @@ class SigninController < ApplicationController
 
   def username_retrieval_get_login_account
     email_address = params[:username_retrieval_email_address]
+
     @login_account = LoginAccount.find(:first, :conditions => ["security_email = ?", email_address])
-    @login_account = nil unless (!@login_account.nil? && simple_captcha_valid?) # We want to no proceeed if they got the captcha wrong
+    @login_account = nil if (!simple_captcha_valid?) # We want to not proceeed if they got the captcha wrong
+
     respond_to do |format|
       format.js
     end
