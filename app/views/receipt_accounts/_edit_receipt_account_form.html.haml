@@ -39,7 +39,7 @@
         = link_to "Remove", {:controller => "receipt_accounts", :action => "destroy_receipt_account", :id => @receipt_account.id}, {:class => 'delete alt_option', :error_message_field => "receipt account"}
         
       %div{:style => "display:inline;float:right;height:100%;"}
-        = submit_tag "Submit", :id => "edit_receipt_account_submit"
+        = submit_tag "Update", :id => "edit_receipt_account_submit"
         = button_to_function 'Save As', :id => "copy_receipt_account", :receipt_account => "#{@receipt_account.id}"
         -#%button{:type => "button", :style => "", :id => "copy_receipt_account", :receipt_account => "#{@receipt_account.id}"}
           Save As
