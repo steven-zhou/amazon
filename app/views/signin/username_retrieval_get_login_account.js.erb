@@ -1,30 +1,48 @@
-if ( "<%= escape_javascript(@login_account.nil?.to_s) %>" == "false") {
+<%- if !@login_account.nil? && !@login_account.account_locked? %>
+
   $("#username_retrieval_email_address").attr("disabled", true);
   $("#username_retrieval_submit").hide();
   $("#username_retrieval_captcha").hide();
   $(".login_help_content").hide();
-}
-$("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "username_retrieval_security_questions"))%>");
- <%- if @login_account.nil? %>
-$('#username_retrieval_security_questions').dialog( {
-            modal: true,
-            resizable: false,
-            draggable :true,
-            height: 'auto',
-            width: 350,
-             buttons: {
-                        "Retry": function(){
+  
+  $("#username_retrieval_security_questions").html("<%= escape_javascript(render(:partial => "/signin/username_retrieval_security_questions"))%>");
+  $("#username_retrieval_security_questions").show();
 
-                            $(this).dialog('destroy');
-                            return true;
-                        }
-                    }
+<%- else %>
 
-          });
 
-          $('#username_retrieval_security_questions').dialog('option', 'title', 'ERROR');
-          $('#username_retrieval_security_questions').parent().find("a").css("display","none");
-          $("#username_retrieval_security_questions").parent().css('background-color','#D1DDE6');
-          $("#username_retrieval_security_questions").css('background-color','#D1DDE6');
-          $('#username_retrieval_security_questions').dialog('open');
- <%- end %>
+  $.ajax({
+  type: "GET",
+  url: "/signin/captcha",
+  data: '',
+  dataType: "script"
+  });
+
+  <%- if @login_account.nil? %>
+    $("#username_retrieval_error_messages").html("The Email Address Or Code You Entered Was Invalid.");
+  <%- elsif @login_account.account_locked? %>
+    $("#username_retrieval_error_messages").html("Your Account Has Been Locked. Please See Your Systems Administrator.");
+  <%- end %>
+
+  $('#username_retrieval_error_messages').dialog( {
+  modal: true,
+  resizable: false,
+  draggable :true,
+  height: 'auto',
+  width: 350,
+  buttons: {
+  "Retry": function(){
+
+  $(this).dialog('destroy');
+  return true;
+  }
+  }
+
+  });
+
+  $('#username_retrieval_error_messages').dialog('option', 'title', 'ERROR');
+  $('#username_retrieval_error_messages').parent().find("a").css("display","none");
+  $("#username_retrieval_error_messages").parent().css('background-color','#D1DDE6');
+  $("#username_retrieval_error_messages").css('background-color','#D1DDE6');
+  $('#username_retrieval_error_messages').dialog('open');
+<%- end %>
