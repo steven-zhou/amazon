@@ -382,7 +382,7 @@ margin-right: 5px;
     background-color: #f6f6f6;
     width:100%;
     float: left;
-    min-height: 700px;
+    min-height: 650px;
     margin-top: 10px;
     margin-bottom: 10px;
     padding: 10px;
@@ -441,7 +441,7 @@ margin-right: 5px;
     padding: 2%;
     min-height: 10px;
     -moz-border-radius: 10px;
-    -webki
+    -webkit-border-radius: 10px;
     margin-bottom: 10px;
 }
 
@@ -963,7 +963,7 @@ div#show_lists div.container_inactive {
     margin-bottom: 10px;
     margin-top:0px;
     margin-left:0px;
-    background-color: #B2BDC5;
+    background-image:url(/images/container_black_bg.png);
     float: left;
     -moz-border-radius: 10px;
     min-height: 10px;
@@ -992,7 +992,7 @@ div#show_queries div.container_inactive {
     margin-bottom: 10px;
     margin-top:0px;
     margin-left:0px;
-    background-color: #B2BDC5;
+    background-image:url(/images/container_black_bg.png);
     float: left;
     -moz-border-radius: 10px;
     min-height: 10px;
@@ -1044,9 +1044,7 @@ div#edit_query input[type=submit] {
 }
 
 div.highlight {
-    /*background-color : red;*/
-
-    background-image: url(/images/container_red_bg.png) !important;
+    background-image: url(/images/container_orange_bg.png) !important;
 }
 
 .hidden {
@@ -1562,7 +1560,7 @@ form#organisation_names_form input#image_image_file{
 
 
 .system_data_entry_inactive {
-    background-color: #B2BDC5;
+    background-image:url(/images/container_black_bg.png);
     width: 29%;
     margin: 1%;
     float: left;
@@ -1627,12 +1625,12 @@ td.textright {
 .container_inactive {  
     /* background-color: #B2BDC5; */
     background-image:url(/images/container_black_bg.png) !important;
-    width: 95%;
+    width: 96%;
     margin: 0.5%;
     float: left;
     padding: 1%;
     -moz-border-radius: 10px;
-
+    -webkit-border-radius: 10px;
     min-height: 10px;
     font-family:Arial, Helvetica, sans-serif;
 }
@@ -1651,12 +1649,13 @@ td.textright {
 }
 
 .container_selected {
-    background-color: #B2CADA;
-    width: 95%;
+    background-image:url(/images/container_orange_bg.png) !important;
+    width: 96%;
     margin: 0.5%;
     float: left;
     padding: 1%;
     -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -1675,7 +1674,7 @@ td.textright {
 
 
     float: left;
-    height: 25px;
+    min-height: 25px;
     font-size: 17px;
     font-weight:normal;
 
@@ -1685,7 +1684,7 @@ td.textright {
 
 
     float: left;
-    height: 25px;
+    min-height: 25px;
     font-size: 17px;
     font-weight:normal;
 
@@ -2272,7 +2271,7 @@ div#permission_form .options{
     font-family:Arial, Helvetica, sans-serif;
     line-height:16px;
     width: 100%;
-    height: 200px;
+    height: 180px;
 
 }
 
@@ -2425,7 +2424,7 @@ div#permission_form .options{
 /* WHO AM I DIV*/
 #whoami {
     height:26px;
-    width:175px;
+    width:130px;
     padding:10px;
     position: fixed;
     z-index: 100;

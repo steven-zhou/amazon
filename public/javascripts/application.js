@@ -3960,7 +3960,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseover',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","");
+            $(this).find('.options').css('display','');
         }
          
     });
@@ -3969,7 +3969,7 @@ $(function(){
 $(function(){
     $('.toggle_options').live('mouseout',function(){
         if ($("#" + $(this).attr('field')+'_mode').attr('mode') == "show"){
-            $(this).find('.options').css("display","none");
+            $(this).find('.options').css('display','none');
         }
     });
 });
@@ -4109,13 +4109,16 @@ clear_organisation_form = function(link){
         $("#new_note")[0].reset();
 
     }
+    if(link.attr('toggle_id_name')=="new_master_doc")
+    {
+        $("#new_master_doc")[0].reset();
 
+    }
 
 }
 
 $(function(){
     $('.new_option').live('click',function(){
-
         $("#" + $(this).attr('field')+'_mode').attr('mode','new');
         $(this).css("display","none");
         $('.close_option[field='+ $(this).attr('field') +']').css("display","");
@@ -4127,7 +4130,7 @@ $(function(){
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('dblclick',function(){
         if ($('table#search_organisations_list_results').attr('current_operation') == "edit_organisation_list")
-        {
+        {toggle_button
             window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
         }
         if ($('table#search_organisations_list_results').attr('current_operation') == "show_organisation_list")
@@ -7532,7 +7535,7 @@ $(function() {
 
         $.ajax({
             type: "GET",
-            url: "/receipt_accounts/copy_receipt_account.js",
+            url: "/receipt_accounts/copy.js",
             data: 'id=' + $(this).attr('receipt_account'),
             dataType: "script"
         });
@@ -7735,5 +7738,30 @@ $(function() {
             data: 'id=' + $(this).attr('allocation_type'),
             dataType: "script"
         });
+    });
+});
+
+
+$(function(){
+    $("#copy_allocation_type_button").live('click', function(){
+       
+            $('#allocation_type_save_form').dialog('close');
+            $('#allocation_type_save_form').dialog( {
+                modal: true,
+                resizable: true,
+                draggable: true
+            });
+            $('#allocation_type_save_form').dialog('option', 'title', 'New Query');
+            $('#allocation_type_save_form').dialog('open');
+            $('#allocation_type_save_form').parent().css('background-color','#D1DDE6');
+            $('#allocation_type_save_form').css('background-color','#D1DDE6');
+        
+    });
+});
+
+//make the dropdown select of MasterDoc in Organization active, when open New Pannel
+$(function(){
+    $('#add_new_master_doc #add_masterdoc').live('click', function(){
+        $(".find_master_doc_meta_type_field").change();
     });
 });

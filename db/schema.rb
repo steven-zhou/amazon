@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091202040512) do
+ActiveRecord::Schema.define(:version => 20091202044843) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -171,6 +171,26 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
     t.string   "feedback_to"
     t.string   "reply_from"
     t.integer  "home_country_id"
+    t.text     "level_0_label"
+    t.text     "level_0_remarks"
+    t.text     "level_1_label"
+    t.text     "level_1_remarks"
+    t.text     "level_2_label"
+    t.text     "level_2_remarks"
+    t.text     "level_3_label"
+    t.text     "level_3_remarks"
+    t.text     "level_4_label"
+    t.text     "level_4_remarks"
+    t.text     "level_5_label"
+    t.text     "level_5_remarks"
+    t.text     "level_6_label"
+    t.text     "level_6_remarks"
+    t.text     "level_7_label"
+    t.text     "level_7_remarks"
+    t.text     "level_8_label"
+    t.text     "level_8_remarks"
+    t.text     "level_9_label"
+    t.text     "level_9_remarks"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -544,6 +564,8 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
     t.string   "type"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
+    t.integer  "level"
+    t.string   "level_label"
   end
 
   create_table "people", :force => true do |t|
@@ -682,7 +704,6 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
   create_table "receipt_accounts", :force => true do |t|
     t.text     "name"
     t.text     "description"
-    t.integer  "receipt_account_type_id"
     t.boolean  "post_to_history"
     t.boolean  "post_to_campaign"
     t.boolean  "send_receipt"
@@ -690,6 +711,8 @@ ActiveRecord::Schema.define(:version => 20091202040512) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "link_module_id"
+    t.text     "link_module_name"
   end
 
   create_table "receipt_methods", :force => true do |t|

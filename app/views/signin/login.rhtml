@@ -7,7 +7,7 @@
   <%= stylesheet_link_tag  "Styles.css", "jpassword", "signin.css", "validationEngine.jquery.css"%>
   <%= jqgrid_stylesheets %>
   <%= jqgrid_javascripts %>
-  <%= javascript_include_tag  "flexigrid.js",
+  <%= javascript_include_tag "flexigrid.js",
     "jquery.dataTables.min.js",
     "jquery.form.js",
     "jquery.jpassword.js",
@@ -16,12 +16,18 @@
     "jquery.validationEngine.js"
 %>
 
-
-
 </head>
 
 <body>
 <!-- Hidden stuff displayed when people are having problems logging in -->
+<script type="text/javascript">
+  $(function() {
+    $(document).ready(function() {
+        $(".ajax_form").submitWithAjax();
+    });
+  }
+)
+</script>
 
     <!-- Used to display the first login helper screen, which links to the others -->
 <script type="text/javascript">
@@ -31,7 +37,7 @@
         modal: true,
         resizable: false,
         draggable :false,
-        height: 250,
+        height: 300,
         width: 575
       }
     );
@@ -109,7 +115,9 @@
         dataType: "script"
       });
       $("#username_retrieval_captcha").show();
-      $("#username_retrieval_security_questions").html("<div id='username_retrieval_security_questions'></div>");
+      $("#username_retrieval_security_questions").html("<div id='username_retrieval_security_questions' style='display:none;'></div>");
+      $("#username_retrieval_error_messages").html("<div id='username_retrieval_error_messages' style='display:none;'></div>");
+
     });
 
   }
@@ -167,9 +175,10 @@
       </div>
     </div>
   <%  end -%>
+  <div id="login_password_reset_error_messages" style="display:none;">
 
-
-  <div id="login_password_reset_security_questions">
+  </div>
+  <div id="login_password_reset_security_questions" style="display:none;">
 
   </div>
 </div>
@@ -196,7 +205,10 @@
       </div>
     </div>
   <%  end -%>
-  <div id="username_retrieval_security_questions">
+  <div id="username_retrieval_error_messages" style="display:none;">
+
+  </div>
+  <div id="username_retrieval_security_questions" style="display:none;">
 
   </div>
 </div>

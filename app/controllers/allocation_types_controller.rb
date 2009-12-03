@@ -8,7 +8,7 @@ class AllocationTypesController < ApplicationController
 
   def create_allocation_type
     @allocation_type = AllocationType.new(params[:allocation_type])
-    @allocation_type.link_module_name = LinkModule.find_by_id(params[:allocation_type][:link_module_id]).name
+    @allocation_type.link_module_name = LinkModule.find(params[:allocation_type][:link_module_id].to_i).name rescue @allocation_type.link_module_name = ""
     if @allocation_type.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new allocation type with ID #{@allocation_type.id}.")
     else
@@ -33,7 +33,7 @@ class AllocationTypesController < ApplicationController
 
   def update_allocation_type
     @allocation_type = AllocationType.find(params[:id])
-   params[:allocation_type][:link_module_name] = LinkModule.find_by_id(params[:allocation_type][:link_module_id]).name
+   params[:allocation_type][:link_module_name] = LinkModule.find(params[:allocation_type][:link_module_id].to_i).name rescue params[:allocation_type][:link_module_name] = ""
     if @allocation_type.update_attributes(params[:allocation_type])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new allocation_type with ID #{@allocation_type.id}.")
     else
@@ -72,7 +72,7 @@ class AllocationTypesController < ApplicationController
 
     if @allocation_type.save
 
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt account #{@allocation_type.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Allocation Type #{@allocation_type.id}.")
       flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "receipt account")
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@allocation_type.errors.nil? && @allocation_type.errors.on(:name).include?("can't be blank"))

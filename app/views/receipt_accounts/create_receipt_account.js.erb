@@ -1,5 +1,4 @@
 <% if @receipt_account.errors.empty? -%>
-<%- puts "**** #{@receipt_account.errors.to_yaml}"%>
 $('#add_new_receipt_account').html('<%= escape_javascript(render(:partial => "/receipt_accounts/new_receipt_account")) %>');
 $('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "/receipt_accounts/existing_receipt_accounts")) %>');
 $('#receipt_account_mode').attr('mode', 'show');
@@ -18,23 +17,24 @@ $('#receipt_account_mode').attr('mode', 'show');
   {
   display: 'Name',
   name : 'name',
-  width : 70,
+  width : 130,
   sortable : true,
   align: 'left'
   },
 
-  {
-  display: 'Receipt Type',
-  name : 'receipt_type',
-  width : 60,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
+ {
   display: 'Description',
   name : 'description',
-  width : 50,
+  width : 250,
+  sortable : true,
+  align: 'left'
+
+  },
+
+  {
+  display: 'Link Module',
+  name : 'link_module_name',
+  width : 130,
   sortable : true,
   align: 'left'
   },
@@ -42,7 +42,7 @@ $('#receipt_account_mode').attr('mode', 'show');
   {
   display: 'Post to History',
   name : 'post_to_history',
-  width : 60,
+  width : 100,
   sortable : true,
   align: 'left'
   },
@@ -50,7 +50,7 @@ $('#receipt_account_mode').attr('mode', 'show');
   {
   display: 'Post to Campaign',
   name : 'post_to_campaign',
-  width : 60,
+  width : 100,
   sortable : true,
   align: 'left'
   },
@@ -58,7 +58,7 @@ $('#receipt_account_mode').attr('mode', 'show');
   {
   display: 'Send Receipt',
   name : 'send_receipt',
-  width : 60,
+  width : 100,
   sortable : true,
   align: 'left'
   },
@@ -66,7 +66,7 @@ $('#receipt_account_mode').attr('mode', 'show');
   {
   display: 'Status',
   name : 'status',
-  width : 60,
+  width : 70,
   sortable : true,
   align: 'left'
   }
@@ -78,8 +78,8 @@ $('#receipt_account_mode').attr('mode', 'show');
   },
 
   {
-  display: 'Receipt Type',
-  name : 'Receipt Type'
+  display: 'Link Module',
+  name : 'link_module_name',
   },
 
   {

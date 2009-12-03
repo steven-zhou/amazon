@@ -25,6 +25,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :person_groups, :collection => {:show_group_members => :get}
     person.resources :employments
     person.resources :person_roles
+    person.resources :person_bank_accounts
     person.resources :relationships, :collection => {:remove_relation => :delete}
   end
 
@@ -94,7 +95,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :group_permissions, :collection => {:show_add_container => :get, :show_module => :get, :show_controllers => :get, :show_methods => :get}
 
-  map.resources :receipt_accounts, :collection => {:new_receipt_account => :get, :create_receipt_account => :post, :edit_receipt_account => :get, :update_receipt_account => :post, :copy_receipt_account => :get, :create_copy_of_receipt_account => :post, :destroy_receipt_account => :get }
+  map.resources :receipt_accounts, :collection => {:new_receipt_account => :get, :create_receipt_account => :post, :edit_receipt_account => :get, :update_receipt_account => :post, :copy_receipt_account => :get, :create_copy_of_receipt_account => :post, :destroy_receipt_account => :get, :copy => :get }
 
   map.resources :receipt_methods, :collection => {:new_receipt_method => :get, :create_receipt_method => :post, :edit_receipt_method => :get, :update_receipt_method => :post, :copy_receipt_method => :get, :create_copy_of_receipt_method => :post, :destroy_receipt_method => :get }
     

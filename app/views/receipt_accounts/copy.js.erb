@@ -1,0 +1,20 @@
+$('#account_copy_form').html('<%= escape_javascript(render(:partial => "receipt_accounts/copy_receipt_account")) %>');
+$('#account_copy_form').toggle('blind');
+$('#account_copy_form').dialog( {
+modal: true,
+resizable: true,
+draggable: true,
+position: 'middle',
+ beforeclose: function() {
+ 
+  }
+
+});
+
+
+$("#account_copy_form").css('background-color','#D1DDE6');
+$("#account_copy_form").parent().css('background-color','#D1DDE6');
+
+
+$('#account_copy_form').dialog('option', 'title', 'Save As');
+$('#account_copy_form').dialog('open');
