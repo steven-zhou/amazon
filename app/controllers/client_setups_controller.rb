@@ -87,7 +87,48 @@ class ClientSetupsController < ApplicationController
 
   def update
     @client_setup = ClientSetup.first
-    if @client_setup.update_attributes(params[:client_setup])
+
+
+    label_has_gap = nil
+
+    i = 9
+    while i >= 0
+      if label_has_gap.nil?
+        # We've started moving from the bottom up
+        # We leave the value to be nil until we run into a filled value, when we become false
+        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? nil : false
+      elsif !label_has_gap
+        # If we have not run into a gap so far, but have run into text
+        # If we run into some empty space we have a gap
+        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? true : false
+      end
+      i-=1
+    end
+
+      label_has_gap = false if label_has_gap.nil?
+
+    flash[:error] = "You Cannot Have A Gap Between Organisational Hierarchies." if label_has_gap
+
+
+    # Check to ensure each remark was filled in with a label
+    # Check there were no duplicate labels
+
+    labels = Hash.new
+
+    i = 0
+    while i < 9
+      flash[:error] = "A Remark Was Filled In Without A Label." if check_for_label_without_remark(params[:client_setup]["level_#{i}_label".to_sym], params[:client_setup]["level_#{i}_remarks".to_sym])
+      label = params[:client_setup]["level_#{i}_label".to_sym].downcase
+      labels["#{label}"] = labels["#{label}"].nil? ? 1 : (labels["#{label}"] + 1) unless label.empty?
+      i += 1
+    end
+
+    for key in labels.keys
+      flash[:error] = "You Have a Duplicate Label. All Labels Must Be Unique." if labels["#{key}"] > 1
+    end
+
+
+    if (@client_setup.update_attributes(params[:client_setup]) && flash[:error].nil?)
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       flash[:message] = "Client Setup is updated"
     end
@@ -387,4 +428,12 @@ class ClientSetupsController < ApplicationController
   end
 
 
+  private
+
+  def check_for_label_without_remark(label, remark)
+    (label.empty? && !remark.empty?) ? true : false
+  end
+
 end
+
+
