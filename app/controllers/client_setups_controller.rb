@@ -88,6 +88,28 @@ class ClientSetupsController < ApplicationController
   def update
     @client_setup = ClientSetup.first
 
+
+    label_has_gap = nil
+
+    i = 9
+    while i >= 0
+      if label_has_gap.nil?
+        # We've started moving from the bottom up
+        # We leave the value to be nil until we run into a filled value, when we become false
+        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? nil : false
+      elsif !label_has_gap
+        # If we have not run into a gap so far, but have run into text
+        # If we run into some empty space we have a gap
+        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? true : false
+      end
+      i-=1
+    end
+
+      label_has_gap = false if label_has_gap.nil?
+
+    flash[:error] = "You Cannot Have A Gap Between Organisational Hierarchies." if label_has_gap
+
+
     # Check to ensure each remark was filled in with a label
     # Check there were no duplicate labels
 
@@ -105,25 +127,6 @@ class ClientSetupsController < ApplicationController
       flash[:error] = "You Have a Duplicate Label. All Labels Must Be Unique." if labels["#{key}"] > 1
     end
 
-    label_has_gap = nil
-
-    i = 9
-    while i >= 0
-      if label_has_gap.nil?
-        # We've started moving from the bottom up
-        # We leave the value to be nil until we run into a filled value, when we become false
-        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? nil : false
-      elsif !label_has_gap
-        # If we have not run into a gap so far, but have run into text
-        # If we run into some empty space we have a gap
-        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? true : false
-      end
-      i-=1
-    end
-    
-      label_has_gap = false if label_has_gap.nil?
-
-    flash[:error] = "You Cannot Have A Gap Between Organisational Hierarchies." if label_has_gap
 
     if (@client_setup.update_attributes(params[:client_setup]) && flash[:error].nil?)
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
