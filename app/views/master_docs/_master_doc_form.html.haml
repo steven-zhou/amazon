@@ -1,29 +1,36 @@
 -# The options to edit or add an address
+-arary_meta_meta_type = MasterDocMetaMetaType.find(:all,:conditions=>["status = true"])
 .form_line{:style => "float:none;"}
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Meta Type"
     -if @masterdoc.new_record?
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, {:include_blank => true}, {:class => "find_master_doc_meta_type_field "})
+      = collection_select(:master_doc_meta_meta_type, :id, arary_meta_meta_type, :id, :name, {}, {:class => "find_master_doc_meta_type_field "})
     -else
-      = collection_select(:master_doc_meta_meta_type, :id, MasterDocMetaMetaType.find(:all,:conditions=>["status = true"]), :id, :name, {:selected => @masterdocmetametatype.id}, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
+      = collection_select(:master_doc_meta_meta_type, :id, arary_meta_meta_type, :id, :name, {:selected => @masterdocmetametatype.id}, {:class => "find_master_doc_meta_type_field", :master_doc_id => @masterdoc.id})
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Type"
     -if @masterdoc.new_record?
+      -@meta_type_array_new = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ? and status=true ", arary_meta_meta_type[0].id])
       %select.find_master_doc_type_field{:id => "master_doc_meta_type_id"}
-        %option
+        -for meta_type in @meta_type_array_new
+          %option{:value=>meta_type.id}= h meta_type.name
     -else
+      -meta_type_array = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ? and status=true ", @masterdocmetametatype.id])
       %select.find_master_doc_type_field{:id => "master_doc_meta_type_id_#{@masterdoc.id}", :master_doc_id => @masterdoc.id}
-        %option{:value => @masterdocmetatype.id}
-          = @masterdocmetatype.name
+        -for meta_type in meta_type_array
+          %option{:selected=>(true if meta_type.id == @masterdocmetatype.id), :value=>meta_type.id}= h meta_type.name
   .field_25
     = form.label :id, "<span class='asterisk'>*</span>Master Doc"
     -if @masterdoc.new_record?
+      -master_doc_type_array = MasterDocType.find(:all, :conditions => ["tag_type_id = ? and status=true", @meta_type_array_new[0].id])
       %select#master_doc_master_doc_type_id{:name => "master_doc[master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id",:mandantory_field2=>"master_doc_doc_number",:submit_button_id=>"master_doc_new_subbmit"}
-        %option
+        -for master_doc in master_doc_type_array
+          %option{:value=>master_doc.id}= h master_doc.name
     -else
+      -master_doc_type_array = MasterDocType.find(:all, :conditions => ["tag_type_id = ? and status=true", @masterdocmetatype.id])
       %select{:id => "master_doc_master_doc_type_id_#{@masterdoc.id}", :name => "master_doc[#{@masterdoc.id}][master_doc_type_id]",:class =>"mandantory_dropdown_list",:mandantory_field1=>"master_doc_master_doc_type_id_#{@masterdoc.id}",:mandantory_field2=>"master_doc_#{@masterdoc.id}_doc_number",:submit_button_id=>"master_doc_edit_submit"}
-        %option{:value => @masterdoctype.id}
-          = @masterdoctype.name
+        -for master_doc in master_doc_type_array
+          %option{:selected=>(true if master_doc.id == @masterdoctype.id), :value=>master_doc.id}= h master_doc.name
 .form_line
   .field_25
     = form.label :doc_number, "<span class='asterisk'>*</span>Doc Number"

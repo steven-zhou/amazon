@@ -700,6 +700,7 @@ $(".person_master_doc_toggle_button").live('click', function(){
     $('.person_master_doc_close').css("display","");
     $(this).css("display","none");
     $('#master_doc_hidden_tab').attr('mode','new');
+    
 });
 
 $(".person_master_doc_close").live('click',function(){

@@ -4115,7 +4115,6 @@ clear_organisation_form = function(link){
 
 $(function(){
     $('.new_option').live('click',function(){
-
         $("#" + $(this).attr('field')+'_mode').attr('mode','new');
         $(this).css("display","none");
         $('.close_option[field='+ $(this).attr('field') +']').css("display","");
@@ -4127,7 +4126,7 @@ $(function(){
 $(function(){
     $('table#search_organisations_list_results tbody tr').live('dblclick',function(){
         if ($('table#search_organisations_list_results').attr('current_operation') == "edit_organisation_list")
-        {
+        {toggle_button
             window.open("/organisations/"+$(this).attr("id").substring(3)+"/edit","_self");
         }
         if ($('table#search_organisations_list_results').attr('current_operation') == "show_organisation_list")
