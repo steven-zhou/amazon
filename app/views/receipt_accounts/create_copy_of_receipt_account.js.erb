@@ -6,7 +6,7 @@
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 
   $('#add_new_receipt_account').html('<%= escape_javascript(render(:partial => "/receipt_accounts/new_receipt_account")) %>').css('display','');
-$('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "/receipt_accounts/existing_receipt_accounts")) %>');
+  $('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "/receipt_accounts/existing_receipt_accounts")) %>');
   $('#receipt_account_mode').attr('mode', 'show');
   $('#edit_receipt_account').css('display','none');
   $("#show_receipt_accounts_grid").flexigrid({
@@ -29,18 +29,19 @@ $('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "
   align: 'left'
   },
 
- {
-  display: 'Link Module',
-  name : 'link_module_name',
-  width : 130,
-  sortable : true,
-  align: 'left'
-  },
-
   {
   display: 'Description',
   name : 'description',
   width : 250,
+  sortable : true,
+  align: 'left'
+
+  },
+
+  {
+  display: 'Link Module',
+  name : 'link_module_name',
+  width : 130,
   sortable : true,
   align: 'left'
   },
@@ -84,13 +85,14 @@ $('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "
   },
 
   {
-  display: 'Link Module',
-  name : 'link_module_name'
+  display: 'Description',
+  name : 'description'
+
   },
 
   {
-  display: 'Description',
-  name : 'description'
+  display: 'Link Module',
+  name : 'link_module_name'
   },
 
   {
@@ -127,16 +129,16 @@ $('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "
 <%- else %>
   $('#flash_message_text').html('<%= escape_javascript(flash[:error]) %>');
   $('#flash_message').dialog( {
-    modal: true,
-    resizable: false,
-    draggable :true,
-    height: "auto",
-    width: "auto",
-    buttons: {
-      Ok: function() {
-            $(this).dialog('close');
-          }
-    }
+  modal: true,
+  resizable: false,
+  draggable :true,
+  height: "auto",
+  width: "auto",
+  buttons: {
+  Ok: function() {
+  $(this).dialog('close');
+  }
+  }
   });
   $('#flash_message').dialog('option', 'title', 'Error');
   $('#flash_message').parent().find("a").css("display","none");
