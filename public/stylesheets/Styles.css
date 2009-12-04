@@ -1431,6 +1431,16 @@ div.info_ok  {
     padding-top:10px;
 }
 
+#app #main #content #photo_information #organisation_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
+
 .hidden_tab {
     position: absolute; left: -10000px;
 }
