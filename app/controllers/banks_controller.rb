@@ -53,4 +53,37 @@ class BanksController < ApplicationController
     end
   end
 
+  
+  
+  
+    def name_finder
+    @bank = Bank.find_by_id(params[:bank_id]) rescue @bank = Bank.new
+    @bank = Bank.new if @bank.nil?
+    @account = PersonBankAccount.find(params[:account_id].to_i) rescue @account = PersonBankAccount.new
+   
+    @input_field_id = params[:input_field_id]  #to clear the input field
+    respond_to do |format|
+      format.js {  }
+    end
+  end
+
+
+
+   def lookup  #  look up bank in the list
+     @update_field = params[:update_field]
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+     def lookup_fill
+    @update_field = params[:update_field]
+    @bank = Bank.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

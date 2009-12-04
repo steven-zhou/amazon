@@ -130,6 +130,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get}
   map.resources :postcodes, :collection => {:show_by_country => :get}
   map.resources :languages, :collection => {:show_languages => :get}
+  map.resources :banks, :collection => {:name_finder => :get,:lookup=>:get,:lookup_fill => :get}
   map.resources :religions
    map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  
