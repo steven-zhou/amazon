@@ -3,7 +3,8 @@ class ReceiptMetaType < TagType
   acts_as_list
 
   belongs_to :receipt_meta_meta_type, :class_name => "ReceiptMetaMetaType", :foreign_key => "tag_meta_type_id"
-
+  has_many :transaction_headers
+ 
   validates_presence_of :name
   validates_uniqueness_of :name,:scope => :tag_meta_type_id
 

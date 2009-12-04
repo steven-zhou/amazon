@@ -22,7 +22,10 @@ class Organisation < ActiveRecord::Base
   has_many :notes, :as => :noteable
   has_many :organisation_groups, :class_name =>'OrganisationGroup', :foreign_key => 'organisation_id'
   has_many :group_types, :through => :organisation_groups
+  has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
+  has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :organisation_bank_accounts, :foreign_key => "entity_id"
+
 
   belongs_to :country, :foreign_key => :registered_country_id
   belongs_to :organisation_hierarchy

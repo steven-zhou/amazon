@@ -44,4 +44,5 @@ class ModuleController < ApplicationController
     session[:module] = "client_setup"
     redirect_to :controller => "client_setups", :action => "client_organisation"
   end
+  
 end
