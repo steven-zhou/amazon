@@ -20,7 +20,7 @@
           = @login_account.user_name
       -#.field_23
         = login.label :security_email, 'Email'
-        = login.text_field :security_email,  :id => "login_account_security_email" , :name => "login_account[security_email]",:disabled => true
+        = login.text_field :security_email,:id => "login_account_security_email" , :name => "login_account[security_email]",:disabled => true
       .field_23
         = login.label :security_email, 'Email'
         .display_field_bg
@@ -47,7 +47,6 @@
         = login.label :person_id, 'Person System ID'
         .display_field_bg
           = @login_account.person_id
-
       .field_23
         = login.label :person_id, 'Person Name'
         .display_field_bg
@@ -55,7 +54,7 @@
       .field_23
         = login.label :person_id, 'Last Login'
         .display_field_bg
-          = @login_account.last_login
+          = @login_account.last_login.strftime("%d-%b-%Y")
       .field_23
         = login.label :person_id, 'Last IP Address'
         .display_field_bg

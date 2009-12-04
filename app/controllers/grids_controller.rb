@@ -2295,7 +2295,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def show_personal_transaction_grid
+  def show_unbanked_transaction_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -2324,35 +2324,38 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction = Transaction.find(:all,
-        :conditions => ["entity_id=? and entity_type=?", params[:entity_id], "Person"],
+      @transaction = TransactionHeader.find(:all,
+        :conditions => ["entity_id=? and entity_type=? and banked=?", params[:entity_id], params[:entity_type], false],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = Transaction.count(:all, :conditions => ["entity_id=? and entity_type=?", params[:entity_id], "Person"])
+      count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=?", params[:entity_id], params[:entity_type], false])
     end
 
     # User provided search terms
     if(query != "%%")
-      @electoral_area = ElectoralArea.find(:all,
+      @transaction = TransactionHeader.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND country_id = ?", query, params[:country_id]])
-      count = ElectoralArea.count(:all, :conditions=>[qtype +" ilike ? AND country_id = ?", query, params[:country_id]])
+        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false])
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @electoral_area.collect{|u| {:id => u.id,
+    return_data[:rows] = @transaction.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.country_id,
-          u.country_name,
-          u.division_name,
-          u.remarks]}}
+          u.transaction_date,
+          u.total_amount,
+          u.receipt_number,
+          u.bank_account_name,
+          u.receipt_meta_type_name,
+          u.receipt_type_name,
+          u.notes]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
