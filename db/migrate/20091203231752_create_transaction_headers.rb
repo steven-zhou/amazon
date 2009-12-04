@@ -1,7 +1,8 @@
 class CreateTransactionHeaders < ActiveRecord::Migration
   def self.up
     create_table :transaction_headers do |t|
-      t.column :person_id, :integer
+      t.column :entity_id, :integer
+      t.column :entity_type, :string
       t.column :todays_date, :date
       t.column :transaction_date, :date
       t.column :receipt_meta_type_id, :integer
@@ -15,6 +16,7 @@ class CreateTransactionHeaders < ActiveRecord::Migration
       t.column :total_amount, :decimal, :precision => 11, :scale => 3
       t.column :notes, :text
       t.column :received_via_id, :integer
+      t.column :banked, :boolean
       t.timestamps
 
     end
