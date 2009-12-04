@@ -316,8 +316,8 @@ class PeopleController < ApplicationController
     @person = Person.find_by_id(params[:person_id]) rescue @person = Person.new
     @person = Person.new if @person.nil?
     @employment = Employment.find(params[:employment_id].to_i) rescue @employment = Employment.new
-    #  reuse person.preferred_name to store update field name, if no update field, preferred_name is set to empty but will not be saved. Don't worry.
-    @person.preferred_name = params[:update].nil?? nil : params[:update]
+    # use @update to store the name of field that needed to be update in the view, i.e. supervisor_container
+    @update = params[:update].nil? ? nil : params[:update]
     @input_field_id = params[:input_field_id]  #to clear the input field
     respond_to do |format|
       format.js {  }
@@ -462,6 +462,7 @@ class PeopleController < ApplicationController
       @image = @person.image unless (@person.nil? || @person.image.nil?)
       @role = Role.new
       @person_role = PersonRole.new
+      @bank_accounts = PersonBankAccount.new
       @person_group = PersonGroup.new
       render 'show_edit_left.js'
 

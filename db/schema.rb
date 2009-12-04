@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091202044843) do
+ActiveRecord::Schema.define(:version => 20091203075412) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -61,6 +61,23 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.string   "name"
     t.string   "description"
     t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_accounts", :force => true do |t|
+    t.integer "bank_id"
+    t.text    "account_number"
+    t.integer "account_purpose_id"
+    t.boolean "status"
+    t.text    "remarks"
+    t.integer "entity_id"
+    t.text    "type"
+    t.integer "account_type_id"
+    t.integer "priority_number"
+  end
+
+  create_table "bank_grids", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -121,14 +138,6 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "client_bank_accounts", :force => true do |t|
-    t.integer "bank_id"
-    t.text    "account_number"
-    t.integer "account_purpose_id"
-    t.boolean "status"
-    t.text    "remarks"
   end
 
   create_table "client_setups", :force => true do |t|

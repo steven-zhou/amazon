@@ -46,6 +46,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :master_docs
     organisation.resources :images, :member => {:thumb => :get}
     organisation.resources :notes
+    organisation.resources :organisation_bank_accounts
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
   end
 
@@ -130,6 +131,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get}
   map.resources :postcodes, :collection => {:show_by_country => :get}
   map.resources :languages, :collection => {:show_languages => :get}
+  map.resources :banks, :collection => {:list=>:get,:name_finder => :get,:lookup=>:get,:lookup_fill => :get,:refresh_existing_banks=>:get,:delete_bank_entry=>:get,:edit_bank_entry=>:get}
   map.resources :religions
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  

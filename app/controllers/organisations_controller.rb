@@ -132,6 +132,7 @@ class OrganisationsController < ApplicationController
     @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
     @organisation_group = OrganisationGroup.new
     @check_field = Array.new
+    @bank_accounts = OrganisationBankAccount.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
@@ -344,6 +345,7 @@ class OrganisationsController < ApplicationController
       @note = Note.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
       @organisation_group = OrganisationGroup.new
+       @bank_accounts = OrganisationBankAccount.new
       @current_action = "edit"
       render 'show_edit_left.js'
      

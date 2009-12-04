@@ -1,11 +1,12 @@
 -# Displays Person Account
 -div_for(person_accounts, :class => 'header_container toggle_options', :field => "person_account") do
-  %div
+  %div  
     .title
       %h2= "#{AccountType.find(person_accounts.account_type_id).name}"
     .options{:class => 'person_bank_account_edit_delete person_tag', :style => "display:none;"}
-      = link_to image_tag('edit_icon.png')
-      = link_to image_tag('delete_icon.png')
+      = link_to image_tag('edit_icon.png'),edit_person_bank_account_path(person_accounts), :class => "get edit_option", :field => "person_account",:title => "Edit"
+      = link_to image_tag('delete_icon.png'), person_bank_account_path(person_accounts), :class => 'delete delete_option',:field => "person_account", :errow_message_field => #{AccountType.find(person_accounts.account_type_id).name} + "Account",:title => "Remove"
+
     %br.clear
   %div{:style => "float:right;"}
-    -#= format_masterdoc(master_doc)
+    = format_bank_account(person_accounts)
