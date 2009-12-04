@@ -12,8 +12,12 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def organisational_transaction
-
+  def organisational_transaction    
+    @organisation = Organisation.find(session[:current_organisation_id])
+    @o = Organisation.find(:all, :order => "id")
+    respond_to do |format|
+      format.html
+    end
   end
 
 end

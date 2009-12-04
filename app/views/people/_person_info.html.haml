@@ -118,6 +118,14 @@
         %br.clear
       #groups
         =render :partial => '/people/person_group', :collection => @person.person_groups, :locals => {:person => @person}
+  #Account
+    .container
+      -#.header_container
+        .title
+          %h1 Bank Account Detail
+        %br.clear
+      #groups
+        =render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
   
 

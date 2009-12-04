@@ -5,7 +5,7 @@
       %h2= "#{AccountType.find(person_accounts.account_type_id).name}"
     .options{:class => 'person_bank_account_edit_delete person_tag', :style => "display:none;"}
       = link_to image_tag('edit_icon.png'),edit_person_bank_account_path(person_accounts), :class => "get edit_option", :field => "person_account",:title => "Edit"
-      = link_to image_tag('delete_icon.png'), person_bank_account_path(person_accounts), :class => 'delete delete_option',:field => "person_account", :errow_message_field => #{AccountType.find(person_accounts.account_type_id).name} + "Account",:title => "Remove"
+      = link_to image_tag('delete_icon.png'), person_bank_account_path(person_accounts), :class => 'delete delete_option',:field => "person_account", :errow_message_field =>"Account",:title => "Remove"
 
     %br.clear
   %div{:style => "float:right;"}
