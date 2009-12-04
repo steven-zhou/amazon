@@ -875,7 +875,8 @@ ActiveRecord::Schema.define(:version => 20091203235117) do
   end
 
   create_table "transaction_headers", :force => true do |t|
-    t.integer  "person_id"
+    t.integer  "entity_id"
+    t.string   "entity_type"
     t.date     "todays_date"
     t.date     "transaction_date"
     t.integer  "receipt_meta_type_id"
@@ -889,6 +890,7 @@ ActiveRecord::Schema.define(:version => 20091203235117) do
     t.decimal  "total_amount",         :precision => 11, :scale => 3
     t.text     "notes"
     t.integer  "received_via_id"
+    t.boolean  "banked"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
