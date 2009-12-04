@@ -63,6 +63,9 @@ class Person < ActiveRecord::Base
   has_many :login_accounts
   has_many :list_details
   has_many :list_headers, :through => :list_details,:uniq => true
+  has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
+  has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
+  has_many :transaction_headers
   #has_many :players, :through => :list_details, :source => :player
 
   
@@ -76,7 +79,7 @@ class Person < ActiveRecord::Base
   belongs_to :origin_country, :class_name => "Country", :foreign_key => "origin_country_id"
   belongs_to :residence_country, :class_name => "Country", :foreign_key => "residence_country_id"
   belongs_to :nationality, :class_name => "Country", :foreign_key => "nationality_id"
-   belongs_to :other_nationality, :class_name => "Country", :foreign_key => "other_nationality_id"
+  belongs_to :other_nationality, :class_name => "Country", :foreign_key => "other_nationality_id"
   belongs_to :gender, :class_name => "Gender", :foreign_key => "gender_id"
   
 
@@ -160,7 +163,7 @@ class Person < ActiveRecord::Base
     @primary_website ||= self.websites.select {|website| website.priority_number == 1}.first
   end
 
-    def secondary_website
+  def secondary_website
     @secondary_website ||= self.websites.select {|website| website.priority_number == 2}.first
   end
 
@@ -207,51 +210,51 @@ class Person < ActiveRecord::Base
 
   def personal_email_types
     @personal_email_types = Array.new
-      self.emails.each do |email|
+    self.emails.each do |email|
       @personal_email_types <<  TagType.find(email.contact_meta_type_id)
-      end
-      return @personal_email_types
+    end
+    return @personal_email_types
   end
 
   def personal_phone_types
     @personal_phone_types = Array.new
     self.phones.each do |phone|
-       @personal_phone_types <<  TagType.find(phone.contact_meta_type_id)
+      @personal_phone_types <<  TagType.find(phone.contact_meta_type_id)
     end
 
     return @personal_phone_types
   end
 
-    def personal_website_types
+  def personal_website_types
     @personal_website_types = Array.new
     self.websites.each do |website|
-       @personal_website_types <<  TagType.find(website.contact_meta_type_id)
+      @personal_website_types <<  TagType.find(website.contact_meta_type_id)
     end
 
     return @personal_website_types
   end
 
-      def personal_address_types
+  def personal_address_types
     @personal_address_types = Array.new
     self.addresses.each do |address|
-       @personal_address_types <<  AmazonSetting.find(address.address_type_id)
+      @personal_address_types <<  AmazonSetting.find(address.address_type_id)
     end
 
     return @personal_address_types
   end
 
 
-   #find all relate relationship include father and mother
+  #find all relate relationship include father and mother
 
-      def personal_relationship_type
-        @personal_relationship_type = Array.new
-          self.people_as_source.each do |relation|
-            if AmazonSetting.find(relation.relationship_type_id).name == "Father" or AmazonSetting.find(relation.relationship_type_id).name =="Mother"
-              @personal_relationship_type <<  AmazonSetting.find(relation.relationship_type_id)
-            end  
-    end
-      return @personal_relationship_type
+  def personal_relationship_type
+    @personal_relationship_type = Array.new
+    self.people_as_source.each do |relation|
+      if AmazonSetting.find(relation.relationship_type_id).name == "Father" or AmazonSetting.find(relation.relationship_type_id).name =="Mother"
+        @personal_relationship_type <<  AmazonSetting.find(relation.relationship_type_id)
       end
+    end
+    return @personal_relationship_type
+  end
 
 
   #
