@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091203075412) do
+ActiveRecord::Schema.define(:version => 20091203235117) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -853,6 +853,42 @@ ActiveRecord::Schema.define(:version => 20091203075412) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.integer  "login_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transaction_allocations", :force => true do |t|
+    t.integer  "transaction_header_id"
+    t.integer  "receipt_account_id"
+    t.integer  "campaign_id"
+    t.integer  "source_id"
+    t.decimal  "amount",                :precision => 11, :scale => 3
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.integer  "extention_id"
+    t.string   "extention_type"
+    t.integer  "cluster_id"
+    t.string   "cluster_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transaction_headers", :force => true do |t|
+    t.integer  "person_id"
+    t.date     "todays_date"
+    t.date     "transaction_date"
+    t.integer  "receipt_meta_type_id"
+    t.integer  "receipt_type_id"
+    t.integer  "bank_account_id"
+    t.integer  "bank_run_id"
+    t.integer  "receipt_number"
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.decimal  "total_amount",         :precision => 11, :scale => 3
+    t.text     "notes"
+    t.integer  "received_via_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
