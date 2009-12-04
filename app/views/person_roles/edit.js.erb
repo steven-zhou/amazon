@@ -52,7 +52,7 @@ $('.role_startdatepick').datepicker({
             $("#"+$(this).attr("end_date")).datepicker('enable');
         },
         onClose: function(){
-             $(".mandantory_field").keyup();
+             $(this).keyup();
         }
     });
 
