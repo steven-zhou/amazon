@@ -44,7 +44,7 @@ class PersonBankAccountsController < ApplicationController
     if @person_bank_account.update_attributes(params[:person_bank_account]["#{@person_bank_account.id}"])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Person Bank Account #{@person_bank_account.id}.")
     else
-      flash.now[:error]= "Please Enter All Required Data"if(!@note.errors[:account_number].nil? && @note.errors.on(:account_number).include?("can't be blank"))
+      flash.now[:error]= "Please Enter All Required Data"if(!@person_bank_account.errors[:account_number].nil? && @person_bank_account.errors.on(:account_number).include?("can't be blank"))
     end
       respond_to do |format|
         format.js {render 'show.js'}

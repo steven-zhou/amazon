@@ -1,0 +1,37 @@
+ <% if @organisation_bank_accounts.errors.empty? -%>
+  
+$('#bank_accounts').prepend('<%= escape_javascript(render(:partial => "organisation_bank_accounts/organisation_accounts", :locals =>{:organisation_accounts => @organisation_bank_accounts })) %>');
+
+$("#new_account").hide();
+
+$('#organisation_account_mode').attr('mode', 'show');
+$('.new_option[field="organisation_account"]').css("display","");
+$('.close_option[field="organisation_account"]').css("display","none");
+$('#<%= dom_id(@organisation_bank_accounts) %>').effect('slide', {direction:'right'});
+
+<%else%>
+
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_messagee_image').css("display","");
+  $("#flash_message").dialog( {
+  modal:true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+
+  OK: function(){
+
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+
+
+<% end -%>
+
+  

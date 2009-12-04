@@ -28,7 +28,7 @@
     <%else%>
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").css('display','');
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").html("<%=escape_javascript("#{@bank.full_name}")%>")
-    $("#bank_bsb_container_<%=escape_javascript("#{@account.id}")%>").html("<%=escape_javascript("#{@bank.branch_number}")%>")
+    $("#bank_container_bsb_<%=escape_javascript("#{@account.id}")%>").html("<%=escape_javascript("#{@bank.branch_number}")%>")
 
     <%end%>
 

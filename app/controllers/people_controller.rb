@@ -463,6 +463,7 @@ class PeopleController < ApplicationController
       @image = @person.image unless (@person.nil? || @person.image.nil?)
       @role = Role.new
       @person_role = PersonRole.new
+      @bank_accounts = PersonBankAccount.new
       @person_group = PersonGroup.new
       render 'show_edit_left.js'
 

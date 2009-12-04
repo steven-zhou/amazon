@@ -9,9 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20091203071753) do
-
+ActiveRecord::Schema.define(:version => 20091203075412) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -77,6 +75,11 @@ ActiveRecord::Schema.define(:version => 20091203071753) do
     t.text    "type"
     t.integer "account_type_id"
     t.integer "priority_number"
+  end
+
+  create_table "bank_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "banks", :force => true do |t|

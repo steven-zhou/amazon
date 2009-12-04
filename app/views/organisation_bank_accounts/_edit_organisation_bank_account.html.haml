@@ -1,0 +1,10 @@
+-form_for @bank_accounts,:index => @bank_accounts.id, :html => {:class => 'ajax_form'} do |account|
+  %div
+    .header_container
+      .title
+        %h1 Edit Account
+      .options
+        = link_to image_tag('close_icon.png'), organisation_bank_account_path(@bank_accounts),:class => 'get_close', :field => "organisation_account", :id => 'organisation_account_edit_close_button', :title=>"Close"
+      %br{ :style=>"clear: both;"}
+      = render :partial => '/organisation_bank_accounts/account_form', :locals => { :account => account}
+      =submit_tag 'Submit',:id=>"organisation_account_edit_submit"
