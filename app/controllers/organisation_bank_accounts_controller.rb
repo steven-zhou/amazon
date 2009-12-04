@@ -15,8 +15,8 @@ class OrganisationBankAccountsController < ApplicationController
     @organisation_bank_accounts = @entity.organisation_bank_accounts.new(params[:organisation_bank_account])
 
 
-   if @organisation_bank_accounts.save!
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Person Account #{@entity.id}.")
+   if @organisation_bank_accounts.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Account #{@entity.id}.")
    else
 
       flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Bank Account")if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("has already been taken"))
