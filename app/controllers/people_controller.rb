@@ -116,7 +116,6 @@ class PeopleController < ApplicationController
     @list_headers = @current_user.all_lists
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-    #@postcodes = Postcode.find(:all)
 
     if request.get?
       if @list_headers.blank?
