@@ -1,5 +1,5 @@
 -# transaction template
--# locals => {:title, :lol}
+-# locals => {:title, :lol, :photo_info}
 
 #header
   #page_title{:style => "background-color:red;"}
@@ -7,12 +7,9 @@
 
   #lol{:style => "background-color:yellow;"}
     = render :partial => "#{lol}"
-    lol navigation partial
-    %br.clear
 
-#photo_info{:style => "background-color:blue;"}
-  -# = render :partial => "photo partial"
-  photo partial
+#photo_information{:style => "background-color:blue;"}
+  = render :partial => "#{photo_info}"
 
 .tab_switch{:style => "margin-right:15px;float:right;"}
   .tab_switch_left.active.left{:field =>"current_page"}
