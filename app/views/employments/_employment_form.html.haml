@@ -2,16 +2,16 @@
 .form_line{:style => "float:none;"}
   .field_25{:style => "margin-right: 2px;"}
     =employment.label :organisation_id, "<span class='asterisk'>*</span>Organisation ID"
-    =employment.text_field :organisation_id, :class=>"find_organisation_field mandantory_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+    =employment.text_field :organisation_id, :class=>"find_organisation_field mandantory_field", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
   .field_5
     %label &nbsp;
-    = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "employment_organisation_id", :title=>"Search"
+    = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => @employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id", :title=>"Search"
   .field_60
     %label &nbsp;
     -if @employment.new_record?
-      %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} &nbsp;
+      %span{:class=>"viewname", :id=>"organisation_name_container_0"} &nbsp;
     -else
-      %span{:class=>"viewname", :id=>@employment.new_record? ? "organisation_name_container_0" : "organisation_name_container_#{@employment.id}"} #{@employment.organisation.full_name}
+      %span{:class=>"viewname", :id=>"organisation_name_container_#{@employment.id}"} #{@employment.organisation.full_name}
   -#.field_33
     =employment.label :status, "Status"
     =employment.radio_button :status, true, :style => "width:10%", :checked => true
@@ -22,7 +22,7 @@
 .form_line
   .field_23
     =employment.label :staff_reference, "<span class='asterisk'>*</span>Reference NO."
-    =employment.text_field :staff_reference,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+    =employment.text_field :staff_reference,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
   .field_23
     =employment.label :department_id, "Department"
     =employment.collection_select :department_id, Department.active_department, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
@@ -40,7 +40,7 @@
   .form_line
     .field_30
       =employment.label :position_name, "<span class='asterisk'>*</span>Name"
-      =employment.text_field :position_name,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+      =employment.text_field :position_name,:class=>"mandantory_field", :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
     .field_30
       =employment.label :position_title_id, "Title"
       =employment.collection_select :position_title_id, PositionTitle.active_position_title, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
@@ -71,7 +71,7 @@
       =employment.collection_select :position_status_id, PositionStatus.active_position_status, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
 
 
-  .form_line    
+  .form_line
     .field_100
       =employment.label :duties_resposibilities, "Duties and Responsibilities"
       =employment.text_field :duties_resposibilities, :disabled=>@employment.status == false
@@ -79,7 +79,7 @@
   .form_line
     .field_25{:style => "margin-right: 2px;"}
       =employment.label :hired_by, "<span class='asterisk'>*</span>Hired By"
-      =employment.text_field :hired_by, :class=>"find_person_field mandantory_field", :update=>"recruiter_container", :input_field_id=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by":"employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
+      =employment.text_field :hired_by, :class=>"find_person_field mandantory_field", :update=>"recruiter_container", :input_field_id=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false,:mandantory_field1=>@employment.new_record? ? "employment_organisation_id" : "employment_#{@employment.id}_organisation_id" ,:mandantory_field2=>@employment.new_record? ? "employment_staff_reference" : "employment_#{@employment.id}_staff_reference" ,:mandantory_field3=>@employment.new_record? ? "employment_position_name" : "employment_#{@employment.id}_position_name",:mandantory_field4=>@employment.new_record? ? "employment_commenced_date" : "employment_#{@employment.id}_commenced_date",:mandantory_field5=>@employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by",:submit_button_id=>@employment.new_record? ? "employment_new_submit" : "employment_edit_submit"
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_hired_by" : "employment_#{@employment.id}_hired_by", :title=>"Search"
@@ -92,7 +92,7 @@
   .form_line
     .field_25{:style => "margin-right: 2px;"}
       =employment.label :report_to, "Report To"
-      =employment.text_field :report_to, :class=>"find_person_field",:input_field_id=>@employment.new_record? ? "employment_report_to":"employment_#{@employment.id}_report_to", :update=>"supervisor_container", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
+      =employment.text_field :report_to, :class=>"find_person_field", :update=>"supervisor_container", :input_field_id=>@employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to", :employment_id=> @employment.new_record? ? 0 : @employment.id, :disabled=>@employment.status == false
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => @employment.new_record? ? "employment_report_to" : "employment_#{@employment.id}_report_to", :title=>"Search"
