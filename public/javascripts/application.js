@@ -148,6 +148,7 @@ $(function() {
 
         if($(this).attr('field')== "note")
         {
+      
             change_type =$('#notes_input_change_or_not').val();
 
         }
@@ -167,6 +168,12 @@ $(function() {
         if($(this).attr('field')== "group")
         {
             change_type =$('#group_input_change_or_not').val();
+
+        }
+          if($(this).attr('field')== "account")
+        {
+     
+            change_type =$('#account_input_change_or_not').val();
 
         }
         //                if($(this).attr('field')== "organisation_contact")
@@ -240,6 +247,12 @@ $(function() {
                         {
 
                             $('#group_input_change_or_not').val("false");
+                        }
+
+                         if(link.attr('field')== "account")
+                        {
+
+                            $('#account_input_change_or_not').val("false");
                         }
 
                         $.get(link.attr('href'), null ,null, 'script');
@@ -3985,7 +3998,7 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        if  ($(this).parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value') == "true")
+        if  ($(this).closest('.container').find('.ogranisation_input_change_class').attr('value') == "true")
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
@@ -4007,7 +4020,7 @@ $(function(){
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");                        
-                        link.parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value','false');
+                        link.closest('.container').find('.ogranisation_input_change_class').attr('value','false');
                         clear_organisation_form(link);
                   
                         $(this).dialog('destroy');
@@ -6165,7 +6178,7 @@ check_input_change = function(){
     //    if($('#check_right_input_change').val() == "false")
     //    {
         
-    if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+    if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true" ||$('#account_input_change_or_not').val()=="true" )
     {
                  
         $('#check_right_input_change').val("true");
@@ -6587,11 +6600,11 @@ $(function(){
 $(function(){
     $("#Account").find('input').live('change', function(){
 
-        $('#person_bank_account_ainput_change_or_not').val("true");
+        $('#account_input_change_or_not').val("true");
     });
 
     $('#Account input[type="submit"]').live('click', function(){
-        $('#person_bank_account_input_change_or_not').val("false");
+        $('#account_input_change_or_not').val("false");
 
     });
 
@@ -6607,7 +6620,7 @@ $(function(){
 
 $(function(){
     $('#right_content input[type="submit"]').live('click', function(){
-        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true"||$('#person_bank_account_input_change_or_not').val() == "true")
+        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true"||$('#account_input_change_or_not').val() == "true")
         {
             $('#check_right_input_change').val("true");
      

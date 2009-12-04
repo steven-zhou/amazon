@@ -14,9 +14,12 @@
           .field_35
             = p.label :type, "Type"
             %select{:name => "type", :disabled => true}
-              %option{:value => "OtherOrganisation", :selected => (@organisation.class.to_s == "OtherOrganisation")} OtherOrganisation
-              %option{:value => "AgentOrganisation", :selected =>  (@organisation.class.to_s == "AgentOrganisation")} AgentOrganisation
-              %option{:value => "SubOrganisation", :selected =>  (@organisation.class.to_s == "SubOrganisation")} SubOrganisation
+              -if @organisation.class.to_s == "ClientOrganisation"
+                %option{:value => "ClientOrganisation", :selected => (@organisation.class.to_s == "ClientOrganisation")} ClientOrganisation
+              -else
+                %option{:value => "OtherOrganisation", :selected => (@organisation.class.to_s == "OtherOrganisation")} OtherOrganisation
+                %option{:value => "AgentOrganisation", :selected =>  (@organisation.class.to_s == "AgentOrganisation")} AgentOrganisation
+                %option{:value => "SubOrganisation", :selected =>  (@organisation.class.to_s == "SubOrganisation")} SubOrganisation
           .field_34
             = p.label :level, "<span class='asterisk'>*</span>Level"
             %select{:name => "organisation[level]"}
@@ -64,7 +67,17 @@
         #Group
           = render :partial => "/organisation_groups/group_tab", :locals => {:organisation => @organisation}
         #Account
-          = render :partial => "/organisation_bank_accounts/account_tab",:locals =>{:organisation => @organisation}
+          -if  @organisation.class.to_s == "ClientOrganisation"
+            .container
+              -#.header_container
+                .title
+                  %h1 Bank Account Details
+
+              %br{ :style=>"clear: both;"}
+              #group_list
+                = render :partial => '/organisations/organisation_bank_account', :collection => @organisation.organisation_bank_accounts
+          -else
+            = render :partial => "/organisation_bank_accounts/account_tab",:locals =>{:organisation => @organisation}
     -else
       = render :partial => "/organisations/organisation_info"
   #duplication_box

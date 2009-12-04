@@ -6,6 +6,9 @@
     $("#bank_container_0").fadeTo(3000,1);
     $("#bank_container_0").fadeOut(3000);
     $('#bank_container_0').val("");
+    $('#person_bank_account_bank_id').val("");
+    $('#organisation_bank_account_bank_id').val("");
+    $('#bank_bsb_container_0').html("").change();
     $(".mandantory_field").keyup();
 
     <%else%>
@@ -14,7 +17,10 @@
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").fadeTo(3000,1);
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").fadeOut(3000);
     $('#bank_container_<%=escape_javascript("#{@account.id}")%>').val("");
-     $(".mandantory_field").keyup();
+    $('#person_bank_account_<%=escape_javascript("#{@account.id}")%>_bank_id').val("");
+    $('#organisation_bank_account_<%=escape_javascript("#{@account.id}")%>_bank_id').val("");
+    $('#bank_container_bsb_<%=escape_javascript("#{@account.id}")%>').html("").change();
+    $(".mandantory_field").keyup();
 
     <%end%>
 

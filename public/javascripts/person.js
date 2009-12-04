@@ -137,11 +137,11 @@ $(function() {
            
         }
         else
-            {
+        {
                
-                 $('#'+link.parents("form").get(0).id)[0].reset();
+            $('#'+link.parents("form").get(0).id)[0].reset();
 
-            }
+        }
     });
 
 
@@ -288,13 +288,13 @@ $(function() {
         $('#terminator_container_0').html('');
     }
 
-//    $("#new_employment").submit( function(){
-//        $('#organisation_name_container_0').html('');
-//        $('#recruiter_container_0').html('');
-//        $('#supervisor_container_0').html('');
-//        $('#suspender_container_0').html('');
-//        $('#terminator_container_0').html('');
-//    })
+    //    $("#new_employment").submit( function(){
+    //        $('#organisation_name_container_0').html('');
+    //        $('#recruiter_container_0').html('');
+    //        $('#supervisor_container_0').html('');
+    //        $('#suspender_container_0').html('');
+    //        $('#terminator_container_0').html('');
+    //    })
 
     $("#accordion").accordion();
     $("#accordion01").accordion();
@@ -322,19 +322,19 @@ $(function() {
     }
 
 
-//    $("#new_person_role").submit( function(){
-//        $('#assigner_container_0').html('');
-//        $('#approver_container_0').html('');
-//        $('#superviser_container_0').html('');
-//        $('#manager_container_0').html('');
-//
-//    });
+    //    $("#new_person_role").submit( function(){
+    //        $('#assigner_container_0').html('');
+    //        $('#approver_container_0').html('');
+    //        $('#superviser_container_0').html('');
+    //        $('#manager_container_0').html('');
+    //
+    //    });
 
 
 
     $("#delete_photo").click(function(){
 
-     var link =$(this);
+        var link =$(this);
         $('#warning_message_text').html("Are you sure you wish to delete the photo ? ");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
@@ -714,9 +714,9 @@ $(".person_master_doc_close").live('click',function(){
         $('#master_doc_hidden_tab').attr('mode','show');
         if (link.attr('field') != ""){
 
-           $("#new_"+link.attr('field'))[0].reset();
-           //$('#master_doc_meta_type_id').html("").change();
-           //$('#master_doc_master_doc_type_id').html("").change();
+            $("#new_"+link.attr('field'))[0].reset();
+        //$('#master_doc_meta_type_id').html("").change();
+        //$('#master_doc_master_doc_type_id').html("").change();
 
         }
 
@@ -749,8 +749,8 @@ $(".person_master_doc_close").live('click',function(){
                     if (link.attr('field') != ""){
 
                         $("#new_"+link.attr('field'))[0].reset();
-                        //$('#master_doc_meta_type_id').html("").change();
-                        //$('#master_doc_master_doc_type_id').html("").change();
+                    //$('#master_doc_meta_type_id').html("").change();
+                    //$('#master_doc_master_doc_type_id').html("").change();
                     }
                     $(this).dialog('destroy');
                     return true;
@@ -1203,3 +1203,71 @@ $(function(){
 });
 
 /*Person Banking Tab*/
+$(".person_account_close").live('click',function(){
+
+
+    var link = $(this);
+    if( $('#account_input_change_or_not').val() == "false")
+    {
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+        $('.person_bank_account_edit_delete').css("display","none");
+        link.css("display","none");
+        $('.person_bank_account_toggle_button').css("display","");
+        $('#person_account_mode').attr('mode','show');
+        clear_person_role_form();
+
+    }
+    else
+    {
+        $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+
+                    $('#'+link.attr('toggle_id_name')).toggle('blind');
+
+                    $('.person_bank_account_edit_delete').css("display","none");
+                    link.css("display","none");
+                   $('.person_bank_account_toggle_button').css("display","");
+                    $('#person_account_mode').attr('mode','show');
+                    $('#check_right_input_change').val("false");
+                    $('#account_input_change_or_not').val("false");
+//                    clear_person_role_form();
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+    }
+});
+
+$(".person_bank_account_toggle_button").live('click', function(){
+
+    $('.person_bank_account_edit_delete').css("display","none");
+
+    $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+    $('.person_account_close').css("display","");
+    $(this).css("display","none");
+    $('#person_account_mode').attr('mode','new');
+});
