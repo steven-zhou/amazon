@@ -21,11 +21,6 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 }
 
 
-a {
-    text-decoration : none;
-    color: #666666;
-}
-
 body {
 	background-color: #030A13;
 	background-image:url(/images/bg3.jpg);
