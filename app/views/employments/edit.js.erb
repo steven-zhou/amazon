@@ -22,6 +22,9 @@ $('#add_new_employment').css("display","none");
         },
         onSelect: function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $(this).keyup();
         }
     });
 
