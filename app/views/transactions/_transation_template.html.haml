@@ -1,0 +1,35 @@
+-# transaction template
+-# locals => {:title, :lol}
+
+#header
+  #page_title{:style => "background-color:red;"}
+    %h1 #{title}
+
+  #lol{:style => "background-color:yellow;"}
+    = render :partial => "#{lol}"
+    lol navigation partial
+    %br.clear
+
+#photo_info{:style => "background-color:blue;"}
+  -# = render :partial => "photo partial"
+  photo partial
+
+.tab_switch{:style => "margin-right:15px;float:right;"}
+  .tab_switch_left.active.left{:field =>"current_page"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to_function "<h1>Current</h1>",:class=>"tab_switch_button page_initial hidden", :url => "",:method => "GET", :render_page => "transactions/current_tab", :field => "current_page"
+    = link_to_function "<h1>Current</h1>", :class=>"tab_switch_with_page_initial", :field => "current_page"
+  .tab_switch_right.active.left{:field =>"current_page"}
+
+  .tab_switch_left.left{:field =>"histroy_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Histroy</h1>", :class=>"tab_switch_button page_initial hidden", :url => "", :method => "GET", :render_page => "transactions/histroy_tab", :field => "histroy_page"
+    = link_to_function "<h1>Histroy</h1>", :class=>"tab_switch_with_page_initial", :field => "histroy_page"
+  .tab_switch_right.left{:field =>"histroy_page"}
+%br.clear
+
+#current_page.tab_switch_container.active
+  = render :partial => "transactions/current_tab"
+
+#histroy_page.tab_switch_container
+

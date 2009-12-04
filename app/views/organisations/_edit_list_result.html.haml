@@ -7,7 +7,7 @@
       %br.clear
 
   #left_content
-    - form_for @organisation, :url => {:controller => "organisations", :action => "update"} , :html=>{:class => (@super_admin || @organisation.class.to_s != "ClientOrganisation") ? "" : "disabled_form", :multipart => true, :id=>"organisation_names_form"} do |p|
+    - form_for @organisation, :url => {:controller => "organisations", :action => "update", :id => @organisation.id} , :html=>{:class => (@super_admin || @organisation.class.to_s != "ClientOrganisation") ? "" : "disabled_form", :multipart => true, :id=>"organisation_names_form"} do |p|
       .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" :""}
         %h1 Identity
         .form_line
@@ -63,6 +63,8 @@
           = render :partial => '/organisations/organisation_employee'
         #Group
           = render :partial => "/organisation_groups/group_tab", :locals => {:organisation => @organisation}
+        #Account
+          = render :partial => "/organisation_bank_accounts/account_tab",:locals =>{:organisation => @organisation}
     -else
       = render :partial => "/organisations/organisation_info"
   #duplication_box

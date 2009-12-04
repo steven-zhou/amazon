@@ -1,0 +1,12 @@
+-# Displays Organisation Account
+-div_for(organisation_accounts, :class => 'header_container toggle_options', :field => "organisation_account") do
+  %div  
+    .title
+      %h2= "#{AccountType.find(organisation_accounts.account_type_id).name}"
+    .options{:class => 'organisation_bank_account_edit_delete person_tag', :style => "display:none;"}
+      = link_to image_tag('edit_icon.png'),edit_organisation_bank_account_path(organisation_accounts), :class => "get edit_option", :field => "organisation_account",:title => "Edit"
+      = link_to image_tag('delete_icon.png'), organisation_bank_account_path(organisation_accounts), :class => 'delete delete_option',:field => "organisation_account", :errow_message_field =>"Account",:title => "Remove"
+
+    %br.clear
+  %div{:style => "float:right;"}
+    = format_bank_account(organisation_accounts)

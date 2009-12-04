@@ -4028,7 +4028,6 @@ $(function(){
         }
         else if (link.closest('.container').find('.person_input_change_class').attr('value') == "true")
             {
-             alert("abc");
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
@@ -6608,7 +6607,7 @@ $(function(){
 
 $(function(){
     $('#right_content input[type="submit"]').live('click', function(){
-        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true"||$('#person_bank_account_input_change_or_not').val() == "true")
         {
             $('#check_right_input_change').val("true");
      

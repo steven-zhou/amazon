@@ -1,0 +1,7 @@
+$('#<%= dom_id(@bank_accounts) %>').replaceWith("<%= escape_javascript(render(:partial => 'edit_organisation_bank_account')) %>")
+ $('.organisation_bank_account_edit_delete').css("display","none");
+
+ $('#organisation_account_mode').attr('mode', 'edit');
+ $('.new_option[field="organisation_account"]').css("display","none");
+ 
+
