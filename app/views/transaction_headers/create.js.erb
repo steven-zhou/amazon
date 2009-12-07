@@ -1,7 +1,7 @@
 <% if @transaction_header.errors.empty? -%>
 $('#add_new_transaction').html('<%= escape_javascript(render(:partial => "/transactions/new_transaction")) %>');
 $('#existing_unbanked_transactions').html('<%= escape_javascript(render(:partial => "/transactions/existing_transactions", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
-$('#transaction_mode').attr('mode', 'show');   
+$('#current_mode').attr('mode', 'show');
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

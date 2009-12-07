@@ -1,6 +1,5 @@
 $('#new_transaction_form').html('<%= escape_javascript(render(:partial => "/transactions/transaction_form", :locals => {:transaction => @transaction_header })) %>');
 $('#new_transaction_form').css('display','');
-$('#existing_unbanked_transactions').html('');
 $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
