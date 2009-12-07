@@ -57,6 +57,8 @@ ActionController::Routing::Routes.draw do |map|
 
   }
 
+  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :edit_message_template => :get, :new_message_template => :get, :update_message_template => :post, :send_email => :post }
+
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
   map.resources :amazon_settings, :collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
@@ -136,7 +138,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  
   map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get}
-  map.resources :transaction_headers
+
+  map.resources :transaction_headers, :collection => {:page_initial => :get}
   map.resources :transaction_allocations, :collection => {:temp_create => :post}
 
 

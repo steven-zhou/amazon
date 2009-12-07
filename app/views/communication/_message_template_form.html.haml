@@ -1,0 +1,25 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('.new_message_template_required_field').keyup(function() {
+          if($('#new_message_template_name').val() == '' || $('#new_message_template_body').val() == '') {
+              $('#new_message_template_submit').attr('disabled', true);
+          } else {
+              $('#new_message_template_submit').removeAttr('disabled');
+          }
+      });
+    });
+
+- form_for :message_template, @message_template, :url => { :action => "create_message_template" }, :html => {:class => 'ajax_form', :id => "add_message_template_form"}  do |f|
+  .full_container
+    %h2 Message Template
+    .form_line
+      .field_60
+        = f.label :name, "<span class='asterisk'>*</span>Name"
+        = f.text_field :name, :id => "new_message_template_name", :class => 'new_message_template_required_field'
+    %div
+      .field_80
+        = f.label :body, "<span class='asterisk'>*</span>Body"
+        = f.text_area :body, :id => "new_message_template_body", :class => 'new_message_template_required_field', :style => "width:90%;"
+  = submit_tag "Submit", :id => "new_message_template_submit", :disabled => true
+
