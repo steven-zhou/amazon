@@ -104,3 +104,18 @@
           %li{:id => @current_action == "export_index" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Core/Import_export/export.png')} Export", :controller => "data_managers", :action => "export_index"
     .bottom
+
+  - # Communication menu
+  %li{:id => @current_controller == "communication" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "communication"
+        = link_to "#{image_tag('icon_holder.png')} Contact", :controller => "communication", :action => "email"
+      - else
+        <p>Contact</p>
+        %ul
+          %li{:id => @current_action == "email" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Import", :controller => "communication", :action => "email"
+          %li{:id => @current_action == "email" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Email", :controller => "communication", :action => "email"
+    .bottom
