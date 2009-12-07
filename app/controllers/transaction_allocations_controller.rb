@@ -15,22 +15,16 @@ class TransactionAllocationsController < ApplicationController
 
   def create
     @transaction_allocation = TransactionAllocation.new(params[:transaction_allocation])
-    params[:transaction_header][:receipt_number] = TransactionHeader.last.nil? ? 1 :  (TransactionHeader.last.id + 1).to_i
-    @transaction_header.receipt_number = params[:transaction_header][:receipt_number]
-    if @transaction_header.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction with ID #{@transaction_header.id}.")
+    if @transaction_allocation.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction allocation with ID #{@transaction_allocation.id}.")
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new transaction record.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new transaction allocation.")
       #----------------------------presence - of--------------------
-      if(!@transaction_header.errors[:transaction_date].nil? && @transaction_header.errors.on(:transaction_date).include?("can't be blank"))
+      if(!@transaction_allocation.errors[:transaction_header_id].nil? && @transaction_allocation.errors.on(:transaction_header_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:bank_account_id].nil? && @transaction_header.errors.on(:bank_account_id).include?("can't be blank"))
+      elsif(!@transaction_allocation.errors[:receipt_account_id].nil? && @transaction_allocation.errors.on(:receipt_account_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:receipt_meta_type_id].nil? && @transaction_header.errors.on(:receipt_meta_type_id).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:receipt_type_id].nil? && @transaction_header.errors.on(:receipt_type_id).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:received_via_id].nil? && @transaction_header.errors.on(:received_via_id).include?("can't be blank"))
+      elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       else
         flash.now[:error] = "Exception happen, please try again"
@@ -42,21 +36,17 @@ class TransactionAllocationsController < ApplicationController
   end
   
   def update
-    @transaction_header = TransactionHeader.find(params[:id])
-    if @transaction_header.update_attributes(params[:tansaction_header])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for TransactionHeader with ID #{@transaction_header.id}.")
+    @transaction_allocation = TransactionHeader.find(params[:id])
+    if @transaction_allocation.update_attributes(params[:tansaction_header])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction header record.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction allocation record.")
       #----------------------------presence - of------------------
-      if(!@transaction_header.errors[:transaction_date].nil? && @transaction_header.errors.on(:transaction_date).include?("can't be blank"))
+      if(!@transaction_allocation.errors[:transaction_header_id].nil? && @transaction_allocation.errors.on(:transaction_header_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:bank_account_id].nil? && @transaction_header.errors.on(:bank_account_id).include?("can't be blank"))
+      elsif(!@transaction_allocation.errors[:receipt_account_id].nil? && @transaction_allocation.errors.on(:receipt_account_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:receipt_meta_type_id].nil? && @transaction_header.errors.on(:receipt_meta_type_id).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:receipt_type_id].nil? && @transaction_header.errors.on(:receipt_type_id).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_header.errors[:received_via_id].nil? && @transaction_header.errors.on(:received_via_id).include?("can't be blank"))
+      elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       else
         flash.now[:error] = "Exception happen, please try again"
