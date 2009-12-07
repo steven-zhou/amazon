@@ -49,7 +49,7 @@ class TransactionHeadersController < ApplicationController
   
   def update
     @transaction_header = TransactionHeader.find(params[:id])
-    if @transaction_header.update_attributes(params[:tansaction_header])
+    if @transaction_header.update_attributes(params[:transaction_header])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for TransactionHeader with ID #{@transaction_header.id}.")
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction header record.")
