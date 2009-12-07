@@ -2,8 +2,12 @@ class TransactionHeadersController < ApplicationController
   # System Log stuff added
 
   def new
-    @system_date = session[:clocktime].strftime("%d-%m-%Y")
+    #@system_date = session[:clocktime].strftime("%d-%m-%Y")
+    @system_date = session[:clocktime]
     @transaction_header = TransactionHeader.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit
@@ -17,6 +21,8 @@ class TransactionHeadersController < ApplicationController
     @transaction_header = TransactionHeader.new(params[:transaction_header])
     params[:transaction_header][:receipt_number] = TransactionHeader.last.nil? ? 1 :  (TransactionHeader.last.id + 1).to_i
     @transaction_header.receipt_number = params[:transaction_header][:receipt_number]
+    @transaction_header.entity_type = session[:entity_type]
+    @transaction_header.entity_id = session[:entity_id]
     if @transaction_header.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction with ID #{@transaction_header.id}.")
     else
