@@ -7843,7 +7843,7 @@ $(function(){
         if($('#current_mode').attr('mode')=="show"){
             $.ajax({
                 type: 'GET',
-                url: "/transactions/"+$(this).attr('id').substring(3)+"/edit.js",
+                url: "/transaction_headers/"+$(this).attr('id').substring(3)+"/edit.js",
                 dataType: "script"
             });
         }
@@ -7895,4 +7895,11 @@ $(function(){
     $(".compulsory_field").live('change', function(){
         compulsory_check($(this));
     });    
+});
+
+/* transaction */
+$(function(){
+   $('#fake_submit_button').live('click',function(){
+       $('#'+$(this).attr('form_id')).doAjaxSubmit();
+   });
 });

@@ -1,4 +1,4 @@
-- form_for transaction, :html => {:class => "ajax_form", :submit_button_id => "submit_button"} do |f|
+- form_for transaction, :html => {:class => "ajax_form", :id => transaction.new_record? ? "new_transaction_form" : "edit_transaction_form", :submit_button_id => "fake_submit_button"} do |f|
   .form_line
     .field_15
       = f.label :todays_date, "System Date"
@@ -41,10 +41,12 @@
       = f.label :notes, "Notes"
       = f.text_area :notes, :rows => 3, :cols => 45
 
+  = submit_tag "Submit", :id => "submit_button"
+
   #add_new_transaction_allocation
 
   #existing_transaction_allocations
 
   #edit_transaction_allocation
 
-  = submit_tag "Submit", :disabled=> true, :id => "submit_button"
+  = button_to_function "Submit", :disabled=> true, :class => "fake_submit_button", :form_id => transaction.new_record? ? "new_transaction_form" : "edit_transaction_form"
