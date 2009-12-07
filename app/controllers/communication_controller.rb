@@ -74,8 +74,8 @@ class CommunicationController < ApplicationController
     for person in list_header.people_on_list do
 
       message = message_template.body
-      message.gsub(/first_name/, "#{person.first_name}")
-      message.gsub(/family_name/, "#{person.family_name}")
+      message = message.gsub(/first_name/, "#{person.first_name}")
+      message = message.gsub(/family_name/, "#{person.family_name}")
 
       email = EmailDispatcher.create_message(person.primary_email.value, subject, message) unless person.primary_email.nil?
 
