@@ -2,8 +2,8 @@ class TransactionAllocationsController < ApplicationController
   # System Log stuff added
 
   def new
-  
-    @transaction_allocation = TransactionAllocation.new
+    @transaction_allocation_grid = TempTransactionAllocationGrid.new
+   
   end
 
   def edit
@@ -54,6 +54,26 @@ class TransactionAllocationsController < ApplicationController
     end
   end
 
+  def temp_create
+    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.new(params[:temp_transaction_allocation_grid])
+    @temp_transaction_allocation_grid.login_account_id = @current_user
+    if @temp_transaction_allocation_grid.save
+      
+    else
+      #----------------------------presence - of--------------------
+      if(!@temp_transaction_allocation_grid.errors[:field_1].nil? && @temp_transaction_allocation_grid.errors.on(:field_1).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@temp_transaction_allocation_grid.errors[:field_5].nil? && @temp_transaction_allocation_grid.errors.on(:field_5).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "Exception happen, please try again"
+      end
+    
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
 
 
 
