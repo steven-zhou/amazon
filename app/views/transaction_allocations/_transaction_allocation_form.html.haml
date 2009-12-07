@@ -2,15 +2,15 @@
   .form_line
     .field_15
       = f.label :receipt_account_id, "<span class='asterisk'>*</span>Receipt Account"
-      %select
+      = f.collection_select :receipt_account_id, ReceiptAccount.all, :id, :name
 
     .field_15
       = f.label :campaign_id, "Campaign"
-      %select
+      = f.collection_select :campaign_id, Campaign.all, :id, :name
 
     .field_20
       = f.label :source_id, "Source"
-      %select
+      = f.collection_select :source_id, Source.all, :id, :name
 
     .field_10
       = f.label :letter_id, "Letter"
@@ -18,17 +18,20 @@
 
     .field_15
       = f.label :amount, "<span class='asterisk'>*</span>Amount"
-      %select
+      = f.text_field :amount
   .full_container
     .title
       %h3 Bank Extension
     .options
       = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => "bank_extension_form"
-    #bank_extension_form.hidden.left
+    #bank_extension_form.hidden
       .form_line
         .field_15
           = f.label :extention_type, 'Extention Type'
-          = f.text_field :extention_type
+          %select{:name => "transaction_allocation[extention_type]"}
+            %option{:value => "Person"} Person
+            %option{:value => "Organisation"} Organisation
+            
         .field_15
           = f.label :extention_id, 'Extention ID'
           = f.text_field :extention_id
@@ -37,7 +40,9 @@
           .display_field_bg           
         .field_15
           = f.label :cluster_type, 'Cluster Type'
-          = f.text_field :cluster_type
+          %select{:name => "transaction_allocation[cluster_type]"}
+            %option{:value => "Person"} Person
+            %option{:value => "Organisation"} Organisation
         .field_15
           = f.label :cluster_id, 'Cluster ID'
           = f.text_field :cluster_id

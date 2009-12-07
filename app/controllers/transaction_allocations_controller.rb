@@ -2,7 +2,7 @@ class TransactionAllocationsController < ApplicationController
   # System Log stuff added
 
   def new
-    @system_date = session[:clocktime].strftime("%d-%m-%Y")
+  
     @transaction_allocation = TransactionAllocation.new
   end
 
