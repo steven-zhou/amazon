@@ -1,0 +1,25 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function() {
+      $('#message_template_selection').change(function() {
+          if($('#message_template_selection').val() == '') {
+            $.ajax({
+                type: "GET",
+                url: "/communication/new_message_template.js",
+                dataType: "script"
+            });
+          } else {
+            $.ajax({
+                type: "GET",
+                url: "/communication/edit_message_template.js",
+                data: 'id=' + $('#message_template_selection').val(),
+                dataType: "script"
+            });
+          }
+      });
+    });
+
+%select{:id => "message_template_selection", :name => "message_template_id", :style => "width:250px" }
+  %option{:value => ""} Create a New Template
+  - @message_templates.each do |r|
+    %option{:value => "#{r.id}"} #{r.name}

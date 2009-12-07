@@ -1,0 +1,7 @@
+$("#email_form").html("<%= escape_javascript(render(:partial => "/communication/email_form"))%>");
+  $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
+  $(function() {
+  $('#flash_feedback').fadeIn("slow");
+  $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+  }
+  );
