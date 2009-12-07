@@ -2,7 +2,9 @@
 -div_for(person_master_doc, :class => 'header_container') do
   %div
     .title
-    %h2= "#{person_master_doc.id} #{person_master_doc.master_doc_type.name}"
+    %h2=
+      person_master_doc.master_doc_type.nil? ? "#{person_master_doc.id}" : "#{person_master_doc.id} #{person_master_doc.master_doc_type.name}"
+ 
 
   %div{:style => "float:right;"}
     = format_masterdoc(person_master_doc)
