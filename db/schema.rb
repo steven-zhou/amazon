@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091203235117) do
+ActiveRecord::Schema.define(:version => 20091207003702) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -494,6 +494,13 @@ ActiveRecord::Schema.define(:version => 20091203235117) do
     t.integer  "issue_country_id"
   end
 
+  create_table "message_templates", :force => true do |t|
+    t.text     "name"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "notes", :force => true do |t|
     t.string   "label"
     t.string   "short_description"
@@ -880,16 +887,20 @@ ActiveRecord::Schema.define(:version => 20091203235117) do
     t.date     "todays_date"
     t.date     "transaction_date"
     t.integer  "receipt_meta_type_id"
+    t.string   "receipt_meta_type_name"
     t.integer  "receipt_type_id"
+    t.string   "receipt_type_name"
     t.integer  "bank_account_id"
+    t.string   "bank_account_name"
     t.integer  "bank_run_id"
     t.integer  "receipt_number"
     t.integer  "letter_id"
     t.boolean  "letter_sent"
     t.date     "date_sent"
-    t.decimal  "total_amount",         :precision => 11, :scale => 3
+    t.decimal  "total_amount",           :precision => 11, :scale => 3
     t.text     "notes"
     t.integer  "received_via_id"
+    t.string   "received_via_name"
     t.boolean  "banked"
     t.datetime "created_at"
     t.datetime "updated_at"

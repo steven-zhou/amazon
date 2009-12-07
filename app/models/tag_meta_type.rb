@@ -7,7 +7,8 @@ class TagMetaType < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:type], :case_sensitive => false
 
-
+  default_scope :order => "name ASC"
+  
   before_destroy :delete_all_children
 
   def self.distinct_types_of_tag_meta_types

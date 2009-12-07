@@ -1,10 +1,12 @@
 class TagType < ActiveRecord::Base
 
   belongs_to :tag_meta_type
-  has_many :tags, :order => "name asc"
+  has_many :tags, :order => "name asc"  
 
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:type, :tag_meta_type_id], :case_sensitive => false
+
+  default_scope :order => "name ASC"
 
   accepts_nested_attributes_for :tags, :reject_if => proc { |attributes| attributes['name'].blank? || attributes['tag_type_id'].blank? }
 
