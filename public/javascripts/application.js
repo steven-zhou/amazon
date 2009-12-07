@@ -23,7 +23,6 @@ jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
     }
-
 });
 
 /* Authenticity token*/
@@ -402,8 +401,7 @@ $(function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
         },
         onClose: function(){
-            $('.startdatepick').change();
-
+            $(this).keyup();
         }
     });
 
@@ -435,8 +433,10 @@ $(function(){
         altFormat: 'mm-dd-yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: '+0d',
-        yearRange: '-200:+20'
+        yearRange: '-200:+20',
+        onClose: function(){
+            $(this).keyup();
+        }
     });
 
     $('.beforestartdatepick').datepicker({
@@ -489,7 +489,7 @@ $(function(){
 
         },
         onClose: function(){
-             $(".mandantory_field").keyup();
+             $(this).keyup();
         }
        
     });
@@ -7826,6 +7826,7 @@ $(function(){
 });
 
 
+
 /* Show unbanked transaction Grid*/
 $(function(){
     $('table#show_unbanked_transaction_grid tbody tr').live('click',function(){
@@ -7856,3 +7857,41 @@ $(function(){
     });
 });
 
+
+
+/* new compulsory field setting for controlling submit button*/
+$(function(){
+    compulsory_check = function(link){
+        var current_form = $('#'+link.closest('form').get(0).id);
+        var compulsory_fields = current_form.find('.compulsory_field');
+        var length = compulsory_fields.length;
+        var disable = true
+        for(i=0; i<length; i++){
+            if ($('#'+compulsory_fields[i].id).val()==''){
+                disable = true;
+                break;
+            }else{
+//                if (($('#'+compulsory_fields[i].id).val()).trim()==''){
+//                    disable = true;
+//                    break;
+//                }else{
+                    disable = false;
+//                }
+            }
+        }
+        if (disable){
+            $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+        }else{
+            $('#'+current_form.attr('submit_button_id')).attr('disabled',false);
+        }
+        return false;
+    }
+
+    $(".compulsory_field").live('keyup', function(){
+        compulsory_check($(this));
+    });
+
+    $(".compulsory_field").live('change', function(){
+        compulsory_check($(this));
+    });    
+});

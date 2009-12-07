@@ -4,7 +4,7 @@
     $("#bank_container_0").css('display','');
     $("#bank_container_0").html('Invalid ID')
     $("#bank_container_0").fadeTo(3000,1);
-    $("#bank_container_0").fadeOut(3000);
+    $("#bank_container_0").stop().fadeOut(3000);
     $('#bank_container_0').val("");
     $('#person_bank_account_bank_id').val("");
     $('#organisation_bank_account_bank_id').val("");
@@ -15,7 +15,7 @@
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").css('display','');
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").html("Invalid ID")
     $("#bank_container_<%=escape_javascript("#{@account.id}")%>").fadeTo(3000,1);
-    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").fadeOut(3000);
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").stop().fadeOut(3000);
     $('#bank_container_<%=escape_javascript("#{@account.id}")%>').val("");
     $('#person_bank_account_<%=escape_javascript("#{@account.id}")%>_bank_id').val("");
     $('#organisation_bank_account_<%=escape_javascript("#{@account.id}")%>_bank_id').val("");

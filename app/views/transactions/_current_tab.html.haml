@@ -1,10 +1,11 @@
 -# locals => {}
 
 .full_container
+  %input.hidden{:id => "current_mode", :mode => "show"}
+
   #add_new_transaction
-    -#= render :partial
-    .full_container
-      Add New Transaction
+    = render :partial => "transactions/new_transaction"
+    = render :partial => "transactions/transaction_form", :locals => {:transaction => TransactionHeader.new}
 
   #existing_unbanked_transactions
     .full_container
