@@ -2,7 +2,7 @@
   :plain
     $(function() {
       $('.new_email_required_field').keyup(function() {
-          if($('#new_email_subject').val() == '') {
+          if($('#new_email_subject').val() == null || $('#message_template_id').val() == null || $('#list_header_id').val() == '') {
               $('#new_email_submit').attr('disabled', true);
           } else {
               $('#new_email_submit').removeAttr('disabled');
@@ -19,14 +19,14 @@
         = f.text_field :subject, :id => "new_email_subject", :class => 'new_email_required_field'
     .form_line
       .field_80
-        = f.label :subject, "<span class='asterisk'></span>Template"
-        %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px" }
+        = f.label :subject, "<span class='asterisk'>*</span>Template"
+        %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'new_email_required_field' }
           - @message_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
     .form_line
       .field_80
-        = f.label :subject, "<span class='asterisk'></span>List"
-        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px" }
+        = f.label :subject, "<span class='asterisk'>*</span>List"
+        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'new_email_required_field' }
           - @list_headers.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
 
