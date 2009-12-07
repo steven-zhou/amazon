@@ -3,6 +3,8 @@ class AmazonSetting < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:type], :case_sensitive => false
 
+  default_scope :order => "name ASC"
+
   def self.distinct_setting_type
     @setting = AmazonSetting.find(:all, :select => "DISTINCT type", :order => "type")
     results = ""

@@ -6923,14 +6923,15 @@ $(function(){
                 dataType: "script"
             });
         }else{
-
-            $('#add_new_'+ $(this).attr('field')).html('');
-            if($(this).attr('field')=="postcode"){
-                $('#existing_postcodes').html('');
-            }else{
-                $('#existing_'+ $(this).attr('field')).html('');
+            if ($(this).attr('field') != undefined){
+                $('#add_new_'+ $(this).attr('field')).html('');
+                if($(this).attr('field')=="postcode"){
+                    $('#existing_postcodes').html('');
+                }else{
+                    $('#existing_'+ $(this).attr('field')).html('');
+                }
+                $('#edit_'+ $(this).attr('field')+'_form').html('');
             }
-            $('#edit_'+ $(this).attr('field')+'_form').html('');
         }
     });
 });
