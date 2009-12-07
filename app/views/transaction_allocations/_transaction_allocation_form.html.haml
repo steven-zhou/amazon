@@ -1,0 +1,47 @@
+- form_for transaction_allocation, :html => {:class => "ajax_form", :submit_button_id => "allocation_submit_button"} do |f|
+  .form_line
+    .field_15
+      = f.label :receipt_account_id, "<span class='asterisk'>*</span>Receipt Account"
+      %select
+
+    .field_15
+      = f.label :campaign_id, "Campaign"
+      %select
+
+    .field_20
+      = f.label :source_id, "Source"
+      %select
+
+    .field_10
+      = f.label :letter_id, "Letter"
+      %select
+
+    .field_15
+      = f.label :amount, "<span class='asterisk'>*</span>Amount"
+      %select
+  .full_container
+    .title
+      %h3 Bank Extension
+    .options
+      = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => "bank_extension_form"
+    #bank_extension_form.hidden.left
+      .form_line
+        .field_15
+          = f.label :extention_type, 'Extention Type'
+          = f.text_field :extention_type
+        .field_15
+          = f.label :extention_id, 'Extention ID'
+          = f.text_field :extention_id
+        .field_15
+          = f.label :extention_name, 'Extention Name'
+          .display_field_bg           
+        .field_15
+          = f.label :cluster_type, 'Cluster Type'
+          = f.text_field :cluster_type
+        .field_15
+          = f.label :cluster_id, 'Cluster ID'
+          = f.text_field :cluster_id
+        .field_15
+          = f.label :cluster_name, 'Cluster Name'
+          .display_field_bg
+  = submit_tag '   Add   '
