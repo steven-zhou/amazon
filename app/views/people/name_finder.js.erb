@@ -3,7 +3,7 @@
     $("#related_person_name_container").css('display','');
     $("#related_person_name_container").html('<br/>Invalid ID')
     $("#related_person_name_container").fadeTo(3000,1);
-    $("#related_person_name_container").fadeOut(3000);
+    $("#related_person_name_container").stop().fadeOut(3000);
     $("#related_person_name").html('<%=escape_javascript("<br/>#{@person.name}")%>')
     $('#relationship_related_person_id').val("");
     $(".mandantory_field").keyup();
@@ -12,7 +12,7 @@
       $("#<%=escape_javascript("#{@update}")%>_0").css('display','');
       $("#<%=escape_javascript("#{@update}")%>_0").html("Invalid ID")
       $("#<%=escape_javascript("#{@update}")%>_0").fadeTo(3000,1);
-      $("#<%=escape_javascript("#{@update}")%>_0").fadeOut(3000);
+      $("#<%=escape_javascript("#{@update}")%>_0").stop().fadeOut(3000);
       $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
       $(".mandantory_field").keyup();
     <% else %>

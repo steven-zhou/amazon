@@ -26,7 +26,7 @@
 %br.clear
 
 #current_page.tab_switch_container.active
-  = render :partial => "transactions/current_tab"
+  = render :partial => "transactions/current_tab", :locals => {:entity_type => entity_type, :entity_id => entity_id}
 
 #histroy_page.tab_switch_container
 
