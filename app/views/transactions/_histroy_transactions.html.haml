@@ -1,12 +1,12 @@
 -# locals => {:entity_type, :entity_id}
 
-%h2 Un-banked Transactions
+%h2 Transaction Histroy
 
-%table#show_unbanked_transaction_grid
+%table#show_transaction_histroy_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_unbanked_transaction_grid").flexigrid({
-  url: '/grids/show_unbanked_transaction_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
+  $("#show_transaction_histroy_grid").flexigrid({
+  url: '/grids/show_transaction_histroy_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
   dataType: 'json',
   colModel : [
   {

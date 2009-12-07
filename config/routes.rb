@@ -136,7 +136,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  
   map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get}
-  map.resources :transaction_headers
+  map.resources :transaction_headers, :collection => {:page_initial => :get}
+  map.resources :transaction_allocations
 
 
   # The priority is based upon order of creation: first created -> highest priority.
