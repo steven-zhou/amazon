@@ -23,7 +23,6 @@ jQuery.ajaxSetup({
     'beforeSend': function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript")
     }
-
 });
 
 /* Authenticity token*/
@@ -148,6 +147,7 @@ $(function() {
 
         if($(this).attr('field')== "note")
         {
+      
             change_type =$('#notes_input_change_or_not').val();
 
         }
@@ -167,6 +167,12 @@ $(function() {
         if($(this).attr('field')== "group")
         {
             change_type =$('#group_input_change_or_not').val();
+
+        }
+          if($(this).attr('field')== "account")
+        {
+     
+            change_type =$('#account_input_change_or_not').val();
 
         }
         //                if($(this).attr('field')== "organisation_contact")
@@ -240,6 +246,12 @@ $(function() {
                         {
 
                             $('#group_input_change_or_not').val("false");
+                        }
+
+                         if(link.attr('field')== "account")
+                        {
+
+                            $('#account_input_change_or_not').val("false");
                         }
 
                         $.get(link.attr('href'), null ,null, 'script');
@@ -389,8 +401,7 @@ $(function(){
             $("#"+$(this).attr("end_date")).datepicker('enable');
         },
         onClose: function(){
-            $('.startdatepick').change();
-
+            $(this).keyup();
         }
     });
 
@@ -422,8 +433,10 @@ $(function(){
         altFormat: 'mm-dd-yy',
         changeMonth: true,
         changeYear: true,
-        maxDate: '+0d',
-        yearRange: '-200:+20'
+        yearRange: '-200:+20',
+        onClose: function(){
+            $(this).keyup();
+        }
     });
 
     $('.beforestartdatepick').datepicker({
@@ -476,7 +489,7 @@ $(function(){
 
         },
         onClose: function(){
-             $(".mandantory_field").keyup();
+             $(this).keyup();
         }
        
     });
@@ -3985,7 +3998,7 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        if  ($(this).parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value') == "true")
+        if  ($(this).closest('.container').find('.ogranisation_input_change_class').attr('value') == "true")
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
@@ -4007,7 +4020,7 @@ $(function(){
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");                        
-                        link.parent().parent().parent().parent().find('.ogranisation_input_change_class').attr('value','false');
+                        link.closest('.container').find('.ogranisation_input_change_class').attr('value','false');
                         clear_organisation_form(link);
                   
                         $(this).dialog('destroy');
@@ -4026,6 +4039,45 @@ $(function(){
             $('#warning_message').dialog('open');
             return false;
         }
+        else if (link.closest('.container').find('.person_input_change_class').attr('value') == "true")
+            {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        link.closest('.container').find('.person_input_change_class').attr('value','false');
+                        $(this).dialog('destroy');
+
+                        return true;
+                    }
+
+                }
+
+
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+            $('#warning_message').dialog('open');
+            return false;
+            }
         else if ( $('#check_input_change').val()=="true")
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
@@ -6126,7 +6178,7 @@ check_input_change = function(){
     //    if($('#check_right_input_change').val() == "false")
     //    {
         
-    if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+    if ($('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true" ||$('#account_input_change_or_not').val()=="true" )
     {
                  
         $('#check_right_input_change').val("true");
@@ -6498,8 +6550,9 @@ $(function(){
 $(function(){
     $("#Note").find('input').live('change', function(){
         //        $('#check_right_input_change').val("true");
-     
+        
         $('#notes_input_change_or_not').val("true");
+        
     
     });
     
@@ -6544,6 +6597,19 @@ $(function(){
 
 });
 
+$(function(){
+    $("#Account").find('input').live('change', function(){
+
+        $('#account_input_change_or_not').val("true");
+    });
+
+    $('#Account input[type="submit"]').live('click', function(){
+        $('#account_input_change_or_not').val("false");
+
+    });
+
+});
+
 
 $(function(){
     $('#left_content input[type="submit"]').live('click', function(){
@@ -6554,7 +6620,7 @@ $(function(){
 
 $(function(){
     $('#right_content input[type="submit"]').live('click', function(){
-        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true")
+        if ( $('#contact_input_change_or_not').val()=="true" || $('#address_input_change_or_not').val()=="true" ||  $('#master_doc_input_change_or_not').val()=="true" || $('#relationship_input_change_or_not').val() == "true" ||  $('#notes_input_change_or_not').val()=="true"||  $('#employment_input_change_or_not').val() == "true" || $('#role_input_change_or_not').val()=="true"||$('#account_input_change_or_not').val() == "true")
         {
             $('#check_right_input_change').val("true");
      
@@ -7742,6 +7808,55 @@ $(function() {
 });
 
 
+/* Bank Look up*/
+$(function(){
+    $(".bank_lookup").live('click', function(){
+        $.ajax({
+            type: "GET",
+            url:"/banks/lookup.js",
+            data:'update_field='+$(this).attr('update_field'),
+            dataType: "script"
+        });
+    });
+
+     $("table#bank tbody tr").live("dblclick", function(){
+        $.ajax({
+            type: "GET",
+            url:"/banks/lookup_fill.js",
+            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#bank").attr('update_field'),
+            dataType: "script"
+        });
+
+    });
+
+    $("table#bank tbody tr").live("click", function(){
+        $('table#bank tbody tr.selected').removeClass('selected');
+        $(this).addClass("selected");
+    });
+    $('table#bank tr').live('mouseover',function(){
+        $(this).css("cursor", "pointer");
+    });
+
+});
+
+
+
+$(function(){
+    $(".find_bank_field").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url:
+                "/banks/name_finder.js",
+                data:
+                'bank_id='+$(this).val()+'&update='+$(this).attr('update')+'&account_id='+$(this).attr('account_id')+'&input_field_id='+$(this).attr('input_field_id'),
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
 $(function(){
     $("#copy_allocation_type_button").live('click', function(){
        
@@ -7764,4 +7879,43 @@ $(function(){
     $('#add_new_master_doc #add_masterdoc').live('click', function(){
         $(".find_master_doc_meta_type_field").change();
     });
+});
+
+
+
+/* new compulsory field setting for controlling submit button*/
+$(function(){
+    compulsory_check = function(link){
+        var current_form = $('#'+link.closest('form').get(0).id);
+        var compulsory_fields = current_form.find('.compulsory_field');
+        var length = compulsory_fields.length;
+        var disable = true
+        for(i=0; i<length; i++){
+            if ($('#'+compulsory_fields[i].id).val()==''){
+                disable = true;
+                break;
+            }else{
+//                if (($('#'+compulsory_fields[i].id).val()).trim()==''){
+//                    disable = true;
+//                    break;
+//                }else{
+                    disable = false;
+//                }
+            }
+        }
+        if (disable){
+            $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+        }else{
+            $('#'+current_form.attr('submit_button_id')).attr('disabled',false);
+        }
+        return false;
+    }
+
+    $(".compulsory_field").live('keyup', function(){
+        compulsory_check($(this));
+    });
+
+    $(".compulsory_field").live('change', function(){
+        compulsory_check($(this));
+    });    
 });

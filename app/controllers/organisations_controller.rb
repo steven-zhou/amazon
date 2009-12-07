@@ -36,6 +36,7 @@ class OrganisationsController < ApplicationController
     @o = Organisation.find(:all, :order => "id")
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if @organisation.nil?
+    session[:current_organisation_id] = @organisation.id
     @primary_phone = @organisation.primary_phone
     @primary_email = @organisation.primary_email
     @primary_fax = @organisation.primary_fax
@@ -117,10 +118,10 @@ class OrganisationsController < ApplicationController
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = Organisation.find(:all, :order => "id")
-    #@postcodes = Postcode.find(:all)
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
     @organisation = @o[0] if @organisation.nil?
+    session[:current_organisation_id] = @organisation.id
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -132,6 +133,7 @@ class OrganisationsController < ApplicationController
     @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
     @organisation_group = OrganisationGroup.new
     @check_field = Array.new
+    @bank_accounts = OrganisationBankAccount.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
@@ -344,6 +346,7 @@ class OrganisationsController < ApplicationController
       @note = Note.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
       @organisation_group = OrganisationGroup.new
+       @bank_accounts = OrganisationBankAccount.new
       @current_action = "edit"
       render 'show_edit_left.js'
      

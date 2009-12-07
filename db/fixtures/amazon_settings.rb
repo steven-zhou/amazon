@@ -114,3 +114,7 @@ LinkModule.create(:name => "Membership")
 LinkModule.create(:name => "Donation")
 LinkModule.create(:name => "Sundry")
 LinkModule.create(:name => "Miscellaneous")
+
+ReceivedVia.create(:name => "Phone")
+ReceivedVia.create(:name => "Internet")
+ReceivedVia.create(:name => "Fax")

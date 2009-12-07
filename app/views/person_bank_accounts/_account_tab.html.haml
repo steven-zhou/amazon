@@ -2,19 +2,21 @@
 .container
   .header_container
     .options{:id => 'person_account_close_button'}
-      = link_to_function image_tag('close_icon.png'), :class => "close_option clear_account_form", :field => "person_account", :toggle_id_name => "new_account", :style=>"display:none", :title=>"Close"
+      = link_to_function image_tag('close_icon.png'), :class => "person_account_close clear_account_form", :field => "person_account", :toggle_id_name => "new_account", :style=>"display:none", :title=>"Close"
     .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_account", :class=>"new_option toggle_button", :field => "person_account", :toggle_id_name => "new_account"  if (!person.nil? && !person.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_account", :class=>"person_bank_account_toggle_button", :field => "person_account", :toggle_id_name => "new_account"  if (!person.nil? && !person.new_record?)
       &nbsp
     %h1 New Account
     %input.hidden{:id => "person_account_mode", :mode => "show"}
-
+    %input{:id => "account_input_change_or_not", :style => "display:none", :value => "false",:class=>"person_input_change_class"}
     .div{:style=>"display:none", :id => "new_account",:name => "new_account"}
       -form_for([@person, @bank_accounts],:html => {:class => ' ajax_form'}) do |account|
         = render :partial => '/person_bank_accounts/account_form', :locals => {:account => account}
-        = submit_tag 'Submit' ,:id=>"account_new_submit"
+        = submit_tag 'Submit' ,:id=>"account_new_submit" ,:disabled=>true
       %br.clear
 
-  #person_bank_account
+  #bank_accounts
     = render :partial => '/person_bank_accounts/person_accounts', :collection =>  person.person_bank_accounts
+
+%div#bank_look_up
 

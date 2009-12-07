@@ -1,0 +1,42 @@
+<% if @bank.new_record? %>
+  <% if @account.new_record? %>
+
+    $("#bank_container_0").css('display','');
+    $("#bank_container_0").html('Invalid ID')
+    $("#bank_container_0").fadeTo(3000,1);
+    $("#bank_container_0").stop().fadeOut(3000);
+    $('#bank_container_0').val("");
+    $('#person_bank_account_bank_id').val("");
+    $('#organisation_bank_account_bank_id').val("");
+    $('#bank_bsb_container_0').html("").change();
+    $(".mandantory_field").keyup();
+
+    <%else%>
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").css('display','');
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").html("Invalid ID")
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").fadeTo(3000,1);
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").stop().fadeOut(3000);
+    $('#bank_container_<%=escape_javascript("#{@account.id}")%>').val("");
+    $('#person_bank_account_<%=escape_javascript("#{@account.id}")%>_bank_id').val("");
+    $('#organisation_bank_account_<%=escape_javascript("#{@account.id}")%>_bank_id').val("");
+    $('#bank_container_bsb_<%=escape_javascript("#{@account.id}")%>').html("").change();
+    $(".mandantory_field").keyup();
+
+    <%end%>
+
+  <% else %>
+     <% if @account.new_record? %>
+    $("#bank_container_0").css('display','');
+    $("#bank_container_0").html('<%=escape_javascript("#{@bank.full_name}")%>')
+    $("#bank_bsb_container_0").html('<%=escape_javascript("#{@bank.branch_number}")%>')
+
+    $(".mandantory_field").keyup();
+    <%else%>
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").css('display','');
+    $("#bank_container_<%=escape_javascript("#{@account.id}")%>").html("<%=escape_javascript("#{@bank.full_name}")%>")
+    $("#bank_container_bsb_<%=escape_javascript("#{@account.id}")%>").html("<%=escape_javascript("#{@bank.branch_number}")%>")
+
+    <%end%>
+
+<% end %>
+

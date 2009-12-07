@@ -1122,6 +1122,12 @@ div.field_62 {
     height: 120px;
 }
 
+#app #main #content #photo_information{
+
+    margin:0px 0px 20px 0;
+    height: 120px;
+}
+
 #app #main #content #right_content #photo_info{
 
     margin:0px 0px 20px 0;
@@ -1135,7 +1141,22 @@ div.field_62 {
 #app #main #content #left_content #photo_info #imageshow{
     margin:10px 10px 0px 5px;
 }
+
+#app #main #content #photo_information #imageshow{
+    margin:10px 10px 0px 5px;
+}
+
 #app #main #content #left_content #photo_info #person_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
+
+#app #main #content #photo_information #person_name h1{
     margin:5px 120px 0 0;
     color: #2C2C2C;
     font-size:20px;
@@ -1168,6 +1189,11 @@ img.thumb {
 
 
 #photo_info{
+    margin:0px 0px 10px 0;
+    height: 100px;
+}
+
+#photo_information{
     margin:0px 0px 10px 0;
     height: 100px;
 }
@@ -1396,6 +1422,16 @@ div.info_ok  {
 
 /*Organisation Show*/
 #app #main #content #left_content #photo_info #organisation_name h1{
+    margin:5px 120px 0 0;
+    color: #2C2C2C;
+    font-size:20px;
+    font-weight: bold;
+    line-height: 22px;
+    font-family:Arial,Helvetica,sans-serif;
+    padding-top:10px;
+}
+
+#app #main #content #photo_information #organisation_name h1{
     margin:5px 120px 0 0;
     color: #2C2C2C;
     font-size:20px;

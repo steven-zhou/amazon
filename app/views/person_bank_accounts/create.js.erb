@@ -1,10 +1,11 @@
  <% if @person_bank_accounts.errors.empty? -%>
   
-$('#person_groups').prepend('<%= escape_javascript(render(:partial => "person_bank_accounts/person_accounts", :locals =>{:person_group => @person_bank_accounts })) %>');
+$('#bank_accounts').prepend('<%= escape_javascript(render(:partial => "person_bank_accounts/person_accounts", :locals =>{:person_accounts => @person_bank_accounts })) %>');
 
 $("#new_account").hide();
-
+$(".person_account_close").css('display','none');
 $('#person_account_mode').attr('mode', 'show');
+$(".person_bank_account_toggle_button").css('display','');
 $('.new_option[field="person_account"]').css("display","");
 $('.close_option[field="person_account"]').css("display","none");
 $('#<%= dom_id(@person_bank_accounts) %>').effect('slide', {direction:'right'});

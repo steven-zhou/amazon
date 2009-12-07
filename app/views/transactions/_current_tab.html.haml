@@ -1,0 +1,18 @@
+-# locals => {}
+
+.full_container
+  %input.hidden{:id => "current_mode", :mode => "show"}
+
+  #add_new_transaction
+    = render :partial => "transactions/new_transaction"
+    = render :partial => "transactions/transaction_form", :locals => {:transaction => TransactionHeader.new}
+
+  #existing_unbanked_transactions
+    = render :partial => "#{existing_transactions}"
+    .full_container
+      Existing Unbanked Transaction
+
+  #edit_unbanked_transactions
+    -#= render :partial
+    .full_container
+      Edit Unbanked Transations

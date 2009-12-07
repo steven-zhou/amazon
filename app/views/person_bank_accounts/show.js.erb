@@ -1,0 +1,7 @@
+$('#<%= dom_id(@person_bank_account,:edit) %>').replaceWith(" <%= escape_javascript(render(:partial => 'person_accounts' ,:locals => {:person_accounts => @person_bank_account})) %>");
+
+    $('.person_bank_account_toggle_button').css("display","");
+     $('#person_account_mode').attr('mode', 'show');
+      $('.new_option[field="person_account"]').css("display","");
+
+       $('.person_bank_account_edit_delete').css("display","none");

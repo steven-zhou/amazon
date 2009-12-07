@@ -1,0 +1,9 @@
+-# Displays Person Account
+-div_for(person_account, :class => 'header_container') do
+  %div  
+    .title
+      %h2= "#{AccountType.find(person_account.account_type_id).name}"
+
+    %br.clear
+  %div{:style => "float:right;"}
+    = format_bank_account(person_account)

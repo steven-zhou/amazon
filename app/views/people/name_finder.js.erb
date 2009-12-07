@@ -1,45 +1,42 @@
 <% if @person.new_record? %>
-  <% if @person.preferred_name.nil? %>
+  <% if @update.nil? %>
     $("#related_person_name_container").css('display','');
     $("#related_person_name_container").html('<br/>Invalid ID')
-       $("#related_person_name_container").fadeTo(3000,1);
-      $("#related_person_name_container").fadeOut(3000);
-
+    $("#related_person_name_container").fadeTo(3000,1);
+    $("#related_person_name_container").stop().fadeOut(3000);
     $("#related_person_name").html('<%=escape_javascript("<br/>#{@person.name}")%>')
-   $('#relationship_related_person_id').val("");
-     $(".mandantory_field").keyup();
+    $('#relationship_related_person_id').val("");
+    $(".mandantory_field").keyup();
   <% else %>
     <% if @employment.new_record? %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").css('display','');
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("Invalid ID")
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").fadeTo(3000,1);
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").fadeOut(3000);
+      $("#<%=escape_javascript("#{@update}")%>_0").css('display','');
+      $("#<%=escape_javascript("#{@update}")%>_0").html("Invalid ID")
+      $("#<%=escape_javascript("#{@update}")%>_0").fadeTo(3000,1);
+      $("#<%=escape_javascript("#{@update}")%>_0").stop().fadeOut(3000);
       $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
-
       $(".mandantory_field").keyup();
     <% else %>
-        $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").css('display','');
-       $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").html("Invalid ID")
-            $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").fadeTo(3000,1);
-       $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").fadeOut(3000);
-       $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
-
+      $("#<%=escape_javascript("#{@update}")%>_<%=escape_javascript("#{@employment.id}")%>").css('display','');
+      $("#<%=escape_javascript("#{@update}")%>_<%=escape_javascript("#{@employment.id}")%>").html("Invalid ID")
+      $("#<%=escape_javascript("#{@update}")%>_<%=escape_javascript("#{@employment.id}")%>").fadeTo(3000,1);
+      $("#<%=escape_javascript("#{@update}")%>_<%=escape_javascript("#{@employment.id}")%>").fadeOut(3000);
+      $("#<%=escape_javascript("#{@input_field_id}")%>").val("");
       $(".mandantory_field").keyup();
     <% end %>
   <% end %>
 <% else %>
-  <% if @person.preferred_name.nil? %>
-      $("#related_person_name_container").css('display','');
+  <% if @update.nil? %>
+    $("#related_person_name_container").css('display','');
     $("#related_person_name_container").html('<%=escape_javascript("<br/>#{@person.name}")%>')
-     $("#related_person_name").html('<br/>Invalid ID')
-         $(".mandantory_field").keyup();
+    $("#related_person_name").html('<br/>Invalid ID')
+    $(".mandantory_field").keyup();
   <% else %>
     <% if @employment.new_record? %>
-       $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").css('display','');
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_0").html("<%=escape_javascript("#{@person.name}")%>")
+      $("#<%=escape_javascript("#{@update}")%>_0").css('display','');
+      $("#<%=escape_javascript("#{@update}")%>_0").html("<%=escape_javascript("#{@person.name}")%>")
     <% else %>
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@person_role.id}")%>").css('display','');
-      $("#<%=escape_javascript("#{@person.preferred_name}")%>_<%=escape_javascript("#{@employment.id}")%>").html("<%=escape_javascript("#{@person.name}")%>")
+      $("#<%=escape_javascript("#{@update}")%>_<%=escape_javascript("#{@employment.id}")%>").css('display','');
+      $("#<%=escape_javascript("#{@update}")%>_<%=escape_javascript("#{@employment.id}")%>").html("<%=escape_javascript("#{@person.name}")%>")
     <%end%>
   <% end %>
 <% end %>

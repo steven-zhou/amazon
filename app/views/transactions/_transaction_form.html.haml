@@ -1,0 +1,12 @@
+- form_for transaction, :html => {:class => "ajax_form", :submit_button_id => "submit_button"} do |f|
+  .form_line
+    .field_10
+      = f.label :todays_date
+      .display_field_bg
+        = #{transaction.todays_date.to_s}
+
+    .field_10
+      = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
+      = f.text_field :transaction_date, :value => transaction.transaction_date.to_s, :class => "compulsory_field datepick"
+
+    = submit_tag "Submit", :disabled=> true, :id => "submit_button"

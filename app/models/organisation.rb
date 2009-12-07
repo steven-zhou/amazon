@@ -22,6 +22,11 @@ class Organisation < ActiveRecord::Base
   has_many :notes, :as => :noteable
   has_many :organisation_groups, :class_name =>'OrganisationGroup', :foreign_key => 'organisation_id'
   has_many :group_types, :through => :organisation_groups
+  has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
+  has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
+  has_many :organisation_bank_accounts, :foreign_key => "entity_id"
+  has_many :transaction_headers, :as => :entity
+
 
   belongs_to :country, :foreign_key => :registered_country_id
   belongs_to :organisation_hierarchy
@@ -60,7 +65,7 @@ class Organisation < ActiveRecord::Base
   accepts_nested_attributes_for :phones, :emails, :faxes, :websites,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
 
   accepts_nested_attributes_for :organisation_groups, :reject_if => proc { |attributes| attributes['organisation_group_id'].blank? }
-
+  accepts_nested_attributes_for :organisation_bank_accounts
   #--
   ################
   #  Call back
@@ -156,49 +161,49 @@ class Organisation < ActiveRecord::Base
 
   end
 
-    def personal_address_types
+  def personal_address_types
     @personal_address_types = Array.new
     self.addresses.each do |address|
-       @personal_address_types <<  AmazonSetting.find(address.address_type_id)
+      @personal_address_types <<  AmazonSetting.find(address.address_type_id)
     end
 
     return @personal_address_types
   end
 
 
-    #--
-    ###################
-    #  Private Methods
-    ###################
-    #++
+  #--
+  ###################
+  #  Private Methods
+  ###################
+  #++
 
-    def siblings
-      parents = self.related_people.find(:all, :conditions => {'relationships.relationship_type_id' => [RelationshipType.find_by_name('Father'),RelationshipType.find_by_name('Mother')]})
-      siblings = parents.collect{|parent| parent.source_people.of_type('Father').concat(parent.source_people.of_type('Mother'))}.flatten.uniq
-      siblings.delete(self)
-      return siblings
-    end
+  def siblings
+    parents = self.related_people.find(:all, :conditions => {'relationships.relationship_type_id' => [RelationshipType.find_by_name('Father'),RelationshipType.find_by_name('Mother')]})
+    siblings = parents.collect{|parent| parent.source_people.of_type('Father').concat(parent.source_people.of_type('Mother'))}.flatten.uniq
+    siblings.delete(self)
+    return siblings
+  end
 
-    #--
-    ###################
-    #  Private Methods
-    ###################
-    #++
+  #--
+  ###################
+  #  Private Methods
+  ###################
+  #++
 
-    private
+  private
 
-    def insert_duplication_value
-      @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
-      unless @organisational_duplication_formula.nil?
-        self.duplication_value = ""
-        @organisational_duplication_formula.duplication_formula_details.each do |i|
-          if i.is_foreign_key
-            self.duplication_value += self.__send__(i.field_name.to_sym).name[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
-          else
-            self.duplication_value += self.__send__(i.field_name.to_sym)[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
-          end
+  def insert_duplication_value
+    @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
+    unless @organisational_duplication_formula.nil?
+      self.duplication_value = ""
+      @organisational_duplication_formula.duplication_formula_details.each do |i|
+        if i.is_foreign_key
+          self.duplication_value += self.__send__(i.field_name.to_sym).name[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
+        else
+          self.duplication_value += self.__send__(i.field_name.to_sym)[0, i.number_of_charecter] unless self.__send__(i.field_name.to_sym).nil?
         end
       end
     end
-
   end
+
+end

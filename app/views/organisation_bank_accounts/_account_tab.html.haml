@@ -1,0 +1,22 @@
+-# The main Account tab
+.container
+  .header_container
+    .options{:id => 'organisation_account_close_button'}
+      = link_to_function image_tag('close_icon.png'), :class => "close_option clear_account_form", :field => "organisation_account", :toggle_id_name => "new_account", :style=>"display:none", :title=>"Close"
+    .title
+      = link_to_function image_tag('add_icon.png'), :id=>"add_account", :class=>"new_option toggle_button", :field => "organisation_account", :toggle_id_name => "new_account"  if (!organisation.nil? && !organisation.new_record?)
+      &nbsp
+    %h1 New Account
+    %input.hidden{:id => "organisation_account_mode", :mode => "show"}
+    %input{:id => "account_input_change_or_not", :style => "display:none", :value => "false",:class=>"ogranisation_input_change_class"}
+    .div{:style=>"display:none", :id => "new_account",:name => "new_account"}
+      -form_for([@organisation, @bank_accounts], :url => "/organisations/#{@organisation.id}/organisation_bank_accounts/", :html => {:class => ' ajax_form'}) do |account|
+        = render :partial => '/organisation_bank_accounts/account_form', :locals => {:account => account}
+        = submit_tag 'Submit' ,:id=>"account_new_submit" ,:disabled=>true
+      %br.clear
+
+  #bank_accounts
+    = render :partial => '/organisation_bank_accounts/organisation_accounts', :collection =>  organisation.organisation_bank_accounts
+
+%div#bank_look_up
+

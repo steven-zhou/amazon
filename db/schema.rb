@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091202044843) do
+ActiveRecord::Schema.define(:version => 20091203235117) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -61,6 +61,23 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.string   "name"
     t.string   "description"
     t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_accounts", :force => true do |t|
+    t.integer "bank_id"
+    t.text    "account_number"
+    t.integer "account_purpose_id"
+    t.boolean "status"
+    t.text    "remarks"
+    t.integer "entity_id"
+    t.text    "type"
+    t.integer "account_type_id"
+    t.integer "priority_number"
+  end
+
+  create_table "bank_grids", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -121,14 +138,6 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "client_bank_accounts", :force => true do |t|
-    t.integer "bank_id"
-    t.text    "account_number"
-    t.integer "account_purpose_id"
-    t.boolean "status"
-    t.text    "remarks"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -844,6 +853,44 @@ ActiveRecord::Schema.define(:version => 20091202044843) do
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.integer  "login_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transaction_allocations", :force => true do |t|
+    t.integer  "transaction_header_id"
+    t.integer  "receipt_account_id"
+    t.integer  "campaign_id"
+    t.integer  "source_id"
+    t.decimal  "amount",                :precision => 11, :scale => 3
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.integer  "extention_id"
+    t.string   "extention_type"
+    t.integer  "cluster_id"
+    t.string   "cluster_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "transaction_headers", :force => true do |t|
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.date     "todays_date"
+    t.date     "transaction_date"
+    t.integer  "receipt_meta_type_id"
+    t.integer  "receipt_type_id"
+    t.integer  "bank_account_id"
+    t.integer  "bank_run_id"
+    t.integer  "receipt_number"
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.decimal  "total_amount",         :precision => 11, :scale => 3
+    t.text     "notes"
+    t.integer  "received_via_id"
+    t.boolean  "banked"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
