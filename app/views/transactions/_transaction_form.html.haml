@@ -1,12 +1,33 @@
 - form_for transaction, :html => {:class => "ajax_form", :submit_button_id => "submit_button"} do |f|
   .form_line
-    .field_10
-      = f.label :todays_date
+    .field_15
+      = f.label :todays_date, "System Date"
       .display_field_bg
         = #{transaction.todays_date.to_s}
 
-    .field_10
+    .field_15
       = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
       = f.text_field :transaction_date, :value => transaction.transaction_date.to_s, :class => "compulsory_field datepick"
 
-    = submit_tag "Submit", :disabled=> true, :id => "submit_button"
+    .field_20
+      = f.label :bank_account_id, "<span class='asterisk'>*</span>Bank Account"
+      %select
+
+    .field_10
+      = f.label :banked, "Already Banked"
+      %input{:type => "checkbox"}
+
+    .field_15
+      = f.label :letter_id, "<span class='asterisk'>*</span>Single Letter ID"
+      %select
+
+  #transaction_payment_form
+    = render :partial => "/transactions/transaction_payment_form", :locals => {:f => f}
+
+  #add_new_transaction_allocation
+
+  #existing_transaction_allocations
+
+  #edit_transaction_allocation
+
+  = submit_tag "Submit", :disabled=> true, :id => "submit_button"

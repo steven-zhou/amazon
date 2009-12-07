@@ -9,5 +9,7 @@ class TransactionAllocation < ActiveRecord::Base
   belongs_to :extention, :polymorphic => true
   belongs_to :cluster, :polymorphic => true
 
+   validates_presence_of :transaction_header_id, :receipt_account_id, :amount
+
 
 end
