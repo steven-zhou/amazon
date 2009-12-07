@@ -59,11 +59,33 @@ class CommunicationController < ApplicationController
   end
 
   def send_email
-    subject = params[:email][:subject]
-    message_template_id = params[:message_template_id]
-    list_header_id = params[:list_header_id]
 
-    render :nothing => true
+    @list_headers = @current_user.all_lists
+    @message_templates = MessageTemplate.find(:all)
+    @message_template = MessageTemplate.new
+
+    subject = params[:email][:subject]
+    message_template = MessageTemplate.find(params[:message_template_id])
+    list_header = ListHeader.find(params[:list_header_id])
+
+    flash[:message] = flash_message(:message => "Email Has Been Sent")
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list header id #{list_header.id}.")
+
+    for person in list_header.people_on_list do
+
+      message = message_template.body
+      message.gsub(/first_name/, "#{person.first_name}")
+      message.gsub(/family_name/, "#{person.family_name}")
+
+      email = EmailDispatcher.create_message(person.primary_email.value, subject, message) unless person.primary_email.nil?
+
+      EmailDispatcher.deliver(email) unless person.primary_email.nil?
+
+    end
+
+    respond_to do |format|
+      format.js
+    end
 
   end
 
