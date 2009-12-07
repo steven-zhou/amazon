@@ -7,6 +7,8 @@ class TransactionsController < ApplicationController
     @list_header = ListHeader.find(session[:current_list_id])
     @p = @list_header.people_on_list
     @person = Person.find(session[:current_person_id])
+    session[:entity_type] = "Person"
+    session[:entity_id] = @person.id
     respond_to do |format|
       format.html
     end
@@ -15,6 +17,8 @@ class TransactionsController < ApplicationController
   def organisational_transaction    
     @organisation = Organisation.find(session[:current_organisation_id])
     @o = Organisation.find(:all, :order => "id")
+    session[:entity_type] = "Organisation"
+    session[:entity_id] = @organisation.id
     respond_to do |format|
       format.html
     end

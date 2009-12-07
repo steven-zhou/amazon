@@ -1,0 +1,5 @@
+$('#add_new_transaction').css('display','none');
+$('#edit_transaction').css('display', '');
+$('#edit_transaction_form').html('<%= escape_javascript(render(:partial => "/transactions/transaction_form", :locals => {:transaction => @transaction_header })) %>');
+$('#current_mode').attr('mode', 'edit');
+$('.close_option[field="current"]').css("display","");
