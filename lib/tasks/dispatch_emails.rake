@@ -1,6 +1,6 @@
 namespace :db do
 
-  DEBUG = true
+  DEBUG = false
 
   # Cron entry:
   # */10 * * * * /usr/bin/ruby /usr/bin/rake -f /home/rails/amazon/current/Rakefile rake:db:send_pending_emails RAILS_ENV=production >/dev/null 2>&1
