@@ -2486,4 +2486,69 @@ class GridsController < ApplicationController
 
   end
 
+  def show_existing_transaction_allocations_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @transaction_allocations = TransactionAllocation.find(:all,
+        :conditions => ["transaction_header_id = ?", params[:transaction_header_id]],
+        :include => [""],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id = ?",  params[:transaction_header_id]])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @transaction_allocations = TransactionAllocation.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND transaction_header_id = ?", query, params[:transaction_header_id]])
+      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id = ?", query, params[:transaction_header_id]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.receipt_account_id,
+          u.campaign_id,
+          u.source_id,
+          u.letter_id,
+          u.amount,
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
 end
