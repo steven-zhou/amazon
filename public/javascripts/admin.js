@@ -2327,16 +2327,7 @@ $(function(){
     });
 });
 
-$(function(){
-    $(".page_initial").live('mousedown', function(){
-        $.ajax({
-            type: $(this).attr("method"),
-            url: $(this).attr("url")+".js",
-            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
-            dataType: "script"
-        });
-    });
-});
+
 
 /*bank setting*/
 $(function(){
