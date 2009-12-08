@@ -68,6 +68,16 @@ class TransactionHeadersController < ApplicationController
         flash.now[:error] = "Exception happen, please try again"
       end
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @transaction_header = TransactionHeader.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def page_initial
