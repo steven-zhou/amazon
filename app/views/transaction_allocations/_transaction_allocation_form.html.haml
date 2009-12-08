@@ -1,52 +1,52 @@
-- form_for transaction_allocation, :html => {:class => "ajax_form", :submit_button_id => "allocation_submit_button"} do |f|
+- form_for transaction_allocation_grid, :url => {:controller => "transaction_allocations", :action => transaction_allocation_grid.new_record? ? "temp_create" : "update", :id => transaction_allocation_grid.id }, :html => {:class => "ajax_form", :submit_button_id => "allocation_submit_button"} do |f|
   .form_line
     .field_15
-      = f.label :receipt_account_id, "<span class='asterisk'>*</span>Receipt Account"
-      = f.collection_select :receipt_account_id, ReceiptAccount.all, :id, :name
+      = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
+      = f.collection_select :field_1, ReceiptAccount.all, :id, :name
 
     .field_15
-      = f.label :campaign_id, "Campaign"
-      = f.collection_select :campaign_id, Campaign.all, :id, :name
+      = f.label :field_2, "Campaign"
+      = f.collection_select :field_2, Campaign.all, :id, :name
 
     .field_20
-      = f.label :source_id, "Source"
-      = f.collection_select :source_id, Source.all, :id, :name
+      = f.label :field_3, "Source"
+      = f.collection_select :field_3, Source.all, :id, :name
 
     .field_10
-      = f.label :letter_id, "Letter"
+      = f.label :field_4, "Letter"
       %select
 
     .field_15
-      = f.label :amount, "<span class='asterisk'>*</span>Amount"
-      = f.text_field :amount
+      = f.label :field_5, "<span class='asterisk'>*</span>Amount"
+      = f.text_field :field_5
   .full_container
-    .title
-      %h3 Bank Extension
     .options
       = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => "bank_extension_form"
-    #bank_extension_form.hidden
+    .title
+      %h3 Bank Extension    
+    #bank_extension_form.hidden{:style => "float:left;width:100%;"}
       .form_line
         .field_15
-          = f.label :extention_type, 'Extention Type'
-          %select{:name => "transaction_allocation[extention_type]"}
+          = f.label :field_6, 'Extention Type'
+          %select{:name => "temp_transaction_allocation_grid[field_6]"}
             %option{:value => "Person"} Person
             %option{:value => "Organisation"} Organisation
             
         .field_15
-          = f.label :extention_id, 'Extention ID'
-          = f.text_field :extention_id
+          = f.label :field_7, 'Extention ID'
+          = f.text_field :field_7
         .field_15
-          = f.label :extention_name, 'Extention Name'
+          %label Extention Name
           .display_field_bg           
         .field_15
-          = f.label :cluster_type, 'Cluster Type'
-          %select{:name => "transaction_allocation[cluster_type]"}
+          = f.label :field_8, 'Cluster Type'
+          %select{:name => "temp_transaction_allocation_grid[field_8]"}
             %option{:value => "Person"} Person
             %option{:value => "Organisation"} Organisation
         .field_15
-          = f.label :cluster_id, 'Cluster ID'
-          = f.text_field :cluster_id
+          = f.label :field_9, 'Cluster ID'
+          = f.text_field :field_9
         .field_15
-          = f.label :cluster_name, 'Cluster Name'
+          %label Cluster Name
           .display_field_bg
   = submit_tag '   Add   '
