@@ -1,0 +1,25 @@
+<% if @temp_transaction_allocation_grid.errors.empty? -%>
+$('#add_new_transaction_allocation').html('<%= escape_javascript(render(:partial => "/transaction_allocations/new_transaction_allocation")) %>');
+$('#existing_transaction_allocations').html('<%= escape_javascript(render(:partial => "/transaction_allocations/existing_transaction_allocations")) %>');
+$('#transaction_allocation_mode').attr('mode', 'show');
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
