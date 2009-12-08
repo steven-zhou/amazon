@@ -1,0 +1,160 @@
+.form_line
+  .field_15
+    %label System Date
+    .display_field_bg
+      #{transaction.todays_date.to_s}
+
+  .field_15
+    %label Transaction Date
+    .display_field_bg
+      #{transaction.transaction_date.to_s}
+
+  .field_20
+    %label Bank Account
+    .display_field_bg
+      #{ClientBankAccount.find(transaction.bank_account_id).account_number}
+
+.form_line
+  .field_15
+    %label Receipt Meta Type
+    .display_field_bg
+      #{ReceiptMetaMetaType.find(transaction.receipt_meta_type_id).name}
+
+  .field_15
+    %label Receipt Type
+    .display_field_bg
+      #{ReceiptMetaType.find(transaction.receipt_type_id).name}
+
+  .field_20
+    %label Receipt Type
+    .display_field_bg
+      #{ReceivedVia.find(transaction.received_via_id).name}
+
+#transaction_payment_view
+
+.form_line{:style => "height:auto;"}
+  .field_100{:style => "height:auto;"}
+    %label Notes
+    .display_field_bg{:style => "min-height:60px;"}
+      #{transaction.notes}
+
+
+#existing_transaction_allocations
+  %table#show_existing_transaction_allocations_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_existing_transaction_allocations_grid").flexigrid({
+  url: '/grids/show_existing_transaction_allocations_grid?transaction_header_id=#{transaction.id}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Transaction Date',
+  name : 'transaction_date',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Total Amount',
+  name : 'total_amount',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Number',
+  name : 'receipt_number',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Bank Account Name',
+  name : 'bank_account_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Meta Type Name',
+  name : 'receipt_meta_type_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Type Name',
+  name : 'receipt_type_name',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Notes',
+  name : 'notes',
+  width : 160,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Transaction Date',
+  name : 'transaction_date'
+  },
+
+  {
+  display: 'Total Amount',
+  name : 'total_amount'
+  },
+
+  {
+  display: 'Receipt Number',
+  name : 'receipt_number'
+  },
+
+  {
+  display: 'Bank Account Name',
+  name : 'bank_account_name'
+  },
+
+  {
+  display: 'Receipt Meta Type Name',
+  name : 'receipt_meta_type_name'
+  },
+
+  {
+  display: 'Receipt Type Name',
+  name : 'receipt_type_name'
+  },
+
+  {
+  display: 'Notes',
+  name : 'notes'
+  }
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Countries',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
