@@ -7903,3 +7903,35 @@ $(function(){
        $('#'+$(this).attr('form_id')).doAjaxSubmit();
    });
 });
+
+
+
+/* Show temp transaction allocation Grid*/
+$(function(){
+    $('table#show_temp_transaction_allocation_grid tbody tr').live('click',function(){
+        if($('#transaction_allocation_mode').attr('mode')=="show"){
+            $('table#temp_transaction_allocation_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_temp_transaction_allocation_grid tbody tr').live('dblclick',function(){
+        if($('#transaction_allocation_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/transaction_allocations/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_temp_transaction_allocation_grid tbody tr').live('mouseover',function(){
+        if($('#transaction_allocation_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});

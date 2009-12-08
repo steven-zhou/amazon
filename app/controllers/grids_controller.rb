@@ -2420,4 +2420,70 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+  def temp_transaction_allocation_grid
+
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(:all,
+        :conditions => ["login_account_id=?", @current_user],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = TempTransactionAllocationGrid.count(:all, :conditions => ["login_account_id=?",  @current_user])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND login_account_id=?", query, @current_user])
+      count = TempTransactionAllocationGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id=?", query, @current_user])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @temp_transaction_allocation_grid.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5,
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
 end
