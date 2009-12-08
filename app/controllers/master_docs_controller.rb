@@ -68,7 +68,7 @@ class MasterDocsController < ApplicationController
       @exchange_master_doc.save
       @current_master_doc.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_master_doc.entity_id)
     respond_to do |format|
       format.js
     end
@@ -84,7 +84,7 @@ class MasterDocsController < ApplicationController
 
     @up_exchange_master_doc.save
     @up_current_master_doc.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_master_doc.entity_id)
 
     respond_to do |format|
       format.js

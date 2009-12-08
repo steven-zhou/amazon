@@ -1,4 +1,4 @@
--# locals => {:entity_type, :entity_id}
+-# locals => {:entity_type, :entity_id, :start_date, :end_date}
 
 %h2 Transaction Histroy
 
@@ -6,7 +6,7 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_transaction_histroy_grid").flexigrid({
-  url: '/grids/show_transaction_histroy_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
+  url: '/grids/show_transaction_histroy_grid?entity_id=#{entity_id}&entity_type=#{entity_type}&start_date=#{start_date}&end_date=#{end_date}',
   dataType: 'json',
   colModel : [
   {

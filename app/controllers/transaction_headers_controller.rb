@@ -68,11 +68,33 @@ class TransactionHeadersController < ApplicationController
         flash.now[:error] = "Exception happen, please try again"
       end
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @transaction_header = TransactionHeader.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
   end
 
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
+    @start_date = "01-01-#{Date.today().year().to_s}"
+    @end_date = "31-12-#{Date.today().year().to_s}"
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def filter
+    params[:start_date] ||= "01-01-#{Date.today().year().to_s}"
+    params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
     respond_to do |format|
       format.js
     end
