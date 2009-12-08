@@ -7,9 +7,9 @@ class TransactionHeader < ActiveRecord::Base
    belongs_to :received_via
    #belongs_to :bank_run
    
-
-
-
    has_many :transaction_allocations
+
+  validates_presence_of :transaction_date, :bank_account_id, :receipt_meta_type_id, :receipt_type_id, :received_via_id
+
 
 end

@@ -6,6 +6,8 @@ class Tag < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:type, :tag_type_id], :case_sensitive => false
 
+  default_scope :order => "name ASC"
+
   def self.distinct_types_of_tags
     @tags = Tag.find(:all, :select => "DISTINCT type")
     results = ""

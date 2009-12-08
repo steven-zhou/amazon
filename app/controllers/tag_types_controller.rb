@@ -181,5 +181,6 @@ class TagTypesController < ApplicationController
     end
   end  
 
+  
 end
 

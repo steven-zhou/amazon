@@ -1,0 +1,122 @@
+-# locals => {:entity_type, :entity_id}
+
+%h2 Transaction Histroy
+
+%table#show_transaction_histroy_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_transaction_histroy_grid").flexigrid({
+  url: '/grids/show_transaction_histroy_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Transaction Date',
+  name : 'transaction_date',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Total Amount',
+  name : 'total_amount',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Number',
+  name : 'receipt_number',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Bank Account Name',
+  name : 'bank_account_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Meta Type Name',
+  name : 'receipt_meta_type_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Type Name',
+  name : 'receipt_type_name',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Notes',
+  name : 'notes',
+  width : 160,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Transaction Date',
+  name : 'transaction_date'
+  },
+
+  {
+  display: 'Total Amount',
+  name : 'total_amount'
+  },
+
+  {
+  display: 'Receipt Number',
+  name : 'receipt_number'
+  },
+
+  {
+  display: 'Bank Account Name',
+  name : 'bank_account_name'
+  },
+
+  {
+  display: 'Receipt Meta Type Name',
+  name : 'receipt_meta_type_name'
+  },
+
+  {
+  display: 'Receipt Type Name',
+  name : 'receipt_type_name'
+  },
+
+  {
+  display: 'Notes',
+  name : 'notes'
+  }
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Countries',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

@@ -1300,7 +1300,6 @@ $(function(){
         }
         else
         {
-
             $('#check_input_change').val("true");
 
         }
@@ -1943,47 +1942,8 @@ $(function(){
     });
 });
 
-/* Allocation Type Grid*/
-$(function(){
-    $('table#show_allocation_types_grid tbody tr').live('click',function(){
-        if($('#allocation_type_mode').attr('mode')=="show"){
-            $('table#show_allocation_types_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
 
-    $('table#show_allocation_types_grid tbody tr').live('dblclick',function(){
-        if($('#allocation_type_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/allocation_types/edit_allocation_type/"+$(this).attr('id').substring(3),
-                dataType: "script"
-            });
-        }
-    });
 
-    $('table#show_allocation_types_grid tbody tr').live('mouseover',function(){
-        if($('#allocation_type_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
-
-$(function() {
-    $('#copy_allocation_type').live('click', function() {
-
-        $.ajax({
-            type: "GET",
-            url: "/allocation_types/copy_allocation_type.js",
-            data: 'id=' + $(this).attr('allocation_type'),
-            dataType: "script"
-        });
-    });
-});
 
 
 
@@ -2005,6 +1965,39 @@ $(function(){
 
     });
 });
+
+
+
+/* Show unbanked transaction Grid*/
+$(function(){
+    $('table#show_unbanked_transaction_grid tbody tr').live('click',function(){
+        if($('#current_mode').attr('mode')=="show"){
+            $('table#show_unbanked_transaction_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_unbanked_transaction_grid tbody tr').live('dblclick',function(){
+        if($('#current_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/transaction_headers/"+$(this).attr('id').substring(3)+"/edit.js",
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_unbanked_transaction_grid tbody tr').live('mouseover',function(){
+        if($('#current_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});
+
 
 
 /* new compulsory field setting for controlling submit button*/
@@ -2030,7 +2023,7 @@ $(function(){
         if (disable){
             $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
         }else{
-            $('#'+current_form.attr('submit_button_id')).attr('disabled',false);
+            $('#'+current_form.attr('submit_button_id')).removeAttr('disabled');
         }
         return false;
     };
@@ -2041,6 +2034,7 @@ $(function(){
 
     $(".compulsory_field").live('change', function(){
         compulsory_check($(this));
+
     });
 });
 //from person.js
@@ -2303,4 +2297,12 @@ $(function(){
     }).attr("rel", "nofollow");
 
     jQuery('a.get_tag').removeAttr('onclick');
+});
+
+
+/* transaction */
+$(function(){
+   $('.fake_submit_button').live('click',function(){
+       $('#'+$(this).attr('form_id')).doAjaxSubmit();
+   });
 });

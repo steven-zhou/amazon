@@ -1,12 +1,64 @@
-- form_for transaction, :html => {:class => "ajax_form", :submit_button_id => "submit_button"} do |f|
+- form_for transaction, :html => {:class => "ajax_form", :id => transaction.new_record? ? "new_transaction_header_form" : "edit_transaction_header_form", :submit_button_id => transaction.new_record? ? "new_submit_button" : "edit_submit_button"} do |f|
   .form_line
-    .field_10
-      = f.label :todays_date
+    .field_15
+      = f.label :todays_date, "System Date"
       .display_field_bg
-        = #{transaction.todays_date.to_s}
+        = transaction.new_record? ? "#{@system_date}" : "#{transaction.todays_date.to_s}"
 
-    .field_10
+    .field_15
       = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
       = f.text_field :transaction_date, :value => transaction.transaction_date.to_s, :class => "compulsory_field datepick"
 
-    = submit_tag "Submit", :disabled=> true, :id => "submit_button"
+    .field_20
+      = f.label :bank_account_id, "<span class='asterisk'>*</span>Bank Account"
+      = f.collection_select :bank_account_id, ClientBankAccount.all, :id, :account_number
+
+    .field_10
+      = f.label :banked, "Already Banked"
+      = f.check_box :banked
+
+    .field_15
+      = f.label :letter_id, "<span class='asterisk'>*</span>Single Letter ID"
+      %select
+
+  .form_line
+    .field_15
+      = f.label :receipt_meta_type_id, "<span class='asterisk'>*</span>Receipt Meta Type"
+      = f.collection_select :receipt_meta_type_id, ReceiptMetaMetaType.all, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_meta_types/find_receipt_type"}
+
+    .field_15
+      = f.label :receipt_type_id, "<span class='asterisk'>*</span>Receipt Type"
+      = f.collection_select :receipt_type_id, ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", ReceiptMetaMetaType.first.id]), :id, :name
+
+    .field_15
+      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Type"
+      = f.collection_select :received_via_id, ReceivedVia.all, :id, :name
+
+  #transaction_payment_form
+
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      = f.label :notes, "Notes"
+      = f.text_area :notes, :rows => 3, :cols => 45
+
+
+#add_new_transaction_allocation
+  = render :partial => "/transaction_allocations/new_transaction_allocation"
+
+#existing_transaction_allocations
+
+#edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;"}
+  .tab_looking_left
+  .tab_looking_icon
+    = image_tag('edit_icon.png')
+    %h3{:style=>"display:inline;"} Edit
+  .tab_looking_right
+  .full_container
+    .options
+      = link_to_function image_tag('close_icon.png'), :field => "transaction_allocation", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_transaction_allocation", :toggle_id_name1 => "add_new_transaction_allocation"
+    #edit_transaction_allocation_form
+
+- if transaction.new_record?
+  = button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
+- else
+  = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_transaction_header_form", :id => "edit_submit_button", :style => "float:right;"
