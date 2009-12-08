@@ -154,16 +154,16 @@ $(function(){
         });
     });
 });
-
+$(function(){
 $(".clear_find_form").click(function(){
 
         var link = $(this);
         var temp = "false";
-
+      
 
         if ($(this).attr('field') == "left_find_by_person")
         {
-
+        
             temp = $('#check_left_input_change').val();
 
 
@@ -261,6 +261,8 @@ $(".clear_find_form").click(function(){
 
         }
     });
+    });
+
        $(".clear_tab").click(function(){
         if ($(this).attr('field') != ""){
 

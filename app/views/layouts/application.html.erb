@@ -29,25 +29,32 @@
      #"jquery.jpassword.js"
   %>
 
-  <%- if session[:module] == "dashboard" %>
+    
+    <%- if session[:module] == "dashboard" %>
       <%= stylesheet_link_tag "portlets" %>
-  <%= javascript_include_tag  "config.js","interface.js"%>
-  <%- end%>
+      <%= javascript_include_tag  "config.js","interface.js"%>
+    <%- end%>
 
-  <%- if session[:module] == "core" %>
-  <%= javascript_include_tag  "jquery.qtip.min.js","systemcore.js"%>
-   <%- end%>
+    <%- if session[:module] == "core" %>
+      <%= javascript_include_tag  "jquery.qtip.min.js","systemcore.js"%>
+    <%- end%>
     <%- if session[:module] == "administration" %>
-       <%= stylesheet_link_tag "jpassword" %>
-  <%= javascript_include_tag  "admin.js","jquery.jpassword.js"%>
-     <%- end%>
-     <%- if session[:module] == "client_setup" %>
-    <%= stylesheet_link_tag "jpassword" %>
-  <%= javascript_include_tag  "client_setup.js","jquery.jpassword.js"%>
-     <%- end%>
-   <%- if session[:module] == "receipting_setup" %>
-  <%= javascript_include_tag  "receipting.js"%>
-  <%- end%>
+      <%= stylesheet_link_tag "jpassword" %>
+      <%= javascript_include_tag  "admin.js","jquery.jpassword.js"%>
+    <%- end%>
+    <%- if session[:module] == "client_setup" %>
+      <%= stylesheet_link_tag "jpassword" %>
+      <%= javascript_include_tag  "client_setup.js","jquery.jpassword.js"%>
+    <%- end%>
+    <%- if session[:module] == "receipting_setup" %>
+      <%= javascript_include_tag  "receipting.js"%>
+    <%- end%>
+
+
+
+
+
+  
   </head>
 
   <body>
