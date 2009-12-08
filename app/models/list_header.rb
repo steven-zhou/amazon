@@ -1,7 +1,5 @@
 class ListHeader < ActiveRecord::Base
 
-
-
   belongs_to :query_header
   has_many :list_details, :order => "id"
  
