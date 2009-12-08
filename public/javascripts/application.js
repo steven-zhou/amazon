@@ -7883,7 +7883,7 @@ $(function(){
         if (disable){
             $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
         }else{
-            $('#'+current_form.attr('submit_button_id')).attr('disabled',false);
+            $('#'+current_form.attr('submit_button_id')).removeAttr('disabled');
         }
         return false;
     }
@@ -7899,7 +7899,7 @@ $(function(){
 
 /* transaction */
 $(function(){
-   $('#fake_submit_button').live('click',function(){
+   $('.fake_submit_button').live('click',function(){
        $('#'+$(this).attr('form_id')).doAjaxSubmit();
    });
 });

@@ -1,4 +1,4 @@
-- form_for transaction, :html => {:class => "ajax_form", :id => transaction.new_record? ? "new_transaction_form" : "edit_transaction_form", :submit_button_id => "fake_submit_button"} do |f|
+- form_for transaction, :html => {:class => "ajax_form", :id => transaction.new_record? ? "new_transaction_header_form" : "edit_transaction_header_form", :submit_button_id => transaction.new_record? ? "new_submit_button" : "edit_submit_button"} do |f|
   .form_line
     .field_15
       = f.label :todays_date, "System Date"
@@ -41,23 +41,24 @@
       = f.label :notes, "Notes"
       = f.text_area :notes, :rows => 3, :cols => 45
 
-  = submit_tag "Submit", :id => "submit_button"
 
-  #add_new_transaction_allocation
-    = render :partial => "/transaction_allocations/new_transaction_allocation", :locals => {:f => f}
+#add_new_transaction_allocation
+  = render :partial => "/transaction_allocations/new_transaction_allocation"
 
-  #existing_transaction_allocations
+#existing_transaction_allocations
 
-  #edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;"}
-    .tab_looking_left
-    .tab_looking_icon
-      = image_tag('edit_icon.png')
-      %h3{:style=>"display:inline;"} Edit
-    .tab_looking_right
-    .full_container
-      .options
-        = link_to_function image_tag('close_icon.png'), :field => "transaction_allocation", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_transaction_allocation", :toggle_id_name1 => "add_new_transaction_allocation"
-      #edit_transaction_allocation_form
+#edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;"}
+  .tab_looking_left
+  .tab_looking_icon
+    = image_tag('edit_icon.png')
+    %h3{:style=>"display:inline;"} Edit
+  .tab_looking_right
+  .full_container
+    .options
+      = link_to_function image_tag('close_icon.png'), :field => "transaction_allocation", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_transaction_allocation", :toggle_id_name1 => "add_new_transaction_allocation"
+    #edit_transaction_allocation_form
 
-
-  = button_to_function "Submit", :disabled=> true, :class => "fake_submit_button", :form_id => transaction.new_record? ? "new_transaction_form" : "edit_transaction_form"
+- if transaction.new_record?
+  = button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
+- else
+  = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_transaction_header_form", :id => "edit_submit_button", :style => "float:right;"
