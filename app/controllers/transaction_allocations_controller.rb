@@ -73,7 +73,10 @@ class TransactionAllocationsController < ApplicationController
     end
   end
 
+def extention_name_finder
 
+
+end
 
 
   
