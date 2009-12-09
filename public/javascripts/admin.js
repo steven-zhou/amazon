@@ -2327,16 +2327,7 @@ $(function(){
     });
 });
 
-$(function(){
-    $(".page_initial").live('mousedown', function(){
-        $.ajax({
-            type: $(this).attr("method"),
-            url: $(this).attr("url")+".js",
-            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
-            dataType: "script"
-        });
-    });
-});
+
 
 /*bank setting*/
 $(function(){
@@ -2495,5 +2486,18 @@ $(function(){
             $('#warning_message').dialog('open');
             return false;
         }
+    });
+});
+
+/* check keyword before delete */
+$(function(){
+    $(".check_delete ").live('click', function(){
+
+        $.ajax({
+            type: "GET",
+            url: "/keywords/check_destroy.js",
+            data: 'id=' + $(this).attr("keyword_id"),
+            dataType: "script"
+        });
     });
 });

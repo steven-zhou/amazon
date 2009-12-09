@@ -38,8 +38,8 @@
     .display_field_bg{:style => "min-height:60px;"}
       #{transaction.notes}
 
-
-#existing_transaction_allocations
+#view_existing_transaction_allocations
+  %h2 Allocations
   %table#show_existing_transaction_allocations_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
@@ -56,101 +56,75 @@
   },
 
   {
-  display: 'Transaction Date',
-  name : 'transaction_date',
+  display: 'Receipt Account',
+  name : 'receipt_account_id',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Total Amount',
-  name : 'total_amount',
+  display: 'Campaign',
+  name : 'campaign_id',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Receipt Number',
-  name : 'receipt_number',
+  display: 'Source',
+  name : 'source_id',
   width : 80,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Bank Account Name',
-  name : 'bank_account_name',
+  display: 'Letter',
+  name : 'letter_id',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Receipt Meta Type Name',
-  name : 'receipt_meta_type_name',
+  display: 'Amount',
+  name : 'amount',
   width : 100,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Receipt Type Name',
-  name : 'receipt_type_name',
-  width : 60,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Notes',
-  name : 'notes',
-  width : 160,
   sortable : true,
   align: 'left'
   }
-
   ],
   searchitems : [
   {
-  display: 'Transaction Date',
-  name : 'transaction_date'
+  display: 'Receipt Type',
+  name : 'receipt_type_id'
   },
 
   {
-  display: 'Total Amount',
-  name : 'total_amount'
+  display: 'Campaign',
+  name : 'campaign_id'
   },
 
   {
-  display: 'Receipt Number',
-  name : 'receipt_number'
+  display: 'Source',
+  name : 'source_id'
   },
 
   {
-  display: 'Bank Account Name',
-  name : 'bank_account_name'
+  display: 'Letter',
+  name : 'letter_id'
   },
 
   {
-  display: 'Receipt Meta Type Name',
-  name : 'receipt_meta_type_name'
-  },
-
-  {
-  display: 'Receipt Type Name',
-  name : 'receipt_type_name'
-  },
-
-  {
-  display: 'Notes',
-  name : 'notes'
+  display: 'Amount',
+  name : 'amount'
   }
   ],
   sortname: "id",
   sortorder: "asc",
   usepager: true,
+  title: '',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,

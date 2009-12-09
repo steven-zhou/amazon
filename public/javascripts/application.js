@@ -2389,6 +2389,17 @@ $(function(){
 });
 
 
+$(function(){
+    $(".page_initial").live('mousedown', function(){
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("url")+".js",
+            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
+            dataType: "script"
+        });
+    });
+});
+
 /* Show temp transaction allocation Grid*/
 $(function(){
     $('table#show_temp_transaction_allocation_grid tbody tr').live('click',function(){
@@ -2418,7 +2429,6 @@ $(function(){
         }
     });
 });
-
 
 
 $(function(){
