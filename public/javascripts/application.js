@@ -419,13 +419,11 @@ $(document).ready(function() {
 });
 
 /*validation section*/
-$(function(){
-    $(".integer_field").live('keyup', function(){
-
-        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test($(this).val());
-        if($(this).val()!=""){
-            if((!_valid) || $(this).val()<0){
-                var link = $(this);
+ integer_check = function(link)
+ {
+        _valid = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(link.val());
+        if(link.val()!=""){
+            if((!_valid) || link.val()<0){
 
                 $('#error_message_text').html("Entered Value Must be Integer Only ");
 
@@ -440,8 +438,8 @@ $(function(){
                         "OK": function(){
                             link.focus();
                             link.val('');
-
                             $(this).dialog('destroy');
+                            link.change();
                             return true;
                         }
                     }
@@ -454,6 +452,12 @@ $(function(){
             }
         }
         return false;
+ };
+
+$(function(){
+    $(".integer_field").live('keyup', function(){
+
+       integer_check($(this));
     });
 
     $(".precent_field").live('keyup', function(){
@@ -2425,3 +2429,20 @@ $(function(){
         }
     });
 });
+
+
+$(function(){
+    $(".general_name_show").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url:"/people/general_name_show.js",
+                data:'person_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
+                dataType: "script"
+            });
+        }else{
+            $("#"+$(this).attr('update_field')).val("");
+        }
+    });
+});
+
