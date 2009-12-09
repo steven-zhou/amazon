@@ -141,7 +141,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get}
 
   map.resources :transaction_headers, :collection => {:page_initial => :get}
-  map.resources :transaction_allocations, :collection => {:temp_create => :post}
+  map.resources :transaction_allocations, :collection => {:temp_create => :post}, :member => {:temp_edit => :get}
 
 
   # The priority is based upon order of creation: first created -> highest priority.

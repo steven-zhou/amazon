@@ -1,7 +1,7 @@
-<% if @temp_transaction_allocation_grid.errors.empty? -%>
-$('#add_new_transaction_allocation').html('<%= escape_javascript(render(:partial => "/transaction_allocations/new_transaction_allocation", :locals => {:field => "transaction_allocation"})) %>');
-$('#existing_transaction_allocations').html('<%= escape_javascript(render(:partial => "/transaction_allocations/existing_temp_transaction_allocations")) %>');
-$('#transaction_allocation_mode').attr('mode', 'show');
+<% if @transaction_allocation.errors.empty? -%>
+$('#edit_add_new_transaction_allocation').html('<%= escape_javascript(render(:partial => "/transaction_allocations/edit_new_transaction_allocation", :locals => {:transaction_header_id => @transaction_header_id})) %>');
+$('#edit_existing_transaction_allocations').html('<%= escape_javascript(render(:partial => "/transaction_allocations/existing_transaction_allocations", :locals => {:transaction_header_id => @transaction_header_id})) %>');
+$('#edit_transaction_allocation_mode').attr('mode', 'show');
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
