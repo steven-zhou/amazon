@@ -500,6 +500,19 @@ $(function(){
             $("#submit_website_field").attr('readonly','readonly')
         }
 
+
+
+    });
+
+
+     $("#select_contact_type").ready(function(){
+        $('form.active').removeClass('active');
+        $("form."+$('#select_contact_type option:selected').val()).addClass('active');
+    });
+
+    $("#select_contact_type").live('change',function(){
+        $('form.active').removeClass('active');
+        $("form."+$('#select_contact_type option:selected').val()).addClass('active');
     });
 });
 
@@ -522,17 +535,7 @@ $(function(){
     });
 });
 
-$(function(){
-    $(".check_delete ").live('click', function(){
 
-        $.ajax({
-            type: "GET",
-            url: "/keywords/check_destroy.js",
-            data: 'id=' + $(this).attr("keyword_id"),
-            dataType: "script"
-        });
-    });
-});
 
 /*check contact input field change or not*/
 

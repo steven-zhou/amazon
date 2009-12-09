@@ -2488,3 +2488,16 @@ $(function(){
         }
     });
 });
+
+/* check keyword before delete */
+$(function(){
+    $(".check_delete ").live('click', function(){
+
+        $.ajax({
+            type: "GET",
+            url: "/keywords/check_destroy.js",
+            data: 'id=' + $(this).attr("keyword_id"),
+            dataType: "script"
+        });
+    });
+});
