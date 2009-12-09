@@ -45,10 +45,10 @@ class KeywordLinksController < ApplicationController
    if (!params[:remove_person_keywords].nil?)
       params[:remove_person_keywords].each do |keyword_id|
         keyword = Keyword.find(keyword_id)
-#        if keyword.to_be_removed == false
+        if keyword.to_be_removed == false
         @selected_class = keyword.keyword_type_name
         @entity.keywords.delete(keyword)
-#        end
+        end
       end
     end
 
