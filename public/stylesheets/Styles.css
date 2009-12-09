@@ -1674,7 +1674,7 @@ td.textright {
 
 .container_remove {  
     /* background-color: #B2BDC5; */
-    background-image:url(/images/container_green_bg.png) !important;
+    background-image:url(/images/container_red_bg.png) !important;
     width: 96%;
     margin: 0.5%;
     float: left;

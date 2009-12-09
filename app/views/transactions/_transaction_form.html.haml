@@ -3,7 +3,7 @@
     .field_15
       = f.label :todays_date, "System Date"
       .display_field_bg
-        = transaction.new_record? ? "#{@system_date.to_s}" : "#{transaction.todays_date.to_s}"
+        #{@system_date.to_s}
 
     .field_15
       = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
@@ -67,7 +67,4 @@
     #edit_transaction_allocation_form
 
 
-- if transaction.new_record?
-  = button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
-- else
-  = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_transaction_header_form", :id => "edit_submit_button", :style => "float:right;"
+= button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
