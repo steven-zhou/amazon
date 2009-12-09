@@ -16,6 +16,11 @@ class TransactionHeadersController < ApplicationController
 
   def edit
     @transaction_header = TransactionHeader.find(params[:id])
+    @transaction_allocations = @transaction_header.transaction_allocations
+    @transaction_allocation_value = 0
+    @transaction_allocations.each do |transaction_transaction|
+      @transaction_allocation_value += transaction_transaction.amount.to_i
+    end
     respond_to do |format|
       format.js
     end

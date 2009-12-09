@@ -43,6 +43,8 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Exception happen, please try again"
       end
     end
+
+    
     respond_to do |format|
       format.js
     end
