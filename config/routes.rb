@@ -58,7 +58,7 @@ ActionController::Routing::Routes.draw do |map|
 
   }
 
-  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :edit_message_template => :get, :new_message_template => :get, :update_message_template => :post, :send_email => :post }
+  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :edit_message_template => :get, :new_message_template => :get, :update_message_template => :post, :send_email => :post, :search_email => :post }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
@@ -125,7 +125,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :system_news, :member => {:switch => :get}, :collection => {:pre_three => :get, :next_three => :get}
   map.resources :to_do_lists, :member => {:switch => :get}
 
-  map.resources :keywords ,:collection  => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get}
+  map.resources :keywords , :member => {:retrieve => :get},:collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get}
+
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}
   map.resources :available_modules, :collection => {:switch_status => :get}
