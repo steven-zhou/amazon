@@ -29,7 +29,12 @@ class TransactionHeadersController < ApplicationController
     @transaction_header.entity_id = session[:entity_id]
     if @transaction_header.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction with ID #{@transaction_header.id}.")
-      if @current_user.all_temp_allocation.empty?
+      @temp_allocations = @current_user.all_temp_allocation
+      @temp_allocation_value = 0
+      @temp_allocations.each do |temp_transaction|
+        @temp_allocation_value += temp_transaction.field_5.to_i
+      end
+      if @temp_allocations.empty?
         
       else
        
@@ -48,6 +53,12 @@ class TransactionHeadersController < ApplicationController
           @transaction_allocation.cluster_type= temp_allocation.field_8
           @transaction_allocation.cluster_id= temp_allocation.field_9
           @transaction_allocation.save
+
+          @transaction_header.total_amount =  @temp_allocation_value
+          @transaction_header.save
+
+
+       
         end
       end
     else
