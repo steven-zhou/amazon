@@ -31,5 +31,3 @@ namespace :deploy do
   # %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
 
 end
-
-
