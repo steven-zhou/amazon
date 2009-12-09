@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207233509) do
+ActiveRecord::Schema.define(:version => 20091208004040) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -136,6 +136,8 @@ ActiveRecord::Schema.define(:version => 20091207233509) do
     t.datetime "dispatch_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed", :default => false
+    t.boolean  "status",        :default => true
   end
 
   create_table "campaigns", :force => true do |t|
@@ -897,16 +899,20 @@ ActiveRecord::Schema.define(:version => 20091207233509) do
     t.date     "todays_date"
     t.date     "transaction_date"
     t.integer  "receipt_meta_type_id"
+    t.string   "receipt_meta_type_name"
     t.integer  "receipt_type_id"
+    t.string   "receipt_type_name"
     t.integer  "bank_account_id"
+    t.string   "bank_account_name"
     t.integer  "bank_run_id"
     t.integer  "receipt_number"
     t.integer  "letter_id"
     t.boolean  "letter_sent"
     t.date     "date_sent"
-    t.decimal  "total_amount",         :precision => 11, :scale => 3
+    t.decimal  "total_amount",           :precision => 11, :scale => 3
     t.text     "notes"
     t.integer  "received_via_id"
+    t.string   "received_via_name"
     t.boolean  "banked"
     t.datetime "created_at"
     t.datetime "updated_at"
