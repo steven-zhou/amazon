@@ -48,7 +48,7 @@ class TransactionAllocationsController < ApplicationController
     end
   end
   
-  def update
+  def temp_update
     @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:id])
     if @temp_transaction_allocation_grid.update_attributes(params[:temp_transaction_allocation_grid])
       #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
@@ -69,6 +69,34 @@ class TransactionAllocationsController < ApplicationController
     @temp_allocations.each do |temp_transaction|
       @temp_allocation_value += temp_transaction.field_5.to_i
     end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    @transaction_allocation = TransactionAllocation.find(params[:id])
+    if @transaction_allocation.update_attributes(params[:transaction_allocation])
+      #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
+    else
+      #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction allocation record.")
+      #----------------------------presence - of------------------
+      if(!@transaction_allocation.errors[:receipt_account_id].nil? && @transaction_allocation.errors.on(:receipt_account_id).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "Exception happen, please try again"
+      end
+    end
+
+    
+#    @temp_allocations = @current_user.all_temp_allocation
+#    @temp_allocation_value = 0
+#    @temp_allocations.each do |temp_transaction|
+#      @temp_allocation_value += temp_transaction.field_5.to_i
+#    end
 
     respond_to do |format|
       format.js
