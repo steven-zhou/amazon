@@ -136,6 +136,8 @@ ActiveRecord::Schema.define(:version => 20091209012849) do
     t.datetime "dispatch_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed", :default => false
+    t.boolean  "status",        :default => true
   end
 
   create_table "campaigns", :force => true do |t|

@@ -2487,6 +2487,7 @@ class GridsController < ApplicationController
   end
 
   def show_existing_transaction_allocations_grid
+
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -2516,13 +2517,12 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @transaction_allocations = TransactionAllocation.find(:all,
-        :conditions => ["transaction_header_id = ?", params[:transaction_header_id]],
-        :include => [""],
+        :conditions => ["transaction_header_id=?", params[:transaction_header_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id = ?",  params[:transaction_header_id]])
+      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?",  params[:transaction_header_id]])
     end
 
     # User provided search terms
@@ -2531,8 +2531,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_header_id = ?", query, params[:transaction_header_id]])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id = ?", query, params[:transaction_header_id]])
+        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]])
+      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2549,6 +2549,9 @@ class GridsController < ApplicationController
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
+
   end
 
 end
+
+

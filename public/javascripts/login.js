@@ -159,3 +159,12 @@ $(function($) {
     $('.jclock').jclock();
     $('#clocktime').val($('.jclock').html());
 });
+
+$(function($) {
+     var options = {
+        format: '%d-%m-%Y'
+      }
+
+    $('.jclock_date').jclock(options);
+    $('#clocktime_date').val($('.jclock_date').html());
+});
