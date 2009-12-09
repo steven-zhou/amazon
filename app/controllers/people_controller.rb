@@ -324,6 +324,16 @@ class PeopleController < ApplicationController
     end
   end
 
+  def general_name_show
+    @person = Person.find_by_id(params[:person_id]) rescue @person = Person.new
+    @person = Person.new if @person.nil?  #handle the situation when @person return nil
+    @update_field = params[:update_field]# for name field updating
+    @input_field = params[:input_field]  #to clear the input field
+    respond_to do |format|
+      format.js {render 'general_name_show.js'}
+    end
+  end
+
   def role_finder
  
     @person = Person.find_by_id(params[:person_id]) rescue @person = Person.new #if input a string like "1u", it will run thee rescue, but if input a '14444', if will return nil

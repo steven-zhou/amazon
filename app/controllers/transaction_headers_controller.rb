@@ -3,7 +3,7 @@ class TransactionHeadersController < ApplicationController
 
   def new
     #@system_date = session[:clocktime].strftime("%d-%m-%Y")
-    @system_date = session[:clocktime]
+    @system_date = session[:clocktime_date]
     @transaction_header = TransactionHeader.new
     respond_to do |format|
       format.js
