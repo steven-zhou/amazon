@@ -50,12 +50,24 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Exception happen, please try again"
       end
     end
+
+    @temp_allocations = @current_user.all_temp_allocation
+    @temp_allocation_value = 0
+    @temp_allocations.each do |temp_transaction|
+      @temp_allocation_value += temp_transaction.field_5.to_i
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
   def temp_create
     @temp_transaction_allocation_grid = TempTransactionAllocationGrid.new(params[:temp_transaction_allocation_grid])
     @temp_transaction_allocation_grid.login_account_id = @current_user
     if @temp_transaction_allocation_grid.save
+
+
       
     else
       #----------------------------presence - of--------------------
@@ -66,17 +78,23 @@ class TransactionAllocationsController < ApplicationController
       else
         flash.now[:error] = "Exception happen, please try again"
       end
+    end
+
+    @temp_allocations = @current_user.all_temp_allocation
+    @temp_allocation_value = 0
+    @temp_allocations.each do |temp_transaction|
+      @temp_allocation_value += temp_transaction.field_5.to_i
+    end
     
-      respond_to do |format|
-        format.js
-      end
+    respond_to do |format|
+      format.js
     end
   end
 
-def extention_name_finder
+  def extention_name_finder
 
 
-end
+  end
 
 
   

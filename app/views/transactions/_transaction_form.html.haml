@@ -3,7 +3,7 @@
     .field_15
       = f.label :todays_date, "System Date"
       .display_field_bg
-        = transaction.new_record? ? "#{@system_date.to_s}" : "#{transaction.todays_date.to_s}"
+        #{@system_date.to_s}
 
     .field_15
       = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
@@ -47,7 +47,7 @@
   = render :partial => "/transaction_allocations/new_transaction_allocation"
 
 #existing_transaction_allocations
-  = render :partial => "transaction_allocations/existing_transaction_allocations"
+  = render :partial => "transaction_allocations/existing_temp_transaction_allocations"
 
 #edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;width:100%;"}
   .tab_looking_left
@@ -67,13 +67,10 @@
     #edit_transaction_allocation_form
 
 
+= button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;margin-top:10px;"
 
-- if transaction.new_record?
-  = button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
-- else
-  = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_transaction_header_form", :id => "edit_submit_button", :style => "float:right;"
-
-#temp_allocation_total_amount.right
-  %h2 Transaction Total:
-  .display_field_bg
+#temp_allocation_total_amount.right{:style => "width:35%;margin-top:10px;"}
+  .display_field_bg.right{:style => "width:200px !important;"}
     %div{:id => "temp_allocation_total_amount_value"}
+  %h2{:class => "float:right;"} Transaction Total:
+

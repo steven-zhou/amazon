@@ -17,6 +17,11 @@
     = link_to_function "<h1>Template Maintenance</h1>",:class=>"tab_switch_button", :field => "template_page"
   .tab_switch_right.left{:field =>"template_page"}
 
+  .tab_switch_left.left{:field =>"email_maintenance_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Email Maintenance</h1>",:class=>"tab_switch_button", :field => "email_maintenance_page"
+  .tab_switch_right.left{:field =>"email_maintenance_page"}
+
 %br.clear
 
 #email_page.tab_switch_container.active
@@ -37,4 +42,7 @@
     %div#message_template_form
       = render :partial => "message_template_form"
 
-
+#email_maintenance_page.tab_switch_container
+  
+  %div#email_maintenance_form
+    = render :partial => "email_maintenance_form"
