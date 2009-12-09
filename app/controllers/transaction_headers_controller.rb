@@ -5,6 +5,10 @@ class TransactionHeadersController < ApplicationController
     #@system_date = session[:clocktime].strftime("%d-%m-%Y")
     @system_date = session[:clocktime_date]
     @transaction_header = TransactionHeader.new
+    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find_all_by_login_account_id(session[:user])
+    for temp_transaction_allocation_grid in @temp_transaction_allocation_grid
+      temp_transaction_allocation_grid.destroy
+    end
     respond_to do |format|
       format.js
     end

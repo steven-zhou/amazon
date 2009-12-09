@@ -119,7 +119,7 @@ class ApplicationController < ActionController::Base
     system_log.login_account_id = login_account.nil? ? nil : login_account.id
     system_log.status = "Live" # Values should be one of Live, Archive
     system_log.save
-    puts "#{system_log.to_yaml}"
+   
   end
 
 end

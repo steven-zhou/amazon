@@ -67,7 +67,13 @@
     #edit_transaction_allocation_form
 
 
+
 - if transaction.new_record?
   = button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
 - else
   = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_transaction_header_form", :id => "edit_submit_button", :style => "float:right;"
+
+#temp_allocation_total_amount.right
+  %h2 Transaction Total:
+  .display_field_bg
+    %div{:id => "temp_allocation_total_amount_value"}
