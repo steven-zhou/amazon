@@ -1,12 +1,24 @@
 class TransactionAllocationsController < ApplicationController
   # System Log stuff added
 
-  def new
-    @transaction_allocation_grid = TempTransactionAllocationGrid.new
-   
+  def new    
+    @field = params[:param1]
+    if @field == "transaction_allocation"
+      @transaction_allocation_grid = TempTransactionAllocationGrid.new
+    else
+      @transaction_allocation = TransactionAllocation.new
+      @transaction_header_id = params[:param2]
+    end
   end
 
   def edit
+    @transaction_allocation = TransactionAllocation.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def temp_edit
     @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:id])
     respond_to do |format|
       format.js
@@ -15,6 +27,7 @@ class TransactionAllocationsController < ApplicationController
 
   def create
     @transaction_allocation = TransactionAllocation.new(params[:transaction_allocation])
+    @transaction_header_id = params[:transaction_allocation][:transaction_header_id]
     if @transaction_allocation.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction allocation with ID #{@transaction_allocation.id}.")
     else

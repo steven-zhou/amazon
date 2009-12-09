@@ -4,7 +4,6 @@
   $("#temp_allocation_total_amount_value").html('<%= escape_javascript("#{@temp_allocation_value}")%>');
   $('#transaction_allocation_mode').attr('mode', 'show');
 
-
 <% else %>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {

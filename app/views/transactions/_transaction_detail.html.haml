@@ -40,10 +40,10 @@
 
 #view_existing_transaction_allocations
   %h2 Allocations
-  %table#show_existing_transaction_allocations_grid
+  %table#show_existing_transaction_histroy_allocations_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_existing_transaction_allocations_grid").flexigrid({
+  $("#show_existing_transaction_histroy_allocations_grid").flexigrid({
   url: '/grids/show_existing_transaction_allocations_grid?transaction_header_id=#{transaction.id}',
   dataType: 'json',
   colModel : [
