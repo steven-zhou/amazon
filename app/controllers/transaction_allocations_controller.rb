@@ -43,8 +43,13 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Exception happen, please try again"
       end
     end
-
-    
+    @transaction_header = TransactionHeader.find(@transaction_header_id)
+    @transaction_allocations = @transaction_header.transaction_allocations
+    @transaction_allocation_value = 0
+    @transaction_allocations.each do |transaction_transaction|
+      @transaction_allocation_value += transaction_transaction.amount.to_i
+    end
+    @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
     respond_to do |format|
       format.js
     end
@@ -93,14 +98,14 @@ class TransactionAllocationsController < ApplicationController
       end
     end
     @transaction_header_id = @transaction_allocation.transaction_header_id
-
-    
-#    @temp_allocations = @current_user.all_temp_allocation
-#    @temp_allocation_value = 0
-#    @temp_allocations.each do |temp_transaction|
-#      @temp_allocation_value += temp_transaction.field_5.to_i
-#    end
-
+   
+    @transaction_header = @transaction_allocation.transaction_header
+    @transaction_allocations = @transaction_header.transaction_allocations
+    @transaction_allocation_value = 0
+    @transaction_allocations.each do |transaction_transaction|
+      @transaction_allocation_value += transaction_transaction.amount.to_i
+    end
+    @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
     respond_to do |format|
       format.js
     end

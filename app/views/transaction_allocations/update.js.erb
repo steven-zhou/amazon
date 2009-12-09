@@ -3,6 +3,8 @@ $('#edit_add_new_transaction_allocation').html('<%= escape_javascript(render(:pa
 $('#edit_existing_transaction_allocations').html('<%= escape_javascript(render(:partial => "/transaction_allocations/existing_transaction_allocations", :locals => {:transaction_header_id => @transaction_header_id})) %>');
 $('#edit_transaction_allocation_mode').attr('mode', 'show');
 $('#edit_edit_transaction_allocation').css('display','none');
+$("#edit_temp_allocation_total_amount_value").html('<%= escape_javascript("#{@transaction_allocation_value}")%>');
+$('#existing_unbanked_transactions').html('<%= escape_javascript(render(:partial => "/transactions/existing_transactions", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
