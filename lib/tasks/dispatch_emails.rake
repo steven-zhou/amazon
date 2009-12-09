@@ -7,8 +7,8 @@ namespace :db do
   desc "Send the next email that has a pending status."
   task :send_pending_emails  => :environment do
 
-    
-    email = BulkEmail.find(:first, :conditions => "dispatch_date IS NULL")
+    # Only
+    email = BulkEmail.find(:first, :conditions => ["dispatch_date IS NULL AND to_be_removed = ? AND status = ?", false, true] )
 
     while !email.nil?
 
@@ -24,7 +24,7 @@ namespace :db do
 
       debug("Finished dispatching email.")
 
-      email = BulkEmail.find(:first, :conditions => "dispatch_date IS NULL")
+      email = BulkEmail.find(:first, :conditions => ["dispatch_date IS NULL AND to_be_removed = ? AND status = ?", false, true] )
 
     end
     

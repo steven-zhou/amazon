@@ -535,17 +535,7 @@ $(function(){
     });
 });
 
-$(function(){
-    $(".check_delete ").live('click', function(){
 
-        $.ajax({
-            type: "GET",
-            url: "/keywords/check_destroy.js",
-            data: 'id=' + $(this).attr("keyword_id"),
-            dataType: "script"
-        });
-    });
-});
 
 /*check contact input field change or not*/
 

@@ -6,7 +6,11 @@ module KeywordsHelper
     #options_for_select keywords.collect{|keyword| [keyword.name, keyword.id]}
     options = ""
     keywords.each do |keyword|
+      if keyword.to_be_removed == false
       options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.description}'>#{keyword.name}</option>"
+      else
+      options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name} red' remark='#{h keyword.description}'>#{keyword.name}</option>"
+      end
     end
     return options
   end
@@ -14,7 +18,7 @@ module KeywordsHelper
   #Returns keywords not belonging to a user as options
   def unselected_keyword_options(person)
     options = ""
-    keywords = Keyword.find(:all, :conditions => ["status =true"]) - person.keywords
+    keywords = Keyword.find(:all, :conditions => ["status =true AND to_be_removed = false"]) - person.keywords
     keywords.each do |keyword|
       options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.description}'>#{keyword.name}</option>"
     end
