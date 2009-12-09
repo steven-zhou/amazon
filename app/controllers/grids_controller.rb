@@ -2385,12 +2385,12 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @transaction = TransactionHeader.find(:all,
-        :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]],
+        :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
+      count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
     end
 
     # User provided search terms
