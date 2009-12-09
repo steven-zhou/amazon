@@ -99,4 +99,20 @@ class KeywordsController < ApplicationController
       format.js
     end
   end
+
+
+  def retrieve
+     keyword = Keyword.find(params[:id])
+     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Keyword with ID #{keyword.id}.")
+     keyword.to_be_removed = false
+     keyword.save!
+
+      respond_to do |format|
+      format.js
+      end
+
+  end
+
+
+
 end

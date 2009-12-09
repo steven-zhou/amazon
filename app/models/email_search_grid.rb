@@ -1,0 +1,3 @@
+class EmailSearchGrid < Grid
+  
+end
