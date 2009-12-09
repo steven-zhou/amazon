@@ -92,6 +92,7 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Exception happen, please try again"
       end
     end
+    @transaction_header_id = @transaction_allocation.transaction_header_id
 
     
 #    @temp_allocations = @current_user.all_temp_allocation
