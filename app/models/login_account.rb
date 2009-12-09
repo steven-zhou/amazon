@@ -149,5 +149,8 @@ class LoginAccount < ActiveRecord::Base
     self.login_status?
   end
 
+  def all_temp_allocation
+    TempTransactionAllocationGrid.find_all_by_login_account_id(self.id)
+  end
 
 end

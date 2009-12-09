@@ -1,14 +1,6 @@
 %script{:type => "text/javascript"}
   :plain
-    $(function() {
-      $('.new_email_required_field').keyup(function() {
-          if($('#new_email_subject').val() == null || $('#message_template_id').val() == null || $('#list_header_id').val() == '') {
-              $('#new_email_submit').attr('disabled', true);
-          } else {
-              $('#new_email_submit').removeAttr('disabled');
-          }
-      });
-    });
+
 
 .full_container#email_maintenance_search
 
@@ -18,10 +10,10 @@
       .form_line
         .field_20
           = f.label :start_date, "Start Date"
-          %input{:name => "start_date", :style => "width:82% !important;",:id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
+          %input{:name => "start_date", :style => "width:82% !important;",:id => "email_maintenance_start_date", :class => "startdatepick", :end_date => "email_maintenance_end_date"}
         .field_20
           = f.label :end_date, "End Date"
-          %input{:name => "end_date", :style => "width:82% !important;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
+          %input{:name => "end_date", :style => "width:82% !important;", :id => "email_maintenance_end_date", :class => "enddatepick", :start_date => "email_maintenance_start_date"}
       .form_line
         .field_20
           = f.label :to_be_removed, 'To Be Removed'
@@ -34,6 +26,9 @@
           = f.check_box :status, :checked => false
 
     = submit_tag "Submit", :id => "email_maintenance_search_submit"
+
+
+.full_container#email_maintenance_search_results{:style => "display:none;"}
 
 
 

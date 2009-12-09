@@ -3,6 +3,7 @@ $('#add_new_transaction_allocation').html('<%= escape_javascript(render(:partial
 $('#existing_transaction_allocations').html('<%= escape_javascript(render(:partial => "/transaction_allocations/existing_transaction_allocations")) %>');
 $('#transaction_allocation_mode').attr('mode', 'show');
 $('#edit_transaction_allocation').css('display','none');
+$("#temp_allocation_total_amount_value").html('<%= escape_javascript("#{@temp_allocation_value}")%>');
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
