@@ -2,6 +2,7 @@ class TransactionsController < ApplicationController
   # System Log stuff added
 
   def personal_transaction
+    session[:module] = "receipting"
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_lists
     @list_header = ListHeader.find(session[:current_list_id])
@@ -14,7 +15,8 @@ class TransactionsController < ApplicationController
     end
   end
 
-  def organisational_transaction    
+  def organisational_transaction
+    session[:module] = "receipting"
     @organisation = Organisation.find(session[:current_organisation_id])
     @o = Organisation.find(:all, :order => "id")
     session[:entity_type] = "Organisation"
@@ -58,6 +60,64 @@ class TransactionsController < ApplicationController
 
       end
 
+    end
+  end
+
+  def show_personal_transaction
+   
+    @current_tab_id = params["current_tab_id"]
+
+    
+    if request.post?
+      #find the list in top
+      @list_header = ListHeader.find(params[:list_header_id])
+
+      # params person_id not blank then pass it to params[:id]
+      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+
+      c1 = Array.new
+
+      #find all people in the lis
+      c1 = @list_header.people_on_list  
+      @person = Person.find_by_id(params[:id].to_i)
+      unless c1.include?(@person)
+        #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
+        @person = @list_header.people_on_list.first 
+      else
+        #if you type the right id of people which is valid in the list
+        @person 
+      end
+
+      session[:entity_id] = @person.id
+      session[:entity_type] = "Person"
+      session[:current_person_id] = @person.id
+      session[:current_list_id] = @list_header.id
+
+      @p = Array.new
+      @p = @list_header.people_on_list
+      @list_headers = @current_user.all_lists
+    else
+      #request.get
+      @list_header = ListHeader.find(session[:current_list_id])
+      @p = @list_header.people_on_list
+      @list_headers = @current_user.all_lists
+      @current_person = Person.find(session[:current_person_id])
+      @person = case params[:target]
+      when 'First' then @p[0]
+      when 'Previous' then @p.at((@p.index(@current_person))-1)
+      when 'Next' then @p.index(@current_person) != @p.index(@p.last) ? @p[@p.index(@current_person)+1] : @p.first
+      when 'Last' then @p.fetch(-1)
+      end
+      session[:entity_id] = @person.id
+      session[:entity_type] = "Person"
+      session[:current_person_id] = @person.id
+      session[:current_list_id] = @list_header.id
+    end
+
+
+
+    respond_to do |format|
+      format.js
     end
   end
 

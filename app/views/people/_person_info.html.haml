@@ -42,6 +42,11 @@
           %h1 Website
           #contact_website
             = render :partial => '/people/person_contact', :collection => @person.websites
+      -if !@person.instant_messagings.blank?
+        .container
+          %h1 IM
+          #contact_instant_messaging
+            = render :partial => '/people/person_contact', :collection => @person.instant_messagings
   #Keyword
     .container
       -#.header_container

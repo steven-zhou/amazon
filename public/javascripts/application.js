@@ -1526,13 +1526,8 @@ $(function(){
     }).attr("rel", "nofollow");
 });
 
-
-$(function(){
-    $('#lol a').live('click', function(){
-
-        var link = $(this);
-
-        right_tab = $("#content #right_content").find("#tabs");
+lolanavigation = function(link){
+    right_tab = $("#content #right_content").find("#tabs");
         //         alert(right_tab.length);
         if(right_tab.length > 0)
         {
@@ -1640,6 +1635,12 @@ $(function(){
             $('#warning_message').dialog('open');
             return false;
         }
+};
+
+$(function(){
+    $('#lol a').live('click', function(){
+
+        lolanavigation($(this));
     }).attr("rel", "nofollow");
 });
 
@@ -2342,6 +2343,7 @@ $(function(){
         {
             $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
+            $('#current_tab_id').val(link.attr('field'));
         }
         else
         {
@@ -2363,6 +2365,7 @@ $(function(){
                     Yes: function(){
                         $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('#current_tab_id').val(link.attr('field'));
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -2515,7 +2518,28 @@ $(function(){
     });
 });
 
+/*matain---geo_area*/
+$(function(){
+    $(".select_ajax_call").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("url")+".js",
+                data: 'param1='+$(this).val()+'&type='+$(this).attr('type_class'),
+                dataType: "script"
+            });
+        }else{
 
+            $('#add_new_'+ $(this).attr('field')).html('');
+            if($(this).attr('field')=="postcode"){
+                $('#existing_postcodes').html('');
+            }else{
+                $('#existing_'+ $(this).attr('field')).html('');
+            }
+            $('#edit_'+ $(this).attr('field')+'_form').html('');
+        }
+    });
+});
 
 // Feedback - which is used throughout the system
 

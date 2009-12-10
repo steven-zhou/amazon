@@ -1,0 +1,19 @@
+<% if @instant_messaging.errors.empty? -%>
+  <%if @organisation.nil? -%>
+    $('#im_type').html('<%= escape_javascript(render(:partial => "instant_messagings/personal_instant_messaging_type" ,:locals => {:instant_messaging => @instant_messaging_new})) %>');
+    $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+    $('.person_contact_close').css("display","none");
+  <% else %>
+    $('#im_type').html('<%= escape_javascript(render(:partial => "instant_messagings/organisation_personal_instant_messaging_type" ,:locals => {:instant_messaging => @instant_messaging_new})) %>');
+    $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
+       $('.close_option[field="contact"]').css("display","none");
+  <% end -%>
+  $("#new_instant_messaging")[0].reset();
+  $("#new_contact").hide();
+  
+  $('#contact_hidden_tab').attr('mode','show');
+  $('.person_contact_toggle_button').css("display","");
+  $('#<%= dom_id(@instant_messaging) %>').effect('slide', {direction:'right'});
+  $('#contact_mode').attr('mode', 'show');
+  $('.new_option[field="contact"]').css("display","");
+<% end -%>
