@@ -372,36 +372,6 @@ $(function(){
     $("#submit_website_field_edit").live('click', check_website_field_edit);
 });
 
-/*  Address Post Code */
-$(function(){
-    $('table#address_postcode tbody tr').live('dblclick',function(){
-        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-
-        $.ajax({
-            type: 'GET',
-            url: "/people/"+$(this).attr('id').substring(3)+"/postcode_look_up.js",
-            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3")+'&update_field4='+$("#address_postcode_input").attr("update_field4"),
-            dataType: "script"
-        });
-        $('#address_form_assistant').dialog('close');
-    });
-});
-
-
-$(function(){
-    $('table#address_postcode tbody tr').live('click',function(){
-        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-    });
-});
-
-$(function(){
-    $('table#address_postcode tbody tr').live('mouseover', function(){
-        $(this).css('cursor', "pointer");
-    });
-});
-
 /* Organisation Lookup*/
 $(function(){
     $(".organisation_lookup").live('click', function(){

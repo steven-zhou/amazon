@@ -1019,6 +1019,7 @@ $(function(){
 
 $(function(){
     $('.new_option').live('click',function(){
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
         $("#" + $(this).attr('field')+'_mode').attr('mode','new');
         $(this).css("display","none");
         $('.close_option[field='+ $(this).attr('field') +']').css("display","");
@@ -1787,32 +1788,6 @@ $(function(){
 
 // Address assistant //
 
-//$(document).ready(function() {
-//    $('#address_assistant').dataTable( {
-//        "iDisplayLength":10,
-//        "bLengthChange": false,
-//        "bAutoWidth":false,
-//        "bFilter":false,
-//        "aoColumns": [
-//        {
-//            "sWidth":"40%"
-//        },
-//
-//        {
-//            "sWidth":"13%"
-//        },
-//
-//        {
-//            "sWidth":"22%"
-//        },
-//
-//        {
-//            "sWidth":"25%"
-//        }
-//        ]
-//    });
-//});
-
 $(document).ready(function() {
 
     $('.launch_address_assistant').live('click', function() {
@@ -1831,16 +1806,34 @@ $(document).ready(function() {
 });
 
 $(function(){
-    $('table#address_assistant tbody tr').live('click',function(){
-        $('table#address_assistant tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
+    $('table#address_postcode tbody tr').live('dblclick',function(){
+        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
 
-    });
-
-    $('table#address_assistant tbody tr').live('mouseover',function(){
-        $(this).css("cursor", "pointer");
+        $.ajax({
+            type: 'GET',
+            url: "/people/"+$(this).attr('id').substring(3)+"/postcode_look_up.js",
+            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3")+'&update_field4='+$("#address_postcode_input").attr("update_field4"),
+            dataType: "script"
+        });
+        $('#address_form_assistant').dialog('close');
     });
 });
+
+
+$(function(){
+    $('table#address_postcode tbody tr').live('click',function(){
+        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+$(function(){
+    $('table#address_postcode tbody tr').live('mouseover', function(){
+        $(this).css('cursor', "pointer");
+    });
+});
+
 
 $(function(){
     $('.address_assistant_search').keyup(function() {

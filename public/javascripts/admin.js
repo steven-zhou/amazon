@@ -2329,23 +2329,6 @@ $(function(){
 
 
 
-/*bank setting*/
-$(function(){
-    $('#open_add_new_bank').click(function(){
-        $('#add_new_bank').css('display','');
-        $('#open_add_new_bank').css('display','none');
-        $('#close_add_new_bank').css('display','');
-    });
-});
-
-$(function(){
-    $('#close_add_new_bank').click(function(){
-        // $('#add_new_bank').hide();
-        // $('#open_add_new_bank').show();
-        // $('#close_add_new_bank').hide();
-        });
-});
-
 $(function(){
 
     $('#delete_bank_entry').live('click', function(){
