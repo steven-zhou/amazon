@@ -31,7 +31,7 @@
       = f.collection_select :receipt_type_id, ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", ReceiptMetaMetaType.first.id]), :id, :name
 
     .field_15
-      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Type"
+      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
       = f.collection_select :received_via_id, ReceivedVia.all, :id, :name
 
   #edit_transaction_payment_form
