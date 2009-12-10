@@ -2369,7 +2369,8 @@ end
           u.receipt_meta_type_name,
           u.receipt_type_name,
           u.notes,
-          u.total_amount]}}
+          currencify(u.total_amount)
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2498,7 +2499,7 @@ end
           u.field_2,
           u.field_3,
           u.field_4,
-          u.field_5,
+          currencify(u.field_5),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

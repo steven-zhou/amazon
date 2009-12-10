@@ -28,7 +28,7 @@
           <%- end %>
           <%- if session[:module] != "receipting" %>
             <li class="module_menu_item"><%= link_to "#{image_tag('/images/icon_holder.png')} Receipting", :controller => "module", :action => "receipting"  %></li>
-          <%- end %>  
+          <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
           <%- end %>
@@ -53,24 +53,24 @@
       <%= link_to image_tag('Icons/System/sysbar_dashboard.png'), {:controller => "module", :action => "dashboard"}, {:title=>"Dashboard"}%>
     </div>
     <div id="user_preferences">
-    <div id="preferences_menu">
-      <div id="preferences_menu_top">
-        <%= link_to_function image_tag('Icons/System/user_preferences.png'), :title=>"User Preferences", :id => "user_preferences"%>
-      </div>
-      <div id="preferences_menu_items" style="display:none;" >
+      <div id="preferences_menu">
+        <div id="preferences_menu_top">
+          <%= link_to_function image_tag('Icons/System/user_preferences.png'), :title=>"User Preferences", :id => "user_preferences"%>
+        </div>
+        <div id="preferences_menu_items" style="display:none;" >
           <div id="preferences_menu_neck" ></div>
-        <ul>
-          <%- if session[:module] == "dashboard" %>
-            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
-          <%- end%>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
-          <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
-        </ul>
-        <div id="preferences_menu_bottom" ></div>
+          <ul>
+            <%- if session[:module] == "dashboard" %>
+              <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
+            <%- end%>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
+          </ul>
+          <div id="preferences_menu_bottom" ></div>
+        </div>
       </div>
     </div>
-    </div>
-    </div>
+  </div>
 
   <div class="bar_section" id="search">
     <input value ="Search System" size ="20" disabled>
@@ -124,4 +124,9 @@
 </div>
 <div id="check_right_input_change_or_not" >
   <input type="hidden" name="check_right_input_change" id="check_right_input_change" value="false" />
+</div>
+
+<div id='address_form_assistant' style='display:none;'>
+  <table id='address_postcode'></table>
+  <input id='address_postcode_input' style='display:none' update_field1=' ' update_field2=' ' update_field3=' ' update_field4=' ' />
 </div>
