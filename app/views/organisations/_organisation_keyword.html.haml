@@ -2,6 +2,6 @@
 -div_for(organisation_keyword, :class => 'header_container') do
   %div
     .title
-      %h2= organisation_keyword.keyword_type.name unless (organisation_keyword.blank? || organisation_keyword.keyword_type.nil?)
+      %h2{:class=>("red" if organisation_keyword.keyword_type.to_be_removed == true)}= organisation_keyword.keyword_type.name unless (organisation_keyword.blank? || organisation_keyword.keyword_type.nil?)
   %div{:style => "float:right;"}
     = format_keyword(organisation_keyword)
