@@ -2,7 +2,7 @@
   .form_line
     .field_15
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
-      = f.collection_select :field_1, ReceiptAccount.all, :id, :name
+      = f.collection_select :field_1, ReceiptAccount.all, :id, :name, {:selected => transaction_allocation_grid.field_1.to_i}
 
     .field_15
       = f.label :field_2, "Campaign"
@@ -51,4 +51,7 @@
           %label Cluster Name
           .display_field_bg
             %div{:id => transaction_allocation_grid.new_record? ? "cluster_name" : "cluster_name_edit" }
-  = submit_tag '   Add   ', :id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button", :disabled => transaction_allocation_grid.new_record? ? true : false
+  -if transaction_allocation_grid.new_record?
+    = submit_tag '   Add   ', :id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button", :disabled => transaction_allocation_grid.new_record? ? true : false
+  - else
+    = submit_tag '  Update  ', :id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button", :disabled => transaction_allocation_grid.new_record? ? true : false

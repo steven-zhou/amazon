@@ -142,7 +142,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :religions
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  
-  map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get}
+  map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get, :show_personal_transaction => :get}
 
   map.resources :transaction_headers, :collection => {:page_initial => :get}
   map.resources :transaction_allocations, :collection => {:temp_create => :post}, :member => {:temp_edit => :get, :temp_update => :put}

@@ -57,11 +57,11 @@
         }
     });
 
-- form_for :campaign, @campaign, :url => { :action => "create_campaign" }, :html => {:class => 'ajax_form'}  do |f|
+- form_for :campaign, @campaign, :url => { :action => "create_campaign" }, :html => {:class => 'ajax_form', :id => "campaign_form", :submit_button_id => "new_campaign_submit"}  do |f|
   .form_line
     .field_15
       = f.label :long_name, "<span class='asterisk'>*</span> Name", :class => "required_field"
-      = f.text_field :name, :class => "new_campaign_required_field", :id => "new_campaign_name"
+      = f.text_field :name, :class => "compulsory_field", :id => "new_campaign_name"
     .field_30
       = f.label :description, "Description"
       = f.text_field :description
@@ -72,10 +72,10 @@
   .form_line
     .field_22
       %label <span class='asterisk'>*</span> Start Date
-      %input{:name => "start_date", :style => "width:82% !important;", :id => "new_campaign_start_date", :class => "startdatepick", :end_date => "new_campaign_end_date"}
+      %input{:name => "start_date", :style => "width:82% !important;", :id => "new_campaign_start_date", :class => "startdatepick compulsory_field", :end_date => "new_campaign_end_date"}
     .field_22
       %label <span class='asterisk'>*</span> End Date
-      %input{:name => "end_date", :style => "width:82% !important;", :id => "new_campaign_end_date", :class => "enddatepick", :start_date => "new_campaign_start_date"}
+      %input{:name => "end_date", :style => "width:82% !important;", :id => "new_campaign_end_date", :class => "enddatepick compulsory_field", :start_date => "new_campaign_start_date"}
   .form_line
     .field_30
       = f.label :remarks, "Remarks"
