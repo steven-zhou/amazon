@@ -1,0 +1,15 @@
+$('#email_maintenance_search_results').html('');
+$('#email_maintenance_search_results').hide();
+
+$('#email_maintenance_update_options').hide();
+
+$('#email_maintenance_display_email').html('');
+$('#email_maintenance_display_email').hide();
+
+$('#email_maintenance_search').html('<%= escape_javascript(render(:partial => '/communication/email_maintenance_form')) %>');
+$('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
+$(function() {
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+}
+);
