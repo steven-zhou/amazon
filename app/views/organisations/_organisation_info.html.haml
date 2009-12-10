@@ -34,6 +34,11 @@
           %h2 Website
           #contact_website
             = render :partial => '/organisations/organisation_contact', :collection => @organisation.websites
+      -if !@organisation.instant_messagings.blank?
+        .container
+          %h2 IM
+          #contact_instant_messagings
+            = render :partial => '/organisations/organisation_contact', :collection => @organisation.instant_messagings
   #Keyword
     .container
       -#.header_container
