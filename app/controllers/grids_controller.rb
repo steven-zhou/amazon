@@ -2610,8 +2610,8 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.id,
-        :cell=>[u.id,
+    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
           u.field_1,
           u.field_2,
           u.field_3,
