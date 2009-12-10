@@ -31,7 +31,7 @@
       = f.collection_select :receipt_type_id, ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", ReceiptMetaMetaType.first.id]), :id, :name
 
     .field_15
-      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Type"
+      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
       = f.collection_select :received_via_id, ReceivedVia.all, :id, :name
 
   #transaction_payment_form
@@ -47,7 +47,7 @@
   = render :partial => "/transaction_allocations/new_transaction_allocation"
 
 #existing_transaction_allocations
-  = render :partial => "transaction_allocations/existing_transaction_allocations"
+  = render :partial => "transaction_allocations/existing_temp_transaction_allocations"
 
 #edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;width:100%;"}
   .tab_looking_left
@@ -67,4 +67,10 @@
     #edit_transaction_allocation_form
 
 
-= button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;"
+= button_to_function "Submit", :disabled => true, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;margin-top:10px;"
+
+#temp_allocation_total_amount.right{:style => "width:35%;margin-top:10px;"}
+  .display_field_bg.right{:style => "width:200px !important;"}
+    %div{:id => "temp_allocation_total_amount_value"}
+  %h2{:class => "float:right;"} Transaction Total:
+

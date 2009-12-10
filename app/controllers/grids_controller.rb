@@ -1,6 +1,25 @@
 class GridsController < ApplicationController
   # Nothing needed here for System Logs
 
+  # takes a number and options hash and outputs a string in any currency format
+def currencify(number, options={})
+  # :currency_before => false puts the currency symbol after the number
+  # default format: $12,345,678.90
+  options = {:currency_symbol => "$", :delimiter => ",", :decimal_symbol => ".", :currency_before => true}.merge(options)
+
+  # split integer and fractional parts
+  int, frac = ("%.2f" % number).split('.')
+  # insert the delimiters
+  int.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{options[:delimiter]}")
+
+  if options[:currency_before]
+    options[:currency_symbol] + int + options[:decimal_symbol] + frac
+  else
+    int + options[:decimal_symbol] + frac + options[:currency_symbol]
+  end
+end
+
+
   def people_search_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2344,13 +2363,13 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @transaction.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.transaction_date,
-          u.total_amount,
           u.receipt_number,
+          u.transaction_date,
           u.bank_account_name,
           u.receipt_meta_type_name,
           u.receipt_type_name,
-          u.notes]}}
+          u.notes,
+          u.total_amount]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2385,12 +2404,12 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @transaction = TransactionHeader.find(:all,
-        :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]],
+        :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
+      count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
     end
 
     # User provided search terms
@@ -2399,8 +2418,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
+        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2520,9 +2539,10 @@ class GridsController < ApplicationController
         :conditions => ["transaction_header_id=?", params[:transaction_header_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["campaign", "receipt_account", "source"]
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?",  params[:transaction_header_id]])
+      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?",  params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
@@ -2531,8 +2551,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]])
+        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
+        :include => ["campaign", "receipt_account", "source"])
+      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2541,15 +2562,88 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_account_id,
-          u.campaign_id,
-          u.source_id,
+          u.receipt_account.name,
+          u.campaign.name,
+          u.source_id.nil? ? "" : u.source.name,
           u.letter_id,
-          u.amount,
+          u.amount.nil? ? "0" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
 
+  end
+
+  def email_maintenance_search_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+
+      rp = 20
+
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @email_maintenance = EmailSearchGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+
+      count = EmailSearchGrid.count(:all)
+
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      @email_maintenance = EmailSearchGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+
+      count = EmailSearchGrid.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5,
+          u.field_6
+
+        ]}}
+
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
   end
 
 end

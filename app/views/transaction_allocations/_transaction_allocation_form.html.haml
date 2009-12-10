@@ -1,4 +1,4 @@
-- form_for transaction_allocation_grid, :url => {:controller => "transaction_allocations", :action => transaction_allocation_grid.new_record? ? "temp_create" : "update", :id => transaction_allocation_grid.id }, :html => {:class => "ajax_form", :submit_button_id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button"} do |f|
+- form_for transaction_allocation_grid, :url => {:controller => "transaction_allocations", :action => transaction_allocation_grid.new_record? ? "temp_create" : "temp_update", :id => transaction_allocation_grid.id }, :html => {:class => "ajax_form", :submit_button_id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button"} do |f|
   .form_line
     .field_15
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
@@ -17,8 +17,8 @@
       %select
 
     .field_15
-      = f.label :field_5, "<span class='asterisk'>*</span>Amount"
-      = f.text_field :field_5, :class => "compulsory_field integer_field"
+      = f.label :field_5, "<span class='asterisk'>*</span>Amount ($)"
+      = f.text_field :field_5, :class => "compulsory_field number_field"
   .full_container
     .options
       = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => transaction_allocation_grid.new_record? ? "bank_extension_form" : "bank_extension_form_edit"
