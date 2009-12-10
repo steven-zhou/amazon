@@ -119,7 +119,7 @@ class CommunicationController < ApplicationController
       @esg.field_2 = email.subject
       @esg.field_3 = email.created_at.strftime('%a %d %b %Y %H:%M:%S')
       @esg.field_4 = (email.dispatch_date.nil? ? "Not Dispatched" : "#{email.dispatch_date.strftime('%a %d %b %Y %H:%M:%S')}")
-      @esg.field_5 = (email.to_be_removed.nil? ? "True" : "False")
+      @esg.field_5 = (email.to_be_removed? ? "True" : "False")
       @esg.field_6 = (email.status? ? "Active" : "Inactive")
       @esg.save
     end
@@ -144,7 +144,7 @@ def show_email
 
 def modify_email
 
-    puts "***** Search terms were : SD #{params[:modify_email_start_date]} ED #{params[:modify_email_end_date]} TBR #{params[:modify_email_to_be_removed]} DD #{params[:modify_email_dispatch_date]} Status #{params[:modify_email_status]}"
+    # puts "***** Search terms were : SD #{params[:modify_email_start_date]} ED #{params[:modify_email_end_date]} TBR #{params[:modify_email_to_be_removed]} DD #{params[:modify_email_dispatch_date]} Status #{params[:modify_email_status]}"
 
     start_date = ((!params[:modify_email_start_date].nil? && !params[:modify_email_start_date].empty?) ? params[:modify_email_start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     end_date = ((!params[:modify_email_end_date].nil? && !params[:modify_email_end_date].empty?) ? params[:modify_email_end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
@@ -156,16 +156,16 @@ def modify_email
     update_dd = params[:email][:dispatch_date].to_i == 0 ? false : true
     update_status = params[:email][:status].to_i == 0 ? false : true
 
-    puts "***** Search terms now : SD #{start_date} ED #{end_date} TBR #{tbr} #{tbr.class} DD #{dd} #{dd.class} Status #{status} #{status.class}"
+    # puts "***** Search terms now : SD #{start_date} ED #{end_date} TBR #{tbr} #{tbr.class} DD #{dd} #{dd.class} Status #{status} #{status.class}"
 
-    puts "***** Updates are : TBR #{update_tbr} DD #{update_dd} Status #{update_status}"
+    # puts "***** Updates are : TBR #{update_tbr} DD #{update_dd} Status #{update_status}"
 
 
     query_string = dd ? "dispatch_date IS NOT NULL " : "dispatch_date IS NULL "
 
     @emails = BulkEmail.find(:all, :conditions => ["#{query_string} AND created_at >= ? AND created_at <= ? AND to_be_removed = ? AND status = ?", start_date, end_date, tbr, status])
 
-    puts "******* Emails : #{@emails.to_yaml}"
+    # puts "******* Emails : #{@emails.to_yaml}"
 
     for email in @emails do
       email.to_be_removed = update_tbr
@@ -176,7 +176,7 @@ def modify_email
       end
       email.status = update_status
       email.save
-      puts " ***** Email Updated #{email.to_yaml}"
+      # puts " ***** Email Updated #{email.to_yaml}"
     end
 
     flash[:message] = flash_message(:type => 'object_updated_successfully', :object => 'email')
