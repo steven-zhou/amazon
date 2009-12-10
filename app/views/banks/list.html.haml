@@ -10,7 +10,7 @@
       .options
         = link_to_function image_tag('/images/close_icon.png'), :style => "display:none;", :id => "", :class => "close_option", :field => "bank", :toggle_id_name => "add_new_bank", :title => "Close"
       .title
-        = link_to_function image_tag('/images/add_icon.png'), :size => "22x22", :style => "padding-bottom:7px;", :id => "open_add_new_bank", :class => "new_option", :field => "bank", :toggle_id_name => "add_new_bank"
+        = link_to_function image_tag('/images/add_icon.png'), :size => "22x22", :style => "padding-bottom:7px;", :id => "open_add_new_bank", :class => "new_option toggle_button", :field => "bank", :toggle_id_name => "add_new_bank"
       %h1{:style => "display:inline;"} &nbsp; New Bank
     %div#add_new_bank{:style => "display:none;float:left;"}
       = render :partial => 'form'
