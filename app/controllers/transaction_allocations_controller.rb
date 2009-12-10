@@ -115,6 +115,8 @@ class TransactionAllocationsController < ApplicationController
     @temp_transaction_allocation_grid = TempTransactionAllocationGrid.new(params[:temp_transaction_allocation_grid])
     @temp_transaction_allocation_grid.login_account_id = @current_user
     if @temp_transaction_allocation_grid.save
+      
+
 
 
       
