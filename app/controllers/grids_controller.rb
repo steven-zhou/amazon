@@ -2363,13 +2363,13 @@ end
     return_data[:total] = count
     return_data[:rows] = @transaction.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.transaction_date,
-          u.total_amount,
           u.receipt_number,
+          u.transaction_date,
           u.bank_account_name,
           u.receipt_meta_type_name,
           u.receipt_type_name,
-          u.notes]}}
+          u.notes,
+          u.total_amount]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2631,8 +2631,8 @@ end
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.id,
-        :cell=>[u.id,
+    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
           u.field_1,
           u.field_2,
           u.field_3,
