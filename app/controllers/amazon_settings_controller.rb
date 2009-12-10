@@ -79,6 +79,7 @@ class AmazonSettingsController < ApplicationController
   def new_setting
     @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
     @amazon_setting.update_attributes(params[:amazon_setting])
+    @amazon_setting.to_be_removed = false
     if @amazon_setting.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = "Saved successfully."
@@ -107,11 +108,16 @@ class AmazonSettingsController < ApplicationController
   def delete_system_data_entry
     amazon_setting = AmazonSetting.find(params[:id])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
-    amazon_setting.destroy
+    #amazon_setting.destroy
+
+    #if 'to_be_removed' is true, then this recored will be physically deleted from database in maintaince prgress
+    amazon_setting.to_be_removed = true
+    amazon_setting.save!
     respond_to do |format|
       format.js
     end
   end
+
 
   def new_keyword
     
@@ -121,4 +127,15 @@ class AmazonSettingsController < ApplicationController
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new keyword with ID #{@keyword_table.id}.")
   end
+
+  def retrieve
+    amazon_setting = AmazonSetting.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{amazon_setting.id}.")
+    amazon_setting.to_be_removed = false
+    amazon_setting.save!
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
