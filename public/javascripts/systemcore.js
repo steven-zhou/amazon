@@ -500,6 +500,13 @@ $(function(){
             $("#submit_website_field").attr('readonly','readonly')
         }
 
+        if($("#instant_messaging_contact_meta_type_id").val() == null)
+        {
+            $("#instant_messaging_value").attr('readonly','readonly');
+            $("#instant_messaging_remarks").attr('readonly','readonly');
+            $("#submit_instant_messaging_field").attr('readonly','readonly')
+        }
+
 
 
     });

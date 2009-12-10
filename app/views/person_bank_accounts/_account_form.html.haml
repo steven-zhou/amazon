@@ -2,10 +2,10 @@
   .field_25
     = account.label :account_id, "<span class='asterisk'>*</span>Bank ID"
     -#= account.collection_select(:bank_id, Bank.find(:all,:conditions=>["status = true"]), :id, :full_name)
-    = account.text_field :bank_id,:class=>"find_bank_field mandantory_field",:account_id=> @bank_accounts.new_record? ? 0 : @bank_accounts.id,:mandantory_field1=> @bank_accounts.new_record? ? "person_bank_account_bank_id" : "person_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "person_bank_account_account_number" : "person_bank_account_#{@bank_accounts.id}_account_number",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "person_account_edit_submit"
+    = account.text_field :bank_id,:class=>"find_bank_field mandantory_field",:account_id=> @bank_accounts.new_record? ? 0 : @bank_accounts.id,:mandantory_field1=> @bank_accounts.new_record? ? "person_bank_account_bank_id" : "person_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "person_bank_account_account_number" : "person_bank_account_#{@bank_accounts.id}_account_number",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "person_account_edit_submit", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
   .field_5
     %label &nbsp;                                                
-    = link_to_function image_tag("Icons/System/search.png"), :class => "bank_lookup", :update_field => @bank_accounts.new_record? ? "person_bank_account_bank_id":"person_bank_account_#{@bank_accounts.id}_bank_id" , :title=>"Search"
+    = link_to_function image_tag("Icons/System/search.png"), :class => "bank_lookup", :update_field => @bank_accounts.new_record? ? "person_bank_account_bank_id":"person_bank_account_#{@bank_accounts.id}_bank_id" , :title=>"Search",:disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
   .field_45
     %label &nbsp;
     -if (@bank_accounts.new_record?)
@@ -22,18 +22,18 @@
         %span{:class=>"viewname", :id=>@bank_accounts.new_record? ? "bank_bsb_container_0" : "bank_container_bsb_#{@bank_accounts.id}"} #{@bank_accounts.bank.branch_number}
   .field_40
     = account.label :person_account_number, "<span class='asterisk'>*</span>Account number"
-    = account.text_field :account_number,:class=>"mandantory_field",:mandantory_field1=> @bank_accounts.new_record? ? "person_bank_account_bank_id" : "person_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "person_bank_account_account_number" : "person_bank_account_#{@bank_accounts.id}_account_number",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "person_account_edit_submit"
+    = account.text_field :account_number,:class=>"mandantory_field",:mandantory_field1=> @bank_accounts.new_record? ? "person_bank_account_bank_id" : "person_bank_account_#{@bank_accounts.id}_bank_id",:mandantory_field2=>@bank_accounts.new_record? ? "person_bank_account_account_number" : "person_bank_account_#{@bank_accounts.id}_account_number",:submit_button_id=>@bank_accounts.new_record? ? "account_new_submit" : "person_account_edit_submit",:disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
 .form_line
   .field_25
     = account.label :person_account_type, "<span class='asterisk'>*</span>Account Type"
-    = account.collection_select(:account_type_id, AccountType.find(:all), :id, :name)
+    = account.collection_select(:account_type_id, AccountType.find(:all), :id, :name,{},{:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
   .field_30
     = account.label :person_account_purpose_id, "Purpose"
-    = account.collection_select(:account_purpose_id, AccountPurpose.find(:all), :id, :name)
+    = account.collection_select(:account_purpose_id, AccountPurpose.find(:all), :id,:name,{},{:disabled => (true if !@bank_accounts.status and !@bank_accounts.new_record?)})
   .field_15
     = account.label :person_account_status, "Active"
-    = account.check_box :status,:checked => true
+    = account.check_box :status,:checked => (true if @bank_accounts.status or @bank_accounts.new_record?)
 .form_line
   .field_60
     = account.label :remarks, 'Remarks'
-    = account.text_field :remarks
+    = account.text_field :remarks,:disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
