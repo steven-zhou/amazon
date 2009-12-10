@@ -2520,9 +2520,10 @@ class GridsController < ApplicationController
         :conditions => ["transaction_header_id=?", params[:transaction_header_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["campaign", "receipt_account", "source"]
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?",  params[:transaction_header_id]])
+      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?",  params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
@@ -2531,8 +2532,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]])
+        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
+        :include => ["campaign", "receipt_account", "source"])
+      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2541,11 +2543,11 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_account_id,
-          u.campaign_id,
-          u.source_id,
+          u.receipt_account.name,
+          u.campaign.name,
+          u.source_id.nil? ? "" : u.source.name,
           u.letter_id,
-          u.amount,
+          u.amount.nil? ? "0" : "#{number_to_currency(u.amount)}",
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
