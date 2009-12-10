@@ -1,12 +1,12 @@
--# locals => {}
+-# locals => {:transaction_header_id}
 
 %h2 Allocations
 
-%table#show_temp_transaction_allocation_grid
+%table#show_existing_transaction_allocations_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_temp_transaction_allocation_grid").flexigrid({
-  url: '/grids/temp_transaction_allocation_grid',
+  $("#show_existing_transaction_allocations_grid").flexigrid({
+  url: '/grids/show_existing_transaction_allocations_grid?transaction_header_id=#{transaction_header_id}',
   dataType: 'json',
   colModel : [
   {
@@ -19,7 +19,7 @@
 
   {
   display: 'Receipt Account',
-  name : 'field_1',
+  name : 'receipt_account_id',
   width : 100,
   sortable : true,
   align: 'left'
@@ -27,7 +27,7 @@
 
   {
   display: 'Campaign',
-  name : 'field_2',
+  name : 'campaign_id',
   width : 100,
   sortable : true,
   align: 'left'
@@ -35,7 +35,7 @@
 
   {
   display: 'Source',
-  name : 'field_3',
+  name : 'source_id',
   width : 80,
   sortable : true,
   align: 'left'
@@ -43,7 +43,7 @@
 
   {
   display: 'Letter',
-  name : 'field_4',
+  name : 'letter_id',
   width : 100,
   sortable : true,
   align: 'left'
@@ -51,7 +51,7 @@
 
   {
   display: 'Amount',
-  name : 'field_5',
+  name : 'amount',
   width : 100,
   sortable : true,
   align: 'left'
@@ -59,28 +59,28 @@
   ],
   searchitems : [
   {
-  display: 'Receipt Account',
-  name : 'field_1'
+  display: 'Receipt Type',
+  name : 'receipt_type_id'
   },
 
   {
   display: 'Campaign',
-  name : 'field_2'
+  name : 'campaign_id'
   },
 
   {
   display: 'Source',
-  name : 'field_3'
+  name : 'source_id'
   },
 
   {
   display: 'Letter',
-  name : 'field_4'
+  name : 'letter_id'
   },
 
   {
   display: 'Amount',
-  name : 'field_5'
+  name : 'amount'
   }
   ],
   sortname: "id",
