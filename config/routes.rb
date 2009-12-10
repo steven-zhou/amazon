@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
-  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
+  map.resources :amazon_settings, :member => {:retrieve => :get} ,:collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post, :role_condition_show_roles => :get, :condition_meta_type_finder => :get, :doc_type_finder => :get, :page_initial => :get, :condition_dictionary_page_initial => :get}
