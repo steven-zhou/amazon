@@ -11,7 +11,7 @@ class AddressType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_address_type
-    @address_type = AddressType.find(:all, :conditions => ["status = true"], :order => 'name')
+    @address_type = AddressType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

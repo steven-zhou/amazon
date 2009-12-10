@@ -2,7 +2,7 @@
 -div_for(address, :class => 'header_container toggle_options',:field => "address") do
   %div
     .title
-      %h2= address.address_type.name
+      %h2{:class=>("red" if address.address_type.to_be_removed == true)}= address.address_type.name
     .options{:class => 'person_address_edit_delete person_tag', :style => "display:none;"}
       -if(address.addressable_type == "Person")
         -if(address.priority_number==1)
