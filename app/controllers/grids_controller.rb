@@ -2399,8 +2399,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
+        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2610,8 +2610,8 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.id,
-        :cell=>[u.id,
+    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
           u.field_1,
           u.field_2,
           u.field_3,

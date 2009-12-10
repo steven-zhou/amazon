@@ -1,0 +1,21 @@
+.full_container
+  = link_to_function(image_tag('close_icon.png'), :style => "float:right;", :id => "close_email_message")
+  %h2 Email Message
+  .form_line
+    .field_80
+      = label :from, "To"
+      = @email.to
+  .form_line
+    .field_80
+      = label :from, "From"
+      = @email.from
+  .form_line
+    .field_40
+      = label :subject, "Subject"
+      = @email.subject
+  .form_line
+    .field_80
+      = label :subject, "Body"
+      = @email.body
+
+

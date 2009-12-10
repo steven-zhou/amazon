@@ -1,5 +1,36 @@
 %script{:type => "text/javascript"}
   :plain
+    $(function(){
+        $('table#email_maintenance_search_grid tbody tr').live('dblclick',function(){
+            $('table#email_maintenance_search_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+            $.ajax({
+                type: 'GET',
+                url: "/communication/show_email/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        });
+    });
+
+    $(function(){
+        $('table#email_maintenance_search_grid tbody tr').live('click',function(){
+            $('table#email_maintenance_search_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        });
+    });
+
+    $(function(){
+        $('table#email_maintenance_search_grid tbody tr').live('mouserover', function(){
+            $(this).css('cursor',"pointer");
+        });
+    });
+
+    $(function(){
+        $('#close_email_message').live('click',function(){
+            $('#email_maintenance_display_email').hide();
+            $('#email_maintenance_update_options').show();
+        });
+    });
 
 
 .full_container#email_maintenance_search
@@ -30,5 +61,10 @@
 
 .full_container#email_maintenance_search_results{:style => "display:none;"}
 
+
+.full_container#email_maintenance_update_options{:style => "display:none;"}
+
+
+.full_container#email_maintenance_display_email{:style => "display:none;"}
 
 
