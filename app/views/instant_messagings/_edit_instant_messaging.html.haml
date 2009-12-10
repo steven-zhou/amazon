@@ -1,0 +1,11 @@
+-# The form to edit an phone
+-form_for @instant_messaging, :html => {:class => 'ajax_form edit_instant_messaging'} do |instant_messaging|
+  %div
+    .header_container
+      .title
+        %h1 Edit IM
+      .options
+        = link_to image_tag('close_icon.png'), instant_messaging_path(@instant_messaging), :class => 'get_close', :title=>"Close",:field => "contact"
+      %br.clear
+      = render :partial => 'instant_messaging_form', :locals => { :instant_messaging =>instant_messaging,:edit => "edit" }
+      = submit_tag 'Submit',:id=>"submit_instant_messaging_field_edit" , :check_field => "instant_messaging_value_edit"

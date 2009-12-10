@@ -10,6 +10,7 @@ class OrganisationsController < ApplicationController
     @organisation.faxes.build
     @organisation.emails.build
     @organisation.websites.build
+    @organisation.instant_messagings.build
     @image = Image.new
     @client_setup = ClientSetup.first
     #@postcodes = Postcode.find(:all)
@@ -48,6 +49,7 @@ class OrganisationsController < ApplicationController
     @other_websites = @organisation.other_websites
     @other_addresses = @organisation.other_addresses
     @notes = @organisation.notes
+    @instant_messaging = @organisation.instant_messagings
     
     
     OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -127,6 +129,7 @@ class OrganisationsController < ApplicationController
     @email = Email.new
     @fax = Fax.new
     @website = Website.new
+    @instant_messaging = InstantMessaging.new
     @masterdoc = MasterDoc.new
     @note = Note.new
     @note.active = TRUE
@@ -342,7 +345,9 @@ class OrganisationsController < ApplicationController
       @email = Email.new
       @fax = Fax.new
       @website = Website.new
+      @instant_messaging = InstantMessaging.new
       @masterdoc = MasterDoc.new
+
       @note = Note.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
       @organisation_group = OrganisationGroup.new

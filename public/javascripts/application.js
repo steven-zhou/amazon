@@ -2548,3 +2548,20 @@ $(function(){
     });
 });
 
+// Feedback - which is used throughout the system
+
+$(function(){
+    $("#reply_to_feedback").live('click', function(){
+        $("#reply_to_feedback").hide();
+        $("#feedback_reply").show();
+    });
+});
+
+$(function(){
+    $("#close_feedback").live('click', function(){
+        $("#feedback_reply").hide();
+        $("#reply_to_feedback").show();
+    });
+});
+
+

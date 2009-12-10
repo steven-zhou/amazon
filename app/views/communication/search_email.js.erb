@@ -1,5 +1,14 @@
 $(function(){
 
+
+<% if @emails.size == 0 -%>
+  $('#modify_email_submit').attr('disabled', true);
+<%- else  %>
+  $('#modify_email_submit').removeAttr('disabled');
+<% end -%>
+
+  $('#email_maintenance_display_email').hide();
+  $('#email_maintenance_update_options').show();
   $('#email_maintenance_search_results').show();
   $('#email_maintenance_search_results').html('<table id="email_maintenance_search_grid"></table>');
 

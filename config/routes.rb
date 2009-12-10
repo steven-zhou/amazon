@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :faxes
     person.resources :websites
     person.resources :emails
+    person.resources :instant_messagings
     person.resources :master_docs
     person.resources :images, :member => {:thumb => :get}
     person.resources :notes
@@ -43,6 +44,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :phones
     organisation.resources :faxes
     organisation.resources :websites
+    organisation.resources :instant_messagings
     organisation.resources :emails
     organisation.resources :master_docs
     organisation.resources :images, :member => {:thumb => :get}
@@ -58,11 +60,11 @@ ActionController::Routing::Routes.draw do |map|
 
   }
 
-  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :edit_message_template => :get, :new_message_template => :get, :update_message_template => :post, :send_email => :post, :search_email => :post, :show_email => :get }
+  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :edit_message_template => :get, :new_message_template => :get, :update_message_template => :post, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :get }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
-  map.resources :amazon_settings, :collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
+  map.resources :amazon_settings, :member => {:retrieve => :get} ,:collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post, :role_condition_show_roles => :get, :condition_meta_type_finder => :get, :doc_type_finder => :get, :page_initial => :get, :condition_dictionary_page_initial => :get}
@@ -117,6 +119,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
   map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get,:move_organisation_down_website_priority=>:get, :move_organisation_up_website_priority => :get}
+   map.resources :instant_messagings, :member => {:move_down_instant_messaging_priority =>:get, :move_up_instant_messaging_priority => :get,:move_organisation_down_instant_messaging_priority=>:get, :move_organisation_up_instant_messaging_priority => :get}
   map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}

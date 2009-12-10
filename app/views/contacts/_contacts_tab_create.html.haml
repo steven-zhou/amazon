@@ -14,3 +14,8 @@
     %h2 website
     #contact_website
       = render :partial => '/contacts/contact', :collection => @person.websites
+-if !@person.instant_messagings.blank?
+  .container
+    %h2 IM
+    #contact_im
+      = render :partial => '/contacts/contact', :collection => @person.instant_messagings

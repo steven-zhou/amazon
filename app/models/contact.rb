@@ -38,4 +38,8 @@ class Contact < ActiveRecord::Base
     ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("Website").id], :order => "name")
   end
 
+    def self.instant_messaging_types
+    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("IM").id], :order => "name")
+  end
+
 end

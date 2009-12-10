@@ -92,13 +92,6 @@ $(function(){
         //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
 
         $('#warning_message').dialog('open');
-
-
-
-
-
-
-
     });
 });
 
