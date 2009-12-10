@@ -1,6 +1,6 @@
 -# The main Account tab
 .container
-  .header_container
+  .header_container#add_new_account
     .options{:id => 'person_account_close_button'}
       = link_to_function image_tag('close_icon.png'), :class => "person_account_close clear_account_form", :field => "person_account", :toggle_id_name => "new_account", :style=>"display:none", :title=>"Close"
     .title

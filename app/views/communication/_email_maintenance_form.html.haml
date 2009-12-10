@@ -32,6 +32,153 @@
         });
     });
 
+    $(function(){
+        $('#email_maintenance_search_submit').live('click',function(){
+            $('#modify_email_start_date').val($('#email_maintenance_start_date').val());
+            $('#modify_email_end_date').val($('#email_maintenance_end_date').val());
+            $('#modify_email_to_be_removed').val($('#email_to_be_removed').attr("checked"));
+            $('#modify_email_dispatch_date').val($('#email_dispatch_date').attr("checked"));
+            $('#modify_email_status').val($('#email_status').attr("checked"));
+        });
+    });
+
+    $('.startdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+        },
+        onSelect: function(){
+            $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $(this).keyup();
+        }
+    });
+
+    $('.enddatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+    $('.datepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        onClose: function(){
+            $(this).keyup();
+        }
+    });
+
+    $('.beforestartdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+    $('.role_startdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+            var arr_dateText_start = $("#"+$(this).attr("start_date")).val().split("-");
+            day_start = arr_dateText_start[0];
+            month_start = arr_dateText_start[1];
+            year_start = arr_dateText_start[2];
+            if(year_start!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year_start, month_start-1, day_start));
+            }
+        },
+        onSelect: function(){
+            $("#"+$(this).attr("end_date")).datepicker('enable');
+
+        },
+        onClose: function(){
+             $(this).keyup();
+        }
+
+    });
+
+    $('.role_enddatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+
+
 
 .full_container#email_maintenance_search
 
@@ -48,13 +195,14 @@
       .form_line
         .field_20
           = f.label :to_be_removed, 'To Be Removed'
-          = f.check_box :to_be_removed, :checked => false
+          %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed'}
         .field_20
           = f.label :dispatch_date, 'Sent Already'
-          = f.check_box :dispatch_date, :checked => false
+          %input{:type => "checkbox", :name => 'dispatch_date', :id => 'email_dispatch_date'}
         .field_20
           = f.label :status, 'Active'
-          = f.check_box :status, :checked => false
+          %input{:type => "checkbox", :name => 'status', :id => 'email_status'}
+
 
     = submit_tag "Submit", :id => "email_maintenance_search_submit"
 
@@ -63,6 +211,26 @@
 
 
 .full_container#email_maintenance_update_options{:style => "display:none;"}
+  - form_for :email, nil, :url => { :action => "modify_email" }, :html => {:class => 'ajax_form', :id => "modify_email_form"}  do |f|
+    .full_container
+      %h2 Update Emails
+      %input{:id => "modify_email_start_date", :name => "modify_email_start_date", :style => "display:none;"}
+      %input{:id => "modify_email_end_date", :name => "modify_email_end_date", :style => "display:none;"}
+      %input{:id => "modify_email_to_be_removed", :name => "modify_email_to_be_removed", :style => "display:none;"}
+      %input{:id => "modify_email_dispatch_date", :name => "modify_email_dispatch_date", :style => "display:none;"}
+      %input{:id => "modify_email_status", :name => "modify_email_status", :style => "display:none;"}
+      .form_line
+        .field_20
+          = f.label :to_be_removed, 'To Be Removed'
+          = f.check_box :to_be_removed, :checked => false
+        .field_20
+          = f.label :dispatch_date, 'Sent Already'
+          = f.check_box :dispatch_date, :checked => false
+        .field_20
+          = f.label :status, 'Active'
+          = f.check_box :status, :checked => false
+
+    = submit_tag "Update", :id => "modify_email_submit"
 
 
 .full_container#email_maintenance_display_email{:style => "display:none;"}

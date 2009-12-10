@@ -10,7 +10,7 @@
           = link_to image_tag('delete_icon.png'), keyword_path(setting), :class => 'delete delete_keyword delete_option',:error_message_field => "Keyword", :field => "keyword", :id => 'keyword_delete_button', :keyword_id => setting.id, :title=>"Remove"
         - else
           = link_to image_tag('icon_holder.png'), retrieve_keyword_path(setting), :class => 'get',:error_message_field => "Keyword", :field => "keyword", :id => 'keyword_retrieve_button', :keyword_id => setting.id, :title=>"Retrieve"
-      .title                                     
+      .title
         %h3= h "#{setting.name}"
 #keyword_already_assigned{:style=> "display:none;"}
   =label_tag :keyword_already_assigned_warning_message, "keyword can not be deleted. It has been assigned."

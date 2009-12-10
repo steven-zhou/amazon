@@ -1,0 +1,10 @@
+  <%if @organisation.nil? -%>
+  $('#im_type').html('<%= escape_javascript(render(:partial => "instant_messagings/personal_instant_messaging_type" ,:locals => {:instant_messaging => @instant_messaging_new})) %>');
+  $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');
+  <% else %>
+  $('#website_type').html('<%= escape_javascript(render(:partial => "instant_messagings/organisation_personal_instant_messaging_type" ,:locals => {:instant_messaging => @instant_messaging_new})) %>');
+  $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/organisation_contacts_tab_create")) %>');
+  <% end -%>
+    $('.person_contact_edit_delete').css("display","none");
+  $('.person_contact_toggle_button').css("display","");
+  $('.person_contact_close').css("display","none");
