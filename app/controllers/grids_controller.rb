@@ -1,6 +1,25 @@
 class GridsController < ApplicationController
   # Nothing needed here for System Logs
 
+  # takes a number and options hash and outputs a string in any currency format
+def currencify(number, options={})
+  # :currency_before => false puts the currency symbol after the number
+  # default format: $12,345,678.90
+  options = {:currency_symbol => "$", :delimiter => ",", :decimal_symbol => ".", :currency_before => true}.merge(options)
+
+  # split integer and fractional parts
+  int, frac = ("%.2f" % number).split('.')
+  # insert the delimiters
+  int.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{options[:delimiter]}")
+
+  if options[:currency_before]
+    options[:currency_symbol] + int + options[:decimal_symbol] + frac
+  else
+    int + options[:decimal_symbol] + frac + options[:currency_symbol]
+  end
+end
+
+
   def people_search_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2547,7 +2566,7 @@ class GridsController < ApplicationController
           u.campaign.name,
           u.source_id.nil? ? "" : u.source.name,
           u.letter_id,
-          u.amount.nil? ? "0" : "#{number_to_currency(u.amount)}",
+          u.amount.nil? ? "0" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
