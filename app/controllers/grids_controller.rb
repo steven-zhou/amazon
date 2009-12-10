@@ -2399,8 +2399,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date], params[:end_date]])
+        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
     end
 
     # Construct a hash from the ActiveRecord result
