@@ -1,4 +1,4 @@
 $('#personal_transaction').html('<%= escape_javascript(render(:partial => "transactions/transation_template", :locals => {:title => "Person Transactions", :lol => "transactions/person_list_menu", :photo_info => "transactions/person_photo_info"})) %>');
-<%- if @current_tab_id == "history_tab"%>
-  $('.tab_switch_with_page_initial[field="history_page"]').click();
+<%- if @current_tab_id == "histroy_page"%>
+  $('a.tab_switch_with_page_initial[field='+ 'histroy_page'+']').click();
 <%- end %>

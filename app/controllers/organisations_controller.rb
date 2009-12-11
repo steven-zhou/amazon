@@ -29,9 +29,9 @@ class OrganisationsController < ApplicationController
 
   def show
 
-        #get active tabs
-        @active_tab = params[:active_tab]
-        @active_sub_tab = params[:active_sub_tab]
+    #get active tabs
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
         
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @o = Organisation.find(:all, :order => "id")
@@ -106,7 +106,7 @@ class OrganisationsController < ApplicationController
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       #@postcodes = Postcode.find(:all)
       flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-#      flash[:warning] = "Organisation Profile Has NOT been Created Due to Data Errors"
+      #      flash[:warning] = "Organisation Profile Has NOT been Created Due to Data Errors"
       redirect_to new_organisation_path
     end
   end
@@ -114,8 +114,8 @@ class OrganisationsController < ApplicationController
 
   def edit
 
-          @active_tab = params[:active_tab]
-        @active_sub_tab = params[:active_sub_tab]
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
     @current_user = LoginAccount.find(session[:user])
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
@@ -354,7 +354,7 @@ class OrganisationsController < ApplicationController
       @note = Note.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
       @organisation_group = OrganisationGroup.new
-       @bank_accounts = OrganisationBankAccount.new
+      @bank_accounts = OrganisationBankAccount.new
       @current_action = "edit"
       render 'show_edit_left.js'
      
@@ -454,8 +454,42 @@ class OrganisationsController < ApplicationController
     end
   end
 
+  def general_show_list
 
-   
+    @organisations = Organisation.find(:all, :order => "id")
+    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisations.each do |organisations|
+      @solg = ShowOrganisationListGrid.new
+      @solg.login_account_id = session[:user]
+      @solg.grid_object_id = organisations.id
+      @solg.field_1 = organisations.full_name
+      @solg.field_2 = organisations.short_name
+      @solg.field_3 = organisations.primary_address.first_line unless organisations.primary_address.blank?
+      @solg.field_4 = organisations.primary_phone.value unless organisations.primary_phone.blank?
+      @solg.field_5 = organisations.primary_email.address unless organisations.primary_email.blank?
+      @solg.save
+    end
+
+    @current_operation = params[:current_operation]
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def org_general_name_show
+
+    @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = Organisation.new    
+    @organisation = Organisation.new if @organisation.nil?  #handle the situation when @organisation return nil
+    @update_field = params[:update_field]# for name field updating
+    @input_field = params[:input_field]  #to clear the input field
+    respond_to do |format|
+      format.js
+    end
+  end
 
 
 end

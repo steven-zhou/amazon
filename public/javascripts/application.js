@@ -1299,7 +1299,7 @@ $(function(){
     $("#content input[type='text']").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
-        if (left_content.length > 0 &&  right_content.length > 0)
+        if ((left_content.length > 0 &&  right_content.length > 0) || $(this).attr("class").indexOf('change_without_check_js')>0)
         {
         }
         else
@@ -1570,7 +1570,7 @@ lolanavigation = function(link){
             {
                 $.ajax({
                     type: "GET",
-                    url: $(this).attr('url')+".js",
+                    url: link.attr('url')+".js",
                     data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
                     dataType: "script"
                 });
@@ -1611,7 +1611,7 @@ lolanavigation = function(link){
                         {
                             $.ajax({
                                 type: "GET",
-                                url: $(this).attr('url')+".js",
+                                url: link.attr('url')+".js",
                                 data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
                                 dataType: "script"
                             });
@@ -2457,6 +2457,7 @@ $(function(){
 });
 
 
+//for general use get the person name or organasation name
 $(function(){
     $(".general_name_show").live('change', function(){
         if($(this).val() != ""){
@@ -2464,6 +2465,21 @@ $(function(){
                 type: "GET",
                 url:"/people/general_name_show.js",
                 data:'person_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
+                dataType: "script"
+            });
+        }else{
+            $("#"+$(this).attr('update_field')).val("");
+        }
+    });
+});
+
+$(function(){
+    $(".org_general_name_show").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url:"/organisations/org_general_name_show.js",
+                data:'organisation_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
                 dataType: "script"
             });
         }else{
@@ -2556,4 +2572,199 @@ $(function(){
     });
 });
 
+
+// people-organisation show list reuse part and grid dbclick - click--reuse part
+
+
+
+
+/* Show list*/
+$(function(){
+    $(".general_show_all_list_member").live('click',function(){
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+            $.ajax({
+                type: "GET",
+                url: "/people/general_show_list.js",
+                data: 'person_id='+link.attr('person_id'),
+                dataType: "script"
+
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $.ajax({
+                            type: "GET",
+                            url: "/people/general_show_list.js",
+                            data: 'person_id='+link.attr('person_id'),
+                            dataType: "script"
+
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+    });
+});
+
+$(function(){
+    $(".general_show_all_list_member").live('mouseover',function(){
+        $(this).css("cursor","pointer");
+    });
+});
+
+
+/* Show Summary list*/
+$(function(){
+    $('table.selectable_grid tbody tr').live('click',function(){
+        var form_id = $(this).closest('table').get(0).id
+        if ($('#'+ form_id).attr('click_function') == "true"){
+            $.ajax({
+                type: 'GET',
+                url: $('#'+ form_id).attr('click_url'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+$('#'+ form_id).attr('params1'),
+                dataType: "script"
+            });
+        }
+        $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
+    });
+});
+
+$(function(){
+    $('table.selectable_grid tbody tr').live('dblclick',function(){
+        //        alert($('table#general_search_list_results').attr('db_click_function'))
+        var form_id = $(this).closest('table').get(0).id
+        if ($('#'+ form_id).attr('db_click_function') == "true")
+        {
+            $.ajax({
+                type: 'GET',
+                url: $('#'+ form_id).attr('db_click_url'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target'),
+                dataType: "script"
+            });
+        }
+
+        if ($('#'+ form_id).attr('db_close') == "true")
+        {
+            $('.ui-icon-closethick').click();
+        }
+    });
+});
+
+$(function(){
+    $('table.selectable_grid tbody tr').live('mouseover',function(){
+            $(this).css("cursor","pointer");
+    });
+});
+
+
+
+
+/*show_list orgnasation---*/
+$(function(){
+    $(".general_show_all_list_organisations").live('click',function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+
+            $.ajax({
+                type: "GET",
+                url: "/organisations/general_show_list.js",
+                data: 'organisation_id='+link.attr('organisation_id'),
+                dataType: "script"
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/organisations/general_show_list.js",
+                            data: 'organisation_id='+link.attr('organisation_id'),
+                            dataType: "script"
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+
+
+
+    });
+});
+
+$(function(){
+    $(".general_show_all_list_organisations").live('mouseover',function(){
+
+        $(this).css("cursor","pointer");
+    });
+});
 

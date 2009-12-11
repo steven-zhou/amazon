@@ -18,7 +18,7 @@
 
     .field_15
       = f.label :field_5, "<span class='asterisk'>*</span>Amount ($)"
-      = f.text_field :field_5, :class => "compulsory_field number_field"
+      = f.text_field :field_5, :class => "compulsory_field number_field", :value => number_to_currency(transaction_allocation_grid.field_5.to_f, :unit => "", :delimiter => "")
   .full_container
     .options
       = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => transaction_allocation_grid.new_record? ? "bank_extension_form" : "bank_extension_form_edit"
@@ -28,29 +28,39 @@
       .form_line
         .field_15
           = f.label :field_6, 'Extention Type'
-          %select{:name => "temp_transaction_allocation_grid[field_6]"}
-            %option{:value => "Person"} Person
-            %option{:value => "Organisation"} Organisation
+          %select{:name => "temp_transaction_allocation_grid[field_6]", :class => "entity_type_change", :input_field => "temp_transaction_allocation_grid_field_7", :update_field => transaction_allocation_grid.new_record? ? "extention_name" : "extention_name_edit"}
+            %option{:value => "Person", :selected => (transaction_allocation_grid.field_6 == "Person")} Person
+            %option{:value => "Organisation", :selected => (transaction_allocation_grid.field_6 == "Organisation")} Organisation
             
         .field_15
           = f.label :field_7, 'Extention ID'
-          = f.text_field :field_7, :class => "general_name_show",:id => "temp_transaction_allocation_grid_field_7", :update_field => transaction_allocation_grid.new_record? ? "extention_name" : "extention_name_edit", :input_field => "temp_transaction_allocation_grid_field_7"
+          -if (transaction_allocation_grid.field_6 == "Person" || transaction_allocation_grid.field_6.nil?)
+            = f.text_field :field_7, :class => "general_name_show",:id => "temp_transaction_allocation_grid_field_7", :update_field => transaction_allocation_grid.new_record? ? "extention_name" : "extention_name_edit", :input_field => "temp_transaction_allocation_grid_field_7"
+          -else
+            = f.text_field :field_7, :class => "org_general_name_show",:id => "temp_transaction_allocation_grid_field_7", :update_field => transaction_allocation_grid.new_record? ? "extention_name" : "extention_name_edit", :input_field => "temp_transaction_allocation_grid_field_7"
         .field_15
           %label Extention Name
           .display_field_bg
             %div{:id => transaction_allocation_grid.new_record? ? "extention_name" : "extention_name_edit" }
+              -unless (transaction_allocation_grid.new_record? || transaction_allocation_grid.field_7.blank?)
+                = (transaction_allocation_grid.field_6 == "Person") ? Person.find(transaction_allocation_grid.field_7).name : Organisation.find(transaction_allocation_grid.field_7).full_name
         .field_15
           = f.label :field_8, 'Cluster Type'
-          %select{:name => "temp_transaction_allocation_grid[field_8]"}
-            %option{:value => "Person"} Person
-            %option{:value => "Organisation"} Organisation
+          %select{:name => "temp_transaction_allocation_grid[field_8]", :class => "entity_type_change", :input_field => "temp_transaction_allocation_grid_field_9", :update_field => transaction_allocation_grid.new_record? ? "cluster_name" : "cluster_name_edit"}
+            %option{:value => "Person",:selected =>(transaction_allocation_grid.field_8 == "Person")} Person
+            %option{:value => "Organisation",:selected => (transaction_allocation_grid.field_8 == "Organisation")} Organisation
         .field_15
           = f.label :field_9, 'Cluster ID'
-          = f.text_field :field_9, :class => "general_name_show",:id => "temp_transaction_allocation_grid_field_9", :update_field => transaction_allocation_grid.new_record? ? "cluster_name" : "cluster_name_edit", :input_field => "temp_transaction_allocation_grid_field_9"
+          - if (transaction_allocation_grid.field_8 == "Person" || transaction_allocation_grid.field_8.nil?)
+            = f.text_field :field_9, :class => "general_name_show",:id => "temp_transaction_allocation_grid_field_9", :update_field => transaction_allocation_grid.new_record? ? "cluster_name" : "cluster_name_edit", :input_field => "temp_transaction_allocation_grid_field_9"
+          -else
+            = f.text_field :field_9, :class => "org_general_name_show",:id => "temp_transaction_allocation_grid_field_9", :update_field => transaction_allocation_grid.new_record? ? "cluster_name" : "cluster_name_edit", :input_field => "temp_transaction_allocation_grid_field_9"
         .field_15
           %label Cluster Name
           .display_field_bg
             %div{:id => transaction_allocation_grid.new_record? ? "cluster_name" : "cluster_name_edit" }
+              -unless (transaction_allocation_grid.new_record? || transaction_allocation_grid.field_9.blank?)
+                = (transaction_allocation_grid.field_8 == "Person") ? Person.find(transaction_allocation_grid.field_9).name : Organisation.find(transaction_allocation_grid.field_9).full_name
   -if transaction_allocation_grid.new_record?
     = submit_tag '   Add   ', :id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button", :disabled => transaction_allocation_grid.new_record? ? true : false
   - else

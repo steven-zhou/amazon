@@ -6,8 +6,8 @@
       .arrow_block
         = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url =>"/transactions/show_personal_transaction", :title=>"First",:get_active_id=>"go_first", :class => "transaction_navigator")
         = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'),:url=> "/transactions/show_personal_transaction", :title=>"Previous", :class => "transaction_navigator")
-      = text_field_tag 'person_id', @person.id, {:onblur => 'system_id_check_input_change_or_not_transaction();', :id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px",:form_name => "person_list"}
-      %input{:style => "display:none;", :id => "current_tab_id", :value => "current_page", :name => "current_tab_id"}
+      = text_field_tag 'person_id', @person.id, {:onblur => 'system_id_check_input_change_or_not_transaction();', :id => 'system_id_tag', :class=> 'arrow_block change_without_check_js',:style =>"width: 100px",:form_name => "person_list"}
+      %input{:style => "display:none;", :id => "current_tab_id", :name => "current_tab_id"}
       %input{:style => "display:none;", :id => "target", :name => "target"}
       .arrow_block
         = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'),:url=> "/transactions/show_personal_transaction", :title=>"Next", :class => "transaction_navigator")
@@ -22,7 +22,7 @@
           - @list_headers.each do |r|
             %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
         -else
-          %select{:id => "list_header_name2", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
+          %select{:id => "transaction_list_header", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px", :old_value => "#{@list_header.id}" }
             - @list_headers.each do |r|
               %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
 
@@ -30,7 +30,5 @@
       .lolfont_left
      
       #lol_select{:style => "margin-top: 9px;"}
-        -if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
-          =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list", :title => "Show List" ,:alt => "Show list")
-        -else
-          =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list", :title => "Show List", :alt => "Show list")
+        =image_tag('application_view_detail.png',:size => "25x25", :class => "general_show_all_list_member", :person_id => @person.id, :title => "Show List" ,:alt => "Show list")
+  

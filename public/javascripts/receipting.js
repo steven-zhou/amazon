@@ -209,8 +209,8 @@ system_id_check_input_change_or_not_transaction = function()
 
                 No: function(){
                     $(this).dialog('destroy');
+                    $('#transaction_list_header').val($('#transaction_list_header').attr('old_value'));
                     return false;
-
                 },
                 Yes: function(){
                     $('#'+link.attr('form_name')).doAjaxSubmit();
@@ -231,6 +231,12 @@ system_id_check_input_change_or_not_transaction = function()
     }
 
 };
+
+$(function(){
+    $('#transaction_list_header').live('change', function(){
+        system_id_check_input_change_or_not_transaction();
+    });
+});
 
 transactionnavigation = function(link){
     if($('#check_input_change').val() == "false")
@@ -289,4 +295,29 @@ $(function(){
         transactionnavigation($(this));
     }).attr("rel", "nofollow");
 
+});
+
+
+
+//person organisation name change
+
+
+$(function(){
+    $('.entity_type_change').live('change', function(){
+        var input_field = $('#'+$(this).attr('input_field'));
+        var update_field = $('#'+$(this).attr('update_field'));
+        input_field.val("");
+        update_field.html("");
+        if($(this).val() == "Person"){
+
+            input_field.removeClass('org_general_name_show').removeClass('general_name_show').addClass('general_name_show');
+
+        }else{
+
+            input_field.removeClass('org_general_name_show').removeClass('general_name_show').addClass('org_general_name_show');
+     
+        }
+        return false;
+
+    });
 });
