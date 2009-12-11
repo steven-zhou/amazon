@@ -209,8 +209,8 @@ system_id_check_input_change_or_not_transaction = function()
 
                 No: function(){
                     $(this).dialog('destroy');
+                    $('#transaction_list_header').val($('#transaction_list_header').attr('old_value'));
                     return false;
-
                 },
                 Yes: function(){
                     $('#'+link.attr('form_name')).doAjaxSubmit();
@@ -231,6 +231,12 @@ system_id_check_input_change_or_not_transaction = function()
     }
 
 };
+
+$(function(){
+   $('#transaction_list_header').live('change', function(){
+        system_id_check_input_change_or_not_transaction();
+   });
+});
 
 transactionnavigation = function(link){
     if($('#check_input_change').val() == "false")

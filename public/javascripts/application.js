@@ -1299,7 +1299,7 @@ $(function(){
     $("#content input[type='text']").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
-        if (left_content.length > 0 &&  right_content.length > 0)
+        if ((left_content.length > 0 &&  right_content.length > 0) || $(this).attr("class").indexOf('change_without_check_js')>0)
         {
         }
         else
@@ -1570,7 +1570,7 @@ lolanavigation = function(link){
             {
                 $.ajax({
                     type: "GET",
-                    url: $(this).attr('url')+".js",
+                    url: link.attr('url')+".js",
                     data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
                     dataType: "script"
                 });
@@ -1611,7 +1611,7 @@ lolanavigation = function(link){
                         {
                             $.ajax({
                                 type: "GET",
-                                url: $(this).attr('url')+".js",
+                                url: link.attr('url')+".js",
                                 data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
                                 dataType: "script"
                             });
