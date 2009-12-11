@@ -17,8 +17,5 @@
       .lolfont_left
       
       #lol_select{:style => "margin-top: 12px;"}
-        - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
-          =image_tag('application_view_detail.png', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list", :title => "Show Organisation List",:size => "25x25")
-        - else
-          =image_tag('application_view_detail.png', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list", :title => "Show Organisation List",:size => "25x25")
+        =image_tag('application_view_detail.png', :class => "general_show_all_list_organisations", :organisation_id => @organisation.id)
     %br.clear

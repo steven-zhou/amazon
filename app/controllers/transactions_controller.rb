@@ -147,7 +147,7 @@ class TransactionsController < ApplicationController
       when 'Previous' then @o.at((@o.index(@current_organisation))-1)
       when 'Next' then @o.index(@current_organisation) != @o.index(@o.last) ? @o[@o.index(@current_organisation)+1] : @o.first
       when 'Last' then @o.fetch(-1)
-      when "default" then params[:organisation_id_from_list].nil? ? @current_organisation : Organisation.find(params[:organisation_id_from_list])
+      when "default" then params[:grid_object_id].nil? ? @current_organisation : Organisation.find(params[:grid_object_id])
       end
       session[:entity_id] = @organisation.id
       session[:entity_type] = "Organisation"
