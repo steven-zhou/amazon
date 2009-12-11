@@ -19,7 +19,6 @@ def currencify(number, options={})
   end
 end
 
-
   def people_search_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2643,6 +2642,67 @@ end
 
         ]}}
 
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_message_templates_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @message_templates = MessageTemplate.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = MessageTemplate.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @message_templates = MessageTemplate.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query])
+      count = MessageTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @message_templates.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.created_at.strftime('%d-%m-%Y')
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
