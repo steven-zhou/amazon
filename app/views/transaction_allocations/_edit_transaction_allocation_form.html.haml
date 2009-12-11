@@ -20,7 +20,7 @@
 
     .field_15
       = f.label :amount, "<span class='asterisk'>*</span>Amount"
-      = f.text_field :amount, :class => "compulsory_field number_field"
+      = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(transaction_allocation.amount, :unit => "", :delimiter => "")
   .full_container
     .options
       = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => transaction_allocation.new_record? ? "edit_bank_extension_form" : "edit_bank_extension_form_edit"
