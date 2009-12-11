@@ -7,7 +7,7 @@
         = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url =>"/transactions/show_personal_transaction", :title=>"First",:get_active_id=>"go_first", :class => "transaction_navigator")
         = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'),:url=> "/transactions/show_personal_transaction", :title=>"Previous", :class => "transaction_navigator")
       = text_field_tag 'person_id', @person.id, {:onblur => 'system_id_check_input_change_or_not_transaction();', :id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px",:form_name => "person_list"}
-      %input{:style => "display:none;", :id => "current_tab_id", :value => "current_page", :name => "current_tab_id"}
+      %input{:style => "display:none;", :id => "current_tab_id", :name => "current_tab_id"}
       %input{:style => "display:none;", :id => "target", :name => "target"}
       .arrow_block
         = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'),:url=> "/transactions/show_personal_transaction", :title=>"Next", :class => "transaction_navigator")

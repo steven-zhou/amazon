@@ -2,7 +2,9 @@ class TempTransactionAllocationGrid < Grid
 
 
    validates_presence_of  :field_1, :field_5
-
+   belongs_to :receipt_account, :foreign_key => "field_1"
+   belongs_to :campaign
+   belongs_to :source
 
 
 
