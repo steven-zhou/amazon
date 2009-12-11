@@ -65,7 +65,7 @@ class TransactionsController < ApplicationController
 
   def show_personal_transaction
    
-    @current_tab_id = params["current_tab_id"]
+    @current_tab_id = params[:current_tab_id]
 
     
     if request.post?
@@ -107,6 +107,7 @@ class TransactionsController < ApplicationController
       when 'Previous' then @p.at((@p.index(@current_person))-1)
       when 'Next' then @p.index(@current_person) != @p.index(@p.last) ? @p[@p.index(@current_person)+1] : @p.first
       when 'Last' then @p.fetch(-1)
+      when "default" then params[:person_id_from_list].nil? ? @current_person : Person.find(params[:person_id_from_list])
       end
       session[:entity_id] = @person.id
       session[:entity_type] = "Person"

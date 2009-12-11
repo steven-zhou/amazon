@@ -2369,8 +2369,7 @@ end
           u.receipt_meta_type_name,
           u.receipt_type_name,
           u.notes,
-          currencify(u.total_amount)
-        ]}}
+          u.total_amount.nil? ? "$0.00" : currencify(u.total_amount)]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2430,12 +2429,13 @@ end
     return_data[:rows] = @transaction.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.transaction_date,
-          u.total_amount,
           u.receipt_number,
           u.bank_account_name,
           u.receipt_meta_type_name,
           u.receipt_type_name,
-          u.notes]}}
+          u.notes,
+          u.total_amount.nil? ? "$0.00" : currencify(u.total_amount)
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -2495,7 +2495,7 @@ end
     return_data[:total] = count
     return_data[:rows] = @temp_transaction_allocation_grid.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.field_1,
+          u.field_1.nil? ? "" : ReceiptAccount.find(u.field_1.to_i).name,
           u.field_2,
           u.field_3,
           u.field_4,
@@ -2567,7 +2567,7 @@ end
           u.campaign.name,
           u.source_id.nil? ? "" : u.source.name,
           u.letter_id,
-          u.amount.nil? ? "0" : currencify(u.amount)
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
