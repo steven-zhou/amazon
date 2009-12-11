@@ -14,5 +14,13 @@ class TempTransactionAllocationGrid < Grid
 #
 #  end
 
+   before_save :back_to_integer
+
+
+  def back_to_integer
+        self.field_5 = self.field_5.delete(',').to_f
+  end
+
+
 
 end
