@@ -1,0 +1,95 @@
+-# locals => {:transaction_header_id}
+
+%h2 Allocations
+
+%table#show_existing_transaction_allocations_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_existing_transaction_allocations_grid").flexigrid({
+  url: '/grids/show_existing_transaction_allocations_grid?transaction_header_id=#{transaction_header_id}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Receipt Account',
+  name : 'receipt_account_id',
+  width : 150,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Campaign',
+  name : 'campaign_id',
+  width : 150,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Source',
+  name : 'source_id',
+  width : 150,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Letter',
+  name : 'letter_id',
+  width : 250,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Amount',
+  name : 'amount',
+  width : 150,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Receipt Type',
+  name : 'receipt_type_id'
+  },
+
+  {
+  display: 'Campaign',
+  name : 'campaign_id'
+  },
+
+  {
+  display: 'Source',
+  name : 'source_id'
+  },
+
+  {
+  display: 'Letter',
+  name : 'letter_id'
+  },
+
+  {
+  display: 'Amount',
+  name : 'amount'
+  }
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: '',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

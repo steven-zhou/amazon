@@ -7,7 +7,7 @@
         - if (@feedback_item.login_account.class.to_s == "SystemUser")
           = "From: #{@feedback_item.login_account.person.name} (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
         -else
-          = "From: (#{@feedback_item.login_account.user_name}) - #{@feedback_item.login_account.security_email}"
+          = "From: (#{@feedback_item.login_account.user_name})"
       Content:
       %br
       = text_area(:feedback_content, nil, :value => "#{@feedback_item.content}", :style => "width:100%;")
@@ -27,10 +27,16 @@
       %br.clear
         .container
           From:
-          = "#{@current_user.user_name} - #{@current_user.security_email} - #{Date.today().strftime('%a %d %b %Y')}"
+          - if (@current_user.class.to_s == "SystemUser")
+            = "#{@current_user.person.name} - #{@current_user.security_email}"
+          - else
+            = "#{@current_user.user_name}"
         .container
           To:
-          = "#{@feedback_item.login_account.user_name} - #{@feedback_item.login_account.security_email}"
+          - if (@feedback_item.login_account.class.to_s == "SystemUser")
+            = "#{@feedback_item.login_account.person.name} - #{@feedback_item.login_account.security_email}"
+          - else
+            = "#{@feedback_item.login_account.user_name}"
         - form_tag("/feedback/submit_reply", :class => "ajax_form") do
           %input{:style => "display:none;", :name => "id", :value => "#{@feedback_item.id}", :type => "text"}
           %br.clear

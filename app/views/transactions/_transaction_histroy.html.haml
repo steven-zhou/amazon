@@ -1,4 +1,4 @@
--# locals => {:entity_type, :entity_id}
+-# locals => {:entity_type, :entity_id, :start_date, :end_date}
 
 %h2 Transaction Histroy
 
@@ -6,29 +6,13 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_transaction_histroy_grid").flexigrid({
-  url: '/grids/show_transaction_histroy_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
+  url: '/grids/show_transaction_histroy_grid?entity_id=#{entity_id}&entity_type=#{entity_type}&start_date=#{start_date}&end_date=#{end_date}',
   dataType: 'json',
   colModel : [
   {
   display: 'ID',
   name : 'id',
   width : 40,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Transaction Date',
-  name : 'transaction_date',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Total Amount',
-  name : 'total_amount',
-  width : 100,
   sortable : true,
   align: 'left'
   },
@@ -42,6 +26,17 @@
   },
 
   {
+  display: 'Transaction Date',
+  name : 'transaction_date',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+
+
+
+  {
   display: 'Bank Account Name',
   name : 'bank_account_name',
   width : 100,
@@ -52,7 +47,7 @@
   {
   display: 'Receipt Meta Type Name',
   name : 'receipt_meta_type_name',
-  width : 100,
+  width : 120,
   sortable : true,
   align: 'left'
   },
@@ -60,7 +55,7 @@
   {
   display: 'Receipt Type Name',
   name : 'receipt_type_name',
-  width : 60,
+  width : 120,
   sortable : true,
   align: 'left'
   },
@@ -68,7 +63,15 @@
   {
   display: 'Notes',
   name : 'notes',
-  width : 160,
+  width : 220,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Total Amount',
+  name : 'total_amount',
+  width : 120,
   sortable : true,
   align: 'left'
   }
@@ -113,7 +116,7 @@
   sortname: "id",
   sortorder: "asc",
   usepager: true,
-  title: 'Countries',
+  title: '',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,

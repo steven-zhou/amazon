@@ -27,6 +27,12 @@ class MasterDocsController < ApplicationController
     @masterdoctype = @masterdoc.master_doc_type
     @masterdocmetatype = @masterdoctype.master_doc_meta_type
     @masterdocmetametatype = @masterdocmetatype.master_doc_meta_meta_type
+
+    #use following array to store the types for the select option list in view.
+    #MasterDocTypeArray contains all the types of MasterDoc, i.e. Passport, Driver Licence.
+    @MasterDocTypeArray =  MasterDocType.find(:all, :conditions => ["tag_type_id = ? and status=true", @masterdocmetatype.id]) rescue @master_doc_types = Array.new
+    #MasterDocMetaTypeArray contains all the meta type of MasterDocType, i.e. Government Issued
+    @MasterDocMetaTypeArray = MasterDocMetaType.find(:all, :conditions => ["tag_meta_type_id = ? and status=true ", @masterdocmetametatype.id]) rescue @master_doc_meta_types = Array.new
     render "edit.js"
   end
 
@@ -68,7 +74,7 @@ class MasterDocsController < ApplicationController
       @exchange_master_doc.save
       @current_master_doc.save
     end
-    @person = Person.find(session[:user])
+    @person = Person.find(@current_master_doc.entity_id)
     respond_to do |format|
       format.js
     end
@@ -84,7 +90,7 @@ class MasterDocsController < ApplicationController
 
     @up_exchange_master_doc.save
     @up_current_master_doc.save
-    @person = Person.find(session[:user])
+    @person = Person.find(@up_current_master_doc.entity_id)
 
     respond_to do |format|
       format.js

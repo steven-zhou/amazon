@@ -3,7 +3,7 @@
 /* CSS Document */
 
 body {
-    background-image:url(/images/bg4.jpg);
+    background-image:url(/images/bg3.jpg);
     background-position: top center;
     background-repeat:repeat;
     background-color: #000;
@@ -1671,6 +1671,23 @@ td.textright {
     font-family:Arial, Helvetica, sans-serif;
 }
 
+
+.container_remove {  
+    /* background-color: #B2BDC5; */
+    background-image:url(/images/container_red_bg.png) !important;
+    width: 96%;
+    margin: 0.5%;
+    float: left;
+    padding: 1%;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    min-height: 10px;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+
+
+
 .container_active {
     background-image:url(/images/container_bg.png) !important;
     width: 96%;
@@ -2663,7 +2680,10 @@ label.error_flag{
 }
 
 input.error_flag{
-
     border:1px dotted red;
+}
 
+/*For removed keyword*/
+.red{
+   color:red;
 }

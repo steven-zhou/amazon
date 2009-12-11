@@ -435,10 +435,11 @@ module OutputPdf
     #default setting for pdf header
     @source = "#{source_type}_header".camelize.constantize.find(source_id.to_i)
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
-    if @source.group == "temp"
-      header_settings[:title] ||= "Export From Temporary Query"
+    if source_type == "query" && @source.group == "temp"
+       header_settings[:title] ||= "Export From Temporary Query"  
     else
       header_settings[:title] ||= "Export From #{source_type.titleize}_#{@source.name}"
+
     end
     
     header_settings[:image_position] ||= "left"

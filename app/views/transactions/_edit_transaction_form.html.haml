@@ -1,0 +1,75 @@
+- form_for transaction, :html => {:class => "ajax_form", :id => "edit_transaction_header_form", :submit_button_id => "edit_submit_button"} do |f|
+  .form_line
+    .field_15
+      = f.label :todays_date, "System Date"
+      .display_field_bg
+        #{transaction.todays_date.to_s}
+
+    .field_15
+      = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
+      = f.text_field :transaction_date, :value => transaction.transaction_date.to_s, :class => "compulsory_field datepick"
+
+    .field_20
+      = f.label :bank_account_id, "<span class='asterisk'>*</span>Bank Account"
+      = f.collection_select :bank_account_id, ClientBankAccount.all, :id, :account_number
+
+    .field_10
+      = f.label :banked, "Already Banked"
+      = f.check_box :banked
+
+    .field_15
+      = f.label :letter_id, "<span class='asterisk'>*</span>Single Letter ID"
+      %select
+
+  .form_line
+    .field_15
+      = f.label :receipt_meta_type_id, "<span class='asterisk'>*</span>Receipt Meta Type"
+      = f.collection_select :receipt_meta_type_id, ReceiptMetaMetaType.all, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_meta_types/find_receipt_type"}
+
+    .field_15
+      = f.label :receipt_type_id, "<span class='asterisk'>*</span>Receipt Type"
+      = f.collection_select :receipt_type_id, ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", ReceiptMetaMetaType.first.id]), :id, :name
+
+    .field_15
+      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
+      = f.collection_select :received_via_id, ReceivedVia.all, :id, :name
+
+  #edit_transaction_payment_form
+
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      = f.label :notes, "Notes"
+      = f.text_area :notes, :rows => 3, :cols => 45
+
+
+%input.hidden{:id => "edit_transaction_allocation_mode", :mode => "show"}
+#edit_add_new_transaction_allocation
+  = render :partial => "/transaction_allocations/edit_new_transaction_allocation", :locals => {:transaction_header_id => "#{transaction.id}"}
+
+#edit_existing_transaction_allocations
+  = render :partial => "transaction_allocations/existing_transaction_allocations", :locals => {:transaction_header_id => "#{transaction.id}"}
+
+#edit_edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;width:100%;"}
+  .tab_looking_left
+  .tab_looking_icon
+    = image_tag('edit_icon.png')
+    Maintenance
+  .tab_looking_right
+
+  %div.tab_close
+    .tab_looking_left
+    .tab_looking_icon
+      = link_to_function image_tag('/images/Icons/System/close.png'), :field => "edit_transaction_allocation", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_edit_transaction_allocation", :toggle_id_name1 => "edit_add_new_transaction_allocation"
+    .tab_looking_right
+      .options
+
+  .full_container
+    #edit_edit_transaction_allocation_form
+
+
+= button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_transaction_header_form", :id => "edit_submit_button", :style => "float:right;"
+
+#edit_temp_allocation_total_amount.right{:style => "width:35%;margin-top:10px;"}
+  .display_field_bg.right{:style => "width:200px !important;"}
+    %div{:id => "edit_temp_allocation_total_amount_value"}
+  %h2{:class => "float:right;"} Transaction Total:

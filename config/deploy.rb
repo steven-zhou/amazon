@@ -1,8 +1,8 @@
 require 'capistrano/ext/multistage'
 
 set :scm, :git
-set :deploy_via, :export
-#set :deploy_via, :copy
+# set :deploy_via, :export
+set :deploy_via, :copy
 set :copy_strategy, :export
 set :copy_exclude, [".git/*", ".svn/*"]
 set :user, :rails
@@ -22,16 +22,6 @@ namespace :mod_rails do
     end
 end
 
-#namespace :backgroundrb do
-#  desc <<-DESC
-#  Restart the application altering tmp/restart.txt for mod_rails.
-#  DESC
-#  task :restart, :roles => :app do
-#    run "cd #{current_path} && ./script/backgroundrb stop"
-#    run "cd #{current_path} && RAILS_ENV=production ./script/backgroundrb start > /dev/null 2>1"
-#  end
-#end
-
 
 namespace :deploy do
   %w(start restart).each { |name| task name, :roles => :app do mod_rails.restart end }
@@ -41,5 +31,3 @@ namespace :deploy do
   # %w(start restart).each { |name| task name, :roles => :app do backgroundrb.restart end }
 
 end
-
-

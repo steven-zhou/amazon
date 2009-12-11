@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091207003702) do
+ActiveRecord::Schema.define(:version => 20091210032309) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(:version => 20091207003702) do
     t.datetime "updated_at"
     t.string   "description"
     t.boolean  "status"
+    t.boolean  "to_be_removed"
   end
 
   create_table "available_modules", :force => true do |t|
@@ -126,6 +127,18 @@ ActiveRecord::Schema.define(:version => 20091207003702) do
     t.string   "runner_info"
     t.string   "worker_key"
     t.datetime "scheduled_at"
+  end
+
+  create_table "bulk_emails", :force => true do |t|
+    t.text     "subject"
+    t.text     "from"
+    t.text     "to"
+    t.text     "body"
+    t.datetime "dispatch_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "to_be_removed", :default => false
+    t.boolean  "status",        :default => true
   end
 
   create_table "campaigns", :force => true do |t|
@@ -400,6 +413,7 @@ ActiveRecord::Schema.define(:version => 20091207003702) do
     t.datetime "updated_at"
     t.boolean  "status"
     t.string   "description"
+    t.boolean  "to_be_removed"
   end
 
   create_table "languages", :force => true do |t|

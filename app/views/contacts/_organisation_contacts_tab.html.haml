@@ -27,6 +27,8 @@
         = render :partial => "/emails/organisation_personal_email_type", :locals => {:email => @email}
       #website_type
         = render :partial => '/websites/organisation_personal_website_type', :locals => { :website => @website }
+      #im_type
+        = render :partial => '/instant_messagings/organisation_personal_instant_messaging_type', :locals => {:instant_messaging => @instant_messaging }
         
     
 
@@ -50,3 +52,8 @@
         %h2 Website
         #contact_website
           = render :partial => '/contacts/contact', :collection => @organisation.websites
+    -if !@organisation.instant_messagings.blank?
+      .container
+        %h2 IM
+        #contact_im
+          = render :partial => '/contacts/contact', :collection => @organisation.instant_messagings

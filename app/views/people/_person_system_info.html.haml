@@ -1,10 +1,13 @@
 %div{:id => "accordion02"}
   %h3
     %a{:href => "#"}
-      %h1 Receipting
+      %h1 Receipting  
   %div.container
     .container
+      .right
+        = link_to "Transaction", :controller => "transactions", :action => "personal_transaction"
       %h2 Last Transaction
+
       .form_line
         .field_31
           %label Date

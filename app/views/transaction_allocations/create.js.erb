@@ -1,0 +1,27 @@
+<% if @transaction_allocation.errors.empty? -%>
+$('#edit_add_new_transaction_allocation').html('<%= escape_javascript(render(:partial => "/transaction_allocations/edit_new_transaction_allocation", :locals => {:transaction_header_id => @transaction_header_id})) %>');
+$('#edit_existing_transaction_allocations').html('<%= escape_javascript(render(:partial => "/transaction_allocations/existing_transaction_allocations", :locals => {:transaction_header_id => @transaction_header_id})) %>');
+$('#edit_transaction_allocation_mode').attr('mode', 'show');
+$("#edit_temp_allocation_total_amount_value").html('<%= escape_javascript("#{number_to_currency(@transaction_allocation_value)}")%>');
+$('#existing_unbanked_transactions').html('<%= escape_javascript(render(:partial => "/transactions/existing_transactions", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>

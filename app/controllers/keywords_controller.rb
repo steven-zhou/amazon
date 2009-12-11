@@ -11,6 +11,7 @@ class KeywordsController < ApplicationController
     @keyword_table.description = params[:keyword][:description]
     @keyword_table.status = params[:keyword][:status]
     @keyword_table.keyword_type_id = params[:type_id]
+    @keyword_table.to_be_removed = false
     if @keyword_table.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")
     else
@@ -52,7 +53,9 @@ class KeywordsController < ApplicationController
     keyword = Keyword.find(params[:id])
 
      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
-         keyword.destroy
+     keyword.to_be_removed = true
+     keyword.save!
+   # keyword.destroy
 
     respond_to do |format|
       format.js
@@ -96,4 +99,20 @@ class KeywordsController < ApplicationController
       format.js
     end
   end
+
+
+  def retrieve
+     keyword = Keyword.find(params[:id])
+     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Keyword with ID #{keyword.id}.")
+     keyword.to_be_removed = false
+     keyword.save!
+
+      respond_to do |format|
+      format.js
+      end
+
+  end
+
+
+
 end

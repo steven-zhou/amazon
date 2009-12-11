@@ -1,0 +1,2 @@
+module InstantMessagingsHelper
+end

@@ -7,4 +7,4 @@
   - if type == "Siblings" || type == "Children"
     = render :partial => 'relationships/auto_generated_person', :collection => relations
   - else
-    =render :partial => 'relationships/person', :collection => relations, :locals => {:type => type}
+    = render :partial => 'relationships/person', :collection => relations, :locals => {:type => type}
