@@ -209,8 +209,8 @@ system_id_check_input_change_or_not_transaction = function()
 
                 No: function(){
                     $(this).dialog('destroy');
+                    $('#transaction_list_header').val($('#transaction_list_header').attr('old_value'));
                     return false;
-
                 },
                 Yes: function(){
                     $('#'+link.attr('form_name')).doAjaxSubmit();
@@ -231,6 +231,12 @@ system_id_check_input_change_or_not_transaction = function()
     }
 
 };
+
+$(function(){
+   $('#transaction_list_header').live('change', function(){
+        system_id_check_input_change_or_not_transaction();
+   });
+});
 
 transactionnavigation = function(link){
     if($('#check_input_change').val() == "false")
@@ -290,3 +296,198 @@ $(function(){
     }).attr("rel", "nofollow");
 
 });
+
+
+
+
+
+/* Show list*/
+$(function(){
+    $(".general_show_all_list_member").live('click',function(){
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+            $.ajax({
+                type: "GET",
+                url: "/people/general_show_list.js",
+                data: 'person_id='+link.attr('person_id'),
+                dataType: "script"
+
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $.ajax({
+                            type: "GET",
+                            url: "/people/general_show_list.js",
+                            data: 'person_id='+link.attr('person_id'),
+                            dataType: "script"
+
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+    });
+});
+
+$(function(){
+    $(".general_show_all_list_member").live('mouseover',function(){
+        $(this).css("cursor","pointer");
+    });
+});
+
+
+/* Show Summary list*/
+$(function(){
+    $('table.selectable_grid tbody tr').live('click',function(){
+        var form_id = $(this).closest('table').get(0).id
+        if ($('#'+ form_id).attr('click_function') == "true"){
+            $.ajax({
+                type: 'GET',
+                url: $('#'+ form_id).attr('click_url'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+$('#'+ form_id).attr('params1'),
+                dataType: "script"
+            });
+        }
+        $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
+    });
+});
+
+$(function(){
+    $('table.selectable_grid tbody tr').live('dblclick',function(){
+        //        alert($('table#general_search_list_results').attr('db_click_function'))
+        var form_id = $(this).closest('table').get(0).id        
+        if ($('#'+ form_id).attr('db_click_function') == "true")
+        {
+            $.ajax({
+                type: 'GET',
+                url: $('#'+ form_id).attr('db_click_url'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target'),
+                dataType: "script"
+            });
+        }
+
+        if ($('#'+ form_id).attr('db_close') == "true")
+        {
+            $('.ui-icon-closethick').click();
+        }
+    });
+});
+
+$(function(){
+    $('table.selectable_grid tbody tr').live('mouseover',function(){   
+            $(this).css("cursor","pointer");        
+    });
+});
+
+
+
+
+/*show_list orgnasation---*/
+$(function(){
+    $(".general_show_all_list_organisations").live('click',function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+
+            $.ajax({
+                type: "GET",
+                url: "/organisations/general_show_list.js",
+                data: 'organisation_id='+link.attr('organisation_id'),
+                dataType: "script"
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/organisations/general_show_list.js",
+                            data: 'organisation_id='+link.attr('organisation_id'),
+                            dataType: "script"
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+
+
+
+    });
+});
+
+$(function(){
+    $(".general_show_all_list_organisations").live('mouseover',function(){
+
+        $(this).css("cursor","pointer");
+    });
+});
+

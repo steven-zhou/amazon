@@ -39,15 +39,13 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Please Enter All Required Data"
       elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      else
-        flash.now[:error] = "Exception happen, please try again"
       end
     end
     @transaction_header = TransactionHeader.find(@transaction_header_id)
     @transaction_allocations = @transaction_header.transaction_allocations
     @transaction_allocation_value = 0
     @transaction_allocations.each do |transaction_transaction|
-      @transaction_allocation_value += transaction_transaction.amount.to_i
+      @transaction_allocation_value += transaction_transaction.amount.to_f
     end
     @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
     respond_to do |format|

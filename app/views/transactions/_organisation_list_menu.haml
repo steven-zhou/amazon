@@ -1,25 +1,21 @@
-- form_tag('/transaction/show_organisational_transation', :id => "organisation_list") do
+- form_tag('/transactions/show_organisational_transaction', :id => "organisation_list") do
   %div#loleft
     .lolfont_left{:style => "margin-left: 65px;"}
       = label_tag 'organisation_id', 'System ID', :style => 'clear:both'
     %div
       .arrow_block
-        = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url => "", :title=>"First")
-        = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'), :url => "", :title=>"Previous")
-      = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'system_id_check_input_change_or_not();',:id => 'system_id_tag', :class=> 'arrow_block',:style =>"width: 100px",:form_name => "organisation_list"}
+        = link_to_function((image_tag 'Icons/Core/Lol/go-first.png'), :url =>"/transactions/show_organisational_transaction", :title=>"First", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-previous.png'), :url =>"/transactions/show_organisational_transaction", :title=>"Previous", :class => "transaction_navigator")
+      = text_field_tag 'organisation_id', @organisation.id, {:onblur => 'system_id_check_input_change_or_not_transaction();',:id => 'system_id_tag', :class=> 'arrow_block change_without_check_js',:style =>"width: 100px",:form_name => "organisation_list"}
+      %input{:style => "display:none;", :id => "current_tab_id", :name => "current_tab_id"}
+      %input{:style => "display:none;", :id => "target", :name => "target"}
       .arrow_block
-        -if @o.index(@organisation) != @o.index(@o.last)
-          = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'), :url => "", :title=>"Next")
-        -else
-          = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'), :url => "", :title=>"Next")
-        = link_to_function((image_tag 'Icons/Core/Lol/go-last.png'), :url=> "", :title=>"Last")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-next.png'), :url =>"/transactions/show_organisational_transaction", :title=>"Next", :class => "transaction_navigator")
+        = link_to_function((image_tag 'Icons/Core/Lol/go-last.png'), :url =>"/transactions/show_organisational_transaction", :title=>"Last", :class => "transaction_navigator")
   .right
     %div#loleft
       .lolfont_left
       
       #lol_select{:style => "margin-top: 12px;"}
-        - if (!(@organisation.nil? || @organisation.new_record?) && @current_action == "show" && @current_controller == "organisations")
-          =image_tag('application_view_detail.png', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "show_organisation_list", :title => "Show Organisation List",:size => "25x25")
-        - else
-          =image_tag('application_view_detail.png', :id => "show_all_organisations", :organisation_id => @organisation.id, :current_operation => "edit_organisation_list", :title => "Show Organisation List",:size => "25x25")
+        =image_tag('application_view_detail.png', :class => "general_show_all_list_organisations", :organisation_id => @organisation.id)
     %br.clear
