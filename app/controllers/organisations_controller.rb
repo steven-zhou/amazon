@@ -476,4 +476,16 @@ class OrganisationsController < ApplicationController
     end
   end
 
+
+  def org_general_name_show
+
+    @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = Organisation.new    
+    @organisation = Organisation.new if @organisation.nil?  #handle the situation when @organisation return nil
+    @update_field = params[:update_field]# for name field updating
+    @input_field = params[:input_field]  #to clear the input field
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
