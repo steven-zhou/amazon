@@ -122,4 +122,43 @@ class TransactionsController < ApplicationController
     end
   end
 
+   def show_organisational_transaction
+
+    @current_tab_id = params[:current_tab_id]
+
+
+    if request.post?
+      # params _id not blank then pass it to params[:id]
+      params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
+      @o = Organisation.find(:all, :order => "id")
+      @organisation = Organisation.find_by_id(params[:id].to_i)
+      @organisation = @o[0] if @organisation.nil?
+
+      session[:entity_id] = @organisation.id
+      session[:entity_type] = "Organisation"
+      session[:current_organisation_id] = @organisation.id
+      
+    else
+      #request.get
+      @o = Organisation.find(:all, :order => "id")
+      @current_organisation = Organisation.find_by_id(session[:current_organisation_id].to_i)
+      @organisation = case params[:target]
+      when 'First' then @o[0]
+      when 'Previous' then @o.at((@o.index(@current_organisation))-1)
+      when 'Next' then @o.index(@current_organisation) != @o.index(@o.last) ? @o[@o.index(@current_organisation)+1] : @o.first
+      when 'Last' then @o.fetch(-1)
+      when "default" then params[:organisation_id_from_list].nil? ? @current_organisation : Organisation.find(params[:organisation_id_from_list])
+      end
+      session[:entity_id] = @organisation.id
+      session[:entity_type] = "Organisation"
+      session[:current_organisation_id] = @organisation.id
+    end
+
+
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

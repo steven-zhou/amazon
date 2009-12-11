@@ -2496,10 +2496,10 @@ end
     return_data[:rows] = @temp_transaction_allocation_grid.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.field_1.nil? ? "" : ReceiptAccount.find(u.field_1.to_i).name,
-          u.field_2,
-          u.field_3,
+          u.field_2.nil? ? "" : Campaign.find(u.field_2.to_i).name,
+          u.field_3.nil? ? "" : Source.find(u.field_3.to_i).name,
           u.field_4,
-          currencify(u.field_5),
+          u.field_5.nil? ? "$0.00" : currencify(u.field_5),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
