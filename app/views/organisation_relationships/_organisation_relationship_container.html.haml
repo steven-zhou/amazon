@@ -1,0 +1,13 @@
+-#The container for a Relationship Type
+-div_for(organisation_relationship_container, :class => 'header_container toggle_options', :field => "relationship") do
+  %div
+    .title
+      %h2
+        =Organisation.find(organisation_relationship_container.related_organisation_id).level.to_s + Organisation.find(organisation_relationship_container.related_organisation_id).level_label.to_s
+    .options{:style => "display:none;"}
+      = link_to image_tag('delete_icon.png'), organisation_relationship_path(@organisation,:related_organisation_id =>organisation_relationship_container.id), :class => 'delete delete_organisation_relationship delete_option', :field => "relationship", :id => 'organisation_relationship_delete_button', :organisation_relationship_id => organisation_relationship_container.id,:error_message_field =>" Relationship", :title=>"Remove"
+    %br{ :style=>"clear: both;"}
+    .organisation_name{:style => "float:right"}
+      %h2
+        =Organisation.find(organisation_relationship_container.related_organisation_id).custom_id.to_s + Organisation.find(organisation_relationship_container.related_organisation_id).full_name
+

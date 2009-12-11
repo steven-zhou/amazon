@@ -27,7 +27,13 @@ class Organisation < ActiveRecord::Base
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :organisation_bank_accounts, :foreign_key => "entity_id"
   has_many :transaction_headers, :as => :entity
+  has_many :organisation_as_source, :foreign_key => "source_organisation_id", :class_name => "OrganisationRelationship"
+  has_many :organisation_as_related, :foreign_key => "related_organisation_id", :class_name => "OrganisationRelationship"
 
+
+
+
+ 
 
   belongs_to :country, :foreign_key => :registered_country_id
   belongs_to :organisation_hierarchy
@@ -35,6 +41,7 @@ class Organisation < ActiveRecord::Base
   belongs_to :business_type
   belongs_to :business_category
   belongs_to :industry_sector
+
     
   #--
   ################

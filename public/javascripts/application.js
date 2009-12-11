@@ -1019,7 +1019,6 @@ $(function(){
 
 $(function(){
     $('.new_option').live('click',function(){
-        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
         $("#" + $(this).attr('field')+'_mode').attr('mode','new');
         $(this).css("display","none");
         $('.close_option[field='+ $(this).attr('field') +']').css("display","");

@@ -130,6 +130,7 @@ class OrganisationsController < ApplicationController
     @fax = Fax.new
     @website = Website.new
     @instant_messaging = InstantMessaging.new
+    @relationship = OrganisationRelationship.new
     @masterdoc = MasterDoc.new
     @note = Note.new
     @note.active = TRUE
@@ -206,6 +207,8 @@ class OrganisationsController < ApplicationController
   def name_finder
     @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = nil
     @employment = Employment.find(params[:employment_id]) rescue @employment = Employment.new
+    @org_relationship = true if params[:object_id]
+
     respond_to do |format|
       format.js {  }
     end
@@ -450,5 +453,9 @@ class OrganisationsController < ApplicationController
       format.js
     end
   end
+
+
+   
+
 
 end

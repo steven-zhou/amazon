@@ -78,6 +78,8 @@
                 = render :partial => '/organisations/organisation_bank_account', :collection => @organisation.organisation_bank_accounts
           -else
             = render :partial => "/organisation_bank_accounts/account_tab",:locals =>{:organisation => @organisation}
+        #Rels
+          = render :partial => "/relationships/organisation_relationships_tab", :locals => {:organisation => @organisation}
     -else
       = render :partial => "/organisations/organisation_info"
   #duplication_box

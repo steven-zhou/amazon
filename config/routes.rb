@@ -51,6 +51,7 @@ ActionController::Routing::Routes.draw do |map|
     organisation.resources :notes
     organisation.resources :organisation_bank_accounts
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
+    organisation.resources :organisation_relationships
   end
 
 
