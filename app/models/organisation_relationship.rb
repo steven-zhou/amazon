@@ -34,7 +34,7 @@ class OrganisationRelationship < ActiveRecord::Base
      private
      def check_org_relationship
       @existing_relationship =OrganisationRelationship.find_by_related_organisation_id(self.related_organisation_id)
-       @existing_relationship.destroy
+       @existing_relationship.destroy if !@existing_relationship.nil?
      end
 
 
