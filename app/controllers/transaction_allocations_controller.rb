@@ -39,19 +39,21 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Please Enter All Required Data"
       elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data".
-          end
+    end
   
-        @transaction_header = TransactionHeader.find(@transaction_header_id)
-        @transaction_allocations = @transaction_header.transaction_allocations
-        @transaction_allocation_value = 0
-        @transaction_allocations.each do |transaction_transaction|
-          @transaction_allocation_value += transaction_transaction.amount.to_f
-        end
-        @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
-        respond_to do |format|
-          format.js
-        end
-      end
+    @transaction_header = TransactionHeader.find(@transaction_header_id)
+    @transaction_allocations = @transaction_header.transaction_allocations
+    @transaction_allocation_value = 0
+    @transaction_allocations.each do |transaction_transaction|
+      @transaction_allocation_value += transaction_transaction.amount+96+
+        3
+
+
+
+    end
+    @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
+    respond_to do |format|
+      format.js
     end
   end
   
@@ -74,7 +76,7 @@ class TransactionAllocationsController < ApplicationController
     @temp_allocations = @current_user.all_temp_allocation
     @temp_allocation_value = 0
     @temp_allocations.each do |temp_transaction|
-      @temp_allocation_value += temp_transaction.field_5.to_f
+      @temp_allocation_value += temp_transaction.field_5.to_i
     end
 
     respond_to do |format|
@@ -103,7 +105,7 @@ class TransactionAllocationsController < ApplicationController
     @transaction_allocations = @transaction_header.transaction_allocations
     @transaction_allocation_value = 0
     @transaction_allocations.each do |transaction_transaction|
-      @transaction_allocation_value += transaction_transaction.amount.to_f
+      @transaction_allocation_value += transaction_transaction.amount.to_i
     end
     @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
     respond_to do |format|
@@ -115,7 +117,11 @@ class TransactionAllocationsController < ApplicationController
     @temp_transaction_allocation_grid = TempTransactionAllocationGrid.new(params[:temp_transaction_allocation_grid])
     @temp_transaction_allocation_grid.login_account_id = @current_user
     if @temp_transaction_allocation_grid.save
-   
+      
+
+
+
+      
     else
       #----------------------------presence - of--------------------
       if(!@temp_transaction_allocation_grid.errors[:field_1].nil? && @temp_transaction_allocation_grid.errors.on(:field_1).include?("can't be blank"))
@@ -130,7 +136,7 @@ class TransactionAllocationsController < ApplicationController
     @temp_allocations = @current_user.all_temp_allocation
     @temp_allocation_value = 0
     @temp_allocations.each do |temp_transaction|
-      @temp_allocation_value += temp_transaction.field_5.to_f
+      @temp_allocation_value += temp_transaction.field_5.to_i
     end
     
     respond_to do |format|
