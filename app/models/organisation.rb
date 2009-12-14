@@ -16,6 +16,7 @@ class Organisation < ActiveRecord::Base
   has_many :faxes, :as => :contactable, :order => "priority_number ASC"
   has_many :emails, :as => :contactable, :order => "priority_number ASC"
   has_many :websites, :as => :contactable, :order => "priority_number ASC"
+  has_many :instant_messagings, :as => :contactable, :order => "priority_number ASC"
   has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
   has_many :keyword_links, :as => :taggable
   has_many :keywords, :through => :keyword_links,:uniq => true
@@ -26,7 +27,13 @@ class Organisation < ActiveRecord::Base
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :organisation_bank_accounts, :foreign_key => "entity_id"
   has_many :transaction_headers, :as => :entity
+  has_many :organisation_as_source, :foreign_key => "source_organisation_id", :class_name => "OrganisationRelationship"
+  has_many :organisation_as_related, :foreign_key => "related_organisation_id", :class_name => "OrganisationRelationship"
 
+
+
+
+ 
 
   belongs_to :country, :foreign_key => :registered_country_id
   belongs_to :organisation_hierarchy
@@ -34,6 +41,7 @@ class Organisation < ActiveRecord::Base
   belongs_to :business_type
   belongs_to :business_category
   belongs_to :industry_sector
+
     
   #--
   ################
@@ -62,7 +70,7 @@ class Organisation < ActiveRecord::Base
     end
     blank
   }
-  accepts_nested_attributes_for :phones, :emails, :faxes, :websites,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
+  accepts_nested_attributes_for :phones, :emails, :faxes, :websites,:instant_messagings,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
 
   accepts_nested_attributes_for :organisation_groups, :reject_if => proc { |attributes| attributes['organisation_group_id'].blank? }
   accepts_nested_attributes_for :organisation_bank_accounts
@@ -168,6 +176,15 @@ class Organisation < ActiveRecord::Base
     end
 
     return @personal_address_types
+  end
+
+   def personal_instant_messaging_types
+    @personal_instant_messaging_types = Array.new
+    self.instant_messagings.each do |instant_messaging|
+      @personal_instant_messaging_types <<  TagType.find(instant_messaging.contact_meta_type_id)
+    end
+
+    return @personal_instant_messaging_types
   end
 
 

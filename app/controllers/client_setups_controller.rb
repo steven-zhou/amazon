@@ -369,7 +369,7 @@ class ClientSetupsController < ApplicationController
   end
 
 
-    def new_client_bank_account
+  def new_client_bank_account
     @client_bank_account = ClientBankAccount.new
     respond_to do |format|
       format.js

@@ -11,6 +11,7 @@ class Person < ActiveRecord::Base
   has_many :faxes, :as => :contactable, :order => "priority_number asc"
   has_many :emails, :as => :contactable, :order => "priority_number asc"
   has_many :websites, :as => :contactable, :order => "priority_number asc"
+  has_many :instant_messagings, :as => :contactable, :order => "priority_number asc"
   has_many :contacts, :as => :contactable
   has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
   has_many :keyword_links, :as => :taggable
@@ -111,7 +112,8 @@ class Person < ActiveRecord::Base
     end
     blank
   }
-  accepts_nested_attributes_for :phones, :emails, :faxes, :websites,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
+
+  accepts_nested_attributes_for :phones, :emails, :faxes, :websites,:instant_messagings,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
 
   accepts_nested_attributes_for :person_groups, :reject_if => proc { |attributes| attributes['person_group_id'].blank? }
   accepts_nested_attributes_for :person_bank_accounts
@@ -232,6 +234,15 @@ class Person < ActiveRecord::Base
     end
 
     return @personal_website_types
+  end
+
+    def personal_instant_messaging_types
+    @personal_instant_messaging_types = Array.new
+    self.instant_messagings.each do |instant_messaging|
+      @personal_instant_messaging_types <<  TagType.find(instant_messaging.contact_meta_type_id)
+    end
+
+    return @personal_instant_messaging_types
   end
 
   def personal_address_types

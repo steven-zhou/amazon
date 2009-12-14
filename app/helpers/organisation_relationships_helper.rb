@@ -1,0 +1,2 @@
+module OrganisationRelationshipsHelper
+end

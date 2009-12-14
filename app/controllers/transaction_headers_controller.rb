@@ -19,7 +19,7 @@ class TransactionHeadersController < ApplicationController
     @transaction_allocations = @transaction_header.transaction_allocations
     @transaction_allocation_value = 0
     @transaction_allocations.each do |transaction_transaction|
-      @transaction_allocation_value += transaction_transaction.amount.to_i
+      @transaction_allocation_value += transaction_transaction.amount.to_f
     end
     respond_to do |format|
       format.js
@@ -37,7 +37,7 @@ class TransactionHeadersController < ApplicationController
       @temp_allocations = @current_user.all_temp_allocation
       @temp_allocation_value = 0
       @temp_allocations.each do |temp_transaction|
-        @temp_allocation_value += temp_transaction.field_5.to_i
+        @temp_allocation_value += temp_transaction.field_5.to_f
       end
       if @temp_allocations.empty?
         
@@ -49,7 +49,7 @@ class TransactionHeadersController < ApplicationController
           @transaction_allocation.receipt_account_id = temp_allocation.field_1
           @transaction_allocation.campaign_id = temp_allocation.field_2
           @transaction_allocation.source_id = temp_allocation.field_3
-          @transaction_allocation.amount= temp_allocation.field_5
+          @transaction_allocation.amount= temp_allocation.field_5.to_f
           @transaction_allocation.letter_id = temp_allocation.field_4
           @transaction_allocation.letter_sent= ""
           @transaction_allocation.date_sent= ""
@@ -59,7 +59,7 @@ class TransactionHeadersController < ApplicationController
           @transaction_allocation.cluster_id= temp_allocation.field_9
           @transaction_allocation.save
 
-          @transaction_header.total_amount =  @temp_allocation_value
+          @transaction_header.total_amount =  @temp_allocation_value.to_f
           @transaction_header.save
 
 

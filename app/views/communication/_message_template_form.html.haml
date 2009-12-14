@@ -12,7 +12,6 @@
 
 - form_for :message_template, @message_template, :url => { :action => "create_message_template" }, :html => {:class => 'ajax_form', :id => "add_message_template_form"}  do |f|
   .full_container
-    %h2 Message Template
     .form_line
       .field_60
         = f.label :name, "<span class='asterisk'>*</span>Name"

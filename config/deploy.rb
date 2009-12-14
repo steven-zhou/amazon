@@ -1,8 +1,9 @@
 require 'capistrano/ext/multistage'
 
 set :scm, :git
+set :deploy_via, :remote_cache
 # set :deploy_via, :export
-set :deploy_via, :copy
+# set :deploy_via, :copy
 set :copy_strategy, :export
 set :copy_exclude, [".git/*", ".svn/*"]
 set :user, :rails
@@ -11,7 +12,7 @@ set :use_sudo, false
 set :application, "amazon"
 set :deploy_to, "/home/rails/amazon"
 # set :repository, svn+ssh://test.example.com/repository/trunk
-set :repository, "rails@amazon-development:/var/git/amazon.git"
+set :repository, "rails@60.242.17.197:/var/git/amazon.git"
 
 namespace :mod_rails do
     desc <<-DESC

@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
 
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get},
+    :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,
@@ -20,6 +20,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :faxes
     person.resources :websites
     person.resources :emails
+    person.resources :instant_messagings
     person.resources :master_docs
     person.resources :images, :member => {:thumb => :get}
     person.resources :notes
@@ -37,18 +38,20 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get},
+    :collection => {:find => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get},
     :member => {:name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
     organisation.resources :faxes
     organisation.resources :websites
+    organisation.resources :instant_messagings
     organisation.resources :emails
     organisation.resources :master_docs
     organisation.resources :images, :member => {:thumb => :get}
     organisation.resources :notes
     organisation.resources :organisation_bank_accounts
     organisation.resources :organisation_groups, :collection => {:show_group_members => :get}
+    organisation.resources :organisation_relationships
   end
 
 
@@ -58,7 +61,9 @@ ActionController::Routing::Routes.draw do |map|
 
   }
 
-  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :edit_message_template => :get, :new_message_template => :get, :update_message_template => :post, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :get }
+  map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :get,
+    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :destroy_message_template => :get
+  }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
 
@@ -117,6 +122,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
   map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get,:move_organisation_down_website_priority=>:get, :move_organisation_up_website_priority => :get}
+   map.resources :instant_messagings, :member => {:move_down_instant_messaging_priority =>:get, :move_up_instant_messaging_priority => :get,:move_organisation_down_instant_messaging_priority=>:get, :move_organisation_up_instant_messaging_priority => :get}
   map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get}
@@ -139,7 +145,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :religions
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
  
-  map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get}
+  map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get, :show_personal_transaction => :get, :show_organisational_transaction => :get}
 
   map.resources :transaction_headers, :collection => {:page_initial => :get}
   map.resources :transaction_allocations, :collection => {:temp_create => :post}, :member => {:temp_edit => :get, :temp_update => :put}

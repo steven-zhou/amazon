@@ -2,8 +2,9 @@
   .form_line
     .field_15
       = f.label :todays_date, "System Date"
+      %input{:style => "display:none;", :value => "#{@system_date}", :name => "transaction_header[todays_date]"}
       .display_field_bg
-        #{@system_date.to_s}
+        #{@system_date.to_s}      
 
     .field_15
       = f.label :transaction_date, "<span class='asterisk'>*</span>Transaction Date"
@@ -72,5 +73,6 @@
 #temp_allocation_total_amount.right{:style => "width:35%;margin-top:10px;"}
   .display_field_bg.right{:style => "width:200px !important;"}
     %div{:id => "temp_allocation_total_amount_value"}
+      #{number_to_currency(0)}
   %h2{:class => "float:right;"} Transaction Total:
 

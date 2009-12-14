@@ -372,36 +372,6 @@ $(function(){
     $("#submit_website_field_edit").live('click', check_website_field_edit);
 });
 
-/*  Address Post Code */
-$(function(){
-    $('table#address_postcode tbody tr').live('dblclick',function(){
-        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-
-        $.ajax({
-            type: 'GET',
-            url: "/people/"+$(this).attr('id').substring(3)+"/postcode_look_up.js",
-            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3")+'&update_field4='+$("#address_postcode_input").attr("update_field4"),
-            dataType: "script"
-        });
-        $('#address_form_assistant').dialog('close');
-    });
-});
-
-
-$(function(){
-    $('table#address_postcode tbody tr').live('click',function(){
-        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-    });
-});
-
-$(function(){
-    $('table#address_postcode tbody tr').live('mouseover', function(){
-        $(this).css('cursor', "pointer");
-    });
-});
-
 /* Organisation Lookup*/
 $(function(){
     $(".organisation_lookup").live('click', function(){
@@ -498,6 +468,13 @@ $(function(){
             $("#website_value").attr('readonly','readonly');
             $("#website_remarks").attr('readonly','readonly');
             $("#submit_website_field").attr('readonly','readonly')
+        }
+
+        if($("#instant_messaging_contact_meta_type_id").val() == null)
+        {
+            $("#instant_messaging_value").attr('readonly','readonly');
+            $("#instant_messaging_remarks").attr('readonly','readonly');
+            $("#submit_instant_messaging_field").attr('readonly','readonly')
         }
 
 
@@ -2646,7 +2623,7 @@ $(function(){
                 url:
                 "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id')+'&object_id='+$(this).attr('object_id'),
                 dataType: "script"
             });
         }else{
@@ -3771,3 +3748,34 @@ $(function(){
 
 });
 /*Import Outport*/
+
+
+/* Message Template Grid*/
+$(function(){
+    $('table#show_message_templates_grid tbody tr').live('click',function(){
+        if($('#message_template_mode').attr('mode')=="show"){
+            $('table#show_message_templates_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass('trSelected');
+        }else{
+            $(this).removeClass('trSelected');
+        }
+    });
+
+    $('table#show_message_templates_grid tbody tr').live('dblclick',function(){
+        if($('#message_template_mode').attr('mode')=="show"){
+            $.ajax({
+                type: 'GET',
+                url: "/communication/edit_message_template/"+$(this).attr('id').substring(3),
+                dataType: "script"
+            });
+        }
+    });
+
+    $('table#show_message_templates_grid tbody tr').live('mouseover',function(){
+        if($('#message_template_mode').attr('mode')=="show"){
+            $(this).css('cursor',"pointer");
+        }else{
+            $(this).css('cursor',"");
+        }
+    });
+});

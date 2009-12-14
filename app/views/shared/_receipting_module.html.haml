@@ -1,4 +1,20 @@
 %ul#menu
+  - # Transaction Menu
+  %li{:id => @current_controller == "transactions" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "transactions"
+        = link_to "#{image_tag('/images/icon_holder.png')} Transactions", :controller => "transactions", :action => "personal_transaction"
+      - else
+        <p>Transactions</p>
+        %ul
+          %li{:id => @current_action == "personal_transaction" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Person", :controller => "transactions", :action => "personal_transaction"
+          %li{:id => @current_action == "organisational_transaction" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Organisation", :controller => "transactions", :action => "organisational_transaction"
+          %br.clear
+    .bottom
+
   - # Receipting Menu
   %li{:id => @current_controller == "receipting" ? "menu_active" : ""}
     .top

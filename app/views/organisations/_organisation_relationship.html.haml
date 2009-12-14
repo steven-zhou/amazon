@@ -1,0 +1,11 @@
+-#The container for a Relationship Type
+-div_for(organisation_relationship, :class => 'header_container', :field => "relationship") do
+  %div
+    .title
+      %h2
+        =Organisation.find(organisation_relationship.related_organisation_id).level.to_s + Organisation.find(organisation_relationship.related_organisation_id).level_label.to_s
+    %br{ :style=>"clear: both;"}
+    .organisation_name{:style => "float:right"}
+      %h2
+        =Organisation.find(organisation_relationship.related_organisation_id).custom_id.to_s + Organisation.find(organisation_relationship.related_organisation_id).full_name
+

@@ -1299,7 +1299,7 @@ $(function(){
     $("#content input[type='text']").live('change', function(){
         left_content = $("#content").find("#left_content");
         right_content = $("#content").find("#right_content");
-        if (left_content.length > 0 &&  right_content.length > 0)
+        if ((left_content.length > 0 &&  right_content.length > 0) || $(this).attr("class").indexOf('change_without_check_js')>0)
         {
         }
         else
@@ -1525,120 +1525,121 @@ $(function(){
     }).attr("rel", "nofollow");
 });
 
+lolanavigation = function(link){
+    right_tab = $("#content #right_content").find("#tabs");
+    //         alert(right_tab.length);
+    if(right_tab.length > 0)
+    {
+        check_input_change();
+    }
+
+
+    left_content = $("#content").find("#left_content");
+    right_content = $("#content").find("#right_content");
+    //     alert( left_content.length);
+    //     alert( right_content.length);
+    if (left_content.length > 0 &&  right_content.length > 0)
+    {
+        //          $('#check_input_change').val("true");
+        //          alert( $('#check_input_change').val());
+
+        if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+        {
+
+            $('#check_input_change').val("true");
+        }
+        else
+        {
+
+            $('#check_input_change').val("false");
+        }
+    }
+
+    if($('#check_input_change').val() == "false")
+    {
+        if (link.attr('url').indexOf("people") > 0)
+        {
+            $.ajax({
+                type: "GET",
+                url: link.attr('url')+".js",
+                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                dataType: "script"
+            });
+        }
+        if (link.attr('url').indexOf("organisations") > 0)
+        {
+            $.ajax({
+                type: "GET",
+                url: link.attr('url')+".js",
+                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                dataType: "script"
+            });
+
+        }
+
+
+        return false;
+    }
+    else
+    {
+        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    if (link.attr('url').indexOf("people") > 0)
+                    {
+                        $.ajax({
+                            type: "GET",
+                            url: link.attr('url')+".js",
+                            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                            dataType: "script"
+                        });
+                    }
+                    if (link.attr('url').indexOf("organisations") > 0)
+                    {
+                        $.ajax({
+                            type: "GET",
+                            url: link.attr('url')+".js",
+                            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                            dataType: "script"
+                        });
+
+                    }
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
+                    $('#check_input_change').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+        return false;
+    }
+};
 
 $(function(){
     $('#lol a').live('click', function(){
 
-        var link = $(this);
-
-        right_tab = $("#content #right_content").find("#tabs");
-        //         alert(right_tab.length);
-        if(right_tab.length > 0)
-        {
-            check_input_change();
-        }
-
-
-        left_content = $("#content").find("#left_content");
-        right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
-        if (left_content.length > 0 &&  right_content.length > 0)
-        {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
-            {
-
-                $('#check_input_change').val("true");
-            }
-            else
-            {
-
-                $('#check_input_change').val("false");
-            }
-        }
-
-        if($('#check_input_change').val() == "false")
-        {
-            if (link.attr('url').indexOf("people") > 0)
-            {
-                $.ajax({
-                    type: "GET",
-                    url: link.attr('url')+".js",
-                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-                    dataType: "script"
-                });
-            }
-            if (link.attr('url').indexOf("organisations") > 0)
-            {
-                $.ajax({
-                    type: "GET",
-                    url: $(this).attr('url')+".js",
-                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-                    dataType: "script"
-                });
-
-            }
-
-
-            return false;
-        }
-        else
-        {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        if (link.attr('url').indexOf("people") > 0)
-                        {
-                            $.ajax({
-                                type: "GET",
-                                url: link.attr('url')+".js",
-                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-                                dataType: "script"
-                            });
-                        }
-                        if (link.attr('url').indexOf("organisations") > 0)
-                        {
-                            $.ajax({
-                                type: "GET",
-                                url: $(this).attr('url')+".js",
-                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-                                dataType: "script"
-                            });
-
-                        }
-                        $('#check_left_input_change').val("false");
-                        $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
-                        $(this).dialog('destroy');
-                        return true;
-                    }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
-
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
-
-            $('#warning_message').dialog('open');
-            return false;
-        }
+        lolanavigation($(this));
     }).attr("rel", "nofollow");
 });
 
@@ -1787,32 +1788,6 @@ $(function(){
 
 // Address assistant //
 
-//$(document).ready(function() {
-//    $('#address_assistant').dataTable( {
-//        "iDisplayLength":10,
-//        "bLengthChange": false,
-//        "bAutoWidth":false,
-//        "bFilter":false,
-//        "aoColumns": [
-//        {
-//            "sWidth":"40%"
-//        },
-//
-//        {
-//            "sWidth":"13%"
-//        },
-//
-//        {
-//            "sWidth":"22%"
-//        },
-//
-//        {
-//            "sWidth":"25%"
-//        }
-//        ]
-//    });
-//});
-
 $(document).ready(function() {
 
     $('.launch_address_assistant').live('click', function() {
@@ -1831,16 +1806,34 @@ $(document).ready(function() {
 });
 
 $(function(){
-    $('table#address_assistant tbody tr').live('click',function(){
-        $('table#address_assistant tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
+    $('table#address_postcode tbody tr').live('dblclick',function(){
+        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
 
-    });
-
-    $('table#address_assistant tbody tr').live('mouseover',function(){
-        $(this).css("cursor", "pointer");
+        $.ajax({
+            type: 'GET',
+            url: "/people/"+$(this).attr('id').substring(3)+"/postcode_look_up.js",
+            data:'update_field1='+$("#address_postcode_input").attr("update_field1")+'&update_field2='+$("#address_postcode_input").attr("update_field2")+'&update_field3='+$("#address_postcode_input").attr("update_field3")+'&update_field4='+$("#address_postcode_input").attr("update_field4"),
+            dataType: "script"
+        });
+        $('#address_form_assistant').dialog('close');
     });
 });
+
+
+$(function(){
+    $('table#address_postcode tbody tr').live('click',function(){
+        $('table#address_postcode tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass('trSelected');
+    });
+});
+
+$(function(){
+    $('table#address_postcode tbody tr').live('mouseover', function(){
+        $(this).css('cursor', "pointer");
+    });
+});
+
 
 $(function(){
     $('.address_assistant_search').keyup(function() {
@@ -2249,6 +2242,14 @@ clear_organisation_form = function(link){
         $("#new_master_doc")[0].reset();
 
     }
+    if(link.attr('toggle_id_name')=="new_organisation_relationship")
+    {
+        $("#organisation_relationship_related_organisation_id").val("").keyup();
+        $("#related_organisation_level").html("");
+        $("#related_organisation_level_label").html("");
+        $("#related_organisation_name_container").html("");
+
+    }
 
 };
 
@@ -2349,6 +2350,7 @@ $(function(){
         {
             $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
+            $('#current_tab_id').val(link.attr('field'));
         }
         else
         {
@@ -2370,6 +2372,7 @@ $(function(){
                     Yes: function(){
                         $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('#current_tab_id').val(link.attr('field'));
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -2462,6 +2465,7 @@ $(function(){
 });
 
 
+//for general use get the person name or organasation name
 $(function(){
     $(".general_name_show").live('change', function(){
         if($(this).val() != ""){
@@ -2469,6 +2473,21 @@ $(function(){
                 type: "GET",
                 url:"/people/general_name_show.js",
                 data:'person_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
+                dataType: "script"
+            });
+        }else{
+            $("#"+$(this).attr('update_field')).val("");
+        }
+    });
+});
+
+$(function(){
+    $(".org_general_name_show").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: "GET",
+                url:"/organisations/org_general_name_show.js",
+                data:'organisation_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
                 dataType: "script"
             });
         }else{
@@ -2522,7 +2541,28 @@ $(function(){
     });
 });
 
+/*matain---geo_area*/
+$(function(){
+    $(".select_ajax_call").live('change', function(){
+        if($(this).val() != ""){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("url")+".js",
+                data: 'param1='+$(this).val()+'&type='+$(this).attr('type_class'),
+                dataType: "script"
+            });
+        }else{
 
+            $('#add_new_'+ $(this).attr('field')).html('');
+            if($(this).attr('field')=="postcode"){
+                $('#existing_postcodes').html('');
+            }else{
+                $('#existing_'+ $(this).attr('field')).html('');
+            }
+            $('#edit_'+ $(this).attr('field')+'_form').html('');
+        }
+    });
+});
 
 // Feedback - which is used throughout the system
 
@@ -2540,4 +2580,199 @@ $(function(){
     });
 });
 
+
+// people-organisation show list reuse part and grid dbclick - click--reuse part
+
+
+
+
+/* Show list*/
+$(function(){
+    $(".general_show_all_list_member").live('click',function(){
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+            $.ajax({
+                type: "GET",
+                url: "/people/general_show_list.js",
+                data: 'person_id='+link.attr('person_id'),
+                dataType: "script"
+
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                        $.ajax({
+                            type: "GET",
+                            url: "/people/general_show_list.js",
+                            data: 'person_id='+link.attr('person_id'),
+                            dataType: "script"
+
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+    });
+});
+
+$(function(){
+    $(".general_show_all_list_member").live('mouseover',function(){
+        $(this).css("cursor","pointer");
+    });
+});
+
+
+/* Show Summary list*/
+$(function(){
+    $('table.selectable_grid tbody tr').live('click',function(){
+        var form_id = $(this).closest('table').get(0).id
+        if ($('#'+ form_id).attr('click_function') == "true"){
+            $.ajax({
+                type: 'GET',
+                url: $('#'+ form_id).attr('click_url'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+$('#'+ form_id).attr('params1'),
+                dataType: "script"
+            });
+        }
+        $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
+        $(this).addClass("trSelected");
+    });
+});
+
+$(function(){
+    $('table.selectable_grid tbody tr').live('dblclick',function(){
+        //        alert($('table#general_search_list_results').attr('db_click_function'))
+        var form_id = $(this).closest('table').get(0).id
+        if ($('#'+ form_id).attr('db_click_function') == "true")
+        {
+            $.ajax({
+                type: 'GET',
+                url: $('#'+ form_id).attr('db_click_url'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target'),
+                dataType: "script"
+            });
+        }
+
+        if ($('#'+ form_id).attr('db_close') == "true")
+        {
+            $('.ui-icon-closethick').click();
+        }
+    });
+});
+
+$(function(){
+    $('table.selectable_grid tbody tr').live('mouseover',function(){
+        $(this).css("cursor","pointer");
+    });
+});
+
+
+
+
+/*show_list orgnasation---*/
+$(function(){
+    $(".general_show_all_list_organisations").live('click',function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+
+            $.ajax({
+                type: "GET",
+                url: "/organisations/general_show_list.js",
+                data: 'organisation_id='+link.attr('organisation_id'),
+                dataType: "script"
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+
+                        $.ajax({
+                            type: "GET",
+                            url: "/organisations/general_show_list.js",
+                            data: 'organisation_id='+link.attr('organisation_id'),
+                            dataType: "script"
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+
+
+
+    });
+});
+
+$(function(){
+    $(".general_show_all_list_organisations").live('mouseover',function(){
+
+        $(this).css("cursor","pointer");
+    });
+});
 

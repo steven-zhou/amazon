@@ -1,0 +1,21 @@
+.form_line{:style => "float:none;"}
+  .field_30
+    = label_tag :level, "Level", {:style => "color: #232323;"}
+    %div.display_field_bg
+      %label#related_organisation_level{:style => "font-size:17px;display:inline;"}
+  .field_30{:style => "margin-right: 2px;"}
+    = label_tag :level_label, "Level Label", {:style => "color: #232323;"}
+    %div.display_field_bg
+      %label#related_organisation_level_label{:style => "font-size:17px;display:inline;"}
+.form_line{:style => "float:none;"}
+  .field_40{:style => "margin-right: 2px;"}
+    = label_tag :related_person_id, "<span class='asterisk'>*</span>Organisation ID"
+    = relationship.text_field :related_organisation_id,:class=>"mandantory_field find_organisation_field",:object_id=>0,:mandantory_field1=>"organisation_relationship_related_organisation_id",:submit_button_id=>"relationship_new_submit"
+  .field_5
+    %label &nbsp;
+    = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "organisation_relationship_related_organisation_id", :title=>"Search"
+  .field_40
+    %label &nbsp;
+    %label#related_organisation_name_container{:style => "font-size:17px;display:inline;"}
+  %input{:name => "organisation_relationship[source_organisation_id]", :value => "#{@organisation.id}", :class => "hidden"}
+%br{:style=>"clear:both;"}

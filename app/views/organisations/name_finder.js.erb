@@ -14,6 +14,19 @@
    $("#employment_<%=escape_javascript("#{@employment.id}")%>_organisation_id").focus();
    $("#employment_<%=escape_javascript("#{@employment.id}")%>_organisation_id").val("");
    <%  end %>
+
+    <% if @org_relationship %>
+    $("#related_organisation_name_container").css('display','');
+    $("#related_organisation_name_container").html("Invalid ID ");
+
+     $("#related_organisation_name_container").fadeTo(3000,1);
+    $("#related_organisation_name_container").stop().fadeOut(3000);
+    $("#related_organisation_name_container").focus();
+    $("#organisation_relationship_related_organisation_id").val("").keyup();
+    $("#related_organisation_level").html("");
+    $("#related_organisation_level_label").html("");
+
+    <%end%>
 <% else %>
   <% if @employment.new_record? %>
     $("#organisation_name_container_0").css('display','');
@@ -22,4 +35,13 @@
     $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").css('display','');
     $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").html("<%=escape_javascript("#{@organisation.full_name}")%>");
  <%  end %>
+   <% if @org_relationship %>
+      $("#related_organisation_name_container").css('display','');
+    $("#related_organisation_name_container").html("<%=escape_javascript("#{@organisation.full_name}")%>");
+    $("#related_organisation_level").html("<%=escape_javascript("#{@organisation.level}")%>");
+    $("#related_organisation_level_label").html("<%=escape_javascript("#{@organisation.level_label}")%>");
+
+    <%end%>
+
+
 <% end %>

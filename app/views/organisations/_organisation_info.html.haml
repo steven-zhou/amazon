@@ -34,6 +34,11 @@
           %h2 Website
           #contact_website
             = render :partial => '/organisations/organisation_contact', :collection => @organisation.websites
+      -if !@organisation.instant_messagings.blank?
+        .container
+          %h2 IM
+          #contact_instant_messagings
+            = render :partial => '/organisations/organisation_contact', :collection => @organisation.instant_messagings
   #Keyword
     .container
       -#.header_container
@@ -89,7 +94,18 @@
           %h1 Bank Account Details
 
       %br{ :style=>"clear: both;"}
-      #group_list
+      #account_list
       =# Render the organisation's Bank Account
       = render :partial => '/organisations/organisation_bank_account', :collection => @organisation.organisation_bank_accounts
+  #Rels
+    .container
+      -#.header_container
+        .title
+          %h1 Organisation Relationship Details
+
+      %br{ :style=>"clear: both;"}
+      #relationship_list
+      =# Render the organisation's Relationship
+      = render :partial => '/organisations/father_organisation_relationship', :collection => @organisation.organisation_as_related
+      = render :partial => '/organisations/organisation_relationship', :collection => @organisation.organisation_as_source
 
