@@ -15,7 +15,7 @@
 .form_line
   .field_30
     = label_tag :marital_status, 'Marital Status', {:style => "color: #232323;"}
-    %div.display_field_bg{:class =>( "red" if !MaritalStatus.find_by_name(@person.marital_status.name).nil? and MaritalStatus.find_by_name(@person.marital_status.name).to_be_removed == true)}
+    %div.display_field_bg{:class =>( "red" if @person.marital_status.nil? and !MaritalStatus.find_by_name(@person.marital_status.name).nil? and MaritalStatus.find_by_name(@person.marital_status.name).to_be_removed == true)}
       =@person.marital_status.nil? ? "" :@person.marital_status.name.to_s
   .field_30
     = label_tag :religion_id, 'Religion', {:style => "color: #232323;"}
