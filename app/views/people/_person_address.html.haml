@@ -2,6 +2,6 @@
 -div_for(person_address, :class => 'header_container') do
   %div
     .title
-      %h2= person_address.address_type.name
+      %h2{:class=>("red" if person_address.address_type.to_be_removed == true)}= person_address.address_type.name
   %div{:style => "float:right;"}
     = format_address(person_address)

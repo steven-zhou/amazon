@@ -1527,113 +1527,113 @@ $(function(){
 
 lolanavigation = function(link){
     right_tab = $("#content #right_content").find("#tabs");
-        //         alert(right_tab.length);
-        if(right_tab.length > 0)
+    //         alert(right_tab.length);
+    if(right_tab.length > 0)
+    {
+        check_input_change();
+    }
+
+
+    left_content = $("#content").find("#left_content");
+    right_content = $("#content").find("#right_content");
+    //     alert( left_content.length);
+    //     alert( right_content.length);
+    if (left_content.length > 0 &&  right_content.length > 0)
+    {
+        //          $('#check_input_change').val("true");
+        //          alert( $('#check_input_change').val());
+
+        if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
         {
-            check_input_change();
-        }
 
-
-        left_content = $("#content").find("#left_content");
-        right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
-        if (left_content.length > 0 &&  right_content.length > 0)
-        {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
-            {
-
-                $('#check_input_change').val("true");
-            }
-            else
-            {
-
-                $('#check_input_change').val("false");
-            }
-        }
-
-        if($('#check_input_change').val() == "false")
-        {
-            if (link.attr('url').indexOf("people") > 0)
-            {
-                $.ajax({
-                    type: "GET",
-                    url: link.attr('url')+".js",
-                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-                    dataType: "script"
-                });
-            }
-            if (link.attr('url').indexOf("organisations") > 0)
-            {
-                $.ajax({
-                    type: "GET",
-                    url: link.attr('url')+".js",
-                    data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-                    dataType: "script"
-                });
-
-            }
-
-
-            return false;
+            $('#check_input_change').val("true");
         }
         else
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
 
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        if (link.attr('url').indexOf("people") > 0)
-                        {
-                            $.ajax({
-                                type: "GET",
-                                url: link.attr('url')+".js",
-                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
-                                dataType: "script"
-                            });
-                        }
-                        if (link.attr('url').indexOf("organisations") > 0)
-                        {
-                            $.ajax({
-                                type: "GET",
-                                url: link.attr('url')+".js",
-                                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
-                                dataType: "script"
-                            });
-
-                        }
-                        $('#check_left_input_change').val("false");
-                        $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
-                        $(this).dialog('destroy');
-                        return true;
-                    }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
-
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
-
-            $('#warning_message').dialog('open');
-            return false;
+            $('#check_input_change').val("false");
         }
+    }
+
+    if($('#check_input_change').val() == "false")
+    {
+        if (link.attr('url').indexOf("people") > 0)
+        {
+            $.ajax({
+                type: "GET",
+                url: link.attr('url')+".js",
+                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                dataType: "script"
+            });
+        }
+        if (link.attr('url').indexOf("organisations") > 0)
+        {
+            $.ajax({
+                type: "GET",
+                url: link.attr('url')+".js",
+                data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                dataType: "script"
+            });
+
+        }
+
+
+        return false;
+    }
+    else
+    {
+        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    if (link.attr('url').indexOf("people") > 0)
+                    {
+                        $.ajax({
+                            type: "GET",
+                            url: link.attr('url')+".js",
+                            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field'),
+                            dataType: "script"
+                        });
+                    }
+                    if (link.attr('url').indexOf("organisations") > 0)
+                    {
+                        $.ajax({
+                            type: "GET",
+                            url: link.attr('url')+".js",
+                            data: 'active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.organisation_edit_tab.active').attr('field'),
+                            dataType: "script"
+                        });
+
+                    }
+                    $('#check_left_input_change').val("false");
+                    $('#check_right_input_change').val("false");
+                    $('#check_input_change').val("false");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+
+        $('#warning_message').dialog('open');
+        return false;
+    }
 };
 
 $(function(){
@@ -2242,6 +2242,14 @@ clear_organisation_form = function(link){
         $("#new_master_doc")[0].reset();
 
     }
+    if(link.attr('toggle_id_name')=="new_organisation_relationship")
+    {
+        $("#organisation_relationship_related_organisation_id").val("").keyup();
+        $("#related_organisation_level").html("");
+        $("#related_organisation_level_label").html("");
+        $("#related_organisation_name_container").html("");
+
+    }
 
 };
 
@@ -2687,7 +2695,7 @@ $(function(){
 
 $(function(){
     $('table.selectable_grid tbody tr').live('mouseover',function(){
-            $(this).css("cursor","pointer");
+        $(this).css("cursor","pointer");
     });
 });
 
