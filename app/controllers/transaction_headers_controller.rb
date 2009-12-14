@@ -18,8 +18,8 @@ class TransactionHeadersController < ApplicationController
 
   def edit
     @transaction_header = TransactionHeader.find(params[:id])
-    @cheque_detail = @transaction_header.cheque_detail
-    @credit_card_detail = @transaction_header.credit_card_detail
+    @cheque_detail = @transaction_header.cheque_detail rescue @cheque_detail = ChequeDetail.new
+    @credit_card_detail = @transaction_header.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new
     @transaction_allocations = @transaction_header.transaction_allocations
     @transaction_allocation_value = 0
     @transaction_allocations.each do |transaction_transaction|

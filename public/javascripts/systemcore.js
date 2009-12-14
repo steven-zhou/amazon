@@ -372,67 +372,6 @@ $(function(){
     $("#submit_website_field_edit").live('click', check_website_field_edit);
 });
 
-/* Organisation Lookup*/
-$(function(){
-    $(".organisation_lookup").live('click', function(){
-        $.ajax({
-            type: "GET",
-            url:"/organisations/lookup.js",
-            data:'update_field='+$(this).attr('update_field'),
-            dataType: "script"
-        });
-    });
-
-    $("table#organisation_lookup_grid tbody tr").live("dblclick", function(){
-        $.ajax({
-            type: "GET",
-            url:"/organisations/lookup_fill.js",
-            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#organisation_lookup_grid").attr('update_field'),
-            dataType: "script"
-        });
-
-    });
-
-    $("table#organisation_lookup_grid tbody tr").live("click", function(){
-        $('table#organisation_lookup_grid tbody tr.selected').removeClass('selected');
-        $(this).addClass("selected");
-    });
-    $('table#organisation_lookup_grid tbody tr').live('mouseover',function(){
-        $(this).css("cursor", "pointer");
-    });
-});
-
-/* Person Lookup*/
-$(function(){
-    $(".person_lookup").live('click', function(){
-        $.ajax({
-            type: "GET",
-            url:"/people/lookup.js",
-            data:'update_field='+$(this).attr('update_field'),
-            dataType: "script"
-        });
-    });
-
-    $("table#person_lookup_grid tbody tr").live("dblclick", function(){
-        $.ajax({
-            type: "GET",
-            url:"/people/lookup_fill.js",
-            data:'id='+$(this).attr('id').substring(3) + "&update_field=" + $("table#person_lookup_grid").attr('update_field'),
-            dataType: "script"
-        });
-
-    });
-
-    $("table#person_lookup_grid tbody tr").live("click", function(){
-        $('table#person_lookup_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-
-    });
-
-    $('table#person_lookup_grid tbody tr').live('mouseover',function(){
-        $(this).css('cursor',"pointer");
-    });
-});
 
 /*Contact form add button form to default phone form*/
 $(function(){

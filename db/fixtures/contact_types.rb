@@ -31,5 +31,7 @@ cheque = ReceiptMetaMetaType.find_by_name("Cheque")
 
 ReceiptMetaType.create :name => "Visa Card",   :tag_meta_type_id => credit_card.id,    :status => true
 ReceiptMetaType.create :name => "Master Card",   :tag_meta_type_id => credit_card.id,    :status => true
+ReceiptMetaType.create :name => "Bank Cheque",   :tag_meta_type_id => cheque.id,    :status => true
+ReceiptMetaType.create :name => "Personal Cheque",   :tag_meta_type_id => cheque.id,    :status => true
 ReceiptMetaType.create :name => "Cash",   :tag_meta_type_id => cash.id,    :status => true
 

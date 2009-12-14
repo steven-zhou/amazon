@@ -35,8 +35,10 @@
       = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
       = f.collection_select :received_via_id, ReceivedVia.all, :id, :name
 
+  #cash_detail_form
+    
   #cheque_detail_form
-    = render :partial => "transaction_type_details/cheque_detail_form"
+    -#= render :partial => "transaction_type_details/cheque_detail_form"
 
   #credit_card_detail_form
     -#= render :partial => "transaction_type_details/credit_card_detail_form"
