@@ -9,6 +9,6 @@
   %div{:style => "float:right;"}
     .attr_name
       = h person_note.short_description
-      = "(#{person_note.note_type.name})"
+      %span{:class=>("red" if person_note.note_type.to_be_removed == true)} (#{person_note.note_type.name})
     .attr_name
       = truncate(person_note.body_text, 100, "...")

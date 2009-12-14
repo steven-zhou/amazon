@@ -3,7 +3,7 @@
 -div_for(person_accounts, :class => "header_container toggle_options #{status}", :field => "person_account") do
   %div  
     .title
-      %h2= "#{AccountType.find(person_accounts.account_type_id).name}"
+      %h2{:class=>("red" if AccountType.find(person_accounts.account_type_id).to_be_removed == true)}= "#{AccountType.find(person_accounts.account_type_id).name}"
     .options{:class => 'person_bank_account_edit_delete person_tag ', :style => "display:none;"}
       = link_to image_tag('edit_icon.png'),edit_person_bank_account_path(person_accounts), :class => "get edit_option", :field => "person_account",:title => "Edit"
       = link_to image_tag('delete_icon.png'), person_bank_account_path(person_accounts), :class => 'delete delete_option',:field => "person_account", :error_message_field =>"Account",:title => "Remove"

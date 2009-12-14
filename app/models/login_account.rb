@@ -5,8 +5,10 @@ class LoginAccount < ActiveRecord::Base
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
   has_many :dashboard_preferences
-
-  validates_uniqueness_of :user_name, :case_sensitive => false
+  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
+  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
+  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
+  validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
 
 
 

@@ -11,7 +11,7 @@
       = f.text_field :description
     .field_30
       = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
-      = f.collection_select(:link_module_id, LinkModule.find(:all), :id, :name, {:include_blank => true},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_allocation_type_name", :mandantory_field2=>"allocation_type_link_module_id", :submit_button_id=>"new_allocation_type_submit"})
+      = f.collection_select(:link_module_id, LinkModule.active_link_module_type, :id, :name, {:include_blank => true},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_allocation_type_name", :mandantory_field2=>"allocation_type_link_module_id", :submit_button_id=>"new_allocation_type_submit"})
   .form_line
     .field_63
       = f.label :remarks, "Remarks"

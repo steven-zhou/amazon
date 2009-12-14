@@ -9,7 +9,7 @@ class MaritalStatus < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_marital_status
-    @marital_status = MaritalStatus.find(:all, :conditions => ["status = true"], :order => 'name')
+    @marital_status = MaritalStatus.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

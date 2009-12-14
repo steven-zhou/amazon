@@ -7,7 +7,11 @@ module OrganisationHelper
     formatted += "Registered Name: #{org.registered_name} <br/>" unless org.registered_name.blank?
     formatted += "Registered Date: #{org.registered_date} <br/>" unless org.registered_date.blank?
     formatted += "Country of Incorporation: #{org.country.short_name} <br/>" unless org.country.blank?
-    formatted += "Organisation Legal Type: #{org.organisation_type.name} <br/>" unless org.organisation_type.blank?
+    if !org.organisation_type.blank? and org.organisation_type.to_be_removed == false
+      formatted += "Organisation Legal Type:  #{org.organisation_type.name} <br/>" unless org.organisation_type.blank?
+    else
+      formatted += "Organisation Legal Type: <span class = 'red'> #{org.organisation_type.name} </span> <br/>" unless org.organisation_type.blank?
+    end
 
     formatted += "Tax File Number: #{org.tax_file_no} <br/>" unless org.tax_file_no.blank?
     formatted += "Legal Number 1: #{org.legal_no_1} <br/>" unless org.legal_no_1.blank?
@@ -18,9 +22,18 @@ module OrganisationHelper
   def format_business_details(org)
 
     formatted = ""
-    formatted += "Industrial Sector: #{org.industry_sector.name} <br/>" unless org.industry_sector.blank?
+    if !org.industry_sector.blank? and org.industry_sector.to_be_removed == false
+      formatted += "Industrial Sector: #{org.industry_sector.name} <br/>" unless org.industry_sector.blank?
+    else
+      formatted += "Industrial Sector:<span class = 'red'> #{org.industry_sector.name} </span><br/>" unless org.industry_sector.blank?
+    end
     formatted += "Industrial Code: #{org.industrial_code} <br/>" unless org.industrial_code.blank?
-    formatted += "Business Category: #{org.business_category.name} <br/>" unless org.business_category.blank?
+    if !org.business_category.blank? and org.business_category.to_be_removed == false
+      formatted += "Business Category: #{org.business_category.name} <br/>" unless org.business_category.blank?
+    else
+      formatted += "Business Category: <span class = 'red'> #{org.business_category.name} </span>  <br/>" unless org.business_category.blank?
+    end
+
     formatted += "Business Sub Category: #{org.business_sub_category} <br/>" unless org.business_sub_category.blank?
 
     formatted += "Full Time Employees: #{org.number_of_full_time_employees} <br/>" unless org.number_of_full_time_employees.blank?

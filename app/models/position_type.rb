@@ -11,7 +11,7 @@ class PositionType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_position_type
-    @position_type = PositionType.find(:all, :conditions => ["status = true"], :order => 'name')
+    @position_type = PositionType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

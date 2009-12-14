@@ -12,6 +12,6 @@
   %div{:style => "float:left;"}
     .attr_name
       = h note.label
-      = "(#{note.note_type.name})"
+      %span{:class=>("red" if note.note_type.to_be_removed == true)} (#{note.note_type.name})
     .attr_name
       = truncate(note.body_text, 50, "...")

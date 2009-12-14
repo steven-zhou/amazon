@@ -9,7 +9,7 @@ class BusinessCategory < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_business_category
-    @business_category = BusinessCategory.find(:all, :conditions => ["status = true"], :order => 'name')
+    @business_category = BusinessCategory.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

@@ -4,7 +4,7 @@ class PersonBankAccount < BankAccount
   #belongs_to :bank
   belongs_to :account_type
 
-  validates_presence_of :account_number,:bank_id,:entity_id
+  validates_presence_of :account_number,:bank_id,:entity_id,:account_type
 
 
 

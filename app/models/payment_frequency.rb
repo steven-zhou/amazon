@@ -11,7 +11,7 @@ class PaymentFrequency < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_payment_frequency
-    @payment_frequency = PaymentFrequency.find(:all, :conditions => ["status = true"], :order => 'name')
+    @payment_frequency = PaymentFrequency.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

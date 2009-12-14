@@ -51,7 +51,7 @@
       = collection_select(:person_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {}, {:disabled => person_bank_account.status == false})
     .field_30
       = f.label :account_type_id, "Account Type"
-      = collection_select(:person_bank_account, :account_type_id, AccountType.find(:all), :id, :name, {}, {:disabled => person_bank_account.status == false})
+      = collection_select(:person_bank_account, :account_type_id, AccountType.active_account_type, :id, :name, {}, {:disabled => person_bank_account.status == false})
   .form_line
     .field_30
       = f.label :remarks, "Remarks"

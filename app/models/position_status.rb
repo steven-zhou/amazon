@@ -11,7 +11,7 @@ class PositionStatus < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_position_status
-    @position_status = PositionStatus.find(:all, :conditions => ["status = true"], :order => 'name')
+    @position_status = PositionStatus.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

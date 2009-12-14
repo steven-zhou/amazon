@@ -1,7 +1,7 @@
 -#The container for a Relationship Type
 %div{:id => type.gsub(/ /,'_').underscore, :class=>"header_container", :field => "relationship"}
   .title
-    %h2
+    %h2{:class=>("red" if !RelationshipType.find_by_name(type).nil? and RelationshipType.find_by_name(type).to_be_removed == true)}
       =type
   %br{ :style=>"clear: both;"}
   - if type == "Siblings" || type == "Children"

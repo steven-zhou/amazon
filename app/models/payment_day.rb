@@ -11,7 +11,7 @@ class PaymentDay < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_payment_day
-    @payment_day = PaymentDay.find(:all, :conditions => ["status = true"], :order => 'name')
+    @payment_day = PaymentDay.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private
