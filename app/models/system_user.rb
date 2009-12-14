@@ -1,9 +1,10 @@
 class SystemUser < LoginAccount
 
   belongs_to :person
-  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
-  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
-  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
+#move to login account.rb
+#  belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
+#  belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
+#  belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
 
 #  has_many :user_groups, :foreign_key => "user_id"
 #  has_many :group_types, :through => :user_groups, :uniq => true

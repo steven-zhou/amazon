@@ -315,7 +315,9 @@ class OrganisationsController < ApplicationController
     @organisation = @o[0] if @organisation.nil?
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
+    @client_setup = ClientSetup.first
     @check_field = Array.new
+    
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
@@ -354,6 +356,7 @@ class OrganisationsController < ApplicationController
       @note = Note.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
       @organisation_group = OrganisationGroup.new
+      @relationship = OrganisationRelationship.new
       @bank_accounts = OrganisationBankAccount.new
       @current_action = "edit"
       render 'show_edit_left.js'

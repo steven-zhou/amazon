@@ -9,7 +9,7 @@ class IndustrySector < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_industry_sector
-    @industry_sector = IndustrySector.find(:all, :conditions => ["status = true"], :order => 'name')
+    @industry_sector = IndustrySector.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

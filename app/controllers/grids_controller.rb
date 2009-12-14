@@ -1973,7 +1973,7 @@ end
         :cell=>[u.id,
           u.name,
           u.description,
-          u.link_module_name,     
+          (LinkModule.find_by_name(u.link_module_name).to_be_removed? ? "<span class='red'>"+u.link_module_name+"</span>" : u.link_module_name),
           u.post_to_history,
           u.post_to_campaign,
           u.send_receipt,
@@ -2102,7 +2102,7 @@ end
         :cell=>[u.id,
           u.bank.display_name,
           u.account_number,
-          u.account_purpose.name,
+          (AccountPurpose.find_by_name(u.account_purpose.name).to_be_removed == false ? u.account_purpose.name : "<span class='red'>"+u.account_purpose.name+ "</span>"),
           (u.status? ? 'Active' : 'Inactive')
         ]}}
     # Convert the hash to a json object

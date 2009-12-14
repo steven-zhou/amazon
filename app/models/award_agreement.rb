@@ -11,7 +11,7 @@ class AwardAgreement < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_award_agreement
-    @award_agreement = AwardAgreement.find(:all, :conditions => ["status = true"], :order => 'name')
+    @award_agreement = AwardAgreement.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

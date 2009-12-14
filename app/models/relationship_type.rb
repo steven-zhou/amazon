@@ -9,7 +9,7 @@ class RelationshipType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_relationship_type
-    @relationship_type = RelationshipType.find(:all, :conditions => ["status = true"], :order => 'name')
+    @relationship_type = RelationshipType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

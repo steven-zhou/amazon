@@ -2,7 +2,7 @@
 -div_for(organisation_bank_account, :class => 'header_container') do
   %div  
     .title
-      %h2= "#{AccountType.find(organisation_bank_account.account_type_id).name}"
+      %h2{:class=>("red" if !AccountType.find(organisation_bank_account.account_type_id).nil? and AccountType.find(organisation_bank_account.account_type_id).to_be_removed == true)}= "#{AccountType.find(organisation_bank_account.account_type_id).name}"
 
     %br.clear
   %div{:style => "float:right;"}
