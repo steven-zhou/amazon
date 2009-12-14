@@ -8,7 +8,7 @@
     #existing_message_templates
       = render :partial => "/communication/existing_message_templates"
 
-    #edit_message_template{:style => "display:none;margin-top:10px;float:left;"}
+    #edit_message_template{:style => "display:none;margin-top:10px;float:left;width:100%;"}
       .tab_looking_left
       .tab_looking_icon
         = image_tag('edit_icon.png')
@@ -58,7 +58,7 @@
   sortname: "name",
   sortorder: "asc",
   usepager: true,
-  title: 'Message Templates',
+  title: 'Email Templates',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,
