@@ -1,6 +1,6 @@
 puts "Initializing Client Organisation and Client Setups"
-client = ClientOrganisation.create :full_name => "Client Organisation"
-ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memerzone.com.au", :reply_from => "feedback@memerzone.com.au", :superadmin_message => "superadmin message"
+client = ClientOrganisation.create :full_name => "Client Organisation", :level => '0'
+ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memerzone.com.au", :reply_from => "feedback@memerzone.com.au", :superadmin_message => "superadmin message", :level_0_label => "level_0", :level_1_label => "level_1", :level_2_label => "level_2"
 
 puts "Initializing SystemPermission data"
 mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true)

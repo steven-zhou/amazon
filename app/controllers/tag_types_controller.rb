@@ -181,6 +181,20 @@ class TagTypesController < ApplicationController
     end
   end  
 
+  def show_receipt_type
+    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])
+    @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+    @action = params[:type] #new or edit
+    @options = ""
+    @receipt_types.each do |i|
+      @options += '<option value=' + i.id.to_s + '>' + i.name
+    end
+    @cheque_detail = ChequeDetail.new
+    @credit_card_detail = CreditCardDetail.new
+    respond_to do |format|
+      format.js
+    end
+  end
   
 end
 
