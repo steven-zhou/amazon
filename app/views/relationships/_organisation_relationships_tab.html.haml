@@ -17,6 +17,7 @@
   
   #organisation_relationship
     =# Render the organisation's relationship
+    = render :partial => '/organisation_relationships/father_organisation_relationship_container', :collection =>@organisation.organisation_as_related
     = render :partial => '/organisation_relationships/organisation_relationship_container', :collection =>@organisation.organisation_as_source
 
 

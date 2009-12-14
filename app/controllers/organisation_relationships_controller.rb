@@ -28,24 +28,23 @@ class OrganisationRelationshipsController < ApplicationController
   end
 
    def destroy
-    puts "11111111111111111111"
+
     @source_organisation = Organisation.find(params[:id].to_i)
-    puts @source_organisation.id
-puts "11111111111111111112"
-puts "11111111111111111113"
     @organisation = Organisation.find(params[:id].to_i)
-puts "11111111111111111114"
+    if !params[:related_organisation_id].blank?
     @organisation_relationship = OrganisationRelationship.find(params[:related_organisation_id].to_i)
-    puts @organisation_relationship
-puts "11111111111111111115"
-   @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
-   
+    @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
+    end
+
+     if !params[:source_organisation_id].blank?
+    @organisation_relationship = OrganisationRelationship.find(params[:source_organisation_id].to_i)
+    @relationship = OrganisationRelationship.find_by_related_organisation_id(@source_organisation.id)
+     end
     @organisation_relationship.destroy
-     puts "11111111111111111117"
      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
-    puts "11111111111111111116"
+
     @relationship_new = Relationship.new
-puts "11111111111111111117"
+
     respond_to do |format|
       format.js
     end
