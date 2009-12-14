@@ -9,8 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-ActiveRecord::Schema.define(:version => 20091213231544) do
+ActiveRecord::Schema.define(:version => 20091214063502) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -932,8 +931,6 @@ ActiveRecord::Schema.define(:version => 20091213231544) do
   create_table "transaction_type_details", :force => true do |t|
     t.integer  "transaction_header_id"
     t.string   "type"
-    t.string   "bank_name"
-    t.string   "bsb"
     t.string   "name_on_cheque"
     t.string   "cheque_number"
     t.string   "date_on_cheque"
@@ -944,6 +941,7 @@ ActiveRecord::Schema.define(:version => 20091213231544) do
     t.string   "cvv_number"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "bank_id"
   end
 
   create_table "user_groups", :force => true do |t|

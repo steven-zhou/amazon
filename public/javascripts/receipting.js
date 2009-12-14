@@ -306,16 +306,18 @@ $(function(){
     $('.entity_type_change').live('change', function(){
         var input_field = $('#'+$(this).attr('input_field'));
         var update_field = $('#'+$(this).attr('update_field'));
+        var lookup_field = $('#'+$(this).attr('lookup_field'));
         input_field.val("");
         update_field.html("");
         if($(this).val() == "Person"){
 
             input_field.removeClass('org_general_name_show').removeClass('general_name_show').addClass('general_name_show');
+            lookup_field.removeClass('organisation_lookup').removeClass('person_lookup').addClass('person_lookup');
 
         }else{
 
             input_field.removeClass('org_general_name_show').removeClass('general_name_show').addClass('org_general_name_show');
-     
+            lookup_field.removeClass('person_lookup').removeClass('organisation_lookup').addClass('organisation_lookup');
         }
         return false;
 
