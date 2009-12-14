@@ -8,30 +8,89 @@ class CommunicationController < ApplicationController
   end
 
 
-  def create_message_template
-    @message_template = MessageTemplate.new(params[:message_template])
+#  def create_message_template
+#    @message_template = MessageTemplate.new(params[:message_template])
+#
+#    if @message_template.save
+#      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new message template with ID #{@message_template.id}.")
+#      flash[:message] = flash_message(:type => "object_created_successfully", :object => "message template")
+#    else
+#      flash[:error] = flash_message(:message => "A Template Already Exists With That Name")
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+#
+#  def refresh_template_message_select
+#    @list_headers = @current_user.all_lists
+#    @message_templates = MessageTemplate.find(:all)
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+#
+#  def new_message_template
+#    @message_template = MessageTemplate.new
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+#
+#  def edit_message_template
+#    @message_template = MessageTemplate.find(params[:id])
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+#
+#  def update_message_template
+#    @message_template = MessageTemplate.find_by_id(params[:id])
+#    if @message_template.update_attributes(params[:message_template])
+#      flash[:message] = flash_message(:type => "object_updated_successfully", :object => "message template")
+#      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Message Tempalte with ID #{@message_template.id}.")
+#    else
+#      flash[:error] = flash_message(:message => "A Template Already Exists With That Name")
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
 
-    if @message_template.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new message template with ID #{@message_template.id}.")
-      flash[:message] = flash_message(:type => "object_created_successfully", :object => "message template")
-    else
-      flash[:error] = flash_message(:message => "A Template Already Exists With That Name")
-    end
-    respond_to do |format|
-      format.js
-    end    
-  end
-
-  def refresh_template_message_select
-    @list_headers = @current_user.all_lists
-    @message_templates = MessageTemplate.find(:all)
-    respond_to do |format|
-      format.js
-    end
-  end
 
   def new_message_template
     @message_template = MessageTemplate.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def create_message_template
+    @message_template = MessageTemplate.new(params[:message_template])
+    if @message_template.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new message_template with ID #{@message_template.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a message template.")
+      if(!@message_template.errors[:name].nil?)
+         flash.now[:error] = "A Template With That Name Already Exists"
+      end
+    end
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_message_template
+    @message_template = MessageTemplate.find(params[:id])
+    if @message_template.update_attributes(params[:message_template])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new message template with ID #{@message_template.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a message template #{@message_template.id}.")
+      if(!@message_template.errors[:name].nil?)
+         flash.now[:error] = "A Template With That Name Already Exists"
+      end
+    end
     respond_to do |format|
       format.js
     end
@@ -44,20 +103,15 @@ class CommunicationController < ApplicationController
     end
   end
 
-
-  def update_message_template
-    @message_template = MessageTemplate.find_by_id(params[:id])
-    if @message_template.update_attributes(params[:message_template])
-      flash[:message] = flash_message(:type => "object_updated_successfully", :object => "message template")
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Message Tempalte with ID #{@message_template.id}.")
-    else
-      flash[:error] = flash_message(:message => "A Template Already Exists With That Name")
-    end
+  def destroy_message_template
+    @message_template = MessageTemplate.find(params[:id])
+    @message_template.destroy
     respond_to do |format|
       format.js
     end
   end
 
+  
   def send_email
 
     @list_headers = @current_user.all_lists
@@ -88,7 +142,6 @@ class CommunicationController < ApplicationController
     end
 
   end
-
 
   def search_email
     start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')

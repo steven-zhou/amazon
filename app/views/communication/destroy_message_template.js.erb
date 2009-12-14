@@ -1,0 +1,44 @@
+  $('#edit_message_template').hide();
+  $('#add_new_message_template').html('<%= escape_javascript(render(:partial => "/communication/new_message_template")) %>');
+  $('#add_new_message_template').show();
+  $('#existing_message_templates').html('<%= escape_javascript(render(:partial => "/communication/existing_message_templates")) %>');
+  $('#message_template_mode').attr('mode', 'show');
+  $("#show_message_templates_grid").flexigrid({
+  url: '/grids/show_message_templates_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 570,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Created At',
+  name : 'created_at',
+  width : 270,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  sortname: "name",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Message Templates',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

@@ -1,1 +1,2 @@
-$('#message_template_form').html("<%= escape_javascript(render :partial => '/communication/message_template_form' )%>");
+$('#new_message_template_form').html('<%= escape_javascript(render(:partial => "/communication/message_template_form", :locals => {:message_template => @message_template })) %>');
+$('#new_message_template_form').css('display','');
