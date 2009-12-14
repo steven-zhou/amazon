@@ -1,0 +1,23 @@
+-# The relationships tab
+.container
+  .header_container
+    .options
+      = link_to_function image_tag('close_icon.png'), :class => " organisation_relationship_close close_option ", :toggle_id_name => "new_organisation_relationship", :style => "display:none;", :field => "relationship", :title=>"Close"
+    .title
+      = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"toggle_button new_option",:field => "relationship" ,:toggle_id_name => "new_organisation_relationship"  if (!organisation.nil? && !organisation.new_record?)
+      &nbsp
+    %h1 New Relationship
+    %input{:type => "text", :id => "relationship_mode", :mode => "show", :style => "display:none"}
+    %input{:id => "relationship_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
+    
+    =# Initially hidden new relationship form
+    -form_for([@organisation,@relationship],:url => "/organisations/#{@organisation.id}/organisation_relationships", :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|
+      = render :partial => '/relationships/organisation_relationship_type', :locals => { :relationship => relationship }
+      = submit_tag 'Submit',:id=>"relationship_new_submit",:disabled =>true
+  
+  #organisation_relationship
+    =# Render the organisation's relationship
+    = render :partial => '/organisation_relationships/father_organisation_relationship_container', :collection =>@organisation.organisation_as_related
+    = render :partial => '/organisation_relationships/organisation_relationship_container', :collection =>@organisation.organisation_as_source
+
+

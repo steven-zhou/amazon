@@ -2623,7 +2623,7 @@ $(function(){
                 url:
                 "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id'),
+                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id')+'&object_id='+$(this).attr('object_id'),
                 dataType: "script"
             });
         }else{
