@@ -8,7 +8,7 @@
       &nbsp
     %h1 New Relationship
     %input{:type => "text", :id => "relationship_mode", :mode => "show", :style => "display:none"}
-    %input{:id => "relationship_input_change_or_not", :style => "display:none", :value => "false"}
+    %input{:id => "relationship_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
     
     =# Initially hidden new relationship form
     -form_for([@organisation,@relationship],:url => "/organisations/#{@organisation.id}/organisation_relationships", :html => {:style => "display:none", :class => 'ajax_form add_relationship'}) do |relationship|
