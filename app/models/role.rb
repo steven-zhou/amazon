@@ -18,14 +18,14 @@ class Role < ActiveRecord::Base
 
 
 
-  private
-  def check_assign
-   @check_role_assign= PersonRole.find_by_role_id(self.id)
-   if !@check_role_assign.nil?
-     return false
-   else
-     return true
-   end
-  end
+#  private
+#  def check_assign
+#   @check_role_assign= PersonRole.find_by_role_id(self.id)
+#   if !@check_role_assign.nil?
+#     return false
+#   else
+#     return true
+#   end
+#  end
 
 end

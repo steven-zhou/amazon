@@ -46,10 +46,6 @@ class RolesController < ApplicationController
       format.js { }
     end
   end
-  
-  
-    
-  
 
   def meta_name_finder
 
@@ -68,11 +64,6 @@ class RolesController < ApplicationController
       format.js { }
     end
   end
-
-
-
-
-  
 
   def role_type_finder
     @role_type = RoleType.find(:all,:order => 'name')
@@ -124,15 +115,14 @@ class RolesController < ApplicationController
   def destroy
     @role = Role.find(params[:id])
     #    @check_role_assign= PersonRole.find_by_role_id(params[:id])
-
-   
-    #    if !@check_role_assign
-    if  @role.destroy
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
-
-    else
-      flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
-    end
+#    if !@check_role_assign
+#    if  @role.destroy
+#      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
+#
+#    else
+#      flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
+#    end
+    
     respond_to do |format|
       format.js
     end
