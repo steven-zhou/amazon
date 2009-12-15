@@ -26,6 +26,43 @@ class TagMetaType < ActiveRecord::Base
     @group_meta_type = GroupMetaMetaType.find(:all, :conditions => ["name = ?" , 'Custom'], :order => 'name')
   end
 
+
+
+  #this method to set the master_doc_meta_types "to_be_removed" to true
+ def remove_all_children
+   self.to_be_removed = true
+   self.save
+   self.tag_types.each do |m|
+
+     m.tags.each do |i|
+       i.to_be_removed = true
+       i.save
+     end
+
+     m.to_be_removed = true
+     m.save
+   end
+
+ end
+
+
+  def retrieve_all_children
+   self.to_be_removed = false
+   self.save
+   self.tag_types.each do |m|
+
+     m.tags.each do |i|
+       i.to_be_removed = false
+       i.save
+     end
+
+     m.to_be_removed = false
+     m.save
+   end
+
+ end
+
+
   private
 
   def delete_all_children

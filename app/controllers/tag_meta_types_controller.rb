@@ -48,8 +48,16 @@ class TagMetaTypesController < ApplicationController
 
   def destroy
     @tag_meta_type = TagMetaType.find(params[:id])
+
+#    if @tag_meta_type.type == "MasterDocMetaMetaType"
+#      @tag_meta_type.remove_master_doc_meta_types
+#    else
+#    @tag_meta_type.destroy
+#    end
+   @tag_meta_type.remove_all_children
+   @tag_meta_types = (@tag_meta_type.type.camelize.constantize).find(:all, :order => "name asc")
+   
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted TagMetaType #{@tag_meta_type.id}.")
-    @tag_meta_type.destroy
     respond_to do |format|
       format.js
     end
@@ -83,6 +91,17 @@ class TagMetaTypesController < ApplicationController
     else
       flash.now[:warning] = "Name " + @access_permission.errors.on(:name)[0] + ", saved unsuccessfully." unless @access_permission.errors.on(:name).nil?
     end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+   def retrieve
+    @tag_meta_type = TagMetaType.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{@tag_meta_type.id}.")
+    @tag_meta_type.retrieve_all_children
+
+    @tag_meta_types = (@tag_meta_type.type.camelize.constantize).find(:all, :order => "name asc")
     respond_to do |format|
       format.js
     end
