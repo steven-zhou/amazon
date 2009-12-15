@@ -19,6 +19,26 @@ class TagType < ActiveRecord::Base
     return results
   end
 
+  def remove_all_children
+    self.to_be_removed = true
+    self.save
+   
+    self.tags.each do |i|
+      i.to_be_removed = true
+      i.save
+    end
+  end
+
+
+    def retrieve_all_children
+    self.to_be_removed = false
+    self.save
+
+    self.tags.each do |i|
+      i.to_be_removed = false
+      i.save
+    end
+  end
 
   def self.show_meta_type
     @group_meta_meta_type = GroupMetaMetaType.find(:all, :conditions => ["name = ?" , 'Custom'], :order => 'name')
@@ -26,7 +46,6 @@ class TagType < ActiveRecord::Base
   end
 
   private
-
   def delete_all_children
     self.tags.each do |i|
       i.destroy

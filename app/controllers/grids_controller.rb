@@ -2317,7 +2317,7 @@ end
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "id"
+      sortname = "transaction_headers.id"
     end
 
     if (!sortorder)
@@ -2353,9 +2353,9 @@ end
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false],
+        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2408,9 +2408,10 @@ end
         :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
+      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
     end
 
     # User provided search terms
@@ -2419,8 +2420,9 @@ end
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date])
+        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
+        :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
     end
 
     # Construct a hash from the ActiveRecord result

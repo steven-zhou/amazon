@@ -106,7 +106,7 @@ class TransactionsController < ApplicationController
       @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
       @p = @list_header.people_on_list
 
-      @current_person = Person.find(session[:current_person_id]) rescue @person = @p[0]
+      @current_person = Person.find(session[:current_person_id]) rescue @current_person = @p[0]
       @person = case params[:target]
       when 'First' then @p[0]
       when 'Previous' then @p.at((@p.index(@current_person))-1)
@@ -136,8 +136,7 @@ class TransactionsController < ApplicationController
       # params _id not blank then pass it to params[:id]
       params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
       @o = Organisation.find(:all, :order => "id")
-      @organisation = Organisation.find_by_id(params[:id].to_i)
-      @organisation = @o[0] if @organisation.nil?
+      @organisation = Organisation.find(params[:id]) rescue @organisation = @o[0]
 
       session[:entity_id] = @organisation.id
       session[:entity_type] = "Organisation"
@@ -146,11 +145,11 @@ class TransactionsController < ApplicationController
     else
       #request.get
       @o = Organisation.find(:all, :order => "id")
-      @current_organisation = Organisation.find_by_id(session[:current_organisation_id].to_i)
+      @current_organisation = Organisation.find(session[:current_organisation_id]) rescue @current_organisation = @o[0]
       @organisation = case params[:target]
       when 'First' then @o[0]
       when 'Previous' then @o.at((@o.index(@current_organisation))-1)
-      when 'Next' then @o.index(@current_organisation) != @o.index(@o.last) ? @o[@o.index(@current_organisation)+1] : @o.first
+      when 'Next' then (@o.index(@current_organisation) == @o.index(@o.last)) ? @o.first : @o[@o.index(@current_organisation)+1]
       when 'Last' then @o.fetch(-1)
       when "default" then params[:grid_object_id].nil? ? @current_organisation : Organisation.find(params[:grid_object_id])
       end

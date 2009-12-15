@@ -69,9 +69,12 @@ class TagTypesController < ApplicationController
 
   def destroy
     @tag_type = TagType.find(params[:id])
+    @tag_type.remove_all_children
     @tag_meta_type = @tag_type.tag_meta_type
+    @category = @tag_type.type.to_s.sub(/MetaType/,"")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag Type #{@tag_type.id}.")
-    @tag_type.destroy
+    #    @tag_type.destroy
+    #    @tag_types = (@tag_type.type.camelize.constantize).find(:all, :order => "name asc")
     respond_to do |format|
       format.js
     end
@@ -191,6 +194,19 @@ class TagTypesController < ApplicationController
     end
     @cheque_detail = ChequeDetail.new
     @credit_card_detail = CreditCardDetail.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def retrieve
+    @tag_type = TagType.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Master Docs ID #{@tag_type.id}.")
+
+    @tag_type.retrieve_all_children
+    @tag_meta_type = @tag_type.tag_meta_type
+    @category = @tag_type.type.to_s.sub(/MetaType/,"")
     respond_to do |format|
       format.js
     end

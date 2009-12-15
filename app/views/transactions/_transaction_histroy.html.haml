@@ -11,7 +11,7 @@
   colModel : [
   {
   display: 'ID',
-  name : 'id',
+  name : 'transaction_headers.id',
   width : 40,
   sortable : true,
   align: 'left'
@@ -79,11 +79,6 @@
   ],
   searchitems : [
   {
-  display: 'Bank Account',
-  name : 'bank_accounts.account_number'
-  },
-
-  {
   display: 'Receipt Meta Type',
   name : 'tag_meta_types.name'
   },
@@ -98,7 +93,7 @@
   name : 'notes'
   }
   ],
-  sortname: "id",
+  sortname: "transaction_headers.id",
   sortorder: "asc",
   usepager: true,
   title: '',
