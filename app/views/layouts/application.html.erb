@@ -36,7 +36,7 @@
     <%- end%>
 
     <%- if session[:module] == "core" %>
-      <%= javascript_include_tag  "jquery.qtip.min.js","systemcore.js"%>
+      <%= javascript_include_tag  "jquery.qtip.min.js","systemcore.js", "reports.js"%>
     <%- end%>
     <%- if session[:module] == "administration" %>
       <%= stylesheet_link_tag "jpassword" %>

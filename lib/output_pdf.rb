@@ -132,21 +132,92 @@ module OutputPdf
   end
 
 
+
+  #  generate transaction histroy report in pdf
+  # private method - generate_transaction_histroy_report_pdf
+  # geneare_transaction_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
+  # options in header_settings:
+  #       image(image)                      = path of image
+  #       title(report title)               = string(e.g. "Person Transaction Histroy Report")
+  #       image_position(position of image) = "left"/"center"/"right"
+  #       title_position(position of title) = "left"/"center"/"right"
+  #       font(font)                        = any font(e.g. "Times-Roman)
+  #       font_size(font_size)              = any integer(e.g. 32)
+  # options in body_settings:
+  #       show_lines(position of lines)     = "outer"/"inner"
+  #       show_headings(display or not)     = true/false
+  #       orientation(orientation)          = "left"/"center"/"right"
+  #       position(position)                = "left"/"center"/"right"
+  #       bold_header(header bold?)         = true/false
+  #       font_size(font_size)              = any integer(e.g. 32)
+  #       text_align(alignment)             = "left"/"center"/"right"
+  def self.generate_transaction_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
+    pdf = PDF::Writer.new
+    @entity = (entity_type=="Person") ? Person.find(entity_id.to_i) : Organisation.find(entity_id.to_i)
+    header_settings[:title] ||= "#{entity_type} Transation Histroy Report\n"
+    if entity_type == "Person"
+      header_settings[:extra_title] ||= "Id : #{@entity.id} - Name: #{@entity.name}\nPeriod from #{start_date} to  #{end_date}\n\n"
+    else
+      header_settings[:extra_title] ||= "Id : #{@entity.id} - Name: #{@entity.full_name}\nPeriod from #{start_date} to  #{end_date}\n\n"
+    end
+    header_settings[:right_extra_title] ||= "Print Date: #{Date.today()}"
+    generate_report_header(pdf, entity_type, entity_id, start_date, end_date, header_settings)
+    generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
+    return pdf
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   private
+
+  # takes a number and options hash and outputs a string in any currency format
+  def self.currencify(number, options={})
+    # :currency_before => false puts the currency symbol after the number
+    # default format: $12,345,678.90
+    options = {:currency_symbol => "$", :delimiter => ",", :decimal_symbol => ".", :currency_before => true}.merge(options)
+
+    # split integer and fractional parts
+    int, frac = ("%.2f" % number).split('.')
+    # insert the delimiters
+    int.gsub!(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1#{options[:delimiter]}")
+
+    if options[:currency_before]
+      options[:currency_symbol] + int + options[:decimal_symbol] + frac
+    else
+      int + options[:decimal_symbol] + frac + options[:currency_symbol]
+    end
+  end
 
   def self.generate_report_header(pdf, source_type, source_id, format,list_report, header_settings={})
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
     header_settings[:title] ||= "#{format.gsub("_"," ").titleize} Using <#{list_report}>"
+    header_settings[:extra_title] ||= "\n"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
+    header_settings[:extra_title_position] ||= "left"
     header_settings[:font] ||= "Times-Roman"
     header_settings[:font_size] ||= 18
+    header_settings[:extra_title_font_size] ||= 12
+    header_settings[:right_extra_title] ||= "\n"
 
 
     pdf.image header_settings[:image], :justification => header_settings[:image_position].to_sym
     pdf.select_font header_settings[:font]
-    pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
+    pdf.text "#{header_settings[:title]}", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
+    pdf.text "#{header_settings[:right_extra_title]}", :font_size => header_settings[:extra_title_font_size], :justification => :right
+    pdf.text "#{header_settings[:extra_title]}", :font_size => header_settings[:extra_title_font_size], :justification => header_settings[:extra_title_position].to_sym
 
     generate_footer(pdf)
   end
@@ -183,15 +254,15 @@ module OutputPdf
 
         tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]) { |col| col.heading = "#{OutputPdf::PERSONAL_REPORT_FORMAT[format][i].keys[0]}"}
 
-           case OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]
-            when "address" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
-            when "phone" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 80
-            when "email" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
-            when "website" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
-            when "id" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 40
-            when "first_name" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 70
-            when "family_name" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width =80
-            end
+        case OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]
+        when "address" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+        when "phone" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 80
+        when "email" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+        when "website" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+        when "id" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 40
+        when "first_name" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = 70
+        when "family_name" then tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width =80
+        end
         
         
         #        tab.columns[OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::PERSONAL_REPORT_FORMAT[format][i].values[1]
@@ -289,17 +360,17 @@ module OutputPdf
 
       OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format].each_index do |i|
         tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]] = PDF::SimpleTable::Column.new(OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]) { |col| col.heading = OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].keys[0]}
-         case OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]
-            when "full_name" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 70
-            when "registered_name" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 90
-            when "email" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 90
-            when "website" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width =100
-            when "address" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 100
-            when "phone" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 80
-            when "id" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 40
-            end
+        case OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]
+        when "full_name" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 70
+        when "registered_name" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 90
+        when "email" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 90
+        when "website" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width =100
+        when "address" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 100
+        when "phone" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 80
+        when "id" then tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = 40
+        end
      
-#        tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[1]
+        #        tab.columns[OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[0]].width = OutputPdf::ORGANISATIONAL_REPORT_FORMAT[format][i].values[1]
       end
 
 
@@ -436,7 +507,7 @@ module OutputPdf
     @source = "#{source_type}_header".camelize.constantize.find(source_id.to_i)
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
     if source_type == "query" && @source.group == "temp"
-       header_settings[:title] ||= "Export From Temporary Query"  
+      header_settings[:title] ||= "Export From Temporary Query"
     else
       header_settings[:title] ||= "Export From #{source_type.titleize}_#{@source.name}"
 
@@ -485,9 +556,9 @@ module OutputPdf
         tab.columns["id"] = PDF::SimpleTable::Column.new("id") {|col| col.heading = "ID"}
         QueryHeader.find(source_id.to_i).query_selections.each do |i|
           tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.titleize}"}
-           if QueryHeader.find(source_id.to_i).query_selections.size >8 #if selection more then 8 set each column width 55, otherwise will be too wide
-             tab.columns["#{i.field_name}"].width = 55
-           end
+          if QueryHeader.find(source_id.to_i).query_selections.size >8 #if selection more then 8 set each column width 55, otherwise will be too wide
+            tab.columns["#{i.field_name}"].width = 55
+          end
         end
       else
         OutputPdf::PERSON_DEFAULT_FORMAT.each_index do |i|
@@ -625,5 +696,89 @@ module OutputPdf
       pdf.add_object(footer, :all_pages)
     end
   end
-  
+
+  def self.generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings={})
+    body_settings[:show_lines] ||= "outer"
+    body_settings[:show_headings] ||= true
+    body_settings[:orientation] ||= "center"
+    body_settings[:position] ||= "center"
+    body_settings[:bold_header] ||= false
+    body_settings[:font_size] ||= 18
+    body_settings[:text_align] ||= "center"
+
+    @transaction = TransactionHeader.find(:all,
+      :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", entity_id, entity_type, true, start_date.to_date, end_date.to_date]
+    )
+
+    if @transaction.empty?
+      pdf.text "No matching records found.", :font_size => body_settings[:font_size], :justification => body_settings[:text_align]
+      return
+    end
+
+    PDF::SimpleTable.new do |tab|
+
+      tab.column_order.push(*%w(receipt_number transaction_date bank_account receipt_meta_meta_type receipt_meta_type notes total_amount))
+
+      tab.columns["receipt_number"] = PDF::SimpleTable::Column.new("receipt_number") { |col|
+        col.heading = "Receipt Number"
+      }
+      tab.columns["receipt_number"].width = 60
+
+      tab.columns["transaction_date"] = PDF::SimpleTable::Column.new("transaction_date") { |col|
+        col.heading = "Transaction Date"
+      }
+      tab.columns["transaction_date"].width = 80
+
+      tab.columns["bank_account"] = PDF::SimpleTable::Column.new("bank_account") { |col|
+        col.heading = "Bank Account"
+      }
+      tab.columns["bank_account"].width = 80
+
+      tab.columns["receipt_meta_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_meta_type") { |col|
+        col.heading = "Receipt Meta Type"
+      }
+      tab.columns["receipt_meta_meta_type"].width = 80
+
+      tab.columns["receipt_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_type") { |col|
+        col.heading = "Receipt Type"
+      }
+      tab.columns["receipt_meta_type"].width = 80
+
+      tab.columns["notes"] = PDF::SimpleTable::Column.new("notes") { |col|
+        col.heading = "Notes"
+      }
+      tab.columns["notes"].width = 120
+
+      tab.columns["total_amount"] = PDF::SimpleTable::Column.new("total_amount") { |col|
+        col.heading = "Total Amount"
+      }
+      tab.columns["total_amount"].width = 60
+
+      tab.show_lines    = body_settings[:show_lines].to_sym
+      tab.show_headings = body_settings[:show_headings]
+      tab.orientation   = body_settings[:orientation].to_sym
+      tab.position      = body_settings[:position].to_sym
+      tab.bold_headings = body_settings[:bold_header]
+
+      data = Array.new
+      @transaction.each do |transaction|
+        bank_account = transaction.bank_account.nil? ? "" : transaction.bank_account.account_number
+        receipt_meta_type = transaction.receipt_meta_meta_type.nil? ? "" : transaction.receipt_meta_meta_type.name
+        receipt_type = transaction.receipt_meta_type.nil? ? "" : transaction.receipt_meta_type.name
+        data << { "receipt_number" => "#{transaction.receipt_number}",
+          "transaction_date" => "#{transaction.transaction_date.to_s}",
+          "bank_account" => "#{bank_account}",
+          "receipt_meta_meta_type" => "#{receipt_meta_type}",
+          "receipt_meta_type" => "#{receipt_type}",
+          "notes" => "#{transaction.notes}",
+          "total_amount" => "#{currencify(transaction.total_amount)}" }
+      end
+
+
+      tab.data.replace data
+
+      tab.render_on(pdf)
+    end
+
+  end
 end
