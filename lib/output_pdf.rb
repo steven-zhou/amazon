@@ -156,9 +156,9 @@ module OutputPdf
     @entity = (entity_type=="Person") ? Person.find(entity_id.to_i) : Organisation.find(entity_id.to_i)
     header_settings[:title] ||= "#{entity_type} Transation Histroy Report\n"
     if entity_type == "Person"
-      header_settings[:extra_title] ||= "Id : #{@entity.id} - Name: #{@entity.name}\nPeriod from #{start_date} to  #{end_date}\n\n"
+      header_settings[:extra_title] ||= "Name: (#{@entity.id}) #{@entity.name}\nPeriod from #{start_date} to  #{end_date}\n\n"
     else
-      header_settings[:extra_title] ||= "Id : #{@entity.id} - Name: #{@entity.full_name}\nPeriod from #{start_date} to  #{end_date}\n\n"
+      header_settings[:extra_title] ||= "Name: (#{@entity.id}) #{@entity.full_name}\nPeriod from #{start_date} to  #{end_date}\n\n"
     end
     header_settings[:right_extra_title] ||= "Print Date: #{Date.today()}"
     generate_report_header(pdf, entity_type, entity_id, start_date, end_date, header_settings)
