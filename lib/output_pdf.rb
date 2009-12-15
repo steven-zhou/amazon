@@ -156,10 +156,11 @@ module OutputPdf
     @entity = (entity_type=="Person") ? Person.find(entity_id.to_i) : Organisation.find(entity_id.to_i)
     header_settings[:title] ||= "#{entity_type} Transation Histroy Report\n"
     if entity_type == "Person"
-      header_settings[:extra_title] ||= "id : #{@entity.id}\nname: #{@entity.name}\nstart date: #{start_date}\nend date: #{end_date}\n\n"
+      header_settings[:extra_title] ||= "Id : #{@entity.id} - Name: #{@entity.name}\nPeriod from #{start_date} to  #{end_date}\n\n"
     else
-      header_settings[:extra_title] ||= "id : #{@entity.id}\nname: #{@entity.full_name}\nstart date: #{start_date}\nend date: #{end_date}\n\n"
+      header_settings[:extra_title] ||= "Id : #{@entity.id} - Name: #{@entity.full_name}\nPeriod from #{start_date} to  #{end_date}\n\n"
     end
+    header_settings[:right_extra_title] ||= "Print Date: #{Date.today()}"
     generate_report_header(pdf, entity_type, entity_id, start_date, end_date, header_settings)
     generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
     return pdf
@@ -202,18 +203,21 @@ module OutputPdf
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
     header_settings[:title] ||= "#{format.gsub("_"," ").titleize} Using <#{list_report}>"
-    header_settings[:extra_title] ||= "\n\n"
+    header_settings[:extra_title] ||= "\n"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
     header_settings[:extra_title_position] ||= "left"
     header_settings[:font] ||= "Times-Roman"
     header_settings[:font_size] ||= 18
+    header_settings[:extra_title_font_size] ||= 12
+    header_settings[:right_extra_title] ||= "\n"
 
 
     pdf.image header_settings[:image], :justification => header_settings[:image_position].to_sym
     pdf.select_font header_settings[:font]
     pdf.text "#{header_settings[:title]}", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
-    pdf.text "#{header_settings[:extra_title]}", :font_size => header_settings[:font_size], :justification => header_settings[:extra_title_position].to_sym
+    pdf.text "#{header_settings[:right_extra_title]}", :font_size => header_settings[:extra_title_font_size], :justification => :right
+    pdf.text "#{header_settings[:extra_title]}", :font_size => header_settings[:extra_title_font_size], :justification => header_settings[:extra_title_position].to_sym
 
     generate_footer(pdf)
   end
@@ -723,12 +727,12 @@ module OutputPdf
       tab.columns["transaction_date"] = PDF::SimpleTable::Column.new("transaction_date") { |col|
         col.heading = "Transaction Date"
       }
-      tab.columns["transaction_date"].width = 60
+      tab.columns["transaction_date"].width = 80
 
       tab.columns["bank_account"] = PDF::SimpleTable::Column.new("bank_account") { |col|
         col.heading = "Bank Account"
       }
-      tab.columns["bank_account"].width = 100
+      tab.columns["bank_account"].width = 80
 
       tab.columns["receipt_meta_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_meta_type") { |col|
         col.heading = "Receipt Meta Type"
@@ -738,12 +742,12 @@ module OutputPdf
       tab.columns["receipt_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_type") { |col|
         col.heading = "Receipt Type"
       }
-      tab.columns["receipt_meta_type"].width = 60
+      tab.columns["receipt_meta_type"].width = 80
 
       tab.columns["notes"] = PDF::SimpleTable::Column.new("notes") { |col|
         col.heading = "Notes"
       }
-      tab.columns["notes"].width = 160
+      tab.columns["notes"].width = 120
 
       tab.columns["total_amount"] = PDF::SimpleTable::Column.new("total_amount") { |col|
         col.heading = "Total Amount"
