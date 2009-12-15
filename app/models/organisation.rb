@@ -147,7 +147,8 @@ class Organisation < ActiveRecord::Base
   def personal_email_types
     @personal_email_types = Array.new
     self.emails.each do |email|
-      @personal_email_types <<  TagType.find(email.contact_meta_type_id)
+       @var = TagType.find(email.contact_meta_type_id)
+      @personal_email_types <<  @var unless @var.to_be_removed
     end
     return @personal_email_types
   end
@@ -155,7 +156,8 @@ class Organisation < ActiveRecord::Base
   def personal_phone_types
     @personal_phone_types = Array.new
     self.phones.each do |phone|
-      @personal_phone_types <<  TagType.find(phone.contact_meta_type_id)
+      @var = TagType.find(phone.contact_meta_type_id)
+      @personal_phone_types <<  @var unless @var.to_be_removed
     end
 
     return @personal_phone_types
@@ -164,7 +166,8 @@ class Organisation < ActiveRecord::Base
   def personal_website_types
     @personal_website_types = Array.new
     self.websites.each do |website|
-      @personal_website_types <<  TagType.find(website.contact_meta_type_id)
+      @var = TagType.find(website.contact_meta_type_id)
+      @personal_website_types <<  @var unless @var.to_be_removed
     end
 
   end
@@ -172,6 +175,7 @@ class Organisation < ActiveRecord::Base
   def personal_address_types
     @personal_address_types = Array.new
     self.addresses.each do |address|
+
       @personal_address_types <<  AmazonSetting.find(address.address_type_id)
     end
 
@@ -181,7 +185,8 @@ class Organisation < ActiveRecord::Base
    def personal_instant_messaging_types
     @personal_instant_messaging_types = Array.new
     self.instant_messagings.each do |instant_messaging|
-      @personal_instant_messaging_types <<  TagType.find(instant_messaging.contact_meta_type_id)
+       @var = TagType.find(instant_messaging.contact_meta_type_id)
+      @personal_instant_messaging_types <<  @var unless @var.to_be_removed
     end
 
     return @personal_instant_messaging_types

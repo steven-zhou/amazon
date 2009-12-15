@@ -15,7 +15,7 @@
           .field_20
             %label <span class='asterisk'>*</span>MetaType 
             %select#select_contact_type
-              = for cmt in ContactMetaMetaType.all
+              = for cmt in ContactMetaMetaType.find(:all,:conditions=>["status = true and to_be_removed = false"])
                 %option{:value => "add_#{cmt.name.downcase}"}
                   = cmt.name
         %br{ :style=>"clear: both;"}
