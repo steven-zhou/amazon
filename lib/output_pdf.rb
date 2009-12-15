@@ -707,7 +707,8 @@ module OutputPdf
     body_settings[:text_align] ||= "center"
 
     @transaction = TransactionHeader.find(:all,
-      :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", entity_id, entity_type, true, start_date.to_date, end_date.to_date]
+      :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", entity_id, entity_type, true, start_date.to_date, end_date.to_date],
+      :order => "id"
     )
 
     if @transaction.empty?
