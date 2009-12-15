@@ -2665,7 +2665,7 @@ $(function(){
             $.ajax({
                 type: 'GET',
                 url: $('#'+ form_id).attr('click_url'),
-                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+$('#'+ form_id).attr('params1'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+$('#'+ form_id).attr('params1')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
             });
         }
@@ -2683,7 +2683,7 @@ $(function(){
             $.ajax({
                 type: 'GET',
                 url: $('#'+ form_id).attr('db_click_url'),
-                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target'),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
             });
         }

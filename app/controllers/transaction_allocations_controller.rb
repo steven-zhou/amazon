@@ -39,6 +39,8 @@ class TransactionAllocationsController < ApplicationController
         flash.now[:error] = "Please Enter All Required Data"
       elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
     @transaction_header = TransactionHeader.find(@transaction_header_id)
@@ -65,14 +67,14 @@ class TransactionAllocationsController < ApplicationController
       elsif(!@temp_transaction_allocation_grid.errors[:field_5].nil? && @temp_transaction_allocation_grid.errors.on(:field_5).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       else
-        flash.now[:error] = "Exception happen, please try again"
+        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
 
     @temp_allocations = @current_user.all_temp_allocation
     @temp_allocation_value = 0
     @temp_allocations.each do |temp_transaction|
-      @temp_allocation_value += temp_transaction.field_5.to_i
+      @temp_allocation_value += temp_transaction.field_5.to_f
     end
 
     respond_to do |format|
@@ -92,7 +94,7 @@ class TransactionAllocationsController < ApplicationController
       elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       else
-        flash.now[:error] = "Exception happen, please try again"
+        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
     @transaction_header_id = @transaction_allocation.transaction_header_id
@@ -101,7 +103,7 @@ class TransactionAllocationsController < ApplicationController
     @transaction_allocations = @transaction_header.transaction_allocations
     @transaction_allocation_value = 0
     @transaction_allocations.each do |transaction_transaction|
-      @transaction_allocation_value += transaction_transaction.amount.to_i
+      @transaction_allocation_value += transaction_transaction.amount.to_f
     end
     @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
     respond_to do |format|
@@ -125,14 +127,14 @@ class TransactionAllocationsController < ApplicationController
       elsif(!@temp_transaction_allocation_grid.errors[:field_5].nil? && @temp_transaction_allocation_grid.errors.on(:field_5).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       else
-        flash.now[:error] = "Exception happen, please try again"
+        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
 
     @temp_allocations = @current_user.all_temp_allocation
     @temp_allocation_value = 0
     @temp_allocations.each do |temp_transaction|
-      @temp_allocation_value += temp_transaction.field_5.to_i
+      @temp_allocation_value += temp_transaction.field_5.to_f
     end
     
     respond_to do |format|

@@ -6,11 +6,11 @@
 
     .field_15
       = f.label :field_2, "Campaign"
-      = f.collection_select :field_2, Campaign.all, :id, :name
+      = f.collection_select :field_2, Campaign.all, :id, :name, {:include_blank => true}
 
     .field_20
       = f.label :field_3, "Source"
-      = f.collection_select :field_3, Source.all, :id, :name
+      = f.collection_select :field_3, Source.all, :id, :name, {:include_blank => true}
 
     .field_10
       = f.label :field_4, "Letter"

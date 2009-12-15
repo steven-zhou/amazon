@@ -8,11 +8,11 @@
 
     .field_15
       = f.label :campaign_id, "Campaign"
-      = f.collection_select :campaign_id, Campaign.all, :id, :name
+      = f.collection_select :campaign_id, Campaign.all, :id, :name, {:include_blank => true}
 
     .field_20
       = f.label :source_id, "Source"
-      = f.collection_select :source_id, Source.all, :id, :name
+      = f.collection_select :source_id, Source.all, :id, :name, {:include_blank => true}
 
     .field_10
       = f.label :letter_id, "Letter"

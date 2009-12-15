@@ -11,7 +11,7 @@
   colModel : [
   {
   display: 'ID',
-  name : 'id',
+  name : 'transaction_headers.id',
   width : 40,
   sortable : true,
   align: 'left'
@@ -37,24 +37,24 @@
 
 
   {
-  display: 'Bank Account Name',
-  name : 'bank_account_name',
+  display: 'Bank Account',
+  name : 'bank_accounts.account_number',
   width : 100,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Receipt Meta Type Name',
-  name : 'receipt_meta_type_name',
+  display: 'Receipt Meta Type',
+  name : 'tag_meta_types.name',
   width : 120,
   sortable : true,
   align: 'left'
   },
 
   {
-  display: 'Receipt Type Name',
-  name : 'receipt_type_name',
+  display: 'Receipt Type',
+  name : 'tag_types.name',
   width : 120,
   sortable : true,
   align: 'left'
@@ -79,33 +79,13 @@
   ],
   searchitems : [
   {
-  display: 'Transaction Date',
-  name : 'transaction_date'
+  display: 'Receipt Meta Type',
+  name : 'tag_meta_types.name'
   },
 
   {
-  display: 'Total Amount',
-  name : 'total_amount'
-  },
-
-  {
-  display: 'Receipt Number',
-  name : 'receipt_number'
-  },
-
-  {
-  display: 'Bank Account Name',
-  name : 'bank_account_name'
-  },
-
-  {
-  display: 'Receipt Meta Type Name',
-  name : 'receipt_meta_type_name'
-  },
-
-  {
-  display: 'Receipt Type Name',
-  name : 'receipt_type_name'
+  display: 'Receipt Type',
+  name : 'tag_types.name'
   },
 
   {
@@ -113,7 +93,7 @@
   name : 'notes'
   }
   ],
-  sortname: "id",
+  sortname: "transaction_headers.id",
   sortorder: "asc",
   usepager: true,
   title: '',

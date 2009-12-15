@@ -32,8 +32,6 @@ class TransactionHeadersController < ApplicationController
 
   def create
     @transaction_header = TransactionHeader.new(params[:transaction_header])
-    params[:transaction_header][:receipt_number] = TransactionHeader.last.nil? ? 1 :  (TransactionHeader.last.id + 1).to_i
-    @transaction_header.receipt_number = params[:transaction_header][:receipt_number]
     @transaction_header.entity_type = session[:entity_type]
     @transaction_header.entity_id = session[:entity_id]
 
@@ -41,14 +39,19 @@ class TransactionHeadersController < ApplicationController
 
       if @transaction_header.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction with ID #{@transaction_header.id}.")
-
+        @transaction_header.receipt_number = @transaction_header.id
+        @transaction_header.save
         #save transaction type detail
         @transaction_type_detail = case @transaction_header.receipt_meta_meta_type.name
         when "Cheque" then ChequeDetail.new(params[:transaction_type_detail])
         when "Credit Card" then CreditCardDetail.new(params[:transaction_type_detail])
         end
-        @transaction_type_detail.transaction_header_id = @transaction_header.id
-        @transaction_type_detail.save!
+
+        #cash is not implemented
+        unless @transaction_header.receipt_meta_meta_type.name == "Cash"
+          @transaction_type_detail.transaction_header_id = @transaction_header.id
+          @transaction_type_detail.save!
+        end
         
         #copy temp allocation to be real allocation
         @temp_allocations = @current_user.all_temp_allocation
@@ -121,13 +124,17 @@ class TransactionHeadersController < ApplicationController
         else
           #else receipt meta meta type is changed, destroy old detail and create a new one
           @transaction_type_detail_old = @transaction_header.transaction_type_detail
-          @transaction_type_detail_old.destroy
+          @transaction_type_detail_old.destroy unless @transaction_type_detail_old.nil?
           @transaction_type_detail = case @transaction_header.receipt_meta_meta_type.name
           when "Cheque" then ChequeDetail.new(params[:transaction_type_detail])
           when "Credit Card" then CreditCardDetail.new(params[:transaction_type_detail])
           end
-          @transaction_type_detail.transaction_header_id = @transaction_header.id
-          @transaction_type_detail.save!
+
+          #cash is not implemented
+          unless @transaction_header.receipt_meta_meta_type.name == "Cash"
+            @transaction_type_detail.transaction_header_id = @transaction_header.id
+            @transaction_type_detail.save!
+          end
         end
       else
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction header record.")
