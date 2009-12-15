@@ -154,10 +154,11 @@ module OutputPdf
   def self.generate_transaction_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
     @entity = (entity_type=="Person") ? Person.find(entity_id.to_i) : Organisation.find(entity_id.to_i)
+    header_settings[:title] ||= "#{entity_type} Transation Histroy Report\n"
     if entity_type == "Person"
-      header_settings[:title] ||= "#{entity_type} Transation Histroy Report\nid : #{@entity.id}\nname: #{@entity.name}\nstart date: #{start_date}\nend date: #{end_date}"
+      header_settings[:extra_title] ||= "id : #{@entity.id}\nname: #{@entity.name}\nstart date: #{start_date}\nend date: #{end_date}\n\n"
     else
-      header_settings[:title] ||= "#{entity_type} Transation Histroy Report\nid : #{@entity.id}\nname: #{@entity.full_name}\nstart date: #{start_date}\nend date: #{end_date}"
+      header_settings[:extra_title] ||= "id : #{@entity.id}\nname: #{@entity.full_name}\nstart date: #{start_date}\nend date: #{end_date}\n\n"
     end
     generate_report_header(pdf, entity_type, entity_id, start_date, end_date, header_settings)
     generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
@@ -201,15 +202,18 @@ module OutputPdf
     #default setting for pdf header
     header_settings[:image] ||= "#{RAILS_ROOT}/public/images/memberzone_logo_small.jpg"
     header_settings[:title] ||= "#{format.gsub("_"," ").titleize} Using <#{list_report}>"
+    header_settings[:extra_title] ||= "\n\n"
     header_settings[:image_position] ||= "left"
     header_settings[:title_position] ||= "center"
+    header_settings[:extra_title_position] ||= "left"
     header_settings[:font] ||= "Times-Roman"
     header_settings[:font_size] ||= 18
 
 
     pdf.image header_settings[:image], :justification => header_settings[:image_position].to_sym
     pdf.select_font header_settings[:font]
-    pdf.text "#{header_settings[:title]}\n\n", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
+    pdf.text "#{header_settings[:title]}", :font_size => header_settings[:font_size], :justification => header_settings[:title_position].to_sym
+    pdf.text "#{header_settings[:extra_title]}", :font_size => header_settings[:font_size], :justification => header_settings[:extra_title_position].to_sym
 
     generate_footer(pdf)
   end
