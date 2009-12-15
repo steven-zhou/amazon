@@ -23,23 +23,23 @@ class Contact < ActiveRecord::Base
 
 
   def self.phone_types
-    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("Phone").id], :order => "name")
+    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true and to_be_removed = false", ContactMetaMetaType.find_by_name("Phone").id], :order => "name")
   end
 
   def self.email_types
-    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("Email").id], :order => "name")
+    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true and to_be_removed = false", ContactMetaMetaType.find_by_name("Email").id], :order => "name")
   end
 
   def self.fax_types
-    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("Fax").id], :order => "name")
+    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true and to_be_removed = false", ContactMetaMetaType.find_by_name("Fax").id], :order => "name")
   end
 
   def self.website_types
-    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("Website").id], :order => "name")
+    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true and to_be_removed = false", ContactMetaMetaType.find_by_name("Website").id], :order => "name")
   end
 
     def self.instant_messaging_types
-    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true", ContactMetaMetaType.find_by_name("IM").id], :order => "name")
+    ContactMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status =true and to_be_removed = false", ContactMetaMetaType.find_by_name("IM").id], :order => "name")
   end
 
 end

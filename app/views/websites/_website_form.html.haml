@@ -1,11 +1,12 @@
 .form_line
   .field_20
     = website.label :contact_meta_type_id, "<span class='asterisk'>*</span>Type"
+    - empty = Contact.website_types - @person.personal_website_types
     -if @organisation.nil?
       -if edit == "edit"
-        = website.collection_select :contact_meta_type_id, Contact.website_types - @person.personal_website_types + @website.website_type, :id, :name
+        = website.collection_select :contact_meta_type_id, Contact.website_types - @person.personal_website_types , :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@website.new_record? ? "website_value" : "website_value_edit",:mandantory_field2=>"edit_website_contact_meta_type_id",:submit_button_id=>"submit_website_field_edit",:id=>"edit_website_contact_meta_type_id"}
       -else
-        = website.collection_select :contact_meta_type_id, Contact.website_types - @person.personal_website_types, :id, :name
+        = website.collection_select :contact_meta_type_id, Contact.website_types - @person.personal_website_types, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@website.new_record? ? "website_value" : "website_value_edit",:mandantory_field2=>"edit_website_contact_meta_type_id",:submit_button_id=>"submit_website_field_edit",:id=>"edit_website_contact_meta_type_id"}
     -else
       -if edit == "edit"
         = website.collection_select :contact_meta_type_id, Contact.website_types - @organisation.personal_website_types + @website.website_type, :id, :name
@@ -13,7 +14,7 @@
         = website.collection_select :contact_meta_type_id, Contact.website_types - @organisation.personal_website_types, :id, :name
   .field_75
     = website.label :value, "<span class='asterisk'>*</span>Value"
-    = website.text_field :value, :id => @website.new_record? ? "website_value" : "website_value_edit", :value => @website.new_record? ? "" : @website.value,:class=>'mandantory_field', :mandantory_field1=>@website.new_record? ? "website_value" : "website_value_edit",:submit_button_id=>"submit_website_field_edit"
+    = website.text_field :value, :id => @website.new_record? ? "website_value" : "website_value_edit", :value => @website.new_record? ? "" : @website.value,:class=>'mandantory_field', :mandantory_field1=>@website.new_record? ? "website_value" : "website_value_edit",:mandantory_field2=>"edit_website_contact_meta_type_id",:submit_button_id=>"submit_website_field_edit"
 .form_line
   .field_100
     = website.label :remarks, "Remarks"

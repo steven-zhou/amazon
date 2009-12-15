@@ -1,11 +1,12 @@
 .form_line
   .field_20
     = phone.label :contact_meta_type_id, "<span class='asterisk'>*</span>Type"
+    - empty = Contact.phone_types - @person.personal_phone_types
     -if @organisation.nil?
       -if edit == "edit"
-        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types + @phone.phone_type, :id, :name
+        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types , :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list", :mandantory_field1=>"phone_value_edit",:mandantory_field2=>"edit_phone_contact_meta_type_id",:submit_button_id=>"submit_phone_field_edit",:id=>"edit_phone_contact_meta_type_id"}
       -else
-        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types, :id, :name
+        = phone.collection_select :contact_meta_type_id, Contact.phone_types - @person.personal_phone_types, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list", :mandantory_field1=>"phone_value_edit",:mandantory_field2=>"edit_phone_contact_meta_type_id",:submit_button_id=>"submit_phone_field_edit",:id=>"edit_phone_contact_meta_type_id"}
     -else
       -if edit == "edit"
         = phone.collection_select :contact_meta_type_id, Contact.phone_types - @organisation.personal_phone_types + @phone.phone_type, :id, :name
@@ -17,7 +18,7 @@
     = phone.text_field :pre_value
   .field_40
     = phone.label :value, "<span class='asterisk'>*</span>Value"
-    = phone.text_field :value , :class => "empty_field" , :id => "phone_value_edit",:class=>'mandantory_field', :mandantory_field1=>"phone_value_edit",:submit_button_id=>"contact_phone_submit_edit"
+    = phone.text_field :value , :class => "empty_field" , :id => "phone_value_edit",:class=>'mandantory_field', :mandantory_field1=>"phone_value_edit",:mandantory_field2=>"edit_phone_contact_meta_type_id",:submit_button_id=>"contact_phone_submit_edit"
   .field_15
     = phone.label :post_value, "Post Value"
     = phone.text_field :post_value

@@ -2,7 +2,7 @@
 -div_for(master_doc, :class => 'header_container toggle_options', :field => "master_doc") do
   %div
     .title
-      %h2= "#{master_doc.master_doc_type.name}"
+      %h2{:class=>("red" if master_doc.master_doc_type.to_be_removed == true)}= "#{master_doc.master_doc_type.name}"
     .options{:class => 'person_master_doc_edit_delete person_tag', :style => "display:none;"}
       -if(master_doc.entity_type == "Person")
         -if(master_doc.priority_number==1)

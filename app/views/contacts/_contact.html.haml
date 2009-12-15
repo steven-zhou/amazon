@@ -2,7 +2,7 @@
 -div_for(contact, :class => 'header_container toggle_options', :field => "contact") do
   %div 
     .title
-      %h2= "#{contact.contact_meta_type.name}"
+      %h2{:class=>("red" if contact.contact_meta_type.to_be_removed == true)}= "#{contact.contact_meta_type.name}"
     .options{:class => 'person_contact_edit_delete person_tag',:id => 'person_contact_edit_delete', :style=>"display:none"}
       - if contact.read_attribute("type") == "Phone" #contact.class == Phone.new.class
         -if contact.contactable_type == "Person"
