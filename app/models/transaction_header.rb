@@ -13,6 +13,4 @@ class TransactionHeader < ActiveRecord::Base
   has_one :credit_card_detail
 
   validates_presence_of :transaction_date, :bank_account_id, :receipt_meta_type_id, :receipt_type_id, :received_via_id
-
-  default_scope :order => "id"
 end
