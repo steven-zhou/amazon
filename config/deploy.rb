@@ -14,6 +14,20 @@ set :deploy_to, "/home/rails/amazon"
 # set :repository, svn+ssh://test.example.com/repository/trunk
 set :repository, "rails@60.242.17.197:/var/git/amazon.git"
 
+# IMPORTANT If you're capistrano deployment is not working :
+#
+# The machine that you are deploying to will normally need to connect
+# using the details in the set :repository configuration.
+# If it's not working ssh into the machine you are deploying to
+# and try the settings in the config file to see if it works.
+# For example set :repository, "rails@60.242.17.197:/var/git/amazon.git"
+# I would ssh into the server and then try ssh rails@60.242.17.197
+# You need to make that ssh connection as rails to 60.242.17.197 without
+# needing a password or getting any prompts.
+
+
+
+
 namespace :mod_rails do
     desc <<-DESC
   Restart the application altering tmp/restart.txt for mod_rails.

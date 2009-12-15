@@ -114,7 +114,6 @@ LinkModule.create(:name => "Membership", :status => true)
 LinkModule.create(:name => "Donation", :status => true)
 LinkModule.create(:name => "Sundry", :status => true)
 LinkModule.create(:name => "Miscellaneous", :status => true)
-
 ReceivedVia.create(:name => "Phone", :status => true)
 ReceivedVia.create(:name => "Internet", :status => true)
 ReceivedVia.create(:name => "Fax", :status => true)
