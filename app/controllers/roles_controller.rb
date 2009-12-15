@@ -4,9 +4,9 @@ class RolesController < ApplicationController
   def get_roles
 
     @person_role = PersonRole.find(params[:person_role_id].to_i) rescue @person_role = PersonRole.new
-    @role = Role.find(:all, :conditions => ["role_type_id=? and role_status=?",params[:role_type_id],true]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @role = Role.find(:all, :conditions => ["role_type_id=? and role_status=? and to_be_removed = false",params[:role_type_id],true]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
 
-    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @role_type = RoleType.find(:first, :conditions => ["id=? and to_be_removed = false",params[:role_type_id]])unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
 
     respond_to do |format|
       format.js
@@ -114,15 +114,19 @@ class RolesController < ApplicationController
 
   def destroy
     @role = Role.find(params[:id])
-    #    @check_role_assign= PersonRole.find_by_role_id(params[:id])
-#    if !@check_role_assign
-#    if  @role.destroy
-#      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
-#
-#    else
-#      flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
-#    end
     
+    #    @check_role_assign= PersonRole.find_by_role_id(params[:id])
+    #    if !@check_role_assign
+    #    if  @role.destroy
+    #      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
+    #
+    #    else
+    #      flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
+    #    end
+    @role.to_be_removed = true
+    @role.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) remove Role, ID: #{@role.id}.")
+    @roles = Role.find(:all)
     respond_to do |format|
       format.js
     end
@@ -165,6 +169,16 @@ class RolesController < ApplicationController
   
  
 
+  def retrieve
+    @role = Role.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Role ID #{@role.id}.")
+    @role.to_be_removed = false
+    @role.save!
+    @roles = Role.find(:all)
+    respond_to do |format|
+      format.js
+    end
+  end
 
 
 end
