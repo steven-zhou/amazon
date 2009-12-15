@@ -2,7 +2,7 @@ $('#<%= dom_id(@person_role) %>').replaceWith(" <%= escape_javascript(render(:pa
     $('.person_roles_edit_delete').css("display","none");
   $('.person_roles_toggle_button').css("display","none");
   $('#add_new_person_role').css("display","none");
-
+  $('.mandantory_field').keyup();
   $('.beforestartdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',

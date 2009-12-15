@@ -1,16 +1,20 @@
 %ul
   -for tag_meta_type in tag_meta_types do
+    - setting_status = tag_meta_type.status ? "container_active  " : "container_inactive "
+    - setting_status = "container_remove" if tag_meta_type.to_be_removed == true
     %li{:level => "1", :id => "tag_meta_type_#{tag_meta_type.id}"}
-      %div{:level => "1", :class => tag_meta_type.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+      %div{:level => "1", :class => "#{setting_status} toggle_multilevel_options "}
         .title
           %h2 #{tag_meta_type.name}
         .options
-          = link_to_function image_tag('Icons/System/add_child.png'), :class => "new_tag_type", :title=>"New Child", :tag => @category, :tag_meta_type_id => tag_meta_type.id if tag_meta_type.status
-          = link_to image_tag('edit_icon.png'), edit_tag_meta_type_path(tag_meta_type), :class => 'get_tag', :title=>"Edit" if type=="edit_and_delete"
-          = link_to image_tag('delete_icon.png'), tag_meta_type_path(tag_meta_type), :class => 'delete', :field => "Tag Meta",:error_message_field => "Tag Meta", :title=>"Remove" if type=="edit_and_delete"
-        
+          -if tag_meta_type.to_be_removed == false
+            = link_to_function image_tag('Icons/System/add_child.png'), :class => "new_tag_type", :title=>"New Child", :tag => @category, :tag_meta_type_id => tag_meta_type.id if tag_meta_type.status
+            = link_to image_tag('edit_icon.png'), edit_tag_meta_type_path(tag_meta_type), :class => 'get_tag', :title=>"Edit" if type=="edit_and_delete"
+            = link_to image_tag('delete_icon.png'), tag_meta_type_path(tag_meta_type), :class => 'delete', :field => "Tag Meta",:error_message_field => "Tag Meta", :title=>"Remove" if type=="edit_and_delete"
+          -else
+            = link_to image_tag('icon_holder.png'), retrieve_tag_meta_type_path(tag_meta_type),:class => 'get',:field => "tag_meta_types", :id => 'tag_meta_types_retrieve_button', :tag_meta_types_id => tag_meta_type.id, :title=>"Retrieve"
       %br.clear
 
-      - if tag_meta_type.status
+      - if tag_meta_type.status and !tag_meta_type.to_be_removed
         %div{:id => "tag_types_#{tag_meta_type.id}"}
           = render(:partial => "/tag_types/tag_types", :locals => {:tag_meta_type => tag_meta_type})

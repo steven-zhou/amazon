@@ -1,10 +1,15 @@
 %ul
   -for tag in tag_type.tags do
+    - setting_status = tag.status ? "container_active  " : "container_inactive "
+    - setting_status = "container_remove" if tag.to_be_removed == true
     %li{:level => "3", :id => "tag_#{tag.id}"}
-      %div{:level => "3", :class => tag.status ? "toggle_multilevel_options container_active" : "toggle_multilevel_options container_inactive"}
+      %div{:level => "3", :class => " #{setting_status} toggle_multilevel_options "}
         %div.options
-          = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag', :title=>"Edit"
-          = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete' ,:field => "Tag",:error_message_field => "Tag", :title=>"Remove"
+          -if tag.to_be_removed == false
+            = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag', :title=>"Edit"
+            = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete' ,:field => "Tag",:error_message_field => "Tag", :title=>"Remove"
+          -else
+            = link_to image_tag('icon_holder.png'),retrieve_tag_path(tag),:class => 'get',:field => "tag", :id => 'tag_retrieve_button', :tag_id => tag.id, :title=>"Retrieve"
         .title
           %h3 #{tag.name}
       %br.clear

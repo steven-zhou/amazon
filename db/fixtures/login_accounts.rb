@@ -39,6 +39,7 @@ superuser = GroupType.create(:name => "Power User", :group_meta_type => supergro
 puts "Initializing Member Zone Super User"
 memberzone = MemberZone.create(
   :user_name => "MemberZone",
+  :security_email => "memberzone@memberzone.com.au",
   :password => "memberzone123",
   :access_attempts_count => 99,
   :session_timeout => 999999,
@@ -51,6 +52,7 @@ memberzone = MemberZone.create(
 puts "Initializing Super Admin"
 superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
+  :security_email => "superadmin@memberzone.com.au",
   :password => "superadmin",
   :access_attempts_count => 99,
   :session_timeout => 30,

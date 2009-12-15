@@ -64,7 +64,7 @@ class TagsController < ApplicationController
     end
   end
 
-    def show_role_condition_description
+  def show_role_condition_description
     @role_conditon_description = MasterDocType.find(params[:doctype_id].to_i) rescue @role_conditon_description = MasterDocType.new
     respond_to do |format|
       format.js
@@ -75,7 +75,9 @@ class TagsController < ApplicationController
     @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag #{@tag.id}.")
-    @tag.destroy    
+    #    @tag.destroy
+    @tag.to_be_removed = true
+    @tag.save
     respond_to do |format|
       format.js
     end
@@ -160,6 +162,18 @@ class TagsController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Custom Group #{custom_group.id}.")
     custom_group.destroy
     @group = GroupMetaType.find(params[:custom_group_type_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+   def retrieve
+    @tag = Tag.find(params[:id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Master Docs ID #{@tag.id}.")
+    @tag_type = @tag.tag_type
+    @tag.to_be_removed = false
+    @tag.save
     respond_to do |format|
       format.js
     end
