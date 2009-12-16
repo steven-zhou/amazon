@@ -9,6 +9,7 @@ class RoleType < AmazonSetting
 
   after_create :assign_priority
   before_destroy :reorder_priority
+  after_update :update_children
 
   def self.active_role_type
     @role_type = RoleType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
@@ -22,6 +23,15 @@ class RoleType < AmazonSetting
 
   def reorder_priority
     self.remove_from_list
+  end
+
+  def update_children
+    if self.to_be_removed == true
+      self.roles.each do |i|
+        i.to_be_removed = true
+        i.save
+      end
+    end
   end
   
 end
