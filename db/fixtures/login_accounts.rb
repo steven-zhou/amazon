@@ -39,7 +39,8 @@ superuser = GroupType.create(:name => "Power User", :group_meta_type => supergro
 puts "Initializing Member Zone Super User"
 memberzone = MemberZone.create(
   :user_name => "MemberZone",
-  :password => "memberzone123",
+  :security_email => "memberzone@memberzone.com.au",
+  :password => "3Jumentos4u2",
   :access_attempts_count => 99,
   :session_timeout => 999999,
   :authentication_grace_period => 9,
@@ -51,7 +52,8 @@ memberzone = MemberZone.create(
 puts "Initializing Super Admin"
 superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
-  :password => "superadmin",
+  :security_email => "superadmin@memberzone.com.au",
+  :password => "Cavalos258",
   :access_attempts_count => 99,
   :session_timeout => 30,
   :authentication_grace_period => 9,
@@ -62,8 +64,8 @@ superadmin = SuperAdmin.create(
 
 puts "Initializing password for member zone user"
 client_setup = ClientSetup.first
-client_setup.member_zone_power_password = "123456"
-client_setup.super_admin_power_password = "123456"
+client_setup.member_zone_power_password = "098765"
+client_setup.super_admin_power_password = "098765"
 client_setup.save
 
 puts "Initializing Group to Super Users."

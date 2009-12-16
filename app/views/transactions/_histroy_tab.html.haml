@@ -27,4 +27,6 @@
     .full_container
       #view_transaction_detail
 
+  = button_to_function 'Export to PDF', :style => "float:right;margin-top:10px;", :id => "export_to_pdf_button", :disabled => (@count==0)
+
 

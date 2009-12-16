@@ -1,6 +1,8 @@
 class TransactionHeadersController < ApplicationController
   # System Log stuff added
 
+  include OutputPdf
+  
   def new
     #@system_date = session[:clocktime].strftime("%d-%m-%Y")
     @system_date = session[:clocktime_date]
@@ -171,6 +173,9 @@ class TransactionHeadersController < ApplicationController
     @field = params[:field]
     @start_date = "01-01-#{Date.today().year().to_s}"
     @end_date = "31-12-#{Date.today().year().to_s}"
+    if @field == "histroy_page"
+      @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+    end
     respond_to do |format|
       format.js
     end
@@ -181,8 +186,19 @@ class TransactionHeadersController < ApplicationController
     params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
     @start_date = params[:start_date]
     @end_date = params[:end_date]
+    @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
     respond_to do |format|
       format.js
+    end
+  end
+
+  def export_histroy_to_report
+    @file_name = params[:file_name].blank? ? "transaction histroy" : params[:file_name]
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a transaction histroy report.")
+    respond_to do |format|
+      format.pdf {pdf = PDF::Writer.new
+                  pdf = OutputPdf.generate_transaction_histroy_report_pdf(session[:entity_type], session[:entity_id], params[:start_date], params[:end_date], {}, {})
+                  send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
     end
   end
 end
