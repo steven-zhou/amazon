@@ -2,7 +2,7 @@
 -div_for(person_role, :class => 'header_container', :field => "person_role") do
   %div
     .title
-      %h2= person_role.role.name
+      %h2{:class=>("red" if person_role.role.to_be_removed)}= person_role.role.name
     .options{:class => 'person_roles_edit_delete person_tag', :style => "display:none;"}
       = link_to image_tag('edit_icon.png'), edit_person_role_path(person_role), :class =>'get edit_role', :id => 'role_edit_button',:role_id => person_role.id, :title=>"Edit"
       = link_to image_tag('delete_icon.png'), person_role_path(person_role), :class => 'delete delete_role', :id => 'role_delete_button',:role_id => person_role.id,:field => "Role",:error_message_field => person_role.role.name + " Role", :title=>"Remove"
