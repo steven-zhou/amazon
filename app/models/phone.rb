@@ -63,7 +63,8 @@ class Phone < Contact
 
     def phone_type
     @phone_type = Array.new
-    @phone_type <<  TagType.find(self.contact_meta_type_id)
+    @var = TagType.find(self.contact_meta_type_id) # if the TagType is deleted, can not be show
+    @phone_type <<  @var unless @var.to_be_removed
     return @phone_type
   end
 

@@ -32,7 +32,8 @@ class InstantMessaging < Contact
 
  def instant_messaging_type
     @instant_messaging_type = Array.new
-    @instant_messaging_type <<  TagType.find(self.contact_meta_type_id)
+     @var = TagType.find(self.contact_meta_type_id)
+    @instant_messaging_type <<  @var unless @var.to_be_removed
     return @instant_messaging_type
   end
 

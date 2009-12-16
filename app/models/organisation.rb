@@ -169,7 +169,7 @@ class Organisation < ActiveRecord::Base
       @var = TagType.find(website.contact_meta_type_id)
       @personal_website_types <<  @var unless @var.to_be_removed
     end
-
+  return @personal_website_types 
   end
 
   def personal_address_types
