@@ -33,7 +33,7 @@ class PersonRolesController < ApplicationController
     @person_role = PersonRole.find(params[:id].to_i)
     @role = @person_role.role
     @role_type = @role.role_type
-    @roles = @role_type.roles.find(:all, :order => 'name')
+    @roles = @role_type.roles.find(:all, :conditions=>["to_be_removed = false"],:order => 'name')
     @person = @person_role.role_player
     @masterdoc = @person.master_docs
     

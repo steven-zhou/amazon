@@ -31,7 +31,7 @@ class PhonesController < ApplicationController
   end
   
   def edit
-    @phone =Phone.find(params[:id].to_i)
+    @phone =Phone.find(params[:id].to_i) 
     @person = Person.find(@phone.contactable_id)
     if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@phone.contactable_id)

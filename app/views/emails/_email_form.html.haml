@@ -1,15 +1,16 @@
 .form_line
   .field_20
     = email.label :contact_meta_type_id, "<span class='asterisk'>*</span>Type"
-    - empty = Contact.email_types - @person.personal_email_types
     -if @organisation.nil?
+      - empty = Contact.email_types - @person.personal_email_types+ @email.email_type
       -if edit == "edit"
-        = email.collection_select :contact_meta_type_id, Contact.email_types - @person.personal_email_types , :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@email.new_record? ? "email_value" : "email_value_edit",:mandantory_field2=>"edit_email_contact_meta_type_id",:submit_button_id=>"submit_email_field_edit",:id=>"edit_email_contact_meta_type_id"}
+        = email.collection_select :contact_meta_type_id, Contact.email_types - @person.personal_email_types+ @email.email_type , :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@email.new_record? ? "email_value" : "email_value_edit",:mandantory_field2=>"edit_email_contact_meta_type_id",:submit_button_id=>"submit_email_field_edit",:id=>"edit_email_contact_meta_type_id"}
       -else
         = email.collection_select :contact_meta_type_id, Contact.email_types - @person.personal_email_types, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@email.new_record? ? "email_value" : "email_value_edit",:mandantory_field2=>"edit_email_contact_meta_type_id",:submit_button_id=>"submit_email_field_edit",:id=>"edit_email_contact_meta_type_id"}
     -else
+      - empty = Contact.email_types - @organisation.personal_email_types + @email.email_type
       -if edit == "edit"
-        = email.collection_select :contact_meta_type_id, Contact.email_types - @organisation.personal_email_types + @email.email_type, :id, :name
+        = email.collection_select :contact_meta_type_id, Contact.email_types - @organisation.personal_email_types + @email.email_type, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@email.new_record? ? "email_value" : "email_value_edit",:mandantory_field2=>"edit_email_contact_meta_type_id",:submit_button_id=>"submit_email_field_edit",:id=>"edit_email_contact_meta_type_id"}
       -else
         = email.collection_select :contact_meta_type_id, Contact.email_types - @organisation.personal_email_types, :id, :name
   .field_75

@@ -1,8 +1,13 @@
 - for i in @roles
   - status = i.role_status ? "container_active" : "container_inactive"
+  - status =  "container_remove" if i.to_be_removed == true
   -div_for(i, :class => "#{status}  toggle_options" , :id => "existing_role", :role_id => i.id, :field => "role", :style => "width:30%;") do
     .options{:style => "display:none", :class => "role_options"}
-      = link_to_function image_tag('edit_icon.png'), :class => 'edit_role edit_option', :role_id => i.id, :field => "role", :title=>"Edit"
-      = link_to image_tag('delete_icon.png'), role_path(i), :class => 'delete delete_flag',:id => 'delete_role', :field => "role",:error_message_field => "Role", :title=>"Remove"
+      - if i.to_be_removed == false
+        = link_to_function image_tag('edit_icon.png'), :class => 'edit_role edit_option', :role_id => i.id, :field => "role", :title=>"Edit"
+        -#= link_to image_tag('delete_icon.png'), role_path(i), :class => 'delete delete_flag',:id => 'delete_role', :field => "role",:error_message_field => "Role", :title=>"Remove"
+        = link_to image_tag('delete_icon.png'), role_path(i), :class => 'delete delete_flag',:id => 'delete_role', :field => "role", :error_message_field => "Role", :role_id => i.id, :title=>"Remove"
+      - else
+        = link_to image_tag('icon_holder.png'), retrieve_role_path(i), :class => 'get',:error_message_field => "Role", :field => "role", :id => 'role_retrieve', :role_id => i.id, :title=>"Retrieve"
     .title
       %h3= h  "#{i.name}"
