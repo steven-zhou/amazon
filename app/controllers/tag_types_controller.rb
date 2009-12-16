@@ -69,7 +69,8 @@ class TagTypesController < ApplicationController
 
   def destroy
     @tag_type = TagType.find(params[:id])
-    @tag_type.remove_all_children
+    @tag_type.to_be_removed = true
+     @tag_type.save
     @tag_meta_type = @tag_type.tag_meta_type
     @category = @tag_type.type.to_s.sub(/MetaType/,"")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag Type #{@tag_type.id}.")

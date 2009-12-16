@@ -54,7 +54,9 @@ class TagMetaTypesController < ApplicationController
 #    else
 #    @tag_meta_type.destroy
 #    end
-   @tag_meta_type.remove_all_children
+
+   @tag_meta_type.to_be_removed = true
+   @tag_meta_type.save
    @tag_meta_types = (@tag_meta_type.type.camelize.constantize).find(:all, :order => "name asc")
    
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted TagMetaType #{@tag_meta_type.id}.")
@@ -100,7 +102,7 @@ class TagMetaTypesController < ApplicationController
     @tag_meta_type = TagMetaType.find(params[:id])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{@tag_meta_type.id}.")
     @tag_meta_type.retrieve_all_children
-
+    @category = @tag_meta_type.type.to_s.sub(/MetaMetaType/,"")
     @tag_meta_types = (@tag_meta_type.type.camelize.constantize).find(:all, :order => "name asc")
     respond_to do |format|
       format.js

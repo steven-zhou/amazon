@@ -3157,7 +3157,19 @@ $(function(){
         });
     });
 });
+/* check oganisation level before submit*/
 
+$(function(){
+    $("#organisation_edit_level").live('change', function(){
+
+        $.ajax({
+            type: "GET",
+            url: "/organisations/check_level_change.js",
+            data: 'organisation_id=' + $('#organisation_id').val()+"&organisation_level="+$(this).val(),
+            dataType: "script"
+        });
+    });
+});
 
 /*Organisation*/
 
