@@ -35,7 +35,8 @@ class Website < Contact
 
    def website_type
     @website_type = Array.new
-    @website_type <<  TagType.find(self.contact_meta_type_id)
+    @var = TagType.find(self.contact_meta_type_id)
+    @website_type <<  @var unless @var.to_be_removed
     return @website_type
   end
 

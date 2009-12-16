@@ -35,7 +35,8 @@ class Email < Contact
   end
   def email_type
     @email_type = Array.new
-    @email_type <<  TagType.find(self.contact_meta_type_id)
+    @var = TagType.find(self.contact_meta_type_id)
+    @email_type <<  @var unless @var.to_be_removed
     return @email_type
   end
   private
