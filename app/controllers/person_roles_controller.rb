@@ -38,7 +38,7 @@ class PersonRolesController < ApplicationController
     #then get the first role_type whose 'to_be_removed = false'
     if @role_type.to_be_removed
       @temp = RoleType.active_role_type.first
-      @roles = @temp.roles.find(:all, :conditions=>["to_be_removed = false"], :order=>'name')
+      @roles = @temp.roles.find(:all, :conditions=>["to_be_removed = false"], :order=>'name') rescue @roles= Array.new
     else
       @roles = @role_type.roles.find(:all, :conditions=>["to_be_removed = false"],:order => 'name')
     end
