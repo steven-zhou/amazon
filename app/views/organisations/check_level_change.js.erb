@@ -1,0 +1,32 @@
+<%if !@source.nil? or !@related.nil?%>
+ $('#warning_message_text').html("Existing Organisation Relationship might be destory after submit, Are you going to change the organisation level ? ");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 'auto',
+            width: 'auto',
+            buttons: {
+
+                No: function(){
+                 $('#organisation_edit_level').val("<%=@organisation.level%>");
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                $('#organisation_edit_level').val("<%=params[:organisation_level]%>");
+                    $(this).dialog('destroy');
+                    return true;
+                }
+            }
+
+        });
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        $('#warning_message').dialog('open');
+<%end%>

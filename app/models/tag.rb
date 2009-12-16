@@ -15,4 +15,5 @@ class Tag < ActiveRecord::Base
     return results
   end
   
+
 end

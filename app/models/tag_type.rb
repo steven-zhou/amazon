@@ -11,7 +11,7 @@ class TagType < ActiveRecord::Base
   accepts_nested_attributes_for :tags, :reject_if => proc { |attributes| attributes['name'].blank? || attributes['tag_type_id'].blank? }
 
   before_destroy :delete_all_children
-
+  after_save :remove_all_children
   def self.distinct_types_of_tag_types
     @tag_types = TagType.find(:all, :select => "DISTINCT type")
     results = ""
@@ -19,15 +19,15 @@ class TagType < ActiveRecord::Base
     return results
   end
 
-  def remove_all_children
-    self.to_be_removed = true
-    self.save
-   
-    self.tags.each do |i|
-      i.to_be_removed = true
-      i.save
-    end
-  end
+#  def remove_all_children
+#    self.to_be_removed = true
+#    self.save
+#
+#    self.tags.each do |i|
+#      i.to_be_removed = true
+#      i.save
+#    end
+#  end
 
 
     def retrieve_all_children
@@ -51,5 +51,12 @@ class TagType < ActiveRecord::Base
       i.destroy
     end
   end
- 
+
+    def remove_all_children
+
+    self.tags.each do |i|
+      i.to_be_removed = true
+      i.save
+    end
+  end
 end
