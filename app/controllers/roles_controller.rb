@@ -126,7 +126,8 @@ class RolesController < ApplicationController
     @role.to_be_removed = true
     @role.save!
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) remove Role, ID: #{@role.id}.")
-    @roles = Role.find(:all)
+    @role_type = @role.role_type
+    @roles = Role.find(:all, :conditions => ["role_type_id=?", @role_type.id], :order=>'id')
     respond_to do |format|
       format.js
     end
@@ -174,7 +175,8 @@ class RolesController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Role ID #{@role.id}.")
     @role.to_be_removed = false
     @role.save!
-    @roles = Role.find(:all)
+    @role_type = @role.role_type
+    @roles = Role.find(:all, :conditions => ["role_type_id=?", @role_type.id], :order=>'id')
     respond_to do |format|
       format.js
     end
