@@ -3,37 +3,37 @@ client = ClientOrganisation.create :full_name => "Client Organisation", :level =
 ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memerzone.com.au", :reply_from => "feedback@memerzone.com.au", :superadmin_message => "superadmin message", :level_0_label => "level_0", :level_1_label => "level_1", :level_2_label => "level_2"
 
 puts "Initializing SystemPermission data"
-mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true)
-mdmt = SystemPermissionMetaType.create(:name => "Address_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
-show = SystemPermissionType.create(:name => "Address_show", :system_permission_meta_type => mdmt, :status => true)
-edit = SystemPermissionType.create(:name => "Address_edit", :system_permission_meta_type => mdmt, :status => true)
-create = SystemPermissionType.create(:name => "Address_create", :system_permission_meta_type => mdmt, :status => true)
-update = SystemPermissionType.create(:name => "Address_update", :system_permission_meta_type => mdmt, :status => true)
-destroy = SystemPermissionType.create(:name => "Address_destroy", :system_permission_meta_type => mdmt, :status => true)
-mdmt0 = SystemPermissionMetaType.create(:name => "Note_Controller", :system_permission_meta_meta_type => mdmmt, :status => true)
-show0 = SystemPermissionType.create(:name => "Note_show", :system_permission_meta_type => mdmt0, :status => true)
-edit0 = SystemPermissionType.create(:name => "Note_edit", :system_permission_meta_type => mdmt0, :status => true)
-create0 = SystemPermissionType.create(:name => "Note_create", :system_permission_meta_type => mdmt0, :status => true)
-update0 = SystemPermissionType.create(:name => "Note_update", :system_permission_meta_type => mdmt0, :status => true)
-destroy0 = SystemPermissionType.create(:name => "Note_destroy", :system_permission_meta_type => mdmt0, :status => true)
+mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true, :to_be_removed =>false)
+mdmt = SystemPermissionMetaType.create(:name => "Address_Controller", :system_permission_meta_meta_type => mdmmt, :status => true, :to_be_removed =>false)
+show = SystemPermissionType.create(:name => "Address_show", :system_permission_meta_type => mdmt, :status => true, :to_be_removed =>false)
+edit = SystemPermissionType.create(:name => "Address_edit", :system_permission_meta_type => mdmt, :status => true, :to_be_removed =>false)
+create = SystemPermissionType.create(:name => "Address_create", :system_permission_meta_type => mdmt, :status => true, :to_be_removed =>false)
+update = SystemPermissionType.create(:name => "Address_update", :system_permission_meta_type => mdmt, :status => true, :to_be_removed =>false)
+destroy = SystemPermissionType.create(:name => "Address_destroy", :system_permission_meta_type => mdmt, :status => true, :to_be_removed =>false)
+mdmt0 = SystemPermissionMetaType.create(:name => "Note_Controller", :system_permission_meta_meta_type => mdmmt, :status => true, :to_be_removed =>false)
+show0 = SystemPermissionType.create(:name => "Note_show", :system_permission_meta_type => mdmt0, :status => true, :to_be_removed =>false)
+edit0 = SystemPermissionType.create(:name => "Note_edit", :system_permission_meta_type => mdmt0, :status => true, :to_be_removed =>false)
+create0 = SystemPermissionType.create(:name => "Note_create", :system_permission_meta_type => mdmt0, :status => true, :to_be_removed =>false)
+update0 = SystemPermissionType.create(:name => "Note_update", :system_permission_meta_type => mdmt0, :status => true, :to_be_removed =>false)
+destroy0 = SystemPermissionType.create(:name => "Note_destroy", :system_permission_meta_type => mdmt0, :status => true, :to_be_removed =>false)
 
 mdmmt1 = SystemPermissionMetaMetaType.create(:name => "Admin", :status => true)
-mdmt1 = SystemPermissionMetaType.create(:name => "group_list_controller", :system_permission_meta_meta_type => mdmmt1, :status => true)
-showlist1 = SystemPermissionType.create(:name => "group_list_show_list", :system_permission_meta_type => mdmt1, :status => true)
-create1 = SystemPermissionType.create(:name => "group_list_create", :system_permission_meta_type => mdmt1, :status => true)
-destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_permission_meta_type => mdmt1, :status => true)
+mdmt1 = SystemPermissionMetaType.create(:name => "group_list_controller", :system_permission_meta_meta_type => mdmmt1, :status => true, :to_be_removed =>false)
+showlist1 = SystemPermissionType.create(:name => "group_list_show_list", :system_permission_meta_type => mdmt1, :status => true, :to_be_removed =>false)
+create1 = SystemPermissionType.create(:name => "group_list_create", :system_permission_meta_type => mdmt1, :status => true, :to_be_removed =>false)
+destroy1 = SystemPermissionType.create(:name => "group_list_destroy", :system_permission_meta_type => mdmt1, :status => true, :to_be_removed =>false)
 
 
 puts "Initializing Custom Group."
-custom = GroupMetaMetaType.create(:name => "Custom", :status => true)
-security = GroupMetaMetaType.create(:name => "Security", :status => true)
-mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => security, :status => true)
-admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true)
+custom = GroupMetaMetaType.create(:name => "Custom", :status => true, :to_be_removed =>false)
+security = GroupMetaMetaType.create(:name => "Security", :status => true, :to_be_removed =>false)
+mdmt = GroupMetaType.create(:name => "System Users", :group_meta_meta_type => security, :status => true, :to_be_removed =>false)
+admin = GroupType.create(:name => "Admin", :group_meta_type => mdmt, :status => true, :to_be_removed =>false)
 
 puts "Initializing Super Group."
-supermetatype = GroupMetaMetaType.create(:name => "MemberZone", :status => true)
-supergroup = GroupMetaType.create(:name => "Power Group", :group_meta_meta_type => supermetatype, :status => true)
-superuser = GroupType.create(:name => "Power User", :group_meta_type => supergroup, :status => true)
+supermetatype = GroupMetaMetaType.create(:name => "MemberZone", :status => true, :to_be_removed =>false)
+supergroup = GroupMetaType.create(:name => "Power Group", :group_meta_meta_type => supermetatype, :status => true, :to_be_removed =>false)
+superuser = GroupType.create(:name => "Power User", :group_meta_type => supergroup, :status => true, :to_be_removed =>false)
 
 
 puts "Initializing Member Zone Super User"
