@@ -106,6 +106,8 @@ class RolesController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name")if(!@role.errors[:name].nil? && @role.errors.on(:name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")if(!@role.errors[:name].nil? && @role.errors.on(:name).include?("has already been taken"))
     end
+    @role.to_be_removed = false
+    @role.save!
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role][:role_type_id]],:order => 'name') unless (params[:role][:role_type_id].nil? || params[:role][:role_type_id].empty?)
     respond_to do |format|
       format.js
