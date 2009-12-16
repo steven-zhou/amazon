@@ -3,13 +3,15 @@
   .field_25
     = address.label :address_type_id, "<span class='asterisk'>*</span>Type"
     -if @organisation.nil?
+      - empty = AddressType.active_address_type - @person.personal_address_types + @address.check_address_type
       -if edit == "edit"
-        = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types + @address.check_address_type, :id, :name
+        = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types + @address.check_address_type, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@address.new_record? ? "address_street_name" : "address_street_name_edit",:mandantory_field2=>"edit_address_type_id",:submit_button_id=>"address_submit_button_edit",:id=>"edit_address_type_id"}
       -else
         = address.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types, :id, :name
     -else
+      - empty = AddressType.active_address_type - @organisation.personal_address_types + @address.check_address_type
       -if edit == "edit"
-        = address.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types + @address.check_address_type, :id, :name
+        = address.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types + @address.check_address_type, :id, :name,{:include_blank => (true if empty.empty?)},{:class =>"mandantory_dropdown_list",:mandantory_field1=>@address.new_record? ? "address_street_name" : "address_street_name_edit",:mandantory_field2=>"edit_address_type_id",:submit_button_id=>"address_submit_button_edit",:id=>"edit_address_type_id"}
       -else
         = address.collection_select :address_type_id, AddressType.active_address_type - @organisation.personal_address_types, :id, :name
   .field_40
@@ -24,7 +26,7 @@
     = address.text_field :street_number
   .field_45
     = address.label :street_name, "<span class='asterisk'>*</span>Street Name"
-    = address.text_field :street_name, :id => @address.new_record? ? "address_street_name" : "address_street_name_edit" ,:style => "width:99%;",:class=>"mandantory_field",:mandantory_field1=>@address.new_record? ? "address_street_name" : "address_street_name_edit",:submit_button_id=>"address_submit_button_edit"
+    = address.text_field :street_name, :id => @address.new_record? ? "address_street_name" : "address_street_name_edit" ,:style => "width:99%;",:class=>"mandantory_field",:mandantory_field1=>@address.new_record? ? "address_street_name" : "address_street_name_edit",:mandantory_field2=>"edit_address_type_id",:submit_button_id=>"address_submit_button_edit"
 .form_line
   .field_40{:style => "margin-right: 5px;"}
     = address.label :town, 'Suburb'
