@@ -69,7 +69,8 @@ class Address < ActiveRecord::Base
 
    def check_address_type
     @address_type = Array.new
-    @address_type <<  AmazonSetting.find(self.address_type_id)
+    @var = AmazonSetting.find(self.address_type_id)
+    @address_type <<  @var unless @var.to_be_removed
     return @address_type
   end
   
