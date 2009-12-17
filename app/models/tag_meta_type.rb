@@ -10,7 +10,7 @@ class TagMetaType < ActiveRecord::Base
   default_scope :order => "name ASC"
   
   before_destroy :delete_all_children
-  after_save :remove_all_children
+  after_save :update_children_when_delete
   
   def self.distinct_types_of_tag_meta_types
     @tag_meta_types = TagMetaType.find(:all, :select => "DISTINCT type")
@@ -28,20 +28,20 @@ class TagMetaType < ActiveRecord::Base
   end
 
   def retrieve_all_children
-   self.to_be_removed = false
-   self.save
-   self.tag_types.each do |m|
+    self.to_be_removed = false
+    self.save
+    self.tag_types.each do |m|
 
-     m.tags.each do |i|
-       i.to_be_removed = false
-       i.save
-     end
+      m.tags.each do |i|
+        i.to_be_removed = false
+        i.save
+      end
 
-     m.to_be_removed = false
-     m.save
-   end
+      m.to_be_removed = false
+      m.save
+    end
 
- end
+  end
 
 
   private
@@ -52,15 +52,17 @@ class TagMetaType < ActiveRecord::Base
     end
   end
 
-   #this method to set the master_doc_meta_types "to_be_removed" to true
- def remove_all_children
-
-   self.tag_types.each do |m|
-     m.to_be_removed = true
-     m.save
-   end
-
- end
+  #this method to set the master_doc_meta_types "to_be_removed" to true
+  def update_children_when_delete
+    if self.to_be_removed == true
+      self.tag_types.each do |m|
+        if m.to_be_removed == false
+          m.to_be_removed = true
+          m.save
+        end
+      end
+    end
+  end
 
 
 end

@@ -37,4 +37,14 @@ class Keyword < ActiveRecord::Base
 
   # Return the first title
   delegate :name, :to => :keyword_type, :prefix => true,:allow_nil => true
+
+  after_save :update_keyword_type_when_retrieve
+
+  private
+  def update_keyword_type_when_retrieve
+    if self.to_be_removed == false && self.keyword_type.to_be_removed == true
+      self.keyword_type.to_be_removed = false
+      self.keyword_type.save
+    end
+  end
 end
