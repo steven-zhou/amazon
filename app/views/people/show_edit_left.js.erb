@@ -51,3 +51,150 @@ $("#tabs").tabs();
  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Person/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
+
+
+
+  $('.startdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+        },
+        onSelect: function(){
+            $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $(this).keyup();
+        }
+    });
+
+    $('.enddatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+
+        $('.ui-datepicker-trigger').live('mouseover', function(){
+        var endDate = $(this).parent().find('.enddatepick');
+        if(endDate.attr('start_date')!=undefined){
+            var arr_dateText = $('#'+endDate.attr('start_date')).val().split("-");
+            year = arr_dateText[2];
+            if(year==undefined){
+                endDate.val('');
+                endDate.datepicker('disable');
+            }
+        }else{
+            var roleEndDate = $(this).parent().find('.role_enddatepick');
+            if(roleEndDate.attr('start_date')!=undefined){
+                var role_arr_dateText = $('#'+roleEndDate.attr('start_date')).val().split("-");
+                year = role_arr_dateText[2];
+                if(year==undefined){
+                    roleEndDate.val('');
+                    roleEndDate.datepicker('disable');
+                }
+            }
+        }
+    });
+
+
+     $('.beforestartdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+    $('.role_startdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+            var arr_dateText_start = $("#"+$(this).attr("start_date")).val().split("-");
+            day_start = arr_dateText_start[0];
+            month_start = arr_dateText_start[1];
+            year_start = arr_dateText_start[2];
+            if(year_start!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year_start, month_start-1, day_start));
+            }
+        },
+        onSelect: function(){
+            $("#"+$(this).attr("end_date")).datepicker('enable');
+
+        },
+        onClose: function(){
+            $(this).keyup();
+        }
+
+    });
+
+    $('.role_enddatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+            }
+        }
+    });

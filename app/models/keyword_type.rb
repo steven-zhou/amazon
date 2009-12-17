@@ -41,5 +41,9 @@ class KeywordType < AmazonSetting
       end
     end
   end
+
+  def check_keyword
+    
+  end
   
 end
