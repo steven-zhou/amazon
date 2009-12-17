@@ -7,6 +7,7 @@ class Tag < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:type, :tag_type_id], :case_sensitive => false
 
   default_scope :order => "name ASC"
+  after_save :update_parent_when_retrieve
 
   def self.distinct_types_of_tags
     @tags = Tag.find(:all, :select => "DISTINCT type")
@@ -15,5 +16,11 @@ class Tag < ActiveRecord::Base
     return results
   end
   
-
+  private
+  def update_parent_when_retrieve
+    if self.to_be_removed == false && self.tag_type.to_be_removed == true
+      self.tag_type.to_be_removed = false
+      self.tag_type.save
+    end
+  end
 end

@@ -13,12 +13,21 @@ class Role < ActiveRecord::Base
   delegate :name, :to => :role_type, :prefix => true,:allow_nil => true
 
   default_scope :order => "id ASC"
+
   before_destroy :check_assign
+  after_save :update_role_type_when_retrieve
 
 
 
 
-#  private
+  private
+  def update_role_type_when_retrieve
+    if (self.to_be_removed == false && self.role_type.to_be_removed == true)
+      self.role_type.to_be_removed = false
+      self.role_type.save
+    end
+  end
+
 #  def check_assign
 #   @check_role_assign= PersonRole.find_by_role_id(self.id)
 #   if !@check_role_assign.nil?

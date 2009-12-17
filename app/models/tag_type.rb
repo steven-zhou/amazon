@@ -11,7 +11,8 @@ class TagType < ActiveRecord::Base
   accepts_nested_attributes_for :tags, :reject_if => proc { |attributes| attributes['name'].blank? || attributes['tag_type_id'].blank? }
 
   before_destroy :delete_all_children
-  after_save :remove_all_children
+  after_save :update_children_when_delete, :update_parent_when_retrieve
+  
   def self.distinct_types_of_tag_types
     @tag_types = TagType.find(:all, :select => "DISTINCT type")
     results = ""
@@ -19,18 +20,18 @@ class TagType < ActiveRecord::Base
     return results
   end
 
-#  def remove_all_children
-#    self.to_be_removed = true
-#    self.save
-#
-#    self.tags.each do |i|
-#      i.to_be_removed = true
-#      i.save
-#    end
-#  end
+  #  def remove_all_children
+  #    self.to_be_removed = true
+  #    self.save
+  #
+  #    self.tags.each do |i|
+  #      i.to_be_removed = true
+  #      i.save
+  #    end
+  #  end
 
 
-    def retrieve_all_children
+  def retrieve_all_children
     self.to_be_removed = false
     self.save
 
@@ -52,11 +53,21 @@ class TagType < ActiveRecord::Base
     end
   end
 
-    def remove_all_children
+  def update_children_when_delete
+    if self.to_be_removed == true
+      self.tags.each do |i|
+        if i.to_be_removed == false
+          i.to_be_removed = true
+          i.save
+        end
+      end
+    end
+  end
 
-    self.tags.each do |i|
-      i.to_be_removed = true
-      i.save
+  def update_parent_when_retrieve
+    if self.to_be_removed == false && self.tag_meta_type.to_be_removed == true
+      self.tag_meta_type.to_be_removed = false
+      self.tag_meta_type.save
     end
   end
 end

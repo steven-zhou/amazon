@@ -7,7 +7,7 @@ class KeywordType < AmazonSetting
 
   after_create :assign_priority
   before_destroy :reorder_priority
-  after_save :update_keywords
+  after_save :update_keywords_when_delete
 
   has_many :keywords
 
@@ -33,11 +33,13 @@ class KeywordType < AmazonSetting
     self.remove_from_list
   end
 
-  def update_keywords
+  def update_keywords_when_delete
     if self.to_be_removed == true
       self.keywords.each do |i|
-        i.to_be_removed = true
-        i.save
+        if i.to_be_removed == false
+          i.to_be_removed = true
+          i.save
+        end
       end
     end
   end
