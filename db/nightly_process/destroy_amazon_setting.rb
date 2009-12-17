@@ -267,7 +267,7 @@ end
 
 puts "Destroy Keyword"
 Keyword.find(:all,:conditions=>["to_be_removed = true"]).each do |i|
-  if KeywordLink.find_by_keyword_id(i.id)
+  unless KeywordLink.find_by_keyword_id(i.id).nil?
     i.to_be_removed = false
     i.save
   else
@@ -282,7 +282,7 @@ end
 
 puts "Destroy Role"
 Role.find(:all,:conditions=>["to_be_removed = true"]).each do |i|
-  if PersonRole.find_by_role_id(i.id)
+  unless PersonRole.find_by_role_id(i.id).nil?
     i.to_be_removed = false
     i.save
   else
