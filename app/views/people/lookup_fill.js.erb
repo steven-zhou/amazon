@@ -2,3 +2,4 @@ $('#person_lookup_dialog').dialog('close');
 $('#<%= escape_javascript("#{@update_field}") %>').val('<%= escape_javascript("#{@person.id}") %>');
 $('#<%= escape_javascript("#{@update_field}") %>').change();
 $('#<%= escape_javascript("#{@update_field}") %>').focus();
+$('#<%= escape_javascript("#{@update_field}") %>').keyup();
