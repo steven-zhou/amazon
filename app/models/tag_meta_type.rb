@@ -8,7 +8,7 @@ class TagMetaType < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:type], :case_sensitive => false
 
   default_scope :order => "name ASC"
-  
+
   before_destroy :delete_all_children
   after_save :update_children_when_delete
   

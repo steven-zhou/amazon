@@ -1,7 +1,7 @@
 class ClientBankAccount < BankAccount
 
  belongs_to :bank
-  belongs_to :account_purpose
+ belongs_to :account_purpose
 
 
 

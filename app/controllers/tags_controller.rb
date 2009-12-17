@@ -13,6 +13,7 @@ class TagsController < ApplicationController
 
   def create
     @tag = (params[:type]).camelize.constantize.new(params[params[:type].underscore.to_sym])
+    @tag.to_be_removed = false
     @tag_type = (params[:tag_type]).camelize.constantize.find(params[:tag_type_id])
     @tag_type.tags << @tag
     if @tag.save

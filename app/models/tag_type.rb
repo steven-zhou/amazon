@@ -47,6 +47,7 @@ class TagType < ActiveRecord::Base
   end
 
   private
+  
   def delete_all_children
     self.tags.each do |i|
       i.destroy

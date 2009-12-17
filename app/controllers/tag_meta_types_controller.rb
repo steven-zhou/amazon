@@ -17,6 +17,7 @@ class TagMetaTypesController < ApplicationController
 
   def create
     @tag_meta_type = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
+    @tag_meta_type.to_be_removed = false
     @category = params[:type].sub(/MetaMetaType/,"")
     if @tag_meta_type.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created new TagMetaType #{@tag_meta_type.id}.")
