@@ -12,6 +12,7 @@ class TagTypesController < ApplicationController
 
   def create
     @tag_type = (params[:type]).camelize.constantize.new(params[params[:type].underscore.to_sym])
+    @tag_type.to_be_removed = false
     @category = params[:type].sub(/MetaType/,"")
     @tag_meta_type = (params[:tag_meta_type]).camelize.constantize.find(params[:tag_meta_type_id])
     @tag_meta_type.tag_types << @tag_type
