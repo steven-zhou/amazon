@@ -14,7 +14,7 @@ class Role < ActiveRecord::Base
 
   default_scope :order => "id ASC"
 
-  before_destroy :check_assign
+#  before_destroy :check_assign
   after_save :update_role_type_when_retrieve
 
 
