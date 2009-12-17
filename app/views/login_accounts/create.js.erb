@@ -1,5 +1,5 @@
-<% unless @login_account.errors.nil? %>
-  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+<% unless flash[:error].nil? %>
+  $("#flash_message").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {
      modal: true,
       resizable: false,
@@ -18,7 +18,6 @@
  $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <% else %>
-    alert("b");
  $('#flash_message').dialog('destroy');
   $("#flash_feedback").html("New Login Account Was Saved Successfully");
   $('#flash_feedback').fadeIn("slow");
