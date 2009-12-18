@@ -9,6 +9,10 @@ class ReceiptType < Tag
 
   after_create :assign_priority
   before_destroy :reorder_priority
+  
+  def self.active_receipt_type
+    @receipt_type = ReceiptType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
+  end
 
   private
 

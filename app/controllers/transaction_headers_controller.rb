@@ -41,8 +41,7 @@ class TransactionHeadersController < ApplicationController
 
       if @transaction_header.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction with ID #{@transaction_header.id}.")
-        @transaction_header.receipt_number = @transaction_header.id
-        @transaction_header.save
+        
         #save transaction type detail
         @transaction_type_detail = case @transaction_header.receipt_meta_meta_type.name
         when "Cheque" then ChequeDetail.new(params[:transaction_type_detail])
@@ -61,6 +60,11 @@ class TransactionHeadersController < ApplicationController
         @temp_allocations.each do |temp_transaction|
           @temp_allocation_value += temp_transaction.field_5.to_f
         end
+
+        @transaction_header.receipt_number = @transaction_header.id
+        @transaction_header.total_amount = @temp_allocation_value
+        @transaction_header.save
+
         if @temp_allocations.empty?
 
         else

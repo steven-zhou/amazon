@@ -11,7 +11,7 @@
 
     .field_20
       = f.label :bank_account_id, "<span class='asterisk'>*</span>Bank Account"
-      = f.collection_select :bank_account_id, ClientBankAccount.all, :id, :account_number
+      = f.collection_select :bank_account_id, ClientBankAccount.active_client_bank_account, :id, :account_number
 
     .field_10
       = f.label :banked, "Already Banked"
@@ -24,15 +24,15 @@
   .form_line
     .field_15
       = f.label :receipt_meta_type_id, "<span class='asterisk'>*</span>Receipt Meta Type"
-      = f.collection_select :receipt_meta_type_id, ReceiptMetaMetaType.all, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_types/show_receipt_type", :type_class => "edit"}
+      = f.collection_select :receipt_meta_type_id, ReceiptMetaMetaType.active_receipt_meta_meta_type, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_types/show_receipt_type", :type_class => "edit"}
 
     .field_15
       = f.label :receipt_type_id, "<span class='asterisk'>*</span>Receipt Type"
-      = f.collection_select :receipt_type_id, ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", transaction.receipt_meta_meta_type.id]), :id, :name, {}, {:id => "edit_receipt_type"}
+      = f.collection_select :receipt_type_id, ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status = true and to_be_removed = false", transaction.receipt_meta_meta_type.id], :order => "name"), :id, :name, {}, {:id => "edit_receipt_type"}
 
     .field_15
       = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
-      = f.collection_select :received_via_id, ReceivedVia.all, :id, :name
+      = f.collection_select :received_via_id, ReceivedVia.active_received_via, :id, :name
 
   #edit_cheque_detail_form
     - if transaction.receipt_meta_meta_type.name == 'Cheque'
