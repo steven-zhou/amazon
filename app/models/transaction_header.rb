@@ -12,5 +12,7 @@ class TransactionHeader < ActiveRecord::Base
   has_one :cheque_detail
   has_one :credit_card_detail
 
+  default_scope :order => "transaction_headers.id"
+
   validates_presence_of :transaction_date, :bank_account_id, :receipt_meta_type_id, :receipt_type_id, :received_via_id
 end

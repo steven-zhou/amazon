@@ -183,15 +183,15 @@ class OrganisationsController < ApplicationController
     end
 
     @organisation.update_attributes(params[type.to_sym])
-    if @organisation.level != params[:organisation][:level].to_i  #destroy the source and related organisation relationship if they change the organisation level
-    @source = OrganisationRelationship.find_by_source_organisation_id(@organisation.id) #to find the source relationship
-    @relate = OrganisationRelationship.find_by_related_organisation_id(@organisation.id) #to find the related relationship
+    if @organisation.class.to_s != "ClientOrganisation" && @organisation.level != params[:organisation][:level].to_i  #destroy the source and related organisation relationship if they change the organisation level
+      @source = OrganisationRelationship.find_by_source_organisation_id(@organisation.id) #to find the source relationship
+      @relate = OrganisationRelationship.find_by_related_organisation_id(@organisation.id) #to find the related relationship
     
-    @source.destroy unless @source.nil?
-    @relate.destroy unless @relate.nil?
-    @organisation.level = params[:organisation][:level]
+      @source.destroy unless @source.nil?
+      @relate.destroy unless @relate.nil?
+      @organisation.level = params[:organisation][:level]
 
-    @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
+      @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
     end
     @organisation.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
@@ -503,14 +503,14 @@ class OrganisationsController < ApplicationController
   end
 
   def check_level_change
-     @organisation = Organisation.find(params[:organisation_id])
-     if @organisation.level != params[:organisation_level].to_i
-       @source=OrganisationRelationship.find_by_source_organisation_id(@organisation.id)
-       @related=OrganisationRelationship.find_by_related_organisation_id(@organisation.id)
-     end
+    @organisation = Organisation.find(params[:organisation_id])
+    if @organisation.level != params[:organisation_level].to_i
+      @source=OrganisationRelationship.find_by_source_organisation_id(@organisation.id)
+      @related=OrganisationRelationship.find_by_related_organisation_id(@organisation.id)
+    end
 
 
-     respond_to do |format|
+    respond_to do |format|
       format.js
     end
   end

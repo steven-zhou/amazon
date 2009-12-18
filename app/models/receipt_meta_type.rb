@@ -11,6 +11,10 @@ class ReceiptMetaType < TagType
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.active_receipt_meta_type
+    @receipt_meta_type = ReceiptMetaType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
+  end
+
   private
 
   def assign_priority

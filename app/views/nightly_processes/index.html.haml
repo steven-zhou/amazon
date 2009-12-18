@@ -1,0 +1,8 @@
+.container
+  %h1 Nightly Process
+
+  %p
+    This function is for testing only.
+  %p{:style => "text_align:centre;"}
+    = button_to_function "Test Nightly Process", :class => "ajax_call", :method => "GET", :url => "nightly_processes/run"
+  %p#output

@@ -6,5 +6,8 @@ class Source < ActiveRecord::Base
   validates_presence_of :campaign_id, :name
   validates_uniqueness_of :name, :scope => [:campaign_id]
 
+  def self.active_source
+    @source = Source.find(:all, :conditions => ["status = true"], :order => 'name')
+  end
 
 end

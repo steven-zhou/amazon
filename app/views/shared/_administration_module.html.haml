@@ -120,3 +120,16 @@
           %li{:id => @current_action == "list" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Bank Data", :controller => "banks", :action => "list"
     .bottom
+
+  - # Testing Nightly Process
+  %li{:id => ( @current_controller == "nightly_processes") ? "menu_active" : ""}
+    .top
+    .item
+      - if !(@current_controller == "nightly_processes")
+        = link_to "#{image_tag('icon_holder.png')} NightlyProcess", :controller => "nightly_processes", :action => "index"
+      - else
+        <p>Nightly Process</p>
+        %ul
+          %li{:id => @current_action == "index" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Test", :controller => "nightly_processes", :action => "index"
+    .bottom
