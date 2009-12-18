@@ -49,7 +49,7 @@ class TagMetaTypesController < ApplicationController
 
   def destroy
     @tag_meta_type = TagMetaType.find(params[:id])
-
+    @category = @tag_meta_type.type.to_s.sub(/MetaMetaType/,"")
 #    if @tag_meta_type.type == "MasterDocMetaMetaType"
 #      @tag_meta_type.remove_master_doc_meta_types
 #    else
