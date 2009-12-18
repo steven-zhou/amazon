@@ -150,6 +150,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :transaction_headers, :collection => {:page_initial => :get, :export_histroy_to_report => :get}
   map.resources :transaction_allocations, :collection => {:temp_create => :post}, :member => {:temp_edit => :get, :temp_update => :put}
 
+  #nightly processes for testing only
+  map.resources :nightly_processes, :collection => {:run => :get}
+
 
   # The priority is based upon order of creation: first created -> highest priority.
 
