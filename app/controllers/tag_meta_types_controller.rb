@@ -24,8 +24,8 @@ class TagMetaTypesController < ApplicationController
       flash.now[:message] = "Saved successfully"
     else
       #flash.now[:error] = "Name " + @tag_meta_type.errors.on(:name)[0] + ", saved unsuccessfully" unless @tag_meta_type.errors.on(:name).nil?
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "can't be blank")
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "has already been taken")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
@@ -39,8 +39,8 @@ class TagMetaTypesController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated TagMetaType #{@tag_meta_type.id}.")
       flash.now[:message] = "Updated successfully."
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "can't be blank")
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name)[0] == "has already been taken")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_meta_type.errors[:name].nil? && @tag_meta_type.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js

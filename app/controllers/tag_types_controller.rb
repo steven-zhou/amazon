@@ -20,8 +20,8 @@ class TagTypesController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Tag Type #{@tag_type.id}.")
       flash.now[:message] ||= " Saved successfully"
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name)[0] == "can't be blank")
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name)[0] == "has already been taken")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name).include?("has already been taken"))
     end
   end
 
@@ -41,8 +41,8 @@ class TagTypesController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Tag Type #{@tag_type.id}.")
       flash.now[:message] ||= " Updated successfully."
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name)[0] == "can't be blank")
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name)[0] == "has already been taken")
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@tag_type.errors.on(:name).nil? && @tag_type.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
