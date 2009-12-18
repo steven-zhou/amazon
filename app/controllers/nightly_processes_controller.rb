@@ -18,6 +18,9 @@ class NightlyProcessesController < ApplicationController
 
   private
   def destroy_amazon_setting
+
+
+
     puts "Destroy Account Purpose"
     AccountPurpose.find(:all,:conditions=>["to_be_removed = true"]).each do |i|
 
@@ -28,6 +31,20 @@ class NightlyProcessesController < ApplicationController
         i.destroy
       end
     end
+
+
+
+    puts "Destroy Account Type"
+    AccountType.find(:all,:conditions=>["to_be_removed = true"]).each do |i|
+
+      unless BankAccount.find_by_account_type_id(i.id).nil?
+        i.to_be_removed = false
+        i.save
+      else
+        i.destroy
+      end
+    end
+
 
     puts "Destroy Title"
     Title.find(:all,:conditions=>["to_be_removed = true"]).each do |i|
