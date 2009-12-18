@@ -1,9 +1,9 @@
 <% unless flash[:error].nil? %>
 $("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
 $('#flash_message').dialog( {
-    modal: true,
+    modal: false,
     resizable: false,
-    draggable: true,
+    draggable: false,
     height: "auto",
     width: "auto",
     buttons: {
