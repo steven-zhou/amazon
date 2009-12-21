@@ -34,11 +34,7 @@ module PeopleSearch
     end
 
     query = condition_clauses.join(' AND '), *condition_options
-    if condition_clauses.size > 0
-      return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
-    else
-      return []
-    end
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options])
   end
 
   def self.by_phone(params)
@@ -61,11 +57,8 @@ module PeopleSearch
       end
     end
 
-    if condition_clauses.size > 0
-      return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones])
-    else
-      return []
-    end
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:phones])
+
   end
 
   def self.by_email(params)
@@ -87,11 +80,9 @@ module PeopleSearch
         raise InvalidAttribute, 'Attribute must be in array', caller
       end
     end
-    if condition_clauses.size > 0
-      return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
-    else
-      return []
-    end
+
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:emails])
+
   end
   
   
@@ -114,11 +105,9 @@ module PeopleSearch
         raise InvalidAttribute, 'Attribute must be in array', caller
       end
     end
-    if condition_clauses.size > 0
-      return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
-    else
-      return []
-    end
+
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:addresses])
+
   end
 
   def self.by_keyword(params)
@@ -140,11 +129,9 @@ module PeopleSearch
         raise InvalidAttribute, 'Attribute must be in array', caller
       end
     end
-    if condition_clauses.size > 0
-      return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
-    else
-      return []
-    end
+
+    return Person.find(:all, :conditions => [condition_clauses.join(' AND '), *condition_options], :include => [:keywords])
+
   end
   
   private
