@@ -12,9 +12,9 @@ class SystemNewsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created new System News #{@system_news.id}.")
       system_log("#{@current_user.user_name} post a new news(ID - #{@system_news.id})")
     else
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "has already been taken")
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title) == "can't be blank")
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@system_news.errors[:description].nil? && @system_news.errors.on(:description) == "can't be blank")
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title).include?("has already been taken"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "title") if (!@system_news.errors[:title].nil? && @system_news.errors.on(:title).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@system_news.errors[:description].nil? && @system_news.errors.on(:description).include?("can't be blank"))
     end
     respond_to do |format|
       format.js

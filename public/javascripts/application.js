@@ -2073,7 +2073,15 @@ $(function() {
         $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     });
 
-
+    $(".toggle_div").live('click', function(){
+        $('#'+$(this).attr('toggle_id_name')).toggle('blind');
+        var current_image = $(this).find('img')
+        if (current_image.attr('src').indexOf('expand') > 0){
+            current_image.attr('src','/images/Icons/System/collapse.png');
+        }else{
+            current_image.attr('src','/images/Icons/System/expand.png');
+        }
+    });
 
     $(".toggle_button1").click(function(){
         $('#'+$(this).attr('toggle_id_name1')).toggle('blind');

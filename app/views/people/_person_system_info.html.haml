@@ -1,13 +1,14 @@
-%div{:id => "accordion02"}
-  %h3
-    %a{:href => "#"}
-      %h1 Receipting  
-  %div.container
+%div.container
+  %div.toggle_div{:toggle_id_name => "receipting_details", :style => "cursor: pointer;"}
+    .options
+      = image_tag('Icons/System/collapse.png')
+    %h1 Receipting
+
+  %div#receipting_details.left{:style => "width:100%;"}
     .container
       .right
-        = link_to "Transaction", :controller => "transactions", :action => "personal_transaction"
+        -#= link_to "Transaction", :controller => "transactions", :action => "personal_transaction"
       %h2 Last Transaction
-
       .form_line
         .field_31
           %label Date
@@ -40,24 +41,42 @@
 
 
 
+%div.container
+  %div.toggle_div{:toggle_id_name => "membership_details", :style => "cursor: pointer;"}
+    .options
+      = image_tag('Icons/System/expand.png')
+    %h1 Membership
 
+  %div#membership_details.left{:style => "width:100%;display:none;"}
+    %br
+    %br
 
-  %h3
-    %a{:href => "#"}
-      %h1 Membership
-  %div.container
+%div.container
+  %div.toggle_div{:toggle_id_name => "fundrainsing_details", :style => "cursor: pointer;"}
+    .options
+      = image_tag('Icons/System/expand.png')
+    %h1 Fundrainsing
 
-  %h3
-    %a{:href => "#"}
-      %h1 Fundrainsing
-  %div.container
+  %div#fundrainsing_details.left{:style => "width:100%;display:none;"}
+    %br
+    %br
 
-  %h3
-    %a{:href => "#"}
-      %h1 Case Management
-  %div.container
+%div.container
+  %div.toggle_div{:toggle_id_name => "case_management_details", :style => "cursor: pointer;"}
+    .options
+      = image_tag('Icons/System/expand.png')
+    %h1 Case Management
 
-  %h3
-    %a{:href => "#"}
-      %h1 Events
-  %div.container
+  %div#case_management_details.left{:style => "width:100%;display:none;"}
+    %br
+    %br
+
+%div.container
+  %div.toggle_div{:toggle_id_name => "events_details", :style => "cursor: pointer;"}
+    .options
+      = image_tag('Icons/System/expand.png')
+    %h1 Events
+
+  %div#events_details.left{:style => "width:100%;display:none;"}
+    %br
+    %br
