@@ -2851,9 +2851,9 @@ $(function(){
 
 //general show more detail for select field
 $(function(){
-   $('.select_to_show_more_detail').live('change', function(){
+    $('.select_to_show_more_detail').live('change', function(){
         $('.'+$(this).attr('target_class')).css('display', 'none');
         $('#'+$(this).attr('target_class')+'_'+$(this).val()).css('display','');
-   });
+    });
 
 });
