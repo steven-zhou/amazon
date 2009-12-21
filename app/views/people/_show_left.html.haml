@@ -33,25 +33,32 @@
 
     .container
       %h1 Primary Contacts
-      .container
-        .left
-          Phone
-        .right
-          = @primary_phone.nil? ? "None assigned": @primary_phone.number
-      .container
-        .left
-          Website
-        .right
-          = @primary_website.nil? ? "None assigned": @primary_website.value
-      .container
-        .left
-          Email
-        .right
-          = @primary_email.nil? ? "None assigned": @primary_email.value
+      -unless @primary_phone.nil?
+        .container
+          .left
+            Phone
+          .right
+            = @primary_phone.number
+
+      -unless @primary_website.nil?
+        .container
+          .left
+            Website
+          .right
+            = @primary_website.value
+
+      -unless @primary_email.nil?
+        .container
+          .left
+            Email
+          .right
+            = @primary_email.value
 
     .container
       %h1= @primary_address.nil? ? "Primary Address" : "Primary Address"
-      = format_address(@primary_address) unless @primary_address.nil?
+      -unless @primary_address.nil?
+        .container
+          = format_address(@primary_address)
 
 
     .container
