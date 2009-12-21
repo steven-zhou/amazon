@@ -104,26 +104,45 @@
       = render :partial => 'organisation_info'
 
     .container#business_info
-      .container
-        .right
-          -#= link_to "Transaction", :controller => "transactions", :action => "organisational_transaction"
-        %h2 Transaction
+      %div.container
+        %div.toggle_div{:toggle_id_name => "transaction_details", :style => "cursor: pointer;"}
+          .options
+            = image_tag('Icons/System/collapse.png')
+          %h1 Transaction
 
-      .container
-        %h2 System Module X
-        %br
-        %br
-        %br
-        %p
-      .container
-        %h2 Membership
-        %br
-        %br
-        %br
-        %br
-      .container
-        %h2 Events
-        %br
-        %br
-        %br
-        %br
+        %div#transaction_details.left{:style => "width:100%;"}
+          -#.container
+          -#.right
+            = link_to "Transaction", :controller => "transactions", :action => "organisational_transaction"
+          %br
+          %br
+
+      %div.container
+        %div.toggle_div{:toggle_id_name => "module_x_details", :style => "cursor: pointer;"}
+          .options
+            = image_tag('Icons/System/expand.png')
+          %h1 System Module X
+
+        %div#module_x_details.left{:style => "width:100%;display:none;"}
+          %br
+          %br
+
+      %div.container
+        %div.toggle_div{:toggle_id_name => "membership_details", :style => "cursor: pointer;"}
+          .options
+            = image_tag('Icons/System/expand.png')
+          %h1 Membership
+
+        %div#membership_details.left{:style => "width:100%;display:none;"}
+          %br
+          %br
+
+      %div.container
+        %div.toggle_div{:toggle_id_name => "events_details", :style => "cursor: pointer;"}
+          .options
+            = image_tag('Icons/System/expand.png')
+          %h1 Events
+
+        %div#events_details.left{:style => "width:100%;display:none;"}
+          %br
+          %br
