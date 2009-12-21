@@ -2,7 +2,7 @@
   :plain
     $(function() {
       $('.new_message_template_required_field').keyup(function() {
-          if($('#new_message_template_name').val() == '' || $('#new_message_template_body').val() == '') {
+          if($('#new_message_template_name').val() == '') {
               $('#new_message_template_submit').attr('disabled', true);
           } else {
               $('#new_message_template_submit').removeAttr('disabled');
@@ -29,6 +29,6 @@
     %div
       .field_80
         = f.label :body, "Body"
-        = f.text_area :body, :id => "new_message_template_body", :class => 'new_message_template_required_field', :style => "width:90%;"
+        = f.text_area :body, :id => "new_message_template_body", :class => '', :style => "width:90%;"
   = submit_tag "Submit", :id => "new_message_template_submit", :disabled => true
 
