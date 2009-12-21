@@ -1,4 +1,123 @@
 %h2 Existing Receipt Accounts
 
 %table#show_receipt_accounts_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_receipt_accounts_grid").flexigrid({
+  url: '/grids/show_receipt_accounts_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Name',
+  name : 'name',
+  width : 130,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Description',
+  name : 'description',
+  width : 250,
+  sortable : true,
+  align: 'left'
+
+  },
+
+  {
+  display: 'Link Module',
+  name : 'amazon_settings.name',
+  width : 130,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Post to History',
+  name : 'post_to_history',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Post to Campaign',
+  name : 'post_to_campaign',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Send Receipt',
+  name : 'send_receipt',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 70,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Name',
+  name : 'Name'
+  },
+
+  {
+  display: 'Description',
+  name : 'description'
+
+  },
+
+  {
+  display: 'Link Module',
+  name : 'amazon_settings.name'
+  },
+
+  {
+  display: 'Post to History',
+  name : 'post_to_history'
+  },
+
+  {
+  display: 'Post to Campaign',
+  name : 'post_to_campaign'
+  },
+
+  {
+  display: 'Send Receipt',
+  name : 'receipt'
+  },
+
+  {
+  display: 'Status',
+  name : 'status'
+  }
+  ],
+  sortname: "receipt_accounts.id",
+  sortorder: "asc",
+  usepager: true,
+  title: '',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+
  

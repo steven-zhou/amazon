@@ -1958,9 +1958,10 @@ class GridsController < ApplicationController
       @receipt_accounts = ReceiptAccount.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["link_module"]
       )
-      count = ReceiptAccount.count(:all)
+      count = ReceiptAccount.count(:all, :include => ["link_module"])
     end
 
     # User provided search terms
@@ -1969,8 +1970,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-      count = ReceiptAccount.count(:all, :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["link_module"])
+      count = ReceiptAccount.count(:all, :conditions=>[qtype +" ilike ?", query], :include => ["link_module"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1982,7 +1984,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.name,
           u.description,
-          (LinkModule.find_by_name(u.link_module_name).to_be_removed? ? "<span class='red'>"+u.link_module_name+"</span>" : u.link_module_name),
+          u.link_module_id.nil? ? "" : (LinkModule.find(u.link_module_id).to_be_removed? ? "<span class='red'>"+u.link_module.name+"</span>" : u.link_module.name),
           u.post_to_history,
           u.post_to_campaign,
           u.send_receipt,
@@ -2087,9 +2089,10 @@ class GridsController < ApplicationController
       @client_bank_accounts = ClientBankAccount.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["account_purpose", "bank"]
       )
-      count = ClientBankAccount.count(:all)
+      count = ClientBankAccount.count(:all, :include => ["account_purpose", "bank"])
     end
 
     # User provided search terms
@@ -2098,8 +2101,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-      count = ClientBankAccount.count(:all, :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["account_purpose", "bank"])
+      count = ClientBankAccount.count(:all, :conditions=>[qtype +" ilike ?", query], :include => ["account_purpose", "bank"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2109,9 +2113,9 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @client_bank_accounts.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.bank.display_name,
+          u.bank_id.nil? ? "" : u.bank.display_name,
           u.account_number,
-          (AccountPurpose.find_by_name(u.account_purpose.name).to_be_removed == false ? u.account_purpose.name : "<span class='red'>"+u.account_purpose.name+ "</span>"),
+          u.account_purpose_id.nil? ? "" : (AccountPurpose.find(u.account_purpose_id).to_be_removed? ? "<span class='red'>"+u.account_purpose.name+ "</span>" : u.account_purpose.name),
           (u.status? ? 'Active' : 'Inactive')
         ]}}
     # Convert the hash to a json object
