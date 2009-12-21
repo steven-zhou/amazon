@@ -19,17 +19,12 @@
     </script>
 
     <%= javascript_include_tag  "flexigrid.js",
-
       "application.js",
       "jquery.form.js",
       "/javascripts/tiny_mce/tiny_mce.js",
       "jquery-tinymce.js",
-      #"config.js", only dashbroad
-
-    #"person_old_Dec07.js",
-    "jquery.validationEngine.js"
-    #"jquery.jpassword.js"
-    %>
+      "jquery.validationEngine.js"
+  %>
 
 
     <%- if session[:module] == "dashboard" %>
@@ -51,8 +46,6 @@
     <%- if session[:module] == "receipting" %>
       <%= javascript_include_tag  "receipting.js"%>
     <%- end%>
-
-    <%= javascript_include_tag :cache => "cache/all"%>
 
 
   </head>
