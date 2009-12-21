@@ -10,32 +10,11 @@
   google.load("jqueryui","1.7.1");
   </script>
   <%= stylesheet_link_tag   "jpassword", "signin.css","jquery-ui-1.7.1.custom.css" %>
-  <%#*"validationEngine.jquery.css" "Styles.css"%>
-  <%#= jqgrid_stylesheets %>
-  <%#= jqgrid_javascripts %>
   <%= javascript_include_tag  "login.js",
-  #"/jqgrid/js/",
-    #"jquery.dataTables.min.js",
-   
-    #"flexigrid.js",
-    #"jqgrid/js/jquery.js", # For clean up
-    #"jqgrid/js/jquery-ui-1.7.1.custom.min.js",# For clean up
-    #"jqgrid/js/jquery.layout.js",# For clean up
-    #"jqgrid/js/i18n/grid.locale-en.js",# For clean up
-    #"jqgrid/js/i18n/grid.locale-en.js",# For clean up
-    #"application.js",
-
-   #"/jqgrid/js/jquery-ui-1.7.1.custom.min.js",
-       #"/jqgrid/js/jquery.layout.js",
-     #"/jqgrid/js/i18n/grid.locale-en.js",
-    #"/jqgrid/js/jquery.tablednd.js",
-    #"/jqgrid/js/jquery.contextmenu.js",
-
-    
     "jquery.jclock.js",
     "jquery.jpassword.js",
-    "jquery.form.js"
-    #"jquery.validationEngine.js"
+    "jquery.form.js",
+    :cache => "cache/all"
 %>
 
 </head>
