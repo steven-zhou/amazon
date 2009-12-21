@@ -2,13 +2,15 @@
   :plain
     $(function() {
       $('.edit_message_template_required_field').keyup(function() {
-          if($('#edit_message_template_name').val() == '' || $('#edit_message_template_body').val() == '') {
+          if($('#edit_message_template_name').val() == '') {
               $('#edit_message_template_submit').attr('disabled', true);
           } else {
               $('#edit_message_template_submit').removeAttr('disabled');
           }
       });
     });
+
+
 
 - form_for :message_template, @message_template, :url => { :action => "update_message_template" }, :html => {:class => 'ajax_form', :id => "edit_message_template_form"}  do |f|
   %input{:id => "id", :name => "id", :style => "display:none;", :value => @message_template.id}
@@ -21,7 +23,7 @@
     %div
       .field_80
         = f.label :body, "<span class='asterisk'>*</span>Body"
-        = f.text_area :body, :id => "edit_message_template_body", :class => 'edit_message_template_required_field', :style => "width:90%;"
+        = f.text_area :body, :id => "edit_message_template_body", :class => '', :style => "width:90%;"
     .form_line
       .field_100{:style => "float:right;"}
         %div{:style => "display:inline;float:right;height:100%;"}
