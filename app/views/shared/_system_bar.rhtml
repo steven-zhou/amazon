@@ -6,6 +6,9 @@
         <%- if session[:module] == "core" %>
           <%= "#{image_tag('Icons/System/module menu/core.png')} System Core" %>
         <%- end %>
+        <%- if session[:module] == "receipting" %>
+          <%= "#{image_tag('icon_holder.png')} Receipting" %>
+        <%- end %>
         <%- if session[:module] == "administration" %>
           <%= "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools" %>
         <%- end %>
@@ -22,6 +25,9 @@
         <ul>
           <%- if session[:module] != "core" %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
+          <%- end %>
+          <%- if session[:module] != "receipting" %>
+            <li class="module_menu_item"><%= link_to "#{image_tag('/images/icon_holder.png')} Receipting", :controller => "module", :action => "receipting"  %></li>
           <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
@@ -57,6 +63,8 @@
             <%- if session[:module] == "dashboard" %>
               <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
             <%- end%>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
           </ul>
           <div id="preferences_menu_bottom" ></div>
         </div>
