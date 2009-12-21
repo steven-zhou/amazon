@@ -20,7 +20,7 @@
    </div>
     <div class="form_line">
    <label>Message:</label>
-   <div class="field_100"><%= text_area_tag :feedback_item_content, nil, :cols => "29", :rows => "10" %></div>
+   <div class="field_100"><%= text_area_tag :feedback_item_content, nil, :cols => "29", :rows => "10",:class =>"mceNoEditor" %></div>
    </div>
    <div class="right"><%= submit_tag("Submit", :id => "feedback_submit", :disabled => true, :id => 'feedback_form_submit_button') %></div>
 

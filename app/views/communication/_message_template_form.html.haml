@@ -14,8 +14,9 @@
           script_url : '/javascripts/tiny_mce/tiny_mce.js',
           mode: "textareas",
           // General options
-          theme : "advanced"
-          
+          theme : "advanced",
+          editor_selector : "mceEditor",
+          editor_deselector : "mceNoEditor"
         });
 
     });
@@ -29,6 +30,6 @@
     %div
       .field_80
         = f.label :body, "Body"
-        = f.text_area :body, :id => "new_message_template_body", :class => '', :style => "width:90%;"
+        = f.text_area :body, :id => "new_message_template_body", :class => 'mceEditor', :style => "width:90%;"
   = submit_tag "Submit", :id => "new_message_template_submit", :disabled => true
 
