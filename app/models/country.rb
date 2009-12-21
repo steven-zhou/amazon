@@ -21,6 +21,6 @@ class Country < ActiveRecord::Base
 
   validates_presence_of :short_name, :citizenship
   validates_uniqueness_of :short_name, :citizenship
-  default_scope :order => "short_name ASC"
+  default_scope :order => "countries.short_name ASC"
   
 end

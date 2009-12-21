@@ -2,8 +2,8 @@ class Postcode < ActiveRecord::Base
 
   #Association
   belongs_to :country
-  # has_many :geographical_area
-  # has_many :electoral_area
+  belongs_to :geographical_area
+  belongs_to :electoral_area
 
   #Validation
   validates_presence_of :country_id, :postcode, :state, :suburb

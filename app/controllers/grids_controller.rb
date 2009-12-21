@@ -1138,10 +1138,12 @@ class GridsController < ApplicationController
       @show_postcode = Postcode.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["country"]
+
       )
 
-      count = Postcode.count(:all)
+      count = Postcode.count(:all,:include => ["country"])
 
     end
 
@@ -1152,9 +1154,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["country"])
 
-      count = Postcode.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = Postcode.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["country"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1167,8 +1170,10 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.state,
           u.suburb,
-          u.postcode,
-          u.country_name]}}
+          u.postcode,                
+          u.country_id.nil? ? "" : u.country.short_name
+#          u.country_name
+        ]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -1404,9 +1409,10 @@ class GridsController < ApplicationController
       @country = Country.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["main_language"]
       )
-      count = Country.count(:all)
+      count = Country.count(:all,:include => ["main_language"])
     end
 
     # User provided search terms
@@ -1415,8 +1421,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-      count = Country.count(:all, :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["main_language"])
+      count = Country.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["main_language"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1432,7 +1439,8 @@ class GridsController < ApplicationController
           u.capital,
           u.iso_code,
           u.dialup_code,
-          u.govenment_language,
+          u.main_language_id.nil? ? "" : u.main_language.name,
+#         u.govenment_language,
           u.currency,
           u.currency_subunit]}}
     # Convert the hash to a json object
@@ -1619,8 +1627,8 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @geographical_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.country_id,
-          u.country_name,
+#          u.country_id,
+#          u.country_name,
           u.division_name,
           u.remarks]}}
     # Convert the hash to a json object
@@ -1741,8 +1749,8 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @electoral_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.country_id,
-          u.country_name,
+#          u.country_id,
+#          u.country_name,
           u.division_name,
           u.remarks]}}
     # Convert the hash to a json object
@@ -1753,6 +1761,21 @@ class GridsController < ApplicationController
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
+    relatedb = []   #the post_area table use sti, so need to specify which table to be include when doing search
+    if params[:qtype].include?("Geo Area")
+ 
+      params[:qtype] = "post_areas.type = 'GeographicalArea' AND post_areas.division_name"
+
+      relatedb = ["geographical_area"]
+    end
+
+     if params[:qtype].include?("Electoral Area")
+
+      params[:qtype] = "post_areas.type = 'ElectoralArea' AND post_areas.division_name"
+      relatedb = ["electoral_area"]
+
+    end
+
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
@@ -1777,33 +1800,33 @@ class GridsController < ApplicationController
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
-
+   puts "111111111111111111111111111"
+   puts sortname
     # No search terms provided
     if(query == "%%")
       @postcodes = Postcode.find(:all,
-        :conditions => ["country_id = ?", session[:postcode_country_id]],
+        :conditions => ["postcodes.country_id = ?", session[:postcode_country_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["geographical_area","electoral_area"]
       )
 
-      count = Postcode.count(:all, :conditions => ["country_id = ?", session[:postcode_country_id]])
+      count = Postcode.count(:all, :conditions => ["postcodes.country_id = ?", session[:postcode_country_id]],:include => ["geographical_area","electoral_area"])
 
     end
 
     # User provided search terms
     if(query != "%%")
-
       @postcodes = Postcode.find(:all,
-
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND country_id = ?", query, session[:postcode_country_id]])
+        :conditions=>[qtype +" ilike ? AND postcodes.country_id = ?", query, session[:postcode_country_id]],
+        :include => relatedb)
+       
 
-      count = Postcode.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND country_id = ?", query, session[:postcode_country_id]])
+      count = Postcode.count(:all,:conditions=>[qtype +" ilike ? AND postcodes.country_id = ?", query, session[:postcode_country_id]],:include => relatedb)
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1817,8 +1840,11 @@ class GridsController < ApplicationController
           u.state,
           u.suburb,
           u.postcode,
-          u.geo_area,
-          u.elec_area]}}
+#          u.geo_area,
+          u.geographical_area_id.nil? ? "" : u.geographical_area.division_name,
+#          u.elec_area
+          u.electoral_area_id.nil? ? "" : u.electoral_area.division_name
+        ]}}
 
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

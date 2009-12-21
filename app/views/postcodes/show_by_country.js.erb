@@ -39,7 +39,7 @@ $('#postcode_mode').attr('mode', 'show');
 
         {
             display: 'Geo Area',
-            name : 'geo_area',
+            name : 'geographical_area_id',
             width : 100,
             sortable : true,
             align: 'left'
@@ -47,7 +47,7 @@ $('#postcode_mode').attr('mode', 'show');
 
         {
             display: 'Electoral Area',
-            name : 'elec_area',
+            name : 'electoral_area_id',
             width : 200,
             sortable : true,
             align: 'left'
@@ -71,15 +71,15 @@ $('#postcode_mode').attr('mode', 'show');
 
         {
             display: 'Geo Area',
-            name : 'geo_area'
+            name : "Geo Area"
         },
 
         {
             display: 'Electoral Area',
-            name : 'elec_area'
+            name : 'Electoral Area'
         }
         ],
-        sortname: "id",
+        sortname: "postcodes.id",
         sortorder: "asc",
         usepager: true,
         title: 'Postcodes',
