@@ -88,45 +88,45 @@ class ClientSetupsController < ApplicationController
   def update
     @client_setup = ClientSetup.first
 
+    if params[:parameters]
+      label_has_gap = nil
 
-    label_has_gap = nil
-
-    i = 9
-    while i >= 0
-      if label_has_gap.nil?
-        # We've started moving from the bottom up
-        # We leave the value to be nil until we run into a filled value, when we become false
-        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? nil : false
-      elsif !label_has_gap
-        # If we have not run into a gap so far, but have run into text
-        # If we run into some empty space we have a gap
-        label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? true : false
+      i = 9
+      while i >= 0
+        if label_has_gap.nil?
+          # We've started moving from the bottom up
+          # We leave the value to be nil until we run into a filled value, when we become false
+          label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? nil : false
+        elsif !label_has_gap
+          # If we have not run into a gap so far, but have run into text
+          # If we run into some empty space we have a gap
+          label_has_gap = params[:client_setup]["level_#{i}_label".to_sym].empty? ? true : false
+        end
+        i-=1
       end
-      i-=1
-    end
 
       label_has_gap = false if label_has_gap.nil?
 
-    flash[:error] = "You Cannot Have A Gap Between Organisational Hierarchies." if label_has_gap
+      flash[:error] = "You Cannot Have A Gap Between Organisational Hierarchies." if label_has_gap
 
 
-    # Check to ensure each remark was filled in with a label
-    # Check there were no duplicate labels
+      # Check to ensure each remark was filled in with a label
+      # Check there were no duplicate labels
 
-    labels = Hash.new
+      labels = Hash.new
 
-    i = 0
-    while i < 9
-      flash[:error] = "A Remark Was Filled In Without A Label." if check_for_label_without_remark(params[:client_setup]["level_#{i}_label".to_sym], params[:client_setup]["level_#{i}_remarks".to_sym])
-      label = params[:client_setup]["level_#{i}_label".to_sym].downcase
-      labels["#{label}"] = labels["#{label}"].nil? ? 1 : (labels["#{label}"] + 1) unless label.empty?
-      i += 1
+      i = 0
+      while i < 9
+        flash[:error] = "A Remark Was Filled In Without A Label." if check_for_label_without_remark(params[:client_setup]["level_#{i}_label".to_sym], params[:client_setup]["level_#{i}_remarks".to_sym])
+        label = params[:client_setup]["level_#{i}_label".to_sym].downcase
+        labels["#{label}"] = labels["#{label}"].nil? ? 1 : (labels["#{label}"] + 1) unless label.empty?
+        i += 1
+      end
+
+      for key in labels.keys
+        flash[:error] = "You Have a Duplicate Label. All Labels Must Be Unique." if labels["#{key}"] > 1
+      end
     end
-
-    for key in labels.keys
-      flash[:error] = "You Have a Duplicate Label. All Labels Must Be Unique." if labels["#{key}"] > 1
-    end
-
 
     if (@client_setup.update_attributes(params[:client_setup]) && flash[:error].nil?)
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
@@ -136,7 +136,7 @@ class ClientSetupsController < ApplicationController
     if params[:installation]
       redirect_to installation_client_setups_path
     elsif
-      params[:super_admin]      
+      params[:super_admin]
       @client_setup.super_admin_power_password = params[:password]
       @client_setup.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
@@ -257,13 +257,13 @@ class ClientSetupsController < ApplicationController
     login_account = LoginAccount.find_by_user_name(params[:user_name])
 
     if ( params[:user_name].nil? || params[:user_name].empty? )
-          @user_name_result = ""
+      @user_name_result = ""
     elsif (!login_account.nil? && login_account.class.to_s != "SystemUser")
-          @user_name_result = "#{params[:user_name]}"
+      @user_name_result = "#{params[:user_name]}"
     else
       @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
     end
-    
+
     respond_to do |format|
       format.js
     end
@@ -275,13 +275,13 @@ class ClientSetupsController < ApplicationController
     login_account = LoginAccount.find_by_user_name(params[:user_name])
 
     if ( params[:user_name].nil? || params[:user_name].empty? )
-          @user_name_result = ""
+      @user_name_result = ""
     elsif (!login_account.nil? && login_account.class.to_s != "SystemUser")
-          @user_name_result = "#{params[:user_name]}"
+      @user_name_result = "#{params[:user_name]}"
     else
       @user_name_result = login_account.nil? ? "Invalid Username" : login_account.person.name
     end
-    
+
 
     respond_to do |format|
       format.js
@@ -309,11 +309,11 @@ class ClientSetupsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a person bank account.")
       if(!@person_bank_account.errors[:person_bank_id].nil?)
-         flash.now[:error] = "Please Select A Bank"
+        flash.now[:error] = "Please Select A Bank"
       elsif(!@person_bank_account.errors[:person_person_id].nil?)
-         flash.now[:error] = "Please Select A Person"
+        flash.now[:error] = "Please Select A Person"
       elsif(!@person_bank_account.errors[:account_number].nil?)
-         flash.now[:error] = "That Account Number Already Exists At That Branch"
+        flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
 
@@ -329,11 +329,11 @@ class ClientSetupsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a person bank account #{@person_bank_account.id}.")
       if(!@person_bank_account.errors[:person_bank_id].nil?)
-         flash.now[:error] = "Please Select A Bank"
+        flash.now[:error] = "Please Select A Bank"
       elsif(!@person_bank_account.errors[:person_person_id].nil?)
-         flash.now[:error] = "Please Select A Person"
+        flash.now[:error] = "Please Select A Person"
       elsif(!@person_bank_account.errors[:account_number].nil?)
-         flash.now[:error] = "That Account Number Already Exists At That Branch"
+        flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
     respond_to do |format|
@@ -383,9 +383,9 @@ class ClientSetupsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a client bank account.")
       if(!@client_bank_account.errors[:client_bank_id].nil?)
-         flash.now[:error] = "Please Select A Bank"
+        flash.now[:error] = "Please Select A Bank"
       elsif(!@client_bank_account.errors[:account_number].nil?)
-         flash.now[:error] = "That Account Number Already Exists At That Branch"
+        flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
 
@@ -402,9 +402,9 @@ class ClientSetupsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a client bank account #{@client_bank_account.id}.")
       if(!@client_bank_account.errors[:client_bank_id].nil?)
-         flash.now[:error] = "Please Select A Bank Account"
+        flash.now[:error] = "Please Select A Bank Account"
       elsif(!@client_bank_account.errors[:account_number].nil?)
-         flash.now[:error] = "That Account Number Already Exists At That Branch"
+        flash.now[:error] = "That Account Number Already Exists At That Branch"
       end
     end
     respond_to do |format|
