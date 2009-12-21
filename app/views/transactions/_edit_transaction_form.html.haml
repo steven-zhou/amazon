@@ -45,7 +45,7 @@
   .form_line{:style => "height:auto;"}
     .field_100{:style => "height:auto;"}
       = f.label :notes, "Notes"
-      = f.text_area :notes, :rows => 3, :cols => 45
+      = f.text_area :notes, :rows => 3, :cols => 45, :class => "mceNoEditor"
 
 
 %input.hidden{:id => "edit_transaction_allocation_mode", :mode => "show"}
