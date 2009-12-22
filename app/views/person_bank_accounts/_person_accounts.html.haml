@@ -1,13 +1,18 @@
 /Displays Person Account
+-div_for(person_accounts, :class => "toggle_options", :field => "person_account") do
 -status = person_accounts.status ? "container_active" : "container_inactive"
--div_for(person_accounts, :class => "header_container toggle_options #{status}", :field => "person_account") do
-  %div  
-    .title
+  %div{:class => "header_container #{status}"}
+    .title  
       %h2{:class=>("red" if AccountType.find(person_accounts.account_type_id).to_be_removed == true)}= "#{AccountType.find(person_accounts.account_type_id).name}"
     .options{:class => 'person_bank_account_edit_delete person_tag ', :style => "display:none;"}
+      -if(person_accounts.priority_number==1)
+        -if(!person_accounts.person.person_bank_accounts.second.nil?)
+          = link_to image_tag('down_arrow.png'),move_down_bank_account_priority_person_bank_account_path(person_accounts), :class => 'get',:id => 'person_bank_account_down_button', :person_bank_account_id => person_accounts.id, :title=>"Move Down"
+      -else
+        = link_to image_tag('up_arrow.png'),move_up_bank_account_priority_person_bank_account_path(person_accounts), :class => 'get',:id => 'person_bank_account_up_button',  :person_bank_account_id => person_accounts.id, :title=>"Move Up"
       = link_to image_tag('edit_icon.png'),edit_person_bank_account_path(person_accounts), :class => "get edit_option", :field => "person_account",:title => "Edit"
       = link_to image_tag('delete_icon.png'), person_bank_account_path(person_accounts), :class => 'delete delete_option',:field => "person_account", :error_message_field =>"Account",:title => "Remove"
 
     %br.clear
-  %div{:style => "float:right;"}
-    = format_bank_account(person_accounts)
+    %div{:style => "float:right;"}
+      = format_bank_account(person_accounts)
