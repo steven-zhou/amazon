@@ -16,7 +16,6 @@ class ToDoListsController < ApplicationController
     @to_do_list.status = "new"
     unless @to_do_list.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a ToDoList #{@to_do_list.id}.")
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "description") if (!@to_do_list.errors[:description].nil? && @to_do_list.errors.on(:description).include?("has already been taken"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@to_do_list.errors[:description].nil? && @to_do_list.errors.on(:description).include?("can't be blank"))
     end
     @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
@@ -70,11 +69,14 @@ class ToDoListsController < ApplicationController
 
   def update
     @to_do_list = ToDoList.find(params[:id].to_i)
-    @to_do_list.update_attributes(params[:to_do_list])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated ToDoList #{@to_do_list.id}.")
-    @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
-    @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
-    @completed_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "completed", session[:user]], :order => "created_at")
+    if @to_do_list.update_attributes(params[:to_do_list])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated ToDoList #{@to_do_list.id}.")
+      @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
+      @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
+      @completed_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "completed", session[:user]], :order => "created_at")
+    else
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "description") if (!@to_do_list.errors[:description].nil? && @to_do_list.errors.on(:description).include?("can't be blank"))
+    end
     respond_to do |format|
       format.js
     end
