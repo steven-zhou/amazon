@@ -45,7 +45,7 @@
     .form_line{:style => "height:auto;"}
       .field_100{:style => "height:auto;"}
         = f.label :superadmin_message, "SuperAdmin Message"
-        = f.text_area :superadmin_message, :cols => 126, :rows =>3
+        = f.text_area :superadmin_message, :cols => 126, :rows =>3, :class => "mceNoEditor"
       %br.clear
   .full_container
     %h1 Organisational Hierarchy
