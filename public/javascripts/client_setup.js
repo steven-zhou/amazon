@@ -60,6 +60,7 @@ $(function(){
             $("#password_error").css('background-color','#D1DDE6');
             $('#password_error').dialog('option', 'title', 'Error');
             $('#password_error').dialog('open');
+            $('#password_submit').attr('disabled',true);
         }else{
             $('#password_submit').attr('disabled',false);
         }
