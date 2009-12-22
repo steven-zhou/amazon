@@ -1,6 +1,6 @@
  <% if @person_bank_accounts.errors.empty? -%>
   
-$('#bank_accounts').prepend('<%= escape_javascript(render(:partial => "person_bank_accounts/person_accounts", :locals =>{:person_accounts => @person_bank_accounts })) %>');
+$('#bank_accounts').html('<%= escape_javascript(render(:partial => "person_bank_accounts/person_accounts", :collection =>@entity.person_bank_accounts )) %>');
 
 $("#new_account").hide();
 $(".person_account_close").css('display','none');

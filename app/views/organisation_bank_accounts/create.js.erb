@@ -1,7 +1,6 @@
  <% if @organisation_bank_accounts.errors.empty? -%>
   
-$('#bank_accounts').prepend('<%= escape_javascript(render(:partial => "organisation_bank_accounts/organisation_accounts", :locals =>{:organisation_accounts => @organisation_bank_accounts })) %>');
-
+$('#bank_accounts').html('<%= escape_javascript(render(:partial => "organisation_bank_accounts/organisation_accounts", :collection =>@entity.organisation_bank_accounts )) %>');
 $("#new_account").hide();
 
 $('#organisation_account_mode').attr('mode', 'show');

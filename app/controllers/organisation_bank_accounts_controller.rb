@@ -21,6 +21,7 @@ class OrganisationBankAccountsController < ApplicationController
 
       flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Bank Account")if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("has already been taken"))
    end
+   @entity = Organisation.find(params[:organisation_id].to_i)
     respond_to do |format|
       format.js
     end
@@ -55,9 +56,49 @@ class OrganisationBankAccountsController < ApplicationController
     @organisation_bank_account = OrganisationBankAccount.find(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted #{@organisation_bank_account.id}.")
     @organisation_bank_account.destroy
-
+    @entity = Organisation.find(@organisation_bank_account.entity_id)
     respond_to do |format|
       format.js
     end
   end
+
+
+  def move_down_bank_account_priority
+
+   @current_bank_account = OrganisationBankAccount.find(params[:id])
+    if(@current_bank_account.priority_number==1)
+      @exchange_bank_account = @current_bank_account.organisation.organisation_bank_accounts.find_by_priority_number(2)
+
+      @exchange_bank_account.priority_number = 1
+      @current_bank_account.priority_number = 2
+      @exchange_bank_account.save
+      @current_bank_account.save
+    end
+    @entity = Organisation.find(@current_bank_account.entity_id)
+    respond_to do |format|
+      format.js
+    end
+
+end
+
+def move_up_bank_account_priority
+
+   @up_current_bank_account =OrganisationBankAccount.find(params[:id])
+    @up_exchange_bank_account = @up_current_bank_account.organisation.organisation_bank_accounts.find_by_priority_number(@up_current_bank_account.priority_number - 1)
+
+    @up_exchange_bank_account.priority_number = @up_exchange_bank_account.priority_number + 1
+     @up_current_bank_account.priority_number = @up_current_bank_account.priority_number - 1
+
+    @up_exchange_bank_account.save
+    @up_current_bank_account.save
+    @entity = Organisation.find(@up_current_bank_account.entity_id)
+
+    respond_to do |format|
+      format.js
+    end
+
+end
+
+
+
 end

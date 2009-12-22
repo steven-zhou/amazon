@@ -22,7 +22,7 @@ class PersonBankAccountsController < ApplicationController
       flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Bank Account")if(!@person_bank_accounts.errors[:account_number].nil? && @person_bank_accounts.errors.on(:account_number).include?("has already been taken"))
    end
 
-
+    @entity = Person.find(params[:person_id].to_i)
 
     respond_to do |format|
       format.js
@@ -55,15 +55,53 @@ class PersonBankAccountsController < ApplicationController
 
 
    def destroy
-
     @person_bank_account = PersonBankAccount.find(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted #{@person_bank_account.id}.")
-    @person_bank_account.destroy
 
+
+    @person_bank_account.destroy
+    @entity = Person.find(@person_bank_account.entity_id)
     respond_to do |format|
       format.js
     end
   end
+
+   
+def move_down_bank_account_priority
+
+   @current_bank_account = PersonBankAccount.find(params[:id])
+    if(@current_bank_account.priority_number==1)
+      @exchange_bank_account = @current_bank_account.person.person_bank_accounts.find_by_priority_number(2)
+
+      @exchange_bank_account.priority_number = 1
+      @current_bank_account.priority_number = 2
+      @exchange_bank_account.save
+      @current_bank_account.save
+    end
+    @person = Person.find(@current_bank_account.entity_id)
+    respond_to do |format|
+      format.js
+    end
+
+end
+
+def move_up_bank_account_priority
+
+   @up_current_bank_account = PersonBankAccount.find(params[:id])
+    @up_exchange_bank_account = @up_current_bank_account.person.person_bank_accounts.find_by_priority_number(@up_current_bank_account.priority_number - 1)
+
+    @up_exchange_bank_account.priority_number = @up_exchange_bank_account.priority_number + 1
+     @up_current_bank_account.priority_number = @up_current_bank_account.priority_number - 1
+
+    @up_exchange_bank_account.save
+    @up_current_bank_account.save
+    @person = Person.find(@up_current_bank_account.entity_id)
+
+    respond_to do |format|
+      format.js
+    end
+
+end
 
 
   

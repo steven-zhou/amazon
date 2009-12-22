@@ -25,7 +25,7 @@ class Organisation < ActiveRecord::Base
   has_many :group_types, :through => :organisation_groups
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
-  has_many :organisation_bank_accounts, :foreign_key => "entity_id"
+  has_many :organisation_bank_accounts, :foreign_key => "entity_id", :order => "priority_number ASC"
   has_many :transaction_headers, :as => :entity
   has_many :organisation_as_source, :foreign_key => "source_organisation_id", :class_name => "OrganisationRelationship"
   has_many :organisation_as_related, :foreign_key => "related_organisation_id", :class_name => "OrganisationRelationship"

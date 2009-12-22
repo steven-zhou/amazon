@@ -1,13 +1,18 @@
 -# Displays Organisation Account
+-div_for(organisation_accounts, :class => "toggle_options", :field => "organisation_account") do
 -status = organisation_accounts.status ? "container_active" : "container_inactive"
--div_for(organisation_accounts, :class => "header_container toggle_options #{status}", :field => "organisation_account") do
-  %div  
+  %div{:class => "header_container #{status}"}
     .title
       %h2{:class=>("red" if !AccountType.find(organisation_accounts.account_type_id).nil? and AccountType.find(organisation_accounts.account_type_id).to_be_removed == true)}= "#{AccountType.find(organisation_accounts.account_type_id).name}"
     .options{:class => 'organisation_bank_account_edit_delete person_tag', :style => "display:none;"}
+      -if(organisation_accounts.priority_number==1)
+        -if(!organisation_accounts.organisation.organisation_bank_accounts.second.nil?)
+          = link_to image_tag('down_arrow.png'),move_down_bank_account_priority_organisation_bank_account_path(organisation_accounts), :class => 'get',:id => 'organisation_bank_account_down_button', :organisation_bank_account_id => organisation_accounts.id, :title=>"Move Down"
+      -else
+        = link_to image_tag('up_arrow.png'),move_up_bank_account_priority_organisation_bank_account_path(organisation_accounts), :class => 'get',:id => 'organisation_bank_account_up_button',  :organisation_bank_account_id => organisation_accounts.id, :title=>"Move Up"
       = link_to image_tag('edit_icon.png'),edit_organisation_bank_account_path(organisation_accounts), :class => "get edit_option", :field => "organisation_account",:title => "Edit"
       = link_to image_tag('delete_icon.png'), organisation_bank_account_path(organisation_accounts), :class => 'delete delete_option',:field => "organisation_account", :error_message_field =>"Account",:title => "Remove"
 
     %br.clear
-  %div{:style => "float:right;"}
-    = format_bank_account(organisation_accounts)
+    %div{:style => "float:right;"}
+      = format_bank_account(organisation_accounts)

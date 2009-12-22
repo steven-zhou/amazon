@@ -1,3 +1,3 @@
-$('#<%= dom_id(@person_bank_account) %>').fadeOut("slow", function() {$(this).remove();});
+$('#bank_accounts').html('<%= escape_javascript(render(:partial => "person_bank_accounts/person_accounts", :collection =>@entity.person_bank_accounts )) %>');
 
 $('.person_bank_account_edit_delete').css("display","none");
