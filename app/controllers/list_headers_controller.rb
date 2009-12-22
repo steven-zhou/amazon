@@ -154,44 +154,45 @@ class ListHeadersController < ApplicationController
 
   def update
     @list_header = ListHeader.find(params[:id].to_i)
-  if  @list_header.update_attributes(params[:list_header])
+    if  @list_header.update_attributes(params[:list_header])
 
-    @list_header = ListHeader.find(@list_header)
-    if !@list_header.allow_duplication  # if allow_duplication is change to be false
+      @list_header = ListHeader.find(@list_header)
+      if !@list_header.allow_duplication  # if allow_duplication is change to be false
 
-      delete_list = Array.new
-      person_list = Array.new
-      @list_header.list_details.each do |i|
-        if person_list.include?(i.person_id)
-          delete_list.push(i)
-        else
-          person_list.push(i.person_id)
+        delete_list = Array.new
+        person_list = Array.new
+        @list_header.list_details.each do |i|
+          if person_list.include?(i.person_id)
+            delete_list.push(i)
+          else
+            person_list.push(i.person_id)
+          end
+        end
+
+        delete_list.each do |i|
+          i.destroy
+        end
+
+        @people = @list_header.people_on_list
+
+        #clear list edit temp table, and save result to temp table
+        ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
+          i.destroy
+        end
+
+        @people.each do |person|
+          @leg = ListEditGrid.new
+          @leg.login_account_id = session[:user]
+          @leg.grid_object_id = person.id
+          @leg.field_1 = person.first_name
+          @leg.field_2 = person.family_name
+          @leg.save
         end
       end
-
-      delete_list.each do |i|
-        i.destroy
-      end
-
-      @people = @list_header.people_on_list
-
-      #clear list edit temp table, and save result to temp table
-      ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
-        i.destroy
-      end
-
-      @people.each do |person|
-        @leg = ListEditGrid.new
-        @leg.login_account_id = session[:user]
-        @leg.grid_object_id = person.id
-        @leg.field_1 = person.first_name
-        @leg.field_2 = person.family_name
-        @leg.save
-      end
-    end    
-     else
-    flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
-  end
+      flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "list")
+    else
+      flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
+    end
     @list_header = ListHeader.find(@list_header)
  
     respond_to do |format|

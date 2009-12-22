@@ -43,6 +43,9 @@ $(function(){
 $(function(){
     $("#repeat_password").live('change', function(){
         if ($(this).val()!= $('#password').val()){
+            $('#password').val('');
+            $(this).val('');
+            $('#password_submit').attr('disabled',true);
             $('#password_error').dialog( {
                 modal: true,
                 resizable: true,

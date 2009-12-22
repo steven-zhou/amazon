@@ -128,7 +128,9 @@ class ClientSetupsController < ApplicationController
       end
     end
 
-    if (@client_setup.update_attributes(params[:client_setup]) && flash[:error].nil?)
+    if (params[:password] && params[:password] != params[:repeat_password])
+      flash[:error] = "Passwords are not matched each other. Please try again."
+    elsif (@client_setup.update_attributes(params[:client_setup]) && flash[:error].nil?)
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       flash[:message] = "Client Setup is updated"
     end

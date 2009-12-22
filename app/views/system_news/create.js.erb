@@ -3,19 +3,23 @@
   $('#news_offset_number').val('0');
   $('#new_system_news_dialog').dialog('close');
   <%- else %>
-  $("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+$("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
 $('#flash_message').dialog( {
-    modal: true,
-     resizable: false,
-    draggable: true,
-    position: 'top',
+    modal: false,
+    resizable: false,
+    draggable: false,
+    height: "auto",
+    width: "auto",
     buttons: {
       Ok: function() {
         $(this).dialog('close');
       }
     }
   });
-  $('#flash_message').dialog('option', 'title', 'Error');
+$('#flash_message').dialog('option', 'title', 'Error');
+$('#flash_message').parent().find("a").css("display","none");
+$("#flash_message").parent().css('background-color','#D1DDE6');
+$("#flash_message").css('background-color','#D1DDE6');
 $('#flash_message').dialog('open');
 <% end -%>
 

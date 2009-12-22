@@ -1,50 +1,52 @@
 <% if flash.now[:error].nil?  %>
-$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
+  $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
+ $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
+ $('#flash_feedback').fadeIn("slow");
+ $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+<%else%>
 
-    <%else%>
-    
-    $('#error_message_text').html("<%=escape_javascript(flash[:error])%>");
-            $('#error_message_image').css("display","");
-            $('#error_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-                    "OK": function(){
-                        
-                        $(this).dialog('destroy');
-                        return true;
-                    }
-                }
-            });
-            $('#error_message').dialog('option', 'title', 'ERROR');
-            $('#error_message').parent().find("a").css("display","none");
-            $("#error_message").parent().css('background-color','#D1DDE6');
-            $("#error_message").css('background-color','#D1DDE6');
-            $('#error_message').dialog('open');
+  $('#error_message_text').html("<%=escape_javascript(flash[:error])%>");
+  $('#error_message_image').css("display","");
+  $('#error_message').dialog({
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 'auto',
+  buttons: {
+  "OK": function(){
 
-    <%end%>
-            $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
+  $(this).dialog('destroy');
+  return true;
+  }
+  }
+  });
+  $('#error_message').dialog('option', 'title', 'ERROR');
+  $('#error_message').parent().find("a").css("display","none");
+  $("#error_message").parent().css('background-color','#D1DDE6');
+  $("#error_message").css('background-color','#D1DDE6');
+  $('#error_message').dialog('open');
+
+<%end%>
+$('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_edit_grid').flexigrid({
-        url: '/grids/list_edit_grid',
-        dataType: 'json',
-        colModel : [
-            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-            {display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
-            {display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'}
-        ],
-        searchitems : [
-            {display: 'First Name', name : 'field_1'},
-            {display: 'Family Name', name : 'field_2'}
-        ],
-        sortname: "grid_object_id",
-        sortorder: "asc",
-        usepager: true,
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: "auto",
-        height: 300
-    });
+url: '/grids/list_edit_grid',
+dataType: 'json',
+colModel : [
+{display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+{display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
+{display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'}
+],
+searchitems : [
+{display: 'First Name', name : 'field_1'},
+{display: 'Family Name', name : 'field_2'}
+],
+sortname: "grid_object_id",
+sortorder: "asc",
+usepager: true,
+useRp: true,
+rp: 20,
+showTableToggleBtn: false,
+width: "auto",
+height: 300
+});

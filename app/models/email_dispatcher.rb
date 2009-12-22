@@ -8,8 +8,8 @@ class EmailDispatcher < ActionMailer::Base
     headers          = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     subject          "#{subject}"
     sent_on           Time.now
-    body             :message => message
-    content_type     "text/plain"
+    body             :message => "<body bgcolor='#000000'>"+message+"</body>"
+    content_type     "text/html"
 
   end
 
