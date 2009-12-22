@@ -54,7 +54,7 @@
       .field_23
         = login.label :person_id, 'Last Login'
         .display_field_bg
-          = @login_account.last_login.strftime("%d-%b-%Y")
+          = @login_account.last_login.strftime("%d-%b-%Y") unless @login_account.last_login.nil?
       .field_23
         = login.label :person_id, 'Last IP Address'
         .display_field_bg
