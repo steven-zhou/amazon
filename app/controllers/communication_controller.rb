@@ -122,7 +122,7 @@ class CommunicationController < ApplicationController
     message_template = MessageTemplate.find(params[:message_template_id])
     list_header = ListHeader.find(params[:list_header_id])
 
-    flash[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
+    flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list header id #{list_header.id}.")
 
     for person in list_header.people_on_list do

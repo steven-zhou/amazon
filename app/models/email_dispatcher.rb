@@ -9,7 +9,7 @@ class EmailDispatcher < ActionMailer::Base
     subject          "#{subject}"
     sent_on           Time.now
     body             :message => message
-    content_type     "text/plain"
+    content_type     "text/html"
 
   end
 

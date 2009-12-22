@@ -4,7 +4,7 @@
   #lol
   %br.clear
 
-- form_for @client_setup do |f|
+- form_for @client_setup, :html => {:submit_button_id => "password_submit"} do |f|
   %input{:name => "super_admin", :style => "display:none;"}
   .full_container
     %h1 Admin Profile

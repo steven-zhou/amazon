@@ -43,7 +43,7 @@
             %option{:value => "Off Site", :selected => @client_setup.system_type == "Off Site"} Off Site
         .field_5
           = f.label :system_status, "Active"
-          = f.check_box :system_status
+          = f.check_box :system_status, :style => "width:auto;float:left;"
         .field_15
           = f.label :system_purchase, "System Purchase"
           %select{:name => "client_setup[system_purchase]"}
