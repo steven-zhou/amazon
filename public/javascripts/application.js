@@ -152,7 +152,7 @@ $(function(){
         changeMonth: true,
         changeYear: true,
         maxDate: '+0d',
-        yearRange: '-200:+0'
+        yearRange: '-200:'+ (new Date).getFullYear()
     });
 
 
