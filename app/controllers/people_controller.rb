@@ -18,7 +18,6 @@ class PeopleController < ApplicationController
     @personal_check_field = Array.new
     
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-
     unless @duplication_formula_appiled.status == false
       @duplication_formula_appiled.duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
@@ -238,9 +237,10 @@ class PeopleController < ApplicationController
         end
       end
 
-      flash.now[:error] = "There Was an Error to Create a New User"
+      flash[:message] = "There Was an Error to Create a New User"
       #      redirect_to new_person_path
-      render :action => "new"
+#      render :action => "new"
+     redirect_to new_person_path
     end
   end
 
