@@ -20,6 +20,7 @@ class OrganisationBankAccountsController < ApplicationController
    else
 
       flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Bank Account")if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("has already been taken"))
+       flash.now[:error]= "Please Enter All Required Data"if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("can't be blank"))
    end
    @entity = Organisation.find(params[:organisation_id].to_i)
     respond_to do |format|
