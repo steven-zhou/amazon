@@ -2179,6 +2179,7 @@ $(function() {
                     },
                     Yes: function(){
                         $('#'+link.parents("form").get(0).id)[0].reset();
+                        $('.mandantory_field').keyup();
                         $('#check_input_change').val("false");
                         $('#check_left_input_change').val("false");
                         $('#check_right_input_change').val("false");
