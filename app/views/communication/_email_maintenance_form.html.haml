@@ -195,13 +195,13 @@
       .form_line
         .field_20
           = f.label :to_be_removed, 'To Be Removed'
-          %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed'}
+          %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed', :style => "width:auto;float:left;"}
         .field_20
           = f.label :dispatch_date, 'Already Sent'
-          %input{:type => "checkbox", :name => 'dispatch_date', :id => 'email_dispatch_date'}
+          %input{:type => "checkbox", :name => 'dispatch_date', :id => 'email_dispatch_date', :style => "width:auto;float:left;"}
         .field_20
           = f.label :status, 'Active'
-          %input{:type => "checkbox", :name => 'status', :id => 'email_status'}
+          %input{:type => "checkbox", :name => 'status', :id => 'email_status', :style => "width:auto;float:left;"}
 
 
     = submit_tag "Submit", :id => "email_maintenance_search_submit"
