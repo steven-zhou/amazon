@@ -536,7 +536,6 @@ class PeopleController < ApplicationController
           duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
         end
       end
-      #      puts "*******************#{duplication_value}******************"
       if(params[:id]!="")
         @dup_personal = Person.find(:all, :conditions => ["duplication_value ILIKE ? AND id !=?" , duplication_value, params[:id]])
       else

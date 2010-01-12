@@ -3,7 +3,6 @@ class IncludeListsController < ApplicationController
 
   def create    
     @list_header_ids = Array.new
-    puts "#{params[:list_header_id].split(",")} EOD"
     params[:list_header_id].split(",").each do |id|
       @include_list = IncludeList.new
       @include_list.list_header_id = id

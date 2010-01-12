@@ -1800,8 +1800,7 @@ class GridsController < ApplicationController
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
-   puts "111111111111111111111111111"
-   puts sortname
+
     # No search terms provided
     if(query == "%%")
       @postcodes = Postcode.find(:all,

@@ -133,7 +133,6 @@ class CommunicationController < ApplicationController
 
       email = BulkEmail.new(:subject => subject, :from => "feedback@memberzone.com.au", :to => person.primary_email.value, :body => message) unless person.primary_email.nil?
       email.save unless person.primary_email.nil?
-      puts "Scheduled email #{email.to_yaml}" unless person.primary_email.nil?
 
     end
 
@@ -149,16 +148,9 @@ class CommunicationController < ApplicationController
     tbr = (params[:to_be_removed].nil? || params[:to_be_removed].empty?) ? false : true
     dd = (params[:dispatch_date].nil? || params[:dispatch_date].empty?) ? false : true
     status = (params[:status].nil? || params[:status].empty?) ? false : true
-
-    # puts "***** Search terms were : SD #{params[:start_date]} ED #{params[:end_date]} TBR #{params[:to_be_removed]} DD #{params[:dispatch_date]} Status #{params[:status]}"
-    # puts "***** Search terms now : SD #{start_date} ED #{end_date} TBR #{tbr} DD #{dd} Status #{status}"
-
     query_string = dd ? "dispatch_date IS NOT NULL " : "dispatch_date IS NULL "
 
     @emails = BulkEmail.find(:all, :conditions => ["#{query_string} AND created_at >= ? AND created_at <= ? AND to_be_removed = ? AND status = ?", start_date, end_date, tbr, status])
-
-
-    # puts "*** Emails #{@emails.to_yaml}"
 
     EmailSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
@@ -197,8 +189,6 @@ def show_email
 
 def modify_email
 
-    # puts "***** Search terms were : SD #{params[:modify_email_start_date]} ED #{params[:modify_email_end_date]} TBR #{params[:modify_email_to_be_removed]} DD #{params[:modify_email_dispatch_date]} Status #{params[:modify_email_status]}"
-
     start_date = ((!params[:modify_email_start_date].nil? && !params[:modify_email_start_date].empty?) ? params[:modify_email_start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     end_date = ((!params[:modify_email_end_date].nil? && !params[:modify_email_end_date].empty?) ? params[:modify_email_end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     tbr = params[:modify_email_to_be_removed] == "true" ? true : false
@@ -209,27 +199,20 @@ def modify_email
     update_dd = params[:email][:dispatch_date].to_i == 0 ? false : true
     update_status = params[:email][:status].to_i == 0 ? false : true
 
-    # puts "***** Search terms now : SD #{start_date} ED #{end_date} TBR #{tbr} #{tbr.class} DD #{dd} #{dd.class} Status #{status} #{status.class}"
-
-    # puts "***** Updates are : TBR #{update_tbr} DD #{update_dd} Status #{update_status}"
-
-
     query_string = dd ? "dispatch_date IS NOT NULL " : "dispatch_date IS NULL "
 
     @emails = BulkEmail.find(:all, :conditions => ["#{query_string} AND created_at >= ? AND created_at <= ? AND to_be_removed = ? AND status = ?", start_date, end_date, tbr, status])
 
-    # puts "******* Emails : #{@emails.to_yaml}"
-
+  
     for email in @emails do
       email.to_be_removed = update_tbr
       if update_dd
         email.dispatch_date = email.dispatch_date.nil? ? Time.now() : email.dispatch_date
       else
-        email_dispatch_date = nil
+        email.dispatch_date = nil
       end
       email.status = update_status
       email.save
-      # puts " ***** Email Updated #{email.to_yaml}"
     end
 
     flash[:message] = flash_message(:type => 'object_updated_successfully', :object => 'email')

@@ -30,8 +30,6 @@ class GroupPermissionsController < ApplicationController
   def show_module
     @group_type = GroupType.find(params[:group_id])
     @system_permission_meta_meta_type = SystemPermissionMetaMetaType.find(params[:system_permission_module_id])
-    #@system_permission_meta_meta_types = SystemPermissionMetaMetaType.find(:all, :conditions => ["id=?", params[:system_permission_module_id]])
-    #puts"---DEBUG222---#{@system_permission_meta_meta_type.to_yaml}"
     respond_to do |format|
       format.js
     end
@@ -40,7 +38,6 @@ class GroupPermissionsController < ApplicationController
   def show_controllers
     @system_permission_meta_meta_type = SystemPermissionMetaMetaType.find(params[:main_module_id])
     @system_permission_meta_types = @system_permission_meta_meta_type.system_permission_meta_types
-    #puts"---DEBUG991---#{@system_permission_meta_types.to_yaml}"
     respond_to do |format|
       format.js
     end
@@ -77,7 +74,6 @@ class GroupPermissionsController < ApplicationController
     else
       @system_permission_meta_meta_type = SystemPermissionMetaMetaType.find(params[:module_id])
       @system_permission_meta_meta_type.system_permission_meta_types.each do |controller|
-        #puts"-----dbug-----#{controller.to_yaml}"
         controller.system_permission_types.each do |method|
           @group_permission = GroupPermission.new(:user_group_id => params[:group_id], :system_permission_type_id => method.id)
 

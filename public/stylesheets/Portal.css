@@ -1,0 +1,76 @@
+@charset "utf-8";
+@import url("reset.css");
+/* CSS Document */
+
+
+.form_line {
+    float: left;
+    min-height: 30px;
+    padding-bottom: 5px;
+    width: 100%;
+}
+
+.form_line label {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 12px;
+    color: #666;
+    text-decoration: none;
+    display: block;
+    padding-left: 3px;
+}
+
+.form_line input {
+    width:100%;
+}
+
+.form_line .field_2,
+.form_line .field_5,
+.form_line .field_10,
+.form_line .field_15,
+.form_line .field_20,
+.form_line .field_25,
+.form_line .field_23,
+.form_line .field_27,
+.form_line .field_30,
+.form_line .field_33,
+.form_line .field_34,
+.form_line .field_35,
+.form_line .field_40,
+.form_line .field_45,
+.form_line .field_50,
+.form_line .field_55,
+.form_line .field_60,
+.form_line .field_66,
+.form_line .field_70,
+.form_line .field_75,
+.form_line .field_80,
+.form_line .field_85 {
+    float: left;
+    height: 40px;
+    margin-right: 10px;
+}
+.form_line .field_2 {width: 2%;}
+.form_line .field_5 {width: 5%;}
+.form_line .field_10 {width: 10%;}
+.form_line .field_15 {width: 15%;}
+.form_line .field_20 {width: 20%;}
+.form_line .field_23 {width: 23%;}
+.form_line .field_25 {width: 25%;}
+.form_line .field_27 {width: 27%;}
+.form_line .field_30 {width: 30%;}
+.form_line .field_33 {width: 33%;}
+.form_line .field_34 {width: 34%;}
+.form_line .field_35 {width: 35%;}
+.form_line .field_40 {width: 40%;}
+.form_line .field_45 {width: 45%;}
+.form_line .field_50 {width: 50%;}
+.form_line .field_55 {width: 55%;}
+.form_line .field_60 {width: 60%;}
+.form_line .field_66 {width: 66%;}
+.form_line .field_70 {width: 70%;}
+.form_line .field_75 {width: 75%;}
+.form_line .field_80 {width: 80%;}
+.form_line .field_85 {width: 85%;}
+
