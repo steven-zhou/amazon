@@ -21,6 +21,7 @@ class PortalController < ApplicationController
       flash[:error] += "Family Name can't be blank <br/>" if (!@potential_member.errors.on(:family_name).nil? && @potential_member.errors.on(:family_name).include?("can't be blank"))
       flash[:error] += "Email can't be blank <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("can't be blank"))
       flash[:error] += "Email is already existing <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("has already been taken"))
+      flash[:error] += "Email is invalid <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("is invalid"))
       render 'sign_up_form'
     end
   end

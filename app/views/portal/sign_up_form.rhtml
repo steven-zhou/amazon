@@ -22,7 +22,9 @@
 
   <body>
     <%- if flash[:error]%>
-    <%= flash[:error] %>
+    <font color="red">
+      <%= flash[:error] %>
+    </font>
     <%- end%>
    <form id="sign_up_form" method="post" action="/portal/sign_up" submit_button_id="signup_submit">
      <div class="form_line">
