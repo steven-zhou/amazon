@@ -13,7 +13,10 @@
   .field_90
     = note.label :short_description, 'Description'
     = note.text_field :short_description, :disabled => ("disabled" if !@note.active)
-.form_line{:style =>'min-height:140px;'}
-  .field_100
+.form_line{:style => "height:auto;"}
+  .field_100{:style => "height:auto;"}
     = note.label :body_text, 'Note'
-    = note.text_area :body_text,:rows => 6, :cols => 45, :id => "richEditor", :disabled => ("disabled" if !@note.active), :class => "mceNoEditor"
+    = note.text_area :body_text, :id=>"new_note_body",:disabled => ("disabled" if !@note.active),:style=>"width:500px;height:80px"
+
+
+
