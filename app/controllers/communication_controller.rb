@@ -128,8 +128,8 @@ class CommunicationController < ApplicationController
     for person in list_header.people_on_list do
 
       message = message_template.body
-      message = message.gsub(/first_name/, "#{person.first_name}")
-      message = message.gsub(/family_name/, "#{person.family_name}")
+      message = message.gsub(/#first_name#/, "#{person.first_name}")
+      message = message.gsub(/#last_name#/, "#{person.family_name}")
 
       email = BulkEmail.new(:subject => subject, :from => "feedback@memberzone.com.au", :to => person.primary_email.value, :body => message) unless person.primary_email.nil?
       email.save unless person.primary_email.nil?

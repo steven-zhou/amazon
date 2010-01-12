@@ -13,9 +13,9 @@ class DashboardsController < ApplicationController
     @current_user = LoginAccount.find(session[:user])
     @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
     if @current_user.class.to_s == "SystemUser"
-      @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
+      @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : ClientSetup.first.number_of_login_attempts
     else
-      @current_user.access_attempts_count = 999
+      @current_user.access_attempts_count = 99999
     end
     @current_user.online_status = true
     @current_user.save
