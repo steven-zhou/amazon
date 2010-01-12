@@ -3731,15 +3731,15 @@ $(function(){
     });
 });
 
+
 /*For mail variable use*/
 $(function(){
     $("#insert_word").live('click', function(){
         var current_form = $(this).closest('form').get(0).id;
         var value = $("#select_word").val();
- 
-        $("#new_message_template_body_ifr").contents().find("p:last").append(value);
+        var iframe_id = $(this).closest('form').find('iframe').get(0).id
+        $("#"+ iframe_id ).contents().find('br').remove();
+        $("#"+ iframe_id ).contents().find("p:last").append(value);
     });
 });
-
-
 

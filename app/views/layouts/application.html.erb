@@ -3,15 +3,21 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Amazon - The Community Social Solution</title>
-
+    <style type="text/css">
+      div.nicEdit-main
+      {
+        background-color:#FFFFFF;
+        width:500px !important;
+      }
+    </style>
 
 
     <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css"%>
 <%#= jqgrid_stylesheets %>
 <%#= jqgrid_javascripts %>
 
-    <%= yield_authenticity_token %>
 
+    <%= yield_authenticity_token %>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
     <script type="text/javascript">
       google.load("jquery","1.3.2");
@@ -19,10 +25,10 @@
     </script>
 
     <%= javascript_include_tag  "flexigrid.js",
-      "application.js",
-      "jquery.form.js",
       "/javascripts/tiny_mce/tiny_mce.js",
       "jquery-tinymce.js",
+      "application.js",
+      "jquery.form.js",
       "jquery.validationEngine.js"
   %>
 
@@ -46,8 +52,6 @@
     <%- if session[:module] == "receipting" %>
       <%= javascript_include_tag  "receipting.js"%>
     <%- end%>
-
-
   </head>
 
   <body>
