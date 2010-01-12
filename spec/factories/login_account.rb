@@ -13,7 +13,7 @@ Factory.define :login_account, :class => LoginAccount do |f|
   f.session_timeout 10
   f.login_status true
   f.system_user true
-  f.association :person, :factory => :person
+
   f.association :security_question_1, :factory => :security_question1
   f.association :security_question_2, :factory => :security_question2
   f.association :security_question_3, :factory => :security_question3
