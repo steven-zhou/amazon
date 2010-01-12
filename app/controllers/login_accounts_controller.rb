@@ -133,6 +133,8 @@ class LoginAccountsController < ApplicationController
     @login_account.update_password = false
     password_s = LoginAccount.generate_password
     @login_account.password = password_s
+    @login_account.password_by_admin = true
+    @login_account.access_attempts_count = 99999
     if @login_account.save
       email = LoginAccountPasswordResetDispatcher.create_registration_confirmation(@login_account, password_s)
       LoginAccountPasswordResetDispatcher.deliver(email)
