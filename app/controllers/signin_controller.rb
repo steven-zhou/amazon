@@ -221,8 +221,6 @@ class SigninController < ApplicationController
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
         session[:clocktime]= params[:clocktime]
         session[:clocktime_date]= params[:clocktime_date]
-        puts"________DEUG #{params[:clocktime_date].to_yaml}"
-         puts"________DEUG #{session[:clocktime_date].to_yaml}"
         redirect_to welcome_url
         #---------------------------------------------exception erea-------------------------#
       rescue Exception => exc

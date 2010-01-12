@@ -351,8 +351,6 @@ class OrganisationsController < ApplicationController
 
     
     if(params[:current_operation] == "edit_organisation_list")
-      #      puts "**********#{@organisation.class.to_s}*********8"
-      #@postcodes = Postcode.find(:all)
       @address = Address.new
       @phone = Phone.new
       @email = Email.new

@@ -9,6 +9,7 @@
 
   .tab_switch_left.active.left{:field =>"email_page"}
   .container_icon.active.left{:align => 'center'}
+    -#= link_to_function "<h1>List Email</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/communication/page_initial",:method => "GET", :render_page => "countries/countries_tab", :field => "country_page"
     = link_to_function "<h1>List Email</h1>", :class=>"tab_switch_button active", :field => "email_page"
   .tab_switch_right.active.left{:field =>"email_page"}
 

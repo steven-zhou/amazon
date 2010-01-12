@@ -57,7 +57,7 @@ class AddressesController < ApplicationController
       end
     end
   end
-  
+
   def destroy
     @address = Address.find(params[:id])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted address with ID #{@address.id}.")
@@ -87,7 +87,7 @@ class AddressesController < ApplicationController
 
     if(@current_address.priority_number==1)
       @exchange_address = @current_address.addressable.addresses.find_by_priority_number(2)
-      
+
       @exchange_address.priority_number = 1
       @current_address.priority_number = 2
       @exchange_address.save
@@ -104,10 +104,10 @@ class AddressesController < ApplicationController
   def move_up_address_priority
     @up_current_address = Address.find(params[:id])
     @up_exchange_address = @up_current_address.addressable.addresses.find_by_priority_number(@up_current_address.priority_number - 1)
-    
+
     @up_exchange_address.priority_number = @up_exchange_address.priority_number + 1
     @up_current_address.priority_number = @up_current_address.priority_number - 1
-    
+
     @up_exchange_address.save
     @up_current_address.save
     @person = Person.find(@up_current_address.addressable_id)

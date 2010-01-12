@@ -36,7 +36,6 @@ class RolesController < ApplicationController
     @array_diff = Array.new
     @array_diff = array1 - array_after
 
-    #puts"--DEBUG--#{@array_diff.to_yaml}"
     if ((array1 & array2) == array1)
       flash.now[:message] = "Message: &nbsp&nbsp Selected Person Matches Role Conditions"
     else
@@ -59,7 +58,6 @@ class RolesController < ApplicationController
   def meta_type_name_finder
     @master_doc_meta_types = MasterDocMetaType.find(params[:id].to_i) rescue @master_doc_meta_types = MasterDocMetaType.new
 
-    #puts "debug----#{@master_doc_meta_types.to_yaml}"
     respond_to do |format|
       format.js { }
     end
@@ -76,10 +74,6 @@ class RolesController < ApplicationController
 
   #/-------------this method for Role management when person select Role_type, show roles for them
   def show_roles
-    #@role = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
-    #@role_type_des = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])rescue @role_type = RoleType.new
-    #puts"debug--#{@role_type_des.to_yaml}"
-    #@role = Role.new
     @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]],:order => 'id') unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
     respond_to do |format|
@@ -87,15 +81,6 @@ class RolesController < ApplicationController
     end
   end
 
-  #  def new
-  #    @role = Role.new
-  #    @roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
-  #    #------------follow is for the hidden field of new form sumit get role_type_id
-  #    @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
-  #    respond_to do |format|
-  #      format.js
-  #    end
-  #  end
 
   def create
     @role = Role.new(params[:role])
@@ -115,15 +100,6 @@ class RolesController < ApplicationController
 
   def destroy
     @role = Role.find(params[:id])
-    
-    #    @check_role_assign= PersonRole.find_by_role_id(params[:id])
-    #    if !@check_role_assign
-    #    if  @role.destroy
-    #      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Role #{@role.id}.")
-    #
-    #    else
-    #      flash.now[:error] = flash_message(:type => "object_assigned_error", :field => "Role")
-    #    end
     @role.to_be_removed = true
     @role.save!
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) remove Role, ID: #{@role.id}.")
@@ -136,8 +112,6 @@ class RolesController < ApplicationController
 
   def edit
     @role = Role.find(params[:id].to_i, :order => 'name')
-    #@roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
-    #@role_condition = RoleCondition.new
     respond_to do |format|
       format.js
     end
@@ -145,9 +119,6 @@ class RolesController < ApplicationController
 
   def update
     @role = Role.find(params[:id].to_i)
-
-    #@roles = Role.find(:all, :conditions => ["role_type_id=?",params[:role_type_id]]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
-    #  puts"debug--#{@roles.to_yaml}"
     if @role.update_attributes(params[:role])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Role #{@role.id}.")
       @role_type = @role.role_type

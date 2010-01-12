@@ -1,5 +1,3 @@
-Factory.define :client_setups do |f|
-  f.client "007"
-  f.client_rego "client organisation registration"
+Factory.define :client_setup do |f|
   f.association :client_organisation, :factory => :google
 end
