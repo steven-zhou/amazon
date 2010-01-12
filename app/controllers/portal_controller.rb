@@ -14,6 +14,9 @@ class PortalController < ApplicationController
   def sign_up
     @potential_member = PotentialMember.new(params[:potential_member])
     if @potential_member.save
+      @potential_member.update_attribute(:validation_key, PotentialMember.generate_key)
+      email = EmailDispatcher.create_email_with_template(@potential_member.email, 'validation letter', 'email_dispatcher/send_validation_key_to_potential_member', @potential_member)
+      EmailDispatcher.deliver(email)
       render 'sign_up'
     else
       flash[:error] = ""
