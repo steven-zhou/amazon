@@ -2,7 +2,7 @@ class PortalController < ApplicationController
 
   layout nil
   protect_from_forgery :only => [:create, :update, :destroy]
-  before_filter :check_authentication, :except => [:sign_up_form, :sign_up]
+  before_filter :check_authentication, :except => [:sign_up_form, :sign_up, :active]
 
   def sign_up_form
     @potential_member = PotentialMember.new
