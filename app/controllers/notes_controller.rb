@@ -60,8 +60,7 @@ class NotesController < ApplicationController
 
    def note_update
     @note = Note.find(params[:id].to_i)
-    puts "********************888"
-    puts params[:active][:active_check_box]
+    @entity = @note.noteable
     if @note.active
     @note.note_type_id=params[:note_type_id][:note_typed]
       @note.label=params[:note_label][:idnote_edit_label]

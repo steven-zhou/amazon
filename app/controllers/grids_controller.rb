@@ -2757,9 +2757,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-       :conditions=>["noteable_id = ? and noteable_type= 'Person'", session[:user]]
+       :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]]
       )
-      count = Note.count(:all)
+      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]])
     end
 
     # User provided search terms
@@ -2768,8 +2768,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,session[:user]])
-      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,session[:user]])
+        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
+      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
     end
 
     # Construct a hash from the ActiveRecord result

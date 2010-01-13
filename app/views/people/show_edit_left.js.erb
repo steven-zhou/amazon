@@ -2,7 +2,7 @@ $('#edit_content_container').replaceWith('<%= escape_javascript(render(:partial 
 
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_edit_list_menu", :locals => {:person => @person})) %>');
 $("#tabs").tabs();
-
+$('#notes_list').html('<%= escape_javascript(render(:partial => "/notes/note")) %>');
 
  $('.personal_check_field').blur(function(){
 
