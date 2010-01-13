@@ -1,6 +1,6 @@
 $('#content_container').replaceWith('<%= escape_javascript(render(:partial => "/people/show_left",:locals => { :person => @person, :people => @p })) %>');
 
-
+$('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_list_menu", :locals => {:person => @person})) %>');
 $("#tabs2").tabs();
 
 

@@ -1,2 +1,3 @@
-set :domain, "111.118.163.56"
-server "111.118.163.56", :app, :web, :db, :primary => true
+set :domain, "111.118.163.91"
+set :branch, "master"
+server "111.118.163.91", :app, :web, :db, :primary => true

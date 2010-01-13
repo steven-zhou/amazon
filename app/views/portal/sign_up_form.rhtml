@@ -21,9 +21,21 @@
   </head>
 
   <body>
+    <p>
+      <br/>
+      <h1 style="text-align:center">Sign up as a member</h1>
+      <br/>
+      <br/>
+    </p>
+
     <%- if flash[:error]%>
-    <%= flash[:error] %>
+    <font color="red">
+      <%= flash[:error] %>
+    </font>
     <%- end%>
+    <p>
+
+    </p>
    <form id="sign_up_form" method="post" action="/portal/sign_up" submit_button_id="signup_submit">
      <div class="form_line">
        <div class="field_30">
@@ -56,7 +68,7 @@
        </div>
      </div>
 
-     <div style="float:right;"><input id="signup_submit" type="submit" value="Signup" disabled/></div>
+     <div style="float:right;margin-right:30px;"><input id="signup_submit" type="submit" value="Signup" disabled/></div>
    </form>
   </body>
 </html>
