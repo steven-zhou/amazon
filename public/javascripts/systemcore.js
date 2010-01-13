@@ -3737,8 +3737,18 @@ $(function(){
     $("#insert_word").live('click', function(){
         var current_form = $(this).closest('form').get(0).id;
         var value = $("#select_word").val();
- 
         $("#new_message_template_body_ifr").contents().find("p:last").append(value);
     });
 });
 
+/*For note*/
+//  $('#note_edit_submit').live('click',function(){
+//        if($('#note_mode').attr('mode')=="edit"){
+//            $.ajax({
+//                type: 'GET',
+//                url: "/note/"+$('#note_id').val()+"/update",
+//                data: "note_type=" + $("#note_type_id_note_typed").val()+ "&note_label="+$("#note_edit_label").val(),
+//                dataType: "script"
+//            });
+//        }
+//    });

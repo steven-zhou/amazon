@@ -1,17 +1,2 @@
-/show personal notes details
--status = note.active ? "container_active" : "container_inactive"
--div_for(note, :class => "header_container toggle_options #{status}",:field => "note") do
-  %div
-    .title
-      -#= "#{note.id} #{note.note_type.name}"
-      %h2= h note.created_at.to_s(:long)
-    .options{:class => 'person_notes_edit_delete person_tag', :Style => "display:none;"}
-      = link_to image_tag('edit_icon.png'), edit_note_path(note), :class => 'get edit_note edit_option', :note_id => note.id, :field => "note", :title=>"Edit"
-      = link_to image_tag('delete_icon.png'), note_path(note), :class => 'delete delete_note delete_option', :note_id => note.id, :field => "note",:error_message_field => note.note_type.name+" Note", :title=>"Remove"
-    %br.clear
-  %div{:style => "float:left;"}
-    .attr_name
-      = h note.label
-      %span{:class=>("red" if note.note_type.to_be_removed == true)} (#{note.note_type.name})
-    .attr_name
-      = truncate(note.body_text, 50, "...")
+%h2 Existing Notes
+%table#show_notes_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/notes/",:edit=>"true"}

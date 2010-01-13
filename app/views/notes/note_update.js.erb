@@ -1,15 +1,13 @@
 <% if @note.errors.empty? -%>
   $('#notes_list').html('<%= escape_javascript(render(:partial => "/notes/note")) %>');
-  $("#new_note")[0].reset();
-  $("#new_note").hide();
-  $('#note_mode').attr('mode', 'show');
-  $('.new_option[field="note"]').css("display","");
-  $('#note_hidden_tab').attr('mode','show');
-  $('.person_notes_toggle_button').css("display","");
-  $('.organisation_note_close').css("display","none");
-  
-  $('.person_notes_close').css("display","none");
-  $("#show_notes_grid").flexigrid({
+$('.person_notes_edit_delete').css("display","none");
+$('.person_notes_toggle_button').css("display","");
+   $('#note_hidden_tab').attr('mode','show');
+   $('.new_option[field="note"]').css("display","");
+   $('#note_mode').attr('mode', 'show');
+    $('#add_new_note').css("display","");
+$('#edit_note').css("display","none");
+     $("#show_notes_grid").flexigrid({
   url: '/grids/show_notes_grid',
   dataType: 'json',
   colModel : [
@@ -40,7 +38,7 @@
   {
   display: 'Body Text',
   name : 'body_text',
-  width : 180,
+  width : 100,
   sortable : true,
   align: 'left'
   },
@@ -82,14 +80,14 @@
   width: 'auto',
   height: 'auto'
   });
+   <%else%>
 
-  <%else%>
-   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_messagee_image').css("display","");
   $("#flash_message").dialog( {
   modal:true,
-  resizable: false,
-   height: 'auto',
-    width: 600,
+  height: 'auto',
+  width: 600,
   buttons: {
 
   OK: function(){
@@ -98,12 +96,10 @@
   }
   }
   });
-
-
-
+  $('#flash_message').dialog('option', 'title', 'Error');
   $('#flash_message').parent().find("a").css("display","none");
   $("#flash_message").parent().css('background-color','#D1DDE6');
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
-  $('#flash_message').dialog('option', 'title', 'Error');
-<% end -%>
+
+   <%end%>
