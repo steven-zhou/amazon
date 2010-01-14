@@ -1,0 +1,6 @@
+= link_to_function 'clear', :class => "alt_option", :id => "clear_button", :action => "new"
+= button_to_function 'Save', :id => "save_button", :action => "new", :style => "float:right;", :disabled=>true
+= button_to_function 'Run Query', :id => "run_button", :action => "new", :style => "float:right;", :disabled=>true
+%input#query_header_id{:style => "display:none;", :value => "#{@query_header.id}"}
+%input#current_action_global{:style => "display:none;", :value => "new"}
+= link_to_function 'view SQL statements',:class => "alt_option float_none", :id => "show_sql_statements", :action => "new"
