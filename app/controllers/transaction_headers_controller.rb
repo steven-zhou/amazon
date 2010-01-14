@@ -96,7 +96,9 @@ class TransactionHeadersController < ApplicationController
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new transaction record.")
         #----------------------------presence - of--------------------
         if(!@transaction_header.errors[:transaction_date].nil? && @transaction_header.errors.on(:transaction_date).include?("can't be blank"))
-          flash.now[:error] = "Please Enter All Required Data"
+          flash.now[:error] = "Please make sure the transaction date is entered in valid format (dd-mm-yyyy)"
+        elsif(!@transaction_header.errors[:transaction_date].nil? && @transaction_header.errors.on(:transaction_date).include?("is invalid"))
+          flash.now[:error] = "Please make sure the transaction date is entered in valid format (dd-mm-yyyy)"
         elsif(!@transaction_header.errors[:bank_account_id].nil? && @transaction_header.errors.on(:bank_account_id).include?("can't be blank"))
           flash.now[:error] = "Please Enter All Required Data"
         elsif(!@transaction_header.errors[:receipt_meta_type_id].nil? && @transaction_header.errors.on(:receipt_meta_type_id).include?("can't be blank"))
@@ -146,7 +148,9 @@ class TransactionHeadersController < ApplicationController
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction header record.")
         #----------------------------presence - of------------------
         if(!@transaction_header.errors[:transaction_date].nil? && @transaction_header.errors.on(:transaction_date).include?("can't be blank"))
-          flash.now[:error] = "Please Enter All Required Data"
+          flash.now[:error] = "Please make sure the transaction date is entered in valid format (dd-mm-yyyy)"
+        elsif(!@transaction_header.errors[:transaction_date].nil? && @transaction_header.errors.on(:transaction_date).include?("is invalid"))
+          flash.now[:error] = "Please make sure the transaction date is entered in valid format (dd-mm-yyyy)"
         elsif(!@transaction_header.errors[:bank_account_id].nil? && @transaction_header.errors.on(:bank_account_id).include?("can't be blank"))
           flash.now[:error] = "Please Enter All Required Data"
         elsif(!@transaction_header.errors[:receipt_meta_type_id].nil? && @transaction_header.errors.on(:receipt_meta_type_id).include?("can't be blank"))
@@ -190,7 +194,14 @@ class TransactionHeadersController < ApplicationController
     params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
     @start_date = params[:start_date]
     @end_date = params[:end_date]
-    @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+    date_regex = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
+    if !(@start_date =~ date_regex).nil? && !(@end_date =~ date_regex).nil?
+      @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+      @date_valid = true
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
     respond_to do |format|
       format.js
     end
@@ -201,8 +212,17 @@ class TransactionHeadersController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a transaction histroy report.")
     respond_to do |format|
       format.pdf {pdf = PDF::Writer.new
-                  pdf = OutputPdf.generate_transaction_histroy_report_pdf(session[:entity_type], session[:entity_id], params[:start_date], params[:end_date], {}, {})
-                  send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
+        pdf = OutputPdf.generate_transaction_histroy_report_pdf(session[:entity_type], session[:entity_id], params[:start_date], params[:end_date], {}, {})
+        send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
+    end
+  end
+
+  def destroy
+    @transaction_header = TransactionHeader.find(params[:id].to_i)
+    @transaction_header.destroy
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) destroy a transaction header record with id #{params[:id]}.")
+    respond_to do |format|
+      format.js
     end
   end
 end

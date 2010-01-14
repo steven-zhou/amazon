@@ -1,11 +1,12 @@
 <% if @note.errors.empty? -%>
-$('#<%= dom_id(@note,:edit ) %>').replaceWith("<%= escape_javascript(render(:partial => @note)) %>");
+  $('#notes_list').html('<%= escape_javascript(render(:partial => "/notes/note")) %>');
 $('.person_notes_edit_delete').css("display","none");
 $('.person_notes_toggle_button').css("display","");
    $('#note_hidden_tab').attr('mode','show');
    $('.new_option[field="note"]').css("display","");
    $('#note_mode').attr('mode', 'show');
     $('#add_new_note').css("display","");
+$('#edit_note').css("display","none");
    <%else%>
 
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

@@ -2377,7 +2377,7 @@ class GridsController < ApplicationController
     return_data[:rows] = @transaction.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_number,
-          u.transaction_date,
+          u.transaction_date.to_s,
           u.bank_account_id.nil? ? "" : u.bank_account.account_number,
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
@@ -2444,7 +2444,7 @@ class GridsController < ApplicationController
     return_data[:rows] = @transaction.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_number,
-          u.transaction_date,
+          u.transaction_date.to_s,
           u.bank_account_id.nil? ? "" : u.bank_account.account_number,
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
@@ -2742,6 +2742,12 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
+    if(params[:type]=="organisations")
+      params[:type]="Organisation"
+    else
+       params[:type]="Person"
+    end
+
     if (!sortname)
       sortname = "id"
     end
@@ -2767,9 +2773,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-       :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]]
+       :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
       )
-      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]])
+      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]])
     end
 
     # User provided search terms
@@ -2778,8 +2784,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
-      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
+        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
+      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
     end
 
     # Construct a hash from the ActiveRecord result

@@ -16,13 +16,6 @@
   .field_100{:style => "height:auto;"}
     = label :body_text, 'Note'
     = text_area :edit_note_body,:edit_note_body,:style=>"width:500px;height:150px;"
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      bkLib.onDomLoaded(function() {
-      new nicEditor({iconsPath : '/images/nicEditorIcons.gif',buttonList : ['bold','italic','underline','strikeThrough','subscript','superscript','removeformat','hr','upload','html','image','forecolor','bgcolor']}).panelInstance('edit_note_body_edit_note_body');
-    });
-    });
 
 
 

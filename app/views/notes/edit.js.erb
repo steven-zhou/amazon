@@ -1,4 +1,4 @@
-
+$("#edit_note_form").html("<%=escape_javascript(render(:partial => "/notes/edit_note")) %>");
  $('.person_notes_edit_delete').css("display","none");
 
  $('#note_mode').attr('mode', 'edit');
@@ -9,27 +9,6 @@ $('.close_option[field="note"]').css("display","");
 
 
 
-$('#note_type_id_note_typed :option[value=<%= escape_javascript("#{@note.note_type_id}") %>]').attr('selected',true);
-$('#note_label_idnote_edit_label').val('<%= escape_javascript("#{@note.label}") %>');
-$('#short_description_text_field_idnote_edit_short_description').val('<%= escape_javascript("#{@note.short_description}") %>');
-
-$('#active_active_check_box').attr('checked',<%= escape_javascript("#{@note.active}") %>);
-
-nicEditors.findEditor('edit_note_body_edit_note_body').setContent('<%= escape_javascript("#{@note.body_text}") %>');
-<%if !@note.active%>
-$('#note_type_id_note_typed').attr('disabled',true);
-$('#note_label_idnote_edit_label').attr('disabled',true);
-$('#short_description_text_field_idnote_edit_short_description').attr('disabled',true);
- $('#nicEditor_Line .nicEdit-main').attr('contenteditable',false);
- <%else%>
- $('#note_type_id_note_typed').attr('disabled',false);
- $('#note_label_idnote_edit_label').attr('disabled',false);
-$('#short_description_text_field_idnote_edit_short_description').attr('disabled',false);
- $('#nicEditor_Line .nicEdit-main').attr('contenteditable',true);
-<%end%>
-
- $('#note_update_form').attr("action","/notes/<%= escape_javascript("#{@note.id}") %>/note_update");
-  $('#note_update_form').attr("method","post");
 
 
 
