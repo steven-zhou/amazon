@@ -270,7 +270,7 @@ class CommunicationController < ApplicationController
       @count = BulkEmail.count(:all, :conditions=>["created_at >= ? and created_at <= ?", @start_date.to_date, @end_date.to_date])
       @tbr = false
       @dd = false
-      @status = false
+      @status = true
 
     end
 
