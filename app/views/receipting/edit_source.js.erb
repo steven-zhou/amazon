@@ -3,5 +3,5 @@ $('#edit_source').css('display', '');
 $('#edit_source').html('<%= escape_javascript(render(:partial => "/receipting/edit_source")) %>');
 $('#edit_source_form').html('<%= escape_javascript(render(:partial => "/receipting/edit_source_form", :locals => {:source => @source })) %>');
 $('#source_mode').attr('mode', 'edit');
-$('.select_ajax_call[field="source"]').attr('disabled', true)
+$('.select_ajax_call[field="source"]').attr('disabled', true);
 $('.close_option[field="source"]').css("display","");
