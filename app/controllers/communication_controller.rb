@@ -170,14 +170,25 @@ class CommunicationController < ApplicationController
     #    end
 
 
-    @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
-    @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    params[:start_date] ||= "01-01-#{Date.today().year().to_s}"
+    params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
+    @start_date = params[:start_date]
+    @end_date = params[:end_date]
     @tbr = (params[:to_be_removed].nil? || params[:to_be_removed].empty?) ? false : true
     @dd = (params[:dispatch_date].nil? || params[:dispatch_date].empty?) ? false : true
     @status = (params[:status].nil? || params[:status].empty?) ? false : true
     query_string = @dd ? "dispatch_date IS NOT NULL " : "dispatch_date IS NULL "
 
-    @emails = BulkEmail.find(:all, :conditions => ["created_at >= ? AND created_at <= ? AND to_be_removed = ? AND status = ? AND #{query_string}", @start_date, @end_date, @tbr, @status])
+    date_regex = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
+    if !(@start_date =~ date_regex).nil? && !(@end_date =~ date_regex).nil?
+      @date_valid = true
+      @count = BulkEmail.count(:all, :conditions => ["created_at >= ? AND created_at <= ? AND to_be_removed = ? AND status = ? AND #{query_string}", @start_date.to_date, @end_date.to_date, @tbr, @status])
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+
+    
     respond_to do |format|
       format.js
     end
@@ -261,9 +272,9 @@ class CommunicationController < ApplicationController
     @message_template = MessageTemplate.new
 
     #for the email history using
-    @start_date = "#{Date.today().at_beginning_of_week.strftime('%Y-%m-%d')}"
+    @start_date = "#{Date.today().at_beginning_of_week.strftime('%d-%m-%Y')}"
     
-    @end_date = "#{Date.today().strftime('%Y-%m-%d')}"
+    @end_date = "#{Date.today().strftime('%d-%m-%Y')}"
 
     if @field == "email_maintenance_page"
       -#@count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])

@@ -2722,8 +2722,8 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.to,
           u.subject,
-          u.created_at.strftime('%a %d %b %Y %H:%M:%S'),
-          u.dispatch_date.nil? ? "Not Dispatched" : "#{u.dispatch_date.strftime('%a %d %b %Y %H:%M:%S')}",
+          u.created_at.strftime('%d-%m-%Y %H:%M:%S'),
+          u.dispatch_date.nil? ? "Not Dispatched" : "#{u.dispatch_date.strftime('%d-%m-%Y %H:%M:%S')}",
           u.to_be_removed,
           u.status? ? "Active" : "Inactive"
 
