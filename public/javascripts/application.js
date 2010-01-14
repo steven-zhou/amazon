@@ -978,6 +978,9 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('.close_option[field='+ link.attr('field') +']').css("display","none");
+                        if($(this).attr('show_existing')=="true"){
+                            $('#'+$(this).attr('show_existing_id')).css('display', '');
+                        }
                         $('#check_input_change').val("false");
 
                         clear_organisation_form(link);
@@ -1007,6 +1010,9 @@ $(function(){
 
             link.css("display","none");
             $('.new_option[field='+ link.attr('field') +']').css("display","");
+            if($(this).attr('show_existing')=="true"){
+                $('#'+$(this).attr('show_existing_id')).css('display', '');
+            }
             $('.close_option[field='+ link.attr('field') +']').css("display","none");
 
         }

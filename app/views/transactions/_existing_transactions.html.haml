@@ -5,101 +5,149 @@
 %table#show_unbanked_transaction_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_unbanked_transaction_grid").flexigrid({
-  url: '/grids/show_unbanked_transaction_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
-  dataType: 'json',
-  colModel : [
-  {
-  display: 'ID',
-  name : 'transaction_headers.id',
-  width : 40,
-  sortable : true,
-  align: 'left'
-  },
-  
-  {
-  display: 'Receipt Number',
-  name : 'receipt_number',
-  width : 80,
-  sortable : true,
-  align: 'left'
-  },
+  :plain
+      delete_unbank_transaction = function(){
+      var trSelected = $('#show_unbanked_transaction_grid tr.trSelected').attr('id');
+      var id = "";
+      if (trSelected != undefined){
+          id = trSelected.substring(3);
+          $('#warning_message_text').html("Are you sure you wish to delete this transaction?");
+          $('#warning_message').dialog({
+              modal: true,
+              resizable: false,
+              draggable: true,
+              height: 'auto',
+              width: 'auto',
+              buttons: {
 
-  {
-  display: 'Transaction Date',
-  name : 'transaction_date',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
+              No: function(){
+                  $(this).dialog('destroy');
+                  return false;
+              },
 
- 
-  
+              Yes: function(){
+                  $.ajax({
+                      type: "delete",
+                      url: "/transaction_headers/"+id+".js",
+                      dataType: "script"
+                  });
+                  $(this).dialog('destroy');
+                  return true;
+              }
+              }
 
-  {
-  display: 'Bank Account',
-  name : 'bank_account_id',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
+          });
+      }else{
+          $('#warning_message_text').html("Please select the record you want to delete");
+          $('#warning_message').dialog({
+              modal: true,
+              resizable: false,
+              draggable: true,
+              height: 'auto',
+              width: 'auto',
+              buttons: {
+                  Ok: function(){
+                      $(this).dialog('destroy');
+                      return false;
+                  }
+              }
 
-  {
-  display: 'Receipt Meta Type',
-  name : 'tag_meta_types.name',
-  width : 120,
-  sortable : true,
-  align: 'left'
-  },
+          });
+      }
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+      };
 
-  {
-  display: 'Receipt Type',
-  name : 'tag_types.name',
-  width : 120,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Notes',
-  name : 'notes',
-  width : 220,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Total Amount',
-  name : 'total_amount',
-  width : 120,
-  sortable : true,
-  align: 'left'
-  }
-
-  ],
-  searchitems : [
-  {
-  display: 'Receipt Meta Type',
-  name : 'tag_meta_types.name'
-  },
-
-  {
-  display: 'Receipt Type',
-  name : 'tag_types.name'
-  },
-
-  {
-  display: 'Notes',
-  name : 'notes'
-  }
-  ],
-  sortname: "transaction_headers.id",
-  sortorder: "asc",
-  usepager: true,
-  title: '',
-  useRp: true,
-  rp: 20,
-  showTableToggleBtn: false,
-  width: 'auto',
-  height: 'auto'
-  });
+      $("#show_unbanked_transaction_grid").flexigrid({
+      url: '/grids/show_unbanked_transaction_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
+      dataType: 'json',
+      colModel : [
+      {
+      display: 'ID',
+      name : 'transaction_headers.id',
+      width : 40,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Receipt Number',
+      name : 'receipt_number',
+      width : 80,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Transaction Date',
+      name : 'transaction_date',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Bank Account',
+      name : 'bank_account_id',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Receipt Meta Type',
+      name : 'tag_meta_types.name',
+      width : 120,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Receipt Type',
+      name : 'tag_types.name',
+      width : 120,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Notes',
+      name : 'notes',
+      width : 220,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Total Amount',
+      name : 'total_amount',
+      width : 120,
+      sortable : true,
+      align: 'left'
+      }
+      ],
+      buttons : [
+      {name: 'Delete', bclass: 'delete', onpress : delete_unbank_transaction}
+      ],
+      searchitems : [
+      {
+      display: 'Receipt Meta Type',
+      name : 'tag_meta_types.name'
+      },
+      {
+      display: 'Receipt Type',
+      name : 'tag_types.name'
+      },
+      {
+      display: 'Notes',
+      name : 'notes'
+      }
+      ],
+      sortname: "transaction_headers.id",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+      });

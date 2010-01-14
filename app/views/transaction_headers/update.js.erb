@@ -1,6 +1,6 @@
 <% if @transaction_header.errors.empty? -%>
 $('#add_new_transaction').html('<%= escape_javascript(render(:partial => "/transactions/new_transaction")) %>').css('display','');
-$('#existing_unbanked_transactions').html('<%= escape_javascript(render(:partial => "/transactions/existing_transactions", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
+$('#existing_unbanked_transactions').html('<%= escape_javascript(render(:partial => "/transactions/existing_transactions", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>').css('display','');;
 $('#current_mode').attr('mode', 'show');
 $('#edit_unbanked_transaction').css('display','none');
 
