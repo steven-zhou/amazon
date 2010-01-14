@@ -9,15 +9,15 @@ $(function(){
 
   $('#email_maintenance_display_email').hide();
   $('#email_maintenance_search_results').show();
-  $('#email_maintenance_search_results').html('<table id="email_maintenance_search_grid"></table>');
+  $('#email_maintenance_search_results').html('<table id="email_maintenance_search_grid" class="selectable_grid" db_click_function= "true" db_click_url="/communication/show_email.js"></table>');
 
     $("#email_maintenance_search_grid").flexigrid({
-        url: '/grids/email_maintenance_search_grid',
+        url: '/grids/email_maintenance_search_grid?start_date='+'<%=escape_javascript("#{@start_date}")%>'+ '&end_date='+'<%=escape_javascript("#{@end_date}")%>'+ '&to_be_removed='+'<%=escape_javascript("#{@tbr}")%>'+ '&dispatch_date='+'<%=escape_javascript("#{@dd}")%>'+ '&status='+'<%=escape_javascript("#{@status}")%>',
         dataType: 'json',
         colModel : [
         {
             display: 'ID',
-            name : 'grid_object_id',
+            name : 'id',
             width : 40,
             sortable : true,
             align: 'left'
@@ -25,7 +25,7 @@ $(function(){
 
         {
             display: 'Sent To',
-            name : 'field_1',
+            name : 'bulk_emails.to',
             width : 160,
             sortable : true,
             align: 'left'
@@ -33,7 +33,7 @@ $(function(){
 
         {
             display: 'Subject',
-            name : 'field_2',
+            name : 'subject',
             width : 180,
             sortable : true,
             align: 'left'
@@ -41,22 +41,22 @@ $(function(){
 
         {
             display: 'Created At',
-            name : 'field_3',
-            width : 120,
+            name : 'created_at',
+            width : 170,
             sortable : true,
             align: 'left'
         },
         {
             display: 'Dispatched',
-            name : 'field_4',
-            width : 120,
+            name : 'dispatch_date',
+            width : 150,
             sortable : true,
             align: 'left'
         },
 
         {
             display: 'To Be Removed',
-            name : 'field_5',
+            name : 'to_be_removed',
             width : 100,
             sortable : true,
             align: 'left'
@@ -64,7 +64,7 @@ $(function(){
 
         {
             display: 'Status',
-            name : 'field_6',
+            name : 'status',
             width : 100,
             sortable : true,
             align: 'left'
@@ -74,32 +74,12 @@ $(function(){
         searchitems : [
         {
             display: 'Sent To',
-            name : 'field_1'
+            name : 'bulk_emails.to',
         },
 
         {
             display: 'Subject',
-            name : 'field_2'
-        },
-
-        {
-            display: 'Created At',
-            name : 'field_3'
-        },
-
-        {
-            display: 'Dispatched',
-            name : 'field_4'
-        },
-
-        {
-            display: 'To Be Removed',
-            name : 'field_5'
-        },
-
-        {
-            display: 'Status',
-            name : 'field_6'
+            name : 'subject'
         }
 
 

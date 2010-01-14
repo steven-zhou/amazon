@@ -1,11 +1,15 @@
-$("#transaction_histroy" ).html('<%= escape_javascript(render(:partial => "transactions/transaction_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
-$('#view_transaction_histroy').css('display', 'none');
-<%- if @count == 0%>
-  $('#export_to_pdf_button').attr('disabled',true);
-<%- else %>
-  $('#export_to_pdf_button').removeAttr('disabled');
-<%- end %>
-$('.startdatepick').datepicker({
+<%- if @date_valid%>
+
+
+    $("#transaction_histroy" ).html('<%= escape_javascript(render(:partial => "transactions/transaction_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
+    $('#view_transaction_histroy').css('display', 'none');
+    <%- if @count == 0%>
+      $('#export_to_pdf_button').attr('disabled',true);
+    <%- else %>
+      $('#export_to_pdf_button').removeAttr('disabled');
+    <%- end %>
+
+    $('.startdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
         buttonImageOnly: true,
@@ -50,3 +54,26 @@ $('.startdatepick').datepicker({
             }
         }
     });
+    
+<%- else %>
+
+
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<%- end %>
