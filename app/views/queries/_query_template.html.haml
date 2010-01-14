@@ -1,8 +1,10 @@
+-# locals => {:title, :exclude_category}
+
 %div
   #header
     #page_title
-      %h1 Add New Query
-  
+      %h1 #{title}
+
 #new_query
   #new_form
     %input{:style => "display:none", :id => "query_detail_mode", :mode => "show"}
@@ -14,7 +16,7 @@
           %h1 Criteria Attributes
         #new_criteria
           #new_query_form
-            = render :partial => "queries/new_query_criteria_form", :locals => {:exclude_category => "organisation"}
+            = render :partial => "queries/new_query_criteria_form", :locals => {:exclude_category => exclude_category}
 
       .container
         #display_form{:class => "toggle_button2", :toggle_id_name => "new_selection", :toggle_id_name1 => "new_criteria", :toggle_id_name2 => "new_sorter", :style => "cursor:pointer;cursor:hand"}
@@ -38,27 +40,7 @@
 
       .container
         #extra_form
-          %h1 Extra Attributes
-          .form_line
-            .field_2
-              %input{:type => "checkbox", :style => "width:auto;float:left;"}
-            .field_70
-              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
-            
-          .form_line
-            .field_2
-              %input{:type => "radio", :name => "query_top", :value => "number", :id => "query_top_number", :checked => true}
-            .field_5
-              %label{:style => "width:auto;float:left;margin-top:5px;"} Top
-            .field_2
-              %input{:type => "radio", :name => "query_top", :value => "precent", :id => "query_top_percent"}
-            .field_10
-              %label{:style => "width:auto;float:left;margin-top:5px;"} Precent
-            .field_30
-              %input{:id => "query_top_value", :class => "integer_field"}
-
-            
-
+          = render :partial => "queries/query_extra_attribute"
     #right
       #new_query_list
         = render :partial => "queries/query_criteria_list"
@@ -67,9 +49,14 @@
       #new_sorter_list
         = render :partial => "queries/query_sorter_list"
     %br.clear
-    #query_options
-      = render :partial => "queries/query_options"
-    
+
+    = link_to_function 'clear', :class => "alt_option", :id => "clear_button", :action => "new"
+    = button_to_function 'Save', :id => "save_button", :action => "new", :style => "float:right;", :disabled=>true
+    = button_to_function 'Run Query', :id => "run_button", :action => "new", :style => "float:right;", :disabled=>true
+    %input#query_header_id{:style => "display:none;", :value => "#{@query_header.id}"}
+    %input#current_action_global{:style => "display:none;", :value => "new"}
+    = link_to_function 'view SQL statements',:class => "alt_option float_none", :id => "show_sql_statements", :action => "new"
+
 #save_form{:style => "display:none;"}
   = render :partial => "queries/new_query_header"
 
