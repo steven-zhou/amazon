@@ -1172,7 +1172,7 @@ class GridsController < ApplicationController
           u.suburb,
           u.postcode,                
           u.country_id.nil? ? "" : u.country.short_name
-#          u.country_name
+          #          u.country_name
         ]}}
 
     # Convert the hash to a json object
@@ -1440,7 +1440,7 @@ class GridsController < ApplicationController
           u.iso_code,
           u.dialup_code,
           u.main_language_id.nil? ? "" : u.main_language.name,
-#         u.govenment_language,
+          #         u.govenment_language,
           u.currency,
           u.currency_subunit]}}
     # Convert the hash to a json object
@@ -1627,8 +1627,8 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @geographical_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-#          u.country_id,
-#          u.country_name,
+          #          u.country_id,
+          #          u.country_name,
           u.division_name,
           u.remarks]}}
     # Convert the hash to a json object
@@ -1749,8 +1749,8 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @electoral_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-#          u.country_id,
-#          u.country_name,
+          #          u.country_id,
+          #          u.country_name,
           u.division_name,
           u.remarks]}}
     # Convert the hash to a json object
@@ -1769,7 +1769,7 @@ class GridsController < ApplicationController
       relatedb = ["geographical_area"]
     end
 
-     if params[:qtype].include?("Electoral Area")
+    if params[:qtype].include?("Electoral Area")
 
       params[:qtype] = "post_areas.type = 'ElectoralArea' AND post_areas.division_name"
       relatedb = ["electoral_area"]
@@ -1839,9 +1839,9 @@ class GridsController < ApplicationController
           u.state,
           u.suburb,
           u.postcode,
-#          u.geo_area,
+          #          u.geo_area,
           u.geographical_area_id.nil? ? "" : u.geographical_area.division_name,
-#          u.elec_area
+          #          u.elec_area
           u.electoral_area_id.nil? ? "" : u.electoral_area.division_name
         ]}}
 
@@ -2589,78 +2589,7 @@ class GridsController < ApplicationController
 
   end
 
-  def email_maintenance_search_grid
-    page = (params[:page]).to_i
-    rp = (params[:rp]).to_i
-    query = params[:query]
-    qtype = params[:qtype]
-    sortname = params[:sortname]
-    sortorder = params[:sortorder]
-
-    if (!sortname)
-      sortname = "id"
-    end
-
-    if (!sortorder)
-      sortorder = "asc"
-    end
-
-    if (!page)
-      page = 1
-    end
-
-    if (!rp)
-
-      rp = 20
-
-    end
-
-    start = ((page-1) * rp).to_i
-    query = "%"+query+"%"
-
-    # No search terms provided
-    if(query == "%%")
-      @email_maintenance = EmailSearchGrid.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start
-      )
-
-      count = EmailSearchGrid.count(:all)
-
-    end
-
-    # User provided search terms
-    if(query != "%%")
-
-      @email_maintenance = EmailSearchGrid.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-
-      count = EmailSearchGrid.count(:all, :conditions=>[qtype +" ilike ?", query])
-    end
-
-    # Construct a hash from the ActiveRecord result
-    return_data = Hash.new()
-    return_data[:page] = page
-    return_data[:total] = count
-
-    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.grid_object_id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2,
-          u.field_3,
-          u.field_4,
-          u.field_5,
-          u.field_6
-
-        ]}}
-
-    # Convert the hash to a json object
-    render :text=>return_data.to_json, :layout=>false
-  end
+  
 
   def show_message_templates_grid
     page = (params[:page]).to_i
@@ -2719,6 +2648,87 @@ class GridsController < ApplicationController
           u.name,
           u.created_at.strftime('%d-%m-%Y')
         ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+
+  def email_maintenance_search_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+
+      rp = 20
+
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+
+      
+      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
+    
+      @email_maintenance = BulkEmail.find(:all,
+        :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]],
+        #:conditions => ["created_at >= ? and created_at <= ?", params[:start_date].to_date, params[:end_date].to_date],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      
+      count = BulkEmail.count(:all, :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+     
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
+      @email_maintenance = BulkEmail.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+
+      count = BulkEmail.count(:all, :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @email_maintenance.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.to,
+          u.subject,
+          u.created_at.strftime('%a %d %b %Y %H:%M:%S'),
+          u.dispatch_date.nil? ? "Not Dispatched" : "#{u.dispatch_date.strftime('%a %d %b %Y %H:%M:%S')}",
+          u.to_be_removed,
+          u.status? ? "Active" : "Inactive"
+
+        ]}}
+
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end

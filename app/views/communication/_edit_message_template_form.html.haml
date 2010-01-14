@@ -37,6 +37,14 @@
       .field_60
         = f.label :name, "<span class='asterisk'>*</span>Name"
         = f.text_field :name, :id => "edit_message_template_name", :class => 'edit_message_template_required_field'
+      .field_15
+        %label &nbsp
+        %select{:id => "select_word"}
+          %option{:value => "#first_name#"} First Name
+          %option{:value => "#last_name#"} Last Name
+      .field_10
+        %label &nbsp
+        = button_to_function 'Insert', :id => "insert_word"
     .form_line{:style => "height:auto;"}
       .field_100{:style => "height:auto;"}
         = f.label :body, "Body"
