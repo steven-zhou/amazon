@@ -4,7 +4,6 @@
     = note.collection_select :note_type_id, NoteType.find(:all,:conditions=>"status = true and to_be_removed = false"), :id, :name, {},{:disabled => (true if !@note.active)}
   .field_40
     = note.label :label, "<span class='asterisk'>*</span>Label"
-
     = note.text_field :label,:id => @note.new_record? ? "note_new_label" : "note_edit_label",:class=>"mandantory_field",:mandantory_field1=> @note.new_record? ? "note_new_label" : "note_edit_label",:submit_button_id=>@note.new_record? ? "note_new_submit" : "note_edit_submit", :disabled => ("disabled" if !@note.active)
   .field_5
     = note.label :active, 'Active'
@@ -17,13 +16,6 @@
   .field_100{:style => "height:auto;"}
     = note.label :body_text, 'Note'
     = note.text_area :body_text, :id=>@note.new_record? ? "edit_note_body" : "new_note_body",:disabled => ("disabled" if !@note.active),:style=>"width:500px;height:150px;"
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      bkLib.onDomLoaded(function() {
-      new nicEditor({iconsPath : '/images/nicEditorIcons.gif', buttonList : ['bold','italic','underline','strikeThrough','subscript','superscript','removeformat','hr','upload','html','image','forecolor','bgcolor']}).panelInstance('edit_note_body');
-    });
-    });
 
 
 

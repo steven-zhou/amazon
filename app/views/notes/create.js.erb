@@ -9,7 +9,7 @@
   $('.organisation_note_close').css("display","none");
   
   $('.person_notes_close').css("display","none");
-  
+  $('#note_new_submit').attr('disabled',true);
 
   <%else%>
    $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

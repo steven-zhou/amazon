@@ -43,11 +43,9 @@ class NotesController < ApplicationController
   def update
     @note = Note.find(params[:id].to_i)
 
-    @note.note_type_id=params[:note_type]
-      @note.label=params[:note_label]
+   @entity = @note.noteable
 
-#    if @note.update_attributes(params[:note]["#{@note.id}"])
-     if @note.save
+    if @note.update_attributes(params[:note])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Note #{@note.id}.")
     else
       flash.now[:error]= "Please Enter All Required Data"if(!@note.errors[:label].nil? && @note.errors.on(:label).include?("can't be blank"))

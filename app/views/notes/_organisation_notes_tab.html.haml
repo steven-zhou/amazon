@@ -1,19 +1,27 @@
 -# The main Address tab
 .container
-  .header_container#add_new_note
-    .options
-      = link_to_function image_tag('close_icon.png'), :class => "organisation_note_close close_option", :field => "note", :toggle_id_name => "new_note", :style => "display:none", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"toggle_button new_option", :field => "note", :toggle_id_name => "new_note"  if (!organisation.nil? && !organisation.new_record?)
-      &nbsp
-    %h1 New Note
-    %input{:id => "note_mode", :mode => "show", :style => "display:none"}
-    %input{:id => "notes_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
-    -form_for([@organisation,@note], :url => "/organisations/#{@organisation.id}/notes", :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
-      = render :partial => '/notes/note_form', :locals => { :note => note }
-      = submit_tag 'Submit',:id=>"note_new_submit", :disabled=>true
+  %input.hidden{:id => "note_mode", :mode => "show"}
+  .full_container
+    #add_new_note
+      .options
+        = link_to_function image_tag('close_icon.png'), :class => "organisation_note_close close_option", :field => "note", :toggle_id_name => "new_note", :style => "display:none", :title=>"Close"
+      .title
+        = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"toggle_button new_option", :field => "note", :toggle_id_name => "new_note"  if (!organisation.nil? && !organisation.new_record?)
+        &nbsp
+      %h1 New Note
+      %input{:id => "notes_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
+      -form_for([@organisation,@note], :url => "/organisations/#{@organisation.id}/notes", :html => {:style => "display:none", :class => 'ajax_form add_note'}) do |note|
+        = render :partial => '/notes/note_form', :locals => { :note => note }
+        = submit_tag 'Submit',:id=>"note_new_submit", :disabled=>true
 
 
   #notes_list
     =# Render the organisation's notes
-    = render :partial => '/notes/note', :collection => organisation.sorted_notes
+    = render :partial => '/notes/note'
+
+  #edit_note{:style => "display:none;"}
+    %h3{:style=>"display:inline;"} Edit
+    .full_container
+      .options
+        = link_to_function image_tag('close_icon.png'), :field => "note", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_note", :toggle_id_name1 => "add_new_note"
+      #edit_note_form

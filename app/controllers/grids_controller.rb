@@ -2732,6 +2732,12 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
+    if(params[:type]=="organisations")
+      params[:type]="Organisation"
+    else
+       params[:type]="Person"
+    end
+
     if (!sortname)
       sortname = "id"
     end
@@ -2757,9 +2763,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-       :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]]
+       :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
       )
-      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]])
+      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]])
     end
 
     # User provided search terms
@@ -2768,8 +2774,8 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
-      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
+        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
+      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
     end
 
     # Construct a hash from the ActiveRecord result
