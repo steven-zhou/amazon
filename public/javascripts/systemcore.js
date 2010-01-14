@@ -3737,9 +3737,22 @@ $(function(){
     $("#insert_word").live('click', function(){
         var current_form = $(this).closest('form').get(0).id;
         var value = $("#select_word").val();
+
         var iframe_id = $(this).closest('form').find('iframe').get(0).id
         $("#"+ iframe_id ).contents().find('br').remove();
         $("#"+ iframe_id ).contents().find("p:last").append(value);
+
     });
 });
 
+/*For note*/
+//  $('#note_edit_submit').live('click',function(){
+//        if($('#note_mode').attr('mode')=="edit"){
+//            $.ajax({
+//                type: 'GET',
+//                url: "/note/"+$('#note_id').val()+"/update",
+//                data: "note_type=" + $("#note_type_id_note_typed").val()+ "&note_label="+$("#note_edit_label").val(),
+//                dataType: "script"
+//            });
+//        }
+//    });

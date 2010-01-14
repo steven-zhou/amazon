@@ -1,5 +1,5 @@
 <% if @note.errors.empty? -%>
-  $('#notes_list').prepend('<%= escape_javascript(render(:partial => @note)) %>');
+  $('#notes_list').html('<%= escape_javascript(render(:partial => "/notes/note")) %>');
   $("#new_note")[0].reset();
   $("#new_note").hide();
   $('#note_mode').attr('mode', 'show');
@@ -9,7 +9,7 @@
   $('.organisation_note_close').css("display","none");
   
   $('.person_notes_close').css("display","none");
-  $('#<%= dom_id(@note) %>').effect('slide', {direction:'right'});
+  
 
   <%else%>
    $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

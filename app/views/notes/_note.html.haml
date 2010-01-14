@@ -1,17 +1,77 @@
-/show personal notes details
--status = note.active ? "container_active" : "container_inactive"
--div_for(note, :class => "header_container toggle_options #{status}",:field => "note") do
-  %div
-    .title
-      -#= "#{note.id} #{note.note_type.name}"
-      %h2= h note.created_at.to_s(:long)
-    .options{:class => 'person_notes_edit_delete person_tag', :Style => "display:none;"}
-      = link_to image_tag('edit_icon.png'), edit_note_path(note), :class => 'get edit_note edit_option', :note_id => note.id, :field => "note", :title=>"Edit"
-      = link_to image_tag('delete_icon.png'), note_path(note), :class => 'delete delete_note delete_option', :note_id => note.id, :field => "note",:error_message_field => note.note_type.name+" Note", :title=>"Remove"
-    %br.clear
-  %div{:style => "float:left;"}
-    .attr_name
-      = h note.label
-      %span{:class=>("red" if note.note_type.to_be_removed == true)} (#{note.note_type.name})
-    .attr_name
-      = truncate(note.body_text, 50, "...")
+- @entity ||= @person.nil? ? @organisation : @person
+%h2 Existing Notes
+%table#show_notes_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/notes/",:edit=>"true"}
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_notes_grid").flexigrid({
+  url: '/grids/show_notes_grid?entity_id=#{@entity.id}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Label',
+  name : 'label',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Short Description',
+  name : 'short_description',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Body Text',
+  name : 'body_text',
+  width : 180,
+  sortable : true,
+  align: 'left'
+  },
+  {
+  display: 'Active',
+  name : 'active',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Label',
+  name : 'label'
+  },
+
+  {
+  display: 'Short Description',
+  name : 'short_description'
+  },
+
+  {
+  display: 'Body Text',
+  name : 'body_text'
+  },
+  {
+  display: 'Active',
+  name : 'Active'
+  }
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'Notes',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

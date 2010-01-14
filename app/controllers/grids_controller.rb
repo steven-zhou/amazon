@@ -2733,6 +2733,70 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+
+  def show_notes_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @notes= Note.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+       :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]]
+      )
+      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= 'Person'", params[:entity_id]])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @notes = Note.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
+      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= 'Person'", query,params[:entity_id]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @notes.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.label,
+          u.short_description,
+          u.body_text,
+          u.active]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
 end
 
 
