@@ -1,34 +1,10 @@
 %script{:type => "text/javascript"}
   :plain
-    $(function(){
-        $('table#email_maintenance_search_grid tbody tr').live('dblclick',function(){
-            $('table#email_maintenance_search_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-            $.ajax({
-                type: 'GET',
-                url: "/communication/show_email/"+$(this).attr('id').substring(3),
-                dataType: "script"
-            });
-        });
-    });
-
-    $(function(){
-        $('table#email_maintenance_search_grid tbody tr').live('click',function(){
-            $('table#email_maintenance_search_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        });
-    });
-
-    $(function(){
-        $('table#email_maintenance_search_grid tbody tr').live('mouserover', function(){
-            $(this).css('cursor',"pointer");
-        });
-    });
-
+   
     $(function(){
         $('#close_email_message').live('click',function(){
             $('#email_maintenance_display_email').hide();
-            $('#email_maintenance_update_options').show();
+          $('#email_maintenance_search_submit').attr('disabled', false)
         });
     });
 
@@ -186,20 +162,20 @@
     .full_container
       %h2 Email Maintenance
       .form_line
-        .field_20
+        .field_25
           = f.label :start_date, "Start Date"
-          %input{:name => "start_date", :style => "width:82% !important;",:id => "email_maintenance_start_date", :class => "startdatepick", :end_date => "email_maintenance_end_date"}
-        .field_20
+          %input{:name => "start_date", :style => "width:82% !important;",:id => "email_maintenance_start_date", :class => "startdatepick", :end_date => "email_maintenance_end_date", :value => "#{Date.today().at_beginning_of_week.strftime('%d-%m-%Y')}"}
+        .field_25
           = f.label :end_date, "End Date"
-          %input{:name => "end_date", :style => "width:82% !important;", :id => "email_maintenance_end_date", :class => "enddatepick", :start_date => "email_maintenance_start_date"}
-      .form_line
-        .field_20
-          = f.label :to_be_removed, 'To Be Removed'
-          %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed', :style => "width:auto;float:left;"}
-        .field_20
+          %input{:name => "end_date", :style => "width:82% !important;", :id => "email_maintenance_end_date", :class => "enddatepick", :start_date => "email_maintenance_start_date", :value => "#{Date.today().strftime('%d-%m-%Y')}"}
+        .field_17
           = f.label :dispatch_date, 'Already Sent'
           %input{:type => "checkbox", :name => 'dispatch_date', :id => 'email_dispatch_date', :style => "width:auto;float:left;"}
-        .field_20
+        .field_17
+          = f.label :to_be_removed, 'To Be Removed'
+          %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed', :style => "width:auto;float:left;"}
+
+        .field_5
           = f.label :status, 'Active'
           %input{:type => "checkbox", :name => 'status', :id => 'email_status', :style => "width:auto;float:left;"}
 
@@ -207,28 +183,31 @@
     = submit_tag "Submit", :id => "email_maintenance_search_submit"
 
 
-.full_container#email_maintenance_search_results{:style => "display:none;"}
+.full_container#email_maintenance_search_results
+  = render :partial => "communication/email_history", :locals => {:start_date => @start_date, :end_date => @end_date, :tbr => @tbr, :dd => @dd, :status => @status}
 
 
 .full_container#email_maintenance_update_options{:style => "display:none;"}
-  - form_for :email, nil, :url => { :action => "modify_email" }, :html => {:class => 'ajax_form', :id => "modify_email_form"}  do |f|
+  -# form_for :email, nil, :url => { :action => "modify_email" }, :html => {:class => 'ajax_form', :id => "modify_email_form"}  do |f|
     .full_container
       %h2 Update Emails
       %input{:id => "modify_email_start_date", :name => "modify_email_start_date", :style => "display:none;"}
       %input{:id => "modify_email_end_date", :name => "modify_email_end_date", :style => "display:none;"}
-      %input{:id => "modify_email_to_be_removed", :name => "modify_email_to_be_removed", :style => "display:none;"}
       %input{:id => "modify_email_dispatch_date", :name => "modify_email_dispatch_date", :style => "display:none;"}
+      %input{:id => "modify_email_to_be_removed", :name => "modify_email_to_be_removed", :style => "display:none;"} 
       %input{:id => "modify_email_status", :name => "modify_email_status", :style => "display:none;"}
       .form_line
-        .field_20
-          = f.label :to_be_removed, 'To Be Removed'
-          = f.check_box :to_be_removed, :checked => false
+
         .field_20
           = f.label :dispatch_date, 'Already Sent'
-          = f.check_box :dispatch_date, :checked => false
+          = f.check_box :dispatch_date, :checked => false,:style => "width:auto;float:left;"
+        .field_20
+          = f.label :to_be_removed, 'To Be Removed'
+          = f.check_box :to_be_removed, :checked => false,:style => "width:auto;float:left;"
+        
         .field_20
           = f.label :status, 'Active'
-          = f.check_box :status, :checked => false
+          = f.check_box :status, :checked => false,:style => "width:auto;float:left;"
 
     = submit_tag "Update", :id => "modify_email_submit"
 
