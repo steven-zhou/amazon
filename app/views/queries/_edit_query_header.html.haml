@@ -1,5 +1,5 @@
 .container.single_container
-  -form_for @query_header, :html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
+  -form_for @query_header, :url => {:controller => "query_headers", :action => "update", :id => @query_header.id}, :html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
     .form_line
       .field_25
         = f.label :name, 'Name'

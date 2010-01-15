@@ -1,4 +1,4 @@
--form_for ([@query_header, @query_seleciton]), :html => {:class => 'ajax_form'} do |f|
+-form_for ([@query_header, @query_seleciton]),:url => {:controller=> "query_headers"}, :html => {:class => 'ajax_form'} do |f|
   #left
     .form_line
       = f.label :table_name, 'Select Table'
