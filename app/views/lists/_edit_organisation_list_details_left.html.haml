@@ -1,0 +1,14 @@
+.container{:style => "width:30%;margin-right:4%;"}
+  %h1 Add Organisation To List
+  -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
+    .form_line
+      .field_50
+        =f.label :listable_id, "<span class='asterisk'>*</span>Organisation ID"
+        %input{:id => "listable_id", :name => "listable_id", :class=>"mandantory_field",:mandantory_field1=>"listable_id",:submit_button_id=>"add_organisation_submit",:disabled => @list_header.status == false}
+        %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
+      .field_40{:style => "float:right;"}
+        %label &nbsp;
+        =submit_tag "Add Organisation",:id=>"add_organisation_submit", :disabled =>true
+
+      %br.clear
+
