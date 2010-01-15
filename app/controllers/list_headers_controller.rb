@@ -239,6 +239,18 @@ class ListHeadersController < ApplicationController
     end
   end
 
+    def org_compile_list
+    current_user = LoginAccount.find(session[:user])
+    @list_headers = current_user.all_lists
+    @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
+    @compile_lists.each do |i|
+      i.destroy
+    end
+    respond_to do |format|
+      format.html
+    end
+  end
+
   private
   def assign_group_or_user
     if LoginAccount.find(session[:user]).class.to_s == "SystemUser"

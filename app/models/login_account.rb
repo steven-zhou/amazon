@@ -109,6 +109,8 @@ class LoginAccount < ActiveRecord::Base
   end
 
 
+
+
   def password=(pass)
     @password=pass
     if (!self.password_salt.nil? && !self.password_hash.nil?)
