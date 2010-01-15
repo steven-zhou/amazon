@@ -67,6 +67,7 @@ class Person < ActiveRecord::Base
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :transaction_headers, :as => :entity
+  has_many :list_details, :as => :listable
   #has_many :players, :through => :list_details, :source => :player
 
   
