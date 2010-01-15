@@ -23,7 +23,7 @@
           %h1 Display Attributes
         #new_selection{:style => "display:none"}
           #new_selection_form
-            = render :partial => "queries/query_selection_form"
+            = render :partial => "queries/query_selection_form", :locals => {:exclude_category => "organisation"}
           %br.clear
 
       .container
@@ -33,29 +33,12 @@
           %h1 Sorting Attributes
         #new_sorter{:style => "display:none"}
           #new_sorter_form
-            = render :partial => "queries/query_sorter_form"
+            = render :partial => "queries/query_sorter_form", :locals => {:exclude_category => "organisation"}
           %br.clear
 
       .container
         #extra_form
-          %h1 Extra Attributes
-          .form_line
-            .field_2
-              %input{:type => "checkbox", :style => "width:auto;float:left;"}
-            .field_70
-              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
-            
-          .form_line
-            .field_2
-              %input{:type => "radio", :name => "query_top", :value => "number", :id => "query_top_number", :checked => true}
-            .field_5
-              %label{:style => "width:auto;float:left;margin-top:5px;"} Top
-            .field_2
-              %input{:type => "radio", :name => "query_top", :value => "precent", :id => "query_top_percent"}
-            .field_10
-              %label{:style => "width:auto;float:left;margin-top:5px;"} Precent
-            .field_30
-              %input{:id => "query_top_value", :class => "integer_field"}
+          = render :partial => "queries/query_extra_attribute"
 
             
 
@@ -68,7 +51,7 @@
         = render :partial => "queries/query_sorter_list"
     %br.clear
     #query_options
-      = render :partial => "queries/query_options"
+      = render :partial => "queries/new_query_options"
     
 #save_form{:style => "display:none;"}
   = render :partial => "queries/new_query_header"

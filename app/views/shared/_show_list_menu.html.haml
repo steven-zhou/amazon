@@ -58,6 +58,10 @@
             = link_to "#{image_tag('Icons/System/add.png')} New", :controller => "query_headers", :action => "new"
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", :controller => "query_headers", :action => "index"
+          %li{:id => @current_action == "org_new" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/add.png')} Org New", :controller => "query_headers", :action => "org_new"
+          %li{:id => @current_action == "org_index" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Org Edit", :controller => "query_headers", :action => "org_index"
     .bottom
 
   - # List of Lists Menu
