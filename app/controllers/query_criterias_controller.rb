@@ -11,7 +11,9 @@ class QueryCriteriasController < ApplicationController
   
 
   def create
-    @query_header = QueryHeader.find(params[:query_header_id].to_i)
+    id = params[:query_header_id]
+    id ||= params[:id]
+    @query_header = QueryHeader.find(id.to_i)
     @query_criteria = @query_header.query_criterias.new(params[:query_criteria])
     @query_criteria.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_criteria][:field_name], TableMetaMetaType.find_by_name(params[:query_criteria][:table_name])]).category
     @query_criteria.status = true

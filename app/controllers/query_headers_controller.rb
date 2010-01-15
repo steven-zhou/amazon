@@ -227,6 +227,7 @@ class QueryHeadersController < ApplicationController
 
   def edit
     @query_header = QueryHeader.find(params[:id].to_i)
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
     @query_criteria = QueryCriteria.new
     @query_seleciton = QuerySelection.new
     @query_sorter = QuerySorter.new
@@ -316,7 +317,7 @@ class QueryHeadersController < ApplicationController
   end
 
   def org_index
-    @queries = QueryHeader.saved_queries
+    @queries = OrganisationQueryHeader.all
     respond_to do |format|
       format.html
     end
