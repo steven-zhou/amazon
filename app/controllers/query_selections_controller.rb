@@ -6,6 +6,7 @@ class QuerySelectionsController < ApplicationController
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     if @query_header.query_selections.size < 10
     @query_selection = @query_header.query_selections.new(params[:query_selection])
+    #follow we can put in the model
     @query_selection.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_selection][:field_name], TableMetaMetaType.find_by_name(params[:query_selection][:table_name])]).category
     @query_selection.status = true
     if @query_selection.save
@@ -26,7 +27,7 @@ class QuerySelectionsController < ApplicationController
 
   def destroy
     @query_selection_old = QuerySelection.find(params[:id])
-    @query_header = @query_selection_old.query_header
+    @query_header = @query_selection_old.query_header   #???use for what???
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Selection #{@query_selection_old.id}.")
     @query_selection_old.destroy
     respond_to do |format|
