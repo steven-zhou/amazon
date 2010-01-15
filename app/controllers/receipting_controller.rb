@@ -143,7 +143,9 @@ class ReceiptingController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign source record.")
       if(!@source.errors[:campaign_id].nil?)
         flash.now[:error] = "You must select a campaign for this source."
-      elsif(!@source.errors[:name].nil?)
+      elsif(!@source.errors[:name].nil? && @source.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
+      elsif(!@source.errors[:name].nil? && @source.errors.on(:name).include?("has already been taken"))
         flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
       end
     end

@@ -134,8 +134,7 @@ class QueryHeadersController < ApplicationController
     else
       value = params[:top_percent].to_i*@people.size/100
     end
-
-    @people = @people[0,value] if (value>0)
+    @people = (value>0) ? @people[0,value] : @people[0,1]
     @query_header.result_size = @people.size
     @query_header.save
 
