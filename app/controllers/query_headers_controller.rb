@@ -300,4 +300,17 @@ class QueryHeadersController < ApplicationController
     end
   end
 
+  def org_new
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def org_index
+    @queries = QueryHeader.saved_queries
+    respond_to do |format|
+      format.html
+    end
+  end
+
 end
