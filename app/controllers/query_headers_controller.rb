@@ -3,7 +3,7 @@ class QueryHeadersController < ApplicationController
   # Added system logging
 
   def new
-    @query_header = QueryHeader.new
+    @query_header = PersonQueryHeader.new
     @query_header.name = QueryHeader.random_name
     @query_header.group = "temp"
     @query_header.status = true
@@ -301,6 +301,15 @@ class QueryHeadersController < ApplicationController
   end
 
   def org_new
+    @query_header = OrganisationQueryHeader.new
+    @query_header.name = QueryHeader.random_name
+    @query_header.group = "temp"
+    @query_header.status = true
+    @query_header.save
+    @query_criteria = QueryCriteria.new
+    @query_seleciton = QuerySelection.new
+    @query_sorter = QuerySorter.new
+
     respond_to do |format|
       format.html
     end
