@@ -29,6 +29,7 @@ class Organisation < ActiveRecord::Base
   has_many :transaction_headers, :as => :entity
   has_many :organisation_as_source, :foreign_key => "source_organisation_id", :class_name => "OrganisationRelationship"
   has_many :organisation_as_related, :foreign_key => "related_organisation_id", :class_name => "OrganisationRelationship"
+  has_many :list_details, :as => :listable
 
 
 
