@@ -4,7 +4,7 @@ class OrganisationQueryHeader < QueryHeader
     OrganisationQueryHeader.find(:all, :conditions => ["query_headers.group = ?", "save"], :order => "id")
   end
 
-    def run
+  def run
     if (self.sort_clauses.empty?)
       if (self.include_clauses.empty?)
         Organisation.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "organisations.id")
@@ -20,7 +20,7 @@ class OrganisationQueryHeader < QueryHeader
     end
   end
 
-     def selection_fields
+  def selection_fields
     selection_clauses = Array.new
     selection_clauses.push("organisations.id")
     self.query_selections.find(:all, :order => "sequence").each do |i|
