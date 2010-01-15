@@ -32,7 +32,7 @@ class PeopleController < ApplicationController
   
   def show
     @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
 
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
@@ -114,7 +114,7 @@ class PeopleController < ApplicationController
 
   def edit
     @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
 
@@ -431,7 +431,7 @@ class PeopleController < ApplicationController
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
  
     @p = Array.new
     @p = @list_header.people_on_list
