@@ -12,7 +12,7 @@ class ReportsController < ApplicationController
 #    @user_list_id.each do |i|
 #    @list_headers += ListHeader.find_all_by_id(i.list_header_id)
 #    end
-   @list_headers = @current_user.all_lists
+   @list_headers = @current_user.all_person_lists
 #    @list_headers +=@current_user.custom_lists
     @query = QueryHeader.saved_queries
 

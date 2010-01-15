@@ -94,7 +94,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :login_accounts, :collection => {:user_name_unique => :get, :generate_password => :post, :change_password => :get, :update_password => :post}
   map.resources :user_groups, :collection => {:add_security => :post, :remove_security => :post, :show_groups => :get, :user_name_to_person => :get}
 
-  map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
+  map.resources :list_headers, :collection => {:add_merge => :post, :add_exclude => :post, :manage_list => :get, :compile_list => :get, :org_manage_list => :get, :org_compile_list => :get}, :member => {:copy => :get, :delete_details => :put}
   map.resources :list_details
   map.resources :include_lists
   map.resources :exclude_lists

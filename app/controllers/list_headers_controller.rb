@@ -113,7 +113,8 @@ class ListHeadersController < ApplicationController
           flash.now[:error] = flash_message(:message => "list can't be empty")
         end
       end
-    end    
+    end
+    @lists = @current_user.all_person_lists
     respond_to do |format|
       format.js
     end
@@ -122,6 +123,7 @@ class ListHeadersController < ApplicationController
   def destroy
     @list_header = ListHeader.find(params[:id].to_i)
     @list_header.destroy
+    @lists = @current_user.all_person_lists
     respond_to do |format|
       format.js
     end
@@ -194,7 +196,7 @@ class ListHeadersController < ApplicationController
       flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
     end
     @list_header = ListHeader.find(@list_header)
- 
+    @lists = @current_user.all_person_lists
     respond_to do |format|
       format.js
     end
@@ -221,15 +223,32 @@ class ListHeadersController < ApplicationController
   end
 
   def manage_list
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
     respond_to do |format|
       format.html
     end
   end
 
   def compile_list
-    current_user = LoginAccount.find(session[:user])
-    @list_headers = current_user.all_lists
+    @list_headers = @current_user.all_person_lists
+    @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
+    @compile_lists.each do |i|
+      i.destroy
+    end
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def org_manage_list
+    @lists = @current_user.all_person_lists
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def org_compile_list
+    @lists = @current_user.all_person_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
       i.destroy

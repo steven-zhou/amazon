@@ -1,5 +1,5 @@
 <% if flash.now[:error].nil?  %>
-  $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
+  $("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @lists)) %>");
  $('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
  $('#flash_feedback').fadeIn("slow");
  $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
