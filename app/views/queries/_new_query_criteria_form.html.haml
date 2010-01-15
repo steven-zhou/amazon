@@ -1,4 +1,4 @@
--form_for ([@query_header, @query_criteria]),:url => {:controller=> "query_headers"}, :html => {:class => 'ajax_form'} do |f|
+-form_for ([@query_header, @query_criteria]),:url => query_header_query_criterias_path(@query_header), :html => {:class => 'ajax_form'} do |f|
   #left
     .form_line
       = f.label :table_name, 'Select Table'
