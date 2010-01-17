@@ -113,7 +113,7 @@ class CompileListsController < ApplicationController
         @list_header = ListHeader.find(i.list_header_id)
         @list_details = @list_header.list_details
         @list_details.each do |list_detail|
-          include_ids << list_detail.listable_id
+          include_ids << list_detail.entity_id
         end
       end
 
@@ -121,7 +121,7 @@ class CompileListsController < ApplicationController
         @list_header = ListHeader.find(i.list_header_id)
         @list_details = @list_header.list_details
         @list_details.each do |list_detail|
-          exclude_ids << list_detail.listable_id
+          exclude_ids << list_detail.entity_id
         end
       end
 
