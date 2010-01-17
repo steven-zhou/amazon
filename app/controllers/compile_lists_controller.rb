@@ -110,7 +110,7 @@ class CompileListsController < ApplicationController
       entity_ids = Array.new
 
       @include_lists.each do |i|
-        @list_header = ListHeader.find(i.list_header_id)
+        @list_header = OrganisationListHeader.find(i.list_header_id)
         @list_details = @list_header.list_details
         @list_details.each do |list_detail|
           include_ids << list_detail.listable_id

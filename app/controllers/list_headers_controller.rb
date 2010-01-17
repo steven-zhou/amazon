@@ -225,6 +225,7 @@ class ListHeadersController < ApplicationController
 
 
   def org_compile_list
+
     @lists = @current_user.all_organisation_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
