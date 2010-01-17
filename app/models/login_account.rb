@@ -103,9 +103,13 @@ class LoginAccount < ActiveRecord::Base
     custom_lists.uniq
   end
 
-  def all_lists
+  def all_person_lists
     temp_list = TempList.find_all_by_login_account_id(self.id)
     (self.list_headers + self.custom_lists + temp_list).uniq
+  end
+
+  def all_organisation_lists
+    OrganisationListHeader.find(:all, :conditions => ["status = true"])
   end
 
 

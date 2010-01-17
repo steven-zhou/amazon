@@ -4,7 +4,7 @@ class TransactionsController < ApplicationController
   def personal_transaction
       session[:module] = "receipting"
       @group_types = LoginAccount.find(session[:user]).group_types
-      @list_headers = @current_user.all_lists
+      @list_headers = @current_user.all_person_lists
       @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
       @p = @list_header.people_on_list
       @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
@@ -98,11 +98,11 @@ class TransactionsController < ApplicationController
 
       @p = Array.new
       @p = @list_header.people_on_list
-      @list_headers = @current_user.all_lists
+      @list_headers = @current_user.all_person_lists
     else
       #request.get
       
-      @list_headers = @current_user.all_lists
+      @list_headers = @current_user.all_person_lists
       @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
       @p = @list_header.people_on_list
 

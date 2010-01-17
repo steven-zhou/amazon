@@ -1,0 +1,3 @@
+class OrganisationExcludeList < CompileList
+
+end

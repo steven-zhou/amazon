@@ -1,11 +1,6 @@
 class ListHeader < ActiveRecord::Base
 
-#  belongs_to :query_header
-  has_many :list_details, :order => "id"
- 
-
-  
-  has_many :people_on_list, :through => :list_details, :source => :person, :order => "person_id"
+ has_many :list_details
 
   has_many :user_lists
   has_many :login_accounts, :through => :user_lists, :uniq => true
@@ -32,8 +27,8 @@ class ListHeader < ActiveRecord::Base
     ListHeader.find(:all, :order => "name")
   end
 
-  private
-
+  protected
+  
   def delete_all_details
     self.list_details.each do |list_detail|
       list_detail.destroy
