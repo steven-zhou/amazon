@@ -108,9 +108,9 @@ class LoginAccount < ActiveRecord::Base
     (self.list_headers + self.custom_lists + temp_list).uniq
   end
 
-  def all_organisation_list
 
-    OrganisationListHeader.find(:all,:conditions=>["status = true"])
+  def all_organisation_lists
+    OrganisationListHeader.find(:all, :conditions => ["status = true"])
   end
 
 

@@ -111,6 +111,7 @@ class QueryHeader < ActiveRecord::Base
       include_tables.push("#{i.table_name}") if !include_tables.include?("#{i.table_name}")
     end
     include_tables.delete("people") if include_tables.include?("people")
+    include_tables.delete("organisations") if include_tables.include?("organisations")
     include_tables
   end
 

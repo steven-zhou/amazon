@@ -1,6 +1,6 @@
 <%- if flash[:error].nil? %>
 
-$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
+$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @lists)) %>");
 $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_edit_grid').flexigrid({
         url: '/grids/list_edit_grid',

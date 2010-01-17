@@ -132,23 +132,20 @@ class ListHeadersController < ApplicationController
   def edit
     @list_header = ListHeader.find(params[:id].to_i)
     @list_details = @list_header.list_details
-    @query_header = @list_header.query_header
-    @people = @list_header.people_on_list
+    @entities = @list_header.entity_on_list
 
     #clear list edit temp table, and save result to temp table
     ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
 
-    @people.each do |person|
-      @leg = ListEditGrid.new
-      @leg.login_account_id = session[:user]
-      @leg.grid_object_id = person.id
-      @leg.field_1 = person.first_name
-      @leg.field_2 = person.family_name
-      @leg.save
+    if @list_header.class.to_s == "PersonListHeader"
+      create_person_list_edit_grid
+      @entity = "person"
+    else
+      create_organisation_list_edit_grid
+      @entity = "organisation"
     end
-
     respond_to do |format|
       format.js
     end
@@ -161,42 +158,21 @@ class ListHeadersController < ApplicationController
       @list_header = ListHeader.find(@list_header)
       if !@list_header.allow_duplication  # if allow_duplication is change to be false
 
-        delete_list = Array.new
-        person_list = Array.new
-        @list_header.list_details.each do |i|
-          if person_list.include?(i.person_id)
-            delete_list.push(i)
-          else
-            person_list.push(i.person_id)
-          end
+        if @list_header.class.to_s == "PersonListHeader"
+          update_person_list_update_grid
+          @entity = "person"
+        else
+          update_organisation_list_update_grid
+          @entity = "organisation"
         end
-
-        delete_list.each do |i|
-          i.destroy
-        end
-
-        @people = @list_header.people_on_list
-
-        #clear list edit temp table, and save result to temp table
-        ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
-          i.destroy
-        end
-
-        @people.each do |person|
-          @leg = ListEditGrid.new
-          @leg.login_account_id = session[:user]
-          @leg.grid_object_id = person.id
-          @leg.field_1 = person.first_name
-          @leg.field_2 = person.family_name
-          @leg.save
-        end
+        
       end
       flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "list")
     else
       flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
     end
     @list_header = ListHeader.find(@list_header)
-    @lists = @current_user.all_person_lists
+    @lists = @entity=="person" ? @current_user.all_person_lists : @current_user.all_organisation_lists
     respond_to do |format|
       format.js
     end
@@ -247,20 +223,9 @@ class ListHeadersController < ApplicationController
     end
   end
 
-#  def org_compile_list
-#    @lists = @current_user.all_organisation_lists
-#    @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
-#    @compile_lists.each do |i|
-#      i.destroy
-#    end
-#    respond_to do |format|
-#      format.html
-#    end
-#  end
 
-    def org_compile_list
-    current_user = LoginAccount.find(session[:user])
-    @list_headers = current_user.all_organisation_list
+  def org_compile_list
+    @lists = @current_user.all_organisation_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
       i.destroy
@@ -282,6 +247,92 @@ class ListHeadersController < ApplicationController
       @group_list.tag_id = GroupType.find_by_name("Power User").id
       @group_list.list_header_id = @list_header.id
       @group_list.save
+    end
+  end
+
+  def create_person_list_edit_grid
+    @entities.each do |person|
+      @leg = ListEditGrid.new
+      @leg.login_account_id = session[:user]
+      @leg.grid_object_id = person.id
+      @leg.field_1 = person.first_name
+      @leg.field_2 = person.family_name
+      @leg.save
+    end
+  end
+
+  def create_organisation_list_edit_grid
+    @entities.each do |organisation|
+      @leg = ListEditGrid.new
+      @leg.login_account_id = session[:user]
+      @leg.grid_object_id = organisation.id
+      @leg.field_1 = organisation.full_name
+      @leg.field_2 = organisation.trading_as
+      @leg.save
+    end
+  end
+
+  def update_person_list_update_grid
+    delete_list = Array.new
+    person_list = Array.new
+    @list_header.list_details.each do |i|
+      if person_list.include?(i.listable_id)
+        delete_list.push(i)
+      else
+        person_list.push(i.listable_id)
+      end
+    end
+
+    delete_list.each do |i|
+      i.destroy
+    end
+
+    @people = @list_header.entity_on_list
+
+    #clear list edit temp table, and save result to temp table
+    ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @people.each do |person|
+      @leg = ListEditGrid.new
+      @leg.login_account_id = session[:user]
+      @leg.grid_object_id = person.id
+      @leg.field_1 = person.first_name
+      @leg.field_2 = person.family_name
+      @leg.save
+    end
+  end
+
+  def update_organisation_list_update_grid
+    delete_list = Array.new
+    organisation_list = Array.new
+    @list_header.list_details.each do |i|
+      if organisation_list.include?(i.listable_id)
+        delete_list.push(i)
+      else
+        organisation_list.push(i.listable_id)
+      end
+    end
+
+    delete_list.each do |i|
+      i.destroy
+    end
+
+    @organisation = @list_header.entity_on_list
+
+    #clear list edit temp table, and save result to temp table
+    ListEditGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    @organisation.each do |organisation|
+      @leg = ListEditGrid.new
+      @leg.login_account_id = session[:user]
+      @leg.grid_object_id = organisation.id
+      @leg.field_1 = organisation.full_name
+      @leg.field_2 = organisation.trading_as
+      @leg.save
     end
   end
 end

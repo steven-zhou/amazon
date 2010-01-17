@@ -4,6 +4,7 @@ class QueryCriteriasController < ApplicationController
   def edit
     @query_criteria = QueryCriteria.find(params[:id])
     @query_header = @query_criteria.query_header
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
     respond_to do |format|
       format.js
     end
@@ -13,7 +14,8 @@ class QueryCriteriasController < ApplicationController
   def create
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     @query_criteria = @query_header.query_criterias.new(params[:query_criteria])
-    @query_criteria.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_criteria][:field_name], TableMetaMetaType.find_by_name(params[:query_criteria][:table_name])]).category
+    #@query_criteria.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_criteria][:field_name], TableMetaMetaType.find_by_name(params[:query_criteria][:table_name])]).category
+    @query_criteria.set_data_type(params[:query_criteria][:field_name], params[:query_criteria][:table_name])
     @query_criteria.status = true
     if @query_criteria.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created new Query Criteria #{@query_criteria.id}.")
@@ -35,6 +37,7 @@ class QueryCriteriasController < ApplicationController
     @action = params[:current_action]
     @query_header = @query_criteria.query_header
     @query_criteria = QueryCriteria.new
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
     respond_to do |format|
       format.js
     end

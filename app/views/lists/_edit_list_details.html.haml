@@ -1,21 +1,10 @@
-.container{:style => "width:30%;margin-right:4%;"}
-  %h1 Add Person To List
-  -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
-    .form_line
-      .field_50
-        =f.label :person_id, "<span class='asterisk'>*</span>Person ID"
-        %input{:id => "person_id", :name => "person_id", :class=>"mandantory_field",:mandantory_field1=>"person_id",:submit_button_id=>"add_person_submit",:disabled => @list_header.status == false}
-        %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
-      .field_40{:style => "float:right;"}
-        %label &nbsp;
-        =submit_tag "Add Person",:id=>"add_person_submit", :disabled =>true
+#list_detail_left
+  = render :partial => "/lists/edit_#{@entity}_list_details_left"
 
-      %br.clear
+#list_detail_right
+  = render :partial => "/lists/edit_#{@entity}_list_details_right"
 
-.container{:style => "width:60%"}
-  -form_for @list_header, :url => "/list_headers/#{@list_header.id}/delete_details", :html => {:class => "ajax_form"} do |f|
-    %h1{:style=>"margin-bottom:5px;"}  Person On List
-    %table#list_edit_grid
+
 
 .container{:style=>"width:96%"}
   -form_for @list_header,:url => list_header_path(@list_header), :html => {:class => 'ajax_form'} do |f|
@@ -41,7 +30,7 @@
         =f.label :status, "Active", :style =>"margin-top:8px;"
       .field_10{:style=>"float:left;"}
         =f.label :status, "&nbsp;"
-        =submit_tag "Submit",:id=>"create_list_submit"
+        =submit_tag "Update",:id=>"create_list_submit"
 
   .form_line
     .field_80

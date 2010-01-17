@@ -1,15 +1,15 @@
 .container.single_container
-  -form_for @query_header, :url => {:controller => "query_headers", :action => "update", :id => @query_header.id}, :html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
+  -form_for @query_header, :url => query_header_path(@query_header),:html => {:class => 'ajax_form', :id => "edit_query_header"} do |f|
     .form_line
       .field_25
         = f.label :name, 'Name'
-        = f.text_field :name, :disabled => true
+        = f.text_field :name, :disabled => true, :name => "query_header[name]"
       .field_30
         = f.label :description, 'Description'
-        = f.text_field :description, :disabled => @query_header.status == false
+        = f.text_field :description, :disabled => @query_header.status == false, :name => "query_header[description]"
       .field_2
         = f.label :status, 'Active'
-        = f.check_box :status
+        = f.check_box :status, :name => "query_header[status]"
       -#.field_10
       -#  = f.label :status, '&nbsp'
       -#  = f.label :status, 'Active', :style =>"margin-top:7px;"

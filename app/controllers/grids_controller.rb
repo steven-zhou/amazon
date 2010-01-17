@@ -366,7 +366,7 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @people = QueryResultGrid.find(:all,
+      @entity = QueryResultGrid.find(:all,
         :conditions => ["login_account_id = ?", session[:user]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
@@ -377,7 +377,7 @@ class GridsController < ApplicationController
 
     # User provided search terms
     if(query != "%%")
-      @people = QueryResultGrid.find(:all,
+      @entity = QueryResultGrid.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
@@ -391,7 +391,7 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
+    return_data[:rows] = @entity.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
           u.field_2,
