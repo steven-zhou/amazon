@@ -277,10 +277,10 @@ class ListHeadersController < ApplicationController
     delete_list = Array.new
     person_list = Array.new
     @list_header.list_details.each do |i|
-      if person_list.include?(i.listable_id)
+      if person_list.include?(i.entity_id)
         delete_list.push(i)
       else
-        person_list.push(i.listable_id)
+        person_list.push(i.entity_id)
       end
     end
 
@@ -309,10 +309,10 @@ class ListHeadersController < ApplicationController
     delete_list = Array.new
     organisation_list = Array.new
     @list_header.list_details.each do |i|
-      if organisation_list.include?(i.listable_id)
+      if organisation_list.include?(i.entity_id)
         delete_list.push(i)
       else
-        organisation_list.push(i.listable_id)
+        organisation_list.push(i.entity_id)
       end
     end
 
