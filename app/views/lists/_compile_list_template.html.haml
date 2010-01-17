@@ -1,4 +1,4 @@
--# :locals => {:title, :lists}
+-# :locals => {:title, :lists,:add_to_include,:add_to_exclude,:compile_button}
 #header
   #page_title
     %h1 #{title}
@@ -41,10 +41,10 @@
     #list_middle{:style => "width:20%;margin-right:2%;float:left;margin-top:150px;"}
       #merge_operation
         .form_line{:style => "margin-bottom:30px;"}
-          =link_to_function image_tag('add_include_list.png'), :id => "add_to_include"
+          =link_to_function image_tag('add_include_list.png'), :id => add_to_include
           %br.clear
         .form_line
-          =link_to_function image_tag('add_exclude_list.png'), :id => "add_to_exclude"
+          =link_to_function image_tag('add_exclude_list.png'), :id => add_to_exclude
           %br.clear
 
 
@@ -57,7 +57,7 @@
         #exclude_lists
     %br.clear
     = link_to_function "Clear", :class => "alt_option", :style => "float:right", :id => "clear_compile_list"
-    = button_to_function "Compile", :style => "float:right", :id => "compile_button",:disabled => true 
+    = button_to_function "Compile", :style => "float:right", :id => compile_button,:disabled => true
     %br.clear
 
 #compile_result_div{:style => "display:none;"}

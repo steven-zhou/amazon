@@ -109,7 +109,8 @@ class LoginAccount < ActiveRecord::Base
   end
 
   def all_organisation_list
-    
+
+    OrganisationListHeader.find(:all,:conditions=>["status = true"])
   end
 
 

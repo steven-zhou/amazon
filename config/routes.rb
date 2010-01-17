@@ -98,7 +98,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :list_details
   map.resources :include_lists
   map.resources :exclude_lists
-  map.resources :compile_lists, :collection => {:clear => :post, :compile => :post}
+  map.resources :compile_lists, :collection => {:clear => :post, :compile => :post,:org_compile =>:post}
 
   map.resources :group_lists, :collection => {:show_list_des => :get}
 

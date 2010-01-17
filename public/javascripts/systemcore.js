@@ -3584,7 +3584,7 @@ $(function(){
             $.ajax({
                 type: "POST",
                 url: "/include_lists",
-                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=person',
                 dataType: "script"
             });
 
@@ -3600,7 +3600,37 @@ $(function(){
             $.ajax({
                 type: "POST",
                 url: "/exclude_lists",
-                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=person',
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
+$(function(){
+    $("#org_add_to_include").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/include_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=org',
+                dataType: "script"
+            });
+
+        }
+    });
+});
+
+
+
+$(function(){
+    $("#org_add_to_exclude").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/exclude_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=org',
                 dataType: "script"
             });
         }
@@ -3639,6 +3669,26 @@ $(function(){
         $.ajax({
             type: "POST",
             url: "/compile_lists/compile.js",
+            data: temp,
+            dataType: "script"
+        });
+    });
+});
+
+$(function(){
+    $("#org_compile_button").live('click', function(){
+        var temp = "";
+        temp += "login_account_id=" + $("#login_account_id").val();
+        temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
+        if($("#top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#top_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#top_value").val();
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/compile_lists/org_compile.js",
             data: temp,
             dataType: "script"
         });

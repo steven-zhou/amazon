@@ -241,26 +241,26 @@ class ListHeadersController < ApplicationController
   end
 
   def org_manage_list
-    @lists = @current_user.all_person_lists
+    @lists = @current_user.all_organisation_lists
     respond_to do |format|
       format.html
     end
   end
 
-  def org_compile_list
-    @lists = @current_user.all_person_lists
-    @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
-    @compile_lists.each do |i|
-      i.destroy
-    end
-    respond_to do |format|
-      format.html
-    end
-  end
+#  def org_compile_list
+#    @lists = @current_user.all_organisation_lists
+#    @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
+#    @compile_lists.each do |i|
+#      i.destroy
+#    end
+#    respond_to do |format|
+#      format.html
+#    end
+#  end
 
     def org_compile_list
     current_user = LoginAccount.find(session[:user])
-    @list_headers = current_user.all_lists
+    @list_headers = current_user.all_organisation_list
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
       i.destroy
