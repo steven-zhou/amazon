@@ -1,6 +1,10 @@
 <%- if flash[:error].nil?%>
   <%- if @flag == true %>
-    window.open("/query_headers/new", "_self");
+    <%- if @query_header_class == "Person"%>
+      window.open("/query_headers/new", "_self");
+    <%- else%>
+      window.open("/query_headers/org_new", "_self");
+    <%- end%>
   <%- else %>
     $('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
     $('#flash_feedback').fadeIn("slow");
@@ -11,15 +15,15 @@
     $("#close_edit_query").css("display", "");
     $("#edit_query").css("display", "");
     $("#edit_header").html('<%= escape_javascript(render(:partial => "queries/edit_query_header")) %>');
-    $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form")) %>');
+    $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/new_query_criteria_form", :locals => {:exclude_category => @exclude_category})) %>');
     $('#edit_query_list').html('<%= escape_javascript(render(:partial => "queries/query_criteria_list")) %>');
-    $('#edit_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form")) %>');
+    $('#edit_selection_form').html('<%= escape_javascript(render(:partial => "queries/query_selection_form", :locals => {:exclude_category => @exclude_category})) %>');
     $('#edit_selection_list').html('<%= escape_javascript(render(:partial => "queries/query_selection_list")) %>');
-    $('#edit_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form")) %>');
+    $('#edit_sorter_form').html('<%= escape_javascript(render(:partial => "queries/query_sorter_form", :locals => {:exclude_category => @exclude_category})) %>');
     $('#edit_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
     $('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>');
     $('#current_action_global').val('edit');
-    $('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection => QueryHeader.saved_queries)) %>');
+    $('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection =>  @saved_queries)) %>');
     $('.get_query[query_id='+ '<%= escape_javascript("#{@query_header.id}") %>' +']').addClass('highlight');
     <%- if @query_header.status == false  %>
       $("#run_button_edit").attr("disabled", "disabled");
@@ -30,16 +34,16 @@
 <%- else %>
   $('#flash_message_text').html('<%= escape_javascript(flash[:error]) %>');
   $('#flash_message').dialog({
-    modal: false,
-    resizable: false,
-    draggable :true,
-    height: "auto",
-    width: "300px",
-    buttons: {
-      Ok: function() {
-            $(this).dialog('close');
-          }
-    }
+  modal: false,
+  resizable: false,
+  draggable :true,
+  height: "auto",
+  width: "300px",
+  buttons: {
+  Ok: function() {
+  $(this).dialog('close');
+  }
+  }
   });
   $('#flash_message').dialog('option', 'title', 'Error');
   $('#flash_message').parent().find("a").css("display","none");

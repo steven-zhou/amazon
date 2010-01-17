@@ -9,7 +9,7 @@ class QueryHeadersController < ApplicationController
     @query_header.status = true
     @query_header.save
     @query_criteria = QueryCriteria.new
-    @query_seleciton = QuerySelection.new
+    @query_selection = QuerySelection.new
     @query_sorter = QuerySorter.new
     respond_to do |format|
       format.html
@@ -19,6 +19,9 @@ class QueryHeadersController < ApplicationController
 
   def update
     @query_header = QueryHeader.find(params[:id].to_i)
+    @query_header_class = @query_header.class.to_s
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
+    
     if (!@query_header.query_criterias.empty?)
       if (@query_header.update_attributes(params[:query_header]))
 
@@ -38,7 +41,7 @@ class QueryHeadersController < ApplicationController
           flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "query")
         end
         @query_criteria = QueryCriteria.new
-        @query_seleciton = QuerySelection.new
+        @query_selection = QuerySelection.new
         @query_sorter = QuerySorter.new
       else
         flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.on(:name).nil? && @query_header.errors.on(:name).include?("can't be blank"))
@@ -51,7 +54,7 @@ class QueryHeadersController < ApplicationController
     if @flag == true
       flash[:message] = flash_message(:type => "object_created_successfully", :object => "query")
     end
-
+    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.js
     end
@@ -127,15 +130,17 @@ class QueryHeadersController < ApplicationController
   def run
 
     @query_header = QueryHeader.find(params[:id].to_i)
-    @people = @query_header.run
+    @entity = @query_header.run
+
+
     top = params[:top]
     if(top=="number")
       value = params[:top_number].to_i
     else
-      value = params[:top_percent].to_i*@people.size/100
+      value = params[:top_percent].to_i*@entity.size/100
     end
-    @people = (value>0) ? @people[0,value] : @people[0,1]
-    @query_header.result_size = @people.size
+    @entity = (value>0) ? @entity[0,value] : @entity[0,1]
+    @query_header.result_size = @entity.size
     @query_header.save
 
     #clear query result temp table, and save result to temp table
@@ -146,16 +151,19 @@ class QueryHeadersController < ApplicationController
     @query_result_columns = Array.new
     
     if @query_header.query_selections.empty?
-      @query_result_columns << "First Name"
-      @query_result_columns << "Family Name"
-      @people.each do |person|
-        @qrg = QueryResultGrid.new
-        @qrg.login_account_id = session[:user]
-        @qrg.grid_object_id = person.id
-        @qrg.field_1 = person.first_name
-        @qrg.field_2 = person.family_name
-        @qrg.save
-      end
+      #------------------------------follow is new code for sep person and org
+      @query_result_columns = @query_header.class.to_s == "PersonQueryHeader" ? person_columns_default_create(@entity) : organisation_columns_default_create(@entity)
+
+      #      @query_result_columns << "First Name"
+      #      @query_result_columns << "Family Name"
+      #      @people.each do |person|
+      #        @qrg = QueryResultGrid.new
+      #        @qrg.login_account_id = session[:user]
+      #        @qrg.grid_object_id = person.id
+      #        @qrg.field_1 = person.first_name
+      #        @qrg.field_2 = person.family_name
+      #        @qrg.save
+      #      end
     else
       @query_header.query_selections.each do |i|
         @query_result_columns << i.field_name
@@ -163,13 +171,13 @@ class QueryHeadersController < ApplicationController
     
  
       @query_result_columns = @query_result_columns[0, 10]
-      @people.each do |person|
+      @entity.each do |person|
         @qrg = QueryResultGrid.new
         @qrg.login_account_id = session[:user]
         @qrg.grid_object_id = person.id
         @query_header.query_selections.each do |i|
           if i.sequence<=10
-            if i.table_name == "people"
+            if ( ["people" , "organisations"].include?(i.table_name))
               if i.data_type == "Integer FK"
                 if(i.field_name == "country" || i.field_name == "origin_country" || i.field_name == "residence_country" )
                   @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).short_name) unless person.__send__(i.field_name.to_sym).nil?
@@ -205,6 +213,7 @@ class QueryHeadersController < ApplicationController
 
   def clear
     @query_header = QueryHeader.find(params[:id].to_i)
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
     @query_header.query_criterias.each do |c|
       c.destroy
     end
@@ -228,8 +237,9 @@ class QueryHeadersController < ApplicationController
   def edit
     @query_header = QueryHeader.find(params[:id].to_i)
     @query_criteria = QueryCriteria.new
-    @query_seleciton = QuerySelection.new
+    @query_selection = QuerySelection.new
     @query_sorter = QuerySorter.new
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
     respond_to do |format|
       format.js
     end
@@ -237,8 +247,11 @@ class QueryHeadersController < ApplicationController
 
   def destroy
     @query_header = QueryHeader.find(params[:id].to_i)
+    
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
     @query_header.destroy
+
+    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.js
     end
@@ -246,6 +259,7 @@ class QueryHeadersController < ApplicationController
 
   def copy
     @query_header = QueryHeader.find(params[:id].to_i)
+    @query_header_type = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new : OrganisationQueryHeader.new
     respond_to do |format|
       format.js
     end
@@ -253,7 +267,8 @@ class QueryHeadersController < ApplicationController
 
   def create
     @query_header_old = QueryHeader.find(params[:source_id].to_i)
-    @query_header = QueryHeader.new(params[:query_header])
+   
+    @query_header = @query_header_old.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new(params[:query_header]) : OrganisationQueryHeader.new(params[:query_header])
     @query_header.group = "save"
     @query_header.status = true
     if @query_header.save
@@ -281,6 +296,7 @@ class QueryHeadersController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@query_header.errors.nil? && @query_header.errors.on(:name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.nil? && @query_header.errors.on(:name).include?("has already been taken"))
     end
+    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.js
     end
@@ -307,7 +323,7 @@ class QueryHeadersController < ApplicationController
     @query_header.status = true
     @query_header.save
     @query_criteria = QueryCriteria.new
-    @query_seleciton = QuerySelection.new
+    @query_selection = QuerySelection.new
     @query_sorter = QuerySorter.new
 
     respond_to do |format|
@@ -316,10 +332,42 @@ class QueryHeadersController < ApplicationController
   end
 
   def org_index
-    @queries = QueryHeader.saved_queries
+    @queries = OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.html
     end
+  end
+
+  private
+
+  def person_columns_default_create(entity)
+    @query_result_columns = Array.new
+    @query_result_columns << "First Name"
+    @query_result_columns << "Family Name"
+    entity.each do |ent|
+      @qrg = QueryResultGrid.new
+      @qrg.login_account_id = session[:user]
+      @qrg.grid_object_id = ent.id
+      @qrg.field_1 = ent.first_name
+      @qrg.field_2 = ent.family_name
+      @qrg.save
+    end
+    return  @query_result_columns
+  end
+
+  def organisation_columns_default_create(entity)
+    @query_result_columns = Array.new
+    @query_result_columns << "Full Name"
+   
+    entity.each do |ent|
+      @qrg = QueryResultGrid.new
+      @qrg.login_account_id = session[:user]
+      @qrg.grid_object_id = ent.id
+      @qrg.field_1 = ent.full_name
+      @qrg.save
+    end
+    return  @query_result_columns
+
   end
 
 end

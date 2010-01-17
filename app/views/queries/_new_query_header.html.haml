@@ -1,12 +1,12 @@
 .container{:style => "background-image:none;"}
-  -form_for @query_header,:url => {:controller=> "query_headers"}, :html => {:class => 'ajax_form'} do |f|
+  -form_for @query_header,:url => query_header_path(@query_header), :html => {:class => 'ajax_form'} do |f|
     .form_line
       = f.label :name, "<span class='asterisk'>*</span>Name"
-      = f.text_field :name, :value => "", :class=>"mandantory_field", :mandantory_field1=>"query_header_name",:submit_button_id=>"submit_button"
+      = f.text_field :name, :value => "", :class=>"mandantory_field", :mandantory_field1=>"query_header_name",:submit_button_id=>"submit_button", :name => "query_header[name]"
     
     .form_line
       = f.label :description, 'Description'
-      = f.text_field :description
+      = f.text_field :description, :name => "query_header[description]"
       %input{:style => "display:none", :name =>"new"}
     
     = submit_tag "Save", :id=>"submit_button", :disabled=>"disabled"

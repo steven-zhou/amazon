@@ -1,7 +1,7 @@
 if ($("#current_action_global").val() == "new"){
-  $('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form")) %>');
+  $('#new_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form", :locals => {:exclude_category => @exclude_category})) %>');
 }else{
-  $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form")) %>');
+  $('#edit_query_form').html('<%= escape_javascript(render(:partial => "queries/edit_query_criteria_form", :locals => {:exclude_category => @exclude_category})) %>');
 }
 
 $(".show_fields[update_field='criteria']").change();

@@ -4,7 +4,8 @@ class QuerySortersController < ApplicationController
   def create
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     @query_sorter = @query_header.query_sorters.new(params[:query_sorter])
-    @query_sorter.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_sorter][:field_name], TableMetaMetaType.find_by_name(params[:query_sorter][:table_name])]).category
+    #@query_sorter.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_sorter][:field_name], TableMetaMetaType.find_by_name(params[:query_sorter][:table_name])]).category
+    @query_sorter.set_data_type(params[:query_sorter][:field_name],params[:query_sorter][:table_name] )
     @query_sorter.status = true
     if @query_sorter.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Query Sorter #{@query_sorter.id}.")
