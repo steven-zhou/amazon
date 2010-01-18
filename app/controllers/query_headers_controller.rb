@@ -16,6 +16,38 @@ class QueryHeadersController < ApplicationController
     end
   end
 
+  def index
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
+  def org_new
+    #-----------------------for org only use and for query_new_template with new_query_***-form ------------------------
+    @query_header = OrganisationQueryHeader.new
+    @query_header.name = QueryHeader.random_name
+    @query_header.group = "temp"
+    @query_header.status = true
+    @query_header.save
+    @query_criteria = QueryCriteria.new
+    @query_selection = QuerySelection.new
+    @query_sorter = QuerySorter.new
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def org_index
+    @queries = OrganisationQueryHeader.saved_queries
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
 
   def update
     @query_header = QueryHeader.find(params[:id].to_i)
@@ -204,6 +236,7 @@ class QueryHeadersController < ApplicationController
       end
     end
     @list_header = ListHeader.new
+   # @list_header =  @query_header.class.to_s == "PersonQueryHeader" ? PersonListHeader.new : OrganisationListHeader.new
     @check_query_empty=QueryResultGrid.find_all_by_login_account_id(session[:user])
 
     respond_to do |format|
@@ -211,62 +244,7 @@ class QueryHeadersController < ApplicationController
     end
   end
 
-  def clear
-    @query_header = QueryHeader.find(params[:id].to_i)
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    @query_header.query_criterias.each do |c|
-      c.destroy
-    end
-    @query_header.query_criterias.clear
-
-    @query_header.query_selections.each do |s|
-      s.destroy
-    end
-    @query_header.query_selections.clear
-
-    @query_header.query_sorters.each do |s|
-      s.destroy
-    end
-    @query_header.query_sorters.clear
-    @query_criteria = QueryCriteria.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def edit
-    @query_header = QueryHeader.find(params[:id].to_i)
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    @query_criteria = QueryCriteria.new
-    @query_selection = QuerySelection.new
-    @query_sorter = QuerySorter.new
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def destroy
-    @query_header = QueryHeader.find(params[:id].to_i)
-    
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
-    @query_header.destroy
-
-    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def copy
-    @query_header = QueryHeader.find(params[:id].to_i)
-    @query_header_type = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new : OrganisationQueryHeader.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def create
+   def create
     @query_header_old = QueryHeader.find(params[:source_id].to_i)
    
     @query_header = @query_header_old.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new(params[:query_header]) : OrganisationQueryHeader.new(params[:query_header])
@@ -303,6 +281,62 @@ class QueryHeadersController < ApplicationController
     end
   end
 
+  def clear
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
+    @query_header.query_criterias.each do |c|
+      c.destroy
+    end
+    @query_header.query_criterias.clear
+
+    @query_header.query_selections.each do |s|
+      s.destroy
+    end
+    @query_header.query_selections.clear
+
+    @query_header.query_sorters.each do |s|
+      s.destroy
+    end
+    @query_header.query_sorters.clear
+    @query_criteria = QueryCriteria.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_criteria = QueryCriteria.new
+    @query_selection = QuerySelection.new
+    @query_sorter = QuerySorter.new
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @query_header = QueryHeader.find(params[:id].to_i)
+    
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
+    @query_header.destroy
+
+    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def copy
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_header_type = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new : OrganisationQueryHeader.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+ 
+
   def query_header_to_xml
     @query_header = QueryHeader.find(params[:id])
     respond_to do |format|
@@ -311,34 +345,9 @@ class QueryHeadersController < ApplicationController
 
   end
 
-  def index
-    respond_to do |format|
-      format.html
-    end
-  end
+  
 
-  def org_new
-    @query_header = OrganisationQueryHeader.new
-    @query_header.name = QueryHeader.random_name
-    @query_header.group = "temp"
-    @query_header.status = true
-    @query_header.save
-    @query_criteria = QueryCriteria.new
-    @query_selection = QuerySelection.new
-    @query_sorter = QuerySorter.new
 
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def org_index
-    @queries = OrganisationQueryHeader.saved_queries
-
-    respond_to do |format|
-      format.html
-    end
-  end
 
   private
 

@@ -1,20 +1,12 @@
 class QueryCriteriasController < ApplicationController
   # System Logging added
 
-  def edit
-    @query_criteria = QueryCriteria.find(params[:id])
-    @query_header = @query_criteria.query_header
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    respond_to do |format|
-      format.js
-    end
-  end
-  
-
   def create
+    #------------------------when you click the "Apply the Criteria" , it will come to query_criterias/create action
+    #------------------------we do not need to point the orgnisationqueryheader or personqueryheader , cause use id in header table
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     @query_criteria = @query_header.query_criterias.new(params[:query_criteria])
-    #@query_criteria.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_criteria][:field_name], TableMetaMetaType.find_by_name(params[:query_criteria][:table_name])]).category
+    #-----------------------following set_Data_type in Model, for get the category (eg. integer string Date) set in data_type field of criteria table
     @query_criteria.set_data_type(params[:query_criteria][:field_name], params[:query_criteria][:table_name])
     @query_criteria.status = true
     if @query_criteria.save
@@ -30,6 +22,16 @@ class QueryCriteriasController < ApplicationController
     end
   end
 
+  def edit
+    @query_criteria = QueryCriteria.find(params[:id])
+    @query_header = @query_criteria.query_header
+    #---------passing the exclude_category value to the view--------------
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def update
     @query_criteria = QueryCriteria.find(params[:id].to_i)
     @query_criteria.update_attributes(params[:query_criteria])
@@ -50,8 +52,6 @@ class QueryCriteriasController < ApplicationController
     @query_criteria.destroy
     #get current all query criteria to decide if save_button and Run_Query button should be disabled
     @query_criteria_all = QueryCriteria.find(:all, :conditions => {:query_header_id => @query_header.id})
-#    @query_header = QueryHeader.find(@query_header.id)
-#    @query_criteria = QueryCriteria.new
     respond_to do |format|
       format.js
     end
