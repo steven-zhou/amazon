@@ -16,6 +16,38 @@ class QueryHeadersController < ApplicationController
     end
   end
 
+  def index
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
+  def org_new
+    #-----------------------for org only use and for query_new_template with new_query_***-form ------------------------
+    @query_header = OrganisationQueryHeader.new
+    @query_header.name = QueryHeader.random_name
+    @query_header.group = "temp"
+    @query_header.status = true
+    @query_header.save
+    @query_criteria = QueryCriteria.new
+    @query_selection = QuerySelection.new
+    @query_sorter = QuerySorter.new
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def org_index
+    @queries = OrganisationQueryHeader.saved_queries
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+
 
   def update
     @query_header = QueryHeader.find(params[:id].to_i)
@@ -54,7 +86,7 @@ class QueryHeadersController < ApplicationController
     if @flag == true
       flash[:message] = flash_message(:type => "object_created_successfully", :object => "query")
     end
-    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    @saved_queries = @query_header.person_query_header? ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.js
     end
@@ -137,9 +169,11 @@ class QueryHeadersController < ApplicationController
     if(top=="number")
       value = params[:top_number].to_i
     else
-      value = params[:top_percent].to_i*@entity.size/100
+      value = params[:top_percent].to_f*@entity.size/100
     end
-    @entity = (value>0) ? @entity[0,value] : @entity[0,1]
+    if value != 0
+      @entity = (value < 1) ? @entity[0,1] : @entity[0,value]
+    end
     @query_header.result_size = @entity.size
     @query_header.save
 
@@ -152,7 +186,7 @@ class QueryHeadersController < ApplicationController
     
     if @query_header.query_selections.empty?
       #------------------------------follow is new code for sep person and org
-      @query_result_columns = @query_header.class.to_s == "PersonQueryHeader" ? person_columns_default_create(@entity) : organisation_columns_default_create(@entity)
+      @query_result_columns = @query_header.person_query_header? ? person_columns_default_create(@entity) : organisation_columns_default_create(@entity)
 
       #      @query_result_columns << "First Name"
       #      @query_result_columns << "Family Name"
@@ -204,6 +238,7 @@ class QueryHeadersController < ApplicationController
       end
     end
     @list_header = ListHeader.new
+   # @list_header =  @query_header.class.to_s == "PersonQueryHeader" ? PersonListHeader.new : OrganisationListHeader.new
     @check_query_empty=QueryResultGrid.find_all_by_login_account_id(session[:user])
 
     respond_to do |format|
@@ -211,62 +246,7 @@ class QueryHeadersController < ApplicationController
     end
   end
 
-  def clear
-    @query_header = QueryHeader.find(params[:id].to_i)
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    @query_header.query_criterias.each do |c|
-      c.destroy
-    end
-    @query_header.query_criterias.clear
-
-    @query_header.query_selections.each do |s|
-      s.destroy
-    end
-    @query_header.query_selections.clear
-
-    @query_header.query_sorters.each do |s|
-      s.destroy
-    end
-    @query_header.query_sorters.clear
-    @query_criteria = QueryCriteria.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def edit
-    @query_header = QueryHeader.find(params[:id].to_i)
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    @query_criteria = QueryCriteria.new
-    @query_selection = QuerySelection.new
-    @query_sorter = QuerySorter.new
-    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def destroy
-    @query_header = QueryHeader.find(params[:id].to_i)
-    
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
-    @query_header.destroy
-
-    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def copy
-    @query_header = QueryHeader.find(params[:id].to_i)
-    @query_header_type = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new : OrganisationQueryHeader.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def create
+   def create
     @query_header_old = QueryHeader.find(params[:source_id].to_i)
    
     @query_header = @query_header_old.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new(params[:query_header]) : OrganisationQueryHeader.new(params[:query_header])
@@ -303,6 +283,62 @@ class QueryHeadersController < ApplicationController
     end
   end
 
+  def clear
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
+    @query_header.query_criterias.each do |c|
+      c.destroy
+    end
+    @query_header.query_criterias.clear
+
+    @query_header.query_selections.each do |s|
+      s.destroy
+    end
+    @query_header.query_selections.clear
+
+    @query_header.query_sorters.each do |s|
+      s.destroy
+    end
+    @query_header.query_sorters.clear
+    @query_criteria = QueryCriteria.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_criteria = QueryCriteria.new
+    @query_selection = QuerySelection.new
+    @query_sorter = QuerySorter.new
+    @exclude_category = @query_header.class.to_s == "PersonQueryHeader" ? "organisation" : "person"
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy
+    @query_header = QueryHeader.find(params[:id].to_i)
+    
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
+    @query_header.destroy
+
+    @saved_queries = @query_header.person_query_header? ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def copy
+    @query_header = QueryHeader.find(params[:id].to_i)
+    @query_header_type = @query_header.person_query_header? ? PersonQueryHeader.new : OrganisationQueryHeader.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
+ 
+
   def query_header_to_xml
     @query_header = QueryHeader.find(params[:id])
     respond_to do |format|
@@ -311,34 +347,9 @@ class QueryHeadersController < ApplicationController
 
   end
 
-  def index
-    respond_to do |format|
-      format.html
-    end
-  end
+  
 
-  def org_new
-    @query_header = OrganisationQueryHeader.new
-    @query_header.name = QueryHeader.random_name
-    @query_header.group = "temp"
-    @query_header.status = true
-    @query_header.save
-    @query_criteria = QueryCriteria.new
-    @query_selection = QuerySelection.new
-    @query_sorter = QuerySorter.new
 
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def org_index
-    @queries = OrganisationQueryHeader.saved_queries
-
-    respond_to do |format|
-      format.html
-    end
-  end
 
   private
 
@@ -360,12 +371,14 @@ class QueryHeadersController < ApplicationController
   def organisation_columns_default_create(entity)
     @query_result_columns = Array.new
     @query_result_columns << "Full Name"
+    @query_result_columns << "Trading As"
    
     entity.each do |ent|
       @qrg = QueryResultGrid.new
       @qrg.login_account_id = session[:user]
       @qrg.grid_object_id = ent.id
       @qrg.field_1 = ent.full_name
+      @qrg.field_2 = ent.trading_as
       @qrg.save
     end
     return  @query_result_columns

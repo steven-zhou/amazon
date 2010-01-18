@@ -2,9 +2,11 @@ class QuerySortersController < ApplicationController
   # System Logging done
 
   def create
+    #------------------------when you click the "Add attribute" , it will come to query_sorterss/create action
+    #------------------------we do not need to point the orgnisationqueryheader or personqueryheader , cause use id in header table
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     @query_sorter = @query_header.query_sorters.new(params[:query_sorter])
-    #@query_sorter.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:query_sorter][:field_name], TableMetaMetaType.find_by_name(params[:query_sorter][:table_name])]).category
+    #-----------------------following set_Data_type in Model, for get the category (eg. integer string Date) set in data_type field of criteria table
     @query_sorter.set_data_type(params[:query_sorter][:field_name],params[:query_sorter][:table_name] )
     @query_sorter.status = true
     if @query_sorter.save
