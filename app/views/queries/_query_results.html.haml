@@ -30,7 +30,7 @@
   .form_line
     .field_30
       %label File Name
-      %input{:id => "file_name"}
+      %input{:id => @query_header.person_query_header? ? "file_name" : "org_file_name"}
     .field_20
       %label Format
       %input{:type => "button", :value => "PDF", :class => "export_button", :source => @query_header.person_query_header? ? "person" : "organisation"}
