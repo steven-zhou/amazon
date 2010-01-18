@@ -12,7 +12,7 @@ class DataManagersController < ApplicationController
 
   def export_index
     @queries = PersonQueryHeader.saved_queries
-    @lists = ListHeader.all
+    @lists = PersonListHeader.find(:all)
     respond_to do |format|
       format.html
     end
@@ -35,24 +35,13 @@ class DataManagersController < ApplicationController
 
     respond_to do |format|
       format.html { render_html }
-
-
-      format.xml {
-        if @entity_type == "person"
-          send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
-        else
-          send_data((render 'data_managers/org_export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
-        end
-
-
-      }
-      format.csv {send_data((render 'data_managers/export.html'), :filename => "#{@file_name}.csv", :type => "text/csv")}
+      format.xml { render_xml}
+      format.csv {send_data( (render_html ), :filename => "#{@file_name}.csv", :type => "text/csv")}
       format.pdf {pdf = PDF::Writer.new
-        pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+        pdf = generate_pdf
         send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
     end
   end
-
 
   def page_initial
     @render_page = params[:render_page]
@@ -64,8 +53,16 @@ class DataManagersController < ApplicationController
     end
   end
 
-
   private
+
+  def render_xml
+    if @entity_type == "person"
+      send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
+    else
+      send_data((render 'data_managers/org_export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
+    end
+  end
+
   def render_html
     if @entity_type == "person"
       render 'data_managers/export.html'
