@@ -11,8 +11,11 @@ class ListHeadersController < ApplicationController
     if(params[:compile]) #Compile List
       @lcg = ListCompileGrid.find_all_by_login_account_id(session[:user])
       if(@lcg.size > 0)
-
+         if params[:list_type]=="org"
+            @list_header = OrganisationListHeader.new(params[:list_header])
+          else
         @list_header = ListHeader.new(params[:list_header])
+         end
         @list_header.last_date_generated = Date.today()
         @list_header.list_size = 0
         @list_header.source_type = "C" #generate from list compile
@@ -34,7 +37,7 @@ class ListHeadersController < ApplicationController
           if @list_header.save
             system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new List Header with ID #{@list_header.id}.")
             @lcg.each do |i|
-              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
+              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :entity_id => i.grid_object_id)
               @list_detail.save
             end
             #assign new saved list to group or user
@@ -55,6 +58,7 @@ class ListHeadersController < ApplicationController
     else
 
       if(params[:copy_source_id]) #copy
+
         @list_header_old = ListHeader.find(params[:copy_source_id].to_i)
         @list_header = @list_header_old.class.new(params[:list_header])
         @list_header.allow_duplication = @list_header_old.allow_duplication
@@ -67,7 +71,7 @@ class ListHeadersController < ApplicationController
         if @list_header.save
           ListHeader.transaction do
             @list_header_old.list_details.each do |i|
-              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.person_id)
+              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :entity_id => i.person_id)
               @list_detail.save
             end
           end
@@ -81,10 +85,14 @@ class ListHeadersController < ApplicationController
 
 
       else #create
+ 
         @qrg = QueryResultGrid.find_all_by_login_account_id(session[:user])
         if(@qrg.size > 0)
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
-          @list_header = ListHeader.new(params[:list_header])
+
+         
+            @list_header = ListHeader.new(params[:list_header])
+          
           @list_header.last_date_generated = Date.today()
           @list_header.list_size = 0
           @list_header.source_type = "Q" #generate from query
@@ -98,7 +106,7 @@ class ListHeadersController < ApplicationController
               @user_list.list_header_id = @list_header.id
               @user_list.save
               @qrg.each do |i|
-                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
+                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :entity_id => i.grid_object_id)
                 @list_detail.save
               end
               #assign new saved list to group or user

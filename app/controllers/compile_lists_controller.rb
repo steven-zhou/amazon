@@ -34,7 +34,7 @@ class CompileListsController < ApplicationController
         @list_header = ListHeader.find(i.list_header_id)
         @list_details = @list_header.list_details
         @list_details.each do |list_detail|
-          include_ids << list_detail.person_id
+          include_ids << list_detail.entity_id
         end
       end
 
@@ -42,7 +42,7 @@ class CompileListsController < ApplicationController
         @list_header = ListHeader.find(i.list_header_id)
         @list_details = @list_header.list_details
         @list_details.each do |list_detail|
-          exclude_ids << list_detail.person_id
+          exclude_ids << list_detail.entity_id
         end
       end
 
@@ -104,13 +104,13 @@ class CompileListsController < ApplicationController
 
     unless @include_lists.empty?
 
-      @exclude_lists = OrganisationExcludeList.find_all_by_login_account_id(params[:login_account_id])
+      @exclude_lists = ExcludeList.find_all_by_login_account_id(params[:login_account_id])
       include_ids = Array.new
       exclude_ids = Array.new
       entity_ids = Array.new
 
       @include_lists.each do |i|
-        @list_header = OrganisationListHeader.find(i.list_header_id)
+        @list_header = ListHeader.find(i.list_header_id)
         @list_details = @list_header.list_details
         @list_details.each do |list_detail|
           include_ids << list_detail.entity_id
@@ -152,12 +152,12 @@ class CompileListsController < ApplicationController
         @lcg = ListCompileGrid.new
         @lcg.login_account_id = session[:user]
         @lcg.grid_object_id = entity.id
-        @lcg.field_1 = organisation.full_name
-        @lcg.field_2 = organisation.trading_as
+        @lcg.field_1 = entity.full_name
+        @lcg.field_2 = entity.trading_as
         @lcg.save
       end
       @check_list_empty=ListCompileGrid.find_all_by_login_account_id(session[:user]) #to see the list is empty or not, in order to diable the submit button
-      @list_header = OrganisationListHeader.new
+      @list_header = ListHeader.new
 
     else#Include list is empty
       @entities = Array.new
