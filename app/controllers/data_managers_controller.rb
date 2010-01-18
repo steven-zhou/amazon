@@ -12,7 +12,7 @@ class DataManagersController < ApplicationController
 
   def export_index
     @queries = PersonQueryHeader.saved_queries
-    @lists = ListHeader.all
+    @lists = PersonListHeader.all
     respond_to do |format|
       format.html
     end
