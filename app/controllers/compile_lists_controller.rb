@@ -14,7 +14,7 @@ class CompileListsController < ApplicationController
 
   def compile
     
-    @include_lists = IncludeList.find_all_by_login_account_id(params[:login_account_id])
+    @include_lists = PersonIncludeList.find_all_by_login_account_id(params[:login_account_id])
     @allow_duplication = params[:allow_duplication]
     top = params[:top]
     if(top == "number")

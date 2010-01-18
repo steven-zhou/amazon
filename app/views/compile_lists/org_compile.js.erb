@@ -23,7 +23,7 @@ $('#flash_message').dialog('option', 'title', 'Error');
 $('#flash_message').dialog('open');
 <%- else %>
 
-$('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results_template", :locals => {:people => @entity,:top_partial=>"org_compile_list_template_title",:list_type=>"org"})) %>');
+$('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results_template", :locals => {:top_partial=>"org_compile_list_template_title",:list_type=>"person"})) %>');
 $('#compile_result_div').dialog({
   modal: true,
   position: 'center',

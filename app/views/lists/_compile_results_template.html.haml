@@ -1,4 +1,4 @@
--# :locals => {:top_partial,:type}
+-# :locals => {:top_partial,:list_type}
 .container
   = render :partial => "lists/#{top_partial}"
 
@@ -9,7 +9,7 @@
     %h3 Create List
     .form_line
       .field_25
-        %input{:style => "display:none;", :name => "list_type", :value => "org"}
+        %input{:style => "display:none;", :name => "list_type", :value => list_type}
         =f.label :name, "<span class='asterisk'>*</span>List Name"
         =f.text_field :name,:class=>'mandantory_field', :mandantory_field1=>"list_header_name",:submit_button_id=>"compile_create_list_submit"
       .field_25
