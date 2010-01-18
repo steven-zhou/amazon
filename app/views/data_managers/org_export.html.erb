@@ -2,11 +2,13 @@
     if @query_header.query_selections.empty? -%>
             <%= "ID,Full Name,Trading As, Address, Email, Phone, Website" %>
         <%  @entities.each do |entity| -%>
-            <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address
-                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number
-                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address
-                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value%>
-            <%=  "#{entity.id},#{entity.full_name.gsub(/,/, '')},#{entity.trading_as.gsub(/,/, '')},#{address.gsub(/,/, '')},#{primary_e.gsub(/,/, '')},#{primary_p.gsub(/,/, '')},#{primary_w.gsub(/,/, '')}" %>
+            <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address.gsub(/,/, '')
+                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number.gsub(/,/, '')
+                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address.gsub(/,/, '')
+                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value.gsub(/,/, '')
+                full_name = entity.full_name.nil? ? "" : entity.full_name.gsub(/,/, '')
+                trading_as = entity.trading_as.nil? ? "" : entity.trading_as.gsub(/,/, '')%>
+            <%=  "#{entity.id},#{full_name},#{trading_as},#{address},#{primary_e},#{primary_p},#{primary_w}" %>
         <%end
     else
             title = Array.new
@@ -41,10 +43,12 @@
 else-%>
   <%= "ID,Full Name,Trading As, Address, Email, Phone, Website" %>
   <% @entities.each do |entity| -%>
-    <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address
-                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number
-                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address
-                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value%>
-    <%=  "#{entity.id},#{entity.full_name.gsub(/,/, '')},#{entity.trading_as.gsub(/,/, '')},#{address.gsub(/,/, '')},#{primary_e.gsub(/,/, '')},#{primary_p.gsub(/,/, '')},#{primary_w.gsub(/,/, '')}" %>
+    <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address.gsub(/,/, '')
+                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number.gsub(/,/, '')
+                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address.gsub(/,/, '')
+                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value.gsub(/,/, '')
+                full_name = entity.full_name.nil? ? "" : entity.full_name.gsub(/,/, '')
+                trading_as = entity.trading_as.nil? ? "" : entity.trading_as.gsub(/,/, '')%>
+    <%=  "#{entity.id},#{full_name},#{trading_as},#{address},#{primary_e},#{primary_p},#{primary_w}" %>
   <%end -%>
 <%end-%>

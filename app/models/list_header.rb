@@ -19,14 +19,6 @@ class ListHeader < ActiveRecord::Base
     "#{self.name} - #{self.description} : #{self.list_size} records"
   end
 
-  def self.sortall
-    ListHeader.find(:all, :conditions => ["type is null"], :order => "name")
-  end
-
-  def self.all
-    ListHeader.find(:all, :order => "name")
-  end
-
   def person_list?
     self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList"
   end
