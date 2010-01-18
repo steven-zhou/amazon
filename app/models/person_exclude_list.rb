@@ -1,0 +1,2 @@
+class PersonExcludeList < CompileList
+end
