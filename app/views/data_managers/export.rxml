@@ -1,7 +1,7 @@
 if @source_type == "query"
   xml.instruct!
   xml.report do
-    for person in @people do
+    for person in @entities do
       xml.person do
         xml.system_id(person.id)
         xml.name(person.name)
@@ -72,7 +72,7 @@ if @source_type == "query"
 else
   xml.instruct!
   xml.report do
-    for person in @people do
+    for person in @entities do
       xml.person do
         xml.id(person.id)
         xml.name(person.name)

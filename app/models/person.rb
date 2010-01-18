@@ -353,7 +353,7 @@ class Person < ActiveRecord::Base
   end
 
   def update_primary_list
-    @list_detail = ListDetail.new(:list_header_id => PrimaryList.first.id, :person_id => self.id)
+    @list_detail = ListDetail.new(:list_header_id => PrimaryList.first.id, :entity_id => self.id)
     @list_detail.save
   end
 
