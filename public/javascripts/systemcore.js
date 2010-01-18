@@ -3715,12 +3715,17 @@ $(function(){
 $(function(){
     $('.export_button').live('click',function(){
 
+        var source_id = ""
+        var source = $(this).attr("source");
+        if (source == 'person'){
+            source_id = $('#source_id').val();
+        }else{
+            source_id = $('#org_source_id').val();
+        }
 
-        if ($('#source_id').val()!="")
+        if (source_id != "")
         {
-            var format = $(this).attr("value").toLowerCase();
-            var source = $(this).attr("source");
-            var source_id = $("#source_id").val();
+            var format = $(this).attr("value").toLowerCase();            
             var file_name = $("#file_name").val();
             window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
         }
