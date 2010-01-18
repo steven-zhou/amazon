@@ -22,6 +22,26 @@ class GroupType < Tag
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def group_person_lists
+    person_lists = Array.new
+    self.list_headers.each do |i|
+      if i.class.to_s == "PersonListHeader" || i.class.to_s == "PrimaryList"
+        person_lists << i
+      end
+    end
+    person_lists
+  end
+
+  def group_organisation_lists
+    organisation_lists = Array.new
+    self.list_headers.each do |i|
+      if i.class.to_s == "OrganisationListHeader"
+        organisation_lists << i
+      end
+    end
+    organisation_lists
+  end
+
   private
 
   def assign_priority

@@ -1,3 +1,3 @@
-class TempList < ListHeader
+class TempList < PersonListHeader
 
 end
