@@ -33,6 +33,6 @@
       %input{:id => "file_name"}
     .field_20
       %label Format
-      %input{:type => "button", :value => "PDF", :class => "export_button", :source => "person"}
-      %input{:type => "button", :value => "XML", :class => "export_button", :source => "person"}
-      %input{:type => "button", :value => "CSV", :class => "export_button", :source => "person"}
+      %input{:type => "button", :value => "PDF", :class => "export_button", :source => @query_header.person_query_header? ? "person" : "organisation"}
+      %input{:type => "button", :value => "XML", :class => "export_button", :source => @query_header.person_query_header? ? "person" : "organisation"}
+      %input{:type => "button", :value => "CSV", :class => "export_button", :source => @query_header.person_query_header? ? "person" : "organisation"}
