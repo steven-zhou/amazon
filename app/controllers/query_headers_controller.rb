@@ -169,9 +169,11 @@ class QueryHeadersController < ApplicationController
     if(top=="number")
       value = params[:top_number].to_i
     else
-      value = params[:top_percent].to_i*@entity.size/100
+      value = params[:top_percent].to_f*@entity.size/100
     end
-    @entity = (value>0) ? @entity[0,value] : @entity[0,1]
+    if value != 0
+      @entity = (value < 1) ? @entity[0,1] : @entity[0,value]
+    end
     @query_header.result_size = @entity.size
     @query_header.save
 
@@ -369,12 +371,14 @@ class QueryHeadersController < ApplicationController
   def organisation_columns_default_create(entity)
     @query_result_columns = Array.new
     @query_result_columns << "Full Name"
+    @query_result_columns << "Trading As"
    
     entity.each do |ent|
       @qrg = QueryResultGrid.new
       @qrg.login_account_id = session[:user]
       @qrg.grid_object_id = ent.id
       @qrg.field_1 = ent.full_name
+      @qrg.field_2 = ent.trading_as
       @qrg.save
     end
     return  @query_result_columns
