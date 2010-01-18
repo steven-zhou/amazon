@@ -11,7 +11,7 @@ class DataManagersController < ApplicationController
   end
 
   def export_index
-    @queries = QueryHeader.saved_queries
+    @queries = PersonQueryHeader.saved_queries
     @lists = ListHeader.all
     respond_to do |format|
       format.html
@@ -34,13 +34,8 @@ class DataManagersController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a report.")
 
     respond_to do |format|
-      format.html {
-        if @entity_type == "person"
-          render 'data_managers/export.html'
-        else
-          render 'data_managers/org_export.html'
-        end
-      }
+      format.html { render_html }
+
 
       format.xml {
         if @entity_type == "person"
@@ -57,10 +52,20 @@ class DataManagersController < ApplicationController
           send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
       end
 
+
     end
 
     private
 
+
+
+  def render_html
+    if @entity_type == "person"
+      render 'data_managers/export.html'
+    else
+      render 'data_managers/org_export.html'
+    end
+  end
 
   def generate_pdf
     if @entity_type == "person"
@@ -69,6 +74,7 @@ class DataManagersController < ApplicationController
       OutputPdf.generate_org_pdf(@source_type, @source_id, {}, {})
     end
   end
+
 
   def find_people_to_export
     if(params[:source_id].include?("query_"))

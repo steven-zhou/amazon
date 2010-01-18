@@ -1,12 +1,12 @@
 <%if @source_type == "query"
     if @query_header.query_selections.empty? -%>
-            <%= "ID,First Name,Family Name, Address, Email, Phone, Website" %>
-        <%  @people.each do |person| -%>
-            <%- primary_e = person.primary_email.nil? ? "" : person.primary_email.address
-                primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
-                primary_w = person.primary_website.nil? ? "" : person.primary_website.address
-                address = person.primary_address.nil? ? "" : person.primary_address.formatted_value%>
-            <%=  "#{person.id},#{person.first_name.gsub(/,/, '')},#{person.family_name.gsub(/,/, '')},#{address.gsub(/,/, '')},#{primary_e.gsub(/,/, '')},#{primary_p.gsub(/,/, '')},#{primary_w.gsub(/,/, '')}" %>
+            <%= "ID,Full Name,Trading As, Address, Email, Phone, Website" %>
+        <%  @entities.each do |entity| -%>
+            <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address
+                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number
+                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address
+                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value%>
+            <%=  "#{entity.id},#{entity.full_name.gsub(/,/, '')},#{entity.trading_as.gsub(/,/, '')},#{address.gsub(/,/, '')},#{primary_e.gsub(/,/, '')},#{primary_p.gsub(/,/, '')},#{primary_w.gsub(/,/, '')}" %>
         <%end
     else
             title = Array.new
@@ -14,24 +14,24 @@
               title << i.field_name.humanize
             end -%>
                 <%= title.join(",") %>
-            <%@people.each do |person|
+            <%@entities.each do |entity|
             data_value = Array.new
             @query_header.query_selections.each do |i|
-                if i.table_name == "people"
+                if i.table_name == "organisation"
                   if i.data_type == "Integer FK"
-                    data_value << (person.__send__(i.field_name.to_sym).nil? ? "" : "#{person.__send__(i.field_name.to_sym).name}")
+                    data_value << (entity.__send__(i.field_name.to_sym).nil? ? "" : "#{entity.__send__(i.field_name.to_sym).name}")
                   else
-                    data_value << "#{person.__send__(i.field_name.to_sym)}"
+                    data_value << "#{entity.__send__(i.field_name.to_sym)}"
                   end
                 else
                   if i.data_type == "Integer FK"
-                    if(i.field_name == "country")
-                      data_value << ((!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : "")
+                    if(i.field_name == "registered_country")
+                      data_value << ((!entity.__send__(i.table_name.underscore.to_sym).empty? && !entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : "")
                     else
-                      data_value << ((!person.__send__(i.table_name.underscore.to_sym).empty? && !person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : "")
+                      data_value << ((!entity.__send__(i.table_name.underscore.to_sym).empty? && !entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : "")
                     end
                   else
-                    data_value << ((person.__send__(i.table_name.underscore.to_sym).empty?) ? "" : "#{person.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}")
+                    data_value << ((entity.__send__(i.table_name.underscore.to_sym).empty?) ? "" : "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}")
                   end
                 end
             end-%>
@@ -39,12 +39,12 @@
         <%end
     end
 else-%>
-  <%= "ID, First Name, Family Name, Address, Email, Phone, Website"%>
-  <% @people.each do |person| -%>
-    <%- primary_e = person.primary_email.nil? ? "" : person.primary_email.address
-                primary_p = person.primary_phone.nil? ? "" : person.primary_phone.complete_number
-                primary_w = person.primary_website.nil? ? "" : person.primary_website.address
-                address = person.primary_address.nil? ? "" : person.primary_address.formatted_value%>
-    <%=  "#{person.id},#{person.first_name.gsub(/,/, '')},#{person.family_name.gsub(/,/, '')},#{address.gsub(/,/, '')},#{primary_e.gsub(/,/, '')},#{primary_p.gsub(/,/, '')},#{primary_w.gsub(/,/, '')}" %>
+  <%= "ID,Full Name,Trading As, Address, Email, Phone, Website" %>
+  <% @entities.each do |entity| -%>
+    <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address
+                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number
+                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address
+                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value%>
+    <%=  "#{entity.id},#{entity.full_name.gsub(/,/, '')},#{entity.trading_as.gsub(/,/, '')},#{address.gsub(/,/, '')},#{primary_e.gsub(/,/, '')},#{primary_p.gsub(/,/, '')},#{primary_w.gsub(/,/, '')}" %>
   <%end -%>
 <%end-%>
