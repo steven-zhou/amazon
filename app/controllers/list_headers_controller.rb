@@ -11,11 +11,11 @@ class ListHeadersController < ApplicationController
     if(params[:compile]) #Compile List
       @lcg = ListCompileGrid.find_all_by_login_account_id(session[:user])
       if(@lcg.size > 0)
-         if params[:list_type]=="org"
-            @list_header = OrganisationListHeader.new(params[:list_header])
-          else
-        @list_header = ListHeader.new(params[:list_header])
-         end
+        if params[:list_type]=="org"
+          @list_header = OrganisationListHeader.new(params[:list_header])
+        else
+          @list_header = ListHeader.new(params[:list_header])
+        end
         @list_header.last_date_generated = Date.today()
         @list_header.list_size = 0
         @list_header.source_type = "C" #generate from list compile
@@ -93,7 +93,7 @@ class ListHeadersController < ApplicationController
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
 
          
-            @list_header = ListHeader.new(params[:list_header])
+          @list_header = ListHeader.new(params[:list_header])
           
           @list_header.last_date_generated = Date.today()
           @list_header.list_size = 0

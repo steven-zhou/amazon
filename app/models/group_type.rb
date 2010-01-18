@@ -25,7 +25,7 @@ class GroupType < Tag
   def group_person_lists
     person_lists = Array.new
     self.list_headers.each do |i|
-      if i.class.to_s == "PersonListHeader" || i.class.to_s == "PrimaryList"
+      if i.person_list?
         person_lists << i
       end
     end
@@ -35,7 +35,7 @@ class GroupType < Tag
   def group_organisation_lists
     organisation_lists = Array.new
     self.list_headers.each do |i|
-      if i.class.to_s == "OrganisationListHeader"
+      unless i.person_list?
         organisation_lists << i
       end
     end
