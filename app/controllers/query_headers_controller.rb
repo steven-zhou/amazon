@@ -86,7 +86,7 @@ class QueryHeadersController < ApplicationController
     if @flag == true
       flash[:message] = flash_message(:type => "object_created_successfully", :object => "query")
     end
-    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    @saved_queries = @query_header.person_query_header? ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.js
     end
@@ -184,7 +184,7 @@ class QueryHeadersController < ApplicationController
     
     if @query_header.query_selections.empty?
       #------------------------------follow is new code for sep person and org
-      @query_result_columns = @query_header.class.to_s == "PersonQueryHeader" ? person_columns_default_create(@entity) : organisation_columns_default_create(@entity)
+      @query_result_columns = @query_header.person_query_header? ? person_columns_default_create(@entity) : organisation_columns_default_create(@entity)
 
       #      @query_result_columns << "First Name"
       #      @query_result_columns << "Family Name"
@@ -321,7 +321,7 @@ class QueryHeadersController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
     @query_header.destroy
 
-    @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    @saved_queries = @query_header.person_query_header? ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
     respond_to do |format|
       format.js
     end
@@ -329,7 +329,7 @@ class QueryHeadersController < ApplicationController
 
   def copy
     @query_header = QueryHeader.find(params[:id].to_i)
-    @query_header_type = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new : OrganisationQueryHeader.new
+    @query_header_type = @query_header.person_query_header? ? PersonQueryHeader.new : OrganisationQueryHeader.new
     respond_to do |format|
       format.js
     end
@@ -369,12 +369,14 @@ class QueryHeadersController < ApplicationController
   def organisation_columns_default_create(entity)
     @query_result_columns = Array.new
     @query_result_columns << "Full Name"
+    @query_result_columns << "Trading As"
    
     entity.each do |ent|
       @qrg = QueryResultGrid.new
       @qrg.login_account_id = session[:user]
       @qrg.grid_object_id = ent.id
       @qrg.field_1 = ent.full_name
+      @qrg.field_2 = ent.trading_as
       @qrg.save
     end
     return  @query_result_columns

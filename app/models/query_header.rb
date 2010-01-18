@@ -187,9 +187,6 @@ class QueryHeader < ActiveRecord::Base
     condition_clauses
   end
 
-
-
-
   def sql_statements
     result = "<p>SELECT #{self.selection_fields} </p>"
     result += "<p>FROM #{self.from_tables} </p"
@@ -198,6 +195,9 @@ class QueryHeader < ActiveRecord::Base
     result
   end
 
+  def person_query_header?
+    self.class.to_s == "PersonQueryHeader"
+  end
  
 end
 
