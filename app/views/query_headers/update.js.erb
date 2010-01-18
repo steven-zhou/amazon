@@ -1,6 +1,6 @@
 <%- if flash[:error].nil?%>
   <%- if @flag == true %>
-    <%- if @query_header_class == "Person"%>
+    <%- if @query_header_class == "PersonQueryHeader"%>
       window.open("/query_headers/new", "_self");
     <%- else%>
       window.open("/query_headers/org_new", "_self");
