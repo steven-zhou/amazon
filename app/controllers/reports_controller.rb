@@ -104,7 +104,7 @@ class ReportsController < ApplicationController
       @list_header_id = params[:list_header_id].delete("list_")
       @type= "list"
       @list_name = "List "+ListHeader.find(@list_header_id).name
-      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+      @person_report_list = ListHeader.find(@list_header_id).entity_on_list
     end
 
     if(params[:list_header_id].include?("query_"))  
@@ -112,7 +112,7 @@ class ReportsController < ApplicationController
       @list_header_id = params[:list_header_id].delete("query_")
       @type= "query"
       @list_name = "Query "+ListHeader.find(@list_header_id).name
-      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+      @person_report_list = ListHeader.find(@list_header_id).entity_on_list
     end
     
     if OutputPdf.personal_report_format_valid(@person_report_format) && !@person_report_list.nil?
@@ -259,7 +259,7 @@ class ReportsController < ApplicationController
 #
 #  def generate_body(pdf, report_format, report_list)
 #
-#    if report_list.people_on_list.empty?
+#    if report_list.entity_on_list.empty?
 #      pdf.text "No matching records found.", :font_size => 32, :justification => :center
 #      return
 #    end
@@ -303,7 +303,7 @@ class ReportsController < ApplicationController
 #
 #        data = Array.new
 #
-#        for person in report_list.people_on_list do
+#        for person in report_list.entity_on_list do
 #
 #          email = format_fields(person.primary_email, person.secondary_email)
 #          phone = format_fields(person.primary_phone, person.secondary_phone)

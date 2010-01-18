@@ -75,7 +75,7 @@ class CommunicationController < ApplicationController
     flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list header id #{list_header.id}.")
 
-    for person in list_header.people_on_list do
+    for person in list_header.entity_on_list do
 
       message = message_template.body
       message = message.gsub(/#first_name#/, "#{person.first_name}")

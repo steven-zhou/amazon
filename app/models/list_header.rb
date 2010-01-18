@@ -20,7 +20,7 @@ class ListHeader < ActiveRecord::Base
   end
 
   def person_list?
-    self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList"
+    self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList" || self.class.to_s == "TempList"
   end
 
   protected

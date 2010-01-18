@@ -264,7 +264,7 @@ module OutputPdf
       @people = QueryHeader.find(source_id.to_i).run
     else
       #list
-      @people = ListHeader.find(source_id.to_i).people_on_list
+      @people = ListHeader.find(source_id.to_i).entity_on_list
     end
 
     if @people.empty?
@@ -566,7 +566,7 @@ module OutputPdf
       @people = QueryHeader.find(source_id.to_i).run
     else
       #list
-      @people = ListHeader.find(source_id.to_i).people_on_list
+      @people = ListHeader.find(source_id.to_i).entity_on_list
     end
     if @people.empty?
       pdf.text "No matching records found.", :font_size => body_settings[:font_size], :justification => body_settings[:text_align]
