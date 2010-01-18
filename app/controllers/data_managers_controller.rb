@@ -56,23 +56,33 @@ class DataManagersController < ApplicationController
           pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
           send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
       end
+
     end
 
     private
 
-    def find_people_to_export
-      if(params[:source_id].include?("query_"))
-        @source_id = params[:source_id].delete("query_")
-        @source_type = "query"
-        @query_header = QueryHeader.find(@source_id)
-        @entities = @query_header.run
-      else
-        @source_id = params[:source_id].delete("list_")
-        @source_type = "list"
-        @entities = ListHeader.find(@source_id).entity_on_list
-      end
-    end
 
+  def generate_pdf
+    if @entity_type == "person"
+      OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+    else
+      OutputPdf.generate_org_pdf(@source_type, @source_id, {}, {})
+    end
+  end
+
+  def find_people_to_export
+    if(params[:source_id].include?("query_"))
+      @source_id = params[:source_id].delete("query_")
+      @source_type = "query"
+      @query_header = QueryHeader.find(@source_id)
+      @entities = @query_header.run
+    else
+      @source_id = params[:source_id].delete("list_")
+      @source_type = "list"
+      @entities = ListHeader.find(@source_id).entity_on_list
+
+    end
+  end
     def find_organsiations_to_export
       if(params[:source_id].include?("query_"))
         @source_id = params[:source_id].delete("query_")
