@@ -43,8 +43,16 @@ class DataManagersController < ApplicationController
         pdf = generate_pdf
         send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
     end
+  end
 
-
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @queries = PersonQueryHeader.saved_queries
+    @lists = ListHeader.all
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
