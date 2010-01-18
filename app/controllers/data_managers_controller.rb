@@ -45,12 +45,20 @@ class DataManagersController < ApplicationController
       format.xml {send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")}
       format.csv {send_data((render 'data_managers/export.html'), :filename => "#{@file_name}.csv", :type => "text/csv")}
       format.pdf {pdf = PDF::Writer.new
-        pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+        pdf = generate_pdf
         send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
     end
   end
 
   private
+
+  def generate_pdf
+    if @entity_type == "person"
+      OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+    else
+      OutputPdf.generate_org_pdf(@source_type, @source_id, {}, {})
+    end
+  end
 
   def find_people_to_export
     if(params[:source_id].include?("query_"))

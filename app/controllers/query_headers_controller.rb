@@ -213,7 +213,7 @@ class QueryHeadersController < ApplicationController
           if i.sequence<=10
             if ( ["people" , "organisations"].include?(i.table_name))
               if i.data_type == "Integer FK"
-                if(i.field_name == "country" || i.field_name == "origin_country" || i.field_name == "residence_country" )
+                if(i.field_name == "country" || i.field_name == "origin_country" || i.field_name == "residence_country" || i.field_name == "registered_country")
                   @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).short_name) unless person.__send__(i.field_name.to_sym).nil?
                 else
                   @qrg.__send__("field_#{i.sequence}=".to_sym, person.__send__(i.field_name.to_sym).name) unless person.__send__(i.field_name.to_sym).nil?
