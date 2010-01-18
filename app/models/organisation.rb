@@ -36,7 +36,7 @@ class Organisation < ActiveRecord::Base
 
  
 
-  belongs_to :country, :foreign_key => :registered_country_id
+  belongs_to :registered_country, :foreign_key => "registered_country_id", :class_name => "Country"
   belongs_to :organisation_hierarchy
   belongs_to :organisation_type
   belongs_to :business_type

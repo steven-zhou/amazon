@@ -22,7 +22,7 @@
       .field_20{:style => "float:right"}
         =f.label :description, "&nbsp;"
         %input{:style => "display:none", :name => "query_header_id", :id => "query_header_id", :value => @query_header.id}
-        %input{:style => "display:none", :name => "source_id", :id => "source_id", :value => "query_#{@query_header.id}"}
+        %input{:style => "display:none", :name => "source_id", :id => @query_header.person_query_header? ? "source_id" : "org_source_id", :value => "query_#{@query_header.id}"}
         =submit_tag "Create List", :id=>"create_list", :style => "width:100px;float:right", :disabled=>true
 
 .container

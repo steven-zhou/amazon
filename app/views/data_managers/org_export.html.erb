@@ -19,15 +19,19 @@
             <%@entities.each do |entity|
             data_value = Array.new
             @query_header.query_selections.each do |i|
-                if i.table_name == "organisation"
+                if i.table_name == "organisations"
                   if i.data_type == "Integer FK"
-                    data_value << (entity.__send__(i.field_name.to_sym).nil? ? "" : "#{entity.__send__(i.field_name.to_sym).name}")
+                    if (i.field_name == "registered_country")
+                      data_value << (entity.__send__(i.field_name.to_sym).nil? ? "" : "#{entity.__send__(i.field_name.to_sym).short_name}")
+                    else
+                      data_value << (entity.__send__(i.field_name.to_sym).nil? ? "" : "#{entity.__send__(i.field_name.to_sym).name}")
+                    end
                   else
                     data_value << "#{entity.__send__(i.field_name.to_sym)}"
                   end
                 else
                   if i.data_type == "Integer FK"
-                    if(i.field_name == "registered_country")
+                    if(i.field_name == "country")
                       data_value << ((!entity.__send__(i.table_name.underscore.to_sym).empty? && !entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : "")
                     else
                       data_value << ((!entity.__send__(i.table_name.underscore.to_sym).empty? && !entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : "")
