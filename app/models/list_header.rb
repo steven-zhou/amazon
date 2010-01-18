@@ -27,6 +27,10 @@ class ListHeader < ActiveRecord::Base
     ListHeader.find(:all, :order => "name")
   end
 
+  def person_list?
+    self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList"
+  end
+
   protected
   
   def delete_all_details

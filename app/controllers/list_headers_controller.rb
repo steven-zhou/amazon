@@ -11,8 +11,11 @@ class ListHeadersController < ApplicationController
     if(params[:compile]) #Compile List
       @lcg = ListCompileGrid.find_all_by_login_account_id(session[:user])
       if(@lcg.size > 0)
-
-        @list_header = ListHeader.new(params[:list_header])
+        if params[:list_type]=="org"
+          @list_header = OrganisationListHeader.new(params[:list_header])
+        else
+          @list_header = ListHeader.new(params[:list_header])
+        end
         @list_header.last_date_generated = Date.today()
         @list_header.list_size = 0
         @list_header.source_type = "C" #generate from list compile
@@ -34,7 +37,7 @@ class ListHeadersController < ApplicationController
           if @list_header.save
             system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new List Header with ID #{@list_header.id}.")
             @lcg.each do |i|
-              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
+              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :entity_id => i.grid_object_id)
               @list_detail.save
             end
             #assign new saved list to group or user
@@ -55,8 +58,9 @@ class ListHeadersController < ApplicationController
     else
 
       if(params[:copy_source_id]) #copy
+
         @list_header_old = ListHeader.find(params[:copy_source_id].to_i)
-        @list_header = @list_header_old.class.new(params[:list_header])
+        @list_header = @list_header_old.person_list? ? PersonListHeader.new(params[:list_header]) : OrganisationListHeader.new(params[:list_header])
         @list_header.allow_duplication = @list_header_old.allow_duplication
         @list_header.list_size = 0
         @list_header.source_type = "L" #copy from list
@@ -67,7 +71,9 @@ class ListHeadersController < ApplicationController
         if @list_header.save
           ListHeader.transaction do
             @list_header_old.list_details.each do |i|
-              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.person_id)
+
+              @list_detail = ListDetail.new(:list_header_id => @list_header.id, :entity_id => i.entity_id)
+
               @list_detail.save
             end
           end
@@ -81,10 +87,14 @@ class ListHeadersController < ApplicationController
 
 
       else #create
+ 
         @qrg = QueryResultGrid.find_all_by_login_account_id(session[:user])
         if(@qrg.size > 0)
           @query_header = QueryHeader.find(params[:query_header_id].to_i)
+
+         
           @list_header = ListHeader.new(params[:list_header])
+          
           @list_header.last_date_generated = Date.today()
           @list_header.list_size = 0
           @list_header.source_type = "Q" #generate from query
@@ -98,7 +108,7 @@ class ListHeadersController < ApplicationController
               @user_list.list_header_id = @list_header.id
               @user_list.save
               @qrg.each do |i|
-                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :person_id => i.grid_object_id)
+                @list_detail = ListDetail.new(:list_header_id => @list_header.id, :entity_id => i.grid_object_id)
                 @list_detail.save
               end
               #assign new saved list to group or user
@@ -114,7 +124,7 @@ class ListHeadersController < ApplicationController
         end
       end
     end
-    @lists = @current_user.all_person_lists
+    @lists = @list_header.person_list? ? @current_user.all_person_lists : @current_user.all_organisation_lists
     respond_to do |format|
       format.js
     end
@@ -123,7 +133,7 @@ class ListHeadersController < ApplicationController
   def destroy
     @list_header = ListHeader.find(params[:id].to_i)
     @list_header.destroy
-    @lists = @current_user.all_person_lists
+    @lists = @list_header.person_list? ? @current_user.all_person_lists : @current_user.all_organisation_lists
     respond_to do |format|
       format.js
     end
@@ -139,7 +149,7 @@ class ListHeadersController < ApplicationController
       i.destroy
     end
 
-    if @list_header.class.to_s == "PersonListHeader"
+    if @list_header.person_list?
       create_person_list_edit_grid
       @entity = "person"
     else
@@ -158,12 +168,10 @@ class ListHeadersController < ApplicationController
       @list_header = ListHeader.find(@list_header)
       if !@list_header.allow_duplication  # if allow_duplication is change to be false
 
-        if @list_header.class.to_s == "PersonListHeader"
+        if @list_header.person_list?
           update_person_list_update_grid
-          @entity = "person"
         else
           update_organisation_list_update_grid
-          @entity = "organisation"
         end
         
       end
@@ -171,8 +179,9 @@ class ListHeadersController < ApplicationController
     else
       flash.now[:error]= "The List Name Already Exists. This Field Must be Unique, Please Try Again."
     end
+    @entity = @list_header.person_list? ? "person" : "organisation"
     @list_header = ListHeader.find(@list_header)
-    @lists = @entity=="person" ? @current_user.all_person_lists : @current_user.all_organisation_lists
+    @lists = @list_header.person_list? ? @current_user.all_person_lists : @current_user.all_organisation_lists
     respond_to do |format|
       format.js
     end
@@ -225,6 +234,7 @@ class ListHeadersController < ApplicationController
 
 
   def org_compile_list
+
     @lists = @current_user.all_organisation_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
@@ -276,10 +286,10 @@ class ListHeadersController < ApplicationController
     delete_list = Array.new
     person_list = Array.new
     @list_header.list_details.each do |i|
-      if person_list.include?(i.listable_id)
+      if person_list.include?(i.entity_id)
         delete_list.push(i)
       else
-        person_list.push(i.listable_id)
+        person_list.push(i.entity_id)
       end
     end
 
@@ -308,10 +318,10 @@ class ListHeadersController < ApplicationController
     delete_list = Array.new
     organisation_list = Array.new
     @list_header.list_details.each do |i|
-      if organisation_list.include?(i.listable_id)
+      if organisation_list.include?(i.entity_id)
         delete_list.push(i)
       else
-        organisation_list.push(i.listable_id)
+        organisation_list.push(i.entity_id)
       end
     end
 

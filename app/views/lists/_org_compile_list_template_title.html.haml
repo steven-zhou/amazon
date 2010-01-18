@@ -1,0 +1,28 @@
+%h3{:style => "margin-bottom:5px;"} Organisation On List
+%table#list_compile_grid
+
+
+%script{:type => "text/javascript"}
+  :plain
+    $("#list_compile_grid").flexigrid({
+      url: '/grids/list_compile_grid',
+      dataType: 'json',
+      colModel : [
+      {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+      {display: 'Full Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
+      {display: 'Trade as', name : 'field_2', width : 180, sortable : true, align: 'left'}
+      ],
+      searchitems : [
+      {display: 'Full Name', name : 'field_1'},
+      {display: 'Trade as', name : 'field_2'}
+      ],
+      sortname: "grid_object_id",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 300
+    });
