@@ -13,8 +13,9 @@ class ListHeadersController < ApplicationController
       if(@lcg.size > 0)
         if params[:list_type]=="org"
           @list_header = OrganisationListHeader.new(params[:list_header])
-        else
-          @list_header = ListHeader.new(params[:list_header])
+        end
+        if params[:list_type]=="person"
+          @list_header = PersonListHeader.new(params[:list_header])
         end
         @list_header.last_date_generated = Date.today()
         @list_header.list_size = 0
@@ -215,7 +216,7 @@ class ListHeadersController < ApplicationController
   end
 
   def compile_list
-    @list_headers = @current_user.all_person_lists
+    @lists = @current_user.all_person_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
     @compile_lists.each do |i|
       i.destroy
