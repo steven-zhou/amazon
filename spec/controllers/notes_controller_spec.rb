@@ -18,8 +18,7 @@ describe NotesController do
   #    xhr :put, "update", :id => "1"
   def put_update(options = {})
     options[:id] ||= @note.id
-    options[:note] = {}
-    options[:note][@note.id.to_s] = @attributes
+    options[:note] = @attributes
     put :update,options
   end
 

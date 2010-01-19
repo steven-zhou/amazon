@@ -6,9 +6,8 @@ describe LoginAccountsController do
     @login_account = Factory.build(:login_account)
     @password = "password"
     @login_account.password = @password
-    @login_account.password_confirmation = @password
     @login_account.save
-    @person = @login_account.person
+    @person = Factory(:john)
     LoginAccount.stub(:find).and_return(@login_account)
    end
 
