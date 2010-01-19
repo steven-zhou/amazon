@@ -227,7 +227,7 @@ class ReportsController < ApplicationController
       @list_headers = @current_user.all_person_lists
     else
     
-      @list_headers = @current_user.all_organisation_lists
+      @org_lists = @current_user.all_organisation_lists
     end
     respond_to do |format|
       format.js
