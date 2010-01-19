@@ -6,7 +6,7 @@ class TransactionsController < ApplicationController
       @group_types = LoginAccount.find(session[:user]).group_types
       @list_headers = @current_user.all_person_lists
       @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
-      @p = @list_header.people_on_list
+      @p = @list_header.entity_on_list
       @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
       session[:entity_type] = "Person"
       session[:entity_id] = @person.id
@@ -81,11 +81,11 @@ class TransactionsController < ApplicationController
       c1 = Array.new
 
       #find all people in the lis
-      c1 = @list_header.people_on_list
+      c1 = @list_header.entity_on_list
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
         #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
-        @person = @list_header.people_on_list.first
+        @person = @list_header.entity_on_list.first
       else
         #if you type the right id of people which is valid in the list
         @person
@@ -97,14 +97,14 @@ class TransactionsController < ApplicationController
       session[:current_list_id] = @list_header.id
 
       @p = Array.new
-      @p = @list_header.people_on_list
+      @p = @list_header.entity_on_list
       @list_headers = @current_user.all_person_lists
     else
       #request.get
       
       @list_headers = @current_user.all_person_lists
       @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
-      @p = @list_header.people_on_list
+      @p = @list_header.entity_on_list
 
       @current_person = Person.find(session[:current_person_id]) rescue @current_person = @p[0]
       @person = case params[:target]

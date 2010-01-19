@@ -6,7 +6,7 @@ module OrganisationHelper
     formatted += "Registered Number: #{org.registered_number} <br/>" unless org.registered_number.blank?
     formatted += "Registered Name: #{org.registered_name} <br/>" unless org.registered_name.blank?
     formatted += "Registered Date: #{org.registered_date} <br/>" unless org.registered_date.blank?
-    formatted += "Country of Incorporation: #{org.country.short_name} <br/>" unless org.country.blank?
+    formatted += "Country of Incorporation: #{org.registered_country.short_name} <br/>" unless org.registered_country.blank?
     if !org.organisation_type.blank? and org.organisation_type.to_be_removed == false
       formatted += "Organisation Legal Type:  #{org.organisation_type.name} <br/>" unless org.organisation_type.blank?
     else

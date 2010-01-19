@@ -12,7 +12,9 @@ class DataManagersController < ApplicationController
 
   def export_index
     @queries = PersonQueryHeader.saved_queries
-    @lists = PersonListHeader.find(:all)
+    @lists = @current_user.all_person_lists
+    @org_queries = OrganisationQueryHeader.saved_queries
+    @org_lists = @current_user.all_organisation_lists
     respond_to do |format|
       format.html
     end
@@ -46,8 +48,13 @@ class DataManagersController < ApplicationController
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
-    @queries = PersonQueryHeader.saved_queries
-    @lists = ListHeader.all
+    if @field == "person_part"
+      @queries = PersonQueryHeader.saved_queries
+      @lists = @current_user.all_person_lists
+    else
+      @org_queries = OrganisationQueryHeader.saved_queries
+      @org_lists = @current_user.all_organisation_lists
+    end
     respond_to do |format|
       format.js
     end

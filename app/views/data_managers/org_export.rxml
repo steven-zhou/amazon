@@ -45,13 +45,17 @@ if @source_type == "query"
               data_value = String.new
               if i.table_name == "organisations"
                 if i.data_type.include?("Integer FK")
-                  data_value = org.__send__(i.field_name).nil? ? "" : "#{org.__send__(i.field_name).name}"
+                  if (i.field_name == "registered_country")
+                    data_value = org.__send__(i.field_name).nil? ? "" : "#{org.__send__(i.field_name).short_name}"
+                  else
+                    data_value = org.__send__(i.field_name).nil? ? "" : "#{org.__send__(i.field_name).name}"
+                  end
                 else
                   data_value = "#{org.__send__(i.field_name)}"
                 end
               else
                 if i.data_type.include?("Integer FK")
-                  if(i.field_name == "registered_country")
+                  if(i.field_name == "country")
                     data_value = (!org.__send__(i.table_name.underscore.to_sym).empty? && !org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
                   else
                     data_value = (!org.__send__(i.table_name.underscore.to_sym).empty? && !org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : ""

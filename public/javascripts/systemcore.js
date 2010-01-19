@@ -3715,13 +3715,20 @@ $(function(){
 $(function(){
     $('.export_button').live('click',function(){
 
+        var source_id = ""
+        var file_name = ""
+        var source = $(this).attr("source");
+        if (source == 'person'){
+            source_id = $('#source_id').val();
+            file_name = $("#file_name").val();
+        }else{
+            source_id = $('#org_source_id').val();
+            file_name = $("#org_file_name").val();
+        }
 
-        if ($('#source_id').val()!="")
+        if (source_id != "")
         {
-            var format = $(this).attr("value").toLowerCase();
-            var source = $(this).attr("source");
-            var source_id = $("#source_id").val();
-            var file_name = $("#file_name").val();
+            var format = $(this).attr("value").toLowerCase();            
             window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
         }
 
