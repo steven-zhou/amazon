@@ -64,16 +64,20 @@ class DataManagersController < ApplicationController
 
   def render_xml
     if @entity_type == "person"
+
       send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
     else
+   
       send_data((render 'data_managers/org_export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
     end
   end
 
   def render_html
     if @entity_type == "person"
+            puts "1111111111111111111111111111111111"
       render 'data_managers/export.html'
     else
+         puts "2222222222222222222222222222222222"
       render 'data_managers/org_export.html'
     end
   end

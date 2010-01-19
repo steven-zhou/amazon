@@ -135,7 +135,7 @@ class ReportsController < ApplicationController
 
     if OutputPdf.organisational_report_format_valid(@organisation_report_format) && !@organisation_report_list.nil?
 
-      pdf = OutputPdf.generate_organisational_report_pdf(@type,@organisation_report_list, @organisation_report_format)
+      pdf = OutputPdf.generate_organisational_report_pdf(@type, @list_header_id, @organisation_report_format, @list_name)
 
     end
 
@@ -173,7 +173,7 @@ class ReportsController < ApplicationController
 
   def organisation_contacts_report_grid
 
-    @organisation_report_format = params[:request_format]
+    @organisation_report_format = params[:report][:organisation_requested_format]
 
     if(params[:organisation_list_header_id].include?("list_"))
       @list_header_id = params[:organisation_list_header_id].delete("list_")
@@ -226,8 +226,7 @@ class ReportsController < ApplicationController
     if @field == "person_part"
       @list_headers = @current_user.all_person_lists
     else
-    
-      @list_headers = @current_user.all_organisation_lists
+      @org_lists = @current_user.all_organisation_lists
     end
     respond_to do |format|
       format.js
