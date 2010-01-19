@@ -16,7 +16,7 @@ describe ClientSetupsController do
   describe "Put Update" do
     it "should find the client setup for update" do
       ClientSetup.should_receive(:first).and_return(@client_setup)
-      dfdfsd
+#      dfdfsd
       put_update
     end
 

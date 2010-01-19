@@ -237,12 +237,6 @@ class ReportsController < ApplicationController
 
   private
 
-  
- 
-  
-
-  private
-
   def format_email(email)
     return "" if email.nil?
     return email.value

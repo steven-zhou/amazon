@@ -3,9 +3,9 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe AmazonSettingsController do
   before(:each) do
     @primary_list = Factory(:primary_list)
-    @attributes = Factory.attributes_for(:male_gender)
-    @amazon_setting = Factory(:male_gender)
-    @amazon_setting2 = Factory(:female_gender)
+    @attributes = Factory.attributes_for(:male)
+    @amazon_setting = Factory(:male)
+    @amazon_setting2 = Factory(:female)
     Gender.stub!(:new).and_return(@amazon_setting)
     session[:user] = Factory(:login_account).id
   end

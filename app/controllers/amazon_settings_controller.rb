@@ -11,7 +11,7 @@ class AmazonSettingsController < ApplicationController
   def create
     @amazonsetting = params[:type].camelize.constantize.new(params[params[:type].underscore.to_sym])
     if @amazonsetting.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amzonsetting.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Saved successfully."
 
     else
