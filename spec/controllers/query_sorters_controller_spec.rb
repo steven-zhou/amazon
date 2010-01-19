@@ -19,6 +19,9 @@ describe QuerySortersController do
   end
 
   describe "post create" do
+    before(:each) do
+      @query_sorter.stub!(:set_data_type)
+    end
 
     it "should find the correct query header" do
       QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
