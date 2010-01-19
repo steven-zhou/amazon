@@ -371,7 +371,7 @@ module OutputPdf
       #organisational query
     else
       #list - all organisations
-      @organisations = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
+      @organisations = ListHeader.find(source_id.to_i).entity_on_list
     end
 
     if @organisations.empty?
