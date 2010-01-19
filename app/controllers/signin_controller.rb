@@ -337,15 +337,16 @@ class SigninController < ApplicationController
   def create_temp_list
     #clear temp list data
     @temp_list = TempList.find_by_login_account_id(session[:user])
+    current_user = LoginAccount.find(session[:user])
     @temp_list.destroy unless @temp_list.nil?
     #create a temp list for all people on the lists(group lists and user lists)
-    @temp_list = TempList.new(:name => "List of all people", :list_size => 0, :last_date_generated => Date.today(), :status => true, :source => "Temp List", :source_type => "T", :allow_duplication => false, :login_account_id => session[:user])
+    @temp_list = TempList.new(:name => "List of all people for #{current_user.user_name}", :list_size => 0, :last_date_generated => Date.today(), :status => true, :source => "Temp List", :source_type => "T", :allow_duplication => false, :login_account_id => session[:user])
     @temp_list.save
     temp_list_id = @temp_list.id
     person_ids = Array.new
 
     #people on group list
-    LoginAccount.find(session[:user]).all_person_lists.each do |i|
+    current_user.all_person_lists.each do |i|
       @list_header = ListHeader.find(i)
       @list_details = @list_header.list_details
       @list_details.each do |list_detail|
