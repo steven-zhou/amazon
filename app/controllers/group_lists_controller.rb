@@ -17,7 +17,7 @@ class GroupListsController < ApplicationController
   #*********new design************
   def edit
     @group = GroupType.find(params[:data_id])
-    @list_headers = ListHeader.find :all
+    @list_headers = @current_user.all_person_lists
     @group_list = GroupList.new
     @group_lists = @group.group_lists
 
