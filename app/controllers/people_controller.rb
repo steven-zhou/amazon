@@ -49,7 +49,7 @@ class PeopleController < ApplicationController
         if params[:id].nil? || params[:id] == "show" #when just jumping or change list
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
-          @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
+          @person = @list_header.entity_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
@@ -60,7 +60,7 @@ class PeopleController < ApplicationController
             @p = Array.new
             @p = @list_header.entity_on_list
             @person = Person.find_by_id(params[:id].to_i)
-            @person = @list_headers.first.entity_on_list.first if @person.nil?
+            @person = @p.first if @person.nil?
             session[:current_person_id] = @person.id
             #else
           end
