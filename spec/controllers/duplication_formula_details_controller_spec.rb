@@ -4,7 +4,7 @@ describe DuplicationFormulaDetailsController do
   before(:each) do
     @primary_list = Factory(:primary_list)
     session[:user] = Factory(:login_account).id
-    @duplication_formula_detail = Factory(:duplication_formula_detail)
+    @duplication_formula_detail = Factory(:personal_duplication_formula_detail)
     @duplication_formula = @duplication_formula_detail.duplication_formula
     DuplicationFormulaDetail.stub!(:find).and_return(@duplication_formula_detail)
     DuplicationFormulaDetail.stub!(:new).and_return(@duplication_formula_detail)

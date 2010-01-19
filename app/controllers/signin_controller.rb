@@ -345,25 +345,16 @@ class SigninController < ApplicationController
     person_ids = Array.new
 
     #people on group list
-    LoginAccount.find(session[:user]).list_headers.each do |i|
+    LoginAccount.find(session[:user]).all_person_lists.each do |i|
       @list_header = ListHeader.find(i)
       @list_details = @list_header.list_details
       @list_details.each do |list_detail|
-        person_ids << list_detail.person_id unless person_ids.include?(list_detail.person_id)
-      end
-    end
-
-    #people on user list
-    LoginAccount.find(session[:user]).user_lists.each do |i|
-      @list_header = ListHeader.find(i.list_header_id)
-      @list_details = @list_header.list_details
-      @list_details.each do |list_detail|
-        person_ids << list_detail.person_id unless person_ids.include?(list_detail.person_id)
+        person_ids << list_detail.entity_id unless person_ids.include?(list_detail.entity_id)
       end
     end
 
     person_ids.each do |i|
-      @list_detail = ListDetail.new(:list_header_id => temp_list_id, :person_id => i)
+      @list_detail = ListDetail.new(:list_header_id => temp_list_id, :entity_id => i)
       @list_detail.save
     end
   end

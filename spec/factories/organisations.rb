@@ -17,7 +17,7 @@ Factory.define :google, :class => ClientOrganisation do |f|
   f.number_of_other_workers 4
   f.business_mission "To take out Microsoft"
   f.remarks "We know everything about you"
-  f.association :country, :factory => :australia
+  f.association :registered_country, :factory => :australia
   f.association :organisation_hierarchy, :factory => :global_head
   f.association :organisation_type, :factory => :it
   f.association :business_type, :factory => :high_tech
