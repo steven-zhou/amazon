@@ -3751,7 +3751,7 @@ $(function(){
 $(function(){
     $('#report_organisation_pdf_submit_button').live('click', function(){
 
-        window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+        window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#organisation_report_list').val());
     });
 
 });
