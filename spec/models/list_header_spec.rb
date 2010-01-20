@@ -7,8 +7,6 @@ describe ListHeader do
     @list_header = Factory.build(:list_header)
   end
 
-  
-  it { should belong_to(:query_header)}
 
   it { should have_many(:list_details)}
 

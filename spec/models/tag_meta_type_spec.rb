@@ -9,8 +9,5 @@ describe TagMetaType do
 
   it { should have_many(:tag_types)}
   
-  it "should return options" do
-    TagMetaType.distinct_types_of_tag_meta_types.should == "<option value='MasterDocMetaMetaType'>MasterDocMetaMetaType</option>"
-  end
 
 end

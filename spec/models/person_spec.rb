@@ -45,7 +45,7 @@ describe Person do
   it { should have_many(:role_approvers, :through => :person_roles, :source => :role_approver)}
   it { should have_many(:role_supervisers, :through => :person_roles, :source => :role_superviser)}
   it { should have_many(:role_managers, :through => :person_roles, :source => :role_manager)}
-  it { should have_many(:group_owner, :class_name=> 'PersonGroup', :foreign_key=>'people_id')}
+  
    # has_many :group_owner, :class_name => 'PersonGroup', :foreign_key => 'person_id'
   context "when saving" do
   
