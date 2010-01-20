@@ -7,13 +7,13 @@
           <%= "#{image_tag('Icons/System/module menu/core.png')} System Core" %>
         <%- end %>
         <%- if session[:module] == "receipting" %>
-          <%= "#{image_tag('icon_holder.png')} Receipting" %>
+          <%= "#{image_tag('Icons/Receipting/receipt.png')} Receipting" %>
         <%- end %>
         <%- if session[:module] == "administration" %>
           <%= "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools" %>
         <%- end %>
         <%- if session[:module] == "client_setup" %>
-          <%= "#{image_tag('icon_holder.png')} MemberZone" %>
+          <%= "#{image_tag('Icons/System/module_menu.png')} MemberZone" %>
         <%- end %>
         <%- if session[:module] == "dashboard" %>
           <%= "#{image_tag('Icons/System/module_menu.png')} System Menu" %>
@@ -27,7 +27,7 @@
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
           <%- end %>
           <%- if session[:module] != "receipting" %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('/images/icon_holder.png')} Receipting", :controller => "module", :action => "receipting"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('Icons/Receipting/receipt.png')} Receipting", :controller => "module", :action => "receipting"  %></li>
           <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
@@ -73,7 +73,7 @@
   </div>
 
   <div class="bar_section" id="search">
-    <input value ="Search System" size ="20" disabled>
+    <input value ="Search System" size ="20" disabled/>
     <%=image_tag('Icons/System/sys_search.png', :title => "Search")%>
   </div>
   <div class="bar_section" id="help">
