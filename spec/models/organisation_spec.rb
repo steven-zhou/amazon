@@ -24,7 +24,7 @@ describe Organisation do
   it { should have_many(:keywords)}
   it { should have_many(:notes)}
 
-  it { should belong_to(:country) }
+  it { should belong_to(:registered_country) }
   it { should belong_to(:organisation_hierarchy) }
   it { should belong_to(:organisation_type)}
   it { should belong_to(:business_type)}

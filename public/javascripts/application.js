@@ -2871,4 +2871,19 @@ $(function(){
 
 });
 
-    
+//Drag and Drop
+$(function(){
+    $('.draggable').draggable({
+        stop: function(event, ui){
+            var target = $('.ui-draggable-dragging');
+            target.attr('style', 'position: relative;');
+        }
+    });
+
+    $('.droppable').droppable({
+        drop: function(event, ui) {
+            var target = $('.ui-draggable-dragging');
+            alert(target.attr('id'));
+        }
+    });
+});

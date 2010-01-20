@@ -1,4 +1,6 @@
+
 Factory.define :query_header, :class => "PersonQueryHeader" do |f|
+
   f.sequence(:name) { |n| "PeopleInNSW #{n}" }
   f.description "People who live in NSW"
   f.status true
