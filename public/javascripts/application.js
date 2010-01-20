@@ -2887,11 +2887,10 @@ $(function(){
     $('.droppable').droppable({
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
-            alert(target.attr('id'));
             $.ajax({
                 type: "POST",
                 url: "/quick_launch_icons",
-                data:'controller='+ target.attr('controller')+ "&action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
                 dataType:"script"
             });
         }

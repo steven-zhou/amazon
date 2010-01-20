@@ -3,9 +3,10 @@ class QuickLaunchIconsController < ApplicationController
 
 
   def create
+    puts"----#{params[:icon_controller]}---------"
     @quick_launch_icons = QuickLaunchIcon.new
-    @quick_launch_icons.controller = params[:controller]
-    @quick_launch_icons.action  = params[:action]
+    @quick_launch_icons.controller = params[:icon_controller]
+    @quick_launch_icons.action  = params[:icon_action]
     @quick_launch_icons.image_url = params[:image_url]
     @quick_launch_icons.title = params[:title]
     @quick_launch_icons.login_account_id = @current_user.id

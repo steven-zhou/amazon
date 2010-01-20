@@ -1,0 +1,3 @@
+%div{:class => "bar_section droppable", :id => "toolbar"}
+  - for i in @current_user.quick_launch_icons
+    = link_to image_tag("#{i.image_url}"), {:controller => i.controller, :action => i.action}, {:title=> i.title }
