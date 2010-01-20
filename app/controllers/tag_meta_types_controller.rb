@@ -69,7 +69,7 @@ class TagMetaTypesController < ApplicationController
   def show_group_types
     @group_meta_meta_type = GroupMetaMetaType.find(params[:group_meta_meta_type_id].to_i) rescue @group_meta_meta_type = GroupMetaMetaType.new
     @person_group = PersonGroup.find(params[:person_group_id]) rescue @person_group = PersonGroup.new
-    @group_meta_types = @group_meta_meta_type.group_meta_types.find(:all, :order => "name")
+    @group_meta_types = @group_meta_meta_type.group_meta_types
    
     #@group_meta_types = @group_meta_meta_type.group_meta_types.find(:all,:order => "name")
     #@group_types = @group_meta_types.group_types.find(:all, :order => "name")
