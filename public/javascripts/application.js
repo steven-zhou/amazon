@@ -2883,6 +2883,7 @@ $(function(){
     $('.droppable').droppable({
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
+            alert(target.attr('id'));
         }
     });
 });
