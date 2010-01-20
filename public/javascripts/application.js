@@ -2889,9 +2889,9 @@ $(function(){
             var target = $('.ui-draggable-dragging');
             alert(target.attr('id'));
             $.ajax({
-                type: "GET",
-                url: "quick_launch_icons/create.js",
-                data:'controller='+ target.attr('controller')+ "&action=" + target.attr('action')+ "&action=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                type: "POST",
+                url: "/quick_launch_icons",
+                data:'controller='+ target.attr('controller')+ "&action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
                 dataType:"script"
             });
         }
