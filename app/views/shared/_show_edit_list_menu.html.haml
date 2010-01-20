@@ -116,10 +116,10 @@
     .top
     .item
       - if @current_controller != "communication"
-        = link_to "#{image_tag('icon_holder.png')} Contact", :controller => "communication", :action => "email"
+        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "email"
       - else
         <p>Contact</p>
         %ul
           %li{:id => @current_action == "email" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Email", :controller => "communication", :action => "email"
+            = link_to "#{image_tag('Icons/communication/email.png')} Email", :controller => "communication", :action => "email"
     .bottom
