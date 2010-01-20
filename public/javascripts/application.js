@@ -2699,7 +2699,9 @@ $(function(){
             var url = $('#'+ form_id).attr('db_click_url')
 
             if ($('#'+ form_id).attr('edit')=="true")
-                {url=url+$(this).attr('id').substring(3)+"/edit.js" }
+            {
+                url=url+$(this).attr('id').substring(3)+"/edit.js"
+            }
 
             $.ajax({
                 type: 'GET',
@@ -2874,16 +2876,24 @@ $(function(){
 //Drag and Drop
 $(function(){
     $('.draggable').draggable({
-        stop: function(event, ui){
-            var target = $('.ui-draggable-dragging');
-            target.attr('style', 'position: relative;');
-        }
+        //        stop: function(event, ui){
+        //            var target = $('.ui-draggable-dragging');
+        //            target.attr('style', 'position: relative;');
+        //        }
+        revert: true,
+         helper: "clone"
     });
 
     $('.droppable').droppable({
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
             alert(target.attr('id'));
+            $.ajax({
+                type: "GET",
+                url: "quick_launch_icons/create.js",
+                data:'controller='+ target.attr('controller')+ "&action=" + target.attr('action')+ "&action=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                dataType:"script"
+            });
         }
     });
 });
