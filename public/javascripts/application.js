@@ -2873,12 +2873,16 @@ $(function(){
 
 //Drag and Drop
 $(function(){
-    $('.draggable').draggable();
+    $('.draggable').draggable({
+        stop: function(event, ui){
+            var target = $('.ui-draggable-dragging');
+            target.attr('style', 'position: relative;');
+        }
+    });
+
     $('.droppable').droppable({
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
-            target.attr('style', 'position: relative;');
-            alert(target.attr('id'));
         }
     });
 });
