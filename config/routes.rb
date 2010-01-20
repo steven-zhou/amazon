@@ -154,6 +154,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}
   #nightly processes for testing only
   map.resources :nightly_processes, :collection => {:run => :get}
+   map.resources :quick_launch_icons
 
 
   # The priority is based upon order of creation: first created -> highest priority.
