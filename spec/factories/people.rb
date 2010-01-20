@@ -34,6 +34,7 @@ Factory.define :john, :class => Person do |f|
 end
 
 Factory.define :jane, :class => Person do |f|
+
   f.first_name "Jane"
   f.middle_name "Rose"
   f.family_name "Doe"

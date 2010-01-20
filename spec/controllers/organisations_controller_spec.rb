@@ -142,7 +142,7 @@ describe OrganisationsController do
 
    describe "PUT :update" do
     it "should get the request organisation general info" do
-      Organisation.should_receive(:find).with(@organisation.id.to_s).and_return(@organisation)
+      Organisation.should_receive(:find).and_return(@organisation)
       put_update :organisation_id => @organisation.id
     end
 

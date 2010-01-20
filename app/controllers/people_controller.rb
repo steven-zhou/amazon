@@ -218,7 +218,7 @@ class PeopleController < ApplicationController
       #        redirect_to edit_person_path(@person)
       #        # If the user wants to continue adding records
       #      else
-      flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href=#{edit_person_path(@person)} style='color:white;'>edit details</a>)"
+      flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
       redirect_to new_person_path
       #end
     else

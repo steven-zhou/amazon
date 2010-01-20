@@ -1,7 +1,7 @@
 Factory.define :australia, :class => Country do |f|
-  f.long_name "Australia"
-  f.short_name "Australia"
-  f.citizenship "Australian"
+  f.sequence(:long_name) { |n| "Australian#{n}" }
+  f.sequence(:short_name) { |n| "Australian#{n}" }
+  f.sequence(:citizenship) { |n| "Australian#{n}" }
   f.capital "Canberra"
   f.iso_code "AU"
   f.currency "dollar"

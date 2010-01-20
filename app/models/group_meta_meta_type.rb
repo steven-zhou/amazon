@@ -2,7 +2,7 @@ class GroupMetaMetaType < TagMetaType
 
   acts_as_list
 
-  has_many :group_meta_types, :class_name => "GroupMetaType", :foreign_key => "tag_meta_type_id"
+  has_many :group_meta_types, :class_name => "GroupMetaType", :foreign_key => "tag_meta_type_id", :order => "name"
 
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "A group meta meta type already exists with the same name."
