@@ -96,7 +96,7 @@ class OrganisationsController < ApplicationController
       #                redirect_to edit_organisation_path(@organisation)
       #                # If the user wants to continue adding records
       #            else
-      flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)} style='color:white'>edit details</a>)"
+      flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href='/organisations/#{@organisation.id}/edit' style='color:white'>edit details</a>)"
       redirect_to new_organisation_path
       #            end
     else
