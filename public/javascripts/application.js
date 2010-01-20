@@ -978,6 +978,9 @@ $(function(){
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('.close_option[field='+ link.attr('field') +']').css("display","none");
+                        if($(this).attr('show_existing')=="true"){
+                            $('#'+$(this).attr('show_existing_id')).css('display', '');
+                        }
                         $('#check_input_change').val("false");
 
                         clear_organisation_form(link);
@@ -1007,6 +1010,9 @@ $(function(){
 
             link.css("display","none");
             $('.new_option[field='+ link.attr('field') +']').css("display","");
+            if($(this).attr('show_existing')=="true"){
+                $('#'+$(this).attr('show_existing_id')).css('display', '');
+            }
             $('.close_option[field='+ link.attr('field') +']').css("display","none");
 
         }
@@ -2687,11 +2693,17 @@ $(function(){
     $('table.selectable_grid tbody tr').live('dblclick',function(){
         //        alert($('table#general_search_list_results').attr('db_click_function'))
         var form_id = $(this).closest('table').get(0).id
+
         if ($('#'+ form_id).attr('db_click_function') == "true")
         {
+            var url = $('#'+ form_id).attr('db_click_url')
+
+            if ($('#'+ form_id).attr('edit')=="true")
+                {url=url+$(this).attr('id').substring(3)+"/edit.js" }
+
             $.ajax({
                 type: 'GET',
-                url: $('#'+ form_id).attr('db_click_url'),
+                url: url,
                 data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
             });
@@ -2859,4 +2871,18 @@ $(function(){
 
 });
 
-    
+//Drag and Drop
+$(function(){
+    $('.draggable').draggable({
+        stop: function(event, ui){
+            var target = $('.ui-draggable-dragging');
+            target.attr('style', 'position: relative;');
+        }
+    });
+
+    $('.droppable').droppable({
+        drop: function(event, ui) {
+            var target = $('.ui-draggable-dragging');
+        }
+    });
+});

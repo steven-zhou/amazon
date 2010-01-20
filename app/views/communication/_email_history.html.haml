@@ -1,0 +1,89 @@
+
+
+%table#email_maintenance_search_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/communication/show_email.js"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#email_maintenance_search_grid").flexigrid({
+  url: '/grids/email_maintenance_search_grid?start_date=#{start_date}&end_date=#{end_date}&to_be_removed=#{tbr}&dispatch_date=#{dd}&status=#{status}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Sent To',
+  name : 'bulk_emails.to',
+  width : 160,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Subject',
+  name : 'subject',
+  width : 180,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Created At',
+  name : 'created_at',
+  width : 170,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Dispatched',
+  name : 'dispatch_date',
+  width : 150,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'To Be Removed',
+  name : 'to_be_removed',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Status',
+  name : 'status',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Sent To',
+  name : 'bulk_emails.to'
+  },
+
+  {
+  display: 'Subject',
+  name : 'subject'
+  }
+
+
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: 'List Emails',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

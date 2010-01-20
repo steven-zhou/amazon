@@ -11,8 +11,10 @@ class DataManagersController < ApplicationController
   end
 
   def export_index
-    @queries = QueryHeader.saved_queries
-    @lists = ListHeader.all
+    @queries = PersonQueryHeader.saved_queries
+    @lists = @current_user.all_person_lists
+    @org_queries = OrganisationQueryHeader.saved_queries
+    @org_lists = @current_user.all_organisation_lists
     respond_to do |format|
       format.html
     end
@@ -22,30 +24,96 @@ class DataManagersController < ApplicationController
     @source_id = String.new
     @source_type = String.new
     if(params[:source]=="person")
-      if(params[:source_id].include?("query_"))
-        @source_id = params[:source_id].delete("query_")
-        @source_type = "query"
-        @query_header = QueryHeader.find(@source_id)
-        @people = @query_header.run
-      else
-        @source_id = params[:source_id].delete("list_")
-        @source_type = "list"
-        @people = ListHeader.find(@source_id).people_on_list
-      end
+      find_people_to_export
+      @entity_type = "person"
     else
-#      Export Organisations
+      # Export Organisations
+      find_organsiations_to_export
+      @entity_type = "organisation"
     end
 
     @file_name = params[:file_name].blank? ? "export" : params[:file_name]
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a report.")
 
     respond_to do |format|
-      format.html {render 'data_managers/export.html'}      
-      format.xml {send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")}
-      format.csv {send_data((render 'data_managers/export.html'), :filename => "#{@file_name}.csv", :type => "text/csv")}
+      format.html { render_html }
+      format.xml { render_xml}
+      format.csv {send_data( (render_html ), :filename => "#{@file_name}.csv", :type => "text/csv")}
       format.pdf {pdf = PDF::Writer.new
-                  pdf = OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
-                  send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
+        pdf = generate_pdf
+        send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
+    end
+  end
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    if @field == "person_part"
+      @queries = PersonQueryHeader.saved_queries
+      @lists = @current_user.all_person_lists
+    else
+      @org_queries = OrganisationQueryHeader.saved_queries
+      @org_lists = @current_user.all_organisation_lists
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  private
+
+  def render_xml
+    if @entity_type == "person"
+
+      send_data((render 'data_managers/export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
+    else
+   
+      send_data((render 'data_managers/org_export.rxml'), :filename => "#{@file_name}.xml", :type => "text/xml")
+    end
+  end
+
+  def render_html
+    if @entity_type == "person"
+            puts "1111111111111111111111111111111111"
+      render 'data_managers/export.html'
+    else
+         puts "2222222222222222222222222222222222"
+      render 'data_managers/org_export.html'
+    end
+  end
+
+  def generate_pdf
+    if @entity_type == "person"
+      OutputPdf.generate_pdf(@source_type, @source_id, {}, {})
+    else
+      OutputPdf.generate_org_pdf(@source_type, @source_id, {}, {})
+    end
+  end
+
+
+  def find_people_to_export
+    if(params[:source_id].include?("query_"))
+      @source_id = params[:source_id].delete("query_")
+      @source_type = "query"
+      @query_header = QueryHeader.find(@source_id)
+      @entities = @query_header.run
+    else
+      @source_id = params[:source_id].delete("list_")
+      @source_type = "list"
+      @entities = ListHeader.find(@source_id).entity_on_list
+
+    end
+  end
+  def find_organsiations_to_export
+    if(params[:source_id].include?("query_"))
+      @source_id = params[:source_id].delete("query_")
+      @source_type = "query"
+      @query_header = QueryHeader.find(@source_id)
+      @entities = @query_header.run
+    else
+      @source_id = params[:source_id].delete("list_")
+      @source_type = "list"
+      @entities = ListHeader.find(@source_id).entity_on_list
     end
   end
 

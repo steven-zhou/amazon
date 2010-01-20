@@ -6,15 +6,11 @@ class ReportsController < ApplicationController
   include OutputPdf
 
   def index
-    
-#    @list_headers = @current_user.list_headers
-#    @user_list_id = UserList.find_all_by_user_id(session[:user]) #load the user lists from table user lists
-#    @user_list_id.each do |i|
-#    @list_headers += ListHeader.find_all_by_id(i.list_header_id)
-#    end
-   @list_headers = @current_user.all_lists
-#    @list_headers +=@current_user.custom_lists
-    @query = QueryHeader.saved_queries
+
+    @list_headers = @current_user.all_person_lists
+    @query = PersonQueryHeader.saved_queries
+    @org_queries = OrganisationQueryHeader.saved_queries
+    @org_lists = @current_user.all_organisation_lists
 
   end
 
@@ -31,7 +27,7 @@ class ReportsController < ApplicationController
     @person_report_list.list_details.each do |i|
       @pcr = PersonContactsReportGrid.new # person contacts report
       @pcr.login_account_id = session[:user]
-      @person = Person.find(i.person_id)
+      @person = Person.find(i.entity_id)
       @pcr.grid_object_id = i.id
       @pcr.field_1 = @person.first_name
       @pcr.field_2 = @person.family_name
@@ -47,21 +43,20 @@ class ReportsController < ApplicationController
 
     if(params[:list_header_id].include?("list_"))
       @list_header_id = params[:list_header_id].delete("list_")
-     
-      
       @type= "List"
       @person_report_list = ListHeader.find(@list_header_id)
     end
    
-    PersonContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
+    
     if(@person_report_format == "Contact Report")
+      PersonContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
+        i.destroy
+      end
        
       @person_report_list.list_details.each do |i|
         @pcr = PersonContactsReportGrid.new # person contacts report
         @pcr.login_account_id = session[:user]
-        @person = Person.find(i.person_id)
+        @person = Person.find(i.entity_id)
         @pcr.grid_object_id = i.id
         @pcr.field_1 = @person.first_name
         @pcr.field_2 = @person.family_name
@@ -104,7 +99,7 @@ class ReportsController < ApplicationController
       @list_header_id = params[:list_header_id].delete("list_")
       @type= "list"
       @list_name = "List "+ListHeader.find(@list_header_id).name
-      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+      @person_report_list = ListHeader.find(@list_header_id).entity_on_list
     end
 
     if(params[:list_header_id].include?("query_"))  
@@ -112,7 +107,7 @@ class ReportsController < ApplicationController
       @list_header_id = params[:list_header_id].delete("query_")
       @type= "query"
       @list_name = "Query "+ListHeader.find(@list_header_id).name
-      @person_report_list = ListHeader.find(@list_header_id).people_on_list
+      @person_report_list = ListHeader.find(@list_header_id).entity_on_list
     end
     
     if OutputPdf.personal_report_format_valid(@person_report_format) && !@person_report_list.nil?
@@ -129,13 +124,18 @@ class ReportsController < ApplicationController
   end
 
   def generate_organisation_report_pdf
-    @organisation_report_list = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
-    @type ="List"
     @organisation_report_format = "organisaiton_contact_report"
+    if(params[:list_header_id].include?("list_"))
+
+      @list_header_id = params[:list_header_id].delete("list_")
+      @type= "list"
+      @list_name = "List "+ListHeader.find(@list_header_id).name
+      @organisation_report_list = ListHeader.find(@list_header_id).entity_on_list
+    end
 
     if OutputPdf.organisational_report_format_valid(@organisation_report_format) && !@organisation_report_list.nil?
 
-      pdf = OutputPdf.generate_organisational_report_pdf(@type,@organisation_report_list, @organisation_report_format)
+      pdf = OutputPdf.generate_organisational_report_pdf(@type, @list_header_id, @organisation_report_format, @list_name)
 
     end
 
@@ -173,26 +173,27 @@ class ReportsController < ApplicationController
 
   def organisation_contacts_report_grid
 
-    @organisation_report_format = params[:request_format]
+    @organisation_report_format = params[:report][:organisation_requested_format]
 
-    @organisation_report_list = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
+    if(params[:organisation_list_header_id].include?("list_"))
+      @list_header_id = params[:organisation_list_header_id].delete("list_")
+      @type= "List"
+      @organisation_report_list = ListHeader.find(@list_header_id)
+    end
 
     if(@organisation_report_format == "Contact Report")
-
       OgansisationContactsReportGrid.find_all_by_login_account_id(session[:user]).each do |i|
         i.destroy
       end
 
-      @organisation_report_list.each do |o|
+      @organisation_report_list.list_details.each do |i|
         @ocr = OgansisationContactsReportGrid.new #oganisation contact report
         @ocr.login_account_id = session[:user]
+        o = Organisation.find(i.entity_id)
         @ocr.grid_object_id = o.id
         @ocr.field_1 = o.full_name
         @ocr.field_2 = o.registered_name
         @ocr.field_3 = o.primary_email.address unless o.primary_email.blank?
-        #      @ocr.field_3 = o.primary_address.first_line unless o.primary_address.blank?
-        #      @ocr.field_4 = o.primary_phone.value unless o.primary_phone.blank?
-        #      @ocr.field_5 = o.primary_email.address unless o.primary_email.blank?
         if (!(o.secondary_email.blank?))
           @ocr.field_3+="<br>"+ o.secondary_email.address
         end
@@ -219,110 +220,20 @@ class ReportsController < ApplicationController
       
   end
 
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    if @field == "person_part"
+      @list_headers = @current_user.all_person_lists
+    else
+      @org_lists = @current_user.all_organisation_lists
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 
-#  def generate_report
-#
-#    report_format = params[:report][:requested_format]
-#    report_list = ListHeader.find_by_id(params[:list_header_id].to_i)
-#
-#    if !report_format_valid(report_format) || report_list.nil?
-#      flash[:error] = flash_message(:type => "field_missing", :field => "report list") if report_list.nil?
-#      flash[:error] = flash_message(:message => "There was an error generating a report in the format you specified.") if !report_format_valid(report_format)
-#      redirect_to :action => "create", :controller => "reports"
-#    else
-#      pdf = PDF::Writer.new
-#      generate_header(pdf, report_format)
-#      generate_body(pdf, report_format, report_list)
-#      send_data pdf.render, :filename => "#{report_format}.pdf", :type => "application/pdf"
-#
-#    end
-#
-#  end
 
-  private
-
-#  def report_format_valid(report_format)
-#    [
-#      "Contact Report",
-#      "System Log Report"
-#    ].include?(report_format.to_s)
-#
-#  end
-#
-#  def generate_header(pdf, report_format)
-#    pdf.image "#{RAILS_ROOT}/public/images/Amazon-logo.jpg", :justification => :left
-#    pdf.select_font "Times-Roman"
-#    pdf.text "#{report_format}\n\n", :font_size => 32, :justification => :center
-#
-#
-#  end
-#
-#  def generate_body(pdf, report_format, report_list)
-#
-#    if report_list.people_on_list.empty?
-#      pdf.text "No matching records found.", :font_size => 32, :justification => :center
-#      return
-#    end
-#
-#    case report_format.to_s
-#
-#    when "Contact Report"
-#
-#
-#      PDF::SimpleTable.new do |tab|
-#
-#
-#        tab.column_order.push(*%w(system_id name email phone website))
-#
-#        tab.columns["system_id"] = PDF::SimpleTable::Column.new("system_id") { |col|
-#          col.heading = "ID"
-#        }
-#
-#        tab.columns["name"] = PDF::SimpleTable::Column.new("name") { |col|
-#          col.heading = "Name"
-#        }
-#
-#        tab.columns["email"] = PDF::SimpleTable::Column.new("email") { |col|
-#          col.heading = "Email"
-#        }
-#
-#        tab.columns["phone"] = PDF::SimpleTable::Column.new("phone") { |col|
-#          col.heading = "Phone"
-#        }
-#
-#        tab.columns["website"] = PDF::SimpleTable::Column.new("website") { |col|
-#          col.heading = "Website"
-#        }
-#
-#
-#        tab.show_lines    = :outer
-#        tab.show_headings = true
-#        tab.orientation   = :center
-#        tab.position      = :center
-#        tab.bold_headings = false
-#
-#        data = Array.new
-#
-#        for person in report_list.people_on_list do
-#
-#          email = format_fields(person.primary_email, person.secondary_email)
-#          phone = format_fields(person.primary_phone, person.secondary_phone)
-#          website = person.primary_website
-#
-#          data << { "system_id" => "#{person.id}", "name" => "#{person.name}", "email" => "#{email}", "phone" => "#{phone}", "website" => "#{website}" }
-#
-#        end
-#
-#        tab.data.replace data
-#        tab.render_on(pdf)
-#      end
-#
-#    end
-#
-#  end
-
- 
-  
 
   private
 

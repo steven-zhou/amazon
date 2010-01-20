@@ -1,0 +1,36 @@
+-# :locals => {:top_partial,:list_type}
+.container
+  = render :partial => "lists/#{top_partial}"
+
+
+
+-form_for @list_header,:url => "/list_headers", :html => {:class => "ajax_form dataTable_form",} do |f|
+  .container
+    %h3 Create List
+    .form_line
+      .field_25
+        %input{:style => "display:none;", :name => "list_type", :value => list_type}
+        =f.label :name, "<span class='asterisk'>*</span>List Name"
+        =f.text_field :name,:class=>'mandantory_field', :mandantory_field1=>"list_header_name",:submit_button_id=>"compile_create_list_submit"
+      .field_25
+        =f.label :description, "List Description"
+        =f.text_field :description
+      .field_2
+        =f.label :allow_duplication, '&nbsp'
+        %input{:style => "display:none;", :name => "list_header[allow_duplication]", :value => @allow_duplication}
+        -if (@allow_duplication=="true")
+          %input{:type => "checkbox", :style => "width:30%;display:inline;", :disabled => true, :checked=>true}
+        -else
+          %input{:type => "checkbox", :style => "width:30%;display:inline;", :disabled => true}
+      .field_15
+        =f.label :allow_duplication, '&nbsp'
+        =f.label :allow_duplication, "Allow Duplications", :style =>"margin-top:7px;"
+      .field_25{:style => "float:right"}
+        =f.label :description, "&nbsp;"
+        %input{:style => "display:none", :name => "compile"}
+        =submit_tag "Create List", :style => "width:100px;float:right",:id=>"compile_create_list_submit",:disabled=>true
+      %br.clear
+
+
+          
+  

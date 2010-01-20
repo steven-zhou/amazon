@@ -1,8 +1,8 @@
--form_for ([@query_header, @query_sorter]), :html => {:class => 'ajax_form'} do |f|
+-form_for ([@query_header, @query_sorter]),:url => query_header_query_sorters_path(@query_header), :html => {:class => 'ajax_form'} do |f|
   #left
     .form_line
       = f.label :table_name, 'Select Table'
-      = f.collection_select :table_name, TableMetaMetaType.find(:all, :conditions => ["category != ?", "organisation"], :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "sorter", :class => "clear_select show_fields", :disabled => @query_header.status == false}
+      = f.collection_select :table_name, TableMetaMetaType.find(:all, :conditions => ["category != ?", exclude_category], :order => "name"), :name, :name, {:include_blank => true}, {:update_field => "sorter", :class => "clear_select show_fields", :disabled => @query_header.status == false}
     .form_line.field_select_line
       = f.label :field_name, 'Select Field'
       %select#fields_sorter.field_select{:name => "query_sorter[field_name]", :size => "12", :disabled => @query_header.status == false}

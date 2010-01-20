@@ -1,0 +1,14 @@
+.container{:style => "width:30%;margin-right:4%;"}
+  %h1 Add Person To List
+  -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
+    .form_line
+      .field_50
+        =f.label :entity_id, "<span class='asterisk'>*</span>Person ID"
+        %input{:id => "entity_id", :name => "entity_id", :class=>"mandantory_field",:mandantory_field1=>"entity_id",:submit_button_id=>"add_person_submit",:disabled => @list_header.status == false}
+        %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
+      .field_40{:style => "float:right;"}
+        %label &nbsp;
+        =submit_tag "Add Person",:id=>"add_person_submit", :disabled =>true
+
+      %br.clear
+

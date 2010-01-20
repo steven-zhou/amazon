@@ -1,0 +1,21 @@
+-# :locals => {:title, :lists}
+#header
+  #page_title
+    %h1 #{title}
+
+.full_container
+  %h1 New List
+
+  %p
+    = h"A list can be create by <<query>> or <<list compiler>>"
+.full_container#existing_list
+  %h1 Existing Lists
+  %input.hidden{:id => "list_mode", :mode => "show"}
+  #show_lists
+    = render :partial => "lists/saved_list", :collection => lists
+  %br.clear
+
+.container#edit_list.hidden
+  #show_list_details
+
+#copy_form.hidden

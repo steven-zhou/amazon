@@ -3584,7 +3584,7 @@ $(function(){
             $.ajax({
                 type: "POST",
                 url: "/include_lists",
-                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=person',
                 dataType: "script"
             });
 
@@ -3600,7 +3600,37 @@ $(function(){
             $.ajax({
                 type: "POST",
                 url: "/exclude_lists",
-                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val(),
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=person',
+                dataType: "script"
+            });
+        }
+    });
+});
+
+
+$(function(){
+    $("#org_add_to_include").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/include_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=org',
+                dataType: "script"
+            });
+
+        }
+    });
+});
+
+
+
+$(function(){
+    $("#org_add_to_exclude").live('click', function(){
+        if($("#compiler_options").val() != null){
+            $.ajax({
+                type: "POST",
+                url: "/exclude_lists",
+                data:'list_header_id=' + $("#compiler_options").val() + '&login_account_id=' + $("#login_account_id").val()+'&type=org',
                 dataType: "script"
             });
         }
@@ -3645,6 +3675,26 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#org_compile_button").live('click', function(){
+        var temp = "";
+        temp += "login_account_id=" + $("#login_account_id").val();
+        temp += "&allow_duplication=" + $("#allow_duplication").attr("checked");
+        if($("#top_number").attr("checked")==true){
+            temp += "&top=number&top_number=" + $("#top_value").val();
+        }else{
+            temp += "&top=percent&top_percent=" + $("#top_value").val();
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/compile_lists/org_compile.js",
+            data: temp,
+            dataType: "script"
+        });
+    });
+});
+
 
 $(function(){
     $("#top_number").click(function(){
@@ -3665,13 +3715,20 @@ $(function(){
 $(function(){
     $('.export_button').live('click',function(){
 
+        var source_id = ""
+        var file_name = ""
+        var source = $(this).attr("source");
+        if (source == 'person'){
+            source_id = $('#source_id').val();
+            file_name = $("#file_name").val();
+        }else{
+            source_id = $('#org_source_id').val();
+            file_name = $("#org_file_name").val();
+        }
 
-        if ($('#source_id').val()!="")
+        if (source_id != "")
         {
-            var format = $(this).attr("value").toLowerCase();
-            var source = $(this).attr("source");
-            var source_id = $("#source_id").val();
-            var file_name = $("#file_name").val();
+            var format = $(this).attr("value").toLowerCase();            
             window.open("/data_managers/export."+format+"?source="+source+"&source_id="+source_id+"&file_name="+file_name);
         }
 
@@ -3694,7 +3751,7 @@ $(function(){
 $(function(){
     $('#report_organisation_pdf_submit_button').live('click', function(){
 
-        window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#report_list').val());
+        window.open("/reports/generate_organisation_report_pdf?request_format="+$('#report_requested_format').val()+"&list_header_id="+$('#organisation_report_list').val());
     });
 
 });
@@ -3737,9 +3794,22 @@ $(function(){
     $("#insert_word").live('click', function(){
         var current_form = $(this).closest('form').get(0).id;
         var value = $("#select_word").val();
+
         var iframe_id = $(this).closest('form').find('iframe').get(0).id
         $("#"+ iframe_id ).contents().find('br').remove();
         $("#"+ iframe_id ).contents().find("p:last").append(value);
+
     });
 });
 
+/*For note*/
+//  $('#note_edit_submit').live('click',function(){
+//        if($('#note_mode').attr('mode')=="edit"){
+//            $.ajax({
+//                type: 'GET',
+//                url: "/note/"+$('#note_id').val()+"/update",
+//                data: "note_type=" + $("#note_type_id_note_typed").val()+ "&note_label="+$("#note_edit_label").val(),
+//                dataType: "script"
+//            });
+//        }
+//    });

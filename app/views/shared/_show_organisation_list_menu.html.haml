@@ -58,6 +58,10 @@
             = link_to "#{image_tag('Icons/System/add.png')} New", :controller => "query_headers", :action => "new"
           %li{:id => @current_action == "index" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", :controller => "query_headers", :action => "index"
+          %li{:id => @current_action == "org_new" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/add.png')} Org New", :controller => "query_headers", :action => "org_new"
+          %li{:id => @current_action == "org_index" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Org Edit", :controller => "query_headers", :action => "org_index"
     .bottom
 
   - # List of Lists Menu
@@ -69,12 +73,14 @@
       - else
         <p>List of list</p>
         %ul
-          %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/System/add.png')} New", :controller => "list_headers", :action => "new"
           %li{:id => @current_action == "manage_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", :controller => "list_headers", :action => "manage_list"
           %li{:id => @current_action == "compile_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Compile", :controller => "list_headers", :action => "compile_list"
+          %li{:id => @current_action == "org_manage_list" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Org Manager", :controller => "list_headers", :action => "org_manage_list"
+          %li{:id => @current_action == "org_compile_list" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Org Compile", :controller => "list_headers", :action => "org_compile_list"
     .bottom
 
   - # Report Menu
@@ -106,7 +112,7 @@
     .bottom
 
   - # Communication menu
-  -#%li{:id => @current_controller == "communication" ? "menu_active" : ""}
+  %li{:id => @current_controller == "communication" ? "menu_active" : ""}
     .top
     .item
       - if @current_controller != "communication"

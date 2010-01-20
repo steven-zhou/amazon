@@ -1,0 +1,58 @@
+<%if @source_type == "query"
+    if @query_header.query_selections.empty? -%>
+            <%= "ID,Full Name,Trading As, Address, Email, Phone, Website" %>
+        <%  @entities.each do |entity| -%>
+            <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address.gsub(/,/, '')
+                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number.gsub(/,/, '')
+                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address.gsub(/,/, '')
+                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value.gsub(/,/, '')
+                full_name = entity.full_name.nil? ? "" : entity.full_name.gsub(/,/, '')
+                trading_as = entity.trading_as.nil? ? "" : entity.trading_as.gsub(/,/, '')%>
+            <%=  "#{entity.id},#{full_name},#{trading_as},#{address},#{primary_e},#{primary_p},#{primary_w}" %>
+        <%end
+    else
+            title = Array.new
+            @query_header.query_selections.each do |i|
+              title << i.field_name.humanize
+            end -%>
+                <%= title.join(",") %>
+            <%@entities.each do |entity|
+            data_value = Array.new
+            @query_header.query_selections.each do |i|
+                if i.table_name == "organisations"
+                  if i.data_type == "Integer FK"
+                    if (i.field_name == "registered_country")
+                      data_value << (entity.__send__(i.field_name.to_sym).nil? ? "" : "#{entity.__send__(i.field_name.to_sym).short_name}")
+                    else
+                      data_value << (entity.__send__(i.field_name.to_sym).nil? ? "" : "#{entity.__send__(i.field_name.to_sym).name}")
+                    end
+                  else
+                    data_value << "#{entity.__send__(i.field_name.to_sym)}"
+                  end
+                else
+                  if i.data_type == "Integer FK"
+                    if(i.field_name == "country")
+                      data_value << ((!entity.__send__(i.table_name.underscore.to_sym).empty? && !entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : "")
+                    else
+                      data_value << ((!entity.__send__(i.table_name.underscore.to_sym).empty? && !entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : "")
+                    end
+                  else
+                    data_value << ((entity.__send__(i.table_name.underscore.to_sym).empty?) ? "" : "#{entity.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}")
+                  end
+                end
+            end-%>
+            <%=  data_value.join(",") %>
+        <%end
+    end
+else-%>
+  <%= "ID,Full Name,Trading As, Address, Email, Phone, Website" %>
+  <% @entities.each do |entity| -%>
+    <%- primary_e = entity.primary_email.nil? ? "" : entity.primary_email.address.gsub(/,/, '')
+                primary_p = entity.primary_phone.nil? ? "" : entity.primary_phone.complete_number.gsub(/,/, '')
+                primary_w = entity.primary_website.nil? ? "" : entity.primary_website.address.gsub(/,/, '')
+                address = entity.primary_address.nil? ? "" : entity.primary_address.formatted_value.gsub(/,/, '')
+                full_name = entity.full_name.nil? ? "" : entity.full_name.gsub(/,/, '')
+                trading_as = entity.trading_as.nil? ? "" : entity.trading_as.gsub(/,/, '')%>
+    <%=  "#{entity.id},#{full_name},#{trading_as},#{address},#{primary_e},#{primary_p},#{primary_w}" %>
+  <%end -%>
+<%end-%>

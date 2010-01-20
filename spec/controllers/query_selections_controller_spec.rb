@@ -10,6 +10,7 @@ describe QuerySelectionsController do
     session[:user] = Factory(:login_account).id
     QueryHeader.stub!(:find).and_return(@query_header)
     QuerySelection.stub!(:new).and_return(@query_selection)
+     @query_selection.stub!(:set_data_type)
   end
 
   def post_create(options = {})
@@ -19,7 +20,9 @@ describe QuerySelectionsController do
   end
 
   describe "post create" do
-
+  before(:each) do
+      @query_selection.stub!(:set_data_type)
+    end
     it "should find the correct query header" do
       QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)
       post_create

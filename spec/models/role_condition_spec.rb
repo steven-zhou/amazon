@@ -29,16 +29,16 @@ describe RoleCondition do
     @role_condition.save.should == false
     @role_condition.errors.on(:role_id).should_not be_nil
   end
-  it "should have the valid condition" do
-    @role_condition.doctype_id = "-1"
-    @role_condition.save.should == false
-    @role_condition.errors.on(:doctype_id).should_not be_nil
-  end
-  it "should have the valid role" do
-    @role_condition.role_id = "-1"
-    @role_condition.save.should == false
-    @role_condition.errors.on(:role_id).should_not be_nil
-  end
+#  it "should have the valid condition" do
+#    @role_condition.doctype_id = "-1"
+#    @role_condition.save.should == false
+#    @role_condition.errors.on(:doctype_id).should_not be_nil
+#  end
+#  it "should have the valid role" do
+#    @role_condition.role_id = "-1"
+#    @role_condition.save.should == false
+#    @role_condition.errors.on(:role_id).should_not be_nil
+#  end
   it "should have unique doctype for the same role" do
     #    @doctype = Factory(:master_doc_type)
     #    @role = Factory(:role)

@@ -32,7 +32,7 @@ class PeopleController < ApplicationController
   
   def show
     @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
 
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
@@ -49,18 +49,18 @@ class PeopleController < ApplicationController
         if params[:id].nil? || params[:id] == "show" #when just jumping or change list
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
-          @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
+          @person = @list_header.entity_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
-          @p = @list_header.people_on_list
+          @p = @list_header.entity_on_list
         else  #when there is id come---click the narrow button
           unless session[:current_list_id].blank?
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.people_on_list
+            @p = @list_header.entity_on_list
             @person = Person.find_by_id(params[:id].to_i)
-            @person = @list_headers.first.people_on_list.first if @person.nil?
+            @person = @p.first if @person.nil?
             session[:current_person_id] = @person.id
             #else
           end
@@ -75,16 +75,16 @@ class PeopleController < ApplicationController
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
 
       c1 = Array.new
-      c1 = @list_header.people_on_list
+      c1 = @list_header.entity_on_list
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
-        @person = @list_header.people_on_list.first
+        @person = @list_header.entity_on_list.first
       else
         @person
       end
 
       @p = Array.new
-      @p = @list_header.people_on_list
+      @p = @list_header.entity_on_list
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -114,7 +114,7 @@ class PeopleController < ApplicationController
 
   def edit
     @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
 
@@ -128,24 +128,24 @@ class PeopleController < ApplicationController
           if params[:id].blank? || params[:id] == "show"
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.people_on_list
+            @p = @list_header.entity_on_list
             @person = Person.find(session[:current_person_id])
           else
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.people_on_list
+            @p = @list_header.entity_on_list
             @person = Person.find_by_id(params[:id].to_i)
-            @person = @list_headers.first.people_on_list.first if @person.nil?
+            @person = @list_headers.first.entity_on_list.first if @person.nil?
             session[:current_person_id] = @person.id
           end
         else
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
-          @person = @list_headers.first.people_on_list.first unless @list_headers.blank?
+          @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
-          @p = @list_header.people_on_list
+          @p = @list_header.entity_on_list
         end
       end
     end
@@ -154,15 +154,15 @@ class PeopleController < ApplicationController
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
       c1 = Array.new
-      c1 = @list_header.people_on_list
+      c1 = @list_header.entity_on_list
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
-        @person = @list_header.people_on_list.first
+        @person = @list_header.entity_on_list.first
       else
         @person
       end
       @p = Array.new
-      @p = @list_header.people_on_list
+      @p = @list_header.entity_on_list
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -395,7 +395,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
-    @p = @list_header.people_on_list
+    @p = @list_header.entity_on_list
     #clear
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
@@ -431,10 +431,10 @@ class PeopleController < ApplicationController
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
-    @list_headers = @current_user.all_lists
+    @list_headers = @current_user.all_person_lists
  
     @p = Array.new
-    @p = @list_header.people_on_list
+    @p = @list_header.entity_on_list
     @primary_phone = @person.primary_phone
     @primary_email = @person.primary_email
     @primary_fax = @person.primary_fax
@@ -511,7 +511,7 @@ class PeopleController < ApplicationController
     @email_search=params[:email]
     @phone_search=params[:phone]
     @list_people_id = session[:current_list_id]
-    @list_people = ListHeader.find(session[:current_list_id]).people_on_list
+    @list_people = ListHeader.find(session[:current_list_id]).entity_on_list
     @search_list_result=@list_people.find(:all)
     @search_list_result = @list_people.find(:all,:include => [:contacts], :conditions => ["contacts.value ILIKE ?","%#{@email_search}%"])
     respond_to do |format|
@@ -626,7 +626,7 @@ class PeopleController < ApplicationController
     #    if PersonLookupGrid.find_all_by_login_account_id(session[:user]).empty?
 
     @templist = TempList.find_by_login_account_id(session[:user])
-    @people = @templist.people_on_list rescue @people = PrimaryList.first.people_on_list
+    @people = @templist.entity_on_list rescue @people = PrimaryList.first.entity_on_list
     @people.each do |j|
 
       @solg = PersonLookupGrid.new
@@ -663,7 +663,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
-    @p = @list_header.people_on_list
+    @p = @list_header.entity_on_list
 
 
     ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|

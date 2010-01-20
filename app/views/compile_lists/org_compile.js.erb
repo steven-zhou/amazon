@@ -1,0 +1,69 @@
+<%- unless flash[:error].nil? %>
+$("#flash_message").html("<%= escape_javascript(flash[:error]) %>");
+$('#flash_message').dialog( {
+    modal: true,
+      resizable: false,
+    draggable: true,
+      height: 'auto',
+      width: 'auto',
+    <%#*position: 'top',%>
+    buttons: {
+      Ok: function() {
+        $(this).dialog('close');
+      }
+    }
+  });
+
+
+   $('#flash_message').parent().find("a").css("display","none");
+   $("#flash_message").parent().css('background-color','#D1DDE6');
+   $("#flash_message").css('background-color','#D1DDE6');
+
+$('#flash_message').dialog('option', 'title', 'Error');
+$('#flash_message').dialog('open');
+<%- else %>
+
+$('#compile_result').html('<%= escape_javascript(render(:partial => "lists/compile_results_template", :locals => {:top_partial=>"org_compile_list_template_title",:list_type=>"org"})) %>');
+$('#compile_result_div').dialog({
+  modal: true,
+  position: 'center',
+  resizable: true,
+  draggable: true,
+  height: 700,
+  width: 1100
+
+});
+$('#compile_result_div').dialog('option', 'title', 'Compile Result');
+$('#compile_result_div').dialog('open');
+
+
+$("#list_compile_grid").flexigrid({
+        url: '/grids/list_compile_grid',
+        dataType: 'json',
+        colModel : [
+            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
+            {display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
+            {display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'}
+        ],
+        searchitems : [
+            {display: 'First Name', name : 'field_1'},
+            {display: 'Family Name', name : 'field_2'}
+        ],
+        sortname: "grid_object_id",
+        sortorder: "asc",
+        usepager: true,
+        title: '',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 300
+    });
+<%if  !(@check_list_empty.size >0)%>
+$('#list_header_name').attr('disabled',true);
+$('#list_header_description').attr('disabled',true);
+<%end%>
+
+
+
+<%- end %>

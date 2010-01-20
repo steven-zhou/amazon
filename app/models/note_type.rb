@@ -5,6 +5,8 @@ class NoteType < AmazonSetting
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "A note type already exists with the same name."
 
+  named_scope :membership, :conditions => {:name => "Membership"}
+
   after_create :assign_priority
   before_destroy :reorder_priority
 

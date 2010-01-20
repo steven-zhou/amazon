@@ -32,7 +32,7 @@ describe Address do
     end
     
     it "should return the third line with state, postal_code, country" do
-      @address.third_line.should == "#{@attr[:state]} #{@attr[:postal_code]} #{@country_attr[:short_name]}"
+      @address.third_line.should == "#{@attr[:state]} #{@attr[:postal_code]} #{@address.country_short_name}"
     end
     
     it "should return a formatted string with town and address if attributes are missing" do

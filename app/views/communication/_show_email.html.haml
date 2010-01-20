@@ -13,9 +13,30 @@
     .field_40
       = label :subject, "Subject"
       = @email.subject
-  .form_line
-    .field_80
+  .form_line{:style => "height:auto;"}
+    .field_80{:style => "height:auto;"}
       = label :subject, "Body"
       = @email.body
+  %br.clear
 
+- form_for :email, @email, :url => { :controller => "communication", :action => "modify_email", :id => @email.id}, :html => {:class => 'ajax_form'}  do |f|
+  .full_container
+    %h2 Update Emails
+    -#%input{:id => "modify_email_start_date", :name => "modify_email_start_date", :style => "display:none;"}
+    -#%input{:id => "modify_email_end_date", :name => "modify_email_end_date", :style => "display:none;"}
+    -#%input{:id => "modify_email_dispatch_date", :name => "modify_email_dispatch_date", :style => "display:none;"}
+    -#%input{:id => "modify_email_to_be_removed", :name => "modify_email_to_be_removed", :style => "display:none;"}
+    -#%input{:id => "modify_email_status", :name => "modify_email_status", :style => "display:none;"}
+    .form_line
+      .field_20
+        = f.label :dispatch_date, 'Already Sent'
+        = f.check_box :dispatch_date,:style => "width:auto;float:left;", :disabled => @email.status == false
+      .field_20
+        = f.label :to_be_removed, 'To Be Removed'
+        = f.check_box :to_be_removed,:style => "width:auto;float:left;", :disabled => @email.status == false
+      .field_20
+        = f.label :status, 'Active'
+        = f.check_box :status,:style => "width:auto;float:left;"
+
+  = submit_tag "Update", :id => "modify_email_submit"
 

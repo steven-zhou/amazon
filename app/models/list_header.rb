@@ -1,11 +1,6 @@
 class ListHeader < ActiveRecord::Base
 
-  belongs_to :query_header
-  has_many :list_details, :order => "id"
- 
-
-  
-  has_many :people_on_list, :through => :list_details, :source => :person, :order => "person_id"
+ has_many :list_details
 
   has_many :user_lists
   has_many :login_accounts, :through => :user_lists, :uniq => true
@@ -24,16 +19,12 @@ class ListHeader < ActiveRecord::Base
     "#{self.name} - #{self.description} : #{self.list_size} records"
   end
 
-  def self.sortall
-    ListHeader.find(:all, :conditions => ["type is null"], :order => "name")
+  def person_list?
+    self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList" || self.class.to_s == "TempList"
   end
 
-  def self.all
-    ListHeader.find(:all, :order => "name")
-  end
-
-  private
-
+  protected
+  
   def delete_all_details
     self.list_details.each do |list_detail|
       list_detail.destroy

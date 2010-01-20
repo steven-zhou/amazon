@@ -20,6 +20,10 @@ class QueryCriteria < ActiveRecord::Base
     result += "#{self.table_name}.#{self.field_name} #{self.operator} #{self.value}"
   end
 
+   def set_data_type(param1, param2)
+     self.data_type = TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", param1, TableMetaMetaType.find_by_name(param2)]).category
+  end
+
   private
   def assign_sequence
     self.sequence = self.query_header.query_criterias.length+1
@@ -35,5 +39,7 @@ class QueryCriteria < ActiveRecord::Base
         end
       }
     end
-  end  
+  end
+
+ 
 end

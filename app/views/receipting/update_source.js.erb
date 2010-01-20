@@ -1,7 +1,7 @@
 <% if @source.errors.empty? -%>
 $('#add_new_source').html('<%= escape_javascript(render(:partial => "/receipting/new_source")) %>').css('display','');
 $('#existing_sources').html('<%= escape_javascript(render(:partial => "/receipting/existing_sources")) %>');
-$('#sources_mode').attr('mode', 'show');
+$('#source_mode').attr('mode', 'show');
 $('.select_ajax_call[field="source"]').attr('disabled', false);
 $('#edit_source').css('display','none');
    $("#show_sources_by_campaign_grid").flexigrid({

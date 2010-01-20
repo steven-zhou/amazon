@@ -31,7 +31,9 @@ module OutputPdf
 
   PERSON_DEFAULT_FORMAT = [{"ID" => "id"}, {"First Name" => "first_name"}, {"Family Name"=> "family_name"}, {"Address" => "address"},
     {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
-                          
+
+  ORGANISATION_DEFAULT_FORMAT = [{"ID" => "id"}, {"Full Name" => "full_name"}, {"Trading As" => "trading_as"}, {"Address" => "address"},
+    {"Email" => "email"}, {"Phone" => "phone"}, {"Website" => "website"}]
 
   # The difference between report and non_report is with/without format
   # validate personal report format
@@ -106,7 +108,7 @@ module OutputPdf
   end
 
 
-  # generate pdf from source (non_report)
+  # generate pdf from person source (non_report)
   # private method - generate_pdf
   # geneare_pdf(source_type, source_id, header_settings={}, body_settings={})
   # options in header_settings:
@@ -128,6 +130,31 @@ module OutputPdf
     pdf = PDF::Writer.new
     generate_header(pdf, source_type, source_id, header_settings)
     generate_body(pdf, source_type, source_id, body_settings)
+    return pdf
+  end
+
+  # generate pdf from organisation source (non_report)
+  # private method - generate_org_pdf
+  # geneare_org_pdf(source_type, source_id, header_settings={}, body_settings={})
+  # options in header_settings:
+  #       image(image)                      = path of image
+  #       title(report title)               = string(e.g. "Person Contact Report")
+  #       image_position(position of image) = "left"/"center"/"right"
+  #       title_position(position of title) = "left"/"center"/"right"
+  #       font(font)                        = any font(e.g. "Times-Roman)
+  #       font_size(font_size)              = any integer(e.g. 32)
+  # options in body_settings:
+  #       show_lines(position of lines)     = "outer"/"inner"
+  #       show_headings(display or not)     = true/false
+  #       orientation(orientation)          = "left"/"center"/"right"
+  #       position(position)                = "left"/"center"/"right"
+  #       bold_header(header bold?)         = true/false
+  #       font_size(font_size)              = any integer(e.g. 32)
+  #       text_align(alignment)             = "left"/"center"/"right"
+  def self.generate_org_pdf(source_type, source_id, header_settings={}, body_settings={})
+    pdf = PDF::Writer.new
+    generate_header(pdf, source_type, source_id, header_settings)
+    generate_org_body(pdf, source_type, source_id, body_settings)
     return pdf
   end
 
@@ -237,7 +264,7 @@ module OutputPdf
       @people = QueryHeader.find(source_id.to_i).run
     else
       #list
-      @people = ListHeader.find(source_id.to_i).people_on_list
+      @people = ListHeader.find(source_id.to_i).entity_on_list
     end
 
     if @people.empty?
@@ -344,7 +371,7 @@ module OutputPdf
       #organisational query
     else
       #list - all organisations
-      @organisations = Organisation.find(:all, :conditions => ["type != ?", "ClientOrganisation"], :order => "id")
+      @organisations = ListHeader.find(source_id.to_i).entity_on_list
     end
 
     if @organisations.empty?
@@ -539,7 +566,7 @@ module OutputPdf
       @people = QueryHeader.find(source_id.to_i).run
     else
       #list
-      @people = ListHeader.find(source_id.to_i).people_on_list
+      @people = ListHeader.find(source_id.to_i).entity_on_list
     end
     if @people.empty?
       pdf.text "No matching records found.", :font_size => body_settings[:font_size], :justification => body_settings[:text_align]
@@ -646,6 +673,124 @@ module OutputPdf
   end
 
 
+  def self.generate_org_body(pdf, source_type, source_id, body_settings={})
+    body_settings[:show_lines] ||= "outer"
+    body_settings[:show_headings] ||= true
+    body_settings[:orientation] ||= "center"
+    body_settings[:position] ||= "center"
+    body_settings[:bold_header] ||= false
+    body_settings[:font_size] ||= 16
+    body_settings[:text_align] ||= "center"
+
+    if source_type == "query"
+      #query
+      @organisations = QueryHeader.find(source_id.to_i).run
+    else
+      #list
+      @organisations = ListHeader.find(source_id.to_i).entity_on_list
+    end
+    if @organisations.empty?
+      pdf.text "No matching records found.", :font_size => body_settings[:font_size], :justification => body_settings[:text_align]
+      return
+    end
+
+
+    PDF::SimpleTable.new do |tab|
+      if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
+        tab.column_order.push("id")
+        QueryHeader.find(source_id.to_i).query_selections.each do |i|
+          tab.column_order.push("#{i.field_name}")
+        end
+        tab.columns["id"] = PDF::SimpleTable::Column.new("id") {|col| col.heading = "ID"}
+        QueryHeader.find(source_id.to_i).query_selections.each do |i|
+          tab.columns["#{i.field_name}"] = PDF::SimpleTable::Column.new("#{i.field_name}") {|col| col.heading = "#{i.field_name.titleize}"}
+          if QueryHeader.find(source_id.to_i).query_selections.size >8 #if selection more then 8 set each column width 55, otherwise will be too wide
+            tab.columns["#{i.field_name}"].width = 55
+          end
+        end
+      else
+        OutputPdf::ORGANISATION_DEFAULT_FORMAT.each_index do |i|
+          tab.column_order.push("#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]}")
+        end
+
+        OutputPdf::ORGANISATION_DEFAULT_FORMAT.each_index do |i|
+          tab.columns["#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]}"] = PDF::SimpleTable::Column.new("#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]}") { |col| col.heading = "#{OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].keys[0]}"}
+        end
+      end
+
+
+      tab.show_lines    = body_settings[:show_lines].to_sym
+      tab.show_headings = body_settings[:show_headings]
+      tab.orientation   = body_settings[:orientation].to_sym
+      tab.position      = body_settings[:position].to_sym
+      tab.bold_headings = body_settings[:bold_header]
+
+      data = Array.new
+      @organisations.each do |organisation|
+        primary_e = organisation.primary_email.nil? ? "" : organisation.primary_email.address
+        secondary_e = organisation.secondary_email.nil? ? "" : organisation.secondary_email.address
+        primary_p = organisation.primary_phone.nil? ? "" : organisation.primary_phone.complete_number
+        secondary_p = organisation.secondary_phone.nil? ? "" : organisation.secondary_phone.complete_number
+        primary_w = organisation.primary_website.nil? ? "" : organisation.primary_website.address
+        secondary_w = organisation.secondary_website.nil? ? "" : organisation.secondary_website.address
+        email = format_fields(primary_e, secondary_e)
+        phone = format_fields(primary_p, secondary_p)
+        website = format_fields(primary_w, secondary_w)
+        address = (organisation.primary_address.nil?) ? "" : organisation.primary_address.first_line
+        if(!(organisation.primary_address.nil?))
+          address+="\n" + organisation.primary_address.second_line
+        end
+        data_row = Hash.new
+        if (source_type == "query" && !QueryHeader.find(source_id.to_i).query_selections.empty?)
+          data_row["id"] = "#{organisation.id}"
+
+          QueryHeader.find(source_id.to_i).query_selections.each do |i|
+            if i.table_name == "organisations"
+              if i.data_type.include?("Integer FK")
+                if(i.field_name == "registered_country")
+                  data_row["#{i.field_name}"] = organisation.__send__(i.field_name).nil? ? "" : "#{organisation.__send__(i.field_name).short_name}"
+                else
+                  data_row["#{i.field_name}"] = organisation.__send__(i.field_name).nil? ? "" : "#{organisation.__send__(i.field_name).name}"
+                end
+              else
+                data_row["#{i.field_name}"] = organisation.__send__(i.field_name)
+              end
+            else
+              if i.data_type.include?("Integer FK")
+                if(i.field_name == "registered_country")
+                  data_row["#{i.field_name}"] = (!organisation.__send__(i.table_name.underscore.to_sym).empty? && !organisation.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{organisation.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
+                else
+                  data_row["#{i.field_name}"] = (!organisation.__send__(i.table_name.underscore.to_sym).empty? && !organisation.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{organisation.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : ""
+                end
+              else
+                data_row["#{i.field_name}"] = organisation.__send__(i.table_name.underscore.to_sym).empty? ? "" : "#{organisation.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}"
+              end
+            end
+          end
+        else
+          OutputPdf::ORGANISATION_DEFAULT_FORMAT.each_index do |i|
+            if (OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].keys[0].include?("FK"))
+              data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = (organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]).nil?) ? "" : "#{organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]).name}"
+            else
+              case OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]
+              when "address" then data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = "#{address}"
+              when "phone" then data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = "#{phone}"
+              when "email" then data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = "#{email}"
+              when "website" then data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = "#{website}"
+              else  data_row[OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0]] = "#{organisation.__send__(OutputPdf::ORGANISATION_DEFAULT_FORMAT[i].values[0])}"
+
+              end
+
+            end
+          end
+        end
+
+        data << data_row
+      end
+      tab.data.replace data
+      tab.render_on(pdf)
+    end
+  end
 
 
   def self.format_fields(field_one, field_two)

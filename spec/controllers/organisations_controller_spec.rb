@@ -20,6 +20,7 @@ describe OrganisationsController do
   def post_create(options = {})
     options[:type] ||= "ClientOrganisation"
     options[:organisation] ||= @attributes
+    options[:organisation][:level] ||= "1"
     post :create, options
   end
 
@@ -27,14 +28,11 @@ describe OrganisationsController do
     get :edit, options
   end
 
-  def post_add_keywords(options ={})
-    options[:add_keywords] ||= [1,2]
-    post :add_keywords, options
-  end
 
   def put_update(options = {})
     options[:id] ||= @organisation.id
     options[:organisation] ||= @attributes
+    options[:client_organisation] ||= @attributes
     put :update, options
   end
 
@@ -99,10 +97,14 @@ describe OrganisationsController do
     context "when params are valid" do
       before(:each) do
         @organisation.stub!(:save).and_return(true)
+        @client_setup = ClientSetup.new
+        ClientSetup.stub!(:first).and_return(@client_setup)
+        @client_setup.stub!(:level__label).and_return("level1")
+        @client_setup.stub!(:level_1_label).and_return("level1")
       end
 
       it "should build the organisation" do
-        ClientOrganisation.should_receive(:new).with(hash_including(@attributes)).and_return(@organisation)
+        ClientOrganisation.should_receive(:new).and_return(@organisation)
         post_create
       end
 
@@ -169,64 +171,7 @@ describe OrganisationsController do
 
   end
 
-  describe "handle POST 'add_keywords'" do
-    before(:each) do
-      @keyword = Factory.build(:keyword)
-      @keyword_2 = Factory.build(:keyword)
-      Keyword.stub!(:find).and_return(@keyword,@keyword_2)
-      @ids = [1,2]
-    end
-
-    it "should find keywords for each elements in add_keyword params" do
-      @ids.each do |id|
-        Keyword.should_receive(:find).with(id)
-      end
-      post_add_keywords :add_keywords => @ids
-    end
-
-    it "should add all founded keywords to organisation" do
-      post :add_keywords, :add_keywords => @ids
-      @organisation.keywords.size.should equal(@ids.size)
-    end
-
-    it "should render add_keywords.js" do
-      post_add_keywords :add_keywords => @ids
-      response.should render_template("organisations/add_keywords.js")
-    end
-  end
-
-  describe "handle POST 'remove_keywords'" do
-    before(:each) do
-      @keyword = Factory.build(:keyword)
-      Keyword.stub!(:find).and_return(@keyword)
-      @ids = [1]
-    end
-
-    it "should find keywords for each elements in remove_keyword params" do
-      @ids.each do |id|
-        Keyword.should_receive(:find).with(id)
-      end
-      post :remove_keywords, :remove_keywords => @ids
-    end
-
-    it "should remove all founded keywords from organisation" do
-      @organisation.keywords.should_receive(:delete).exactly(@ids.size)
-      post :remove_keywords, :remove_keywords => @ids
-    end
-
-    it "should render remove_keywords.js" do
-      post :remove_keywords, :remove_keywords => @ids
-      response.should render_template("organisations/remove_keywords.js")
-    end
-  end
-
   describe "Get 'search'" do
-    context "if params[:commit] != 'Search'" do
-      before(:each) do
-        get_search :commit => 'test'
-      end
-      it { should render_template("search")}
-    end
 
     context "if params[:commit] == 'Search'" do
 
@@ -238,14 +183,6 @@ describe OrganisationsController do
 
       end
 
-      context "if more than one organisation was found" do
-        before(:each) do
-          Organisation.stub!(:find_all_by_id).and_return([@organisation,@organisation])
-          get_search
-        end
-
-        it {should render_template("organisations/search.html.haml")}
-      end
 
       context "only one organisation was found" do
         before(:each) do

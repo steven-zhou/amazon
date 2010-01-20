@@ -7,9 +7,17 @@ describe IncludeListsController do
     session[:user] = @include_list.login_account.id
   end
 
-  def post_create(options={})
+  def post_person_create(options={})
     options[:list_header_id] ||= @include_list.list_header.id
     options[:login_account_id] ||= @include_list.login_account.id
+    options[:type] ||= "person"
+    xhr :post, "create", options
+  end
+
+  def post_organisation_create(options={})
+    options[:list_header_id] ||= @include_list.list_header.id
+    options[:login_account_id] ||= @include_list.login_account.id
+    options[:type] ||= "org"
     xhr :post, "create", options
   end
 
@@ -18,27 +26,43 @@ describe IncludeListsController do
     xhr :delete, "destroy", options
   end
 
-  describe "Post Create" do
+  describe "Post PersonIncludeList Create" do
     before(:each) do
-      IncludeList.stub!(:new).and_return(@include_list)
+      PersonIncludeList.stub!(:new).and_return(@include_list)
     end
     it "should create new include list" do
-      IncludeList.should_receive(:new)
-      post_create
+      PersonIncludeList.should_receive(:new)
+      post_person_create
     end
 
     it "should save the new include list" do
       @include_list.should_receive(:save)
-      post_create
+      post_person_create
+    end
+  end
+
+  describe "Post OrganisationIncludeList Create" do
+    before(:each) do
+      OrganisationIncludeList.stub!(:new).and_return(@include_list)
+    end
+    it "should create new include list" do
+      OrganisationIncludeList.should_receive(:new)
+      post_organisation_create
+    end
+
+    it "should save the new include list" do
+      @include_list.should_receive(:save)
+      post_organisation_create
     end
   end
 
   describe "Delete Destroy" do
     before(:each) do
-      IncludeList.stub!(:find).and_return(@include_list)
+      PersonIncludeList.stub!(:find).and_return(@include_list)
+      OrganisationIncludeList.stub!(:find).and_return(@include_list)
     end
     it "should find the correct include list to delete" do
-      IncludeList.should_receive(:find).with(@include_list.id).and_return(@include_list)
+      PersonIncludeList.should_receive(:find).with(@include_list.id).and_return(@include_list)
       delete_destroy
     end
     it "should delete the current include list" do

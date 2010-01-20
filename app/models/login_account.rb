@@ -9,6 +9,7 @@ class LoginAccount < ActiveRecord::Base
   belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
+   validates_presence_of  :user_name, :password
 
 
 
@@ -83,30 +84,102 @@ class LoginAccount < ActiveRecord::Base
     end
     @access_attempts_count
   end
-  
-  def list_headers
+
+  def all_group_person_lists
     list_headers = Array.new
     for group_type in self.group_types do
-      for list_header in group_type.list_headers do
+      for list_header in group_type.group_person_lists do
         list_headers << list_header
       end
     end
     list_headers.uniq
   end
 
-  def custom_lists
+  def all_active_group_person_lists
+    list_headers = Array.new
+    for group_type in self.group_types do
+      for list_header in group_type.group_person_lists do
+        list_headers << list_header if list_header.status == true
+      end
+    end
+    list_headers.uniq
+  end
+
+  def all_group_organisation_lists
+    list_headers = Array.new
+    for group_type in self.group_types do
+      for list_header in group_type.group_organisation_lists do
+        list_headers << list_header
+      end
+    end
+    list_headers.uniq
+  end
+
+  def all_active_group_organisation_lists
+    list_headers = Array.new
+    for group_type in self.group_types do
+      for list_header in group_type.group_organisation_lists do
+        list_headers << list_header if list_header.status == true
+      end
+    end
+    list_headers.uniq
+  end
+
+  def all_custom_person_lists
     custom_lists = Array.new
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
-      custom_lists << ListHeader.find(i.list_header_id)
+      list = ListHeader.find(i.list_header_id)
+      custom_lists << list if (list.class.to_s == "PersonListHeader" || list.class.to_s == "PrimaryList")
     end
     custom_lists.uniq
   end
 
-  def all_lists
-    temp_list = TempList.find_all_by_login_account_id(self.id)
-    (self.list_headers + self.custom_lists + temp_list).uniq
+  def all_active_custom_person_lists
+    custom_lists = Array.new
+    user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
+    user_lists.each do |i|
+      list = ListHeader.find(i.list_header_id)
+      custom_lists << list if ((list.class.to_s == "PersonListHeader" || list.class.to_s == "PrimaryList") && list.status == true)
+    end
+    custom_lists.uniq
   end
+
+  def all_custom_organisation_lists
+    custom_lists = Array.new
+    user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
+    user_lists.each do |i|
+      list = ListHeader.find(i.list_header_id)
+      custom_lists << list if (list.class.to_s == "OrganisationListHeader")
+    end
+    custom_lists.uniq
+  end
+
+  def all_active_custom_organisation_lists
+    custom_lists = Array.new
+    user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
+    user_lists.each do |i|
+      list = ListHeader.find(i.list_header_id)
+      custom_lists << list if (list.class.to_s == "OrganisationListHeader" && list.status == true)
+    end
+    custom_lists.uniq
+  end
+
+  def all_person_lists
+    temp_list = TempList.find_all_by_login_account_id(self.id)
+    (self.all_group_person_lists + self.all_custom_person_lists + temp_list).uniq
+  end
+
+
+  def all_organisation_lists
+    (self.all_group_organisation_lists + self.all_custom_organisation_lists).uniq
+  end
+
+  def all_organisation_lists_in_datebase
+    OrganisationListHeader.find(:all)
+  end
+
+
 
 
   def password=(pass)

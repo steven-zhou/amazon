@@ -21,7 +21,8 @@
 
   .tab_switch_left.left{:field =>"email_maintenance_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Email Maintenance</h1>",:class=>"tab_switch_button", :field => "email_maintenance_page"
+    = link_to_function "<h1>Email Maintenance</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/communication/template_page_initial",:method => "GET", :render_page => "communication/email_maintenance_form", :field => "email_maintenance_page"
+    = link_to_function "<h1>Email Maintenance</h1>",:class=>"tab_switch_with_page_initial", :field => "email_maintenance_page"
   .tab_switch_right.left{:field =>"email_maintenance_page"}
 
 %br.clear
@@ -36,7 +37,6 @@
 #template_page.tab_switch_container
   = render :partial => "message_template_tab"
 
-#email_maintenance_page.tab_switch_container
-  
-  %div#email_maintenance_form
-    = render :partial => "email_maintenance_form"
+#email_maintenance_page.tab_switch_container 
+  -#%div#email_maintenance_form
+  = render :partial => "email_maintenance_form"

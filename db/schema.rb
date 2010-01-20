@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100111022655) do
+ActiveRecord::Schema.define(:version => 20100117233313) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -423,7 +423,7 @@ ActiveRecord::Schema.define(:version => 20100111022655) do
 
   create_table "list_details", :force => true do |t|
     t.integer  "list_header_id"
-    t.integer  "person_id"
+    t.integer  "entity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -696,9 +696,12 @@ ActiveRecord::Schema.define(:version => 20100111022655) do
   end
 
   create_table "potential_members", :force => true do |t|
-    t.string "first_name"
-    t.string "family_name"
-    t.string "email"
+    t.string   "first_name"
+    t.string   "family_name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "validation_key"
   end
 
   create_table "query_criterias", :force => true do |t|
@@ -738,6 +741,7 @@ ActiveRecord::Schema.define(:version => 20100111022655) do
     t.integer  "top_value"
     t.string   "top_type"
     t.boolean  "allow_duplication"
+    t.string   "type"
   end
 
   create_table "receipt_accounts", :force => true do |t|

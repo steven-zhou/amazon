@@ -1,3 +1,3 @@
-class PrimaryList < ListHeader
+class PrimaryList < PersonListHeader
 
 end

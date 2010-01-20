@@ -10,6 +10,7 @@ describe QueryCriteriasController do
     QueryHeader.stub!(:find).and_return(@query_header)
     QueryCriteria.stub!(:new).and_return(@query_criteria)
     session[:user] = Factory(:login_account).id
+    @query_criteria.stub!(:set_data_type)
   end
 
   def post_create(options = {})
@@ -19,6 +20,9 @@ describe QueryCriteriasController do
   end
   
   describe "post create" do
+     before(:each) do
+    @query_criteria.stub!(:set_data_type)
+  end
 
     it "should find the correct query header" do
       QueryHeader.should_receive(:find).with(@query_header.id).and_return(@query_header)

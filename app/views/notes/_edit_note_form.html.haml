@@ -1,0 +1,21 @@
+.form_line{:style => "float:none;"}
+  .field_20
+    = label :note_type_id, "<span class='asterisk'>*</span>Type"
+    = collection_select :note_type_id,:note_typed, NoteType.find(:all,:conditions=>"status = true and to_be_removed = false"), :id, :name, {},{}
+  .field_40
+    = label :label, "<span class='asterisk'>*</span>Label"
+    = text_field :note_label, {:id => "note_edit_label"},:class=>"mandantory_field",:mandantory_field1=> "note_label_idnote_edit_label",:submit_button_id=>"note_edit_submit"
+  .field_5
+    = label :active, 'Active'
+    = check_box :active,:active_check_box
+.form_line
+  .field_90
+    = label :short_description, 'Description'
+    = text_field :short_description_text_field,{:id => "note_edit_short_description"}
+.form_line{:style => "height:auto;",:id=>"nicEditor_Line"}
+  .field_100{:style => "height:auto;"}
+    = label :body_text, 'Note'
+    = text_area :edit_note_body,:edit_note_body,:style=>"width:500px;height:150px;"
+
+
+

@@ -1,0 +1,116 @@
+if @source_type == "query"
+  xml.instruct!
+  xml.report do
+    for org in @entities do
+      xml.org do
+        xml.system_id(org.id)
+        xml.name(org.full_name)
+
+        if @query_header.query_selections.empty?
+          #default display fields
+          xml.data do
+            xml.field_name "full_name"
+            xml.field_data org.full_name.nil? ? "" : org.full_name
+          end
+          xml.data do
+            xml.field_name "trading_as"
+            xml.field_data org.trading_as.nil? ? "" : org.trading_as
+          end
+          xml.data do
+            xml.field_name "address"
+            xml.field_data org.primary_address.nil? ? "" : org.primary_address.first_line + "\n" + org.primary_address.second_line
+          end
+          xml.data do
+            xml.field_name "email"
+            primary_e = org.primary_email.nil? ? "" : org.primary_email.address
+            secondary_e = org.secondary_email.nil? ? "" : org.secondary_email.address
+            xml.field_data primary_e + "\n" + secondary_e
+          end
+          xml.data do
+            xml.field_name "phone"
+            primary_p = org.primary_phone.nil? ? "" : org.primary_phone.complete_number
+            secondary_p = org.secondary_phone.nil? ? "" : org.secondary_phone.complete_number
+            xml.field_data primary_p + "\n" + secondary_p
+          end
+          xml.data do
+            xml.field_name "website"
+            primary_w = org.primary_website.nil? ? "" : org.primary_website.address
+            secondary_w = org.secondary_website.nil? ? "" : org.secondary_website.address
+            xml.field_data primary_w + "\n" + secondary_w
+          end
+        else
+          #query has display fields
+          @query_header.query_selections.each do |i|
+            xml.data do
+              data_value = String.new
+              if i.table_name == "organisations"
+                if i.data_type.include?("Integer FK")
+                  if (i.field_name == "registered_country")
+                    data_value = org.__send__(i.field_name).nil? ? "" : "#{org.__send__(i.field_name).short_name}"
+                  else
+                    data_value = org.__send__(i.field_name).nil? ? "" : "#{org.__send__(i.field_name).name}"
+                  end
+                else
+                  data_value = "#{org.__send__(i.field_name)}"
+                end
+              else
+                if i.data_type.include?("Integer FK")
+                  if(i.field_name == "country")
+                    data_value = (!org.__send__(i.table_name.underscore.to_sym).empty? && !org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).short_name}" : ""
+                  else
+                    data_value = (!org.__send__(i.table_name.underscore.to_sym).empty? && !org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).nil?) ? "#{org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym).name}" : ""
+                  end
+                else
+                  data_value = org.__send__(i.table_name.underscore.to_sym).empty? ? "" : "#{org.__send__(i.table_name.underscore.to_sym).first.__send__(i.field_name.to_sym)}"
+                end
+              end
+
+              xml.field_name i.field_name
+              xml.field_data data_value
+            end
+          end
+        end
+      end
+    end
+  end
+else
+  xml.instruct!
+  xml.report do
+    for org in @entities do
+      xml.org do
+        xml.id(org.id)
+        xml.name(org.full_name)
+        xml.data do
+            xml.field_name "full_name"
+            xml.field_data org.full_name.nil? ? "" : org.full_name
+          end
+          xml.data do
+            xml.field_name "trading_as"
+            xml.field_data org.trading_as.nil? ? "" : org.trading_as
+          end
+          xml.data do
+            xml.field_name "address"
+            xml.field_data org.primary_address.nil? ? "" : org.primary_address.first_line + "\n" + org.primary_address.second_line
+          end
+          xml.data do
+            xml.field_name "email"
+            primary_e = org.primary_email.nil? ? "" : org.primary_email.address
+            secondary_e = org.secondary_email.nil? ? "" : org.secondary_email.address
+            xml.field_data primary_e + "\n" + secondary_e
+          end
+          xml.data do
+            xml.field_name "phone"
+            primary_p = org.primary_phone.nil? ? "" : org.primary_phone.complete_number
+            secondary_p = org.secondary_phone.nil? ? "" : org.secondary_phone.complete_number
+            xml.field_data primary_p + "\n" + secondary_p
+          end
+          xml.data do
+            xml.field_name "website"
+            primary_w = org.primary_website.nil? ? "" : org.primary_website.address
+            secondary_w = org.secondary_website.nil? ? "" : org.secondary_website.address
+            xml.field_data primary_w + "\n" + secondary_w
+          end
+      end
+    end
+  end
+end

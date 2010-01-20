@@ -7,13 +7,10 @@ describe ListHeader do
     @list_header = Factory.build(:list_header)
   end
 
-  
-  it { should belong_to(:query_header)}
 
   it { should have_many(:list_details)}
 
   it { should have_many(:user_lists)}
-  it { should have_many(:people_on_list, :through => :list_details, :source => :person)}
 
 
   it "should validate name to be unique" do

@@ -1,7 +1,7 @@
 class QueryHeader < ActiveRecord::Base
 
   has_many :query_details
-  has_many :list_headers
+# has_many :list_headers
 
   has_many :query_selections, :order => "sequence"
   has_many :query_sorters, :order => "sequence"
@@ -22,9 +22,9 @@ class QueryHeader < ActiveRecord::Base
     @name += letter[rand(letter.length)]+letter[rand(letter.length)]+"#{rand(9)}"
   end
 
-  def self.saved_queries
-    QueryHeader.find(:all, :conditions => ["query_headers.group = ?", "save"], :order => "id")
-  end
+#  def self.saved_queries
+#    QueryHeader.find(:all, :conditions => ["query_headers.group = ?", "save"], :order => "id")
+#  end
 
   def formatted_info
     "#{self.name} - #{self.description}"
@@ -111,53 +111,54 @@ class QueryHeader < ActiveRecord::Base
       include_tables.push("#{i.table_name}") if !include_tables.include?("#{i.table_name}")
     end
     include_tables.delete("people") if include_tables.include?("people")
+    include_tables.delete("organisations") if include_tables.include?("organisations")
     include_tables
   end
 
 
-  def run
-    if (self.sort_clauses.empty?)
-      if (self.include_clauses.empty?)
-        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
-      else
-        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [*self.include_clauses], :order => "people.id")
-      end
-    else
-      if (self.include_clauses.empty?)
-        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "))
-      else
-        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "), :include => [*self.include_clauses])
-      end
-    end
-  end
+#  def run
+#    if (self.sort_clauses.empty?)
+#      if (self.include_clauses.empty?)
+#        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
+#      else
+#        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :include => [*self.include_clauses], :order => "people.id")
+#      end
+#    else
+#      if (self.include_clauses.empty?)
+#        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "))
+#      else
+#        Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => self.sort_clauses.join(", "), :include => [*self.include_clauses])
+#      end
+#    end
+#  end
 
   
-  def selection_fields
-    selection_clauses = Array.new
-    selection_clauses.push("people.id")
-    self.query_selections.find(:all, :order => "sequence").each do |i|
-      selection_clauses.push("#{i.table_name}.#{i.field_name}")
-    end
-    selection_clauses.join(", ")
-  end
-
-  def from_tables
-    from_clauses = Array.new
-    from_clauses.push("people")
-    self.query_criterias.each do |i|
-      from_clauses.push("#{i.table_name}") if !from_clauses.include?("#{i.table_name}")
-    end
-
-    self.query_selections.each do |i|
-      from_clauses.push("#{i.table_name}") if !from_clauses.include?("#{i.table_name}")
-    end
-
-    self.query_sorters.each do |i|
-      from_clauses.push("#{i.table_name}") if !from_clauses.include?("#{i.table_name}")
-    end
-
-    from_clauses.join(" JOIN ")
-  end
+#  def selection_fields
+#    selection_clauses = Array.new
+#    selection_clauses.push("people.id")
+#    self.query_selections.find(:all, :order => "sequence").each do |i|
+#      selection_clauses.push("#{i.table_name}.#{i.field_name}")
+#    end
+#    selection_clauses.join(", ")
+#  end
+#
+#  def from_tables
+#    from_clauses = Array.new
+#    from_clauses.push("people")
+#    self.query_criterias.each do |i|
+#      from_clauses.push("#{i.table_name}") if !from_clauses.include?("#{i.table_name}")
+#    end
+#
+#    self.query_selections.each do |i|
+#      from_clauses.push("#{i.table_name}") if !from_clauses.include?("#{i.table_name}")
+#    end
+#
+#    self.query_sorters.each do |i|
+#      from_clauses.push("#{i.table_name}") if !from_clauses.include?("#{i.table_name}")
+#    end
+#
+#    from_clauses.join(" JOIN ")
+#  end
 
   def sql_value_clauses
     sql_value_clauses = Array.new
@@ -186,9 +187,6 @@ class QueryHeader < ActiveRecord::Base
     condition_clauses
   end
 
-
-
-
   def sql_statements
     result = "<p>SELECT #{self.selection_fields} </p>"
     result += "<p>FROM #{self.from_tables} </p"
@@ -197,6 +195,9 @@ class QueryHeader < ActiveRecord::Base
     result
   end
 
+  def person_query_header?
+    self.class.to_s == "PersonQueryHeader"
+  end
  
 end
 

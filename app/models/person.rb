@@ -62,11 +62,12 @@ class Person < ActiveRecord::Base
 
   
   has_many :login_accounts
-  has_many :list_details
+  has_many :list_details, :dependent => :destroy
   has_many :list_headers, :through => :list_details,:uniq => true
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :transaction_headers, :as => :entity
+  has_many :list_details, :as => :listable
   #has_many :players, :through => :list_details, :source => :player
 
   
@@ -352,7 +353,7 @@ class Person < ActiveRecord::Base
   end
 
   def update_primary_list
-    @list_detail = ListDetail.new(:list_header_id => PrimaryList.first.id, :person_id => self.id)
+    @list_detail = ListDetail.new(:list_header_id => PrimaryList.first.id, :entity_id => self.id)
     @list_detail.save
   end
 

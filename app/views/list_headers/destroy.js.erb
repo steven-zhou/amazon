@@ -1,1 +1,1 @@
-$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @current_user.all_lists)) %>");
+$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @lists)) %>");

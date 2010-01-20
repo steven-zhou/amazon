@@ -76,14 +76,4 @@ $("#report_organisation_requested_format").live('change', function(){
     });
 
 
-     $("#organisation_report_submit_button").live('click',function(){
-        $.ajax({
-            type: 'GET',
-            url: "/reports/organisation_contacts_report_grid.js",
-            data: 'request_format='+$('#report_organisation_requested_format').val()+'&list_header_id='+$('#report_list').val(),
-            dataType: "script"
-             });
-
-    });
-
 });

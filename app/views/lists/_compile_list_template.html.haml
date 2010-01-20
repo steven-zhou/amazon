@@ -1,0 +1,64 @@
+-# :locals => {:title, :lists,:add_to_include,:add_to_exclude,:compile_button}
+#header
+  #page_title
+    %h1 #{title}
+
+.container
+  #list_compiler_form
+    #list_left{:style => "width:32%;margin-right:2%;float:left;"}
+      .container
+        .form_line.field_select_line
+          %label Lists
+          %input{:style => "display:none", :id => "login_account_id", :value => session[:user]}
+          %select#compiler_options.field_select{:multiple => true, :size => "20"}
+            - lists.each do |i|
+              %option{:value => "#{i.id}", :id => "list_header_#{i.id}"} #{i.name}
+          %br.clear
+
+      .container
+        #extra_form
+          %h1 Extra Attributes
+          .form_line
+            .field_2
+              %input{:type => "checkbox", :style => "width:auto;float:left;", :id =>"allow_duplication", :value => "true"}
+            .field_70
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Allow Duplication
+
+          .form_line
+            .field_2
+              %input{:type => "radio", :name => "query_top", :value => "number", :id => "top_number", :checked => true}
+            .field_5
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Top
+            .field_2
+              %input{:type => "radio", :name => "query_top", :value => "precent", :id => "top_percent"}
+            .field_20
+              %label{:style => "width:auto;float:left;margin-top:5px;"} Percent
+            .field_30
+              %input{:id => "top_value", :class => "integer_field"}
+            %br.clear
+
+
+    #list_middle{:style => "width:20%;margin-right:2%;float:left;margin-top:150px;"}
+      #merge_operation
+        .form_line{:style => "margin-bottom:30px;"}
+          =link_to_function image_tag('add_include_list.png'), :id => add_to_include
+          %br.clear
+        .form_line
+          =link_to_function image_tag('add_exclude_list.png'), :id => add_to_exclude
+          %br.clear
+
+
+    #list_right{:style => "width:44%;float:left;margin-top:20px;"}
+      .container.green_container
+        %h1 Include Lists
+        #include_lists
+      .container.orange_container
+        %h1 Exclude Lists
+        #exclude_lists
+    %br.clear
+    = link_to_function "Clear", :class => "alt_option", :style => "float:right", :id => "clear_compile_list"
+    = button_to_function "Compile", :style => "float:right", :id => compile_button,:disabled => true
+    %br.clear
+
+#compile_result_div{:style => "display:none;"}
+  #compile_result
