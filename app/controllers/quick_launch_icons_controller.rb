@@ -20,8 +20,7 @@ class QuickLaunchIconsController < ApplicationController
 
 
   def destroy
-   @quick_launch_icons = QuickLaunchIcon.find(params[:id].to_i)
-   
+   @quick_launch_icons = QuickLaunchIcon.find(params[:id].to_i)   
     @quick_launch_icons.destroy
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Quick Launch #{@quick_launch_icons.id}.")
       respond_to do |format|
