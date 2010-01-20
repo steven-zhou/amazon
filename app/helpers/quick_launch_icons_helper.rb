@@ -1,0 +1,2 @@
+module QuickLaunchIconsHelper
+end
