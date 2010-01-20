@@ -2871,4 +2871,14 @@ $(function(){
 
 });
 
-    
+//Drag and Drop
+$(function(){
+    $('.draggable').draggable();
+    $('.droppable').droppable({
+        drop: function(event, ui) {
+            var target = $('.ui-draggable-dragging');
+            target.attr('style', 'position: relative;');
+            alert(target.attr('id'));
+        }
+    });
+});
