@@ -5,6 +5,7 @@ describe PersonRole do
   before(:each) do
     @primary_list = Factory(:primary_list)
     @person_role = Factory.build(:person_role)
+    @person = Factory.build(:john)
   end
 
   it { should validate_presence_of(:role_id) }
@@ -17,7 +18,10 @@ describe PersonRole do
   it { should belong_to(:role) }
 
   it "should save the record when data is valid" do
+    
     @person_role.save.should == true
+
+ 
   end
 
   it "should not saved when the role_id is blank" do

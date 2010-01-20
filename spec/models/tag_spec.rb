@@ -11,9 +11,6 @@ describe Tag do
 
  it { should have_many(:group_type, :class_name=> 'PersonGroup', :foreign_key=>'tag_id')}
   
-  it "should return options" do
-    Tag.distinct_types_of_tags.should == "<option value='MasterDocType'>MasterDocType</option>"
-  end
 
 end
 

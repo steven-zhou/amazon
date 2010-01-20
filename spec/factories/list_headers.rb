@@ -3,7 +3,7 @@ Factory.define :list_header do |f|
   f.list_size "1"
   f.status true
 
-  f.association :query_header, :factory => :query_header
+ # f.association :query_header, :factory => :query_header
 end
 
 Factory.define :primary_list do |f|
