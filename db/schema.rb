@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100117233313) do
+ActiveRecord::Schema.define(:version => 20100120035311) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -742,6 +742,17 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.string   "top_type"
     t.boolean  "allow_duplication"
     t.string   "type"
+  end
+
+  create_table "quick_launch_icons", :force => true do |t|
+    t.text     "controller"
+    t.text     "action"
+    t.text     "image_url"
+    t.text     "title"
+    t.integer  "sequence"
+    t.integer  "login_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "receipt_accounts", :force => true do |t|
