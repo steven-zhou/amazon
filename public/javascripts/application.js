@@ -2903,8 +2903,8 @@ config_drag_drop= function(){
             var target = $('.ui-draggable-dragging');
                $.ajax({
                 type: "DELETE",
-                url: "/quick_launch_icons/",
-                data:'icon_controller='+ target.attr('data_id'),
+                url: "/quick_launch_icons/"+ target.attr('data_id'),
+
                 dataType:"script"
             });
         }

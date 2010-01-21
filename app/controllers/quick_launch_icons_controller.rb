@@ -42,7 +42,13 @@ class QuickLaunchIconsController < ApplicationController
        else
          id = ""
        end
-       redirect_to :controller =>@quick_launch_icons.controller, :action => @quick_launch_icons.action, :id => id
+
+       if @quick_launch_icons.action == "index"
+          redirect_to :controller =>@quick_launch_icons.controller
+       else
+          redirect_to :controller =>@quick_launch_icons.controller, :action => @quick_launch_icons.action, :id => id
+       end
+      
     
   end
 
