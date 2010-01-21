@@ -17,7 +17,7 @@
         <p>Client Setup</p>
         %ul
           %li{:id => @current_action == "client_organisation" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Org/org.png')} Organisation", :controller => "client_setups", :action => "client_organisation"
+            = link_to "#{image_tag('Icons/Core/Org/org.png')} Organisation",{:controller => "client_setups", :action => "client_organisation"}, :controller => "client_setups", :action => "client_organisation",:class => "draggable",:icon_module=>"client_setup",:image_url => "Icons/Core/Org/org.png", :title => "Organisation"
           %li{:id => @current_action == "installation" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Powernet_module/Installation.png')} Installation", :controller => "client_setups", :action => "installation"
           %li{:id => @current_action == "super_admin" ? "selected" : ""}
