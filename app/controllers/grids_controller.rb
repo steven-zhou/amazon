@@ -1132,10 +1132,15 @@ class GridsController < ApplicationController
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
+    suburb = "%"+params[:suburb]+"%"
+    postcode = "%"+params[:postcode]+"%"
+    state = "%"+params[:state]+"%"
 
     # No search terms provided
+
     if(query == "%%")
       @show_postcode = Postcode.find(:all,
+        :conditions => ["suburb ilike ? AND postcode ilike ? AND state ilike ?", suburb, postcode, state],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
@@ -1143,7 +1148,7 @@ class GridsController < ApplicationController
 
       )
 
-      count = Postcode.count(:all,:include => ["country"])
+      count = Postcode.count(:all, :conditions => ["suburb ilike ? AND postcode ilike ? AND state ilike ?", suburb, postcode, state], :include => ["country"])
 
     end
 
@@ -1154,10 +1159,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query],
+        :conditions=>[qtype +" ilike ? AND suburb ilike ? AND postcode ilike ? AND state ilike ?", query, suburb, postcode, state],
         :include => ["country"])
 
-      count = Postcode.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["country"])
+      count = Postcode.count(:all, :conditions=>[qtype +" ilike ? AND suburb ilike ? AND postcode ilike ? AND state ilike ?", query, suburb, postcode, state],:include => ["country"])
     end
 
     # Construct a hash from the ActiveRecord result

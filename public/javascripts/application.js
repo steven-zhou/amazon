@@ -1797,17 +1797,19 @@ $(function(){
 $(document).ready(function() {
 
     $('.launch_address_assistant').live('click', function() {
-
-        $.ajax({
-            type: "GET",
-            url: "/people/show_postcode.js",
-            dataType: "script"
-        });
+        var suburb = $("#"+$(this).attr("update_field1")).val();
+        var state = $("#"+$(this).attr("update_field2")).val();
+        var postcode = $("#"+$(this).attr("update_field3")).val();
         $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
         $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
         $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
         $('#address_postcode_input').attr("update_field4", $(this).attr("update_field4"));
-
+        $.ajax({
+            type: "GET",
+            url: "/people/show_postcode.js",
+            data: 'suburb='+suburb+'&postcode='+postcode+'&state='+state,
+            dataType: "script"
+        });
     });
 });
 
