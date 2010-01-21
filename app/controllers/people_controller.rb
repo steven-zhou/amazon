@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   # Added system logging
+
   include PeopleSearch
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
   protect_from_forgery :except => [:post_data]
@@ -31,6 +32,7 @@ class PeopleController < ApplicationController
   end
   
   def show
+   
     @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_person_lists
 
@@ -103,7 +105,7 @@ class PeopleController < ApplicationController
     @notes = @person.notes
     @instant_messaging = @person.instant_messagings
     @person_role = @person.person_roles
-    
+
     respond_to do |format|
 
       format.html
@@ -685,6 +687,8 @@ class PeopleController < ApplicationController
       format.js
     end
   end
+
+
 
 
 end

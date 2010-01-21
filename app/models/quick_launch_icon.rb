@@ -4,6 +4,8 @@ class QuickLaunchIcon < ActiveRecord::Base
 
   validates_presence_of :login_account_id
 
+  before_save :update_priority
+  before_destroy :update_priority_before_destroy
 
   private
   def update_priority

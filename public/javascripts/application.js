@@ -2882,28 +2882,30 @@ config_drag_drop= function(){
 
     $('.droppable').droppable({
     
-        drop: function(event, ui) {        
+        drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
             $.ajax({
                 type: "POST",
                 url: "/quick_launch_icons",
-                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
                 dataType:"script"
             });
         },
-
-        out: function(event, ui){
+        
+        out: function(event, ui) {
             var target = $('.ui-draggable-dragging');
             $.ajax({
                 type: "DELETE",
-                url: "/quick_launch_icons/"+target.attr('data_id'),
+                url: "/quick_launch_icons/",
+                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
                 dataType:"script"
             });
-
+            enable_form_after_submit_finish();
         }
     });
 
 };
+
 
 $(function(){
     config_drag_drop();
