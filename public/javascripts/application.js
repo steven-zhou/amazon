@@ -2894,7 +2894,7 @@ config_drag_drop= function(){
             $.ajax({
                 type: "POST",
                 url: "/quick_launch_icons",
-                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
                 dataType:"script"
             });
         },
@@ -2904,7 +2904,7 @@ config_drag_drop= function(){
                $.ajax({
                 type: "POST",
                 url: "/quick_launch_icons/",
-                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
                 dataType:"script"
             });
         }
