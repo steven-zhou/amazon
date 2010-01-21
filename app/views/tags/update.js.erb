@@ -23,3 +23,4 @@ $('#tag_form').dialog('close');
 $("#tag_<%= escape_javascript("#{@tag.id}")%>").replaceWith("<%= escape_javascript(render(:partial => '/tags/tag', :locals => {:tag => @tag})) %>");
 $("#tag_<%= escape_javascript("#{@tag.id}")%>").addClass('open active');
 <% end %>
+enable_form_after_submit_finish();

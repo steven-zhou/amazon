@@ -2876,20 +2876,13 @@ $(function(){
 //Drag and Drop
 config_drag_drop= function(){
     $('.draggable').draggable({
-        //        stop: function(event, ui){
-        //            var target = $('.ui-draggable-dragging');
-        //            target.attr('style', 'position: relative;');
-        //        }
         revert: true,
-        helper: "clone"
-         
+        helper: "clone"         
     });
 
-    $('.droppable').droppable(
-    {
-
+    $('.droppable').droppable({
+    
         drop: function(event, ui) {
-        
             var target = $('.ui-draggable-dragging');
             $.ajax({
                 type: "POST",
@@ -2903,11 +2896,10 @@ config_drag_drop= function(){
             var target = $('.ui-draggable-dragging');
             $.ajax({
                 type: "DELETE",
-                url: "/quick_launch_icons/"+target.attr('data_id'),
+                url: "/quick_launch_icons/"+ target.attr('data_id'),
                 dataType:"script"
             });
         }
-
     });
 
 };
@@ -2920,7 +2912,6 @@ $(function(){
 
 config_drag= function(){
     $('.draggable').draggable({
-       
         revert: true,
         helper: "clone"
 

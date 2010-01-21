@@ -23,3 +23,4 @@ $('#tag_meta_type_form').dialog('close');
 $("#tag_meta_type_<%= escape_javascript("#{@tag_meta_type.id}")%>").replaceWith("<%= escape_javascript(render(:partial => '/tag_meta_types/tag_meta_type', :locals => {:tag_meta_type => @tag_meta_type})) %>");
 $("#tag_meta_type_<%= escape_javascript("#{@tag_meta_type.id}")%>").addClass('open active');
 <% end %>
+enable_form_after_submit_finish();
