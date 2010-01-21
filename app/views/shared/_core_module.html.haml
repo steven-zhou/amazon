@@ -10,14 +10,14 @@
         <p>Person</p>
         %ul
           %li{:id => @current_action == "show" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Person/profile.png')} Profile", {:controller => "people", :action => "show", :id => @person.id},:class => "draggable", :controller => "people", :action => "show",:image_url => "Icons/Core/Person/profile.png", :title => "Profile"
+            = link_to "#{image_tag('Icons/Core/Person/profile.png')} Profile", {:controller => "people", :action => "show", :id => @person.id},:class => "draggable", :controller => "people", :action => "show",:module=>"core",:image_url => "Icons/Core/Person/profile.png", :title => "Profile"
           %li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/System/add.png')} New", {:controller => "people", :action => "new"} , :class => "draggable", :controller => "people", :action => "new",:image_url => "Icons/System/add.png", :title => "New"
+            = link_to "#{image_tag('Icons/System/add.png')} New", {:controller => "people", :action => "new"} , :class => "draggable", :controller => "people", :action => "new",:module=>"core",:image_url => "Icons/System/add.png", :title => "New"
           %li{:id => @current_action == "edit" ? "selected" : ""}
             - if !(@person.nil? || @person.new_record?)
-              = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", {:controller => "people", :action => "edit", :id => @person.id}, :class => "draggable", :controller => "people", :action => "edit",:image_url => "Icons/System/add.png", :title => "Edit"
+              = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", {:controller => "people", :action => "edit", :id => @person.id}, :class => "draggable", :controller => "people", :action => "edit",:module=>"core",:image_url => "Icons/System/add.png", :title => "Edit"
             - else
-              = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", {:controller => "people", :action => "edit"}, :class => "draggable", :controller => "people", :action => "edit",:image_url => "Icons/System/add.png", :title => "Edit"
+              = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Edit", {:controller => "people", :action => "edit"}, :class => "draggable", :controller => "people", :action => "edit",:module=>"core",:image_url => "Icons/System/add.png", :title => "Edit"
           %li{:id => (@current_action == "find" || @current_action == "search") ? "selected" : ""}
             = link_to "#{image_tag('Icons/Core/Person/find.png')} Find", :controller => "people", :action => "find"
           %br.clear

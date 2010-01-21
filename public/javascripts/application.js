@@ -2882,9 +2882,11 @@ $(function(){
         //        }
         revert: true,
          helper: "clone"
+         
     });
 
     $('.droppable').droppable({
+
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
             $.ajax({
@@ -2894,5 +2896,23 @@ $(function(){
                 dataType:"script"
             });
         }
+    },
+
+    {
+            out: function(event, ui) {
+            var target = $('.ui-draggable-dragging');
+               $.ajax({
+                type: "POST",
+                url: "/quick_launch_icons/",
+                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
+                dataType:"script"
+            });
+        }
+
     });
+
+
+  
+
+
 });

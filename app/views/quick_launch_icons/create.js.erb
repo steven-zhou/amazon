@@ -1,3 +1,4 @@
+
 <% unless flash[:error].nil? %>
 $("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
 $('#flash_message').dialog( {
@@ -19,6 +20,7 @@ $("#flash_message").css('background-color','#D1DDE6');
 $('#flash_message').dialog('open');
 
 <% else %>
-$("#toolbar").replaceWith('<%=escape_javascript(render(:partial => "quick_launch_icons/sys_bar_icons"))%>');
+$("#toolbar").html('<%=escape_javascript(render(:partial => "quick_launch_icons/sys_bar_icons"))%>');
 
 <%end%>
+
