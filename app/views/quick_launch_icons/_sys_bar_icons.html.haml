@@ -1,4 +1,4 @@
 -#%div{:class => "bar_section droppable", :id => "toolbar"}
 %div
   - for i in @current_user.quick_launch_icons
-    = link_to image_tag("#{i.image_url}"), {:controller => i.controller, :action => i.action}, {:title=> i.title, :class => "left", :style => "margin-left:20px;padding-top:8px;" }
+    = link_to image_tag("#{i.image_url}"), {:controller => i.controller, :action => i.action}, {:data_id =>"#{i.id}",:title=> i.title, :class => "left draggable", :style => "margin-left:20px;padding-top:8px;" }
