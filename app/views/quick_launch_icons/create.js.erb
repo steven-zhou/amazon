@@ -22,11 +22,9 @@ $('#flash_message').dialog('open');
 <% else %>
 $("#toolbar").html('<%=escape_javascript(render(:partial => "quick_launch_icons/sys_bar_icons"))%>');
 
-<%end%>
-
-$(function(){
-    config_drag();
+$('.bar_top_item').draggable({
 
 });
 
+<%end%>
 

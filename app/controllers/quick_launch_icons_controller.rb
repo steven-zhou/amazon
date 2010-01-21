@@ -35,11 +35,18 @@ class QuickLaunchIconsController < ApplicationController
   def check
       @quick_launch_icons = QuickLaunchIcon.find(params[:id].to_i)
        session[:module] =  @quick_launch_icons.module
-       
-       redirect_to :controller =>@quick_launch_icons.controller , :action => @quick_launch_icons.action
+       if @quick_launch_icons.controller == "people"
+        id = session[:current_person_id]
+        elsif @quick_launch_icons.controller == "organisations"
+        id = session[:current_organisation_id]
+       else
+         id = ""
+       end
+       redirect_to :controller =>@quick_launch_icons.controller, :action => @quick_launch_icons.action, :id => id
     
   end
 
 
   
 end
+
