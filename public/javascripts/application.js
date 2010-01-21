@@ -2902,9 +2902,9 @@ config_drag_drop= function(){
             out: function(event, ui) {
             var target = $('.ui-draggable-dragging');
                $.ajax({
-                type: "POST",
+                type: "DELETE",
                 url: "/quick_launch_icons/",
-                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
+                data:'icon_controller='+ target.attr('data_id'),
                 dataType:"script"
             });
         }
