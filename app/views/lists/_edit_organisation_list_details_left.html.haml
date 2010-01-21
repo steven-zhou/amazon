@@ -2,13 +2,13 @@
   %h1 Add Organisation To List
   -form_for ListDetail.new, :html => {:class => "ajax_form"} do |f|
     .form_line
-      .field_50
+      .field_33
         =f.label :entity_id, "<span class='asterisk'>*</span>Organisation ID"
         %input{:id => "entity_id", :name => "entity_id", :class=>"mandantory_field",:mandantory_field1=>"entity_id",:submit_button_id=>"add_organisation_submit",:disabled => @list_header.status == false}
         %input{:style => "display:none", :id => "list_header_id", :name => "list_header_id", :value => @list_header.id}
-      .field_40{:style => "float:right;"}
+      .field_60{:style => "float:right;"}
         %label &nbsp;
-        =submit_tag "Add Organisation",:id=>"add_organisation_submit", :disabled =>true
+        =submit_tag "Add",:id=>"add_organisation_submit", :disabled =>true, :style => "float:right";
 
       %br.clear
 

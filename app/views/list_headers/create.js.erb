@@ -27,3 +27,4 @@ $('#flash_message').dialog('open');
 <%- result = "<option value='#{@list_header.id}' id='list_header_#{@list_header.id}'>#{@list_header.name}</option>" %>
  $('#compiler_options').append('<%= escape_javascript(result) %>');
 <% end %>
+ enable_form_after_submit_finish();

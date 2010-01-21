@@ -39,8 +39,10 @@ class ReceiptingController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign record.")
       if(!@campaign.errors[:start_date].nil?)
         flash.now[:error] = "Please Enter A Valid Start Date"
-      elsif(!@campaign.errors[:name].nil?)
-        flash.now[:error] = "Please Enter A Name"
+      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
+      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
       end
     end
     respond_to do |format|
@@ -58,8 +60,10 @@ class ReceiptingController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a campaign #{@campaign.id}.")
       if(!@campaign.errors[:start_date].nil?)
         flash.now[:error] = "Please Enter A Valid Start Date"
-      elsif(!@campaign.errors[:name].nil?)
-        flash.now[:error] = "Please Enter A Name"
+      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
+      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
       end
     end
     respond_to do |format|

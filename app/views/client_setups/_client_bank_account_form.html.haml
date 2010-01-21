@@ -30,6 +30,5 @@
       = f.label :status, "Active"
       = f.check_box :status, :checked => true, :class => "checkbox_style"
 
-  .form_line
-    .field_10{:style => "float:right;"}
-      = submit_tag "Submit", :disabled => true, :id => "new_client_bank_account_submit"
+  %p.submit
+    = submit_tag "Submit", :disabled => true, :id => "new_client_bank_account_submit", :style => "float:right;"

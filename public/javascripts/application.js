@@ -2904,6 +2904,10 @@ $('input[type="submit"]').live('click', function(){
    disable_form_after_submit($(this));
 });
 
+$('.fake_submit_button').live('click', function(){
+   disable_form_after_submit($(this));
+});
+
 disable_form_after_submit = function(submit_button){
     var target_form
     if (submit_button.attr('form_id') == ''){
@@ -2912,14 +2916,16 @@ disable_form_after_submit = function(submit_button){
         target_form = submit_button.closest('form');
     }
     target_form.find("input").attr("readonly", true);
-    target_form.find('input[type="submit"]').attr("disabled", true);
-    target_form.find('input[type="submit"]').after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/tuneup/spinner.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
     target_form.find("select").attr("readonly", true);
+    target_form.find("textarea").attr("readonly", true);
+    submit_button.attr("disabled", true);
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/tuneup/spinner.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
 };
 
 enable_form_after_submit_finish = function(){
     $("form :input").removeAttr("readonly");
     $("form :select").removeAttr("readonly");
+    $("form :textarea").removeAttr("readonly");
     $('form :input[type="submit"]').removeAttr("disabled");
     $('#spinner').remove();
 };
