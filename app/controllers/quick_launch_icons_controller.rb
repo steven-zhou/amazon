@@ -2,6 +2,11 @@ class QuickLaunchIconsController < ApplicationController
 
 
 
+
+
+  
+
+
   def create
     puts"----#{params[:icon_controller]}---------"
     @quick_launch_icons = QuickLaunchIcon.new
@@ -12,6 +17,9 @@ class QuickLaunchIconsController < ApplicationController
     @quick_launch_icons.login_account_id = @current_user.id
     if @quick_launch_icons.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new quick launch id #{@quick_launch_icons.id}.")
+    else
+#        flash[:error] = flash_message(:type => "too_long", :field => "Quick Launch Icons")if(!@quick_launch_icons.errors[:].nil? && @quick_launch_icons.errors.on(:).include?("pick a shorter name"))
+            flash[:error] = "There is something wrong when create a qucik launch icon"
     end
 
     respond_to do |format|

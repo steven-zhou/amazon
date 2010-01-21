@@ -103,7 +103,7 @@ class PeopleController < ApplicationController
     @notes = @person.notes
     @instant_messaging = @person.instant_messagings
     @person_role = @person.person_roles
-    
+
     respond_to do |format|
 
       format.html
