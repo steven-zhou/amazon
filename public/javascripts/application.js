@@ -2874,7 +2874,7 @@ $(function(){
 });
 
 //Drag and Drop
-$(function(){
+config_drag_drop= function(){
     $('.draggable').draggable({
         //        stop: function(event, ui){
         //            var target = $('.ui-draggable-dragging');
@@ -2888,6 +2888,7 @@ $(function(){
     $('.droppable').droppable({
     
         drop: function(event, ui) {
+        
             var target = $('.ui-draggable-dragging');
             $.ajax({
                 type: "POST",
@@ -2895,9 +2896,39 @@ $(function(){
                 data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title'),
                 dataType:"script"
             });
-        }
+        },
+
+        out: function(event, ui){
+            var target = $('.ui-draggable-dragging');
+            $.ajax({
+                type: "DELETE",
+                url: "/quick_launch_icons/"+target.attr('data_id'),
+                dataType:"script"
+            });
+
+}
     });
+
+};
+
+$(function(){
+    config_drag_drop();
+
 });
+
+config_drag= function(){
+    $('.draggable').draggable({
+        //        stop: function(event, ui){
+        //            var target = $('.ui-draggable-dragging');
+        //            target.attr('style', 'position: relative;');
+        //        }
+        revert: true,
+         helper: "clone"
+
+    });
+};
+
+
 
 //disable form after submit and enable form after submit finish
 $('input[type="submit"]').live('click', function(){
@@ -2929,3 +2960,4 @@ enable_form_after_submit_finish = function(){
     $('form :input[type="submit"]').removeAttr("disabled");
     $('#spinner').remove();
 };
+
