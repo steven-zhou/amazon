@@ -110,7 +110,7 @@ $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
       resizable: false,
       draggable: true,
       height: 'auto',
-      width: 600,
+      width: 'auto',
   buttons:{
   Ok: function() {
   $(this).dialog('destroy');
@@ -123,3 +123,4 @@ $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
  $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <% end -%>
+  enable_form_after_submit_finish();

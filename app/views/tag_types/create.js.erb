@@ -24,3 +24,4 @@ $("#tag_type_form").html('');
 $('#tag_type_form').dialog('close');
 $("#tag_types_<%= escape_javascript("#{@tag_meta_type.id}")%> > ul").append("<%= escape_javascript(render(:partial => '/tag_types/tag_type', :locals => {:tag_type => @tag_type})) %>");
 <% end %>
+enable_form_after_submit_finish();

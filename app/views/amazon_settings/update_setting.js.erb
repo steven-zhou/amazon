@@ -1,10 +1,32 @@
+<% if flash[:warning].nil? %>
 $("#edit_system_data_entry").html("");
-<%#*$.ajax({%>
-  <%#*type: "GET",%>
-  <%#*url: "/amazon_settings/system_settings_finder.js",%>
-  <%#*data: 'type=' + $("#system_data_type").val(),%>
-  <%#*dataType: "script"%>
-<%#*});%>
 $("#system_data_main_contents").show();
 $("#system_data_mode").attr('mode', 'show');
 $("#system_data_type").attr("disabled",false).change();
+<% else %>
+ $('#error_message_text').html("<%=escape_javascript(flash[:warning])%> ");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+                        $(this).focus();
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'Error');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
+
+<% end %>
+enable_form_after_submit_finish();
+

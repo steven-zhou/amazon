@@ -1,6 +1,4 @@
-
-
-<% unless flash[:message].nil? %>
+<% if flash[:warning].nil? %>
 $("#system_data_mode").attr('mode', 'show');
 
 $("#amazon_setting_name").val("");
@@ -34,3 +32,4 @@ $("#system_data_type").attr("disabled",false).change();
 
 
 <% end %>
+enable_form_after_submit_finish();

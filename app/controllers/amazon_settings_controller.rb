@@ -84,7 +84,8 @@ class AmazonSettingsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = "Saved successfully."
     else
-      flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
+      flash.now[:warning] = flash_message(:type => "field_missing", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("can't be blank"))
+      flash.now[:warning] = flash_message(:type => "uniqueness_error", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
@@ -98,7 +99,8 @@ class AmazonSettingsController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
     else
-      flash.now[:warning] = flash_message(:type => "default", :message => "There was an error updating the setting.")
+      flash.now[:warning] = flash_message(:type => "field_missing", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("can't be blank"))
+      flash.now[:warning] = flash_message(:type => "uniqueness_error", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
