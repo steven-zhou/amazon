@@ -2876,20 +2876,13 @@ $(function(){
 //Drag and Drop
 config_drag_drop= function(){
     $('.draggable').draggable({
-        //        stop: function(event, ui){
-        //            var target = $('.ui-draggable-dragging');
-        //            target.attr('style', 'position: relative;');
-        //        }
         revert: true,
-         helper: "clone"
-         
+        helper: "clone"         
     });
 
-    $('.droppable').droppable(
-    {
-
+    $('.droppable').droppable({
+    
         drop: function(event, ui) {
-        
             var target = $('.ui-draggable-dragging');
             $.ajax({
                 type: "POST",
@@ -2899,7 +2892,7 @@ config_drag_drop= function(){
             });
         },
         
-            out: function(event, ui) {
+        out: function(event, ui) {
             var target = $('.ui-draggable-dragging');
                $.ajax({
                 type: "DELETE",
@@ -2908,7 +2901,6 @@ config_drag_drop= function(){
                 dataType:"script"
             });
         }
-
     });
 
 };
@@ -2921,12 +2913,8 @@ $(function(){
 
 config_drag= function(){
     $('.draggable').draggable({
-        //        stop: function(event, ui){
-        //            var target = $('.ui-draggable-dragging');
-        //            target.attr('style', 'position: relative;');
-        //        }
         revert: true,
-         helper: "clone"
+        helper: "clone"
 
     });
 };
@@ -2935,11 +2923,11 @@ config_drag= function(){
 
 //disable form after submit and enable form after submit finish
 $('input[type="submit"]').live('click', function(){
-   disable_form_after_submit($(this));
+    disable_form_after_submit($(this));
 });
 
 $('.fake_submit_button').live('click', function(){
-   disable_form_after_submit($(this));
+    disable_form_after_submit($(this));
 });
 
 disable_form_after_submit = function(submit_button){
