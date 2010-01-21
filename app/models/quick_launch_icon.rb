@@ -2,7 +2,7 @@ class QuickLaunchIcon < ActiveRecord::Base
 
   belongs_to :login_account, :foreign_key => "login_account_id"
 
-  validates_presence_of :login_account_id
+  validates_presence_of :login_account_id, :controller, :action
   validates_uniqueness_of :login_account_id, :scope => [:controller, :action]
 
 

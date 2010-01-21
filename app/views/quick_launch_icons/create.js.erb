@@ -19,12 +19,12 @@ $("#flash_message").parent().css('background-color','#D1DDE6');
 $("#flash_message").css('background-color','#D1DDE6');
 $('#flash_message').dialog('open');
 
-<% else %>
+<%end%>
 $("#toolbar").html('<%=escape_javascript(render(:partial => "quick_launch_icons/sys_bar_icons"))%>');
 
 $('.bar_top_item').draggable({
 
 });
 
-<%end%>
+
 
