@@ -2882,9 +2882,11 @@ $(function(){
         //        }
         revert: true,
          helper: "clone"
+         
     });
 
     $('.droppable').droppable({
+    
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
             $.ajax({
