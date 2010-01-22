@@ -4,8 +4,7 @@ class QuickLaunchIcon < ActiveRecord::Base
 
   validates_presence_of :login_account_id, :controller, :action
   validates_uniqueness_of :login_account_id, :scope => [:controller, :action]
-
-
+  validate_on_create  :personal_number_of_record
 
   before_save :update_priority
   before_destroy :update_priority_before_destroy
@@ -26,6 +25,10 @@ class QuickLaunchIcon < ActiveRecord::Base
         end
       }
     end
+  end
+
+  def personal_number_of_record
+     errors.add(:login_account_id, "You just can have 8 quick launch icons.") if (LoginAccount.find_by_id(login_account_id).quick_launch_icons.size >= 8)
   end
 
 end
