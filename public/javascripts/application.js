@@ -38,11 +38,12 @@ $(document).ready(function(){
 
 $(function(){
     // All A tags with class 'get', 'post', 'put' or 'delete' will perform an ajax call
-    $('a.get').live('click', function() {
+    $('a.get').live('click', function(e) {    
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
     }).attr("rel", "nofollow");
+
 
 
 
@@ -2878,7 +2879,7 @@ $(function(){
 //Drag and Drop
 config_drag_drop= function(){
     $('.draggable').draggable({
-        revert: true,
+        //revert: true,
         helper: "clone"         
     });
 
@@ -2953,4 +2954,5 @@ enable_form_after_submit_finish = function(){
     $('form :input[type="submit"]').removeAttr("disabled");
     $('#spinner').remove();
 };
+
 

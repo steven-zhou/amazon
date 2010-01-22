@@ -145,3 +145,8 @@ $(function(){
   $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Org/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
   $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
 
+$('.bar_top_item').draggable({
+
+});
+
+config_drag_drop();
