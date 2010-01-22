@@ -78,17 +78,17 @@ puts "Initializing Permission to Super User Group"
 GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => superuser.id)
 
 puts "Initializing Person Primary List"
-PrimaryList.create :name => "Primary List", :status => true
+pl = PrimaryList.create :name => "Primary List", :status => true
 
 puts "Initializing Organisation Primary List"
-OrganisationPrimaryList.create :name => "Organisation Primary List", :status => true
+opl = OrganisationPrimaryList.create :name => "Organisation Primary List", :status => true
 
 puts "Initializing Person List to Super User Group"
-GroupList.create(:tag_id => superuser.id, :list_header_id => PrimaryList.first.id)
+GroupList.create(:tag_id => superuser.id, :list_header_id => pl.id)
 
 
 puts "Initializing Organisation List to Super User Group"
-GroupList.create(:tag_id => superuser.id, :list_header_id => OrganisationPrimaryList.first.id)
+GroupList.create(:tag_id => superuser.id, :list_header_id => opl.id)
 
 puts "Initializing Geoff Koo"
 Person.create(
