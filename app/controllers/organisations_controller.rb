@@ -28,16 +28,20 @@ class OrganisationsController < ApplicationController
   end
 
   def show
-
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = session[:current_org_list_id].blank? ? @list_headers.first: ListHeader.find(session[:current_org_list_id])
+    @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     #get active tabs
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-        
+      
+      
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @o = Organisation.find(:all, :order => "id")
+    @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = @o[0] if @organisation.nil?
+    @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
+    session[:current_org_list_id] = @list_header.id
     @primary_phone = @organisation.primary_phone
     @primary_email = @organisation.primary_email
     @primary_fax = @organisation.primary_fax
@@ -50,12 +54,12 @@ class OrganisationsController < ApplicationController
     @other_addresses = @organisation.other_addresses
     @notes = @organisation.notes
     @instant_messaging = @organisation.instant_messagings
-    
-    
+      
+      
     OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
-
+      
     @organisation.employees.each do |organisations_employees|  #show organisation employee grid
       @soeg = OrganisationEmployeeGrid.new
       @soeg.login_account_id = session[:user]
@@ -67,6 +71,7 @@ class OrganisationsController < ApplicationController
       @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
       @soeg.save
     end
+    
     respond_to do |format|
       format.html
       format.js {render 'show_left.js'}
@@ -113,17 +118,20 @@ class OrganisationsController < ApplicationController
 
 
   def edit
-
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = session[:current_org_list_id].blank? ? @list_headers.first: ListHeader.find(session[:current_org_list_id])
+    @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     @current_user = LoginAccount.find(session[:user])
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
-    @o = Organisation.find(:all, :order => "id")
+    @o = @list_header.entity_on_list.uniq
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
-    @organisation = @o[0] if @organisation.nil?
+    @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
+    session[:current_org_list_id] = @list_header.id
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -290,7 +298,8 @@ class OrganisationsController < ApplicationController
   end
 
   def show_list
-    @organisations = Organisation.find(:all, :order => "id")
+    @list_header = ListHeader.find(session[:current_org_list_id])
+    @organisations = @list_header.entity_on_list.uniq
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -317,11 +326,16 @@ class OrganisationsController < ApplicationController
 
   #organisation grid show left part
   def show_left
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = ListHeader.find(session[:current_org_list_id])
+    
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
-    @o = Organisation.find(:all, :order => "id")
-    @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = @o[0] if @organisation.nil?
+    @o = @list_header.entity_on_list.uniq
+    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
+    @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
+    session[:current_organisation_id] = @organisation.id
+    session[:current_org_list_id] = @list_header.id
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     @client_setup = ClientSetup.first
