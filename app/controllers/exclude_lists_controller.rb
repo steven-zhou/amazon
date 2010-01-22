@@ -10,7 +10,7 @@ class ExcludeListsController < ApplicationController
       @exclude_list.login_account_id = params[:login_account_id]
       @list_header = ListHeader.find(id)
 
-      if @list_header.class.to_s != "PrimaryList"
+      if @list_header.class.to_s != "PrimaryList" && @list_header.class.to_s != "OrganisationPrimaryList"
         @exclude_list.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created ExcludeList #{@exclude_list.id}.")
         @list_header_ids << id
