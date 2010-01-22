@@ -23,6 +23,10 @@ class ListHeader < ActiveRecord::Base
     self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList" || self.class.to_s == "TempList"
   end
 
+   def organisation_list?
+    self.class.to_s == "OrganisationListHeader" || self.class.to_s == "OrganisationPrimaryList"
+  end
+
   protected
   
   def delete_all_details
