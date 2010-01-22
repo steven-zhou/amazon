@@ -26,6 +26,7 @@ class NotesController < ApplicationController
     @note = Note.find(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Note #{@note.id}.")
     @note.destroy
+    @entity = @note.noteable
     respond_to do |format|
       format.js
     end

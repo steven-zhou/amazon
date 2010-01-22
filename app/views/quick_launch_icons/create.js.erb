@@ -2,9 +2,9 @@
 <% unless flash[:error].nil? %>
 $("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
 $('#flash_message').dialog( {
-    modal: false,
+    modal: true,
     resizable: false,
-    draggable: false,
+    draggable: true,
     height: "auto",
     width: "auto",
     buttons: {
@@ -23,7 +23,7 @@ $('#flash_message').dialog('open');
 $("#toolbar").html('<%=escape_javascript(render(:partial => "quick_launch_icons/sys_bar_icons"))%>');
 
 $('.bar_top_item').draggable({
-
+  helper: "clone"
 });
 
 

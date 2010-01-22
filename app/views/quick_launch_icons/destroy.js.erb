@@ -1,7 +1,6 @@
 
 $("#toolbar").html('<%=escape_javascript(render(:partial => "quick_launch_icons/sys_bar_icons"))%>');
 $('.bar_top_item').draggable({
-
-
+  helper: "clone"
 });
 

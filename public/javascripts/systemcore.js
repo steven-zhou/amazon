@@ -3539,6 +3539,12 @@ $(function(){
     });
 });
 
+$(function(){
+    $("#org_lists_name").live('change', function(){
+        $("#organisation_list").submit();
+    });
+});
+
 /*Admin List Management - List Manager*/
 $(function(){
     $('a.get_list').live('click', function() {

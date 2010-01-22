@@ -3,7 +3,7 @@
 %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/notes/",:edit=>"true"}
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_notes_grid").flexigrid({
-  url: '/grids/show_notes_grid?entity_id=#{@entity.id}&type=#{@current_controller}',
+  url: '/grids/show_notes_grid?entity_id=#{@entity.id}&type=#{@entity.class.to_s}',
   dataType: 'json',
   colModel : [
   {
