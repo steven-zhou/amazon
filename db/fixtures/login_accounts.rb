@@ -83,8 +83,12 @@ PrimaryList.create :name => "Primary List", :status => true
 puts "Initializing Organisation Primary List"
 OrganisationPrimaryList.create :name => "Organisation Primary List", :status => true
 
-puts "Initializing List to Super User Group"
+puts "Initializing Person List to Super User Group"
 GroupList.create(:tag_id => superuser.id, :list_header_id => PrimaryList.first.id)
+
+
+puts "Initializing Organisation List to Super User Group"
+GroupList.create(:tag_id => superuser.id, :list_header_id => OrganisationPrimaryList.first.id)
 
 puts "Initializing Geoff Koo"
 Person.create(

@@ -33,9 +33,7 @@ class OrganisationsController < ApplicationController
     @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     #get active tabs
     @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-      
-      
+    @active_sub_tab = params[:active_sub_tab]  
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
