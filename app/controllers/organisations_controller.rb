@@ -480,12 +480,16 @@ class OrganisationsController < ApplicationController
 
   def general_show_list
 
-    @organisations = Organisation.find(:all, :order => "id")
+    @organisations = Organisation.find(params[:person_id]) rescue @person = Person.find(session[:current_organisation_id])
+    @list_header = ListHeader.find(session[:current_org_list_id])
+    @o = Array.new
+    @o = @list_header.entity_on_list
+    
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
 
-    @organisations.each do |organisations|
+    @o.each do |organisations|
       @solg = ShowOrganisationListGrid.new
       @solg.login_account_id = session[:user]
       @solg.grid_object_id = organisations.id
