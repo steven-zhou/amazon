@@ -2747,10 +2747,8 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
-    if(params[:type]=="organisations")
+    if(params[:type]!="Person")
       params[:type]="Organisation"
-    else
-       params[:type]="Person"
     end
 
     if (!sortname)

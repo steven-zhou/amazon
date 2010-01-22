@@ -55,12 +55,12 @@ class PeopleController < ApplicationController
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
-          @p = @list_header.entity_on_list
+          @p = @list_header.entity_on_list.uniq
         else  #when there is id come---click the narrow button
           unless session[:current_list_id].blank?
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.entity_on_list
+            @p = @list_header.entity_on_list.uniq
             @person = Person.find_by_id(params[:id].to_i)
             @person = @p.first if @person.nil?
             session[:current_person_id] = @person.id
@@ -86,7 +86,7 @@ class PeopleController < ApplicationController
       end
 
       @p = Array.new
-      @p = @list_header.entity_on_list
+      @p = @list_header.entity_on_list.uniq
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -130,12 +130,12 @@ class PeopleController < ApplicationController
           if params[:id].blank? || params[:id] == "show"
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.entity_on_list
+            @p = @list_header.entity_on_list.uniq
             @person = Person.find(session[:current_person_id])
           else
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.entity_on_list
+            @p = @list_header.entity_on_list.uniq
             @person = Person.find_by_id(params[:id].to_i)
             @person = @list_headers.first.entity_on_list.first if @person.nil?
             session[:current_person_id] = @person.id
@@ -147,7 +147,7 @@ class PeopleController < ApplicationController
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
-          @p = @list_header.entity_on_list
+          @p = @list_header.entity_on_list.uniq
         end
       end
     end
@@ -156,7 +156,7 @@ class PeopleController < ApplicationController
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
       c1 = Array.new
-      c1 = @list_header.entity_on_list
+      c1 = @list_header.entity_on_list.uniq
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
         @person = @list_header.entity_on_list.first
@@ -164,7 +164,7 @@ class PeopleController < ApplicationController
         @person
       end
       @p = Array.new
-      @p = @list_header.entity_on_list
+      @p = @list_header.entity_on_list.uniq
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -193,6 +193,7 @@ class PeopleController < ApplicationController
         @personal_check_field << i.field_name
       end
     end
+    @entity = @person
     respond_to do |format|
       format.html
       format.js {render 'show_edit_left.js'}

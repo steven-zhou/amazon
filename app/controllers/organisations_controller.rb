@@ -161,6 +161,7 @@ class OrganisationsController < ApplicationController
       @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
       @soeg.save
     end
+    @entity = @person
     respond_to do |format|
       format.html
       format.js {render 'show_edit_left.js'}
