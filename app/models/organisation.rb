@@ -82,6 +82,7 @@ class Organisation < ActiveRecord::Base
   #++
 
   before_save :insert_duplication_value
+  after_create :update_primary_list
   #--
   ################
   #  Convenience
@@ -227,6 +228,11 @@ class Organisation < ActiveRecord::Base
         end
       end
     end
+  end
+
+    def update_primary_list
+    @list_detail = ListDetail.new(:list_header_id => OrganisationPrimaryList.first.id, :entity_id => self.id)
+    @list_detail.save
   end
 
 end

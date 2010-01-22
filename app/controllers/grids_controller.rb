@@ -1906,7 +1906,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
 
-      count = Postcode.count(:all,
+      count = Source.count(:all,
 
         :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
     end
