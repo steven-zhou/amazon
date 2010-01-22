@@ -28,7 +28,7 @@ class QuickLaunchIcon < ActiveRecord::Base
   end
 
   def personal_number_of_record
-     errors.add(:login_account_id, "You just can have 8 quick launch icons.") if (LoginAccount.find_by_id(login_account_id).quick_launch_icons.size >= 8)
+     errors.add(:login_account_id, "8 quick launch icons only") if (LoginAccount.find_by_id(login_account_id).quick_launch_icons.size >= 8)
   end
 
 end
