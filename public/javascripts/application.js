@@ -2879,30 +2879,35 @@ $(function(){
 //Drag and Drop
 config_drag_drop= function(){
     $('.draggable').draggable({
-        //revert: true,
         helper: "clone"         
     });
 
     $('.droppable').droppable({
     
         drop: function(event, ui) {
-            var target = $('.ui-draggable-dragging');
-            $.ajax({
-                type: "POST",
-                url: "/quick_launch_icons",
-                data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
-                dataType:"script"
-            });
+            var target = $('.ui-draggable-dragging');            
+            if (target.attr('controller') != undefined){
+                target.remove();
+                $.ajax({
+                    type: "POST",
+                    url: "/quick_launch_icons",
+                    data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
+                    dataType:"script"
+                });
+            }
+            
         },
         
         out: function(event, ui) {
             var target = $('.ui-draggable-dragging');
-               $.ajax({
-                type: "DELETE",
-                url: "/quick_launch_icons/"+ target.attr('data_id'),
-
-                dataType:"script"
-            });
+            if (target.attr('data_id') != undefined){
+                target.remove();
+                $.ajax({
+                    type: "DELETE",
+                    url: "/quick_launch_icons/"+ target.attr('data_id'),
+                    dataType:"script"
+                });
+            }
         }
     });
 
@@ -2916,7 +2921,6 @@ $(function(){
 
 config_drag= function(){
     $('.draggable').draggable({
-        revert: true,
         helper: "clone"
 
     });
