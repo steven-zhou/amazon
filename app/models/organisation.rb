@@ -43,6 +43,8 @@ class Organisation < ActiveRecord::Base
   belongs_to :business_category
   belongs_to :industry_sector
 
+  default_scope :order => "organisations.id"
+
     
   #--
   ################
