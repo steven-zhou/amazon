@@ -126,10 +126,10 @@
     .top
     .item
       - if !(@current_controller == "nightly_processes")
-        = link_to "#{image_tag('icon_holder.png')} NightlyProcess", :controller => "nightly_processes", :action => "index"
+        = link_to "#{image_tag('icon_holder.png')} NightlyProcess", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "nightly_processes"
       - else
         <p>Nightly Process</p>
         %ul
           %li{:id => @current_action == "index" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Test", :controller => "nightly_processes", :action => "index"
+            = link_to "#{image_tag('icon_holder.png')} Test", {:controller => "nightly_processes", :action => "index"}, :controller => "nightly_processes", :action => "index",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "nightly_processes"
     .bottom

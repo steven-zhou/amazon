@@ -2234,7 +2234,7 @@ div#permission_form .options{
     min-height:100px;
     margin-right:15px;
     -moz-border-radius:10px;
-   -webkit-border-radius:10px;
+    -webkit-border-radius:10px;
     border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
@@ -2673,9 +2673,9 @@ div#permission_form .options{
 }
 
 label.error_flag{
-   width:auto;
-   color:red !important;
-   
+    width:auto;
+    color:red !important;
+
 
 }
 
@@ -2685,5 +2685,12 @@ input.error_flag{
 
 /*For removed keyword*/
 .red{
-   color:red;
+    color:red;
+}
+
+/*For quick_launch using*/
+.quick_launch_icon{
+
+    margin-left:19px;
+    padding-top:8px;
 }

@@ -18,6 +18,8 @@ class QuickLaunchIconsController < ApplicationController
         #----------------------------uniqueness - of------------------------#
       elsif (!@quick_launch_icons.errors[:login_account_id].nil? && @quick_launch_icons.errors.on(:login_account_id).include?("has already been taken"))
         flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "this shortcut")
+      elsif (!@quick_launch_icons.errors[:login_account_id].nil? && @quick_launch_icons.errors.on(:login_account_id).include?("You just can have 8 quick launch icons."))
+        flash.now[:error] = flash_message(:message => "You just can have 8 quick launch icons.")
       else
         flash.now[:error] = flash_message(:message => "Please Check Your action, There are some invalid input")
       end
@@ -40,21 +42,21 @@ class QuickLaunchIconsController < ApplicationController
 
 
   def check
-      @quick_launch_icons = QuickLaunchIcon.find(params[:id].to_i)
-       session[:module] =  @quick_launch_icons.module
-       if @quick_launch_icons.controller == "people"
-        id = session[:current_person_id]
-        elsif @quick_launch_icons.controller == "organisations"
-        id = session[:current_organisation_id]
-       else
-         id = ""
-       end
+    @quick_launch_icons = QuickLaunchIcon.find(params[:id].to_i)
+    session[:module] =  @quick_launch_icons.module
+    if @quick_launch_icons.controller == "people"
+      id = session[:current_person_id]
+    elsif @quick_launch_icons.controller == "organisations"
+      id = session[:current_organisation_id]
+    else
+      id = ""
+    end
 
-       if @quick_launch_icons.action == "index"
-          redirect_to :controller =>@quick_launch_icons.controller
-       else
-          redirect_to :controller =>@quick_launch_icons.controller, :action => @quick_launch_icons.action, :id => id
-       end
+    if @quick_launch_icons.action == "index"
+      redirect_to :controller =>@quick_launch_icons.controller
+    else
+      redirect_to :controller =>@quick_launch_icons.controller, :action => @quick_launch_icons.action, :id => id
+    end
       
 
   end
