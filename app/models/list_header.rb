@@ -1,6 +1,6 @@
 class ListHeader < ActiveRecord::Base
 
- has_many :list_details
+ has_many :list_details, :dependent => :destroy
 
   has_many :user_lists
   has_many :login_accounts, :through => :user_lists, :uniq => true

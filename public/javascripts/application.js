@@ -1379,156 +1379,165 @@ check_input_change = function(){
 
 $(function(){
     $('#lc a').live('click', function(){
-
-        right_tab = $("#content #right_content").find("#tabs");
-        //         alert(right_tab.length);
-        if(right_tab.length > 0)
-        {
-            check_input_change();
-        }
-
-
-        left_content = $("#content").find("#left_content");
-        right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
-        if (left_content.length > 0 &&  right_content.length > 0)
-        {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+        // if left-click
+        if(e.button != 2){
+            right_tab = $("#content #right_content").find("#tabs");
+            //         alert(right_tab.length);
+            if(right_tab.length > 0)
             {
+                check_input_change();
+            }
 
-                $('#check_input_change').val("true");
+
+            left_content = $("#content").find("#left_content");
+            right_content = $("#content").find("#right_content");
+            //     alert( left_content.length);
+            //     alert( right_content.length);
+            if (left_content.length > 0 &&  right_content.length > 0)
+            {
+                //          $('#check_input_change').val("true");
+                //          alert( $('#check_input_change').val());
+
+                if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+                {
+
+                    $('#check_input_change').val("true");
+                }
+                else
+                {
+
+                    $('#check_input_change').val("false");
+                }
+            }
+            var link = $(this);
+
+            if($('#check_input_change').val() == "false"  )
+            {
+                window.open(link.attr('href'),"_self");
+
+                return false;
             }
             else
             {
+                $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+                $('#warning_message_image').css("display","");
+                $('#warning_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
 
-                $('#check_input_change').val("false");
-            }
-        }
-        var link = $(this);
+                        No: function(){
+                            $(this).dialog('destroy');
+                            return false;
 
-        if($('#check_input_change').val() == "false"  )
-        {
-            window.open(link.attr('href'),"_self");
-
-            return false;
-        }
-        else
-        {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        window.open(link.attr('href'),"_self");
-                        $('#check_left_input_change').val("false");
-                        $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
-                        $(this).dialog('destroy');
-                        return true;
+                        },
+                        Yes: function(){
+                            window.open(link.attr('href'),"_self");
+                            $('#check_left_input_change').val("false");
+                            $('#check_right_input_change').val("false");
+                            $('#check_input_change').val("false");
+                            $(this).dialog('destroy');
+                            return true;
+                        }
                     }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
+                });
+                $('#warning_message').dialog('option', 'title', 'Warning');
 
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
+                $('#warning_message').parent().find("a").css("display","none");
+                $("#warning_message").parent().css('background-color','#D1DDE6');
+                $("#warning_message").css('background-color','#D1DDE6');
 
-            $('#warning_message').dialog('open');
+                $('#warning_message').dialog('open');
+                return false;
+            }
+        }else{
             return false;
-        }
+        }        
     }).attr("rel", "nofollow");
 });
 
 $(function(){
     $('#sysbar a').live('click', function(){
-
-        right_tab = $("#content #right_content").find("#tabs");
-        //         alert(right_tab.length);
-        if(right_tab.length > 0)
-        {
-            check_input_change();
-        }
-
-
-        left_content = $("#content").find("#left_content");
-        right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
-        if (left_content.length > 0 &&  right_content.length > 0)
-        {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+        // if left-click
+        if(e.button != 2){
+            right_tab = $("#content #right_content").find("#tabs");
+            //         alert(right_tab.length);
+            if(right_tab.length > 0)
             {
+                check_input_change();
+            }
 
-                $('#check_input_change').val("true");
+
+            left_content = $("#content").find("#left_content");
+            right_content = $("#content").find("#right_content");
+            //     alert( left_content.length);
+            //     alert( right_content.length);
+            if (left_content.length > 0 &&  right_content.length > 0)
+            {
+                //          $('#check_input_change').val("true");
+                //          alert( $('#check_input_change').val());
+
+                if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+                {
+
+                    $('#check_input_change').val("true");
+                }
+                else
+                {
+
+                    $('#check_input_change').val("false");
+                }
+            }
+            var link = $(this);
+            if($('#check_input_change').val() == "false")
+            {
+                window.open(link.attr('href'),"_self");
+
+                return false;
             }
             else
             {
+                $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+                $('#warning_message_image').css("display","");
+                $('#warning_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
 
-                $('#check_input_change').val("false");
-            }
-        }
-        var link = $(this);
-        if($('#check_input_change').val() == "false")
-        {
-            window.open(link.attr('href'),"_self");
+                        No: function(){
+                            $(this).dialog('destroy');
+                            return false;
 
-            return false;
-        }
-        else
-        {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        window.open(link.attr('href'),"_self");
-                        $('#check_left_input_change').val("false");
-                        $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
-                        $(this).dialog('destroy');
-                        return true;
+                        },
+                        Yes: function(){
+                            window.open(link.attr('href'),"_self");
+                            $('#check_left_input_change').val("false");
+                            $('#check_right_input_change').val("false");
+                            $('#check_input_change').val("false");
+                            $(this).dialog('destroy');
+                            return true;
+                        }
                     }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
+                });
+                $('#warning_message').dialog('option', 'title', 'Warning');
 
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
+                $('#warning_message').parent().find("a").css("display","none");
+                $("#warning_message").parent().css('background-color','#D1DDE6');
+                $("#warning_message").css('background-color','#D1DDE6');
 
-            $('#warning_message').dialog('open');
+                $('#warning_message').dialog('open');
+                return false;
+            }
+        }else{
             return false;
         }
+        
     }).attr("rel", "nofollow");
 });
 
@@ -1645,7 +1654,7 @@ lolanavigation = function(link){
 
 $(function(){
     $('#lol a').live('click', function(){
-
+        
         lolanavigation($(this));
     }).attr("rel", "nofollow");
 });
