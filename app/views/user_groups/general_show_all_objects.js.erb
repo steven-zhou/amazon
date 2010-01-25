@@ -1,0 +1,13 @@
+$('#show_list_content').html('<%= escape_javascript(render(:partial => "/user_groups/general_show_all_objects", :locals =>{:people => @p })) %>');
+$('#show_list_grid').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  position: "center",
+  width: 680,
+  height: 600,
+  buttons: {
+  }
+});
+$('#show_list_grid').dialog("option","title","Show List");
+$('#show_list_grid').dialog('open');

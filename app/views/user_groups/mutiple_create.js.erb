@@ -1,0 +1,52 @@
+<% unless flash[:error].nil? %>
+ $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message_image').css("display","");
+ $("#flash_message").dialog( {
+ modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 600,
+ buttons: {
+
+ OK: function(){
+
+ $(this).dialog('close');
+ }
+ }
+ });
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+
+  $('#flash_message').dialog('open');
+
+<%else %>
+
+ $('#user_group_user').append('<%= escape_javascript(render(:partial => "user_groups/new_group_user", :locals =>{:user_group => @user_group })) %>');
+ $('#<%= dom_id(@user_group) %>').show('slide');
+ $('#group_display').replaceWith(" <%= escape_javascript(render(:partial => 'group_display')) %>");
+$('#flash_feedback').html("<%= escape_javascript(flash[:message]) %>");
+ $('#flash_feedback').fadeIn("slow");
+ $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+$('#group_type_'+'<%=escape_javascript("#{@select_group_type_id}")%>').addClass("container_selected");
+$("#new_user_group")[0].reset();
+
+
+$('#show_list_content').html('<%= escape_javascript(render(:partial => "/user_groups/general_show_all_objects")) %>');
+$('#show_list_grid').dialog({
+  modal: true,
+  resizable: true,
+  draggable: true,
+  position: "center",
+  width: 680,
+  height: 600,
+  buttons: {
+  }
+});
+$('#show_list_grid').dialog("option","title","Show List");
+$('#show_list_grid').dialog('open');
+
+<%end%>
+enable_form_after_submit_finish();

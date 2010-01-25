@@ -190,4 +190,11 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def enquiry
+    
+    respond_to do |format|
+      format.html
+    end
+  end
+
 end

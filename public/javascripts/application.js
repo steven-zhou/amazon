@@ -1378,7 +1378,7 @@ check_input_change = function(){
 };
 
 $(function(){
-    $('#lc a').live('click', function(){
+    $('#lc a').live('click', function(e){
         // if left-click
         if(e.button != 2){
             right_tab = $("#content #right_content").find("#tabs");
@@ -1460,7 +1460,7 @@ $(function(){
 });
 
 $(function(){
-    $('#sysbar a').live('click', function(){
+    $('#sysbar a').live('click', function(e){
         // if left-click
         if(e.button != 2){
             right_tab = $("#content #right_content").find("#tabs");
@@ -2704,25 +2704,29 @@ $(function(){
 $(function(){
     $('table.selectable_grid tbody tr').live('dblclick',function(){
         //        alert($('table#general_search_list_results').attr('db_click_function'))
-        var form_id = $(this).closest('table').get(0).id
-
+        var form_id = $(this).closest('table').get(0).id;
         if ($('#'+ form_id).attr('db_click_function') == "true")
         {
-            var url = $('#'+ form_id).attr('db_click_url')
-
+            var url = $('#'+ form_id).attr('db_click_url');
+            var type = "GET";
             if ($('#'+ form_id).attr('edit')=="true")
             {
-                url=url+$(this).attr('id').substring(3)+"/edit.js"
+                url=url+$(this).attr('id').substring(3)+"/edit.js";               
             }
-
+            if ($('#'+ form_id).attr('create')=="true"){
+                type = "POST";            
+            }
+            if ($('#'+ form_id).attr('db_show')=="true")
+            {
+                url=url+$(this).attr('id').substring(3)+".js";        
+            }            
             $.ajax({
-                type: 'GET',
+                type: type,
                 url: url,
                 data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
-            });
+            });        
         }
-
         if ($('#'+ form_id).attr('db_close') == "true")
         {
             $('.ui-icon-closethick').click();
@@ -2888,13 +2892,13 @@ $(function(){
 //Drag and Drop
 config_drag_drop= function(){
     $('.draggable').draggable({
-        helper: "clone"         
+        helper: "clone"
     });
 
     $('.droppable').droppable({
     
         drop: function(event, ui) {
-            var target = $('.ui-draggable-dragging');            
+            var target = $('.ui-draggable-dragging');
             if (target.attr('controller') != undefined){
                 target.remove();
                 $.ajax({
@@ -2965,6 +2969,7 @@ enable_form_after_submit_finish = function(){
     $("form :select").removeAttr("readonly");
     $("form :textarea").removeAttr("readonly");
     $('form :input[type="submit"]').removeAttr("disabled");
+    $('.fake_submit_button').removeAttr("disabled");
     $('#spinner').remove();
 };
 
@@ -2982,3 +2987,80 @@ $(function(){
 
 });
 
+
+
+
+/*show_object_general_function_for all use*/
+$(function(){
+    $(".show_all_objects_look_up").live('click',function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+
+            $.ajax({
+                type: "GET",
+                //url: "/organisations/general_show_list.js",
+                url: link.attr('look_up_url'),
+                data: 'object_id='+link.attr('object_id'),
+                dataType: "script"
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+
+                        $.ajax({
+                            type: "GET",
+                            url: link.attr('look_up_url'),
+                            data: 'object_id='+link.attr('object_id'),
+                            dataType: "script"
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+
+
+
+    });
+});
+
+$(function(){
+    $(".show_all_objects_look_up").live('mouseover',function(){
+
+        $(this).css("cursor","pointer");
+    });
+});
