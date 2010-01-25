@@ -1,0 +1,93 @@
+.container{:style => "width:96%;padding:2%;"}
+  %table#general_show_all_objects{:class => "selectable_grid", :db_click_function => "true", :db_close => "false", :create => "true", :db_click_url => "/user_groups/mutiple_create.js", :params2 => @group.id }
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#general_show_all_objects").flexigrid({
+  url: '/grids/general_show_all_objects',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'grid_object_id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'User Name',
+  name : 'field_1',
+  width : 55,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'First Name',
+  name : 'field_2',
+  width : 65,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Famliy Name',
+  name : 'field_3',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Security_email',
+  name : 'field_4',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Login Status',
+  name : 'field_5',
+  width : 70,
+  sortable : true,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'User Name',
+  name : 'field_1'
+  },
+
+  {
+  display: 'First Name',
+  name : 'field_2'
+  },
+
+  {
+  display: 'Family Name',
+  name : 'field_3'
+  },
+
+  {
+  display: 'Security_email',
+  name : 'field_4'
+  },
+
+  {
+  display: 'Login Status',
+  name : 'field_5'
+  }
+
+  ],
+  sortname: "grid_object_id",
+  sortorder: "asc",
+  usepager: true,
+  title: '',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
