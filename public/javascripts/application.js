@@ -2968,4 +2968,17 @@ enable_form_after_submit_finish = function(){
     $('#spinner').remove();
 };
 
+////// Modify my account
+$(function(){
+    $("#modify_my_accounts").click(function(){
+
+        $.ajax({
+            type: "POST",
+            url: "/user_preferences/show_modify_my_account",
+            dataType:"script"
+        });
+
+    });
+
+});
 
