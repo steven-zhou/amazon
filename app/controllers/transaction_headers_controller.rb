@@ -190,18 +190,55 @@ class TransactionHeadersController < ApplicationController
   end
 
   def filter
-    params[:start_date] ||= "01-01-#{Date.today().year().to_s}"
-    params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
-    @start_date = params[:start_date]
-    @end_date = params[:end_date]
-    date_regex = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
-    if !(@start_date =~ date_regex).nil? && !(@end_date =~ date_regex).nil?
-      @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+    if params[:enquiry]
+      @filter_target = "enquiry"
       @date_valid = true
+      conditions = Array.new
+      if (!params[:start_id].blank? || !params[:end_id].blank?)
+        params[:start_id] ||= TransactionHeader.first_reocrd.id
+        params[:end_id] ||= TransactionHeader.last_record.id
+        conditions << ("start_id=" + params[:start_id])
+        conditions << ("end_id=" + params[:end_id])
+      end
+
+      if (!params[:start_receipt_id].blank? || !params[:end_receipt_id].blank?)
+        params[:start_receipt_id] ||= TransactionHeader.first_recoerd.receipt_number
+        params[:end_receipt_id] ||= TransactionHeader.last_recoerd.receipt_number
+        conditions << ("start_receipt_id=" + params[:start_receipt_id])
+        conditions << ("end_receipt_id=" + params[:end_receipt_id])
+      end
+
+      if (!params[:start_system_date].blank? || !params[:end_system_date].blank?)
+        params[:start_system_date] ||= "01-01-#{Date.today().year().to_s}"
+        params[:end_system_date] ||= "31-12-#{Date.today().year().to_s}"
+        conditions << ("start_system_date=" + params[:start_system_date])
+        conditions << ("end_system_date=" + params[:end_system_date])
+      end
+
+      if (!params[:start_transaction_date].blank? || !params[:end_transaction_date].blank?)
+        params[:start_transaction_date] ||= "01-01-#{Date.today().year().to_s}"
+        params[:end_transaction_date] ||= "31-12-#{Date.today().year().to_s}"
+        conditions << ("start_transaction_date=" + params[:start_transaction_date])
+        conditions << ("end_transaction_date=" + params[:end_transaction_date])
+      end
+
+      @query = conditions.join('&')
+
     else
-      @date_valid = false
-      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      #trasnaction histroy
+      @filter_target = "histroy"
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
+      
+      if valid_date(@start_date) && valid_date(@end_date)
+        @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+        @date_valid = true
+      else
+        @date_valid = false
+        flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
     end
+    
     respond_to do |format|
       format.js
     end

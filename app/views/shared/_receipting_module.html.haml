@@ -9,9 +9,11 @@
         <p>Transactions</p>
         %ul
           %li{:id => @current_action == "personal_transaction" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/money_person.png')} Person", {:controller => "transactions", :action => "personal_transaction"}, :class => "draggable", :controller => "transactions", :action => "personal_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_person.png", :title => "personal_transaction"
+            = link_to "#{image_tag('Icons/Receipting/money_person.png')} Person", {:controller => "transactions", :action => "personal_transaction"}, :class => "draggable", :controller => "transactions", :action => "personal_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_person.png", :title => "Personal Transaction"
           %li{:id => @current_action == "organisational_transaction" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/money_org.png')} Organisation", {:controller => "transactions", :action => "organisational_transaction"},:class => "draggable", :controller => "transactions", :action => "organisational_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_org.png", :title => "organisational_transaction"
+            = link_to "#{image_tag('Icons/Receipting/money_org.png')} Organisation", {:controller => "transactions", :action => "organisational_transaction"},:class => "draggable", :controller => "transactions", :action => "organisational_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_org.png", :title => "Organisational Transaction"
+          %li{:id => @current_action == "enquiry" ? "selected" : ""}
+            = link_to "#{image_tag('/images/icon_holder.png')} Enquiry", {:controller => "transactions", :action => "enquiry"},:class => "draggable", :controller => "transactions", :action => "enquiry", :icon_module=>"receipting",:image_url => "/images/icon_holder.png", :title => "Transaction Enquiry"
           %br.clear
     .bottom
 
