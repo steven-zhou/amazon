@@ -13,11 +13,8 @@ class QuickLaunchIconsController < ApplicationController
     @quick_launch_icons.login_account_id = @current_user.id
     if @quick_launch_icons.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new quick launch id #{@quick_launch_icons.id}.")
-    else
-      #----------------------------presence - of------------------------#
-      if (!@quick_launch_icons.errors[:login_account_id].nil? && @quick_launch_icons.errors.on(:login_account_id).include?("has already been taken"))
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "this shortcut")
-      elsif (!@quick_launch_icons.errors[:login_account_id].nil? && @quick_launch_icons.errors.on(:login_account_id).include?("8 quick launch icons only"))
+    else      
+      if (!@quick_launch_icons.errors[:login_account_id].nil? && @quick_launch_icons.errors.on(:login_account_id).include?("8 quick launch icons only"))
         flash.now[:error] = flash_message(:message => "You can only have 8 quick launch icons.")
       end
     end

@@ -1378,7 +1378,7 @@ check_input_change = function(){
 };
 
 $(function(){
-    $('#lc a').live('click', function(){
+    $('#lc a').live('click', function(e){
         // if left-click
         if(e.button != 2){
             right_tab = $("#content #right_content").find("#tabs");
@@ -1460,7 +1460,7 @@ $(function(){
 });
 
 $(function(){
-    $('#sysbar a').live('click', function(){
+    $('#sysbar a').live('click', function(e){
         // if left-click
         if(e.button != 2){
             right_tab = $("#content #right_content").find("#tabs");
