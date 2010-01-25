@@ -2715,6 +2715,11 @@ $(function(){
                 url=url+$(this).attr('id').substring(3)+"/edit.js"
             }
 
+            if ($('#'+ form_id).attr('db_show')=="true")
+            {
+                url=url+$(this).attr('id').substring(3)+".js"
+            }
+            
             $.ajax({
                 type: 'GET',
                 url: url,
@@ -2965,6 +2970,7 @@ enable_form_after_submit_finish = function(){
     $("form :select").removeAttr("readonly");
     $("form :textarea").removeAttr("readonly");
     $('form :input[type="submit"]').removeAttr("disabled");
+    $('.fake_submit_button').removeAttr("disabled");
     $('#spinner').remove();
 };
 
