@@ -38,11 +38,12 @@ $(document).ready(function(){
 
 $(function(){
     // All A tags with class 'get', 'post', 'put' or 'delete' will perform an ajax call
-    $('a.get').live('click', function() {
+    $('a.get').live('click', function(e) {    
         var link = $(this);
         $.get(link.attr('href'), null ,null, 'script');
         return false;
     }).attr("rel", "nofollow");
+
 
 
 
@@ -1377,157 +1378,166 @@ check_input_change = function(){
 };
 
 $(function(){
-    $('#lc a').live('click', function(){
-
-        right_tab = $("#content #right_content").find("#tabs");
-        //         alert(right_tab.length);
-        if(right_tab.length > 0)
-        {
-            check_input_change();
-        }
-
-
-        left_content = $("#content").find("#left_content");
-        right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
-        if (left_content.length > 0 &&  right_content.length > 0)
-        {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+    $('#lc a').live('click', function(e){
+        // if left-click
+        if(e.button != 2){
+            right_tab = $("#content #right_content").find("#tabs");
+            //         alert(right_tab.length);
+            if(right_tab.length > 0)
             {
+                check_input_change();
+            }
 
-                $('#check_input_change').val("true");
+
+            left_content = $("#content").find("#left_content");
+            right_content = $("#content").find("#right_content");
+            //     alert( left_content.length);
+            //     alert( right_content.length);
+            if (left_content.length > 0 &&  right_content.length > 0)
+            {
+                //          $('#check_input_change').val("true");
+                //          alert( $('#check_input_change').val());
+
+                if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+                {
+
+                    $('#check_input_change').val("true");
+                }
+                else
+                {
+
+                    $('#check_input_change').val("false");
+                }
+            }
+            var link = $(this);
+
+            if($('#check_input_change').val() == "false"  )
+            {
+                window.open(link.attr('href'),"_self");
+
+                return false;
             }
             else
             {
+                $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+                $('#warning_message_image').css("display","");
+                $('#warning_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
 
-                $('#check_input_change').val("false");
-            }
-        }
-        var link = $(this);
+                        No: function(){
+                            $(this).dialog('destroy');
+                            return false;
 
-        if($('#check_input_change').val() == "false"  )
-        {
-            window.open(link.attr('href'),"_self");
-
-            return false;
-        }
-        else
-        {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        window.open(link.attr('href'),"_self");
-                        $('#check_left_input_change').val("false");
-                        $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
-                        $(this).dialog('destroy');
-                        return true;
+                        },
+                        Yes: function(){
+                            window.open(link.attr('href'),"_self");
+                            $('#check_left_input_change').val("false");
+                            $('#check_right_input_change').val("false");
+                            $('#check_input_change').val("false");
+                            $(this).dialog('destroy');
+                            return true;
+                        }
                     }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
+                });
+                $('#warning_message').dialog('option', 'title', 'Warning');
 
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
+                $('#warning_message').parent().find("a").css("display","none");
+                $("#warning_message").parent().css('background-color','#D1DDE6');
+                $("#warning_message").css('background-color','#D1DDE6');
 
-            $('#warning_message').dialog('open');
+                $('#warning_message').dialog('open');
+                return false;
+            }
+        }else{
             return false;
-        }
+        }        
     }).attr("rel", "nofollow");
 });
 
 $(function(){
-    $('#sysbar a').live('click', function(){
-
-        right_tab = $("#content #right_content").find("#tabs");
-        //         alert(right_tab.length);
-        if(right_tab.length > 0)
-        {
-            check_input_change();
-        }
-
-
-        left_content = $("#content").find("#left_content");
-        right_content = $("#content").find("#right_content");
-        //     alert( left_content.length);
-        //     alert( right_content.length);
-        if (left_content.length > 0 &&  right_content.length > 0)
-        {
-            //          $('#check_input_change').val("true");
-            //          alert( $('#check_input_change').val());
-
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+    $('#sysbar a').live('click', function(e){
+        // if left-click
+        if(e.button != 2){
+            right_tab = $("#content #right_content").find("#tabs");
+            //         alert(right_tab.length);
+            if(right_tab.length > 0)
             {
+                check_input_change();
+            }
 
-                $('#check_input_change').val("true");
+
+            left_content = $("#content").find("#left_content");
+            right_content = $("#content").find("#right_content");
+            //     alert( left_content.length);
+            //     alert( right_content.length);
+            if (left_content.length > 0 &&  right_content.length > 0)
+            {
+                //          $('#check_input_change').val("true");
+                //          alert( $('#check_input_change').val());
+
+                if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+                {
+
+                    $('#check_input_change').val("true");
+                }
+                else
+                {
+
+                    $('#check_input_change').val("false");
+                }
+            }
+            var link = $(this);
+            if($('#check_input_change').val() == "false")
+            {
+                window.open(link.attr('href'),"_self");
+
+                return false;
             }
             else
             {
+                $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+                $('#warning_message_image').css("display","");
+                $('#warning_message').dialog({
+                    modal: true,
+                    resizable: false,
+                    draggable: true,
+                    height: 'auto',
+                    width: 'auto',
+                    buttons: {
 
-                $('#check_input_change').val("false");
-            }
-        }
-        var link = $(this);
-        if($('#check_input_change').val() == "false")
-        {
-            window.open(link.attr('href'),"_self");
+                        No: function(){
+                            $(this).dialog('destroy');
+                            return false;
 
-            return false;
-        }
-        else
-        {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        window.open(link.attr('href'),"_self");
-                        $('#check_left_input_change').val("false");
-                        $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
-                        $(this).dialog('destroy');
-                        return true;
+                        },
+                        Yes: function(){
+                            window.open(link.attr('href'),"_self");
+                            $('#check_left_input_change').val("false");
+                            $('#check_right_input_change').val("false");
+                            $('#check_input_change').val("false");
+                            $(this).dialog('destroy');
+                            return true;
+                        }
                     }
-                }
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
+                });
+                $('#warning_message').dialog('option', 'title', 'Warning');
 
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
+                $('#warning_message').parent().find("a").css("display","none");
+                $("#warning_message").parent().css('background-color','#D1DDE6');
+                $("#warning_message").css('background-color','#D1DDE6');
 
-            $('#warning_message').dialog('open');
+                $('#warning_message').dialog('open');
+                return false;
+            }
+        }else{
             return false;
         }
+        
     }).attr("rel", "nofollow");
 });
 
@@ -1644,7 +1654,7 @@ lolanavigation = function(link){
 
 $(function(){
     $('#lol a').live('click', function(){
-
+        
         lolanavigation($(this));
     }).attr("rel", "nofollow");
 });
@@ -1797,17 +1807,19 @@ $(function(){
 $(document).ready(function() {
 
     $('.launch_address_assistant').live('click', function() {
-
-        $.ajax({
-            type: "GET",
-            url: "/people/show_postcode.js",
-            dataType: "script"
-        });
+        var suburb = $("#"+$(this).attr("update_field1")).val();
+        var state = $("#"+$(this).attr("update_field2")).val();
+        var postcode = $("#"+$(this).attr("update_field3")).val();
         $('#address_postcode_input').attr("update_field1", $(this).attr("update_field1"));
         $('#address_postcode_input').attr("update_field2", $(this).attr("update_field2"));
         $('#address_postcode_input').attr("update_field3", $(this).attr("update_field3"));
         $('#address_postcode_input').attr("update_field4", $(this).attr("update_field4"));
-
+        $.ajax({
+            type: "GET",
+            url: "/people/show_postcode.js",
+            data: 'suburb='+suburb+'&postcode='+postcode+'&state='+state,
+            dataType: "script"
+        });
     });
 });
 
@@ -2692,23 +2704,29 @@ $(function(){
 $(function(){
     $('table.selectable_grid tbody tr').live('dblclick',function(){
         //        alert($('table#general_search_list_results').attr('db_click_function'))
-        var form_id = $(this).closest('table').get(0).id
-
+        var form_id = $(this).closest('table').get(0).id;
         if ($('#'+ form_id).attr('db_click_function') == "true")
         {
-            var url = $('#'+ form_id).attr('db_click_url')
-
+            var url = $('#'+ form_id).attr('db_click_url');
+            var type = "GET";
             if ($('#'+ form_id).attr('edit')=="true")
-                {url=url+$(this).attr('id').substring(3)+"/edit.js" }
-
+            {
+                url=url+$(this).attr('id').substring(3)+"/edit.js";               
+            }
+            if ($('#'+ form_id).attr('create')=="true"){
+                type = "POST";            
+            }
+            if ($('#'+ form_id).attr('db_show')=="true")
+            {
+                url=url+$(this).attr('id').substring(3)+".js";        
+            }            
             $.ajax({
-                type: 'GET',
+                type: type,
                 url: url,
                 data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
-            });
+            });        
         }
-
         if ($('#'+ form_id).attr('db_close') == "true")
         {
             $('.ui-icon-closethick').click();
@@ -2872,18 +2890,177 @@ $(function(){
 });
 
 //Drag and Drop
-$(function(){
+config_drag_drop= function(){
     $('.draggable').draggable({
-        stop: function(event, ui){
-            var target = $('.ui-draggable-dragging');
-            target.attr('style', 'position: relative;');
-        }
+        helper: "clone"
     });
 
     $('.droppable').droppable({
+    
         drop: function(event, ui) {
             var target = $('.ui-draggable-dragging');
-            alert(target.attr('id'));
+            if (target.attr('controller') != undefined){
+                target.remove();
+                $.ajax({
+                    type: "POST",
+                    url: "/quick_launch_icons",
+                    data:'icon_controller='+ target.attr('controller')+ "&icon_action=" + target.attr('action')+ "&image_url=" + target.attr('image_url')+ "&title=" + target.attr('title')+"&icon_module=" + target.attr('icon_module'),
+                    dataType:"script"
+                });
+            }
+            
+        },
+        
+        out: function(event, ui) {
+            var target = $('.ui-draggable-dragging');
+            if (target.attr('data_id') != undefined){
+                target.remove();
+                $.ajax({
+                    type: "DELETE",
+                    url: "/quick_launch_icons/"+ target.attr('data_id'),
+                    dataType:"script"
+                });
+            }
         }
+    });
+
+};
+
+
+$(function(){
+    config_drag_drop();
+
+});
+
+config_drag= function(){
+    $('.draggable').draggable({
+        helper: "clone"
+
+    });
+};
+
+
+
+//disable form after submit and enable form after submit finish
+$('input[type="submit"]').live('click', function(){
+    disable_form_after_submit($(this));
+});
+
+$('.fake_submit_button').live('click', function(){
+    disable_form_after_submit($(this));
+});
+
+disable_form_after_submit = function(submit_button){
+    var target_form
+    if (submit_button.attr('form_id') == ''){
+        target_form = $('#'+submit_button.attr('form_id'));
+    }else{
+        target_form = submit_button.closest('form');
+    }
+    target_form.find("input").attr("readonly", true);
+    target_form.find("select").attr("readonly", true);
+    target_form.find("textarea").attr("readonly", true);
+    submit_button.attr("disabled", true);
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/tuneup/spinner.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+};
+
+enable_form_after_submit_finish = function(){
+    $("form :input").removeAttr("readonly");
+    $("form :select").removeAttr("readonly");
+    $("form :textarea").removeAttr("readonly");
+    $('form :input[type="submit"]').removeAttr("disabled");
+    $('.fake_submit_button').removeAttr("disabled");
+    $('#spinner').remove();
+};
+
+////// Modify my account
+$(function(){
+    $("#modify_my_accounts").click(function(){
+
+        $.ajax({
+            type: "POST",
+            url: "/user_preferences/show_modify_my_account",
+            dataType:"script"
+        });
+
+    });
+
+});
+
+
+
+
+/*show_object_general_function_for all use*/
+$(function(){
+    $(".show_all_objects_look_up").live('click',function(){
+
+        var link = $(this);
+        if($('#check_input_change').val() == "false")
+        {
+
+            $.ajax({
+                type: "GET",
+                //url: "/organisations/general_show_list.js",
+                url: link.attr('look_up_url'),
+                data: 'object_id='+link.attr('object_id'),
+                dataType: "script"
+            });
+
+            return false;
+        }
+        else
+        {
+            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+
+                        $.ajax({
+                            type: "GET",
+                            url: link.attr('look_up_url'),
+                            data: 'object_id='+link.attr('object_id'),
+                            dataType: "script"
+                        });
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
+                        $('#check_input_change').val("false");
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+        }
+
+
+
+
+
+    });
+});
+
+$(function(){
+    $(".show_all_objects_look_up").live('mouseover',function(){
+
+        $(this).css("cursor","pointer");
     });
 });

@@ -8,6 +8,7 @@ describe TagMetaTypesController do
     @doc_tag_type = Factory.build(:doc_tag_type)
     MasterDocMetaMetaType.stub!(:new).and_return(@doc_tag_meta_type)
     MasterDocMetaMetaType.stub!(:find).and_return(@doc_tag_meta_type)
+    TagMetaType.stub!(:find).and_return(@doc_tag_meta_type)
     session[:user] = Factory(:login_account).id
   end
 
@@ -59,7 +60,7 @@ describe TagMetaTypesController do
 
   describe "get edit" do
     it "should find an existing MasterDocMetaMetaType with correct id" do
-      MasterDocMetaMetaType.should_receive(:find).and_return(@doc_tag_meta_type)
+      TagMetaType.should_receive(:find).and_return(@doc_tag_meta_type)
       get_edit
     end
 
@@ -69,10 +70,6 @@ describe TagMetaTypesController do
       @doc_tag_meta_type.tag_types.should == [@doc_tag_type]
     end
 
-    it "should create a new MasterDocMetaType associate with the existing MasterDocMetaMetaType" do
-      MasterDocMetaType.should_receive(:new).and_return(@doc_tag_type)
-      get_edit
-    end
 
     it "should render template /tag_meta_types/edit.js" do
       get_edit
@@ -131,19 +128,19 @@ describe TagMetaTypesController do
        GroupType.stub!(:find).and_return(@group_types)
     end
 
-    it "should find the selected group meta meta type" do
-      GroupMetaMetaType.should_receive(:find).with(@group_meta_meta_type.id).and_return(@group_meta_meta_type)
-     #  @group_meta_meta_type.should_receive(:find).and_return(@group_meta_types)
-      get_show_group_type
-    end
+#    it "should find the selected group meta meta type" do
+#      GroupMetaMetaType.should_receive(:find).with(@group_meta_meta_type.id).and_return(@group_meta_meta_type)
+#     #  @group_meta_meta_type.should_receive(:find).and_return(@group_meta_types)
+#      get_show_group_type
+#    end
 
 
-  it "should find the group meta type" do
-
-     @group_meta_meta_type.group_meta_types.should_receive(:find).and_return(@group_meta_types)
-    # GroupMetaType.should_receive(:find)
-      get_show_group_type
-    end
+#  it "should find the group meta type" do
+#
+#     @group_meta_meta_type.group_meta_types.should_receive(:find).and_return(@group_meta_types)
+#    # GroupMetaType.should_receive(:find)
+#      get_show_group_type
+#    end
 
   
 #    it "should find the group type" do

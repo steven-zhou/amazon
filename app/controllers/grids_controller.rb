@@ -1132,10 +1132,15 @@ class GridsController < ApplicationController
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
+    suburb = "%"+params[:suburb]+"%"
+    postcode = "%"+params[:postcode]+"%"
+    state = "%"+params[:state]+"%"
 
     # No search terms provided
+
     if(query == "%%")
       @show_postcode = Postcode.find(:all,
+        :conditions => ["suburb ilike ? AND postcode ilike ? AND state ilike ?", suburb, postcode, state],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
@@ -1143,7 +1148,7 @@ class GridsController < ApplicationController
 
       )
 
-      count = Postcode.count(:all,:include => ["country"])
+      count = Postcode.count(:all, :conditions => ["suburb ilike ? AND postcode ilike ? AND state ilike ?", suburb, postcode, state], :include => ["country"])
 
     end
 
@@ -1154,10 +1159,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query],
+        :conditions=>[qtype +" ilike ? AND suburb ilike ? AND postcode ilike ? AND state ilike ?", query, suburb, postcode, state],
         :include => ["country"])
 
-      count = Postcode.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["country"])
+      count = Postcode.count(:all, :conditions=>[qtype +" ilike ? AND suburb ilike ? AND postcode ilike ? AND state ilike ?", query, suburb, postcode, state],:include => ["country"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1901,7 +1906,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
 
-      count = Postcode.count(:all,
+      count = Source.count(:all,
 
         :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
     end
@@ -2589,6 +2594,100 @@ class GridsController < ApplicationController
 
   end
 
+  def show_transaction_enquiry_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+    conditions = Array.new
+    values = Array.new
+    if params[:start_id]
+      conditions << "transaction_headers.id Between ? And ?"
+      values << params[:start_id]
+      values << params[:end_id]
+    end
+
+    if params[:start_receipt_id]
+      conditions << "transaction_headers.receipt_number Between ? And ?"
+      values << params[:start_receipt_id]
+      values << params[:end_receipt_id]
+    end
+
+    if params[:start_system_date]
+      conditions << "transaction_headers.todays_date Between ? And ?"
+      values << params[:start_system_date].to_date
+      values << params[:end_system_date].to_date
+    end
+
+    if params[:start_transaction_date]
+      conditions << "transaction_headers.transaction_date Between ? And ?"
+      values << params[:start_transaction_date].to_date
+      values << params[:end_transaction_date].to_date
+    end
+
+    # No search terms provided
+    if(query == "%%")
+      @transaction = TransactionHeader.find(:all,
+        :conditions => [conditions.join(' AND '), *values],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"]
+      )
+      count = TransactionHeader.count(:all, :conditions => [conditions.join(' AND '), *values], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @transaction = TransactionHeader.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @transaction.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.receipt_number,
+          u.todays_date.to_s,
+          u.transaction_date.to_s,
+          u.bank_account_id.nil? ? "" : u.bank_account.account_number,
+          u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
+          u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
+          u.notes,
+          u.total_amount.nil? ? "$0.00" : currencify(u.total_amount)
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
   
 
   def show_message_templates_grid
@@ -2742,10 +2841,8 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
-    if(params[:type]=="organisations")
+    if(params[:type]!="Person")
       params[:type]="Organisation"
-    else
-       params[:type]="Person"
     end
 
     if (!sortname)
@@ -2799,6 +2896,76 @@ class GridsController < ApplicationController
           u.short_description,
           u.body_text,
           u.active]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+
+  def general_show_all_objects
+
+     page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "grid_object_id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+
+      @people = ShowListGrid.find(:all,
+        :conditions => ["login_account_id = ? and field_6 = ?", session[:user], true],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = ShowListGrid.count(:all, :conditions => ["login_account_id = ? and field_6 = ?", session[:user], true])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+
+      @people = ShowListGrid.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND login_account_id = ? and field_6 = ?", query, session[:user], true])
+      count = ShowListGrid.count(:all,
+        :conditions=>[qtype +" ilike ? AND login_account_id = ? and field_6 = ?", query, session[:user], true])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
+        :cell=>[u.grid_object_id,
+          u.field_1,
+          u.field_2,
+          u.field_3,
+          u.field_4,
+          u.field_5]}}
+
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end

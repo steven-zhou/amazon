@@ -24,7 +24,7 @@ class PersonalDuplicationFormula < DuplicationFormula
          end
       end
     end
-    
+
   end
 
 end

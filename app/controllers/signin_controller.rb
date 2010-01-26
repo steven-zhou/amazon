@@ -337,7 +337,6 @@ class SigninController < ApplicationController
   def create_temp_list
     #clear temp list data
     @temp_list = TempList.find_by_login_account_id(session[:user])
-    current_user = LoginAccount.find(session[:user])
     @temp_list.destroy unless @temp_list.nil?
     current_user = LoginAccount.find(session[:user])
     #create a temp list for all people on the lists(group lists and user lists)

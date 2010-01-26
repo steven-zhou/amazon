@@ -14,3 +14,4 @@
   $('#role_condition_assigned').append('<%= escape_javascript(render(:partial => "role_conditions/new_conditions", :locals =>{:r => @role_condition })) %>');
   $('#<%= dom_id(@role_condition) %>').show('slide');
 <%end%>
+  enable_form_after_submit_finish();

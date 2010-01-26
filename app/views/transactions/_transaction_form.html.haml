@@ -57,10 +57,10 @@
 #add_new_transaction_allocation
   = render :partial => "/transaction_allocations/new_transaction_allocation"
 
-#existing_transaction_allocations
+#existing_transaction_allocations{:style => "margin:10px;"}
   = render :partial => "transaction_allocations/existing_temp_transaction_allocations"
 
-#edit_transaction_allocation{:style => "display:none;margin-top:10px;float:left;width:100%;"}
+#edit_transaction_allocation{:style => "display:none;margin:10px 0;float:left;width:100%;"}
   .tab_looking_left
   .tab_looking_icon
     = image_tag('edit_icon.png')
@@ -78,9 +78,9 @@
     #edit_transaction_allocation_form
 
 
-= button_to_function "Submit", :disabled => false, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;margin-top:8px;;margin-left:10px;"
+= button_to_function "Submit", :disabled => false, :class => "fake_submit_button", :form_id => "new_transaction_header_form", :id => "new_submit_button", :style => "float:right;margin-left:10px;"
 
-#temp_allocation_total_amount.right{:style => "width:35%;margin-top:10px;"}
+#temp_allocation_total_amount.right{:style => "width:35%;margin-right:10px;"}
   .display_field_bg.right{:style => "width:200px !important;"}
     %div{:id => "temp_allocation_total_amount_value"}
       #{number_to_currency(0)}

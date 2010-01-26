@@ -2,16 +2,16 @@ class TransactionsController < ApplicationController
   # System Log stuff added
 
   def personal_transaction
-      session[:module] = "receipting"
-      @group_types = LoginAccount.find(session[:user]).group_types
-      @list_headers = @current_user.all_person_lists
-      @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
-      @p = @list_header.entity_on_list
-      @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
-      session[:entity_type] = "Person"
-      session[:entity_id] = @person.id
-      session[:current_list_id] = @list_header.id
-      session[:current_person_id] = @person.id
+    session[:module] = "receipting"
+    @group_types = LoginAccount.find(session[:user]).group_types
+    @list_headers = @current_user.all_person_lists
+    @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
+    @p = @list_header.entity_on_list
+    @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
+    session[:entity_type] = "Person"
+    session[:entity_id] = @person.id
+    session[:current_list_id] = @list_header.id
+    session[:current_person_id] = @person.id
     respond_to do |format|
       format.html
     end
@@ -19,11 +19,15 @@ class TransactionsController < ApplicationController
 
   def organisational_transaction
     session[:module] = "receipting"    
-    @o = Organisation.find(:all, :order => "id")
+    # @o = Organisation.find(:all, :order => "id")
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
+    @o = @list_header.entity_on_list
     @organisation = Organisation.find(session[:current_organisation_id]) rescue @organisation = @o[0]
     session[:entity_type] = "Organisation"
     session[:entity_id] = @organisation.id
-    session[:current_organisation_id] = @organisation_id
+    session[:current_list_id] = @list_header.id
+    session[:current_organisation_id] = @organisation.id
     respond_to do |format|
       format.html
     end
@@ -133,18 +137,38 @@ class TransactionsController < ApplicationController
 
 
     if request.post?
+      #find the list in top
+      @list_header = ListHeader.find(params[:list_header_id])
       # params _id not blank then pass it to params[:id]
       params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-      @o = Organisation.find(:all, :order => "id")
-      @organisation = Organisation.find(params[:id]) rescue @organisation = @o[0]
+      c1 = Array.new
+      #find all people in the lis
+      c1 = @list_header.entity_on_list
+    
+      @organisation = Organisation.find(params[:id].to_i)
+      unless c1.include?(@organisation)
+        #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
+        @organisation = @list_header.entity_on_list.first
+      else
+        #if you type the right id of people which is valid in the list
+        @organisation
+      end
 
       session[:entity_id] = @organisation.id
       session[:entity_type] = "Organisation"
       session[:current_organisation_id] = @organisation.id
+      session[:current_org_list_id] = @list_header.id
+      @o = Array.new
+      @o = @list_header.entity_on_list
+      @list_headers = @current_user.all_organisation_lists
       
     else
       #request.get
-      @o = Organisation.find(:all, :order => "id")
+
+      @list_headers = @current_user.all_organisation_lists
+      @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
+      @o = @list_header.entity_on_list.uniq
+
       @current_organisation = Organisation.find(session[:current_organisation_id]) rescue @current_organisation = @o[0]
       @organisation = case params[:target]
       when 'First' then @o[0]
@@ -156,12 +180,20 @@ class TransactionsController < ApplicationController
       session[:entity_id] = @organisation.id
       session[:entity_type] = "Organisation"
       session[:current_organisation_id] = @organisation.id
+      session[:current_org_list_id] = @list_header.id
     end
 
 
 
     respond_to do |format|
       format.js
+    end
+  end
+
+  def enquiry
+    
+    respond_to do |format|
+      format.html
     end
   end
 

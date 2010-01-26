@@ -1,0 +1,3 @@
+class OrganisationPrimaryList < OrganisationListHeader
+  
+end
