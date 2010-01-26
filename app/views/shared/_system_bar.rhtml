@@ -64,7 +64,7 @@
               <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
             <%- end%>
             <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
-            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount", :id => "modify_my_accounts"%></li>
           </ul>
           <div id="preferences_menu_bottom" ></div>
         </div>
@@ -135,4 +135,10 @@
 </div>
 
 <div id='person_lookup_dialog' style='display:none;'>
+</div>
+
+<div id='modify_my_account_dialog' style='display:none;'>
+  <div id="modify_my_account_content">
+
+  </div>
 </div>

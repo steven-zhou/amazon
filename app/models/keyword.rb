@@ -40,6 +40,12 @@ class Keyword < ActiveRecord::Base
 
   after_save :update_keyword_type_when_retrieve
 
+
+  def active_record
+    
+    Keyword.find(:all, :conditions => ["status =true AND to_be_removed = false"])
+  end
+
   private
   def update_keyword_type_when_retrieve
     if self.to_be_removed == false && self.keyword_type.to_be_removed == true

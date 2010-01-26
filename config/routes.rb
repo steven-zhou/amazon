@@ -155,6 +155,7 @@ ActionController::Routing::Routes.draw do |map|
   #nightly processes for testing only
   map.resources :nightly_processes, :collection => {:run => :get}
   map.resources :quick_launch_icons,:collection => {:check => :get}
+  map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put}
 
 
   # The priority is based upon order of creation: first created -> highest priority.

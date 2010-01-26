@@ -1,0 +1,19 @@
+<% if flash[:error].nil? %>
+ $("#modify_my_account_content").html("<%= escape_javascript(render(:partial => "user_preferences/show_modify_my_account.html.haml")) %>");
+
+ $("#modify_my_account_dialog").dialog( {
+ modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 600
+ 
+ });
+  $('#modify_my_account_dialog').dialog('option', 'title', 'My Account');
+  $('#modify_my_account_dialog').dialog('open');
+
+<%else %>
+
+
+
+<%end%>
