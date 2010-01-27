@@ -81,7 +81,7 @@
         %h2 Filter By Receipt Type
       .field_20
         %label Receipt Meta Type
-        %select{:name => "receipt_meta_type_id"}
+        %select{:name => "receipt_meta_type_id",:class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type"}
           %option{:value => "0"}All
           -for i in @receipt_meta_types
             %option{:value => "#{i.id}"} #{i.name}
@@ -92,7 +92,7 @@
           %select{:disabled => true}
         -else
          
-          %select{:name => "receipt_type_id"}
+          %select{:name => "receipt_type_id",:id => "enquiry_receipt_type"}
             %option{:value => "0"}All
             -for i in @receipt_types
               %option{:value => "#{i.id}"} #{i.name}

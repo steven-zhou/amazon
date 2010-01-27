@@ -148,7 +148,7 @@ ActionController::Routing::Routes.draw do |map|
  
   map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get, :show_personal_transaction => :get, :show_organisational_transaction => :get, :enquiry => :get}
 
-  map.resources :transaction_headers, :collection => {:page_initial => :get, :export_histroy_to_report => :get}
+  map.resources :transaction_headers, :collection => {:page_initial => :get, :export_histroy_to_report => :get,:enquiry_show_receipt_type => :get}
   map.resources :transaction_allocations, :collection => {:temp_create => :post}, :member => {:temp_edit => :get, :temp_update => :put}
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}
