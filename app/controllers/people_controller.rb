@@ -33,7 +33,7 @@ class PeopleController < ApplicationController
   
   def show
    
-    @group_types = LoginAccount.find(session[:user]).group_types
+    @group_types = @current_user.group_types
     @list_headers = @current_user.all_person_lists
 
     @active_tab = params[:active_tab]
