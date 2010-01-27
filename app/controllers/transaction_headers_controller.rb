@@ -290,4 +290,23 @@ class TransactionHeadersController < ApplicationController
       format.js
     end
   end
+
+  def enquiry_show_receipt_type
+    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])rescue  @receipt_meta_type = ReceiptMetaMetaType.new
+    if params[:param1] != "0"
+      @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+      @options = ""
+      @receipt_types.each do |i|
+        @options += '<option value=' + i.id.to_s + '>' + i.name
+      end
+      @cheque_detail = ChequeDetail.new
+      @credit_card_detail = CreditCardDetail.new
+    else
+      @options = ""
+      @options += "<option value = 0'>All"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end
