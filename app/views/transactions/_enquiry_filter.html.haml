@@ -57,11 +57,10 @@
         %h2 Filter By Bank Account Number
       .field_20
         %label Bank Account Number
-        %select
-          %option{:value => "0"} All
-          %option{:value => "1"} Account 1
-          %option{:value => "2"} Account 2
-
+        %select{:name => "bank_account_number"}
+          %option{:value => "0"}All
+          -@bank_accounts.each do |bank_account|  
+            %option{:value => "#{bank_account.id}"}#{bank_account.account_number}
     -# banking status filter
     .form_line
       .field_30
@@ -69,10 +68,10 @@
         %h2 Filter By Banking Status
       .field_20
         %label Banking Status
-        %select
+        %select{:name => "banked"}
           %option{:value => "0"} All
-          %option{:value => "1"} Banked
-          %option{:value => "2"} Unbanked
+          %option{:value => "true"}true
+          %option{:value => "false"}false
 
 
     -# receipt type filter
@@ -82,21 +81,28 @@
         %h2 Filter By Receipt Type
       .field_20
         %label Receipt Meta Type
-        %select
-          %option{:value => "0"} Cash
-          %option{:value => "1"} Cheque
-          %option{:value => "2"} Credit Card
+        %select{:name => "receipt_meta_type_id"}
+          %option{:value => "0"}All
+          -for i in @receipt_meta_types
+            %option{:value => "#{i.id}"} #{i.name}
+          
       .field_20
         %label Receipt Type
-        %select
-          %option{:value => "0"} Cash
-          %option{:value => "1"} Personal Cheque
-          %option{:value => "2"} Visa Card
+        - if ReceiptMetaMetaType.first.nil?
+          %select{:disabled => true}
+        -else
+         
+          %select{:name => "receipt_type_id"}
+            %option{:value => "0"}All
+            -for i in @receipt_types
+              %option{:value => "#{i.id}"} #{i.name}
+          
       .field_20
         %label Receipt Via
-        %select
-          %option{:value => "0"} Phone
-          %option{:value => "1"} Email
+        %select{:name => "received_via_id"}
+          %option{:value => "0"}All
+          -for i in @receipt_via
+            %option{:value => "#{i.id}"} #{i.name}
 
     -# receipt account filter
     .form_line
@@ -105,9 +111,10 @@
         %h2 Filter By Receipt Account
       .field_20
         %label Receipt Account
-        %select
-          %option{:value => "0"} Donation
-          %option{:value => "1"} Membership
+        %select{:name => "receipt_account_id"}
+          %option{:value => "0"}All
+          -for i in @receipt_accounts
+            %option{:value => "#{i.id}"} #{i.name}
 
     -# leter filter
     .form_line
@@ -116,9 +123,9 @@
         %h2 Filter By Letter
       .field_20
         %label Letter sent
-        %select
-          %option{:value => "0"} Yes
-          %option{:value => "1"} No
+        %select{:name => "letter_id"}
+          %option{:value => "0"}All
+         
 
     .form_line
       .field_30{:style => "float:right;"}

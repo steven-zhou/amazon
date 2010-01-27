@@ -191,7 +191,11 @@ class TransactionsController < ApplicationController
   end
 
   def enquiry
-    
+    @bank_accounts = BankAccount.find(:all, :order => "id asc")
+    @receipt_meta_types = ReceiptMetaMetaType.active_receipt_meta_meta_type
+    @receipt_types = ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status = true and to_be_removed = false", ReceiptMetaMetaType.first.id])
+    @receipt_via =ReceivedVia.active_received_via
+    @receipt_accounts=ReceiptAccount.all
     respond_to do |format|
       format.html
     end
