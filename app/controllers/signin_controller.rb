@@ -1,6 +1,7 @@
 class SigninController < ApplicationController
 
   # System logging added
+  # optimized
 
   include SimpleCaptcha::ControllerHelpers
 

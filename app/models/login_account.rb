@@ -14,9 +14,6 @@ class LoginAccount < ActiveRecord::Base
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
   validates_presence_of  :user_name, :password
 
-
-
-
   def self.authenticate(user_name, password)
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
     if login_account.nil?
