@@ -1,6 +1,6 @@
 - form_tag('/transaction_headers/filter',:class => "ajax_form", :id => "transaction_filter_form", :submit_button_id => "filter_submit_button") do
-  %input{:style => "display:none", :name => "enquiry"}
-  %input{:style => "display:none", :name => "banked_status", :value => "false"}
+  %input{:style => "display:none", :name => "bank_run"}
+  %input{:style => "display:none", :name => "banked", :value => "false"}
   .full_container
     -# bank id filter
     .form_line

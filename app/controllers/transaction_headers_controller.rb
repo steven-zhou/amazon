@@ -190,8 +190,12 @@ class TransactionHeadersController < ApplicationController
   end
 
   def filter
-    if params[:enquiry]
-      @filter_target = "enquiry"
+    if params[:enquiry] || params[:bank_run]
+      if params[:enquiry]
+        @filter_target = "enquiry"
+      else
+        @filter_target = "bank_run"
+      end
       @date_valid = true
       conditions = Array.new
       if (!params[:start_id].blank? || !params[:end_id].blank?)
@@ -199,7 +203,6 @@ class TransactionHeadersController < ApplicationController
         params[:end_id] =   TransactionHeader.last_record.id.to_s if params[:end_id].blank?
         conditions << ("start_id=" + params[:start_id])
         conditions << ("end_id=" + params[:end_id])
-        # puts"DEBUG--bb--#{conditions.to_yaml}"
       end
 
       if (!params[:start_receipt_id].blank? || !params[:end_receipt_id].blank?)
@@ -223,33 +226,31 @@ class TransactionHeadersController < ApplicationController
         conditions << ("end_transaction_date=" + params[:end_transaction_date])
       end
 
-      if (params[:bank_account_number].to_i!= 0)
+      if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
         conditions << ("bank_account_id=" + params[:bank_account_number])
       end
 
-      if (params[:banked]!= "0")
+      if (params[:banked] && params[:banked]!= "0")
         conditions << ("banked=" + params[:banked])
       end
 
-      if (params[:receipt_meta_type_id]!= "0")
+      if (params[:receipt_meta_type_id] && params[:receipt_meta_type_id]!= "0")
         conditions << ("receipt_meta_type_id=" + params[:receipt_meta_type_id])
       end
 
-      if (params[:receipt_type_id]!= "0")
+      if (params[:receipt_type_id] && params[:receipt_type_id]!= "0")
         conditions << ("receipt_type_id=" + params[:receipt_type_id])
       end
 
-      if (params[:received_via_id]!= "0")
+      if (params[:received_via_id] && params[:received_via_id]!= "0")
         conditions << ("received_via_id=" + params[:received_via_id])
       end
 
-      if (params[:receipt_account_id]!= "0")
+      if (params[:receipt_account_id] && params[:receipt_account_id]!= "0")
         conditions << ("receipt_account_id=" + params[:receipt_account_id])
       end
 
       @query = conditions.join('&')
-    
-      puts"----DEBUG---QYER#{@query.to_yaml}"
 
     else
       #trasnaction histroy
