@@ -2646,6 +2646,36 @@ class GridsController < ApplicationController
       values << params[:end_transaction_date].to_date
     end
 
+    if params[:bank_account_id]
+      conditions << "transaction_headers.bank_account_id =?"     
+      values << params[:bank_account_id].to_i
+    end
+
+    if params[:banked]
+      conditions << "transaction_headers.banked =?"
+      values << params[:banked]
+    end
+
+    if params[:receipt_meta_type_id]
+      conditions << "transaction_headers.receipt_meta_type_id =?"
+      values << params[:receipt_meta_type_id]
+    end
+
+    if params[:receipt_type_id]
+      conditions << "transaction_headers.receipt_type_id =?"
+      values << params[:receipt_type_id]
+    end
+
+    if params[:received_via_id]
+      conditions << "transaction_headers.received_via_id =?"
+      values << params[:received_via_id]
+    end
+
+    if params[:receipt_account_id]
+      conditions << "transaction_allocations.receipt_account_id =?"
+      values << params[:receipt_account_id]
+    end
+
     # No search terms provided
     if(query == "%%")
       @transaction = TransactionHeader.find(:all,
@@ -2653,9 +2683,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"]
+        :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type","transaction_allocations"]
       )
-      count = TransactionHeader.count(:all, :conditions => [conditions.join(' AND '), *values], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = TransactionHeader.count(:all, :conditions => [conditions.join(' AND '), *values], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type","transaction_allocations"])
     end
 
     # User provided search terms
@@ -2870,7 +2900,7 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-       :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
+        :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
       )
       count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]])
     end
@@ -2903,7 +2933,7 @@ class GridsController < ApplicationController
 
   def general_show_all_objects
 
-     page = (params[:page]).to_i
+    page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
     qtype = params[:qtype]
