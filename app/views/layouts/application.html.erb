@@ -12,7 +12,7 @@
     </style>
 
 
-    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css"%>
+    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword"%>
 <%#= jqgrid_stylesheets %>
 <%#= jqgrid_javascripts %>
 
@@ -33,7 +33,8 @@
       "application.js",
       "jquery.form.js",
       "jquery.validationEngine.js",
-      "nicEdit.js"
+      "nicEdit.js",
+      "jquery.jpassword.js"
 
   %>
 
@@ -47,12 +48,12 @@
       <%= javascript_include_tag  "jquery.qtip.min.js","systemcore.js", "reports.js"%>
     <%- end%>
     <%- if session[:module] == "administration" %>
-      <%= stylesheet_link_tag "jpassword" %>
-      <%= javascript_include_tag  "admin.js","jquery.jpassword.js"%>
+     
+      <%= javascript_include_tag  "admin.js",""%>
     <%- end%>
     <%- if session[:module] == "client_setup" %>
-      <%= stylesheet_link_tag "jpassword" %>
-      <%= javascript_include_tag  "client_setup.js","jquery.jpassword.js"%>
+     
+      <%= javascript_include_tag  "client_setup.js"%>
     <%- end%>
     <%- if session[:module] == "receipting" %>
       <%= javascript_include_tag  "receipting.js"%>

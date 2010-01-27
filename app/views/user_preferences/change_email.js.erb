@@ -1,31 +1,48 @@
 <% unless flash[:error].nil? %>
- $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
- $('#flash_message_image').css("display","");
- $("#flash_message").dialog( {
- modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 600,
- buttons: {
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message_image').css("display","");
+  $("#flash_message").dialog( {
+  modal: false,
+  resizable: false,
+  draggable: false,
+  height: 'auto',
+  width: 600,
+  buttons: {
 
- OK: function(){
+  OK: function(){
 
- $(this).dialog('close');
- }
- }
- });
+  $(this).dialog('close');
+  }
+  }
+  });
   $('#flash_message').dialog('option', 'title', 'Error');
   $('#flash_message').parent().find("a").css("display","none");
   $("#flash_message").parent().css('background-color','#D1DDE6');
   $("#flash_message").css('background-color','#D1DDE6');
 
   $('#flash_message').dialog('open');
+  enable_form_after_submit_finish();
+<%else%>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:message])%>");
+  $('#flash_message_image').css("display","");
+  $("#flash_message").dialog( {
+  modal: false,
+  resizable: false,
+  draggable: false,
+  height: 'auto',
+  width: 600,
+  buttons: {
 
-<%else %>
+  OK: function(){
 
-
-    $('#modify_my_account_dialog').dialog('close');
-
-
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#flash_message').dialog('option', 'title', 'Comfirmation');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+  $('#modify_my_account_dialog').dialog('destroy');
 <%end%>
