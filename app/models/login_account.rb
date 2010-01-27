@@ -1,6 +1,8 @@
 require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
+  #  Optimized
+  
   attr_accessor :password
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
@@ -39,7 +41,6 @@ class LoginAccount < ActiveRecord::Base
         raise "Power password invalid"
       end
     end
-    login_account = LoginAccount.find_by_user_name(user_name)
     return login_account
   end
 
