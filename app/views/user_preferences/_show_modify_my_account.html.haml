@@ -6,23 +6,23 @@
       %h1 Change My Email
 
     %div#change_email.left{:style => "width:100%;"}
-    -form_for @my_account,:url=>"/user_preferences/change_email",:method=>"put", :html => {:class => 'ajax_form'} do |my_account|
-      .container
-        .form_line
-          .field_31
-            %label Old Email
-            %input{:id=>"old_email",:name=>"old_email"}
-        .form_line
-          .field_31
-            %label New Email
-            %input{:id=>"new_email",:name=>"new_email"}
-        .form_line
-          .field_31
-            %label Retype New Email
-            %input{:id=>"retype_new_email",:name=>"retype_new_email"}
-        .form_line
-          .field_31
-            = submit_tag "Submit"
+      -form_for @my_account,:url=>"/user_preferences/change_email",:method=>"put", :html => {:class => 'ajax_form'} do |my_account|
+        .container
+          .form_line
+            .field_31
+              %label Old Email
+              %input{:id=>"old_email",:name=>"old_email"}
+          .form_line
+            .field_31
+              %label New Email
+              %input{:id=>"new_email",:name=>"new_email"}
+          .form_line
+            .field_31
+              %label Retype New Email
+              %input{:id=>"retype_new_email",:name=>"retype_new_email"}
+          .form_line
+            .field_31
+              = submit_tag "Submit"
 
 
   %div.container
@@ -32,38 +32,23 @@
       %h1 Change My Password
 
     %div#change_password.left{:style => "width:100%;display:none;"}
-      .container
-        -form_for @my_account, :url=>"/user_preferences/change_password",:method=>"put", :html => {:class => 'admin_password_reset'} do |login|
-        #page_title
-          %h1 Please reset your password (All fields required)
-        #lol
-          %br.clear
-        .container{:id => "password_form"}
-          %br
-          %br
+      -form_for @my_account,:url=>"/user_preferences/change_password",:method=>"put", :html => {:class => 'ajax_form'} do |my_account|
+        .container
           .form_line
-            .field_35
-              = login.label :password, 'Old Password'
-              %input{:id => "old_password", :name =>"old_password", :class => "validate[required,length[6,30]]", :type => "password"}
-          %br
-          %br
-          %br
-
+            .field_31
+              %label Old Password
+              %input{:id=>"old_password",:name=>"old_password"}
           .form_line
-            .field_35
-              = login.label :password, 'Password'
-              = login.password_field :password, :class => "password jpassword-righttop validate[required,length[6,30]]", :name => "login_account[password]", :id => "login_account_password"
-          %br
-          %br
-          %br
+            .field_31
+              %label New Password
+              %input{:id=>"new_password",:name=>"new_password"}
           .form_line
-            .field_35
-              = login.label :password_confirmation, 'Repeat Password'
-              -#= login.password_field :password_confirmation, :class => "validate[required,length[6,30],confirm[login_account_password]]", :name => "login_account[password_confirmation]", :id => "login_account_password_confirmation"
-          .form_line{:style => "height:30px;"}
-            .field_35
-              = submit_tag 'Submit'
-            %br
+            .field_31
+              %label Retype New Password
+              %input{:id=>"retype_new_password",:name=>"retype_new_password"}
+          .form_line
+            .field_31
+              = submit_tag "Submit"
 
   %div.container
     %div.toggle_div{:toggle_id_name => "change_security_question", :style => "cursor: pointer;"}
@@ -72,3 +57,52 @@
       %h1 Change My Security Question
 
     %div#change_security_question.left{:style => "width:100%;display:none;"}
+      -form_for @my_account,:url=>"/user_preferences/change_security_question",:method=>"put", :html => {:class => 'ajax_form'} do |login|
+        .container
+          .form_line
+            .field_35
+              = login.label :security_question1_id, 'Question1'
+              = collection_select :login_account, :security_question1_id, SecurityQuestion.active_security_question, :id, :name
+          %br
+          %br
+          %br
+          .form_line
+            .field_35
+              = login.label :question1_answer, 'Answer1'
+              = login.text_field :question1_answer, :class => "validate[required]", :id => "login_account_question1_answer", :name => "login_account[question1_answer]"
+          %br
+          %br
+          %br
+          .form_line
+            .field_35
+              = login.label :security_question2_id, 'Question2'
+              = collection_select :login_account, :security_question2_id, SecurityQuestion.active_security_question, :id, :name
+          %br
+          %br
+          %br
+          .form_line
+            .field_35
+              = login.label :question1_answer, 'Answer2'
+              = login.text_field :question2_answer, :class => "validate[required]", :id => "login_account_question2_answer", :name => "login_account[question2_answer]"
+
+          %br
+          %br
+          %br
+          .form_line
+            .field_35
+              = login.label :security_question3, 'Question3'
+              = collection_select :login_account, :security_question3_id, SecurityQuestion.active_security_question, :id, :name
+          %br
+          %br
+          %br
+          .form_line
+            .field_35
+              = login.label :question3_answer, 'Answer3'
+              = login.text_field :question3_answer, :class => "validate[required]", :id => "login_account_question3_answer", :name => "login_account[question3_answer]"
+        %br.clear
+        = submit_tag 'Submit'
+
+
+
+
+     

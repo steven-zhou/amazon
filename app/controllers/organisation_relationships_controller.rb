@@ -7,7 +7,7 @@ class OrganisationRelationshipsController < ApplicationController
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
 
-    if @relationship.save!
+    if @relationship.save
        @organisation = Organisation.find(params[:organisation_id].to_i)
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Relationship #{@relationship.id}.")
       flash.now[:message]= "saved successfully"

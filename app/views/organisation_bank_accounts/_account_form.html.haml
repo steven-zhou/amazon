@@ -6,7 +6,7 @@
   .field_5
     %label &nbsp;                                                
     = link_to_function image_tag("Icons/System/search.png"), :class => "bank_lookup", :update_field => @bank_accounts.new_record? ? "organisation_bank_account_bank_id":"organisation_bank_account_#{@bank_accounts.id}_bank_id" , :title=>"Search", :disabled => ("disabled" if !@bank_accounts.status and !@bank_accounts.new_record?)
-  .field_45
+  .field_60
     %label &nbsp;
     -if (@bank_accounts.new_record?)
       %span{:class=>"viewname", :id=>@bank_accounts.new_record? ? "bank_container_0" : "bank_container_#{@bank_accounts.id}"} &nbsp;
