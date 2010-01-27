@@ -35,7 +35,8 @@ class OrganisationsController < ApplicationController
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]  
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @o = @list_header.entity_on_list.uniq
+
+    @o = @list_header.entity_on_list.uniq rescue @o = OrgansationPrimaryList.first.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
