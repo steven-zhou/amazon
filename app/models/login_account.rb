@@ -2,6 +2,7 @@ require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
   attr_accessor :password
+  attr_accessor :update_login_account_password
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
   has_many :dashboard_preferences
@@ -10,9 +11,15 @@ class LoginAccount < ActiveRecord::Base
   belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
-  validates_presence_of  :user_name, :password
+  validates_presence_of  :user_name
+  validates_presence_of  :password
 
 
+#
+#
+#  def loginaccount_update?
+#    update_login_account_password =true
+#  end
 
 
   def self.authenticate(user_name, password)

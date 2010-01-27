@@ -19,6 +19,7 @@ module KeywordsHelper
   def unselected_keyword_options(person)
     options = ""
 #    keywords = Keyword.find(:all, :conditions => ["status =true AND to_be_removed = false"]) - person.keywords
+
     keywords = Keyword.active_record - person.keywords
     keywords.each do |keyword|
       options = options + "<option value='#{keyword.id}' class='#{keyword.keyword_type_name}' remark='#{h keyword.description}'>#{keyword.name}</option>"

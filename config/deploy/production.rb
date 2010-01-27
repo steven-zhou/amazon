@@ -1,4 +1,4 @@
-set :domain, "203.23.28.109"
+set :domain, "203.23.28.172"
 set :branch, "development"
-server "203.23.28.109", :app, :web, :db, :primary => true
+server "203.23.28.172", :app, :web, :db, :primary => true
 
