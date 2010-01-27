@@ -195,34 +195,61 @@ class TransactionHeadersController < ApplicationController
       @date_valid = true
       conditions = Array.new
       if (!params[:start_id].blank? || !params[:end_id].blank?)
-        params[:start_id] ||= TransactionHeader.first_reocrd.id
-        params[:end_id] ||= TransactionHeader.last_record.id
+        params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
+        params[:end_id] =   TransactionHeader.last_record.id.to_s if params[:end_id].blank?
         conditions << ("start_id=" + params[:start_id])
         conditions << ("end_id=" + params[:end_id])
+        # puts"DEBUG--bb--#{conditions.to_yaml}"
       end
 
       if (!params[:start_receipt_id].blank? || !params[:end_receipt_id].blank?)
-        params[:start_receipt_id] ||= TransactionHeader.first_recoerd.receipt_number
-        params[:end_receipt_id] ||= TransactionHeader.last_recoerd.receipt_number
+        params[:start_receipt_id] = TransactionHeader.first_record.receipt_number.to_s if params[:start_receipt_id].blank?
+        params[:end_receipt_id] = TransactionHeader.last_record.receipt_number.to_s if params[:end_receipt_id].blank?
         conditions << ("start_receipt_id=" + params[:start_receipt_id])
         conditions << ("end_receipt_id=" + params[:end_receipt_id])
       end
 
       if (!params[:start_system_date].blank? || !params[:end_system_date].blank?)
-        params[:start_system_date] ||= "01-01-#{Date.today().year().to_s}"
-        params[:end_system_date] ||= "31-12-#{Date.today().year().to_s}"
+        params[:start_system_date] = "01-01-#{Date.today().year().to_s}" if params[:start_system_date].blank?
+        params[:end_system_date] = "31-12-#{Date.today().year().to_s}" if params[:end_system_date].blank?
         conditions << ("start_system_date=" + params[:start_system_date])
         conditions << ("end_system_date=" + params[:end_system_date])
       end
 
       if (!params[:start_transaction_date].blank? || !params[:end_transaction_date].blank?)
-        params[:start_transaction_date] ||= "01-01-#{Date.today().year().to_s}"
-        params[:end_transaction_date] ||= "31-12-#{Date.today().year().to_s}"
+        params[:start_transaction_date] = "01-01-#{Date.today().year().to_s}"if params[:start_transaction_date].blank?
+        params[:end_transaction_date] = "31-12-#{Date.today().year().to_s}"if params[:end_transaction_date].blank?
         conditions << ("start_transaction_date=" + params[:start_transaction_date])
         conditions << ("end_transaction_date=" + params[:end_transaction_date])
       end
 
+      if (params[:bank_account_number].to_i!= 0)
+        conditions << ("bank_account_id=" + params[:bank_account_number])
+      end
+
+      if (params[:banked]!= "0")
+        conditions << ("banked=" + params[:banked])
+      end
+
+      if (params[:receipt_meta_type_id]!= "0")
+        conditions << ("receipt_meta_type_id=" + params[:receipt_meta_type_id])
+      end
+
+      if (params[:receipt_type_id]!= "0")
+        conditions << ("receipt_type_id=" + params[:receipt_type_id])
+      end
+
+      if (params[:received_via_id]!= "0")
+        conditions << ("received_via_id=" + params[:received_via_id])
+      end
+
+      if (params[:receipt_account_id]!= "0")
+        conditions << ("receipt_account_id=" + params[:receipt_account_id])
+      end
+
       @query = conditions.join('&')
+    
+      puts"----DEBUG---QYER#{@query.to_yaml}"
 
     else
       #trasnaction histroy
