@@ -76,7 +76,7 @@
 
         %br{ :style=>"clear: both;"}
       #masterdocs
-      =# Render the person's addresses
+      =# Render the person's relationship
       = render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
 
       = render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}

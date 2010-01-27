@@ -1,6 +1,7 @@
 class DashboardsController < ApplicationController
   # System logging completed....
-
+  # Optimized
+  
   def index
     @column1 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "1"], :order => "id")
     @column2 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "2"], :order => "id")
@@ -10,7 +11,6 @@ class DashboardsController < ApplicationController
     @current_news = SystemNews.first_three
     @to_do_list = ToDoList.new
     @to_do_lists = ToDoList.find_all_by_login_account_id(session[:user])
-    @current_user = LoginAccount.find(session[:user])
     @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
     if @current_user.class.to_s == "SystemUser"
       @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : ClientSetup.first.number_of_login_attempts
