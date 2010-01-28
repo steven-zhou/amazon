@@ -22,4 +22,15 @@ class EmailDispatcher < ActionMailer::Base
     body                :email_template => email_template, :object => object
     content_type        "text/html"
   end
+
+   def change_password_email_with_template(recipient, subject, email_template, object, password)
+    # Goes to the end user when they request to have their password reset
+    recipients         "#{recipient}"
+    from               "noreply@memberzone.com.au"
+    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
+    subject            "#{subject}"
+    sent_on            Time.now
+    body                :email_template => email_template, :object => object,:password => password
+    content_type        "text/html"
+  end
 end
