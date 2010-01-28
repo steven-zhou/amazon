@@ -417,7 +417,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -437,39 +437,110 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @people = ListEditGrid.find(:all,
-        :conditions => ["login_account_id = ?", session[:user]],
+      @people = ListDetail.find(:all,
+        :conditions => ["list_header_id = ?", params[:id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["person", "organisation"]
       )
-      count = ListEditGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = ListDetail.count(:all, :conditions => ["list_header_id = ?", params[:id]],:include => ["person", "organisation"])
     end
 
     # User provided search terms
     if(query != "%%")
-      @people = ListEditGrid.find(:all,
+      @people = ListDetail.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ListEditGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+        :include => ["person", "organisation"],
+        :conditions=>[qtype +" ilike ? AND list_header_id = ?", query, params[:id]])
+      count = ListDetail.count(:all, :conditions=>[qtype +" ilike ? AND list_header_id = ?", query, params[:id]],:include => ["person", "organisation"])
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
+    if (params[:entity] == "person")
     return_data[:rows] = @people.collect{|u| {:id => u.id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2]}}
-
+        :cell=>[u.id,
+          u.person.first_name,
+          u.person.family_name]}}
+    else
+      return_data[:rows] = @people.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.organisation.full_name,
+          u.organisation.trading_as]}}
+    end
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
+
+
+
+  #    def list_edit_grid
+  #    page = (params[:page]).to_i
+  #    rp = (params[:rp]).to_i
+  #    query = params[:query]
+  #    qtype = params[:qtype]
+  #    sortname = params[:sortname]
+  #    sortorder = params[:sortorder]
+  #
+  #    if (!sortname)
+  #      sortname = "grid_object_id"
+  #    end
+  #
+  #    if (!sortorder)
+  #      sortorder = "asc"
+  #    end
+  #
+  #    if (!page)
+  #      page = 1
+  #    end
+  #
+  #    if (!rp)
+  #      rp = 20
+  #    end
+  #
+  #    start = ((page-1) * rp).to_i
+  #    query = "%"+query+"%"
+  #
+  #    # No search terms provided
+  #    if(query == "%%")
+  #      @people = ListEditGrid.find(:all,
+  #        :conditions => ["login_account_id = ?", session[:user]],
+  #        :order => sortname+' '+sortorder,
+  #        :limit =>rp,
+  #        :offset =>start
+  #      )
+  #      count = ListEditGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+  #    end
+  #
+  #    # User provided search terms
+  #    if(query != "%%")
+  #      @people = ListEditGrid.find(:all,
+  #        :order => sortname+' '+sortorder,
+  #        :limit =>rp,
+  #        :offset =>start,
+  #        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+  #      count = ListEditGrid.count(:all,
+  #        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+  #    end
+  #
+  #    # Construct a hash from the ActiveRecord result
+  #    return_data = Hash.new()
+  #    return_data[:page] = page
+  #    return_data[:total] = count
+  #
+  #    return_data[:rows] = @people.collect{|u| {:id => u.id,
+  #        :cell=>[u.grid_object_id,
+  #          u.field_1,
+  #          u.field_2]}}
+  #
+  #    # Convert the hash to a json object
+  #    render :text=>return_data.to_json, :layout=>false
+  #  end
 
   def list_compile_grid
     page = (params[:page]).to_i
@@ -2622,6 +2693,21 @@ class GridsController < ApplicationController
     query = "%"+query+"%"
     conditions = Array.new
     values = Array.new
+
+    if params[:entity_type]
+
+      conditions << "transaction_headers.entity_type = ?"
+      values << params[:entity_type]
+    end
+
+
+    if params[:entity_id]
+
+      conditions << "transaction_headers.entity_id = ?"
+      values << params[:entity_id]
+    end
+
+
     if params[:start_id]
       conditions << "transaction_headers.id Between ? And ?"
       values << params[:start_id]
