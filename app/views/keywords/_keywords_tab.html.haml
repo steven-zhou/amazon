@@ -28,7 +28,7 @@
       #keywords_right.right
         .form_line.field_select_line
           = label_tag :remove_keywords,"Assigned Keywords"
-          = select_tag :remove_person_keywords,selected_keyword_options(person),{:multiple => true,:size => 20, :style => "width:100% !important;float:left;"}
+          = select_tag :remove_person_keywords,selected_keyword_options(person),{:multiple => true,:size => 20, :style => "width:100% !important;float:left;", :class => "field_select"}
       %br{ :style=>"clear: both;"}
 
   
