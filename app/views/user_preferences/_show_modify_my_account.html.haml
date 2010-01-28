@@ -1,11 +1,22 @@
 %div#modify_my_account_form
+  .container
+    .form_line
+      .field_40
+        %label Username
+        .display_field_bg
+          = @current_user.user_name
+      .field_40
+        %label Login at
+        .display_field_bg
+          = "#{session[:clocktime_date]} #{session[:clocktime]}"
+
   %div.container
     %div.toggle_div{:toggle_id_name => "change_email", :style => "cursor: pointer;"}
       .options{:style=>"float:right"}
-        = image_tag('Icons/System/collapse.png')
+        = image_tag('Icons/System/expand.png')
       %h1 Change My Email
 
-    %div#change_email.left{:style => "width:100%;"}
+    %div#change_email.left{:style => "width:100%;display:none;"}
       -form_for @my_account,:url=>"/user_preferences/change_email",:method=>"put", :html => {:class => 'ajax_form'} do |my_account|
         .container
           .form_line
