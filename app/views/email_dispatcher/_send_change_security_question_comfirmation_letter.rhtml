@@ -1,5 +1,11 @@
 <p>
+    <%if object.type == "SystemUser"%>
   Dear <%= object.person.first_name %> <%= object.person.family_name %>,
+  <%elsif object.type = "SuperAdmin"%>
+   Dear Super Admin,
+  <%elsif object.type = "MemberZone"%>
+   Dear memberZone,
+   <%end%>
 </p>
 
 <p>

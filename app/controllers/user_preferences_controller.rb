@@ -3,14 +3,12 @@ class UserPreferencesController < ApplicationController
 
   def change_email
     @current_user = LoginAccount.find(session[:user])
-
+    flash[:error] = nil
     if @current_user.security_email == params[:old_email] && params[:new_email]== params[:retype_new_email]
-
-      #     current_user.security_email = params[:new_email]
       if @current_user.update_attribute(:security_email,params[:new_email])
-        flash[:message]="Saved successfully"
-       email = EmailDispatcher.create_email_with_template(@current_user.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_email_comfirmation_letter', @current_user)
-       EmailDispatcher.deliver(email)
+        flash[:save_message]="Saved successfully"
+        email = EmailDispatcher.create_email_with_template(@current_user.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_email_comfirmation_letter', @current_user)
+        EmailDispatcher.deliver(email)
       else
         flash[:error]="Can not update your email"
       end
@@ -28,10 +26,11 @@ class UserPreferencesController < ApplicationController
 
   def change_password
     @current_user = LoginAccount.find(session[:user])
+     flash[:error] = nil
     if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
       @current_user.password = params[:new_password]
       if @current_user.save
-        flash[:message]="Saved successfully"
+        flash[:save_message]="Saved successfully"
         email = EmailDispatcher.create_change_password_email_with_template(@current_user.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_password_comfirmation_letter', @current_user,params[:new_password])
         EmailDispatcher.deliver(email)
       else
@@ -51,11 +50,12 @@ class UserPreferencesController < ApplicationController
 
 
   def change_security_question
+     flash[:error] = nil
     @login_account = LoginAccount.find(session[:user])
     @login_account.update_login_account_password = false
     if  @login_account.update_attributes(params[:login_account])
 
-      flash[:message] = " Saved successfully"
+      flash[:save_message] = " Saved successfully"
 
       system_log("Login Account #{@login_account.user_name} (#{@login_account.id}) updated their security question.")
 
