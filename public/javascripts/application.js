@@ -2974,7 +2974,7 @@ enable_form_after_submit_finish = function(){
     $('#spinner').remove();
 };
 
-enable_form_after_submit_finish = function(target_form, flag){
+enable_form_after_submit_finish_extension = function(target_form, flag){
     $("#" + target_form + " :input").removeAttr("readonly");
     $("#" + target_form + " :select").removeAttr("readonly");
     $("#" + target_form + " :textarea").removeAttr("readonly");

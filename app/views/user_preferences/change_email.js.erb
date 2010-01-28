@@ -23,12 +23,12 @@ var target_form = $("#<%=escape_javascript(@current_action)%> form");
   $('#flash_message').css('background-color','#D1DDE6');
 
   $('#flash_message').dialog('open');
-  enable_form_after_submit_finish(target_form.attr('id'), false);
+  enable_form_after_submit_finish_extension(target_form.attr('id'), false);
 <%else%>
   $(".toggle_div[toggle_id_name='<%=escape_javascript(@current_action)%>']").click();
   target_form.get(0).reset();
   $("#flash_feedback").html("<%=escape_javascript(flash[:save_message])%>");
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
-  enable_form_after_submit_finish(target_form.attr('id'), true);
+  enable_form_after_submit_finish_extension(target_form.attr('id'), true);
 <%end%>
