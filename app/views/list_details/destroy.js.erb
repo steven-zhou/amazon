@@ -1,4 +1,4 @@
-$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => ListHeader.sortall)) %>");
+$("#show_lists").html("<%= escape_javascript(render(:partial => "lists/saved_list", :collection => @lists)) %>");
 $('#<%= dom_id(@list_detail) %>').fadeOut("slow", function() {$(this).remove();});
 $('#show_list_details').html('<%= escape_javascript(render(:partial => "lists/edit_list_details")) %>');
 $('#list_details').dataTable({

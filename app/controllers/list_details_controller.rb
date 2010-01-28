@@ -9,6 +9,13 @@ class ListDetailsController < ApplicationController
     @entity = @list_header.person_list? ? "person" : "organisation"
     @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
     @list_header.save
+     if @list_header.person_list?
+
+      @lists = @current_user.all_person_lists
+    else
+   
+      @lists = @current_user.all_organisation_lists
+    end
     respond_to do |format|
       format.js
     end

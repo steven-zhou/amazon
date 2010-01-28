@@ -21,13 +21,15 @@ class TransactionsController < ApplicationController
     session[:module] = "receipting"    
     # @o = Organisation.find(:all, :order => "id")
     @list_headers = @current_user.all_organisation_lists
-    @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
+    @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @o = @list_header.entity_on_list
     @organisation = Organisation.find(session[:current_organisation_id]) rescue @organisation = @o[0]
     session[:entity_type] = "Organisation"
     session[:entity_id] = @organisation.id
-    session[:current_list_id] = @list_header.id
+    session[:current_org_list_id] = @list_header.id
     session[:current_organisation_id] = @organisation.id
+
+   
     respond_to do |format|
       format.html
     end

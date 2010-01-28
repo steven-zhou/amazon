@@ -74,7 +74,13 @@ class UserPreferencesController < ApplicationController
 
   def  show_modify_my_account
 
-    @my_account = LoginAccount.find(session[:user])
+    @my_account = @current_user
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show_whoami
     respond_to do |format|
       format.js
     end
