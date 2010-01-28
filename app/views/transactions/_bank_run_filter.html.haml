@@ -9,10 +9,10 @@
         %h2 Filter By Bank ID
       .field_20
         %label Bank Account Number
-        %select
-          %option{:value => "0"} All
-          %option{:value => "1"} Account 1
-          %option{:value => "2"} Account 2
+        %select{:name => "bank_account_number"}
+          %option{:value => "0"}All
+          -@bank_accounts.each do |bank_account|
+            %option{:value => "#{bank_account.id}"}#{bank_account.account_number}
 
     -# user id filter
     .form_line
@@ -21,10 +21,10 @@
         %h2 Filter By User ID
       .field_20
         %label User Type
-        %select
+        %select{:name => "user_type"}
           %option{:value => "0"} All
-          %option{:value => "1"} Person
-          %option{:value => "2"} Organisation
+          %option{:value => "Person"} Person
+          %option{:value => "Organisation"} Organisation
       .field_20
         %label User ID
         %input{:id => "filter_user_id", :value => "All", :name => "user_id"}
@@ -36,10 +36,10 @@
         %h2 Filter By Transaction ID
       .field_20
         %label Start ID
-        %input{:id => "filter_start_id", :name => "start_id"}
+        %input{:id => "filter_start_id", :name => "start_id",:class => "integer_field"}
       .field_20
         %label End ID
-        %input{:id => "filter_end_id", :name => "end_id"}
+        %input{:id => "filter_end_id", :name => "end_id",:class => "integer_field"}
 
 
     -# transaction date range filter

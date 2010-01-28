@@ -202,7 +202,7 @@ class TransactionsController < ApplicationController
   end
 
   def bank_run
-
+   @bank_accounts = BankAccount.find(:all, :order => "id asc")
     respond_to do |format|
       format.html
     end
