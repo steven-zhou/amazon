@@ -332,3 +332,19 @@ $(function(){
             window.open("/transaction_headers/export_histroy_to_report.pdf?start_date="+start_date+"&end_date="+end_date);
     });
 });
+
+//Transaction Bank Run If the User ID is Empty, Set the value is All
+$(function(){
+    $('#filter_user_id').blur(function(){
+
+        if($(this).val() == "")
+            {
+                $(this).val("All");
+            }
+
+    return false;
+    })
+
+
+})
+

@@ -2693,6 +2693,21 @@ class GridsController < ApplicationController
     query = "%"+query+"%"
     conditions = Array.new
     values = Array.new
+
+    if params[:entity_type]
+
+      conditions << "transaction_headers.entity_type = ?"
+      values << params[:entity_type]
+    end
+
+
+    if params[:entity_id]
+
+      conditions << "transaction_headers.entity_id = ?"
+      values << params[:entity_id]
+    end
+
+
     if params[:start_id]
       conditions << "transaction_headers.id Between ? And ?"
       values << params[:start_id]
