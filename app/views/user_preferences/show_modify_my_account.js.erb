@@ -14,6 +14,9 @@ $('#modify_my_account_dialog').dialog('open');
 
 $(function() {
 $(".password").jpassword({
+flat: true,
+onShow: function(jInput, jTooltip){ jTooltip.fadeIn(); },
+onHide: function(jInput, jTooltip){ jTooltip.fadeOut(); },
 lang: {
 please: "please type password over 6 characters",
 low: "Low security.",

@@ -2974,6 +2974,16 @@ enable_form_after_submit_finish = function(){
     $('#spinner').remove();
 };
 
+enable_form_after_submit_finish = function(target_form, flag){
+    $("#" + target_form + " :input").removeAttr("readonly");
+    $("#" + target_form + " :select").removeAttr("readonly");
+    $("#" + target_form + " :textarea").removeAttr("readonly");
+    if (flag == false){
+        $("#" + target_form + ' :input[type="submit"]').removeAttr("disabled");
+    }
+    $('#spinner').remove();
+};
+
 ////// Modify my account
 $(function(){
     $("#modify_my_accounts").click(function(){
