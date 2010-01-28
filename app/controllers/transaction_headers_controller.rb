@@ -199,11 +199,11 @@ class TransactionHeadersController < ApplicationController
       @date_valid = true
       conditions = Array.new
       
-      if (params[:user_type]!="0")
+      if (!params[:user_type].blank? &&  params[:user_type]!="0")
         conditions << ("entity_type=" + params[:user_type])
       end
 
-     if (params[:user_id] != "All" || !params[:user_id])
+     if (params[:user_id] != "All" || !params[:user_id].blank?)
         conditions << ("entity_id=" + params[:user_id].to_i.to_s)
       end
 
