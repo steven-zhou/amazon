@@ -8,10 +8,10 @@
     <%- else %>
       $('#export_to_pdf_button').removeAttr('disabled');
     <%- end %>
+  <%-elsif @filter_target == "enquiry"%>
+    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "transactions/enquiry_result", :locals => {:db_function => "true", :query => @query})) %>');
   <%-else%>
-    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "transactions/enquiry_result", :locals => {:query => @query})) %>');
-
-
+    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "transactions/enquiry_result", :locals => {:db_function => "false", :query => @query})) %>');
   <%-end%>
 
 

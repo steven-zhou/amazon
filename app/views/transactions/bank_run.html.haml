@@ -1,0 +1,18 @@
+#bank_run
+
+  #header
+    #page_title
+      %h1 Bank Run
+
+    #lol
+
+
+  .full_container
+    %h1 STEP 1: Transaction Selection
+    %input.hidden{:id => "bank_run_mode", :mode => "show"}
+
+    #enquiry_filter
+      = render :partial => "transactions/bank_run_filter"
+
+    #enquiry_result
+

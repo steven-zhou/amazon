@@ -1,6 +1,8 @@
 require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
+  #  Optimized
+  
   attr_accessor :password
   attr_accessor :update_login_account_password
   has_many :user_groups, :foreign_key => "user_id"
@@ -15,7 +17,6 @@ class LoginAccount < ActiveRecord::Base
   validates_presence_of  :password, :if => :loginaccount_update?
 
 
-
 #if update no need to check the presence of password
   def loginaccount_update?
     if update_login_account_password.nil?
@@ -23,7 +24,6 @@ class LoginAccount < ActiveRecord::Base
     end
     return update_login_account_password
   end
-
 
   def self.authenticate(user_name, password)
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
@@ -49,7 +49,6 @@ class LoginAccount < ActiveRecord::Base
         raise "Power password invalid"
       end
     end
-    login_account = LoginAccount.find_by_user_name(user_name)
     return login_account
   end
 

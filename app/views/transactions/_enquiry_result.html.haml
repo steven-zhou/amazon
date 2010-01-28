@@ -1,8 +1,7 @@
--# locals => {:query}
+-# locals => {:db_function, :query}
 
 %h2 Transaction Found
-
-%table#show_transaction_enquiry_grid.selectable_grid{:db_click_function => "true", :db_click_url => "/transaction_headers/", :db_show => "true"}
+%table#show_transaction_enquiry_grid.selectable_grid{:db_click_function => "#{db_function}", :db_click_url => "/transaction_headers/", :db_show => "true"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

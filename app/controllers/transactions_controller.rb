@@ -201,4 +201,11 @@ class TransactionsController < ApplicationController
     end
   end
 
+  def bank_run
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
 end
