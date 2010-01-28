@@ -203,7 +203,7 @@ class TransactionHeadersController < ApplicationController
         conditions << ("entity_type=" + params[:user_type])
       end
 
-     if (params[:user_id] != "All" || !params[:user_id].nil?)
+     if (params[:user_id] != "All" || !params[:user_id].blank?)
         conditions << ("entity_id=" + params[:user_id].to_i.to_s)
       end
 

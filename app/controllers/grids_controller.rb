@@ -2701,7 +2701,7 @@ class GridsController < ApplicationController
     end
 
 
-    if params[:entity_id]
+    if params[:entity_id]!="0"
 
       conditions << "transaction_headers.entity_id = ?"
       values << params[:entity_id]
