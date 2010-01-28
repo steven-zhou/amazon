@@ -1,0 +1,10 @@
+.container
+  .form_line
+    .field_40
+      %label Username
+      .display_field_bg
+        = @current_user.user_name
+    .field_40
+      %label Login at
+      .display_field_bg
+        = "#{session[:clocktime_date]} #{session[:clocktime]}"

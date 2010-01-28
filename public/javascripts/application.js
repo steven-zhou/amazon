@@ -1075,6 +1075,7 @@ $(function(){
             $("div#preferences_menu_top").removeClass("hover");
             $("div#preferences_menu_items").fadeOut("fast");
         }
+        return false;
     });
 
 
@@ -2985,6 +2986,18 @@ $(function(){
 
     });
 
+});
+
+////// Display Who AM I
+$(function(){
+    $("#show_whoami").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/user_preferences/show_whoami",
+            dataType:"script"
+        });
+        return false;
+    });
 });
 
 
