@@ -56,7 +56,7 @@
 
     .container
       %h1
-        = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
+        = @primary_address.nil? ? "Address" : "<strong #{'class=\'red\'' if @primary_address.address_type.to_be_removed == true}>#{@primary_address.address_type_name}</strong> Address"
       -unless @primary_address.nil?
         .container.primary_address_and_employment
           = format_address(@primary_address)
