@@ -2057,15 +2057,14 @@ class GridsController < ApplicationController
     return_data[:total] = count
 
     return_data[:rows] = @receipt_accounts.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.name,
-          u.description,
-          u.link_module_id.nil? ? "" : (LinkModule.find(u.link_module_id).to_be_removed? ? "<span class='red'>"+u.link_module.name+"</span>" : u.link_module.name),
-          u.post_to_history,
-          u.post_to_campaign,
-          u.send_receipt,
-          (u.status? ? 'Active' : 'Inactive'),
-          u.remarks]}}
+        :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
+          u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description,
+          u.link_module_id.nil? ? "" : ((LinkModule.find(u.link_module_id).to_be_removed? || u.to_be_removed?) ? "<span class='red'>"+u.link_module.name+"</span>" : u.link_module.name),
+          u.to_be_removed? ? "<span class='red'>"+u.post_to_history.to_s+"</span>" : u.post_to_history,
+          u.to_be_removed? ? "<span class='red'>"+u.post_to_campaign.to_s+"</span>" : u.post_to_campaign,
+          u.to_be_removed? ? "<span class='red'>"+u.send_receipt.to_s+"</span>" : u.send_receipt,
+          u.to_be_removed? ? "<span class='red'>"+(u.status? ? 'Active' : 'Inactive')+"</span>" : (u.status? ? 'Active' : 'Inactive')]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
