@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100121034752) do
+ActiveRecord::Schema.define(:version => 20100129030350) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -76,9 +76,22 @@ ActiveRecord::Schema.define(:version => 20100121034752) do
     t.text    "type"
     t.integer "account_type_id"
     t.integer "priority_number"
+    t.boolean "to_be_removed"
   end
 
   create_table "bank_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_run_details", :force => true do |t|
+    t.integer  "bank_run_id"
+    t.integer  "transaction_header_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_runs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -151,6 +164,7 @@ ActiveRecord::Schema.define(:version => 20100121034752) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -512,6 +526,7 @@ ActiveRecord::Schema.define(:version => 20100121034752) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed"
   end
 
   create_table "notes", :force => true do |t|
@@ -768,6 +783,7 @@ ActiveRecord::Schema.define(:version => 20100121034752) do
     t.datetime "updated_at"
     t.integer  "link_module_id"
     t.text     "link_module_name"
+    t.boolean  "to_be_removed"
   end
 
   create_table "receipt_methods", :force => true do |t|
@@ -834,6 +850,7 @@ ActiveRecord::Schema.define(:version => 20100121034752) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed"
   end
 
   create_table "system_logs", :force => true do |t|
