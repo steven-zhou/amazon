@@ -448,7 +448,7 @@ class NightlyProcessesController < ApplicationController
 
     puts "destroy client bank account"
     ClientBankAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
-      if TransactionAllocation.find_by_bank_account_id(i.id).nil?
+      if TransactionHeader.find_by_bank_account_id(i.id).nil?
         i.destroy
       else
         i.to_be_removed = false
