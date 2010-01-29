@@ -380,6 +380,7 @@ class ClientSetupsController < ApplicationController
 
   def create_client_bank_account
     @client_bank_account = ClientBankAccount.new(params[:client_bank_account])
+    @client_bank_account.to_be_removed = false
     if @client_bank_account.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new client bank account with ID #{@client_bank_account.id}.")
     else
@@ -423,7 +424,9 @@ class ClientSetupsController < ApplicationController
 
   def destroy_client_bank_account
     @client_bank_account = ClientBankAccount.find(params[:id])
-    @client_bank_account.destroy
+#    @client_bank_account.destroy
+    @client_bank_account.to_be_removed = true
+    @client_bank_account.save
     respond_to do |format|
       format.js
     end

@@ -8,7 +8,7 @@ class Campaign < ActiveRecord::Base
   validate :end_date_must_be_equal_or_after_start_date
 
   def self.active_campaign
-    @campaign = Campaign.find(:all, :conditions => ["status = true"], :order => 'name')
+    @campaign = Campaign.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
 

@@ -7,7 +7,7 @@ class Source < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => [:campaign_id]
 
   def self.active_source
-    @source = Source.find(:all, :conditions => ["status = true"], :order => 'name')
+    @source = Source.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
 end
