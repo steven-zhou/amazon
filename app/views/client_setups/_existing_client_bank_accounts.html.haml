@@ -65,6 +65,21 @@
       };
       };
 
+    retrieve_client_bank_account = function(){
+    var trSelected = $("#show_client_bank_accounts_grid  tr.trSelected").attr('id');
+    var id = "";
+    if ($('#client_bank_account_mode').attr("mode") == "show"){
+    if (trSelected != undefined)  {
+      id = trSelected.substring(3);
+       $.ajax({
+       type: "post",
+       url: "/client_setups/retrieve_client_bank_account/"+id+".js",
+       dataType: "script"
+        });
+      };
+      };
+      };
+
 
 
 %script{:type => "text/javascript", :charset => "utf-8"}
@@ -114,7 +129,8 @@
 
   ],
   buttons : [
-  {name: 'Delete', bclass: 'delete', onpress : delete_client_bank_account}
+  {name: 'Delete', bclass: 'delete', onpress : delete_client_bank_account},
+  {name: 'Retrieve', bclass: 'delete', onpress : retrieve_client_bank_account}
   ],
   searchitems : [
   {

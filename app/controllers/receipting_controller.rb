@@ -136,6 +136,16 @@ class ReceiptingController < ApplicationController
     end    
   end
 
+  def retrieve_campaign
+    @campaign = Campaign.find(params[:id])
+    @campaign.to_be_removed = false
+    @campaign.save
+    respond_to do |format|
+      format.js {render "destroy_campaign.js"}
+    end
+
+  end
+
   def new_source
     @source = Source.new
     respond_to do |format|
@@ -195,6 +205,17 @@ class ReceiptingController < ApplicationController
     @source.save
     respond_to do |format|
       format.js
+    end
+  end
+
+
+    def retrieve_source
+     @source = Source.find(params[:id])
+#    @source.destroy
+    @source.to_be_removed = false
+    @source.save
+    respond_to do |format|
+      format.js {render "destroy_source.js"}
     end
   end
 

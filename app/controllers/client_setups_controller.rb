@@ -432,6 +432,16 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+    def retrieve_client_bank_account
+    @client_bank_account = ClientBankAccount.find(params[:id])
+#    @client_bank_account.destroy
+    @client_bank_account.to_be_removed = false
+    @client_bank_account.save
+    respond_to do |format|
+      format.js {render "destroy_client_bank_account.js"}
+    end
+  end
+
 
   private
 
