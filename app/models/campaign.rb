@@ -8,9 +8,11 @@ class Campaign < ActiveRecord::Base
   validate :end_date_must_be_equal_or_after_start_date
 
   def self.active_campaign
-    @campaign = Campaign.find(:all, :conditions => ["status = true"], :order => 'name')
+    @campaign = Campaign.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
+  
+  after_save :update_children_when_delete
 
    protected
   def end_date_must_be_equal_or_after_start_date
@@ -19,5 +21,19 @@ class Campaign < ActiveRecord::Base
 
   end
 
+private
+
+  def update_children_when_delete
+    if self.to_be_removed == true
+      self.sources.each do |i|
+        if i.to_be_removed == false
+          i.to_be_removed = true
+          i.save
+        end
+      end
+    end
+  end
+
+ 
 
 end

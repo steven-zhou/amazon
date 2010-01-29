@@ -33,6 +33,7 @@ class ReceiptingController < ApplicationController
     @campaign = Campaign.new(params[:campaign])
     @campaign.start_date = params[:start_date]
     @campaign.end_date = params[:end_date]
+    @campaign.to_be_removed = false
     if @campaign.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaign entry with ID #{@campaign.id}.")
     else
@@ -97,7 +98,7 @@ class ReceiptingController < ApplicationController
     @campaign.end_date = @campaign_old.end_date
     @campaign.status = @campaign_old.status
     @campaign.remarks = @campaign_old.remarks
-
+    @campaign.to_be_removed = @campaign_old.to_be_removed
     if @campaign.save
 
       @campaign_old.sources.each do |i|
@@ -127,10 +128,22 @@ class ReceiptingController < ApplicationController
 
   def destroy_campaign
     @campaign = Campaign.find(params[:id])
-    @campaign.destroy
+#    @campaign.destroy
+@campaign.to_be_removed = true
+@campaign.save
     respond_to do |format|
       format.js
     end    
+  end
+
+  def retrieve_campaign
+    @campaign = Campaign.find(params[:id])
+    @campaign.to_be_removed = false
+    @campaign.save
+    respond_to do |format|
+      format.js {render "destroy_campaign.js"}
+    end
+
   end
 
   def new_source
@@ -143,6 +156,7 @@ class ReceiptingController < ApplicationController
   def create_source
     @source = Source.new(params[:source])
     @source.campaign_id = params[:id]
+    @source.to_be_removed = false
     if @source.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaing source with ID #{@source.id}.")
     else
@@ -186,9 +200,22 @@ class ReceiptingController < ApplicationController
 
   def destroy_source
     @source = Source.find(params[:id])
-    @source.destroy
+#    @source.destroy
+    @source.to_be_removed = true
+    @source.save
     respond_to do |format|
       format.js
+    end
+  end
+
+
+    def retrieve_source
+     @source = Source.find(params[:id])
+#    @source.destroy
+    @source.to_be_removed = false
+    @source.save
+    respond_to do |format|
+      format.js {render "destroy_source.js"}
     end
   end
 

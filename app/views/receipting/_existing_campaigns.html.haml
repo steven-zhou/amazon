@@ -65,6 +65,21 @@
       return false;
       };
       };
+    retrieve_campaigns_list = function(){
+    var trSelected = $("#show_campaigns_grid tr.trSelected").attr('id');
+    var id = "";
+    if ($('#campaign_mode').attr("mode") == "show"){
+    if (trSelected != undefined)  {
+      id = trSelected.substring(3);
+       $.ajax({
+       type: "post",
+       url: "/receipting/retrieve_campaign/"+id+".js",
+       dataType: "script"
+        });
+      };
+      };
+      };
+
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_campaigns_grid").flexigrid({
@@ -130,7 +145,8 @@
   ],
 
   buttons : [
-  {name: 'Delete', bclass: 'delete', onpress : delete_campaigns_list}
+  {name: 'Delete', bclass: 'delete', onpress : delete_campaigns_list},
+  {name: 'Retrieve', bclass: 'get', onpress : retrieve_campaigns_list}
   ],
   searchitems : [
   {

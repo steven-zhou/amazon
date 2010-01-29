@@ -4,6 +4,7 @@
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
   $('#campaign_save_form').dialog('close');
+   
   $('#existing_campaigns').html('<%= escape_javascript(render(:partial => "/receipting/existing_campaigns")) %>');
   $('#campaign_mode').attr('mode', 'edit');
   $("#show_campaigns_grid").flexigrid({

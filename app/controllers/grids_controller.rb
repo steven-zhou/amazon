@@ -1556,6 +1556,7 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
+
       )
       count = Campaign.count(:all)
     end
@@ -1566,7 +1567,7 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ? ", query])
       count = Campaign.count(:all, :conditions=>[qtype +" ilike ?", query])
     end
 
@@ -1576,14 +1577,14 @@ class GridsController < ApplicationController
     return_data[:total] = count
 
     return_data[:rows] = @campaign.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.name,
-          u.description,
-          u.target_amount,
-          u.start_date.nil? ? '' : u.start_date.strftime('%d-%m-%Y'),
-          u.end_date.nil? ? '' : u.end_date.strftime('%d-%m-%Y'),
-          (u.status? ? 'Active' : 'Inactive'),
-          u.remarks
+        :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+ "</span>": u.id,
+          u.to_be_removed? ? "<span class='red'>"+u.name+"</span>": u.name,
+          u.to_be_removed? ? "<span class='red'>"+u.description+"</span>": u.description,
+           u.to_be_removed? ? "<span class='red'>"+u.target_amount+"</span>" : u.target_amount,
+          u.start_date.nil?  ? '' : (u.to_be_removed? ? "<span class='red'>"+u.start_date.strftime('%d-%m-%Y')+"</span>" : u.start_date.strftime('%d-%m-%Y')),
+          u.end_date.nil? ? '' : ( u.to_be_removed? ?  "<span class='red'>"+u.end_date.strftime('%d-%m-%Y')+"</span>" : u.end_date.strftime('%d-%m-%Y')),
+         (u.status? ? (u.to_be_removed? ? "<span class='red'>Active</span>" : 'Active') : (u.to_be_removed? ? "<span class='red'>Inactive</span>":'Inactive')),
+          u.to_be_removed? ? "<span class='red'>"+u.remarks+"</span>" : u.remarks
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -1957,13 +1958,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @sources = Source.find(:all,
-        :conditions => ["campaign_id = ?", session[:source_campaign_id]],
+        :conditions => ["campaign_id = ? ", session[:source_campaign_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
 
-      count = Source.count(:all, :conditions => ["campaign_id = ?", session[:source_campaign_id]])
+      count = Source.count(:all, :conditions => ["campaign_id = ? ", session[:source_campaign_id]])
 
     end
 
@@ -1989,12 +1990,12 @@ class GridsController < ApplicationController
 
 
     return_data[:rows] = @sources.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.name,
-          u.description,
-          u.volume,
-          u.cost,
-          (u.status? ? 'Active' : 'Inactive')
+        :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+ "</span>": u.id,
+          u.to_be_removed? ? "<span class='red'>"+u.name+"</span>": u.name,
+          u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description,
+          u.to_be_removed? ? "<span class='red'>"+u.volume.to_s+"</span>" : u.volume,
+          u.to_be_removed? ? "<span class='red'>"+u.cost.to_s+"</span>" : u.cost,
+          (u.status? ? (u.to_be_removed? ? "<span class='red'>Active</span>" : 'Active') : (u.to_be_removed? ? "<span class='red'>Inactive</span>":'Inactive'))
         ]}}
 
     # Convert the hash to a json object
@@ -2186,11 +2187,11 @@ class GridsController < ApplicationController
     return_data[:total] = count
 
     return_data[:rows] = @client_bank_accounts.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.bank_id.nil? ? "" : u.bank.display_name,
-          u.account_number,
-          u.account_purpose_id.nil? ? "" : (AccountPurpose.find(u.account_purpose_id).to_be_removed? ? "<span class='red'>"+u.account_purpose.name+ "</span>" : u.account_purpose.name),
-          (u.status? ? 'Active' : 'Inactive')
+        :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+ "</span>": u.id,
+          u.bank_id.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.bank.display_name+ "</span>" :  u.bank.display_name),
+          u.to_be_removed? ? "<span class='red'>"+u.account_number+ "</span>" :u.account_number,
+          u.account_purpose_id.nil? ? "" : (AccountPurpose.find(u.account_purpose_id).to_be_removed? || u.to_be_removed?  ? "<span class='red'>"+u.account_purpose.name+ "</span>" : u.account_purpose.name),
+          (u.status? ? (u.to_be_removed? ? "<span class='red'>Active</span>" : 'Active') : (u.to_be_removed? ? "<span class='red'>Inactive</span>":'Inactive'))
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -2453,7 +2454,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.receipt_number,
           u.transaction_date.to_s,
-          u.bank_account_id.nil? ? "" : u.bank_account.account_number,
+          u.bank_account_id.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
           u.notes,
@@ -2520,7 +2521,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.receipt_number,
           u.transaction_date.to_s,
-          u.bank_account_id.nil? ? "" : u.bank_account.account_number,
+          u.bank_account_id.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
           u.notes,
@@ -2654,8 +2655,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
-          u.campaign_id.nil? ? "" : u.campaign.name,
-          u.source_id.nil? ? "" : u.source.name,
+          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
+          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
           u.letter_id.nil? ? "" : u.letter_id,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}

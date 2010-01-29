@@ -64,6 +64,21 @@
       };
       };
 
+    retrieve_source = function(){
+    var trSelected = $("#show_sources_by_campaign_grid  tr.trSelected").attr('id');
+    var id = "";
+    if ($('#source_mode').attr("mode") == "show"){
+    if (trSelected != undefined)  {
+      id = trSelected.substring(3);
+       $.ajax({
+       type: "post",
+       url: "/receipting/retrieve_source/"+id+".js",
+       dataType: "script"
+        });
+      };
+      };
+      };
+
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
@@ -119,7 +134,8 @@
       }
       ],
       buttons : [
-        {name: 'Delete', bclass: 'delete', onpress : delete_source}
+        {name: 'Delete', bclass: 'delete', onpress : delete_source},
+        {name: 'Retrieve', bclass: 'delete', onpress : retrieve_source}
       ],
       searchitems : [
         {
