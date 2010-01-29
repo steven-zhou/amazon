@@ -45,6 +45,4 @@
   .form_line
     .field_100{:style => "float:right;"}
       %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete alt_option', :error_message_field => "source"} unless @source.status == false
-      %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_source_submit"

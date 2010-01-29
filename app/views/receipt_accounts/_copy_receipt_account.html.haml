@@ -2,7 +2,7 @@
   -form_for ReceiptAccount.new, :url => {:controller => "receipt_accounts", :action => "create_copy_of_receipt_account"}, :html => {:class => 'ajax_form'} do |f|
     .form_line
       = f.label :name, 'Name'
-      = f.text_field :name, :value => "",:id=>"new_copy_receipt_account", :class=>"mandantory_field", :mandantory_field1=>"new_copy_receipt_account", :submit_button_id=>"new_copy_receipt_account_submit",
+      = f.text_field :name, :value => "",:id=>"new_copy_receipt_account", :class=>"mandantory_field", :mandantory_field1=>"new_copy_receipt_account", :submit_button_id=>"new_copy_receipt_account_submit"
     .form_line
       = f.label :description, 'Description'
       = f.text_field :description
