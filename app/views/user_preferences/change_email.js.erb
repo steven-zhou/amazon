@@ -1,7 +1,9 @@
+var target_form = $("#<%=escape_javascript(@current_action)%> form");
+  
+  
 <% unless flash[:error].nil? %>
-  $("#error_message_text").html("<%=escape_javascript(flash[:error])%>");
-  $('#error_message_image').css("display","");
-  $("#error_message").dialog( {
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
   modal: false,
   resizable: false,
   draggable: false,
@@ -15,34 +17,18 @@
   }
   }
   });
-  $('#error_message').dialog('option', 'title', 'Error');
-  $('#error_message').parent().find("a").css("display","none");
-  $("#error_message").parent().css('background-color','#D1DDE6');
-  $("#error_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('option', 'title', 'Error');
+  $('#flash_message').parent().find("a").css("display","none");
+  $('#flash_message').parent().css('background-color','#D1DDE6');
+  $('#flash_message').css('background-color','#D1DDE6');
 
-  $('#error_message').dialog('open');
-  enable_form_after_submit_finish();
+  $('#flash_message').dialog('open');
+  enable_form_after_submit_finish_extension(target_form.attr('id'), false);
 <%else%>
-  $("#error_message_text").html("<%=escape_javascript(flash[:save_message])%>");
-  $('#error_message_image').css("display","");
-  $("#error_message").dialog( {
-  modal: false,
-  resizable: false,
-  draggable: false,
-  height: 'auto',
-  width: 600,
-  buttons: {
-
-  OK: function(){
-
-  $(this).dialog('close');
-  }
-  }
-  });
-  $('#error_message').dialog('option', 'title', 'Comfirmation');
-  $('#error_message').parent().find("a").css("display","none");
-  $("#error_message").parent().css('background-color','#D1DDE6');
-  $("#error_message").css('background-color','#D1DDE6');
-  $('#error_message').dialog('open');
-  $('#modify_my_account_dialog').dialog('destroy');
+  $(".toggle_div[toggle_id_name='<%=escape_javascript(@current_action)%>']").click();
+  target_form.get(0).reset();
+  $("#flash_feedback").html("<%=escape_javascript(flash[:save_message])%>");
+  $('#flash_feedback').fadeIn("slow");
+  $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+  enable_form_after_submit_finish_extension(target_form.attr('id'), true);
 <%end%>

@@ -44,8 +44,8 @@
 			}else{
 				// Insert after the input
 				jTooltip.insertAfter(jInput);
-				jTooltip.css({ position: "relative", display: "block" });
-				jTooltip.addClass("jpassword-flat");
+				jTooltip.css({ position: "relative", top: "-30px", left: "200px", display: "none"});
+				jTooltip.addClass("jpassword-custom");
 			}
 			// Event handler
 			jInput.bind("keyup", function(e){ verifPsw(jInput, jTooltip); });

@@ -1,12 +1,23 @@
 %div#modify_my_account_form
+  .container
+    .form_line
+      .field_40
+        %label Username
+        .display_field_bg
+          = @current_user.user_name
+      .field_40
+        %label Login at
+        .display_field_bg
+          = "#{session[:clocktime_date]} #{session[:clocktime]}"
+
   %div.container
     %div.toggle_div{:toggle_id_name => "change_email", :style => "cursor: pointer;"}
       .options{:style=>"float:right"}
-        = image_tag('Icons/System/collapse.png')
+        = image_tag('Icons/System/expand.png')
       %h1 Change My Email
 
-    %div#change_email.left{:style => "width:100%;"}
-      -form_for @my_account,:url=>"/user_preferences/change_email",:method=>"put", :html => {:class => 'ajax_form'} do |my_account|
+    %div#change_email.left{:style => "width:100%;display:none;"}
+      -form_for @my_account,:url=>"/user_preferences/change_email",:method=>"put", :html => {:class => 'ajax_form', :id => "change_email_form"} do |my_account|
         .container
           .form_line
             .field_31
@@ -32,7 +43,7 @@
       %h1 Change My Password
 
     %div#change_password.left{:style => "width:100%;display:none;"}
-      -form_for @my_account,:url=>"/user_preferences/change_password",:method=>"put", :html => {:class => 'ajax_form'} do |my_account|
+      -form_for @my_account,:url=>"/user_preferences/change_password",:method=>"put", :html => {:class => 'ajax_form', :id => "change_password_form"} do |my_account|
         .container
           .form_line
             .field_31
@@ -57,31 +68,31 @@
       %h1 Change My Security Question
 
     %div#change_security_question.left{:style => "width:100%;display:none;"}
-      -form_for @my_account,:url=>"/user_preferences/change_security_question",:method=>"put", :html => {:class => 'ajax_form admin_password_reset'} do |login|
+      -form_for @my_account,:url=>"/user_preferences/change_security_question",:method=>"put", :html => {:class => 'ajax_form admin_password_reset', :id => "change_security_question_form"} do |login|
         .container
           .form_line
-            .field_35
+            .field_50
               = login.label :security_question1_id, "<span class='asterisk'>*</span>Question1"
               = collection_select :login_account, :security_question1_id, SecurityQuestion.active_security_question, :id, :name,{:selected => @my_account.security_question1_id.to_i}
           %br
           %br
           %br
           .form_line
-            .field_35
+            .field_50
               = login.label :question1_answer, "<span class='asterisk'>*</span>Answer1"
               = login.text_field :question1_answer, :class => "mandantory_field validate[required]", :id => "login_account_question1_answer", :name => "login_account[question1_answer]",:mandantory_field1=>"login_account_question1_answer", :mandantory_field2=>"login_account_question2_answer", :mandantory_field3=>"login_account_question3_answer",:submit_button_id=>"change_security_question_submit"
           %br
           %br
           %br
           .form_line
-            .field_35
+            .field_50
               = login.label :security_question2_id, "<span class='asterisk'>*</span>Question2"
               = collection_select :login_account, :security_question2_id, SecurityQuestion.active_security_question, :id, :name,{:selected => @my_account.security_question2_id.to_i}
           %br
           %br
           %br
           .form_line
-            .field_35
+            .field_50
               = login.label :question1_answer, "<span class='asterisk'>*</span>Answer2"
               = login.text_field :question2_answer, :class => "mandantory_field validate[required]", :id => "login_account_question2_answer", :name => "login_account[question2_answer]",:mandantory_field1=>"login_account_question1_answer", :mandantory_field2=>"login_account_question2_answer", :mandantory_field3=>"login_account_question3_answer",:submit_button_id=>"change_security_question_submit"
 
@@ -89,18 +100,19 @@
           %br
           %br
           .form_line
-            .field_35
+            .field_50
               = login.label :security_question3, "<span class='asterisk'>*</span>Question3"
               = collection_select :login_account, :security_question3_id, SecurityQuestion.active_security_question, :id, :name,{:selected => @my_account.security_question3_id.to_i}
           %br
           %br
           %br
           .form_line
-            .field_35
+            .field_50
               = login.label :question3_answer, "<span class='asterisk'>*</span>Answer3"
               = login.text_field :question3_answer, :class => "mandantory_field validate[required]", :id => "login_account_question3_answer", :name => "login_account[question3_answer]",:mandantory_field1=>"login_account_question1_answer", :mandantory_field2=>"login_account_question2_answer", :mandantory_field3=>"login_account_question3_answer",:submit_button_id=>"change_security_question_submit"
-        %br.clear
-        = submit_tag 'Submit',:id=>"change_security_question_submit",:disabled => true
+          .form_line
+            .field_100
+              = submit_tag 'Submit',:id=>"change_security_question_submit",:disabled => true
 
 
 
