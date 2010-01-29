@@ -62,7 +62,7 @@ ActionController::Routing::Routes.draw do |map|
   }
 
   map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :post,
-    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete
+    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrive_message_template => :get
   }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
