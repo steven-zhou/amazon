@@ -63,7 +63,7 @@ class CommunicationController < ApplicationController
     end
   end
 
- def retrive_message_template
+ def retrieve_message_template
     @message_template = MessageTemplate.find(params[:id])
     @message_template.to_be_removed = false
     @message_template.save
