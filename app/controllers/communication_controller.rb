@@ -3,8 +3,9 @@ class CommunicationController < ApplicationController
 
   def email
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.find(:all)
+    @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
+    puts"----DEBUG--#{@message_templates.to_yaml}--"
   end
 
 
@@ -55,11 +56,21 @@ class CommunicationController < ApplicationController
 
   def destroy_message_template
     @message_template = MessageTemplate.find(params[:id])
-    @message_template.destroy
+    @message_template.to_be_removed = true
+    @message_template.save
     respond_to do |format|
       format.js
     end
   end
+
+ def retrive_message_template
+    @message_template = MessageTemplate.find(params[:id])
+    @message_template.to_be_removed = false
+    @message_template.save
+    respond_to do |format|
+      format.js
+    end
+ end
 
   
   def send_email
@@ -187,11 +198,13 @@ class CommunicationController < ApplicationController
     @render_page = params[:render_page]
     @field = "email_form"
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.find(:all)
+    @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
 
     @start_date = "#{Date.today().at_beginning_of_week.strftime('%Y-%m-%d')}"
     @end_date = "#{Date.today().strftime('%Y-%m-%d')}"
+
+  
 
     respond_to do |format|
       format.js

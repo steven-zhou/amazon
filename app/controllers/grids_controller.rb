@@ -2859,9 +2859,9 @@ class GridsController < ApplicationController
     return_data[:total] = count
 
     return_data[:rows] = @message_templates.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.name,
-          u.created_at.strftime('%d-%m-%Y')
+        :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
+          u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
