@@ -71,23 +71,7 @@
         if ($('#receipt_account_mode').attr("mode") == "show"){
         if (trSelected != undefined)  {
           id = trSelected.substring(3);
-          $("#warning_message_text").html("Are you sure you wish to retrieve this receipt account?");
-          $("#warning_message").dialog({
-            modal:false,
-            resizable:false,
-            draggable:false,
-            height: 'auto',
-            width: 'auto',
-            buttons:{
-
-            NO: function(){
-              $(this).dialog("destroy");
-
-            },
-
-            Yes: function(){
-
-              $.ajax({
+          $.ajax({
                           type: "get",
                           url: "/receipt_accounts/retrieve_receipt_account/"+id+".js",
                           dataType: "script"
@@ -96,34 +80,7 @@
                       return true;
 
                   }
-                  }
-
-              });
-            }else{
-              $('#warning_message_text').html("Please select the record you want to delete");
-              $('#warning_message').dialog({
-                  modal: true,
-                  resizable: false,
-                  draggable: true,
-                  height: 'auto',
-                  width: 'auto',
-                  buttons: {
-                      Ok: function(){
-                          $(this).dialog('destroy');
-                          return false;
-                      }
-                  }
-
-              });
-          }
-          $('#warning_message_image').css("display","");
-          $('#warning_message').dialog('option', 'title', 'Warning');
-          $('#warning_message').parent().find("a").css("display","none");
-          $("#warning_message").parent().css('background-color','#D1DDE6');
-          $("#warning_message").css('background-color','#D1DDE6');
-          $('#warning_message').dialog('open');
-          return false;
-          };
+              }
           };
 
 
