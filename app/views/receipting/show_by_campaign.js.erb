@@ -1,59 +1,124 @@
 $('#add_new_source').html('<%= escape_javascript(render(:partial => "/receipting/new_source")) %>');
 $('#existing_sources').html('<%= escape_javascript(render(:partial => "/receipting/existing_sources")) %>');
 $('#source_mode').attr('mode', 'show');
-   $("#show_sources_by_campaign_grid").flexigrid({
-        url: '/grids/show_sources_by_campaign_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'id',
-            width : 40,
-            sortable : true,
-            align: 'left'
+
+
+ delete_source = function(){
+    var trSelected = $("#show_sources_by_campaign_grid tr.trSelected").attr('id');
+    var id = "";
+    if ($('#source_mode').attr("mode") == "show"){
+    if (trSelected != undefined){
+      id = trSelected.substring(3);
+      $("#warning_message_text").html("Are you sure you wish to delete this source?");
+      $("#warning_message").dialog({
+        modal:false,
+        resizable:false,
+        draggable:false,
+        height: 'auto',
+        width: 'auto',
+        buttons:{
+
+        NO: function(){
+          $(this).dialog("destroy");
+
         },
 
-        {
-            display: 'Name',
-            name : 'Name',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+        Yes: function(){
+          $.ajax({
+                      type: "post",
+                      url: "/receipting/destroy_source/"+id+".js",
+                      dataType: "script"
+                  });
+                  $(this).dialog('destroy');
+                  return true;
+              }
+              }
 
-        {
-            display: 'Description',
-            name : 'description',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+          });
+        }else{
+          $('#warning_message_text').html("Please select the record you want to delete");
+          $('#warning_message').dialog({
+              modal: true,
+              resizable: false,
+              draggable: true,
+              height: 'auto',
+              width: 'auto',
+              buttons: {
+                  Ok: function(){
+                      $(this).dialog('destroy');
+                      return false;
+                  }
+              }
 
-        {
-            display: 'Volume',
-            name : 'volume',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+          });
+      }
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+      };
+      };
+      
+$("#show_sources_by_campaign_grid").flexigrid({
+      url: '/grids/show_sources_by_campaign_grid',
+      dataType: 'json',
+      colModel : [
+      {
+        display: 'ID',
+        name : 'id',
+        width : 40,
+        sortable : true,
+        align: 'left'
+      },
 
-        {
-            display: 'Cost',
-            name : 'cost',
-            width : 100,
-            sortable : true,
-            align: 'left'
-        },
+      {
+        display: 'Name',
+        name : 'Name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+      },
+      {
+        display: 'Description',
+        name : 'description',
+        width : 100,
+        sortable : true,
+        align: 'left'
+      },
 
-        {
-            display: 'Status',
-            name : 'status',
-            width : 200,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
+      {
+        display: 'Volume',
+        name : 'volume',
+        width : 100,
+        sortable : true,
+        align: 'left'
+      },
+
+      {
+        display: 'Cost',
+        name : 'cost',
+        width : 100,
+        sortable : true,
+        align: 'left'
+      },
+
+      {
+        display: 'Status',
+        name : 'status',
+        width : 200,
+        sortable : true,
+        align: 'left'
+      }
+      ],
+
+      buttons : [
+        {name: 'Delete', bclass: 'delete', onpress : delete_source}
+      ],
+      
+      searchitems : [
         {
             display: 'Name',
             name : 'name'

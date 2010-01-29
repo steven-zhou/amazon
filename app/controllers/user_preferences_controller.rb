@@ -1,22 +1,23 @@
 class UserPreferencesController < ApplicationController
-
+# System Logging done...
 
   def change_email
-    @current_user = LoginAccount.find(session[:user])
-    flash[:error] = nil
     if @current_user.security_email == params[:old_email] && params[:new_email]== params[:retype_new_email]
-      if @current_user.update_attribute(:security_email,params[:new_email])
-        flash[:save_message]="Saved successfully"
+      @current_user.update_login_account_password = false
+      @current_user.security_email = params[:new_email]
+      if @current_user.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its security email.")
+        flash.now[:save_message] = "Security email is changed to #{@current_user.security_email}"
         email = EmailDispatcher.create_email_with_template(@current_user.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_email_comfirmation_letter', @current_user)
         EmailDispatcher.deliver(email)
       else
-        flash[:error]="Can not update your email"
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update its security email.")
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "security_email")
       end
     else
-      flash[:error]="Please Type The Correct Security Email " if @current_user.security_email != params[:old_email]
-      flash[:error]="Two Email Is Not Matched " if params[:new_email] != params[:retype_new_email]
+      flash.now[:error] = "Invalid old email " if @current_user.security_email != params[:old_email]
+      flash.now[:error] = "Two emails are not matched" if params[:new_email] != params[:retype_new_email]
     end
-
     respond_to do |format|
       format.js
     end
@@ -25,23 +26,21 @@ class UserPreferencesController < ApplicationController
 
 
   def change_password
-    @current_user = LoginAccount.find(session[:user])
-     flash[:error] = nil
-    if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
+     if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
       @current_user.password = params[:new_password]
       if @current_user.save
-        flash[:save_message]="Saved successfully"
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its password.")
+        flash.now[:save_message] = "Password is updated successfully"
         email = EmailDispatcher.create_change_password_email_with_template(@current_user.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_password_comfirmation_letter', @current_user,params[:new_password])
         EmailDispatcher.deliver(email)
       else
-        flash[:error]="Can not change your password"
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update its password.")
+        flash.now[:error]="Can't not update password"
       end
     else
-      flash[:error]="Please Type The Correct Password " if Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) != @current_user.password_hash
-      flash[:error]="Two Password Is Not Matched " if params[:new_password] != params[:retype_new_password]
-
+      flash.now[:error]="Invalid old password" if Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) != @current_user.password_hash
+      flash.now[:error]="Two password are not matched " if params[:new_password] != params[:retype_new_password]
     end
-
     respond_to do |format|
       format.js{render 'change_email.js'}
     end
@@ -50,21 +49,15 @@ class UserPreferencesController < ApplicationController
 
 
   def change_security_question
-     flash[:error] = nil
-    @login_account = LoginAccount.find(session[:user])
-    @login_account.update_login_account_password = false
-    if  @login_account.update_attributes(params[:login_account])
-
-      flash[:save_message] = " Saved successfully"
-
-      system_log("Login Account #{@login_account.user_name} (#{@login_account.id}) updated their security question.")
-
-      email = EmailDispatcher.create_email_with_template(@login_account.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_security_question_comfirmation_letter', @login_account)
+    @current_user.update_login_account_password = false
+    if  @current_user.update_attributes(params[:login_account])
+      flash.now[:save_message] = "Security questions and answers are updated successfully"
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its security question.")
+      email = EmailDispatcher.create_email_with_template(@current_user.security_email, 'Comfirmation letter', 'email_dispatcher/send_change_security_question_comfirmation_letter', @current_user)
       EmailDispatcher.deliver(email)
     else
-      system_log("Login Account #{@login_account.user_name} (#{@login_account.id}) had an error when attempting to update their security question .")
-
-      flash[:error] = "You Must Type Three Security Questions Answer."
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update its security question .")
+      flash.now[:error] = "Please Complete All Questions"
     end
 
     respond_to do |format|
