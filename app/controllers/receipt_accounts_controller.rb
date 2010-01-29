@@ -10,6 +10,7 @@ class ReceiptAccountsController < ApplicationController
   def create_receipt_account
     @receipt_account = ReceiptAccount.new(params[:receipt_account])
     @receipt_account.link_module_name = LinkModule.find(params[:receipt_account][:link_module_id].to_i).name rescue @receipt_account.link_module_name = ""
+    @receipt_account.to_be_removed = false
     if @receipt_account.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt account with ID #{@receipt_account.id}.")
     else
@@ -84,7 +85,7 @@ class ReceiptAccountsController < ApplicationController
     @receipt_account.send_receipt = @receipt_account_old.send_receipt
     @receipt_account.status = @receipt_account_old.status
     @receipt_account.remarks = @receipt_account_old.remarks
-
+    @receipt_account.to_be_removed = false
     if @receipt_account.save
 
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt account #{@receipt_account.id}.")
@@ -100,10 +101,20 @@ class ReceiptAccountsController < ApplicationController
 
   def destroy_receipt_account
     @receipt_account = ReceiptAccount.find(params[:id])
-    @receipt_account.destroy
+    @receipt_account.to_be_removed = true
+    @receipt_account.save
     respond_to do |format|
       format.js
     end    
+  end
+
+  def retrieve_receipt_account
+    @receipt_account = ReceiptAccount.find(params[:id])
+    @receipt_account.to_be_removed = false
+    @receipt_account.save
+    respond_to do |format|
+      format.js {render 'destroy_receipt_account.js'}
+    end
   end
 
 

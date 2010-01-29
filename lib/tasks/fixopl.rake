@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Loads initial database models for the current environment."
+  desc "Add Organsiation Primary List to old database"
   task :fixopl => :environment do
     opl = OrganisationPrimaryList.create(:name => "Organisation Primary List", :status => true)
     superuser = GroupType.find_by_name("Power User")
