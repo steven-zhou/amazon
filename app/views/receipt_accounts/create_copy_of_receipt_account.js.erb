@@ -7,8 +7,8 @@
 
   $('#add_new_receipt_account').html('<%= escape_javascript(render(:partial => "/receipt_accounts/new_receipt_account")) %>').css('display','');
   $('#existing_receipt_accounts').html('<%= escape_javascript(render(:partial => "/receipt_accounts/existing_receipt_accounts")) %>');
-  $('#receipt_account_mode').attr('mode', 'show');
-  $('#edit_receipt_account').css('display','none');
+  $('#receipt_account_mode').attr('mode', 'edit');
+
 
 <%- else %>
   $('#flash_message_text').html('<%= escape_javascript(flash[:error]) %>');

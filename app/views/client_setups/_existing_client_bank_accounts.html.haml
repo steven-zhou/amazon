@@ -1,6 +1,72 @@
 %h2 Existing Client Bank Accounts
 
 %table#show_client_bank_accounts_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_client_bank_account = function(){
+    var trSelected = $("#show_client_bank_accounts_grid tr.trSelected").attr('id');
+    var id = "";
+    if ($('#client_bank_account_mode').attr("mode") == "show"){
+    if (trSelected != undefined)  {
+      id = trSelected.substring(3);
+      $("#warning_message_text").html("Are you sure you wish to delete this bank account?");
+      $("#warning_message").dialog({
+        modal:false,
+        resizable:false,
+        draggable:false,
+        height: 'auto',
+        width: 'auto',
+        buttons:{
+
+        NO: function(){
+          $(this).dialog("destroy");
+
+        },
+
+        Yes: function(){
+
+          $.ajax({
+                      type: "post",
+                      url: "/client_setups/destroy_client_bank_account/"+id+".js",
+                      dataType: "script"
+                  });
+                  $(this).dialog('destroy');
+                  return true;
+
+              }
+              }
+
+          });
+        }else{
+          $('#warning_message_text').html("Please select the record you want to delete");
+          $('#warning_message').dialog({
+              modal: true,
+              resizable: false,
+              draggable: true,
+              height: 'auto',
+              width: 'auto',
+              buttons: {
+                  Ok: function(){
+                      $(this).dialog('destroy');
+                      return false;
+                  }
+              }
+
+          });
+      }
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+      };
+      };
+
+
+
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_client_bank_accounts_grid").flexigrid({
   url: '/grids/show_client_bank_accounts_grid',
@@ -46,6 +112,9 @@
   align: 'left'
   }
 
+  ],
+  buttons : [
+  {name: 'Delete', bclass: 'delete', onpress : delete_client_bank_account}
   ],
   searchitems : [
   {
