@@ -35,7 +35,7 @@
       = f.check_box :status, :class => "checkbox_style", :style => "margin-left:6%;"
   .form_line
     .field_100{:style => "float:right;"}
-      %div{:style => "display:inline;float:right;height:100%;"}
+      -#%div{:style => "display:inline;float:right;height:100%;"}
         = link_to "Remove", {:controller => "receipt_accounts", :action => "destroy_receipt_account", :id => @receipt_account.id}, {:class => 'delete alt_option', :error_message_field => "receipt account"}
         
       %div{:style => "display:inline;float:right;height:100%;"}

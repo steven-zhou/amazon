@@ -86,7 +86,7 @@
       = f.check_box :status, :class => "checkbox_style"
   .form_line
     .field_100{:style => "float:right;"}
-      %div{:style => "display:inline;float:right;height:100%;"}
+      -#%div{:style => "display:inline;float:right;height:100%;"}
         = link_to "Remove", {:controller => "receipting", :action => "destroy_campaign", :id => @campaign.id}, {:class => 'delete alt_option', :error_message_field => "campaign"} unless @campaign.status == false
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_campaign_submit"
