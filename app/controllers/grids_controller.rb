@@ -2454,7 +2454,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.receipt_number,
           u.transaction_date.to_s,
-          u.bank_account_id.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
+          u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
           u.notes,
