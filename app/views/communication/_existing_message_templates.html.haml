@@ -9,7 +9,7 @@
     var id = "";
     if (trSelected != undefined){
       id = trSelected.substring(3);
-      $("#warning_message_text").html("Are you sure you wish to delete this organisation?");
+      $("#warning_message_text").html("Are you sure you wish to delete this record?");
       $("#warning_message").dialog({
         modal:false,
         resizable:false,
@@ -67,7 +67,7 @@
     var id = "";
     if (trSelected != undefined){
       id = trSelected.substring(3);
-      $("#warning_message_text").html("Are you sure you wish to delete this organisation?");
+      $("#warning_message_text").html("Are you sure you wish to delete this record?");
       $("#warning_message").dialog({
         modal:false,
         resizable:false,
@@ -95,7 +95,7 @@
 
           });
         }else{
-          $('#warning_message_text').html("Please select the record you want to delete");
+          $('#warning_message_text').html("Please select the record you want to retrive");
           $('#warning_message').dialog({
               modal: true,
               resizable: false,
