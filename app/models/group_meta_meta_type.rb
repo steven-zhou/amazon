@@ -10,6 +10,17 @@ class GroupMetaMetaType < TagMetaType
   after_create :assign_priority
   before_destroy :reorder_priority
 
+
+  def self.find_custom_group
+    GroupMetaMetaType.find_by_name("Custom")
+  end
+
+  def self.find_security_group
+    GroupMetaMetaType.find_by_name("Security")
+  end
+
+
+
   private
 
   def assign_priority

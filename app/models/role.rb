@@ -18,7 +18,9 @@ class Role < ActiveRecord::Base
   after_save :update_role_type_when_retrieve
 
 
-
+  def self.find_role_type_by_id(id)
+    Role.find(:all, :conditions => ["role_type_id=?",id])
+  end
 
   private
   def update_role_type_when_retrieve

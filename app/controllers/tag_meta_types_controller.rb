@@ -79,7 +79,7 @@ class TagMetaTypesController < ApplicationController
   end
 
   def access_permission_finder
-    @access_permissions = SystemPermissionMetaMetaType.find(:all)
+    @access_permissions = SystemPermissionMetaMetaType.all
     respond_to do |format|
       format.js
     end

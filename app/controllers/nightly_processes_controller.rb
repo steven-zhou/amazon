@@ -345,7 +345,7 @@ class NightlyProcessesController < ApplicationController
 
   def destroy_tag
     puts "destroy custom groups"
-    custom_group = GroupMetaMetaType.find_by_name("Custom")
+    custom_group = GroupMetaMetaType.find_custom_group
     customer_group_children = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", custom_group.id])
     customer_group_children.each do |c|
       GroupType.find(:all, :conditions => ["tag_type_id = ? AND to_be_removed = true", c.id]).each do |i|
@@ -359,7 +359,7 @@ class NightlyProcessesController < ApplicationController
     end
 
     puts "destroy security groups"
-    security_group = GroupMetaMetaType.find_by_name("Security")
+    security_group = GroupMetaMetaType.find_security_group
     security_group_children = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", security_group.id])
     security_group_children.each do |s|
       GroupType.find(:all, :conditions => ["tag_type_id = ? AND to_be_removed = true", s.id]).each do |i|

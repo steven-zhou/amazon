@@ -11,5 +11,10 @@ class Bank < ActiveRecord::Base
   def display_name
     "#{self.short_name}, #{self.branch_name}"
   end
+
+
+  def self.active_record
+    Bank.find(:all, :conditions=>"status =true ")
+  end
   
 end

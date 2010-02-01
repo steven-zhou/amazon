@@ -45,7 +45,7 @@ class AmazonSettingsController < ApplicationController
   end
 
   def data_list_finder
-    @amazonsettings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    @amazonsettings = AmazonSetting.search_by_type(params[:type])
     @amazonsetting = AmazonSetting.find(params[:id].to_i) rescue @amazonsetting = AmazonSetting.new
     respond_to do |format|
       format.js
@@ -54,8 +54,8 @@ class AmazonSettingsController < ApplicationController
 
   def destroy
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{@amazonsetting.id}.")
     @amazonsetting.destroy
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{@amazonsetting.id}.")
     @amazonsetting = AmazonSetting.distinct_setting_type
     respond_to do |format|
       format.js
@@ -63,7 +63,7 @@ class AmazonSettingsController < ApplicationController
   end
 
   def system_settings_finder
-    @amazon_settings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    @amazon_settings = AmazonSetting.search_by_type(params[:type])
     respond_to do |format|
       format.js
     end
@@ -115,6 +115,7 @@ class AmazonSettingsController < ApplicationController
     #if 'to_be_removed' is true, then this recored will be physically deleted from database in maintaince prgress
     amazon_setting.to_be_removed = true
     amazon_setting.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
     respond_to do |format|
       format.js
     end
@@ -132,9 +133,9 @@ class AmazonSettingsController < ApplicationController
 
   def retrieve
     amazon_setting = AmazonSetting.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{amazon_setting.id}.")
     amazon_setting.to_be_removed = false
     amazon_setting.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{amazon_setting.id}.")
     respond_to do |format|
       format.js
     end

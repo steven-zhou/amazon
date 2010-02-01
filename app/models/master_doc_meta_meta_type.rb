@@ -11,7 +11,9 @@ class MasterDocMetaMetaType < TagMetaType
   before_destroy :reorder_priority
 
 
- 
+  def self.active_record
+    MasterDocMetaMetaType.find(:all,:conditions=>"status = true and to_be_removed= false")
+  end
 
 
 

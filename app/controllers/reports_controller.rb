@@ -153,7 +153,8 @@ class ReportsController < ApplicationController
     controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
     action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
     status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.id ASC", user_name, start_date, end_date, status])
+
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     @type = "System Log Report"
     @report_format = "system_log_report"
 

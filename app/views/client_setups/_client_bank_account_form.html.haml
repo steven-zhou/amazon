@@ -18,7 +18,7 @@
   .form_line
     .field_30
       = f.label :bank, "Bank"
-      = collection_select(:client_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {})
+      = collection_select(:client_bank_account, :bank_id, Bank.active_record, :id, :display_name, {})
     .field_30
       = f.label :account_purpose_id, "Purpose"
       = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name)

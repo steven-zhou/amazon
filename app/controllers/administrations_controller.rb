@@ -19,7 +19,7 @@ class AdministrationsController < ApplicationController
   end
 
   def custom_groups
-    @tag_meta_type = GroupMetaMetaType.find_by_name("Custom")
+    @tag_meta_type = GroupMetaMetaType.find_custom_group 
     @category = "Group"
     respond_to do |format|
       format.html
@@ -28,7 +28,7 @@ class AdministrationsController < ApplicationController
 
 
   def security_groups
-    @tag_meta_type = GroupMetaMetaType.find_by_name("Security")
+    @tag_meta_type = GroupMetaMetaType.find_security_group
     @category = "Group"
     respond_to do |format|
       format.html
@@ -44,7 +44,7 @@ class AdministrationsController < ApplicationController
   end
 
   def master_docs
-    @tag_meta_types = MasterDocMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = MasterDocMetaMetaType.active_record
     @category = "MasterDoc"
     respond_to do |format|
       format.html
@@ -52,7 +52,7 @@ class AdministrationsController < ApplicationController
   end
 
   def role_conditions
-    @tag_meta_types = MasterDocMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = MasterDocMetaMetaType.active_record
     @category = "MasterDoc"
     respond_to do |format|
       format.html
@@ -60,7 +60,7 @@ class AdministrationsController < ApplicationController
   end
 
   def access_permissions
-    @tag_meta_types = SystemPermissionMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = SystemPermissionMetaMetaType.all
     @category = "SystemPermission"
     respond_to do |format|
       format.html
@@ -75,7 +75,7 @@ class AdministrationsController < ApplicationController
   end
 
   def contact_types
-    @tag_meta_types = ContactMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = ContactMetaMetaType.all
     @category = "Contact"
     respond_to do |format|
       format.html
@@ -141,7 +141,7 @@ class AdministrationsController < ApplicationController
   def user_accounts
   
     @login_account = SystemUser.new
-    @login_accounts = SystemUser.find(:all)rescue @login_accounts = SystemUser.new
+    @login_accounts = SystemUser.all rescue @login_accounts = SystemUser.new
     
     @session_timeout = ClientSetup.first.session_timeout
     @grace_period = ClientSetup.first.new_account_graceperiod
@@ -162,7 +162,7 @@ class AdministrationsController < ApplicationController
   end
 
   def user_lists
-    @login_accounts = SystemUser.find(:all)
+    @login_accounts = SystemUser.all
     respond_to do |format|
       format.html
     end
