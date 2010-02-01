@@ -36,7 +36,7 @@ class AdministrationsController < ApplicationController
   end
 
   def query_tables
-    @tag_meta_types = TableMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = TableMetaMetaType.all
     @category = "Table"
     respond_to do |format|
       format.html

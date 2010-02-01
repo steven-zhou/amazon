@@ -37,7 +37,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = PeopleSearchGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @people.size
     end
 
     # User provided search terms
@@ -47,8 +47,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = PeopleSearchGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @people.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -104,7 +103,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = FeedbackSearchGrid.count(:all, :conditions => [])
+      count = @feedback.size
     end
 
     # User provided search terms
@@ -114,8 +113,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? ", query])
-      count = FeedbackSearchGrid.count(:all,
-        :conditions=>[qtype +" ilike ? ", query ])
+      count = @feedback.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -170,7 +168,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = SystemLogSearchGrid.count(:all, :conditions => [])
+      count = @system_log_entries.size
     end
 
     # User provided search terms
@@ -180,8 +178,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? ", query ])
-      count = SystemLogSearchGrid.count(:all,
-        :conditions=>[qtype +" ilike ? ", query])
+      count = @system_log_entries.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -238,7 +235,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = SystemLogArchiveGrid.count(:all, :conditions => [])
+      count = @system_log_entries.size
     end
 
     # User provided search terms
@@ -248,8 +245,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? ", query ])
-      count = SystemLogArchiveGrid.count(:all,
-        :conditions=>[qtype +" ilike ? ", query])
+      count = @system_log_entries.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -306,7 +302,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = OrganisationSearchGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @organisation.size
     end
 
     # User provided search terms
@@ -316,8 +312,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = OrganisationSearchGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @organisation.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -372,7 +367,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = QueryResultGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @entity.size
     end
 
     # User provided search terms
@@ -382,8 +377,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = QueryResultGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @entity.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -437,25 +431,25 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @people = ListDetail.find(:all,
+      @list_details = ListDetail.find(:all,
         :conditions => ["list_header_id = ?", params[:id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["person", "organisation"]
       )
-      count = ListDetail.count(:all, :conditions => ["list_header_id = ?", params[:id]],:include => ["person", "organisation"])
+      count = @list_details.size
     end
 
     # User provided search terms
     if(query != "%%")
-      @people = ListDetail.find(:all,
+      @list_details = ListDetail.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["person", "organisation"],
         :conditions=>[qtype +" ilike ? AND list_header_id = ?", query, params[:id]])
-      count = ListDetail.count(:all, :conditions=>[qtype +" ilike ? AND list_header_id = ?", query, params[:id]],:include => ["person", "organisation"])
+      count = @list_details.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -463,84 +457,20 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
     if (params[:entity] == "person")
-    return_data[:rows] = @people.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.person.first_name,
-          u.person.family_name]}}
+      return_data[:rows] = @list_details.collect{|u| {:id => u.id,
+          :cell=>[u.id,
+            u.person.first_name,
+            u.person.family_name]}}
     else
-      return_data[:rows] = @people.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.organisation.full_name,
-          u.organisation.trading_as]}}
+      return_data[:rows] = @list_details.collect{|u| {:id => u.id,
+          :cell=>[u.id,
+            u.organisation.full_name,
+            u.organisation.trading_as]}}
     end
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
 
-
-
-  #    def list_edit_grid
-  #    page = (params[:page]).to_i
-  #    rp = (params[:rp]).to_i
-  #    query = params[:query]
-  #    qtype = params[:qtype]
-  #    sortname = params[:sortname]
-  #    sortorder = params[:sortorder]
-  #
-  #    if (!sortname)
-  #      sortname = "grid_object_id"
-  #    end
-  #
-  #    if (!sortorder)
-  #      sortorder = "asc"
-  #    end
-  #
-  #    if (!page)
-  #      page = 1
-  #    end
-  #
-  #    if (!rp)
-  #      rp = 20
-  #    end
-  #
-  #    start = ((page-1) * rp).to_i
-  #    query = "%"+query+"%"
-  #
-  #    # No search terms provided
-  #    if(query == "%%")
-  #      @people = ListEditGrid.find(:all,
-  #        :conditions => ["login_account_id = ?", session[:user]],
-  #        :order => sortname+' '+sortorder,
-  #        :limit =>rp,
-  #        :offset =>start
-  #      )
-  #      count = ListEditGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-  #    end
-  #
-  #    # User provided search terms
-  #    if(query != "%%")
-  #      @people = ListEditGrid.find(:all,
-  #        :order => sortname+' '+sortorder,
-  #        :limit =>rp,
-  #        :offset =>start,
-  #        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-  #      count = ListEditGrid.count(:all,
-  #        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-  #    end
-  #
-  #    # Construct a hash from the ActiveRecord result
-  #    return_data = Hash.new()
-  #    return_data[:page] = page
-  #    return_data[:total] = count
-  #
-  #    return_data[:rows] = @people.collect{|u| {:id => u.id,
-  #        :cell=>[u.grid_object_id,
-  #          u.field_1,
-  #          u.field_2]}}
-  #
-  #    # Convert the hash to a json object
-  #    render :text=>return_data.to_json, :layout=>false
-  #  end
 
   def list_compile_grid
     page = (params[:page]).to_i
@@ -577,7 +507,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = ListCompileGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @people.size
     end
 
     # User provided search terms
@@ -587,8 +517,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ListCompileGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @people.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -644,7 +573,7 @@ class GridsController < ApplicationController
         :offset =>start
       )
 
-      count = ShowOtherGroupOrganisationsGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @organisations.size
 
     end
 
@@ -658,9 +587,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
-      count = ShowOtherGroupOrganisationsGrid.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @organisations.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -715,7 +642,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = OrganisationEmployeeGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @organisation_employee.size
     end
 
     # User provided search terms
@@ -725,8 +652,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = OrganisationEmployeeGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @organisation_employee.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -781,7 +707,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = ShowOtherGroupMemberGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @other_group_member.size
     end
 
     # User provided search terms
@@ -791,8 +717,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ShowOtherGroupMemberGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @other_group_member.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -812,73 +737,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def organisation_employee_grid
-    page = (params[:page]).to_i
-    rp = (params[:rp]).to_i
-    query = params[:query]
-    qtype = params[:qtype]
-    sortname = params[:sortname]
-    sortorder = params[:sortorder]
-
-    if (!sortname)
-      sortname = "grid_object_id"
-    end
-
-
-    if (!sortorder)
-      sortorder = "asc"
-    end
-
-    if (!page)
-      page = 1
-    end
-
-    if (!rp)
-      rp = 10
-    end
-
-    start = ((page-1) * rp).to_i
-    query = "%"+query+"%"
-
-    # No search terms provided
-    if(query == "%%")
-      @organisation_employee = OrganisationEmployeeGrid.find(:all,
-        :conditions => ["login_account_id = ?", session[:user]],
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start
-      )
-      count = OrganisationEmployeeGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-    end
-
-    # User provided search terms
-    if(query != "%%")
-      @organisation_employee  = OrganisationEmployeeGrid.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = OrganisationEmployeeGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-    end
-
-    # Construct a hash from the ActiveRecord result
-    return_data = Hash.new()
-    return_data[:page] = page
-    return_data[:total] = count
-
-    return_data[:rows] = @organisation_employee.collect{|u| {:id => u.grid_object_id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2,
-          u.field_3,
-          u.field_4,
-          u.field_5]}}
-
-    # Convert the hash to a json object
-    render :text=>return_data.to_json, :layout=>false
-  end
-
+ 
   def personal_check_duplication
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -908,7 +767,6 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-
       @personal_check_duplication = DuplicationPersonalGrid.find(:all,
         :conditions => ["login_account_id = ?", session[:user]],
         :order => sortname+' '+sortorder,
@@ -916,23 +774,18 @@ class GridsController < ApplicationController
         :offset =>start
       )
 
-      count = DuplicationPersonalGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-
-    
-
+      count = @personal_check_duplication.size
     end
 
     # User provided search terms
     if(query != "%%")
-
       @personal_check_duplication  = DuplicationPersonalGrid.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
 
-      count = DuplicationPersonalGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @personal_check_duplication.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -989,34 +842,28 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = DuplicationOrganisationsGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @organisations.size
     end
 
     # User provided search terms
     if(query != "%%")
-
       @organisations  = DuplicationOrganisationsGrid.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-    	count = DuplicationOrganisationsGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+    	count = @organisations.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
-
     return_data[:rows] = @organisations.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
           u.field_2,
           u.field_3]}}
-
-
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1043,9 +890,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp)
-
       rp = 20
-
     end
 
     start = ((page-1) * rp).to_i
@@ -1059,32 +904,23 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-
-      count = PersonContactsReportGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-
+      count = @person_contact_report.size
     end
 
     # User provided search terms
     if(query != "%%")
-
       @person_contact_report = PersonContactsReportGrid.find(:all,
-
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-
-      count = PersonContactsReportGrid.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @person_contact_report.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
-
     return_data[:rows] = @person_contact_report.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
@@ -1136,32 +972,24 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-
-      count = OgansisationContactsReportGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-
+      count = @organisation_contact_report.size
     end
 
     # User provided search terms
     if(query != "%%")
 
       @organisation_contact_report = OgansisationContactsReportGrid.find(:all,
-
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-
-      count = OgansisationContactsReportGrid.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @organisation_contact_report.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
-
     return_data[:rows] = @organisation_contact_report.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
@@ -1216,39 +1044,31 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :include => ["country"]
-
       )
-
-      count = Postcode.count(:all, :conditions => ["suburb ilike ? AND postcode ilike ? AND state ilike ?", suburb, postcode, state], :include => ["country"])
-
+      count = @show_postcode.size
     end
 
     # User provided search terms
     if(query != "%%")
-
       @show_postcode = Postcode.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND suburb ilike ? AND postcode ilike ? AND state ilike ?", query, suburb, postcode, state],
         :include => ["country"])
-
-      count = Postcode.count(:all, :conditions=>[qtype +" ilike ? AND suburb ilike ? AND postcode ilike ? AND state ilike ?", query, suburb, postcode, state],:include => ["country"])
+      count = @show_postcode.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
-
     return_data[:rows] = @show_postcode.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.state,
           u.suburb,
           u.postcode,                
           u.country_id.nil? ? "" : u.country.short_name
-          #          u.country_name
         ]}}
 
     # Convert the hash to a json object
@@ -1284,14 +1104,13 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-
       @people = ShowListGrid.find(:all,
         :conditions => ["login_account_id = ?", session[:user]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = ShowListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @people.size
     end
 
     # User provided search terms
@@ -1302,15 +1121,13 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ShowListGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @people.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
@@ -1358,7 +1175,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = ShowOrganisationListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @organisation.size
     end
 
     # User provided search terms
@@ -1368,15 +1185,13 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ShowOrganisationListGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @organisation.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @organisation.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
@@ -1423,7 +1238,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = PersonLookupGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = @person_lookup.size
     end
 
     # User provided search terms
@@ -1433,15 +1248,13 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = PersonLookupGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+      count = @person_lookup.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @person_lookup.collect{|u| {:id => u.grid_object_id,
         :cell=>[u.grid_object_id,
           u.field_1,
@@ -1488,7 +1301,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["main_language"]
       )
-      count = Country.count(:all,:include => ["main_language"])
+      count = @country.size
     end
 
     # User provided search terms
@@ -1499,7 +1312,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query],
         :include => ["main_language"])
-      count = Country.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["main_language"])
+      count = @country.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1558,7 +1371,7 @@ class GridsController < ApplicationController
         :offset =>start
 
       )
-      count = Campaign.count(:all)
+      count = @campaign.size
     end
 
     # User provided search terms
@@ -1568,7 +1381,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? ", query])
-      count = Campaign.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @campaign.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1580,10 +1393,10 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+ "</span>": u.id,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>": u.name,
           u.to_be_removed? ? "<span class='red'>"+u.description+"</span>": u.description,
-           u.to_be_removed? ? "<span class='red'>"+u.target_amount+"</span>" : u.target_amount,
+          u.to_be_removed? ? "<span class='red'>"+u.target_amount+"</span>" : u.target_amount,
           u.start_date.nil?  ? '' : (u.to_be_removed? ? "<span class='red'>"+u.start_date.strftime('%d-%m-%Y')+"</span>" : u.start_date.strftime('%d-%m-%Y')),
           u.end_date.nil? ? '' : ( u.to_be_removed? ?  "<span class='red'>"+u.end_date.strftime('%d-%m-%Y')+"</span>" : u.end_date.strftime('%d-%m-%Y')),
-         (u.status? ? (u.to_be_removed? ? "<span class='red'>Active</span>" : 'Active') : (u.to_be_removed? ? "<span class='red'>Inactive</span>":'Inactive')),
+          (u.status? ? (u.to_be_removed? ? "<span class='red'>Active</span>" : 'Active') : (u.to_be_removed? ? "<span class='red'>Inactive</span>":'Inactive')),
           u.to_be_removed? ? "<span class='red'>"+u.remarks+"</span>" : u.remarks
         ]}}
     # Convert the hash to a json object
@@ -1624,7 +1437,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = Language.count(:all)
+      count = @language.size
     end
 
     # User provided search terms
@@ -1634,7 +1447,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = Language.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @language.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1685,7 +1498,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = GeographicalArea.count(:all, :conditions => ["country_id=?", params[:country_id]])
+      count = @geographical_area.size
     end
 
     # User provided search terms
@@ -1695,7 +1508,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND country_id = ?", query, params[:country_id]])
-      count = GeographicalArea.count(:all, :conditions=>[qtype +" ilike ? AND country_id = ?", query, params[:country_id]])
+      count = @geographical_area.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1704,8 +1517,6 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @geographical_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          #          u.country_id,
-          #          u.country_name,
           u.division_name,
           u.remarks]}}
     # Convert the hash to a json object
@@ -1746,7 +1557,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = Religion.count(:all)
+      count = @religion.size
     end
 
     # User provided search terms
@@ -1756,7 +1567,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = Religion.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @religion.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1807,7 +1618,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = ElectoralArea.count(:all, :conditions => ["country_id=?", params[:country_id]])
+      count = @electoral_area.size
     end
 
     # User provided search terms
@@ -1817,7 +1628,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND country_id = ?", query, params[:country_id]])
-      count = ElectoralArea.count(:all, :conditions=>[qtype +" ilike ? AND country_id = ?", query, params[:country_id]])
+      count = @electoral_area.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1826,8 +1637,6 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @electoral_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          #          u.country_id,
-          #          u.country_name,
           u.division_name,
           u.remarks]}}
     # Convert the hash to a json object
@@ -1887,9 +1696,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["geographical_area","electoral_area"]
       )
-
-      count = Postcode.count(:all, :conditions => ["postcodes.country_id = ?", session[:postcode_country_id]],:include => ["geographical_area","electoral_area"])
-
+      count = @postcodes.size
     end
 
     # User provided search terms
@@ -1900,9 +1707,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND postcodes.country_id = ?", query, session[:postcode_country_id]],
         :include => relatedb)
-       
-
-      count = Postcode.count(:all,:conditions=>[qtype +" ilike ? AND postcodes.country_id = ?", query, session[:postcode_country_id]],:include => relatedb)
+      count = @postcodes.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -1916,9 +1721,7 @@ class GridsController < ApplicationController
           u.state,
           u.suburb,
           u.postcode,
-          #          u.geo_area,
           u.geographical_area_id.nil? ? "" : u.geographical_area.division_name,
-          #          u.elec_area
           u.electoral_area_id.nil? ? "" : u.electoral_area.division_name
         ]}}
 
@@ -1963,32 +1766,23 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-
-      count = Source.count(:all, :conditions => ["campaign_id = ? ", session[:source_campaign_id]])
-
+      count = @sources.size
     end
 
     # User provided search terms
     if(query != "%%")
-
       @sources = Source.find(:all,
-
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
-
-      count = Source.count(:all,
-
-        :conditions=>[qtype +" ilike ? AND campaign_id = ?", query, session[:source_campaign_id]])
+      count = @sources.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
-
     return_data[:rows] = @sources.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+ "</span>": u.id,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>": u.name,
@@ -2037,7 +1831,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["link_module"]
       )
-      count = ReceiptAccount.count(:all, :include => ["link_module"])
+      count = @receipt_accounts.size
     end
 
     # User provided search terms
@@ -2048,7 +1842,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query],
         :include => ["link_module"])
-      count = ReceiptAccount.count(:all, :conditions=>[qtype +" ilike ?", query], :include => ["link_module"])
+      count = @receipt_accounts.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2060,7 +1854,7 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description,
-          u.link_module_id.nil? ? "" : ((LinkModule.find(u.link_module_id).to_be_removed? || u.to_be_removed?) ? "<span class='red'>"+u.link_module.name+"</span>" : u.link_module.name),
+          u.link_module.nil? ? "" : ((u.link_module.to_be_removed? || u.to_be_removed?) ? "<span class='red'>"+u.link_module.name+"</span>" : u.link_module.name),
           u.to_be_removed? ? "<span class='red'>"+u.post_to_history.to_s+"</span>" : u.post_to_history,
           u.to_be_removed? ? "<span class='red'>"+u.post_to_campaign.to_s+"</span>" : u.post_to_campaign,
           u.to_be_removed? ? "<span class='red'>"+u.send_receipt.to_s+"</span>" : u.send_receipt,
@@ -2103,7 +1897,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = ReceiptMethod.count(:all)
+      count = @receipt_methods.size
     end
 
     # User provided search terms
@@ -2113,7 +1907,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = ReceiptMethod.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @receipt_methods.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2167,7 +1961,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["account_purpose", "bank"]
       )
-      count = ClientBankAccount.count(:all, :include => ["account_purpose", "bank"])
+      count = @client_bank_accounts.size
     end
 
     # User provided search terms
@@ -2178,14 +1972,13 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query],
         :include => ["account_purpose", "bank"])
-      count = ClientBankAccount.count(:all, :conditions=>[qtype +" ilike ?", query], :include => ["account_purpose", "bank"])
+      count = @client_bank_accounts.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @client_bank_accounts.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+ "</span>": u.id,
           u.bank_id.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.bank.display_name+ "</span>" :  u.bank.display_name),
@@ -2231,7 +2024,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = PersonBankAccount.count(:all)
+      count = @person_bank_accounts.size
     end
 
     # User provided search terms
@@ -2241,7 +2034,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = PersonBankAccount.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @person_bank_accounts.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2294,7 +2087,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = AllocationType.count(:all)
+      count = @allocation_types.size
     end
 
     # User provided search terms
@@ -2304,7 +2097,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = AllocationType.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @allocation_types.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2362,21 +2155,17 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-
-      count = Bank.count(:all)
-
+      count = @show_bank.size
     end
 
     # User provided search terms
     if(query != "%%")
-
       @show_bank = Bank.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-
-      count = Bank.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @show_bank.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2432,7 +2221,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and entity_type=? and banked=?", params[:entity_id], params[:entity_type], false], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = @transaction.size
     end
 
     # User provided search terms
@@ -2443,7 +2232,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = @transaction.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2499,7 +2288,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = @transaction.size
     end
 
     # User provided search terms
@@ -2510,7 +2299,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = @transaction.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2567,7 +2356,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = TempTransactionAllocationGrid.count(:all, :conditions => ["login_account_id=?",  @current_user])
+      count = @temp_transaction_allocation_grid.size
     end
 
     # User provided search terms
@@ -2577,7 +2366,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id=?", query, @current_user])
-      count = TempTransactionAllocationGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id=?", query, @current_user])
+      count = @temp_transaction_allocation_grid.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2634,7 +2423,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?",  params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
+      count = @transaction_allocations.size
     end
 
     # User provided search terms
@@ -2645,7 +2434,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
         :include => ["campaign", "receipt_account", "source"])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
+      count = @transaction_allocations.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2771,7 +2560,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type","transaction_allocations"]
       )
-      count = TransactionHeader.count(:all, :conditions => [conditions.join(' AND '), *values], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type","transaction_allocations"])
+      count = @transaction.size
     end
 
     # User provided search terms
@@ -2782,7 +2571,7 @@ class GridsController < ApplicationController
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
         :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values], :include => ["bank_account", "receipt_meta_meta_type", "receipt_meta_type"])
+      count = @transaction.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2840,7 +2629,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start
       )
-      count = MessageTemplate.count(:all)
+      count = @message_templates.size
     end
 
     # User provided search terms
@@ -2850,7 +2639,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = MessageTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = @message_templates.size
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2899,40 +2688,32 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-
-      
-      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
-    
+      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"    
       @email_maintenance = BulkEmail.find(:all,
         :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]],
         #:conditions => ["created_at >= ? and created_at <= ?", params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
-      )
-      
-      count = BulkEmail.count(:all, :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
-     
+      )      
+      count = @email_maintenance.size     
     end
 
     # User provided search terms
     if(query != "%%")
-
       query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
       @email_maintenance = BulkEmail.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
-
-      count = BulkEmail.count(:all, :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+      count = @email_maintenance.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @email_maintenance.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.to,
@@ -2982,13 +2763,13 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @notes= Note.find(:all,
+      @notes = Note.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]]
       )
-      count = Note.count(:all, :conditions=>["noteable_id = ? and noteable_type= ?", params[:entity_id],params[:type]])
+      count = @notes.size
     end
 
     # User provided search terms
@@ -2998,14 +2779,13 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
-      count = Country.count(:all, :conditions=>[qtype +" ilike ? and noteable_id = ? and noteable_type= ?", query,params[:entity_id],params[:type]])
+      count = @notes.size
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @notes.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.label,
@@ -3047,14 +2827,13 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-
       @people = ShowListGrid.find(:all,
         :conditions => ["login_account_id = ? and field_6 = ?", session[:user], true],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = ShowListGrid.count(:all, :conditions => ["login_account_id = ? and field_6 = ?", session[:user], true])
+      count = @people.size
     end
 
     # User provided search terms
@@ -3065,8 +2844,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND login_account_id = ? and field_6 = ?", query, session[:user], true])
-      count = ShowListGrid.count(:all,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ? and field_6 = ?", query, session[:user], true])
+      count = @people.size
     end
 
     # Construct a hash from the ActiveRecord result

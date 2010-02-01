@@ -2,7 +2,7 @@ class TagMetaType < ActiveRecord::Base
 
   OPTIONS = ['SystemPermission', 'MasterDoc', 'Group', 'Fee', 'Table', 'Contact']
 
-  has_many :tag_types, :order => "name asc"
+  has_many :tag_types
   
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => [:type], :case_sensitive => false
