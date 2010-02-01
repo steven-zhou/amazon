@@ -2695,3 +2695,5 @@ input.error_flag{
     margin-left:19px;
     padding-top:8px;
 }
+
+#search_suggestion{width: 203px; background-color: white; left: 4px; min-height: 10px; top: -5px; text-align: left; position: relative; display: none;}

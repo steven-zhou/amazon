@@ -5,7 +5,6 @@ class CommunicationController < ApplicationController
     @list_headers = @current_user.all_person_lists
     @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
-    puts"----DEBUG--#{@message_templates.to_yaml}--"
   end
 
 
@@ -76,7 +75,7 @@ class CommunicationController < ApplicationController
   def send_email
 
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.find(:all)
+    @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
 
     subject = params[:email][:subject]

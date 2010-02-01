@@ -12,10 +12,7 @@
     </style>
 
 
-    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword"%>
-<%#= jqgrid_stylesheets %>
-<%#= jqgrid_javascripts %>
-
+    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword", :cache => "common"%>
 
     <%= yield_authenticity_token %>
     <script type="text/javascript" src="http://www.google.com/jsapi"></script>
@@ -23,8 +20,6 @@
       google.load("jquery","1.3.2");
       google.load("jqueryui","1.7.1");
     </script>
-
-
 						
 						
     <%= javascript_include_tag  "flexigrid.js",
@@ -34,8 +29,8 @@
       "jquery.form.js",
       "jquery.validationEngine.js",
       "nicEdit.js",
-      "jquery.jpassword.js"
-
+      "jquery.jpassword.js",
+      :cache => "common"
   %>
 
 
