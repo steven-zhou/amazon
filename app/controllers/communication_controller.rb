@@ -5,7 +5,6 @@ class CommunicationController < ApplicationController
     @list_headers = @current_user.all_person_lists
     @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
-    puts"----DEBUG--#{@message_templates.to_yaml}--"
   end
 
 
@@ -63,7 +62,7 @@ class CommunicationController < ApplicationController
     end
   end
 
- def retrive_message_template
+ def retrieve_message_template
     @message_template = MessageTemplate.find(params[:id])
     @message_template.to_be_removed = false
     @message_template.save
@@ -76,7 +75,7 @@ class CommunicationController < ApplicationController
   def send_email
 
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.find(:all)
+    @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
 
     subject = params[:email][:subject]

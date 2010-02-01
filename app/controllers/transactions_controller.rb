@@ -3,10 +3,10 @@ class TransactionsController < ApplicationController
 
   def personal_transaction
     session[:module] = "receipting"
-    @group_types = LoginAccount.find(session[:user]).group_types
+    @group_types = @current_user.group_types
     @list_headers = @current_user.all_person_lists
     @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
-    @p = @list_header.entity_on_list
+    @p = @list_header.entity_on_list.uniq
     @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
     session[:entity_type] = "Person"
     session[:entity_id] = @person.id
@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
     # @o = Organisation.find(:all, :order => "id")
     @list_headers = @current_user.all_organisation_lists
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
-    @o = @list_header.entity_on_list
+    @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find(session[:current_organisation_id]) rescue @organisation = @o[0]
     session[:entity_type] = "Organisation"
     session[:entity_id] = @organisation.id
@@ -87,11 +87,11 @@ class TransactionsController < ApplicationController
       c1 = Array.new
 
       #find all people in the lis
-      c1 = @list_header.entity_on_list
+      c1 = @list_header.entity_on_list.uniq
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
         #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
-        @person = @list_header.entity_on_list.first
+        @person = c1.first
       else
         #if you type the right id of people which is valid in the list
         @person
@@ -103,14 +103,14 @@ class TransactionsController < ApplicationController
       session[:current_list_id] = @list_header.id
 
       @p = Array.new
-      @p = @list_header.entity_on_list
+      @p = @list_header.entity_on_list.uniq
       @list_headers = @current_user.all_person_lists
     else
       #request.get
       
       @list_headers = @current_user.all_person_lists
       @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
-      @p = @list_header.entity_on_list
+      @p = @list_header.entity_on_list.uniq
 
       @current_person = Person.find(session[:current_person_id]) rescue @current_person = @p[0]
       @person = case params[:target]
@@ -145,12 +145,12 @@ class TransactionsController < ApplicationController
       params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
       c1 = Array.new
       #find all people in the lis
-      c1 = @list_header.entity_on_list
+      c1 = @list_header.entity_on_list.uniq
     
       @organisation = Organisation.find(params[:id].to_i)
       unless c1.include?(@organisation)
         #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
-        @organisation = @list_header.entity_on_list.first
+        @organisation = c1.first
       else
         #if you type the right id of people which is valid in the list
         @organisation
@@ -161,7 +161,7 @@ class TransactionsController < ApplicationController
       session[:current_organisation_id] = @organisation.id
       session[:current_org_list_id] = @list_header.id
       @o = Array.new
-      @o = @list_header.entity_on_list
+      @o = @list_header.entity_on_list.uniq
       @list_headers = @current_user.all_organisation_lists
       
     else
@@ -193,11 +193,11 @@ class TransactionsController < ApplicationController
   end
 
   def enquiry
-    @bank_accounts = BankAccount.find(:all, :order => "id asc")
+    @bank_accounts = ClientBankAccount.active_client_bank_account
     @receipt_meta_types = ReceiptMetaMetaType.active_receipt_meta_meta_type
-    @receipt_types = ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status = true and to_be_removed = false", ReceiptMetaMetaType.first.id])
+    @receipt_types = ReceiptMetaType.find(:all, :conditions => ["tag_meta_type_id = ? AND status = true and to_be_removed = false", @receipt_meta_types.first.id])
     @receipt_via =ReceivedVia.active_received_via
-    @receipt_accounts=ReceiptAccount.all
+    @receipt_accounts=ReceiptAccount.active
     respond_to do |format|
       format.html
     end
