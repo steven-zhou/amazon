@@ -44,7 +44,7 @@ class AdministrationsController < ApplicationController
   end
 
   def master_docs
-    @tag_meta_types = MasterDocMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = MasterDocMetaMetaType.all
     @category = "MasterDoc"
     respond_to do |format|
       format.html
@@ -52,7 +52,7 @@ class AdministrationsController < ApplicationController
   end
 
   def role_conditions
-    @tag_meta_types = MasterDocMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = MasterDocMetaMetaType.all
     @category = "MasterDoc"
     respond_to do |format|
       format.html
@@ -60,7 +60,7 @@ class AdministrationsController < ApplicationController
   end
 
   def access_permissions
-    @tag_meta_types = SystemPermissionMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = SystemPermissionMetaMetaType.all
     @category = "SystemPermission"
     respond_to do |format|
       format.html
@@ -75,7 +75,7 @@ class AdministrationsController < ApplicationController
   end
 
   def contact_types
-    @tag_meta_types = ContactMetaMetaType.find(:all, :order => "name asc")
+    @tag_meta_types = ContactMetaMetaType.all
     @category = "Contact"
     respond_to do |format|
       format.html

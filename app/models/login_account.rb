@@ -141,7 +141,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if (list.class.to_s == "PersonListHeader" || list.class.to_s == "PrimaryList")
+      custom_lists << list if (list.person_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -151,7 +151,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if ((list.class.to_s == "PersonListHeader" || list.class.to_s == "PrimaryList") && list.status == true)
+      custom_lists << list if (list.person_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -161,7 +161,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if (list.class.to_s == "OrganisationListHeader"|| list.class.to_s == "OrganisationPrimaryList")
+      custom_lists << list if (list.organisation_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -171,7 +171,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if ((list.class.to_s == "OrganisationListHeader"|| list.class.to_s == "OrganisationPrimaryList") && list.status == true)
+      custom_lists << list if (list.organisation_list? && list.status == true)
     end
     custom_lists.uniq
   end
