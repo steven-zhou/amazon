@@ -56,7 +56,7 @@
             = p.text_field :registered_date, :class=>"datepick", :style => "width:82% !important"
           .field_30
             = p.label :registered_country_id, 'Country of Incorporation'
-            = p.collection_select :registered_country_id, Country.all, :id, :short_name, {:include_blank => true}
+            = p.collection_select :registered_country_id, @countries, :id, :short_name, {:include_blank => true}
           .field_30
             = p.label :organisation_type_id, 'Organisation Type'
             = p.collection_select :organisation_type_id, OrganisationType.active_organisation_type, :id, :name, {:include_blank => true}
@@ -197,7 +197,7 @@
               = address.text_field :postal_code
             .field_30
               = address.label :country, 'Country'
-              = address.collection_select :country_id, Country.all, :id, :short_name, {:include_blank => true}
+              = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true}
           %p.submit
             = link_to_function 'Clear', :class => "clear_find_form alt_option", :style=>"float:right",:field => "right_find_by_address"
             = submit_tag 'Find'

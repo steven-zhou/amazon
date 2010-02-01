@@ -2,7 +2,7 @@
 .form_line
   .field_25
     = website.label :contact_meta_type_id, 'Type'
-    = website.collection_select :contact_meta_type_id, Contact.website_types, :id, :name
+    = website.collection_select :contact_meta_type_id, @website_types, :id, :name
   .field_70
     = website.label :value, "Website"
-    = website.text_field :value ,:readonly => Contact.website_types.blank? ? true :false
+    = website.text_field :value ,:readonly => @website_types.blank? ? true :false

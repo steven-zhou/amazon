@@ -10,21 +10,31 @@ class PeopleController < ApplicationController
     @person = Person.new
     @person.addresses.build
     @person.phones.build
-    @person.faxes.build
+    #@person.faxes.build
     @person.emails.build
     @person.websites.build
     @person.instant_messagings.build
     @image = Image.new
     #@postcodes = Postcode.find(:all)
     @personal_check_field = Array.new
+    @active_title = Title.active_title
+    @countries = Country.all
+    @active_address_types = AddressType.active_address_type
+    @Languages = Language.active_language
+
+    @phone_types = Contact.phone_types
+    @email_types = Contact.email_types
+    @website_types = Contact.website_types
+
     
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    
     unless @duplication_formula_appiled.status == false
-      @duplication_formula_appiled.duplication_formula_details.each do |i|
+      @duplication_formula_details =@duplication_formula_appiled.duplication_formula_details
+      @duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
       end
     end
-
 
     respond_to do |format|
       format.html
@@ -33,14 +43,10 @@ class PeopleController < ApplicationController
   
   def show
    
-    @group_types = @current_user.group_types
+    #@group_types = @current_user.group_types
     @list_headers = @current_user.all_person_lists
-
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-
-
-
     #when it is cal show action
     if request.get?
       if @list_headers.blank?
@@ -80,13 +86,13 @@ class PeopleController < ApplicationController
       c1 = @list_header.entity_on_list
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
-        @person = @list_header.entity_on_list.first
+        @person = c1.first
       else
         @person
       end
 
       @p = Array.new
-      @p = @list_header.entity_on_list.uniq
+      @p = c1.uniq
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -115,10 +121,12 @@ class PeopleController < ApplicationController
   end
 
   def edit
-    @group_types = LoginAccount.find(session[:user]).group_types
+    # @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_person_lists
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
+    
+   
 
     if request.get?
       if @list_headers.blank?
@@ -170,6 +178,10 @@ class PeopleController < ApplicationController
     end
 
     #    @person = Person.new(:id => "") unless !@person.nil?
+    @active_address = AddressType.active_address_type
+    @active_title = Title.active_title
+    @countries = Country.all
+    @Languages = Language.active_language
     @address = Address.new
     @phone = Phone.new
     @email = Email.new
@@ -242,8 +254,8 @@ class PeopleController < ApplicationController
 
       flash[:message] = "There Was an Error to Create a New User"
       #      redirect_to new_person_path
-#      render :action => "new"
-     redirect_to new_person_path
+      #      render :action => "new"
+      redirect_to new_person_path
     end
   end
 
@@ -357,6 +369,9 @@ class PeopleController < ApplicationController
   
   def find
     @person = Person.new
+    @active_title = Title.active_title
+    @countries = Country.all
+    @Languages = Language.active_language
   end
   
   def name_card
@@ -647,7 +662,7 @@ class PeopleController < ApplicationController
   end
 
 
-   def general_show_list
+  def general_show_list
 
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])

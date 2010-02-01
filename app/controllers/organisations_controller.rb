@@ -13,8 +13,12 @@ class OrganisationsController < ApplicationController
     @organisation.instant_messagings.build
     @image = Image.new
     @client_setup = ClientSetup.first
-    #@postcodes = Postcode.find(:all)
     @check_field = Array.new
+    @active_address_types = AddressType.active_address_type
+    @countries = Country.all
+    @phone_types = Contact.phone_types
+    @email_types = Contact.email_types
+    @website_types = Contact.website_types
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
@@ -240,6 +244,7 @@ class OrganisationsController < ApplicationController
 
   def find
     @organisation = Organisation.new
+    @countries = Country.all
   end
 
   def search
