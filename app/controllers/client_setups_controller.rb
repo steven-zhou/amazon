@@ -170,7 +170,7 @@ class ClientSetupsController < ApplicationController
 
 
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     SystemLogSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -204,7 +204,7 @@ class ClientSetupsController < ApplicationController
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     status = 'Live'
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -238,7 +238,7 @@ class ClientSetupsController < ApplicationController
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     status = 'Live'
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end

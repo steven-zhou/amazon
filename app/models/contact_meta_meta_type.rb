@@ -11,7 +11,7 @@ class ContactMetaMetaType < TagMetaType
   named_scope :phone, :conditions => {:name => "Phone", :status => true, :to_be_removed => false}
   named_scope :website, :conditions => {:name => "Website", :status => true, :to_be_removed => false}
   named_scope :im, :conditions => {:name => "IM", :status => true, :to_be_removed => false}
-  
+  default_scope :order => "name asc"
 
   after_create :assign_priority
   before_destroy :reorder_priority

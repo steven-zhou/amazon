@@ -3,7 +3,7 @@ class UserListsController < ApplicationController
 
   def edit
     @login_account = SystemUser.find(params[:data_id])
-    @list_headers = ListHeader.find :all
+    @list_headers = ListHeader.all
     @user_list = UserList.new
     @user_lists = @login_account.user_lists
     respond_to do |format|
@@ -30,7 +30,7 @@ class UserListsController < ApplicationController
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "list_header_id")if(!@user_list.errors[:list_header_id].nil? && @user_list.errors.on(:list_header_id).include?("has already been taken"))
     end
     @login_account = SystemUser.find(params[:user_list][:user_id])
-     @login_accounts = SystemUser.find(:all)
+     @login_accounts = SystemUser.all
     @select_login_account_id = @login_account.id
     respond_to do |format|
       format.js
@@ -41,7 +41,7 @@ class UserListsController < ApplicationController
     @user_list = UserList.find(params[:id])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted User List #{@user_list.id}.")
     @user_list.destroy
-    @login_accounts = SystemUser.find(:all)
+    @login_accounts = SystemUser.all
     @select_login_account_id = @user_list.user_id
     respond_to do |format|
       format.js

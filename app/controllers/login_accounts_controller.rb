@@ -75,7 +75,7 @@ class LoginAccountsController < ApplicationController
         flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
       end
     end
-    @login_accounts = SystemUser.find(:all)
+    @login_accounts = SystemUser.all
     respond_to  do |format|
       format.js
     end
@@ -110,7 +110,7 @@ class LoginAccountsController < ApplicationController
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("has already been taken"))
       flash.now[:error] = flash_message(:type => "format error", :field => "security_email")if(!@login_account.errors[:security_email].nil? && @login_account.errors.on(:security_email).include?("Invalid email"))
     end
-    @login_accounts = SystemUser.find(:all)
+    @login_accounts = SystemUser.all
     render "update.js"
   end
 
