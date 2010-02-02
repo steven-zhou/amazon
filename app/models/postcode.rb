@@ -13,4 +13,8 @@ class Postcode < ActiveRecord::Base
   #Default scope
   default_scope :order => "postcode ASC"
 
+  def self.search_post_code(suburb, state, postcode)
+    @post_code = Postcode.find(:all, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND postcode LIKE ?", "%#{suburb}%", "%#{state}%", "%#{postcode}%"])
+  end
+
 end

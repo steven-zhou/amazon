@@ -2697,3 +2697,11 @@ input.error_flag{
 }
 
 #search_suggestion{width: 203px; background-color: white; left: 4px; min-height: 10px; top: -5px; text-align: left; position: relative; display: none;}
+
+
+/*for new tab style*/
+.tab_ui{
+
+    margin-right:15px;
+    float:left;
+}

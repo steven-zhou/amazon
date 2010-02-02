@@ -2424,10 +2424,12 @@ $(function(){
 
 $(function(){
     $(".page_initial").live('mousedown', function(){
+      
+     
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",
-            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
+            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1"),
             dataType: "script"
         });
     });

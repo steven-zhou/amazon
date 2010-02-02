@@ -31,7 +31,7 @@ class ListHeadersController < ApplicationController
           exclude_lists << i.list_header.name
         end
         @list_header.source = "Compile from List - Include(#{include_lists.join(', ')})"
-        @list_header.source += " And Exclude(#{exclude_lists.join(', ')})" unless @exclude_lists.empty?
+        @list_header.source << " And Exclude(#{exclude_lists.join(', ')})" unless @exclude_lists.empty?
         @list_header.status = true
 
         ListHeader.transaction do
