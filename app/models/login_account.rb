@@ -9,12 +9,14 @@ class LoginAccount < ActiveRecord::Base
   has_many :group_types, :through => :user_groups, :uniq => true
   has_many :dashboard_preferences
   has_many :quick_launch_icons, :order => "sequence"
+  has_many :to_do_lists
   belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
   belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
   validates_presence_of  :user_name
   validates_presence_of  :password, :if => :loginaccount_update?
+
 
 
 #if update no need to check the presence of password
@@ -235,5 +237,7 @@ class LoginAccount < ActiveRecord::Base
   def all_temp_allocation
     TempTransactionAllocationGrid.find_all_by_login_account_id(self.id)
   end
+
+  
 
 end

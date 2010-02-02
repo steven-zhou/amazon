@@ -3,7 +3,7 @@
   .form_line{:style => "float:none;"}
     .field_25
       = a.label :address_type_id, "<span class='asterisk'>*</span>Type"
-      = a.collection_select :address_type_id, AddressType.active_address_type - @person.personal_address_types, :id, :name
+      = a.collection_select :address_type_id, @active_address - @person.personal_address_types, :id, :name
     .field_40
       = a.label :building_name, 'Building Name'
       = a.text_field :building_name
@@ -34,5 +34,5 @@
       = a.text_field :postal_code, :id => "address_postal_code" 
     .field_45
       = a.label :country, 'Country'
-      = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id =>"address_country_id"}
+      = a.collection_select :country_id, @countries,:id, :short_name , {:include_blank => true}, {:id =>"address_country_id"}
   = submit_tag 'Submit',:id => "address_submit_button" ,:check_field => "address_street_name",:disabled=>true

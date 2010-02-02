@@ -1,7 +1,7 @@
 .form_line
   .field_20
     = p.label :title_id, '1st Title'
-    = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
+    = p.collection_select :primary_title_id, @active_title, :id, :name, {:include_blank => true}, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
   .field_40
     = p.label :first_name, "First Names"
     = p.text_field :first_name, :class=> @personal_check_field.include?('first_name') ? 'personal_check_field' : ''
@@ -11,7 +11,7 @@
 .form_line
   .field_20
     = p.label :second_title_id, '2nd Title'
-    = p.collection_select :second_title_id, Title.active_title, :id, :name, {:include_blank => true},{:class=>@personal_check_field.include?("second_title") ? "personal_check_field":""}
+    = p.collection_select :second_title_id, @active_title, :id, :name, {:include_blank => true},{:class=>@personal_check_field.include?("second_title") ? "personal_check_field":""}
   .field_40
     = p.label :middle_name, 'Middle Names'
     = p.text_field :middle_name, :class=>@personal_check_field.include?(":middle_name") ? "personal_check_field":""

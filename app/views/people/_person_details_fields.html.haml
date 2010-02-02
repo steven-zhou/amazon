@@ -20,23 +20,23 @@
 .form_line
   .field_31
     = p.label :origin_country_id,'Country of Origin'
-    = p.collection_select :origin_country_id, Country.all, :id, :short_name, {:include_blank => true}, {:class=>@personal_check_field.include?("origin_country")?"personal_check_field":""}
+    = p.collection_select :origin_country_id, @countries, :id, :short_name, {:include_blank => true}, {:class=>@personal_check_field.include?("origin_country")?"personal_check_field":""}
   .field_31
     = p.label :nationality_id, 'Nationality'
-    = p.collection_select :nationality_id, Country.all, :id, :citizenship, {:include_blank => true}, {:class=>@personal_check_field.include?("nationality")?"personal_check_field":""}
+    = p.collection_select :nationality_id, @countries, :id, :citizenship, {:include_blank => true}, {:class=>@personal_check_field.include?("nationality")?"personal_check_field":""}
   .field_31
     = p.label :language_id, 'Language'
-    = p.collection_select :language_id, Language.active_language, :id, :name, {:include_blank => true}, {:class=>@personal_check_field.include?("language")?"personal_check_field":""}
+    = p.collection_select :language_id, @Languages, :id, :name, {:include_blank => true}, {:class=>@personal_check_field.include?("language")?"personal_check_field":""}
 .form_line
   .field_31
     = p.label :residence_country_id,"Country of Residence"
-    = p.collection_select :residence_country_id, Country.all, :id, :short_name, {:include_blank => true}, {:class=>@personal_check_field.include?("residence_country")?"personal_check_field":""}
+    = p.collection_select :residence_country_id, @countries, :id, :short_name, {:include_blank => true}, {:class=>@personal_check_field.include?("residence_country")?"personal_check_field":""}
   .field_31
     = p.label :other_nationality_id,"Other Nationality"
-    = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}, {:class=>@personal_check_field.include?("other_nationality")?"personal_check_field":""}
+    = p.collection_select :other_nationality_id, @countries, :id, :citizenship, {:include_blank => true}, {:class=>@personal_check_field.include?("other_nationality")?"personal_check_field":""}
   .field_31
     = p.label :other_language,"Other Language"
-    = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}, {:class=>@personal_check_field.include?("other_language")?"personal_check_field":""}
+    = p.collection_select :other_language_id, @Languages, :id, :name, {:include_blank => true}, {:class=>@personal_check_field.include?("other_language")?"personal_check_field":""}
 .form_line
   .field_31
     = p.label :industry_sector,"Industry Sector"

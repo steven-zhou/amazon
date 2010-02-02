@@ -3,16 +3,16 @@ class DashboardsController < ApplicationController
   # Optimized
   
   def index
-    @column1 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "1"], :order => "id")
-    @column2 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "2"], :order => "id")
-    @column3 = DashboardPreference.find(:all, :conditions => ["login_account_id = ? and column_id = ?", session[:user], "3"], :order => "id")
+    @column1 = DashboardPreference.user_column(session[:user], 1)
+    @column2 = DashboardPreference.user_column(session[:user], 2)
+    @column3 = DashboardPreference.user_column(session[:user], 3)
     @superadmin_message = ClientSetup.first.superadmin_message
     @system_news = SystemNews.new
     @current_news = SystemNews.first_three
     @to_do_list = ToDoList.new
-    @to_do_lists = ToDoList.find_all_by_login_account_id(session[:user])
-    @current_user.update_password = false if @current_user.class.to_s == "SystemUser"
+    @to_do_lists = @current_user.to_do_lists
     if @current_user.class.to_s == "SystemUser"
+      @current_user.update_password = false
       @current_user.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 99999 : ClientSetup.first.number_of_login_attempts
     else
       @current_user.access_attempts_count = 99999
@@ -20,9 +20,10 @@ class DashboardsController < ApplicationController
     @current_user.online_status = true
     @current_user.save
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
-    @new_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "new", session[:user]], :order => "created_at")
-    @processing_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "processing", session[:user]], :order => "created_at")
-    @completed_to_do = ToDoList.find(:all, :conditions => ["status = ? AND login_account_id = ?", "completed", session[:user]], :order => "created_at")
+    @new_to_do = ToDoList.new_to_do(session[:user])
+    @processing_to_do = ToDoList.processing_to_do(session[:user])
+    @completed_to_do = ToDoList.completed_to_do(session[:user])
+
     respond_to do |format|
       format.html
     end
@@ -36,8 +37,6 @@ class DashboardsController < ApplicationController
 
   def update_password
     @login_account = LoginAccount.find(params[:id].to_i)
-
-
     begin
       LoginAccount.authenticate(@current_user.user_name, params[:old_password])
       @login_account.update_password = true
@@ -69,7 +68,7 @@ class DashboardsController < ApplicationController
   end
 
   def save_dashboard
-    @dashboard_preferences = DashboardPreference.find(:all, :conditions => ["login_account_id = ?", session[:user]])
+    @dashboard_preferences = @current_user.to_do_lists
     @dashboard_preferences.each do |i|
       i.destroy
     end

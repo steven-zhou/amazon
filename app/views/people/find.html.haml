@@ -24,7 +24,7 @@
           .form_line
             .field_20
               = p.label :primary_title_id, '1st Title'
-              = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}
+              = p.collection_select :primary_title_id, @active_title, :id, :name, {:include_blank => true}
             .field_40
               = p.label :first_name, "First Names"
               = p.text_field :first_name
@@ -34,7 +34,7 @@
           .form_line
             .field_20
               = p.label :second_title_id, '2nd Title'
-              = p.collection_select :second_title_id, Title.active_title, :id, :name, {:include_blank => true}
+              = p.collection_select :second_title_id, @active_title, :id, :name, {:include_blank => true}
             .field_40
               = p.label :middle_name, 'Middle Names'
               = p.text_field :middle_name
@@ -73,23 +73,23 @@
           .form_line
             .field_30
               = p.label :origin_country_id,'Country of Origin'
-              = p.collection_select :origin_country_id, Country.all, :id, :short_name, {:include_blank => true}
+              = p.collection_select :origin_country_id, @countries, :id, :short_name, {:include_blank => true}
             .field_33
               = p.label :nationality_id, 'Nationality'
-              = p.collection_select :nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+              = p.collection_select :nationality_id, @countries, :id, :citizenship, {:include_blank => true}
             .field_30
               = p.label :language_id, 'Language'
-              = p.collection_select :language_id, Language.active_language, :id, :name, {:include_blank => true}
+              = p.collection_select :language_id, @Languages, :id, :name, {:include_blank => true}
           .form_line
             .field_30
               = p.label :residence_country_id,"Country of Residence"
-              = p.collection_select :residence_country_id, Country.all, :id, :short_name, {:include_blank => true}
+              = p.collection_select :residence_country_id, @countries, :id, :short_name, {:include_blank => true}
             .field_33
               = p.label :other_nationality_id,"Other Nationality"
-              = p.collection_select :other_nationality_id, Country.all, :id, :citizenship, {:include_blank => true}
+              = p.collection_select :other_nationality_id, @countries, :id, :citizenship, {:include_blank => true}
             .field_30
               = p.label :other_language,"Other Language"
-              = p.collection_select :other_language_id, Language.active_language, :id, :name, {:include_blank => true}
+              = p.collection_select :other_language_id, @Languages, :id, :name, {:include_blank => true}
           .form_line
             .field_30
               = p.label :industry_sector,"Industry Sector"
