@@ -2583,7 +2583,7 @@ class GridsController < ApplicationController
           u.receipt_number,
           u.todays_date.to_s,
           u.transaction_date.to_s,
-          u.bank_account_id.nil? ? "" : u.bank_account.account_number,
+          u.bank_account.nil? ? "" : u.bank_account.account_number,
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
           u.notes,
