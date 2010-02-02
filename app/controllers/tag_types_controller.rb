@@ -71,7 +71,7 @@ class TagTypesController < ApplicationController
   def destroy
     @tag_type = TagType.find(params[:id])
     @tag_type.to_be_removed = true
-     @tag_type.save
+    @tag_type.save
     @tag_meta_type = @tag_type.tag_meta_type
     @category = @tag_type.type.to_s.sub(/MetaType/,"")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag Type #{@tag_type.id}.")
@@ -124,8 +124,9 @@ class TagTypesController < ApplicationController
   def create_security_group_meta_type
     @security_group = GroupMetaMetaType.find_security_group
     @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
-    @group_meta_type.update_attributes(params[:group_meta_type])
-    if @group_meta_type.save
+#    @group_meta_type.update_attributes(params[:group_meta_type])
+#    if @group_meta_type.save
+     if @group_meta_type.update_attributes(params[:group_meta_type])
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
@@ -142,22 +143,22 @@ class TagTypesController < ApplicationController
     end
   end
 
-  def create_security_group_meta_type
-    @security_group = GroupMetaMetaType.find_security_group
-    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
-    @group_meta_type.update_attributes(params[:group_meta_type])
-    if @group_meta_type.save
-      flash.now[:message] = "Saved successfully."
-    else
-      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
+#  def create_security_group_meta_type
+#    @security_group = GroupMetaMetaType.find_security_group
+#    @group_meta_type = GroupMetaType.new(:tag_meta_type_id => @security_group.id)
+#    @group_meta_type.update_attributes(params[:group_meta_type])
+#    if @group_meta_type.save
+#      flash.now[:message] = "Saved successfully."
+#    else
+#      flash.now[:warning] = "Name " + @group_meta_type.errors.on(:name)[0] + ", saved unsuccessfully." unless @group_meta_type.errors.on(:name).nil?
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
 
   def query_tables_finder
-    @query_tables = TableMetaMetaType.find(:all)
+    @query_tables = TableMetaMetaType.all
     respond_to do |format|
       format.js
     end
@@ -165,8 +166,9 @@ class TagTypesController < ApplicationController
 
   def create_query_table_meta_meta_type
     @query_table = TableMetaMetaType.new
-    @query_table.update_attributes(params[:table_meta_meta_type])
-    if @query_table.save
+#    @query_table.update_attributes(params[:table_meta_meta_type])
+#    if @query_table.save
+     if @query_table.update_attributes(params[:table_meta_meta_type])
       flash.now[:message] = "Saved successfully."
     else
       flash.now[:warning] = "Name " + @query_table.errors.on(:name)[0] + ", saved unsuccessfully." unless @query_table.errors.on(:name).nil?
@@ -204,11 +206,12 @@ class TagTypesController < ApplicationController
 
   def retrieve
     @tag_type = TagType.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Master Docs ID #{@tag_type.id}.")
+
 
     @tag_type.retrieve_all_children
     @tag_meta_type = @tag_type.tag_meta_type
     @category = @tag_type.type.to_s.sub(/MetaType/,"")
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Master Docs ID #{@tag_type.id}.")
     respond_to do |format|
       format.js
     end

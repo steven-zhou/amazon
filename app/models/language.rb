@@ -7,6 +7,7 @@ class Language < AmazonSetting
 
   after_create :assign_priority
   before_destroy :reorder_priority
+  default_scope :order => 'name'
 
   def self.active_language
     @language = Language.find(:all, :conditions => ["status = true"], :order => 'name')
