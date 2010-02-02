@@ -4,10 +4,10 @@
     = p.collection_select :primary_title_id, Title.active_title, :id, :name, {:include_blank => true}, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
   .field_40
     = p.label :first_name, "First Names"
-    = p.text_field :first_name, :class=>'@personal_check_field.include?("first_name") ? "personal_check_field":""'
+    = p.text_field :first_name, :class=> @personal_check_field.include?('first_name') ? 'personal_check_field' : ''
   .field_35
     = p.label :family_name, "<span class='asterisk'>*</span>Family Name"
-    = p.text_field :family_name, :class=>'@personal_check_field.include?("family_name") ? "personal_check_field":"" mandantory_field', :mandantory_field1=>"person_family_name",:submit_button_id=>@current_action=="new" ? "new_person_submit" : "edit_person_submit"
+    = p.text_field :family_name, :class=> @personal_check_field.include?("family_name") ? "personal_check_field mandantory_field" : "mandantory_field", :mandantory_field1=>"person_family_name",:submit_button_id=>@current_action=="new" ? "new_person_submit" : "edit_person_submit"
 .form_line
   .field_20
     = p.label :second_title_id, '2nd Title'
