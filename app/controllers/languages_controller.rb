@@ -66,7 +66,7 @@ class LanguagesController < ApplicationController
   end
 
   def show_languages
-    @languages = Language.find(:all, :order => 'name')
+    @languages = Language.all
     @update = params[:update]
     respond_to do |format|
       format.js

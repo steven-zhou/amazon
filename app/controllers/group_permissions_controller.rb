@@ -46,10 +46,10 @@ class GroupPermissionsController < ApplicationController
   def destroy
 
     @group_permission = GroupPermission.find(params[:id].to_i)
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Group Permission ID #{@group_permission.id}.")
+
     @group_permission.destroy
     @group_types = GroupType.system_user_groups
-
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Group Permission ID #{@group_permission.id}.")
     respond_to do |format|
       format.js
     end

@@ -25,7 +25,7 @@
       //= submit_tag 'Submit', :style => 'float:right;', :name => 'edit'
       = submit_tag 'Submit',:id => "edit_person_submit", :style => 'float:right;'
 
-  #right_content
+  -#right_content
     #tabs
       = render :partial => 'person_menu'
       #Address
@@ -49,7 +49,27 @@
       #Account
         = render :partial => "/person_bank_accounts/account_tab",:locals =>{:person => @person}
 
+  #right_content
+    .tab_ui
+      #Contact{:style => "float:left;"}
+        = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/contacts/contacts_tab", :field => "contact_page",:params1 => @person.id 
+        = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'), :class=>"tab_switch_with_page_initial", :field => "contact_page"
+      
 
+      #Address{:style => "float:left;margin-left:10px;"}
+        = link_to_function image_tag('/images/Icons/Core/Org/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/addresses/addresses_tab", :field => "address_page",:params1 => @person.id 
+        = link_to_function image_tag('/images/Icons/Core/Org/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "address_page"
+
+      #Keyword{:style => "float:left;margin-left:10px;"}
+        = link_to_function image_tag'Icons/Core/Person/tabs/keywords_BW.png', :class=>"tab_switch_button page_initial hidden", :url => "/transaction_headers/page_initial", :method => "GET", :render_page => "transactions/histroy_tab", :field => "histroy_page"
+        = link_to_function image_tag'Icons/Core/Person/tabs/keywords_BW.png', :class=>"tab_switch_with_page_initial", :field => "histroy_page"
+      
+    #contact_page.tab_switch_container.active
+      -#= render :partial => "/contacts/contacts_tab", :locals => {:person => @person}
+    #address_page.tab_switch_container.active
+      -#= render :partial => "/addresses/addresses_tab",:locals =>{:person => @person}
+      
   %br.clear
+    
 
     

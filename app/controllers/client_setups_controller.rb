@@ -41,7 +41,7 @@ class ClientSetupsController < ApplicationController
   end
 
   def available_modules
-    @available_modules = AvailableModule.find(:all, :order => "name")
+    @available_modules = AvailableModule.all
     respond_to do |format|
       format.html
     end
@@ -62,7 +62,7 @@ class ClientSetupsController < ApplicationController
   end
 
   def feedback_list
-    @feedback = FeedbackItem.find(:all, :order => "created_at DESC")
+    @feedback = FeedbackItem.all
 
     #clear temple table and save result into temple table
     FeedbackSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|

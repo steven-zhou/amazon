@@ -13,7 +13,6 @@ class AmazonSettingsController < ApplicationController
     if @amazonsetting.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Saved successfully."
-
     else
 
       flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
@@ -32,8 +31,9 @@ class AmazonSettingsController < ApplicationController
 
   def update
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
-    @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
-    if @amazonsetting.save
+#    @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
+#    if @amazonsetting.save
+    if @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Updated successfully."
     else
@@ -94,8 +94,9 @@ class AmazonSettingsController < ApplicationController
 
   def update_setting
     @amazon_setting = AmazonSetting.find(params[:id].to_i)
-    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
-    if @amazon_setting.save
+#    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
+#    if @amazon_setting.save
+    if @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
     else
@@ -109,7 +110,7 @@ class AmazonSettingsController < ApplicationController
 
   def delete_system_data_entry
     amazon_setting = AmazonSetting.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
+#    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
     #amazon_setting.destroy
 
     #if 'to_be_removed' is true, then this recored will be physically deleted from database in maintaince prgress

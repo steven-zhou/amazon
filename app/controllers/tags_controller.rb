@@ -75,10 +75,11 @@ class TagsController < ApplicationController
   def destroy
     @tag = Tag.find(params[:id])
     @tag_type = @tag.tag_type
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag #{@tag.id}.")
+
     #    @tag.destroy
     @tag.to_be_removed = true
     @tag.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tag #{@tag.id}.")
     respond_to do |format|
       format.js
     end
@@ -101,8 +102,9 @@ class TagsController < ApplicationController
   def create_security_sub_group
     @security_group = GroupMetaType.find_by_id(params[:id])
     @sub_group = GroupType.new(:tag_type_id => @security_group.id)
-    @sub_group.update_attributes(params[:group_type])
-    if @sub_group.save
+#    @sub_group.update_attributes(params[:group_type])
+#    if @sub_group.save
+    if @sub_group.update_attributes(params[:group_type])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created GroupMetaType #{@sub_group.id}.")
       flash.now[:message] = "Saved successfully."
     else
@@ -120,20 +122,20 @@ class TagsController < ApplicationController
     end
   end
 
-  def create_security_sub_group
-    @security_group = GroupMetaType.find_by_id(params[:id])
-    @sub_group = GroupType.new(:tag_type_id => @security_group.id)
-    @sub_group.update_attributes(params[:group_type])
-    if @sub_group.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created GroupMetaType #{@sub_group.id}.")
-      flash.now[:message] = "Saved successfully."
-    else
-      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
+#  def create_security_sub_group
+#    @security_group = GroupMetaType.find_by_id(params[:id])
+#    @sub_group = GroupType.new(:tag_type_id => @security_group.id)
+#    @sub_group.update_attributes(params[:group_type])
+#    if @sub_group.save
+#      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created GroupMetaType #{@sub_group.id}.")
+#      flash.now[:message] = "Saved successfully."
+#    else
+#      flash.now[:warning] = "Name " + @sub_group.errors.on(:name)[0] + ", saved unsuccessfully." unless @sub_group.on(:name).nil?
+#    end
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
 
   def query_table_attributes_finder
     @query_table = TableMetaMetaType.find_by_id(params[:id])
@@ -145,8 +147,9 @@ class TagsController < ApplicationController
   def create_query_table_atttribute
     @query_table = TableMetaMetaType.find_by_id(params[:id])
     @table_attribute = TableMetaType.new(:tag_meta_type_id => @query_table.id)
-    @table_attribute.update_attributes(params[:table_meta_type])
-    if @table_attribute.save
+#    @table_attribute.update_attributes(params[:table_meta_type])
+#    if @table_attribute.save
+     if @table_attribute.update_attributes(params[:table_meta_type])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Query Table attribute #{@table_attribute.id}.")
       flash.now[:message] = "Saved successfully."
     else
@@ -160,9 +163,10 @@ class TagsController < ApplicationController
 
   def delete_custom_group
     custom_group = GroupType.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Custom Group #{custom_group.id}.")
+  
     custom_group.destroy
     @group = GroupMetaType.find(params[:custom_group_type_id])
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Custom Group #{custom_group.id}.")
     respond_to do |format|
       format.js
     end
@@ -171,10 +175,11 @@ class TagsController < ApplicationController
 
    def retrieve
     @tag = Tag.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Master Docs ID #{@tag.id}.")
+
     @tag_type = @tag.tag_type
     @tag.to_be_removed = false
     @tag.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Master Docs ID #{@tag.id}.")
     respond_to do |format|
       format.js
     end

@@ -2,7 +2,7 @@ class BanksController < ApplicationController
 
 
   def list
-    @banks = Bank.find(:all, :order => "id ASC")
+    @banks = Bank.all
 
   end
 
@@ -20,7 +20,7 @@ class BanksController < ApplicationController
   end
 
   def refresh_existing_banks
-    @banks = Bank.find(:all, :order => "id ASC")
+    @banks = Bank.all
     respond_to do |format|
       format.js
     end
