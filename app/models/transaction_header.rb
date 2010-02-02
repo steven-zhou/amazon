@@ -5,7 +5,8 @@ class TransactionHeader < ActiveRecord::Base
   belongs_to :receipt_meta_type, :class_name => "ReceiptMetaType", :foreign_key => "receipt_type_id"
   belongs_to :bank_account
   belongs_to :received_via
-  #belongs_to :bank_run
+
+  belongs_to :bank_run
    
   has_many :transaction_allocations, :dependent => :destroy
   has_one :transaction_type_detail, :dependent => :destroy

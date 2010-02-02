@@ -545,13 +545,18 @@ class PeopleController < ApplicationController
       @personal_duplication_formula.duplication_formula_details.each do |i|
 
         if(i.is_foreign_key==true)
-          if (i.field_name =="primary_title" || i.field_name =="secondary_title" ) # judge is primar_title or secondary_title. If yes , search the name from Title Table
-            duplication_value+=Title.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter]
+          if (i.field_name == "primary_title" || i.field_name == "secondary_title" ) # judge is primar_title or secondary_title. If yes , search the name from Title Table
+            title = Title.find(params[(i.field_name).to_sym]) rescue title = nil
+            unless title.nil?
+              duplication_value << title.name[0,i.number_of_charecter]
+            end
           else
-            duplication_value+=params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter] # Put params string to object to find the name
+            unless params[i.field_name.to_sym].blank? && params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).nil?
+              duplication_value << params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter] # Put params string to object to find the name
+            end
           end
         else
-          duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
+          duplication_value << params[i.field_name.to_sym][0,i.number_of_charecter]
         end
       end
       if(params[:id]!="")

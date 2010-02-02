@@ -75,7 +75,7 @@ class CountriesController < ApplicationController
   end
 
   def select_renew
-    @country = Country.find(:all,:order => 'short_name')
+    @country = Country.all
     @update_field = params[:param1]
     if params[:param1].to_s == "electoral_area"
       @previous_country = session[:ele_country_id]

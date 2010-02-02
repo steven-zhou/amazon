@@ -87,8 +87,9 @@ class TagMetaTypesController < ApplicationController
 
   def create_access_permissions_meta_meta_type
     @access_permission = SystemPermissionMetaMetaType.new
-    @access_permission.update_attributes(params[:system_permission_meta_meta_type])
-    if @access_permission.save
+#    @access_permission.update_attributes(params[:system_permission_meta_meta_type])
+#    if @access_permission.save
+    if @access_permission.update_attributes(params[:system_permission_meta_meta_type])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created SystemPermission #{@access_permission.id}.")
       flash.now[:message] = "Saved successfully."
     else
