@@ -711,12 +711,10 @@ ActiveRecord::Schema.define(:version => 20100129030350) do
   end
 
   create_table "potential_members", :force => true do |t|
-    t.string   "first_name"
-    t.string   "family_name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "validation_key"
+    t.string "first_name"
+    t.string "family_name"
+    t.string "email"
+    t.string "validation_key"
   end
 
   create_table "query_criterias", :force => true do |t|

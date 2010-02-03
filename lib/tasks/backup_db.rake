@@ -10,13 +10,13 @@ namespace :db do
     base_path = ENV["DIR"] || "db"
     backup_base = File.join(base_path, 'backup')
     backup_folder = File.join(backup_base, datestamp)
-    backup_file = File.join(backup_folder, "#{RAILS_ENV}_dump.sql.gz")
     File.makedirs(backup_folder)
     db_config = ActiveRecord::Base.configurations[RAILS_ENV]
-    sh "pg_dump #{db_config['database']} | gzip -c > #{backup_file}"
+    sh "pg_dump -U rails -O --format=t -f #{RAILS_ENV}_dump.tar #{db_config['database']}"
+    sh "mv #{RAILS_ENV}_dump.tar #{backup_folder}/#{RAILS_ENV}_dump.tar"
     dir = Dir.new(backup_base)
     all_backups = (dir.entries - [".", ".."]).sort.reverse
-    puts "Created backup: #{backup_file}"
+    puts "Created backup: #{backup_folder}/#{RAILS_ENV}_dump.tar"
     max_backups = (ENV["MAX"] || 20).to_i
     unwanted_backups = all_backups[max_backups..-1] || []
     for unwanted_backup in unwanted_backups
@@ -24,6 +24,22 @@ namespace :db do
       puts "deleted #{unwanted_backup}"
     end
     puts "Deleted #{unwanted_backups.length} backups,
-#{all_backups.length - unwanted_backups.length} backups available"
+      #{all_backups.length - unwanted_backups.length} backups available"
+  end
+end
+
+namespace :db do
+  desc 'Restore the database from a file. Options: DIR=source_dir RAILS_ENV=production'
+  environment = RAILS_ENV
+  task :restore => [:environment] do
+    RAILS_ENV = environment
+    puts "Restore environment is #{RAILS_ENV}"
+    datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+    source_path = ENV["DIR"] || "db/backup"
+    source_file = File.join(source_path, "#{RAILS_ENV}_dump.tar")
+    db_config = ActiveRecord::Base.configurations[RAILS_ENV]
+    sh "pg_restore -U rails -O -c -d #{db_config['database']} #{source_file}"
+
+    puts "Restored database from a backup file: #{source_file}"
   end
 end
