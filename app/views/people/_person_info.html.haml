@@ -103,11 +103,20 @@
         =render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
 .tab_ui
-  #Contact{:style => "float:left;",:title=> 'Contact', :class => @current_action == "show" ? "person_edit_tab" : "person_edit_tab active", :field => "contact"}
-    = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/people/person_details", :field => "contacts_page",:params1 => @person.id
-    = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'), :class=>"tab_switch_with_page_initial", :field => "contacts_page"
+  #Address{:style => "float:left;margin-left:10px;", :title=> 'Address', :class => "person_edit_tab", :field => "address"}
+    = link_to_function image_tag('/images/Icons/Core/Org/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/people/person_address", :field => "addresses_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('/images/Icons/Core/Org/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "addresses_page"
+  #Contact{:style => "float:left;margin-left:10px;", :title=> 'Contact', :class => "person_edit_tab", :field => "contact"}
+    = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_BW.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/people/person_contact", :field => "contacts_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_BW.png'), :class=>"tab_switch_with_page_initial", :field => "contacts_page"
+
+
+
+
+#addresses_page.tab_switch_container.active
+  -#= render :partial => '/people/person_address', :collection => @person.addresses
 
 #contacts_page.tab_switch_container.active
-  =render :partial => '/people/person_details',:locals => {:p => @person}
+  -#=render :partial => '/people/person_details',:locals => {:p => @person}
   
 
