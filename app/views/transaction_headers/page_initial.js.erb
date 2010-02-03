@@ -1,4 +1,6 @@
-$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
+$("#spinner").fadeOut(200,function(){
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>').show();
+});
 $('.startdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
