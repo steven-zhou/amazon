@@ -5,6 +5,12 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
   map.resources :addresses,  :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}, :collection => {:page_initial => :get}
+  map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}, :collection => {:page_initial => :get}
+  map.resources :relationships, :collection => {:page_initial => :get}
+  map.resources :notes, :member => {:note_update => :post}, :collection => {:page_initial => :get}
+  map.resources :person_roles,:collection => {:page_initial => :get}
+  map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get},:collection => {:page_initial => :get}
+
 
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,},
@@ -125,16 +131,16 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
   map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get,:move_organisation_down_website_priority=>:get, :move_organisation_up_website_priority => :get}
   map.resources :instant_messagings, :member => {:move_down_instant_messaging_priority =>:get, :move_up_instant_messaging_priority => :get,:move_organisation_down_instant_messaging_priority=>:get, :move_organisation_up_instant_messaging_priority => :get}
-  map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}
-  map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get}
+  
+ 
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get, :page_initial => :get}
   map.resources :user_lists, :collection => {:show_list_des => :get}
   map.resources :dashboards, :collection => {:check_password => :get, :update_password => :post, :save_dashboard => :get}
   map.resources :system_news, :member => {:switch => :get}, :collection => {:pre_three => :get, :next_three => :get}
   map.resources :to_do_lists, :member => {:switch => :get}
-  map.resources :notes, :member => {:note_update => :post}
+  
 
-  map.resources :keywords , :member => {:retrieve => :get},:collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get}
+  map.resources :keywords , :member => {:retrieve => :get},:collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get}
 
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}

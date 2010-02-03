@@ -2424,11 +2424,8 @@ $(function(){
 
 $(function(){
     $(".page_initial").live('mousedown', function(){
-
-//      $("#"+$(this).attr("render_page")).fadeOut(300).remove();
         $("#"+$(this).attr("field")).hide();
         $("#spinner").fadeIn(100);
-
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",

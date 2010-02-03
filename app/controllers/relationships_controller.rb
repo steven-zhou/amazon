@@ -56,5 +56,16 @@ class RelationshipsController < ApplicationController
       format.js
     end
   end
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @person = Person.find_by_id(params[:params1])
+    @relationship = Relationship.new
+
+    respond_to do |format|
+      format.js
+    end
+  end
   
 end
