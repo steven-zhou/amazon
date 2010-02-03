@@ -107,7 +107,7 @@ class PersonBankAccountsController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @person = Person.find_by_id(params[:params1])
-    @person_group = PersonGroup.new
+    @bank_accounts = PersonBankAccount.new
     respond_to do |format|
       format.js
     end
