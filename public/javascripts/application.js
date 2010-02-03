@@ -2425,13 +2425,14 @@ $(function(){
 $(function(){
     $(".page_initial").live('mousedown', function(){
         $("#"+$(this).attr("field")).hide();
-        $("#spinner").fadeIn(200);
+        $("#spinner").fadeIn(100);
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",
             data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1"),
             dataType: "script"
         });
+
     });
 });
 
