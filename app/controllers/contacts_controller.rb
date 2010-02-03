@@ -5,15 +5,16 @@ class ContactsController < ApplicationController
     @field = params[:field]
     if params[:type]=="Person"
       @person = Person.find_by_id(params[:params1])
+      @type = "Person"
     else
       @organisation = Organisation.find_by_id(params[:params1])
+      @type = "Organisation"
     end
     @phone = Phone.new
     @email = Email.new
     @fax = Fax.new
     @website = Website.new
-    @instant_messaging = InstantMessaging.new
-    
+    @instant_messaging = InstantMessaging.new   
     
     respond_to do |format|
       format.js

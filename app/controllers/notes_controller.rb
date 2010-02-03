@@ -83,12 +83,14 @@ class NotesController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     if params[:type]=="Person"
+      @type = "Person"
       @person = Person.find_by_id(params[:params1])
     else
+      @type = "Organisation"
       @organisation = Organisation.find_by_id(params[:params1])
     end
     @note = Note.new
-    @note.active = TRUE
+    @note.active = true
 
     respond_to do |format|
       format.js

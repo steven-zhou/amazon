@@ -167,8 +167,10 @@ class AddressesController < ApplicationController
     @active_address = AddressType.active_address_type
     @countries = Country.all
      if params[:type]=="Person"
+      @type = "Person"
       @person = Person.find_by_id(params[:params1])
     else
+      @type = "Organisation"
       @organisation = Organisation.find_by_id(params[:params1])
     end
 
