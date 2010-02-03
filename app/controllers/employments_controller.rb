@@ -148,8 +148,12 @@ class EmploymentsController < ApplicationController
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
-    @person = Person.find_by_id(params[:params1])
     @employment = Employment.new
+     if params[:type]=="Person"
+      @person = Person.find_by_id(params[:params1])
+    else
+      @organisation = Organisation.find_by_id(params[:params1])
+    end
 
     respond_to do |format|
       format.js

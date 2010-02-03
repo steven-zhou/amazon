@@ -2424,15 +2424,13 @@ $(function(){
 
 $(function(){
     $(".page_initial").live('mousedown', function(){
-        $("#"+$(this).attr("field")).hide();
-        $("#spinner").fadeIn(100);
+        $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",
-            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1"),
+            data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type"),
             dataType: "script"
         });
-
     });
 });
 

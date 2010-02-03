@@ -10,7 +10,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :notes, :member => {:note_update => :post}, :collection => {:page_initial => :get,:new_note_form =>:get}
   map.resources :person_roles,:collection => {:page_initial => :get}
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get},:collection => {:page_initial => :get}
-
+  map.resources :person_groups,:collection => {:page_initial => :get}
+  map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
 
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,},
