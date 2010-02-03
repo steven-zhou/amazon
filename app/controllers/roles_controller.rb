@@ -74,7 +74,7 @@ class RolesController < ApplicationController
 
   #/-------------this method for Role management when person select Role_type, show roles for them
   def show_roles
-    @roles = Role.find_role_type_by_id(@role_type.id) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
+    @roles = Role.find_role_type_by_id(params[:role_type_id]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
     respond_to do |format|
       format.js

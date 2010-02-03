@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :addresses,  :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}, :collection => {:page_initial => :get}
   map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}, :collection => {:page_initial => :get}
   map.resources :relationships, :collection => {:page_initial => :get}
-  map.resources :notes, :member => {:note_update => :post}, :collection => {:page_initial => :get}
+  map.resources :notes, :member => {:note_update => :post}, :collection => {:page_initial => :get,:new_note_form =>:get}
   map.resources :person_roles,:collection => {:page_initial => :get}
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get},:collection => {:page_initial => :get}
   map.resources :person_groups,:collection => {:page_initial => :get}
