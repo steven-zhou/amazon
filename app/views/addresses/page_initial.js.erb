@@ -1,6 +1,5 @@
-$("#spinner").hide();
 <%-if @type == "Person"%>
-$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:person => @person})) %>').show();
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:person => @person})) %>');
 <%-else%>
-$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:organisation => @organisation})) %>').show();
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:organisation => @organisation})) %>');
 <%-end%>
