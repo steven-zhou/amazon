@@ -1,22 +1,21 @@
 -form_for :report, :url => {:controller => 'reports', :action => "organisation_contacts_report_grid"}, :html => {:class => "ajax_form"} do |tag_type|
-  .full_container
-    .form_line
-      .field_30
-        %div#organisation_report_select_list
-          =tag_type.label :list, 'Select List'
-          %select{:id => "organisation_report_list", :disabled => (@org_lists.blank?), :name => "organisation_list_header_id", :class => "clear_select"}
-            %option{:selected => "selected"}
-            - @org_lists.each do |r|
-              %option{:value => "list_#{r.id}"} List_#{r.name}
-           
-      .field_30
-        %div#organisation_report_format{:style => "display:none;"}
-          =tag_type.label :format, 'Report Format'
-          =tag_type.select(:organisation_requested_format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""}, :class => "clear_select")
-      .field_10{:style => "float:right;"}
-        %label &nbsp;
-        = submit_tag "Generate", :style => "display:none;height:auto;", :id => "organisation_report_submit_button"
-        -#= button_to_function 'Generate', :style => "display:none;height:auto;", :id => "organisation_report_submit_button"
+  .form_line
+    .field_30
+      %div#organisation_report_select_list
+        =tag_type.label :list, 'Select List'
+        %select{:id => "organisation_report_list", :disabled => (@org_lists.blank?), :name => "organisation_list_header_id", :class => "clear_select"}
+          %option{:selected => "selected"}
+          - @org_lists.each do |r|
+            %option{:value => "list_#{r.id}"} List_#{r.name}
+
+    .field_30
+      %div#organisation_report_format{:style => "display:none;"}
+        =tag_type.label :format, 'Report Format'
+        =tag_type.select(:organisation_requested_format, [["",""], ['Contact Report', "Contact Report"]], {:selected => ""}, :class => "clear_select")
+    .field_10{:style => "float:right;"}
+      %label &nbsp;
+      = submit_tag "Generate", :style => "display:none;height:auto;", :id => "organisation_report_submit_button"
+      -#= button_to_function 'Generate', :style => "display:none;height:auto;", :id => "organisation_report_submit_button"
   .form_line
     .field_30
       %div#organisation_report_details{:style => "display:none;"}

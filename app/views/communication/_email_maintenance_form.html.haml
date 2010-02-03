@@ -159,25 +159,25 @@
 .full_container#email_maintenance_search
 
   - form_for :email, nil, :url => { :action => "search_email" }, :html => {:class => 'ajax_form', :id => "search_email_form"}  do |f|
-    .full_container
-      %h2 Email Maintenance
-      .form_line
-        .field_25
-          = f.label :start_date, "Start Date"
-          %input{:name => "start_date", :style => "width:82% !important;",:id => "email_maintenance_start_date", :class => "startdatepick", :end_date => "email_maintenance_end_date", :value => "#{Date.today().at_beginning_of_week.strftime('%d-%m-%Y')}"}
-        .field_25
-          = f.label :end_date, "End Date"
-          %input{:name => "end_date", :style => "width:82% !important;", :id => "email_maintenance_end_date", :class => "enddatepick", :start_date => "email_maintenance_start_date", :value => "#{Date.today().strftime('%d-%m-%Y')}"}
-        .field_17
-          = f.label :dispatch_date, 'Already Sent'
-          %input{:type => "checkbox", :name => 'dispatch_date', :id => 'email_dispatch_date', :style => "width:auto;float:left;"}
-        .field_17
-          = f.label :to_be_removed, 'To Be Removed'
-          %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed', :style => "width:auto;float:left;"}
+    -#.full_container
+    %h2 Email Maintenance
+    .form_line
+      .field_25
+        = f.label :start_date, "Start Date"
+        %input{:name => "start_date", :style => "width:82% !important;",:id => "email_maintenance_start_date", :class => "startdatepick", :end_date => "email_maintenance_end_date", :value => "#{Date.today().at_beginning_of_week.strftime('%d-%m-%Y')}"}
+      .field_25
+        = f.label :end_date, "End Date"
+        %input{:name => "end_date", :style => "width:82% !important;", :id => "email_maintenance_end_date", :class => "enddatepick", :start_date => "email_maintenance_start_date", :value => "#{Date.today().strftime('%d-%m-%Y')}"}
+      .field_17
+        = f.label :dispatch_date, 'Already Sent'
+        %input{:type => "checkbox", :name => 'dispatch_date', :id => 'email_dispatch_date', :style => "width:auto;float:left;"}
+      .field_17
+        = f.label :to_be_removed, 'To Be Removed'
+        %input{:type => "checkbox", :name => 'to_be_removed', :id => 'email_to_be_removed', :style => "width:auto;float:left;"}
 
-        .field_5
-          = f.label :status, 'Active'
-          %input{:type => "checkbox", :name => 'status', :id => 'email_status', :style => "width:auto;float:left;", :checked => true}
+      .field_5
+        = f.label :status, 'Active'
+        %input{:type => "checkbox", :name => 'status', :id => 'email_status', :style => "width:auto;float:left;", :checked => true}
 
 
     = submit_tag "Submit", :id => "email_maintenance_search_submit"
