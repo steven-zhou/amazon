@@ -1,29 +1,28 @@
 -# The relationships tab
-.container
-  .header_container
-    .options
-      = link_to_function image_tag('close_icon.png'), :class => "person_relationship_close ", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"person_relationship_toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
-      &nbsp
-    %h1 New Relationship
-    %input{:type => "text", :id => "relationship_hidden_tab", :mode => "show", :style => "display:none"}
-    %input{:id => "relationship_input_change_or_not", :style => "display:none", :value => "false"}
-    
-    =# Initially hidden new address form
-    #relationship_type
-      = render :partial => '/relationships/personal_relationship_type', :locals => { :relationship => @relationship }
-  
-  =# Render the person's addresses 
-  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
-    
-  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
-  
-  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
-  
-  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
-  
-  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
-  
-  = render :partial => '/relationships/relationship_container', :locals => {:type => 'Next of Kin', :relations => @person.related_people.of_type('Next of Kin')}
+.header_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :class => "person_relationship_close ", :toggle_id_name => "new_relationship", :style => "display:none;", :field => "relationship", :title=>"Close"
+  .title
+    = link_to_function image_tag('add_icon.png'), :id=>"add_relationship", :class=>"person_relationship_toggle_button", :toggle_id_name => "new_relationship"  if (!person.nil? && !person.new_record?)
+    &nbsp
+  %h1 New Relationship
+  %input{:type => "text", :id => "relationship_hidden_tab", :mode => "show", :style => "display:none"}
+  %input{:id => "relationship_input_change_or_not", :style => "display:none", :value => "false"}
+
+  =# Initially hidden new address form
+  #relationship_type
+    = render :partial => '/relationships/personal_relationship_type', :locals => { :relationship => @relationship }
+
+=# Render the person's addresses 
+= render :partial => '/relationships/relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
+
+= render :partial => '/relationships/relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
+
+= render :partial => '/relationships/relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
+
+= render :partial => '/relationships/relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
+
+= render :partial => '/relationships/relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
+
+= render :partial => '/relationships/relationship_container', :locals => {:type => 'Next of Kin', :relations => @person.related_people.of_type('Next of Kin')}
 

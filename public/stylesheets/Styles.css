@@ -902,7 +902,7 @@ div#content div#right {
     margin-left: 2%;
 }
 
-div.container div.header_container {
+div.container div.header_container, div.header_container {
     display: inline;
     font-family:Arial, Helvetica, sans-serif;
     color: #232323;
@@ -919,14 +919,14 @@ div.container div.header_container {
 }
 
 
-div.container div.header_container .title {
+div.container div.header_container .title, div.header_container .title {
     float: left;
     display:inline;
     font-size: 12px;
     font-weight: bold;
 }
 
-div.container div.header_container .title h1{
+div.container div.header_container .title h1, div.header_container .title h1{
     margin: 0 0 0 0 !important;
     color: #2C2C2C;
     font-size:20px;
@@ -935,7 +935,7 @@ div.container div.header_container .title h1{
     font-family:Arial,Helvetica,sans-serif;
 }
 
-div.container div.header_container h1 {
+div.container div.header_container h1, div.header_container h1 {
     color: #2C2C2C;
     font-size:20px;
     font-weight: bold;
@@ -943,7 +943,7 @@ div.container div.header_container h1 {
     margin-bottom: 5px;
 }
 
-div.container div.header_container .options {
+div.container div.header_container .options, div.header_container .options {
 
     float: right;
     display:inline;
