@@ -458,12 +458,12 @@ class GridsController < ApplicationController
     return_data[:total] = count
     if (params[:entity] == "person")
       return_data[:rows] = @list_details.collect{|u| {:id => u.id,
-          :cell=>[u.id,
+          :cell=>[u.entity_id,
             u.person.first_name,
             u.person.family_name]}}
     else
       return_data[:rows] = @list_details.collect{|u| {:id => u.id,
-          :cell=>[u.id,
+          :cell=>[u.entity_id,
             u.organisation.full_name,
             u.organisation.trading_as]}}
     end
