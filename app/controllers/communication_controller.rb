@@ -195,7 +195,7 @@ class CommunicationController < ApplicationController
 
   def page_initial
     @render_page = params[:render_page]
-    @field = "email_form"
+    @field = params[:field]
     @list_headers = @current_user.all_person_lists
     @message_templates = MessageTemplate.active_record
     @message_template = MessageTemplate.new
