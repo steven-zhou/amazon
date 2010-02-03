@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100129030350) do
+ActiveRecord::Schema.define(:version => 20100202043040) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -87,6 +87,45 @@ ActiveRecord::Schema.define(:version => 20100129030350) do
   create_table "bank_run_details", :force => true do |t|
     t.integer  "bank_run_id"
     t.integer  "transaction_header_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_run_report_details", :force => true do |t|
+    t.integer  "bank_run_report_id"
+    t.string   "type"
+    t.string   "drawer_name"
+    t.string   "cheque_no"
+    t.integer  "bank_id"
+    t.decimal  "total_amount",          :precision => 11, :scale => 3
+    t.string   "payment_type"
+    t.string   "receipt_no"
+    t.string   "card_type"
+    t.integer  "merchant_number"
+    t.string   "merchant_trading_name"
+    t.integer  "no_of_item"
+    t.string   "location"
+    t.string   "authority_no"
+    t.string   "cardholder_name"
+    t.string   "payment_via"
+    t.integer  "item"
+    t.decimal  "card_number"
+    t.integer  "cvv"
+    t.string   "account_code"
+    t.decimal  "cash",                  :precision => 11, :scale => 3
+    t.decimal  "cheque",                :precision => 11, :scale => 3
+    t.decimal  "cards",                 :precision => 11, :scale => 3
+    t.string   "type_of_receipt"
+    t.integer  "campaign_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_run_reports", :force => true do |t|
+    t.integer  "client_organisation_id"
+    t.integer  "bank_run_id"
+    t.integer  "bank_account_id"
+    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

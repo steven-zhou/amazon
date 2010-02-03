@@ -4,6 +4,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
+  map.resources :addresses,  :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}, :collection => {:page_initial => :get}
 
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,},
@@ -60,7 +61,8 @@ ActionController::Routing::Routes.draw do |map|
     :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get
 
   }
-
+  map.resources :contacts, :collection => {:page_initial => :get}
+ 
   map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :post,
     :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrieve_message_template => :get
   }
@@ -114,7 +116,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :duplication_formula_details
 
-  map.resources :addresses , :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}
+  
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
     :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get,:show_allocation_types_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get, :show_person_bank_accounts_grid => :get,
     :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get}

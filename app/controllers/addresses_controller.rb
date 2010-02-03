@@ -4,6 +4,8 @@ class AddressesController < ApplicationController
   def show
     @address = Address.find(params[:id])
     @address_new = Address.new
+    @countries = Country.all
+    @active_address = AddressType.active_address_type
     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@address.addressable_id)
     else
@@ -15,6 +17,8 @@ class AddressesController < ApplicationController
   end
 
   def edit
+    #    @countries = Country.all
+    #    @active_address = AddressType.active_address_type
     @address = Address.find(params[:id])
     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@address.addressable_id)
@@ -29,6 +33,8 @@ class AddressesController < ApplicationController
   def create
     @entity = Person.find(params[:person_id]) rescue @entity = Organisation.find(params[:organisation_id])
     @address = @entity.addresses.new(params[:address])
+    @countries = Country.all
+    @active_address = AddressType.active_address_type
     @address.save
     if @entity.class.to_s == "Person"
       @person = Person.find(@address.addressable_id)
@@ -43,6 +49,8 @@ class AddressesController < ApplicationController
   end
 
   def update
+    @countries = Country.all
+    @active_address = AddressType.active_address_type
     @address = Address.find(params[:id])
     @address_new = Address.new
     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
@@ -60,6 +68,8 @@ class AddressesController < ApplicationController
 
   def destroy
     @address = Address.find(params[:id])
+    @countries = Country.all
+    @active_address = AddressType.active_address_type
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted address with ID #{@address.id}.")
     @address.destroy
     if @address.addressable_type == "Person"             # if in Person return person object to destroy.js
@@ -74,7 +84,8 @@ class AddressesController < ApplicationController
   end
 
   def search_postcodes
-    @postcodes = Postcode.find(:all, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND postcode LIKE ?", "%#{params[:suburb]}%", "%#{params[:state]}%", "%#{params[:postcode]}%"])
+    @postcodes = Postcode.search_post_code(params[:suburb],params[:state], params[:postcode])
+   
     respond_to do |format|
       format.js
     end
@@ -147,6 +158,17 @@ class AddressesController < ApplicationController
     respond_to do |format|
       format.js
     end
-
   end
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @address = Address.new
+    @person = Person.find_by_id(params[:params1])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
