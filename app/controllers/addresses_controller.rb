@@ -166,7 +166,11 @@ class AddressesController < ApplicationController
     @address = Address.new
     @active_address = AddressType.active_address_type
     @countries = Country.all
-    @person = Person.find_by_id(params[:params1])
+     if params[:type]=="Person"
+      @person = Person.find_by_id(params[:params1])
+    else
+      @organisation = Organisation.find_by_id(params[:params1])
+    end
 
     respond_to do |format|
       format.js

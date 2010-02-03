@@ -136,7 +136,11 @@ class MasterDocsController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @masterdoc = MasterDoc.new
-    @person = Person.find_by_id(params[:params1])
+     if params[:type]=="Person"
+      @person = Person.find_by_id(params[:params1])
+    else
+      @organisation = Organisation.find_by_id(params[:params1])
+    end
 
     respond_to do |format|
       format.js

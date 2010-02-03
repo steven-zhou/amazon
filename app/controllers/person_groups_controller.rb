@@ -91,21 +91,29 @@ class PersonGroupsController < ApplicationController
       @sogm.login_account_id = session[:user]
       @sogm.grid_object_id = group_members.group_owner.id
       @sogm.field_1 = group_members.group_owner.name
-#      @sogm.field_2 = group_members.family_name
-     
+#      @sogm.field_2 = group_members.family_name     
       @sogm.field_2 = group_members.group_owner.primary_phone.value unless group_members.group_owner.primary_phone.blank?
       @sogm.field_3 = group_members.group_owner.primary_address.first_line unless group_members.group_owner.primary_address.blank?
       @sogm.field_4 = group_members.group_owner.primary_email.address unless group_members.group_owner.primary_email.blank?
       @sogm.save
     end
-
-
-      
-
-
     respond_to do |format|
       format.js
     end
   end
 
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+     @person_group = PersonGroup.new
+      if params[:type]=="Person"
+      @person = Person.find_by_id(params[:params1])
+    else
+      @organisation = Organisation.find_by_id(params[:params1])
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end
