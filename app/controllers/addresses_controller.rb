@@ -164,6 +164,8 @@ class AddressesController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @address = Address.new
+    @active_address = AddressType.active_address_type
+    @countries = Country.all
     @person = Person.find_by_id(params[:params1])
 
     respond_to do |format|
