@@ -1,3 +1,2 @@
-$("#spinner").fadeOut(200, function(){
-    $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>').show();
-});
+$("#spinner").hide();
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>').show();

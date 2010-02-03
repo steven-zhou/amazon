@@ -7,6 +7,7 @@ $('.person_notes_toggle_button').css("display","");
    $('#note_mode').attr('mode', 'show');
     $('#add_new_note').css("display","");
 $('#edit_note').css("display","none");
+ $('.close_option[field="note"]').css("display","none");
    <%else%>
 
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

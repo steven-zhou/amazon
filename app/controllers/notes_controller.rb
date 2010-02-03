@@ -91,4 +91,13 @@ class NotesController < ApplicationController
     end
   end
 
+
+  def new_note_form
+   @person = Person.find_by_id(params[:param1])
+   @note = Note.new
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
