@@ -79,9 +79,19 @@
       #Role{:style => "float:left;margin-left:10px;"}
         = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_roles/page_initial", :method => "GET", :render_page => "/person_roles/person_roles_tab", :field => "person_roles_page",:params1 => @person.id
         = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_roles_page"
+
       #Employment{:style => "float:left;margin-left:10px;"}
         = link_to_function image_tag('Icons/Core/Person/tabs/employment_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/employments/page_initial", :method => "GET", :render_page => "/employments/employments_tab", :field => "employments_page",:params1 => @person.id
         = link_to_function image_tag('Icons/Core/Person/tabs/employment_BW.png'), :class=>"tab_switch_with_page_initial", :field => "employments_page"
+
+      #Group{:style => "float:left;margin-left:10px;"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_groups/page_initial", :method => "GET", :render_page => "/person_groups/group_tab", :field => "person_groups_page",:params1 => @person.id
+        = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_groups_page"
+
+      #Account{:style => "float:left;margin-left:10px;"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/person_bank_accounts/account_tab", :field => "person_bank_accounts_page",:params1 => @person.id
+        = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_bank_accounts_page"
+        
         
         
         
@@ -102,6 +112,10 @@
       -#= render :partial => "/person_roles/person_roles_tab",:locals =>{:person => @person}
     #employments_page.tab_switch_container.active
       -#= render :partial => "/person_roles/person_roles_tab",:locals =>{:person => @person}
+    #person_groups_page.tab_switch_container.active
+      -#= render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
+    #person_bank_accounts_page.tab_switch_container.active
+      -#= render :partial => "/person_bank_accounts/account_tab",:locals =>{:person => @person}
       
   %br.clear
     
