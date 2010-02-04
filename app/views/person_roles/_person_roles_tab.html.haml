@@ -1,18 +1,17 @@
 -# The main person_role tab
-.container
-  #add_new_person_role
-    .options
-      = link_to_function image_tag('close_icon.png'), :class => "clear_person_role_form person_roles_close", :toggle_id_name => "new_person_role", :style => "display:none", :field => "person_role", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_role", :class=>"person_roles_toggle_button", :toggle_id_name => "new_person_role" if (!person.nil? && !person.new_record?)
-      &nbsp
-    %h1 New Role
-    %input{:type => "text", :id => "person_role_hidden_tab", :mode => "show", :style => "display:none", :style => "display:none"}
-    %input{:id => "role_input_change_or_not", :style => "display:none", :value => "false"}
-    =# Initially hidden new person_role form
-    -form_for([@person,@person_role], :html => {:style => "display:none", :class => 'ajax_form'}) do |person_role|
-      = render :partial => '/person_roles/person_role_form', :locals => { :person_role => person_role }
-      = submit_tag 'Submit',:id=>"role_new_submit",:disabled=>true
+#add_new_person_role.header_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :class => "clear_person_role_form person_roles_close", :toggle_id_name => "new_person_role", :style => "display:none", :field => "person_role", :title=>"Close"
+  .title
+    = link_to_function image_tag('add_icon.png'), :id=>"add_role", :class=>"person_roles_toggle_button", :toggle_id_name => "new_person_role" if (!person.nil? && !person.new_record?)
+    &nbsp
+  %h1 New Role
+  %input{:type => "text", :id => "person_role_hidden_tab", :mode => "show", :style => "display:none", :style => "display:none"}
+  %input{:id => "role_input_change_or_not", :style => "display:none", :value => "false"}
+  =# Initially hidden new person_role form
+  -form_for([@person,@person_role], :html => {:style => "display:none", :class => 'ajax_form'}) do |person_role|
+    = render :partial => '/person_roles/person_role_form', :locals => { :person_role => person_role }
+    = submit_tag 'Submit',:id=>"role_new_submit",:disabled=>true
 
-  #person_roles
-    = render :partial => '/person_roles/person_role', :collection => person.person_roles
+#person_roles
+  = render :partial => '/person_roles/person_role', :collection => person.person_roles
