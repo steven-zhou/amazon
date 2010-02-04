@@ -1,5 +1,5 @@
 -# The main Keyword tab
-.container
+.header_container
   .options{:id => 'person_group_close_button'}
     = link_to_function image_tag('close_icon.png'), :class => "close_option clear_group_form", :field => "person_group", :toggle_id_name => "new_group", :style=>"display:none", :title=>"Close"
   .title
@@ -14,8 +14,8 @@
       = submit_tag 'Submit' ,:id=>"group_new_submit",:disabled => true
     %br.clear
 
-  #person_groups
-    = render :partial => '/person_groups/person_group', :collection =>  person.person_groups
+#person_groups
+  = render :partial => '/person_groups/person_group', :collection =>  person.person_groups
 
 #show_group_members
 
