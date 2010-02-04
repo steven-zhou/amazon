@@ -1,9 +1,61 @@
--# Displays A Contact
--div_for(organisation_contact, :class => 'header_container toggle_options' , :field => "contact") do
-  %div
-    .title
-      %h2= "#{organisation_contact.contact_meta_type.name} " 
-    %div{:style => "float:right;"}
-      = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
-    %br
-      = organisation_contact.remarks
+.title
+  %h1 Contact Details
+%br.clear
+
+#contacts
+  -if !@organisation.phones.blank?
+    .container
+      %h2 Phone
+      #contact_phone
+        - @organisation.phones.each do |organisation_contact|
+          - div_for(organisation_contact, :class => 'header_container' , :field => "contact") do
+            %div
+              .title
+                %h2= "#{organisation_contact.contact_meta_type.name} "
+              %div{:style => "float:right;"}
+                = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+              %br
+                = organisation_contact.remarks
+
+  -if !@organisation.emails.blank?
+    .container
+      %h2 Email
+      #contact_email
+        - @organisation.emails.each do |organisation_contact|
+          - div_for(organisation_contact, :class => 'header_container' , :field => "contact") do
+            %div
+              .title
+                %h2= "#{organisation_contact.contact_meta_type.name} "
+              %div{:style => "float:right;"}
+                = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+              %br
+                = organisation_contact.remarks
+
+
+  -if !@organisation.websites.blank?
+    .container
+      %h2 Website
+      #contact_website
+        - @organisation.websites.each do |organisation_contact|
+          - div_for(organisation_contact, :class => 'header_container' , :field => "contact") do
+            %div
+              .title
+                %h2= "#{organisation_contact.contact_meta_type.name} "
+              %div{:style => "float:right;"}
+                = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+              %br
+                = organisation_contact.remarks
+
+  -if !@organisation.instant_messagings.blank?
+    .container
+      %h2 IM
+      #contact_instant_messagings
+        - @organisation.instant_messagings.each do |organisation_contact|
+          - div_for(organisation_contact, :class => 'header_container' , :field => "contact") do
+            %div
+              .title
+                %h2= "#{organisation_contact.contact_meta_type.name} "
+              %div{:style => "float:right;"}
+                = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+              %br
+                = organisation_contact.remarks

@@ -1,10 +1,16 @@
--# Displays An Address
--div_for(organisation_address, :class => 'header_container', :field => "address") do
-  %div
+#addresses
+  - if !@organisation.addresses.blank?
     .title
-      %h2{:class=>("red" if organisation_address.address_type.to_be_removed == true)}= organisation_address.address_type.name
-      .options{:style => "display:none;"}
-        = link_to image_tag('edit_icon.png', :alt => 'Edit'), :class => 'get_query edit_option', :title=>"Edit"
-        = link_to image_tag('delete_icon.png', :alt => 'Delete'), :class => 'delete' ,:field => "Address",:error_message_field => organisation_address.address_type.name, :title=>"Remove"
-  %div{:style => "float:right;"}
-    = format_address(organisation_address)
+      %h1 Address Details
+    %br.clear
+    - @organisation.addresses.each do |organisation_address|
+      -div_for(organisation_address, :class => 'header_container', :field => "address") do
+        %div
+          .title
+            %h2{:class=>("red" if organisation_address.address_type.to_be_removed == true)}= organisation_address.address_type.name
+            
+        %div{:style => "float:right;"}
+          = format_address(organisation_address)
+  - else
+    .no_record
+      %h1 No Record
