@@ -2444,12 +2444,12 @@ $(function(){
         $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_BW.png");
     });
 
-    $(".person_edit_tab:not(.active)").live("mouseup", function(){
-        $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
-        $(".person_edit_tab").removeClass("active");
-        $(this).addClass("active");
-        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
-    });
+//    $(".person_edit_tab:not(.active)").live("mouseup", function(){
+//        $(".person_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Person/tabs/"+$(".person_edit_tab.active").attr("field")+"_BW.png");
+//        $(".person_edit_tab").removeClass("active");
+//        $(this).addClass("active");
+//        $(this).find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).attr("field")+"_title.png");
+//    });
 });
 
 /*Keyword double click*/

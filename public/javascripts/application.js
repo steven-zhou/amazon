@@ -2377,11 +2377,29 @@ $(function(){
     $('a.tab_switch_with_page_initial').live('click', function(){
 
         var link = $(this);
+         var  left_content = $("#content").find("#left_content");
+        var  right_content = $("#content").find("#right_content");
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            {
+
+                $('#check_input_change').val("true");
+            }
+            else
+            {
+
+                $('#check_input_change').val("false");
+            }
+        }
         if($('#check_input_change').val() == "false")
         {
             $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
             $('#current_tab_id').val(link.attr('field'));
+
+
+
         }
         else
         {
@@ -2404,6 +2422,8 @@ $(function(){
                         $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
                         $('#current_tab_id').val(link.attr('field'));
+                        $('#check_left_input_change').val("false");
+                        $('#check_right_input_change').val("false");
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -2426,6 +2446,12 @@ $(function(){
 $(function(){
     $(".page_initial").live('mousedown', function(){
         $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
+
+        $(".person_edit_tab:not(.active)").mouseout();
+        $(".person_edit_tab").removeClass("active");
+        $(this).parent().addClass("active");
+        $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).parent().attr("field")+"_title.png");
+        
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",
