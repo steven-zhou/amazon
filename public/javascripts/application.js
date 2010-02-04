@@ -141,9 +141,8 @@ $(document).ready(function(){
 
 
 
-
 /*Date picker */
-$(function(){
+datapick_config = function(){
     $(".birthdatepick").datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
@@ -217,6 +216,7 @@ $(function(){
         }
     });
 
+    
     $('.beforestartdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
@@ -236,6 +236,7 @@ $(function(){
             }
         }
     });
+  
 
     $('.role_startdatepick').datepicker({
         showOn: 'button',
@@ -314,7 +315,17 @@ $(function(){
             }
         }
     });
+};
+
+
+$(document).ready(function(){
+   datapick_config();
 });
+
+
+
+
+
 /* Photo */
 
 $("#edit_photo_link").live("click",function() {
