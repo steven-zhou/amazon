@@ -141,7 +141,7 @@
     = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/people/person_account", :field => "person_bank_accounts_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_bank_accounts_page"
 
-.full_container
+.container
   #addresses_page.tab_switch_container.active
     -#= render :partial => '/people/person_address', :collection => @person.addresses
 

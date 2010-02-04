@@ -84,7 +84,7 @@
           = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/relationships/organisation_relationships_tab", :field => "relations_page", :params1 => @organisation.id, :type => "Organisation"
           = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_with_page_initial", :field => "relations_page"
 
-      .full_container
+      .container
         #contacts_page.tab_switch_container.active
           = render :partial => "/contacts/organisation_contacts_tab", :locals => {:organisation => @organisation}
         #addresses_page.tab_switch_container
