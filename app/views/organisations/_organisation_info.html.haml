@@ -12,7 +12,7 @@
     = link_to_function image_tag('Icons/Core/Org/tabs/keywords_BW.png'), :class=>"tab_switch_with_page_initial", :field => "keywords_page"
 
   #MasterDoc{:style => "float:left;margin-left:10px;", :title=> 'MasterDoc', :class => "organisation_edit_tab", :field => "masterdocs"}
-    = link_to_function image_tag('Icons/Core/Org/tabs/masterdocs_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/master_docs/page_initial", :method => "GET", :render_page => "/organisations/organisation_masterdoc", :field => "master_docs_page",:params1 => @organisation.id, :type => "Organisation"
+    = link_to_function image_tag('Icons/Core/Org/tabs/masterdocs_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/master_docs/page_initial", :method => "GET", :render_page => "/organisations/organisation_master_doc", :field => "master_docs_page",:params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/masterdocs_BW.png'), :class=>"tab_switch_with_page_initial", :field => "master_docs_page"
 
   #Note{:style => "float:left;margin-left:10px;", :title=> 'Note', :class => "organisation_edit_tab", :field => "notes"}

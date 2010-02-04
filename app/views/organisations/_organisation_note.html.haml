@@ -1,13 +1,22 @@
-/show organisational notes details
--div_for(organisation_note, :class => 'info_container') do
-  .header_container
+#notes_list
+  - if !@organisation.sorted_notes.blank?
     .title
-      -#= "#{organisation_note.id} #{organisation_note.note_type.name}"
-      = h organisation_note.created_at.to_s(:long)
+      %h1 Note Details
+    %br.clear
 
-    %br{ :style => "clear:both;"}
-    .attr_name
-      = h organisation_note.short_description
-      = "(#{organisation_note.note_type.name})"
-    .attr_name
-      = truncate(organisation_note.body_text, 100, "...")
+    - @organisation.sorted_notes.each do |organisation_note|
+      -div_for(organisation_note, :class => 'info_container') do
+        .header_container
+          .title
+            = h organisation_note.created_at.to_s(:long)
+          %br.clear
+
+          .attr_name
+            = h organisation_note.short_description
+            = "(#{organisation_note.note_type.name})"
+          .attr_name
+            = truncate(organisation_note.body_text, 100, "...")
+
+  - else
+    .no_record
+      %h1 No Record

@@ -1,9 +1,21 @@
--# Displays Organisation Account
--div_for(organisation_bank_account, :class => 'header_container') do
-  %div  
-    .title
-      %h2
+#account_list
+  - if @organisation.class.to_s != "ClientOrganisation"
+    - accounts = @organisation.organisation_bank_accounts
+  - else
+    - accounts = ClientBankAccount.active_client_bank_account
 
-    %br.clear
-  %div{:style => "float:right;"}
-    = format_bank_account(organisation_bank_account)
+  - if !accounts.blank?
+     .title
+       %h1 Bank Account Details
+     %br.clear
+
+     - if @organisation.class.to_s != "ClientOrganisation"
+       - accounts.each do |organisation_bank_account|
+         -div_for(organisation_bank_account, :class => 'header_container') do
+           %div
+             .title
+               %h2
+             %br.clear
+
+           %div{:style => "float:right;"}
+             = format_bank_account(organisation_bank_account)
