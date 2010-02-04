@@ -95,8 +95,9 @@
         
         
         
-    .full_container
-      #contact_page.tab_switch_container.active
+
+    .container
+      #contacts_page.tab_switch_container.active
         = render :partial => "/contacts/contacts_tab", :locals => {:person => @person}
       #address_page.tab_switch_container
         -#= render :partial => "/addresses/addresses_tab",:locals =>{:person => @person}
