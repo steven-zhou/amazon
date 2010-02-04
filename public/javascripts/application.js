@@ -625,6 +625,7 @@ check_website_field = function(){
             $("#error_message").parent().css('background-color','#D1DDE6');
             $("#error_message").css('background-color','#D1DDE6');
             $('#error_message').dialog('open');
+            enable_form_after_submit_finish();
             return false;
         }
     }

@@ -102,7 +102,7 @@
       #groups
         =render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
-.tab_ui
+.tab_ui{:style=>"margin-top:10px;"}
   #Address{:style => "float:left;margin-left:10px;", :title=> 'Address', :class => "person_edit_tab", :field => "address"}
     = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/people/person_address", :field => "addresses_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "addresses_page"
@@ -141,46 +141,46 @@
     = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/people/person_account", :field => "person_bank_accounts_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_bank_accounts_page"
 
+.full_container
+  #addresses_page.tab_switch_container.active
+    -#= render :partial => '/people/person_address', :collection => @person.addresses
 
-#addresses_page.tab_switch_container.active
-  -#= render :partial => '/people/person_address', :collection => @person.addresses
+  #contacts_page.tab_switch_container
+    -#=render :partial => '/people/person_details',:locals => {:p => @person}
 
-#contacts_page.tab_switch_container
-  -#=render :partial => '/people/person_details',:locals => {:p => @person}
+  #keywords_page.tab_switch_container
+    -#= render :partial => '/people/person_keyword', :collection => @person.keywords
 
-#keywords_page.tab_switch_container
-  -#= render :partial => '/people/person_keyword', :collection => @person.keywords
+  #master_docs_page.tab_switch_container
+    -#= render :partial => '/people/person_master_doc', :collection => @person.master_docs
 
-#master_docs_page.tab_switch_container
-  -#= render :partial => '/people/person_master_doc', :collection => @person.master_docs
+  #relationships_page.tab_switch_container
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
 
-#relationships_page.tab_switch_container
-  -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
 
-  -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
 
-  -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
 
-  -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
 
-  -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Next of Kin', :relations => @person.related_people.of_type('Next of Kin')}
 
-  -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Next of Kin', :relations => @person.related_people.of_type('Next of Kin')}
+  #notes_page.tab_switch_container
+    -#= render :partial => '/people/person_note', :collection => @person.sorted_notes
 
-#notes_page
-  -#= render :partial => '/people/person_note', :collection => @person.sorted_notes
+  #person_roles_page.tab_switch_container
+    -#=render :partial => '/people/person_role', :collection => @person.person_roles, :locals => {:person => @person}
 
-#person_roles_page
-  -#=render :partial => '/people/person_role', :collection => @person.person_roles, :locals => {:person => @person}
+  #employments_page.tab_switch_container
+    -#=render :partial => '/people/person_employment', :collection => @person.employments, :locals => {:person => @person}
 
-#employments_page
-  -#=render :partial => '/people/person_employment', :collection => @person.employments, :locals => {:person => @person}
+  #person_groups_page.tab_switch_container
+    -#=render :partial => '/people/person_group', :collection => @person.person_groups, :locals => {:person => @person}
 
-#person_groups_page
-  -#=render :partial => '/people/person_group', :collection => @person.person_groups, :locals => {:person => @person}
+  #person_bank_accounts_page.tab_switch_container
+    -#=render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
-#person_bank_accounts_page
-  -#=render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
-  
 
