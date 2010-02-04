@@ -2,7 +2,13 @@ class NotesController < ApplicationController
   # System Logging added
 
   def create
-    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
+    if params[:type] == "Person"
+    @entity = Person.find(params[:entity_id].to_i)
+    end
+    if params[:type] == "Organisation"
+      @entity = Organisation.find(params[:entity_id].to_i)
+    end
+
     @note = @entity.notes.new(params[:note])
   
     if @note.save
@@ -24,9 +30,9 @@ class NotesController < ApplicationController
 
   def destroy
     @note = Note.find(params[:id].to_i)
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Note #{@note.id}.")
     @note.destroy
     @entity = @note.noteable
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Note #{@note.id}.")
     respond_to do |format|
       format.js
     end
@@ -99,7 +105,14 @@ class NotesController < ApplicationController
 
 
   def new_note_form
+   if params[:param2] == "Person"
    @person = Person.find_by_id(params[:param1])
+   end
+
+    if params[:param2] == "Organisation"
+      @organisation = Organisation.find_by_id(params[:param1])
+    end
+
    @note = Note.new
     respond_to do |format|
       format.js

@@ -11,7 +11,7 @@ class NoteType < AmazonSetting
   before_destroy :reorder_priority
 
   def self.active_note_type
-    @note_type = NoteType.find(:all, :conditions => ["status = true"], :order => 'name')
+    @note_type = NoteType.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private
