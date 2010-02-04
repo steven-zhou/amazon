@@ -448,6 +448,13 @@ class PeopleController < ApplicationController
     @active_sub_tab = params[:active_sub_tab]
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
+
+
+     @active_address = AddressType.active_address_type
+    @active_title = Title.active_title
+    @countries = Country.all #
+    @Languages = Language.active_language #
+
     @list_header = ListHeader.find(session[:current_list_id])
     @list_headers = @current_user.all_person_lists
  
@@ -467,6 +474,10 @@ class PeopleController < ApplicationController
     @notes = @person.notes
     @instant_messaging = @person.instant_messagings
     @person_role = @person.person_roles
+
+
+
+
     session[:select_list_person] = params[:person_id]
     #   session[:current_person_id]=params[:person_id]
 
