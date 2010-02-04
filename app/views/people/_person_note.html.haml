@@ -1,19 +1,83 @@
--if !@person.sorted_notes.blank?
-  -@person.sorted_notes.each do |person_note|
-    -div_for(person_note, :class => 'header_container') do
-      %div
-        .left
-          %strong{:class => ("red" if person_note.note_type.to_be_removed == true)}
-            #{person_note.note_type.name}
-          \-
-          = h person_note.created_at.to_s(:long)
 
-        %br.clear
-      %div{:style => "float:right;"}
-        .attr_name
-          = h person_note.short_description
-        .attr_name
-          = truncate(person_note.body_text, 100, "...")
+-if !@person.sorted_notes.blank?
+  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "false", :db_click_url => "/notes/",:edit=>"false"}
 -else
   .no_record
     %h1 No Record
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+      $("#show_notes_grid").flexigrid({
+      url: '/grids/show_notes_grid?entity_id=#{@person.id}&type=#{@person.class.to_s}',
+      dataType: 'json',
+      colModel : [
+      {
+      display: 'ID',
+      name : 'id',
+      width : 40,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Label',
+      name : 'label',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Short Description',
+      name : 'short_description',
+      width : 80,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Body Text',
+      name : 'body_text',
+      width : 180,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Active',
+      name : 'active',
+      width : 40,
+      sortable : true,
+      align: 'left'
+      }
+      ],
+      searchitems : [
+      {
+      display: 'Label',
+      name : 'label'
+      },
+
+      {
+      display: 'Short Description',
+      name : 'short_description'
+      },
+
+      {
+      display: 'Body Text',
+      name : 'body_text'
+      },
+      {
+      display: 'Active',
+      name : 'Active'
+      }
+      ],
+      sortname: "id",
+      sortorder: "asc",
+      usepager: true,
+      title: 'Notes',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+      });
+

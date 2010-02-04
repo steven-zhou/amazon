@@ -145,7 +145,6 @@ class Organisation < ActiveRecord::Base
 
   def sorted_notes
     @sorted_notes = self.notes.find(:all, :include => [:note_type])
-    # @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
   end
 
   def personal_email_types

@@ -1,0 +1,12 @@
+#relationship_list
+  - if !@organisation.organisation_as_related.blank? || !@organisation.organisation_as_source.blank?
+    .title
+      %h1 Organisation Relationship Details
+    %br{ :style=>"clear: both;"}
+
+    = render :partial => '/organisations/father_organisation_relationship', :collection => @organisation.organisation_as_related
+    = render :partial => '/organisations/organisation_relationship', :collection => @organisation.organisation_as_source
+
+  - else
+    .no_record
+      %h1 No Record
