@@ -1,5 +1,4 @@
 -# The main Address tab
-
 .container
   %input.hidden{:id => "note_mode", :mode => "show"}
   %input{:type => "text", :id => "note_hidden_tab", :mode => "show", :style => "display:none"}
@@ -13,9 +12,6 @@
         &nbsp
       %h1 New Note
       #new_note_form{:style => "float:left;width:100%;"}
-
-        
-
 
 #notes_list
   = render :partial => '/notes/note'

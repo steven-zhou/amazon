@@ -1,9 +1,10 @@
 -# Displays for Role Details
--div_for(person_role, :class => 'header_container') do
-  %div
-    .title
-      %h2{:class=>("red" if person_role.role.to_be_removed == true)}= person_role.role.name
-  .div{:style => "float:right;"}
-    = format_role(person_role)
+-@person.person_roles.each do |person_role|
+  -div_for(person_role, :class => 'header_container') do
+    %div
+      .title
+        %h2{:class=>("red" if person_role.role.to_be_removed == true)}= person_role.role.name
+    .div{:style => "float:right;"}
+      = format_role(person_role)
 
  
