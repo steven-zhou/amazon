@@ -137,8 +137,10 @@ class MasterDocsController < ApplicationController
     @field = params[:field]
     @masterdoc = MasterDoc.new
      if params[:type]=="Person"
+       @type = "Person"
       @person = Person.find_by_id(params[:params1])
     else
+      @type = "Organsition"
       @organisation = Organisation.find_by_id(params[:params1])
     end
 

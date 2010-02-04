@@ -7,16 +7,16 @@ class KeywordsController < ApplicationController
 
   def create
     @keyword_table = Keyword.new
-#    @keyword_table.name = params[:keyword][:name]
-#    @keyword_table.description = params[:keyword][:description]
-#    @keyword_table.status = params[:keyword][:status]
+    #    @keyword_table.name = params[:keyword][:name]
+    #    @keyword_table.description = params[:keyword][:description]
+    #    @keyword_table.status = params[:keyword][:status]
     @keyword_table.update_attributes(params[:keyword])
     @keyword_table.keyword_type_id = params[:type_id]
     @keyword_table.to_be_removed = false
     if @keyword_table.save
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")
     else
-    flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Keyword")
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Keyword")
     end
 
     respond_to do |format|
@@ -37,7 +37,7 @@ class KeywordsController < ApplicationController
     @keyword_table= Keyword.find(params[:id].to_i)
    
     @keyword_table.update_attributes(params[:keyword])
-#    @keyword_table.save
+    #    @keyword_table.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Keyword with ID #{@keyword_table.id}.")
 
     respond_to do |format|
@@ -51,10 +51,10 @@ class KeywordsController < ApplicationController
   def destroy
     keyword = Keyword.find(params[:id])
 
-     keyword.to_be_removed = true
-     keyword.save!
+    keyword.to_be_removed = true
+    keyword.save!
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
-   # keyword.destroy
+    # keyword.destroy
 
     respond_to do |format|
       format.js
@@ -81,7 +81,7 @@ class KeywordsController < ApplicationController
   end
 
   def keyword_name_show
-#    @keywords = Keyword.find_all_by_keyword_type_id(params[:keyword_type_id])
+    #    @keywords = Keyword.find_all_by_keyword_type_id(params[:keyword_type_id])
     @keywords = Keyword.all_keyword_type_by_type(params[:keyword_type_id])
     @keyword = String.new
      
@@ -102,22 +102,24 @@ class KeywordsController < ApplicationController
 
 
   def retrieve
-     keyword = Keyword.find(params[:id])
-     keyword.to_be_removed = false
-     keyword.save!
-     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Keyword with ID #{keyword.id}.")
-      respond_to do |format|
+    keyword = Keyword.find(params[:id])
+    keyword.to_be_removed = false
+    keyword.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Keyword with ID #{keyword.id}.")
+    respond_to do |format|
       format.js
-      end
+    end
 
   end
 
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
-     if params[:type]=="Person"
+    if params[:type]=="Person"
+      @type = "Person"
       @person = Person.find_by_id(params[:params1])
     else
+      @type = "Organisation"
       @organisation = Organisation.find_by_id(params[:params1])
     end
     respond_to do |format|

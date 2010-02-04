@@ -73,7 +73,7 @@
           = link_to_function image_tag('Icons/Core/Org/tabs/notes_BW.png'), :class=>"tab_switch_with_page_initial", :field => "notes_page"
 
         #Employee{:style => "float:left;margin-left:10px;", :title=> 'Employee', :class => "organisation_edit_tab", :field => "employee"}
-          = link_to_function image_tag('Icons/Core/Org/tabs/employee_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/employments/employee_page_initial", :method => "GET", :render_page => "/employments/organisation_employee_tab", :field => "employees_page", :params1 => @organisation.id, :type => "Organisation"
+          = link_to_function image_tag('Icons/Core/Org/tabs/employee_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/employments/page_initial", :method => "GET", :render_page => "/organisations/organisation_employee", :field => "employees_page", :params1 => @organisation.id, :type => "Organisation"
           = link_to_function image_tag('Icons/Core/Org/tabs/employee_BW.png'), :class=>"tab_switch_with_page_initial", :field => "employees_page"
 
         #Account{:style => "float:left;margin-left:10px;", :title=> 'Account', :class => "organisation_edit_tab", :field => "banking"}
@@ -81,7 +81,7 @@
           = link_to_function image_tag('Icons/Core/Org/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "accounts_page"
 
         #Relation{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "organisation_edit_tab", :field => "o2o"}
-          = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/relationships/org_page_initial", :method => "GET", :render_page => "/relationships/organisation_relationships_tab", :field => "accounts_page", :params1 => @organisation.id, :type => "Organisation"
+          = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/relationships/organisation_relationships_tab", :field => "relations_page", :params1 => @organisation.id, :type => "Organisation"
           = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_with_page_initial", :field => "relations_page"
 
       #contacts_page.tab_switch_container.active

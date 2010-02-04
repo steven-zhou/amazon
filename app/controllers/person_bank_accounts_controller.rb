@@ -107,11 +107,7 @@ class PersonBankAccountsController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @bank_accounts = PersonBankAccount.new
-     if params[:type]=="Person"
-      @person = Person.find_by_id(params[:params1])
-    else
-      @organisation = Organisation.find_by_id(params[:params1])
-    end
+    @person = Person.find_by_id(params[:params1])
     respond_to do |format|
       format.js
     end
