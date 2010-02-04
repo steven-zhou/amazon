@@ -117,8 +117,8 @@
     = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/master_docs/page_initial", :method => "GET", :render_page => "/people/person_master_doc", :field => "master_docs_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_with_page_initial", :field => "master_docs_page"
 
-  -#Rels{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "person_edit_tab", :field => "p2p"}
-    = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/relationships/page_initial", :method => "GET", :render_page => "/relationships/relationships_tab", :field => "relationships_page",:params1 => @person.id, :type => "Person"
+  #Rels{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "person_edit_tab", :field => "p2p"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/relationships/page_initial", :method => "GET", :render_page => "/people/person_relationship", :field => "relationships_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_with_page_initial", :field => "relationships_page"
 
   #Note{:style => "float:left;margin-left:10px;", :title=> 'Note', :class => "person_edit_tab", :field => "notes"}
