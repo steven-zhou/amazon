@@ -2708,3 +2708,5 @@ input.error_flag{
     margin-right:15px;
     float:left;
 }
+.person_edit_tab.active {margin-top:-10px;}
+.organisation_edit_tab.active {margin-top:-10px;}

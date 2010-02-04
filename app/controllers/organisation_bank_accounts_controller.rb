@@ -1,6 +1,6 @@
 class OrganisationBankAccountsController < ApplicationController
 
-    def show
+  def show
     @organisation_bank_account = OrganisationBankAccount.find(params[:id].to_i)
 
     respond_to do |format|
@@ -9,20 +9,20 @@ class OrganisationBankAccountsController < ApplicationController
   end
 
 
-   def create
+  def create
 
     @entity = Organisation.find(params[:organisation_id].to_i)
     @organisation_bank_accounts = @entity.organisation_bank_accounts.new(params[:organisation_bank_account])
 
 
-   if @organisation_bank_accounts.save
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Account #{@entity.id}.")
-   else
+    if @organisation_bank_accounts.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Account #{@entity.id}.")
+    else
 
       flash.now[:error]= flash_message(:type => "uniqueness_error", :field => "Bank Account")if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("has already been taken"))
-       flash.now[:error]= "Please Enter All Required Data"if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("can't be blank"))
-   end
-   @entity = Organisation.find(params[:organisation_id].to_i)
+      flash.now[:error]= "Please Enter All Required Data"if(!@organisation_bank_accounts.errors[:account_number].nil? && @organisation_bank_accounts.errors.on(:account_number).include?("can't be blank"))
+    end
+    @entity = Organisation.find(params[:organisation_id].to_i)
     respond_to do |format|
       format.js
     end
@@ -31,7 +31,7 @@ class OrganisationBankAccountsController < ApplicationController
 
 
 
-   def edit
+  def edit
     @bank_accounts = OrganisationBankAccount.find(params[:id].to_i)
     respond_to do |format|
       format.js
@@ -39,20 +39,20 @@ class OrganisationBankAccountsController < ApplicationController
   end
 
 
-    def update
+  def update
     @organisation_bank_account = OrganisationBankAccount.find(params[:id].to_i)
     if @organisation_bank_account.update_attributes(params[:organisation_bank_account]["#{@organisation_bank_account.id}"])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Person Bank Account #{@organisation_bank_account.id}.")
     else
       flash.now[:error]= "Please Enter All Required Data"if(!@organisation_bank_account.errors[:account_number].nil? && @organisation_bank_account.errors.on(:account_number).include?("can't be blank"))
     end
-      respond_to do |format|
-        format.js {render 'show.js'}
-      end
+    respond_to do |format|
+      format.js {render 'show.js'}
+    end
 
   end
 
-      def destroy
+  def destroy
 
     @organisation_bank_account = OrganisationBankAccount.find(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted #{@organisation_bank_account.id}.")
@@ -66,7 +66,7 @@ class OrganisationBankAccountsController < ApplicationController
 
   def move_down_bank_account_priority
 
-   @current_bank_account = OrganisationBankAccount.find(params[:id])
+    @current_bank_account = OrganisationBankAccount.find(params[:id])
     if(@current_bank_account.priority_number==1)
       @exchange_bank_account = @current_bank_account.organisation.organisation_bank_accounts.find_by_priority_number(2)
 
@@ -80,15 +80,15 @@ class OrganisationBankAccountsController < ApplicationController
       format.js
     end
 
-end
+  end
 
-def move_up_bank_account_priority
+  def move_up_bank_account_priority
 
-   @up_current_bank_account =OrganisationBankAccount.find(params[:id])
+    @up_current_bank_account =OrganisationBankAccount.find(params[:id])
     @up_exchange_bank_account = @up_current_bank_account.organisation.organisation_bank_accounts.find_by_priority_number(@up_current_bank_account.priority_number - 1)
 
     @up_exchange_bank_account.priority_number = @up_exchange_bank_account.priority_number + 1
-     @up_current_bank_account.priority_number = @up_current_bank_account.priority_number - 1
+    @up_current_bank_account.priority_number = @up_current_bank_account.priority_number - 1
 
     @up_exchange_bank_account.save
     @up_current_bank_account.save
@@ -98,8 +98,16 @@ def move_up_bank_account_priority
       format.js
     end
 
-end
+  end
 
-
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @bank_accounts = OrganisationBankAccount.new
+    @organisation = Organisation.find_by_id(params[:params1])
+    respond_to do |format|
+      format.js
+    end
+  end
 
 end
