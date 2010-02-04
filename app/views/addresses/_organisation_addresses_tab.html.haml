@@ -1,24 +1,16 @@
 -# The main Address tab
-.container
-  .header_container#add_new_address
-    .options
-      = link_to_function image_tag('close_icon.png'), :class => "close_option", :toggle_id_name => "new_address", :style => "display:none;" , :field => "address", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"toggle_button new_option clear_form_to_address", :field => "address", :toggle_id_name => "new_address" if (!organisation.nil? && !organisation.new_record?)
-      &nbsp
-    %h1 New Address
-    %input{:id => "address_mode", :mode => "show", :style => "display:none"}
-    %input{:id => "address_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
-    =# Initially hidden new address form
-    #address_check_type
-      = render :partial => '/addresses/organisation_personal_address_type', :locals => { :address => @address }
-
-    
-  #addresses
-    =# Render the organisation's addresses
-    = render :partial => '/addresses/address', :collection => organisation.addresses
-    
-
-
-          
-      
+#add_new_address.header_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :class => "close_option", :toggle_id_name => "new_address", :style => "display:none;" , :field => "address", :title=>"Close"
+  .title
+    = link_to_function image_tag('add_icon.png'), :id=>"add_address", :class=>"toggle_button new_option clear_form_to_address", :field => "address", :toggle_id_name => "new_address" if (!organisation.nil? && !organisation.new_record?)
+    &nbsp
+  %h1 New Address
+  %input{:id => "address_mode", :mode => "show", :style => "display:none"}
+  %input{:id => "address_input_change_or_not", :style => "display:none", :value => "false",:class => "ogranisation_input_change_class"}
+  =# Initially hidden new address form
+  #address_check_type
+    = render :partial => '/addresses/organisation_personal_address_type', :locals => { :address => @address }
+#addresses
+  =# Render the organisation's addresses
+  = render :partial => '/addresses/address', :collection => organisation.addresses

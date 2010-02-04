@@ -1,4 +1,4 @@
-.tab_ui
+.tab_ui{:style=>"margin-top:10px;"}
   #Contact{:style => "float:left;margin-left:10px;", :title=> 'Contact', :class => "organisation_edit_tab active", :field => "contact"}
     = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'), :class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/organisations/organisation_contact", :field => "contacts_page",:params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'), :class=>"tab_switch_with_page_initial", :field => "contacts_page"
@@ -31,18 +31,20 @@
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/organisations/organisation_relationships", :field => "relations_page", :params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_with_page_initial", :field => "relations_page"
 
-#contacts_page.tab_switch_container.active.container
-  = render :partial => "/organisations/organisation_contact", :locals => {:organisation => @organisation}
-#addresses_page.tab_switch_container.full_container
 
-#keywords_page.tab_switch_container.container
+.container
+  #contacts_page.tab_switch_container.active
+    = render :partial => "/organisations/organisation_contact", :locals => {:organisation => @organisation}
+  #addresses_page.tab_switch_container
 
-#master_docs_page.tab_switch_container.container
+  #keywords_page.tab_switch_container
 
-#notes_page.tab_switch_container.container
+  #master_docs_page.tab_switch_container
 
-#employees_page.tab_switch_container.container
+  #notes_page.tab_switch_container
 
-#accounts_page.tab_switch_container.container
+  #employees_page.tab_switch_container
 
-#relations_page.tab_switch_container.container
+  #accounts_page.tab_switch_container
+
+  #relations_page.tab_switch_container
