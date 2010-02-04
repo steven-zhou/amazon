@@ -101,7 +101,7 @@
     #photo_info{:style => "margin-bottom:35px;"}
 
     .tab_switch
-      .profile_tab_right{:field =>"person_info"}
+      .profile_tab_right{:field =>"person_info", :style => "margin-right:10px;"}
       .container_icon{:align => 'center'}
         = link_to_function "<h1>Personal</h1>",  :id=>"personal", :class=>"show_hide_button", :show_id_name => "person_info",:hide_id_name => "business_info", :color_id => "1"
       .profile_tab_left{:field =>"person_info"}
