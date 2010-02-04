@@ -1,0 +1,9 @@
+-# Displays client bank Account
+-div_for(client_bank_account, :class => 'header_container') do
+  %div  
+    .title
+      %h2
+
+    %br.clear
+  %div{:style => "float:right;"}
+    = format_bank_account(client_bank_account)

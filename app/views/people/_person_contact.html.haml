@@ -1,56 +1,60 @@
 -# Displays A Contact
--if !@person.phones.blank?
-  .container
-    %h1 Phone
-    #contact_phone
-      -@person.phones.each do |person_contact|
-        -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
-          %div
-            .title
-              %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-          %div{:style => "float:right;"}
-            = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-            %br
-            = person_contact.remarks
+-if !@person.contacts.blank?
+  -if !@person.phones.blank?
+    .container
+      %h1 Phone
+      #contact_phone
+        -@person.phones.each do |person_contact|
+          -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
+            %div
+              .title
+                %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
+            %div{:style => "float:right;"}
+              = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
+              %br
+              = person_contact.remarks
 
--if !@person.emails.blank?
-  .container
-    %h1 Email
-    #contact_email
-      -@person.emails.each do |person_contact|
-        -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
-          %div
-            .title
-              %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-          %div{:style => "float:right;"}
-            = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-            %br
-            = person_contact.remarks
+  -if !@person.emails.blank?
+    .container
+      %h1 Email
+      #contact_email
+        -@person.emails.each do |person_contact|
+          -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
+            %div
+              .title
+                %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
+            %div{:style => "float:right;"}
+              = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
+              %br
+              = person_contact.remarks
 
--if !@person.websites.blank?
-  .container
-    %h1 Website
-    #contact_website
-      -@person.websites.each do |person_contact|
-        -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
-          %div
-            .title
-              %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-          %div{:style => "float:right;"}
-            = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-            %br
-            = person_contact.remarks
+  -if !@person.websites.blank?
+    .container
+      %h1 Website
+      #contact_website
+        -@person.websites.each do |person_contact|
+          -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
+            %div
+              .title
+                %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
+            %div{:style => "float:right;"}
+              = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
+              %br
+              = person_contact.remarks
 
--if !@person.instant_messagings.blank?
-  .container
-    %h1 IM
-    #contact_instant_messaging
-      -@person.websites.each do |person_contact|
-        -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
-          %div
-            .title
-              %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
-          %div{:style => "float:right;"}
-            = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
-            %br
-            = person_contact.remarks
+  -if !@person.instant_messagings.blank?
+    .container
+      %h1 IM
+      #contact_instant_messaging
+        -@person.websites.each do |person_contact|
+          -div_for(person_contact, :class => 'header_container toggle_options', :field => "person_contact") do
+            %div
+              .title
+                %h2{:class=>("red" if person_contact.contact_meta_type.to_be_removed == true)}= "#{person_contact.contact_meta_type.name}"
+            %div{:style => "float:right;"}
+              = "#{person_contact.pre_value} #{person_contact.value} #{person_contact.post_value}".squeeze(" ").strip
+              %br
+              = person_contact.remarks
+-else
+  .no_record
+    %h1 No Record

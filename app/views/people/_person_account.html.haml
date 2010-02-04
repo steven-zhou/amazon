@@ -1,10 +1,14 @@
 -# Displays Person Account
--@person.person_bank_accounts.each do |person_account|
-  -div_for(person_account, :class => 'header_container') do
-    %div
-      .title
-        %h2{:class=>("red" if AccountType.find(person_account.account_type_id).to_be_removed == true)}= "#{AccountType.find(person_account.account_type_id).name}"
+- if !@person.person_bank_accounts.blank?
+  -@person.person_bank_accounts.each do |person_account|
+    -div_for(person_account, :class => 'header_container') do
+      %div
+        .title
+          %h2{:class=>("red" if AccountType.find(person_account.account_type_id).to_be_removed == true)}= "#{AccountType.find(person_account.account_type_id).name}"
 
-      %br.clear
-    %div{:style => "float:right;"}
-      = format_bank_account(person_account)
+        %br.clear
+      %div{:style => "float:right;"}
+        = format_bank_account(person_account)
+-else
+  .no_record
+    %h1 No Record

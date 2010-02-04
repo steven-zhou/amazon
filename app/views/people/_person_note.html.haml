@@ -1,3 +1,4 @@
+<<<<<<< HEAD:app/views/people/_person_note.html.haml
 /show personal notes details
 - if !@person.sorted_notes.blank?
   .title
@@ -8,7 +9,14 @@
 - else
   .no_record
     %h1 No Record
+=======
+>>>>>>> 2fa1293aafd6d3b4a799a8c9a23b56a9b4de8faf:app/views/people/_person_note.html.haml
 
+-if !@person.sorted_notes.blank?
+  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "false", :db_click_url => "/notes/",:edit=>"false"}
+-else
+  .no_record
+    %h1 No Record
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
@@ -85,3 +93,4 @@
       width: 'auto',
       height: 'auto'
       });
+

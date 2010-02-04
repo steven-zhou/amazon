@@ -102,7 +102,12 @@
       #groups
         =render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
-.tab_ui{:style=>"margin-top:10px;"}
+
+.tab_ui{:style=>"margin-top:10px;margin-left:10px;"}
+  #PersonDetail{:style => "float:left;", :title=> 'PersonDetail',  :class => "person_edit_tab active", :field => "person_detail"}
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/person_detail_title.png'), :class=>"tab_switch_button page_initial hidden", :url => "/people/page_initial", :method => "GET", :render_page => "/people/person_details", :field => "persondetails_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/person_detail_title.png'), :class=>"tab_switch_with_page_initial", :field => "persondetails_page"
+
   #Address{:style => "float:left;margin-left:10px;", :title=> 'Address', :class => "person_edit_tab", :field => "address"}
     = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/people/person_address", :field => "addresses_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "addresses_page"
@@ -141,8 +146,13 @@
     = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/people/person_account", :field => "person_bank_accounts_page",:params1 => @person.id, :type => "Person"
     = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_bank_accounts_page"
 
-.full_container
-  #addresses_page.tab_switch_container.active
+
+.container
+  
+  #persondetails_page.tab_switch_container.active
+    =render :partial => '/people/person_details',:locals => {:p => @person}
+
+  #addresses_page.tab_switch_container
     -#= render :partial => '/people/person_address', :collection => @person.addresses
 
   #contacts_page.tab_switch_container
@@ -181,6 +191,5 @@
 
   #person_bank_accounts_page.tab_switch_container
     -#=render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
-
 
 

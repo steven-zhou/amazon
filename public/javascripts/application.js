@@ -874,6 +874,7 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
+
         if  ($(this).closest('.container').find('.ogranisation_input_change_class').attr('value') == "true")
         {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
@@ -2377,28 +2378,28 @@ $(function(){
     $('a.tab_switch_with_page_initial').live('click', function(){
 
         var link = $(this);
-         var  left_content = $("#content").find("#left_content");
+        var temp = $('#check_input_change').val();
+        var left_content = $("#content").find("#left_content");
         var  right_content = $("#content").find("#right_content");
+        // if the web page got left and right side, do the judgement
         if (left_content.length > 0 &&  right_content.length > 0)
         {
-            if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
+            if ( $('#check_right_input_change').val() == "true"  )
             {
-
-                $('#check_input_change').val("true");
+                       temp = "true"
             }
             else
             {
-
-                $('#check_input_change').val("false");
+                        temp = "false"
             }
         }
-        if($('#check_input_change').val() == "false")
+      
+
+        if(temp == "false")
         {
             $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
             $('#current_tab_id').val(link.attr('field'));
-
-
 
         }
         else
@@ -2422,9 +2423,16 @@ $(function(){
                         $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
                         $('#current_tab_id').val(link.attr('field'));
-                        $('#check_left_input_change').val("false");
+                       if (left_content.length > 0 &&  right_content.length > 0)
+                       {
+
                         $('#check_right_input_change').val("false");
-                        $('#check_input_change').val("false");
+                       }
+                       else
+                           {
+                         $('#check_input_change').val("false");
+                           }
+    
                         $(this).dialog('destroy');
                         return true;
                     }

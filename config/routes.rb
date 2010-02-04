@@ -15,7 +15,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   map.resources :organisation_relationships, :collection => {:page_initial => :get}
   map.resources :people, :shallow=> true, 
-    :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,},
+    :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,:page_initial => :get},
     :member => {
     :edit_names => :post,
     :cancel_edit_names => :post,

@@ -1,7 +1,11 @@
 -# Displays for Group Details
--@person.person_groups.each do |person_group|
-  -div_for(person_group, :class => 'header_container') do
-    %div
-      .title
-        %h2= format_group(person_group)
+-if !@person.person_groups.blank?
+  -@person.person_groups.each do |person_group|
+    -div_for(person_group, :class => 'header_container') do
+      %div
+        .title
+          %h2= format_group(person_group)
+-else
+  .no_record
+    %h1 No Record
 
