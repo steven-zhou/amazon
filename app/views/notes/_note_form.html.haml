@@ -8,18 +8,21 @@
         skin: "o2k7",
         editor_selector : "mceEditor",
         editor_deselector : "mceNoEditor",
-        plugins : "table,insertdatetime,preview",
+
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,cut",
+        theme_advanced_buttons2 : "undo,redo,pastetext,paste,copy,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor,|,outdent,indent,blockquote,|,bullist,numlist",
+        theme_advanced_buttons3 : "",
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left"
       });
 
     });
 
--form_for @note,:url=>{:controller =>"notes",:action => "create",:person_id=>@person.id}, :html => {:class => 'ajax_form add_note'} do |note|
+-form_for @note,:url=>{:controller =>"notes",:action => "create",:entity_id=>( @person.nil? ?  @organisation.id : @person.id), :type =>( @person.nil? ?  "Organisation" : "Person")}, :html => {:class => 'ajax_form add_note'} do |note|
   .form_line{:style => "float:none;"}
     .field_20
       = note.label :note_type_id, "<span class='asterisk'>*</span>Type"
-      = note.collection_select :note_type_id, NoteType.find(:all,:conditions=>"status = true and to_be_removed = false"), :id, :name, {},{}
+      = note.collection_select :note_type_id, NoteType.active_note_type, :id, :name, {},{}
     .field_40
       = note.label :label, "<span class='asterisk'>*</span>Label"
       = note.text_field :label,:id =>"note_new_label",:class=>"mandantory_field",:mandantory_field1=>"note_new_label",:submit_button_id=>"note_new_submit"

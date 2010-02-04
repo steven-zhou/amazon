@@ -1,16 +1,18 @@
 -# The main Address tab
-%input.hidden{:id => "note_mode", :mode => "show"}
-%input{:type => "text", :id => "note_hidden_tab", :mode => "show", :style => "display:none"}
-%input{:id => "notes_input_change_or_not", :style => "display:none", :value => "false"}
-#add_new_note
-  .header_container
-    .options
-      = link_to_function image_tag('close_icon.png'), :class => "close_option", :toggle_id_name => "new_note", :style => "display:none", :field => "note", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"ajax_call new_option",:field => "note",:method => "GET", :url => "/notes/new_note_form",:param1=>person.id if (!person.nil? && !person.new_record?)
-      &nbsp
-    %h1 New Note
-    #new_note_form{:style => "float:left;width:100%;"}
+.container
+  %input.hidden{:id => "note_mode", :mode => "show"}
+  %input{:type => "text", :id => "note_hidden_tab", :mode => "show", :style => "display:none"}
+  %input{:id => "notes_input_change_or_not", :style => "display:none", :value => "false"}
+  #add_new_note
+    .header_container
+      .options
+        = link_to_function image_tag('close_icon.png'), :class => "close_option", :toggle_id_name => "new_note", :style => "display:none", :field => "note", :title=>"Close"
+      .title
+        = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"ajax_call new_option",:field => "note",:method => "GET", :url => "/notes/new_note_form",:param2 => "Person",:param1=>person.id if (!person.nil? && !person.new_record?)
+        &nbsp
+      %h1 New Note
+      #new_note_form{:style => "float:left;width:100%;"}
+
 #notes_list
   = render :partial => '/notes/note'
 
