@@ -52,69 +52,70 @@
   #right_content
     .tab_ui
       #Contact{:style => "float:left;margin-left:10px;",:title=> 'Contact', :class => @current_action == "show" ? "person_edit_tab" : "person_edit_tab active", :field => "contact"}
-        = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/contacts/contacts_tab", :field => "contact_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('/images/Icons/Core/Org/tabs/contact_title.png'), :class=>"tab_switch_with_page_initial", :field => "contact_page"
+        = link_to_function image_tag('/images/Icons/Core/Person/tabs/contact_title.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/contacts/contacts_tab", :field => "contact_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('/images/Icons/Core/Person/tabs/contact_title.png'), :class=>"tab_switch_with_page_initial", :field => "contact_page"
 
 
       #Address{:style => "float:left;margin-left:10px;", :title=> 'Address', :class => "person_edit_tab", :field => "address"}
-        = link_to_function image_tag('/images/Icons/Core/Org/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/addresses/addresses_tab", :field => "address_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('/images/Icons/Core/Org/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "address_page"
+        = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/addresses/addresses_tab", :field => "address_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "address_page"
 
-      #Keyword{:style => "float:left;margin-left:10px;", :title=> 'Keyword', :class => "person_edit_tab", :field => "keyword"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/keywords/page_initial", :method => "GET", :render_page => "keywords/keywords_tab", :field => "keyword_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=>"tab_switch_with_page_initial", :field => "keyword_page"
+      #Keyword{:style => "float:left;margin-left:10px;", :title=> 'Keyword', :class => "person_edit_tab", :field => "keywords"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/keywords/page_initial", :method => "GET", :render_page => "keywords/keywords_tab", :field => "keywords_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=>"tab_switch_with_page_initial", :field => "keywords_page"
 
-      #MasterDoc{:style => "float:left;margin-left:10px;",:title=> 'Master Doc', :class => "person_edit_tab", :field => "master_doc"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/master_docs/page_initial", :method => "GET", :render_page => "/master_docs/masterdocs_tab", :field => "master_doc_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_with_page_initial", :field => "master_doc_page"
+      #MasterDoc{:style => "float:left;margin-left:10px;",:title=> 'Master Doc', :class => "person_edit_tab", :field => "masterdocs"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/master_docs/page_initial", :method => "GET", :render_page => "/master_docs/masterdocs_tab", :field => "masterdocs_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_with_page_initial", :field => "masterdocs_page"
 
-      #Rels{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "person_edit_tab", :field => "relationship"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/relationships/page_initial", :method => "GET", :render_page => "/relationships/relationships_tab", :field => "relationship_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_with_page_initial", :field => "relationship_page"
+      #Rels{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "person_edit_tab", :field => "p2p"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/relationships/page_initial", :method => "GET", :render_page => "/relationships/relationships_tab", :field => "p2p_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_with_page_initial", :field => "p2p_page"
 
-      #Note{:style => "float:left;margin-left:10px;", :title=> 'Note', :class => "person_edit_tab", :field => "note"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/notes/page_initial", :method => "GET", :render_page => "/notes/notes_tab", :field => "note_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class=>"tab_switch_with_page_initial", :field => "note_page"
+      #Note{:style => "float:left;margin-left:10px;", :title=> 'Note', :class => "person_edit_tab", :field => "notes"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/notes/page_initial", :method => "GET", :render_page => "/notes/notes_tab", :field => "notes_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class=>"tab_switch_with_page_initial", :field => "notes_page"
 
-      #Role{:style => "float:left;margin-left:10px;", :title => 'Role', :class => "person_edit_tab", :field => "person_role"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_roles/page_initial", :method => "GET", :render_page => "/person_roles/person_roles_tab", :field => "person_role_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_role_page"
+      #Role{:style => "float:left;margin-left:10px;", :title => 'Role', :class => "person_edit_tab", :field => "roles"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_roles/page_initial", :method => "GET", :render_page => "/person_roles/person_roles_tab", :field => "roles_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_with_page_initial", :field => "roles_page"
 
       #Employment{:style => "float:left;margin-left:10px;", :title => "Employment", :class => "person_edit_tab", :field => "employment"}
         = link_to_function image_tag('Icons/Core/Person/tabs/employment_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/employments/page_initial", :method => "GET", :render_page => "/employments/employments_tab", :field => "employment_page",:params1 => @person.id, :type => "Person"
         = link_to_function image_tag('Icons/Core/Person/tabs/employment_BW.png'), :class=>"tab_switch_with_page_initial", :field => "employment_page"
 
-      #Group{:style => "float:left;margin-left:10px;", :title => 'Group', :class => "person_edit_tab", :field => "person_group"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_groups/page_initial", :method => "GET", :render_page => "/person_groups/group_tab", :field => "person_group_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_group_page"
+      #Group{:style => "float:left;margin-left:10px;", :title => 'Group', :class => "person_edit_tab", :field => "groups"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_groups/page_initial", :method => "GET", :render_page => "/person_groups/group_tab", :field => "groups_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_with_page_initial", :field => "groups_page"
 
-      #Account{:style => "float:left;margin-left:10px;", :title => 'Account', :class => "person_edit_tab", :field => "person_bank_account"}
-        = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/person_bank_accounts/account_tab", :field => "person_bank_account_page",:params1 => @person.id, :type => "Person"
-        = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "person_bank_account_page"
-
-
+      #Account{:style => "float:left;margin-left:10px;", :title => 'Account', :class => "person_edit_tab", :field => "banking"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/person_bank_accounts/account_tab", :field => "banking_page",:params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "banking_page"
 
 
-    .full_container
+
+
+
+    .container
       #contact_page.tab_switch_container.active
         = render :partial => "/contacts/contacts_tab", :locals => {:person => @person}
       #address_page.tab_switch_container
         -#= render :partial => "/addresses/addresses_tab",:locals =>{:person => @person}
-      #keyword_page.tab_switch_container
+      #keywords_page.tab_switch_container
         -#= render :partial => "/keywords/keywords_tab",:locals =>{:person => @person}
-      #master_doc_page.tab_switch_container
+      #masterdocs_page.tab_switch_container
         -#= render :partial => "/master_docs/masterdocs_tab",:locals =>{:person => @person}
-      #relationship_page.tab_switch_container
+      #p2p_page.tab_switch_container
         -#= render :partial => "/relationships/relationships_tab"",:locals =>{:person => @person}
-      #note_page.tab_switch_container
+      #notes_page.tab_switch_container
         -#= render :partial => "/notes/notes_tab",:locals =>{:person => @person}
-      #person_role_page.tab_switch_container
+      #roles_page.tab_switch_container
         -#= render :partial => "/person_roles/person_roles_tab",:locals =>{:person => @person}
       #employment_page.tab_switch_container
         -#= render :partial => "/person_roles/person_roles_tab",:locals =>{:person => @person}
-      #person_group_page.tab_switch_container
+      #groups_page.tab_switch_container
         -#= render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
-      #person_bank_account_page.tab_switch_container
+      #banking_page.tab_switch_container
         -#= render :partial => "/person_bank_accounts/account_tab",:locals =>{:person => @person}
 
   %br.clear
