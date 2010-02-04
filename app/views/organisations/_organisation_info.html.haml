@@ -28,7 +28,7 @@
     = link_to_function image_tag('Icons/Core/Org/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "accounts_page"
 
   #Relation{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "organisation_edit_tab", :field => "o2o"}
-    = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/organisations/organisation_relationship", :field => "relations_page", :params1 => @organisation.id, :type => "Organisation"
+    = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/organisations/organisation_relationships", :field => "relations_page", :params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_with_page_initial", :field => "relations_page"
 
 
