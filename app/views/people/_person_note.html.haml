@@ -1,15 +1,16 @@
 /show personal notes details
--div_for(person_note, :class => 'header_container') do
-  %div
-    .left
-      %strong{:class => ("red" if person_note.note_type.to_be_removed == true)}
-        #{person_note.note_type.name}
-      \-
-      = h person_note.created_at.to_s(:long)
+-@person.sorted_notes.each do |person_note|
+  -div_for(person_note, :class => 'header_container') do
+    %div
+      .left
+        %strong{:class => ("red" if person_note.note_type.to_be_removed == true)}
+          #{person_note.note_type.name}
+        \-
+        = h person_note.created_at.to_s(:long)
 
-    %br.clear
-  %div{:style => "float:right;"}
-    .attr_name
-      = h person_note.short_description
-    .attr_name
-      = truncate(person_note.body_text, 100, "...")
+      %br.clear
+    %div{:style => "float:right;"}
+      .attr_name
+        = h person_note.short_description
+      .attr_name
+        = truncate(person_note.body_text, 100, "...")
