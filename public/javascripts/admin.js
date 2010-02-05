@@ -99,6 +99,7 @@ $(function(){
     $("#system_data_add_entry").live('click', function(){
         $("#system_data_add_entry_form").show();
         $("#edit_system_data_entry").html("");
+        $('#system_data_close_entry').css("display","");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
         $("#system_data_type").attr("disabled",true);
     });
@@ -203,6 +204,11 @@ $(function(){
 
                     },
                     Yes: function(){
+
+
+
+                        
+
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");

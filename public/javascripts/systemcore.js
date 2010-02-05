@@ -840,59 +840,59 @@ $('a.move_up_master_doc_priority').live('click', function() {
 
 $('a.get_close').live('click', function() {
     var change_type = "false";
-//    if($(this).attr('field')== "contact")
-//    {
-//        change_type =$('#contact_input_change_or_not').val();
-//
-//    }
-//    if($(this).attr('field')== "address")
-//    {
-//        change_type =$('#address_input_change_or_not').val();
-//
-//    }
-//
-//    if($(this).attr('field')== "master_doc")
-//    {
-//        change_type =$('#master_doc_input_change_or_not').val();
-//
-//    }
-//
-//    if($(this).attr('field')== "relationship")
-//    {
-//        change_type =$('#relationship_input_change_or_not').val();
-//
-//    }
-//
-//    if($(this).attr('field')== "note")
-//    {
-//
-//        change_type =$('#notes_input_change_or_not').val();
-//
-//    }
-//
-//    if($(this).attr('field')== "person_role")
-//    {
-//
-//        change_type =$('#role_input_change_or_not').val();
-//
-//    }
-//
-//    if($(this).attr('field')== "employment")
-//    {
-//        change_type =$('#employment_input_change_or_not').val();
-//
-//    }
-//    if($(this).attr('field')== "group")
-//    {
-//        change_type =$('#group_input_change_or_not').val();
-//
-//    }
-//    if($(this).attr('field')== "account")
-//    {
-//
-//        change_type =$('#account_input_change_or_not').val();
-//
-//    }
+    //    if($(this).attr('field')== "contact")
+    //    {
+    //        change_type =$('#contact_input_change_or_not').val();
+    //
+    //    }
+    //    if($(this).attr('field')== "address")
+    //    {
+    //        change_type =$('#address_input_change_or_not').val();
+    //
+    //    }
+    //
+    //    if($(this).attr('field')== "master_doc")
+    //    {
+    //        change_type =$('#master_doc_input_change_or_not').val();
+    //
+    //    }
+    //
+    //    if($(this).attr('field')== "relationship")
+    //    {
+    //        change_type =$('#relationship_input_change_or_not').val();
+    //
+    //    }
+    //
+    //    if($(this).attr('field')== "note")
+    //    {
+    //
+    //        change_type =$('#notes_input_change_or_not').val();
+    //
+    //    }
+    //
+    //    if($(this).attr('field')== "person_role")
+    //    {
+    //
+    //        change_type =$('#role_input_change_or_not').val();
+    //
+    //    }
+    //
+    //    if($(this).attr('field')== "employment")
+    //    {
+    //        change_type =$('#employment_input_change_or_not').val();
+    //
+    //    }
+    //    if($(this).attr('field')== "group")
+    //    {
+    //        change_type =$('#group_input_change_or_not').val();
+    //
+    //    }
+    //    if($(this).attr('field')== "account")
+    //    {
+    //
+    //        change_type =$('#account_input_change_or_not').val();
+    //
+    //    }
     //                if($(this).attr('field')== "organisation_contact")
     //          {
     //            change_type =$('#organisation_contact_input_change_or_not').val();
@@ -922,56 +922,56 @@ $('a.get_close').live('click', function() {
                 },
                 Yes: function(){
 
-//                    if(link.attr('field')== "contact")
-//                    {
-//
-//                        $('#contact_input_change_or_not').val("false");
-//                    }
-//                    if(link.attr('field')== "address")
-//                    {
-//
-//                        $('#address_input_change_or_not').val("false");
-//                    }
-//
-//                    if(link.attr('field')== "master_doc")
-//                    {
-//
-//                        $('#master_doc_input_change_or_not').val("false");
-//                    }
-//
-//                    if(link.attr('field')== "relationship")
-//                    {
-//
-//                        $('#relationship_input_change_or_not').val("false");
-//                    }
-//
-//                    if(link.attr('field')== "note")
-//                    {
-//                        $('#notes_input_change_or_not').val("false");
-//                    }
-//
-//                    if(link.attr('field')== "person_role")
-//                    {
-//
-//                        $('#role_input_change_or_not').val("false");
-//                    }
-//
-//                    if(link.attr('field')== "employment")
-//                    {
-//
-//                        $('#employment_input_change_or_not').val("false");
-//                    }
-//                    if(link.attr('field')== "group")
-//                    {
-//
-//                        $('#group_input_change_or_not').val("false");
-//                    }
-//
-//                    if(link.attr('field')== "account")
-//                    {
-//
-//                        $('#account_input_change_or_not').val("false");
-//                    }
+                    //                    if(link.attr('field')== "contact")
+                    //                    {
+                    //
+                    //                        $('#contact_input_change_or_not').val("false");
+                    //                    }
+                    //                    if(link.attr('field')== "address")
+                    //                    {
+                    //
+                    //                        $('#address_input_change_or_not').val("false");
+                    //                    }
+                    //
+                    //                    if(link.attr('field')== "master_doc")
+                    //                    {
+                    //
+                    //                        $('#master_doc_input_change_or_not').val("false");
+                    //                    }
+                    //
+                    //                    if(link.attr('field')== "relationship")
+                    //                    {
+                    //
+                    //                        $('#relationship_input_change_or_not').val("false");
+                    //                    }
+                    //
+                    //                    if(link.attr('field')== "note")
+                    //                    {
+                    //                        $('#notes_input_change_or_not').val("false");
+                    //                    }
+                    //
+                    //                    if(link.attr('field')== "person_role")
+                    //                    {
+                    //
+                    //                        $('#role_input_change_or_not').val("false");
+                    //                    }
+                    //
+                    //                    if(link.attr('field')== "employment")
+                    //                    {
+                    //
+                    //                        $('#employment_input_change_or_not').val("false");
+                    //                    }
+                    //                    if(link.attr('field')== "group")
+                    //                    {
+                    //
+                    //                        $('#group_input_change_or_not').val("false");
+                    //                    }
+                    //
+                    //                    if(link.attr('field')== "account")
+                    //                    {
+                    //
+                    //                        $('#account_input_change_or_not').val("false");
+                    //                    }
 
                     $.get(link.attr('href'), null ,null, 'script');
                     $('#check_right_input_change').val("false");
@@ -3036,12 +3036,12 @@ $(function(){
         $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_BW.png");
     });
 
-    $(".organisation_edit_tab:not(.active)").live("mouseup", function(){
-        $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
-        $(".organisation_edit_tab").removeClass("active");
-        $(this).addClass("active");
-        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_title.png");
-    });
+//    $(".organisation_edit_tab:not(.active)").live("mouseup", function(){
+//        $(".organisation_edit_tab.active").find("img").attr("src", "/images/Icons/Core/Org/tabs/"+$(".organisation_edit_tab.active").attr("field")+"_BW.png");
+//        $(".organisation_edit_tab").removeClass("active");
+//        $(this).addClass("active");
+//        $(this).find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).attr("field")+"_title.png");
+//    });
 });
 
 $(function(){
@@ -3341,6 +3341,13 @@ $(function(){
 
                     },
                     Yes: function(){
+
+
+                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        link.css("display","none");
+                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+                        $('.close_option[field='+ link.attr('field') +']').css("display","none");
+                        
                         $("#new_query").css('display','');
                         $(".highlight").removeClass("highlight");
                         link.css("display", "none");
@@ -3378,6 +3385,13 @@ $(function(){
         }
         else
         {
+
+            $("#" + link.attr('field')+'_mode').attr('mode','show');
+            link.css("display","none");
+            $('.new_option[field='+ link.attr('field') +']').css("display","");
+            $('.close_option[field='+ link.attr('field') +']').css("display","none");
+
+
 
             $("#new_query").css('display','');
             $(".highlight").removeClass("highlight");
@@ -3708,9 +3722,9 @@ $(function(){
 /*For mail variable use*/
 $(function(){
     $(".insert_word").live('click', function(){
-       insert_name_in_email($(this));
+        insert_name_in_email($(this));
 
-        });
+    });
 });
 
 
