@@ -11,11 +11,7 @@
     %h1 No Record
 
 
--if !@person.sorted_notes.blank?
-  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "false", :db_click_url => "/notes/",:edit=>"false"}
--else
-  .no_record
-    %h1 No Record
+
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
