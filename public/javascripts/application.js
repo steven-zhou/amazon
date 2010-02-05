@@ -319,7 +319,7 @@ datapick_config = function(){
 
 
 $(document).ready(function(){
-   datapick_config();
+    datapick_config();
 });
 
 
@@ -885,88 +885,111 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        if  ($(this).closest('.container').find('.ogranisation_input_change_class').attr('value') == "true")
+
+        var temp = $('#check_input_change').val();
+
+        
+        var left_content = $("#content").find("#left_content");
+        var  right_content = $("#content").find("#right_content");
+        // if the web page got left and right side, do the judgement
+        if (left_content.length > 0 &&  right_content.length > 0)
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
-
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        $('#'+link.attr('toggle_id_name')).toggle('blind');
-                        $("#" + link.attr('field')+'_mode').attr('mode','show');
-                        link.css("display","none");
-                        $('.new_option[field='+ link.attr('field') +']').css("display","");
-                        link.closest('.container').find('.ogranisation_input_change_class').attr('value','false');
-                        clear_organisation_form(link);
-
-                        $(this).dialog('destroy');
-
-                        return true;
-                    }
-
-                }
-
-
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
-            $('#warning_message').dialog('open');
-            return false;
+            if ( $('#check_right_input_change').val() == "true"  )
+            {
+                temp = "true"
+            }
+            else
+            {
+                temp = "false"
+            }
         }
-        else if (link.closest('.container').find('.person_input_change_class').attr('value') == "true")
+
+
+        //
+        //        if  ($(this).closest('.container').find('.ogranisation_input_change_class').attr('value') == "true")
+        //        {
+        //            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+        //            $('#warning_message_image').css("display","");
+        //            $('#warning_message').dialog({
+        //                modal: true,
+        //                resizable: false,
+        //                draggable: true,
+        //                height: 'auto',
+        //                width: 'auto',
+        //                buttons: {
+        //
+        //                    No: function(){
+        //                        $(this).dialog('destroy');
+        //                        return false;
+        //
+        //                    },
+        //                    Yes: function(){
+        //                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+        //                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+        //                        link.css("display","none");
+        //                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+        //                        link.closest('.container').find('.ogranisation_input_change_class').attr('value','false');
+        //                        clear_organisation_form(link);
+        //
+        //                        $(this).dialog('destroy');
+        //
+        //                        return true;
+        //                    }
+        //
+        //                }
+        //
+        //
+        //            });
+        //            $('#warning_message').dialog('option', 'title', 'Warning');
+        //            $('#warning_message').parent().find("a").css("display","none");
+        //            $("#warning_message").parent().css('background-color','#D1DDE6');
+        //            $("#warning_message").css('background-color','#D1DDE6');
+        //            $('#warning_message').dialog('open');
+        //            return false;
+        //        }
+        //        else if (link.closest('.container').find('.person_input_change_class').attr('value') == "true")
+        //        {
+        //            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+        //            $('#warning_message_image').css("display","");
+        //            $('#warning_message').dialog({
+        //                modal: true,
+        //                resizable: false,
+        //                draggable: true,
+        //                height: 'auto',
+        //                width: 'auto',
+        //                buttons: {
+        //
+        //                    No: function(){
+        //                        $(this).dialog('destroy');
+        //                        return false;
+        //
+        //                    },
+        //                    Yes: function(){
+        //                        $('#'+link.attr('toggle_id_name')).toggle('blind');
+        //                        $("#" + link.attr('field')+'_mode').attr('mode','show');
+        //                        link.css("display","none");
+        //                        $('.new_option[field='+ link.attr('field') +']').css("display","");
+        //                        link.closest('.container').find('.person_input_change_class').attr('value','false');
+        //                        $(this).dialog('destroy');
+        //
+        //                        return true;
+        //                    }
+        //
+        //                }
+        //
+        //
+        //            });
+        //            $('#warning_message').dialog('option', 'title', 'Warning');
+        //            $('#warning_message').parent().find("a").css("display","none");
+        //            $("#warning_message").parent().css('background-color','#D1DDE6');
+        //            $("#warning_message").css('background-color','#D1DDE6');
+        //            $('#warning_message').dialog('open');
+        //            return false;
+        //        }
+        //        else if ( $('#check_input_change').val()=="true")
+        if ( temp=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
-            $('#warning_message_image').css("display","");
-            $('#warning_message').dialog({
-                modal: true,
-                resizable: false,
-                draggable: true,
-                height: 'auto',
-                width: 'auto',
-                buttons: {
 
-                    No: function(){
-                        $(this).dialog('destroy');
-                        return false;
-
-                    },
-                    Yes: function(){
-                        $('#'+link.attr('toggle_id_name')).toggle('blind');
-                        $("#" + link.attr('field')+'_mode').attr('mode','show');
-                        link.css("display","none");
-                        $('.new_option[field='+ link.attr('field') +']').css("display","");
-                        link.closest('.container').find('.person_input_change_class').attr('value','false');
-                        $(this).dialog('destroy');
-
-                        return true;
-                    }
-
-                }
-
-
-            });
-            $('#warning_message').dialog('option', 'title', 'Warning');
-            $('#warning_message').parent().find("a").css("display","none");
-            $("#warning_message").parent().css('background-color','#D1DDE6');
-            $("#warning_message").css('background-color','#D1DDE6');
-            $('#warning_message').dialog('open');
-            return false;
-        }
-        else if ( $('#check_input_change').val()=="true")
-        {
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
@@ -988,15 +1011,24 @@ $(function(){
                         $("#" + link.attr('enable_id')).removeAttr('disabled');
                         $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false);
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
+                        clear_organisation_form(link);
                         link.css("display","none");
                         $('.new_option[field='+ link.attr('field') +']').css("display","");
                         $('.close_option[field='+ link.attr('field') +']').css("display","none");
                         if($(this).attr('show_existing')=="true"){
                             $('#'+$(this).attr('show_existing_id')).css('display', '');
                         }
-                        $('#check_input_change').val("false");
 
-                        clear_organisation_form(link);
+
+                        if (left_content.length > 0 &&  right_content.length > 0)
+                        {
+                         $('#check_right_input_change').val("false");
+                        }
+                        else{
+                             $('#check_input_change').val("false");
+                        }
+               
+                        
 
                         $(this).dialog('destroy');
                         return true;
@@ -1014,6 +1046,7 @@ $(function(){
         }
         else
         {
+
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
             $("#" + link.attr('enable_id')).removeAttr('disabled');
@@ -2388,11 +2421,29 @@ $(function(){
     $('a.tab_switch_with_page_initial').live('click', function(){
 
         var link = $(this);
-        if($('#check_input_change').val() == "false")
+        var temp = $('#check_input_change').val();
+        var left_content = $("#content").find("#left_content");
+        var  right_content = $("#content").find("#right_content");
+        // if the web page got left and right side, do the judgement
+        if (left_content.length > 0 &&  right_content.length > 0)
+        {
+            if ( $('#check_right_input_change').val() == "true"  )
+            {
+                temp = "true"
+            }
+            else
+            {
+                temp = "false"
+            }
+        }
+      
+
+        if(temp == "false")
         {
             $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
             $('#current_tab_id').val(link.attr('field'));
+
         }
         else
         {
@@ -2415,7 +2466,16 @@ $(function(){
                         $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
                         $('#current_tab_id').val(link.attr('field'));
-                        $('#check_input_change').val("false");
+                        if (left_content.length > 0 &&  right_content.length > 0)
+                        {
+
+                            $('#check_right_input_change').val("false");
+                        }
+                        else
+                        {
+                            $('#check_input_change').val("false");
+                        }
+    
                         $(this).dialog('destroy');
                         return true;
                     }
@@ -2437,6 +2497,23 @@ $(function(){
 $(function(){
     $(".page_initial").live('mousedown', function(){
         $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
+
+        if ($(this).attr("type") == "Person"){
+            var person_edit_tab_not_active = $(".person_edit_tab:not(.active)");
+            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).parent().attr("field")+"_title.png");
+            $(".person_edit_tab").removeClass("active");
+            person_edit_tab_not_active.mouseout();
+        }
+        
+        if ($(this).attr("type") == "Organisation"){
+            var organisation_edit_tab_not_active = $(".organisation_edit_tab:not(.active)");
+            $(".organisation_edit_tab").removeClass("active");
+            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).parent().attr("field")+"_title.png");
+            organisation_edit_tab_not_active.mouseout();
+        }
+
+        $(this).parent().addClass("active");
+
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("url")+".js",
