@@ -523,6 +523,20 @@ margin-right: 5px;
     font-weight: bold;
 }
 
+#app #main #content .ex_container .title {
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#app #main #content .ex_container h2 {
+    font-size:18px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+
 #app #main #content .container .options {
     float: right;
     display:inline;
