@@ -4,5 +4,5 @@
       = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag', :title=>"Edit"
       = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete',:field => "Tag",:error_message_field => "Tag", :title=>"Remove"
     .title
-      %h3 #{tag.name}
+      %h2 #{tag.name}
   %br.clear
