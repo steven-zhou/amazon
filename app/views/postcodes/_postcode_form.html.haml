@@ -55,5 +55,5 @@
           = f.label :bulk_code, 'Bulk Code'
           = f.text_field :bulk_code
   .form_line
-    .field_10{:style => "float:right;"}
-      = submit_tag "Submit",:style=>"margin-top:13px;", :id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit", :disabled=>(true if @current_action=="new")
+    .field_20{:style => "float:right;"}
+      = submit_tag "Submit",:style=>"", :id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit", :disabled=>(true if @current_action=="new")
