@@ -1,7 +1,5 @@
 $(function(){
 
-  $('#system_log_search_results').html('<table id="system_log_search_grid"></table>');
-
     $("#system_log_search_grid").flexigrid({
         url: '/grids/system_log_search_grid',
         dataType: 'json',
@@ -92,7 +90,6 @@ $(function(){
         sortname: "grid_object_id",
         sortorder: "asc",
         usepager: true,
-
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,

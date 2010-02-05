@@ -7,5 +7,5 @@
       = f.label :description, 'Description'
       = f.text_field :description 
   .form_line
-    .field_10{:style => "float:right;"}
+    .field_20{:style => "float:right;"}
       = submit_tag "Submit", :id=>@current_action=="new" ? "new_language_submit" : "edit_language_submit", :disabled=>(true if @current_action=="new")
