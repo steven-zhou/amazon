@@ -1330,6 +1330,7 @@ $(".delete_email").live('click',function(){
 
 $("#phone_edit_button").live('click',function(){
     //$('.person_contact_toggle_button').css("display","none");
+    $('#add_new_contact').slideUp(1000);
     $('.person_contact_edit_delete').css("display","none");
     $('#contact_hidden_tab').attr('mode','edit');
 
