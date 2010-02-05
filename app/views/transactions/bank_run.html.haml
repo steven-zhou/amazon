@@ -7,7 +7,7 @@
     #lol
 
 
-  .full_container
+  #step1.full_container
     %h1 STEP 1: Transaction Selection
     %input.hidden{:id => "bank_run_mode", :mode => "show"}
 
@@ -15,4 +15,15 @@
       = render :partial => "transactions/bank_run_filter"
 
     #enquiry_result
+
+  #step2.full_container
+    = link_to_function "BACK TO --> STEP 1: Transaction Selection"
+    %h1 STEP 2: Report Selection
+
+
+  #step3.full_container
+    = link_to_function "BACK TO --> STEP 1: Transaction Selection"
+    %br
+    = link_to_function "BACK TO --> STEP 2: Report Selection"
+    %h1 STEP 3: Bank Run Process
 

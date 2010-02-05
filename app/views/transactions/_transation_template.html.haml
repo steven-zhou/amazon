@@ -25,9 +25,10 @@
   .tab_switch_right.left{:field =>"histroy_page"}
 %br.clear
 
-#current_page.tab_switch_container.active
-  = render :partial => "transactions/current_tab"
+.full_container
+  #current_page.tab_switch_container.active
+    = render :partial => "transactions/current_tab"
 
-#histroy_page.tab_switch_container
+  #histroy_page.tab_switch_container
 
 

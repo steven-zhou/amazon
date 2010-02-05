@@ -1,6 +1,7 @@
-%h2 Existing Email Templates
+.full_container
+  %h2 Existing Email Templates
 
-%table#show_message_templates_grid{:class => "selectable_grid"}
+  %table#show_message_templates_grid{:class => "selectable_grid"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
@@ -115,7 +116,7 @@
     sortname: "name",
     sortorder: "asc",
     usepager: true,
-    title: 'Email Templates',
+    title: '',
     useRp: true,
     rp: 20,
     showTableToggleBtn: false,
