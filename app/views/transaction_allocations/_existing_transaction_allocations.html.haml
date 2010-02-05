@@ -1,8 +1,8 @@
 -# locals => {:transaction_header_id}
+.full_container
+  %h2 Allocations
 
-%h2 Allocations
-
-%table#show_existing_transaction_allocations_grid
+  %table#show_existing_transaction_allocations_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_existing_transaction_allocations_grid").flexigrid({
@@ -76,7 +76,6 @@
   sortname: "id",
   sortorder: "asc",
   usepager: true,
-  title: '',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,
