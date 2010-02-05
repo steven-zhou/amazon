@@ -20,9 +20,10 @@
 
 %br.clear
 
-#campaigns_page.tab_switch_container.active
-  = render :partial => "receipting/campaigns_tab"
+.full_container
+  #campaigns_page.tab_switch_container.active
+    = render :partial => "receipting/campaigns_tab"
 
-#sources_page.tab_switch_container
-  = render :partial => "receipting/sources_tab"
+  #sources_page.tab_switch_container
+    = render :partial => "receipting/sources_tab"
 
