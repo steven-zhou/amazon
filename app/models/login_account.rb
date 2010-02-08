@@ -15,14 +15,14 @@ class LoginAccount < ActiveRecord::Base
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
   validates_presence_of  :user_name
-  validates_presence_of  :password, :if => :loginaccount_update?
+  validates_presence_of  :password , :if => :loginaccount_update?
 
 
 
 #if update no need to check the presence of password
   def loginaccount_update?
     if update_login_account_password.nil?
-    update_login_account_password =true
+    update_login_account_password = false
     end
     return update_login_account_password
   end
