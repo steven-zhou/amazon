@@ -715,6 +715,14 @@ class PeopleController < ApplicationController
     end
   end
 
+  def change_status
+    @person = Person.find(params[:param1])
+    @person.status = @person.status ? false : true
+    @person.save
+    respond_to do |format|
+      format.js
+    end
+  end
 
 
 

@@ -1022,10 +1022,10 @@ $(function(){
 
                         if (left_content.length > 0 &&  right_content.length > 0)
                         {
-                         $('#check_right_input_change').val("false");
+                            $('#check_right_input_change').val("false");
                         }
                         else{
-                             $('#check_input_change').val("false");
+                            $('#check_input_change').val("false");
                         }
                
                         
@@ -1178,8 +1178,8 @@ $(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
             $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-//            $('#feedback_form_submit_button').removeAttr('disabled');
-              $('#feedback_form_submit_button').attr('disabled', false);
+            //            $('#feedback_form_submit_button').removeAttr('disabled');
+            $('#feedback_form_submit_button').attr('disabled', false);
         }
     });
 });
@@ -1189,8 +1189,8 @@ $(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
             $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-//            $('#feedback_form_submit_button').removeAttr('disabled');
-             $('#feedback_form_submit_button').attr('disabled', false);
+            //            $('#feedback_form_submit_button').removeAttr('disabled');
+            $('#feedback_form_submit_button').attr('disabled', false);
         }
     });
 });
@@ -1403,7 +1403,7 @@ $(function(){
 
     });
 
-    // For the tinymce
+// For the tinymce
 
     
 
@@ -1807,12 +1807,56 @@ $(function(){
 /* Ajax call system */
 $(function(){
     $(".ajax_call").live("click", function(){
-        $.ajax({
-            type: $(this).attr("method"),
-            url: $(this).attr("url")+".js",
-            data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
-            dataType: "script"
-        });
+        if ($(this).attr("light_box") == "true"){
+
+             var link = $(this);
+            $('#warning_message_text').html("Are You Sure You Want to change this person status?  ");
+            $('#warning_message_image').css("display","");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+
+                    No: function(){
+                        $(this).dialog('destroy');
+                        return false;
+
+                    },
+                    Yes: function(){
+                    
+                        $.ajax({
+                            type: link.attr("method"),
+                            url: link.attr("url")+".js",
+                            data: 'param1='+link.attr("param1")+'&param2='+link.attr("param2")+'&param3='+link.attr("param3"),
+                            dataType: "script"
+
+                        });
+                       
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#warning_message').dialog('option', 'title', 'Warning');
+
+            $('#warning_message').parent().find("a").css("display","none");
+            $("#warning_message").parent().css('background-color','#D1DDE6');
+            $("#warning_message").css('background-color','#D1DDE6');
+
+            $('#warning_message').dialog('open');
+            return false;
+
+        }else{
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("url")+".js",
+                data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
+                dataType: "script"
+            });
+        }
     });
 });
 
@@ -3193,7 +3237,7 @@ $(function(){
 
 iphone_checkbox = function(){
 
- $(':checkbox').iphoneStyle();
+    $(':checkbox').iphoneStyle();
 
 };
 
