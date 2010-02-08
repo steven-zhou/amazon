@@ -3176,3 +3176,15 @@ $(function(){
     });
 });
 
+
+
+/*for iphone switch use*/
+
+iphone_checkbox = function(){
+
+ $(':checkbox').iphoneStyle();
+
+};
+
+
+

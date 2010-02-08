@@ -15,7 +15,7 @@ class LoginAccount < ActiveRecord::Base
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
   validates_presence_of  :user_name
-  validates_presence_of  :password, :if => :loginaccount_update?
+  validates_presence_of  :password, :unless => :loginaccount_update?
 
 
 

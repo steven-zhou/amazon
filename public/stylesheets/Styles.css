@@ -2725,3 +2725,5 @@ input.error_flag{
 .person_edit_tab.active {margin-top:-10px;}
 .organisation_edit_tab.active {margin-top:-10px;}
 .no_record {text-align:center;height:50px;}
+
+.iPhoneCheckContainer label{color:white !important;}
