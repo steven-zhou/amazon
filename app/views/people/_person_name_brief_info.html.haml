@@ -1,10 +1,9 @@
 - if @person.id.nil?
   %h1{:style=>'visibility:hidden'} Hidden
 -else
-  -if @person.to_be_removed
-    %h1{:id=>"person_name"}=  "<span class='red'>#{@person.name}</span>"
-  -else
-    %h1{:id=>"person_name"}=  "#{@person.name}"
+  %h1
+    =@person.to_be_removed ? "<span class='red'>#{@person.name}</span>" : "#{@person.name}"
+    
 .form_line{:style=>"width: 193px; margin-top: 10px;"}
   %div#customerid{:style=>"width:193px;"}
     = label_tag :customerid, "Custom ID",:style=>"font-size: 12px;"
@@ -13,9 +12,10 @@
 .form_line{:style=>"width:193px;margin-top:2px;"}
   %div#onrecordsince{:style=>"width:193px;"}
     = label_tag :on_record_since, "On Record Since",:style=>"font-size:12px;display:inline;"
-    = link_to_function "Remove", :id=>"remove_people",:class=>"ajax_call",:style => "font-size: 12px;",:method =>"DELETE",:url=>"/people/"+@person.id.to_s
-    - status = @person.status ? "active" : "inactive"
-    = link_to_function "#{status}",:class=> "ajax_call", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true"
+    -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
+      = link_to_function "Remove",:class=>"ajax_call",:style => "font-size: 12px;",:method =>"DELETE",:url=>"/people/"+@person.id.to_s,:light_box =>"true"
+      - status = @person.status ? "active" : "inactive"
+      = link_to_function "#{status}",:class=> "ajax_call", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true"
 
     %div.display_field_bg{:style=>"margin-left: 4px;"}
       = @person.onrecord_since.to_s
