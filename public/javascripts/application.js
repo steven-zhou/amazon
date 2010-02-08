@@ -1400,6 +1400,15 @@ $(function(){
     //        $('#check_input_change').val("true");
 
     });
+
+    // For the tinymce
+
+    
+
+
+
+
+
 });
 
 check_input_change = function(){
@@ -2674,12 +2683,15 @@ $(function(){
         }else{
 
             $('#add_new_'+ $(this).attr('field')).html('');
+
             if($(this).attr('field')=="postcode"){
                 $('#existing_postcodes').html('');
             }else{
                 $('#existing_'+ $(this).attr('field')).html('');
+
             }
             $('#edit_'+ $(this).attr('field')+'_form').html('');
+
         }
     });
 });
@@ -3052,7 +3064,7 @@ disable_form_after_submit = function(submit_button){
     target_form.find("select").attr("readonly", true);
     target_form.find("textarea").attr("readonly", true);
     submit_button.attr("disabled", true);
-    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/tuneup/spinner.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
 };
 
 enable_form_after_submit_finish = function(){
