@@ -1178,7 +1178,8 @@ $(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
             $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-            $('#feedback_form_submit_button').removeAttr('disabled');
+//            $('#feedback_form_submit_button').removeAttr('disabled');
+              $('#feedback_form_submit_button').attr('disabled', false);
         }
     });
 });
@@ -1188,7 +1189,8 @@ $(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
             $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-            $('#feedback_form_submit_button').removeAttr('disabled');
+//            $('#feedback_form_submit_button').removeAttr('disabled');
+             $('#feedback_form_submit_button').attr('disabled', false);
         }
     });
 });
