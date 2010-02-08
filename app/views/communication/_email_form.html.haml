@@ -15,20 +15,19 @@
   .full_container
     %h2 Email Message
     .form_line
-      .field_40
+      .field_30
         = f.label :subject, "<span class='asterisk'>*</span>Subject"
-        = f.text_field :subject, :id => "new_email_subject", :class => 'new_email_required_field'
-    .form_line
-      .field_80
+        = f.text_field :subject, :id => "new_email_subject", :style => "width:250px", :class => 'new_email_required_field'
+      .field_30
         = f.label :subject, "<span class='asterisk'>*</span>Template"
         %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'new_email_required_field' }
           - @message_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
-    .form_line
-      .field_80
+      .field_30
         = f.label :subject, "<span class='asterisk'>*</span>List"
         %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'new_email_required_field' }
           - @list_headers.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
-    = submit_tag "Submit", :id => "new_email_submit", :disabled => true
+      .field_5
+        = submit_tag "Submit", :id => "new_email_submit", :style => "margin-top:10px;", :disabled => true
 

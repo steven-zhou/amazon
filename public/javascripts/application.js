@@ -1178,7 +1178,8 @@ $(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
             $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-            $('#feedback_form_submit_button').removeAttr('disabled');
+//            $('#feedback_form_submit_button').removeAttr('disabled');
+              $('#feedback_form_submit_button').attr('disabled', false);
         }
     });
 });
@@ -1188,7 +1189,8 @@ $(function() {
         if($('#feedback_item_subject').val() == '' || $('#feedback_item_content').val() == '') {
             $('#feedback_form_submit_button').attr('disabled', true);
         } else {
-            $('#feedback_form_submit_button').removeAttr('disabled');
+//            $('#feedback_form_submit_button').removeAttr('disabled');
+             $('#feedback_form_submit_button').attr('disabled', false);
         }
     });
 });
@@ -1400,6 +1402,15 @@ $(function(){
     //        $('#check_input_change').val("true");
 
     });
+
+    // For the tinymce
+
+    
+
+
+
+
+
 });
 
 check_input_change = function(){
@@ -2440,8 +2451,8 @@ $(function(){
 
         if(temp == "false")
         {
-            $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
+            $('.tab_switch_button[field='+ link.attr('field')+']').click();
             $('#current_tab_id').val(link.attr('field'));
 
         }
@@ -2463,8 +2474,8 @@ $(function(){
 
                     },
                     Yes: function(){
-                        $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('.tab_switch_button[field='+ link.attr('field')+']').click();
                         $('#current_tab_id').val(link.attr('field'));
                         if (left_content.length > 0 &&  right_content.length > 0)
                         {
@@ -2498,20 +2509,17 @@ $(function(){
     $(".page_initial").live('mousedown', function(){
         $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
 
-        if ($(this).attr("type") == "Person"){
-            var person_edit_tab_not_active = $(".person_edit_tab:not(.active)");
-            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).parent().attr("field")+"_title.png");
+        if ($(this).attr("type") == "Person"){      
             $(".person_edit_tab").removeClass("active");
-            person_edit_tab_not_active.mouseout();
+            $(".person_edit_tab:not(.active)").mouseout();
+            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).parent().attr("field")+"_title.png");            
         }
         
         if ($(this).attr("type") == "Organisation"){
-            var organisation_edit_tab_not_active = $(".organisation_edit_tab:not(.active)");
             $(".organisation_edit_tab").removeClass("active");
-            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).parent().attr("field")+"_title.png");
-            organisation_edit_tab_not_active.mouseout();
+            $(".organisation_edit_tab:not(.active)").mouseout();
+            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).parent().attr("field")+"_title.png");            
         }
-
         $(this).parent().addClass("active");
 
         $.ajax({
@@ -2674,12 +2682,15 @@ $(function(){
         }else{
 
             $('#add_new_'+ $(this).attr('field')).html('');
+
             if($(this).attr('field')=="postcode"){
                 $('#existing_postcodes').html('');
             }else{
                 $('#existing_'+ $(this).attr('field')).html('');
+
             }
             $('#edit_'+ $(this).attr('field')+'_form').html('');
+
         }
     });
 });
@@ -3052,7 +3063,7 @@ disable_form_after_submit = function(submit_button){
     target_form.find("select").attr("readonly", true);
     target_form.find("textarea").attr("readonly", true);
     submit_button.attr("disabled", true);
-    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/tuneup/spinner.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
 };
 
 enable_form_after_submit_finish = function(){

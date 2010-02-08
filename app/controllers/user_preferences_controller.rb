@@ -3,7 +3,7 @@ class UserPreferencesController < ApplicationController
 
   def change_email
     if @current_user.security_email == params[:old_email] && params[:new_email]== params[:retype_new_email]
-      @current_user.update_login_account_password = false
+      @current_user.update_login_account_password = true
       @current_user.security_email = params[:new_email]
       if @current_user.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its security email.")
@@ -49,7 +49,7 @@ class UserPreferencesController < ApplicationController
 
 
   def change_security_question
-    @current_user.update_login_account_password = false
+    @current_user.update_login_account_password = true
     if  @current_user.update_attributes(params[:login_account])
       flash.now[:save_message] = "Security questions and answers are updated successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its security question.")

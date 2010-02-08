@@ -8,6 +8,7 @@
     delete_email_from_list = function(){
     var trSelected = $("#show_message_templates_grid tr.trSelected").attr('id');
     var id = "";
+    if($('#message_template_mode').attr('mode')=="show"){
     if (trSelected != undefined){
       id = trSelected.substring(3);
       $("#warning_message_text").html("Are you sure you wish to delete this record?");
@@ -62,7 +63,7 @@
       $('#warning_message').dialog('open');
       return false;
       };
-
+      };
     retrieve_email_from_list = function(){
     var trSelected = $("#show_message_templates_grid tr.trSelected").attr('id');
     var id = "";
@@ -111,7 +112,7 @@
     ],
     buttons : [
             {name: 'Delete', bclass: 'delete', onpress : delete_email_from_list},
-            {name: 'retrieve', bclass: 'get', onpress : retrieve_email_from_list}
+            {name: 'Retrieve', bclass: 'get', onpress : retrieve_email_from_list}
         ],
     sortname: "name",
     sortorder: "asc",

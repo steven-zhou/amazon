@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100202043040) do
+ActiveRecord::Schema.define(:version => 20100208061121) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -397,6 +397,7 @@ ActiveRecord::Schema.define(:version => 20100202043040) do
     t.text     "response"
     t.datetime "response_date"
     t.integer  "responded_to_by_id"
+    t.string   "submitted_by"
   end
 
   create_table "grids", :force => true do |t|
@@ -657,6 +658,8 @@ ActiveRecord::Schema.define(:version => 20100202043040) do
     t.integer  "updated_by_id"
     t.integer  "level"
     t.string   "level_label"
+    t.boolean  "status"
+    t.boolean  "to_be_removed"
   end
 
   create_table "people", :force => true do |t|
@@ -688,6 +691,8 @@ ActiveRecord::Schema.define(:version => 20100202043040) do
     t.integer  "marital_status_id"
     t.integer  "gender_id"
     t.string   "duplication_value"
+    t.boolean  "status"
+    t.boolean  "to_be_removed"
   end
 
   create_table "person_bank_accounts", :force => true do |t|
@@ -750,10 +755,12 @@ ActiveRecord::Schema.define(:version => 20100202043040) do
   end
 
   create_table "potential_members", :force => true do |t|
-    t.string "first_name"
-    t.string "family_name"
-    t.string "email"
-    t.string "validation_key"
+    t.string   "first_name"
+    t.string   "family_name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "validation_key"
   end
 
   create_table "query_criterias", :force => true do |t|
