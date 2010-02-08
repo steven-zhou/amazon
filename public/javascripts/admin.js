@@ -1578,13 +1578,13 @@ $(function(){
 
         $(".container_selected").removeClass("container_selected");
         $(this).closest('.toggle_options').addClass("container_selected");
-   });
+    });
 });
 
 $(function(){
     $(".close_edit_bank").live('click', function(){
         $(".container_selected").removeClass("container_selected");
-   });
+    });
 });
 
 
