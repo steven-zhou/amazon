@@ -2449,8 +2449,8 @@ $(function(){
 
         if(temp == "false")
         {
-            $('.page_initial[field='+ link.attr('field')+']').click();
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
+            $('.tab_switch_button[field='+ link.attr('field')+']').click();
             $('#current_tab_id').val(link.attr('field'));
 
         }
@@ -2472,8 +2472,8 @@ $(function(){
 
                     },
                     Yes: function(){
-                        $('.page_initial[field='+ link.attr('field')+']').click();
                         $('.page_initial[field='+ link.attr('field')+']').mousedown();
+                        $('.tab_switch_button[field='+ link.attr('field')+']').click();
                         $('#current_tab_id').val(link.attr('field'));
                         if (left_content.length > 0 &&  right_content.length > 0)
                         {
@@ -2507,20 +2507,17 @@ $(function(){
     $(".page_initial").live('mousedown', function(){
         $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
 
-        if ($(this).attr("type") == "Person"){
-            var person_edit_tab_not_active = $(".person_edit_tab:not(.active)");
-            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).parent().attr("field")+"_title.png");
+        if ($(this).attr("type") == "Person"){      
             $(".person_edit_tab").removeClass("active");
-            person_edit_tab_not_active.mouseout();
+            $(".person_edit_tab:not(.active)").mouseout();
+            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Person/tabs/"+$(this).parent().attr("field")+"_title.png");            
         }
         
         if ($(this).attr("type") == "Organisation"){
-            var organisation_edit_tab_not_active = $(".organisation_edit_tab:not(.active)");
             $(".organisation_edit_tab").removeClass("active");
-            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).parent().attr("field")+"_title.png");
-            organisation_edit_tab_not_active.mouseout();
+            $(".organisation_edit_tab:not(.active)").mouseout();
+            $(".tab_switch_with_page_initial[field ="+ $(this).attr('field')+"]").find("img").attr("src","/images/Icons/Core/Org/tabs/"+$(this).parent().attr("field")+"_title.png");            
         }
-
         $(this).parent().addClass("active");
 
         $.ajax({

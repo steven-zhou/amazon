@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100202043040) do
+ActiveRecord::Schema.define(:version => 20100208012409) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -397,6 +397,7 @@ ActiveRecord::Schema.define(:version => 20100202043040) do
     t.text     "response"
     t.datetime "response_date"
     t.integer  "responded_to_by_id"
+    t.string   "submitted_by"
   end
 
   create_table "grids", :force => true do |t|
