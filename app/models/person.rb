@@ -127,7 +127,7 @@ class Person < ActiveRecord::Base
   before_save :insert_primary_salutation, :insert_duplication_value
   after_create :update_primary_list
   #set to_be_removed to be false before save
-  before_create :set_to_be_removed
+  before_create :set_to_be_removed_and_active
   #--
   ################
   #  Convenience
@@ -359,8 +359,9 @@ class Person < ActiveRecord::Base
     @list_detail.save
   end
 
-  def set_to_be_removed
+  def set_to_be_removed_and_active
     self.to_be_removed=false
+    self.status = true
   end
 
 end
