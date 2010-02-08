@@ -718,9 +718,9 @@ class PeopleController < ApplicationController
 
   def destroy
 
-    @people = Person.find(params[:id])
-    @people.to_be_removed = true
-    @people.save
+    @person = Person.find(params[:id])
+    @person.to_be_removed = true
+    @person.save
 
     respond_to do |format|
       format.js
