@@ -3,24 +3,24 @@ class CommunicationController < ApplicationController
 
   def email
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.active_record
-    @message_template = MessageTemplate.new
+    @message_templates = EmailTemplate.active_record
+    @message_template = EmailTemplate.new
   end
 
 
   def new_message_template
-    @message_template = MessageTemplate.new
+    @message_template = EmailTemplate.new
     respond_to do |format|
       format.js
     end
   end
 
   def create_message_template
-    @message_template = MessageTemplate.new(params[:message_template])
+    @message_template = EmailTemplate.new(params[:message_template])
     if @message_template.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new message_template with ID #{@message_template.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Email_template with ID #{@message_template.id}.")
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a message template.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a Email template.")
       if(!@message_template.errors[:name].nil?)
         flash.now[:error] = "A Template With That Name Already Exists"
       end
@@ -32,11 +32,11 @@ class CommunicationController < ApplicationController
   end
 
   def update_message_template
-    @message_template = MessageTemplate.find(params[:id])
+    @message_template = EmailTemplate.find(params[:id])
     if @message_template.update_attributes(params[:message_template])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new message template with ID #{@message_template.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new Email template with ID #{@message_template.id}.")
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a message template #{@message_template.id}.")
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a Email template #{@message_template.id}.")
       if(!@message_template.errors[:name].nil?)
         flash.now[:error] = "A Template With That Name Already Exists"
       end
@@ -47,14 +47,14 @@ class CommunicationController < ApplicationController
   end
 
   def edit_message_template
-    @message_template = MessageTemplate.find(params[:id])
+    @message_template = EmailTemplate.find(params[:id])
     respond_to do |format|
       format.js
     end
   end
 
   def destroy_message_template
-    @message_template = MessageTemplate.find(params[:id])
+    @message_template = EmailTemplate.find(params[:id])
     @message_template.to_be_removed = true
     @message_template.save
     respond_to do |format|
@@ -63,7 +63,7 @@ class CommunicationController < ApplicationController
   end
 
  def retrieve_message_template
-    @message_template = MessageTemplate.find(params[:id])
+    @message_template = EmailTemplate.find(params[:id])
     @message_template.to_be_removed = false
     @message_template.save
     respond_to do |format|
@@ -75,11 +75,11 @@ class CommunicationController < ApplicationController
   def send_email
 
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.active_record
-    @message_template = MessageTemplate.new
+    @message_templates = EmailTemplate.active_record
+    @message_template = EmailTemplate.new
 
     subject = params[:email][:subject]
-    message_template = MessageTemplate.find(params[:message_template_id])
+    message_template = EmailTemplate.find(params[:message_template_id])
     list_header = ListHeader.find(params[:list_header_id])
 
     flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
@@ -146,9 +146,7 @@ class CommunicationController < ApplicationController
     else
       @date_valid = false
       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-    end
-
-    
+    end    
     respond_to do |format|
       format.js
     end
@@ -197,14 +195,10 @@ class CommunicationController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.active_record
-    @message_template = MessageTemplate.new
-
+    @message_templates = EmailTemplate.active_record
+    @message_template = EmailTemplate.new
     @start_date = "#{Date.today().at_beginning_of_week.strftime('%Y-%m-%d')}"
     @end_date = "#{Date.today().strftime('%Y-%m-%d')}"
-
-  
-
     respond_to do |format|
       format.js
     end
@@ -214,8 +208,8 @@ class CommunicationController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @list_headers = @current_user.all_person_lists
-    @message_templates = MessageTemplate.find(:all)
-    @message_template = MessageTemplate.new
+    @message_templates = EmailTemplate.find(:all)
+    @message_template = EmailTemplate.new
 
     #for the email history using
     @start_date = "#{Date.today().at_beginning_of_week.strftime('%d-%m-%Y')}"
@@ -228,12 +222,14 @@ class CommunicationController < ApplicationController
       @tbr = false
       @dd = false
       @status = true
-
     end
-
     respond_to do |format|
       format.js
     end
+  end
+
+  def person_mail_merge
+    
   end
   
 

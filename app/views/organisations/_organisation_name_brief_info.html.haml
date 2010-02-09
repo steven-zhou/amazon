@@ -10,7 +10,7 @@
     =@organisation.custom_id
 .form_line{:style=>"width: 200px; margin-top: 2px;"}
   .field_80
-    = label_tag 'onrecord_since', 'On Record Since',:style=>"font-size:12px;display:inline;"
+    = label_tag 'onrecord_since', 'On Record Since', :style=>"font-size:12px;display:inline;"
     -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
       - to_be_removed = @organisation.to_be_removed ? "Retrieve" : " Remove"
       = link_to_function "#{to_be_removed}",:class=>"ajax_call",:style => "font-size: 12px;display:inline;",:method =>"DELETE",:url=>"/organisations/"+@organisation.id.to_s,:light_box =>"true"
