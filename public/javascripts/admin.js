@@ -2490,3 +2490,14 @@ $(function(){
         }
     });
 });
+
+$(function(){
+    $('#data_restore').click(function(){
+        $.ajax({
+            type: 'GET',
+            url: "/maintenance/restore/",
+            data: 'file_name=' + $(this).attr("file_name"),
+            dataType: "script"
+        });
+    });
+});
