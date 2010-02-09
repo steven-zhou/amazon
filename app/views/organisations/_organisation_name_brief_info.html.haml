@@ -1,0 +1,17 @@
+- if @organisation.id.nil?
+  %h1{:style=>'visibility:hidden'} Hidden
+-else
+  %h1
+    =@organisation.to_be_removed ? "<span class='red'>#{@organisation.full_name}</span>" : "#{@organisation.full_name}"
+
+.form_line{:style=>"width: 193px; margin-top: 10px;"}
+  = label_tag 'custom_id', 'Custom ID'
+  %div.display_field_bg{:style=>"margin-left: 4px;"}
+    =@organisation.custom_id
+.form_line{:style=>"width: 193px; margin-top: 2px;"}
+  = label_tag 'onrecord_since', 'On Record Since'
+  -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
+    = link_to_function "Remove",:class=>"ajax_call",:style => "font-size: 12px;",:method =>"DELETE",:url=>"/organisations/"+@organisation.id.to_s,:light_box =>"true"
+  %div.display_field_bg{:style=>"margin-left: 4px;"}
+    =@organisation.onrecord_since.to_s
+%br

@@ -442,4 +442,16 @@ class OrganisationsController < ApplicationController
   end
 
 
+  def destroy
+
+    @organisation = Organisation.find(params[:id])
+    @organisation.to_be_removed = true
+    @organisation.save
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
 end
