@@ -58,8 +58,8 @@ class PeopleController < ApplicationController
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
           @person = @list_header.entity_on_list.first unless @list_headers.blank?
-          session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
+          session[:current_person_id] = @person.id unless @person.new_record?
           @p = Array.new
           @p = @list_header.entity_on_list.uniq
         else  #when there is id come---click the narrow button
@@ -719,9 +719,8 @@ class PeopleController < ApplicationController
   def destroy
 
     @person = Person.find(params[:id])
-    @person.to_be_removed = true
+    @person.to_be_removed = @person.to_be_removed ? false : true
     @person.save
-
     respond_to do |format|
       format.js
     end

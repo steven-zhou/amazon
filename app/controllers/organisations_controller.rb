@@ -445,13 +445,26 @@ class OrganisationsController < ApplicationController
   def destroy
 
     @organisation = Organisation.find(params[:id])
-    @organisation.to_be_removed = true
+    @organisation.to_be_removed = @organisation.to_be_removed ? false :true
     @organisation.save
 
     respond_to do |format|
       format.js
     end
   end
+
+
+
+  def change_status
+    @organisation = Organisation.find(params[:param1])
+    @organisation.status = @organisation.status ? false : true
+    @organisation.save
+    respond_to do |format|
+
+      format.js
+    end
+  end
+
 
 
 end
