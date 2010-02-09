@@ -30,13 +30,13 @@
         = login.label :security_email, 'Email'
         .display_field_bg
           = @login_account.security_email
-      .field_2
+      .field_5
         = login.label :login_status, '&nbsp'
         = login.check_box :login_status, :class => "checkbox_style", :id => "login_account_login_status" , :name => "login_account[login_status]"
-      .field_6
+      .field_5{:id => "kk"}
         = login.label :login_status, '&nbsp'
-        = login.label :login_status, 'Active', :style => "margin-top:6px;"
-      .field_2
+        = login.label :login_status, 'Active', :style => "margin-top:6px;color:none;"
+      .field_5
         = login.label :system_user, '&nbsp'
         = login.check_box :system_user,{:style => "width:10%", :id => "login_account_system_user" , :name => "login_account[system_user]"}
       .field_8

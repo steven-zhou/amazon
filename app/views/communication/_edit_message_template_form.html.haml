@@ -52,7 +52,7 @@
     .form_line
       .field_100{:style => "float:right;"}
         %div{:style => "display:inline;float:right;height:100%;"}
-          = link_to "Remove", {:controller => "communication", :action => "destroy_message_template", :id => @message_template.id}, {:class => 'delete', :error_message_field => "email template", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"}
+          -#= link_to "Remove", {:controller => "communication", :action => "destroy_message_template", :id => @message_template.id}, {:class => 'delete', :error_message_field => "email template", :style => "float:right;text-size:12px;padding-top:4px;padding-left:7px;text-decoration:underline;color:#154073;"}
         %div{:style => "display:inline;float:right;height:100%;"}
           = submit_tag "Update", :id => "edit_message_template_submit", :disabled => false
 

@@ -3722,14 +3722,23 @@ $(function(){
 });
 
 
+//insert_name_in_email = function(this_form){
+//    var current_form = this_form.closest('form').attr('id');
+//    //var value = $("#select_word").val();
+//    var value = $("#"+current_form).find("#select_word").val()
+//
+//    var iframe_id = this_form.closest('form').find('iframe').get(0).id
+//    $("#"+ iframe_id ).contents().find('br:last').remove();
+//    $("#"+ iframe_id ).contents().find("p:last").append(value);
+//};
+
+
 insert_name_in_email = function(this_form){
     var current_form = this_form.closest('form').attr('id');
     //var value = $("#select_word").val();
     var value = $("#"+current_form).find("#select_word").val()
 
-    var iframe_id = this_form.closest('form').find('iframe').get(0).id
-    $("#"+ iframe_id ).contents().find('br:last').remove();
-    $("#"+ iframe_id ).contents().find("p:last").append(value);
+    window.tinyMCE.execCommand('mceInsertContent', false, value);
 };
 /*For note*/
 //  $('#note_edit_submit').live('click',function(){
@@ -3760,3 +3769,4 @@ $(function() {
         length: 6
     });
 });
+

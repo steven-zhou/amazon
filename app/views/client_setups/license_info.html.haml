@@ -15,19 +15,19 @@
         .display_field_bg
           = @client_setup.client_id
           -#%input{:value => @client_setup.client_id}
-      .field_30
+      .field_20
         %label Client Registration
         .display_field_bg
           = @client_setup.client_rego
-      .field_15
+      .field_20
         %label Installation Date
         .display_field_bg
           = @client_setup.installation_date
-      .field_15
+      .field_20
         %label Halt Date
         .display_field_bg
           = @client_setup.halt_date
-      .field_25
+      .field_20
         %label Home Country
         .display_field_bg
           = @client_setup.home_country_id.blank? ? "" : Country.find(@client_setup.home_country_id).short_name

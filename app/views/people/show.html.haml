@@ -15,21 +15,8 @@
     
      
       %div#person_name{:style=>"width:360px;margin-left:130px;height:140px;"}
-        - if @person.id.nil?
-          %h1{:style=>'visibility:hidden'} Hidden
-        -else
-          %h1= h "#{@person.name}"
-        .form_line{:style=>"width: 193px; margin-top: 10px;"}
-          %div#customerid{:style=>"width:193px;"}
-            = label_tag :customerid, "Custom ID",:style=>"font-size: 12px;"
-            %div.display_field_bg{:style=>"margin-left: 4px;"}
-              = @person.custom_id
-        .form_line{:style=>"width:193px;margin-top:2px;"}
-          %div#onrecordsince{:style=>"width:193px;"}
-            = label_tag :on_record_since, "On Record Since",:style=>"font-size: 12px;"
-            %div.display_field_bg{:style=>"margin-left: 4px;"}
-              = @person.onrecord_since.to_s
-        %br
+        =render :partial => "person_name_brief_info"
+
 
     .container
       %h1 Primary Contacts

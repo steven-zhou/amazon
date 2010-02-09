@@ -16,6 +16,8 @@
         theme_advanced_toolbar_align : "left"
       });
 
+
+
     });
 
 -form_for @note,:url=>{:controller =>"notes",:action => "create",:entity_id=>( @person.nil? ?  @organisation.id : @person.id), :type =>( @person.nil? ?  "Organisation" : "Person")}, :html => {:class => 'ajax_form add_note'} do |note|

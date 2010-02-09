@@ -58,8 +58,8 @@ class PeopleController < ApplicationController
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
           @person = @list_header.entity_on_list.first unless @list_headers.blank?
-          session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
+          session[:current_person_id] = @person.id unless @person.new_record?
           @p = Array.new
           @p = @list_header.entity_on_list.uniq
         else  #when there is id come---click the narrow button
@@ -103,14 +103,14 @@ class PeopleController < ApplicationController
     @primary_website = @person.primary_website
     @primary_address = @person.primary_address
     @primary_employment = @person.primary_employment
-#    @other_phones = @person.other_phones
-#    @other_emails = @person.other_emails
-#    @other_faxes = @person.other_faxes
-#    @other_websites = @person.other_websites
-#    @other_addresses = @person.other_addresses
-#    @notes = @person.notes
-#    @instant_messaging = @person.instant_messagings
-#    @person_role = @person.person_roles
+    #    @other_phones = @person.other_phones
+    #    @other_emails = @person.other_emails
+    #    @other_faxes = @person.other_faxes
+    #    @other_websites = @person.other_websites
+    #    @other_addresses = @person.other_addresses
+    #    @notes = @person.notes
+    #    @instant_messaging = @person.instant_messagings
+    #    @person_role = @person.person_roles
 
     respond_to do |format|
 
@@ -444,7 +444,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
 
 
-     @active_address = AddressType.active_address_type
+    @active_address = AddressType.active_address_type
     @active_title = Title.active_title
     @countries = Country.all #
     @Languages = Language.active_language #
@@ -460,14 +460,14 @@ class PeopleController < ApplicationController
     @primary_website = @person.primary_website
     @primary_address = @person.primary_address
     @primary_employment = @person.primary_employment
-#    @other_phones = @person.other_phones
-#    @other_emails = @person.other_emails
-#    @other_faxes = @person.other_faxes
-#    @other_websites = @person.other_websites
-#    @other_addresses = @person.other_addresses
-#    @notes = @person.notes
-#    @instant_messaging = @person.instant_messagings
-#    @person_role = @person.person_roles
+    #    @other_phones = @person.other_phones
+    #    @other_emails = @person.other_emails
+    #    @other_faxes = @person.other_faxes
+    #    @other_websites = @person.other_websites
+    #    @other_addresses = @person.other_addresses
+    #    @notes = @person.notes
+    #    @instant_messaging = @person.instant_messagings
+    #    @person_role = @person.person_roles
 
 
 
@@ -487,21 +487,21 @@ class PeopleController < ApplicationController
     if(params[:current_operation] == "edit_list")
       #@postcodes = Postcode.find(:all)
       @current_action = "edit"
-     # @address = Address.new
+      # @address = Address.new
       @phone = Phone.new
       @email = Email.new
       @fax = Fax.new
       @website = Website.new
       @instant_messaging = InstantMessaging.new
-    #  @masterdoc = MasterDoc.new
-     # @relationship = Relationship.new
-     # @employment = Employment.new
-     # @note = Note.new
+      #  @masterdoc = MasterDoc.new
+      # @relationship = Relationship.new
+      # @employment = Employment.new
+      # @note = Note.new
       @image = @person.image unless (@person.nil? || @person.image.nil?)
-    #  @role = Role.new
-    #  @person_role = PersonRole.new
-    #  @bank_accounts = PersonBankAccount.new
-    #  @person_group = PersonGroup.new
+      #  @role = Role.new
+      #  @person_role = PersonRole.new
+      #  @bank_accounts = PersonBankAccount.new
+      #  @person_group = PersonGroup.new
       render 'show_edit_left.js'
 
     else
@@ -511,13 +511,13 @@ class PeopleController < ApplicationController
       @primary_website = @person.primary_website
       @primary_address = @person.primary_address
       @primary_employment = @person.primary_employment
-#      @other_phones = @person.other_phones
-#      @other_emails = @person.other_emails
-#      @other_faxes = @person.other_faxes
-#      @other_websites = @person.other_websites
-#      @other_addresses = @person.other_addresses
-#      @notes = @person.notes
-#      @person_role = @person.person_roles
+      #      @other_phones = @person.other_phones
+      #      @other_emails = @person.other_emails
+      #      @other_faxes = @person.other_faxes
+      #      @other_websites = @person.other_websites
+      #      @other_addresses = @person.other_addresses
+      #      @notes = @person.notes
+      #      @person_role = @person.person_roles
       @current_action = "show"
       respond_to do |format|
         format.js
@@ -715,6 +715,26 @@ class PeopleController < ApplicationController
     end
   end
 
+
+  def destroy
+
+    @person = Person.find(params[:id])
+    @person.to_be_removed = @person.to_be_removed ? false : true
+    @person.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def change_status
+    @person = Person.find(params[:param1])
+    @person.status = @person.status ? false : true
+    @person.save
+    respond_to do |format|
+
+      format.js
+    end
+  end
 
 
 
