@@ -1,7 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
   map.simple_captcha '/simple_captcha/:action', :controller => 'simple_captcha'
-
   map.connect 'people/edit/', {:controller => 'people', :action => 'edit', :id => ' ' }
   map.connect 'organisations/edit/', {:controller => 'organisations', :action => 'edit', :id => ''}
   map.resources :addresses,  :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}, :collection => {:page_initial => :get}
@@ -132,7 +131,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
   map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get,:move_organisation_down_website_priority=>:get, :move_organisation_up_website_priority => :get}
-  map.resources :instant_messagings, :member => {:move_down_instant_messaging_priority =>:get, :move_up_instant_messaging_priority => :get,:move_organisation_down_instant_messaging_priority=>:get, :move_organisation_up_instant_messaging_priority => :get}
+  map.resources :instant_messagings, :resourcemember => {:move_down_instant_messaging_priority =>:get, :move_up_instant_messaging_priority => :get,:move_organisation_down_instant_messaging_priority=>:get, :move_organisation_up_instant_messaging_priority => :get}
   
  
   map.resources :data_managers, :collection => {:import_index => :get, :export_index => :get, :export => :get, :page_initial => :get}
@@ -166,8 +165,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :nightly_processes, :collection => {:run => :get}
   map.resources :quick_launch_icons,:collection => {:check => :get}
   map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put,:change_security_question =>:put, :show_whoami => :get}
-
-
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

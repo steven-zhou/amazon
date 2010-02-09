@@ -1578,13 +1578,13 @@ $(function(){
 
         $(".container_selected").removeClass("container_selected");
         $(this).closest('.toggle_options').addClass("container_selected");
-   });
+    });
 });
 
 $(function(){
     $(".close_edit_bank").live('click', function(){
         $(".container_selected").removeClass("container_selected");
-   });
+    });
 });
 
 
@@ -2488,5 +2488,16 @@ $(function(){
         }else{
             $(this).css('cursor',"");
         }
+    });
+});
+
+$(function(){
+    $('#data_restore').click(function(){
+        $.ajax({
+            type: 'GET',
+            url: "/maintenance/restore/",
+            data: 'file_name=' + $(this).attr("file_name"),
+            dataType: "script"
+        });
     });
 });
