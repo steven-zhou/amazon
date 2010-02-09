@@ -85,7 +85,7 @@ class Organisation < ActiveRecord::Base
 
   before_save :insert_duplication_value
   after_create :update_primary_list
-  before_create :set_to_be_removed
+  before_create :set_to_be_removed_and_status
   #--
   ################
   #  Convenience
@@ -237,8 +237,9 @@ class Organisation < ActiveRecord::Base
     @list_detail.save
   end
   
-  def set_to_be_removed
+  def set_to_be_removed_and_status
     self.to_be_removed=false
+    self.status=false
   end
 
 end
