@@ -123,7 +123,7 @@
           %li{:id => @current_action == "email" ? "selected" : ""}
             = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "email"}, :controller => "communication", :action => "email",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"
           %li{:id => @current_action == "mail_merge" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/reporting/report.png')} Mail",{:controller => "communication", :action => "mail_merge"}, :controller => "communication", :action => "mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/reporting/report.png", :title => "Mail"
+            = link_to "#{image_tag('Icons/Core/reporting/report.png')} PersonMail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/reporting/report.png", :title => "PersonMail"
     .bottom
 
  
