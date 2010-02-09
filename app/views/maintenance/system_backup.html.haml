@@ -5,7 +5,17 @@
     %br.clear
 #content_full_page
   .container
+    %h1 Schedule Backup
     %p
       Full system backups are currently scheduled to occur daily at 01:00 am and include the last 20 days of system data. To change the backup schedule or data retention period please contact the System Administrator.
 
-    
+  .container
+    %h1 Backup Now
+    %form.ajax_form{:action => "/maintenance/backup", :method => "post"}
+      .form_line
+        .field_30
+          %label File Name
+          %input{:name => "file_name"}
+        .field_30
+          %label &nbsp;
+          = submit_tag "Backup Now"

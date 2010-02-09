@@ -3091,7 +3091,6 @@ config_drag= function(){
 $('input[type="submit"]').live('click', function(){
     disable_form_after_submit($(this));
 });
-
 $('.fake_submit_button').live('click', function(){
     disable_form_after_submit($(this));
 });
@@ -3262,3 +3261,79 @@ $(function(){
 });
 
 
+
+delete_from_grid = function(grid,mode,type,url){
+    var trSelected = grid
+    var id = "";
+    if($(mode).attr('mode')=="show"){
+        if (trSelected != undefined){
+            id = trSelected.substring(3);
+            $('#warning_message_text').html("Are you sure you wish to delete this record?");
+            $("#warning_message").dialog({
+                modal:false,
+                resizable:false,
+                draggable:false,
+                height: 'auto',
+                width: 'auto',
+                buttons:{
+
+                    NO: function(){
+                        $(this).dialog("destroy");
+
+                    },
+
+                    Yes: function(){
+                        $.ajax({
+                            type: type,
+                            url: url,
+                            data: "id="+id,
+                            dataType: "script"
+                        });
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+
+            });
+        }else{
+            $('#warning_message_text').html("Please select the record you want to delete");
+            $('#warning_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    Ok: function(){
+                        $(this).dialog('destroy');
+                        return false;
+                    }
+                }
+
+            });
+        }
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog('option', 'title', 'Warning');
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        $('#warning_message').dialog('open');
+        return false;
+    };
+};
+
+
+retrieve_from_grid = function(grid,type,url){
+    var trSelected = grid
+    var id = "";
+    if (trSelected != undefined){
+        id = trSelected.substring(3);
+        $.ajax({
+            type: type,
+            url: url,
+            data: "id="+id,
+            dataType: "script"
+        });
+    };
+
+};
