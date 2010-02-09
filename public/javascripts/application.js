@@ -1810,7 +1810,7 @@ $(function(){
         if ($(this).attr("light_box") == "true"){
 
              var link = $(this);
-            $('#warning_message_text').html("Are You Sure You Want to change this person status?  ");
+            $('#warning_message_text').html("Are You Sure You Want to Change?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
