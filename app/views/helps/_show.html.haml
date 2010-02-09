@@ -1,0 +1,16 @@
+.container
+  .left
+    .header_container
+      #help_content{:style=>"min-height:400px;width:350px;"}
+        %h1=@help.title
+        .content
+          = @help.content
+  .right
+    .header_container
+      #help_seach{:style=>"min-height:400px;width:350px;"}
+        .container
+          %h1 Search
+          -form_for(:help, :url=>'/helps/search',:html => {:class=>'ajax_form'}) do |form|
+            %input{:id=>"search_content",:name=>"search_content"}
+            = submit_tag 'Search'
+        .container#search_result{:style=>"min-height:300px;width:330px;"}

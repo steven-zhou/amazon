@@ -1809,7 +1809,7 @@ $(function(){
     $(".ajax_call").live("click", function(){
         if ($(this).attr("light_box") == "true"){
 
-             var link = $(this);
+            var link = $(this);
             $('#warning_message_text').html("Are You Sure You Want to Change?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
@@ -1872,35 +1872,35 @@ $(".tab_switch_button").live('click', function(){
 
 /*help-icon*/
 
-$(function(){
-    $('#help_icon_tab').click(function(){
-        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
-
-                ok: function(){
-                    $(this).dialog('destroy');
-                    return false;
-
-                }
-            }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
-
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-
-        $('#warning_message').dialog('open');
-
-    });
-});
+//$(function(){
+//    $('#help_icon_tab').click(function(){
+//        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
+//        $('#warning_message_image').css("display","");
+//        $('#warning_message').dialog({
+//            modal: true,
+//            resizable: false,
+//            draggable: true,
+//            height: 'auto',
+//            width: 'auto',
+//            buttons: {
+//
+//                ok: function(){
+//                    $(this).dialog('destroy');
+//                    return false;
+//
+//                }
+//            }
+//        });
+//        $('#warning_message').dialog('option', 'title', 'Warning');
+//
+//        $('#warning_message').parent().find("a").css("display","none");
+//        $("#warning_message").parent().css('background-color','#D1DDE6');
+//        $("#warning_message").css('background-color','#D1DDE6');
+//
+//        $('#warning_message').dialog('open');
+//
+//    });
+//});
 
 
 // Address assistant //
@@ -3241,5 +3241,17 @@ iphone_checkbox = function(){
 
 };
 
+/* for help button */
+$(function(){
+    $("#help_icon_tab").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/helps/show",
+            data: "current_controller="+$("#controller").val()+"&current_action="+$("#action").val(),
+            dataType: "script"
+        });
+        return false;
+    });
+});
 
 

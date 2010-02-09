@@ -1,0 +1,7 @@
+$("#help_lightbox").html("<%= escape_javascript(render(:partial => "helps/show.html")) %> ");
+$("#help_lightbox").dialog({
+  model: true,
+  height: 600,
+  width: 800,
+});
+$("#help_lightbox").dialog('open');
