@@ -15,7 +15,7 @@
     -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
       = link_to_function "Remove",:class=>"ajax_call",:style => "font-size: 12px;",:method =>"DELETE",:url=>"/people/"+@person.id.to_s,:light_box =>"true"
       - status = @person.status ? "active" : "inactive"
-      = link_to_function "#{status}",:class=> "ajax_call", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true"
+      = link_to_function "#{status}",:class=> "ajax_call", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true", :style => "font-size: 12px;"
     %div.display_field_bg{:style=>"margin-left: 4px;"}
       = @person.onrecord_since.to_s
 %br
