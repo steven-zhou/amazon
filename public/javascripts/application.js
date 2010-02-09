@@ -3243,6 +3243,7 @@ iphone_checkbox = function(){
 
 /* for help button */
 $(function(){
+    //ajax invoke the help lightbox
     $("#help_icon_tab").click(function(){
         $.ajax({
             type: "POST",
@@ -3251,6 +3252,12 @@ $(function(){
             dataType: "script"
         });
         return false;
+    });
+
+    //when click the title of a search result, use the title and content of search result to update left help_content
+    $("#search_result .title").live('click',function(){
+        $("#help_content .title").html($(this).html());
+        $("#help_content .content").html($(this).next().html());
     });
 });
 

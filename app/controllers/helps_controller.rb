@@ -1,6 +1,11 @@
 class HelpsController < ApplicationController
   def show
     @help = Help.find_by_controller_and_action(params[:current_controller],params[:current_action])
+    if(@help.nil?)
+      @help = Help.new()
+      @help.title = "There is no help"
+      @help.content = "Empty"
+    end
     respond_to do |format|
       format.js
     end
