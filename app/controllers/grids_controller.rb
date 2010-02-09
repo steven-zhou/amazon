@@ -2629,22 +2629,22 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @message_templates = MessageTemplate.find(:all,
+      @message_templates = EmailTemplate.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = MessageTemplate.count(:all)
+      count = EmailTemplate.count(:all)
     end
 
     # User provided search terms
     if(query != "%%")
-      @message_templates = MessageTemplate.find(:all,
+      @message_templates = EmailTemplate.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query])
-      count = MessageTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = EmailTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
     end
 
     # Construct a hash from the ActiveRecord result
