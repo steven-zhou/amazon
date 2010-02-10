@@ -38,16 +38,16 @@ class MaintenanceController < ApplicationController
 
   def restore
     file_name = params[:file_name]
-    backup_directory = "/home/ubuntu/database/backup"
-    restore_directory = "/home/ubuntu/database/restore"
-    cmd = "cd ~/database | mkdir restore | touch restore.rb"
-    system  "#{cmd}"
+    dir = "/home/ubuntu/database/backup/" + file_name
+    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir}"
+    redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end
 
   def restore_now
-    
+    system "#{params[:cmd]}"
+    flash.now[:message] = "Database is restored using #{params[:file_name]}"
     respond_to do |format|
-      format.js
+      format.js {render 'backup_now.js'}
     end
   end
 

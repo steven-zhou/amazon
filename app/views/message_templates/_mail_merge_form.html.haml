@@ -1,0 +1,17 @@
+- form_for :mail_merge, nil, :url => { :action => "send_email" }, :html => {:class => 'ajax_form', :id => "send_email_form"}  do |f|
+  .form_line
+    .field_30
+      = f.label :subject, "<span class='asterisk'>*</span>Query/List"
+      %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'new_email_required_field' }
+        -# @list_headers.each do |r|
+          %option{:value => "#{r.id}"} #{r.name}
+    .field_30
+      = f.label :subject, "<span class='asterisk'>*</span>Template"
+      %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'new_email_required_field' }
+        -# @message_templates.each do |r|
+          %option{:value => "#{r.id}"} #{r.name}
+      
+    .field_5{:style => "float:right;"}
+      = f.label "&nbsp;"
+      = submit_tag "Submit", :id => "new_email_submit", :disabled => true
+
