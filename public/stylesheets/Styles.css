@@ -2727,3 +2727,9 @@ input.error_flag{
 .no_record {text-align:center;height:50px;}
 
 .iPhoneCheckContainer label{color:white !important;}
+
+.tab_structure{
+    display:none;
+    margin-top:10px;
+    float:left;
+}
