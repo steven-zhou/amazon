@@ -25,4 +25,11 @@ class MessageTemplatesController < ApplicationController
 
   end
 
+  def page_initial
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

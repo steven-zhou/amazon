@@ -166,6 +166,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :nightly_processes, :collection => {:run => :get}
   map.resources :quick_launch_icons,:collection => {:check => :get}
   map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put,:change_security_question =>:put, :show_whoami => :get}
+  map.resources :message_templates, :collection => {:page_initial => :get}
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
