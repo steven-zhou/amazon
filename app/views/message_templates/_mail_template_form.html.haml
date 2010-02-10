@@ -1,0 +1,32 @@
+%script{:type => "text/javascript"}
+  :plain
+    tinymce_init();
+
+-form_for @mail_template, :url => @mail_template.new_record? ? message_templates_path : message_template_path(@mail_template), :html => {:class => "ajax_form"} do |f|
+  .form_line
+    .field_33
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name
+    .field_20
+      %label Table Name
+      %select{:update_field => "selection", :class => "clear_select show_fields"}
+        -@table_attributes.each do |i|
+          %option{:value => i.name}
+            = i.name
+
+    .field_20
+      %label Field Name
+      %select#fields_selection{:class => "select_word"}
+      %br.clear
+
+    .field_15
+      %label &nbsp
+      =button_to_function 'Insert', :class => "insert_word"
+
+  .form_line.field_select_line
+    .field_100{:style => "height:auto;"}
+      = f.label :body, "body"
+      = f.text_area :body, :class => 'mceEditor'
+
+  = submit_tag "Submit"
+

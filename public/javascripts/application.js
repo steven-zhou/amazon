@@ -3335,5 +3335,52 @@ retrieve_from_grid = function(grid,type,url){
             dataType: "script"
         });
     };
+};
+
+
+tinymce_init = function(){
+
+    tinyMCE.init({
+        // General options
+        mode: "textareas",
+        theme : "advanced",
+        skin: "o2k7",
+        editor_selector : "mceEditor",
+        editor_deselector : "mceNoEditor",
+        plugins : "table,insertdatetime,preview",
+        theme_advanced_buttons1 : "bold,italic,underline,strikethrough,|,justifyleft,justifycenter,justifyright,justifyfull,|,formatselect,fontselect,fontsizeselect,cut,copy,paste,pastetext,|,bullist,numlist,|,outdent,indent,blockquote,|,undo,redo,|,link,unlink,anchor,image,cleanup,code,|,insertdate,inserttime,preview,|,forecolor,backcolor",
+        theme_advanced_buttons2 : "tablecontrols,|,",
+        theme_advanced_buttons3 : "",
+        width : 1050,
+        height : 500,
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left"
+    });
+};
+
+
+flash_message_init = function(){
+    
+    $('#flash_message').dialog({
+        modal:true,
+        resizable:false,
+        draggable:true,
+        height:auto,
+        width:600,
+
+        buttons:{
+            Ok: function() {
+
+                $(this).dialog('destroy');
+
+            }
+        }
+    });
+
+    $('#flash_message').dialog('option', 'title', 'ERROR');
+    $('#flash_message').parent().find("a").css("display", "none");
+    $("#flash_message").parent().css('background-color','#D1DDE6');
+    $("#flash_message").css('background-color','#D1DDE6');
+    $('#flash_message').dialog('open');
 
 };
