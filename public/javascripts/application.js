@@ -1872,35 +1872,35 @@ $(".tab_switch_button").live('click', function(){
 
 /*help-icon*/
 
-$(function(){
-    $('#help_icon_tab').click(function(){
-        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-            modal: true,
-            resizable: false,
-            draggable: true,
-            height: 'auto',
-            width: 'auto',
-            buttons: {
-
-                ok: function(){
-                    $(this).dialog('destroy');
-                    return false;
-
-                }
-            }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
-
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-
-        $('#warning_message').dialog('open');
-
-    });
-});
+//$(function(){
+//    $('#help_icon_tab').click(function(){
+//        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
+//        $('#warning_message_image').css("display","");
+//        $('#warning_message').dialog({
+//            modal: true,
+//            resizable: false,
+//            draggable: true,
+//            height: 'auto',
+//            width: 'auto',
+//            buttons: {
+//
+//                ok: function(){
+//                    $(this).dialog('destroy');
+//                    return false;
+//
+//                }
+//            }
+//        });
+//        $('#warning_message').dialog('option', 'title', 'Warning');
+//
+//        $('#warning_message').parent().find("a").css("display","none");
+//        $("#warning_message").parent().css('background-color','#D1DDE6');
+//        $("#warning_message").css('background-color','#D1DDE6');
+//
+//        $('#warning_message').dialog('open');
+//
+//    });
+//});
 
 
 // Address assistant //
@@ -3091,7 +3091,6 @@ config_drag= function(){
 $('input[type="submit"]').live('click', function(){
     disable_form_after_submit($(this));
 });
-
 $('.fake_submit_button').live('click', function(){
     disable_form_after_submit($(this));
 });
@@ -3241,6 +3240,25 @@ iphone_checkbox = function(){
 
 };
 
+/* for help button */
+$(function(){
+    //ajax invoke the help lightbox
+    $("#help_icon_tab").click(function(){
+        $.ajax({
+            type: "POST",
+            url: "/helps/show",
+            data: "current_controller="+$("#controller").val()+"&current_action="+$("#action").val(),
+            dataType: "script"
+        });
+        return false;
+    });
+
+    //when click the title of a search result, use the title and content of search result to update left help_content
+    $("#search_result .title").live('click',function(){
+        $("#help_content .title").html($(this).html());
+        $("#help_content .content").html($(this).next().html());
+    });
+});
 
 
 
