@@ -12,11 +12,11 @@ namespace :db do
     puts "Backup folder = #{backup_folder}"
     File.makedirs(backup_folder)
     db_config = ActiveRecord::Base.configurations[RAILS_ENV]
-    sh "pg_dump -U rails -O --format=t -f #{RAILS_ENV}_dump.tar #{db_config['database']}"
-    sh "mv #{RAILS_ENV}_dump.tar #{backup_folder}/#{RAILS_ENV}_dump.tar"
+    sh "pg_dump -U rails -O --format=t -f database_dump.tar #{db_config['database']}"
+    sh "mv database_dump.tar #{backup_folder}/database_dump.tar"
     dir = Dir.new(base_path)
     all_backups = (dir.entries - [".", ".."]).sort.reverse
-    puts "Created backup: #{backup_folder}/#{RAILS_ENV}_dump.tar"
+    puts "Created backup: #{backup_folder}/database_dump.tar"
     max_backups = (ENV["MAX"] || 20).to_i
     unwanted_backups = all_backups[max_backups..-1] || []
     for unwanted_backup in unwanted_backups
@@ -35,8 +35,8 @@ namespace :db do
     RAILS_ENV = environment
     puts "Restore environment is #{RAILS_ENV}"
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    source_path = ENV["DIR"] || "~/database/backup"
-    source_file = File.join(source_path, "#{RAILS_ENV}_dump.tar")
+    source_path = ENV["DIR"] || "/home/ubuntu/database/backup"
+    source_file = File.join(source_path, "database_dump.tar")
     db_config = ActiveRecord::Base.configurations[RAILS_ENV]
     sh "pg_restore -U rails -O -c -d #{db_config['database']} #{source_file}"
 

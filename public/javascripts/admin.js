@@ -2492,12 +2492,45 @@ $(function(){
 });
 
 $(function(){
-    $('#data_restore').click(function(){
-        $.ajax({
-            type: 'GET',
-            url: "/maintenance/restore/",
-            data: 'file_name=' + $(this).attr("file_name"),
-            dataType: "script"
+    $('#data_restore').live('click', function(){
+        var link = $(this);
+        $('#warning_message_text').html("Are You Sure You Wish to Restore Database?");
+        $('#warning_message_image').css("display","");
+        $('#warning_message').dialog({
+            modal: true,
+            resizable: false,
+            draggable: true,
+            height: 300,
+            width: 550,
+            buttons: {
+                No: function(){
+                    $(this).dialog('destroy');
+                    return false;
+
+                },
+                Yes: function(){
+                    $('#warning_message_text').html("Processing......<div class='spinner'></div>");
+                    $('.ui-dialog-buttonpane').hide();
+                    $.ajax({
+                        type: 'GET',
+                        url: "/maintenance/restore/",
+                        data: 'file_name=' + link.attr("file_name"),
+                        dataType: "script"
+                    });
+                    return true;
+                }
+            }
+
         });
+
+        $('#warning_message').dialog('option', 'title', 'Warning');
+
+        $('#warning_message').parent().find("a").css("display","none");
+        $("#warning_message").parent().css('background-color','#D1DDE6');
+        $("#warning_message").css('background-color','#D1DDE6');
+        //      $("#warning_message").closest("ui-dialog-titlebar").css('background','#97B6CE');
+
+        $('#warning_message').dialog('open');
+        return false;
     });
 });
