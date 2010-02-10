@@ -2865,7 +2865,8 @@ $(function(){
             if ($('#'+ form_id).attr('db_show')=="true")
             {
                 url=url+$(this).attr('id').substring(3)+".js";        
-            }            
+            }
+
             $.ajax({
                 type: type,
                 url: url,
