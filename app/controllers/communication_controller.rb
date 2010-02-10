@@ -232,7 +232,8 @@ class CommunicationController < ApplicationController
     
   end
   
+  def organisation_mail_merge
 
-
+  end
 
 end

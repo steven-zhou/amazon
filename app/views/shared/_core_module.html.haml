@@ -122,8 +122,10 @@
         %ul
           %li{:id => @current_action == "email" ? "selected" : ""}
             = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "email"}, :controller => "communication", :action => "email",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"
-          %li{:id => @current_action == "mail_merge" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/reporting/report.png')} PersonMail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/reporting/report.png", :title => "PersonMail"
+          %li{:id => @current_action == "person_mail_merge" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} PersonMail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "icon_holder.png", :title => "PersonMail"
+          %li{:id => @current_action == "organisation_mail_merge" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} OrganisationMail",{:controller => "communication", :action => "organisation_mail_merge"}, :controller => "communication", :action => "organisation_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "icon_holder.png", :title => "OrganisationMail"
     .bottom
 
  
