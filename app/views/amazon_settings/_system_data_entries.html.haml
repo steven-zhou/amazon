@@ -1,13 +1,69 @@
-%div#system_data_entries
-  - for setting in @amazon_settings
-    - setting_status = setting.status ? "container_active" : "container_inactive"
-    - setting_status = "container_remove" if setting.to_be_removed == true
-    %div{:class => "#{setting_status} toggle_options", :system_data_id => setting.id, :style => "width:30%;", :field => "system_data" }
-      .options{:style => "display:none;"}
-        -if setting.to_be_removed == false
-          = link_to_function image_tag('edit_icon.png'), :class => 'edit_option', :system_data_id => setting.id, :field => "system_data", :id => "edit_current_system_data_entry", :title=>"Edit"
-          = link_to_function image_tag('delete_icon.png'), :class => 'delete_option', :system_data_id => setting.id ,:error_message_field => "System Data",:field => "system_data", :id => "delete_system_data_entry", :title=>"Remove"
-        -else
-          = link_to image_tag('icon_holder.png'), retrieve_amazon_setting_path(setting), :class => 'get',:error_message_field => "System Data", :field => "system_data", :id => 'system_data_retrieve_button', :system_data_id => setting.id, :title=>"Retrieve"
-      .title
-        %h3= h "#{setting.name}"
+.full_container
+  %h1 Existing System Data
+  %table#show_system_data_grid{:class => "selectable_grid",:db_click_function =>"true",:db_show=>"true",:db_click_url=>"/amazon_settings/system_data_entry_finder/"}
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_system_data_grid tr.trSelected").attr('id'),"#system_data_mode","get","/amazon_settings/delete_system_data_entry");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_system_data_grid tr.trSelected").attr('id'),"get","/amazon_settings/retrieve");
+    };
+
+    $("#show_system_data_grid").flexigrid({
+      url: '/grids/show_system_data_grid?type=#{@type}',
+      dataType: 'json',
+      colModel : [
+      {
+      display: 'ID',
+      name : 'id',
+      width : 40,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Name',
+      name : 'name',
+      width : 570,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Description',
+      name : 'description',
+      width : 270,
+      sortable : true,
+      align: 'left'
+      }
+
+      ],
+      buttons : [
+              {name: 'Delete', bclass: 'delete', onpress : delete_from_a_grid},
+              {name: 'Undelete', bclass: 'get', onpress : retrieve_from_a_grid}
+          ],
+      searchitems : [
+      {
+      display: 'Name',
+      name : 'name'
+      },
+
+      {
+      display: 'Description',
+      name : 'description'
+      },
+      ],
+
+      sortname: "name",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+      });
+

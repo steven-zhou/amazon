@@ -1,1 +1,2 @@
-$("#system_data_entries").replaceWith("<%= escape_javascript(render(:partial => "system_data_entries"))%>");
+$("#system_data_entries").html("<%= escape_javascript(render(:partial => "system_data_entries",:type => @type))%>");
+
