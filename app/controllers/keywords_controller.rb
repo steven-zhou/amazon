@@ -61,9 +61,25 @@ class KeywordsController < ApplicationController
     end
   end
 
+  def delete_keywords
+    keyword = Keyword.find(params[:id])
+
+    keyword.to_be_removed = true
+    keyword.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Keyword with ID #{keyword.id}.")
+    # keyword.destroy
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   def keywords_finder
     @type = Keyword.all_keyword_type_by_type(params[:type])
-
+    
+    #@keyword_type is used for grid in _keyword_entries.html.haml.
+    @keyword_type_id = params[:type]
+    
     #@type = Keyword.find(:all, :conditions => ["keyword_type_id = ?", params[:type]], :order => 'name')
     respond_to do |format|
       format.js

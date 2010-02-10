@@ -64,6 +64,7 @@ class AmazonSettingsController < ApplicationController
 
   def system_settings_finder
     @amazon_settings = AmazonSetting.search_by_type(params[:type])
+    @type = params[:type]
     respond_to do |format|
       format.js
     end
@@ -80,6 +81,7 @@ class AmazonSettingsController < ApplicationController
     @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
     @amazon_setting.update_attributes(params[:amazon_setting])
     @amazon_setting.to_be_removed = false
+    @type = params[:amazon_setting][:type]
     if @amazon_setting.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = "Saved successfully."

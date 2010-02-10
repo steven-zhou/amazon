@@ -6,6 +6,7 @@ $("#system_data_add_entry_form").css("display","none");
 $("#system_data_close_entry").css("display", "none");
 $("#amazon_setting_description").val("");
 $("#system_data_entries").show();
+
 $("#system_data_type").attr("disabled",false).change();
 <% else %>
  $('#error_message_text').html("<%=escape_javascript(flash[:warning])%> ");

@@ -1,16 +1,66 @@
-%div#keyword_entries
-  - for setting in @type
-    - setting_status = setting.status ? "container_active" : "container_inactive"
-    - setting_status =  "container_remove" if setting.to_be_removed == true
-    %div{:class => "#{setting_status} toggle_options", :keyword_id => setting.id, :id => "keyword_#{setting.id}", :style => "width:30%;", :field => "keyword" }
-      .options{:style => "display:none;"}
-        - if setting.to_be_removed == false
-          = link_to image_tag('edit_icon.png'), edit_keyword_path(setting), :class => 'get edit_keyword edit_option', :field => "keyword", :id => 'edit_current_keyword_entry', :keyword_id => setting.id, :title=>"Edit"
-          -#= link_to_function (image_tag('delete_icon.png'), :class => 'check_delete ', :field => "keyword", :id => 'keyword_check_delete_button', :keyword_id => setting.id, :title=>"Remove")
-          = link_to image_tag('delete_icon.png'), keyword_path(setting), :class => 'delete delete_keyword delete_option',:error_message_field => "Keyword", :field => "keyword", :id => 'keyword_delete_button', :keyword_id => setting.id, :title=>"Remove"
-        - else
-          = link_to image_tag('icon_holder.png'), retrieve_keyword_path(setting), :class => 'get',:error_message_field => "Keyword", :field => "keyword", :id => 'keyword_retrieve_button', :keyword_id => setting.id, :title=>"Retrieve"
-      .title
-        %h3= h "#{setting.name}"
-#keyword_already_assigned{:style=> "display:none;"}
-  =label_tag :keyword_already_assigned_warning_message, "keyword can not be deleted. It has been assigned."
+.full_container
+  %h1 Existing Keywords
+  %table#show_keywords_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/keywords/"}
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+      delete_from_grid($("#show_keywords_grid tr.trSelected").attr('id'), "#keyword_mode", "get", "/keywords/delete_keywords");
+    };
+
+    retrieve_from_a_grid = function(){
+      retrieve_from_grid($("#show_keywords_grid tr.trSelected").attr('id'), "get", "/keywords/retrieve");
+    };
+    $("#show_keywords_grid").flexigrid({
+      url: '/grids/show_keywords_grid?keyword_type_id=#{@keyword_type_id}',
+      dataType: 'json',
+      colModel: [
+        {
+          display: 'ID',
+          name: 'id',
+          width: 40,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Name',
+          name: 'name',
+          width: 570,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Description',
+          name: 'description',
+          width: 270,
+          sortable: true,
+          align: 'left'
+        }
+      ],
+      buttons:[
+        {name: 'Delete', bclass: 'delete', onpress: delete_from_a_grid},
+        {name: 'Undelete', bclass: 'get', onpress: retrieve_from_a_grid}
+      ],
+
+      searchitems:[
+      {
+        display: 'Name',
+        name: 'name'
+      },
+      {
+        display: 'Description',
+        name: 'description'
+      }
+      ],
+
+      sortname: "name",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+    });

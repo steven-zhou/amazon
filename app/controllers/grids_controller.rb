@@ -2871,14 +2871,14 @@ class GridsController < ApplicationController
   end
 
 
+
   def show_mail_templates_grid
-     page = (params[:page]).to_i
+    page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-
     if (!sortname)
       sortname = "id"
     end
@@ -2901,7 +2901,7 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @mail_templates = MailTemplate.find(:all,
-         :order => sortname+' '+sortorder,
+        :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
@@ -2925,7 +2925,6 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-
     return_data[:rows] = @mail_templates.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
@@ -2935,9 +2934,135 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
 
   end
+end
 
- 
+def show_keywords_grid
+  page=(params[:page]).to_i
+  rp = (params[:rp]).to_i
+  query = params[:query]
+  qtype = params[:qtype]
+  sortname = params[:sortname]
+  sortorder = params[:sortorder]
 
+  keyword_type_id = params[:keyword_type_id]
+
+  if (!sortname)
+    sortname = "grid_object_id"
+  end
+
+  if (!sortorder)
+    sortorder = "asc"
+  end
+
+  if (!page)
+    page = 1
+  end
+
+  if (!rp)
+    rp = 20
+  end
+
+  start = ((page-1) * rp).to_i
+  query = "%"+query+"%"
+
+  #No search terms provided
+  if(query == "%%")
+    @keywords = Keyword.find(
+      :all,
+      :conditions => ["keyword_type_id = ?", keyword_type_id],
+      :order => sortname + ' ' + sortorder,
+      :limit => rp,
+      :offset => start
+    )
+    count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
+  end
+
+  if(query != "%%")
+    @keywords = Keyword.find(:all,
+      :order => sortname+' '+sortorder,
+      :limit =>rp,
+      :offset =>start,
+      :conditions=>[qtype +" ilike ? AND keyword_type_id = ? ", query, keyword_type_id])
+    count = Keyword.count(:all, :conditions=>[qtype +" ilike ? AND keyword_type_id = ? ", query, keyword_type_id])
+  end
+
+  return_data = Hash.new()
+  return_data[:page] = page
+  return_data[:count] = count
+  return_data[:rows] = @keywords.collect{|u| {
+      :id => u.id,
+      :cell => [
+        u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+        u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
+        u.to_be_removed ? "<span class='red'>"+(u.description.nil? ? "" : u.description)+"</span>" : u.description
+      ]
+    }}
+  render :text=>return_data.to_json, :layout=>false
+end
+
+def show_system_data_grid
+
+  page = (params[:page]).to_i
+  rp = (params[:rp]).to_i
+  query = params[:query]
+  qtype = params[:qtype]
+  sortname = params[:sortname]
+  sortorder = params[:sortorder]
+  amazon_type = params[:type]
+  if (!sortname)
+    sortname = "grid_object_id"
+  end
+
+  if (!sortorder)
+    sortorder = "asc"
+  end
+
+  if (!page)
+    page = 1
+  end
+
+  if (!rp)
+    rp = 10
+  end
+
+  start = ((page-1) * rp).to_i
+  query = "%"+query+"%"
+
+  # No search terms provided
+  if(query == "%%")
+    @amazon_setting = AmazonSetting.find(:all,
+      :conditions => ["type = ? ", amazon_type],
+      :order => sortname+' '+sortorder,
+      :limit =>rp,
+      :offset =>start
+    )
+    count = AmazonSetting.count(:all, :conditions => ["type = ?", amazon_type])
+  end
+
+  # User provided search terms
+  if(query != "%%")
+
+    @amazon_setting = AmazonSetting.find(:all,
+      :order => sortname+' '+sortorder,
+      :limit =>rp,
+      :offset =>start,
+      :conditions=>[qtype +" ilike ? AND type = ? ", query, amazon_type])
+    count = AmazonSetting.count(:all, :conditions=>[qtype +" ilike ? AND type = ? ", query, amazon_type])
+  end
+
+  # Construct a hash from the ActiveRecord result
+  return_data = Hash.new()
+  return_data[:page] = page
+  return_data[:total] = count
+  return_data[:rows] = @amazon_setting.collect{|u| {:id => u.id,
+      :cell=>[
+        u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+        u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
+        u.to_be_removed ? "<span class='red'>"+(u.description.nil? ? "" : u.description)+"</span>" : u.description
+      ]}}
+
+  # Convert the hash to a json object
+  render :text=>return_data.to_json, :layout=>false
 end
 
 
