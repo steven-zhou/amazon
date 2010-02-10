@@ -1,0 +1,3 @@
+class BankDepositSheet < BankRunReport
+
+end

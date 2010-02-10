@@ -332,4 +332,30 @@ class TransactionHeadersController < ApplicationController
       format.js
     end
   end
+
+  def run
+    #clear all temp banked transaction
+    @temp = TransactionHeader.find(:all, :conditions => ["temp_banked = true"])
+    @temp.each do |i|
+      i.temp_banked = nil
+      i.save
+    end
+
+    #new Bank Run
+    @run = BankRun.new
+    @bds = BankDepositSheet.new
+    conditions = Array.new
+    values = Array.new
+    conditions << "banked = ?"
+    values << "false"
+    @transaction_headers = TransactionHeader.find(:all, :conditions => [conditions.join(" & "), *values])
+    @transaction_headers.each do |i|
+      i.temp_banked = true
+      i.banked = true
+      i.save
+    end
+    respond_to do |format|
+      format.html
+    end
+  end
 end

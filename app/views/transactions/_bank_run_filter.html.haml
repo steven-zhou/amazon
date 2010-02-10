@@ -1,12 +1,11 @@
-- form_tag('/transaction_headers/filter',:class => "ajax_form", :id => "transaction_filter_form", :submit_button_id => "filter_submit_button") do
-  %input{:style => "display:none", :name => "bank_run"}
-  %input{:style => "display:none", :name => "banked", :value => "false"}
+%input{:style => "display:none", :name => "bank_run"}
+%input{:style => "display:none", :name => "banked", :value => "false"}
   .full_container
     -# bank id filter
     .form_line
       .field_30
         %label &nbsp;
-        %h2 Filter By Bank ID
+        %h2 By Account Number
       .field_20
         %label Bank Account Number
         %select{:name => "bank_account_number"}
@@ -18,13 +17,7 @@
     .form_line
       .field_30
         %label &nbsp;
-        %h2 Filter By User ID
-      .field_20
-        %label User Type
-        %select{:name => "user_type"}
-          %option{:value => "0"} All
-          %option{:value => "Person"} Person
-          %option{:value => "Organisation"} Organisation
+        %h2 By User ID
       .field_20
         %label User ID
         %input{:id => "filter_user_id", :value => "All", :name => "user_id"}
@@ -33,7 +26,7 @@
     .form_line
       .field_30
         %label &nbsp;
-        %h2 Filter By Transaction ID
+        %h2 By Transaction ID
       .field_20
         %label Start ID
         %input{:id => "filter_start_id", :name => "start_id",:class => "integer_field"}
@@ -46,17 +39,10 @@
     .form_line
       .field_30
         %label &nbsp;
-        %h2 Filter By Transaction Date
+        %h2 By Transaction Date
       .field_20
         %label Start Date
         %input{:id => "filter_start_transaction_date", :class => "startdatepick", :end_date => "filter_end_transaction_date", :value => "01-01-#{Date.today().year()}", :name => "start_transaction_date"}
       .field_20
         %label End Date
         %input{:id => "filter_end_transaction_date", :class => "enddatepick", :start_date => "filter_start_transaction_date", :value => "31-12-#{Date.today().year()}", :name => "end_transaction_date"}
-
-   
-
-    .form_line
-      .field_30{:style => "float:right;"}
-        %label &nbsp;
-        = button_to_function "Filter", :class => "fake_submit_button", :form_id => "transaction_filter_form", :id => "filter_submit_button", :style => "float:right;"

@@ -336,15 +336,16 @@ $(function(){
 //Transaction Bank Run If the User ID is Empty, Set the value is All
 $(function(){
     $('#filter_user_id').blur(function(){
-
         if($(this).val() == "")
             {
                 $(this).val("All");
             }
+        return false;
+    });
 
-    return false;
+    $('#transaction_run').click(function(){
+        $('#rollback').show();
+        return true;
     })
-
-
-})
+});
 

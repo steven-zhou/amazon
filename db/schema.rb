@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100209045624) do
+ActiveRecord::Schema.define(:version => 20100210070532) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -1015,6 +1015,7 @@ ActiveRecord::Schema.define(:version => 20100209045624) do
     t.boolean  "banked"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "temp_banked"
   end
 
   create_table "transaction_type_details", :force => true do |t|
