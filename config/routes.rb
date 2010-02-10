@@ -72,7 +72,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts, :collection => {:page_initial => :get}
  
   map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :post,
-    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrieve_message_template => :get, :person_mail_merge => :get
+    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrieve_message_template => :get, :person_mail_merge => :get, :organisation_mail_merge => :get
   }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get }
@@ -142,7 +142,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :to_do_lists, :member => {:switch => :get}
   
 
-  map.resources :keywords , :member => {:retrieve => :get},:collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get}
+  map.resources :keywords , :collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get, :delete_keywords => :get, :retrieve => :get}
 
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}
@@ -155,7 +155,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :banks, :collection => {:list=>:get,:name_finder => :get,:lookup=>:get,:lookup_fill => :get,:refresh_existing_banks=>:get,:delete_bank_entry=>:get,:edit_bank_entry=>:get}
   map.resources :religions
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
- 
   map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get, :show_personal_transaction => :get, :show_organisational_transaction => :get, :bank_run => :get, :enquiry => :get}
 
   map.resources :transaction_headers, :collection => {:page_initial => :get, :export_histroy_to_report => :get,:enquiry_show_receipt_type => :get}
