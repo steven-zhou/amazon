@@ -14,3 +14,8 @@ $('#fields_<%= escape_javascript("#{@update_field}") %>').html('<%= escape_javas
 $('#attribute_description_<%= escape_javascript("#{@update_field}") %>').html('<%= escape_javascript("#{descriptions}") %>');
 $('#fields_<%= escape_javascript("#{@update_field}") %>').val('<%= escape_javascript("#{@update_value}") %>');
 $('#fields_<%= escape_javascript("#{@update_field}") %>').change();
+
+
+
+  $("#table_field_id").html("<%= escape_javascript("#{options}") %>");
+  $("#table_field_id").change('');

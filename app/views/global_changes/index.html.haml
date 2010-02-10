@@ -1,0 +1,34 @@
+.container
+  %h1 Person Glabal Change
+
+  .full_container
+    #select_query_or_list
+      %h2 List/Query
+      =label :list_query_name,:list_query_name_id, 'Select List/Query'
+      %select{:id => "list_header_name", :name => "list_header_id",:style => "width:150px"}
+        - PersonListHeader.saved_lists.each do |r|
+          %option{:value => "#{r.id}"} #{r.name}
+    #select_table_and_field
+      #select_table
+        .form_line
+          =label :table_name,:table_id, 'Select Table'
+          =collection_select :table_name,:table_id, TableMetaMetaType.find(:all, :conditions => ["category != ?", "organisation"], :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select",:style => "width:150px"}
+      #select_field
+        .form_line
+          =label :table_field,:table_field_id, 'Select Field'
+          %select#table_field_id{:style => "width:150px",:name=>"table_field"}
+            %option
+    #input_value
+      =label :value,:value_id, 'Value'
+      %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:150px"}
+      =radio_button_tag "add_to_front","front",:checked => true
+      =radio_button_tag "add_to_front","end"
+      %input{:type => "button", :value => "Add", :class => "global_change", :source => "person"}
+    
+      %input{:type => "button", :value => "Change", :class => "global_change", :source => "person"}
+      %input{:type => "button", :value => "Delete", :class => "global_change", :source => "person"}
+
+
+
+
+
