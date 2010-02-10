@@ -142,7 +142,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :to_do_lists, :member => {:switch => :get}
   
 
-  map.resources :keywords , :member => {:retrieve => :get},:collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get}
+  map.resources :keywords , :collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get, :delete_keywords => :get, :retrieve => :get}
 
 
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}
