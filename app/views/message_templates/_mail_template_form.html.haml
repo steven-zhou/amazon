@@ -4,8 +4,7 @@
 
 -form_for @mail_template, :url => @mail_template.new_record? ? message_templates_path : message_template_path(@mail_template), :html => {:class => "ajax_form"} do |f|
   .form_line
-    .field_25
-      = 
+    -#.field_25
     .field_25
       = f.label :name, "<span class='asterisk'>*</span>Name"
       = f.text_field :name
