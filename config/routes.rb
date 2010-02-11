@@ -83,7 +83,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post, :role_condition_show_roles => :get, :condition_meta_type_finder => :get, :doc_type_finder => :get, :page_initial => :get, :condition_dictionary_page_initial => :get}
 
 
-  map.resources :roles, :member => {:retrieve => :get}, :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get}
+  map.resources :roles,  :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get,:retrieve => :get, :delete_roles => :get}
 
 
   map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get, :destroy_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :receipt_types => :get, :allocation_types => :get}
@@ -166,6 +166,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :quick_launch_icons,:collection => {:check => :get}
   map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put,:change_security_question =>:put, :show_whoami => :get}
   map.resources :message_templates, :collection => {:page_initial => :get}
+  map.resources :global_changes, :collection => {:change_value => :get}
 
   # The priority is based upon order of creation: first created -> highest priority.
 

@@ -1,8 +1,55 @@
-- for i in @roles
-  - status = i.role_status ? "container_active" : "container_inactive"
-  - status_flag = i.role_status ? "" : "hidden"
-  -div_for(i, :class => "#{status}  toggle_options" , :id => "role_condition_existing_role", :role_id => i.id, :field => "condition_role", :style => "width:30%;") do
-    .options{:style => "display:none", :class => "role_condition_options"}
-      = link_to_function image_tag('edit_icon.png'),  :class => "#{status_flag} edit_option", :role_id => i.id, :field => "condition_role", :id => "role_condition_role_click", :title=>"Edit"
-    .title
-      %h3= h  "#{i.name}"
+.full_container
+  %h1 Existing Roles
+  %table#show_roles_conditions_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/role_conditions/"}
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  :plain
+    $("#show_roles_conditions_grid").flexigrid({
+      url: '/grids/show_roles_grid?role_type_id=#{@role_type_id}',
+      dataType: 'json',
+      colModel: [
+        {
+          display: 'ID',
+          name: 'id',
+          width: 40,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Name',
+          name: 'name',
+          width: 570,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Description',
+          name: 'description',
+          width: 270,
+          sortable: true,
+          align: 'left'
+        }
+      ],
+      
+      searchitems:[
+      {
+        display: 'Name',
+        name: 'name'
+      },
+      {
+        display: 'Description',
+        name: 'description'
+      }
+      ],
+
+      sortname: "name",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+    });

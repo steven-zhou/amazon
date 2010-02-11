@@ -2534,3 +2534,35 @@ $(function(){
         return false;
     });
 });
+
+
+// Global Change
+$(function(){
+    $(".show_fields").live('change', function(){
+        if($(this).val()){
+            $.ajax({
+                type: "GET",
+                url: "/tag_types/show_fields.js",
+                data:'table_name=' + $(this).val() + '&update_field=' + $(this).attr("update_field") + '&update_value=' + $(this).attr("update_value"),
+                dataType: "script"
+            });
+        }else{
+            $("#fields_"+$(this).attr("update_field")).html("");
+            $("#attribute_description_"+$(this).attr("update_field")).html("<label class='descriptions'>&nbsp;</label>")
+        }
+    });
+});
+
+
+$(function(){
+    $('.global_change').live('click',function(){
+          $.ajax({
+            type: "GET",
+            url: "/global_changes/change_value.js",
+            data: "source_id="+$("#list_header_name").val()+"&table_name="+$('#table_name_table_id').val()+"&table_field="+$('#table_field_id').val()+"&change_value="+$('#global_change_value').val()+"&type="+$(this).val()+"&add_front="+$('#add_to_front_front').attr("checked")+"&add_end="+$('#add_to_front_end').attr("checked"),
+            dataType: "script"
+          })
+
+
+    });
+});

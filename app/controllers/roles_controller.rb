@@ -76,6 +76,7 @@ class RolesController < ApplicationController
   def show_roles
     @roles = Role.find_role_type_by_id(params[:role_type_id]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
+    @role_type_id = params[:role_type_id].nil? ? "" : params[:role_type_id]
     respond_to do |format|
       format.js
     end
@@ -85,6 +86,7 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(params[:role])
     @role.to_be_removed = false
+    @role_type_id = @role.role_type_id
     if @role.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Role #{@role.id}.")
       flash.now[:message] = "saved successfully"
@@ -105,6 +107,19 @@ class RolesController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) remove Role, ID: #{@role.id}.")
     @role_type = @role.role_type
     @roles = Role.find_role_type_by_id(@role_type.id)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def delete_roles
+    @role = Role.find(params[:id])
+    @role.to_be_removed = true
+    @role.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) remove Role, ID: #{@role.id}.")
+    @role_type = @role.role_type
+    @roles = Role.find_role_type_by_id(@role_type.id)
+    @role_type_id = @role_type.id
     respond_to do |format|
       format.js
     end
@@ -149,6 +164,7 @@ class RolesController < ApplicationController
     @role.save!
     @role_type = @role.role_type
     @roles = Role.find_role_type_by_id(@role_type.id)
+    @role_type_id = @role_type.id
     respond_to do |format|
       format.js
     end
