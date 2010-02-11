@@ -69,6 +69,9 @@ class MessageTemplatesController < ApplicationController
     @field = params[:field]
     @type = params[:type]
     @model_type = (params[:type]+"_mail_template").camelize
+     @person_list_headers = @current_user.all_person_lists
+    @person_query_headers = QueryHeader.saved_query_header
+    @mail_templates = PersonMailTemplate.all
    
     respond_to do |format|
       format.js

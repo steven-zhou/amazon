@@ -6,7 +6,16 @@ class MessageTemplate < ActiveRecord::Base
 
   belongs_to :mail_merge_category, :foreign_key => "mail_merge_category_id"
 
- def self.active_record
+  after_validation_on_create :set_to_be_removed_and_active
+
+  def self.active_record
     @mail_templates = self.find(:all, :conditions => ["to_be_removed = false"], :order => 'name')
   end
+
+  def set_to_be_removed_and_active
+    self.to_be_removed ||= false
+
+  end
+
+
 end
