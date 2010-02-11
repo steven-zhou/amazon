@@ -31,7 +31,7 @@ end
 namespace :db do
   desc 'Restore the database from a file. Options: DIR=source_dir RAILS_ENV=production'
   environment = RAILS_ENV
-  task :restore => [:environment] do
+  task :restore => [:environment, "drop:all", "create:all"] do
     RAILS_ENV = environment
     puts "Restore environment is #{RAILS_ENV}"
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")

@@ -2936,7 +2936,6 @@ class GridsController < ApplicationController
   end
 
 
-  
   def show_keywords_grid
     page=(params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2978,6 +2977,7 @@ class GridsController < ApplicationController
       count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
     end
 
+
     if(query != "%%")
       @keywords = Keyword.find(:all,
         :order => sortname+' '+sortorder,
@@ -3001,7 +3001,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-def show_system_data_grid
+  def show_system_data_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -3039,10 +3039,9 @@ def show_system_data_grid
       )
       count = AmazonSetting.count(:all, :conditions => ["type = ?", amazon_type])
     end
-
     # User provided search terms
     if(query != "%%")
-
+   
       @amazon_setting = AmazonSetting.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
@@ -3063,6 +3062,70 @@ def show_system_data_grid
         ]}}
 
     # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+
+  def show_roles_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    role_type_id = params[:role_type_id]
+
+    if (!sortname)
+      sortname = "grid_object_id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 10
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @roles = Role.find(
+        :all,
+        :conditions => ["role_type_id = ?", role_type_id],
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start
+      )
+      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
+    end
+
+    if(query != "%%")
+      @roles = Role.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND role_type_id = ? ", query, role_type_id])
+      count = Role.count(:all, :conditions=>[qtype +" ilike ? AND role_type_id = ? ", query, role_type_id])
+    end
+
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @roles.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+          u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed ? "<span class='red'>"+(u.remarks.nil? ? "" : u.remarks)+"</span>" : u.remarks
+        ]
+      }}
     render :text=>return_data.to_json, :layout=>false
   end
 

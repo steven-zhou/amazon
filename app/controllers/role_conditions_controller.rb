@@ -39,13 +39,15 @@ class RoleConditionsController < ApplicationController
   def role_condition_show_roles
     @roles = Role.find_role_type_by_id(params[:role_type_id]) unless (params[:role_type_id].nil? || params[:role_type_id].empty?)
     @role_type = RoleType.find(:first, :conditions => ["id=?",params[:role_type_id]])
+    @role_type_id = params[:role_type_id]
     respond_to do |format|
       format.js
     end
   end
 
   def edit
-    @role = Role.find(params[:role_id].to_i, :order => 'id')
+    role_id = params[:role_id].nil? ? params[:grid_object_id] : params[:role_id]
+    @role = Role.find(role_id.to_i, :order => 'id')
     @role_condition = RoleCondition.new
     @role_conditions = @role.role_conditions
     respond_to do |format|

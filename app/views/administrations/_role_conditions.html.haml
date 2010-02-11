@@ -5,15 +5,14 @@
   %br.clear
 
 .full_container
-  .full_container
-    .title
-      = link_to_function image_tag("add_icon.png" ,:size => "22x22"), :class => "multilevel_new_option new_tag_meta_type", :tag => @category
-      &nbsp
-    %h1 New Meta Type
-  %br.clear
+  .title
+    = link_to_function image_tag("add_icon.png" ,:size => "22x22"), :class => "multilevel_new_option new_tag_meta_type", :tag => @category
+    &nbsp
+  %h1 New Meta Type
+%br.clear
 
-  .tag
-    = render :partial => "/tag_meta_types/tag_meta_types", :locals => {:tag_meta_types => @tag_meta_types,:type =>"edit_and_delete"}
+.tag
+  = render :partial => "/tag_meta_types/tag_meta_types", :locals => {:tag_meta_types => @tag_meta_types,:type =>"edit_and_delete"}
 
 .container#tag_meta_type_form{:style => "display:none;"}
 .container#tag_type_form{:style => "display:none;"}
