@@ -5,5 +5,6 @@ class Note < ActiveRecord::Base
   
   validates_presence_of :note_type_id
   validates_presence_of :label
+  validates_uniqueness_of :label, :scope => [:note_type_id, :noteable_type, :noteable_id]
 
 end
