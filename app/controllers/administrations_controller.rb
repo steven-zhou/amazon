@@ -82,15 +82,6 @@ class AdministrationsController < ApplicationController
     end
   end
 
-  def group_permissions
-    system_management
-    render :action => 'system_management'
-  end
-
-
-
-
-
   def duplication_check
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting
     @personal_duplication_formula_old = PersonalDuplicationFormula.default_setting if @personal_duplication_formula_old.nil?
@@ -126,6 +117,7 @@ class AdministrationsController < ApplicationController
 
   def group_permissions
     @group_types = GroupType.system_user_groups
+    @tag_type_id = @group_types.first.tag_type_id
     respond_to do |format|
       format.html
     end
@@ -133,6 +125,7 @@ class AdministrationsController < ApplicationController
 
   def group_lists
     @group_types = GroupType.system_user_groups
+    @tag_type_id = @group_types.first.tag_type_id
     respond_to do |format|
       format.html
     end

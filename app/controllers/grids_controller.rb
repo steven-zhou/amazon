@@ -3135,6 +3135,7 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
+    tag_type_id = params[:tag_type_id]
   
     sortname ? sortname : "grid_object_id"
     sortorder ? sortorder : "asc"
@@ -3144,8 +3145,26 @@ class GridsController < ApplicationController
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
-    @group_types = GroupType.system_user_groups
-    count = @group_types.count(:all)
+    #No search terms provided
+    if(query == "%%")
+      @group_types = GroupType.find(
+        :all,
+        :conditions => ["tag_type_id = ?", tag_type_id],
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start
+      )
+      count = GroupType.count(:all, :conditions => ["tag_type_id = ?", tag_type_id])
+    end
+
+    if(query != "%%")
+      @group_types = GroupType.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND tag_type_id = ? ", query, tag_type_id])
+      count = GroupType.count(:all, :conditions=>[qtype +" ilike ? AND tag_type_id = ? ", query, tag_type_id])
+    end
     
     return_data = Hash.new()
     return_data[:page] = page
