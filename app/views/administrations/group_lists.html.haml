@@ -1,56 +1,57 @@
 .full_container
   %h1 Existing Groups List
-  %table#show_group_lists_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/group_lists/"}
+  .full_container
+    %table#show_group_lists_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/group_lists/"}
   #group_list_group_edit_container
-%script{:type=>"text/javascript", :charset=>"utf-8"}
-  :plain
-    $("#show_group_lists_grid").flexigrid({
-      url: '/grids/show_group_lists_grid?tag_type_id=#{@tag_type_id}',
-      dataType: 'json',
-      colModel: [
-        {
-          display: 'ID',
-          name: 'id',
-          width: 40,
-          sortable: true,
-          align: 'left'
-        },
+  %script{:type=>"text/javascript", :charset=>"utf-8"}
+    :plain
+      $("#show_group_lists_grid").flexigrid({
+        url: '/grids/show_group_lists_grid?tag_type_id=#{@tag_type_id}',
+        dataType: 'json',
+        colModel: [
+          {
+            display: 'ID',
+            name: 'id',
+            width: 40,
+            sortable: true,
+            align: 'left'
+          },
 
+          {
+            display: 'Name',
+            name: 'name',
+            width: 570,
+            sortable: true,
+            align: 'left'
+          },
+
+          {
+            display: 'Description',
+            name: 'description',
+            width: 270,
+            sortable: true,
+            align: 'left'
+          }
+        ],
+
+        searchitems:[
         {
           display: 'Name',
-          name: 'name',
-          width: 570,
-          sortable: true,
-          align: 'left'
+          name: 'name'
         },
-
         {
           display: 'Description',
-          name: 'description',
-          width: 270,
-          sortable: true,
-          align: 'left'
+          name: 'description'
         }
-      ],
+        ],
 
-      searchitems:[
-      {
-        display: 'Name',
-        name: 'name'
-      },
-      {
-        display: 'Description',
-        name: 'description'
-      }
-      ],
-
-      sortname: "name",
-      sortorder: "asc",
-      usepager: true,
-      title: '',
-      useRp: true,
-      rp: 20,
-      showTableToggleBtn: false,
-      width: 'auto',
-      height: 'auto'
-    });
+        sortname: "name",
+        sortorder: "asc",
+        usepager: true,
+        title: '',
+        useRp: true,
+        rp: 20,
+        showTableToggleBtn: false,
+        width: 'auto',
+        height: 'auto'
+      });
