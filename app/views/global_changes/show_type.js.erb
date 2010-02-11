@@ -1,0 +1,9 @@
+<%- options = String.new  %>
+<%-if @result == "addresses"%>
+  <% @select_type.each do |i| %>
+    <%- options += '<option value='+"#{i.sub(" ","").underscore}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+ $("#table_field_id").html("<%= escape_javascript("#{options}") %>");
+ $("#table_field_id").change('');
+
+<%end%>
