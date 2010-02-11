@@ -1,6 +1,6 @@
 class CreateBankRunReport < ActiveRecord::Migration
   def self.up
-     create_table :bank_run_reports do |t|
+     create_table :bank_run_reports, :force => true do |t|
       t.integer :client_organisation_id
       t.integer :bank_run_id
       t.integer :bank_account_id

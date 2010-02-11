@@ -1,6 +1,6 @@
 class CreateBankRunDetails < ActiveRecord::Migration
   def self.up
-    create_table :bank_run_details do |t|
+    create_table :bank_run_details, :force => true do |t|
       t.integer :bank_run_id
       t.integer :transaction_header_id
       t.timestamps

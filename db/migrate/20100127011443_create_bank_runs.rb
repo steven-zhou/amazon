@@ -1,6 +1,6 @@
 class CreateBankRuns < ActiveRecord::Migration
   def self.up
-    create_table :bank_runs do |t|
+    create_table :bank_runs, :force => true do |t|
       
       t.timestamps
     end
