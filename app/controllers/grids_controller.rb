@@ -3128,4 +3128,36 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+  def show_group_lists_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+  
+    sortname ? sortname : "grid_object_id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    @group_types = GroupType.system_user_groups
+    count = @group_types.count(:all)
+    
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @group_types.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+          u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed ? "<span class='red'>"+(u.description.nil? ? "" : u.description)+"</span>" : u.description
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+  end
 end
