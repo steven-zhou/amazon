@@ -12,7 +12,11 @@ class TableMetaMetaType < TagMetaType
 
 
   def self.table_categroy(entity)
-    TableMetaMetaType.find(:all, :conditions => ["category =?", entity], :order => "name")
+    if (entity == "person")
+      TableMetaMetaType.find(:all, :conditions => ["category !=?", "organisation"], :order => "name")
+    else
+      TableMetaMetaType.find(:all, :conditions => ["category !=?", "person"], :order => "name")
+    end
   end
 
   

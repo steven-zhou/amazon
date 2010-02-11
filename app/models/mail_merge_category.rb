@@ -1,12 +1,13 @@
 class MailMergeCategory < AmazonSetting
 
-   acts_as_list
+  acts_as_list
 
-   validates_presence_of :name
+  validates_presence_of :name
   validates_uniqueness_of :name, :message => "A mail merge category already exists with the same name."
 
   after_create :assign_priority
   before_destroy :reorder_priority
+  has_many :message_templates
 
   def self.active_mail_merge_category
     @mail_merge_category = MailMergeCategory.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
