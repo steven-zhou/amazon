@@ -7,13 +7,13 @@
           <%= "#{image_tag('Icons/System/module menu/core.png')} System Core" %>
         <%- end %>
         <%- if session[:module] == "receipting" %>
-          <%= "#{image_tag('icon_holder.png')} Receipting" %>
+          <%= "#{image_tag('Icons/Receipting/receipt.png')} Receipting" %>
         <%- end %>
         <%- if session[:module] == "administration" %>
           <%= "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools" %>
         <%- end %>
         <%- if session[:module] == "client_setup" %>
-          <%= "#{image_tag('icon_holder.png')} MemberZone" %>
+          <%= "#{image_tag('Icons/System/module_menu.png')} MemberZone" %>
         <%- end %>
         <%- if session[:module] == "dashboard" %>
           <%= "#{image_tag('Icons/System/module_menu.png')} System Menu" %>
@@ -27,7 +27,7 @@
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
           <%- end %>
           <%- if session[:module] != "receipting" %>
-            <li class="module_menu_item"><%= link_to "#{image_tag('/images/icon_holder.png')} Receipting", :controller => "module", :action => "receipting"  %></li>
+            <li class="module_menu_item"><%= link_to "#{image_tag('Icons/Receipting/receipt.png')} Receipting", :controller => "module", :action => "receipting"  %></li>
           <%- end %>
           <%- if ((@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") && session[:module] != "administration") %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/admin.png')} Admin Tools", :controller => "module", :action => "administration"  %></li>
@@ -46,7 +46,7 @@
 
 
   <div class="bar_section droppable" id="toolbar">
-
+    <%= render(:partial => "quick_launch_icons/sys_bar_icons") %>
   </div>
   <div class="bar_section" id="sys_icons" >
     <div id="dash_icon">
@@ -64,7 +64,8 @@
               <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/dashboard.png')} Dashboard", :id => "save_my_dashboard"%></li>
             <%- end%>
             <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/workflow.png')} Workflow"%></li>
-            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('Icons/user preferences/myaccounts.png')} MyAccount", :id => "modify_my_accounts"%></li>
+            <li class="preferences_menu_item"><%= link_to_function "#{image_tag('/images/icon_holder.png')} Who am i?", :id => "show_whoami"%></li>
           </ul>
           <div id="preferences_menu_bottom" ></div>
         </div>
@@ -73,13 +74,19 @@
   </div>
 
   <div class="bar_section" id="search">
-    <input value ="Search System" size ="20" disabled>
+    <input value ="Search System" size ="20" disabled/>
     <%=image_tag('Icons/System/sys_search.png', :title => "Search")%>
+    <div id="search_suggestion">
+      
+    </div>
   </div>
   <div class="bar_section" id="help">
     <%= image_tag('Icons/System/feedback.png', :id => "feedback", :title=>"Feedback") %>
 
     <%= link_to_function image_tag('/images/help_icon.png', :title=>"Help"), {:id => "help_icon_tab"} %>
+    <div id="help_lightbox"></div>
+    <input id="controller" type="hidden" value="<%= @current_controller %>"/>
+    <input id="action" type ="hidden" value="<%= @current_action %>" />
   </div>
 
 </div>
@@ -127,12 +134,24 @@
 </div>
 
 <div id='address_form_assistant' style='display:none;'>
-  <table id='address_postcode'></table>
-  <input id='address_postcode_input' style='display:none' update_field1=' ' update_field2=' ' update_field3=' ' update_field4=' ' />
+  <input id='address_postcode_input' style = 'display:none' update_field1 = ' ' update_field2 = ' ' update_field3 = ' ' update_field4 = ' '/>
+  <div id="postcode_grid"></div>
 </div>
 
 <div id='organisation_lookup_dialog' style='display:none;'>
 </div>
 
 <div id='person_lookup_dialog' style='display:none;'>
+</div>
+
+<div id='modify_my_account_dialog' style='display:none;'>
+  <div id="modify_my_account_content">
+
+  </div>
+</div>
+
+<div id="whoami_dialog" style="display:none;">
+  <div id="whoami_content">
+    
+  </div>
 </div>

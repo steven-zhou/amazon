@@ -1,0 +1,17 @@
+<p>
+  <%if object.type == "SystemUser"%>
+  Dear <%= object.person.first_name %> <%= object.person.family_name %>,
+  <%elsif object.type == "SuperAdmin"%>
+   Dear Super Admin,
+  <%elsif object.type == "MemberZone"%>
+   Dear memberZone,
+   <%end%>
+</p>
+
+<p>
+  Your Security Email is changed to <%= object.security_email %>. If you have any question, please contact the MemberZone Team.<br/>
+</p>
+
+<p>
+  MemberZone Team
+</p>

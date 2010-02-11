@@ -43,6 +43,8 @@ class Organisation < ActiveRecord::Base
   belongs_to :business_category
   belongs_to :industry_sector
 
+  default_scope :order => "organisations.id"
+
     
   #--
   ################
@@ -82,6 +84,8 @@ class Organisation < ActiveRecord::Base
   #++
 
   before_save :insert_duplication_value
+  after_create :update_primary_list
+  before_create :set_to_be_removed_and_status
   #--
   ################
   #  Convenience
@@ -142,13 +146,12 @@ class Organisation < ActiveRecord::Base
 
   def sorted_notes
     @sorted_notes = self.notes.find(:all, :include => [:note_type])
-    # @sorted_notes = self.notes.find(:all, :include => [:note_type], :order => 'note_types.name DESC, notes.created_at DESC')
   end
 
   def personal_email_types
     @personal_email_types = Array.new
     self.emails.each do |email|
-       @var = TagType.find(email.contact_meta_type_id)
+      @var = TagType.find(email.contact_meta_type_id)
       @personal_email_types <<  @var unless @var.to_be_removed
     end
     return @personal_email_types
@@ -170,7 +173,7 @@ class Organisation < ActiveRecord::Base
       @var = TagType.find(website.contact_meta_type_id)
       @personal_website_types <<  @var unless @var.to_be_removed
     end
-  return @personal_website_types 
+    return @personal_website_types
   end
 
   def personal_address_types
@@ -183,10 +186,10 @@ class Organisation < ActiveRecord::Base
     return @personal_address_types
   end
 
-   def personal_instant_messaging_types
+  def personal_instant_messaging_types
     @personal_instant_messaging_types = Array.new
     self.instant_messagings.each do |instant_messaging|
-       @var = TagType.find(instant_messaging.contact_meta_type_id)
+      @var = TagType.find(instant_messaging.contact_meta_type_id)
       @personal_instant_messaging_types <<  @var unless @var.to_be_removed
     end
 
@@ -227,6 +230,16 @@ class Organisation < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def update_primary_list
+    @list_detail = ListDetail.new(:list_header_id => OrganisationPrimaryList.first.id, :entity_id => self.id)
+    @list_detail.save
+  end
+  
+  def set_to_be_removed_and_status
+    self.to_be_removed=false
+    self.status=false
   end
 
 end

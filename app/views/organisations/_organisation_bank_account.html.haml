@@ -1,9 +1,29 @@
--# Displays Organisation Account
--div_for(organisation_bank_account, :class => 'header_container') do
-  %div  
-    .title
-      %h2{:class=>("red" if !AccountType.find(organisation_bank_account.account_type_id).nil? and AccountType.find(organisation_bank_account.account_type_id).to_be_removed == true)}= "#{AccountType.find(organisation_bank_account.account_type_id).name}"
+#account_list
+  - if @organisation.class.to_s != "ClientOrganisation"
+    - accounts = @organisation.organisation_bank_accounts
+  - else
+    - accounts = ClientBankAccount.active_client_bank_account
 
+  - if !accounts.blank?
+    .title
+      %h1 Bank Account Details
     %br.clear
-  %div{:style => "float:right;"}
-    = format_bank_account(organisation_bank_account)
+
+    - if @organisation.class.to_s != "ClientOrganisation"
+      - accounts.each do |organisation_account|
+        -div_for(organisation_account, :class => 'header_container') do
+          %div
+            .title
+              %h2{:class=>("red" if !AccountType.find(organisation_account.account_type_id).nil? and AccountType.find(organisation_account.account_type_id).to_be_removed == true)}= "#{AccountType.find(organisation_account.account_type_id).name}"
+            %br.clear
+          %div{:style => "float:right;"}
+            = format_bank_account(organisation_account)
+
+    - else
+      = render :partial => '/organisations/client_bank_account', :collection => accounts
+
+  - else
+    .no_record
+      %h1 No Record
+
+

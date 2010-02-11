@@ -190,18 +190,105 @@ class TransactionHeadersController < ApplicationController
   end
 
   def filter
-    params[:start_date] ||= "01-01-#{Date.today().year().to_s}"
-    params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
-    @start_date = params[:start_date]
-    @end_date = params[:end_date]
-    date_regex = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
-    if !(@start_date =~ date_regex).nil? && !(@end_date =~ date_regex).nil?
-      @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+    if params[:enquiry] || params[:bank_run]
+      if params[:enquiry]
+        @filter_target = "enquiry"
+      else
+        @filter_target = "bank_run"
+      end
       @date_valid = true
+      conditions = Array.new
+      
+      if (!params[:user_type].blank? &&  params[:user_type]!="0")
+        conditions << ("entity_type=" + params[:user_type])
+      end
+
+     if (params[:user_id] != "All" || !params[:user_id].blank?)
+        conditions << ("entity_id=" + params[:user_id].to_i.to_s)
+      end
+
+
+      if (!params[:start_id].blank? || !params[:end_id].blank?)
+        params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
+        params[:end_id] =   TransactionHeader.last_record.id.to_s if params[:end_id].blank?
+        conditions << ("start_id=" + params[:start_id].to_i.to_s)
+        conditions << ("end_id=" + params[:end_id].to_i.to_s)
+      end
+
+      if (!params[:start_receipt_id].blank? || !params[:end_receipt_id].blank?)
+        params[:start_receipt_id] = TransactionHeader.first_record.receipt_number.to_s if params[:start_receipt_id].blank?
+        params[:end_receipt_id] = TransactionHeader.last_record.receipt_number.to_s if params[:end_receipt_id].blank?
+        conditions << ("start_receipt_id=" + params[:start_receipt_id].to_i.to_s)
+        conditions << ("end_receipt_id=" + params[:end_receipt_id].to_i.to_s)
+      end
+
+      if valid_date(params[:start_system_date]) && valid_date(params[:end_system_date])
+        if (!params[:start_system_date].blank? || !params[:end_system_date].blank?)
+          params[:start_system_date] = "01-01-#{Date.today().year().to_s}" if params[:start_system_date].blank?
+          params[:end_system_date] = "31-12-#{Date.today().year().to_s}" if params[:end_system_date].blank?
+          conditions << ("start_system_date=" + params[:start_system_date])
+          conditions << ("end_system_date=" + params[:end_system_date])
+        end
+        @date_valid = true
+      else
+        @date_valid = false
+        flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
+
+      if valid_date(params[:start_transaction_date]) && valid_date(params[:end_transaction_date])
+        if (!params[:start_transaction_date].blank? || !params[:end_transaction_date].blank?)
+          params[:start_transaction_date] = "01-01-#{Date.today().year().to_s}"if params[:start_transaction_date].blank?
+          params[:end_transaction_date] = "31-12-#{Date.today().year().to_s}"if params[:end_transaction_date].blank?
+          conditions << ("start_transaction_date=" + params[:start_transaction_date])
+          conditions << ("end_transaction_date=" + params[:end_transaction_date])
+        end
+        @date_valid = true
+      else
+        @date_valid = false
+        flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
+
+      if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
+        conditions << ("bank_account_id=" + params[:bank_account_number])
+      end
+
+      if (params[:banked] && params[:banked]!= "0")
+        conditions << ("banked=" + params[:banked])
+      end
+
+      if (params[:receipt_meta_type_id] && params[:receipt_meta_type_id]!= "0")
+        conditions << ("receipt_meta_type_id=" + params[:receipt_meta_type_id])
+      end
+
+      if (params[:receipt_type_id] && params[:receipt_type_id]!= "0")
+        conditions << ("receipt_type_id=" + params[:receipt_type_id])
+      end
+
+      if (params[:received_via_id] && params[:received_via_id]!= "0")
+        conditions << ("received_via_id=" + params[:received_via_id])
+      end
+
+      if (params[:receipt_account_id] && params[:receipt_account_id]!= "0")
+        conditions << ("receipt_account_id=" + params[:receipt_account_id])
+      end
+
+      @query = conditions.join('&')
+
     else
-      @date_valid = false
-      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      #trasnaction histroy
+      @filter_target = "histroy"
+      @start_date = params[:start_date]
+      @end_date = params[:end_date]
+      
+      if valid_date(@start_date) && valid_date(@end_date)
+        @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+        @date_valid = true
+      else
+        @date_valid = false
+        flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
     end
+    
     respond_to do |format|
       format.js
     end
@@ -221,6 +308,26 @@ class TransactionHeadersController < ApplicationController
     @transaction_header = TransactionHeader.find(params[:id].to_i)
     @transaction_header.destroy
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) destroy a transaction header record with id #{params[:id]}.")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def enquiry_show_receipt_type
+    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])rescue  @receipt_meta_type = ReceiptMetaMetaType.new
+    if params[:param1] != "0"
+      @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+      @options = ""
+      @options += "<option value = 0 >All"
+      @receipt_types.each do |i|
+        @options += '<option value=' + i.id.to_s + '>' + i.name
+      end
+      @cheque_detail = ChequeDetail.new
+      @credit_card_detail = CreditCardDetail.new
+    else
+      @options = ""
+      @options += "<option value = 0 >All"
+    end
     respond_to do |format|
       format.js
     end

@@ -523,6 +523,20 @@ margin-right: 5px;
     font-weight: bold;
 }
 
+#app #main #content .ex_container .title {
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#app #main #content .ex_container h2 {
+    font-size:18px;
+    font-weight: bold;
+    line-height: 20px;
+    margin-bottom: 5px;
+}
+
 #app #main #content .container .options {
     float: right;
     display:inline;
@@ -902,7 +916,7 @@ div#content div#right {
     margin-left: 2%;
 }
 
-div.container div.header_container {
+div.container div.header_container, div.header_container {
     display: inline;
     font-family:Arial, Helvetica, sans-serif;
     color: #232323;
@@ -919,14 +933,14 @@ div.container div.header_container {
 }
 
 
-div.container div.header_container .title {
+div.container div.header_container .title, div.header_container .title {
     float: left;
     display:inline;
     font-size: 12px;
     font-weight: bold;
 }
 
-div.container div.header_container .title h1{
+div.container div.header_container .title h1, div.header_container .title h1{
     margin: 0 0 0 0 !important;
     color: #2C2C2C;
     font-size:20px;
@@ -935,7 +949,7 @@ div.container div.header_container .title h1{
     font-family:Arial,Helvetica,sans-serif;
 }
 
-div.container div.header_container h1 {
+div.container div.header_container h1, div.header_container h1 {
     color: #2C2C2C;
     font-size:20px;
     font-weight: bold;
@@ -943,7 +957,7 @@ div.container div.header_container h1 {
     margin-bottom: 5px;
 }
 
-div.container div.header_container .options {
+div.container div.header_container .options, div.header_container .options {
 
     float: right;
     display:inline;
@@ -2234,7 +2248,7 @@ div#permission_form .options{
     min-height:100px;
     margin-right:15px;
     -moz-border-radius:10px;
-   -webkit-border-radius:10px;
+    -webkit-border-radius:10px;
     border-radius: 10px;
     background-image:url(/images/container_bg.png);
     background-repeat:repeat;
@@ -2465,6 +2479,7 @@ div#permission_form .options{
     min-height: 14px;
     padding: 5px 0px 5px 10px;
     text-decoration:none;
+    background-position: right;
 }
 
 /*spinner*/
@@ -2673,9 +2688,9 @@ div#permission_form .options{
 }
 
 label.error_flag{
-   width:auto;
-   color:red !important;
-   
+    width:auto;
+    color:red !important;
+
 
 }
 
@@ -2685,5 +2700,36 @@ input.error_flag{
 
 /*For removed keyword*/
 .red{
-   color:red;
+    color:red;
+}
+
+/*For quick_launch using*/
+.quick_launch_icon{
+
+    margin-left:19px;
+    padding-top:8px;
+}
+
+#search_suggestion{width: 203px; background-color: white; left: 4px; min-height: 10px; top: -5px; text-align: left; position: relative; display: none;}
+
+
+/* for spinner div */
+.spinner{width: 100%;height: 50px;background: url("./images/load.gif") no-repeat center;}
+
+/*for new tab style*/
+.tab_ui{
+
+    margin-right:15px;
+    float:left;
+}
+.person_edit_tab.active {margin-top:-10px;}
+.organisation_edit_tab.active {margin-top:-10px;}
+.no_record {text-align:center;height:50px;}
+
+.iPhoneCheckContainer label{color:white !important;}
+
+.tab_structure{
+    display:none;
+    margin-top:10px;
+    float:left;
 }

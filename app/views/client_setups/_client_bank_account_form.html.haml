@@ -18,7 +18,7 @@
   .form_line
     .field_30
       = f.label :bank, "Bank"
-      = collection_select(:client_bank_account, :bank_id, Bank.find(:all), :id, :display_name, {})
+      = collection_select(:client_bank_account, :bank_id, Bank.active_record, :id, :display_name, {})
     .field_30
       = f.label :account_purpose_id, "Purpose"
       = collection_select(:client_bank_account, :account_purpose_id, AccountPurpose.active_account_purpose_type, :id, :name)
@@ -30,6 +30,5 @@
       = f.label :status, "Active"
       = f.check_box :status, :checked => true, :class => "checkbox_style"
 
-  .form_line
-    .field_10{:style => "float:right;"}
-      = submit_tag "Submit", :disabled => true, :id => "new_client_bank_account_submit"
+  %p.submit
+    = submit_tag "Submit", :disabled => true, :id => "new_client_bank_account_submit", :style => "float:right;"

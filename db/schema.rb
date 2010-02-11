@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100117233313) do
+ActiveRecord::Schema.define(:version => 20100209045624) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -76,9 +76,61 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.text    "type"
     t.integer "account_type_id"
     t.integer "priority_number"
+    t.boolean "to_be_removed"
   end
 
   create_table "bank_grids", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_run_details", :force => true do |t|
+    t.integer  "bank_run_id"
+    t.integer  "transaction_header_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_run_report_details", :force => true do |t|
+    t.integer  "bank_run_report_id"
+    t.string   "type"
+    t.string   "drawer_name"
+    t.string   "cheque_no"
+    t.integer  "bank_id"
+    t.decimal  "total_amount",          :precision => 11, :scale => 3
+    t.string   "payment_type"
+    t.string   "receipt_no"
+    t.string   "card_type"
+    t.integer  "merchant_number"
+    t.string   "merchant_trading_name"
+    t.integer  "no_of_item"
+    t.string   "location"
+    t.string   "authority_no"
+    t.string   "cardholder_name"
+    t.string   "payment_via"
+    t.integer  "item"
+    t.decimal  "card_number"
+    t.integer  "cvv"
+    t.string   "account_code"
+    t.decimal  "cash",                  :precision => 11, :scale => 3
+    t.decimal  "cheque",                :precision => 11, :scale => 3
+    t.decimal  "cards",                 :precision => 11, :scale => 3
+    t.string   "type_of_receipt"
+    t.integer  "campaign_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_run_reports", :force => true do |t|
+    t.integer  "client_organisation_id"
+    t.integer  "bank_run_id"
+    t.integer  "bank_account_id"
+    t.string   "type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bank_runs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -151,6 +203,7 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -344,6 +397,7 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.text     "response"
     t.datetime "response_date"
     t.integer  "responded_to_by_id"
+    t.string   "submitted_by"
   end
 
   create_table "grids", :force => true do |t|
@@ -384,6 +438,14 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "helps", :force => true do |t|
+    t.string "controller"
+    t.string "action"
+    t.string "title"
+    t.string "keyword"
+    t.string "content"
   end
 
   create_table "images", :force => true do |t|
@@ -512,6 +574,8 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed"
+    t.string   "type"
   end
 
   create_table "notes", :force => true do |t|
@@ -603,6 +667,8 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.integer  "updated_by_id"
     t.integer  "level"
     t.string   "level_label"
+    t.boolean  "status"
+    t.boolean  "to_be_removed"
   end
 
   create_table "people", :force => true do |t|
@@ -634,6 +700,8 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.integer  "marital_status_id"
     t.integer  "gender_id"
     t.string   "duplication_value"
+    t.boolean  "status"
+    t.boolean  "to_be_removed"
   end
 
   create_table "person_bank_accounts", :force => true do |t|
@@ -696,12 +764,10 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
   end
 
   create_table "potential_members", :force => true do |t|
-    t.string   "first_name"
-    t.string   "family_name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "validation_key"
+    t.string "first_name"
+    t.string "family_name"
+    t.string "email"
+    t.string "validation_key"
   end
 
   create_table "query_criterias", :force => true do |t|
@@ -744,6 +810,18 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.string   "type"
   end
 
+  create_table "quick_launch_icons", :force => true do |t|
+    t.text     "controller"
+    t.text     "action"
+    t.text     "image_url"
+    t.text     "title"
+    t.integer  "sequence"
+    t.integer  "login_account_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.text     "module"
+  end
+
   create_table "receipt_accounts", :force => true do |t|
     t.text     "name"
     t.text     "description"
@@ -756,6 +834,7 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.datetime "updated_at"
     t.integer  "link_module_id"
     t.text     "link_module_name"
+    t.boolean  "to_be_removed"
   end
 
   create_table "receipt_methods", :force => true do |t|
@@ -822,6 +901,7 @@ ActiveRecord::Schema.define(:version => 20100117233313) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "to_be_removed"
   end
 
   create_table "system_logs", :force => true do |t|

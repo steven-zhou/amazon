@@ -29,5 +29,5 @@
       = f.label :currency_subunit, "Currency Subunit"
       = f.text_field :currency_subunit
   .form_line
-    .field_10{:style => "float:right;"}
-      = submit_tag "Submit", :style=>"margin-top:13px;margin-right:6px;", :id=>@current_action=="new" ? "new_submit_country" : "edit_submit_country", :disabled=>(true if @current_action=="new")
+    .field_20{:style => "float:right;"}
+      = submit_tag "Submit", :style=>"margin-right:6px;", :id=>@current_action=="new" ? "new_submit_country" : "edit_submit_country", :disabled=>(true if @current_action=="new")

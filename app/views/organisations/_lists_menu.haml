@@ -20,7 +20,15 @@
           -#= link_to((image_tag 'Icons/Core/Lol/go-last.png'), @current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.fetch(-1)) : edit_organisation_path(@o.fetch(-1)), :title=>"Last")
           = link_to_function((image_tag 'Icons/Core/Lol/go-last.png'), :url=>@current_controller == "organisations" && @current_action == "show" ? organisation_path(@o.fetch(-1)) : edit_organisation_path(@o.fetch(-1)), :title=>"Last")
   .right
-    %div#loleft
+    %div#loleft{:style => "margin-left: 10px;"}
+      .lolfont_left
+        = label_tag 'list_header_id', 'List'
+      #lol_select
+        %select{:id => "org_lists_name", :disabled => (@list_headers.blank?), :name => "list_header_id", :style => "width:150px" }
+          - @list_headers.each do |r|
+            %option{:value => "#{r.id}", :selected => (@list_header.id == r.id)} #{r.name}
+
+    %div#loleft{:style => "margin-left: 10px;"}
       .lolfont_left
       
       #lol_select{:style => "margin-top: 12px;"}

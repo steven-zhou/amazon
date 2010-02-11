@@ -1,23 +1,90 @@
 .container{:style => "width:60%"}
   -form_for @list_header, :url => "/list_headers/#{@list_header.id}/delete_details", :html => {:class => "ajax_form"} do |f|
     %h1{:style=>"margin-bottom:5px;"}  Person On List
-    %table#list_edit_grid
+    %table#list_edit_grid{:class => "selectable_grid"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
+    delete_person_from_list = function(){
+    var trSelected = $("#list_edit_grid tr.trSelected").attr('id');
+    var id = "";
+    if (trSelected != undefined){
+      id = trSelected.substring(3);
+      $("#warning_message_text").html("Are you sure you wish to delete this person?");
+      $("#warning_message").dialog({
+        modal:false,
+        resizable:false,
+        draggable:false,
+        height: 'auto',
+        width: 'auto',
+        buttons:{
+
+        NO: function(){
+          $(this).dialog("destroy");
+         
+        },
+
+        Yes: function(){
+          $.ajax({
+                      type: "delete",
+                      url: "/list_details/"+id+".js",
+                      dataType: "script"
+                  });
+                  $(this).dialog('destroy');
+                  return true;
+              }
+              }
+
+          });
+        }else{
+          $('#warning_message_text').html("Please select the record you want to delete");
+          $('#warning_message').dialog({
+              modal: true,
+              resizable: false,
+              draggable: true,
+              height: 'auto',
+              width: 'auto',
+              buttons: {
+                  Ok: function(){
+                      $(this).dialog('destroy');
+                      return false;
+                  }
+              }
+
+          });
+      }
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+      };
+
+
+
+
+
+
+
+
     $('#list_edit_grid').flexigrid({
-        url: '/grids/list_edit_grid',
+        url: '/grids/list_edit_grid?id=#{@list_header.id}&entity=#{@entity}',
         dataType: 'json',
         colModel : [
-            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-            {display: 'First Name', name : 'field_1', width : 180, sortable : true, align: 'left'},
-            {display: 'Family Name', name : 'field_2', width : 180, sortable : true, align: 'left'}
+            {display: 'ID', name : 'id', width : 40, sortable : true, align: 'left'},
+            {display: 'First Name', name : 'people.first_name', width : 180, sortable : true, align: 'left'},
+            {display: 'Family Name', name : 'people.family_name', width : 180, sortable : true, align: 'left'}
+        ],
+         buttons : [
+            {name: 'Delete', bclass: 'delete', onpress : delete_person_from_list}
         ],
         searchitems : [
-            {display: 'First Name', name : 'field_1'},
-            {display: 'Family Name', name : 'field_2'}
+            {display: 'First Name', name : 'people.first_name'},
+            {display: 'Family Name', name : 'people.family_name'}
         ],
-        sortname: "grid_object_id",
+        sortname: "id",
         sortorder: "asc",
         usepager: true,
         useRp: true,

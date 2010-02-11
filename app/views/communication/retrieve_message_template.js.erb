@@ -1,0 +1,6 @@
+  $('#edit_message_template').hide();
+  $('#add_new_message_template').html('<%= escape_javascript(render(:partial => "/communication/new_message_template")) %>');
+  $('#add_new_message_template').show();
+  $('#existing_message_templates').html('<%= escape_javascript(render(:partial => "/communication/existing_message_templates")) %>');
+  $('#message_template_mode').attr('mode', 'show');
+ 

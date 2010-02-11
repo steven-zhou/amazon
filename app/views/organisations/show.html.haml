@@ -13,21 +13,9 @@
           = image_tag 'Icons/System/image-missing.png', :class => "medium"
         -else
           = image_tag(image_path(@organisation.image.id), :class => "small")
-      %div#organisation_name{:style=>"width:500px;margin-left:130px;height:140px;"}
-        - if @organisation.id.nil?
-          %h1{:style=>'visibility:hidden'} Hidden
-        -else
-          %h1= h "#{@organisation.full_name}"
-
-        .form_line{:style=>"width: 350px; margin-top: 10px;"}
-          = label_tag 'custom_id', 'Custom ID'
-          %div.display_field_bg{:style=>"margin-left: 4px;"}
-            =@organisation.custom_id
-        .form_line{:style=>"width: 350px; margin-top: 2px;"}
-          = label_tag 'onrecord_since', 'On Record Since'
-          %div.display_field_bg{:style=>"margin-left: 4px;"}
-            =@organisation.onrecord_since.to_s
-        %br
+      %div#organisation_name{:style=>"width:360px;margin-left:130px;height:140px;"}
+        =render :partial => "organisation_name_brief_info"
+        
 
     .container
       %h1 Contacts
@@ -56,7 +44,7 @@
 
     .container
       %h1
-        = @primary_address.nil? ? "Address" : "#{@primary_address.address_type_name} Address"
+        = @primary_address.nil? ? "Address" : "<strong #{'class=\'red\'' if @primary_address.address_type.to_be_removed == true}>#{@primary_address.address_type_name}</strong> Address"
       -unless @primary_address.nil?
         .container.primary_address_and_employment
           = format_address(@primary_address)
@@ -84,10 +72,10 @@
 
   #right_content
     #photo_info{:style => "margin-bottom:35px;"}
-    .profile_tab_right{:field =>"organization_info"}
+    .profile_tab_right{:field =>"organisation_info", :style => "margin-right:10px;"}
     .container_icon{:align => 'center'}
       = link_to_function "<h1>Organisational</h1>",  :id=>"organisational", :class=>"show_hide_button", :show_id_name => "organisation_info",:hide_id_name => "business_info"
-    .profile_tab_left{:field =>"organization_info"}
+    .profile_tab_left{:field =>"organisation_info"}
     .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
     .container_icon{:align => 'center', :class => "container_icon_color"}
       = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "organisation_info"

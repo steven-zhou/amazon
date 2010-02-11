@@ -61,7 +61,7 @@
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @campaign.id}
   .form_line
     .field_15
-      = f.label :long_name, "* Name", :class => "required_field"
+      = f.label :long_name, "<span class='asterisk'>*</span> Name", :class => "required_field"
       = f.text_field :name, :class => "edit_campaign_required_field", :id => "edit_campaign_name", :disabled => true
     .field_30
       = f.label :description, "Description"
@@ -72,7 +72,7 @@
       = f.text_field :target_amount, :disabled => @campaign.status == false
   .form_line
     .field_15
-      = f.label :start_date, "* Start Date"
+      = f.label :start_date, "<span class='asterisk'>*</span> Start Date"
       %input{:name => "start_date", :style => "width:150px;", :id => "edit_campaign_start_date", :class => "startdatepick edit_campaign_required_field", :end_date => "edit_campaign_end_date", :value => @campaign.start_date, :disabled => @campaign.status == false}
     .field_15
       = f.label :end_date, "End Date"
@@ -86,7 +86,7 @@
       = f.check_box :status, :class => "checkbox_style"
   .form_line
     .field_100{:style => "float:right;"}
-      %div{:style => "display:inline;float:right;height:100%;"}
+      -#%div{:style => "display:inline;float:right;height:100%;"}
         = link_to "Remove", {:controller => "receipting", :action => "destroy_campaign", :id => @campaign.id}, {:class => 'delete alt_option', :error_message_field => "campaign"} unless @campaign.status == false
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_campaign_submit"

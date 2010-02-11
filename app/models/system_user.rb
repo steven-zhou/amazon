@@ -46,6 +46,10 @@ class SystemUser < LoginAccount
     update_password
   end
 
+  def self.find_by_name(name)
+    SystemUser.find_by_user_name(name)
+  end
+
   private
 
   def person_must_exist

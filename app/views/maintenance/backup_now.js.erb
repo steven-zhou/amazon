@@ -1,0 +1,4 @@
+$('#flash_feedback').html("<%=escape_javascript(flash[:message])%>").fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+enable_form_after_submit_finish();
+$('#warning_message').dialog('destroy');

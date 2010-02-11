@@ -10,24 +10,44 @@ class MaintenanceController < ApplicationController
   # eg 2009-10-10_01-00-05
   # and that inside that directory there should be a backup file of the database.
 
-  def system_backup
-
+  def system_backup    
 
   end
 
+  def backup
+    file_name = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
+    file_name = params[:file_name] + file_name unless params[:file_name].blank?
+    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:backup FILE=#{file_name}"
+    redirect_to :action => 'backup_now', :cmd => cmd, :file_name => file_name
+  end
+
+  def backup_now  
+    system  "#{params[:cmd]}"
+    flash.now[:message] = "A back up - #{params[:file_name]} is available"
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def system_restore
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) viewed system backups.")
-    backup_directory = "/home/rails/database/backup"
-    @backups = Array.new
-    # if ( File.exists?(backup_directory) && File.directory?(backup_directory) && File.readable?(backup_directory) )
-    if (true)
-      # available_backups = (Dir.entries(backup_directory) - ["..", "."]).stort
-      available_backups = ["2009-10-10_01-00-05", "2009-10-26_01-00-07", "2009-10-25_01-00-10", "2009-10-22_01-00-06", "2009-10-16_01-00-07", "2009-10-11_01-00-06", "2009-10-14_01-00-05", "2009-10-20_01-00-06", "2009-10-18_01-00-06", "2009-10-15_01-00-06", "2009-10-21_01-00-06", "2009-10-12_01-00-06", "2009-10-19_01-00-09", "2009-10-13_01-00-06", "2009-10-28_01-00-06", "2009-10-17_01-00-06", "2009-10-24_01-00-07", "2009-10-23_01-00-06", "2009-10-27_01-00-06", "2009-10-29_01-00-06"].sort.reverse
-      for backup in available_backups do
-        backup = backup_directory_tidy(backup)
-        @backups << backup unless backup.empty?
-      end
+    backup_directory = "/home/ubuntu/database/backup"
+    dir = Dir.new(backup_directory) rescue dir = nil
+    @backups = dir.nil? ? [] : (dir.entries - [".", ".."]).sort.reverse
+  end
+
+  def restore
+    file_name = params[:file_name]
+    dir = "/home/ubuntu/database/backup/" + file_name
+    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir}"
+    redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
+  end
+
+  def restore_now
+    system "#{params[:cmd]}"
+    flash.now[:message] = "Database is restored using #{params[:file_name]}"
+    respond_to do |format|
+      format.js {render 'backup_now.js'}
     end
   end
 

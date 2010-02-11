@@ -9,11 +9,13 @@
       System Backups are currently not available. Please contact your Systems Administrator to schedule backups as soon as possible.
     - else
       %h1 Available System Backups
-      %p Contact your Systems Administrator to arrange restoring data from a backup.
-      %table
-        - for backup in @backups do
-          .container{:style => "width:26%;margin:1%;"}
-            = backup
+      %input.hidden{:id => "backup_mode", :mode => "show"}
+      - for backup in @backups do
+        .container.toggle_options{:style => "width:26%;margin:1%;", :field => "backup"}
+          .title{:style => "width:70%;"}
+            %h3 #{backup}
+          .options{:style => "display:none;"}
+            = link_to_function image_tag("icon_holder.png"), :id => "data_restore", :file_name => "#{backup}"
 
 
 

@@ -10,5 +10,9 @@ class AmazonSetting < ActiveRecord::Base
     @setting.each { |setting| results += "<option value='" + "#{setting.class}" + "'>" + "#{setting.class}".titleize + "</option>" if (setting.class.to_s != "Language" && setting.class.to_s != "Religion")}
     return results
   end
+
+  def self.search_by_type(type)
+    AmazonSetting.find(:all, :conditions => ["type = ?", type], :order => 'name')
+  end
   
 end

@@ -23,3 +23,4 @@ $("#tag_form").html('');
 $('#tag_form').dialog('close');
 $("#tags_<%= escape_javascript("#{@tag_type.id}")%> > ul").append("<%= escape_javascript(render(:partial => '/tags/tag', :locals => {:tag => @tag})) %>");
 <% end %>
+enable_form_after_submit_finish();

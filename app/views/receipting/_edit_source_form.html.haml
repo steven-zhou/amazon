@@ -13,7 +13,7 @@
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @source.id}
   .form_line
     .field_45
-      = f.label :name, '* Name'
+      = f.label :name, "<span class='asterisk'>*</span> Name"
       = f.text_field :name, :class => "edit_source_required_field", :id => "edit_source_name", :disabled => true
   .form_line
     .field_25
@@ -44,7 +44,5 @@
       = f.check_box :status, :class => "checkbox_style"
   .form_line
     .field_100{:style => "float:right;"}
-      %div{:style => "display:inline;float:right;height:100%;"}
-        = link_to "Remove", {:controller => "receipting", :action => "destroy_source", :id => @source.id}, {:class => 'delete alt_option', :error_message_field => "source"} unless @source.status == false
       %div{:style => "display:inline;float:right;height:100%;"}
         = submit_tag "Update", :disabled => false, :id => "edit_source_submit"

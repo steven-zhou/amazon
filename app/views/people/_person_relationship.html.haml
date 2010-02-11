@@ -1,0 +1,11 @@
+= render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
+
+= render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
+
+= render :partial => '/people/person_relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
+
+= render :partial => '/people/person_relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
+
+= render :partial => '/people/person_relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
+
+= render :partial => '/people/person_relationship_container', :locals => {:type => 'Next of Kin', :relations => @person.related_people.of_type('Next of Kin')}

@@ -1,5 +1,5 @@
 Factory.define :google, :class => ClientOrganisation do |f|
-  f.sequence(:id) { |n| n }
+
   f.custom_id "GOGL"
   f.full_name "Google Enterprises"
   f.short_name "Google"
@@ -26,7 +26,7 @@ Factory.define :google, :class => ClientOrganisation do |f|
 end
 
 Factory.define :CNN, :class => OtherOrganisation do |f|
-  f.sequence(:id) { |n| n }
+
   f.custom_id "CNN"
   f.full_name "CNN"
   f.short_name "CNN"

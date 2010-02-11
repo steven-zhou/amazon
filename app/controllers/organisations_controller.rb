@@ -13,8 +13,12 @@ class OrganisationsController < ApplicationController
     @organisation.instant_messagings.build
     @image = Image.new
     @client_setup = ClientSetup.first
-    #@postcodes = Postcode.find(:all)
     @check_field = Array.new
+    @active_address_types = AddressType.active_address_type
+    @countries = Country.all
+    @phone_types = Contact.phone_types
+    @email_types = Contact.email_types
+    @website_types = Contact.website_types
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
@@ -28,45 +32,25 @@ class OrganisationsController < ApplicationController
   end
 
   def show
-
-    #get active tabs
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
+    @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-        
+    @active_sub_tab = params[:active_sub_tab]  
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
-    @o = Organisation.find(:all, :order => "id")
+
+    @o = @list_header.entity_on_list.uniq rescue @o = OrgansationPrimaryList.first.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = @o[0] if @organisation.nil?
+    @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
+    session[:current_org_list_id] = @list_header.id
+
     @primary_phone = @organisation.primary_phone
     @primary_email = @organisation.primary_email
     @primary_fax = @organisation.primary_fax
     @primary_website = @organisation.primary_website
     @primary_address = @organisation.primary_address
-    @other_phones = @organisation.other_phones
-    @other_emails = @organisation.other_emails
-    @other_faxes = @organisation.other_faxes
-    @other_websites = @organisation.other_websites
-    @other_addresses = @organisation.other_addresses
-    @notes = @organisation.notes
-    @instant_messaging = @organisation.instant_messagings
-    
-    
-    OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
 
-    @organisation.employees.each do |organisations_employees|  #show organisation employee grid
-      @soeg = OrganisationEmployeeGrid.new
-      @soeg.login_account_id = session[:user]
-      @soeg.grid_object_id = organisations_employees.id
-      @soeg.field_1 = organisations_employees.first_name
-      @soeg.field_2 = organisations_employees.family_name
-      @soeg.field_3 = organisations_employees.primary_address.first_line unless organisations_employees.primary_address.blank?
-      @soeg.field_4 = organisations_employees.primary_phone.value unless organisations_employees.primary_phone.blank?
-      @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
-      @soeg.save
-    end
     respond_to do |format|
       format.html
       format.js {render 'show_left.js'}
@@ -89,78 +73,50 @@ class OrganisationsController < ApplicationController
         end
       end
       @organisation_new = Organisation.new
-      #modified by Tao, remove 'Submit and edit' button
-      # If the user wants to edit the record they just added
-      #            if(params[:edit])
-      #                flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name}"
-      #                redirect_to edit_organisation_path(@organisation)
-      #                # If the user wants to continue adding records
-      #            else
-      flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href=#{edit_organisation_path(@organisation)} style='color:white'>edit details</a>)"
+      flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href='/organisations/#{@organisation.id}/edit' style='color:white'>edit details</a>)"
       redirect_to new_organisation_path
-      #            end
     else
       @organisation.addresses.build(params[:organisation][:addresses_attributes][0]) if @organisation.addresses.empty?
       @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
       @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
-      #@postcodes = Postcode.find(:all)
       flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      #      flash[:warning] = "Organisation Profile Has NOT been Created Due to Data Errors"
       redirect_to new_organisation_path
     end
   end
 
 
   def edit
-
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
+    @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     @current_user = LoginAccount.find(session[:user])
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
-    @o = Organisation.find(:all, :order => "id")
+    @o = @list_header.entity_on_list.uniq
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
-    @organisation = @o[0] if @organisation.nil?
+    @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
-    @address = Address.new
+    session[:current_org_list_id] = @list_header.id
     @phone = Phone.new
     @email = Email.new
     @fax = Fax.new
     @website = Website.new
     @instant_messaging = InstantMessaging.new
-    @relationship = OrganisationRelationship.new
-    @masterdoc = MasterDoc.new
-    @note = Note.new
-    @note.active = TRUE
-    @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
-    @organisation_group = OrganisationGroup.new
+
+    @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)    
     @check_field = Array.new
-    @bank_accounts = OrganisationBankAccount.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
         @check_field << i.field_name
       end
     end
-
-
-    OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @organisation.employees.each do |organisations_employees|  #show organisation employee grid
-      @soeg = OrganisationEmployeeGrid.new
-      @soeg.login_account_id = session[:user]
-      @soeg.grid_object_id = organisations_employees.id
-      @soeg.field_1 = organisations_employees.first_name
-      @soeg.field_2 = organisations_employees.family_name
-      @soeg.field_3 = organisations_employees.primary_address.first_line unless organisations_employees.primary_address.blank?
-      @soeg.field_4 = organisations_employees.primary_phone.value unless organisations_employees.primary_phone.blank?
-      @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
-      @soeg.save
-    end
+    
+    @entity = @organisation
     respond_to do |format|
       format.html
       format.js {render 'show_edit_left.js'}
@@ -199,16 +155,11 @@ class OrganisationsController < ApplicationController
 
 
     flash[:message] = "#{@organisation.full_name}'s Details Have been Updated Successfully." unless !flash[:warning].nil?
-    #modified by Tao, remove 'Submit and Close' button.
-    #if(params[:edit])
-    #    redirect_to edit_organisation_path(@organisation)
-    #elsif(params[:installation])
     if(params[:installation])
       flash[:message] = "Client Organisation - #{@organisation.full_name}'s information was initialized successfully."
       redirect_to :controller => :client_setups, :action => :client_organisation
     else
       redirect_to edit_organisation_path(@organisation)
-      #redirect_to organisation_path(@organisation)
     end
   end
 
@@ -232,6 +183,7 @@ class OrganisationsController < ApplicationController
 
   def find
     @organisation = Organisation.new
+    @countries = Country.all
   end
 
   def search
@@ -289,7 +241,8 @@ class OrganisationsController < ApplicationController
   end
 
   def show_list
-    @organisations = Organisation.find(:all, :order => "id")
+    @list_header = ListHeader.find(session[:current_org_list_id])
+    @organisations = @list_header.entity_on_list.uniq
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -316,11 +269,16 @@ class OrganisationsController < ApplicationController
 
   #organisation grid show left part
   def show_left
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = ListHeader.find(session[:current_org_list_id])
+    
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
-    @o = Organisation.find(:all, :order => "id")
-    @organisation = Organisation.find_by_id(params[:id].to_i)
-    @organisation = @o[0] if @organisation.nil?
+    @o = @list_header.entity_on_list.uniq
+    @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
+    @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
+    session[:current_organisation_id] = @organisation.id
+    session[:current_org_list_id] = @list_header.id
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     @client_setup = ClientSetup.first
@@ -332,23 +290,6 @@ class OrganisationsController < ApplicationController
         @check_field << i.field_name
       end
     end
-    OrganisationEmployeeGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @organisation.employees.each do |organisations_employees|  #show organisation employee grid
-      @soeg = OrganisationEmployeeGrid.new
-      @soeg.login_account_id = session[:user]
-      @soeg.grid_object_id = organisations_employees.id
-      @soeg.field_1 = organisations_employees.first_name
-      @soeg.field_2 = organisations_employees.family_name
-      @soeg.field_3 = organisations_employees.primary_address.first_line unless organisations_employees.primary_address.blank?
-      @soeg.field_4 = organisations_employees.primary_phone.value unless organisations_employees.primary_phone.blank?
-      @soeg.field_5 = organisations_employees.primary_email.address unless organisations_employees.primary_email.blank?
-      @soeg.save
-    end
-
-
     
     if(params[:current_operation] == "edit_organisation_list")
       @address = Address.new
@@ -357,37 +298,18 @@ class OrganisationsController < ApplicationController
       @fax = Fax.new
       @website = Website.new
       @instant_messaging = InstantMessaging.new
-      @masterdoc = MasterDoc.new
-
-      @note = Note.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
-      @organisation_group = OrganisationGroup.new
-      @relationship = OrganisationRelationship.new
-      @bank_accounts = OrganisationBankAccount.new
       @current_action = "edit"
-      render 'show_edit_left.js'
-     
+      render 'show_edit_left.js'     
     else
-     
-      respond_to do |format|
-        @primary_phone = @organisation.primary_phone
-        @primary_email = @organisation.primary_email
-        @primary_fax = @organisation.primary_fax
-        @primary_website = @organisation.primary_website
-        @primary_address = @organisation.primary_address
-        @other_phones = @organisation.other_phones
-        @other_emails = @organisation.other_emails
-        @other_faxes = @organisation.other_faxes
-        @other_websites = @organisation.other_websites
-        @other_addresses = @organisation.other_addresses
-        @notes = @organisation.notes
-        @current_action = "show"
-        format.js
-      end
+      @primary_phone = @organisation.primary_phone
+      @primary_email = @organisation.primary_email
+      @primary_fax = @organisation.primary_fax
+      @primary_website = @organisation.primary_website
+      @primary_address = @organisation.primary_address
+      @current_action = "show"
+      render 'show_left.js'
     end
-    #     respond_to do |format|
-    #      format.js
-    #    end
   end
 
   def check_duplication
@@ -396,7 +318,9 @@ class OrganisationsController < ApplicationController
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
         if i.is_foreign_key
-          duplication_value += i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).name[0, i.number_of_charecter]
+          unless i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).nil?
+            duplication_value << i.field_name.camelize.constantize.find(params[i.field_name.to_sym]).name[0, i.number_of_charecter]
+          end
         else
           duplication_value += params[i.field_name.to_sym][0, i.number_of_charecter]
         end
@@ -465,12 +389,16 @@ class OrganisationsController < ApplicationController
 
   def general_show_list
 
-    @organisations = Organisation.find(:all, :order => "id")
+    @organisations = Organisation.find(params[:person_id]) rescue @person = Person.find(session[:current_organisation_id])
+    @list_header = ListHeader.find(session[:current_org_list_id])
+    @o = Array.new
+    @o = @list_header.entity_on_list
+    
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
 
-    @organisations.each do |organisations|
+    @o.each do |organisations|
       @solg = ShowOrganisationListGrid.new
       @solg.login_account_id = session[:user]
       @solg.grid_object_id = organisations.id
@@ -512,6 +440,31 @@ class OrganisationsController < ApplicationController
       format.js
     end
   end
+
+
+  def destroy
+
+    @organisation = Organisation.find(params[:id])
+    @organisation.to_be_removed = @organisation.to_be_removed ? false :true
+    @organisation.save
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+
+  def change_status
+    @organisation = Organisation.find(params[:param1])
+    @organisation.status = @organisation.status ? false : true
+    @organisation.save
+    respond_to do |format|
+
+      format.js
+    end
+  end
+
 
 
 end

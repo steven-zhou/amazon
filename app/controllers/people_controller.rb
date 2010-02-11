@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   # Added system logging
+
   include PeopleSearch
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
   protect_from_forgery :except => [:post_data]
@@ -9,21 +10,31 @@ class PeopleController < ApplicationController
     @person = Person.new
     @person.addresses.build
     @person.phones.build
-    @person.faxes.build
+    #@person.faxes.build
     @person.emails.build
     @person.websites.build
     @person.instant_messagings.build
     @image = Image.new
     #@postcodes = Postcode.find(:all)
     @personal_check_field = Array.new
+    @active_title = Title.active_title
+    @countries = Country.all
+    @active_address_types = AddressType.active_address_type
+    @Languages = Language.active_language
+
+    @phone_types = Contact.phone_types
+    @email_types = Contact.email_types
+    @website_types = Contact.website_types
+
     
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+    
     unless @duplication_formula_appiled.status == false
-      @duplication_formula_appiled.duplication_formula_details.each do |i|
+      @duplication_formula_details =@duplication_formula_appiled.duplication_formula_details
+      @duplication_formula_details.each do |i|
         @personal_check_field << i.field_name
       end
     end
-
 
     respond_to do |format|
       format.html
@@ -31,14 +42,11 @@ class PeopleController < ApplicationController
   end
   
   def show
-    @group_types = LoginAccount.find(session[:user]).group_types
+   
+    #@group_types = @current_user.group_types
     @list_headers = @current_user.all_person_lists
-
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-
-
-
     #when it is cal show action
     if request.get?
       if @list_headers.blank?
@@ -50,15 +58,15 @@ class PeopleController < ApplicationController
           @list_header = @list_headers.first
           session[:current_list_id] = @list_header.id
           @person = @list_header.entity_on_list.first unless @list_headers.blank?
-          session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
+          session[:current_person_id] = @person.id unless @person.new_record?
           @p = Array.new
-          @p = @list_header.entity_on_list
+          @p = @list_header.entity_on_list.uniq
         else  #when there is id come---click the narrow button
           unless session[:current_list_id].blank?
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.entity_on_list
+            @p = @list_header.entity_on_list.uniq
             @person = Person.find_by_id(params[:id].to_i)
             @person = @p.first if @person.nil?
             session[:current_person_id] = @person.id
@@ -78,13 +86,13 @@ class PeopleController < ApplicationController
       c1 = @list_header.entity_on_list
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
-        @person = @list_header.entity_on_list.first
+        @person = c1.first
       else
         @person
       end
 
       @p = Array.new
-      @p = @list_header.entity_on_list
+      @p = c1.uniq
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
@@ -95,15 +103,15 @@ class PeopleController < ApplicationController
     @primary_website = @person.primary_website
     @primary_address = @person.primary_address
     @primary_employment = @person.primary_employment
-    @other_phones = @person.other_phones
-    @other_emails = @person.other_emails
-    @other_faxes = @person.other_faxes
-    @other_websites = @person.other_websites
-    @other_addresses = @person.other_addresses
-    @notes = @person.notes
-    @instant_messaging = @person.instant_messagings
-    @person_role = @person.person_roles
-    
+    #    @other_phones = @person.other_phones
+    #    @other_emails = @person.other_emails
+    #    @other_faxes = @person.other_faxes
+    #    @other_websites = @person.other_websites
+    #    @other_addresses = @person.other_addresses
+    #    @notes = @person.notes
+    #    @instant_messaging = @person.instant_messagings
+    #    @person_role = @person.person_roles
+
     respond_to do |format|
 
       format.html
@@ -113,10 +121,12 @@ class PeopleController < ApplicationController
   end
 
   def edit
-    @group_types = LoginAccount.find(session[:user]).group_types
+    # @group_types = LoginAccount.find(session[:user]).group_types
     @list_headers = @current_user.all_person_lists
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
+    
+   
 
     if request.get?
       if @list_headers.blank?
@@ -128,12 +138,12 @@ class PeopleController < ApplicationController
           if params[:id].blank? || params[:id] == "show"
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.entity_on_list
+            @p = @list_header.entity_on_list.uniq
             @person = Person.find(session[:current_person_id])
           else
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
-            @p = @list_header.entity_on_list
+            @p = @list_header.entity_on_list.uniq
             @person = Person.find_by_id(params[:id].to_i)
             @person = @list_headers.first.entity_on_list.first if @person.nil?
             session[:current_person_id] = @person.id
@@ -145,7 +155,7 @@ class PeopleController < ApplicationController
           session[:current_person_id] = @person.id
           @person = Person.new if @person.nil?
           @p = Array.new
-          @p = @list_header.entity_on_list
+          @p = @list_header.entity_on_list.uniq
         end
       end
     end
@@ -154,7 +164,7 @@ class PeopleController < ApplicationController
       @list_header = ListHeader.find(params[:list_header_id])
       params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
       c1 = Array.new
-      c1 = @list_header.entity_on_list
+      c1 = @list_header.entity_on_list.uniq
       @person = Person.find_by_id(params[:id].to_i)
       unless c1.include?(@person)
         @person = @list_header.entity_on_list.first
@@ -162,28 +172,26 @@ class PeopleController < ApplicationController
         @person
       end
       @p = Array.new
-      @p = @list_header.entity_on_list
+      @p = @list_header.entity_on_list.uniq
       session[:current_list_id] = @list_header.id
       session[:current_person_id] = @person.id
     end
 
-    #    @person = Person.new(:id => "") unless !@person.nil?
-    @address = Address.new
-    @phone = Phone.new
-    @email = Email.new
-    @fax = Fax.new
-    @website = Website.new
-    @instant_messaging = InstantMessaging.new
-    @masterdoc = MasterDoc.new
-    @relationship = Relationship.new
-    @employment = Employment.new
-    @note = Note.new
-    @note.active = TRUE
+    #----for left side use
+    @active_address = AddressType.active_address_type
+    @active_title = Title.active_title
+    @countries = Country.all #
+    @Languages = Language.active_language #
+    #-----for first tab use
+    @address = Address.new #
+    @phone = Phone.new #
+    @email = Email.new #
+    @fax = Fax.new #
+    @website = Website.new #
+    @instant_messaging = InstantMessaging.new #
+   
     @image = @person.image unless (@person.nil? || @person.image.nil?)
-    @role = Role.new
-    @person_role = PersonRole.new
-    @person_group = PersonGroup.new
-    @bank_accounts = PersonBankAccount.new
+  
     @personal_check_field = Array.new
     @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
     unless @duplication_formula_appiled.status == false
@@ -191,6 +199,7 @@ class PeopleController < ApplicationController
         @personal_check_field << i.field_name
       end
     end
+    @entity = @person
     respond_to do |format|
       format.html
       format.js {render 'show_edit_left.js'}
@@ -218,7 +227,7 @@ class PeopleController < ApplicationController
       #        redirect_to edit_person_path(@person)
       #        # If the user wants to continue adding records
       #      else
-      flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href=#{edit_person_path(@person)} style='color:white;'>edit details</a>)"
+      flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
       redirect_to new_person_path
       #end
     else
@@ -239,8 +248,8 @@ class PeopleController < ApplicationController
 
       flash[:message] = "There Was an Error to Create a New User"
       #      redirect_to new_person_path
-#      render :action => "new"
-     redirect_to new_person_path
+      #      render :action => "new"
+      redirect_to new_person_path
     end
   end
 
@@ -354,6 +363,9 @@ class PeopleController < ApplicationController
   
   def find
     @person = Person.new
+    @active_title = Title.active_title
+    @countries = Country.all
+    @Languages = Language.active_language
   end
   
   def name_card
@@ -430,6 +442,13 @@ class PeopleController < ApplicationController
     @active_sub_tab = params[:active_sub_tab]
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
+
+
+    @active_address = AddressType.active_address_type
+    @active_title = Title.active_title
+    @countries = Country.all #
+    @Languages = Language.active_language #
+
     @list_header = ListHeader.find(session[:current_list_id])
     @list_headers = @current_user.all_person_lists
  
@@ -441,14 +460,18 @@ class PeopleController < ApplicationController
     @primary_website = @person.primary_website
     @primary_address = @person.primary_address
     @primary_employment = @person.primary_employment
-    @other_phones = @person.other_phones
-    @other_emails = @person.other_emails
-    @other_faxes = @person.other_faxes
-    @other_websites = @person.other_websites
-    @other_addresses = @person.other_addresses
-    @notes = @person.notes
-    @instant_messaging = @person.instant_messagings
-    @person_role = @person.person_roles
+    #    @other_phones = @person.other_phones
+    #    @other_emails = @person.other_emails
+    #    @other_faxes = @person.other_faxes
+    #    @other_websites = @person.other_websites
+    #    @other_addresses = @person.other_addresses
+    #    @notes = @person.notes
+    #    @instant_messaging = @person.instant_messagings
+    #    @person_role = @person.person_roles
+
+
+
+
     session[:select_list_person] = params[:person_id]
     #   session[:current_person_id]=params[:person_id]
 
@@ -464,21 +487,21 @@ class PeopleController < ApplicationController
     if(params[:current_operation] == "edit_list")
       #@postcodes = Postcode.find(:all)
       @current_action = "edit"
-      @address = Address.new
+      # @address = Address.new
       @phone = Phone.new
       @email = Email.new
       @fax = Fax.new
       @website = Website.new
       @instant_messaging = InstantMessaging.new
-      @masterdoc = MasterDoc.new
-      @relationship = Relationship.new
-      @employment = Employment.new
-      @note = Note.new
+      #  @masterdoc = MasterDoc.new
+      # @relationship = Relationship.new
+      # @employment = Employment.new
+      # @note = Note.new
       @image = @person.image unless (@person.nil? || @person.image.nil?)
-      @role = Role.new
-      @person_role = PersonRole.new
-      @bank_accounts = PersonBankAccount.new
-      @person_group = PersonGroup.new
+      #  @role = Role.new
+      #  @person_role = PersonRole.new
+      #  @bank_accounts = PersonBankAccount.new
+      #  @person_group = PersonGroup.new
       render 'show_edit_left.js'
 
     else
@@ -488,13 +511,13 @@ class PeopleController < ApplicationController
       @primary_website = @person.primary_website
       @primary_address = @person.primary_address
       @primary_employment = @person.primary_employment
-      @other_phones = @person.other_phones
-      @other_emails = @person.other_emails
-      @other_faxes = @person.other_faxes
-      @other_websites = @person.other_websites
-      @other_addresses = @person.other_addresses
-      @notes = @person.notes
-      @person_role = @person.person_roles
+      #      @other_phones = @person.other_phones
+      #      @other_emails = @person.other_emails
+      #      @other_faxes = @person.other_faxes
+      #      @other_websites = @person.other_websites
+      #      @other_addresses = @person.other_addresses
+      #      @notes = @person.notes
+      #      @person_role = @person.person_roles
       @current_action = "show"
       respond_to do |format|
         format.js
@@ -527,13 +550,18 @@ class PeopleController < ApplicationController
       @personal_duplication_formula.duplication_formula_details.each do |i|
 
         if(i.is_foreign_key==true)
-          if (i.field_name =="primary_title" || i.field_name =="secondary_title" ) # judge is primar_title or secondary_title. If yes , search the name from Title Table
-            duplication_value+=Title.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter]
+          if (i.field_name == "primary_title" || i.field_name == "secondary_title" ) # judge is primar_title or secondary_title. If yes , search the name from Title Table
+            title = Title.find(params[(i.field_name).to_sym]) rescue title = nil
+            unless title.nil?
+              duplication_value << title.name[0,i.number_of_charecter]
+            end
           else
-            duplication_value+=params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter] # Put params string to object to find the name
+            unless params[i.field_name.to_sym].blank? && params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).nil?
+              duplication_value << params[i.field_name.to_sym].camelize.constantize.find(params[i.field_name.to_sym]).name[0,i.number_of_charecter] # Put params string to object to find the name
+            end
           end
         else
-          duplication_value+=params[i.field_name.to_sym][0,i.number_of_charecter]
+          duplication_value << params[i.field_name.to_sym][0,i.number_of_charecter]
         end
       end
       if(params[:id]!="")
@@ -585,23 +613,9 @@ class PeopleController < ApplicationController
   end
 
   def  show_postcode
-
-    #    if ShowPostcodeGrid.find_all_by_login_account_id(session[:user]).empty?
-    #      @postcode = Postcode.find(:all)
-    #
-    #      @postcode.each do |i|
-    #        @spc = ShowPostcodeGrid.new
-    #        @spc.login_account_id = session[:user]
-    #        @spc.grid_object_id = i.id
-    #        @spc.field_1 = i.state
-    #        @spc.field_2 = i.suburb
-    #        @spc.field_3 = i.postcode
-    #        @spc.field_4 = i.country.short_name
-    #        @spc.save
-    #      end
-    #
-    #    end
-
+    @suburb = params[:suburb]
+    @postcode = params[:postcode]
+    @state = params[:state]
     respond_to do |format|
       format.js
     end
@@ -658,7 +672,7 @@ class PeopleController < ApplicationController
   end
 
 
-   def general_show_list
+  def general_show_list
 
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
@@ -685,6 +699,43 @@ class PeopleController < ApplicationController
       format.js
     end
   end
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    if params[:type]=="Person"
+      @type = "Person"
+      @person = Person.find_by_id(params[:params1])
+    else
+      @type = "Organisation"
+      @organisation = Organisation.find_by_id(params[:params1])
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def destroy
+
+    @person = Person.find(params[:id])
+    @person.to_be_removed = @person.to_be_removed ? false : true
+    @person.save
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def change_status
+    @person = Person.find(params[:param1])
+    @person.status = @person.status ? false : true
+    @person.save
+    respond_to do |format|
+
+      format.js
+    end
+  end
+
 
 
 end

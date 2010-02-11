@@ -11,10 +11,10 @@
       = f.text_field :postcode, :id=>@current_action=="new" ? "new_pc_postcode" : "edit_pc_postcode", :class=>"mandantory_field",:submit_button_id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit",:mandantory_field1=>@current_action=="new" ? "new_pc_state" : "edit_pc_state",:mandantory_field2=>@current_action=="new" ? "new_pc_suburb" : "edit_pc_suburb",:mandantory_field3=>@current_action=="new" ? "new_pc_postcode" : "edit_pc_postcode"
     .field_15
       = f.label :geographical_area_id, "Geo Area"
-      = f.collection_select :geographical_area_id, GeographicalArea.find(:all, :conditions => ['country_id=?', session[:postcode_country_id]], :order => 'division_name'), :id, :division_name, {:include_blank => true}
+      = f.collection_select :geographical_area_id, GeographicalArea.find_geographical_area_by_country_id(session[:postcode_country_id]), :id, :division_name, {:include_blank => true}
     .field_15
       = f.label :electoral_area_id, "Electoral Area"
-      = f.collection_select :electoral_area_id, ElectoralArea.find(:all, :conditions => ['country_id=?', session[:postcode_country_id]], :order => 'division_name'), :id, :division_name, {:include_blank => true}
+      = f.collection_select :electoral_area_id, ElectoralArea.find_electoral_area_by_country_id(session[:postcode_country_id]), :id, :division_name, {:include_blank => true}
   .full_container
     .title
       %h2 More Details
@@ -55,5 +55,5 @@
           = f.label :bulk_code, 'Bulk Code'
           = f.text_field :bulk_code
   .form_line
-    .field_10{:style => "float:right;"}
-      = submit_tag "Submit",:style=>"margin-top:13px;", :id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit", :disabled=>(true if @current_action=="new")
+    .field_20{:style => "float:right;"}
+      = submit_tag "Submit",:style=>"", :id=>@current_action=="new" ? "new_pc_submit" : "edit_pc_submit", :disabled=>(true if @current_action=="new")

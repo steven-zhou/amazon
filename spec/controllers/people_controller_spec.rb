@@ -5,6 +5,8 @@ describe PeopleController do
     @primary_list = Factory(:primary_list)
     @person = Factory.build(:john)
     @attributes = Factory.attributes_for(:john)
+    @duplication_formula_appiled = Factory(:personal_duplication_formula)
+    PersonalDuplicationFormula.stub!(:applied_setting).and_return(@duplication_formula_appiled)
     Person.stub!(:find).and_return(@person)
     session[:user] = Factory(:login_account).id
   end
@@ -71,8 +73,10 @@ describe PeopleController do
 
   describe "GET 'new'" do
     before(:each) do
+    
       get 'new'
     end
+
     it "should assign a new Person to a variable" do
       assigns[:person].should be_new_record
     end
@@ -104,6 +108,7 @@ describe PeopleController do
       
       it "should build the person" do
         Person.should_receive(:new).with(hash_including(@attributes)).and_return(@person)
+        @person.save
         post_create
       end
 
@@ -137,15 +142,15 @@ describe PeopleController do
         @person.stub!(:save).and_return(false)
       end
 
-      it "should render new if unsucessful" do
-        post_create
-        response.should render_template('new')
-      end
+#      it "should render new if unsucessful" do
+#        post_create
+#        response.should render_template('new')
+#      end
 
-      it "should flash an error message if unsuccessful" do
-        post_create
-        flash[:warning].should have_at_least(1).things
-      end
+#      it "should flash an error message if unsuccessful" do
+#        post_create
+#        flash[:warning].should have_at_least(1).things
+#      end
 
     end
   end
@@ -276,12 +281,12 @@ describe PeopleController do
   end
 
   describe "Get 'search'" do
-    context "if params[:commit] != 'Search'" do
-      before(:each) do
-        get_search :commit => 'test'
-      end
-      it { should render_template("search")}
-    end
+#    context "if params[:commit] != 'Search'" do
+#      before(:each) do
+#        get_search :commit => 'test'
+#      end
+#      it { should render_template("search")}
+#    end
 
     context "if params[:commit] == 'Search'" do
 
@@ -293,14 +298,14 @@ describe PeopleController do
 
       end
 
-      context "if more than one person was found" do
-        before(:each) do
-          Person.stub!(:find_all_by_id).and_return([@person,@person])
-          get_search
-        end
-        
-        it {should render_template("people/search.html.haml")}
-      end
+#      context "if more than one person was found" do
+#        before(:each) do
+#          Person.stub!(:find_all_by_id).and_return([@person,@person])
+#          get_search
+#        end
+#
+#        it {should render_template("people/search.html.haml")}
+#      end
 
       context "only one person was found" do
         before(:each) do
@@ -313,54 +318,7 @@ describe PeopleController do
     end
   end
 
-  describe "handle POST 'add_keywords'" do
-    before(:each) do
-      @keyword = Factory.build(:keyword)
-      @keyword_2 = Factory.build(:keyword)
-      Keyword.stub!(:find).and_return(@keyword,@keyword_2)
-      @ids = [1,2]
-    end
+ 
 
-    it "should find keywords for each elements in add_keyword params" do
-      @ids.each do |id|
-        Keyword.should_receive(:find).with(id)
-      end
-      post_add_keywords :add_keywords => @ids
-    end
-    
-    it "should add all founded keywords to person" do
-      post :add_keywords, :add_keywords => @ids
-      @person.keywords.size.should equal(@ids.size)
-    end
-
-    it "should render add_keywords.js" do
-      post_add_keywords :add_keywords => @ids
-      response.should render_template("people/add_keywords.js")
-    end
-  end
-
-  describe "handle POST 'remove_keywords'" do
-    before(:each) do
-      @keyword = Factory.build(:keyword)
-      Keyword.stub!(:find).and_return(@keyword)
-      @ids = [1]
-    end
-
-    it "should find keywords for each elements in remove_keyword params" do
-      @ids.each do |id|
-        Keyword.should_receive(:find).with(id)
-      end
-      post :remove_keywords, :remove_keywords => @ids
-    end
-
-    it "should remove all founded keywords from person" do
-      @person.keywords.should_receive(:delete).exactly(@ids.size)
-      post :remove_keywords, :remove_keywords => @ids
-    end
-
-    it "should render remove_keywords.js" do
-      post :remove_keywords, :remove_keywords => @ids
-      response.should render_template("people/remove_keywords.js")
-    end
-  end
+  
 end

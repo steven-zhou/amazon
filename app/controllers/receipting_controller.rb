@@ -33,14 +33,17 @@ class ReceiptingController < ApplicationController
     @campaign = Campaign.new(params[:campaign])
     @campaign.start_date = params[:start_date]
     @campaign.end_date = params[:end_date]
+    @campaign.to_be_removed = false
     if @campaign.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaign entry with ID #{@campaign.id}.")
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign record.")
       if(!@campaign.errors[:start_date].nil?)
         flash.now[:error] = "Please Enter A Valid Start Date"
-      elsif(!@campaign.errors[:name].nil?)
-        flash.now[:error] = "Please Enter A Name"
+      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
+      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
       end
     end
     respond_to do |format|
@@ -58,8 +61,12 @@ class ReceiptingController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a campaign #{@campaign.id}.")
       if(!@campaign.errors[:start_date].nil?)
         flash.now[:error] = "Please Enter A Valid Start Date"
-      elsif(!@campaign.errors[:name].nil?)
-        flash.now[:error] = "Please Enter A Name"
+      elsif(!@campaign.errors[:name].nil? && @campaign.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
+      elsif(!@campaign.errors[:name].nil? && @campaign.errors.on(:name).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
+      elsif(!@campaign.errors[:end_date].nil? && @campaign.errors.on(:end_date).include?("can't be before start date"))
+        flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "End Date")
       end
     end
     respond_to do |format|
@@ -91,7 +98,7 @@ class ReceiptingController < ApplicationController
     @campaign.end_date = @campaign_old.end_date
     @campaign.status = @campaign_old.status
     @campaign.remarks = @campaign_old.remarks
-
+    @campaign.to_be_removed = @campaign_old.to_be_removed
     if @campaign.save
 
       @campaign_old.sources.each do |i|
@@ -121,10 +128,22 @@ class ReceiptingController < ApplicationController
 
   def destroy_campaign
     @campaign = Campaign.find(params[:id])
-    @campaign.destroy
+#    @campaign.destroy
+@campaign.to_be_removed = true
+@campaign.save
     respond_to do |format|
       format.js
     end    
+  end
+
+  def retrieve_campaign
+    @campaign = Campaign.find(params[:id])
+    @campaign.to_be_removed = false
+    @campaign.save
+    respond_to do |format|
+      format.js {render "destroy_campaign.js"}
+    end
+
   end
 
   def new_source
@@ -137,6 +156,7 @@ class ReceiptingController < ApplicationController
   def create_source
     @source = Source.new(params[:source])
     @source.campaign_id = params[:id]
+    @source.to_be_removed = false
     if @source.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaing source with ID #{@source.id}.")
     else
@@ -180,9 +200,22 @@ class ReceiptingController < ApplicationController
 
   def destroy_source
     @source = Source.find(params[:id])
-    @source.destroy
+#    @source.destroy
+    @source.to_be_removed = true
+    @source.save
     respond_to do |format|
       format.js
+    end
+  end
+
+
+    def retrieve_source
+     @source = Source.find(params[:id])
+#    @source.destroy
+    @source.to_be_removed = false
+    @source.save
+    respond_to do |format|
+      format.js {render "destroy_source.js"}
     end
   end
 

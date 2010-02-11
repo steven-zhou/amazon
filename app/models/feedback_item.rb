@@ -6,9 +6,14 @@ class FeedbackItem < ActiveRecord::Base
   validates_presence_of :login_account_id
   # validates_presence_of :subject
   # validates_presence_of :content
+  default_scope :order => "created_at DESC"
 
-  def submitted_by
-  (self.login_account.class.to_s == "SystemUser")?  self.login_account.person.name : self.login_account.user_name
+  before_create :add_submitted_by
+
+  private
+
+  def add_submitted_by
+    self.submitted_by = (self.login_account.class.to_s == "SystemUser")?  "#{self.login_account.user_name}(#{self.login_account.person.name})" : self.login_account.user_name
   end
 
 

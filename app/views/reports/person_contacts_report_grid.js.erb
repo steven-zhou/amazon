@@ -1,4 +1,4 @@
-$('#report_grid_form').replaceWith('<%= escape_javascript(render(:partial => "/reports/person_report_grid")) %>');
+$('#report_grid_form').html('<%= escape_javascript(render(:partial => "/reports/person_report_grid")) %>');
 $("#report_details").css("display", "none");
 $("#report_grid_form_container").css("display", "");
 $("#report_grid_form1").flexigrid(
@@ -27,7 +27,7 @@ searchitems : [
 sortname: "grid_object_id",
 sortorder: "asc",
 usepager: true,
-title: 'People Contact Report Result',
+
 useRp: true,
 rp: 20,
 showTableToggleBtn: false,

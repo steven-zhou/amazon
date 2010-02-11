@@ -55,11 +55,11 @@ class GroupListsController < ApplicationController
   def destroy
 
     @group_list = GroupList.find(params[:id].to_i)
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Group List #{@group_list.id}.")
+
     @group_list.destroy
       @group_types = GroupType.system_user_groups
       @select_group_id = @group_list.group_type.id
-
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Group List #{@group_list.id}.")
     respond_to do |format|
       format.js
     end

@@ -9,6 +9,13 @@ class ListDetailsController < ApplicationController
     @entity = @list_header.person_list? ? "person" : "organisation"
     @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
     @list_header.save
+     if @list_header.person_list?
+
+      @lists = @current_user.all_person_lists
+    else
+   
+      @lists = @current_user.all_organisation_lists
+    end
     respond_to do |format|
       format.js
     end
@@ -19,11 +26,11 @@ class ListDetailsController < ApplicationController
     @list_header = ListHeader.find(params[:list_header_id])
 
     if @list_header.person_list?
-      add_to_person_list
+      add_to_person_list_detail
       @entity = "person"
       @lists = @current_user.all_person_lists
     else
-      add_to_organisation_list
+      add_to_organisation_list_detail
       @entity = "organisation"
       @lists = @current_user.all_organisation_lists
     end
@@ -62,6 +69,52 @@ class ListDetailsController < ApplicationController
       end
     else
       flash.now[:error] = flash_message(:message => "Person ID is Invalid")
+    end
+  end
+
+  def add_to_person_list_detail
+    person_ids = Array.new
+    @list_header.list_details.each do |i|
+      person_ids << i.entity_id
+    end
+    dup = person_ids.include?(params[:entity_id].to_i)
+    @new_record = Person.find(params[:entity_id]) rescue @new_record = Person.new
+    if !@new_record.new_record?
+      if (!dup || @list_header.allow_duplication)
+        @list_detail.save
+        @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
+        @list_header.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) added a new List Detail #{@list_detail.id}.")
+        #add new record to grid--------delete
+        @list_header = ListHeader.find(params[:list_header_id])
+      else
+        flash.now[:error] = flash_message(:message => "Duplications are not allowed")
+      end
+    else
+      flash.now[:error] = flash_message(:message => "Person ID is Invalid")
+    end
+  end
+
+    def add_to_organisation_list_detail
+    organisation_ids = Array.new
+    @list_header.list_details.each do |i|
+      organisation_ids << i.entity_id
+    end
+    dup = organisation_ids.include?(params[:entity_id].to_i)
+    @new_record = Organisation.find(params[:entity_id].to_i) rescue @new_record = Organisation.new
+    if !@new_record.new_record?
+      if (!dup || @list_header.allow_duplication)
+        @list_detail.save
+        @list_header.source = @list_header.source.nil? ? "Updated" : @list_header.source.chomp(" & Updated") + " & Updated"
+        @list_header.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) added a new List Detail #{@list_detail.id}.")
+        #add new record to grid
+        @list_header = ListHeader.find(params[:list_header_id])
+      else
+        flash.now[:error] = flash_message(:message => "Duplications are not allowed")
+      end
+    else
+      flash.now[:error] = flash_message(:message => "Organisation ID is Invalid")
     end
   end
 

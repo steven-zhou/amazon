@@ -1,17 +1,31 @@
 require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
+  #  Optimized
+  
   attr_accessor :password
+  attr_accessor :update_login_account_password
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
   has_many :dashboard_preferences
+  has_many :quick_launch_icons, :order => "sequence"
+  has_many :to_do_lists
   belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
   belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
   validates_uniqueness_of :user_name, :security_email, :case_sensitive => false
-   validates_presence_of  :user_name, :password
+  validates_presence_of  :user_name
+
+  validates_presence_of  :password , :if => :loginaccount_update?
 
 
+#if update no need to check the presence of password
+  def loginaccount_update?
+    if update_login_account_password.nil?
+    update_login_account_password = false
+    end
+    return update_login_account_password
+  end
 
   def self.authenticate(user_name, password)
     login_account = LoginAccount.find(:first, :conditions => ['user_name = ?', user_name])
@@ -37,7 +51,6 @@ class LoginAccount < ActiveRecord::Base
         raise "Power password invalid"
       end
     end
-    login_account = LoginAccount.find_by_user_name(user_name)
     return login_account
   end
 
@@ -130,7 +143,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if (list.class.to_s == "PersonListHeader" || list.class.to_s == "PrimaryList")
+      custom_lists << list if (list.person_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -140,7 +153,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if ((list.class.to_s == "PersonListHeader" || list.class.to_s == "PrimaryList") && list.status == true)
+      custom_lists << list if (list.person_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -150,7 +163,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if (list.class.to_s == "OrganisationListHeader")
+      custom_lists << list if (list.organisation_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -160,7 +173,7 @@ class LoginAccount < ActiveRecord::Base
     user_lists = UserList.find(:all, :conditions => ["user_id = ?", self.id])
     user_lists.each do |i|
       list = ListHeader.find(i.list_header_id)
-      custom_lists << list if (list.class.to_s == "OrganisationListHeader" && list.status == true)
+      custom_lists << list if (list.organisation_list? && list.status == true)
     end
     custom_lists.uniq
   end
@@ -178,9 +191,6 @@ class LoginAccount < ActiveRecord::Base
   def all_organisation_lists_in_datebase
     OrganisationListHeader.find(:all)
   end
-
-
-
 
   def password=(pass)
     @password=pass
@@ -227,5 +237,7 @@ class LoginAccount < ActiveRecord::Base
   def all_temp_allocation
     TempTransactionAllocationGrid.find_all_by_login_account_id(self.id)
   end
+
+  
 
 end

@@ -13,7 +13,6 @@ class AmazonSettingsController < ApplicationController
     if @amazonsetting.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Saved successfully."
-
     else
 
       flash[:warning] = "Name " + @amazonsetting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazonsetting.errors.on(:name).nil?
@@ -32,8 +31,9 @@ class AmazonSettingsController < ApplicationController
 
   def update
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
-    @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
-    if @amazonsetting.save
+#    @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
+#    if @amazonsetting.save
+    if @amazonsetting.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazonsetting.id}.")
       flash[:message] = "Updated successfully."
     else
@@ -45,7 +45,7 @@ class AmazonSettingsController < ApplicationController
   end
 
   def data_list_finder
-    @amazonsettings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    @amazonsettings = AmazonSetting.search_by_type(params[:type])
     @amazonsetting = AmazonSetting.find(params[:id].to_i) rescue @amazonsetting = AmazonSetting.new
     respond_to do |format|
       format.js
@@ -54,8 +54,8 @@ class AmazonSettingsController < ApplicationController
 
   def destroy
     @amazonsetting = AmazonSetting.find(params[:id].to_i)
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{@amazonsetting.id}.")
     @amazonsetting.destroy
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{@amazonsetting.id}.")
     @amazonsetting = AmazonSetting.distinct_setting_type
     respond_to do |format|
       format.js
@@ -63,7 +63,8 @@ class AmazonSettingsController < ApplicationController
   end
 
   def system_settings_finder
-    @amazon_settings = AmazonSetting.find(:all, :conditions => ["type = ?", params[:type]], :order => 'name')
+    @amazon_settings = AmazonSetting.search_by_type(params[:type])
+    @type = params[:type]
     respond_to do |format|
       format.js
     end
@@ -80,11 +81,13 @@ class AmazonSettingsController < ApplicationController
     @amazon_setting = params[:amazon_setting][:type].camelize.constantize.new
     @amazon_setting.update_attributes(params[:amazon_setting])
     @amazon_setting.to_be_removed = false
+    @type = params[:amazon_setting][:type]
     if @amazon_setting.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = "Saved successfully."
     else
-      flash.now[:warning] = "Name " + @amazon_setting.errors.on(:name)[0] + ", saved unsuccessfully." unless @amazon_setting.errors.on(:name).nil?
+      flash.now[:warning] = flash_message(:type => "field_missing", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("can't be blank"))
+      flash.now[:warning] = flash_message(:type => "uniqueness_error", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
@@ -93,12 +96,14 @@ class AmazonSettingsController < ApplicationController
 
   def update_setting
     @amazon_setting = AmazonSetting.find(params[:id].to_i)
-    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
-    if @amazon_setting.save
+#    @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
+#    if @amazon_setting.save
+    if @amazon_setting.update_attributes(params[params[:type].underscore.to_sym])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Amazon Setting with ID #{@amazon_setting.id}.")
       flash.now[:message] = flash_message(:type => "object_updated_successfully", :object => "setting")
     else
-      flash.now[:warning] = flash_message(:type => "default", :message => "There was an error updating the setting.")
+      flash.now[:warning] = flash_message(:type => "field_missing", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("can't be blank"))
+      flash.now[:warning] = flash_message(:type => "uniqueness_error", :field => "name") if (!@amazon_setting.errors.on(:name).nil? && @amazon_setting.errors.on(:name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
@@ -107,12 +112,13 @@ class AmazonSettingsController < ApplicationController
 
   def delete_system_data_entry
     amazon_setting = AmazonSetting.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
+#    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
     #amazon_setting.destroy
 
     #if 'to_be_removed' is true, then this recored will be physically deleted from database in maintaince prgress
     amazon_setting.to_be_removed = true
     amazon_setting.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
     respond_to do |format|
       format.js
     end
@@ -130,9 +136,9 @@ class AmazonSettingsController < ApplicationController
 
   def retrieve
     amazon_setting = AmazonSetting.find(params[:id])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{amazon_setting.id}.")
     amazon_setting.to_be_removed = false
     amazon_setting.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Amazon Setting ID #{amazon_setting.id}.")
     respond_to do |format|
       format.js
     end

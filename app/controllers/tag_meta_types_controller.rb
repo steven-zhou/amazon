@@ -69,7 +69,7 @@ class TagMetaTypesController < ApplicationController
   def show_group_types
     @group_meta_meta_type = GroupMetaMetaType.find(params[:group_meta_meta_type_id].to_i) rescue @group_meta_meta_type = GroupMetaMetaType.new
     @person_group = PersonGroup.find(params[:person_group_id]) rescue @person_group = PersonGroup.new
-    @group_meta_types = @group_meta_meta_type.group_meta_types.find(:all, :order => "name")
+    @group_meta_types = @group_meta_meta_type.group_meta_types
    
     #@group_meta_types = @group_meta_meta_type.group_meta_types.find(:all,:order => "name")
     #@group_types = @group_meta_types.group_types.find(:all, :order => "name")
@@ -79,7 +79,7 @@ class TagMetaTypesController < ApplicationController
   end
 
   def access_permission_finder
-    @access_permissions = SystemPermissionMetaMetaType.find(:all)
+    @access_permissions = SystemPermissionMetaMetaType.all
     respond_to do |format|
       format.js
     end
@@ -87,8 +87,9 @@ class TagMetaTypesController < ApplicationController
 
   def create_access_permissions_meta_meta_type
     @access_permission = SystemPermissionMetaMetaType.new
-    @access_permission.update_attributes(params[:system_permission_meta_meta_type])
-    if @access_permission.save
+#    @access_permission.update_attributes(params[:system_permission_meta_meta_type])
+#    if @access_permission.save
+    if @access_permission.update_attributes(params[:system_permission_meta_meta_type])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created SystemPermission #{@access_permission.id}.")
       flash.now[:message] = "Saved successfully."
     else

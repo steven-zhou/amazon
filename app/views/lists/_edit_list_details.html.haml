@@ -25,12 +25,12 @@
       .field_2
         =f.label :status, '&nbsp'
         =f.check_box :status, :name => "list_header[status]", :style=>"width:10px;"
-      .field_10
+      .field_5
         =f.label :status, '&nbsp'
         =f.label :status, "Active", :style =>"margin-top:8px;"
-      .field_10{:style=>"float:left;"}
+      .field_20{:style=>"float:right;"}
         =f.label :status, "&nbsp;"
-        =submit_tag "Update",:id=>"create_list_submit"
+        =submit_tag "Update",:id=>"create_list_submit", :style => "float:right"
 
   .form_line
     .field_80

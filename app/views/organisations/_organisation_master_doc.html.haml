@@ -1,7 +1,16 @@
--# Displays Organisation Master Doc
--div_for(organisation_master_doc, :class => 'header_container') do
-  %div
+#masterdocs
+  - if !@organisation.master_docs.blank?
     .title
-      %h2{:class=>("red" if organisation_master_doc.master_doc_type.to_be_removed == true)}= " #{organisation_master_doc.master_doc_type.name}"
-  %div{:style => "float:right;"}
-    = format_masterdoc(organisation_master_doc)
+      %h1 MasterDoc Details
+    %br.clear
+      
+    - @organisation.master_docs.each do |organisation_master_doc|
+      - div_for(organisation_master_doc, :class => 'header_container') do
+        %div
+          .title
+            %h2{:class=>("red" if organisation_master_doc.master_doc_type.to_be_removed == true)}= " #{organisation_master_doc.master_doc_type.name}"
+        %div{:style => "float:right;"}
+          = format_masterdoc(organisation_master_doc)
+  - else
+    .no_record
+      %h1 No Record

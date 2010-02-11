@@ -44,7 +44,7 @@ $('#religion_mode').attr('mode', 'show');
         sortname: "id",
         sortorder: "asc",
         usepager: true,
-        title: 'religions',
+        title: '',
         useRp: true,
         rp: 20,
         showTableToggleBtn: false,
@@ -72,3 +72,4 @@ $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
  $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <% end -%>
+  enable_form_after_submit_finish();

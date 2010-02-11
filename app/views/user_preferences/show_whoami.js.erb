@@ -1,0 +1,15 @@
+$("#whoami_content").html("<%= escape_javascript(render(:partial => "user_preferences/show_whoami.html.haml")) %>");
+
+$("#whoami_dialog").dialog( {
+modal: true,
+resizable: false,
+draggable: true,
+height: 'auto',
+width: 600
+
+});
+$("#whoami_dialog").dialog('option', 'title', 'WHO AM I?');
+$("#whoami_dialog").parent().css('background-color','#D1DDE6');
+$("#whoami_dialog").css('background-color','#D1DDE6');
+$("#whoami_dialog").dialog('open');
+

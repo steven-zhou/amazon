@@ -4,8 +4,9 @@
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
   $('#campaign_save_form').dialog('close');
+   
   $('#existing_campaigns').html('<%= escape_javascript(render(:partial => "/receipting/existing_campaigns")) %>');
-  $('#campaign_mode').attr('mode', 'show');
+  $('#campaign_mode').attr('mode', 'edit');
   $("#show_campaigns_grid").flexigrid({
   url: '/grids/show_campaigns_grid',
   dataType: 'json',
@@ -73,15 +74,7 @@
   name : 'Name'
   },
 
-  {
-  display: 'Start Date',
-  name : 'start_date'
-  },
-
-  {
-  display: 'End Date',
-  name : 'end_date'
-  },
+  
 
   {
   display: 'Target Amount',
@@ -110,7 +103,7 @@
 <%- else %>
   $('#flash_message_text').html('<%= escape_javascript(flash[:error]) %>');
   $('#flash_message').dialog( {
-    modal: true,
+    modal: false,
     resizable: false,
     draggable :true,
     height: "auto",
@@ -127,4 +120,4 @@
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <%- end %>
-
+enable_form_after_submit_finish();

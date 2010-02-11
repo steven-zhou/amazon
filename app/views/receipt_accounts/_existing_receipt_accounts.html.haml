@@ -1,6 +1,91 @@
-%h2 Existing Receipt Accounts
+.full_container
+  %h2 Existing Receipt Accounts
 
-%table#show_receipt_accounts_grid
+  %table#show_receipt_accounts_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_receipt_account = function(){
+    var trSelected = $("#show_receipt_accounts_grid tr.trSelected").attr('id');
+    var id = "";
+    if ($('#receipt_account_mode').attr("mode") == "show"){
+    if (trSelected != undefined)  {
+      id = trSelected.substring(3);
+      $("#warning_message_text").html("Are you sure you wish to delete this receipt account?");
+      $("#warning_message").dialog({
+        modal:false,
+        resizable:false,
+        draggable:false,
+        height: 'auto',
+        width: 'auto',
+        buttons:{
+
+        NO: function(){
+          $(this).dialog("destroy");
+
+        },
+
+        Yes: function(){
+
+          $.ajax({
+                      type: "get",
+                      url: "/receipt_accounts/destroy_receipt_account/"+id+".js",
+                      dataType: "script"
+                  });
+                  $(this).dialog('destroy');
+                  return true;
+
+              }
+              }
+
+          });
+        }else{
+          $('#warning_message_text').html("Please select the record you want to delete");
+          $('#warning_message').dialog({
+              modal: true,
+              resizable: false,
+              draggable: true,
+              height: 'auto',
+              width: 'auto',
+              buttons: {
+                  Ok: function(){
+                      $(this).dialog('destroy');
+                      return false;
+                  }
+              }
+
+          });
+      }
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+      };
+      };
+
+       retrieve_receipt_account = function(){
+        var trSelected = $("#show_receipt_accounts_grid tr.trSelected").attr('id');
+        var id = "";
+        if ($('#receipt_account_mode').attr("mode") == "show"){
+        if (trSelected != undefined)  {
+          id = trSelected.substring(3);
+          $.ajax({
+                          type: "get",
+                          url: "/receipt_accounts/retrieve_receipt_account/"+id+".js",
+                          dataType: "script"
+                      });
+                      $(this).dialog('destroy');
+                      return true;
+
+                  }
+              }
+          };
+
+
+
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_receipt_accounts_grid").flexigrid({
@@ -17,7 +102,7 @@
 
   {
   display: 'Name',
-  name : 'name',
+  name : 'receipt_accounts.name',
   width : 130,
   sortable : true,
   align: 'left'
@@ -72,10 +157,15 @@
   align: 'left'
   }
   ],
+
+  buttons : [
+  {name: 'Delete', bclass: 'delete', onpress: delete_receipt_account},
+  {name: 'Retrieve', bclass: 'retrieve', onpress: retrieve_receipt_account}
+  ],
   searchitems : [
   {
   display: 'Name',
-  name : 'Name'
+  name : 'receipt_accounts.name'
   },
 
   {
@@ -112,7 +202,6 @@
   sortname: "receipt_accounts.id",
   sortorder: "asc",
   usepager: true,
-  title: '',
   useRp: true,
   rp: 20,
   showTableToggleBtn: false,

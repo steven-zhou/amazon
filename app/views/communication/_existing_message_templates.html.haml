@@ -1,45 +1,62 @@
-%h2 Existing Email Templates
+.full_container
+  %h2 Existing Email Templates
 
-%table#show_message_templates_grid
+  %table#show_message_templates_grid{:class => "selectable_grid"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_message_templates_grid").flexigrid({
-  url: '/grids/show_message_templates_grid',
-  dataType: 'json',
-  colModel : [
-  {
-  display: 'ID',
-  name : 'id',
-  width : 40,
-  sortable : true,
-  align: 'left'
-  },
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_message_templates_grid tr.trSelected").attr('id'),"#message_template_mode","delete","/communication/destroy_message_template.js");
+    };
+    
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_message_templates_grid tr.trSelected").attr('id'),"get","/communication/retrieve_message_template.js");
+    };
+  
 
-  {
-  display: 'Name',
-  name : 'name',
-  width : 570,
-  sortable : true,
-  align: 'left'
-  },
 
-  {
-  display: 'Created At',
-  name : 'created_at',
-  width : 270,
-  sortable : true,
-  align: 'left'
-  }
 
-  ],
-  sortname: "name",
-  sortorder: "asc",
-  usepager: true,
-  title: 'Email Templates',
-  useRp: true,
-  rp: 20,
-  showTableToggleBtn: false,
-  width: 'auto',
-  height: 'auto'
-  });
+    $("#show_message_templates_grid").flexigrid({
+    url: '/grids/show_message_templates_grid',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Name',
+    name : 'name',
+    width : 570,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Created At',
+    name : 'created_at',
+    width : 270,
+    sortable : true,
+    align: 'left'
+    }
+
+    ],
+    buttons : [
+            {name: 'Delete', bclass: 'delete', onpress : delete_from_a_grid},
+            {name: 'Undelete', bclass: 'get', onpress : retrieve_from_a_grid}
+        ],
+    sortname: "name",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
  

@@ -1,0 +1,110 @@
+-# locals => {:db_function, :query}
+.full_container
+  %h2 Transaction Found
+  %table#show_transaction_enquiry_grid.selectable_grid{:db_click_function => "#{db_function}", :db_click_url => "/transaction_headers/", :db_show => "true"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+      $("#show_transaction_enquiry_grid").flexigrid({
+      url: '/grids/show_transaction_enquiry_grid?#{query}',
+      dataType: 'json',
+      colModel : [
+      {
+      display: 'ID',
+      name : 'transaction_headers.id',
+      width : 40,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Receipt Number',
+      name : 'receipt_number',
+      width : 80,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'System Date',
+      name : 'todays_date',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Transaction Date',
+      name : 'transaction_date',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      },
+
+
+      {
+      display: 'Bank Account',
+      name : 'bank_accounts.account_number',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Receipt Meta Type',
+      name : 'tag_meta_types.name',
+      width : 120,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Receipt Type',
+      name : 'tag_types.name',
+      width : 120,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Notes',
+      name : 'notes',
+      width : 180,
+      sortable : true,
+      align: 'left'
+      },
+
+      {
+      display: 'Total Amount',
+      name : 'total_amount',
+      width : 100,
+      sortable : true,
+      align: 'left'
+      }
+
+      ],
+      searchitems : [
+      {
+      display: 'Receipt Meta Type',
+      name : 'tag_meta_types.name'
+      },
+
+      {
+      display: 'Receipt Type',
+      name : 'tag_types.name'
+      },
+
+      {
+      display: 'Notes',
+      name : 'notes'
+      }
+      ],
+      sortname: "transaction_headers.id",
+      sortorder: "asc",
+      usepager: true,
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+      });

@@ -38,7 +38,7 @@
   resizable: false,
   draggable :true,
   height: "auto",
-  width: "300px",
+  width: "auto",
   buttons: {
   Ok: function() {
   $(this).dialog('close');
@@ -52,3 +52,4 @@
   $('#flash_message').dialog('open');
 
 <%- end %>
+  enable_form_after_submit_finish();

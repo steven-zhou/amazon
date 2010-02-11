@@ -2,15 +2,15 @@
   .form_line
     .field_15
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
-      = f.collection_select :field_1, ReceiptAccount.all, :id, :name, {:selected => transaction_allocation_grid.field_1.to_i}
+      = f.collection_select :field_1, ReceiptAccount.active, :id, :name, {:selected => transaction_allocation_grid.field_1.to_i}
 
     .field_15
       = f.label :field_2, "Campaign"
-      = f.collection_select :field_2, Campaign.all, :id, :name, {:include_blank => true}
+      = f.collection_select :field_2, Campaign.active_campaign, :id, :name, {:include_blank => true}
 
     .field_20
       = f.label :field_3, "Source"
-      = f.collection_select :field_3, Source.all, :id, :name, {:include_blank => true}
+      = f.collection_select :field_3, Source.active_source, :id, :name, {:include_blank => true}
 
     .field_10
       = f.label :field_4, "Letter"

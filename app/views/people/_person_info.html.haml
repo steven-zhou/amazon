@@ -1,32 +1,16 @@
-#tabs2
+-#tabs2
   = render :partial => 'person_menu'
   #PersonDetail
     .container
-      -#.header_container
-        .title
-          %h1 Group Detail
-        %br.clear
       #persondetail
         =render :partial => '/people/person_details',:locals => {:p => @person}
   #Address
     .container
-      -#.header_container
-        .title
-          %h1 Address Detail
-        %br{ :style=>"clear: both;"}
       #addresses
-      =# Render the person's addresses
-      = render :partial => '/people/person_address', :collection => @person.addresses
+        = render :partial => '/people/person_address', :collection => @person.addresses
   #Contact
     .container
-      -#.header_container
-        .title
-          %h1 Contact Detail
-
-        %br{ :style=>"clear: both;"}
-   
       #contacts
-      =# Render the person's contacts
       -if !@person.phones.blank?
         .container
           %h1 Phone
@@ -49,34 +33,19 @@
             = render :partial => '/people/person_contact', :collection => @person.instant_messagings
   #Keyword
     .container
-      -#.header_container
-        .title
-          %h1 Keyword Detail
-
-        %br{ :style=>"clear: both;"}
       #keywords
       =# Render the person's keywords
       = render :partial => '/people/person_keyword', :collection => @person.keywords
   #MasterDocs
     .container
-      -#.header_container
-        .title
-          %h1 MasterDoc Detail
-
-        %br{ :style=>"clear: both;"}
       #masterdocs
       =# Render the person's masterdocs
       = render :partial => '/people/person_master_doc', :collection => @person.master_docs
 
   #Rels
     .container
-      -#.header_container
-        .title
-          %h1 Relationship Detail
-
-        %br{ :style=>"clear: both;"}
       #masterdocs
-      =# Render the person's addresses
+      =# Render the person's relationship
       = render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
 
       = render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
@@ -133,5 +102,96 @@
       #groups
         =render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
 
+
+.tab_ui{:style=>"margin-top:10px;margin-left:10px;"}
+  #PersonDetail{:style => "float:left;", :title=> 'PersonDetail',  :class => "person_edit_tab active", :field => "person_detail"}
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/person_detail_title.png'), :class=>"tab_switch_button page_initial hidden", :url => "/people/page_initial", :method => "GET", :render_page => "/people/person_details", :field => "person_detail_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/person_detail_title.png'), :class=>"tab_switch_with_page_initial", :field => "person_detail_page"
+
+  #Address{:style => "float:left;margin-left:10px;", :title=> 'Address', :class => "person_edit_tab", :field => "address"}
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/addresses/page_initial", :method => "GET", :render_page => "/people/person_address", :field => "address_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/address_BW.png'), :class=>"tab_switch_with_page_initial", :field => "address_page"
+
+  #Contact{:style => "float:left;margin-left:10px;", :title=> 'Contact', :class => "person_edit_tab", :field => "contact"}
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/contact_BW.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/people/person_contact", :field => "contact_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('/images/Icons/Core/Person/tabs/contact_BW.png'), :class=>"tab_switch_with_page_initial", :field => "contact_page"
+
+  #Keyword{:style => "float:left;margin-left:10px;", :title=> 'Keyword', :class => "person_edit_tab", :field => "keywords"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/keywords/page_initial", :method => "GET", :render_page => "/people/person_keyword", :field => "keywords_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=>"tab_switch_with_page_initial", :field => "keywords_page"
+
+  #MasterDoc{:style => "float:left;margin-left:10px;",:title=> 'Master Doc', :class => "person_edit_tab", :field => "masterdocs"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/master_docs/page_initial", :method => "GET", :render_page => "/people/person_master_doc", :field => "masterdocs_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/masterdocs_BW.png'), :class=>"tab_switch_with_page_initial", :field => "masterdocs_page"
+
+  #Rels{:style => "float:left;margin-left:10px;", :title=> 'Relationship', :class => "person_edit_tab", :field => "p2p"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/relationships/page_initial", :method => "GET", :render_page => "/people/person_relationship", :field => "p2p_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/p2p_BW.png'), :class=>"tab_switch_with_page_initial", :field => "p2p_page"
+
+  #Note{:style => "float:left;margin-left:10px;", :title=> 'Note', :class => "person_edit_tab", :field => "notes"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/notes/page_initial", :method => "GET", :render_page => "/people/person_note", :field => "notes_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class=>"tab_switch_with_page_initial", :field => "notes_page"
+
+  #Role{:style => "float:left;margin-left:10px;", :title => 'Role', :class => "person_edit_tab", :field => "roles"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_roles/page_initial", :method => "GET", :render_page => "/people/person_role", :field => "roles_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/roles_BW.png'), :class=>"tab_switch_with_page_initial", :field => "roles_page"
+
+  #Employment{:style => "float:left;margin-left:10px;", :title => "Employment", :class => "person_edit_tab", :field => "employment"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/employment_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/employments/page_initial", :method => "GET", :render_page => "/people/person_employment", :field => "employment_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/employment_BW.png'), :class=>"tab_switch_with_page_initial", :field => "employment_page"
+
+  #Group{:style => "float:left;margin-left:10px;", :title => 'Group', :class => "person_edit_tab", :field => "groups"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_groups/page_initial", :method => "GET", :render_page => "/people/person_group", :field => "groups_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/groups_BW.png'), :class=>"tab_switch_with_page_initial", :field => "groups_page"
+
+  #Account{:style => "float:left;margin-left:10px;", :title => 'Account', :class => "person_edit_tab", :field => "banking"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/people/person_account", :field => "banking_page",:params1 => @person.id, :type => "Person"
+    = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "banking_page"
+
+
+.container
   
+  #person_detail_page.tab_switch_container.active
+    =render :partial => '/people/person_details',:locals => {:p => @person}
+
+  #address_page.tab_switch_container
+    -#= render :partial => '/people/person_address', :collection => @person.addresses
+
+  #contact_page.tab_switch_container
+    -#=render :partial => '/people/person_details',:locals => {:p => @person}
+
+  #keywords_page.tab_switch_container
+    -#= render :partial => '/people/person_keyword', :collection => @person.keywords
+
+  #masterdocs_page.tab_switch_container
+    -#= render :partial => '/people/person_master_doc', :collection => @person.master_docs
+
+  #p2p_page.tab_switch_container
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Father', :relations => @person.related_people.of_type('Father')}
+
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Mother', :relations => @person.related_people.of_type('Mother')}
+
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Spouse', :relations => @person.related_people.of_type('Spouse')}
+
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Children', :relations => @person.source_people.of_type('Father').concat(@person.source_people.of_type('Mother'))}
+
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Siblings', :relations => @person.siblings}
+
+    -#= render :partial => '/people/person_relationship_container', :locals => {:type => 'Next of Kin', :relations => @person.related_people.of_type('Next of Kin')}
+
+  #notes_page.tab_switch_container
+    -#= render :partial => '/people/person_note', :collection => @person.sorted_notes
+
+  #roles_page.tab_switch_container
+    -#=render :partial => '/people/person_role', :collection => @person.person_roles, :locals => {:person => @person}
+
+  #employment_page.tab_switch_container
+    -#=render :partial => '/people/person_employment', :collection => @person.employments, :locals => {:person => @person}
+
+  #groups_page.tab_switch_container
+    -#=render :partial => '/people/person_group', :collection => @person.person_groups, :locals => {:person => @person}
+
+  #banking_page.tab_switch_container
+    -#=render :partial => '/people/person_account', :collection => @person.person_bank_accounts, :locals => {:person => @person}
+
 

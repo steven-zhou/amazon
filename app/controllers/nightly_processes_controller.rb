@@ -11,6 +11,7 @@ class NightlyProcessesController < ApplicationController
   def run
     destroy_amazon_setting
     destroy_tag
+    destroy_receipting
     respond_to do |format|
       format.js
     end
@@ -344,7 +345,7 @@ class NightlyProcessesController < ApplicationController
 
   def destroy_tag
     puts "destroy custom groups"
-    custom_group = GroupMetaMetaType.find_by_name("Custom")
+    custom_group = GroupMetaMetaType.find_custom_group
     customer_group_children = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", custom_group.id])
     customer_group_children.each do |c|
       GroupType.find(:all, :conditions => ["tag_type_id = ? AND to_be_removed = true", c.id]).each do |i|
@@ -358,7 +359,7 @@ class NightlyProcessesController < ApplicationController
     end
 
     puts "destroy security groups"
-    security_group = GroupMetaMetaType.find_by_name("Security")
+    security_group = GroupMetaMetaType.find_security_group
     security_group_children = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", security_group.id])
     security_group_children.each do |s|
       GroupType.find(:all, :conditions => ["tag_type_id = ? AND to_be_removed = true", s.id]).each do |i|
@@ -411,6 +412,53 @@ class NightlyProcessesController < ApplicationController
         i.to_be_removed = false
         i.save
       end
+    end
+  end
+
+  def destroy_receipting
+    puts "destroy receipt account"
+    ReceiptAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
+      if TransactionAllocation.find_by_receipt_account_id(i.id).nil?
+        i.destroy
+      else
+        i.to_be_removed = false
+        i.save
+      end
+    end
+
+    puts "destroy campaign"
+    Campaign.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
+      if TransactionAllocation.find_by_campaign_id(i.id).nil?
+        i.destroy
+      else
+        i.to_be_removed = false
+        i.save
+      end
+    end
+
+    puts "destroy source"
+    Source.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
+      if TransactionAllocation.find_by_source_id(i.id).nil?
+        i.destroy
+      else
+        i.to_be_removed = false
+        i.save
+      end
+    end
+
+    puts "destroy client bank account"
+    ClientBankAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
+      if TransactionHeader.find_by_bank_account_id(i.id).nil?
+        i.destroy
+      else
+        i.to_be_removed = false
+        i.save
+      end
+    end
+
+    puts "destroy message template"
+    MessageTemplate.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
+      i.destroy
     end
   end
 end

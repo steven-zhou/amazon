@@ -41,7 +41,7 @@ class ClientSetupsController < ApplicationController
   end
 
   def available_modules
-    @available_modules = AvailableModule.find(:all, :order => "name")
+    @available_modules = AvailableModule.all
     respond_to do |format|
       format.html
     end
@@ -62,7 +62,7 @@ class ClientSetupsController < ApplicationController
   end
 
   def feedback_list
-    @feedback = FeedbackItem.find(:all, :order => "created_at DESC")
+    @feedback = FeedbackItem.all
 
     #clear temple table and save result into temple table
     FeedbackSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
@@ -170,7 +170,7 @@ class ClientSetupsController < ApplicationController
 
 
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     SystemLogSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -204,7 +204,7 @@ class ClientSetupsController < ApplicationController
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     status = 'Live'
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -238,7 +238,7 @@ class ClientSetupsController < ApplicationController
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     status = 'Live'
 
-    @system_log_entries = SystemLog.find_by_sql(["SELECT s.id AS \"id\", s.created_at AS \"created_at\", s.login_account_id AS \"login_account_id\", s.ip_address AS \"ip_address\", s.controller AS \"controller\", s.action AS \"action\", s.message AS \"message\" FROM system_logs s, login_accounts l WHERE s.login_account_id = l.id AND l.user_name LIKE ? AND s.created_at >= ? AND s.created_at <= ? AND s.status LIKE ? ORDER BY s.created_at ASC", user_name, start_date, end_date, status])
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -380,6 +380,7 @@ class ClientSetupsController < ApplicationController
 
   def create_client_bank_account
     @client_bank_account = ClientBankAccount.new(params[:client_bank_account])
+    @client_bank_account.to_be_removed = false
     if @client_bank_account.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new client bank account with ID #{@client_bank_account.id}.")
     else
@@ -423,9 +424,21 @@ class ClientSetupsController < ApplicationController
 
   def destroy_client_bank_account
     @client_bank_account = ClientBankAccount.find(params[:id])
-    @client_bank_account.destroy
+#    @client_bank_account.destroy
+    @client_bank_account.to_be_removed = true
+    @client_bank_account.save
     respond_to do |format|
       format.js
+    end
+  end
+
+    def retrieve_client_bank_account
+    @client_bank_account = ClientBankAccount.find(params[:id])
+#    @client_bank_account.destroy
+    @client_bank_account.to_be_removed = false
+    @client_bank_account.save
+    respond_to do |format|
+      format.js {render "destroy_client_bank_account.js"}
     end
   end
 

@@ -51,7 +51,7 @@ $('#notes_list').html('<%= escape_javascript(render(:partial => "/notes/note")) 
  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Person/tabs/<%=escape_javascript(@active_sub_tab) %>_title.png");
  $('.person_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
-
+ $('.tab_switch_with_page_initial[field="<%=escape_javascript(@active_sub_tab) %>_page"]').click();
 
 
   $('.startdatepick').datepicker({
@@ -198,4 +198,10 @@ $('#notes_list').html('<%= escape_javascript(render(:partial => "/notes/note")) 
             }
         }
     });
+
+ $('.bar_top_item').draggable({
+
+});
+
+config_drag_drop();
 

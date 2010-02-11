@@ -1,9 +1,9 @@
 class OrganisationBankAccount < BankAccount
-    belongs_to :organisation, :foreign_key => "entity_id"
+  belongs_to :organisation, :foreign_key => "entity_id"
 
   belongs_to :account_type
-    validates_presence_of :account_number,:bank_id,:entity_id
- before_save :update_priority
+  validates_presence_of :account_number,:bank_id,:entity_id
+  before_save :update_priority
   before_destroy :update_priority_before_destroy
 
   private

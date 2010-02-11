@@ -1,6 +1,4 @@
-puts "Initializing Client Organisation and Client Setups"
-client = ClientOrganisation.create :full_name => "Client Organisation", :level => '0'
-ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memerzone.com.au", :reply_from => "feedback@memerzone.com.au", :superadmin_message => "superadmin message", :level_0_label => "level_0", :level_1_label => "level_1", :level_2_label => "level_2"
+
 
 puts "Initializing SystemPermission data"
 mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true, :to_be_removed =>false)
@@ -62,12 +60,6 @@ superadmin = SuperAdmin.create(
   :login_status => true
 )
 
-puts "Initializing password for member zone user"
-client_setup = ClientSetup.first
-client_setup.member_zone_power_password = "098765"
-client_setup.super_admin_power_password = "098765"
-client_setup.save
-
 puts "Initializing Group to Super Users."
 
 UserGroup.create(:user_id => memberzone.id, :group_id => superuser.id)
@@ -77,11 +69,30 @@ UserGroup.create(:user_id => superadmin.id, :group_id => superuser.id)
 puts "Initializing Permission to Super User Group"
 GroupPermission.create(:system_permission_type_id => show.id, :user_group_id => superuser.id)
 
-puts "Initializing Primary List"
-PrimaryList.create :name => "Primary List", :status => true
+puts "Initializing Person Primary List"
+pl = PrimaryList.create :name => "Primary List", :status => true
 
-puts "Initializing List to Super User Group"
-GroupList.create(:tag_id => superuser.id, :list_header_id => PrimaryList.first.id)
+puts "Initializing Organisation Primary List"
+opl = OrganisationPrimaryList.create :name => "Organisation Primary List", :status => true
+
+puts "Initializing Person List to Super User Group"
+GroupList.create(:tag_id => superuser.id, :list_header_id => pl.id)
+
+
+puts "Initializing Organisation List to Super User Group"
+GroupList.create(:tag_id => superuser.id, :list_header_id => opl.id)
+
+#following initializing must be after 'Initializing Organisation Primary List'
+puts "Initializing Client Organisation and Client Setups"
+client = ClientOrganisation.create :full_name => "Client Organisation", :level => '0'
+ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memberzone.com.au", :reply_from => "feedback@memberzone.com.au", :superadmin_message => "superadmin message", :level_0_label => "level_0", :level_1_label => "level_1", :level_2_label => "level_2"
+
+#following initializing must be after 'Initializing Client Organisation and Client Setups'
+puts "Initializing password for member zone user"
+client_setup = ClientSetup.first
+client_setup.member_zone_power_password = "098765"
+client_setup.super_admin_power_password = "098765"
+client_setup.save
 
 puts "Initializing Geoff Koo"
 Person.create(

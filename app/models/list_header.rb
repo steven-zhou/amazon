@@ -1,6 +1,6 @@
 class ListHeader < ActiveRecord::Base
 
- has_many :list_details
+ has_many :list_details, :dependent => :destroy
 
   has_many :user_lists
   has_many :login_accounts, :through => :user_lists, :uniq => true
@@ -21,6 +21,10 @@ class ListHeader < ActiveRecord::Base
 
   def person_list?
     self.class.to_s == "PersonListHeader" || self.class.to_s == "PrimaryList" || self.class.to_s == "TempList"
+  end
+
+   def organisation_list?
+    self.class.to_s == "OrganisationListHeader" || self.class.to_s == "OrganisationPrimaryList"
   end
 
   protected

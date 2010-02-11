@@ -1,0 +1,33 @@
+<p>
+    <%if object.type == "SystemUser"%>
+  Dear <%= object.person.first_name %> <%= object.person.family_name %>,
+  <%elsif object.type == "SuperAdmin"%>
+   Dear Super Admin,
+  <%elsif object.type == "MemberZone"%>
+   Dear memberZone,
+   <%end%>
+</p>
+
+<p>
+  Your Security Question is changed to :<br/>
+</p>
+
+<p>
+   Question One:    <%= object.security_question_1.name %>
+   Answer One:      <%= object.question1_answer %>
+</p>
+<p>
+   Question Two:    <%= object.security_question_2.name %>
+   Answer Two:      <%= object.question2_answer %>
+</p>
+<p>
+   Question Three:  <%= object.security_question_3.name %>
+   Answer Three:    <%= object.question3_answer %>
+</p>
+
+<p>
+  If you have any question, please contact the MemberZone Team.
+</p>
+<p>
+  MemberZone Team
+</p>

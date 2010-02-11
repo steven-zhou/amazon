@@ -1,7 +1,11 @@
--# Displays An Address
--div_for(person_address, :class => 'header_container') do
-  %div
-    .title
-      %h2{:class=>("red" if person_address.address_type.to_be_removed == true)}= person_address.address_type.name
-  %div{:style => "float:right;"}
-    = format_address(person_address)
+- if !@person.addresses.blank?
+  -@person.addresses.each do |person_address|
+    -div_for(person_address, :class => 'header_container') do
+      %div
+        .title
+          %h2{:class=>("red" if person_address.address_type.to_be_removed == true)}= person_address.address_type.name
+      %div{:style => "float:right;"}
+        = format_address(person_address)
+- else
+  .no_record
+    %h1 No Record

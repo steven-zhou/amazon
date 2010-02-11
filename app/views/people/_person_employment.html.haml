@@ -1,8 +1,13 @@
 -# Displays Employment
--div_for(person_employment, :class => 'header_container') do
-  %div
-    .title
-      %h2= "#{person_employment.organisation.full_name}"
+-if !@person.employments.blank?
+  -@person.employments.each do |person_employment|
+    -div_for(person_employment, :class => 'header_container') do
+      %div
+        .title
+          %h2= "#{person_employment.organisation.full_name}"
     
-  %div{:style => "float:right;"}
-    = format_employment(person_employment)
+      %div{:style => "float:right;"}
+        = format_employment(person_employment)
+-else
+  .no_record
+    %h1 No Record

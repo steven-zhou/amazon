@@ -1,0 +1,82 @@
+%table{:id => 'address_postcode'}  
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $('#address_postcode').flexigrid({
+            url: '/grids/show_postcode_grid?suburb=#{@suburb}&postcode=#{@postcode}&state=#{@state}',
+            dataType: 'json',
+            colModel : [
+            {
+                display: 'ID',
+                name : 'id',
+                width : 40,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'State',
+                name : 'state',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Suburb',
+                name : 'suburb',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Postcode',
+                name : 'postcode',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            },
+
+            {
+                display: 'Country',
+                name : 'countries.short_name',
+                width : 80,
+                sortable : true,
+                align: 'left'
+            }
+
+
+            ],
+            searchitems : [
+            {
+                display: 'State',
+                name : 'state'
+            },
+
+            {
+                display: 'Suburb',
+                name : 'suburb'
+            },
+
+            {
+                display: 'Postcode',
+                name : 'postcode'
+            },
+
+            {
+                display: 'Country',
+                name : 'countries.short_name'
+            }
+
+            ],
+            sortname: "postcodes.id",
+            sortorder: "asc",
+            usepager: true,
+            title: '',
+            useRp: true,
+            rp: 20,
+            showTableToggleBtn: false,
+            width: 'auto',
+            height: 'auto'
+        });

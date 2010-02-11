@@ -34,6 +34,7 @@ Factory.define :john, :class => Person do |f|
 end
 
 Factory.define :jane, :class => Person do |f|
+
   f.first_name "Jane"
   f.middle_name "Rose"
   f.family_name "Doe"
@@ -46,4 +47,5 @@ Factory.define :jane, :class => Person do |f|
   f.association :primary_title, :factory => :mrs
   f.association :gender, :factory => :female
   f.association :marital_status, :factory => :divorced
+  
 end

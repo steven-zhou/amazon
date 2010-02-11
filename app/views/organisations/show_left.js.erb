@@ -1,99 +1,6 @@
 $('#organisation_content_container').replaceWith('<%= escape_javascript(render(:partial => "/organisations/show_left")) %>');
 
 $('#menu').replaceWith('<%= escape_javascript(render(:partial => "/shared/show_organisation_list_menu")) %>');
-$("#tabs2").tabs();
-
-
- $("#organisations_employees_grid").flexigrid({
-        url: '/grids/organisation_employee_grid',
-        dataType: 'json',
-        colModel : [
-        {
-            display: 'ID',
-            name : 'grid_object_id',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'First Name',
-            name : 'field_1',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Family Name',
-            name : 'field_2',
-            width : 50,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Address',
-            name : 'field_3',
-            width : 120,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'Phone',
-            name : 'field_4',
-            width : 80,
-            sortable : true,
-            align: 'left'
-        },
-
-        {
-            display: 'email',
-            name : 'field_5',
-            width : 40,
-            sortable : true,
-            align: 'left'
-        }
-        ],
-        searchitems : [
-        {
-            display: 'First Name',
-            name : 'field_1'
-        },
-
-        {
-            display: 'Family Name',
-            name : 'field_2'
-        },
-
-        {
-            display: 'Address',
-            name : 'field_3'
-        },
-
-        {
-            display: 'Phone',
-            name : 'field_4'
-        },
-
-        {
-            display: 'Email',
-            name : 'field_5'
-        }
-        ],
-        sortname: "grid_object_id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Organisation Employee Result',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-
-
 
 
 if('<%=escape_javascript(@active_tab) %>'=="organisation_info"){
@@ -117,5 +24,11 @@ $('.show_hide_button[show_id_name="organisation_info"]').parent().addClass('cont
   $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').addClass("active");
   $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').find("img").attr("src","/images/Icons/Core/Org/tabs/"+$('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').attr("field")+"_title.png");
   $('.organisation_edit_tab[field="<%=escape_javascript(@active_sub_tab) %>"]').click();
+   $('.tab_switch_with_page_initial[field="<%=escape_javascript(@active_sub_tab) %>_page"]').click();
   }
 
+$('.bar_top_item').draggable({
+
+});
+
+config_drag_drop();

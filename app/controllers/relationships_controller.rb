@@ -26,10 +26,10 @@ class RelationshipsController < ApplicationController
       flash.now[:error] = "Please Enter All Required Data"if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("has already been taken"))
       flash.now[:error] = flash_message(:type => "same_person_error", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be same as source person"))
-       flash.now[:error] = flash_message(:type => "not exist", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be invalid"))
+      flash.now[:error] = flash_message(:type => "not exist", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be invalid"))
     end
 
-     @relationship_new = Relationship.new
+    @relationship_new = Relationship.new
     respond_to do |format|
       format.js{}
     end
@@ -50,8 +50,19 @@ class RelationshipsController < ApplicationController
     else
       @relationship.destroy
     end
-   @relationship_new = Relationship.new
+    @relationship_new = Relationship.new
     
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @relationship = Relationship.new
+    @person = Person.find_by_id(params[:params1])
+
     respond_to do |format|
       format.js
     end

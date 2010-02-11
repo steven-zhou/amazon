@@ -83,7 +83,22 @@ class PersonRolesController < ApplicationController
     respond_to do |format|
       format.js {render "show.js"}
     end
+  end
 
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @role = Role.new
+    @person_role = PersonRole.new
+     if params[:type]=="Person"
+      @person = Person.find_by_id(params[:params1])
+    else
+      @organisation = Organisation.find_by_id(params[:params1])
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
 
