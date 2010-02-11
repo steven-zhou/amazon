@@ -15,6 +15,7 @@ class NotesController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Note #{@note.id}.")
     else
       flash.now[:error]= "Please Enter All Required Data"if(!@note.errors[:label].nil? && @note.errors.on(:label).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "label") if (!@note.errors.on(:label).nil? && @note.errors.on(:label).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
