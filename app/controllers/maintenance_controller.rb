@@ -39,7 +39,7 @@ class MaintenanceController < ApplicationController
   def restore
     file_name = params[:file_name]
     dir = "/home/ubuntu/database/backup/" + file_name
-    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir}"
+    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end
 
