@@ -3736,7 +3736,7 @@ $(function(){
 insert_name_in_email = function(this_form){
     var current_form = this_form.closest('form').attr('id');
     //var value = $("#select_word").val();
-    var value = $("#"+current_form).find("#select_word").val()
+    var value = "#"+$("#"+current_form).find(".select_word").val()+"#"
 
     window.tinyMCE.execCommand('mceInsertContent', false, value);
 };

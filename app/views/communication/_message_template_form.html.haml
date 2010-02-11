@@ -36,9 +36,9 @@
         = f.text_field :name, :id => "new_message_template_name", :class => 'new_message_template_required_field'
       .field_15
         %label &nbsp
-        %select{:id => "select_word"}
-          %option{:value => "#first_name#"} First Name
-          %option{:value => "#last_name#"} Last Name
+        %select{:class => "select_word"}
+          %option{:value => "first_name"} First Name
+          %option{:value => "last_name"} Last Name
       .field_10
         %label &nbsp
         = button_to_function 'Insert', :class => "insert_word"

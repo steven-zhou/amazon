@@ -1,0 +1,7 @@
+$('#add_new_mail_template').css('display', 'none');
+$('#edit_mail_template').css('display', '');
+$('#edit_mail_template_form').html('<%=escape_javascript(render(:partial => "/message_templates/mail_template_form"))%>');
+$(".show_fields").change();
+$('#mail_template_mode').attr('mode', 'edit');
+$('.close_option[field="mail_template"]').css("display","");
+$(".show_fields").change();

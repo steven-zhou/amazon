@@ -1,0 +1,3 @@
+class OrganisationMailTemplate < MailTemplate
+
+end
