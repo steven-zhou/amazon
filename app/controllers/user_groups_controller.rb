@@ -2,7 +2,8 @@ class UserGroupsController < ApplicationController
   # System Logging added
 
   def edit
-    @group = GroupType.find(params[:data_id])
+    id = params[:data_id].nil? ? params[:grid_object_id] : params[:data_id]
+    @group = GroupType.find(id)
     @login_accounts = @group.login_accounts
     @user_group = UserGroup.new
     @user_groups = @group.user_groups

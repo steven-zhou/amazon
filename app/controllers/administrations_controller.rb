@@ -149,6 +149,7 @@ class AdministrationsController < ApplicationController
   def user_groups
     @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    @tag_type_id = @group_meta_type.id
     respond_to do |format|
       format.html
     end

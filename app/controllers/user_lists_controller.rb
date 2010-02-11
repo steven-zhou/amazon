@@ -2,7 +2,8 @@ class UserListsController < ApplicationController
   # System logging done...
 
   def edit
-    @login_account = SystemUser.find(params[:data_id])
+    id=params[:data_id].nil? ? params[:grid_object_id] : params[:data_id]
+    @login_account = SystemUser.find(id)
     @list_headers = ListHeader.all
     @user_list = UserList.new
     @user_lists = @login_account.user_lists
