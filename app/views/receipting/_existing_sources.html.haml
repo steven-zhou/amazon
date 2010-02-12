@@ -1,9 +1,6 @@
 .full_container
   %h2 Existing Sources
-
   %table#show_sources_by_campaign_grid
-
-
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_source = function(){
@@ -83,6 +80,7 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
+    alert("wewewe");
     $("#show_sources_by_campaign_grid").flexigrid({
       url: '/grids/show_sources_by_campaign_grid',
       dataType: 'json',

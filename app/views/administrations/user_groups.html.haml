@@ -2,8 +2,8 @@
   #page_title
     %h1 User Groups
 %input{:id => "user_group_group_mode", :mode => "show", :style => "display:none"}
-#content_full_page.full_container
-  %div#group_display
+#content_full_page
+  %div#group_display.full_container
     = render :partial => '/user_management/show_existing_user_groups'
   %br.clear
   %div#user_group_group_edit_container

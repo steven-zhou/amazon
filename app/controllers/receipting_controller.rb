@@ -209,7 +209,7 @@ class ReceiptingController < ApplicationController
   end
 
 
-    def retrieve_source
+  def retrieve_source
      @source = Source.find(params[:id])
 #    @source.destroy
     @source.to_be_removed = false

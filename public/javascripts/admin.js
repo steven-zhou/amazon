@@ -102,6 +102,7 @@ $(function(){
         $('#system_data_close_entry').css("display","");
         $(".system_data_entry_selected").removeClass("system_data_entry_selected");
         $("#system_data_type").attr("disabled",true);
+        $("#system_data_submit").attr("disabled",true);
     });
 });
 
@@ -599,6 +600,7 @@ $(function(){
         $(".user_clear_form").click();
         //$(".show_user_container").hide();
         $("#close_new_account").show();
+        $("#user_account_new_submit").attr("disabled", true);
     });
 });
 
@@ -1844,11 +1846,13 @@ $(function(){
 $(function(){
     $("#keyword_add_entry").live('click', function(){
         $("#keyword_add_entry_form").show();
+
         $("#edit_keyword_entry").html("");
 
         //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
         $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
+        $("#keyword_new_submit").attr("disabled",true);
         $("#keyword_close_entry").css("display","");
 
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -2113,6 +2117,7 @@ $(function(){
 $(function(){
     $("#new_role_bar #add_new_role").live('click',function(){
         $('#role_role_type_id').attr("disabled", true);
+        $("#role_new_submit").attr("disabled",true);
     });
     $("#new_role_bar #close_role").live('click', function(){
         $('#role_role_type_id').attr("disabled", false);
