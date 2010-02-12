@@ -7,7 +7,8 @@ class UserGroupsController < ApplicationController
     @login_accounts = @group.login_accounts
     @user_group = UserGroup.new
     @user_groups = @group.user_groups
-
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @tag_type_id = @group_meta_type.id
     respond_to do |format|
       format.js
     end
@@ -26,6 +27,7 @@ class UserGroupsController < ApplicationController
         @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
         @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
         @select_group_type_id = @user_group.group_type.id
+        @tag_type_id = @group_meta_type.id
       else
         flash.now[:error]= flash_message(:type => "field_missing", :field => "login_id")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("can't be blank"))
         flash.now[:error]= flash_message(:type => "user_group_uniqueness_error")if(!@user_group.errors[:user_id].nil? && @user_group.errors.on(:user_id).include?("has already been taken"))
@@ -39,6 +41,9 @@ class UserGroupsController < ApplicationController
         flash.now[:error] = "This LoginAccount's person information has been delete"
       end
     end
+
+    
+    
     respond_to do |format|
       format.js
     end
@@ -51,7 +56,7 @@ class UserGroupsController < ApplicationController
   
     @user_group = UserGroup.new(:user_id => @login_account.id, :group_id => params[:params2])
     @group_types = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"]).group_types
-   
+    @tag_type_id = @group_types.id
     if @user_group.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created User Group #{@user_group.id}.")
       flash.now[:message] = "saved successfully"
@@ -78,6 +83,7 @@ class UserGroupsController < ApplicationController
     @user_group.destroy
     @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
     @group_types = @group_meta_type.group_types rescue  @group_types =  GroupType.new
+    @tag_type_id = @group_meta_type.id
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted User Group #{@user_group.id}.")
     respond_to do |format|
       format.js

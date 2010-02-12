@@ -7,6 +7,8 @@ class UserListsController < ApplicationController
     @list_headers = ListHeader.all
     @user_list = UserList.new
     @user_lists = @login_account.user_lists
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @tag_type_id = @group_meta_type.id
     respond_to do |format|
       format.js
     end
@@ -33,6 +35,8 @@ class UserListsController < ApplicationController
     @login_account = SystemUser.find(params[:user_list][:user_id])
      @login_accounts = SystemUser.all
     @select_login_account_id = @login_account.id
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @tag_type_id = @group_meta_type.id
     respond_to do |format|
       format.js
     end
@@ -44,6 +48,8 @@ class UserListsController < ApplicationController
     @user_list.destroy
     @login_accounts = SystemUser.all
     @select_login_account_id = @user_list.user_id
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"])rescue  @group_meta_types =  GroupMetaType.new
+    @tag_type_id = @group_meta_type.id
     respond_to do |format|
       format.js
     end
