@@ -1,0 +1,37 @@
+%script{:type => "text/javascript"}
+  :plain
+    tinymce_init();
+
+-form_for @mail_template, :url => @mail_template.new_record? ? message_templates_path : message_template_path(@mail_template), :html => {:class => "ajax_form"} do |f|
+  .form_line
+    .field_20
+      = f.label :name, "Mail Category"
+      = f.collection_select :mail_merge_category_id, MailMergeCategory.active_mail_merge_category, :id, :name, {},{:name => "mail_template[mail_merge_category_id]"}
+    .field_20
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name, :name => "mail_template[name]"
+    .field_22
+      %label Table Name
+      %select{:class => "clear_select general_drop_down_level", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template", :method => "GET", :url => "/message_templates/drop_down_list"}
+        -@table_attributes.each do |i|
+          %option{:value => i.name}
+            = i.name
+
+    .field_22
+      %label Field Name
+      %select{:class => "select_word drop_down_level2", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template"}
+      %br.clear
+
+    .field_10
+      %label &nbsp
+      =button_to_function 'Insert', :class => "insert_word" ,:style => "width:100%;"
+    .field_10
+      %input{:class => "hidden", :name => "type", :value => "#{@type}"}
+
+  .form_line.field_select_line
+    .field_100{:style => "height:auto;"}
+      = f.label :body, "body"
+      = f.text_area :body, :class => 'mceEditor',:name => "mail_template[body]"
+
+  = submit_tag "Submit"
+

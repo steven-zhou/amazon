@@ -1,0 +1,71 @@
+.full_container
+  %h2 Existing Mail Templates
+
+  %table#show_mail_templates_grid{:class => "selectable_grid", :db_click_function  => "true",:edit => "true", :db_click_url => "/message_templates/", :params2 => "#{@type}"}
+
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_mail_templates_grid tr.trSelected").attr('id'),"#mail_template_mode","get","/message_templates/destroy_mail_template.js");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_mail_templates_grid tr.trSelected").attr('id'),"get","/message_templates/retrieve_mail_template.js");
+    };
+
+
+
+
+    $("#show_mail_templates_grid").flexigrid({
+    url: '/grids/show_mail_templates_grid?model_type=#{@model_type}',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 30,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Category',
+    name : 'amazon_settings.name',
+    width :100,
+    sortable :true,
+    align: 'left'
+    },
+
+    {
+    display: 'Name',
+    name : 'name',
+    width : 500,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Created At',
+    name : 'created_at',
+    width : 270,
+    sortable : true,
+    align: 'left'
+    }
+
+    ],
+    buttons : [
+            {name: 'Delete', bclass: 'delete', onpress : delete_from_a_grid},
+            {name: 'Undelete', bclass: 'get', onpress : retrieve_from_a_grid}
+        ],
+    sortname: "message_templates.id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
+ 

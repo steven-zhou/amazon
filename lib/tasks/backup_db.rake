@@ -7,7 +7,7 @@ namespace :db do
     RAILS_ENV = environment
     puts "Backup environment is #{RAILS_ENV}"
     datestamp = ENV["FILE"] || Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    base_path = ENV["DIR"] || "/home/ubuntu/database/backup"
+    base_path = ENV["DIR"] || "#{RAILS_ROOT}/../database/backup"
     backup_folder = File.join(base_path, datestamp)
     puts "Backup folder = #{backup_folder}"
     File.makedirs(backup_folder)
@@ -35,7 +35,7 @@ namespace :db do
     RAILS_ENV = environment
     puts "Restore environment is #{RAILS_ENV}"
     datestamp = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
-    source_path = ENV["DIR"] || "/home/ubuntu/database/backup"
+    source_path = ENV["DIR"] || "#{RAILS_ROOT}/../database/backup"
     source_file = File.join(source_path, "database_dump.tar")
     db_config = ActiveRecord::Base.configurations[RAILS_ENV]
     sh "pg_restore -U rails -O -c -d #{db_config['database']} #{source_file}"

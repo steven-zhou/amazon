@@ -62,14 +62,14 @@ class CommunicationController < ApplicationController
     end
   end
 
- def retrieve_message_template
+  def retrieve_message_template
     @message_template = EmailTemplate.find(params[:id])
     @message_template.to_be_removed = false
     @message_template.save
     respond_to do |format|
       format.js
     end
- end
+  end
 
   
   def send_email
@@ -229,6 +229,9 @@ class CommunicationController < ApplicationController
   end
 
   def person_mail_merge
+    @person_list_headers = @current_user.all_person_lists
+    @person_query_headers = QueryHeader.saved_query_header
+    @mail_templates = PersonMailTemplate.all
     
   end
   

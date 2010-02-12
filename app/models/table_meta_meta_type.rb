@@ -11,6 +11,15 @@ class TableMetaMetaType < TagMetaType
   before_destroy :reorder_priority
 
 
+  def self.table_categroy(entity)
+    if (entity == "person")
+      TableMetaMetaType.find(:all, :conditions => ["category !=?", "organisation"], :order => "name")
+    else
+      TableMetaMetaType.find(:all, :conditions => ["category !=?", "person"], :order => "name")
+    end
+  end
+
+  
   private
 
   def assign_priority

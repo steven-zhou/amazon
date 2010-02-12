@@ -1,6 +1,6 @@
 class CreateQuickLaunchIcons < ActiveRecord::Migration
   def self.up
-    create_table :quick_launch_icons do |t|
+    create_table :quick_launch_icons, :force => true do |t|
       t.column :controller, :text
       t.column :action, :text
       t.column :image_url, :text

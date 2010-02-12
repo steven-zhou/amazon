@@ -1,0 +1,9 @@
+<%- options = String.new  %>
+
+<%- @tag_types.each do |i|%>
+<%- options += "<option value = #{i.name}> #{i.name} </option>"%>
+<%- end %>
+
+
+
+$('.drop_down_level2[drop_down_field='+ '<%= escape_javascript("#{@drop_down_field}") %>'+']').html('<%= escape_javascript("#{options}") %>');

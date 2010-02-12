@@ -1,6 +1,6 @@
 class CreateHelp < ActiveRecord::Migration
   def self.up
-    create_table :helps do |t|
+    create_table :helps, :force => true do |t|
       t.string :controller
       t.string :action
       t.string :title

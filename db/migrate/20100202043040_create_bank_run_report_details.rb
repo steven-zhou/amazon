@@ -1,6 +1,6 @@
 class CreateBankRunReportDetails < ActiveRecord::Migration
   def self.up
-       create_table :bank_run_report_details do |t|
+    create_table :bank_run_report_details, :force => true do |t|
       t.integer :bank_run_report_id
       t.column :type, :string
       t.column :drawer_name, :string
@@ -31,6 +31,6 @@ class CreateBankRunReportDetails < ActiveRecord::Migration
   end
 
   def self.down
-     drop_table :bank_run_report_details 
+    drop_table :bank_run_report_details
   end
 end

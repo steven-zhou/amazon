@@ -1,6 +1,7 @@
 namespace :db do
   desc "change to be removed to be false after adding that field to tables"
   task :fixtoberemoved => :environment do
+    puts "Run Patch fixtoberemoved ..."
     ReceiptAccount.transaction do
       puts "change receipt account"
       ReceiptAccount.all.each do |i|
@@ -38,5 +39,7 @@ namespace :db do
         end
       end
     end
+
+    puts "DONE"
   end
 end

@@ -1,40 +1,37 @@
 <%- options = String.new  %>
-<%-if @type.include?("CK") %>
-$(".global_change[value='Delete']").attr('disabled',true);
-<% else %>
-$(".global_change[value='Delete']").attr('disabled',false);
-<%end%>
+
+
 $("#global_change_value").removeClass();
-$("#input_value").find('img').css("display","none");
-
-
-<%-if @type.include?("Integer FK")%>
+$('#global_change_value').val("").change();
+<%-if @type== "keyword" || @type == "role" || @type == "group"%>
 $('#input_data_value').css('display','none');
 $('#select_system_data').css('display','');
-<%-unless @short_name%>
-  <% @category.all.each do |i| %>
-    <%- options += '<option value='+"#{i.name}"+'>'+" #{i.name}"+'</option>' %>
+
+  <% @value.each do |i| %>
+    <%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
   <%- end %>
-<%else%>
-  <% @category.all.each do |i| %>
-    <%- options += '<option value='+"#{i.short_name}"+'>'+" #{i.short_name}"+'</option>' %>
-  <%- end %>
-<%end%>
+
 
 $("#global_add").attr('disabled',false);
-$("#global_change").attr('disabled',false);
- $("#system_data_id").html("<%= escape_javascript("#{options}") %>");
- $("#system_data_id").change('');
-
-<%-elsif @type.include?("Date")%>
-$('#input_data_value').css('display','');
-$('#select_system_data').css('display','none');
-$("#global_change_value").addClass("datepick");
-<%-elsif @type.include?("Integer")%>
-$('#input_data_value').css('display','');
-$('#select_system_data').css('display','none');
-$("#global_change_value").addClass("integer_field");
+$("#global_change").attr('disabled',true);
+$("#global_change_checkbox").css('display','none');
+$("#system_data_id").html("<%= escape_javascript("#{options}") %>");
+$("#system_data_id").change('');
 
 
+
+<%else%>
+
+
+$("#global_add").attr('disabled',true);
+$("#global_change").attr('disabled',true);
+<%if @type == "note"%>
+$("#global_change_checkbox").css('display','none');
+$("#global_change").attr('disabled',true);
+<%else%>
+$("#global_change_checkbox").css('display','');
 <%end%>
-datapick_config();
+$('#input_data_value').css('display','');
+$('#select_system_data').css('display','none');
+<%end%>
+

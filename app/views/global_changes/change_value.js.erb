@@ -1,0 +1,19 @@
+  $("#flash_message_text").html("The Value is Changed");
+  $('#flash_messagee_image').css("display","");
+  $("#flash_message").dialog( {
+  modal:true,
+  height: 'auto',
+  width: 400,
+  buttons: {
+
+  OK: function(){
+
+  $(this).dialog('close');
+  }
+  }
+  });
+  $('#flash_message').dialog('option', 'title', 'Comfirmation');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');

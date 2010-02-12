@@ -1,0 +1,7 @@
+class PersonMailTemplate < MailTemplate
+
+
+
+
+
+end

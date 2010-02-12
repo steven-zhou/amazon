@@ -2565,6 +2565,7 @@ $(function(){
 
 
     });
+
 });
 
 
@@ -2573,7 +2574,7 @@ $(function(){
   $.ajax({
     type: "GET",
     url: "/global_changes/check_field_type.js",
-    data: "table_name="+$('#table_name_table_id').val()+"&table_field="+$('#table_field_id').val(),
+    data: "table_name="+$('#global_change_table_name').val()+"&table_field="+$('#table_field_id').val(),
     dataType: "script"
 
   });
@@ -2592,6 +2593,12 @@ $(function(){
           $("#global_add").attr('disabled',false);
           $("#global_change").attr('disabled',false);
           }
+
+          if ($("#global_change_table_name").val() == "note")
+            {
+             $("#global_change").attr('disabled',true);
+            }
+
 
   }});
 
@@ -2612,3 +2619,4 @@ $(function(){
 
   })
 });
+
