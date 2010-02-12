@@ -18,7 +18,8 @@ class GroupPermissionsController < ApplicationController
 
   #*********new design************
   def edit
-    @group_type = GroupType.find(params[:data_id])
+    id = params[:data_id] ? params[:data_id] : params[:grid_object_id]
+    @group_type = GroupType.find(id)
     @group_permission = GroupPermission.new
     @group_permissions =  @group_type.group_permissions
     @module_all = SystemPermissionMetaMetaType.all

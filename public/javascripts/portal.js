@@ -48,3 +48,22 @@ $(function(){
     });
 });
 
+$(function() {
+    $('#regenerate_captcha').live('click', function(){
+        $.ajax({
+            type: "GET",
+            url: "/signin/captcha",
+            data: '',
+            dataType: "script"
+        });
+        return false;
+    });
+
+    $('#potential_member_first_name').blur(function(){
+       $('#captcha').addClass('compulsory_field');
+    });
+
+    $('#captcha').click(function(){
+        $(this).addClass('compulsory_field');
+    })
+});

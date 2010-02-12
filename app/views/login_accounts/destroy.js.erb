@@ -1,5 +1,2 @@
-$('#login_account_'+'<%= @login_account.id %>').fadeOut("slow", function() {$(this).remove();});
-
-
-
-
+$("#login_account_mode").attr('mode', 'show');
+$("#show_user").html("<%= escape_javascript(render(:partial => '/user_management/show_user_list')) %>");

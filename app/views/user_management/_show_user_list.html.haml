@@ -1,11 +1,64 @@
-%h1 Existing Users
-%input{:id => "login_account_mode", :mode => "show", :style => "display:none"}
-- for i in @login_accounts
-  - status = i.login_status ? "container_active" : "container_inactive"
-  .show_users.toggle_options{:class => status , :person_id => i.person_id, :id => "login_account_#{i.id}", :login_account_id => i.id, :field => "login_account", :style => "width:47%;"}
-    .options{:style => "display:none",:id => "login_icon"}
-      = link_to image_tag('edit_icon.png'), edit_login_account_path(i), :class => 'get edit_login_account edit_option', :id => 'login_account_edit_button' , :login_account_id => i.id,:field => "login_account", :title=>"Edit"
-      = link_to image_tag('delete_icon.png'), login_account_path(i), :class => 'delete delete_login_account',:id => 'login_account_delete_button', :login_account_id => i.id ,:field => "List",:error_message_field => "Account", :title=>"Remove"
-    .title
-      %h3= "#{i.person_id}""\-""#{i.user_name}"
-          
+.full_container
+  %h1 Existing Users
+  %table#show_users_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/login_accounts/"}
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+      var selectedId = $("#show_users_grid tr.trSelected").attr('id');
+      delete_from_grid(selectedId, "#login_account_mode", "DELETE", "/login_accounts/"+selectedId.substring(3));
+    };
+
+    $("#show_users_grid").flexigrid({
+      url: '/grids/show_user_accounts_grid',
+      dataType: 'json',
+      colModel: [
+        {
+          display: 'ID',
+          name: 'id',
+          width: 40,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Person ID',
+          name: 'person_id',
+          width: 570,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'User Name',
+          name: 'user_name',
+          width: 270,
+          sortable: true,
+          align: 'left'
+        }
+      ],
+
+      buttons:[
+        {name: 'Delete', bclass: 'delete', onpress: delete_from_a_grid},
+      ],
+
+      searchitems:[
+      {
+        display: 'Person ID',
+        name: 'person_id'
+      },
+      {
+        display: 'User Name',
+        name: 'user_name'
+      }
+      ],
+
+      sortname: "person_id",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+    });

@@ -18,7 +18,7 @@
       = render :partial => '/user_management/user_account_form'
 
   .full_container{:class => "show_user_container", :style => "margin-bottom:40px;"}
-
+    %input{:style=>"display: none", :mode=>"show", :id=>"login_account_mode"}
     %div#show_user
       = render :partial => '/user_management/show_user_list'
     %br.clear
