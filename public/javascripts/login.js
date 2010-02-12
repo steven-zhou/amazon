@@ -153,8 +153,7 @@ $(function() {
             dataType: "script"
         });
     });
-}
-);
+});
 $(function($) {
     $('.jclock').jclock();
     $('#clocktime').val($('.jclock').html());

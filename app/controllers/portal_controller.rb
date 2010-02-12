@@ -1,5 +1,6 @@
 class PortalController < ApplicationController
 
+  include SimpleCaptcha::ControllerHelpers
   layout nil
   protect_from_forgery :only => [:create, :update, :destroy]
   before_filter :check_authentication, :except => [:sign_up_form, :sign_up, :active]
@@ -13,18 +14,23 @@ class PortalController < ApplicationController
 
   def sign_up
     @potential_member = PotentialMember.new(params[:potential_member])
-    if @potential_member.save
-      @potential_member.update_attribute(:validation_key, PotentialMember.generate_key)
-      email = EmailDispatcher.create_email_with_template(@potential_member.email, 'validation letter', 'email_dispatcher/send_validation_key_to_potential_member', @potential_member)
-      EmailDispatcher.deliver(email)
-      render 'sign_up'
+    if simple_captcha_valid?
+      if @potential_member.save
+        @potential_member.update_attribute(:validation_key, PotentialMember.generate_key)
+        email = EmailDispatcher.create_email_with_template(@potential_member.email, 'validation letter', 'email_dispatcher/send_validation_key_to_potential_member', @potential_member)
+        EmailDispatcher.deliver(email)
+        render 'sign_up'
+      else
+        flash[:error] = ""
+        flash[:error] += "First Name can't be blank <br/>" if (!@potential_member.errors.on(:first_name).nil? && @potential_member.errors.on(:first_name).include?("can't be blank"))
+        flash[:error] += "Family Name can't be blank <br/>" if (!@potential_member.errors.on(:family_name).nil? && @potential_member.errors.on(:family_name).include?("can't be blank"))
+        flash[:error] += "Email can't be blank <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("can't be blank"))
+        flash[:error] += "Email is already existing <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("has already been taken"))
+        flash[:error] += "Email is invalid <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("is invalid"))
+        render 'sign_up_form'
+      end
     else
-      flash[:error] = ""
-      flash[:error] += "First Name can't be blank <br/>" if (!@potential_member.errors.on(:first_name).nil? && @potential_member.errors.on(:first_name).include?("can't be blank"))
-      flash[:error] += "Family Name can't be blank <br/>" if (!@potential_member.errors.on(:family_name).nil? && @potential_member.errors.on(:family_name).include?("can't be blank"))
-      flash[:error] += "Email can't be blank <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("can't be blank"))
-      flash[:error] += "Email is already existing <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("has already been taken"))
-      flash[:error] += "Email is invalid <br/>" if (!@potential_member.errors.on(:email).nil? && @potential_member.errors.on(:email).include?("is invalid"))
+      flash[:error] = "Validation Code is invalid, please try again."
       render 'sign_up_form'
     end
   end

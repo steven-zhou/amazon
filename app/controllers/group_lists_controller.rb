@@ -16,7 +16,10 @@ class GroupListsController < ApplicationController
 
   #*********new design************
   def edit
-    @group = GroupType.find(params[:data_id])
+    #use the id to store the group id passed to this action
+    #but :data_id may still put here to ensure that other ajax call use :data_id to pass the id of group.
+    id = params[:data_id].nil? ? params[:grid_object_id] : params[:data_id]
+    @group = GroupType.find(id)
     @list_headers = @current_user.all_person_lists
     @group_list = GroupList.new
     @group_lists = @group.group_lists

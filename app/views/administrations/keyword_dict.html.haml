@@ -16,7 +16,7 @@
           .title
             = link_to_function image_tag("add_icon.png" , :size => "22x22", :id => "keyword_add_entry", :class => "new_option", :field => "keyword")
             &nbsp
-          %h2  New Keyword
+          %h2 New Keyword
           %input{:style => "display:none;", :name=>"type_id",:type_id => "",:id => "type_id"}
           %div#keyword_add_entry_form{:style => "display:none;",:type_id => ""}
             = p.text_field :type, {:style => "display:none"}
@@ -35,10 +35,8 @@
                 %label &nbsp
                 = submit_tag 'Submit', :style => 'display:inline;float:right;', :name => 'edit',:id=>"keyword_new_submit",:disabled=>true
 
-        %div#keyword_entries
-
-        %br.clear
-
+    %div#keyword_entries
+    %br.clear
     %div#edit_keyword_entry
 
     

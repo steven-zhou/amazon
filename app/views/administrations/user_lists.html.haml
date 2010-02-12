@@ -5,18 +5,7 @@
 %input{:id => "user_list_user_mode", :mode => "show", :style => "display:none"}
 
 #content_full_page
-  %div#user_list_show_group
-    - for i in @login_accounts
-      - status = i.login_status ? "container_active" : "container_inactive"
-      - status_flag = i.login_status ? "" : "hidden"
-      .user_list_each_user{:class => "#{status} toggle_options", :id => "user_list_user_#{i.id}", :field => "user_list_user", :style => "width:47%;"}
-        .options{:style => "display:none;"}
-          = link_to_function image_tag('edit_icon.png'), :class => "#{status_flag} edit_option edit_logo", :id => 'user_list_user_edit_button', :controller => "user_lists", :data_id => i.id, :field => "user_list_user", :title=>"Edit"
-        .title
-          -list_flag = i.user_list_headers.size > 1 ? "lists" : "list"
-          %h3 #{i.user_name}(#{i.person.name}) - #{i.user_list_headers.size} - #{list_flag}
-            
-              
-
+  %div#user_list_show_group.full_container
+    =render :partial => '/user_management/show_existing_users'
   %br.clear
   %div#user_list_user_edit_container
