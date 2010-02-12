@@ -3129,4 +3129,210 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
+  def show_group_lists_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    tag_type_id = params[:tag_type_id]
+  
+    sortname ? sortname : "grid_object_id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @group_types = GroupType.find(
+        :all,
+        :conditions => ["tag_type_id = ?", tag_type_id],
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start
+      )
+      count = GroupType.count(:all, :conditions => ["tag_type_id = ?", tag_type_id])
+    end
+
+    if(query != "%%")
+      @group_types = GroupType.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND tag_type_id = ? ", query, tag_type_id])
+      count = GroupType.count(:all, :conditions=>[qtype +" ilike ? AND tag_type_id = ? ", query, tag_type_id])
+    end
+    
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @group_types.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+          u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed ? "<span class='red'>"+(u.description.nil? ? "" : u.description)+"</span>" : u.description
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_user_accounts_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    
+    sortname ? sortname : "grid_object_id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @login_accounts = SystemUser.find(
+        :all,
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start
+      ) rescue @login_accounts = SystemUser.new
+      count = SystemUser.count(:all)
+    end
+
+    if(query != "%%")
+      @login_accounts = SystemUser.find(
+        :all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query]) rescue @login_accounts = SystemUser.new
+      count = SystemUser.count(:all, :conditions=>[qtype +" ilike ? ", query])
+    end
+
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @login_accounts.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.id.nil? ? "" : u.id,
+          u.person_id.nil? ? "" : u.person_id,
+          u.user_name.nil? ? "" : u.user_name
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_user_groups_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    tag_type_id = params[:tag_type_id]
+
+    sortname ? sortname : "grid_object_id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @group_types = GroupType.find(
+        :all,
+        :conditions=>["tag_type_id = ?", tag_type_id],
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start
+      ) rescue @group_types = GroupType.new
+      count = GroupType.count(:all)
+    end
+
+    if(query != "%%")
+      @group_types = GroupType.find(
+        :all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?  AND tag_type_id = ?", query, tag_type_id]) rescue @group_types = GroupType.new
+      count = GroupType.count(:all, :conditions=>[qtype +" ilike ? ", query])
+    end
+
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @group_types.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.id.nil? ? "" : u.id,
+          u.name.nil? ? "" : u.name,
+          u.login_accounts.size.nil? ? "" : u.login_accounts.size
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_user_list_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    
+    sortname ? sortname : "grid_object_id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @systemusers = SystemUser.find(
+        :all,
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start
+      ) rescue @systemusers = SystemUser.new
+      count = SystemUser.count(:all)
+    end
+
+    if(query != "%%")
+      @systemusers = SystemUser.find(
+        :all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? ", query]) rescue @systemusers = SystemUser.new
+      count = SystemUser.count(:all, :conditions=>[qtype +" ilike ? ", query])
+    end
+
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @systemusers.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.id.nil? ? "" : u.id,
+          u.user_name.nil? ? "" : u.user_name,
+          u.person.name.nil? ? "" : u.person.name
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+  end
 end

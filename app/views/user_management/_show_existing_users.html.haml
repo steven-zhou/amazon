@@ -1,12 +1,10 @@
 .full_container
-  %h1 Existing Group Lists
-  .full_container
-    %table#show_group_lists_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/group_permissions/"}
-  #group_permission_group_edit_container
+  %h1 Existing Users
+  %table#show_user_list_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/user_lists/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
-    $("#show_group_lists_grid").flexigrid({
-      url: '/grids/show_group_lists_grid?tag_type_id=#{@tag_type_id}',
+    $("#show_user_list_grid").flexigrid({
+      url: '/grids/show_user_list_grid',
       dataType: 'json',
       colModel: [
         {
@@ -18,16 +16,16 @@
         },
 
         {
-          display: 'Name',
-          name: 'name',
+          display: 'User Name',
+          name: 'user_name',
           width: 570,
           sortable: true,
           align: 'left'
         },
 
         {
-          display: 'Description',
-          name: 'description',
+          display: 'Personal Name',
+          name: 'person.name',
           width: 270,
           sortable: true,
           align: 'left'
@@ -36,16 +34,12 @@
 
       searchitems:[
       {
-        display: 'Name',
-        name: 'name'
-      },
-      {
-        display: 'Description',
-        name: 'description'
+        display: 'User Name',
+        name: 'user_name'
       }
       ],
 
-      sortname: "name",
+      sortname: "user_name",
       sortorder: "asc",
       usepager: true,
       title: '',

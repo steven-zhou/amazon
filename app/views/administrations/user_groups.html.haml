@@ -2,19 +2,9 @@
   #page_title
     %h1 User Groups
 %input{:id => "user_group_group_mode", :mode => "show", :style => "display:none"}
-#content_full_page
+#content_full_page.full_container
   %div#group_display
-    - for i in @group_types
-      - status = i.status ? "container_active" : "container_inactive"
-      - status_flag = i.status ? "" : "hidden"
-      .group_type_tab.toggle_options{:class => "#{status} toggle_options", :id => "group_type_#{i.id}", :field => "user_group_group", :style => "width:47%;"}
-        .options{:style=> "display:inline;float:right;display:none;"}
-          = link_to_function image_tag('edit_icon.png'), :class => '#{status_flag} edit_option edit_logo', :controller => "user_groups", :data_id => i.id, :field => "user_group_group", :title=>"Edit"
-        .title
-          %h3= "#{i.name}""\-""#{i.login_accounts.size}" "\-" "users"
-
-              
-            
+    = render :partial => '/user_management/show_existing_user_groups'
   %br.clear
   %div#user_group_group_edit_container
 

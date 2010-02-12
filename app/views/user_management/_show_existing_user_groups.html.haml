@@ -1,12 +1,10 @@
 .full_container
-  %h1 Existing Group Lists
-  .full_container
-    %table#show_group_lists_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/group_permissions/"}
-  #group_permission_group_edit_container
+  %h1 Existing User Groups
+  %table#show_user_groups_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/user_groups/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
-    $("#show_group_lists_grid").flexigrid({
-      url: '/grids/show_group_lists_grid?tag_type_id=#{@tag_type_id}',
+    $("#show_user_groups_grid").flexigrid({
+      url: '/grids/show_user_groups_grid?tag_type_id=#{@tag_type_id}',
       dataType: 'json',
       colModel: [
         {
@@ -26,8 +24,8 @@
         },
 
         {
-          display: 'Description',
-          name: 'description',
+          display: 'Number of accouts',
+          name: 'login_accounts.size',
           width: 270,
           sortable: true,
           align: 'left'
@@ -38,10 +36,6 @@
       {
         display: 'Name',
         name: 'name'
-      },
-      {
-        display: 'Description',
-        name: 'description'
       }
       ],
 

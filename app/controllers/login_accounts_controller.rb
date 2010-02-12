@@ -116,6 +116,7 @@ class LoginAccountsController < ApplicationController
 
   def destroy
     @login_account = SystemUser.find(params[:id].to_i)
+
     @user_group = @login_account.user_groups
     for ug in @user_group
       ug.destroy
