@@ -11,15 +11,15 @@
 <div id="content_holder">
   <div id="top">
     <div>
-      <div class="top_item">Credit: </div>
+      <div class="top_item">Credit: <%= @client.full_name %></div>
       <div class="top_item">&nbsp;</div>
-      <div class="top_item">Date: </div>
+      <div class="top_item">Date: <%= @date %></div>
     </div>
 
     <div>
-      <div class="top_item">Bank Run ID: </div>
-      <div class="top_item">Bank Account: </div>
-      <div class="top_item">Time: </div>
+      <div class="top_item">Bank Run ID: <%= @run.id %></div>
+      <div class="top_item">Bank Account: <%= @account.account_number %></div>
+      <div class="top_item">Time: <%= @time %></div>
     </div>
       <br class="clear"/>
   </div>

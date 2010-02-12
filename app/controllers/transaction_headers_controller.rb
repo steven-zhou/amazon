@@ -334,26 +334,33 @@ class TransactionHeadersController < ApplicationController
   end
 
   def run
-    #clear all temp banked transaction
-#    @temp = TransactionHeader.find(:all, :conditions => ["temp_banked = true"])
-#    @temp.each do |i|
-#      i.temp_banked = nil
-#      i.save
-#    end
-#
-#    #new Bank Run
-#    @run = BankRun.new
-#    @bds = BankDepositSheet.new
-#    conditions = Array.new
-#    values = Array.new
-#    conditions << "banked = ?"
-#    values << "false"
-#    @transaction_headers = TransactionHeader.find(:all, :conditions => [conditions.join(" & "), *values])
-#    @transaction_headers.each do |i|
-#      i.temp_banked = true
-#      i.banked = true
-#      i.save
-#    end
+    #new Bank Run
+    @run = BankRun.new
+    @cheques = Array.new
+    @accounts = Array.new
+    conditions = Array.new
+    values = Array.new
+    conditions << "banked = ?"
+    values << "false"
+    BankRun.transaction do
+      @run.save
+      @transaction_headers = TransactionHeader.find(:all, :conditions => [conditions.join(" & "), *values])
+      @transaction_headers.each do |i|
+        @run_detail = BankRunDetail.new(:bank_run_id => @run.id, :transaction_header_id => i.id)
+        @run_detail.save
+        i.update_attribute("banked", true)
+        if i.transaction_type_detail.class.to_s == "ChequeDetail"
+          @cheques << i 
+          @accounts << i.bank_account unless @accounts.include?(i.bank_account)
+        end
+      end
+    end
+
+    @client = ClientOrganisation.first
+    @run = BankRun.find(@run.id)
+    @date = @run.created_at.strftime('%d-%m-%Y')
+    @time = Time.now.strftime('%I:%m%p')
+    @account = @accounts.first
     render :pdf => "file_name", :template => "transactions/run.pdf.erb", :layout => false
   end
 end
