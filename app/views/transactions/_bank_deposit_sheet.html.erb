@@ -1,0 +1,68 @@
+<style type="text/css">
+  #header {margin:5px auto;width:100%;text-align:center;}
+  .top_item {float:left;width:33%;}
+  .title_item {float:left;width:20%;}
+  .clear {clear:both;}
+  #summary {width:100%;}
+  #summary_detail {margin:5px auto;width:25%;}
+  .summary_item {width:50%;float:left;}
+</style>
+<div id="header"><h1>Bank Deposit Sheet</h1></div>
+<div id="content_holder">
+  <div id="top">
+    <div>
+      <div class="top_item">Credit: </div>
+      <div class="top_item">&nbsp;</div>
+      <div class="top_item">Date: </div>
+    </div>
+
+    <div>
+      <div class="top_item">Bank Run ID: </div>
+      <div class="top_item">Bank Account: </div>
+      <div class="top_item">Time: </div>
+    </div>
+      <br class="clear"/>
+  </div>
+
+
+<hr/>
+<hr/>
+  <div id="title">
+      <div class="title_item">Drawers Name</div>
+      <div class="title_item">Cheque No.</div>
+      <div class="title_item">Bank</div>
+      <div class="title_item">Branch</div>
+      <div class="title_item">Amount</div>
+      <br class="clear"/>
+  </div>
+<hr/>
+<hr/>
+
+<div id="content">
+    <%- for i in [1, 2, 3] do %>
+      <div class="title_item"><%=i%></div>
+      <div class="title_item"><%=i%></div>
+      <div class="title_item"><%=i%></div>
+      <div class="title_item"><%=i%></div>
+      <div class="title_item"><%=i%></div>
+    <%- end %>
+    <br class="clear"/>
+</div>
+<hr/>
+<hr/>
+
+<div id="summary">
+    <div id="summary_detail">
+        <h2>Bank Deposit Total</h2>
+        <div class="summary_item">Cheques: </div>
+        <div class="summary_item">$9999.99</div>
+        <div class="summary_item">Cash: </div>
+        <div class="summary_item">$9999.99</div>
+        <br class="clear"/>
+        <hr/>
+        <div class="summary_item">Total Deposit: </div>
+        <div class="summary_item">$9999.99</div>
+    </div>
+    <br class="clear"/>
+</div>
+</div>
