@@ -1,4 +1,6 @@
 class PersonQueryHeader < QueryHeader
+  
+  has_many :entity_on_query, :through => :query_details, :source => :person
 
     def self.saved_queries
     PersonQueryHeader.find(:all, :conditions => ["query_headers.group = ?", "save"], :order => "id")

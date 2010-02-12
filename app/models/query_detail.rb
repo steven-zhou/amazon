@@ -1,6 +1,7 @@
 class QueryDetail < ActiveRecord::Base
 
   belongs_to :query_header
+  belongs_to :person, :foreign_key => "entity_id"
 
   validates_presence_of :table_name, :field_name
 

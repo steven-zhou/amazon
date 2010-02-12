@@ -1,0 +1,37 @@
+<%- options = String.new  %>
+
+
+$("#global_change_value").removeClass();
+$('#global_change_value').val("").change();
+<%-if @type== "keyword" || @type == "role" || @type == "group"%>
+$('#input_data_value').css('display','none');
+$('#select_system_data').css('display','');
+
+  <% @value.each do |i| %>
+    <%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
+  <%- end %>
+
+
+$("#global_add").attr('disabled',false);
+$("#global_change").attr('disabled',true);
+$("#global_change_checkbox").css('display','none');
+$("#system_data_id").html("<%= escape_javascript("#{options}") %>");
+$("#system_data_id").change('');
+
+
+
+<%else%>
+
+
+$("#global_add").attr('disabled',true);
+$("#global_change").attr('disabled',true);
+<%if @type == "note"%>
+$("#global_change_checkbox").css('display','none');
+$("#global_change").attr('disabled',true);
+<%else%>
+$("#global_change_checkbox").css('display','');
+<%end%>
+$('#input_data_value').css('display','');
+$('#select_system_data').css('display','none');
+<%end%>
+

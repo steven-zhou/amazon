@@ -1,0 +1,14 @@
+<%- options = String.new  %>
+<%-if @result == "addresses"%>
+  <% @select_type.each do |i| %>
+    <%- options += '<option value='+"#{i.sub(" ","").underscore}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+ <%-  elsif @result == "keyword" || @result == "role"||@result =="group"||@result == "note"%>
+  <% @select_type.each do |i| %>
+    <%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
+  <%- end %>
+
+<%end%>
+
+ $("#table_field_id").html("<%= escape_javascript("#{options}") %>");
+ $("#table_field_id").change('');

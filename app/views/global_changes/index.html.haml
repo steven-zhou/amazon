@@ -6,27 +6,48 @@
       %h2 List/Query
       =label :list_query_name,:list_query_name_id, 'Select List/Query'
       %select{:id => "list_header_name", :name => "list_header_id",:style => "width:150px"}
-        - PersonListHeader.saved_lists.each do |r|
-          %option{:value => "#{r.id}"} #{r.name}
+        - @list_headers.each do |r|
+          %option{:value => "#{r.id}_list"} #{r.name}
+        - @query_headers.each do |r|
+          %option{:value => "#{r.id}_query"} #{r.name}
+
     #select_table_and_field
       #select_table
         .form_line
           =label :table_name,:table_id, 'Select Table'
-          =collection_select :table_name,:table_id, TableMetaMetaType.find(:all, :conditions => ["category != ?", "organisation"], :order => "name"), :name, :name, {:include_blank => true}, {:class => "show_fields clear_select",:style => "width:150px"}
+          %select#global_change_table_name{:class => "global_change_fields clear_select",:style => "width:150px"}
+            %option
+            %option{:value => "addresses"} Address
+            %option{:value => "keyword"} Keyword
+            %option{:value => "role"} Role
+            %option{:value => "group"} Group
+            %option{:value => "note"} Note
+
       #select_field
         .form_line
           =label :table_field,:table_field_id, 'Select Field'
           %select#table_field_id{:style => "width:150px",:name=>"table_field"}
             %option
     #input_value
-      =label :value,:value_id, 'Value'
-      %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:150px"}
-      =radio_button_tag "add_to_front","front",:checked => true
-      =radio_button_tag "add_to_front","end"
-      %input{:type => "button", :value => "Add", :class => "global_change", :source => "person"}
-    
-      %input{:type => "button", :value => "Change", :class => "global_change", :source => "person"}
-      %input{:type => "button", :value => "Delete", :class => "global_change", :source => "person"}
+      #input_data_value
+        =label :value,:value_id, 'Value'
+        %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:150px"}
+      #select_system_data{:style=>"display:none;"}
+        =label :system_data,:system_data_id, 'Select Data'
+        %select#system_data_id{:style => "width:150px",:name=>"global_change_value"}
+          %option
+      .form_line
+        %div#global_change_checkbox
+          .field_10
+            =label :add_to_front,:add_to_front_id, 'Add to front'
+            =radio_button_tag "add_to_front","front",:checked => true
+          .field_10
+            =label :add_to_end,:add_to_end_id, 'Add to end'
+            =radio_button_tag "add_to_front","end"
+        .field_60
+          %input{:type => "button",:id=>"global_add", :value => "Add", :class => "global_change", :source => "person",:disabled =>true}
+          %input{:type => "button",:id=>"global_change", :value => "Change", :class => "global_change", :source => "person",:disabled =>true}
+          %input{:type => "button",:id=>"global_delete", :value => "Delete", :class => "global_change", :source => "person"}
 
 
 

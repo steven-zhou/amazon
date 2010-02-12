@@ -22,6 +22,9 @@ class GroupType < Tag
   after_create :assign_priority
   before_destroy :reorder_priority
 
+
+
+
   def group_person_lists
     person_lists = Array.new
     self.list_headers.each do |i|
@@ -31,6 +34,8 @@ class GroupType < Tag
     end
     person_lists
   end
+
+
 
   def group_organisation_lists
     organisation_lists = Array.new
