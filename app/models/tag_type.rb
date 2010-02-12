@@ -23,6 +23,8 @@ class TagType < ActiveRecord::Base
     return results
   end
 
+  
+
   #  def remove_all_children
   #    self.to_be_removed = true
   #    self.save

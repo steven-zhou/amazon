@@ -3385,3 +3385,24 @@ flash_message_init = function(){
     $('#flash_message').dialog('open');
 
 };
+
+
+
+/*for general 2 level drop down list hook*/
+
+$(function(){
+    $(".general_drop_down_level").live('change', function(){
+        if($(this).val()){
+            $.ajax({
+                 type: $(this).attr("method"),
+                url: $(this).attr("url"),
+                data: 'level1_value='+$(this).val()+'&level2='+$(this).attr("level2")+'&drop_down_field='+$(this).attr("drop_down_field"),
+                dataType: "script"
+            });
+        }else{
+             $('.drop_down_level2[drop_down_field='+ $(this).attr('drop_down_field') +']').html("");
+             $('.drop_down_level2_description[drop_down_field='+ $(this).attr('drop_down_field') +']').html("<label class='descriptions'>&nbsp;</label>");
+          
+        }
+    });
+});

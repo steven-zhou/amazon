@@ -198,6 +198,10 @@ class QueryHeader < ActiveRecord::Base
   def person_query_header?
     self.class.to_s == "PersonQueryHeader"
   end
+
+  def self.saved_query_header
+    QueryHeader.find(:all, :conditions => ["query_headers.group =? AND status =?", "save", "true"])
+  end
  
 end
 

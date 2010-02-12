@@ -7,23 +7,28 @@
     #lol
 
 
-  #step1.full_container
+  - form_for :transaction, :url => "/transaction_headers/run", :html => {:class => "full_container ajax_form"} do |f|
     %h1 STEP 1: Transaction Selection
-    %input.hidden{:id => "bank_run_mode", :mode => "show"}
+    All outstanding transactions.
+    = link_to_function "More Options", :class => "toggle_button", :toggle_id_name => "enquiry_filter"
 
-    #enquiry_filter
+    #enquiry_filter{:style => "display:none;float:left;margin-top:20px;"}
       = render :partial => "transactions/bank_run_filter"
 
-    #enquiry_result
+    %h1{:style => "margin-top:20px;"} STEP 2: Report Selection
+    .form_line
+      %input{:type => "checkbox", :readonly => "true", :checked => true} Bank Deposit Sheet
+    .form_line
+      %input{:type => "checkbox", :name => "BRAS"} Bank Run Audit Sheet
+    .form_line
+      %input{:type => "checkbox", :name => "CCR"} Credit Cards Receipt
+    .form_line
+      %input{:type => "checkbox", :name => "RAS"} Receipt Account Summary
+    .form_line
+      %input{:type => "checkbox", :name => "RTS"} Receipt Type Summary
+    .form_line
+      %input{:type => "checkbox", :name => "CS"} Campaign Summary
 
-  #step2.full_container
-    = link_to_function "BACK TO --> STEP 1: Transaction Selection"
-    %h1 STEP 2: Report Selection
-
-
-  #step3.full_container
-    = link_to_function "BACK TO --> STEP 1: Transaction Selection"
-    %br
-    = link_to_function "BACK TO --> STEP 2: Report Selection"
-    %h1 STEP 3: Bank Run Process
-
+    %h1 STEP 3: Bank Run Process    
+    = submit_tag "Run", :id => "transaction_run"
+    = button_to_function "Rollback", :style => "float:right;margin-right:20px;display:none;", :id => "rollback"

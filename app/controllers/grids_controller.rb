@@ -2900,25 +2900,24 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @mail_templates = MailTemplate.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start
-      )
-    end
-
-    if(query == "%%")
-
-      count = MailTemplate.count(:all)
-    end
-    # User provided search terms
-    if(query != "%%")
-      @mail_templates = MailTemplate.find(:all,
+      @mail_templates = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-      count = MailTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
+        :include => ["mail_merge_category"]
+      )
+      count = params[:model_type].constantize.count(:all,:include => ["mail_merge_category"])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @mail_templates = params[:model_type].constantize.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["mail_merge_category"])
+      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["mail_merge_category"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2927,6 +2926,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @mail_templates.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
+          u.mail_merge_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.mail_merge_category.name+"</span>" : u.mail_merge_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
         ]}}
@@ -2976,6 +2976,7 @@ class GridsController < ApplicationController
       )
       count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
     end
+
 
     if(query != "%%")
       @keywords = Keyword.find(:all,

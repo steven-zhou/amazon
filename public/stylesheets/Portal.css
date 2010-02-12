@@ -74,3 +74,6 @@
 .form_line .field_80 {width: 80%;}
 .form_line .field_85 {width: 85%;}
 
+.captcha #captcha_image {display:inline;height:auto;width:auto;}
+.captcha #label {display:block;width:30%;float:left;height:40px;margin-right:10px;}
+.captcha #captcha {width:60%;float:left;margin-right:10px;}
