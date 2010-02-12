@@ -13,9 +13,9 @@
           %li{:id => @current_action == "organisational_transaction" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Receipting/money_org.png')} Organisation", {:controller => "transactions", :action => "organisational_transaction"},:class => "draggable", :controller => "transactions", :action => "organisational_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_org.png", :title => "Organisational Transaction"
           %li{:id => @current_action == "enquiry" ? "selected" : ""}
-            = link_to "#{image_tag('/images/icon_holder.png')} Enquiry", {:controller => "transactions", :action => "enquiry"},:class => "draggable", :controller => "transactions", :action => "enquiry", :icon_module=>"receipting",:image_url => "/images/icon_holder.png", :title => "Transaction Enquiry"
+            = link_to "#{image_tag('/images/Icons/Receipting/transactions.png')} Enquiry", {:controller => "transactions", :action => "enquiry"},:class => "draggable", :controller => "transactions", :action => "enquiry", :icon_module=>"receipting",:image_url => "/images/Icons/Receipting/transactions.png", :title => "Transaction Enquiry"
           %li{:id => @current_action == "bank_run" ? "selected" : ""}
-            = link_to "#{image_tag('/images/icon_holder.png')} Bank Run", {:controller => "transactions", :action => "bank_run"},:class => "draggable", :controller => "transactions", :action => "bank_run", :icon_module=>"receipting",:image_url => "/images/icon_holder.png", :title => "Bank Run"
+            = link_to "#{image_tag('/images/Icons/Receipting/bankrun.png')} Bank Run", {:controller => "transactions", :action => "bank_run"},:class => "draggable", :controller => "transactions", :action => "bank_run", :icon_module=>"receipting",:image_url => "/images/Icons/Receipting/bankrun.png", :title => "Bank Run"
           %br.clear
     .bottom
 
