@@ -129,7 +129,7 @@ class MessageTemplatesController < ApplicationController
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
     @people = @list_header.entity_on_list
-    render :pdf => "file_name", :layout => false
+    render :pdf => "file_name", :template => "message_templates/merge_mail.pdf.erb", :layout => false
   end
 
 end
