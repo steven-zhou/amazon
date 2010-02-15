@@ -15,6 +15,15 @@ class PersonRole < ActiveRecord::Base
   validate :role_must_exist
   validate :person_must_exist
 
+
+  def self.find_person_role(id,role_id)
+    PersonRole.find(:first,:conditions=>["person_id = ? and role_id = ?",id,role_id])
+  end
+
+  def self.find_all_person_role(id,role_id)
+    PersonRole.find(:all,:conditions=>["person_id = ? and role_id = ?",id,role_id])
+  end
+
   def role_must_exist
     errors.add(:role_id, "You must specify a role that exists.") if (role_id && Role.find_by_id(role_id).nil?)
   end

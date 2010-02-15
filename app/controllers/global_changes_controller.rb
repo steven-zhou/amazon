@@ -1,6 +1,9 @@
 class GlobalChangesController < ApplicationController
 
+
+  # to show all the person lists and queries
   def index
+
     @list_headers = @current_user.all_person_lists
     @query_headers = PersonQueryHeader.saved_queries
     
@@ -10,7 +13,8 @@ class GlobalChangesController < ApplicationController
       format.html
     end
   end
-  
+
+  #to show the content in the first dropdown list
   def show_type
     if params[:select_type] == "addresses"
 
@@ -79,22 +83,29 @@ class GlobalChangesController < ApplicationController
 
           end
         elsif params[:table_name]=="keyword"
-          @person_keyword = KeywordLink.find(:first,:conditions=>["taggable_id = ? and keyword_id = ?  and taggable_type = 'Person'",i.id,params[:select_data].to_i])
+
+          @person_keyword = KeywordLink.find_keyword(i.id,params[:select_data].to_i)
+     
           unless @person_keyword.nil?
             @person_keyword.destroy
           end
+          
         elsif params[:table_name]=="role"
-          @person_role = PersonRole.find(:first,:conditions=>["person_id = ? and role_id = ?",i.id,params[:select_data].to_i])
+          @person_role = PersonRole.find_person_role(i.id,params[:select_data].to_i)
+           
+          
           unless @person_role.nil?
             @person_role.destroy
           end
         elsif params[:table_name] == "group"
-          @person_group = PersonGroup.find(:first,:conditions=>["people_id = ? and tag_id = ?",i.id,params[:select_data].to_i])
+          @person_group = PersonGroup.find_person_group(i.id,params[:select_data].to_i)
+      
           unless @person_group.nil?
             @person_group.destroy
           end
         elsif params[:table_name] == "note"
-          @person_note = Note.find(:first,:conditions=>["noteable_id = ? and note_type_id =? and noteable_type= 'Person' ",i.id,params[:table_field].to_i])
+          @person_note = Note.find_person_note(i.id,params[:table_field].to_i)
+          
           unless @person_note.nil?
             @person_note.destroy
           end
@@ -123,7 +134,8 @@ class GlobalChangesController < ApplicationController
           end
 
         elsif params[:table_name] == "keyword"
-          @person_keyword = KeywordLink.find(:all,:conditions=>["taggable_id = ? and keyword_id = ?  and taggable_type = 'Person'",i.id,params[:select_data].to_i])
+          @person_keyword = KeywordLink.find_all_person_keyword(i.id,params[:select_data].to_i)
+          
         
           if @person_keyword.empty?
             new_keyword_link = KeywordLink.new
@@ -133,7 +145,8 @@ class GlobalChangesController < ApplicationController
             new_keyword_link.save!
           end
         elsif params[:table_name] == "role"
-          @person_role = PersonRole.find(:all,:conditions=>["person_id = ? and role_id = ?",i.id,params[:select_data].to_i])
+          @person_role = PersonRole.find_all_person_role(i.id,params[:select_data].to_i)
+
           if @person_role.empty?
             new_person_role = PersonRole.new
             new_person_role.role_id = params[:select_data].to_i
@@ -144,7 +157,8 @@ class GlobalChangesController < ApplicationController
             new_person_role.save!
           end
         elsif params[:table_name] == "group"
-          @person_group = PersonGroup.find(:all,:conditions=>["people_id = ? and tag_id = ?",i.id,params[:select_data].to_i])
+          @person_group = PersonGroup.find_all_person_group(i.id,params[:select_data].to_i)
+
           if @person_group.empty?
             new_person_group = PersonGroup.new
             new_person_group.tag_id = params[:select_data].to_i
@@ -152,7 +166,8 @@ class GlobalChangesController < ApplicationController
             new_person_group.save!
           end
         elsif params[:table_name]=="note"
-          @person_note = Note.find(:all,:conditions=>["noteable_id = ? and label = ? and note_type_id =? and noteable_type= 'Person' ",i.id,params[:change_value],params[:table_field].to_i])
+          @person_note = Note.find_all_person_note(i.id,params[:change_value],params[:table_field].to_i)
+          
           if @person_note.empty?
             new_person_note = Note.new
             new_person_note.noteable_id = i.id
