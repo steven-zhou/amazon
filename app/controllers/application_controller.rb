@@ -108,6 +108,9 @@ class ApplicationController < ActionController::Base
     !(date =~ date_regex).nil?
   end
 
+  def current_user
+    return @current_user
+  end
 
   private
 
@@ -145,5 +148,6 @@ class ApplicationController < ActionController::Base
     system_log.save
    
   end
+
 
 end

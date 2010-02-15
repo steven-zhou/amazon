@@ -5,7 +5,6 @@ class Person < ActiveRecord::Base
   #  Associations
   ################
   #++
-  stampable
   
   has_many :addresses, :as => :addressable, :order => "priority_number ASC"
   has_many :phones, :as => :contactable, :order => "priority_number asc"
@@ -144,7 +143,8 @@ class Person < ActiveRecord::Base
   # Return the second title
   delegate :name, :to => :second_title, :prefix => true, :allow_nil => true
 
-  
+  stampable
+
   def primary_address    
     @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end

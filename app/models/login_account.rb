@@ -2,8 +2,7 @@ require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
   #  Optimized
-  model_stamper
-  stampable
+
 
   attr_accessor :password
   attr_accessor :update_login_account_password
@@ -21,10 +20,12 @@ class LoginAccount < ActiveRecord::Base
   validates_presence_of  :password , :if => :loginaccount_update?
 
 
-#if update no need to check the presence of password
+  model_stamper
+  stampable
+  #if update no need to check the presence of password
   def loginaccount_update?
     if update_login_account_password.nil?
-    update_login_account_password = false
+      update_login_account_password = false
     end
     return update_login_account_password
   end
