@@ -12,8 +12,12 @@ class Note < ActiveRecord::Base
     Note.find(:first,:conditions=>["noteable_id = ? and note_type_id =? and label =? and noteable_type= 'Person' ",id,note_type_id,label])
   end
 
-    def self.find_all_person_note(id,value,note_type_id)
-    Note.find(:all,:conditions=>["noteable_id = ? and label = ? and note_type_id =? and noteable_type= 'Person' ",id,value,note_type_id])
+    def self.find_all_note(id,value,note_type_id,source_type)
+    Note.find(:all,:conditions=>["noteable_id = ? and label = ? and note_type_id =? and noteable_type= ? ",id,value,note_type_id,source_type])
+  end
+
+     def self.find_org_note(id,note_type_id,label)
+    Note.find(:first,:conditions=>["noteable_id = ? and note_type_id =? and label =? and noteable_type= 'Organisation' ",id,note_type_id,label])
   end
 
 end

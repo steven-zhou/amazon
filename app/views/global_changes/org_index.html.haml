@@ -1,5 +1,5 @@
 .container
-  %h1 Person Glabal Change
+  %h1 Organisation Glabal Change
 
   .full_container
     #select_query_or_list
@@ -10,6 +10,7 @@
           %option{:value => "#{r.id}_list"} #{r.name}
         - @query_headers.each do |r|
           %option{:value => "#{r.id}_query"} #{r.name}
+
 
     #select_table_and_field
       #select_table
@@ -44,9 +45,9 @@
             =label :add_to_end,:add_to_end_id, 'Add to end'
             =radio_button_tag "add_to_front","end"
         .field_60
-          %input{:type => "button",:id=>"global_add", :value => "Add", :class => "global_change", :source => "Person",:disabled =>true}
-          %input{:type => "button",:id=>"global_change", :value => "Change", :class => "global_change", :source => "Person",:disabled =>true}
-          %input{:type => "button",:id=>"global_delete", :value => "Delete", :class => "global_change", :source => "Person",:disabled =>true}
+          %input{:type => "button",:id=>"global_add", :value => "Add", :class => "global_change", :source => "Organisation",:disabled =>true}
+          %input{:type => "button",:id=>"global_change", :value => "Change", :class => "global_change", :source => "Organisation",:disabled =>true}
+          %input{:type => "button",:id=>"global_delete", :value => "Delete", :class => "global_change", :source => "Organisation",:disabled =>true}
 
 
 
