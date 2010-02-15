@@ -3,7 +3,7 @@
 
 $("#global_change_value").removeClass();
 $('#global_change_value').val("").change();
-<%-if @type== "keyword" || @type == "role" || @type == "group"%>
+<%-if @type== "keyword" || @type == "group"%>
 $('#input_data_value').css('display','none');
 $('#select_system_data').css('display','');
 
@@ -28,6 +28,7 @@ $("#global_change").attr('disabled',true);
 <%if @type == "note"%>
 $("#global_change_checkbox").css('display','none');
 $("#global_change").attr('disabled',true);
+$("#global_delete").attr('disabled',true);
 <%else%>
 $("#global_change_checkbox").css('display','');
 <%end%>

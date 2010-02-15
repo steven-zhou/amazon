@@ -6,63 +6,12 @@
   #summary {width:100%;}
   #summary_detail {margin:5px auto;width:25%;}
   .summary_item {width:50%;float:left;}
+  .page_break {page-break-after: always;}
 </style>
-<div id="header"><h1>Bank Deposit Sheet</h1></div>
-<div id="content_holder">
-  <div id="top">
-    <div>
-      <div class="top_item">Credit: <%= @client.full_name %></div>
-      <div class="top_item">&nbsp;</div>
-      <div class="top_item">Date: <%= @date %></div>
-    </div>
 
-    <div>
-      <div class="top_item">Bank Run ID: <%= @run.id %></div>
-      <div class="top_item">Bank Account: <%= @account.account_number %></div>
-      <div class="top_item">Time: <%= @time %></div>
-    </div>
-      <br class="clear"/>
-  </div>
-
-
-<hr/>
-<hr/>
-  <div id="title">
-      <div class="title_item">Drawers Name</div>
-      <div class="title_item">Cheque No.</div>
-      <div class="title_item">Bank</div>
-      <div class="title_item">Branch</div>
-      <div class="title_item">Amount</div>
-      <br class="clear"/>
-  </div>
-<hr/>
-<hr/>
-
-<div id="content">
-    <%- for @cheque in @cheques do %>
-      <div class="title_item"><%= @cheque.name_on_cheque %></div>
-      <div class="title_item"><%= @cheque.cheque_number %></div>
-      <div class="title_item"><%= @cheque.bank.full_name %></div>
-      <div class="title_item"><%= @cheque.bank.branch_number %></div>
-      <div class="title_item"><%= number_to_currency(@cheque.transaction_header.total_amount) %></div>
-    <%- end %>
-    <br class="clear"/>
-</div>
-<hr/>
-<hr/>
-
-<div id="summary">
-    <div id="summary_detail">
-        <h2>Bank Deposit Total</h2>
-        <div class="summary_item">Cheques: </div>
-        <div class="summary_item">$9999.99</div>
-        <div class="summary_item">Cash: </div>
-        <div class="summary_item">$9999.99</div>
-        <br class="clear"/>
-        <hr/>
-        <div class="summary_item">Total Deposit: </div>
-        <div class="summary_item">$9999.99</div>
-    </div>
-    <br class="clear"/>
-</div>
-</div>
+<%- @accounts.each do |account|%>
+<%= render :partial => "transactions/bank_deposit_sheet_per_account", :locals => {:account => account} %>
+  <%- if account != @accounts.last %>
+  <div class="page_break">&nbsp;</div>
+  <%- end %>
+<%- end %>

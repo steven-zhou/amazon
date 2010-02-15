@@ -1,21 +1,20 @@
 -# The main Keyword tab
-.container
-  .header_container
-    .options{:id => 'person_group_close_button'}
-      = link_to_function image_tag('close_icon.png'), :class => "clear_group_form close_option ", :field => "organisation_group", :toggle_id_name => "new_group", :style=>"display:none", :title=>"Close"
-    .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form new_option toggle_button", :field => "organisation_group", :toggle_id_name => "new_group" if (!organisation.nil? && !organisation.new_record?)
-      &nbsp
-    %h1 New Group
-    %input.hidden{:id => "organisation_group_mode", :mode => "show"}
+.header_container
+  .options{:id => 'person_group_close_button'}
+    = link_to_function image_tag('close_icon.png'), :class => "clear_group_form close_option ", :field => "organisation_group", :toggle_id_name => "new_group", :style=>"display:none", :title=>"Close"
+  .title
+    = link_to_function image_tag('add_icon.png'), :id=>"add_group", :class=>"clear_group_form new_option toggle_button", :field => "organisation_group", :toggle_id_name => "new_group" if (!organisation.nil? && !organisation.new_record?)
+    &nbsp
+  %h1 New Group
+  %input.hidden{:id => "organisation_group_mode", :mode => "show"}
    
-    .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
-      -form_for([@organisation, @organisation_group], :url => "/organisations/#{@organisation.id}/organisation_groups", :html => {:class => 'ajax_form'}) do |groups|
-        = render :partial => '/organisation_groups/group_form', :locals => {:groups => groups}
-        = submit_tag 'Submit',:id=>"organisation_new_group", :disabled => true
-      %br.clear
+  .div{:style=>"display:none", :id => "new_group",:name => "new_group"}  
+    -form_for([@organisation, @organisation_group], :url => "/organisations/#{@organisation.id}/organisation_groups", :html => {:class => 'ajax_form'}) do |groups|
+      = render :partial => '/organisation_groups/group_form', :locals => {:groups => groups}
+      = submit_tag 'Submit',:id=>"organisation_new_group", :disabled => true
+    %br.clear
 
-  #organisation_groups
-    = render :partial => '/organisation_groups/organisation_group', :collection =>  organisation.organisation_groups
+#organisation_groups
+  = render :partial => '/organisation_groups/organisation_group', :collection =>  organisation.organisation_groups
 
 #show_group_members
