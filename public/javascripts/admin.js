@@ -2564,7 +2564,7 @@ $(function(){
     $.ajax({
       type: "GET",
       url: "/global_changes/change_value.js",
-      data: "source_id="+$("#list_header_name").val()+"&table_name="+$('#global_change_table_name').val()+"&table_field="+$('#table_field_id').val()+"&change_value="+$('#global_change_value').val()+"&type="+$(this).val()+"&add_front="+$('#add_to_front_front').attr("checked")+"&add_end="+$('#add_to_front_end').attr("checked")+"&select_data="+$('#system_data_id').val(),
+      data: "source_id="+$("#list_header_name").val()+"&table_name="+$('#global_change_table_name').val()+"&table_field="+$('#table_field_id').val()+"&change_value="+$('#global_change_value').val()+"&type="+$(this).val()+"&add_front="+$('#add_to_front_front').attr("checked")+"&add_end="+$('#add_to_front_end').attr("checked")+"&select_data="+$('#system_data_id').val()+"&source_type="+$(this).attr("source"),
       dataType: "script"
     })
 
