@@ -203,11 +203,6 @@ class TransactionHeadersController < ApplicationController
         conditions << ("entity_type=" + params[:user_type])
       end
 
-      if (params[:user_id] != "All" || !params[:user_id].blank?)
-        conditions << ("entity_id=" + params[:user_id].to_i.to_s)
-      end
-
-
       if (!params[:start_id].blank? || !params[:end_id].blank?)
         params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
         params[:end_id] =   TransactionHeader.last_record.id.to_s if params[:end_id].blank?
@@ -338,16 +333,44 @@ class TransactionHeadersController < ApplicationController
     values = Array.new
     conditions << "banked = ?"
     values << "false"
-    
+    @date_valid = true
     if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
       conditions << "bank_account_id = ?"
       values << params[:bank_account_number]
     end
 
+#    if (params[:user_id] || params[:user_id].to_i != 0)
+#      conditions << "entity_id = ?"
+#      values << params[:user_id]
+#    end
+
+    if (params[:start_id] || params[:end_id])
+      params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
+      params[:end_id] = TransactionHeader.last_record.id.to_s if params[:end_id].blank?
+      conditions << "id BETWEEN ? AND ?"
+      values << params[:start_id].to_i.to_s
+      values << params[:end_id].to_i.to_s
+    end
+
+    if (params[:start_transaction_date] || params[:end_transaction_date])
+      params[:start_transaction_date] = "01-01-#{Date.today().year().to_s}"if params[:start_transaction_date].blank?
+      params[:end_transaction_date] = "31-12-#{Date.today().year().to_s}"if params[:end_transaction_date].blank?
+      if valid_date(params[:start_transaction_date]) && valid_date(params[:end_transaction_date])
+        conditions << "transaction_date BETWEEN ? AND ?"
+        values << params[:start_transaction_date].to_date
+        values << params[:end_transaction_date].to_date
+      else
+        @date_valid = false
+        flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
+    end
+    
     @transaction_headers = TransactionHeader.find(:all, :conditions => [conditions.join(" AND "), *values])
     
     if @transaction_headers.blank?
       flash[:warning] = "No outstanding transactions found"
+      redirect_to :controller => "transactions", :action => "bank_run"
+    elsif !@date_valid
       redirect_to :controller => "transactions", :action => "bank_run"
     else
       #new Bank Run

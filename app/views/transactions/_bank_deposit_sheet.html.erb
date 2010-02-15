@@ -39,12 +39,15 @@
 <hr/>
 
 <div id="content">
+    <%- @cheque_total = 0%>
     <%- for @cheque in @cheques do %>
       <div class="title_item"><%= @cheque.name_on_cheque %></div>
       <div class="title_item"><%= @cheque.cheque_number %></div>
       <div class="title_item"><%= @cheque.bank.full_name %></div>
       <div class="title_item"><%= @cheque.bank.branch_number %></div>
-      <div class="title_item"><%= number_to_currency(@cheque.transaction_header.total_amount) %></div>
+      <%- total = @cheque.transaction_header.total_amount%>
+      <%- @cheque_total += total%>
+      <div class="title_item"><%= number_to_currency(total)%></div>
     <%- end %>
     <br class="clear"/>
 </div>
@@ -55,13 +58,13 @@
     <div id="summary_detail">
         <h2>Bank Deposit Total</h2>
         <div class="summary_item">Cheques: </div>
-        <div class="summary_item">$9999.99</div>
+        <div class="summary_item"><%= number_to_currency(@cheque_total)%></div>
         <div class="summary_item">Cash: </div>
-        <div class="summary_item">$9999.99</div>
+        <div class="summary_item"><%= number_to_currency(@cash_total)%></div>
         <br class="clear"/>
         <hr/>
         <div class="summary_item">Total Deposit: </div>
-        <div class="summary_item">$9999.99</div>
+        <div class="summary_item"><%= number_to_currency(@cheque_total+@cash_total)%></div>
     </div>
     <br class="clear"/>
 </div>
