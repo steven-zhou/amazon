@@ -10,6 +10,15 @@ class PersonGroup < ActiveRecord::Base
 
 
 
+
+
+  def self.find_person_group(id,group_id)
+    PersonGroup.find(:first,:conditions=>["people_id = ? and tag_id = ?",id,group_id])
+  end
+
+    def self.find_all_person_group(id,group_id)
+    PersonGroup.find(:all,:conditions=>["people_id = ? and tag_id = ?",id,group_id])
+  end
 #  validate :group_must_unique
 #
 #
