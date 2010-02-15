@@ -1,4 +1,4 @@
-class AddUserstampsPeople < ActiveRecord::Migration
+class AddUserstamps < ActiveRecord::Migration
   def self.up
     add_column :people, :creator_id, :integer
     add_column :people, :updater_id, :integer
