@@ -6,7 +6,8 @@ class ApplicationController < ActionController::Base
   # System loggin added
  
   include ExceptionNotifiable
-
+  include Userstamp
+  
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
