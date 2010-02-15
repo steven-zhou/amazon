@@ -338,7 +338,13 @@ class TransactionHeadersController < ApplicationController
     values = Array.new
     conditions << "banked = ?"
     values << "false"
-    @transaction_headers = TransactionHeader.find(:all, :conditions => [conditions.join(" & "), *values])
+    
+    if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
+      conditions << "bank_account_id = ?"
+      values << params[:bank_account_number]
+    end
+
+    @transaction_headers = TransactionHeader.find(:all, :conditions => [conditions.join(" AND "), *values])
     
     if @transaction_headers.blank?
       flash[:warning] = "No outstanding transactions found"
@@ -368,7 +374,7 @@ class TransactionHeadersController < ApplicationController
       @date = @run.created_at.strftime('%d-%m-%Y')
       @time = Time.now.strftime('%I:%m%p')
       @account = @accounts.first
-      render :pdf => "file_name", :template => "transactions/run.pdf.erb", :layout => false
+      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false
     end
       
   end
