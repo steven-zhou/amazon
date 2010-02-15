@@ -7,7 +7,7 @@ class GlobalChangesController < ApplicationController
     @list_headers = @current_user.all_person_lists
     @query_headers = PersonQueryHeader.saved_queries
     
-    @table = ["Address","Keyword","Role","Group","Note"]
+    @table = ["Address","Keyword","Group","Note"]
 
     respond_to do |format|
       format.html
@@ -22,8 +22,8 @@ class GlobalChangesController < ApplicationController
     elsif params[:select_type] == "keyword"
       @select_type= KeywordType.active_keyword_type
 
-    elsif params[:select_type] == "role"
-      @select_type= RoleType.active_role_type
+#    elsif params[:select_type] == "role"
+#      @select_type= RoleType.active_role_type
     elsif params[:select_type] == "group"
       @select_type = TagType.show_meta_type
     elsif params[:select_type] == "note"
@@ -49,20 +49,23 @@ class GlobalChangesController < ApplicationController
 
       @source_value.each do |i|
         if params[:table_name]=="addresses"
-          type=TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:table_field], TableMetaMetaType.find_by_name(params[:table_name])]).category
+#          type=TableMetaType.find(:first, :conditions => ["name = ? AND tag_meta_type_id = ?", params[:table_field], TableMetaMetaType.find_by_name(params[:table_name])]).category
 
           unless i.__send__(params[:table_name]).empty?
             entity = i.__send__(params[:table_name]).first
-            if type.include?("FK")
-
-              change_forieng_key = (params[:table_field]).camelize.constantize.find_by_name(params[:select_data])
-
-              entity.__send__(params[:table_field].to_s.foreign_key+"=" , change_forieng_key.id)
-            else        
+#            if type.include?("FK")
+#
+#              change_forieng_key = (params[:table_field]).camelize.constantize.find_by_name(params[:select_data])
+#
+#              entity.__send__(params[:table_field].to_s.foreign_key+"=" , change_forieng_key.id)
+#            else
               entity.__send__((params[:table_field]+"=").to_sym, params[:change_value])  
 
-              entity.save!
-            end
+
+         unless entity.save!
+           flash.now[:error]= "Please Check Your Input"
+         end
+#            end
 
           end
 
@@ -79,7 +82,9 @@ class GlobalChangesController < ApplicationController
 
             entity.__send__((params[:table_field]+"=").to_sym, "")
 
-            entity.save!
+          unless  entity.save!
+            flash.now[:error]= "Please Check Your Input"
+          end
 
           end
         elsif params[:table_name]=="keyword"
@@ -90,13 +95,13 @@ class GlobalChangesController < ApplicationController
             @person_keyword.destroy
           end
           
-        elsif params[:table_name]=="role"
-          @person_role = PersonRole.find_person_role(i.id,params[:select_data].to_i)
-           
-          
-          unless @person_role.nil?
-            @person_role.destroy
-          end
+#        elsif params[:table_name]=="role"
+#          @person_role = PersonRole.find_person_role(i.id,params[:select_data].to_i)
+#
+#
+#          unless @person_role.nil?
+#            @person_role.destroy
+#          end
         elsif params[:table_name] == "group"
           @person_group = PersonGroup.find_person_group(i.id,params[:select_data].to_i)
       
@@ -104,7 +109,7 @@ class GlobalChangesController < ApplicationController
             @person_group.destroy
           end
         elsif params[:table_name] == "note"
-          @person_note = Note.find_person_note(i.id,params[:table_field].to_i)
+          @person_note = Note.find_person_note(i.id,params[:table_field].to_i,params[:change_value])
           
           unless @person_note.nil?
             @person_note.destroy
@@ -116,12 +121,14 @@ class GlobalChangesController < ApplicationController
 
       @source_value.each do |i|
         if params[:table_name] == "addresses"
-          
+
           unless i.__send__(params[:table_name]).empty?
 
             entity = i.__send__(params[:table_name]).first
+            entity_one = entity.__send__(params[:table_field])
             if params[:add_front] == "true"
-              entity.__send__((params[:table_field]+"=").to_sym, params[:change_value]+entity.__send__(params[:table_field]))
+
+              entity.__send__((params[:table_field]+"=").to_sym, params[:change_value]+entity_one)
 
             end
             
@@ -129,7 +136,9 @@ class GlobalChangesController < ApplicationController
               entity.__send__((params[:table_field]+"=").to_sym, entity.__send__(params[:table_field])+params[:change_value])
             end
 
-            entity.save!
+          unless  entity.save!
+              flash.now[:error]= "Please Check Your Input"
+          end
 
           end
 
@@ -142,20 +151,22 @@ class GlobalChangesController < ApplicationController
             new_keyword_link.keyword_id = params[:select_data].to_i
             new_keyword_link.taggable_id = i.id
             new_keyword_link.taggable_type = "Person"
-            new_keyword_link.save!
+           unless new_keyword_link.save!
+             flash.now[:error]= "Please Check Your Input"
           end
-        elsif params[:table_name] == "role"
-          @person_role = PersonRole.find_all_person_role(i.id,params[:select_data].to_i)
-
-          if @person_role.empty?
-            new_person_role = PersonRole.new
-            new_person_role.role_id = params[:select_data].to_i
-            new_person_role.person_id = i.id
-     
-            new_person_role.assigned_by = @current_user.id
-            new_person_role.start_date = Time.now.strftime("%Y-%m-%d")
-            new_person_role.save!
           end
+#        elsif params[:table_name] == "role"
+#          @person_role = PersonRole.find_all_person_role(i.id,params[:select_data].to_i)
+#
+#          if @person_role.empty?
+#            new_person_role = PersonRole.new
+#            new_person_role.role_id = params[:select_data].to_i
+#            new_person_role.person_id = i.id
+#
+#            new_person_role.assigned_by = @current_user.id
+#            new_person_role.start_date = Time.now.strftime("%Y-%m-%d")
+#            new_person_role.save!
+#          end
         elsif params[:table_name] == "group"
           @person_group = PersonGroup.find_all_person_group(i.id,params[:select_data].to_i)
 
@@ -163,7 +174,9 @@ class GlobalChangesController < ApplicationController
             new_person_group = PersonGroup.new
             new_person_group.tag_id = params[:select_data].to_i
             new_person_group.people_id = i.id
-            new_person_group.save!
+           unless new_person_group.save!
+                   flash.now[:error]= "Please Check Your Input"
+          end
           end
         elsif params[:table_name]=="note"
           @person_note = Note.find_all_person_note(i.id,params[:change_value],params[:table_field].to_i)
@@ -175,7 +188,9 @@ class GlobalChangesController < ApplicationController
             new_person_note.noteable_type = "Person"
             new_person_note.note_type_id = params[:table_field].to_i
             new_person_note.active = true
-            new_person_note.save!
+           unless new_person_note.save!
+             flash.now[:error]= "Please Check Your Input"
+          end
           end
         end
       end
@@ -194,8 +209,8 @@ class GlobalChangesController < ApplicationController
 
     if params[:table_name] == "keyword"
       @value = KeywordType.find(params[:table_field].to_i).keywords
-    elsif params[:table_name] == "role"
-      @value =  RoleType.find(params[:table_field].to_i).roles
+#    elsif params[:table_name] == "role"
+#      @value =  RoleType.find(params[:table_field].to_i).roles
     elsif params[:table_name] == "group"
       @value=GroupMetaType.find(params[:table_field].to_i).group_types
     end

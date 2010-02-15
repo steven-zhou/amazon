@@ -2577,6 +2577,17 @@ $(function(){
 $(function(){
   $('#table_field_id').live('change',function(){
 
+    //     if($(this).val()!="" ||$('#table_field_id').val()!=null )
+    //       {
+    //         alert("abc");
+    //
+    //     $("#global_delete").attr('disabled',false);
+    //       }
+    //       else
+    //         {
+    //                    alert("efg");
+    //                $("#global_delete").attr('disabled',true);
+    //         }
 
 
     $.ajax({
@@ -2592,27 +2603,38 @@ $(function(){
   });
 
   $('#global_change_value').live('keyup',function(){
-    {
+  {
 
+    if( $(this).val()=="")
+    {
+      $("#global_add").attr('disabled',true);
+      $("#global_change").attr('disabled',true);
+
+    }
+    else
+    {
+      $("#global_add").attr('disabled',false);
+      $("#global_change").attr('disabled',false);
+    }
+
+    if ($("#global_change_table_name").val() == "note")
+    {
+      $("#global_change").attr('disabled',true);
       if( $(this).val()=="")
       {
-        $("#global_add").attr('disabled',true);
-        $("#global_change").attr('disabled',true);
+
+        $("#global_delete").attr('disabled',true);
       }
       else
       {
-        $("#global_add").attr('disabled',false);
-        $("#global_change").attr('disabled',false);
+        $("#global_delete").attr('disabled',false);
       }
-
-      if ($("#global_change_table_name").val() == "note")
-      {
-        $("#global_change").attr('disabled',true);
-      }
-
 
     }
-    });
+
+
+  }
+  });
 
 });
 
