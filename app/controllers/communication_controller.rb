@@ -236,6 +236,9 @@ class CommunicationController < ApplicationController
   end
   
   def organisation_mail_merge
+    @organisation_list_headers = @current_user.all_organisation_lists
+    @organisation_query_headers = QueryHeader.saved_query_header
+    @mail_templates = OrganisationMailTemplate.all
 
   end
 

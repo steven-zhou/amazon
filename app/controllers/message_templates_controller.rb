@@ -1,17 +1,9 @@
 class MessageTemplatesController < ApplicationController
 
-
-
-  def show
-
-  end
-
   def new
     @mail_template = params[:param1] == "person" ? PersonMailTemplate.new : OrganisationMailTemplate.new
-    @type = params[:param1]
-    
-    @table_attributes = TableMetaMetaType.table_categroy(@type)
-  
+    @type = params[:param1]   
+    @table_attributes = TableMetaMetaType.table_categroy(@type) 
     respond_to do |format|
       format.js
     end
@@ -22,12 +14,17 @@ class MessageTemplatesController < ApplicationController
     @mail_template = (params[:type]+"_mail_template").camelize.constantize.new(params[:mail_template])
     @type = params[:type]
     @model_type = (params[:type]+"_mail_template").camelize
-    #    if @mail_template.save
-    #      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new mail template with ID #{@mail_template.id}.")
-    #    else
-    #      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new mail template.")
-    #    end
-    @mail_template.save!
+    if @mail_template.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new mail template with ID #{@mail_template.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new mail template.")
+      #----------------------------presence - of--------------------
+      if(!@mail_template.errors[:name].nil? && @mail_template.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "A record with same name already exists, please try other name"
+      end
+    end
 
     respond_to do |format|
       format.js
@@ -48,8 +45,15 @@ class MessageTemplatesController < ApplicationController
   def update
     @mail_template = MessageTemplate.find(params[:id])
     if @mail_template.update_attributes(params[:mail_template])
-
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Mail Template with ID #{@mail_template.id}.")
     else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a Mail Template record.")
+      #----------------------------presence - of------------------
+      if(!@mail_template.errors[:name].nil? && @mail_template.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "A record with same name already exists, please try other name"
+      end
 
     end
     @type = params[:type]
@@ -87,6 +91,16 @@ class MessageTemplatesController < ApplicationController
 
   end
 
+  def drop_down_list_level2_3
+    @tag = TableMetaType.name_finder(params[:level2_value])
+    @tag_category = @tag.category
+    @drop_down_field = params[:drop_down_field]
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
   def retrieve_mail_template
     @mail_template = MessageTemplate.find(params[:id])
     @mail_template.to_be_removed = false
@@ -102,7 +116,7 @@ class MessageTemplatesController < ApplicationController
   end
 
   def destroy_mail_template
-    @mail_template = MessageTemplate.find(params[:id]) 
+    @mail_template = MessageTemplate.find(params[:id])
     @mail_template.to_be_removed = true
     @mail_template.save!
     @type = (@mail_template.class.to_s == "PersonMailTemplate")? "person" : "organisation"
@@ -114,8 +128,8 @@ class MessageTemplatesController < ApplicationController
   end
 
   def create_mail
-    @list_header = ListHeader.find(params[:list_header_id]) 
-    @mail_template = MessageTemplate.find(params[:message_template_id])   
+    @list_header = ListHeader.find(params[:list_header_id])
+    @mail_template = MessageTemplate.find(params[:message_template_id])
     @mail_merge = @mail_template.body
     @mail_merge = @mail_merge.gsub(/&lt;/, "<")
     @mail_merge = @mail_merge.gsub(/&gt;/, ">")
