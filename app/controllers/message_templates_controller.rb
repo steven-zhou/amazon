@@ -116,7 +116,9 @@ class MessageTemplatesController < ApplicationController
   def create_mail
     @list_header = ListHeader.find(params[:list_header_id]) 
     @mail_template = MessageTemplate.find(params[:message_template_id])   
-    @mail_merge = @mail_template.body.to_s
+    @mail_merge = @mail_template.body
+    @mail_merge = @mail_merge.gsub(/&lt;/, "<")
+    @mail_merge = @mail_merge.gsub(/&gt;/, ">")
     File.open("#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", 'w') do |f2|
       f2.puts "#{@mail_merge}"
     end
@@ -127,11 +129,7 @@ class MessageTemplatesController < ApplicationController
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
     @people = @list_header.entity_on_list
-    respond_to do |format|
-      format.html
-    end
-
-
+    render :pdf => "file_name", :template => "message_templates/merge_mail.pdf.erb", :layout => false
   end
 
 end
