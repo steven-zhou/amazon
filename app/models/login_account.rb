@@ -19,9 +19,6 @@ class LoginAccount < ActiveRecord::Base
 
   validates_presence_of  :password , :if => :loginaccount_update?
 
-
-  model_stamper
-  stampable
   #if update no need to check the presence of password
   def loginaccount_update?
     if update_login_account_password.nil?
