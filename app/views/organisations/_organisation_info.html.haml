@@ -23,6 +23,10 @@
     = link_to_function image_tag('Icons/Core/Org/tabs/employee_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/employments/page_initial", :method => "GET", :render_page => "/organisations/organisation_employee", :field => "employee_page", :params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/employee_BW.png'), :class=>"tab_switch_with_page_initial", :field => "employee_page"
 
+  #Group{:style => "float:left;margin-left:10px;", :title=> 'Group', :class => "organisation_edit_tab", :field => "groups"}
+    = link_to_function image_tag('Icons/Core/Org/tabs/groups_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_groups/page_initial", :method => "GET", :render_page => "/organisations/organisation_groups", :field => "groups_page", :params1 => @organisation.id, :type => "Organisation"
+    = link_to_function image_tag('Icons/Core/Org/tabs/groups_BW.png'), :class=>"tab_switch_with_page_initial", :field => "groups_page"
+
   #Account{:style => "float:left;margin-left:10px;", :title=> 'Account', :class => "organisation_edit_tab", :field => "banking"}
     = link_to_function image_tag('Icons/Core/Org/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_bank_accounts/page_initial", :method => "GET", :render_page => "/organisations/organisation_bank_account", :field => "banking_page", :params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "banking_page"
@@ -44,6 +48,8 @@
   #notes_page.tab_switch_container
 
   #employee_page.tab_switch_container
+
+  #groups_page.tab_switch_container
 
   #banking_page.tab_switch_container
 

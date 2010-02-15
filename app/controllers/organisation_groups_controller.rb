@@ -82,4 +82,15 @@ class OrganisationGroupsController < ApplicationController
     end
   end
 
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @organisation_group = OrganisationGroup.new
+    @organisation = Organisation.find_by_id(params[:params1])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end
