@@ -19,7 +19,6 @@
             %option
             %option{:value => "addresses"} Address
             %option{:value => "keyword"} Keyword
-            %option{:value => "role"} Role
             %option{:value => "group"} Group
             %option{:value => "note"} Note
 
@@ -47,7 +46,7 @@
         .field_60
           %input{:type => "button",:id=>"global_add", :value => "Add", :class => "global_change", :source => "person",:disabled =>true}
           %input{:type => "button",:id=>"global_change", :value => "Change", :class => "global_change", :source => "person",:disabled =>true}
-          %input{:type => "button",:id=>"global_delete", :value => "Delete", :class => "global_change", :source => "person"}
+          %input{:type => "button",:id=>"global_delete", :value => "Delete", :class => "global_change", :source => "person",:disabled =>true}
 
 
 

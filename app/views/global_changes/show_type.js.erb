@@ -11,4 +11,9 @@
 <%end%>
 
  $("#table_field_id").html("<%= escape_javascript("#{options}") %>");
+ <%if @select_type.nil?%>
+ $("#global_delete").attr('disabled',true);
+ <%else%>
+  $("#global_delete").attr('disabled',false);
+ <%end%>
  $("#table_field_id").change('');
