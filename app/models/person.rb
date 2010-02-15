@@ -5,7 +5,8 @@ class Person < ActiveRecord::Base
   #  Associations
   ################
   #++
-
+  stampable
+  
   has_many :addresses, :as => :addressable, :order => "priority_number ASC"
   has_many :phones, :as => :contactable, :order => "priority_number asc"
   has_many :faxes, :as => :contactable, :order => "priority_number asc"
@@ -221,7 +222,7 @@ class Person < ActiveRecord::Base
     @personal_email_types = Array.new
 
     self.emails.each do |email|
-       @var = TagType.find(email.contact_meta_type_id)
+      @var = TagType.find(email.contact_meta_type_id)
       @personal_email_types <<  @var unless @var.to_be_removed
     end
     return @personal_email_types
@@ -248,7 +249,7 @@ class Person < ActiveRecord::Base
     return @personal_website_types
   end
 
-    def personal_instant_messaging_types
+  def personal_instant_messaging_types
     @personal_instant_messaging_types = Array.new
 
     self.instant_messagings.each do |instant_messaging|

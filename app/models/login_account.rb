@@ -2,7 +2,9 @@ require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
   #  Optimized
-  
+  model_stamper
+  stampable
+
   attr_accessor :password
   attr_accessor :update_login_account_password
   has_many :user_groups, :foreign_key => "user_id"
