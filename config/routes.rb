@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   map.resources :organisation_relationships, :collection => {:page_initial => :get}
+  map.resources :organisation_groups, :collection => {:page_initial => :get}
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,:page_initial => :get,:change_status => :get},
     :member => {
@@ -166,8 +167,10 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :quick_launch_icons,:collection => {:check => :get}
   map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put,:change_security_question =>:put, :show_whoami => :get}
 
+
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get}
-  map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get}
+  map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get}
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.

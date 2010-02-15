@@ -145,3 +145,5 @@
         %ul
           %li{:id=>@current_action == "index" ? "selected" : ""}
             =link_to "#{image_tag('icon_holder.png')} Person Global Change",{:controller => "global_changes",:action => "index"},:controller => "global_changes",:action => "index",:class => "draggable",:icon_module => "administration",:image_url => "icon_holder.png", :title => "global_changes"
+          %li{:id=>@current_action == "org_index" ? "selected" : ""}
+            =link_to "#{image_tag('icon_holder.png')} Organisation Global Change",{:controller => "global_changes",:action => "org_index"},:controller => "global_changes",:action => "org_index",:class => "draggable",:icon_module => "administration",:image_url => "icon_holder.png", :title => "global_changes"

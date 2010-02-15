@@ -1,0 +1,10 @@
+#group_list
+  - if !@organisation.organisation_groups.blank?
+    - @organisation.organisation_groups.each do |organisation_group|
+      - div_for(organisation_group, :class => 'header_container') do
+        %div
+          .title
+            %h2= format_group(organisation_group)
+  - else
+    .no_record
+      %h1 No Record
