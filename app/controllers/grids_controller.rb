@@ -2486,14 +2486,12 @@ class GridsController < ApplicationController
     values = Array.new
 
     if params[:entity_type]
-
       conditions << "transaction_headers.entity_type = ?"
       values << params[:entity_type]
     end
 
 
-    if params[:entity_id]!="0"
-
+    if params[:entity_id]
       conditions << "transaction_headers.entity_id = ?"
       values << params[:entity_id]
     end
@@ -2592,7 +2590,7 @@ class GridsController < ApplicationController
           u.receipt_meta_type_id.nil? ? "" : u.receipt_meta_meta_type.name,
           u.receipt_type_id.nil? ? "" : u.receipt_meta_type.name,
           u.notes,
-          u.total_amount.nil? ? "$0.00" : currencify(u.total_amount)
+          u.total_amount.nil? ? currencify(0) : currencify(u.total_amount)
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
