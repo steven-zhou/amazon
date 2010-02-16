@@ -1,5 +1,12 @@
+<%- if @entity_type == "person"%>
+  <%- for @people in @entities%>
+    <%= render(:partial => "create_mail_template.html.erb") %>
+    <div style="page-break-after: always;">&nbsp;</div>
+  <%end%>
 
-<%- for @people in @people%>
-  <%= render(:partial => "create_mail_template.html.erb") %>
-  <div style="page-break-after: always;">&nbsp;</div>
+<%else%>
+  <%- for @organisations in @entities%>
+    <%= render(:partial => "create_mail_template.html.erb") %>
+    <div style="page-break-after: always;">&nbsp;</div>
+  <%end%>
 <%end%>

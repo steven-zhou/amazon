@@ -3809,10 +3809,11 @@ $(function() {
 
 mail_merge_insert_name = function(this_form){
     var current_form = this_form.closest('form').attr('id');
+    var prefix_table_name = $("#"+current_form).find("#prefix_table_name").val();
     var table = $("#"+current_form).find(".select_table_word").val();
     var field = $("#"+current_form).find(".select_field_word").val();
     var data_type = $("#"+current_form).find(".data_type").val();
-    if (table == "people"){
+    if (table == "people" || table == "organisations"){
         if(data_type == "Integer FK"){
 
             var value = "<%=@"+table+"."+field+".try(:name)"+"%>";
@@ -3830,19 +3831,19 @@ mail_merge_insert_name = function(this_form){
 
           if(field == "country"){
 
-                var value = "<%=@people."+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
+                var value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
 
 
           }else{
 
-               var value = "<%=@people."+table+".first.try(:"+field+")"+".try(:name)"+"%>";
+               var value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:name)"+"%>";
 
           }
 
 
         }else{
 
-            var value = "<%=@people."+table+".first.try(:"+field+")"+"%>";
+            var value = "<%="+prefix_table_name +table+".first.try(:"+field+")"+"%>";
 
         }
 

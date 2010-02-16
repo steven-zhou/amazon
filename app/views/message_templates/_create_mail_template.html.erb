@@ -1,9 +1,3 @@
-<p>Dear <%=@people.first_name%></p>
-<p>i just want to tell you</p>
+<p><%=@organisations.full_name%><%=@organisations.business_type.try(:name)%></p>
 <p>&nbsp;</p>
-<p>we already do some job for you</p>
-<p>&nbsp;</p>
-<p>Yours SIncerely</p>
-<p>&nbsp;</p>
-<p><%=@people.family_name%></p>
-<p><%=@people.addresses.first.try(:street_name)%></p>
+<p><%=@organisations.full_name%></p>

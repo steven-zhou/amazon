@@ -7,17 +7,20 @@
     .field_10
       = f.label :name, "Mail Category"
       = f.collection_select :mail_merge_category_id, MailMergeCategory.active_mail_merge_category, :id, :name, {},{:name => "mail_template[mail_merge_category_id]"}
-    .field_20
+    .field_10
       = f.label :name, "<span class='asterisk'>*</span>Name"
       = f.text_field :name, :name => "mail_template[name]",:class => "compulsory_field"
-    .field_22
+    .field_10
+      %label &nbsp
+      %input{:id => "prefix_table_name", :value => "#{@prefix_table_value}"}
+    .field_15
       %label Table Name
       %select{:class => "select_table_word clear_select general_drop_down_level", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template", :method => "GET", :url => "/message_templates/drop_down_list"}
         -@table_attributes.each do |i|
           %option{:value => i.name}
             = i.name
 
-    .field_22
+    .field_15
       %label Field Name
       %select{:class => "select_field_word drop_down_level2 general_drop_down_level_2_3", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template",:method => "GET", :url => "/message_templates/drop_down_list_level2_3"}
       %br.clear
