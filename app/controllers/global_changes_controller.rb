@@ -98,9 +98,8 @@ class GlobalChangesController < ApplicationController
 
          unless entity.save!
            flash.now[:error]= "Please Check Your Input"
-         end
-#            end
 
+           end
           end
 
   

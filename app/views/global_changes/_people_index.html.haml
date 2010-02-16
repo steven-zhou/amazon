@@ -16,7 +16,7 @@
       #select_table
         .form_line
           =label :table_name,:table_id, 'Table'
-          %select#global_change_table_name{:class => "global_change_fields clear_select",:style => "width:200px",:disabled=>true}
+          %select#global_change_table_name{:class => "global_change_fields clear_select",:style => "width:200px",:source=>"Person",:disabled=>true}
             %option
             %option{:value => "addresses"} Address
             %option{:value => "keyword"} Keyword
@@ -26,7 +26,7 @@
     #select_field
       .form_line
         =label :table_field,:table_field_id, 'Field'
-        %select#table_field_id{:style => "width:200px",:name=>"table_field",:disabled=>true}
+        %select#table_field_id{:style => "width:200px",:name=>"table_field",:class=>"table_field",:source=>"Person",:disabled=>true}
           %option
   .field_20
     #select_action
@@ -70,7 +70,7 @@
             %label &nbsp
             %label{:id=>"add_to_end",:style=>"margin-top:3px;"} End
 
-%input{:type => "button",:id=>"global_run", :value => "Run", :class => "global_change", :source => "Person",:disabled =>true,:style=>"float:right"}
+%input{:type => "submit",:id=>"global_run", :value => "Run", :class => "global_change", :source => "Person",:disabled =>true,:style=>"float:right"}
 
 
 
