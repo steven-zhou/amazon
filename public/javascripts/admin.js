@@ -2564,7 +2564,7 @@ $(function(){
     $.ajax({
       type: "GET",
       url: "/global_changes/change_value.js",
-      data: "source_id="+$("#list_header_name").val()+"&table_name="+$('#global_change_table_name').val()+"&table_field="+$('#table_field_id').val()+"&change_value="+$('#global_change_value').val()+"&type="+$(this).val()+"&add_front="+$('#add_to_front_front').attr("checked")+"&add_end="+$('#add_to_front_end').attr("checked")+"&select_data="+$('#system_data_id').val()+"&source_type="+$(this).attr("source"),
+      data: "source_id="+$("#list_header_name").val()+"&table_name="+$('#global_change_table_name').val()+"&table_field="+$('#table_field_id').val()+"&change_value="+$('#global_change_value').val()+"&type="+$("#table_action_id").val()+"&add_front="+$('#add_to_front').attr("checked")+"&add_end="+$('#add_to_end').attr("checked")+"&select_data="+$('#system_data_id').val()+"&source_type="+$(this).attr("source"),
       dataType: "script"
     })
 
@@ -2576,20 +2576,6 @@ $(function(){
 
 $(function(){
   $('#table_field_id').live('change',function(){
-
-    //     if($(this).val()!="" ||$('#table_field_id').val()!=null )
-    //       {
-    //         alert("abc");
-    //
-    //     $("#global_delete").attr('disabled',false);
-    //       }
-    //       else
-    //         {
-    //                    alert("efg");
-    //                $("#global_delete").attr('disabled',true);
-    //         }
-
-
     $.ajax({
       type: "GET",
       url: "/global_changes/check_field_type.js",
@@ -2607,32 +2593,12 @@ $(function(){
 
     if( $(this).val()=="")
     {
-      $("#global_add").attr('disabled',true);
-      $("#global_change").attr('disabled',true);
-
+      $("#global_run").attr('disabled',true);
     }
     else
     {
-      $("#global_add").attr('disabled',false);
-      $("#global_change").attr('disabled',false);
+      $("#global_run").attr('disabled',false);
     }
-
-    if ($("#global_change_table_name").val() == "note")
-    {
-      $("#global_change").attr('disabled',true);
-      if( $(this).val()=="")
-      {
-
-        $("#global_delete").attr('disabled',true);
-      }
-      else
-      {
-        $("#global_delete").attr('disabled',false);
-      }
-
-    }
-
-
   }
   });
 
@@ -2658,15 +2624,261 @@ $(function(){
 
     if ($(this).val()==null)
     {
-      $("#global_add").attr('disabled',true);
+      $("#global_run").attr('disabled',true);
+      
+    }
+    else
+    {
+      $("#global_run").attr('disabled',false);
+
+    }
+
+  });
+
+
+  $('#list_header_name').live('change',function(){
+ 
+    if ($(this).val()=="")
+    {
+ 
+      $('#global_change_table_name').val("").change();
+      $('#table_action_id').val("");
+
+      $('#global_change_table_name').attr('disabled',true);
+      $('#table_field_id').attr('disabled',true);
+      $('#table_action_id').attr('disabled',true);
+    }
+    else
+    {
+
+      $('#global_change_table_name').attr('disabled',false);
+      $('#table_field_id').attr('disabled',false);
+      $('#table_action_id').attr('disabled',false);
+
+    }
+
+  });
+
+  $('#table_action_id').live('change',function(){
+
+    if ($(this).val()=="Add")
+    {
+       if($('#select_system_data').css('display')=='')
+         {
+            $('#input_data_value').css('display','none');
+         }
+
+           if ($('#global_change_table_name').val()=="note"||$('#global_change_table_name').val()=="addresses")
+           {
+           $("#global_run").attr('disabled',true);
+           }
+      if($('#select_system_data').css('display')=='none')
+      {$('#global_change_label').css('display','');
+       $('#input_data_value').css('display','');
+       $('#global_change_checkbox').css('display','');
+     }
+     
+      if ($('#global_change_table_name').val()=="note")
+           {
+            $('#input_data_value').css('display','');
+            $('#global_change_label').css('display','none');
+            $('#global_change_checkbox').css('display','none');
+           }
+
+
+    }
+    else if ($(this).val()=="Change")
+    {
+       $('#input_data_value').css('display','');
+       $('#global_change_label').css('display','none');
+       $('#global_change_checkbox').css('display','none');
+    }
+    else
+      {
+           $('#input_data_value').css('display','none');
+           $("#global_run").attr('disabled',false);
+           if($('#select_system_data').css('display')=='none')
+         {  $('#global_change_label').css('display','none');
+            $('#global_change_checkbox').css('display','none');
+         }
+         if ($('#global_change_table_name').val()=="note")
+           {
+            $('#input_data_value').css('display','');
+            $('#global_change_label').css('display','none');
+            $('#global_change_checkbox').css('display','none');
+             $("#global_run").attr('disabled',true);
+           }
+         
+
+
+      }
+
+
+   
+    
+
+
+  });
+});
+// org global change
+$(function(){
+  $('.org_global_change').live('click',function(){
+    $.ajax({
+      type: "GET",
+      url: "/global_changes/change_value.js",
+      data: "source_id="+$("#org_list_header_name").val()+"&table_name="+$('#org_global_change_table_name').val()+"&table_field="+$('#org_table_field_id').val()+"&change_value="+$('#org_global_change_value').val()+"&type="+$("#org_table_action_id").val()+"&add_front="+$('#org_add_to_front').attr("checked")+"&add_end="+$('#org_add_to_end').attr("checked")+"&select_data="+$('#org_system_data_id').val()+"&source_type="+$(this).attr("source"),
+      dataType: "script"
+    })
+
+
+  });
+
+});
+
+
+$(function(){
+  $('#org_table_field_id').live('change',function(){
+    $.ajax({
+      type: "GET",
+      url: "/global_changes/check_field_type.js",
+      data: "table_name="+$('#org_global_change_table_name').val()+"&table_field="+$('#org_table_field_id').val()+"&type=Org",
+      dataType: "script"
+
+    });
+
+
+
+  });
+
+  $('#org_global_change_value').live('keyup',function(){
+  {
+
+    if( $(this).val()=="")
+    {
+      $("#org_global_run").attr('disabled',true);
+    }
+    else
+    {
+      $("#org_global_run").attr('disabled',false);
+    }
+  }
+  });
+
+});
+
+$(function(){
+  $(".org_global_change_fields").live('change',function(){
+
+
+    $.ajax({
+      type: "GET",
+      url: "/global_changes/show_type.js",
+      data: "select_type="+$("#org_global_change_table_name").val()+"&type=Org",
+      dataType: "script"
+
+    });
+
+  })
+
+
+
+  $("#org_system_data_id").live('change',function(){
+
+    if ($(this).val()==null)
+    {
+      $("#org_global_run").attr('disabled',true);
 
     }
     else
     {
-      $("#global_add").attr('disabled',false);
+      $("#org_global_run").attr('disabled',false);
 
     }
-    $("#global_change").attr('disabled',true);
+
+  });
+
+
+  $('#org_list_header_name').live('change',function(){
+
+    if ($(this).val()=="")
+    {
+
+      $('#org_global_change_table_name').val("").change();
+      $('#org_table_action_id').val("");
+
+      $('#org_global_change_table_name').attr('disabled',true);
+      $('#org_table_field_id').attr('disabled',true);
+      $('#org_table_action_id').attr('disabled',true);
+    }
+    else
+    {
+
+      $('#org_global_change_table_name').attr('disabled',false);
+      $('#org_table_field_id').attr('disabled',false);
+      $('#org_table_action_id').attr('disabled',false);
+
+    }
+
+  });
+
+  $('#org_table_action_id').live('change',function(){
+
+    if ($(this).val()=="Add")
+    {
+       if($('#org_select_system_data').css('display')=='')
+         {
+            $('#org_input_data_value').css('display','none');
+         }
+
+           if ($('#org_global_change_table_name').val()=="note"||$('#org_global_change_table_name').val()=="addresses")
+           {
+           $("#org_global_run").attr('disabled',true);
+           }
+      if($('#org_select_system_data').css('display')=='none')
+      {$('#org_global_change_label').css('display','');
+       $('#org_input_data_value').css('display','');
+       $('#org_global_change_checkbox').css('display','');
+     }
+
+      if ($('#org_global_change_table_name').val()=="note")
+           {
+            $('#org_input_data_value').css('display','');
+            $('#org_global_change_label').css('display','none');
+            $('#org_global_change_checkbox').css('display','none');
+           }
+
+
+    }
+    else if ($(this).val()=="Change")
+    {
+       $('#org_input_data_value').css('display','');
+       $('#org_global_change_label').css('display','none');
+       $('#org_global_change_checkbox').css('display','none');
+    }
+    else
+      {
+           $('#org_input_data_value').css('display','none');
+           $("#org_global_run").attr('disabled',false);
+           if($('#org_select_system_data').css('display')=='none')
+         {  $('#org_global_change_label').css('display','none');
+            $('#org_global_change_checkbox').css('display','none');
+         }
+         if ($('#org_global_change_table_name').val()=="note")
+           {
+            $('#org_input_data_value').css('display','');
+            $('#org_global_change_label').css('display','none');
+            $('#org_global_change_checkbox').css('display','none');
+             $("#org_global_run").attr('disabled',true);
+           }
+
+
+
+      }
+
+
+
+
+
+
   });
 });
-

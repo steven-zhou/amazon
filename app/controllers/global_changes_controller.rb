@@ -14,6 +14,23 @@ class GlobalChangesController < ApplicationController
     end
   end
 
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    if @field == "person_part"
+         @list_headers = @current_user.all_person_lists
+    @query_headers = PersonQueryHeader.saved_queries
+    else
+     @list_headers = @current_user.all_group_organisation_lists
+   @query_headers  = OrganisationQueryHeader.saved_queries
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+
 
   def org_index
    @list_headers = @current_user.all_group_organisation_lists
@@ -25,6 +42,7 @@ class GlobalChangesController < ApplicationController
 
   #to show the content in the first dropdown list
   def show_type
+    @type = params[:type]
     if params[:select_type] == "addresses"
 
       @select_type=["Building Name","Town","State","Postal Code"]
@@ -246,8 +264,9 @@ class GlobalChangesController < ApplicationController
 
 
   def check_field_type
-
-
+      @source_type = params[:type]
+      @add_delete = ["Add","Delete"]
+      @add_change_delete = ["Add","Change","Delete"]
     if params[:table_name] == "keyword"
       @value = KeywordType.find(params[:table_field].to_i).keywords
 #    elsif params[:table_name] == "role"
