@@ -1,0 +1,78 @@
+
+%h1 Change Parameters
+
+.form_line
+  .field_20
+    #select_query_or_list
+      =label :list_query_name,:list_query_name_id, 'List/Query'
+      %select{:id => "list_header_name", :name => "list_header_id",:style => "width:200px"}
+        %option
+        - @list_headers.each do |r|
+          %option{:value => "#{r.id}_list"} #{r.name}
+        - @query_headers.each do |r|
+          %option{:value => "#{r.id}_query"} #{r.name}
+  .field_20
+    #select_table_and_field
+      #select_table
+        .form_line
+          =label :table_name,:table_id, 'Table'
+          %select#global_change_table_name{:class => "global_change_fields clear_select",:style => "width:200px",:disabled=>true}
+            %option
+            %option{:value => "addresses"} Address
+            %option{:value => "keyword"} Keyword
+            %option{:value => "group"} Group
+            %option{:value => "note"} Note
+  .field_20
+    #select_field
+      .form_line
+        =label :table_field,:table_field_id, 'Field'
+        %select#table_field_id{:style => "width:200px",:name=>"table_field",:disabled=>true}
+          %option
+  .field_20
+    #select_action
+      .form_line
+        =label :table_action,:table_action_id, 'Action'
+        %select#table_action_id{:style => "width:200px",:name=>"table_field",:disabled=>true}
+          %option
+          %option{:value => "Add"} Add
+          %option{:value => "Change"} Change
+          %option{:value => "Delete"} Delete
+#input_value
+  .form_line
+    .field_40
+      #input_data_value{:style=>"display:none"}
+        =label :value,:value_id, 'Value'
+        %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:400px"}
+      #select_system_data{:style=>"display:none;"}
+        =label :system_data,:system_data_id, 'Select Data'
+        %select#system_data_id{:style => "width:200px",:name=>"global_change_value"}
+          %option
+    .field_15
+      %div#global_change_label{:style=>"display:none"}
+        %label &nbsp
+        %h3 add this value at the :
+    .field_20
+      .form_line
+        %div#global_change_checkbox{:style=>"display:none"}
+
+          .field_10
+            %label &nbsp
+            %input{:type =>"checkbox",:id=>"add_to_front",:checked => true}
+
+
+          .field_10
+            %label &nbsp
+            %label{:id=>"add_to_front",:style=>"margin-top:3px;"} Front
+          .field_10
+            %label &nbsp
+            %input{:type =>"checkbox",:id=>"add_to_end"}
+          .field_10
+            %label &nbsp
+            %label{:id=>"add_to_end",:style=>"margin-top:3px;"} End
+
+%input{:type => "button",:id=>"global_run", :value => "Run", :class => "global_change", :source => "Person",:disabled =>true,:style=>"float:right"}
+
+
+
+
+

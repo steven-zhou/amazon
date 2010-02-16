@@ -339,10 +339,10 @@ class TransactionHeadersController < ApplicationController
       values << params[:bank_account_number]
     end
 
-#    if (params[:user_id] || params[:user_id].to_i != 0)
-#      conditions << "entity_id = ?"
-#      values << params[:user_id]
-#    end
+    #    if (params[:user_id] || params[:user_id].to_i != 0)
+    #      conditions << "entity_id = ?"
+    #      values << params[:user_id]
+    #    end
 
     if (params[:start_id] || params[:end_id])
       params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
@@ -375,32 +375,50 @@ class TransactionHeadersController < ApplicationController
     else
       #new Bank Run
       @run = BankRun.new
-      @cheques = Array.new
-      @accounts = Array.new
-     
       BankRun.transaction do
         @run.save
-
         @transaction_headers.each do |i|
-          @run_detail = BankRunDetail.new(:bank_run_id => @run.id, :transaction_header_id => i.id)
-          @run_detail.save
-          i.update_attribute("banked", true)
-          if i.transaction_type_detail.class.to_s == "ChequeDetail"
-            @cheques << i.transaction_type_detail
-            @accounts << i.bank_account unless @accounts.include?(i.bank_account)
-          end
+          i.bank_run_id = @run.id
+          i.banked = true
+          i.save
         end
-      end
-
-      @client = ClientOrganisation.first
-      @run = BankRun.find(@run.id)
-      @date = @run.created_at.strftime('%d-%m-%Y')
-      @time = Time.now.strftime('%I:%m%p')
-      @account = @accounts.first
-      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false
+      end    
+      prepare_bank_run_report(@run.id)
+      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false, :action => "new"
     end
-      
   end
 
-    
+  
+  def prepare_bank_run_report(bank_run_id)
+    @client = ClientOrganisation.first
+    @run = BankRun.find(bank_run_id)
+    @date = @run.created_at.strftime('%d-%m-%Y')
+    @time =  @run.created_at.strftime('%I:%m%p')
+    @transactions = TransactionHeader.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
+    @accounts = Array.new
+    @cash_transactions = Array.new
+    @cheque_transctions = Array.new
+    @master_transactions = Array.new
+    @visa_transactions = Array.new
+    @transactions.each do |i|
+      bank_account = i.bank_account
+      receipt_meta_meta_type = i.receipt_meta_meta_type.try(:name)
+      receipt_meta_type = i.receipt_meta_type.try(:name)
+      @accounts << bank_account unless @accounts.include?(bank_account)
+      if receipt_meta_meta_type == "Cash"
+        @cash_transactions[bank_account.id] << i rescue @cash_transactions[bank_account.id]=[i]
+      end
+      if receipt_meta_meta_type == "Cheque"
+        @cheque_transctions[bank_account.id] << i rescue @cheque_transctions[bank_account.id]=[i]
+      end
+      if receipt_meta_meta_type == "Credit Card"
+        if receipt_meta_type == "Master Card"
+          @master_transactions[bank_account.id] << i rescue @master_transactions[bank_account.id]=[i]
+        elsif receipt_meta_type == "Visa Card"
+          @visa_transactions[bank_account.id] << i rescue @visa_transactions[bank_account.id]=[i]
+        end
+      end
+    end
+  end
+      
 end

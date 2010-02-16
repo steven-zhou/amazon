@@ -238,8 +238,8 @@ class Organisation < ActiveRecord::Base
   end
   
   def set_to_be_removed_and_status
-    self.to_be_removed=false
-    self.status=false
+    self.to_be_removed = false
+    self.status = true
   end
 
 end
