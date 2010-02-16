@@ -1,12 +1,3 @@
-<style type="text/css">
-  #header {margin:5px auto;width:100%;text-align:center;}
-  .top_item {float:left;width:33%;}
-  .title_item {float:left;width:20%;}
-  .clear {clear:both;}
-  #summary {width:100%;}
-  #summary_detail {margin:5px auto;width:25%;}
-  .summary_item {width:50%;float:left;}
-</style>
 <div id="header"><h1>Bank Deposit Sheet</h1></div>
 <div id="content_holder">
   <div id="top">
@@ -40,12 +31,12 @@
 
 <div id="content">
     <%- cheque_total = 0.00%>
-    <%- @cheque_transctions[account.id].try(:each) do |cheque_transction|%>
-      <div class="title_item"><%= cheque_transction.transaction_type_detail.try(:name_on_cheque) %></div>
-      <div class="title_item"><%= cheque_transction.transaction_type_detail.try(:cheque_number) %></div>
-      <div class="title_item"><%= cheque_transction.transaction_type_detail.try(:bank).try(:full_name) %></div>
-      <div class="title_item"><%= cheque_transction.transaction_type_detail.try(:bank).try(:branch_number) %></div>
-      <%- total = cheque_transction.total_amount%>
+    <%- @cheque_transactions[account.id].try(:each) do |cheque_transaction|%>
+      <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:name_on_cheque) %></div>
+      <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:cheque_number) %></div>
+      <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:bank).try(:full_name) %></div>
+      <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:bank).try(:branch_number) %></div>
+      <%- total = cheque_transaction.total_amount%>
       <%- cheque_total += total%>
       <div class="title_item"><%= number_to_currency(total)%></div>
     <%- end %>
