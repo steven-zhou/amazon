@@ -77,7 +77,7 @@ class MessageTemplatesController < ApplicationController
     @model_type = (params[:type]+"_mail_template").camelize
     @entity_list_headers = (params[:type]== "person")? @current_user.all_person_lists : @current_user.all_organisation_lists
     @entity_query_headers = QueryHeader.saved_query_header
-    @mail_templates = (params[:type]== "person")? PersonMailTemplate.all : OrganisationMailTemplate.all
+    @mail_templates = (params[:type]== "person")? PersonMailTemplate.active_record : OrganisationMailTemplate.active_record
     @entity_type = (params[:type]== "person")? "person" : "organisation"
     
    
@@ -141,7 +141,14 @@ class MessageTemplatesController < ApplicationController
     File.open("#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", 'w') do |f2|
       f2.puts "#{@mail_merge}"
     end
-    redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
+
+    @list_header_id = params[:list_header_id]
+    @message_template_id = params[:message_template_id]
+    @entity_type = params[:entity_type]
+    #redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
+    respond_to do |format|
+      format.js
+    end
   end
 
   def merge_mail
