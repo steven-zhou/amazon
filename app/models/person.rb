@@ -143,7 +143,6 @@ class Person < ActiveRecord::Base
   # Return the second title
   delegate :name, :to => :second_title, :prefix => true, :allow_nil => true
 
-
   def primary_address    
     @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end
