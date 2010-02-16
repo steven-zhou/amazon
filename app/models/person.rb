@@ -362,7 +362,6 @@ class Person < ActiveRecord::Base
     @list_detail.save
   end
 
-
   def set_to_be_removed_and_active
     self.to_be_removed=false
     self.status = true
