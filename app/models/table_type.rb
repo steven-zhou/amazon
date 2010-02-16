@@ -11,6 +11,11 @@ class TableType < Tag
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.mt_name_finder(name)
+    @name_id = TableMetaType.find_by_name(name).id
+    TableMetaType.find(:all, :conditions => ["tag_meta_type_id=? and status =true", @name_id], :order => "name")
+  end
+
   private
 
   def assign_priority

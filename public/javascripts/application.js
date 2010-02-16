@@ -3359,50 +3359,74 @@ tinymce_init = function(){
     });
 };
 
-
-flash_message_init = function(){
-    
-    $('#flash_message').dialog({
-        modal:true,
-        resizable:false,
-        draggable:true,
-        height:auto,
-        width:600,
-
-        buttons:{
-            Ok: function() {
-
-                $(this).dialog('destroy');
-
-            }
-        }
-    });
-
-    $('#flash_message').dialog('option', 'title', 'ERROR');
-    $('#flash_message').parent().find("a").css("display", "none");
-    $("#flash_message").parent().css('background-color','#D1DDE6');
-    $("#flash_message").css('background-color','#D1DDE6');
-    $('#flash_message').dialog('open');
-
-};
-
-
-
 /*for general 2 level drop down list hook*/
 
 $(function(){
     $(".general_drop_down_level").live('change', function(){
         if($(this).val()){
             $.ajax({
-                 type: $(this).attr("method"),
+                type: $(this).attr("method"),
                 url: $(this).attr("url"),
                 data: 'level1_value='+$(this).val()+'&level2='+$(this).attr("level2")+'&drop_down_field='+$(this).attr("drop_down_field"),
                 dataType: "script"
             });
         }else{
-             $('.drop_down_level2[drop_down_field='+ $(this).attr('drop_down_field') +']').html("");
-             $('.drop_down_level2_description[drop_down_field='+ $(this).attr('drop_down_field') +']').html("<label class='descriptions'>&nbsp;</label>");
+            $('.drop_down_level2[drop_down_field='+ $(this).attr('drop_down_field') +']').html("");
+            $('.drop_down_level2_description[drop_down_field='+ $(this).attr('drop_down_field') +']').html("<label class='descriptions'>&nbsp;</label>");
           
         }
     });
 });
+
+$(function(){
+    $(".general_drop_down_level_2_3").live('change', function(){
+        if($(this).val()){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("url"),
+                data: 'level2_value='+$(this).val()+'&level3='+$(this).attr("level3")+'&drop_down_field='+$(this).attr("drop_down_field"),
+                dataType: "script"
+            });
+        }else{
+            $('.drop_down_level3[drop_down_field='+ $(this).attr('drop_down_field') +']').html("");
+            $('.drop_down_level3_description[drop_down_field='+ $(this).attr('drop_down_field') +']').html("<label class='descriptions'>&nbsp;</label>");
+
+        }
+    });
+});
+
+
+/*for select ban the submit*/
+select_ban_submit_check = function(link){
+    var current_form = $('#'+ link.closest('form').get(0).id);
+    var select_ban_submits = current_form.find('.select_ban_submit');
+    var length = select_ban_submits.length;
+    var disable = true;
+
+    for(i=0; i<length; i++){
+        if ($('#'+select_ban_submits[i].id).val()=='0'||$('#'+select_ban_submits[i].id).val()== null){
+            disable = true;
+            break;
+        }else{
+         
+            disable = false;
+      
+        }
+    }
+    if (disable){
+        $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+    }else{
+        $('#'+current_form.attr('submit_button_id')).removeAttr('disabled');
+    }
+    return false;
+
+
+};
+
+
+
+$(".select_ban_submit").live('change', function(){
+    select_ban_submit_check($(this));
+});
+
+

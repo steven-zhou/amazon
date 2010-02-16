@@ -9,6 +9,16 @@
   <%- end %>
 
 <%end%>
+ <%if @type =="Org"%>
+ $("#org_table_field_id").html("<%= escape_javascript("#{options}") %>");
+  $("#org_table_field_id").change('');
+ <%else%>
+  $("#table_field_id").html("<%= escape_javascript("#{options}") %>");
+   $("#table_field_id").change('');
+ <%end%>
 
- $("#table_field_id").html("<%= escape_javascript("#{options}") %>");
- $("#table_field_id").change('');
+ <%if @select_type.nil?%>
+ $("#global_delete").attr('disabled',true);
+ <%else%>
+  $("#global_delete").attr('disabled',false);
+ <%end%>

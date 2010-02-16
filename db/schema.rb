@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100215054800) do
+ActiveRecord::Schema.define(:version => 20100216043007) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20100215054800) do
     t.integer  "updater_id"
   end
 
+<<<<<<< HEAD:db/schema.rb
   create_table "bank_run_details", :force => true do |t|
     t.integer  "bank_run_id"
     t.integer  "transaction_header_id"
@@ -105,6 +106,8 @@ ActiveRecord::Schema.define(:version => 20100215054800) do
     t.integer  "updater_id"
   end
 
+=======
+>>>>>>> 6aecbc96a53ba2906f7bf4c37f57629f38c7e8b5:db/schema.rb
   create_table "bank_run_report_details", :force => true do |t|
     t.integer  "bank_run_report_id"
     t.string   "type"
