@@ -199,10 +199,6 @@ class TransactionHeadersController < ApplicationController
       @date_valid = true
       conditions = Array.new
       
-      if (!params[:user_type].blank? &&  params[:user_type]!="0")
-        conditions << ("entity_type=" + params[:user_type])
-      end
-
       if (!params[:start_id].blank? || !params[:end_id].blank?)
         params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
         params[:end_id] =   TransactionHeader.last_record.id.to_s if params[:end_id].blank?
