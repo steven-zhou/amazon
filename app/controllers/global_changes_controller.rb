@@ -199,18 +199,7 @@ class GlobalChangesController < ApplicationController
              flash.now[:error]= "Please Check Your Input"
           end
           end
-#        elsif params[:table_name] == "role"
-#          @person_role = PersonRole.find_all_person_role(i.id,params[:select_data].to_i)
-#
-#          if @person_role.empty?
-#            new_person_role = PersonRole.new
-#            new_person_role.role_id = params[:select_data].to_i
-#            new_person_role.person_id = i.id
-#
-#            new_person_role.assigned_by = @current_user.id
-#            new_person_role.start_date = Time.now.strftime("%Y-%m-%d")
-#            new_person_role.save!
-#          end
+
         elsif params[:table_name] == "group"
           if source_type == "Person"
           @person_group = PersonGroup.find_all_person_group(i.id,params[:select_data].to_i)

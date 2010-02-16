@@ -2660,8 +2660,8 @@ $(function(){
   });
 
   $('#table_action_id').live('change',function(){
-
-    if ($(this).val()=="Add")
+  if(!($('#global_change_table_name').val()=="" || $('#table_field_id').val()==""))
+   { if ($(this).val()=="Add")
     {
        if($('#select_system_data').css('display')=='')
          {
@@ -2715,7 +2715,14 @@ $(function(){
 
 
    
-    
+   }
+   else{
+      $('#input_data_value').css('display','none');
+            $('#global_change_label').css('display','none');
+            $('#global_change_checkbox').css('display','none');
+             $("#global_run").attr('disabled',true);
+     
+   }
 
 
   });
@@ -2822,7 +2829,8 @@ $(function(){
   });
 
   $('#org_table_action_id').live('change',function(){
-
+ if(!($('#org_global_change_table_name').val()=="" || $('#org_table_field_id').val()==""))
+   {
     if ($(this).val()=="Add")
     {
        if($('#org_select_system_data').css('display')=='')
@@ -2877,7 +2885,13 @@ $(function(){
 
 
 
-
+   }else
+     {
+       $('#org_input_data_value').css('display','none');
+            $('#org_global_change_label').css('display','none');
+            $('#org_global_change_checkbox').css('display','none');
+             $("#org_global_run").attr('disabled',true);
+     }
 
 
   });
