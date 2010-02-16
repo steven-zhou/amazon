@@ -2895,7 +2895,6 @@ $(function(){
                     $('#org_input_data_value').css('display','');
                     $('#org_global_change_label').css('display','none');
                     $('#org_global_change_checkbox').css('display','none');
-
                     $("#org_global_run").attr('disabled',true);
           
          
