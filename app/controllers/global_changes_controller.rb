@@ -128,21 +128,18 @@ class GlobalChangesController < ApplicationController
      
           unless @person_keyword.nil?
             @person_keyword.destroy
+          else
+          flash.now[:error]= "Please Check Your Input"
           end
-          
-#        elsif params[:table_name]=="role"
-#          @person_role = PersonRole.find_person_role(i.id,params[:select_data].to_i)
-#
-#
-#          unless @person_role.nil?
-#            @person_role.destroy
-#          end
+
         elsif params[:table_name] == "group"
 
           if source_type == "Person"
           @group = PersonGroup.find_person_group(i.id,params[:select_data].to_i)
           elsif source_type == "Organisation"
             @group = OrganisationGroup.find_org_group(i.id,params[:select_data].to_i)
+           else
+          flash.now[:error]= "Please Check Your Input"
           end
     
           unless @group.nil?
@@ -173,11 +170,14 @@ class GlobalChangesController < ApplicationController
             if params[:add_front] == "true"
 
               entity.__send__((params[:table_field]+"=").to_sym, params[:change_value]+entity_one)
-
             end
             
             if params[:add_end] == "true"
               entity.__send__((params[:table_field]+"=").to_sym, entity.__send__(params[:table_field])+params[:change_value])
+            end
+
+            unless (params[:add_front] == "true" || params[:add_end] == "true")
+             flash.now[:error]= "Please Select the Checkbox"
             end
 
           unless  entity.save!

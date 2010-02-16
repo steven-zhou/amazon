@@ -20,6 +20,9 @@ $("#flash_message_text").html("The Value is Changed");
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 
+
+  $('#org_global_change_value').val("").keyup();
+ $('#global_change_value').val("").keyup();
   <%else%>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_messagee_image').css("display","");
