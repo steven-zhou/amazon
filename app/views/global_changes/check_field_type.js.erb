@@ -1,4 +1,68 @@
 <%- options = String.new  %>
+<%- action_options = String.new  %>
+<%if @source_type=="Org"%>
+$("#org_global_change_value").removeClass();
+$('#org_global_change_value').val("").change();
+<%-if @type== "keyword" || @type == "group"%>
+$('#org_input_data_value').css('display','none');
+$('#org_select_system_data').css('display','');
+ $('#org_global_change_label').css('display','none');
+  <% @value.each do |i| %>
+    <%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
+  <%- end %>
+
+  <% @add_delete.each do |i| %>
+    <%- action_options += '<option value='+"#{i}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+
+ $('#org_table_action_id').html("<%= escape_javascript("#{action_options}") %>").change();
+
+
+
+$("#org_global_run").attr('disabled',false);
+$("#org_global_change_checkbox").css('display','none');
+$("#org_system_data_id").html("<%= escape_javascript("#{options}") %>");
+$("#org_system_data_id").change('');
+
+
+
+<%else%>
+
+
+
+<%if @type == "note"%>
+<%- action_options=""%>
+  <% @add_delete.each do |i| %>
+    <%- action_options += '<option value='+"#{i}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+
+$('#org_table_action_id').html("<%= escape_javascript("#{action_options}") %>").change();
+$('#org_input_data_value').css('display','');
+$("#org_global_change_checkbox").css('display','none');
+$("#org_global_run").attr('disabled',true);
+$('#org_global_change_label').css('display','none');
+
+<%else%>
+  <% @add_change_delete.each do |i| %>
+    <%- action_options += '<option value='+"#{i}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+$('#org_table_action_id').html("<%= escape_javascript("#{action_options}") %>").change();
+$("#org_global_change_checkbox").css('display','');
+<%end%>
+$('#org_input_data_value').css('display','');
+$('#org_select_system_data').css('display','none');
+<%end%>
+$("#org_table_action_id").change('');
+
+
+
+
+<%else%>
+
+
+
+
+
 
 
 $("#global_change_value").removeClass();
@@ -6,14 +70,20 @@ $('#global_change_value').val("").change();
 <%-if @type== "keyword" || @type == "group"%>
 $('#input_data_value').css('display','none');
 $('#select_system_data').css('display','');
-
+ $('#global_change_label').css('display','none');
   <% @value.each do |i| %>
     <%- options += '<option value='+"#{i.id}"+'>'+" #{i.name}"+'</option>' %>
   <%- end %>
 
+  <% @add_delete.each do |i| %>
+    <%- action_options += '<option value='+"#{i}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
 
-$("#global_add").attr('disabled',false);
-$("#global_change").attr('disabled',true);
+ $('#table_action_id').html("<%= escape_javascript("#{action_options}") %>").change();
+
+
+
+$("#global_run").attr('disabled',false);
 $("#global_change_checkbox").css('display','none');
 $("#system_data_id").html("<%= escape_javascript("#{options}") %>");
 $("#system_data_id").change('');
@@ -23,16 +93,28 @@ $("#system_data_id").change('');
 <%else%>
 
 
-$("#global_add").attr('disabled',true);
-$("#global_change").attr('disabled',true);
+
 <%if @type == "note"%>
+<%- action_options=""%>
+  <% @add_delete.each do |i| %>
+    <%- action_options += '<option value='+"#{i}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+
+$('#table_action_id').html("<%= escape_javascript("#{action_options}") %>").change();
+$('#input_data_value').css('display','');
 $("#global_change_checkbox").css('display','none');
-$("#global_change").attr('disabled',true);
-$("#global_delete").attr('disabled',true);
+$("#global_run").attr('disabled',true);
+$('#global_change_label').css('display','none');
+
 <%else%>
+  <% @add_change_delete.each do |i| %>
+    <%- action_options += '<option value='+"#{i}"+'>'+" #{i}"+'</option>' %>
+  <%- end %>
+$('#table_action_id').html("<%= escape_javascript("#{action_options}") %>").change();
 $("#global_change_checkbox").css('display','');
 <%end%>
 $('#input_data_value').css('display','');
 $('#select_system_data').css('display','none');
 <%end%>
-
+$("#table_action_id").change('');
+<%end%>
