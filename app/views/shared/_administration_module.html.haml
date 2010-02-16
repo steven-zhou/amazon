@@ -118,7 +118,7 @@
           %li{:id => @current_action == "country_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/country_data.png')} Country Data",{:controller => "maintenance", :action => "country_data"}, :controller => "maintenance", :action => "country_data",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/country_data.png", :title => "Country Data"
           %li{:id => @current_action == "list" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Bank Data",{:controller => "banks", :action => "list"}, :controller => "banks", :action => "list",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Bank Data"
+            = link_to "#{image_tag('Icons/Admin/Maintenance/bankdata.png')} Bank Data",{:controller => "banks", :action => "list"}, :controller => "banks", :action => "list",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Bank Data"
     .bottom
 
   - # Testing Nightly Process
@@ -139,7 +139,7 @@
     .top
     .item
       -if !(@current_controller == "global_changes")
-        = link_to "#{image_tag('icon_holder.png')} Global Change",{:controller => "global_changes", :action => "index"},:controller => "global_changes",:action => "index", :class => "draggable", :icon_module => "administration", :image_url => "icon_holder.png", :title => "global_changes"
+        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change",{:controller => "global_changes", :action => "index"},:controller => "global_changes",:action => "index", :class => "draggable", :icon_module => "administration", :image_url => "icon_holder.png", :title => "global_changes"
       -else
         <p>Global Change</p>
         %ul
