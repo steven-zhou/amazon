@@ -18,7 +18,7 @@
           - @mail_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
       .field_10
-        %input{:name => "entity_type", :value => "#{@entity_type}"}
+        %input{:name => "entity_type", :value => "#{@entity_type}", :class => "hidden"}
       .field_15{:style => "float:right;"}
         %label &nbsp
         = submit_tag "Submit", :id => "new_mail_merge_submit", :disabled => true

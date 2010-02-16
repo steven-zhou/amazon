@@ -4,7 +4,7 @@ class MessageTemplatesController < ApplicationController
     @mail_template = params[:param1] == "person" ? PersonMailTemplate.new : OrganisationMailTemplate.new
     @type = params[:param1]   
     @table_attributes = TableMetaMetaType.table_categroy(@type)
-    @prefix_table_value = (params[:param1]== "person")? "@people." : "@organisation."
+    @prefix_table_value = (params[:param1]== "person")? "@people." : "@organisations."
     respond_to do |format|
       format.js
     end
@@ -37,7 +37,7 @@ class MessageTemplatesController < ApplicationController
     #@table_attributes = @mail_template.class.to_s == "PersonMailTemplate" ? TableMetaMetaType.table_categroy("person") : TableMetaMetaType.table_categroy("organisation")
     @type = params[:params2]
     @table_attributes = TableMetaMetaType.table_categroy(@type)
-    @prefix_table_value = (params[:params2]== "person")? "@people." : "@organisation."
+    @prefix_table_value = (params[:params2]== "person")? "@people." : "@organisations."
 
     respond_to do |format|
       format.js
@@ -78,6 +78,7 @@ class MessageTemplatesController < ApplicationController
     @entity_list_headers = (params[:type]== "person")? @current_user.all_person_lists : @current_user.all_organisation_lists
     @entity_query_headers = QueryHeader.saved_query_header
     @mail_templates = (params[:type]== "person")? PersonMailTemplate.all : OrganisationMailTemplate.all
+    @entity_type = (params[:type]== "person")? "person" : "organisation"
     
    
     respond_to do |format|
