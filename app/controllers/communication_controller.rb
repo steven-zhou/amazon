@@ -229,13 +229,18 @@ class CommunicationController < ApplicationController
   end
 
   def person_mail_merge
-    @person_list_headers = @current_user.all_person_lists
-    @person_query_headers = QueryHeader.saved_query_header
+    @entity_list_headers = @current_user.all_person_lists
+    @entity_query_headers = QueryHeader.saved_query_header
     @mail_templates = PersonMailTemplate.all
+    @entity_type = "person"
     
   end
   
   def organisation_mail_merge
+    @entity_list_headers = @current_user.all_organisation_lists
+    @entity_query_headers = QueryHeader.saved_query_header
+    @mail_templates = OrganisationMailTemplate.all
+    @entity_type = "organisation"
 
   end
 
