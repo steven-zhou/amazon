@@ -199,10 +199,6 @@ class TransactionHeadersController < ApplicationController
       @date_valid = true
       conditions = Array.new
       
-      if (!params[:user_type].blank? &&  params[:user_type]!="0")
-        conditions << ("entity_type=" + params[:user_type])
-      end
-
       if (!params[:start_id].blank? || !params[:end_id].blank?)
         params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
         params[:end_id] =   TransactionHeader.last_record.id.to_s if params[:end_id].blank?
@@ -338,12 +334,7 @@ class TransactionHeadersController < ApplicationController
       conditions << "bank_account_id = ?"
       values << params[:bank_account_number]
     end
-
-    #    if (params[:user_id] || params[:user_id].to_i != 0)
-    #      conditions << "entity_id = ?"
-    #      values << params[:user_id]
-    #    end
-
+    
     if (params[:start_id] || params[:end_id])
       params[:start_id] = TransactionHeader.first_record.id.to_s if params[:start_id].blank?
       params[:end_id] = TransactionHeader.last_record.id.to_s if params[:end_id].blank?
@@ -397,7 +388,7 @@ class TransactionHeadersController < ApplicationController
     @transactions = TransactionHeader.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
     @accounts = Array.new
     @cash_transactions = Array.new
-    @cheque_transctions = Array.new
+    @cheque_transactions = Array.new
     @master_transactions = Array.new
     @visa_transactions = Array.new
     @transactions.each do |i|
@@ -409,7 +400,7 @@ class TransactionHeadersController < ApplicationController
         @cash_transactions[bank_account.id] << i rescue @cash_transactions[bank_account.id]=[i]
       end
       if receipt_meta_meta_type == "Cheque"
-        @cheque_transctions[bank_account.id] << i rescue @cheque_transctions[bank_account.id]=[i]
+        @cheque_transactions[bank_account.id] << i rescue @cheque_transactions[bank_account.id]=[i]
       end
       if receipt_meta_meta_type == "Credit Card"
         if receipt_meta_type == "Master Card"

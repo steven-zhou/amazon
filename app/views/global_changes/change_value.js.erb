@@ -1,28 +1,12 @@
 <% if flash[:error].nil? %>
 
-$("#flash_message_text").html("The Value is Changed");
-  $('#flash_messagee_image').css("display","");
-  $("#flash_message").dialog( {
-  modal:true,
-  height: 'auto',
-  width: 400,
-  buttons: {
-
-  OK: function(){
-
-  $(this).dialog('close');
-  }
-  }
-  });
-  $('#flash_message').dialog('option', 'title', 'Comfirmation');
-  $('#flash_message').parent().find("a").css("display","none");
-  $("#flash_message").parent().css('background-color','#D1DDE6');
-  $("#flash_message").css('background-color','#D1DDE6');
-  $('#flash_message').dialog('open');
+  $('#flash_message').dialog('destroy');
+  $("#flash_feedback").html("The Value is Changed");
+  $('#flash_feedback').fadeIn("slow");
+  $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
 
 
-  $('#org_global_change_value').val("").keyup();
- $('#global_change_value').val("").keyup();
+
   <%else%>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_messagee_image').css("display","");
@@ -45,3 +29,7 @@ $("#flash_message_text").html("The Value is Changed");
   $('#flash_message').dialog('open');
 
   <%end%>
+
+ enable_form_after_submit_finish();
+  $('#global_run').attr("disabled",false);
+  $('#org_global_run').attr("disabled",false);
