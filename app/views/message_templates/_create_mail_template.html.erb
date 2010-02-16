@@ -1,3 +1,1 @@
-<p><%=@organisations.full_name%><%=@organisations.business_type.try(:name)%></p>
-<p>&nbsp;</p>
-<p><%=@organisations.full_name%></p>
+<p><%=@people.addresses.first.try(:address_type).try(:name)%><%=@people.first_name%><%=@people.family_name%></p>
