@@ -5,7 +5,7 @@
 class AddUserstamps < ActiveRecord::Migration
   @tablesArray = Array[
     "addresses", "allocation_types", "amazon_settings", "available_modules",
-    "bank_accounts", "bank_grids", "bank_run_details", "bank_run_report_details","bank_run_reports", "bank_runs", "banks", "bdrb_job_queues", "bulk_emails",
+    "bank_accounts", "bank_grids", "bank_run_details", "bank_run_report_details","bank_run_reports", "bank_runs", "banks","bulk_emails",
     "campaigns", "client_setups", "compile_lists", "contacts", "countries",
     "dashboard_preferences","duplication_formula_details", "duplication_formulas",
     "employments",
