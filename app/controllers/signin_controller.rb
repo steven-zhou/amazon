@@ -217,7 +217,7 @@ class SigninController < ApplicationController
         session[:user] = login_account.id
         session[:last_event] = Time.now()
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
-        login_account.access_attempts_count = 99
+        login_account.access_attempts_count = 99999
         login_account.save
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
         session[:clocktime]= params[:clocktime]

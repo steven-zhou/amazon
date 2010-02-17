@@ -379,7 +379,6 @@ class TransactionHeadersController < ApplicationController
     end
   end
 
-  
   def prepare_bank_run_report(bank_run_id)
     @client = ClientOrganisation.first
     @run = BankRun.find(bank_run_id)

@@ -2,9 +2,13 @@ require 'digest/sha2'
 class LoginAccount < ActiveRecord::Base
   #  cattr_accessor :current_user
   #  Optimized
-  
+
+
   attr_accessor :password
   attr_accessor :update_login_account_password
+  #current_user is used to store the current logined user object, which is used to sign creator_id and updater_id
+  cattr_accessor :current_user
+
   has_many :user_groups, :foreign_key => "user_id"
   has_many :group_types, :through => :user_groups, :uniq => true
   has_many :dashboard_preferences
@@ -18,11 +22,10 @@ class LoginAccount < ActiveRecord::Base
 
   validates_presence_of  :password , :if => :loginaccount_update?
 
-
-#if update no need to check the presence of password
+  #if update no need to check the presence of password
   def loginaccount_update?
     if update_login_account_password.nil?
-    update_login_account_password = false
+      update_login_account_password = false
     end
     return update_login_account_password
   end
@@ -34,6 +37,7 @@ class LoginAccount < ActiveRecord::Base
     elsif Digest::SHA256.hexdigest(password + login_account.password_salt) != login_account.password_hash
       raise "Username or password invalid"
     else
+      LoginAccount.current_user = login_account
       login_account
     end
   end
@@ -51,6 +55,7 @@ class LoginAccount < ActiveRecord::Base
         raise "Power password invalid"
       end
     end
+    LoginAccount.current_user = login_account
     return login_account
   end
 
