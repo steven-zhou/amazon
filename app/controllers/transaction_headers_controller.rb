@@ -343,6 +343,11 @@ class TransactionHeadersController < ApplicationController
       values << params[:end_id].to_i.to_s
     end
 
+    if (params[:user_id]&&params[:user_id]!="All")
+      conditions << "creator_id = ?"
+      values << params[:user_id].to_i
+    end
+
     if (params[:start_transaction_date] || params[:end_transaction_date])
       params[:start_transaction_date] = "01-01-#{Date.today().year().to_s}"if params[:start_transaction_date].blank?
       params[:end_transaction_date] = "31-12-#{Date.today().year().to_s}"if params[:end_transaction_date].blank?
