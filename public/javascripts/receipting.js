@@ -353,14 +353,15 @@ $(function(){
 
 $(function(){
   $('#select_filter').live("change",function(){
-    alert("123");
+
 
     if ($(this).val()=="ID Range")
     {
-      alert("abc");
+
       $('#visible_select_fileter').append($('#id_range_filter'));
       $('#filter_start_id').attr('disabled',false);
       $('#filter_end_id').attr('disabled',false);
+
       $('#id_range_filter').show();
     }
     else if ($(this).val()=="Receipt Range")
@@ -368,6 +369,7 @@ $(function(){
       $('#visible_select_fileter').append($('#receipt_range_filter'));
       $('#filter_start_receipt_id').attr('disabled',false);
       $('#filter_end_receipt_id').attr('disabled',false);
+
       $('#receipt_range_filter').show();
     }
     else if ($(this).val()=="System Date")
@@ -394,11 +396,13 @@ $(function(){
     else if ($(this).val()=="Banking Status")
     {
       $('#visible_select_fileter').append($('#banking_status_filter'));
+
       $('#banking_status_filter').show();
     }
     else if ($(this).val()=="Receipt Type")
     {
       $('#visible_select_fileter').append($('#receipt_type_filter'));
+
       $('#receipt_type_filter').show();
     }
     else if ($(this).val()=="Receipt Account")
@@ -420,10 +424,17 @@ $(function(){
 
   $(".enquiry_filter_close").live("click",function(){
 
+    var date = new Date();
+    var month = (date.getMonth()+1).toString();
+    var dom = date.getDate().toString();
+    if (month.length == 1) month = "0" + month;
+    if (dom.length == 1) dom = "0" + dom;
     if ($(this).attr("field")=="ID Range")
     {
       $('#filter_start_id').attr('disabled',true);
       $('#filter_end_id').attr('disabled',true);
+       $('#filter_start_id').val("1");
+      $('#filter_end_id').val("10000");
       $('#hidden_select_fileter').append($('#id_range_filter'));
       $('#id_range_filter').hide();
     }
@@ -431,6 +442,8 @@ $(function(){
     {
       $('#filter_start_receipt_id').attr('disabled',true);
       $('#filter_end_receipt_id').attr('disabled',true);
+      $('#filter_start_receipt_id').val("1");
+      $('#filter_end_receipt_id').val("10000");
       $('#hidden_select_fileter').append($('#receipt_range_filter'));
       $('#receipt_range_filter').hide();
     }
@@ -438,39 +451,51 @@ $(function(){
     {
       $('#filter_start_system_date').attr('disabled',true);
       $('#filter_end_system_date').attr('disabled',true);
+      $('#filter_start_system_date').val(dom+"-"+month+"-"+(date.getFullYear()-1).toString());
+      $('#filter_end_system_date').val(dom+"-"+month+"-"+date.getFullYear().toString());
       $('#hidden_select_fileter').append($('#system_date_range_filterr'));
       $('#system_date_range_filter').hide();
     }
     else if ($(this).attr("field")=="Transaction Date")
     {
+
       $('#filter_start_transaction_date').attr('disabled',true);
       $('#filter_end_transaction_date').attr('disabled',true);
+      $('#filter_start_transaction_date').val(dom+"-"+month+"-"+(date.getFullYear()-1).toString());
+      $('#filter_end_transaction_date').val(dom+"-"+month+"-"+date.getFullYear().toString());
       $('#hidden_select_fileter').append($('#transaction_date_range_filter'));
       $('#transaction_date_range_filter').hide();
     }
     else if ($(this).attr("field")=="Bank Account Number")
     {
       $('#hidden_select_fileter').append($('#bank_account_number_filter'));
+      $('#bank_account_number').val("0");
       $('#bank_account_number_filter').hide();
     }
     else if ($(this).attr("field")=="Banking Status")
     {
       $('#hidden_select_fileter').append($('#banking_status_filter'));
+            $('#banked').val("0");
       $('#banking_status_filter').hide();
     }
     else if ($(this).attr("field")=="Receipt Type")
     {
       $('#hidden_select_fileter').append($('#receipt_type_filter'));
+            $('#receipt_meta_type_id').val("0");
+      $('#enquiry_receipt_type').val("0");
+      $('#received_via_id').val("0");
       $('#receipt_type_filter').hide();
     }
     else if ($(this).attr("field")=="Receipt Account")
     {
       $('#hidden_select_fileter').append($('#receipt_account_filter'));
+      $('#receipt_account_id').val("0");
       $('#receipt_account_filter').hide();
     }
     else if ($(this).attr("field")=="Letter")
     {
       $('#hidden_select_fileter').append($('#leter_filter'));
+      $('#letter_id').val("0");
       $('#leter_filter').hide();
     }
 
@@ -524,36 +549,52 @@ $(function(){
   });
 
   $(".bank_run_close").click(function(){
+
+
     if ($(this).attr("field")=="Account Number")
     {
 
       $('#hidden_select_fileter').append($('#bank_id_filter'));
       $('#bank_id_filter').hide();
+      $('#bank_account_number').val("0");
     }
     else if ($(this).attr("field")=="User ID")
     {
 
       $('#hidden_select_fileter').append($('#user_id_filter'));
       $('#user_id_filter').hide();
+      $('#filter_user_id').val("All");
     }
     else if ($(this).attr("field")=="Transaction ID")
     {
 
       $('#filter_start_id').attr('disabled',true);
       $('#filter_end_id').attr('disabled',true);
+      $('#filter_start_id').val("1");
+      $('#filter_end_id').val("10000");
       $('#hidden_select_fileter').append($('#transaction_id_range_filter'));
       $('#transaction_id_range_filter').hide();
     }
     else if ($(this).attr("field")=="Transaction Date")
     {
+      var date = new Date();
+      var month = (date.getMonth()+1).toString();
+      var dom = date.getDate().toString();
+      if (month.length == 1) month = "0" + month;
+      if (dom.length == 1) dom = "0" + dom;
 
       $('#filter_start_transaction_date').attr('disabled',true);
       $('#filter_end_transaction_date').attr('disabled',true);
       $('#hidden_select_fileter').append($('#transaction_date_range_filter'));
       $('#transaction_date_range_filter').hide();
+      $('#filter_start_transaction_date').val(dom+"-"+month+"-"+(date.getFullYear()-1).toString());
+      $('#filter_end_transaction_date').val(dom+"-"+month+"-"+date.getFullYear().toString());
     }
     $('#bank_run_select_filter').children('option[value="'+$(this).attr("field")+'"]').attr('disabled',false);
     $('#bank_run_select_filter').val("");
+
+
+
 
     return false;
   });
@@ -576,6 +617,14 @@ $(function(){
   
     $("#enquiry_filter").css("display","none");
     $("#bank_run_more_option").css("display","");
+    $("#transaction_bank_run").get(0).reset();
+
+    $('#bank_id_filter').hide();
+    $('#user_id_filter').hide();
+    $('#transaction_id_range_filter').hide();
+    $('#transaction_id_range_filter').hide();
+    $('#bank_run_select_filter').children('option').attr('disabled',false);
+
   });
 
   

@@ -7,7 +7,7 @@
     #lol
 
 
-  - form_for :transaction, :url => "/transaction_headers/run", :html => {:class => "full_container"} do |f|
+  - form_for :transaction, :url => "/transaction_headers/run", :html => {:class => "full_container",:id=>"transaction_bank_run"} do |f|
     %h1 Transaction Selection
     All outstanding transactions.
     %br

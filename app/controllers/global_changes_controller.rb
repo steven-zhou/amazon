@@ -127,8 +127,7 @@ class GlobalChangesController < ApplicationController
      
           unless @person_keyword.nil?
             @person_keyword.destroy
-          else
-          flash.now[:error]= "Please Check Your Input"
+
           end
 
         elsif params[:table_name] == "group"
@@ -137,8 +136,7 @@ class GlobalChangesController < ApplicationController
           @group = PersonGroup.find_person_group(i.id,params[:select_data].to_i)
           elsif source_type == "Organisation"
             @group = OrganisationGroup.find_org_group(i.id,params[:select_data].to_i)
-           else
-          flash.now[:error]= "Please Check Your Input"
+
           end
     
           unless @group.nil?

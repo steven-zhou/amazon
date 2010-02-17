@@ -93,7 +93,7 @@
             %h2 Filter By Bank Account Number
           .field_20
             %label Bank Account Number
-            %select{:name => "bank_account_number"}
+            %select{:name => "bank_account_number",:id=>"bank_account_number"}
               %option{:value => "0"}All
               -@bank_accounts.each do |bank_account|
                 %option{:value => "#{bank_account.id}"}#{bank_account.account_number}
@@ -107,7 +107,7 @@
             %h2 Filter By Banking Status
           .field_20
             %label Banking Status
-            %select{:name => "banked"}
+            %select{:name => "banked",:id=>"banked"}
               %option{:value => "0"} All
               %option{:value => "true"}true
               %option{:value => "false"}false
@@ -123,7 +123,7 @@
             %h2 Filter By Receipt Type
           .field_20
             %label Receipt Meta Type
-            %select{:name => "receipt_meta_type_id",:class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type"}
+            %select{:name => "receipt_meta_type_id",:id=>"receipt_meta_type_id",:class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type"}
               %option{:value => "0"}All
               -for i in @receipt_meta_types
                 %option{:value => "#{i.id}"} #{i.name}
@@ -141,7 +141,7 @@
 
           .field_20
             %label Receipt Via
-            %select{:name => "received_via_id"}
+            %select{:name => "received_via_id",:id => "received_via_id"}
               %option{:value => "0"}All
               -for i in @receipt_via
                 %option{:value => "#{i.id}"} #{i.name}
@@ -156,7 +156,7 @@
             %h2 Filter By Receipt Account
           .field_20
             %label Receipt Account
-            %select{:name => "receipt_account_id"}
+            %select{:name => "receipt_account_id",:id => "receipt_account_id"}
               %option{:value => "0"}All
               -for i in @receipt_accounts
                 %option{:value => "#{i.id}"} #{i.name}
@@ -171,7 +171,7 @@
             %h2 Filter By Letter
           .field_20
             %label Letter sent
-            %select{:name => "letter_id"}
+            %select{:name => "letter_id",:id => "letter_id"}
               %option{:value => "0"}All
           .field_10{:style=>"float:right"}
             = link_to_function image_tag('close_icon.png'), :class => 'enquiry_filter_close', :field => "Letter", :title=>"Close",:style=>"float:right"
