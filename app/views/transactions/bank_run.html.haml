@@ -10,24 +10,25 @@
   - form_for :transaction, :url => "/transaction_headers/run", :html => {:class => "full_container"} do |f|
     %h1 Transaction Selection
     All outstanding transactions.
-    = link_to_function "More Options", :class => "toggle_button", :toggle_id_name => "enquiry_filter"
+    %br
+    = link_to_function "More Options",:id=>"bank_run_more_option", :class => "toggle_button", :toggle_id_name => "enquiry_filter"
 
-    #enquiry_filter{:style => "display:none;float:left;margin-top:20px;"}
+    #enquiry_filter{:style => "display:none;margin-top:20px;"}
       = render :partial => "transactions/bank_run_filter"
+    #enquiry_selection{:style=>"float:left"}
+      %h1{:style => "margin-top:20px;"}Report Selection
+      .form_line
+        %input{:type => "checkbox", :readonly => "true", :checked => true} Bank Deposit Sheet
+      .form_line
+        %input{:type => "checkbox", :name => "BRAS"} Bank Run Audit Sheet
+      .form_line
+        %input{:type => "checkbox", :name => "CCR"} Credit Cards Receipt
+      .form_line
+        %input{:type => "checkbox", :name => "RAS"} Receipt Account Summary
+      .form_line
+        %input{:type => "checkbox", :name => "RTS"} Receipt Type Summary
+      .form_line
+        %input{:type => "checkbox", :name => "CS"} Campaign Summary
 
-    %h1{:style => "margin-top:20px;"}Report Selection
-    .form_line
-      %input{:type => "checkbox", :readonly => "true", :checked => true} Bank Deposit Sheet
-    .form_line
-      %input{:type => "checkbox", :name => "BRAS"} Bank Run Audit Sheet
-    .form_line
-      %input{:type => "checkbox", :name => "CCR"} Credit Cards Receipt
-    .form_line
-      %input{:type => "checkbox", :name => "RAS"} Receipt Account Summary
-    .form_line
-      %input{:type => "checkbox", :name => "RTS"} Receipt Type Summary
-    .form_line
-      %input{:type => "checkbox", :name => "CS"} Campaign Summary
-
-    .form_line
-      = submit_tag "Run"
+      .form_line
+        = submit_tag "Run"
