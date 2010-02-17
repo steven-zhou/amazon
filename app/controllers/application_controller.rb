@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   # System loggin added
  
   include ExceptionNotifiable
-
+  
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
@@ -31,6 +31,7 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     else
       @current_user = LoginAccount.find(session[:user])
+      LoginAccount.current_user = @current_user      
       check_session_timeout(@current_user)
       redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
       session[:last_event] = Time.now()
@@ -107,7 +108,6 @@ class ApplicationController < ActionController::Base
     !(date =~ date_regex).nil?
   end
 
-
   private
 
   def check_session_timeout(current_user)
@@ -144,5 +144,6 @@ class ApplicationController < ActionController::Base
     system_log.save
    
   end
+
 
 end
