@@ -4,8 +4,8 @@ class ActiveRecord::Base
   before_create :insert_createdby, :unless => :skip_callback?
   before_update :insert_updatedby
 
-  belongs_to :login_accounts, :class_name=>"LoginAccount", :foreign_key => "creator_id"
-  belongs_to :login_accounts, :class_name=>"LoginAccount", :foreign_key => "updater_id"
+  belongs_to :creator, :class_name=>"LoginAccount", :foreign_key => "creator_id"
+  belongs_to :updater, :class_name=>"LoginAccount", :foreign_key => "updater_id"
 
   private
   def insert_createdby
