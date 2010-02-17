@@ -1,5 +1,3 @@
-
-
 puts "Initializing SystemPermission data"
 mdmmt = SystemPermissionMetaMetaType.create(:name => "Person", :status => true, :to_be_removed =>false)
 mdmt = SystemPermissionMetaType.create(:name => "Address_Controller", :system_permission_meta_meta_type => mdmmt, :status => true, :to_be_removed =>false)
@@ -34,18 +32,18 @@ supergroup = GroupMetaType.create(:name => "Power Group", :group_meta_meta_type 
 superuser = GroupType.create(:name => "Power User", :group_meta_type => supergroup, :status => true, :to_be_removed =>false)
 
 
-puts "Initializing Member Zone Super User"
-memberzone = MemberZone.create(
-  :user_name => "MemberZone",
-  :security_email => "memberzone@memberzone.com.au",
-  :password => "3Jumentos4u2",
-  :access_attempts_count => 99,
-  :session_timeout => 999999,
-  :authentication_grace_period => 9,
-  :password_by_admin => false,
-  :password_lifetime => 365,
-  :login_status => true
-)
+#puts "Initializing Member Zone Super User"
+#memberzone = MemberZone.create(
+#  :user_name => "MemberZone",
+#  :security_email => "memberzone@memberzone.com.au",
+#  :password => "3Jumentos4u2",
+#  :access_attempts_count => 99,
+#  :session_timeout => 999999,
+#  :authentication_grace_period => 9,
+#  :password_by_admin => false,
+#  :password_lifetime => 365,
+#  :login_status => true
+#)
 
 puts "Initializing Super Admin"
 superadmin = SuperAdmin.create(
@@ -62,7 +60,7 @@ superadmin = SuperAdmin.create(
 
 puts "Initializing Group to Super Users."
 
-UserGroup.create(:user_id => memberzone.id, :group_id => superuser.id)
+UserGroup.create(:user_id => @memberzone.id, :group_id => superuser.id)
 UserGroup.create(:user_id => superadmin.id, :group_id => superuser.id)
 
 
