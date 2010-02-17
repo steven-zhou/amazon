@@ -156,8 +156,31 @@ class MessageTemplatesController < ApplicationController
     @mail_template = MessageTemplate.find(params[:message_template_id])
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
-#    puts"debug---#{@entities.to_yaml}"
-    render :pdf => "file_name", :template => "message_templates/merge_mail.pdf.erb", :layout => false
+    template_name = @mail_template.name
+    time_stamp = Time.now.strftime("%d-%m-%y_%I:%M:%p")
+
+    @latex = ""
+    
+#    for @people in @entities
+#      @latex << render(:file => "#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", :object => @people)
+#    end
+#
+#    File.open("#{RAILS_ROOT}/app/public/temp_document/#{template_name}#{time_stamp}.html", 'w') do |f2|
+#      f2.puts  "#{@latex}"
+#    end
+
+        @pdf = ""
+        #    puts"debug---#{@entities.to_yaml}"
+        for @people in @entities
+          @pdf << render(:partial => "message_templates/create_mail_template")
+        end
+        File.open("public/temp_document/a.html.erb", 'w') do |f2|
+          f2.puts  "#{@pdf}"
+        end
   end
 
+
+
+
+  
 end
