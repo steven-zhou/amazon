@@ -331,13 +331,6 @@ class TransactionHeadersController < ApplicationController
     values << "false"
 
 
-    puts "*****************8"
-    puts params[:bank_account_number]
-    puts params[:start_id]
-    puts params[:end_id]
-     puts params[:user_id]
-      puts params[:start_transaction_date]
-       puts params[:end_transaction_date]
     @date_valid = true
     if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
       conditions << "bank_account_id = ?"
