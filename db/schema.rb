@@ -192,6 +192,8 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.string   "runner_info"
     t.string   "worker_key"
     t.datetime "scheduled_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "bulk_emails", :force => true do |t|
@@ -606,6 +608,8 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.string   "entity_type"
     t.integer  "doc_id"
     t.string   "channel"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -21,7 +21,7 @@
 
   .tab_switch_left.left{:field => "mail_log"}
   .container_icon.left{:align => "center"}
-    = link_to_function "<h1>Mail Log</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/message_templates/page_initial", :method => "GET", :render_page => "", :field => "mail_log", :type => "person"
+    = link_to_function "<h1>Mail Log</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/message_templates/page_initial", :method => "GET", :render_page => "/message_templates/mail_log_tab", :field => "mail_log", :type => "person"
     = link_to_function "<h1>Mail Log</h1>", :class=>"tab_switch_with_page_initial", :field => "mail_log"
   .tab_switch_left.left{:field => "mail_log"}
 

@@ -12,7 +12,7 @@
             = link_to image_tag('edit_icon.png'), edit_tag_meta_type_path(tag_meta_type), :class => 'get_tag', :title=>"Edit"
             = link_to image_tag('delete_icon.png'), tag_meta_type_path(tag_meta_type), :class => 'delete', :field => "Tag Meta",:error_message_field => "Tag Meta", :title=>"Remove"
           -else
-            = link_to image_tag('icon_holder.png'), retrieve_tag_meta_type_path(tag_meta_type),:class => 'get',:field => "tag_meta_types", :id => 'tag_meta_types_retrieve_button', :tag_meta_types_id => tag_meta_type.id, :title=>"Retrieve"
+            = link_to image_tag('Icons/System/Restore.png'), retrieve_tag_meta_type_path(tag_meta_type),:class => 'get',:field => "tag_meta_types", :id => 'tag_meta_types_retrieve_button', :tag_meta_types_id => tag_meta_type.id, :title=>"Retrieve"
       %br.clear
 
       - if tag_meta_type.status and !tag_meta_type.to_be_removed

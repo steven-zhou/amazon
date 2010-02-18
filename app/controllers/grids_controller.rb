@@ -3334,3 +3334,58 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 end
+
+def show_mail_log_grid
+  page = (params[:page]).to_i
+  rp = (params[:rp]).to_i
+  query = params[:query]
+  qtype = params[:qtype]
+  sortname = params[:sortname]
+  sortorder = params[:sortorder]
+
+  if (!sortname)
+    sortname = "id"
+  end
+
+  if (!sortorder)
+    sortorder = "asc"
+  end
+
+  if (!page)
+    page = 1
+  end
+
+  if (!sortorder)
+    rp = 20
+  end
+
+   start = ((page-1) * rp).to_i
+   query = "%"+query+"%"
+
+  # No search terms provided
+  if(query == "%%")
+    @mail_logs = MailLog.find(:all,
+      :order => sortname+' '+sortorder,
+      :limit => rp,
+      :offset => start
+
+    )
+    count = MailLog.count(:all)
+  end
+
+
+  # User search terms provided
+  if(query != "%%")
+    @mail_logs = MailLog.find(:all,
+    :order => sortname+' '+sortorder,
+    :limit => rp,
+    :offset => start,
+    :condition => [qtype + "ilike ?", query]
+    )
+    count = MailLog.count(:all, :conditions =>[qtype + " ilike ?", query])
+  end
+ # Construct a hash from the ActiveRecord result
+ return_data = Hash.new()
+ return_data[:page]
+
+end

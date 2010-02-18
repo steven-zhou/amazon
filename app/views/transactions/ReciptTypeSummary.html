@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <style type="text/css">
+            #receipt_account_summary{width: 800px;padding: 0;margin: 0 auto;}
+            #receipt_account_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
+            #receipt_account_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
+            #receipt_account_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
+            #receipt_account_summary .div_line .right{float: right;}
+
+            #receipt_account_summary .div_line .cell_375 {width: 37.5%;}
+            #receipt_account_summary .div_line .cell_475 {width: 47.5%;}
+
+            #receipt_account_summary .div_line .cell_50 {margin-left: 21%;width: 29%; text-align: left;}
+            #receipt_account_summary .line_seperator {width: 58%;margin: 10px auto;height: 1px;;border-bottom: 1px dashed black;}
+            #receipt_account_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
+            #receipt_account_summary .pure_bold{font-weight: 600;}
+        </style>
+    </head>
+    <body>
+        <div id="receipt_account_summary">
+            <div class="div_line">
+                <div class="title_bold">Receipt Type Summary</div>
+            </div>
+            <div class="div_line">
+                <div class="div_cell">The Client Organisation</div>
+                <div class="div_cell right">Date: 99/99/9999</div>
+            </div>
+            <div class="div_line">
+                <div class="div_cell cell_375">Bank Run ID: 999999</div>
+                <div class="div_cell cell_475">Bank Account: XXXXX-999999</div>
+                <div class="div_cell">Time: 99:99:99 AM</div>
+            </div>
+            <div class="div_line table_title">
+                <div class="div_cell cell_50">Type of Receipt</div>
+                <div class="div_cell cell_50">Amount</div>
+            </div>
+            <div class="div_line">
+                <div class="div_cell cell_50">Cash</div>
+                <div class="div_cell cell_50">$4000.00</div>
+            </div>
+            <div class="div_line">
+                <div class="div_cell cell_50">Cheque</div>
+                <div class="div_cell cell_50">$8000.00</div>
+            </div>
+            <div class="div_line">
+                <div class="div_cell cell_50">Master Card</div>
+                <div class="div_cell cell_50">$4000.00</div>
+            </div>
+            <div class="div_line">
+                <div class="div_cell cell_50">Visa Card</div>
+                <div class="div_cell cell_50">$900.00</div>
+            </div>
+            <br clear="both"/>
+            <div class="line_seperator"></div>
+            <div class="div_line">
+                <div class="div_cell cell_50 pure_bold">Total</div>
+                <div class="div_cell cell_50">$16900.00</div>
+            </div>
+        </div>
+    </body>
+</html>
