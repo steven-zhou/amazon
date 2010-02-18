@@ -139,7 +139,7 @@
     .top
     .item
       -if !(@current_controller == "global_changes")
-        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change",{:controller => "global_changes", :action => "index"},:controller => "global_changes",:action => "index", :class => "draggable", :icon_module => "administration", :image_url => "icon_holder.png", :title => "global_changes"
+        = link_to "#{image_tag('Icons/Admin/Global Changes/global_changes.png')} Global Change",{:controller => "global_changes", :action => "index"},:controller => "global_changes",:action => "index", :class => "draggable", :icon_module => "administration", :image_url => "Icons/Admin/Global Changes/global_changes.png", :title => "global_changes"
       -else
         <p>Global Change</p>
         %ul
