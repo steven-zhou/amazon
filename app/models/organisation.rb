@@ -34,6 +34,7 @@ class Organisation < ActiveRecord::Base
 
 
 
+
  
 
   belongs_to :registered_country, :foreign_key => "registered_country_id", :class_name => "Country"

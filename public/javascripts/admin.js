@@ -2703,16 +2703,25 @@ $(function(){
 
         if(!($('#global_change_table_name').val()=="" || $('#table_field_id').val()==""))
         {
+
             if ($(this).val()=="Add")
 
             {
                 $('#global_change_value').val("");
                 $("#global_run").attr('disabled',true);
-                if($('#select_system_data').css('display')=='')
+                if($('#select_system_data').css('display')=='none')
                 {
+                    $('#global_change_label').css('display','');
+                    $('#input_data_value').css('display','');
+                    $('#global_change_checkbox').css('display','');
+ 
+
+                }
+                else
+                    {
                     $('#input_data_value').css('display','none');
                     $("#global_run").attr('disabled',false);
-                }
+                    }
 
 
                 if($('#select_system_data').css('display')=='none')
