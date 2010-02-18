@@ -3,7 +3,7 @@
   <div id="summary_of_card">
 
     <div class="div_line">
-      <div class="div_cell">SUMMARY OF MasterCard</div>
+      <div class="div_cell">SUMMARY OF <%=type%></div>
       <div class="div_cell">MAIL/PHONE ORDER TRANSACTIONS DATE:</div>
       <div class="div_cell" style="">7/01/2010</div>
     </div>
@@ -31,12 +31,12 @@
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell big_number">(I)</div>
-      <div class="div_cell big_number_content">TRANSACTIONS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
+      <div class="div_cell big_number_content">TRANSACTIONS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell big_number">(II)</div>
       <div class="div_cell big_number_content">TRANSACTIONS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
-      <div class="div_cell signature">MERCHANT SIGNATURE</div>
+      <div class="div_cell signature" style="margin-top: 40px;">MERCHANT SIGNATURE</div>
     </div>
     <br class="clear"/>
   </div>
@@ -46,10 +46,10 @@
   <div id="details_of_card">
     <div class="div_line">
       <div class="div_cell th20">Authority No.</div>
-      <div class="div_cell th20">Cardholder Name</div>
+      <div class="div_cell th15">Cardholder Name</div>
       <div class="div_cell th7">Via</div>
       <div class="div_cell th7">Item</div>
-      <div class="div_cell th20">Card Number</div>
+      <div class="div_cell th15">Card Number</div>
       <div class="div_cell th7">CVV</div>
       <div class="div_cell th7">Amount</div>
     </div>
@@ -57,74 +57,56 @@
     <div class="div_line_separater"></div>
     <br class="clear"/>
     <div class="div_line talbe_line">
-      <div class="div_cell th20">AF12345678</div>
-      <div class="div_cell th20">Mr Charles Kent</div>
-      <div class="div_cell th7">Mail</div>
-      <div class="div_cell th7">1</div>
-      <div class="div_cell th20">1234567890123456</div>
-      <div class="div_cell th7">999</div>
-      <div class="div_cell th7">$250.00</div>
+      <%- sub_total = 0.00%>
+      <%- num_transaction = 0%>
+
+      <%- transaction[account.id].try(:each) do |transaction|%>
+        <div class="div_cell th20">XXXXXXXXXX</div>
+        <div class="div_cell th15"><%= transaction.transaction_type_detail.try(:name_on_card) %></div>
+        <div class="div_cell th7"><%= transaction.received_via.try(:name)%></div>
+        <div class="div_cell th7">1</div>
+        <div class="div_cell th15"><%=transaction.transaction_type_detail.try(:card_number)%></div>
+        <div class="div_cell th7"><%=transaction.transaction_type_detail.try(:cvv_number)%></div>
+        <div class="div_cell th7"><%= transaction.total_amount%></div>
+        <%- total = transaction.total_amount%>
+        <%- sub_total += total%>
+        <%- num_transaction=num_transaction+1%>
+      <%- end %>
     </div>
-    <div class="div_line talbe_line">
-      <div class="div_cell th20">AF98765432</div>
-      <div class="div_cell th20">Mrs Linda Brown</div>
-      <div class="div_cell th7">Phone</div>
-      <div class="div_cell th7">2</div>
-      <div class="div_cell th20">9876543219876543</div>
-      <div class="div_cell th7">123</div>
-      <div class="div_cell th7">$300.00</div>
-    </div>
-    <div class="div_line talbe_line">
-      <div class="div_cell th20">AB10293847</div>
-      <div class="div_cell th20">Mr George Clooney</div>
-      <div class="div_cell th7">Email</div>
-      <div class="div_cell th7">3</div>
-      <div class="div_cell th20">9988776655443322</div>
-      <div class="div_cell th7">987</div>
-      <div class="div_cell th7">$100.00</div>
-    </div>
-    <div class="div_line talbe_line">
-      <div class="div_cell th20">QC66550022</div>
-      <div class="div_cell th20">Miss Mary King</div>
-      <div class="div_cell th7">Internet</div>
-      <div class="div_cell th7">4</div>
-      <div class="div_cell th20">5647382891007854</div>
-      <div class="div_cell th7">242</div>
-      <div class="div_cell th7">$320.00</div>
-    </div>
+
     <br class="clear"/>
   </div>
 
   <div id="summary_sheet">
-    <div id="summary_sheet_title" style="text-align: center;">
+    <div id="summary_sheet_title" style="margin-left: 300px;">
       <h1>Summary Sheet</h1>
-      <div class="div_cell date">Date: 7 January 2010</div>
+      <div class="div_cell date">Date:<%= @date %></div>
     </div>
     <div class="div_line">
       <div id="client_org_name">
         <span class="bold_title">The Client Organisation Legal Name</span>
-        <div class="time">Time: 9:40:55 AM</div>
+        <div class="time">Time: <%= @time %></div>
       </div>
     </div>
     <div id="card_info" style="margin-top:50px;">
       <div class="div_line">
-        <span class="bold_title">Master Card</span>
+        <span class="bold_title"><%=type%></span>
       </div>
       <div class="div_line ci_line">
         <div class="div_cell th25">Bank Run ID:</div>
-        <div class="div_cell th30">999</div>
+        <div class="div_cell th30"><%= @run.id %></div>
       </div>
       <div class="div_line ci_line">
         <div class="div_cell th25">Bank Account:</div>
-        <div class="div_cell th30">1 - Commonwealth Bank - 8976</div>
+        <div class="div_cell th30"><%= account.id %>-<%= account.account_number %>-<%= account.bank.try(:full_name) %></div>
       </div>
       <div class="div_line ci_line">
         <div class="div_cell th25">Total Deposit:</div>
-        <div class="div_cell th30">$ 970.00</div>
+        <div class="div_cell th30"><%= number_to_currency(sub_total) %></div>
       </div>
       <div class="div_line ci_line">
         <div class="div_cell th25">Number of Transactions:</div>
-        <div class="div_cell th30">4</div>
+        <div class="div_cell th30"><%=num_transaction%></div>
       </div>
     </div>
     <br class="clear"/>
@@ -133,7 +115,7 @@
 
   <div id="bottom">
     <div class="div_line">
-      <div class="div_cell">*   PLEASE INDICATE WHETHER: <br />M - MAIL ORDER <br />T - TELEPHONE ORDER</div>
+      <div class="div_cell">*   PLEASE INDICATE WHETHER: <br />&nbsp;&nbsp;&nbsp;M - MAIL ORDER <br />&nbsp;&nbsp;&nbsp;T - TELEPHONE ORDER</div>
       <div class="div_cell" style="width: 400px;">THE ORIGINAL COPY SHOULD BE FOLDED THREE TIMES AS INDICATED BY FOLD MARKS ON SIDES, AND PLACED IN MERCHANT SUMMARY ENVELOPE.</div>
     </div>
     <br class="clear"/>

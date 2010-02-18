@@ -1,5 +1,5 @@
 <style type="text/css">
-  #credit_card_receipt {width:800px;margin: 0 auto;}
+  #credit_card_receipt {width:100%;margin: 0 auto;}
   #credit_card_receipt h1 {margin: 0;padding: 0;}
   #credit_card_receipt #header {margin:5px auto;width:100%;text-align:center;text-decoration: underline;}
   #credit_card_receipt #content_holder{margin: 0 auto;}
@@ -19,6 +19,7 @@
   #credit_card_receipt .div_line .div_cell{width:auto;height: auto;margin: 0 auto;padding: 0 10px;float: left;text-align: left;}
   #credit_card_receipt .div_line .div_cell p, .div_line .th7, .div_line .th20, .div_line .th25, .div_line .th30 {margin: 0;padding: 0;}
   #credit_card_receipt .div_line .th7 {width: 7%;}
+  #credit_card_receipt .div_line .th15 {width: 15%}
   #credit_card_receipt .div_line .th20 {width: 20%}
   #credit_card_receipt .div_line .th25 {width: 25%}
   #credit_card_receipt .div_line .th30 {width: 35%;}
@@ -44,7 +45,7 @@
 </style>
 <div id="credit_card_receipt">
   <%- @accounts.each do |account|%>
-    <%= render :partial => "transactions/credit_card_receipt_per_account", :locals => {:account => account} %>
+    <%= render :partial => "transactions/credit_card_receipt_per_account", :locals => {:account => account,:transaction=>transaction,:type=>type} %>
     <%- if account != @accounts.last %>
       <div class="page_break">&nbsp;</div>
     <%- end %>

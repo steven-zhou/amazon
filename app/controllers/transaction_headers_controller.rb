@@ -377,7 +377,7 @@ class TransactionHeadersController < ApplicationController
         @run.save
         @transaction_headers.each do |i|
           i.bank_run_id = @run.id
-          i.banked = true
+          i.banked = false
           i.save
         end
       end    
@@ -414,7 +414,10 @@ class TransactionHeadersController < ApplicationController
         elsif receipt_meta_type == "Visa Card"
           @visa_transactions[bank_account.id] << i rescue @visa_transactions[bank_account.id]=[i]
         end
+        
       end
+
+      
     end
   end
       

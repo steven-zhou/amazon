@@ -4,3 +4,11 @@
 <%= render :partial=> "transactions/bank_deposit_sheet" %>
 <div class="page_break">&nbsp;</div>
 <%= render :partial=> "transactions/bank_run_audit_sheet" %>
+<div class="page_break">&nbsp;</div>
+<%-if !@master_transactions.empty?%>
+  <%= render :partial=> "transactions/credit_card_receipt",:locals=>{:transaction =>@master_transactions,:type=>"MasterCard" } %>
+<%end%>
+<div class="page_break">&nbsp;</div>
+<%-if !@visa_transactions.empty?%>
+  <%= render :partial=> "transactions/credit_card_receipt",:locals=>{:transaction =>@visa_transactions,:type=>"VisaCard" } %>
+<%-end%>
