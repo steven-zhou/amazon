@@ -1,0 +1,41 @@
+.full_container
+  %h2 Mail Merge History
+
+  %table#show_mail_log_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/message_templates/", :params2 => "#{@type}"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+
+  :plain
+
+    $("#show_mail_log_grid").flexigrid({
+    url: '/grids/show_mail_log_grid?model_type=#{@model_type}',
+    dataType: 'jason',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width :30,
+    sortable :true,
+    align:'left'
+    },
+
+    {
+    display: 'entity_type',
+    name: 'mail_logs.entity_log',
+    width :100,
+    sortable :true,
+    align:'left'
+    }
+    ],
+
+    sortname : "mail_logs.id",
+    sortorder:"asc",
+    usepager:true,
+    titile:'',
+    useRp:true,
+    rp:20,
+    showTableToggleBtn:true,
+    width: 'auto',
+    height: 'auto'
+
+    });

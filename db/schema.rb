@@ -606,6 +606,8 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.string   "entity_type"
     t.integer  "doc_id"
     t.string   "channel"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
