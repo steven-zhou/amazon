@@ -9,7 +9,7 @@
             = link_to image_tag('edit_icon.png'), edit_tag_path(tag), :class => 'get_tag', :title=>"Edit"
             = link_to image_tag('delete_icon.png'), tag_path(tag), :class => 'delete' ,:field => "Tag",:error_message_field => "Tag", :title=>"Remove"
           -else
-            = link_to image_tag('icon_holder.png'),retrieve_tag_path(tag),:class => 'get',:field => "tag", :id => 'tag_retrieve_button', :tag_id => tag.id, :title=>"Retrieve"
+            = link_to image_tag('Icons/System/Restore.png'),retrieve_tag_path(tag),:class => 'get',:field => "tag", :id => 'tag_retrieve_button', :tag_id => tag.id, :title=>"Retrieve"
         .title
           %h2 #{tag.name}
       %br.clear

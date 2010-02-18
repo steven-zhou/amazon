@@ -725,5 +725,5 @@ div.pGroup
 }			
 
 /* for delete and retrieve button on grid*/
-.flexigrid .delete_button_on_grid{background: url("") no-repeat;}
-.flexigrid .retrieve_button_on_grid{background: url("") no-repeat;}
+.flexigrid .delete_button_on_grid{height: 30px;width: 30px;background: url("/images/Icons/System/edit-delete.png") no-repeat center;}
+.flexigrid .retrieve_button_on_grid{height: 30px;width: 30px;background: url("/images/Icons/System/Restore.png") no-repeat center;}
