@@ -14,6 +14,23 @@ class GlobalChangesController < ApplicationController
     end
   end
 
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    if @field == "person_part"
+         @list_headers = @current_user.all_person_lists
+    @query_headers = PersonQueryHeader.saved_queries
+    else
+     @list_headers = @current_user.all_group_organisation_lists
+   @query_headers  = OrganisationQueryHeader.saved_queries
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+
 
   def org_index
    @list_headers = @current_user.all_group_organisation_lists
@@ -25,6 +42,7 @@ class GlobalChangesController < ApplicationController
 
   #to show the content in the first dropdown list
   def show_type
+    @type = params[:type]
     if params[:select_type] == "addresses"
 
       @select_type=["Building Name","Town","State","Postal Code"]
@@ -80,9 +98,8 @@ class GlobalChangesController < ApplicationController
 
          unless entity.save!
            flash.now[:error]= "Please Check Your Input"
-         end
-#            end
 
+           end
           end
 
   
@@ -110,21 +127,16 @@ class GlobalChangesController < ApplicationController
      
           unless @person_keyword.nil?
             @person_keyword.destroy
+
           end
-          
-#        elsif params[:table_name]=="role"
-#          @person_role = PersonRole.find_person_role(i.id,params[:select_data].to_i)
-#
-#
-#          unless @person_role.nil?
-#            @person_role.destroy
-#          end
+
         elsif params[:table_name] == "group"
 
           if source_type == "Person"
           @group = PersonGroup.find_person_group(i.id,params[:select_data].to_i)
           elsif source_type == "Organisation"
             @group = OrganisationGroup.find_org_group(i.id,params[:select_data].to_i)
+
           end
     
           unless @group.nil?
@@ -155,11 +167,14 @@ class GlobalChangesController < ApplicationController
             if params[:add_front] == "true"
 
               entity.__send__((params[:table_field]+"=").to_sym, params[:change_value]+entity_one)
-
             end
             
             if params[:add_end] == "true"
               entity.__send__((params[:table_field]+"=").to_sym, entity.__send__(params[:table_field])+params[:change_value])
+            end
+
+            unless (params[:add_front] == "true" || params[:add_end] == "true")
+             flash.now[:error]= "Please Select the Checkbox"
             end
 
           unless  entity.save!
@@ -181,18 +196,7 @@ class GlobalChangesController < ApplicationController
              flash.now[:error]= "Please Check Your Input"
           end
           end
-#        elsif params[:table_name] == "role"
-#          @person_role = PersonRole.find_all_person_role(i.id,params[:select_data].to_i)
-#
-#          if @person_role.empty?
-#            new_person_role = PersonRole.new
-#            new_person_role.role_id = params[:select_data].to_i
-#            new_person_role.person_id = i.id
-#
-#            new_person_role.assigned_by = @current_user.id
-#            new_person_role.start_date = Time.now.strftime("%Y-%m-%d")
-#            new_person_role.save!
-#          end
+
         elsif params[:table_name] == "group"
           if source_type == "Person"
           @person_group = PersonGroup.find_all_person_group(i.id,params[:select_data].to_i)
@@ -246,8 +250,9 @@ class GlobalChangesController < ApplicationController
 
 
   def check_field_type
-
-
+      @source_type = params[:type]
+      @add_delete = ["Add","Delete"]
+      @add_change_delete = ["Add","Change","Delete"]
     if params[:table_name] == "keyword"
       @value = KeywordType.find(params[:table_field].to_i).keywords
 #    elsif params[:table_name] == "role"

@@ -1,17 +1,17 @@
 <style type="text/css">
-  #header {margin:5px auto;width:100%;text-align:center;}
-  .top_item {float:left;width:33%;}
-  .title_item {float:left;width:20%;}
-  .clear {clear:both;}
-  #summary {width:100%;}
-  #summary_detail {margin:5px auto;width:25%;}
-  .summary_item {width:50%;float:left;}
-  .page_break {page-break-after: always;}
+  #bank_deposit_sheet #header {margin:5px auto;width:100%;text-align:center;}
+  #bank_deposit_sheet .top_item {float:left;width:33%;}
+  #bank_deposit_sheet .title_item {float:left;width:20%;}
+  #bank_deposit_sheet .clear {clear:both;}
+  #bank_deposit_sheet #summary {width:100%;}
+  #bank_deposit_sheet #summary_detail {margin:5px auto;width:25%;}
+  #bank_deposit_sheet .summary_item {width:50%;float:left;}
 </style>
-
+<div id="bank_deposit_sheet">
 <%- @accounts.each do |account|%>
 <%= render :partial => "transactions/bank_deposit_sheet_per_account", :locals => {:account => account} %>
   <%- if account != @accounts.last %>
   <div class="page_break">&nbsp;</div>
   <%- end %>
 <%- end %>
+</div>

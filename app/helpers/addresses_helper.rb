@@ -1,6 +1,6 @@
 module AddressesHelper
   
-  # this Returns the address in a readable format
+  # Returns the address in a readable format
   def format_address(address)
     formatted = ""
     formatted += "#{address.building_name} <br/>" unless address.building_name.blank?

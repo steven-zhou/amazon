@@ -3721,18 +3721,6 @@ $(function(){
     });
 });
 
-
-//insert_name_in_email = function(this_form){
-//    var current_form = this_form.closest('form').attr('id');
-//    //var value = $("#select_word").val();
-//    var value = $("#"+current_form).find("#select_word").val()
-//
-//    var iframe_id = this_form.closest('form').find('iframe').get(0).id
-//    $("#"+ iframe_id ).contents().find('br:last').remove();
-//    $("#"+ iframe_id ).contents().find("p:last").append(value);
-//};
-
-
 insert_name_in_email = function(this_form){
     var current_form = this_form.closest('form').attr('id');
     //var value = $("#select_word").val();
@@ -3740,17 +3728,62 @@ insert_name_in_email = function(this_form){
 
     window.tinyMCE.execCommand('mceInsertContent', false, value);
 };
-/*For note*/
-//  $('#note_edit_submit').live('click',function(){
-//        if($('#note_mode').attr('mode')=="edit"){
-//            $.ajax({
-//                type: 'GET',
-//                url: "/note/"+$('#note_id').val()+"/update",
-//                data: "note_type=" + $("#note_type_id_note_typed").val()+ "&note_label="+$("#note_edit_label").val(),
-//                dataType: "script"
-//            });
+/*For General mail merge use*/
+$(function(){
+    $(".mail_merge_insert_word").live('click', function(){
+        mail_merge_insert_name($(this));
+
+    });
+});
+
+//mail_merge_insert_name = function(this_form){
+//    var current_form = this_form.closest('form').attr('id');
+//    var table = $("#"+current_form).find(".select_table_word").val();
+//    var field = $("#"+current_form).find(".select_field_word").val();
+//    var data_type = $("#"+current_form).find(".data_type").val();
+//    if (table == "people"){
+//        if(data_type == "Integer FK"){
+//
+//            var value = "<%=@"+table+"."+field+".try(:name)"+"%>";
+//
+//
+//        }else{
+//
+//            var value = "<%=@"+table+"."+field+"%>";
+//
 //        }
-//    });
+//
+//    }else{
+//
+//         if(data_type == "Integer FK"){
+//
+//          if(field == "country"){
+//
+//                var value = "<%=@people."+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
+//
+//
+//          }else{
+//
+//               var value = "<%=@people."+table+".first.try(:"+field+")"+".try(:name)"+"%>";
+//
+//          }
+//
+//
+//        }else{
+//
+//            var value = "<%=@people."+table+".first.try(:"+field+")"+"%>";
+//
+//        }
+//
+//    }
+//
+//
+//    //var value = $("#select_word").val();
+//
+//
+//    window.tinyMCE.execCommand('mceInsertContent', false, value);
+//};
+
 
 $(function() {
     $(".password").jpassword({
@@ -3769,4 +3802,57 @@ $(function() {
         length: 6
     });
 });
+
+
+
+
+
+mail_merge_insert_name = function(this_form){
+    var current_form = this_form.closest('form').attr('id');
+    var prefix_table_name = $("#"+current_form).find("#prefix_table_name").val();
+    var table = $("#"+current_form).find(".select_table_word").val();
+    var field = $("#"+current_form).find(".select_field_word").val();
+    var data_type = $("#"+current_form).find(".data_type").val();
+    if (table == "people" || table == "organisations"){
+        if(data_type == "Integer FK"){
+
+            var value = "<%=@"+table+"."+field+".try(:name)"+"%>";
+
+
+        }else{
+
+            var value = "<%=@"+table+"."+field+"%>";
+
+        }
+
+    }else{
+
+         if(data_type == "Integer FK"){
+
+          if(field == "country"){
+
+                var value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:short_name)"+"%>";
+
+
+          }else{
+
+               var value = "<%="+prefix_table_name+table+".first.try(:"+field+")"+".try(:name)"+"%>";
+
+          }
+
+
+        }else{
+
+            var value = "<%="+prefix_table_name +table+".first.try(:"+field+")"+"%>";
+
+        }
+
+    }
+
+
+    //var value = $("#select_word").val();
+
+
+    window.tinyMCE.execCommand('mceInsertContent', false, value);
+};
 

@@ -34,6 +34,7 @@ class Organisation < ActiveRecord::Base
 
 
 
+
  
 
   belongs_to :registered_country, :foreign_key => "registered_country_id", :class_name => "Country"
@@ -238,8 +239,8 @@ class Organisation < ActiveRecord::Base
   end
   
   def set_to_be_removed_and_status
-    self.to_be_removed=false
-    self.status=false
+    self.to_be_removed = false
+    self.status = true
   end
 
 end

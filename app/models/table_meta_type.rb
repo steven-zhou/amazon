@@ -24,6 +24,10 @@ class TableMetaType < TagType
     TableMetaType.find(:all, :conditions => ["tag_meta_type_id=? and status =true", @name_id], :order => "name")
   end
 
+    def self.name_finder(name)
+    TableMetaType.find(:first, :conditions => ["name=?", name], :order => "name")
+  end
+
   private
 
   def assign_priority

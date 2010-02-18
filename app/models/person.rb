@@ -5,7 +5,7 @@ class Person < ActiveRecord::Base
   #  Associations
   ################
   #++
-
+  
   has_many :addresses, :as => :addressable, :order => "priority_number ASC"
   has_many :phones, :as => :contactable, :order => "priority_number asc"
   has_many :faxes, :as => :contactable, :order => "priority_number asc"
@@ -44,6 +44,8 @@ class Person < ActiveRecord::Base
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
   has_many :person_bank_accounts, :foreign_key => "entity_id",:order => "priority_number ASC"
+
+
 
   has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id'
   has_many :group_types, :through => :person_groups
@@ -143,7 +145,6 @@ class Person < ActiveRecord::Base
   # Return the second title
   delegate :name, :to => :second_title, :prefix => true, :allow_nil => true
 
-  
   def primary_address    
     @primary_address = self.addresses.select {|address| address.priority_number == 1}.first
   end
@@ -221,7 +222,7 @@ class Person < ActiveRecord::Base
     @personal_email_types = Array.new
 
     self.emails.each do |email|
-       @var = TagType.find(email.contact_meta_type_id)
+      @var = TagType.find(email.contact_meta_type_id)
       @personal_email_types <<  @var unless @var.to_be_removed
     end
     return @personal_email_types
@@ -248,7 +249,7 @@ class Person < ActiveRecord::Base
     return @personal_website_types
   end
 
-    def personal_instant_messaging_types
+  def personal_instant_messaging_types
     @personal_instant_messaging_types = Array.new
 
     self.instant_messagings.each do |instant_messaging|
@@ -362,7 +363,6 @@ class Person < ActiveRecord::Base
     @list_detail = ListDetail.new(:list_header_id => PrimaryList.first.id, :entity_id => self.id)
     @list_detail.save
   end
-
 
   def set_to_be_removed_and_active
     self.to_be_removed=false

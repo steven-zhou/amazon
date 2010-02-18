@@ -1,0 +1,24 @@
+.full_container
+  - form_tag("/message_templates/create_mail", {:id => "new_mail_merge",:submit_button_id => "new_mail_merge_submit"})  do
+    .form_line
+      .field_30
+        %label <span class='asterisk'>*</span>Query/List
+        -#= f.label :subject, "<span class='asterisk'>*</span>Query/List"
+        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'select_ban_submit' }
+          %option{:value => "0"} --------------------List------------------------------
+          - @organisation_list_headers.each do |r|
+            %option{:value => "#{r.id}"} #{r.name}
+          %option{:value => "0"} --------------------Query------------------------------
+          - @organisation_query_headers.each do |r|
+            %option{:value => "#{r.id}"} #{r.name}
+      .field_30
+        -#= f.label :subject, "<span class='asterisk'>*</span>Template"
+        %label <span class='asterisk'>*</span>Template
+        %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'select_ban_submit' }
+          - @mail_templates.each do |r|
+            %option{:value => "#{r.id}"} #{r.name}
+
+      .field_15{:style => "float:right;"}
+        %label &nbsp
+        = submit_tag "Submit", :id => "new_mail_merge_submit", :disabled => true
+

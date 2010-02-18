@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100210230619) do
+ActiveRecord::Schema.define(:version => 20100217065103) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "priority_number"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "allocation_types", :force => true do |t|
@@ -45,6 +47,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "link_module_name"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "amazon_settings", :force => true do |t|
@@ -56,6 +60,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "description"
     t.boolean  "status"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "available_modules", :force => true do |t|
@@ -64,6 +70,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "bank_accounts", :force => true do |t|
@@ -77,18 +85,15 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer "account_type_id"
     t.integer "priority_number"
     t.boolean "to_be_removed"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "bank_grids", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "bank_run_details", :force => true do |t|
-    t.integer  "bank_run_id"
-    t.integer  "transaction_header_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "bank_run_report_details", :force => true do |t|
@@ -119,6 +124,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "campaign_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "bank_run_reports", :force => true do |t|
@@ -128,11 +135,15 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "bank_runs", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "banks", :force => true do |t|
@@ -159,6 +170,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "bdrb_job_queues", :force => true do |t|
@@ -191,6 +204,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "updated_at"
     t.boolean  "to_be_removed", :default => false
     t.boolean  "status",        :default => true
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "campaigns", :force => true do |t|
@@ -204,6 +219,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "client_setups", :force => true do |t|
@@ -266,6 +283,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text     "level_8_remarks"
     t.text     "level_9_label"
     t.text     "level_9_remarks"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -274,6 +293,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "contacts", :force => true do |t|
@@ -297,6 +318,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "sunday_hours"
     t.integer  "priority_number"
     t.integer  "contact_meta_type_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "countries", :force => true do |t|
@@ -311,12 +334,16 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "dialup_code"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "dashboard_preferences", :force => true do |t|
     t.integer "login_account_id"
     t.integer "column_id"
     t.integer "box_id"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "duplication_formula_details", :force => true do |t|
@@ -327,6 +354,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "is_foreign_key"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "duplication_formulas", :force => true do |t|
@@ -337,6 +366,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "type"
     t.string   "group"
     t.boolean  "status"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "employments", :force => true do |t|
@@ -383,6 +414,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "payment_day_id"
     t.integer  "suspension_type_id"
     t.integer  "termination_method_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "feedback_items", :force => true do |t|
@@ -398,6 +431,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "response_date"
     t.integer  "responded_to_by_id"
     t.string   "submitted_by"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "grids", :force => true do |t|
@@ -414,6 +449,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text    "field_8"
     t.text    "field_9"
     t.text    "field_10"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "group_lists", :force => true do |t|
@@ -421,11 +458,15 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "list_header_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "group_permissions", :force => true do |t|
     t.integer "system_permission_type_id"
     t.integer "user_group_id"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "groups", :force => true do |t|
@@ -438,14 +479,18 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "helps", :force => true do |t|
-    t.string "controller"
-    t.string "action"
-    t.string "title"
-    t.string "keyword"
-    t.string "content"
+    t.string  "controller"
+    t.string  "action"
+    t.string  "title"
+    t.string  "keyword"
+    t.string  "content"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "images", :force => true do |t|
@@ -457,6 +502,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "imageable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "keyword_links", :force => true do |t|
@@ -465,6 +512,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "taggable_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "keywords", :force => true do |t|
@@ -475,12 +524,16 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.boolean  "status"
     t.string   "description"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "languages", :force => true do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "list_details", :force => true do |t|
@@ -488,6 +541,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "entity_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "list_headers", :force => true do |t|
@@ -505,6 +560,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "top_type"
     t.integer  "top_value"
     t.integer  "login_account_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "login_accounts", :force => true do |t|
@@ -540,6 +597,17 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "online_status"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  create_table "mail_logs", :force => true do |t|
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.integer  "doc_id"
+    t.string   "channel"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "master_docs", :force => true do |t|
@@ -567,6 +635,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "updated_at"
     t.integer  "priority_number"
     t.integer  "issue_country_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "message_templates", :force => true do |t|
@@ -577,6 +647,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.boolean  "to_be_removed"
     t.string   "type"
     t.integer  "mail_merge_category_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "notes", :force => true do |t|
@@ -591,6 +663,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "note_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "organisation_groups", :force => true do |t|
@@ -598,6 +672,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "organisation_hierarchies", :force => true do |t|
@@ -606,6 +682,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "organisation_key_personnels", :force => true do |t|
@@ -615,6 +693,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "organisation_relationships", :force => true do |t|
@@ -623,6 +703,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "organisation_subsidiaries", :force => true do |t|
@@ -631,6 +713,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text     "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "organisations", :force => true do |t|
@@ -670,6 +754,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "level_label"
     t.boolean  "status"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "people", :force => true do |t|
@@ -703,6 +789,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "duplication_value"
     t.boolean  "status"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "person_bank_accounts", :force => true do |t|
@@ -712,6 +800,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer "account_type_id"
     t.boolean "status"
     t.text    "remarks"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "person_groups", :force => true do |t|
@@ -719,6 +809,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "tag_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "person_roles", :force => true do |t|
@@ -735,6 +827,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.date     "end_date"
     t.integer  "supervised_by"
     t.integer  "managed_by"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "post_areas", :force => true do |t|
@@ -744,6 +838,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "postcodes", :force => true do |t|
@@ -762,6 +858,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.text    "bulk_code"
     t.integer "geographical_area_id"
     t.integer "electoral_area_id"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "potential_members", :force => true do |t|
@@ -771,6 +869,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "validation_key"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "query_criterias", :force => true do |t|
@@ -783,6 +883,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string  "option"
     t.string  "value"
     t.boolean "status"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "query_details", :force => true do |t|
@@ -794,6 +896,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string  "type"
     t.boolean "ascending"
     t.string  "data_type"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "query_headers", :force => true do |t|
@@ -811,6 +915,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "top_type"
     t.boolean  "allow_duplication"
     t.string   "type"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "quick_launch_icons", :force => true do |t|
@@ -823,6 +929,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "module"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "receipt_accounts", :force => true do |t|
@@ -838,6 +946,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "link_module_id"
     t.text     "link_module_name"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "receipt_methods", :force => true do |t|
@@ -854,6 +964,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "card_lines_per_page"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "relationships", :force => true do |t|
@@ -862,6 +974,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "relationship_type_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "role_conditions", :force => true do |t|
@@ -871,6 +985,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "remarks"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "roles", :force => true do |t|
@@ -882,6 +998,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "remarks"
     t.boolean  "role_status"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "simple_captcha_data", :force => true do |t|
@@ -889,6 +1007,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "value",      :limit => 6
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "sources", :force => true do |t|
@@ -905,6 +1025,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "system_logs", :force => true do |t|
@@ -916,6 +1038,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.text     "status"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "system_news", :force => true do |t|
@@ -927,6 +1051,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "updated_at"
     t.string   "title"
     t.boolean  "status"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "tag_meta_types", :force => true do |t|
@@ -939,6 +1065,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "updated_at"
     t.string   "category"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "tag_types", :force => true do |t|
@@ -952,6 +1080,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "updated_at"
     t.string   "category"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "tags", :force => true do |t|
@@ -965,6 +1095,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "updated_at"
     t.string   "category"
     t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "to_do_lists", :force => true do |t|
@@ -976,6 +1108,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.integer  "login_account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "transaction_allocations", :force => true do |t|
@@ -993,6 +1127,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.string   "cluster_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "transaction_headers", :force => true do |t|
@@ -1019,6 +1155,8 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "temp_banked"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "transaction_type_details", :force => true do |t|
@@ -1035,16 +1173,22 @@ ActiveRecord::Schema.define(:version => 20100210230619) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "bank_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "user_groups", :force => true do |t|
     t.integer "user_id"
     t.integer "group_id"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
   create_table "user_lists", :force => true do |t|
     t.integer "user_id"
     t.integer "list_header_id"
+    t.integer "creator_id"
+    t.integer "updater_id"
   end
 
 end

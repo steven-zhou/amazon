@@ -1,54 +1,27 @@
-.container
-  %h1 Person Glabal Change
+#header
+  #page_title
+    %h1 Global Change
 
-  .full_container
-    #select_query_or_list
-      %h2 List/Query
-      =label :list_query_name,:list_query_name_id, 'Select List/Query'
-      %select{:id => "list_header_name", :name => "list_header_id",:style => "width:150px"}
-        - @list_headers.each do |r|
-          %option{:value => "#{r.id}_list"} #{r.name}
-        - @query_headers.each do |r|
-          %option{:value => "#{r.id}_query"} #{r.name}
+.tab_switch{:style => "margin-right:15px;"}
+  .tab_switch_left.active.left{:field =>"person_part"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to_function "<h1>Person</h1>",:class=>"tab_switch_button page_initial hidden", :url => "/global_changes/page_initial",:method => "GET", :render_page => "/global_changes/people_index", :field => "person_part"
+    = link_to_function "<h1>Person</h1>", :class=>"tab_switch_with_page_initial", :field => "person_part"
+  .tab_switch_right.active.left{:field =>"person_part"}
 
-    #select_table_and_field
-      #select_table
-        .form_line
-          =label :table_name,:table_id, 'Select Table'
-          %select#global_change_table_name{:class => "global_change_fields clear_select",:style => "width:150px"}
-            %option
-            %option{:value => "addresses"} Address
-            %option{:value => "keyword"} Keyword
-            %option{:value => "group"} Group
-            %option{:value => "note"} Note
+  .tab_switch_left.left{:field =>"organisation_part"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Organisation</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/global_changes/page_initial", :method => "GET", :render_page => "/global_changes/org_index", :field => "organisation_part"
+    = link_to_function "<h1>Organisation</h1>", :class=>"tab_switch_with_page_initial", :field => "organisation_part"
+  .tab_switch_right.left{:field =>"organisation_part"}
+%br.clear
 
-      #select_field
-        .form_line
-          =label :table_field,:table_field_id, 'Select Field'
-          %select#table_field_id{:style => "width:150px",:name=>"table_field"}
-            %option
-    #input_value
-      #input_data_value
-        =label :value,:value_id, 'Value'
-        %input{:id=>"global_change_value", :name => "global_change_value",:style=>"width:150px"}
-      #select_system_data{:style=>"display:none;"}
-        =label :system_data,:system_data_id, 'Select Data'
-        %select#system_data_id{:style => "width:150px",:name=>"global_change_value"}
-          %option
-      .form_line
-        %div#global_change_checkbox
-          .field_10
-            =label :add_to_front,:add_to_front_id, 'Add to front'
-            =radio_button_tag "add_to_front","front",:checked => true
-          .field_10
-            =label :add_to_end,:add_to_end_id, 'Add to end'
-            =radio_button_tag "add_to_front","end"
-        .field_60
-          %input{:type => "button",:id=>"global_add", :value => "Add", :class => "global_change", :source => "Person",:disabled =>true}
-          %input{:type => "button",:id=>"global_change", :value => "Change", :class => "global_change", :source => "Person",:disabled =>true}
-          %input{:type => "button",:id=>"global_delete", :value => "Delete", :class => "global_change", :source => "Person",:disabled =>true}
+#person_part.tab_switch_container.active.full_container
+  = render :partial => '/global_changes/people_index'
+
+#organisation_part.tab_switch_container.full_container
+  = render :partial => '/global_changes/org_index'
 
 
 
-
-
+ 
