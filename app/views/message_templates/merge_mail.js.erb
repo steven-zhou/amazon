@@ -1,0 +1,6 @@
+$('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+
+ $('#spinner').css('display', 'none');
+ $('#new_mail_merge_submit').attr('disabled', false);

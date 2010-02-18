@@ -145,42 +145,37 @@ class MessageTemplatesController < ApplicationController
     @list_header_id = params[:list_header_id]
     @message_template_id = params[:message_template_id]
     @entity_type = params[:entity_type]
-    #redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
-    respond_to do |format|
-      format.js
-    end
+    redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
+ 
   end
 
   def merge_mail
+   
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
     time_stamp = Time.now.strftime("%d-%m-%y_%I:%M:%p")
-
-    @latex = ""
     
-#    for @people in @entities
-#      @latex << render(:file => "#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", :object => @people)
-#    end
-#
-#    File.open("#{RAILS_ROOT}/app/public/temp_document/#{template_name}#{time_stamp}.html", 'w') do |f2|
-#      f2.puts  "#{@latex}"
-#    end
+    @pdf = ""
+  
+    @pdf << render_to_string(:partial => "message_templates/create_mail_templates2")
+ 
+    File.open("public/temp_document/#{template_name}#{time_stamp}.html", 'w') do |f2|
+      f2.puts  "#{@pdf}"
+    end
+    
+    system "wkhtmltopdf public/temp_document/#{template_name}#{time_stamp}.html  public/temp_document/#{template_name}#{time_stamp}.pdf"
+    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/temp_document/#{template_name}#{time_stamp}.pdf' style='color:white;'>reading pdf</a>)"
+           
+    respond_to do |format|
+      format.js
+    end
+   
 
-        @pdf = ""
-        #    puts"debug---#{@entities.to_yaml}"
-        for @people in @entities
-          @pdf << render(:partial => "message_templates/create_mail_template")
-        end
-        File.open("public/temp_document/a.html.erb", 'w') do |f2|
-          f2.puts  "#{@pdf}"
-        end
   end
 
 
 
-
-  
 end
