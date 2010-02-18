@@ -375,7 +375,7 @@ class TransactionHeadersController < ApplicationController
         end
       end    
       prepare_bank_run_report(@run.id)
-      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false, :action => "new"
+      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false
     end
   end
 
