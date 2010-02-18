@@ -45,6 +45,8 @@ class Person < ActiveRecord::Base
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
   has_many :person_bank_accounts, :foreign_key => "entity_id",:order => "priority_number ASC"
 
+
+
   has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id'
   has_many :group_types, :through => :person_groups
   #has_many :group_owner, :class_name => 'PersonGroup', :foreign_key => 'people_id'

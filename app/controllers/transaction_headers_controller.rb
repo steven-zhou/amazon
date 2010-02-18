@@ -329,6 +329,15 @@ class TransactionHeadersController < ApplicationController
     values = Array.new
     conditions << "banked = ?"
     values << "false"
+
+
+    puts "*****************8"
+    puts params[:bank_account_number]
+    puts params[:start_id]
+    puts params[:end_id]
+     puts params[:user_id]
+      puts params[:start_transaction_date]
+       puts params[:end_transaction_date]
     @date_valid = true
     if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
       conditions << "bank_account_id = ?"
@@ -341,6 +350,11 @@ class TransactionHeadersController < ApplicationController
       conditions << "id BETWEEN ? AND ?"
       values << params[:start_id].to_i.to_s
       values << params[:end_id].to_i.to_s
+    end
+
+    if (params[:user_id]&&params[:user_id]!="All")
+      conditions << "creator_id = ?"
+      values << params[:user_id].to_i
     end
 
     if (params[:start_transaction_date] || params[:end_transaction_date])
@@ -375,7 +389,7 @@ class TransactionHeadersController < ApplicationController
         end
       end    
       prepare_bank_run_report(@run.id)
-      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false, :action => "new"
+      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false
     end
   end
 
