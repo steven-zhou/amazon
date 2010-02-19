@@ -59,6 +59,17 @@ class LoginAccount < ActiveRecord::Base
     return login_account
   end
 
+  def super_user?
+    self.class.to_s == "MemberZone" || self.class.to_s == "SuperAdmin"
+  end
+
+  def all_permissions
+    all_permissions = Array.new
+    for group in self.group_types do
+      all_permission << group.system_permission_types
+    end
+    all_permissions.uniq
+  end
 
   def has_groups?
     !self.group_types.empty?

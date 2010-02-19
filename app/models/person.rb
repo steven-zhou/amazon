@@ -72,6 +72,7 @@ class Person < ActiveRecord::Base
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :transaction_headers, :as => :entity
   has_many :list_details, :as => :listable
+  has_many :mail_logs, :as => :entity
   #has_many :players, :through => :list_details, :source => :player
 
   
@@ -289,7 +290,9 @@ class Person < ActiveRecord::Base
     "#{self.first_name} #{self.family_name}".squeeze(" ").strip
   end
 
-
+  def full_name
+    "#{self.first_name} #{self.family_name}".squeeze(" ").strip
+  end
   
   # Returns the full name and title
   def full_name_and_title

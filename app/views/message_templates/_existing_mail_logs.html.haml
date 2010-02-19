@@ -1,41 +1,58 @@
 .full_container
   %h2 Mail Merge History
 
-  %table#show_mail_log_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/message_templates/", :params2 => "#{@type}"}
+  %table#show_mail_logs_grid{:class => "selectable_grid"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-
   :plain
+    
 
-    $("#show_mail_log_grid").flexigrid({
-    url: '/grids/show_mail_log_grid?model_type=#{@model_type}',
-    dataType: 'jason',
+    $("#show_mail_logs_grid").flexigrid({
+    url: '/grids/show_mail_logs_grid',
+    dataType: 'json',
     colModel : [
     {
     display: 'ID',
     name : 'id',
-    width :30,
-    sortable :true,
-    align:'left'
+    width : 40,
+    sortable : true,
+    align: 'left'
     },
 
     {
-    display: 'entity_type',
-    name: 'mail_logs.entity_log',
-    width :100,
-    sortable :true,
-    align:'left'
-    }
-    ],
+    display: 'name',
+    name : 'people.full_name',
+    width : 570,
+    sortable : true,
+    align: 'left'
+    },
 
-    sortname : "mail_logs.id",
-    sortorder:"asc",
-    usepager:true,
-    titile:'',
-    useRp:true,
-    rp:20,
-    showTableToggleBtn:true,
+    {
+    display: 'channel',
+    name : 'channerl',
+    width : 570,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'creator',
+    name : 'mail_logs.creator',
+    width : 570,
+    sortable : true,
+    align: 'left'
+    }
+
+    ],
+    
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
     width: 'auto',
     height: 'auto'
-
     });
+ 

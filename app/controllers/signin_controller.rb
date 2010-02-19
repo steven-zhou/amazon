@@ -15,9 +15,10 @@ class SigninController < ApplicationController
       begin
         # Step 1 - Check the username and password supplied
         # IF the username and password is wrong, we will throw an exception and be sent down to the rescue
+        LoginAccount.current_user = LoginAccount.find(1)
         login_account = LoginAccount.authenticate(params[:user_name], params[:password])  
         # Check to see if the account is new and if so, are the still within their grace period
-        # If not, delete the account
+        # If not, delete the account        
         begin
           redirect_to :action => "ask_for_power_password", :user_name => params[:user_name], :clocktime => params[:clocktime], :clocktime_date => params[:clocktime_date] and return unless login_account.class.to_s == "SystemUser"
           account_system_user_check(login_account) # Checks the system_user attribute
@@ -209,6 +210,7 @@ class SigninController < ApplicationController
 
   def login_as_super_user
     begin
+      LoginAccount.current_user = LoginAccount.find(1)
       login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
       #system_log("Super User account logged onto the system - #{login_account.user_name} (ID #{login_account.id}).", "signin", "login_as_super_user", login_account)
       begin
