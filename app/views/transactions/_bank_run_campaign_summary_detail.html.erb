@@ -1,0 +1,59 @@
+
+<div class="div_line">
+  <div class="title_bold">Bank Run Campaign Summary</div>
+</div>
+<div class="div_line">
+  <div class="div_cell">The Client Organisation</div>
+  <div class="div_cell right">Date: <%= @date %></div>
+</div>
+<div class="div_line">
+  <div class="div_cell cell_375">Bank Run ID: <%= @run.id %></div>
+  <div class="div_cell cell_475">Bank Account: <%= account.id %>-<%= account.account_number %></div>
+  <div class="div_cell right">Time: <%= @time %></div>
+</div>
+<div class="div_line table_title">
+  <div class="div_cell cell_40">Campaign</div>
+  <div class="div_cell cell_15">Cash</div>
+  <div class="div_cell cell_15">Cheque</div>
+  <div class="div_cell cell_15">Cards</div>
+  <div class="div_cell cell_15">Total Amount</div>
+</div>
+
+<%- total_cash = 0.00%>
+<%- total_cheque = 0.00%>
+<%- total_card = 0.00%>
+<%- total = 0.00%>
+<%- Campaign.active_campaign.try(:each) do |campaign|%>
+  <div class="div_line">
+    <div class="div_cell cell_40"><%=campaign.name%></div>
+    <div class="div_cell cell_15"><%=@campaign_cash[account.id+campaign.id].nil? ?  number_to_currency(0) : number_to_currency(@campaign_cash[account.id+campaign.id].first.to_f)  %></div>
+    <div class="div_cell cell_15"><%=@campaign_cheque[account.id+campaign.id].nil? ?  number_to_currency(0) : number_to_currency(@campaign_cheque[account.id+campaign.id].first.to_f)  %></div>
+    <div class="div_cell cell_15"><%=@campaign_cards[account.id+campaign.id].nil? ?  number_to_currency(0) : number_to_currency(@campaign_cards[account.id+campaign.id].first.to_f)  %></div>
+    <%-if @campaign_cash[account.id+campaign.id].nil? %>
+      <%- @campaign_cash[account.id+campaign.id]=[0]%>
+    <%-end%>
+    <%-if @campaign_cheque[account.id+campaign.id].nil? %>
+      <%- @campaign_cheque[account.id+campaign.id]=[0]%>
+    <%-end%>
+    <%-if @campaign_cards[account.id+campaign.id].nil? %>
+      <%- @campaign_cards[account.id+campaign.id]=[0]%>
+    <%-end%>
+    <div class="div_cell cell_15"><%=number_to_currency(@campaign_cash[account.id+campaign.id].first.to_f+@campaign_cheque[account.id+campaign.id].first.to_f+@campaign_cards[account.id+campaign.id].first.to_f)%></div>
+  </div>
+  <%- total_cash += @campaign_cash[account.id+campaign.id].first.to_f%>
+  <%- total_cheque += @campaign_cheque[account.id+campaign.id].first.to_f %>
+  <%- total_card += @campaign_cards[account.id+campaign.id].first.to_f%>
+  <%- total += @campaign_cards[account.id+campaign.id].first.to_f+@campaign_cash[account.id+campaign.id].first.to_f+@campaign_cheque[account.id+campaign.id].first.to_f%>
+<%-end%>
+
+
+<br clear="both"/>
+<div class="line_seperator"></div>
+<div class="div_line div_total">
+  <div class="div_cell cell_40 pure_bold">Totals</div>
+  <div class="div_cell cell_15"><%=number_to_currency(total_cash)%></div>
+  <div class="div_cell cell_15"><%=number_to_currency(total_cheque)%></div>
+  <div class="div_cell cell_15"><%=number_to_currency(total_card)%></div>
+  <div class="div_cell cell_15"><%=number_to_currency(total)%></div>
+</div>
+
