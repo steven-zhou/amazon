@@ -177,10 +177,10 @@ class MessageTemplatesController < ApplicationController
 
     #for create record in the database mail-logs
     @entities.each do |entity|
-      @mail_log = entity.mail_logs.new
+      @mail_log = @entity.mail_logs.new
       @mail_log.doc_id = @mail_template.id
       @mail_log.channel = "mail"
-      @mail_log.save!
+      @mail_log.save
 
     end
     respond_to do |format|
