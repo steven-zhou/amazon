@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing Keywords
-  %table#show_keywords_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/keywords/"}
+  %table#show_keywords_grid{:class=>"selectable_grid",:mode_field=>'keyword_mode', :db_click_function=>"true", :edit=>"true", :db_click_url=>"/keywords/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
     delete_from_a_grid = function(){

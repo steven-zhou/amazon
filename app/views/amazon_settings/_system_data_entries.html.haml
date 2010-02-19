@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing System Data
-  %table#show_system_data_grid{:class => "selectable_grid",:db_click_function =>"true",:db_show=>"true",:db_click_url=>"/amazon_settings/system_data_entry_finder/"}
+  %table#show_system_data_grid{:class => "selectable_grid",:mode_field=>'system_data_mode',:db_click_function =>"true",:db_show=>"true",:db_click_url=>"/amazon_settings/system_data_entry_finder/"}
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_from_a_grid = function(){

@@ -1,5 +1,5 @@
 $('#edit_role_container').html('<%=escape_javascript(render(:partial => "/roles/edit_role"))%>');
-
+$('#new_role_bar').css('display','none');
 $('#role_role_type_id').attr("disabled", true);
 $('#add_new_role').hide();
 $('#role_mode').attr('mode','edit');
