@@ -383,6 +383,7 @@ class TransactionHeadersController < ApplicationController
       end    
       prepare_bank_run_report(@run.id)
       render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false
+
     end
   end
 
@@ -397,6 +398,22 @@ class TransactionHeadersController < ApplicationController
     @cheque_transactions = Array.new
     @master_transactions = Array.new
     @visa_transactions = Array.new
+
+    @receipt_account = ReceiptAccount.active
+    @campaign = Campaign.active_campaign
+    # for receipt account summary
+    @receipt_account_cash = Array.new
+    @receipt_account_cheque = Array.new
+    @receipt_account_cards = Array.new
+    # for receipt type summary
+    @receipt_type_cash = Array.new
+    @receipt_type_cheque = Array.new
+    @receipt_type_master_cards = Array.new
+    @receipt_type_visa_cards = Array.new
+    #for bank run campaign summary
+    @campaign_cash = Array.new
+    @campaign_cheque = Array.new
+    @campaign_cards = Array.new
     @transactions.each do |i|
       bank_account = i.bank_account
       receipt_meta_meta_type = i.receipt_meta_meta_type.try(:name)
@@ -416,9 +433,73 @@ class TransactionHeadersController < ApplicationController
         end
         
       end
+    #for receipt acccount summary
+      @receipt_account.each do |receipt_account|
+
+        i.transaction_allocations.each do |transaction_allocation|
+
+          if transaction_allocation.receipt_account.name == receipt_account.name
+            if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+              @receipt_account_cash[bank_account.id+receipt_account.id] << transaction_allocation.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
+
+            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+              @receipt_account_cheque[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
+            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
+              @receipt_account_cards[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
+            end
+
+          end
+
+
+        end
+      end
+
+      #for receipt type summary
+
+      i.transaction_allocations.each do |transaction_allocation|
+        if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+         @receipt_type_cash[bank_account.id] << transaction_allocation.amount rescue @receipt_type_cash[bank_account.id]  = [transaction_allocation.amount]
+          elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+           @receipt_type_cheque[bank_account.id] <<transaction_allocation.amount rescue @receipt_type_cheque[bank_account.id] = [transaction_allocation.amount]
+         elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Master Card"
+           @receipt_type_master_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_master_cards[bank_account.id] = [transaction_allocation.amount]
+         elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Visa Card"
+           @receipt_type_visa_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_visa_card[bank_account.id] = [transaction_allocation.amount]
+        end
+
+        
+      end
+
+
+      #for campaign summary
+      @campaign.each do |campaign|
+       i.transaction_allocations.each do |transaction_allocation|
+
+          if transaction_allocation.campaign.try(:name) == campaign.name
+            if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+              @campaign_cash[bank_account.id+campaign.id] << transaction_allocation.amount rescue @campaign_cash[bank_account.id+campaign.id] = [transaction_allocation.amount]
+            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+              @campaign_cheque[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [transaction_allocation.amount]
+            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
+              @campaign_cards[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cards[bank_account.id+campaign.id] = [transaction_allocation.amount]
+            end
+
+          end
+
+
+        end
+
+
+      end
+
+
 
       
     end
+
+
+
+
   end
       
 end
