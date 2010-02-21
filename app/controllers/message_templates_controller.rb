@@ -169,15 +169,15 @@ class MessageTemplatesController < ApplicationController
 
 
     #-----change html to pdf and give the flashmessage for click
-    system "wkhtmltopdf public/temp_document/#{template_name}#{time_stamp}.html  public/temp_document/#{template_name}#{time_stamp}.pdf"
-    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/temp_document/#{template_name}#{time_stamp}.pdf' style='color:white;'>reading pdf</a>)"
-
+    system "wkhtmltopdf public/temp/#{template_name}#{time_stamp}.html  public/temp/#{template_name}#{time_stamp}.pdf"
+    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/temp/#{template_name}#{time_stamp}.pdf'>reading pdf</a>)"
+    puts"------DEBUG----#{flash.now[:message]}"
     #for create record in the database mail-logs
     @entities.each do |entity|
       @mail_log = entity.mail_logs.new
       @mail_log.doc_id = @mail_template.id
       @mail_log.channel = "mail"
-      @mail_log.save!
+      @mail_log.save
 
     end
     respond_to do |format|

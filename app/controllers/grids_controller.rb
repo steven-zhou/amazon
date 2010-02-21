@@ -3355,13 +3355,15 @@ class GridsController < ApplicationController
     if(query == "%%")
       @mail_logs = MailLog.find(
         :all,
+        :conditions => ["entity_type = ?", "Person"],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start,
-        :joins => "INNER JOIN people ON people.id = mail_logs.entity_id"
+        :joins => "INNER JOIN people ON people.id = mail_logs.entity_id",
+        :include => ["creator", "person_mail_template"]
 
       )
-      count = MailLog.count(:all, :joins => "INNER JOIN people ON people.id = mail_logs.entity_id")
+      count = MailLog.count(:all, :conditions => ["entity_type = ?", "Person"], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id", :include => ["creator", "person_mail_template"])
     end
 
     if(query != "%%")
@@ -3370,9 +3372,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? ", query],
-        :include => ["entity"])
-      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? ", query], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id")
+        :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Person"],
+        :include => ["creator", "person_mail_template"])
+      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Person"], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id", :include => ["creator", "person_mail_template"])
     end
 
     return_data = Hash.new()
@@ -3384,12 +3386,73 @@ class GridsController < ApplicationController
           u.id.nil? ? "" : u.id,
           u.entity.full_name,
           u.channel,
+          u.person_mail_template.name,
           u.creator.user_name
         ]
       }}
     render :text=>return_data.to_json, :layout=>false
   end
 
+
+
+  def show_org_mail_logs_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+
+    sortname ? sortname : "id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @mail_logs = MailLog.find(
+        :all,
+        :conditions => ["entity_type = ?", "Organisation"],
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start,
+        :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id",
+        :include => ["creator", "organisation_mail_template"]
+
+      )
+       count = MailLog.count(:all, :conditions => ["entity_type = ?", "Organisation"], :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id", :include => ["creator", "organisation_mail_template"])
+    end
+
+    if(query != "%%")
+      @mail_logs = MailLog.find(
+        :all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+       :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Organisation"],
+        :include => ["creator", "organisation_mail_template"])
+      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Organisation"], :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id", :include => ["creator", "organisation_mail_template"])
+    end
+
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @mail_logs.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.id.nil? ? "" : u.id,
+          u.entity.full_name,
+          u.channel,
+          u.organisation_mail_template.name,
+          u.creator.user_name
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+  end
 
 
 
