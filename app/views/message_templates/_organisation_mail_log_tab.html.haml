@@ -1,0 +1,8 @@
+%div
+  %input.hidden{:id => "organisation_mail_log_mode", :mode => "show"}
+
+  #existing_organisation_mail_template
+    = render :partial => "message_templates/existing_organisation_mail_logs"
+
+  #edit_organisation_mail_template{:style => "display:none;margin-top:10px;float:left;"}
+    
