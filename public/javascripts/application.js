@@ -885,7 +885,7 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        $('.flexigrid table table.selectable_grid tr.trSelected').removeClass("trSelected");
+        $('.flexigrid table table.selectable_grid tr').removeClass("trSelected");
         var temp = $('#check_input_change').val();
         var left_content = $("#content").find("#left_content");
         var  right_content = $("#content").find("#right_content");

@@ -1,7 +1,7 @@
 # To change this template, choose Tools | Templates
 # and open the template in the editor.
 
-puts "Initialize MemberZone User..."
+puts "Initializing MemberZone user"
 @memberzone = MemberZone.new
 @memberzone.callback_flag = true
 @memberzone.user_name = "MemberZone"
