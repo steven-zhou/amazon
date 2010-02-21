@@ -3333,59 +3333,64 @@ class GridsController < ApplicationController
       }}
     render :text=>return_data.to_json, :layout=>false
   end
-end
 
-def show_mail_log_grid
-  page = (params[:page]).to_i
-  rp = (params[:rp]).to_i
-  query = params[:query]
-  qtype = params[:qtype]
-  sortname = params[:sortname]
-  sortorder = params[:sortorder]
+  def show_mail_logs_grid
+    page=(params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+  
 
-  if (!sortname)
-    sortname = "id"
+    sortname ? sortname : "id"
+    sortorder ? sortorder : "asc"
+    page ? page : 1
+    rp ? rp : 10
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    #No search terms provided
+    if(query == "%%")
+      @mail_logs = MailLog.find(
+        :all,
+        :order => sortname + ' ' + sortorder,
+        :limit => rp,
+        :offset => start,
+        :joins => "INNER JOIN people ON people.id = mail_logs.entity_id"
+
+      )
+      count = MailLog.count(:all, :joins => "INNER JOIN people ON people.id = mail_logs.entity_id")
+    end
+
+    if(query != "%%")
+      @mail_logs = MailLog.find(
+        :all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? ", query],
+        :include => ["entity"])
+      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? ", query], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id")
+    end
+
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:count] = count
+    return_data[:rows] = @mail_logs.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.id.nil? ? "" : u.id,
+          u.entity.full_name,
+          u.channel,
+          u.creator.user_name
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
   end
 
-  if (!sortorder)
-    sortorder = "asc"
-  end
-
-  if (!page)
-    page = 1
-  end
-
-  if (!sortorder)
-    rp = 20
-  end
-
-   start = ((page-1) * rp).to_i
-   query = "%"+query+"%"
-
-  # No search terms provided
-  if(query == "%%")
-    @mail_logs = MailLog.find(:all,
-      :order => sortname+' '+sortorder,
-      :limit => rp,
-      :offset => start
-
-    )
-    count = MailLog.count(:all)
-  end
 
 
-  # User search terms provided
-  if(query != "%%")
-    @mail_logs = MailLog.find(:all,
-    :order => sortname+' '+sortorder,
-    :limit => rp,
-    :offset => start,
-    :condition => [qtype + "ilike ?", query]
-    )
-    count = MailLog.count(:all, :conditions =>[qtype + " ilike ?", query])
-  end
- # Construct a hash from the ActiveRecord result
- return_data = Hash.new()
- return_data[:page]
 
 end

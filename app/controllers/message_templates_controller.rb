@@ -146,32 +146,47 @@ class MessageTemplatesController < ApplicationController
     @message_template_id = params[:message_template_id]
     @entity_type = params[:entity_type]
     redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
- 
   end
 
   def merge_mail
-   
+
+    #----prepare the data which pdf use
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
     time_stamp = Time.now.strftime("%d-%m-%y_%I:%M:%p")
-    
+
+    #---------render the html which have another html which use the object above and create temp dir
     @pdf = ""
-  
     @pdf << render_to_string(:partial => "message_templates/create_mail_templates2")
- 
-    File.open("public/temp_document/#{template_name}#{time_stamp}.html", 'w') do |f2|
+
+
+    file_name = "temp"
+    file_dir = "public/#{file_name}"
+    FileUtils.mkdir(file_dir) unless File.exists?(file_dir)
+    File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
     end
-    
-    system "wkhtmltopdf public/temp_document/#{template_name}#{time_stamp}.html  public/temp_document/#{template_name}#{time_stamp}.pdf"
-    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/temp_document/#{template_name}#{time_stamp}.pdf' style='color:white;'>reading pdf</a>)"
-           
+
+
+    #-----change html to pdf and give the flashmessage for click
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
+    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:white;'>reading pdf</a>)"
+
+    #for create record in the database mail-logs
+    @entities.each do |entity|
+      @mail_log = entity.mail_logs.new
+      @mail_log.doc_id = @mail_template.id
+      @mail_log.channel = "mail"
+      @mail_log.save
+
+    end
     respond_to do |format|
       format.js
     end
+
    
 
   end

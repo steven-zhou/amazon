@@ -1,6 +1,3 @@
-<p><%=@organisations.full_name%></p>
-<p><%=@organisations.business_type%></p>
-<p><%=@organisations.addresses.first.try(:address_type).try(:name)%></p>
-<p><%=@organisations.addresses.first.try(:country).try(:short_name)%></p>
-<p><%=@organisations.addresses.first.try(:postal_code)%></p>
-<p><%=@organisations.addresses.first.try(:street_name)%></p>
+<p>Dear <%=@people.first_name%> <%=@people.family_name%></p>
+<p>&nbsp;</p>
+<p>Welcome to MemberZone</p>
