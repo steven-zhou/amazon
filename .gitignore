@@ -5,4 +5,6 @@ db/*.sqlite3
 nbproject/*
 coverage/*
 *.db
+public/temp
+views/message_templates/_create_mail_template.html.erb
 

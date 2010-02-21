@@ -885,10 +885,8 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-
+        $('.flexigrid table table.selectable_grid tr').removeClass("trSelected");
         var temp = $('#check_input_change').val();
-
-        
         var left_content = $("#content").find("#left_content");
         var  right_content = $("#content").find("#right_content");
         // if the web page got left and right side, do the judgement
@@ -903,93 +901,9 @@ $(function(){
                 temp = "false"
             }
         }
-
-
-        //
-        //        if  ($(this).closest('.container').find('.ogranisation_input_change_class').attr('value') == "true")
-        //        {
-        //            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
-        //            $('#warning_message_image').css("display","");
-        //            $('#warning_message').dialog({
-        //                modal: true,
-        //                resizable: false,
-        //                draggable: true,
-        //                height: 'auto',
-        //                width: 'auto',
-        //                buttons: {
-        //
-        //                    No: function(){
-        //                        $(this).dialog('destroy');
-        //                        return false;
-        //
-        //                    },
-        //                    Yes: function(){
-        //                        $('#'+link.attr('toggle_id_name')).toggle('blind');
-        //                        $("#" + link.attr('field')+'_mode').attr('mode','show');
-        //                        link.css("display","none");
-        //                        $('.new_option[field='+ link.attr('field') +']').css("display","");
-        //                        link.closest('.container').find('.ogranisation_input_change_class').attr('value','false');
-        //                        clear_organisation_form(link);
-        //
-        //                        $(this).dialog('destroy');
-        //
-        //                        return true;
-        //                    }
-        //
-        //                }
-        //
-        //
-        //            });
-        //            $('#warning_message').dialog('option', 'title', 'Warning');
-        //            $('#warning_message').parent().find("a").css("display","none");
-        //            $("#warning_message").parent().css('background-color','#D1DDE6');
-        //            $("#warning_message").css('background-color','#D1DDE6');
-        //            $('#warning_message').dialog('open');
-        //            return false;
-        //        }
-        //        else if (link.closest('.container').find('.person_input_change_class').attr('value') == "true")
-        //        {
-        //            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
-        //            $('#warning_message_image').css("display","");
-        //            $('#warning_message').dialog({
-        //                modal: true,
-        //                resizable: false,
-        //                draggable: true,
-        //                height: 'auto',
-        //                width: 'auto',
-        //                buttons: {
-        //
-        //                    No: function(){
-        //                        $(this).dialog('destroy');
-        //                        return false;
-        //
-        //                    },
-        //                    Yes: function(){
-        //                        $('#'+link.attr('toggle_id_name')).toggle('blind');
-        //                        $("#" + link.attr('field')+'_mode').attr('mode','show');
-        //                        link.css("display","none");
-        //                        $('.new_option[field='+ link.attr('field') +']').css("display","");
-        //                        link.closest('.container').find('.person_input_change_class').attr('value','false');
-        //                        $(this).dialog('destroy');
-        //
-        //                        return true;
-        //                    }
-        //
-        //                }
-        //
-        //
-        //            });
-        //            $('#warning_message').dialog('option', 'title', 'Warning');
-        //            $('#warning_message').parent().find("a").css("display","none");
-        //            $("#warning_message").parent().css('background-color','#D1DDE6');
-        //            $("#warning_message").css('background-color','#D1DDE6');
-        //            $('#warning_message').dialog('open');
-        //            return false;
-        //        }
-        //        else if ( $('#check_input_change').val()=="true")
+        
         if ( temp=="true")
         {
-
             $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
@@ -1050,6 +964,7 @@ $(function(){
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
             $("#" + link.attr('enable_id')).removeAttr('disabled');
+            
             $('.select_ajax_call[field='+ link.attr('field') +']').attr('disabled', false);
             $("#" + link.attr('field')+'_mode').attr('mode','show');
             clear_organisation_form(link);
@@ -1062,8 +977,6 @@ $(function(){
             $('.close_option[field='+ link.attr('field') +']').css("display","none");
 
         }
-
-       
     });
 });
 
@@ -2832,37 +2745,47 @@ $(function(){
 
 /* Show Summary list*/
 $(function(){
+    
     $('table.selectable_grid tbody tr').live('click',function(){
+
         var form_id = $(this).closest('table').get(0).id
-        if ($('#'+ form_id).attr('click_function') == "true"){
+        var form = $('#'+form_id);
+        if (form.attr('click_function') == "true"){
             $.ajax({
                 type: 'GET',
                 url: $('#'+ form_id).attr('click_url'),
-                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+$('#'+ form_id).attr('params1')+'&current_tab_id='+$('#current_tab_id').val(),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params1='+form.attr('params1')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
             });
         }
-        $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass("trSelected");
+        if($('#'+(form.attr('mode_field'))).attr('mode')=='show'){
+            $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
+            $(this).addClass("trSelected");
+        }else{
+            $(this).removeClass("trSelected");
+            $("table.selectable_grid tbody tr.IamEdited td").css("background-color","red");
+        }
     });
-});
 
-$(function(){
     $('table.selectable_grid tbody tr').live('dblclick',function(){
-        //        alert($('table#general_search_list_results').attr('db_click_function'))
+        
         var form_id = $(this).closest('table').get(0).id;
-        if ($('#'+ form_id).attr('db_click_function') == "true")
+
+        var form = $('#'+form_id);
+        if (form.attr('db_click_function') == "true" && $('#'+form.attr('mode_field')).attr('mode')!='edit')
         {
-            var url = $('#'+ form_id).attr('db_click_url');
+            $(this).addClass("trSelected");
+            $(this).addClass("IamEdited");
+            var url = form.attr('db_click_url');
             var type = "GET";
-            if ($('#'+ form_id).attr('edit')=="true")
+            if (form.attr('edit')=="true")
             {
                 url=url+$(this).attr('id').substring(3)+"/edit.js";               
             }
-            if ($('#'+ form_id).attr('create')=="true"){
+            if (form.attr('create')=="true"){
                 type = "POST";            
             }
-            if ($('#'+ form_id).attr('db_show')=="true")
+            if (form.attr('db_show')=="true")
             {
                 url=url+$(this).attr('id').substring(3)+".js";        
             }
@@ -2870,11 +2793,11 @@ $(function(){
             $.ajax({
                 type: type,
                 url: url,
-                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+$('#'+ form_id).attr('params2')+'&target='+$('#'+ form_id).attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
+                data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+form.attr('params2')+'&target='+form.attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
             });        
         }
-        if ($('#'+ form_id).attr('db_close') == "true")
+        if (form.attr('db_close') == "true")
         {
             $('.ui-icon-closethick').click();
         }

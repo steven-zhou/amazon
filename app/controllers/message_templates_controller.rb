@@ -162,16 +162,19 @@ class MessageTemplatesController < ApplicationController
     @pdf = ""
     @pdf << render_to_string(:partial => "message_templates/create_mail_templates2")
 
-    FileUtils.mkdir 'public/temp' unless File.exists?('public/temp')
-    File.open("public/temp/#{template_name}#{time_stamp}.html", 'w') do |f2|
+
+    file_name = "temp"
+    file_dir = "public/#{file_name}"
+    FileUtils.mkdir(file_dir) unless File.exists?(file_dir)
+    File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
     end
 
 
     #-----change html to pdf and give the flashmessage for click
-    system "wkhtmltopdf public/temp/#{template_name}#{time_stamp}.html  public/temp/#{template_name}#{time_stamp}.pdf"
-    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/temp/#{template_name}#{time_stamp}.pdf'>reading pdf</a>)"
-    puts"------DEBUG----#{flash.now[:message]}"
+
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
+    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:green;'>reading pdf</a>)"
     #for create record in the database mail-logs
     @entities.each do |entity|
       @mail_log = entity.mail_logs.new

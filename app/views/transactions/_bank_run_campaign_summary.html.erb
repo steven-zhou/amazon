@@ -1,0 +1,25 @@
+<style type="text/css">
+  #bank_run_campaign_summary{width: 800px;padding: 0;margin: 0 auto;}
+  #bank_run_campaign_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
+  #bank_run_campaign_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
+  #bank_run_campaign_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
+  #bank_run_campaign_summary .div_line .right{float: right;}
+
+  #bank_run_campaign_summary .div_line .cell_375 {width: 37.5%;}
+  #bank_run_campaign_summary .div_line .cell_475 {width: 47.5%;}
+  #bank_run_campaign_summary .div_line .cell_15 {width: 15%;}
+  #bank_run_campaign_summary .div_line .cell_40 {width: 40%;}
+  #bank_run_campaign_summary .line_seperator {height: 1px;;border-bottom: 1px dashed black;}
+  #bank_run_campaign_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
+
+  #bank_run_campaign_summary .div_total {margin-top: 30px;}
+  #bank_run_campaign_summary .pure_bold{font-weight: 600;}
+</style>
+<div id="bank_run_campaign_summary">
+<%- @accounts.each do |account|%>
+<%= render :partial => "transactions/bank_run_campaign_summary_detail", :locals => {:account => account} %>
+  <%- if account != @accounts.last %>
+    <div class="page_break">&nbsp;</div>
+  <%- end %>
+<%- end %>
+</div>

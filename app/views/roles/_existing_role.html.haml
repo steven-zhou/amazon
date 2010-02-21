@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing Roles
-  %table#show_roles_grid{:class=>"selectable_grid", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/roles/"}
+  %table#show_roles_grid{:class=>"selectable_grid",:mode_field=>'role_mode', :db_click_function=>"true", :edit=>"true", :db_click_url=>"/roles/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
     delete_from_a_grid = function(){

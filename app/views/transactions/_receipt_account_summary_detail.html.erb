@@ -1,0 +1,54 @@
+<div class="div_line">
+    <div class="title_bold">Receipt Account Summary</div>
+</div>
+<div class="div_line">
+    <div class="div_cell">The Client Organisation</div>
+    <div class="div_cell right">Date:<%= @date %></div>
+</div>
+<div class="div_line">
+    <div class="div_cell cell_375">Bank Run ID: <%= @run.id %></div>
+    <div class="div_cell cell_475">Bank Account: <%= account.id %>-<%= account.account_number %></div>
+    <div class="div_cell right">Time: <%= @time %></div>
+</div>
+<div class="div_line table_title">
+    <div class="div_cell cell_40">Account Code</div>
+    <div class="div_cell cell_15">Cash</div>
+    <div class="div_cell cell_15">Cheque</div>
+    <div class="div_cell cell_15">Cards</div>
+    <div class="div_cell cell_15">Amount</div>
+</div>
+<%- total_cash = 0.00%>
+<%- total_cheque = 0.00%>
+<%- total_card = 0.00%>
+<%- total = 0.00%>
+<%- ReceiptAccount.active.try(:each) do |receipt_account|%>
+<div class="div_line">
+    <div class="div_cell cell_40"><%=receipt_account.name%></div>
+    <div class="div_cell cell_15"><%=@receipt_account_cash[account.id+receipt_account.id].nil? ?  number_to_currency(0) : number_to_currency(@receipt_account_cash[account.id+receipt_account.id].first.to_f)  %></div>
+    <div class="div_cell cell_15"><%=@receipt_account_cheque[account.id+receipt_account.id].nil? ?  number_to_currency(0) : number_to_currency(@receipt_account_cheque[account.id+receipt_account.id].first.to_f) %></div>
+    <div class="div_cell cell_15"><%=@receipt_account_cards[account.id+receipt_account.id].nil? ?  number_to_currency(0) : number_to_currency(@receipt_account_cards[account.id+receipt_account.id].first.to_f) %></div>
+    <%-if @receipt_account_cash[account.id+receipt_account.id].nil? %>
+      <%- @receipt_account_cash[account.id+receipt_account.id]=[0]%>
+    <%-end%>
+        <%-if @receipt_account_cheque[account.id+receipt_account.id].nil? %>
+      <%- @receipt_account_cheque[account.id+receipt_account.id]=[0]%>
+    <%-end%>
+        <%-if @receipt_account_cards[account.id+receipt_account.id].nil? %>
+      <%- @receipt_account_cards[account.id+receipt_account.id]=[0]%>
+    <%-end%>
+    <div class="div_cell cell_15"><%=number_to_currency(@receipt_account_cash[account.id+receipt_account.id].first.to_f+@receipt_account_cheque[account.id+receipt_account.id].first.to_f+@receipt_account_cards[account.id+receipt_account.id].first.to_f)%></div>
+</div>
+ <%- total_cash += @receipt_account_cash[account.id+receipt_account.id].first.to_f%>
+ <%- total_cheque += @receipt_account_cheque[account.id+receipt_account.id].first.to_f %>
+ <%- total_card += @receipt_account_cards[account.id+receipt_account.id].first.to_f%>
+ <%- total += @receipt_account_cash[account.id+receipt_account.id].first.to_f+@receipt_account_cheque[account.id+receipt_account.id].first.to_f+@receipt_account_cards[account.id+receipt_account.id].first.to_f%>
+<%-end%>
+<br clear="both"/>
+<div class="line_seperator"></div>
+<div class="div_line div_total">
+    <div class="div_cell cell_40 pure_bold">Totals</div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cash)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cheque)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_card)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total)%></div>
+</div>
