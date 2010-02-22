@@ -216,17 +216,11 @@ class MessageTemplatesController < ApplicationController
     end
 
     unless (creator_username.blank?)
-      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"
-     
-      
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"    
       conditions << ("creator_id="+ creator_id)
     end
 
     @query = conditions.join('&')
-
-    puts"-22222DEBUG----------------#{creator_id.to_yaml}"
-    puts"-3333DEBUG----------------#{@query.to_yaml}"
-
     respond_to do |format|
       format.js
     end
