@@ -195,9 +195,10 @@ class MessageTemplatesController < ApplicationController
     person_id = params[:mail_log_filter][:person_id]
     start_date = params[:mail_log_filter][:start_date]
     end_date = params[:mail_log_filter][:end_date]
-    creator_username = params[:mail_log_filter][creator_username]
+    creator_username = params[:mail_log_filter][:creator_username]
+    @date_valid = true
 
-    if (person_id && person_id.to_i!= 0)
+    unless (person_id.blank?)
       conditions << ("entity_id=" + person_id)
     end
 
@@ -208,9 +209,27 @@ class MessageTemplatesController < ApplicationController
         conditions << ("start_date=" + start_date)
         conditions << ("end_date=" + end_date)
       end
+      @date_valid = true
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
 
-    if ()
+    unless (creator_username.blank?)
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"
+     
+      
+      conditions << ("creator_id="+ creator_id)
+    end
+
+    @query = conditions.join('&')
+
+    puts"-22222DEBUG----------------#{creator_id.to_yaml}"
+    puts"-3333DEBUG----------------#{@query.to_yaml}"
+
+    respond_to do |format|
+      format.js
+    end
     
   end
 
