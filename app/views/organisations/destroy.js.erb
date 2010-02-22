@@ -1,2 +1,8 @@
 $('#organisation_name').html('<%= escape_javascript(render(:partial => "/organisations/organisation_name_brief_info")) %>');
+<%-if @organisation.to_be_removed %>
+$("#organisation_active_button").css("display","none");
+<%-else%>
+$("#organisation_active_button").css("display","");
+<%-end%>
+
 

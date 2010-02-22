@@ -1200,6 +1200,12 @@ $(function(){
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
 });
+disabled_form = function(){
+
+    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("select").attr("disabled", true);
+
+};
 
 
 $(document).ready(function() {
@@ -1810,7 +1816,16 @@ $(function(){
         if ($(this).attr("light_box") == "true"){
 
             var link = $(this);
-            $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+            if (link.attr("message")!="")
+              {
+                 $('#warning_message_text').html("Are You Sure You Want to "+link.attr("message")+"?");
+              }
+              else
+                {
+                 $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+                }
+
+
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,

@@ -47,5 +47,10 @@
       
 %br.clear
 
- 
-
+- if @p.empty?
+  %script{:type=>"text/javascript", :charset=>"utf-8"}
+    :plain
+      $('#flash_message').dialog('destroy');
+      $("#flash_feedback").html("Please Create a New Person");
+      $('#flash_feedback').fadeIn("slow");
+      $('body').click(function(){$('#flash_feedback').fadeOut("slow")});

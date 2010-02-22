@@ -6,18 +6,18 @@
     
 .form_line{:style=>"width: 193px; margin-top: 10px;"}
   %div#customerid{:style=>"width:193px;"}
-    = label_tag :customerid, "Custom ID",:style=>"font-size: 12px;"
+    = label_tag :customerid, "Custom ID",:style=>"font-size: 12px;display:inline;"
+    -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
+      - to_be_removed = @person.to_be_removed ? "Retrieve" : " Remove"
+      = link_to_function "#{to_be_removed}",:class=>"ajax_call",:style => "font-size: 12px;display:inline;text-decoration: underline;font-style: italic;",:method =>"DELETE",:url=>"/people/"+@person.id.to_s,:light_box =>"true",:message =>@person.to_be_removed ? "Retrieve this Person" : "Remove this Person"
+      - status = @person.status ? "Active" : "Inactive"
+      = link_to_function "#{status}",:class=> "ajax_call",:id=>"person_active_button",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true",:message=>@person.status ? "Inactive this Person" : "Active this Person"
     %div.display_field_bg{:style=>"margin-left: 4px;"}
       = @person.custom_id
 .form_line{:style=>"width:200px;margin-top:2px;"}
   .field_80
     = label_tag :on_record_since, "On Record Since",:style=>"font-size:12px;display:inline;"
-    -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
-      - to_be_removed = @person.to_be_removed ? "Retrieve" : " Remove"
-      = link_to_function "#{to_be_removed}",:class=>"ajax_call",:style => "font-size: 12px;display:inline;",:method =>"DELETE",:url=>"/people/"+@person.id.to_s,:light_box =>"true"
-      - status = @person.status ? "Active" : "Inactive"
-      = link_to_function "#{status}",:class=> "ajax_call",:style => "font-size: 12px;display:inline;", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true"
-
+   
   %div.display_field_bg{:style=>"margin-left: 4px;"}
     = @person.onrecord_since.to_s
 

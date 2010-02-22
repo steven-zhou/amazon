@@ -2703,6 +2703,9 @@ input.error_flag{
     color:red;
 }
 
+.gray{
+    color: gray;
+}
 /*For quick_launch using*/
 .quick_launch_icon{
 
