@@ -1,4 +1,5 @@
 - form_tag(@current_controller == "people" && @current_action == "show" ? '/people/show' : '/people/edit', :id => "person_list") do
+
   %div#loleft
     .lolfont_left{:style => "margin-left: 65px;"}
       = label_tag 'person_id', 'System ID'
@@ -35,10 +36,10 @@
 
     %div#loleft{:style => "margin-left: 10px;"}
       .lolfont_left
-     
+
       #lol_select{:style => "margin-top: 12px;"}
         -if (!(@person.nil? || @person.new_record?) && @current_action == "show" && @current_controller == "people")
           =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "show_list", :title => "Show List" ,:alt => "Show list")
         -else
           =image_tag('application_view_detail.png',:size => "25x25", :id => "show_all_list_member", :person_id => @person.id, :current_operation => "edit_list", :title => "Show List", :alt => "Show list")
-%br.clear
+  %br.clear

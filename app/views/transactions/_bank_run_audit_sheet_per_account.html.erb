@@ -12,24 +12,20 @@
       <div class="top_item">Bank Account: <%= account.account_number %></div>
       <div class="top_item">Time: <%= @time %></div>
     </div>
-      <br class="clear"/>
+    <br class="clear"/>
   </div>
 
 
-<hr/>
-<hr/>
   <div id="title">
-      <div class="title_item">System ID</div>
-      <div class="title_item">Drawers Name</div>
-      <div class="title_item">Type</div>
-      <div class="title_item">Amount</div>
-      <div class="title_item">Receipt No.</div>
-      <br class="clear"/>
+    <div class="title_item">System ID</div>
+    <div class="title_item">Drawers Name</div>
+    <div class="title_item">Type</div>
+    <div class="title_item">Amount</div>
+    <div class="title_item">Receipt No.</div>
+    <br class="clear"/>
   </div>
-<hr/>
-<hr/>
 
-<div id="content">
+  <div id="content">
     <%- sub_total = 0.00%>
     <%- @cash_transactions[account.id].try(:each) do |cash_transaction|%>
       <div class="title_item"><%= cash_transaction.id %></div>
@@ -68,17 +64,15 @@
       <div class="title_item"><%= visa_transaction.receipt_number %></div>
     <%- end %>
     <br class="clear"/>
-</div>
-<hr/>
-<hr/>
+  </div>
 
-<div id="summary">
+  <div id="summary">
     <div id="summary_detail_left">
-        <h2>Bank Deposit Total</h2>
+      <h2>Bank Deposit Total</h2>
     </div>
     <div id="summary_detail_right">
-        <h2><%= number_to_currency(sub_total) %></h2>
+      <h2><%= number_to_currency(sub_total) %></h2>
     </div>
     <br class="clear"/>
-</div>
+  </div>
 </div>

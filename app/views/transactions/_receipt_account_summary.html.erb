@@ -1,27 +1,25 @@
 <style type="text/css">
+  .page_break {page-break-after: always;}
   #receipt_account_summary{width: 800px;padding: 0;margin: 0 auto;}
-
   #receipt_account_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
   #receipt_account_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
   #receipt_account_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
   #receipt_account_summary .div_line .right{float: right;}
-
   #receipt_account_summary .div_line .cell_375 {width: 37.5%;}
   #receipt_account_summary .div_line .cell_475 {width: 47.5%;}
   #receipt_account_summary .div_line .cell_15 {width: 15%;}
   #receipt_account_summary .div_line .cell_40 {width: 40%;}
   #receipt_account_summary .line_seperator {height: 1px;;border-bottom: 1px dashed black;}
   #receipt_account_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
-
   #receipt_account_summary .div_total {margin-top: 30px;}
   #receipt_account_summary .pure_bold {font-weight: bold;}
 </style>
 <div id="receipt_account_summary">
 <%- @accounts.each do |account|%>
 <%= render :partial => "transactions/receipt_account_summary_detail", :locals => {:account => account} %>
-  <%#-if account != @accounts.last %>
+  <%-if account != @accounts.last %>
   <div class="page_break">&nbsp;</div>
-  <%#-end %>
+  <%-end %>
 <%-end %>
 </div>
 

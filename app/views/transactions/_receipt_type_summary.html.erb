@@ -1,23 +1,23 @@
 <style type="text/css">
-    #receipt_type_summary{width: 800px;padding: 0;margin: 0 auto;}
-    #receipt_type_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
-    #receipt_type_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
-    #receipt_type_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
-    #receipt_type_summary .div_line .right{float: right;}
+  .page_break {page-break-after: always;}
+  #receipt_type_summary{width: 800px;padding: 0;margin: 0 auto;}
+  #receipt_type_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
+  #receipt_type_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
+  #receipt_type_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
+  #receipt_type_summary .div_line .right{float: right;}
+  #receipt_type_summary .div_line .cell_375 {width: 37.5%;}
+  #receipt_type_summary .div_line .cell_475 {width: 47.5%;}
 
-    #receipt_type_summary .div_line .cell_375 {width: 37.5%;}
-    #receipt_type_summary .div_line .cell_475 {width: 47.5%;}
-
-    #receipt_type_summary .div_line .cell_50 {margin-left: 21%;width: 29%; text-align: left;}
-    #receipt_type_summary .line_seperator {width: 58%;margin: 10px auto;height: 1px;;border-bottom: 1px dashed black;}
-    #receipt_type_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
-    #receipt_type_summary .pure_bold{font-weight: 600;}
+  #receipt_type_summary .div_line .cell_50 {margin-left: 21%;width: 29%; text-align: left;}
+  #receipt_type_summary .line_seperator {width: 58%;margin: 10px auto;height: 1px;;border-bottom: 1px dashed black;}
+  #receipt_type_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
+  #receipt_type_summary .pure_bold{font-weight: 600;}
 </style>
 <div id="receipt_type_summary">
-<%-@accounts.each do |account|%>
-  <%= render :partial => "transactions/receipt_type_summary_detail", :locals => {:account => account} %>
-    <%#-if account != @accounts.last %>
-    <div class="page_break">&nbsp;</div>
-    <%#-end %>
-<%-end %>
+  <%-@accounts.each do |account|%>
+    <%= render :partial => "transactions/receipt_type_summary_detail", :locals => {:account => account} %>
+    <%-if account != @accounts.last %>
+      <div class="page_break">&nbsp;</div>
+    <%-end %>
+  <%-end %>
 </div>

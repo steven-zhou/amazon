@@ -1,15 +1,14 @@
-// for person use
 .full_container
-  %h2 Mail Merge History
+  %h2 Organisation Mail Merge History
 
-  %table#show_mail_logs_grid{:class => "selectable_grid"}
+  %table#show_org_mail_logs_grid{:class => "selectable_grid"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
-    
 
-    $("#show_mail_logs_grid").flexigrid({
-    url: '/grids/show_mail_logs_grid',
+
+    $("#show_org_mail_logs_grid").flexigrid({
+    url: '/grids/show_org_mail_logs_grid',
     dataType: 'json',
     colModel : [
     {
@@ -22,7 +21,7 @@
 
     {
     display: 'name',
-    name : 'people.family_name',
+    name : 'organisations.full_name',
     width : 160,
     sortable : true,
     align: 'left'
@@ -53,7 +52,7 @@
     }
 
     ],
-    
+
     sortname: "id",
     sortorder: "asc",
     usepager: true,

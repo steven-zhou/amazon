@@ -17,7 +17,7 @@ class MaintenanceController < ApplicationController
   def backup
     file_name = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     file_name = params[:file_name] + file_name unless params[:file_name].blank?
-    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:backup FILE=#{file_name}"
+    cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => 'backup_now', :cmd => cmd, :file_name => file_name
   end
 
@@ -31,14 +31,14 @@ class MaintenanceController < ApplicationController
 
   def system_restore
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) viewed system backups.")
-    backup_directory = "/home/ubuntu/database/backup"
+    backup_directory = "#{RAILS_ROOT}/../database/backup"
     dir = Dir.new(backup_directory) rescue dir = nil
     @backups = dir.nil? ? [] : (dir.entries - [".", ".."]).sort.reverse
   end
 
   def restore
     file_name = params[:file_name]
-    dir = "/home/ubuntu/database/backup/" + file_name
+    dir = "#{RAILS_ROOT}/../database/backup/" + file_name
     cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end

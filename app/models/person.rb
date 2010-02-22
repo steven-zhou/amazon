@@ -6,17 +6,17 @@ class Person < ActiveRecord::Base
   ################
   #++
   
-  has_many :addresses, :as => :addressable, :order => "priority_number ASC"
-  has_many :phones, :as => :contactable, :order => "priority_number asc"
-  has_many :faxes, :as => :contactable, :order => "priority_number asc"
-  has_many :emails, :as => :contactable, :order => "priority_number asc"
-  has_many :websites, :as => :contactable, :order => "priority_number asc"
+  has_many :addresses, :as => :addressable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :phones, :as => :contactable, :order => "priority_number asc",:dependent => :destroy
+  has_many :faxes, :as => :contactable, :order => "priority_number asc",:dependent => :destroy
+  has_many :emails, :as => :contactable, :order => "priority_number asc",:dependent => :destroy
+  has_many :websites, :as => :contactable, :order => "priority_number asc",:dependent => :destroy
   has_many :instant_messagings, :as => :contactable, :order => "priority_number asc"
-  has_many :contacts, :as => :contactable
-  has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
-  has_many :keyword_links, :as => :taggable
+  has_many :contacts, :as => :contactable,:dependent => :destroy
+  has_many :master_docs, :as=> :entity, :order => "priority_number ASC",:dependent => :destroy
+  has_many :keyword_links, :as => :taggable,:dependent => :destroy
   has_many :keywords, :through => :keyword_links,:uniq => true
-  has_many :person_roles, :class_name => 'PersonRole', :foreign_key => 'person_id', :order => "sequence_no"
+  has_many :person_roles, :class_name => 'PersonRole', :foreign_key => 'person_id', :order => "sequence_no",:dependent => :destroy
   has_many :assign_roles, :class_name => 'PersonRole', :foreign_key => 'assigned_by'
   has_many :approve_roles, :class_name => 'PersonRole', :foreign_key => 'approved_by'
   has_many :supervise_roles, :class_name => 'PersonRole', :foreign_key => 'supervised_by'
@@ -27,7 +27,7 @@ class Person < ActiveRecord::Base
   has_many :role_supervisers, :through => :person_roles, :source => :role_superviser
   has_many :role_managers, :through => :person_roles, :source => :role_manager
   has_many :roles, :through => :person_roles, :uniq => true
-  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no asc"
+  has_many :employments, :class_name => 'Employment', :foreign_key => 'person_id', :order => "sequence_no asc",:dependent => :destroy
   has_many :emp_recruitments, :class_name => 'Employment', :foreign_key => 'hired_by'
   has_many :emp_supervisions, :class_name => 'Employment', :foreign_key => 'report_to'
   has_many :emp_terminations, :class_name => 'Employment', :foreign_key => 'terminated_by'
@@ -38,16 +38,16 @@ class Person < ActiveRecord::Base
   has_many :emp_suspenders, :through => :employments, :source => :emp_suspender
   has_many :employers, :through => :employments, :source => :organisation
   has_many :organisation_key_personnels
-  has_many :notes, :as => :noteable
+  has_many :notes, :as => :noteable,:dependent => :destroy
   has_one  :image, :as => :imageable
   has_many :fathers, :through => :people_as_source, :conditions => ['relationship_type_id = ?', ]
-  has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship"
-  has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship'
-  has_many :person_bank_accounts, :foreign_key => "entity_id",:order => "priority_number ASC"
+  has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship",:dependent => :destroy
+  has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship',:dependent => :destroy
+  has_many :person_bank_accounts, :foreign_key => "entity_id",:order => "priority_number ASC",:dependent => :destroy
 
 
   has_many :mail_logs, :as=>:entity
-  has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id'
+  has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id',:dependent => :destroy
   has_many :group_types, :through => :person_groups
   #has_many :group_owner, :class_name => 'PersonGroup', :foreign_key => 'people_id'
   has_many :source_people,  :through => :people_as_related do
@@ -63,16 +63,16 @@ class Person < ActiveRecord::Base
   end
 
   
-  has_many :login_accounts
-  has_many :list_details, :dependent => :destroy
+  has_many :login_accounts, :dependent => :destroy
+  has_many :list_details
   has_many :list_headers, :through => :list_details,:uniq => true
-  has_many :query_details, :dependent => :destroy
+  has_many :query_details,:as => :entity
   has_many :query_headers, :through => :query_details, :uniq => true
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :transaction_headers, :as => :entity
-  has_many :list_details, :as => :listable
-  has_many :mail_logs, :as => :entity
+#  has_many :list_details, :as => :listable
+#  has_many :mail_logs, :as => :entity
   #has_many :players, :through => :list_details, :source => :player
 
   

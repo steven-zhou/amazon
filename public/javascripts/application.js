@@ -157,52 +157,6 @@ datapick_config = function(){
     });
 
 
-    $('.startdatepick').datepicker({
-        showOn: 'button',
-        buttonImage: '/images/Icons/System/calendar.png',
-        buttonImageOnly: true,
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-200:+20',
-        beforeShow: function(){
-            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
-            day = arr_dateText[0];
-            month = arr_dateText[1];
-            year = arr_dateText[2];
-            if(year!=undefined){
-                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
-            }
-        },
-        onSelect: function(){
-            $("#"+$(this).attr("end_date")).datepicker('enable');
-        },
-        onClose: function(){
-            $(this).keyup();
-        }
-    });
-
-    $('.enddatepick').datepicker({
-        showOn: 'button',
-        buttonImage: '/images/Icons/System/calendar.png',
-        buttonImageOnly: true,
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-200:+20',
-        beforeShow: function(){
-            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
-            day = arr_dateText[0];
-            month = arr_dateText[1];
-            year = arr_dateText[2];
-            if(year!=undefined){
-                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
-            }
-        }
-    });
-
     $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
@@ -319,8 +273,64 @@ datapick_config = function(){
 };
 
 
+start_end_date_pick = function(){
+
+
+
+    $('.startdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+        },
+        onSelect: function(){
+            $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $(this).keyup();
+        }
+    });
+
+    $('.enddatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+
+
+};
+
+
 $(document).ready(function(){
     datapick_config();
+    start_end_date_pick();
 });
 
 
@@ -1116,6 +1126,12 @@ $(function(){
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
 });
+disabled_form = function(){
+
+    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("select").attr("disabled", true);
+
+};
 
 
 $(document).ready(function() {
@@ -1726,7 +1742,16 @@ $(function(){
         if ($(this).attr("light_box") == "true"){
 
             var link = $(this);
-            $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+            if (link.attr("message")!="")
+              {
+                 $('#warning_message_text').html("Are You Sure You Want to "+link.attr("message")+"?");
+              }
+              else
+                {
+                 $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+                }
+
+
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
