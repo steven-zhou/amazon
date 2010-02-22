@@ -1656,8 +1656,9 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
-            $('.flexigrid table table.selectable_grid tr.trSelected').removeClass("trSelected");
-
+            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
             link.css("display","none");
             //            $('#new_user_group_form').css('display','none');
 

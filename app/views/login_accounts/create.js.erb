@@ -18,11 +18,12 @@
  $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <% else %>
- $('#flash_message').dialog('destroy');
+  $('#login_account_mode').attr('mode','show');
+  $('#flash_message').dialog('destroy');
   $("#flash_feedback").html("New Login Account Was Saved Successfully");
   $('#flash_feedback').fadeIn("slow");
   $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
-
+  
   $("#new_login_account")[0].reset();
   $('#login_name_container_0').html('');
   $('#user_name_container_0').html('');
