@@ -465,16 +465,13 @@ class TransactionHeadersController < ApplicationController
            @receipt_type_master_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_master_cards[bank_account.id] = [transaction_allocation.amount]
          elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Visa Card"
            @receipt_type_visa_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_visa_card[bank_account.id] = [transaction_allocation.amount]
-        end
-
-        
+        end        
       end
 
 
       #for campaign summary
       @campaign.each do |campaign|
        i.transaction_allocations.each do |transaction_allocation|
-
           if transaction_allocation.campaign.try(:name) == campaign.name
             if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
               @campaign_cash[bank_account.id+campaign.id] << transaction_allocation.amount rescue @campaign_cash[bank_account.id+campaign.id] = [transaction_allocation.amount]
@@ -483,22 +480,67 @@ class TransactionHeadersController < ApplicationController
             elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
               @campaign_cards[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cards[bank_account.id+campaign.id] = [transaction_allocation.amount]
             end
-
           end
-
-
         end
-
-
       end
 
-
-
-      
     end
 
+    #config temp folder
+    file_prefix = "public"
+    file_dir = "temp/#{@current_user.user_name}/bank_run_reports/"
+    FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
 
+    #prepare bank deposit sheet
+    @bank_deposit_sheet = render_to_string(:partial => "transactions/bank_deposit_sheet")
+    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html", 'w') do |f|
+      f.puts "#{@bank_deposit_sheet}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
 
+    #prepare bank run audit sheet
+    @bank_run_audit_sheet = render_to_string(:partial => "transactions/bank_run_audit_sheet")
+    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
+      f.puts "#{@bank_run_audit_sheet}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
+
+    #prepare bank run campaign summary
+    @bank_run_campaign_summary = render_to_string(:partial => "transactions/bank_run_campaign_summary")
+    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html", 'w') do |f|
+      f.puts "#{@bank_run_campaign_summary}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html"
+
+    #prepare credit card receipt
+    @credit_card_receipt = ""
+    if !@master_transactions.empty?
+      @credit_card_receipt << render_to_string(:partial => "transactions/credit_card_receipt", :locals => {:transaction => @master_transactions, :type => "MasterCard"})
+    end
+    if !@master_transactions.empty? && !@visa_transactions.empty?
+      @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
+    end
+    if !@visa_transactions.empty?
+      @credit_card_receipt << render_to_string(:partial => "transactions/credit_card_receipt", :locals => {:transaction => @visa_transactions, :type => "VisaCard"})
+    end
+    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html", 'w') do |f|
+      f.puts "#{@credit_card_receipt}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html"
+
+    #prepare receipt account summary
+    @receipt_account_summary = render_to_string(:partial => "transactions/receipt_account_summary")
+    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html", 'w') do |f|
+      f.puts "#{@receipt_account_summary}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html"
+
+    #prepare receipt type summary
+    @receipt_type_summary = render_to_string(:partial => "transactions/receipt_type_summary")
+    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html", 'w') do |f|
+      f.puts "#{@receipt_type_summary}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
 
   end
       
