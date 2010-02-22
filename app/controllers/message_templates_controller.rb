@@ -172,24 +172,61 @@ class MessageTemplatesController < ApplicationController
 
 
     #-----change html to pdf and give the flashmessage for click
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
-    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:white;'>reading pdf</a>)"
 
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
+    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:green;'>reading pdf</a>)"
     #for create record in the database mail-logs
     @entities.each do |entity|
       @mail_log = entity.mail_logs.new
       @mail_log.doc_id = @mail_template.id
       @mail_log.channel = "mail"
-      @mail_log.save!
+      @mail_log.save
 
     end
     respond_to do |format|
       format.js
     end
-
-   
-
   end
+
+
+  def person_mail_log_filter
+
+    conditions = Array.new
+    person_id = params[:mail_log_filter][:person_id]
+    start_date = params[:mail_log_filter][:start_date]
+    end_date = params[:mail_log_filter][:end_date]
+    creator_username = params[:mail_log_filter][:creator_username]
+    @date_valid = true
+
+    unless (person_id.blank?)
+      conditions << ("entity_id=" + person_id)
+    end
+
+    if valid_date(start_date) && valid_date(end_date)
+      unless start_date.blank? || end_date.blank?
+        start_date = "01-01-#{Date.today().year().to_s}" if start_date.blank?
+        end_date = "31-12-#{Date.today().year().to_s}" if end_date.blank?
+        conditions << ("start_date=" + start_date)
+        conditions << ("end_date=" + end_date)
+      end
+      @date_valid = true
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+
+    unless (creator_username.blank?)
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"    
+      conditions << ("creator_id="+ creator_id)
+    end
+
+    @query = conditions.join('&')
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+
 
 
 

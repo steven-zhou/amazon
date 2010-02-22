@@ -1,6 +1,26 @@
-$('#flash_feedback').html('<%= escape_javascript(flash[:message]) %>');
-$('#flash_feedback').fadeIn("slow");
-$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+$("#confirm_message_text").html("<%=escape_javascript(flash[:message])%>");
+$("#confirm_message_text").css('padding-top', '32px')
+$('#confirm_message_image').css("display","");
 
- $('#spinner').css('display', 'none');
- $('#new_mail_merge_submit').attr('disabled', false);
+
+$('#confirm_message').dialog( {
+modal: true,
+resizable: false,
+draggable: true,
+height: 'auto',
+width: 600,
+buttons:{
+Ok: function() {
+$(this).dialog('destroy');
+enable_form_after_submit_finish();
+}
+}
+});
+$('#confirm_message').dialog( 'option', 'title', 'Confirm');
+$('#confirm_message').parent().find("a").css("display","inline");
+$("#confirm_message").parent().css('background-color','#D1DDE6');
+$("#confirm_message").css('background-color','#D1DDE6');
+$('#confirm_message').dialog('open');
+
+$('#spinner').css('display', 'none');
+$('#new_mail_merge_submit').attr('disabled', false);

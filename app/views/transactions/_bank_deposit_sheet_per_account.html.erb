@@ -15,9 +15,6 @@
       <br class="clear"/>
   </div>
 
-
-<hr/>
-<hr/>
   <div id="title">
       <div class="title_item">Drawers Name</div>
       <div class="title_item">Cheque No.</div>
@@ -26,10 +23,8 @@
       <div class="title_item">Amount</div>
       <br class="clear"/>
   </div>
-<hr/>
-<hr/>
 
-<div id="content">
+  <div id="content">
     <%- cheque_total = 0.00%>
     <%- @cheque_transactions[account.id].try(:each) do |cheque_transaction|%>
       <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:name_on_cheque) %></div>
@@ -42,8 +37,6 @@
     <%- end %>
     <br class="clear"/>
 </div>
-<hr/>
-<hr/>
 
 <div id="summary">
     <div id="summary_detail">
