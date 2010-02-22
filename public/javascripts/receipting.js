@@ -622,7 +622,7 @@ $(function(){
     $('#bank_id_filter').hide();
     $('#user_id_filter').hide();
     $('#transaction_id_range_filter').hide();
-    $('#transaction_id_range_filter').hide();
+    $('#transaction_date_range_filter').hide();
     $('#bank_run_select_filter').children('option').attr('disabled',false);
 
   });

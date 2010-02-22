@@ -2733,3 +2733,6 @@ input.error_flag{
     margin-top:10px;
     float:left;
 }
+
+/*for confirmation dialog*/
+#confirm_message_text a {color:red;text-decoration:underline;}

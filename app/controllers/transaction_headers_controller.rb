@@ -367,9 +367,9 @@ class TransactionHeadersController < ApplicationController
     
     if @transaction_headers.blank?
       flash[:warning] = "No outstanding transactions found"
-      redirect_to :controller => "transactions", :action => "bank_run"
     elsif !@date_valid
-      redirect_to :controller => "transactions", :action => "bank_run"
+      flash[:warning] = "Invalid date"
+      
     else
       #new Bank Run
       @run = BankRun.new
@@ -380,11 +380,12 @@ class TransactionHeadersController < ApplicationController
           i.banked = false
           i.save
         end
-      end    
+      end
+      flash[:comfirmation] = "<p>Reports are generated and available here:</p>"
       prepare_bank_run_report(@run.id)
-      render :pdf => "bank_run_report", :template => "transactions/run.pdf.erb", :layout => false
-
     end
+
+    redirect_to :controller => "transactions", :action => "bank_run"
   end
 
   def prepare_bank_run_report(bank_run_id)
@@ -396,89 +397,109 @@ class TransactionHeadersController < ApplicationController
     @accounts = Array.new
     @cash_transactions = Array.new
     @cheque_transactions = Array.new
-    @master_transactions = Array.new
-    @visa_transactions = Array.new
 
-    @receipt_account = ReceiptAccount.active
-    @campaign = Campaign.active_campaign
+    # for bank run audit sheet or credit cards receipt
+    if params[:BRAS] || params[:CCR]
+      @master_transactions = Array.new
+      @visa_transactions = Array.new
+    end
+
     # for receipt account summary
-    @receipt_account_cash = Array.new
-    @receipt_account_cheque = Array.new
-    @receipt_account_cards = Array.new
+    if params[:RAS]
+      @receipt_account = ReceiptAccount.active
+      @receipt_account_cash = Array.new
+      @receipt_account_cheque = Array.new
+      @receipt_account_cards = Array.new
+    end
+
     # for receipt type summary
-    @receipt_type_cash = Array.new
-    @receipt_type_cheque = Array.new
-    @receipt_type_master_cards = Array.new
-    @receipt_type_visa_cards = Array.new
+    if params[:RTS]
+      @receipt_type_cash = Array.new
+      @receipt_type_cheque = Array.new
+      @receipt_type_master_cards = Array.new
+      @receipt_type_visa_cards = Array.new
+    end
+
     #for bank run campaign summary
-    @campaign_cash = Array.new
-    @campaign_cheque = Array.new
-    @campaign_cards = Array.new
+    if params[:CS]
+      @campaign = Campaign.active_campaign
+      @campaign_cash = Array.new
+      @campaign_cheque = Array.new
+      @campaign_cards = Array.new
+    end
+    
+    
+    
+    
     @transactions.each do |i|
       bank_account = i.bank_account
       receipt_meta_meta_type = i.receipt_meta_meta_type.try(:name)
       receipt_meta_type = i.receipt_meta_type.try(:name)
       @accounts << bank_account unless @accounts.include?(bank_account)
+
       if receipt_meta_meta_type == "Cash"
         @cash_transactions[bank_account.id] << i rescue @cash_transactions[bank_account.id]=[i]
       end
       if receipt_meta_meta_type == "Cheque"
         @cheque_transactions[bank_account.id] << i rescue @cheque_transactions[bank_account.id]=[i]
       end
-      if receipt_meta_meta_type == "Credit Card"
-        if receipt_meta_type == "Master Card"
-          @master_transactions[bank_account.id] << i rescue @master_transactions[bank_account.id]=[i]
-        elsif receipt_meta_type == "Visa Card"
-          @visa_transactions[bank_account.id] << i rescue @visa_transactions[bank_account.id]=[i]
-        end
-        
-      end
-    #for receipt acccount summary
-      @receipt_account.each do |receipt_account|
 
-        i.transaction_allocations.each do |transaction_allocation|
-
-          if transaction_allocation.receipt_account.name == receipt_account.name
-            if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
-              @receipt_account_cash[bank_account.id+receipt_account.id] << transaction_allocation.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
-
-            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
-              @receipt_account_cheque[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
-            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
-              @receipt_account_cards[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
-            end
-
+      # for bank run audit sheet or credit cards receipt
+      if params[:BRAS] || params[:CCR]
+        if receipt_meta_meta_type == "Credit Card"
+          if receipt_meta_type == "Master Card"
+            @master_transactions[bank_account.id] << i rescue @master_transactions[bank_account.id]=[i]
+          elsif receipt_meta_type == "Visa Card"
+            @visa_transactions[bank_account.id] << i rescue @visa_transactions[bank_account.id]=[i]
           end
-
-
         end
       end
 
-      #for receipt type summary
+      # for receipt account summary
+      if params[:RAS]
+        @receipt_account.each do |receipt_account|
+          i.transaction_allocations.each do |transaction_allocation|
+            if transaction_allocation.receipt_account.name == receipt_account.name
+              if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+                @receipt_account_cash[bank_account.id+receipt_account.id] << transaction_allocation.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
+              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+                @receipt_account_cheque[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
+              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
+                @receipt_account_cards[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
+              end
+            end
+          end
+        end
+      end
 
-      i.transaction_allocations.each do |transaction_allocation|
-        if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
-         @receipt_type_cash[bank_account.id] << transaction_allocation.amount rescue @receipt_type_cash[bank_account.id]  = [transaction_allocation.amount]
+      # for receipt type summary
+      if params[:RTS]
+        i.transaction_allocations.each do |transaction_allocation|
+          if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+            @receipt_type_cash[bank_account.id] << transaction_allocation.amount rescue @receipt_type_cash[bank_account.id]  = [transaction_allocation.amount]
           elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
-           @receipt_type_cheque[bank_account.id] <<transaction_allocation.amount rescue @receipt_type_cheque[bank_account.id] = [transaction_allocation.amount]
-         elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Master Card"
-           @receipt_type_master_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_master_cards[bank_account.id] = [transaction_allocation.amount]
-         elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Visa Card"
-           @receipt_type_visa_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_visa_card[bank_account.id] = [transaction_allocation.amount]
-        end        
+            @receipt_type_cheque[bank_account.id] <<transaction_allocation.amount rescue @receipt_type_cheque[bank_account.id] = [transaction_allocation.amount]
+          elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Master Card"
+            @receipt_type_master_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_master_cards[bank_account.id] = [transaction_allocation.amount]
+          elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Visa Card"
+            @receipt_type_visa_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_visa_card[bank_account.id] = [transaction_allocation.amount]
+          end
+        end
       end
 
 
-      #for campaign summary
-      @campaign.each do |campaign|
-       i.transaction_allocations.each do |transaction_allocation|
-          if transaction_allocation.campaign.try(:name) == campaign.name
-            if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
-              @campaign_cash[bank_account.id+campaign.id] << transaction_allocation.amount rescue @campaign_cash[bank_account.id+campaign.id] = [transaction_allocation.amount]
-            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
-              @campaign_cheque[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [transaction_allocation.amount]
-            elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
-              @campaign_cards[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cards[bank_account.id+campaign.id] = [transaction_allocation.amount]
+      #for bank run campaign summary
+      if params[:CS]
+        @campaign.each do |campaign|
+          i.transaction_allocations.each do |transaction_allocation|
+            if transaction_allocation.campaign.try(:name) == campaign.name
+              if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+                @campaign_cash[bank_account.id+campaign.id] << transaction_allocation.amount rescue @campaign_cash[bank_account.id+campaign.id] = [transaction_allocation.amount]
+              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+                @campaign_cheque[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [transaction_allocation.amount]
+              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
+                @campaign_cards[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cards[bank_account.id+campaign.id] = [transaction_allocation.amount]
+              end
             end
           end
         end
@@ -488,60 +509,77 @@ class TransactionHeadersController < ApplicationController
 
     #config temp folder
     file_prefix = "public"
-    file_dir = "temp/#{@current_user.user_name}/bank_run_reports/"
+    file_dir = "temp/#{@current_user.user_name}/bank_run_reports"
     FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
 
     #prepare bank deposit sheet
+
     @bank_deposit_sheet = render_to_string(:partial => "transactions/bank_deposit_sheet")
     File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html", 'w') do |f|
       f.puts "#{@bank_deposit_sheet}"
     end
     system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
+    flash[:comfirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run.id}-BankDepositSheet.pdf\'>#{@run.id}-BankDepositSheet.pdf</a></p>"
+
 
     #prepare bank run audit sheet
-    @bank_run_audit_sheet = render_to_string(:partial => "transactions/bank_run_audit_sheet")
-    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
-      f.puts "#{@bank_run_audit_sheet}"
+    if params[:BRAS]
+      @bank_run_audit_sheet = render_to_string(:partial => "transactions/bank_run_audit_sheet")
+      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
+        f.puts "#{@bank_run_audit_sheet}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
+      flash[:comfirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf\'>#{@run.id}-BankRunAuditSheet.pdf</a></p>"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
-
+    
     #prepare bank run campaign summary
-    @bank_run_campaign_summary = render_to_string(:partial => "transactions/bank_run_campaign_summary")
-    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html", 'w') do |f|
-      f.puts "#{@bank_run_campaign_summary}"
+    if params[:CS]
+      @bank_run_campaign_summary = render_to_string(:partial => "transactions/bank_run_campaign_summary")
+      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html", 'w') do |f|
+        f.puts "#{@bank_run_campaign_summary}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html"
+      flash[:comfirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf\'>#{@run.id}-BankRunCampaignSummary.pdf</a></p>"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html"
 
     #prepare credit card receipt
-    @credit_card_receipt = ""
-    if !@master_transactions.empty?
-      @credit_card_receipt << render_to_string(:partial => "transactions/credit_card_receipt", :locals => {:transaction => @master_transactions, :type => "MasterCard"})
+    if params[:CCR]
+      @credit_card_receipt = ""
+      if !@master_transactions.empty?
+        @credit_card_receipt << render_to_string(:partial => "transactions/credit_card_receipt", :locals => {:transaction => @master_transactions, :type => "MasterCard"})
+      end
+      if !@master_transactions.empty? && !@visa_transactions.empty?
+        @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
+      end
+      if !@visa_transactions.empty?
+        @credit_card_receipt << render_to_string(:partial => "transactions/credit_card_receipt", :locals => {:transaction => @visa_transactions, :type => "VisaCard"})
+      end
+      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html", 'w') do |f|
+        f.puts "#{@credit_card_receipt}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html"
+      flash[:comfirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf\'>#{@run.id}-CreditCardReceipt.pdf</a></p>"
     end
-    if !@master_transactions.empty? && !@visa_transactions.empty?
-      @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
-    end
-    if !@visa_transactions.empty?
-      @credit_card_receipt << render_to_string(:partial => "transactions/credit_card_receipt", :locals => {:transaction => @visa_transactions, :type => "VisaCard"})
-    end
-    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html", 'w') do |f|
-      f.puts "#{@credit_card_receipt}"
-    end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html"
-
+    
     #prepare receipt account summary
-    @receipt_account_summary = render_to_string(:partial => "transactions/receipt_account_summary")
-    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html", 'w') do |f|
-      f.puts "#{@receipt_account_summary}"
+    if params[:RAS]
+      @receipt_account_summary = render_to_string(:partial => "transactions/receipt_account_summary")
+      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html", 'w') do |f|
+        f.puts "#{@receipt_account_summary}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html"
+      flash[:comfirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf\'>#{@run.id}-ReceiptAccountSummary.pdf</a></p>"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html"
-
+    
     #prepare receipt type summary
-    @receipt_type_summary = render_to_string(:partial => "transactions/receipt_type_summary")
-    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html", 'w') do |f|
-      f.puts "#{@receipt_type_summary}"
+    if params[:RTS]
+      @receipt_type_summary = render_to_string(:partial => "transactions/receipt_type_summary")
+      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html", 'w') do |f|
+        f.puts "#{@receipt_type_summary}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
+      flash[:comfirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf\'>#{@run.id}-ReceiptTypeSummary.pdf</a><p>"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
-
   end
       
 end
