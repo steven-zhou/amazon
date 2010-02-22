@@ -1,3 +1,3 @@
-<p>Dear <%=@people.first_name%> <%=@people.family_name%></p>
+<p><%=@organisations.addresses.first.try(:address_type).try(:name)%></p>
+<p><%=@organisations.full_name%></p>
 <p>&nbsp;</p>
-<p>Welcome to MemberZone</p>

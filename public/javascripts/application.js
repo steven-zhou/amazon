@@ -156,52 +156,6 @@ datapick_config = function(){
     });
 
 
-    $('.startdatepick').datepicker({
-        showOn: 'button',
-        buttonImage: '/images/Icons/System/calendar.png',
-        buttonImageOnly: true,
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-200:+20',
-        beforeShow: function(){
-            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
-            day = arr_dateText[0];
-            month = arr_dateText[1];
-            year = arr_dateText[2];
-            if(year!=undefined){
-                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
-            }
-        },
-        onSelect: function(){
-            $("#"+$(this).attr("end_date")).datepicker('enable');
-        },
-        onClose: function(){
-            $(this).keyup();
-        }
-    });
-
-    $('.enddatepick').datepicker({
-        showOn: 'button',
-        buttonImage: '/images/Icons/System/calendar.png',
-        buttonImageOnly: true,
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-200:+20',
-        beforeShow: function(){
-            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
-            day = arr_dateText[0];
-            month = arr_dateText[1];
-            year = arr_dateText[2];
-            if(year!=undefined){
-                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
-            }
-        }
-    });
-
     $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
@@ -318,8 +272,64 @@ datapick_config = function(){
 };
 
 
+start_end_date_pick = function(){
+
+
+
+    $('.startdatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("end_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'maxDate', new Date(year, month-1, day));
+            }
+        },
+        onSelect: function(){
+            $("#"+$(this).attr("end_date")).datepicker('enable');
+        },
+        onClose: function(){
+            $(this).keyup();
+        }
+    });
+
+    $('.enddatepick').datepicker({
+        showOn: 'button',
+        buttonImage: '/images/Icons/System/calendar.png',
+        buttonImageOnly: true,
+        dateFormat: 'dd-mm-yy',
+        altFormat: 'mm-dd-yy',
+        changeMonth: true,
+        changeYear: true,
+        yearRange: '-200:+20',
+        beforeShow: function(){
+            var arr_dateText = $("#"+$(this).attr("start_date")).val().split("-");
+            day = arr_dateText[0];
+            month = arr_dateText[1];
+            year = arr_dateText[2];
+            if(year!=undefined){
+                $(this).datepicker('option', 'minDate', new Date(year, month-1, day));
+            }
+        }
+    });
+
+
+
+};
+
+
 $(document).ready(function(){
     datapick_config();
+    start_end_date_pick();
 });
 
 

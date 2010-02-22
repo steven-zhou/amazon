@@ -186,10 +186,34 @@ class MessageTemplatesController < ApplicationController
     respond_to do |format|
       format.js
     end
-
-   
-
   end
+
+
+  def person_mail_log_filter
+
+    conditions = Array.new
+    person_id = params[:mail_log_filter][:person_id]
+    start_date = params[:mail_log_filter][:start_date]
+    end_date = params[:mail_log_filter][:end_date]
+    creator_username = params[:mail_log_filter][creator_username]
+
+    if (person_id && person_id.to_i!= 0)
+      conditions << ("entity_id=" + person_id)
+    end
+
+    if valid_date(start_date) && valid_date(end_date)
+      unless start_date.blank? || end_date.blank?
+        start_date = "01-01-#{Date.today().year().to_s}" if start_date.blank?
+        end_date = "31-12-#{Date.today().year().to_s}" if end_date.blank?
+        conditions << ("start_date=" + start_date)
+        conditions << ("end_date=" + end_date)
+      end
+    end
+
+    if ()
+    
+  end
+
 
 
 
