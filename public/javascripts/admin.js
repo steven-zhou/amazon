@@ -1445,6 +1445,8 @@ $(function(){
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" +link.attr('field')+'_mode').attr('mode','show');
             link.css('display', 'none');
+            $('#'+link.attr('new_form_field')).css('display','');
+            $('.flexigrid table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
             $('#edit_'+link.attr('flag_name')+"_container").html('');
             $('#add_new_role').css("display","");
             $('#check_input_change').val("false");
@@ -1541,6 +1543,7 @@ $(function(){
 $(function(){
 
     $("#edit_role_condition_form").live('click', function(){
+        $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
         $(".container_selected").removeClass("container_selected");
         $("#role_condition_edit_role_container").hide();
         $('#role_condition_role_type_id').attr("disabled", false);
@@ -1653,6 +1656,8 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
+            $('.flexigrid table table.selectable_grid tr.trSelected').removeClass("trSelected");
+
             link.css("display","none");
             //            $('#new_user_group_form').css('display','none');
 
