@@ -2060,35 +2060,7 @@ $(function(){
     });
 });
 
-/* Show unbanked transaction Grid*/
-$(function(){
-    $('table#show_transaction_histroy_grid tbody tr').live('click',function(){
-        if($('#histroy_mode').attr('mode')=="show"){
-            $('table#show_transaction_histroy_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
 
-    $('table#show_transaction_histroy_grid tbody tr').live('dblclick',function(){
-        if($('#histroy_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/transaction_headers/"+$(this).attr('id').substring(3)+".js",
-                dataType: "script"
-            });
-        }
-    });
-
-    $('table#show_transaction_histroy_grid tbody tr').live('mouseover',function(){
-        if($('#histroy_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
 
 
 /* new compulsory field setting for controlling submit button*/
