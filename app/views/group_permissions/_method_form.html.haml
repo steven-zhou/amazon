@@ -3,7 +3,7 @@
     %li
       .info_container
         .field_33{:style => "cursor:pointer;cursor:hand", :class => "group_permission_color", :method_id => method.id}
-          = 'Method---'+ method.name
+          = method.name
         .field_22
           = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => @system_permission_meta_type.id
           = 'Allow Access'

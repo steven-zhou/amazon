@@ -6,7 +6,7 @@
           = check_box_tag "controller_ids[]", controller.id, false, :class => 'controller_select_all', :controller_id => controller.id, :style => "width:auto;vertical-align:middle;"
           %label{:class => "select_all", :style => "display:inline;"} Select All
         .title{:id => "show_methods", :class => "group_permission_color toggle_button", :toggle_id_name => "show_methods_container_#{controller.id}", :controller_id => controller.id}
-          %h2 Controller---#{controller.name}
+          %h2 #{controller.name}
 
       %br.clear
       %div{:id => "show_methods_container_#{controller.id}", :style => "display:none"}
@@ -18,7 +18,7 @@
                   = check_box_tag "method_ids[]", method.id, false, :class => 'method_select_all', :method_id => method.id, :controller_id => controller.id, :style => "width:auto;vertical-align:middle;"
                   %label{:class => "select_all",:style => "display:inline;"} Allow Access
                 .title{:class => "group_permission_color", :method_id => method.id}
-                  %h2 Method--#{method.name}
+                  %h2 #{method.name}
                
                 %br.clear
 
