@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing User Groups
-  %table#show_user_groups_grid{:class=>"selectable_grid", :mode_field=>"user_group_group_mode", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/user_groups/"}
+  %table#show_user_groups_grid{:class=>"selectable_grid", :field=>"user_group_group", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/user_groups/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
     $("#show_user_groups_grid").flexigrid({

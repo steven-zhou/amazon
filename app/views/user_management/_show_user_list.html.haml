@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing Users
-  %table#show_users_grid{:class=>"selectable_grid", :mode_field=>"login_account_mode", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/login_accounts/"}
+  %table#show_users_grid{:class=>"selectable_grid", :field=>"login_account", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/login_accounts/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
     delete_from_a_grid = function(){
