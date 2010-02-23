@@ -1,7 +1,7 @@
 .full_container
   %h2 Existing Mail Templates
 
-  %table#show_mail_templates_grid{:class => "selectable_grid", :db_click_function  => "true",:edit => "true",:mode_field => "mail_template_mode", :db_click_url => "/message_templates/", :params2 => "#{@type}"}
+  %table#show_mail_templates_grid{:class => "selectable_grid", :db_click_function  => "true",:edit => "true",:field => "mail_template", :db_click_url => "/message_templates/", :params2 => "#{@type}"}
 
 
 %script{:type => "text/javascript", :charset => "utf-8"}
