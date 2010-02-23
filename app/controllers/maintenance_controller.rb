@@ -17,8 +17,7 @@ class MaintenanceController < ApplicationController
   def backup
     file_name = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     file_name = params[:file_name] + file_name unless params[:file_name].blank?
-    #cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/amazon/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
-    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/amazon/current/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
+    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => 'backup_now', :cmd => cmd, :file_name => file_name
   end
 
@@ -40,8 +39,7 @@ class MaintenanceController < ApplicationController
   def restore
     file_name = params[:file_name]
     dir = "#{RAILS_ROOT}/../database/backup/" + file_name
-    #cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
-    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/amazon/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
+    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end
 
