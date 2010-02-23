@@ -552,7 +552,14 @@ div.colCopy {
 .flexigrid tr.trSelected td.sorted, 
 .flexigrid tr.trSelected td
 {
-  /*background: #d5effc url(images/hl.png) repeat-x top;*/
+  background: #d5effc url(images/hl.png) repeat-x top;
+  border-right: 1px solid #d2e3ec;
+  border-left: 1px solid #eef8ff;
+  border-bottom: 1px solid #a8d8eb;
+}
+
+.flexigrid tr.trEdited td
+{
   background: red repeat-x top;
   border-right: 1px solid #d2e3ec;
   border-left: 1px solid #eef8ff;
