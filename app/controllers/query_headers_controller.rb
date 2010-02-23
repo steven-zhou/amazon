@@ -87,6 +87,7 @@ class QueryHeadersController < ApplicationController
       flash[:message] = flash_message(:type => "object_created_successfully", :object => "query")
     end
     @saved_queries = @query_header.person_query_header? ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    @query_type = @query_header.person_query_header? ? "PersonQueryHeader" : "OrganisationQueryHeader"
     respond_to do |format|
       format.js
     end

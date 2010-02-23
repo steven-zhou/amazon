@@ -66,7 +66,9 @@ class LoginAccount < ActiveRecord::Base
   def all_permissions
     all_permissions = Array.new
     for group in self.group_types do
-      all_permission << group.system_permission_types
+      group.group_permissions.each do |i|
+        all_permissions << i.id
+      end
     end
     all_permissions.uniq
   end

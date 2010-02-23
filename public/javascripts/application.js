@@ -896,9 +896,12 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
-        $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
-        $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+        if(link.attr("KeepEditStatus")!="true"){
+            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+        }
+        
         var temp = $('#check_input_change').val();
         var left_content = $("#content").find("#left_content");
         var  right_content = $("#content").find("#right_content");
@@ -2786,12 +2789,11 @@ $(function(){
                 dataType: "script"
             });
         }
-        if($('#'+(form.attr('mode_field'))).attr('mode')=='show'){
+        if($('#'+form.attr('field')+"_mode").attr('mode')=='show'){
             $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
             $(this).addClass("trSelected");
         }else{
             $(this).removeClass("trSelected");
-            $("table.selectable_grid tbody tr.IamEdited td").css("background-color","red");
         }
     });
 
@@ -2800,10 +2802,9 @@ $(function(){
         var form_id = $(this).closest('table').get(0).id;
 
         var form = $('#'+form_id);
-        if (form.attr('db_click_function') == "true" && $('#'+form.attr('mode_field')).attr('mode')!='edit')
+        if (form.attr('db_click_function') == "true" && $('#'+form.attr('field')+"_mode").attr('mode')=='show')
         {
-            $(this).addClass("trSelected");
-            $(this).addClass("IamEdited");
+            $(this).addClass("trEdited");
             var url = form.attr('db_click_url');
             var type = "GET";
             if (form.attr('edit')=="true")

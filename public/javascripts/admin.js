@@ -171,12 +171,15 @@ $(function(){
             $(".container_selected").removeClass("container_selected");
             $("#edit_system_data_entry").hide();
             $("#system_data_type").attr("disabled",false);
-            $.ajax({
-                type: "GET",
-                url: "/amazon_settings/system_settings_finder.js",
-                data: 'type=' + $("#system_data_type").val(),
-                dataType: "script"
-            });
+            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+//            $.ajax({
+//                type: "GET",
+//                url: "/amazon_settings/system_settings_finder.js",
+//                data: 'type=' + $("#system_data_type").val(),
+//                dataType: "script"
+//            });
 
         }
 
@@ -1386,10 +1389,6 @@ $(function(){
             return true;
 
         }
-
-
-
-
     });
 
 });
@@ -1656,9 +1655,11 @@ $(function(){
         {
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $("#" + link.attr('field')+'_mode').attr('mode','show');
-            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
-            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
-            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+            if(link.attr("KeepEditStatus")!="true"){
+                $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+                $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+                $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+            }
             link.css("display","none");
             //            $('#new_user_group_form').css('display','none');
 
@@ -1997,12 +1998,15 @@ $(function(){
             $("#keyword_type").attr("disabled",false);
             $("#edit_keyword_entry").html("");
             $(".keyword_entry_selected").removeClass("keyword_entry_selected");
-            $.ajax({
-                type: "GET",
-                url: "/keywords/keywords_finder.js",
-                data: 'type=' + $("#keyword_type").val(),
-                dataType: "script"
-            });
+            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+//            $.ajax({
+//                type: "GET",
+//                url: "/keywords/keywords_finder.js",
+//                data: 'type=' + $("#keyword_type").val(),
+//                dataType: "script"
+//            });
 
         }
 

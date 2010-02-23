@@ -23,7 +23,7 @@
     $('#edit_sorter_list').html('<%= escape_javascript(render(:partial => "queries/query_sorter_list")) %>');
     $('#query_header_id').val('<%= escape_javascript("#{@query_header.id}") %>');
     $('#current_action_global').val('edit');
-    $('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :collection =>  @saved_queries)) %>');
+    $('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :locals=>{:query_type=>@query_type})) %>');
     $('.get_query[query_id='+ '<%= escape_javascript("#{@query_header.id}") %>' +']').addClass('highlight');
     <%- if @query_header.status == false  %>
       $("#run_button_edit").attr("disabled", "disabled");

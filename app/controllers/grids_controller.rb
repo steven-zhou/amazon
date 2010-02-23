@@ -3464,6 +3464,8 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
+    query_type = params[:query_type]
+
     if (!sortname)
       sortname = "grid_object_id"
     end
@@ -3484,15 +3486,15 @@ class GridsController < ApplicationController
     query = "%"+query+"%"
 
     #No search terms provided
-
-    @saved_queries = PersonQueryHeader.find(
+    
+    @saved_queries = query_type.constantize.find(
       :all,
       :conditions => ["query_headers.group = ?", "save"],
       :order => sortname + ' ' + sortorder,
       :limit => rp,
       :offset => start
     )
-    count = PersonQueryHeader.count(:all, :conditions=>["query_headers.group = ?", "save"])
+    count = query_type.constantize.count(:all, :conditions=>["query_headers.group = ?", "save"])
 
     return_data = Hash.new()
     return_data[:page] = page
