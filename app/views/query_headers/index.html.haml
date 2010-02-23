@@ -3,7 +3,7 @@
   %input{:style => "display:none", :id => "query_detail_mode", :mode => "show"}
   %input{:style => "display:none", :id => "query_mode", :mode => "show"}
   #show_queries
-    = render :partial => "queries/saved_query"
+    = render :partial => "queries/saved_query", :locals=>{:query_type=>"PersonQueryHeader"}
   %br.clear
 .container#edit_query{:style => "display:none"}
  

@@ -139,6 +139,7 @@ class RolesController < ApplicationController
       @role_type = @role.role_type
       @roles = @role_type.roles
     end
+    @role_type_id = @role.role_type_id
     respond_to do |format|
       format.js
     end

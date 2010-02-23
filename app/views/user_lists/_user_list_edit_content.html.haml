@@ -16,7 +16,7 @@
   .full_container{:style => "margin-top:10px;"}
     %div#user_list_add_bar
       .options
-        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_option close_logo add_form_close", :field => "user_list", :change_color => false, :title=>"Close"
+        = link_to_function image_tag('close_icon.png'),:style => "display:none;", :class => "close_option close_logo add_form_close",:KeepEditStatus=>"true", :field => "user_list", :change_color => false, :title=>"Close"
       .title
         = link_to_function image_tag('add_icon.png', :size => "22x22"),:class => "new_option new_logo", :field => "user_list"
         &nbsp
