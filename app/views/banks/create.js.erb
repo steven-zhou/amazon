@@ -4,6 +4,7 @@
   $('#open_add_new_bank').show();
   $('#close_add_new_bank').hide();
   $('#bank_mode').attr('mode', 'show');
+  $('.close_option[field="bank"]').css("display","none");
   $.ajax({
     type: "GET",
     url: "/banks/refresh_existing_banks",

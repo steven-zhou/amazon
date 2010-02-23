@@ -1,5 +1,5 @@
 .full_container
   %h2 Existing Religions
 
-  %table#show_religions_grid
+  %table#show_religions_grid{:class=>"selectable_grid",:field=>"religion",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/religions/"}
  

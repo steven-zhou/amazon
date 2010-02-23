@@ -1,5 +1,5 @@
 .full_container
   %h2 Existing Postcodes
 
-  %table#show_postcodes_by_country_grid
+  %table#show_postcodes_by_country_grid{:class=>"selectable_grid",:field=>"postcode",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/postcodes/"}
  

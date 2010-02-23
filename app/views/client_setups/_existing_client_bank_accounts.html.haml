@@ -1,7 +1,7 @@
 .full_container
   %h2 Existing Client Bank Accounts
 
-  %table#show_client_bank_accounts_grid{:field => "client_bank_accoun"}
+  %table#show_client_bank_accounts_grid{:class=>"selectable_grid",:field=>"client_bank_account",:db_click_function=>"true",:db_show=>"true",:db_click_url=>"/client_setups/edit_client_bank_account/"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

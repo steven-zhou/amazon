@@ -1,4 +1,4 @@
 .full_container
   %h2 Existing Electoral Area
 
-  %table#show_electoral_area_grid
+  %table#show_electoral_area_grid{:class=>"selectable_grid",:field=>"electoral_area",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/post_areas/",:params2=>"ElectoralArea"}
