@@ -2703,6 +2703,9 @@ input.error_flag{
     color:red;
 }
 
+.gray{
+    color: gray;
+}
 /*For quick_launch using*/
 .quick_launch_icon{
 
@@ -2734,5 +2737,4 @@ input.error_flag{
     float:left;
 }
 
-/*for confirmation dialog*/
 #confirm_message_text a {color:red;text-decoration:underline;}

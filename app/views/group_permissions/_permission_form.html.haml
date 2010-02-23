@@ -4,7 +4,7 @@
       = check_box_tag "module_ids[]" , @system_permission_meta_meta_type.id, false, :class => 'module_select_all', :style => "width:auto;vertical-align:middle;"
       %label{:class => "select_all", :style => "display:inline;"} Select All
     .title{:id => "show_controllers",:class => "group_permission_color", :main_module_id => @system_permission_meta_meta_type.id }
-      %h2 Module---#{@system_permission_meta_meta_type.name}
+      %h2 #{@system_permission_meta_meta_type.name}
       
     .field_22{:style => "display:none;"}
       = text_field_tag :group_id, params[:group_id], :value => @group_type.id

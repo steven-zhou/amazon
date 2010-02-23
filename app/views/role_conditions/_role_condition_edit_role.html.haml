@@ -33,7 +33,7 @@
 
     %div#assgin_role_condition.full_container
       .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role_condition_assign", :id => "close_role_condition_assign", :style => "display:none;", :field => "role_condition", :title=>"Close"
+        = link_to_function image_tag('close_icon.png'), :class => "close_flag close_option", :flag_name => "role_condition_assign", :id => "close_role_condition_assign", :style => "display:none;", :field => "role_condition", :KeepEditStatus=>"true" ,:title=>"Close"
       .title
         = link_to_function image_tag('add_icon.png', :size => "22x22"), :class => "toggle_button new_option add_flag", :toggle_id_name => "new_role_condition_assign", :flag_name => "role_condition_assign", :field => "role_condition", :id => "add_role_condition_assign"
         &nbsp

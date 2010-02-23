@@ -5,7 +5,7 @@
     #lol
       = render :partial => "/people/list_menu"
       %br.clear
-  #left_content
+  #left_content{:class => (@person.to_be_removed||!@person.status) ?  "disabled_form" : ""}
     - form_for @person, :html=>{:multipart => true, :id=>"person_names_form"} do |p|
       .container
         = p.text_field :custom_id
@@ -49,7 +49,7 @@
       #Account
         = render :partial => "/person_bank_accounts/account_tab",:locals =>{:person => @person}
 
-  #right_content
+  #right_content{:class => (@person.to_be_removed||!@person.status) ?  "disabled_form" : ""}
     .tab_ui
       #Contact{:style => "float:left;margin-left:10px;",:title=> 'Contact', :class => @current_action == "show" ? "person_edit_tab" : "person_edit_tab active", :field => "contact"}
         = link_to_function image_tag('/images/Icons/Core/Person/tabs/contact_title.png'),:class=>"tab_switch_button page_initial hidden", :url => "/contacts/page_initial",:method => "GET", :render_page => "/contacts/contacts_tab", :field => "contact_page",:params1 => @person.id, :type => "Person"

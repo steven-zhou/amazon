@@ -86,6 +86,7 @@ $(function(){
 
                 },
                 Yes: function(){
+                    //$("#query_mode").attr("mode","show");
                     $.post(link.attr('href'), "_method=delete", null, 'script');
                     $(this).dialog('destroy');
                     return true;
@@ -895,7 +896,12 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        $('.flexigrid table table.selectable_grid tr').removeClass("trSelected");
+        if(link.attr("KeepEditStatus")!="true"){
+            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+        }
+        
         var temp = $('#check_input_change').val();
         var left_content = $("#content").find("#left_content");
         var  right_content = $("#content").find("#right_content");
@@ -1123,6 +1129,12 @@ $(function(){
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
 });
+disabled_form = function(){
+
+    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("select").attr("disabled", true);
+
+};
 
 
 $(document).ready(function() {
@@ -1733,7 +1745,16 @@ $(function(){
         if ($(this).attr("light_box") == "true"){
 
             var link = $(this);
-            $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+            if (link.attr("message")!="")
+              {
+                 $('#warning_message_text').html("Are You Sure You Want to "+link.attr("message")+"?");
+              }
+              else
+                {
+                 $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+                }
+
+
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -2768,12 +2789,11 @@ $(function(){
                 dataType: "script"
             });
         }
-        if($('#'+(form.attr('mode_field'))).attr('mode')=='show'){
+        if($('#'+form.attr('field')+"_mode").attr('mode')=='show'){
             $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
             $(this).addClass("trSelected");
         }else{
             $(this).removeClass("trSelected");
-            $("table.selectable_grid tbody tr.IamEdited td").css("background-color","red");
         }
     });
 
@@ -2782,10 +2802,9 @@ $(function(){
         var form_id = $(this).closest('table').get(0).id;
 
         var form = $('#'+form_id);
-        if (form.attr('db_click_function') == "true" && $('#'+form.attr('mode_field')).attr('mode')!='edit')
+        if (form.attr('db_click_function') == "true" && $('#'+form.attr('field')+"_mode").attr('mode')=='show')
         {
-            $(this).addClass("trSelected");
-            $(this).addClass("IamEdited");
+            $(this).addClass("trEdited");
             var url = form.attr('db_click_url');
             var type = "GET";
             if (form.attr('edit')=="true")
@@ -2805,7 +2824,7 @@ $(function(){
                 url: url,
                 data: 'grid_object_id='+$(this).attr('id').substring(3)+'&params2='+form.attr('params2')+'&target='+form.attr('target')+'&current_tab_id='+$('#current_tab_id').val(),
                 dataType: "script"
-            });        
+            });
         }
         if (form.attr('db_close') == "true")
         {

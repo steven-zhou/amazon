@@ -2,11 +2,11 @@ class PersonQueryHeader < QueryHeader
   
   has_many :entity_on_query, :through => :query_details, :source => :person
 
-    def self.saved_queries
+  def self.saved_queries
     PersonQueryHeader.find(:all, :conditions => ["query_headers.group = ?", "save"], :order => "id")
   end
 
-      def run
+  def run
     if (self.sort_clauses.empty?)
       if (self.include_clauses.empty?)
         Person.find(:all, :conditions => [self.condition_clauses.join(" "), *self.value_clauses], :order => "people.id")
@@ -22,7 +22,7 @@ class PersonQueryHeader < QueryHeader
     end
   end
 
-       def selection_fields
+  def selection_fields
     selection_clauses = Array.new
     selection_clauses.push("people.id")
     self.query_selections.find(:all, :order => "sequence").each do |i|

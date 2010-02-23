@@ -1,2 +1,6 @@
 $('#person_name').html('<%= escape_javascript(render(:partial => "/people/person_name_brief_info")) %>');
-
+<%-if @person.to_be_removed %>
+$("#person_active_button").css("display","none");
+<%-else%>
+$("#person_active_button").css("display","");
+<%-end%>

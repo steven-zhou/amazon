@@ -20,10 +20,11 @@ class ApplicationController < ActionController::Base
   before_filter :instantiate_controller_and_action_names, :check_authentication
 
   def instantiate_controller_and_action_names
+    @pre_action = @current_action if @current_action
+    @pre_controller = @current_controller if @current_controller
     @current_action = action_name
     @current_controller = controller_name
     @show_list = session[:show_list]
-
   end
 
   def check_authentication
@@ -33,7 +34,7 @@ class ApplicationController < ActionController::Base
       @current_user = LoginAccount.find(session[:user])
       LoginAccount.current_user = @current_user      
       check_session_timeout(@current_user)
-      #session[:is_super_user] ||= @current_user.super_user?
+      #session[:is_super_user] = @current_user.super_user?
       #check_permission(@current_user) unless session[:is_super_user]
       redirect_to :controller => "dashboards", :action => "check_password" if (@current_user.password_by_admin && @current_controller != "dashboards" && @current_action != "check_password" && (@current_controller != "dashboards" && @current_action != "update_password"))
       session[:last_event] = Time.now()
@@ -138,8 +139,13 @@ class ApplicationController < ActionController::Base
 
   end
 
-  def check_permission(current_user)
-    session[:user_permission] ||= current_user.all_permissions
+  def check_permission(current_user)    
+    session[:user_permission] = current_user.all_permissions
+    required_permission = find_permission(@current_controller, @current_action)
+    unless session[:user_permission].include?(required_permission)
+      flash[:warning] = "You don't have permission to access this page."
+      redirect_to :controller => @pre_controller, :action => @pre_action
+    end
   end
 
   def system_log(message, current_controller=@current_controller, current_action=@current_action, login_account=@current_user)
@@ -150,5 +156,9 @@ class ApplicationController < ActionController::Base
    
   end
 
-
+  def find_permission(controller, action)
+    spmt = SystemPermissionMetaType.find_by_description(controller).id
+    spt = SystemPermissionType.find(:first, :conditions => ["description = ? AND tag_type_id = ?", action, spmt]).try(:id)
+    return spt
+  end
 end

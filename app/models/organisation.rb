@@ -7,30 +7,32 @@ class Organisation < ActiveRecord::Base
   #++
   has_many :organisation_key_personnels
   has_many :key_people, :through => :organisation_key_personnels, :source => :person
-  has_many :employments
+  has_many :employments,:dependent => :destroy
   has_many :employees, :through => :employments, :source => :employee
-  has_many :addresses, :as => :addressable, :order => "priority_number ASC"
+  has_many :addresses, :as => :addressable, :order => "priority_number ASC",:dependent => :destroy
   has_one :image, :as => :imageable
-  has_many :contacts, :as => :contactable, :order => "priority_number ASC"
-  has_many :phones, :as => :contactable, :order => "priority_number ASC"
-  has_many :faxes, :as => :contactable, :order => "priority_number ASC"
-  has_many :emails, :as => :contactable, :order => "priority_number ASC"
-  has_many :websites, :as => :contactable, :order => "priority_number ASC"
-  has_many :instant_messagings, :as => :contactable, :order => "priority_number ASC"
-  has_many :master_docs, :as=> :entity, :order => "priority_number ASC"
-  has_many :keyword_links, :as => :taggable
+  has_many :contacts, :as => :contactable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :phones, :as => :contactable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :faxes, :as => :contactable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :emails, :as => :contactable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :websites, :as => :contactable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :instant_messagings, :as => :contactable, :order => "priority_number ASC",:dependent => :destroy
+  has_many :master_docs, :as=> :entity, :order => "priority_number ASC",:dependent => :destroy
+  has_many :keyword_links, :as => :taggable,:dependent => :destroy
   has_many :keywords, :through => :keyword_links,:uniq => true
-  has_many :notes, :as => :noteable
-  has_many :organisation_groups, :class_name =>'OrganisationGroup', :foreign_key => 'organisation_id'
+  has_many :notes, :as => :noteable,:dependent => :destroy
+  has_many :organisation_groups, :class_name =>'OrganisationGroup', :foreign_key => 'organisation_id',:dependent => :destroy
   has_many :group_types, :through => :organisation_groups
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
-  has_many :organisation_bank_accounts, :foreign_key => "entity_id", :order => "priority_number ASC"
+  has_many :organisation_bank_accounts, :foreign_key => "entity_id", :order => "priority_number ASC",:dependent => :destroy
   has_many :transaction_headers, :as => :entity
-  has_many :organisation_as_source, :foreign_key => "source_organisation_id", :class_name => "OrganisationRelationship"
-  has_many :organisation_as_related, :foreign_key => "related_organisation_id", :class_name => "OrganisationRelationship"
+  has_many :organisation_as_source, :foreign_key => "source_organisation_id", :class_name => "OrganisationRelationship",:dependent => :destroy
+  has_many :organisation_as_related, :foreign_key => "related_organisation_id", :class_name => "OrganisationRelationship",:dependent => :destroy
   has_many :list_details, :as => :listable
-  has_many :mail_logs, :as => :entity
+
+  has_many :mail_logs, :as=>:entity,:dependent => :destroy
+
 
 
 

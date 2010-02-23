@@ -35,9 +35,11 @@ class PeopleController < ApplicationController
         @personal_check_field << i.field_name
       end
     end
-
+     @p = @current_user.all_person_lists.first.entity_on_list.uniq
     respond_to do |format|
+
       format.html
+#      format.js {render "new.js"}
     end
   end
   
@@ -112,12 +114,18 @@ class PeopleController < ApplicationController
     #    @instant_messaging = @person.instant_messagings
     #    @person_role = @person.person_roles
 
-    respond_to do |format|
+    if @p.empty?
+      redirect_to :action=>"new"
+ 
+    else
 
-      format.html
-      format.js {render 'show_left.js'}
+      respond_to do |format|
 
-    end     
+        format.html
+        format.js {render 'show_left.js'}
+
+      end
+    end
   end
 
   def edit
@@ -139,7 +147,7 @@ class PeopleController < ApplicationController
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
             @p = @list_header.entity_on_list.uniq
-            @person = Person.find(session[:current_person_id])
+            @person = Person.find(session[:current_person_id]) rescue @person = Person.first
           else
             @list_header = ListHeader.find(session[:current_list_id])
             @p = Array.new
@@ -200,9 +208,17 @@ class PeopleController < ApplicationController
       end
     end
     @entity = @person
-    respond_to do |format|
-      format.html
-      format.js {render 'show_edit_left.js'}
+
+    if @p.empty?
+
+      redirect_to :action=>"new"
+
+    else
+
+      respond_to do |format|
+        format.html
+        format.js {render 'show_edit_left.js'}
+      end
     end
   end
 
@@ -420,12 +436,26 @@ class PeopleController < ApplicationController
     @p.each do |person|
       @slg = ShowListGrid.new
       @slg.login_account_id = session[:user]
-      @slg.grid_object_id = person.id
-      @slg.field_1 = person.first_name
-      @slg.field_2 = person.family_name
-      @slg.field_3 = person.primary_address.first_line unless person.primary_address.blank?
-      @slg.field_4 = person.primary_phone.value unless person.primary_phone.blank?
-      @slg.field_5 = person.primary_email.address unless person.primary_email.blank?
+      if person.to_be_removed
+        @slg.grid_object_id = person.id
+        @slg.field_1 = "<span class='red'>"+person.first_name+"</span>"
+        @slg.field_2 = "<span class='red'>"+person.family_name+"</span>"
+        @slg.field_3 = "<span class='red'>"+person.primary_address.first_line+"</span>" unless person.primary_address.blank?
+        @slg.field_4 = "<span class='red'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
+        @slg.field_5 = "<span class='red'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
+
+      else
+        @slg.grid_object_id = person.id
+        @slg.field_1 = person.status ? person.first_name : "<span class='gray'>"+person.first_name+"</span>"
+        @slg.field_2 = person.status ? person.family_name : "<span class='gray'>"+person.family_name+"</span>"
+        @slg.field_3 = person.status ? person.primary_address.first_line : "<span class='gray'>"+person.family_name+"</span>" unless person.primary_address.blank?
+        @slg.field_4 = person.status ? person.primary_phone.value : "<span class='gray'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
+        @slg.field_5 = person.status ? person.primary_email.address : "<span class='gray'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
+
+      end
+
+
+
       @slg.save
     end
 

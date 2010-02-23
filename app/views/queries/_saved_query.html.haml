@@ -1,10 +1,66 @@
-- status = saved_query.status ? "container" : "container_inactive"
-%div{:class => "#{status} toggle_options get_query", :field => "query", :query_id => saved_query.id}
-  %div
-    .title{:style => "width:80%;"}
-      %h2 #{saved_query.formatted_info}
-    .options{:style => "display:none;"}
-      = link_to image_tag('edit_icon.png', :alt => 'Edit'), edit_query_header_path(saved_query), :class => 'get_query edit_option', :field => "query", :title=>"Edit"
-      = link_to image_tag('Icons/System/clone.png', :alt => 'SaveAs'), copy_query_header_path(saved_query), :class => 'get_query', :title=>"Save As"
-      = link_to image_tag('delete_icon.png', :alt => 'Delete'), query_header_path(saved_query), :class => 'delete',:field => "Query",:error_message_field =>"Query", :title=>"Remove"
-    %br.clear
+.full_container
+  %table#show_existing_query_grid{:class=>"selectable_grid", :mode_field=>"query_mode", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/query_headers/"}
+%script{:type=>"text/javascript", :charset=>"utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+      delete_from_grid($("#show_existing_query_grid tr.trSelected").attr('id'), "#query_mode", "get", "/query_headers/");
+    };
+    save_as = function(){
+      retrieve_from_grid($("#show_existing_query_grid tr.trSelected").attr('id'),"get","/query_headers/copy");
+    }
+    
+    $("#show_existing_query_grid").flexigrid({
+      url: '/grids/show_existing_query_grid?query_type=#{query_type}',
+      dataType: 'json',
+      colModel: [
+        {
+          display: 'ID',
+          name: 'id',
+          width: 40,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Name',
+          name: 'name',
+          width: 270,
+          sortable: true,
+          align: 'left'
+        },
+
+        {
+          display: 'Description',
+          name: 'description',
+          width: 570,
+          sortable: true,
+          align: 'left'
+        }
+      ],
+
+      buttons:[
+        {name: '', bclass: 'delete delete_button_on_grid', onpress: delete_from_a_grid},
+        {name: 'Copy As', bclass:'saveas', onpress: save_as}
+      ],
+
+      searchitems:[
+        {
+          display: 'Name',
+          name: 'name'
+        },
+        {
+          display: 'Description',
+          name: 'description'
+        }
+      ],
+
+      sortname: "name",
+      sortorder: "asc",
+      usepager: true,
+      title: '',
+      useRp: true,
+      rp: 20,
+      showTableToggleBtn: false,
+      width: 'auto',
+      height: 'auto'
+    });

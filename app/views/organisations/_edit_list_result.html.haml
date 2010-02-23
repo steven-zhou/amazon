@@ -6,7 +6,7 @@
       = render :partial => "/organisations/lists_menu"
       %br.clear
 
-  #left_content
+  #left_content{:class => (@organisation.to_be_removed||!@organisation.status) ?  "disabled_form" : ""}
     - form_for @organisation, :url => {:controller => "organisations", :action => "update", :id => @organisation.id} , :html=>{:class => (@super_admin || @organisation.class.to_s != "ClientOrganisation") ? "" : "disabled_form", :multipart => true, :id=>"organisation_names_form"} do |p|
       .container{:class => @organisation.class.to_s == "ClientOrganisation" ? "disabled_form" :""}
         %h1 Identity
@@ -49,7 +49,7 @@
 
 
 
-  #right_content
+  #right_content{:class => (@organisation.to_be_removed||!@organisation.status) ?  "disabled_form" : ""}
     - if @super_admin || @organisation.class.to_s != "ClientOrganisation"
       .tab_ui
         #Contact{:style => "float:left;margin-left:10px;", :title=> 'Contact', :class => "organisation_edit_tab active", :field => "contact"}
