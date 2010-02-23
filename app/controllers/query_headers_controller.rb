@@ -279,6 +279,7 @@ class QueryHeadersController < ApplicationController
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@query_header.errors.nil? && @query_header.errors.on(:name).include?("has already been taken"))
     end
     @saved_queries = @query_header.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    @query_type = @query_header.person_query_header? ? "PersonQueryHeader" : "OrganisationQueryHeader"
     respond_to do |format|
       format.js
     end
