@@ -2987,7 +2987,7 @@ class GridsController < ApplicationController
 
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @keywords.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3115,7 +3115,7 @@ class GridsController < ApplicationController
 
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @roles.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3167,7 +3167,7 @@ class GridsController < ApplicationController
     
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @group_types.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3218,7 +3218,7 @@ class GridsController < ApplicationController
 
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @login_accounts.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3271,7 +3271,7 @@ class GridsController < ApplicationController
 
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @group_types.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3322,7 +3322,7 @@ class GridsController < ApplicationController
 
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @systemusers.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3498,7 +3498,7 @@ class GridsController < ApplicationController
 
     return_data = Hash.new()
     return_data[:page] = page
-    return_data[:count] = count
+    return_data[:total] = count
     return_data[:rows] = @saved_queries.collect{|u| {
         :id => u.id,
         :cell => [

@@ -2831,11 +2831,13 @@ $(function(){
             $('.ui-icon-closethick').click();
         }
     });
-});
 
-$(function(){
     $('table.selectable_grid tbody tr').live('mouseover',function(){
         $(this).css("cursor","pointer");
+    });
+
+    $('.close_edit').live('click', function(){
+      $('table.selectable_grid[field='+ $(this).attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
     });
 });
 
