@@ -1,6 +1,6 @@
 .full_container
   %h2 Existing Sources
-  %table#show_sources_by_campaign_grid
+  %table#show_sources_by_campaign_grid{:class => "selectable_grid",:db_click_function => "true", :field => "source", :db_click_url => "/receipting/edit_source.js"}
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_source = function(){

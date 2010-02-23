@@ -2,7 +2,7 @@
 .full_container
   %h2 Un-banked Transactions
 
-  %table#show_unbanked_transaction_grid
+  %table#show_unbanked_transaction_grid{:class => "selectable_grid",:db_click_function => "true", :db_click_url => "/transaction_headers/", :field => "current", :edit => "true"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

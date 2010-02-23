@@ -19,7 +19,7 @@ class TransactionAllocationsController < ApplicationController
   end
 
   def temp_edit
-    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:id])
+    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:grid_object_id])
     respond_to do |format|
       format.js
     end

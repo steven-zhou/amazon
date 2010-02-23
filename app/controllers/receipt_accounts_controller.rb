@@ -51,7 +51,7 @@ class ReceiptAccountsController < ApplicationController
   end
 
   def edit_receipt_account
-    @receipt_account = ReceiptAccount.find(params[:id])
+    @receipt_account = ReceiptAccount.find(params[:grid_object_id])
     respond_to do |format|
       format.js
     end
