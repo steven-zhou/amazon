@@ -1,4 +1,4 @@
 .full_container
   %h2 Existing Geographical Area
 
-  %table#show_geographicalarea_grid
+  %table#show_geographicalarea_grid{:class=>"selectable_grid",:field=>"geo_area",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/post_areas/",:params2=>"GeographicalArea"}

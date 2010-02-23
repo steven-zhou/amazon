@@ -17,14 +17,14 @@
     %div.tab_close
       .tab_looking_left
       .tab_looking_icon
-        = link_to_function image_tag('/images/Icons/System/close.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
+        = link_to_function image_tag('/images/Icons/System/close.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option close_edit", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
       .tab_looking_right
         .options
 
 
     .full_container
       -#.options
-        = link_to_function image_tag('close_icon.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
+        = link_to_function image_tag('close_icon.png'), :field => "country", :style => "display:none;", :title=>"Close", :class => "close_option ", :toggle_id_name => "edit_country", :toggle_id_name1 => "add_new_country"
       #edit_country_form
 
 %script{:type => "text/javascript", :charset => "utf-8"}

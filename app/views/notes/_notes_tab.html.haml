@@ -8,7 +8,7 @@
     .options
       = link_to_function image_tag('close_icon.png'), :class => "close_option", :toggle_id_name => "new_note", :style => "display:none", :field => "note", :title=>"Close"
     .title
-      = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"ajax_call new_option",:field => "note",:method => "GET", :url => "/notes/new_note_form",:param2 => "Person",:param1=>person.id if (!person.nil? && !person.new_record?)
+      = link_to_function image_tag('add_icon.png'), :id=>"add_note", :class=>"ajax_call new_option ",:field => "note",:method => "GET", :url => "/notes/new_note_form",:param2 => "Person",:param1=>person.id if (!person.nil? && !person.new_record?)
       &nbsp
     %h1 New Note
     #new_note_form{:style => "float:left;width:100%;"}
@@ -18,7 +18,7 @@
 
 #edit_note{:class => "header_container", :style => "display:none;"}
   .options
-    = link_to_function image_tag('close_icon.png'), :field => "note", :style => "display:none;", :title=>"Close", :class => "close_option", :toggle_id_name => "edit_note", :toggle_id_name1 => "add_new_note"
+    = link_to_function image_tag('close_icon.png'), :field => "note", :style => "display:none;", :title=>"Close", :class => "close_option close_edit", :toggle_id_name => "edit_note", :toggle_id_name1 => "add_new_note"
   %h1{:style=>"display:inline;"} Edit
   #edit_note_form
 

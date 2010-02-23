@@ -2152,157 +2152,11 @@ $(function(){
 });
 
 
-/* Country Grid*/
-$(function(){
-    $('table#show_countries_grid tbody tr').live('click',function(){
-        if($('#country_mode').attr('mode')=="show"){
-            $('table#show_countries_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
-
-    $('table#show_countries_grid tbody tr').live('dblclick',function(){
-        if($('#country_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/countries/"+$(this).attr('id').substring(3)+"/edit.js",
-                dataType: "script"
-            });
-        }
-    });
-
-    $('table#show_countries_grid tbody tr').live('mouseover',function(){
-        if($('#country_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
 
 
-/* Language Grid*/
-$(function(){
-    $('table#show_languages_grid tbody tr').live('click',function(){
-        if($('#language_mode').attr('mode')=="show"){
-            $('table#show_languages_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
 
-    $('table#show_languages_grid tbody tr').live('dblclick',function(){
-        if($('#language_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/languages/"+$(this).attr('id').substring(3)+"/edit.js",
-                dataType: "script"
-            });
-        }
-    });
 
-    $('table#show_languages_grid tbody tr').live('mouseover',function(){
-        if($('#language_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
 
-/*GeographicalArea_grid*/
-
-$('table#show_geographicalarea_grid tbody tr').live('click',function(){
-    if( $('#geo_area_mode').attr('mode') == "show"){
-        $('table#show_geographicalarea_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-    }else{
-        $(this).removeClass('trSelected');
-    }
-});
-
-$('table#show_geographicalarea_grid tbody tr').live('dblclick',function(){
-    if( $('#geo_area_mode').attr('mode') == "show"){
-        $.ajax({
-            type: 'GET',
-            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
-            data: '&type=GeographicalArea',
-            dataType: "script"
-        });
-    }else{}
-});
-
-$('table#show_geographicalarea_grid tbody tr').live('mouseover',function(){
-    if( $('#geo_area_mode').attr('mode') == "show"){
-        $(this).css('cursor',"pointer");
-    }else{
-        $(this).css('cursor',"");
-    }
-});
-
-/* Religion Grid*/
-$(function(){
-    $('table#show_religions_grid tbody tr').live('click',function(){
-        if($('#religion_mode').attr('mode')=="show"){
-            $('table#show_religions_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
-
-    $('table#show_religions_grid tbody tr').live('dblclick',function(){
-        if($('#religion_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/religions/"+$(this).attr('id').substring(3)+"/edit.js",
-                dataType: "script"
-            });
-        }
-    });
-
-    $('table#show_religions_grid tbody tr').live('mouseover',function(){
-        if($('#religion_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-
-});
-
-/*ElectoralArea_grid*/
-
-$('table#show_electoral_area_grid tbody tr').live('click',function(){
-    if( $('#electoral_area_mode').attr('mode') == "show"){
-        $('table#show_electoral_area_grid tbody tr.trSelected').removeClass('trSelected');
-        $(this).addClass('trSelected');
-    }else{
-        $(this).removeClass('trSelected');
-    }
-});
-
-$('table#show_electoral_area_grid tbody tr').live('dblclick',function(){
-    if( $('#electoral_area_mode').attr('mode') == "show"){
-        $.ajax({
-            type: 'GET',
-            url: "/post_areas/"+$(this).attr('id').substring(3)+"/edit.js",
-            data: '&type=ElectoralArea',
-            dataType: "script"
-        });
-    }else{}
-});
-
-$('table#show_electoral_area_grid tbody tr').live('mouseover',function(){
-    if( $('#electoral_area_mode').attr('mode') == "show"){
-        $(this).css('cursor',"pointer");
-    }else{
-        $(this).css('cursor',"");
-    }
-});
 
 
 /*select change*/
@@ -2383,35 +2237,7 @@ $(function(){
 });
 
 
-/* Show postcode by country Grid*/
-$(function(){
-    $('table#show_postcodes_by_country_grid tbody tr').live('click',function(){
-        if($('#postcode_mode').attr('mode')=="show"){
-            $('table#show_postcodes_by_country_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
 
-    $('table#show_postcodes_by_country_grid tbody tr').live('dblclick',function(){
-        if($('#postcode_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/postcodes/"+$(this).attr('id').substring(3)+"/edit.js",
-                dataType: "script"
-            });
-        }
-    });
-
-    $('table#show_postcodes_by_country_grid tbody tr').live('mouseover',function(){
-        if($('#postcode_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
 
 
 /*Maintenance-country- message*/
@@ -2477,34 +2303,34 @@ $(function(){
 });
 
 /* Client Bank Account Grid*/
-$(function(){
-    $('table#show_client_bank_accounts_grid tbody tr').live('click',function(){
-        if($('#client_bank_account_mode').attr('mode')=="show"){
-            $('table#show_client_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
-
-    $('table#show_client_bank_accounts_grid tbody tr').live('dblclick',function(){
-        if($('#client_bank_account_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/client_setups/edit_client_bank_account/"+$(this).attr('id').substring(3),
-                dataType: "script"
-            });
-        }
-    });
-
-    $('table#show_client_bank_accounts_grid tbody tr').live('mouseover',function(){
-        if($('#client_bank_account_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
+//$(function(){
+//    $('table#show_client_bank_accounts_grid tbody tr').live('click',function(){
+//        if($('#client_bank_account_mode').attr('mode')=="show"){
+//            $('table#show_client_bank_accounts_grid tbody tr.trSelected').removeClass('trSelected');
+//            $(this).addClass('trSelected');
+//        }else{
+//            $(this).removeClass('trSelected');
+//        }
+//    });
+//
+//    $('table#show_client_bank_accounts_grid tbody tr').live('dblclick',function(){
+//        if($('#client_bank_account_mode').attr('mode')=="show"){
+//            $.ajax({
+//                type: 'GET',
+//                url: "/client_setups/edit_client_bank_account/"+$(this).attr('id').substring(3),
+//                dataType: "script"
+//            });
+//        }
+//    });
+//
+//    $('table#show_client_bank_accounts_grid tbody tr').live('mouseover',function(){
+//        if($('#client_bank_account_mode').attr('mode')=="show"){
+//            $(this).css('cursor',"pointer");
+//        }else{
+//            $(this).css('cursor',"");
+//        }
+//    });
+//});
 
 $(function(){
     $('#data_restore').live('click', function(){

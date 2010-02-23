@@ -57,6 +57,7 @@ class PostAreasController < ApplicationController
   end
 
   def edit
+    params[:type]=params[:params2]
     @postal_area = params[:type].camelize.constantize.find(params[:id])
     if (params[:type]== "GeographicalArea")
       @type = "geo_area"

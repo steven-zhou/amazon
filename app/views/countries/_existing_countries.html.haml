@@ -1,5 +1,5 @@
 .full_container
   %h2 Existing Countries
 
-  %table#show_countries_grid
+  %table#show_countries_grid{:class=>"selectable_grid",:field=>"country",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/countries/"}
  

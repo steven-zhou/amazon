@@ -35,89 +35,94 @@ class PeopleController < ApplicationController
         @personal_check_field << i.field_name
       end
     end
-     @p = @current_user.all_person_lists.first.entity_on_list.uniq
+    @p = PrimaryList.first.entity_on_list
+
     respond_to do |format|
 
       format.html
-#      format.js {render "new.js"}
+      #      format.js {render "new.js"}
     end
   end
   
   def show
    
-    #@group_types = @current_user.group_types
-    @list_headers = @current_user.all_person_lists
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-    #when it is cal show action
-    if request.get?
-      if @list_headers.blank?
-        @list_header = ListHeader.new
-        @person = Person.new
-        @p = Array.new
-      else
-        if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-          @list_header = @list_headers.first
-          session[:current_list_id] = @list_header.id
-          @person = @list_header.entity_on_list.first unless @list_headers.blank?
-          @person = Person.new if @person.nil?
-          session[:current_person_id] = @person.id unless @person.new_record?
+    
+   # if no person in the system , go to person new directly
+    if PrimaryList.first.entity_on_list.empty?
+      redirect_to :action=>"new"
+    else
+      #@group_types = @current_user.group_types
+      @list_headers = @current_user.all_person_lists
+      @active_tab = params[:active_tab]
+      @active_sub_tab = params[:active_sub_tab]
+      #when it is cal show action
+      if request.get?
+        if @list_headers.blank?
+          @list_header = ListHeader.new
+          @person = Person.new
           @p = Array.new
-          @p = @list_header.entity_on_list.uniq
-        else  #when there is id come---click the narrow button
-          unless session[:current_list_id].blank?
-            @list_header = ListHeader.find(session[:current_list_id])
+        else
+          if params[:id].nil? || params[:id] == "show" #when just jumping or change list
+            @list_header = @list_headers.first
+            session[:current_list_id] = @list_header.id
+            @person = @list_header.entity_on_list.first unless @list_headers.blank?
+            @person = Person.new if @person.nil?
+            session[:current_person_id] = @person.id unless @person.new_record?
             @p = Array.new
             @p = @list_header.entity_on_list.uniq
-            @person = Person.find_by_id(params[:id].to_i)
-            @person = @p.first if @person.nil?
-            session[:current_person_id] = @person.id
-            #else
+          else  #when there is id come---click the narrow button
+            unless session[:current_list_id].blank?
+
+              @list_header = ListHeader.find(session[:current_list_id])
+
+              @p = Array.new
+              @p = @list_header.entity_on_list.uniq
+              @person = Person.find_by_id(params[:id].to_i)
+
+              @person = @p.first if @person.nil?
+              session[:current_person_id] = @person.id
+
+              #else
+            end
           end
         end
       end
-    end
 
-    if request.post?
-      #remember the active style of tabs
-  
-      @list_header = ListHeader.find(params[:list_header_id])
-      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+      if request.post?
+        #remember the active style of tabs
 
-      c1 = Array.new
-      c1 = @list_header.entity_on_list
-      @person = Person.find_by_id(params[:id].to_i)
-      unless c1.include?(@person)
-        @person = c1.first
-      else
-        @person
+        @list_header = ListHeader.find(params[:list_header_id])
+        params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+
+        c1 = Array.new
+        c1 = @list_header.entity_on_list
+        @person = Person.find_by_id(params[:id].to_i)
+        unless c1.include?(@person)
+          @person = c1.first
+        else
+          @person
+        end
+
+        @p = Array.new
+        @p = c1.uniq
+        session[:current_list_id] = @list_header.id
+        session[:current_person_id] = @person.id
       end
 
-      @p = Array.new
-      @p = c1.uniq
-      session[:current_list_id] = @list_header.id
-      session[:current_person_id] = @person.id
-    end
-
-    @primary_phone = @person.primary_phone
-    @primary_email = @person.primary_email
-    @primary_fax = @person.primary_fax
-    @primary_website = @person.primary_website
-    @primary_address = @person.primary_address
-    @primary_employment = @person.primary_employment
-    #    @other_phones = @person.other_phones
-    #    @other_emails = @person.other_emails
-    #    @other_faxes = @person.other_faxes
-    #    @other_websites = @person.other_websites
-    #    @other_addresses = @person.other_addresses
-    #    @notes = @person.notes
-    #    @instant_messaging = @person.instant_messagings
-    #    @person_role = @person.person_roles
-
-    if @p.empty?
-      redirect_to :action=>"new"
- 
-    else
+      @primary_phone = @person.primary_phone
+      @primary_email = @person.primary_email
+      @primary_fax = @person.primary_fax
+      @primary_website = @person.primary_website
+      @primary_address = @person.primary_address
+      @primary_employment = @person.primary_employment
+      #    @other_phones = @person.other_phones
+      #    @other_emails = @person.other_emails
+      #    @other_faxes = @person.other_faxes
+      #    @other_websites = @person.other_websites
+      #    @other_addresses = @person.other_addresses
+      #    @notes = @person.notes
+      #    @instant_messaging = @person.instant_messagings
+      #    @person_role = @person.person_roles
 
       respond_to do |format|
 
@@ -129,91 +134,92 @@ class PeopleController < ApplicationController
   end
 
   def edit
-    # @group_types = LoginAccount.find(session[:user]).group_types
-    @list_headers = @current_user.all_person_lists
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-    
    
-
-    if request.get?
-      if @list_headers.blank?
-        @list_header = ListHeader.new
-        @person = Person.new
-        @p = Array.new
-      else
-        unless session[:current_list_id].blank? && session[:current_person_id].blank?
-          if params[:id].blank? || params[:id] == "show"
-            @list_header = ListHeader.find(session[:current_list_id])
-            @p = Array.new
-            @p = @list_header.entity_on_list.uniq
-            @person = Person.find(session[:current_person_id]) rescue @person = Person.first
-          else
-            @list_header = ListHeader.find(session[:current_list_id])
-            @p = Array.new
-            @p = @list_header.entity_on_list.uniq
-            @person = Person.find_by_id(params[:id].to_i)
-            @person = @list_headers.first.entity_on_list.first if @person.nil?
-            session[:current_person_id] = @person.id
-          end
-        else
-          @list_header = @list_headers.first
-          session[:current_list_id] = @list_header.id
-          @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
-          session[:current_person_id] = @person.id
-          @person = Person.new if @person.nil?
-          @p = Array.new
-          @p = @list_header.entity_on_list.uniq
-        end
-      end
-    end
-
-    if request.post?
-      @list_header = ListHeader.find(params[:list_header_id])
-      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
-      c1 = Array.new
-      c1 = @list_header.entity_on_list.uniq
-      @person = Person.find_by_id(params[:id].to_i)
-      unless c1.include?(@person)
-        @person = @list_header.entity_on_list.first
-      else
-        @person
-      end
-      @p = Array.new
-      @p = @list_header.entity_on_list.uniq
-      session[:current_list_id] = @list_header.id
-      session[:current_person_id] = @person.id
-    end
-
-    #----for left side use
-    @active_address = AddressType.active_address_type
-    @active_title = Title.active_title
-    @countries = Country.all #
-    @Languages = Language.active_language #
-    #-----for first tab use
-    @address = Address.new #
-    @phone = Phone.new #
-    @email = Email.new #
-    @fax = Fax.new #
-    @website = Website.new #
-    @instant_messaging = InstantMessaging.new #
-   
-    @image = @person.image unless (@person.nil? || @person.image.nil?)
-  
-    @personal_check_field = Array.new
-    @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-    unless @duplication_formula_appiled.status == false
-      @duplication_formula_appiled.duplication_formula_details.each do |i|
-        @personal_check_field << i.field_name
-      end
-    end
-    @entity = @person
-
-    if @p.empty?
-
+   # if no person in the system , go to person new directly
+    if PrimaryList.first.entity_on_list.empty?
       redirect_to :action=>"new"
 
     else
+
+      # @group_types = LoginAccount.find(session[:user]).group_types
+      @list_headers = @current_user.all_person_lists
+      @active_tab = params[:active_tab]
+      @active_sub_tab = params[:active_sub_tab]
+
+
+
+      if request.get?
+        if @list_headers.blank?
+          @list_header = ListHeader.new
+          @person = Person.new
+          @p = Array.new
+        else
+          unless session[:current_list_id].blank? && session[:current_person_id].blank?
+            if params[:id].blank? || params[:id] == "show"
+              @list_header = ListHeader.find(session[:current_list_id])
+              @p = Array.new
+              @p = @list_header.entity_on_list.uniq
+              @person = Person.find(session[:current_person_id]) rescue @person = Person.first
+            else
+              @list_header = ListHeader.find(session[:current_list_id])
+              @p = Array.new
+              @p = @list_header.entity_on_list.uniq
+              @person = Person.find_by_id(params[:id].to_i)
+              @person = @list_headers.first.entity_on_list.first if @person.nil?
+              session[:current_person_id] = @person.id
+            end
+          else
+            @list_header = @list_headers.first
+            session[:current_list_id] = @list_header.id
+            @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
+            session[:current_person_id] = @person.id
+            @person = Person.new if @person.nil?
+            @p = Array.new
+            @p = @list_header.entity_on_list.uniq
+          end
+        end
+      end
+
+      if request.post?
+        @list_header = ListHeader.find(params[:list_header_id])
+        params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+        c1 = Array.new
+        c1 = @list_header.entity_on_list.uniq
+        @person = Person.find_by_id(params[:id].to_i)
+        unless c1.include?(@person)
+          @person = @list_header.entity_on_list.first
+        else
+          @person
+        end
+        @p = Array.new
+        @p = @list_header.entity_on_list.uniq
+        session[:current_list_id] = @list_header.id
+        session[:current_person_id] = @person.id
+      end
+
+      #----for left side use
+      @active_address = AddressType.active_address_type
+      @active_title = Title.active_title
+      @countries = Country.all #
+      @Languages = Language.active_language #
+      #-----for first tab use
+      @address = Address.new #
+      @phone = Phone.new #
+      @email = Email.new #
+      @fax = Fax.new #
+      @website = Website.new #
+      @instant_messaging = InstantMessaging.new #
+
+      @image = @person.image unless (@person.nil? || @person.image.nil?)
+
+      @personal_check_field = Array.new
+      @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+      unless @duplication_formula_appiled.status == false
+        @duplication_formula_appiled.duplication_formula_details.each do |i|
+          @personal_check_field << i.field_name
+        end
+      end
+      @entity = @person
 
       respond_to do |format|
         format.html
