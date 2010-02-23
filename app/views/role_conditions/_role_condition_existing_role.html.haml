@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing Roles
-  %table#show_roles_conditions_grid{:class=>"selectable_grid",:mode_field=>'condition_role_mode', :db_click_function=>"true", :edit=>"true", :db_click_url=>"/role_conditions/"}
+  %table#show_roles_conditions_grid{:class=>"selectable_grid",:field=>'condition_role', :db_click_function=>"true", :edit=>"true", :db_click_url=>"/role_conditions/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
     $("#show_roles_conditions_grid").flexigrid({

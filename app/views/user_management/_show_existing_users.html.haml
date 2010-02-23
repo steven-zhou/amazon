@@ -1,6 +1,6 @@
 .full_container
   %h1 Existing Users
-  %table#show_user_list_grid{:class=>"selectable_grid", :mode_field=>"user_list_user_mode", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/user_lists/"}
+  %table#show_user_list_grid{:class=>"selectable_grid", :field=>"user_list_user", :db_click_function=>"true", :edit=>"true", :db_click_url=>"/user_lists/"}
 %script{:type=>"text/javascript", :charset=>"utf-8"}
   :plain
     $("#show_user_list_grid").flexigrid({

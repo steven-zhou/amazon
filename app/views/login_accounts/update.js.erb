@@ -12,22 +12,13 @@
   $('#flash_message').dialog('open');
 
 <% else %>
- 
-
     $("#flash_feedback").html("<%= escape_javascript(flash[:message]) %>");
-
     $('#flash_feedback').fadeIn("slow");
     $('body').click(function(){$('#flash_feedback').fadeOut("slow")})
-
-
-
     $('#show_user').html('<%= escape_javascript(render(:partial => '/user_management/show_user_list', :object => @login_accounts)) %>');
-
     $('#edit_user').html('');
     $(".add_user").show();
-
-
-
+    $('#login_account_mode').attr('mode','show');
 
 <%end%>
     enable_form_after_submit_finish();

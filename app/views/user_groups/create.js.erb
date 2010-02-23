@@ -25,12 +25,11 @@
 <%else %>
 
  $('#user_group_user').append('<%= escape_javascript(render(:partial => "user_groups/new_group_user", :locals =>{:user_group => @user_group })) %>');
- $('#<%= dom_id(@user_group) %>').show('slide');
  $('#group_display').html(" <%= escape_javascript(render(:partial => '/user_management/show_existing_user_groups')) %>");
 $('.add_form_close').click();
 $('#group_type_'+'<%=escape_javascript("#{@select_group_type_id}")%>').addClass("container_selected");
 $("#new_user_group")[0].reset();
-
+$('#row<%= escape_javascript("#{@current_group_id}")%>').addClass("trEdited");
 
 <%end%>
 enable_form_after_submit_finish();
