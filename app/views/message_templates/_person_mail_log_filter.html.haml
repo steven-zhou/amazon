@@ -8,11 +8,11 @@
         %input{:id => "mail_log_filter_person_id", :value => "", :name => "mail_log_filter[person_id]",:class=>"integer_field"}
       .field_20
         %label Start_date
-        %input{:class => "startdatepick",:id => "mail_log_filter_start_date",:end_date => "mail_log_filter_end_date", :value => "01-01-#{Date.today().year()}", :name => "mail_log_filter[start_date]"}
+        %input{:class => "startdatepick",:id => "mail_log_filter_start_date",:end_date => "mail_log_filter_end_date", :value => "#{Date.today().last_year.to_s}", :name => "mail_log_filter[start_date]"}
 
       .field_20
         %label End_date
-        %input{:class => "enddatepick",:id => "mail_log_filter_end_date",:start_date => "mail_log_filter_start_date", :value => "31-12-#{Date.today().year()}", :name => "mail_log_filter[end_date]"}
+        %input{:class => "enddatepick",:id => "mail_log_filter_end_date",:start_date => "mail_log_filter_start_date", :value => "#{Date.today().to_s}", :name => "mail_log_filter[end_date]"}
 
       .field_15
         %label Creator

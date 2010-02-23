@@ -1,8 +1,6 @@
 <%- if @date_valid%>
-  $("#existing_mail_template" ).html('<%=escape_javascript(render(:partial => "message_templates/person_mail_log_enquiry_result", :locals => {:query => @query})) %>');
+  $("#existing_organisation_mail_template" ).html('<%=escape_javascript(render(:partial => "message_templates/organisation_mail_log_enquiry_result", :locals => {:query => @query})) %>');
 <%- else %>
-
-
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {
   modal: true,
@@ -23,4 +21,4 @@
   $('#flash_message').dialog('open');
 <%- end %>
 
-  enable_form_after_submit_finish();
+enable_form_after_submit_finish();
