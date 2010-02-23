@@ -1,0 +1,22 @@
+-form_tag("/message_templates/organisation_mail_log_filter", {:class => "ajax_form", :id => "organisation_mail_log_filter_form"}) do
+  .full_container
+    %h1 Organisation Mail Log Filter
+
+    .form_line
+      .field_10
+        %label Organisation_id
+        %input{:id => "mail_log_filter_organisation_id", :value => "", :name => "organisation_id",:class=>"integer_field"}
+      .field_20
+        %label Start_date
+        %input{:class => "startdatepick",:id => "organisation_mail_log_filter_start_date",:end_date => "organisation_mail_log_filter_end_date", :value => "#{Date.today().last_year.to_s}", :name => "start_date"}
+
+      .field_20
+        %label End_date
+        %input{:class => "enddatepick",:id => "organisation_mail_log_filter_end_date",:start_date => "organisation_mail_log_filter_start_date", :value => "#{Date.today().to_s}", :name => "end_date"}
+
+      .field_15
+        %label Creator
+        %input{:id => "organisation_mail_log_filter_creator_username", :value => "#{@current_user.user_name}",:name => "creator_username"}
+      .field_15
+        %label &nbsp
+        =submit_tag 'submit'

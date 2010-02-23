@@ -128,7 +128,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
     :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get,:show_allocation_types_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get, :show_person_bank_accounts_grid => :get,
-    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get, :show_mail_logs_grid => :get, :show_org_mail_logs_grid => :get}
+    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get, :show_mail_logs_grid => :get, :show_org_mail_logs_grid => :get, :show_person_maillog_enquiry_grid => :get, :show_organisation_maillog_enquiry_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
@@ -168,7 +168,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put,:change_security_question =>:put, :show_whoami => :get}
 
 
-  map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get, :show_person_maillog_enquiry_grid => :get}
+  map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
 

@@ -138,7 +138,11 @@ class MessageTemplatesController < ApplicationController
     @mail_merge = @mail_template.body
     @mail_merge = @mail_merge.gsub(/&lt;/, "<")
     @mail_merge = @mail_merge.gsub(/&gt;/, ">")
-    File.open("#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", 'w') do |f2|
+    file_name = "message_templates/temp/"+@current_user.user_name+"/"
+    file_dir = "#{RAILS_ROOT}/app/views/#{file_name}"
+    FileUtils.mkdir_p("#{file_dir}")
+    # File.open("#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", 'w') do |f2|
+    File.open("#{file_dir}"+"_create_mail_template.html.erb", 'w') do |f2|
       f2.puts "#{@mail_merge}"
     end
 
@@ -156,15 +160,18 @@ class MessageTemplatesController < ApplicationController
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
-    time_stamp = Time.now.strftime("%d-%m-%y_%I:%M:%p")
+    time_stamp = Time.now.strftime("%d-%m-%y-%I:%M:%p")
 
     #---------render the html which have another html which use the object above and create temp dir
-    @pdf = ""
-    @pdf << render_to_string(:partial => "message_templates/create_mail_templates2")
 
-
-    file_name = "temp"
+    # "#{RAILS_ROOT}/"
+    file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
+    @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
+    @pdf = ""
+    @pdf << render_to_string(:partial => "message_templates/render_mail_template.html.erb")
+
+
     FileUtils.mkdir(file_dir) unless File.exists?(file_dir)
     File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
@@ -173,8 +180,8 @@ class MessageTemplatesController < ApplicationController
 
     #-----change html to pdf and give the flashmessage for click
 
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
-    flash.now[:message] = "Sucessfully added pdf - #{template_name}#{time_stamp} (<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:green;'>reading pdf</a>)"
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf; rm #{file_dir}/*.html"
+    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;'>#{template_name}#{time_stamp}.pdf</a>"
     #for create record in the database mail-logs
     @entities.each do |entity|
       @mail_log = entity.mail_logs.new
@@ -193,8 +200,8 @@ class MessageTemplatesController < ApplicationController
 
     conditions = Array.new
     person_id = params[:mail_log_filter][:person_id]
-    start_date = params[:mail_log_filter][:start_date]
-    end_date = params[:mail_log_filter][:end_date]
+    start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
+    end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
     creator_username = params[:mail_log_filter][:creator_username]
     @date_valid = true
 
@@ -204,8 +211,46 @@ class MessageTemplatesController < ApplicationController
 
     if valid_date(start_date) && valid_date(end_date)
       unless start_date.blank? || end_date.blank?
-        start_date = "01-01-#{Date.today().year().to_s}" if start_date.blank?
-        end_date = "31-12-#{Date.today().year().to_s}" if end_date.blank?
+        start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
+        end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
+        conditions << ("start_date=" + start_date)
+        conditions << ("end_date=" + end_date)
+      end
+      @date_valid = true
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+
+    unless (creator_username.blank?)
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"      
+      conditions << ("creator_id="+ creator_id)
+    end
+
+    @query = conditions.join('&')
+
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+
+  def organisation_mail_log_filter
+    conditions = Array.new
+    organisation_id = params[:organisation_id]
+    start_date = params[:start_date].to_date.yesterday.to_s
+    end_date = params[:end_date].to_date.tomorrow.to_s
+    creator_username = params[:creator_username]
+    @date_valid = true
+
+    unless (organisation_id.blank?)
+      conditions << ("entity_id=" + organisation_id)
+    end
+
+    if valid_date(start_date) && valid_date(end_date)
+      unless start_date.blank? || end_date.blank?
+        start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
+        end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
         conditions << ("start_date=" + start_date)
         conditions << ("end_date=" + end_date)
       end
@@ -217,20 +262,15 @@ class MessageTemplatesController < ApplicationController
 
     unless (creator_username.blank?)
       creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"
-     
-      
       conditions << ("creator_id="+ creator_id)
     end
 
     @query = conditions.join('&')
 
-    puts"-22222DEBUG----------------#{creator_id.to_yaml}"
-    puts"-3333DEBUG----------------#{@query.to_yaml}"
-
     respond_to do |format|
       format.js
     end
-    
+
   end
 
 
