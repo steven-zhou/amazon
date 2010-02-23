@@ -3256,7 +3256,7 @@ class GridsController < ApplicationController
         :limit => rp,
         :offset => start
       ) rescue @group_types = GroupType.new
-      count = GroupType.count(:all)
+      count = GroupType.count(:all, :conditions=>["tag_type_id = ?", tag_type_id])
     end
 
     if(query != "%%")
@@ -3266,7 +3266,7 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?  AND tag_type_id = ?", query, tag_type_id]) rescue @group_types = GroupType.new
-      count = GroupType.count(:all, :conditions=>[qtype +" ilike ? ", query])
+      count = GroupType.count(:all, :conditions=>[qtype +" ilike ?  AND tag_type_id = ?", query, tag_type_id])
     end
 
     return_data = Hash.new()

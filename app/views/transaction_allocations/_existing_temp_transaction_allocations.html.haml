@@ -2,7 +2,7 @@
 .full_container
   %h2 Allocations
 
-  %table#show_temp_transaction_allocation_grid
+  %table#show_temp_transaction_allocation_grid{:class => "selectable_grid",:db_click_function => "true", :field => "transaction_allocation", :db_click_url => "/transaction_allocations/temp_edit.js"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#show_temp_transaction_allocation_grid").flexigrid({

@@ -18,6 +18,7 @@ class UserGroupsController < ApplicationController
   def create
     @login_account = SystemUser.find_by_name(params[:user_name])
     @person = @login_account.person rescue @person = Person.new
+    @current_group_id = params[:user_group][:group_id]
     unless @login_account.nil? && @person.new_record?
       @user_group = UserGroup.new(:user_id => @login_account.id, :group_id => params[:user_group][:group_id])
       if @user_group.save
@@ -53,10 +54,10 @@ class UserGroupsController < ApplicationController
 
   def mutiple_create
     @login_account = SystemUser.find_by_id(params[:grid_object_id])
-  
+    @current_group_id = params[:params2]
     @user_group = UserGroup.new(:user_id => @login_account.id, :group_id => params[:params2])
-    @group_types = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"]).group_types
-    @tag_type_id = @group_types.id
+    @group_meta_type = GroupMetaType.find(:first, :conditions => ["name=?", "System Users"]) rescue @group_meta_types = GroupMetaType.new
+    @tag_type_id = @group_meta_type.id
     if @user_group.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created User Group #{@user_group.id}.")
       flash.now[:message] = "saved successfully"

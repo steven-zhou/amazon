@@ -1,7 +1,7 @@
 .full_container
   %h2 Existing Receipt Accounts
 
-  %table#show_receipt_accounts_grid
+  %table#show_receipt_accounts_grid{:class => "selectable_grid",:db_click_function => "true", :db_click_url => "/receipt_accounts/edit_receipt_account.js", :field => "receipt_account"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

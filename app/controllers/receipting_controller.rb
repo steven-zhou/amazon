@@ -75,7 +75,7 @@ class ReceiptingController < ApplicationController
   end
 
   def edit_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = Campaign.find(params[:grid_object_id])
     respond_to do |format|
       format.js
     end
@@ -175,7 +175,7 @@ class ReceiptingController < ApplicationController
   end
 
   def edit_source
-    @source = Source.find(params[:id])
+    @source = Source.find(params[:grid_object_id])
     respond_to do |format|
       format.js
     end

@@ -26,34 +26,7 @@ $(function(){
 
 
 /* Campaign Grid*/
-$(function(){
-  $('table#show_campaigns_grid tbody tr').live('click',function(){
-    if($('#campaign_mode').attr('mode')=="show"){
-      $('table#show_campaigns_grid tbody tr.trSelected').removeClass('trSelected');
-      $(this).addClass('trSelected');
-    }else{
-      $(this).removeClass('trSelected');
-    }
-  });
 
-  $('table#show_campaigns_grid tbody tr').live('dblclick',function(){
-    if($('#campaign_mode').attr('mode')=="show"){
-      $.ajax({
-        type: 'GET',
-        url: "/receipting/edit_campaign/"+$(this).attr('id').substring(3),
-        dataType: "script"
-      });
-    }
-  });
-
-  $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
-    if($('#campaign_mode').attr('mode')=="show"){
-      $(this).css('cursor',"pointer");
-    }else{
-      $(this).css('cursor',"");
-    }
-  });
-});
 
 $(function() {
   $('#copy_campaign').live('click', function() {
@@ -68,66 +41,10 @@ $(function() {
 });
 
 /* Campaign Source Grid*/
-$(function(){
-  $('table#show_sources_by_campaign_grid tbody tr').live('click',function(){
-    if($('#source_mode').attr('mode')=="show"){
-      $('table#show_sources_by_campaign_grid tbody tr.trSelected').removeClass('trSelected');
-      $(this).addClass('trSelected');
-    }else{
-      $(this).removeClass('trSelected');
-    }
-  });
-
-  $('table#show_sources_by_campaign_grid tbody tr').live('dblclick',function(){
-    if($('#source_mode').attr('mode')=="show"){
-      $.ajax({
-        type: 'GET',
-        url: "/receipting/edit_source/"+$(this).attr('id').substring(3),
-        dataType: "script"
-      });
-      $('#campaign_campaign_id').attr('disabled', true);
-    }
-  });
-
-  $('table#show_campaigns_grid tbody tr').live('mouseover',function(){
-    if($('#campaign_mode').attr('mode')=="show"){
-      $(this).css('cursor',"pointer");
-    }else{
-      $(this).css('cursor',"");
-    }
-  });
-});
 
 
 /* Receipt Account Grid*/
-$(function(){
-  $('table#show_receipt_accounts_grid tbody tr').live('click',function(){
-    if($('#receipt_account_mode').attr('mode')=="show"){
-      $('table#show_receipt_accounts_grid tbody tr.trSelected').removeClass('trSelected');
-      $(this).addClass('trSelected');
-    }else{
-      $(this).removeClass('trSelected');
-    }
-  });
 
-  $('table#show_receipt_accounts_grid tbody tr').live('dblclick',function(){
-    if($('#receipt_account_mode').attr('mode')=="show"){
-      $.ajax({
-        type: 'GET',
-        url: "/receipt_accounts/edit_receipt_account/"+$(this).attr('id').substring(3),
-        dataType: "script"
-      });
-    }
-  });
-
-  $('table#show_receipt_accounts_grid tbody tr').live('mouseover',function(){
-    if($('#receipt_account_mode').attr('mode')=="show"){
-      $(this).css('cursor',"pointer");
-    }else{
-      $(this).css('cursor',"");
-    }
-  });
-});
 
 $(function() {
   $('#copy_receipt_account').live('click', function() {
