@@ -2802,7 +2802,7 @@ $(function(){
         var form_id = $(this).closest('table').get(0).id;
 
         var form = $('#'+form_id);
-        if (form.attr('db_click_function') == "true" && $('#'+form.attr('field')+"_mode").attr('mode')=='show')
+        if (form.attr('db_click_function') == "true" && ($('#'+form.attr('field')+"_mode").attr('mode')=='show' || $('#'+form.attr('field')+"_mode").attr('mode')==undefined))
         {
             $(this).addClass("trEdited");
             var url = form.attr('db_click_url');
