@@ -42,6 +42,7 @@ class ListHeader < ActiveRecord::Base
         gl.destroy
       end
     end
+
     unless self.user_lists.nil?
       self.user_lists.each do |ul|
         ul.destroy

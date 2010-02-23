@@ -33,6 +33,16 @@ class NightlyProcessesController < ApplicationController
 
     Person.find(:all,:conditions=>["to_be_removed = true"]).each do |person|
 
+      puts "Destroy People on the user group"
+
+      person_on_user_group= UserGroup.find_by_user_id(person.id)
+      person_on_user_group.destroy unless person_on_user_group.nil?
+      puts "Destroy People on the user list"
+
+      person_on_user_list= UserList.find_by_user_id(person.id)
+      person_on_user_list.destroy unless person_on_user_list.nil?
+
+
       person_list_headers.try(:each) do |person_list_header|
         person_on_list = person_list_header.list_details.find_by_entity_id(person.id)
         puts "Destroy People on list"
@@ -40,25 +50,9 @@ class NightlyProcessesController < ApplicationController
       end
 
       list_detail = primary_list.find_by_entity_id(person.id)
-      #      puts "*************************"
-      #      puts person.id
-      #      puts list_detail
+
       puts "Destroy People on Primary List Detail"
       list_detail.destroy unless list_detail.nil?
-
-      #      puts "Destroy People Relationship"
-      #
-      #        source_person = Relationship.find_all_by_source_person_id(person.id)
-      #        source_person.each do |i|
-      #        i.destroy unless i.nil?
-      #        end
-      #
-      #        relate_person = Relationship.find_all_by_related_person_id(person.id)
-      #         relate_person.each do |j|
-      #           j.destroy unless j.nil?
-      #        end
-
-
 
       person.destroy
 
@@ -75,7 +69,7 @@ class NightlyProcessesController < ApplicationController
 
     Organisation.find(:all,:conditions=>["to_be_removed = true"]).each do |org|
 
-        org_list_headers.try(:each) do |org_list_header|
+      org_list_headers.try(:each) do |org_list_header|
         org_on_list = org_list_header.list_details.find_by_entity_id(org.id)
         puts "Destroy Organisation on list"
         org_on_list.destroy unless org_on_list.nil?

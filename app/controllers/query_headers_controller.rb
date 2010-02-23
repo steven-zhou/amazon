@@ -238,7 +238,7 @@ class QueryHeadersController < ApplicationController
       end
     end
     @list_header = ListHeader.new
-   # @list_header =  @query_header.class.to_s == "PersonQueryHeader" ? PersonListHeader.new : OrganisationListHeader.new
+    # @list_header =  @query_header.class.to_s == "PersonQueryHeader" ? PersonListHeader.new : OrganisationListHeader.new
     @check_query_empty=QueryResultGrid.find_all_by_login_account_id(session[:user])
 
     respond_to do |format|
@@ -246,7 +246,7 @@ class QueryHeadersController < ApplicationController
     end
   end
 
-   def create
+  def create
     @query_header_old = QueryHeader.find(params[:source_id].to_i)
    
     @query_header = @query_header_old.class.to_s == "PersonQueryHeader" ? PersonQueryHeader.new(params[:query_header]) : OrganisationQueryHeader.new(params[:query_header])
