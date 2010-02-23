@@ -31,14 +31,22 @@ class MaintenanceController < ApplicationController
 
   def system_restore
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) viewed system backups.")
-    backup_directory = "#{RAILS_ROOT}/../database/backup"
+    if RAILS_ENV == "development"
+      backup_directory = "#{RAILS_ROOT}/../database/backup"
+    else
+      backup_directory = "#{RAILS_ROOT}/../../database/backup"
+    end
     dir = Dir.new(backup_directory) rescue dir = nil
     @backups = dir.nil? ? [] : (dir.entries - [".", ".."]).sort.reverse
   end
 
   def restore
     file_name = params[:file_name]
-    dir = "#{RAILS_ROOT}/../database/backup/" + file_name
+    if RAILS_ENV == "development"
+      dir = "#{RAILS_ROOT}/../database/backup/" + file_name
+    else
+      dir = "#{RAILS_ROOT}/../../database/backup/" + file_name
+    end
     cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end
