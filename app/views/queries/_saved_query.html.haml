@@ -5,9 +5,12 @@
     delete_from_a_grid = function(){
       delete_from_grid($("#show_existing_query_grid tr.trSelected").attr('id'), "#query_mode", "get", "/query_headers/");
     };
+    save_as = function(){
+      retrieve_from_grid($("#show_existing_query_grid tr.trSelected").attr('id'),"get","/query_headers/copy");
+    }
     
     $("#show_existing_query_grid").flexigrid({
-      url: '/grids/show_existing_query_grid',
+      url: '/grids/show_existing_query_grid?query_type=#{query_type}',
       dataType: 'json',
       colModel: [
         {

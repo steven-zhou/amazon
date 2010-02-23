@@ -896,9 +896,12 @@ $(function(){
 $(function(){
     $('.close_option').live('click',function(){
         var link = $(this);
-        $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
-        $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
-        $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+        if(link.attr("KeepEditStatus")!="true"){
+            $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
+            $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
+            $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
+        }
+        
         var temp = $('#check_input_change').val();
         var left_content = $("#content").find("#left_content");
         var  right_content = $("#content").find("#right_content");
