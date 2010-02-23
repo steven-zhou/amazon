@@ -377,7 +377,7 @@ class TransactionHeadersController < ApplicationController
         @run.save
         @transaction_headers.each do |i|
           i.bank_run_id = @run.id
-          i.banked = false
+          i.banked = true
           i.save
         end
       end
