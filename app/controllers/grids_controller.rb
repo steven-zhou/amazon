@@ -3351,11 +3351,25 @@ class GridsController < ApplicationController
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
+    conditions = Array.new
+    values = Array.new
+
+    conditions << "mail_logs.entity_type =?"
+    values << "Person"
+
+    conditions << "mail_logs.created_at Between ? And ?"
+    values << "#{Date.today().last_year.yesterday.to_s}".to_date
+    values << "#{Date.today().tomorrow.to_s}".to_date
+
+    conditions << "mail_logs.creator_id =?"
+    values << @current_user.id
+
+
     #No search terms provided
     if(query == "%%")
       @mail_logs = MailLog.find(
         :all,
-        :conditions => ["entity_type = ?", "Person"],
+        :conditions => [conditions.join(' AND '), *values],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start,
@@ -3363,8 +3377,8 @@ class GridsController < ApplicationController
         :include => ["creator", "person_mail_template"]
 
       )
-      count = MailLog.count(:all, :conditions => ["entity_type = ?", "Person"], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id", :include => ["creator", "person_mail_template"])
-      puts"------22222----DEBUG----#{count.to_yaml}"
+      count = MailLog.count(:all,  :conditions => [conditions.join(' AND '), *values], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id", :include => ["creator", "person_mail_template"])
+    
 
     end
 
@@ -3374,9 +3388,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Person"],
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
         :include => ["creator", "person_mail_template"])
-      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Person"], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id", :include => ["creator", "person_mail_template"])
+      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values], :joins => "INNER JOIN people ON people.id = mail_logs.entity_id", :include => ["creator", "person_mail_template"])
     end
 
     return_data = Hash.new()
@@ -3414,11 +3428,24 @@ class GridsController < ApplicationController
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
+    conditions = Array.new
+    values = Array.new
+
+    conditions << "mail_logs.entity_type =?"
+    values << "Organisation"
+
+    conditions << "mail_logs.created_at Between ? And ?"
+    values << "#{Date.today().last_year.yesterday.to_s}".to_date
+    values << "#{Date.today().tomorrow.to_s}".to_date
+
+    conditions << "mail_logs.creator_id =?"
+    values << @current_user.id
+
     #No search terms provided
     if(query == "%%")
       @mail_logs = MailLog.find(
         :all,
-        :conditions => ["entity_type = ?", "Organisation"],
+        :conditions => [conditions.join(' AND '), *values],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start,
@@ -3426,7 +3453,7 @@ class GridsController < ApplicationController
         :include => ["creator", "organisation_mail_template"]
 
       )
-      count = MailLog.count(:all, :conditions => ["entity_type = ?", "Organisation"], :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id", :include => ["creator", "organisation_mail_template"])
+      count = MailLog.count(:all, :conditions => [conditions.join(' AND '), *values], :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id", :include => ["creator", "organisation_mail_template"])
     end
 
     if(query != "%%")
@@ -3435,14 +3462,14 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Organisation"],
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
         :include => ["creator", "organisation_mail_template"])
-      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND entity_type = ? ", query, "Organisation"], :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id", :include => ["creator", "organisation_mail_template"])
+      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values], :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id", :include => ["creator", "organisation_mail_template"])
     end
 
     return_data = Hash.new()
     return_data[:page] = page
-     return_data[:total] = count
+    return_data[:total] = count
     return_data[:rows] = @mail_logs.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3593,7 +3620,7 @@ class GridsController < ApplicationController
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
-     return_data[:total] = count
+    return_data[:total] = count
     return_data[:rows] = @mail_logs.collect{|u| {
         :id => u.id,
         :cell => [
@@ -3605,6 +3632,107 @@ class GridsController < ApplicationController
         ]
       }}
     render :text=>return_data.to_json, :layout=>false
+  end
+
+
+  def show_organisation_maillog_enquiry_grid
+
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+    conditions = Array.new
+    values = Array.new
+
+    conditions << "mail_logs.entity_type =?"
+    values << "Organisation"
+
+    if params[:entity_id]
+      conditions << "mail_logs.entity_id =?"
+      values << params[:entity_id]
+    end
+
+
+    if params[:start_date]
+      conditions << "mail_logs.created_at Between ? And ?"
+      values << params[:start_date].to_date
+      values << params[:end_date].to_date
+    end
+
+    if params[:creator_id]
+      conditions << "mail_logs.creator_id =?"
+      values << params[:creator_id]
+
+    end
+
+    # No search terms provided
+    if(query == "%%")
+      @mail_logs = MailLog.find(:all,
+        :conditions => [conditions.join(' AND '), *values],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id",
+        :include => ["creator", "organisation_mail_template"]
+
+      )
+      count = MailLog.count(:all, :conditions => [conditions.join(' AND '), *values],
+        :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id",
+        :include => ["creator", "organisation_mail_template"]
+      )
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @mail_logs = MailLog.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id",
+        :include => ["creator", "organisation_mail_template"])
+      count = MailLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :joins => "INNER JOIN organisations ON organisations.id = mail_logs.entity_id",
+        :include => ["creator", "organisation_mail_template"])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @mail_logs.collect{|u| {
+        :id => u.id,
+        :cell => [
+          u.id.nil? ? "" : u.id,
+          u.entity.full_name,
+          u.channel,
+          u.organisation_mail_template.name,
+          u.creator.user_name
+        ]
+      }}
+    render :text=>return_data.to_json, :layout=>false
+
   end
 
 end
