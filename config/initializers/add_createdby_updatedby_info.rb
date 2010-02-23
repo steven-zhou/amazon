@@ -13,6 +13,7 @@ class ActiveRecord::Base
   end
 
   def insert_updatedby
+
     self.updater_id = LoginAccount.current_user.id
   end
 
