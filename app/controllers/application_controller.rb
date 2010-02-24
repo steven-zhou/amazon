@@ -121,6 +121,7 @@ class ApplicationController < ActionController::Base
         system_log = SystemLog.new(:message => "Login Account #{current_user.user_name} (ID #{current_user.id}) session timed out.", :controller => "application", :action => "check_session_timeout", :login_account_id => current_user.id, :ip_address => request.remote_ip)
         system_log.save
         # The session has timed out, set a message, boot them out....
+       
         session[:user] = nil
         session[:last_event] = nil
         current_user.update_attribute(:online_status, false)
