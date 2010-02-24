@@ -27,7 +27,7 @@ class SigninController < ApplicationController
           account_locked_check(login_account) # Check that there are remaining access_attempts_count available
           check_groups(login_account) # Check that user belongs to at least one group
           check_group_permissions(login_account) # Check the permissions for the groups of the login account
-          #check_online_status(login_account)check the account has already online or not, if true, you can not login.
+          check_online_status(login_account) #check the account has already online or not, if true, you can not login.
           check_password_life_time(login_account)# Check if the password has expired  when expired jump to rescue no.1 case
  
           #---------------------------------------------successful login-------------------------#
@@ -37,7 +37,7 @@ class SigninController < ApplicationController
           create_temp_list
           login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
           #login_account.access_attempts_count = ClientSetup.first.number_of_login_attempts.blank? ? 5 : ClientSetup.first.number_of_login_attempts
-          #login_account.online_status = true
+          login_account.online_status = true
           login_account.save
           system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
           session[:clocktime]= params[:clocktime]
@@ -76,7 +76,7 @@ class SigninController < ApplicationController
 
     @temp_list = TempList.find_by_login_account_id(session[:user])
     @temp_list.destroy unless @temp_list.nil?
-    system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged out of the system.", "signin", "signout", login_account)
+    system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged out of the system.", "signin", "signout")
     login_account.update_attributes(:last_logoff => Time.now(), :online_status => false ) unless login_account.nil?
     session[:user] = nil
     session[:current_list_id] = nil
