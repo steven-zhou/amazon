@@ -141,6 +141,7 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
+
     if (!sortname)
       sortname = "created_at"
     end
@@ -159,16 +160,38 @@ class GridsController < ApplicationController
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
+    conditions = Array.new
+    values = Array.new
+
+    if params[:user_name]
+      conditions << "login_accounts.user_name ilike ?"
+      values << params[:user_name]
+    end
+    if params[:status]
+      conditions << "system_logs.status ilike ?"
+      values << params[:status]
+    end
+        if params[:start_date]
+      conditions << "system_logs.created_at >= ?"
+      values << params[:start_date].to_date
+    end
+        if params[:end_date]
+      conditions << "system_logs.created_at <= ?"
+      values << params[:end_date].to_date.tomorrow
+    end
 
     # No search terms provided
     if(query == "%%")
       @system_log_entries = SystemLog.find(:all,
-        :conditions => [],
+        :conditions => [conditions.join(' AND '), *values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["login_account"])
-      count = SystemLog.count(:all, :conditions => [], :include => ["login_account"])
+        :include => ["login_account"]
+      )
+      count = SystemLog.count(:all, :conditions => [conditions.join(' AND '), *values],:include => ["login_account"])
+
+
     end
 
     # User provided search terms
@@ -177,10 +200,15 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? ", query],
-        :include => ["login_account"])
-      count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? ", query], :include => ["login_account"])
+        :include => ["login_account"],
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
+      count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],:include => ["login_account"])
+
     end
+
+
+
+    
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()

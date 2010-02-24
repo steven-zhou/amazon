@@ -1,8 +1,51 @@
-$('#system_log_search_results').html("<%=escape_javascript(render(:partial => "/client_setups/system_log_search_result"))%>");
-$('#system_log_search_results').show();
-$('#system_log_export_options').show();
-$('#system_log_export_user_name').val($('#user_name').val());
-$('#system_log_export_start_date').val($('#system_log_start_date').val());
-$('#system_log_export_end_date').val($('#system_log_end_date').val());
-$('#system_log_export_status').val($('#system_log_status').val());
+
+<%-if flash[:error].nil?%>
+
+  $('#system_log_search_results').html("<%=escape_javascript(render(:partial => "/client_setups/system_log_search_result"))%>");
+  $('#system_log_search_results').show();
+  $('#system_log_export_options').show();
+  $('#system_log_export_user_name').val($('#user_name').val());
+  $('#system_log_export_start_date').val($('#system_log_start_date').val());
+  $('#system_log_export_end_date').val($('#system_log_end_date').val());
+  $('#system_log_export_status').val($('#system_log_status').val());
+
+
+  if($('#system_log_status').val()=="Live")
+  {
+
+  $('#system_log_archive_options').show();
+  $('#system_log_archive_user_name').val($('#user_name').val());
+  $('#system_log_archive_start_date').val($('#system_log_start_date').val());
+  $('#system_log_archive_end_date').val($('#system_log_end_date').val());
+
+  }
+  else
+  {
+  $('#system_log_archive_options').hide();
+  }
+
+
+
+<%-else%>
+
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<%-end%>
+
 enable_form_after_submit_finish();

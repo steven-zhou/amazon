@@ -323,9 +323,11 @@ class QueryHeadersController < ApplicationController
     @query_header = QueryHeader.find(params[:id].to_i)
     
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Query Header #{@query_header.id}.")
-    @query_header.destroy
+
 
     @saved_queries = @query_header.person_query_header? ? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    @query_type = @query_header.person_query_header? ? "PersonQueryHeader" : "OrganisationQueryHeader"
+    @query_header.destroy
     respond_to do |format|
       format.js
     end
