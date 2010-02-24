@@ -141,6 +141,7 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
 
+
     if (!sortname)
       sortname = "created_at"
     end
@@ -163,7 +164,7 @@ class GridsController < ApplicationController
     values = Array.new
 
     if params[:user_name]
-      conditions << "login_account.user_name ilike ?"
+      conditions << "login_accounts.user_name ilike ?"
       values << params[:user_name]
     end
     if params[:status]
@@ -176,19 +177,20 @@ class GridsController < ApplicationController
     end
         if params[:end_date]
       conditions << "system_logs.created_at <= ?"
-      values << params[:end_date].to_date
+      values << params[:end_date].to_date.tomorrow
     end
 
     # No search terms provided
     if(query == "%%")
       @system_log_entries = SystemLog.find(:all,
-        :conditions => [],
+        :conditions => [conditions.join(' AND '), *values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["login_account"]
       )
       count = SystemLog.count(:all, :conditions => [conditions.join(' AND '), *values],:include => ["login_account"])
+
 
     end
 
@@ -201,6 +203,7 @@ class GridsController < ApplicationController
         :include => ["login_account"],
         :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
       count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],:include => ["login_account"])
+
     end
 
 

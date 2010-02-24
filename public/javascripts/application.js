@@ -820,17 +820,6 @@ $(function(){
 });
 
 $(function(){
-    $('#system_log_search_submit').live('click',function(){
-        $('#system_log_search_results').show();
-        $('#system_log_export_options').show();
-        $('#system_log_export_user_name').val($('#user_name').val());
-        $('#system_log_export_start_date').val($('#system_log_start_date').val());
-        $('#system_log_export_end_date').val($('#system_log_end_date').val());
-        $('#system_log_export_status').val($('#system_log_status').val());
-    });
-});
-
-$(function(){
     $('#system_log_archive_submit').live('click',function(){
         $('#system_log_archive_results').show();
         $('#system_log_archive_options').show();

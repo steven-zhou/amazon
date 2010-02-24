@@ -161,6 +161,7 @@ class ClientSetupsController < ApplicationController
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries.")
 
+
    @query=""
 
     if (params[:start_date].blank? || params[:end_date].blank?)
@@ -173,13 +174,13 @@ class ClientSetupsController < ApplicationController
     @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     else
-       flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
     
     end
 
 
-    if flash[:error].nil?
+    if flash.now[:error].nil?
     @query << "start_date="+@start_date+"&end_date="+@end_date
     end
 
@@ -197,6 +198,7 @@ class ClientSetupsController < ApplicationController
     end
     # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
     # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
+
 
     respond_to do |format|
       format.js
