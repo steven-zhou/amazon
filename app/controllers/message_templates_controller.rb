@@ -172,7 +172,7 @@ class MessageTemplatesController < ApplicationController
     @pdf << render_to_string(:partial => "message_templates/render_mail_template.html.erb")
 
 
-    FileUtils.mkdir(file_dir) unless File.exists?(file_dir)
+    FileUtils.mkdir_p(file_dir)
     File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
     end
