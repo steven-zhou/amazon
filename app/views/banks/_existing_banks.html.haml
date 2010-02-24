@@ -1,0 +1,128 @@
+.full_container
+  %h2 Existing Banks
+
+  %table#show_banks_grid{:class=>"selectable_grid",:field=>"bank",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/banks/"}
+
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_banks_grid").flexigrid({
+  url: '/grids/show_banks_grid',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'ID',
+  name : 'id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Full Name',
+  name : 'full_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Short Name',
+  name : 'short_name',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Branch Name',
+  name : 'branch_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Branch Number',
+  name : 'branch_number',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'State',
+  name : 'state',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Postcode',
+  name : 'postcode',
+  width : 60,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Country',
+  name : 'countries.short_name',
+  width : 100,
+  sortable : true,
+  align: 'left'
+  }
+
+  ],
+  searchitems : [
+  {
+  display: 'Full Name',
+  name : 'full_name'
+  },
+
+  {
+  display: 'Short Name',
+  name : 'short_name'
+  },
+
+  {
+  display: 'Branch Name',
+  name : 'branch_name'
+  },
+
+  {
+  display: 'Branch Number',
+  name : 'branch_number'
+  },
+
+  {
+  display: 'State',
+  name : 'state'
+  },
+
+  {
+  display: 'Postcode',
+  name : 'post_code'
+  },
+
+  {
+  display: 'Country',
+  name : 'countries.short_name'
+  }
+
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  title: '',
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });
+
+
+
+
+ 
