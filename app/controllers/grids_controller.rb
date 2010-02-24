@@ -166,9 +166,9 @@ class GridsController < ApplicationController
         :conditions => [],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
-      )
-      count = SystemLog.count(:all, :conditions => [])
+        :offset =>start,
+        :include => ["login_account"])
+      count = SystemLog.count(:all, :conditions => [], :include => ["login_account"])
     end
 
     # User provided search terms
@@ -177,8 +177,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? ", query ])
-      count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? ", query ])
+        :conditions=>[qtype +" ilike ? ", query],
+        :include => ["login_account"])
+      count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? ", query], :include => ["login_account"])
     end
 
     # Construct a hash from the ActiveRecord result

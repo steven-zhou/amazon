@@ -21,37 +21,40 @@
 
 #search_page.tab_switch_container.active
   .full_container#system_log_search
-    - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
-      .form_line
-        .field_22
-          %label Username
-          = text_field_tag :user_name, nil
-        .field_22
-          %label Start Date
-          %input{:name => "start_date", :style => "width:82% !important;",:id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
-        .field_22
-          %label End Date
-          %input{:name => "end_date", :style => "width:82% !important;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
-        .field_22
-          %label Entry Type
-          %select{:name => "status", :id => "system_log_status"}
-            %option{:value => ""} Any
-            %option{:value => "Live"} Live
-            %option{:value => "Archived"} Archived
+    .full_container
+      %h2 Filter
+      - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
+        .form_line
+          .field_22
+            %label Username
+            = text_field_tag :user_name, nil
+          .field_22
+            %label Start Date
+            %input{:name => "start_date", :style => "width:82% !important;",:id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
+          .field_22
+            %label End Date
+            %input{:name => "end_date", :style => "width:82% !important;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
+          .field_10
+            %label Entry Type
+            %select{:name => "status", :id => "system_log_status"}
+              %option{:value => ""} Any
+              %option{:value => "Live"} Live
+              %option{:value => "Archived"} Archived
+          .field_15
+            %label &nbsp;
+            = submit_tag("Search", :id => "system_log_search_submit")
 
+    .full_container#system_log_search_results{:style => "display:none;"}
+      
 
-      = submit_tag("Search", :id => "system_log_search_submit")
-
-  .full_container#system_log_search_results{:style => "display:none;"}
-    
-
-  .full_container#system_log_export_options{:style => "display:none;"}
-    - form_tag("/reports/generate_system_log_pdf") do
-      %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
-      %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
-      %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
-      %input{:name => "status", :style => "display:none;", :id => "system_log_export_status"}
-      = submit_tag("Export PDF")
+    .full_container#system_log_export_options{:style => "display:none;"}
+      %h2 Data Export
+      - form_tag("/reports/generate_system_log_pdf") do
+        %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
+        %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
+        %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
+        %input{:name => "status", :style => "display:none;", :id => "system_log_export_status"}
+        = submit_tag("Export PDF")
 
 #archive_page.tab_switch_container
   .full_container#system_log_archive
