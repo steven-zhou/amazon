@@ -17,8 +17,7 @@ class MaintenanceController < ApplicationController
   def backup
     file_name = Time.now.strftime("%Y-%m-%d_%H-%M-%S")
     file_name = params[:file_name] + file_name unless params[:file_name].blank?
-    #cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/amazon/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
-    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/amazon/current/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
+    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:backup FILE=#{file_name} RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => 'backup_now', :cmd => cmd, :file_name => file_name
   end
 
@@ -32,24 +31,31 @@ class MaintenanceController < ApplicationController
 
   def system_restore
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) viewed system backups.")
-    backup_directory = "#{RAILS_ROOT}/../database/backup"
+    if RAILS_ENV == "development"
+      backup_directory = "#{RAILS_ROOT}/../database/backup"
+    else
+      backup_directory = "#{RAILS_ROOT}/../../database/backup"
+    end
     dir = Dir.new(backup_directory) rescue dir = nil
     @backups = dir.nil? ? [] : (dir.entries - [".", ".."]).sort.reverse
   end
 
   def restore
     file_name = params[:file_name]
-    dir = "#{RAILS_ROOT}/../database/backup/" + file_name
-    #cmd = "/usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
-    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/amazon/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
+    if RAILS_ENV == "development"
+      dir = "#{RAILS_ROOT}/../database/backup/" + file_name
+    else
+      dir = "#{RAILS_ROOT}/../../database/backup/" + file_name
+    end
+    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end
 
   def restore_now
     system "#{params[:cmd]}"
-    flash.now[:message] = "Database is restored using #{params[:file_name]}"
+    flash[:message] = "Database is restored using #{params[:file_name]}"
     respond_to do |format|
-      format.js {render 'backup_now.js'}
+      format.js
     end
   end
 

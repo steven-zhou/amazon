@@ -184,25 +184,6 @@ class ClientSetupsController < ApplicationController
     # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
 
 
-
-    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
-    SystemLogSearchGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @system_log_entries.each do |log_entry|
-      @slsg = SystemLogSearchGrid.new
-      @slsg.login_account_id = session[:user]
-      @slsg.grid_object_id = log_entry.id
-      @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
-      @slsg.field_2 = (@current_user.class.to_s == "SystemUser")? "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})" : "#{log_entry.login_account.user_name}"
-      @slsg.field_3 = "#{log_entry.ip_address}"
-      @slsg.field_4 = "#{log_entry.controller}"
-      @slsg.field_5 = "#{log_entry.action}"
-      @slsg.field_6 = "#{log_entry.message}"
-      @slsg.save
-    end
-
     respond_to do |format|
       format.js
     end
