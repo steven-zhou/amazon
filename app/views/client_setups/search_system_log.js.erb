@@ -1,6 +1,6 @@
 
 <%-if flash[:error].nil?%>
-$("#system_log_search_results").html('<%= escape_javascript(render(:partial => "/client_setups/system_log_search_result",:locals=>{:user_name=>@user_name,:status=>@status,:start_date=>@start_date,:end_date=>@end_date})) %>');
+$("#system_log_search_results").html('<%= escape_javascript(render(:partial => "/client_setups/system_log_search_result")) %>');
 <%-else%>
 
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

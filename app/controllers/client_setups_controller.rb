@@ -161,11 +161,11 @@ class ClientSetupsController < ApplicationController
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries.")
 
-
+   @query=""
 
     if (params[:start_date].blank? || params[:end_date].blank?)
-         @start_date= '0001-01-01 00:00:01'
-         @end_date = '9999-12-31 23:59:59'
+         @start_date= '0001-01-01 00:00:01' if params[:start_date].blank?
+         @end_date = '9999-12-31 23:59:59' if params[:end_date].blank?
     else
 
 
@@ -177,12 +177,26 @@ class ClientSetupsController < ApplicationController
     end
     
     end
-    @user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
-   
-    @status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
+
+
+    if flash[:error].nil?
+    @query << "start_date="+@start_date+"&end_date="+@end_date
+    end
+
+
+
+    @user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '')
+    unless @user_name.empty?
+
+        @query << "&user_name="+@user_name
+    end
+
+    @status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '')
+    unless @status.empty?
+      @query << "&status="+@status
+    end
     # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
     # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
-
 
     respond_to do |format|
       format.js

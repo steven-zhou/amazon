@@ -159,6 +159,25 @@ class GridsController < ApplicationController
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
+    conditions = Array.new
+    values = Array.new
+
+    if params[:user_name]
+      conditions << "login_account.user_name like ?"
+      values << params[:user_name]
+    end
+    if params[:status]
+      conditions << "system_logs.status like ?"
+      values << params[:status]
+    end
+        if params[:start_date]
+      conditions << "system_logs.created_at >= ?"
+      values << params[:start_date]
+    end
+        if params[:end_date]
+      conditions << "system_logs.created_at <= ?"
+      values << params[:end_date]
+    end
 
     # No search terms provided
     if(query == "%%")
@@ -166,9 +185,11 @@ class GridsController < ApplicationController
         :conditions => [],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["login_account"]
       )
-      count = SystemLog.count(:all, :conditions => [])
+      count = SystemLog.count(:all, :conditions => [conditions.join(' AND '), *values],:include => ["login_account"])
+
     end
 
     # User provided search terms
@@ -177,9 +198,14 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? ", query ])
-      count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? ", query ])
+        :include => ["login_account"],
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
+      count = SystemLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],:include => ["login_account"])
     end
+
+
+
+    
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
