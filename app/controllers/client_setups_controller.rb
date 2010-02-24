@@ -164,22 +164,22 @@ class ClientSetupsController < ApplicationController
 
 
     if (params[:start_date].blank? || params[:end_date].blank?)
-         start_date= '0001-01-01 00:00:01'
-         end_date = '9999-12-31 23:59:59'
+         @start_date= '0001-01-01 00:00:01'
+         @end_date = '9999-12-31 23:59:59'
     else
 
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
-    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
-    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     else
        flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
     
     end
-    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
+    @user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
    
-    status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
+    @status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
     # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
     # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
 
