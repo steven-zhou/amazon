@@ -56,6 +56,7 @@ class ApplicationController < ActionController::Base
    
       # Errors
     when "login_online_error"               then "You can not login: Another Person Is Online "
+    when "login_online_max_error"           then "Number of users exceeds the license limit"
     when "login_error"                      then "One or More of the Sign In Details is Invalid,Please Try Again."
     when "login_group_error"                then "Your User Account Has No Security Group, Please Contact System Administrator."
 
