@@ -167,7 +167,7 @@ class MessageTemplatesController < ApplicationController
     # "#{RAILS_ROOT}/"
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
-    @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template"
+    @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
     @pdf = ""
     @pdf << render_to_string(:partial => "message_templates/render_mail_template")
 
