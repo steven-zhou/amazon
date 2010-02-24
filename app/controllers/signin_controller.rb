@@ -217,11 +217,16 @@ class SigninController < ApplicationController
       login_account = LoginAccount.authenticate_super_user(params[:user_name], params[:password])
       #system_log("Super User account logged onto the system - #{login_account.user_name} (ID #{login_account.id}).", "signin", "login_as_super_user", login_account)
       begin
+        
+        if login_account.class.to_s == "SuperAdmin"
+          check_online_status(login_account) #check the account has already online or not, if true, you can not login.
+        end
 
         #---------------------------------------------successful login-------------------------#
         session[:user] = login_account.id
         session[:last_event] = Time.now()
         login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+        login_account.online_status = true
         login_account.access_attempts_count = 99999
         login_account.save
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged into the system.", "signin", "login", login_account)
@@ -235,6 +240,7 @@ class SigninController < ApplicationController
           session[:user] = login_account.id
           session[:last_event] = Time.now()
           login_account.update_attributes(:last_ip_address => request.remote_ip, :last_login => Time.now())
+
           redirect_to :controller => "login_accounts", :action => "change_password" and return
         else
           redirect_to :action => "login"

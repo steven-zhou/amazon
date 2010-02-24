@@ -229,7 +229,7 @@ class LoginAccountsController < ApplicationController
 
 
   def reset_online_status
-    @system_user = SystemUser.find(params[:id])
+    @system_user = LoginAccount.find(params[:id])
     @system_user.online_status = false
     if @system_user.save
       flash.now[:message] = "This User status has been changed, he/she can login now"

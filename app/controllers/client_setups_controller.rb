@@ -49,6 +49,7 @@ class ClientSetupsController < ApplicationController
 
   def super_admin
     @client_setup = ClientSetup.first
+    @login_account = SuperAdmin.first
     respond_to do |format|
       format.html
     end
