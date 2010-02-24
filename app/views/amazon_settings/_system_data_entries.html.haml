@@ -4,7 +4,7 @@
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_from_a_grid = function(){
-    delete_from_grid($("#show_system_data_grid tr.trSelected").attr('id'),"#system_data_mode","get","/amazon_settings/delete_system_data_entry");
+    delete_from_grid($("#show_system_data_grid tr.trSelected").attr('id'),"#system_data_mode","delete","/amazon_settings/delete_system_data_entry/");
     };
 
     retrieve_from_a_grid = function(){
