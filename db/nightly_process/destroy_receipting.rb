@@ -1,4 +1,4 @@
-puts "destroy receipt account"
+puts "destroy receipt account ..."
 ReceiptAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if TransactionAllocation.find_by_receipt_account_id(i.id).nil?
     i.destroy
@@ -8,7 +8,7 @@ ReceiptAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   end
 end
 
-puts "destroy campaign"
+puts "destroy campaign ..."
 Campaign.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if TransactionAllocation.find_by_campaign_id(i.id).nil?
     i.destroy
@@ -18,7 +18,7 @@ Campaign.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   end
 end
 
-puts "destroy source"
+puts "destroy source ..."
 Source.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if TransactionAllocation.find_by_source_id(i.id).nil?
     i.destroy
@@ -28,7 +28,7 @@ Source.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   end
 end
 
-puts "destroy client bank account"
+puts "destroy client bank account ..."
 ClientBankAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if TransactionHeader.find_by_bank_account_id(i.id).nil?
     i.destroy
@@ -38,7 +38,7 @@ ClientBankAccount.find(:all, :conditions => ["to_be_removed = true"]).each do |i
   end
 end
 
-puts "destroy message template"
+puts "destroy message template ..."
 MessageTemplate.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   i.destroy
 end
