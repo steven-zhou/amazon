@@ -1803,39 +1803,6 @@ $(".tab_switch_button").live('click', function(){
     $('#'+$(this).attr('field')).addClass("active");
 });
 
-/*help-icon*/
-
-//$(function(){
-//    $('#help_icon_tab').click(function(){
-//        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
-//        $('#warning_message_image').css("display","");
-//        $('#warning_message').dialog({
-//            modal: true,
-//            resizable: false,
-//            draggable: true,
-//            height: 'auto',
-//            width: 'auto',
-//            buttons: {
-//
-//                ok: function(){
-//                    $(this).dialog('destroy');
-//                    return false;
-//
-//                }
-//            }
-//        });
-//        $('#warning_message').dialog('option', 'title', 'Warning');
-//
-//        $('#warning_message').parent().find("a").css("display","none");
-//        $("#warning_message").parent().css('background-color','#D1DDE6');
-//        $("#warning_message").css('background-color','#D1DDE6');
-//
-//        $('#warning_message').dialog('open');
-//
-//    });
-//});
-
-
 // Address assistant //
 
 $(document).ready(function() {

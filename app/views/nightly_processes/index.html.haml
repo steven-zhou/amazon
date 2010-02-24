@@ -4,5 +4,5 @@
   %p
     This function is for testing only.
   %p{:style => "text_align:centre;"}
-    = button_to_function "Test Nightly Process", :class => "ajax_call", :method => "GET", :url => "nightly_processes/run"
+    = submit_tag "Test Nightly Process", :class => "ajax_call", :method => "GET", :url => "nightly_processes/run", :id => "run_nightly_process"
   %p#output

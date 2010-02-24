@@ -40,9 +40,7 @@
         = login.label :system_user, '&nbsp'
         = login.label :system_user, 'System User', :style => "margin-top:6px;"
      
-      .field_17{:class => @login_account.login_status ? "" : "hidden"}
-        %label &nbsp
-        = link_to_function 'Generate new password', :id => "generate_new_password",:class =>"alt_option", :login_account_id => @login_account.id
+      
 
     .form_line
       .field_23
@@ -111,6 +109,17 @@
     
     = submit_tag 'Sumbit',{:style => "margin-top:10px;"}
     -#= link_to_function 'Clear', :class => "user_clear_edit_form clear_form",:login_account_id => @login_account.id
+
+.full_container
+  %h2 Advance function
+
+  .form_line
+    .field_17{:class => @login_account.login_status ? "" : "hidden"}
+      %label &nbsp
+      = link_to_function 'Generate new password', :id => "generate_new_password",:class =>"alt_option left", :login_account_id => @login_account.id
+    .field_17{:class => @login_account.login_status ? "" : "hidden"}
+      %label &nbsp
+      = link_to 'reset user online status', reset_online_status_login_account_path{@login_account}, :class => "post alt_option"
 
 
 
