@@ -137,6 +137,7 @@ $(function(){
                         $('#check_input_change').val("false");
                         $(".container_selected").removeClass("container_selected");
                         $("#edit_system_data_entry").hide();
+                        $("#system_data_add_data").show();
                         $("#system_data_type").attr("disabled",false);
                         $.ajax({
                             type: "GET",
@@ -170,6 +171,7 @@ $(function(){
             $('#check_input_change').val("false");
             $(".container_selected").removeClass("container_selected");
             $("#edit_system_data_entry").hide();
+            $("#system_data_add_data").show();
             $("#system_data_type").attr("disabled",false);
             $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
             $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
@@ -1957,6 +1959,7 @@ $(function(){
                         $("#keyword_add_entry").css("display","");
                         $("#keyword_mode").attr('mode', 'show');
                         $("#keyword_add_entry_form").hide();
+                        $("#keyword_add_data").show();
                         $("#keyword_type").attr("disabled",false);
                         $("#edit_keyword_entry").html("");
                         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
@@ -1995,6 +1998,7 @@ $(function(){
             $("#keyword_add_entry").css("display","");
             $("#keyword_mode").attr('mode', 'show');
             $("#keyword_add_entry_form").hide();
+             $("#keyword_add_data").show();
             $("#keyword_type").attr("disabled",false);
             $("#edit_keyword_entry").html("");
             $(".keyword_entry_selected").removeClass("keyword_entry_selected");
