@@ -47,7 +47,7 @@ class MaintenanceController < ApplicationController
     else
       dir = "#{RAILS_ROOT}/../../database/backup/" + file_name
     end
-    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f ~/amazon/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
+    cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:restore DIR=#{dir} RAILS_ENV=#{RAILS_ENV}; /usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:patch RAILS_ENV=#{RAILS_ENV}"
     redirect_to :action => "restore_now", :cmd => cmd, :file_name => file_name
   end
 
