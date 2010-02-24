@@ -2219,22 +2219,7 @@ $(function(){
     });
 });
 
-$(function(){
-    $('#edit_bank_entry').live('click', function(){
-        $.ajax({
-            type: "GET",
-            url: "/banks/edit_bank_entry",
-            data: 'id=' + $(this).attr('bank_id'),
-            dataType: "script"
-        });
-    });
-});
 
-$(function(){
-    $('#edit_bank_entry_close_form').live('click', function(){
-        // $('#edit_bank_entry_form').hide();
-        });
-});
 
 
 
