@@ -53,6 +53,14 @@
     .form_line
       = submit_tag "Submit", :disabled => true, :id => "password_submit"
 
+  .full_container
+    %h2 Advanced Option
+
+    .form_line
+      .field_17{:class => @login_account.login_status ? "" : "hidden"}
+        %label &nbsp
+        = link_to 'reset user online status', reset_online_status_login_account_path(@login_account), :class => "post alt_option"
+
 #password_error{:style => "display:none;"}
   .container
     %p Two password are not matched
