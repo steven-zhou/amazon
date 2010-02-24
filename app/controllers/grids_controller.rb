@@ -163,20 +163,20 @@ class GridsController < ApplicationController
     values = Array.new
 
     if params[:user_name]
-      conditions << "login_account.user_name like ?"
+      conditions << "login_account.user_name ilike ?"
       values << params[:user_name]
     end
     if params[:status]
-      conditions << "system_logs.status like ?"
+      conditions << "system_logs.status ilike ?"
       values << params[:status]
     end
         if params[:start_date]
       conditions << "system_logs.created_at >= ?"
-      values << params[:start_date]
+      values << params[:start_date].to_date
     end
         if params[:end_date]
       conditions << "system_logs.created_at <= ?"
-      values << params[:end_date]
+      values << params[:end_date].to_date
     end
 
     # No search terms provided
