@@ -7,7 +7,7 @@ class QueryCriteriasController < ApplicationController
     @query_header = QueryHeader.find(params[:query_header_id].to_i)
     @query_criteria = @query_header.query_criterias.new(params[:query_criteria])
     #-----------------------following set_Data_type in Model, for get the category (eg. integer string Date) set in data_type field of criteria table
-    @query_criteria.set_data_type(params[:query_criteria][:field_name], params[:query_criteria][:table_name])
+    @query_criteria.set_data_type(params[:query_criteria][:field_name], params[:query_criteria][:table_name]) unless params[:query_criteria][:field_name].blank? || params[:query_criteria][:table_name].blank?
     @query_criteria.status = true
     if @query_criteria.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created new Query Criteria #{@query_criteria.id}.")

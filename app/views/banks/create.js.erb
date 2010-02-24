@@ -5,11 +5,7 @@
   $('#close_add_new_bank').hide();
   $('#bank_mode').attr('mode', 'show');
   $('.close_option[field="bank"]').css("display","none");
-  $.ajax({
-    type: "GET",
-    url: "/banks/refresh_existing_banks",
-    dataType: "script"
-  });
+  $('#existing_banks').html('<%=escape_javascript(render(:partial => "/banks/existing_banks"))%>');
 <%- else %>
  $("#flash_message_text").html("<%= escape_javascript(flash[:error]) %>");
  $('#flash_message').dialog( {
