@@ -43,8 +43,7 @@
       = submit_tag("Search", :id => "system_log_search_submit")
 
   .full_container#system_log_search_results{:style => "display:none;"}
-    %h2 System Log Entries
-    %table#system_log_search_grid
+    
 
   .full_container#system_log_export_options{:style => "display:none;"}
     - form_tag("/reports/generate_system_log_pdf") do
@@ -80,3 +79,4 @@
       %input{:name => "start_date", :style => "display:none;", :id => "system_log_archive_start_date"}
       %input{:name => "end_date", :style => "display:none;", :id => "system_log_archive_end_date"}
       = submit_tag("Archive")
+

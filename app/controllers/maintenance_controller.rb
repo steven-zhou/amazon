@@ -53,9 +53,9 @@ class MaintenanceController < ApplicationController
 
   def restore_now
     system "#{params[:cmd]}"
-    flash.now[:message] = "Database is restored using #{params[:file_name]}"
+    flash[:message] = "Database is restored using #{params[:file_name]}"
     respond_to do |format|
-      format.js {render 'backup_now.js'}
+      format.js
     end
   end
 
