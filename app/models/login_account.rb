@@ -256,6 +256,8 @@ class LoginAccount < ActiveRecord::Base
     TempTransactionAllocationGrid.find_all_by_login_account_id(self.id)
   end
 
-  
+  def formatted_name
+    self.class.to_s == "SystemUser" ? "#{self.user_name} - (#{self.person.name})" : "#{self.user_name}"
+  end
 
 end
