@@ -230,7 +230,7 @@ class ClientSetupsController < ApplicationController
     
     status = 'Live'
 
-    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date.to_date.tomorrow, status)
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -264,7 +264,7 @@ class ClientSetupsController < ApplicationController
     end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     status = 'Live'
 
-    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date.to_date.tomorrow, status)
     SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end

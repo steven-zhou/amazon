@@ -154,7 +154,7 @@ class ReportsController < ApplicationController
     action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
     status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
 
-    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date.to_date.tomorrow, status)
     @type = "System Log Report"
     @report_format = "system_log_report"
 
