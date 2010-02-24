@@ -3157,7 +3157,7 @@ delete_from_grid = function(grid,mode,type,url){
                     Yes: function(){
                         $.ajax({
                             type: type,
-                            url: url,
+                            url: url+id,
                             data: "id="+id,
                             dataType: "script"
                         });
@@ -3195,9 +3195,10 @@ delete_from_grid = function(grid,mode,type,url){
 };
 
 
-retrieve_from_grid = function(grid,type,url){
+retrieve_from_grid = function(grid,mode,type,url){
     var trSelected = grid
     var id = "";
+   if($(mode).attr('mode')=="show"){
     if (trSelected != undefined){
         id = trSelected.substring(3);
         $.ajax({
@@ -3207,6 +3208,8 @@ retrieve_from_grid = function(grid,type,url){
             dataType: "script"
         });
     };
+        }
+
 };
 
 
