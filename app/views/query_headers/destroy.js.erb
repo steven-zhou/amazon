@@ -1,3 +1,3 @@
 $("#query_mode").attr("mode", "show");
-$('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query")) %>');
+$('#show_queries').html('<%= escape_javascript(render(:partial => "queries/saved_query", :locals=>{:query_type=>@query_type})) %>');
 $("#close_edit_query").click();

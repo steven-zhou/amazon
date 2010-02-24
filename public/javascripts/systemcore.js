@@ -3683,34 +3683,34 @@ $(function(){
 
 
 /* Message Template Grid*/
-$(function(){
-    $('table#show_message_templates_grid tbody tr').live('click',function(){
-        if($('#message_template_mode').attr('mode')=="show"){
-            $('table#show_message_templates_grid tbody tr.trSelected').removeClass('trSelected');
-            $(this).addClass('trSelected');
-        }else{
-            $(this).removeClass('trSelected');
-        }
-    });
-
-    $('table#show_message_templates_grid tbody tr').live('dblclick',function(){
-        if($('#message_template_mode').attr('mode')=="show"){
-            $.ajax({
-                type: 'GET',
-                url: "/communication/edit_message_template/"+$(this).attr('id').substring(3),
-                dataType: "script"
-            });
-        }
-    });
-
-    $('table#show_message_templates_grid tbody tr').live('mouseover',function(){
-        if($('#message_template_mode').attr('mode')=="show"){
-            $(this).css('cursor',"pointer");
-        }else{
-            $(this).css('cursor',"");
-        }
-    });
-});
+//$(function(){
+//    $('table#show_message_templates_grid tbody tr').live('click',function(){
+//        if($('#message_template_mode').attr('mode')=="show"){
+//            $('table#show_message_templates_grid tbody tr.trSelected').removeClass('trSelected');
+//            $(this).addClass('trSelected');
+//        }else{
+//            $(this).removeClass('trSelected');
+//        }
+//    });
+//
+//    $('table#show_message_templates_grid tbody tr').live('dblclick',function(){
+//        if($('#message_template_mode').attr('mode')=="show"){
+//            $.ajax({
+//                type: 'GET',
+//                url: "/communication/edit_message_template/"+$(this).attr('id').substring(3),
+//                dataType: "script"
+//            });
+//        }
+//    });
+//
+//    $('table#show_message_templates_grid tbody tr').live('mouseover',function(){
+//        if($('#message_template_mode').attr('mode')=="show"){
+//            $(this).css('cursor',"pointer");
+//        }else{
+//            $(this).css('cursor',"");
+//        }
+//    });
+//});
 
 
 /*For mail variable use*/

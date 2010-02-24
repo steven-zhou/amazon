@@ -4,7 +4,7 @@
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     $("#system_log_search_grid").flexigrid({
-        url: '/grids/system_log_search_grid',
+        url: '/grids/system_log_search_grid?#{@query}',
         dataType: 'json',
         colModel : [
         {
@@ -90,7 +90,7 @@
         },
 
         ],
-        sortname: "id",
+        sortname: "system_logs.id",
         sortorder: "asc",
         usepager: true,
         useRp: true,

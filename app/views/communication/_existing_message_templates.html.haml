@@ -1,7 +1,7 @@
 .full_container
   %h2 Existing Email Templates
 
-  %table#show_message_templates_grid{:class => "selectable_grid"}
+  %table#show_message_templates_grid{:class=>"selectable_grid",:field=>"message_template",:db_click_function=>"true",:db_show=>"true",:db_click_url=>"/communication/edit_message_template/"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
@@ -10,7 +10,7 @@
     };
     
     retrieve_from_a_grid = function(){
-    retrieve_from_grid($("#show_message_templates_grid tr.trSelected").attr('id'),"get","/communication/retrieve_message_template.js");
+    retrieve_from_grid($("#show_message_templates_grid tr.trSelected").attr('id'),"#message_template_mode","get","/communication/retrieve_message_template.js");
     };
   
 

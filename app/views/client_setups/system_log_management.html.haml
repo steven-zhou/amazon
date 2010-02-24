@@ -2,56 +2,53 @@
   #page_title
     %h1 Audit Trail Entries
   #lol
-    %br.clear
 
-    %br.clear
-.tab_switch{:style => "margin-left:15px;"}
-
-  .tab_switch_left.active.left{:field =>"search_page"}
-  .container_icon.active.left{:align => 'center'}
-    = link_to_function "<h1>Search</h1>",:class=>"tab_switch_button active", :field => "search_page"
-  .tab_switch_right.active.left{:field =>"search_page"}
-
-  .tab_switch_left.left{:field =>"archive_page"}
-  .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Archive</h1>", :class=>"tab_switch_button", :field => "archive_page"
-  .tab_switch_right.left{:field =>"archive_page"}
 
 %br.clear
 
 #search_page.tab_switch_container.active
-  .full_container#system_log_search
-    - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
-      .form_line
-        .field_22
-          %label Username
-          = text_field_tag :user_name, nil
-        .field_22
-          %label Start Date
-          %input{:name => "start_date", :style => "width:82% !important;",:id => "system_log_start_date", :class => "startdatepick", :end_date => "system_log_end_date"}
-        .field_22
-          %label End Date
-          %input{:name => "end_date", :style => "width:82% !important;", :id => "system_log_end_date", :class => "enddatepick", :start_date => "system_log_start_date"}
-        .field_22
-          %label Entry Type
-          %select{:name => "status", :id => "system_log_status"}
-            %option{:value => ""} Any
-            %option{:value => "Live"} Live
-            %option{:value => "Archived"} Archived
+  #system_log_search
+    .full_container
+      %h2 Filter
+      - form_tag("/client_setups/search_system_log", :class => "ajax_form") do
+        .form_line
+          .field_22
+            %label Username
+            = text_field_tag :user_name, nil
+          .field_22
+            %label Start Date
+            %input{:name => "start_date", :style => "width:82% !important;",:id => "system_log_start_date", :value => "#{Date.today().strftime("%d")}-#{Date.today().strftime("%m")}-#{Date.today().year()-1}", :class => "startdatepick", :end_date => "system_log_end_date"}
+          .field_22
+            %label End Date
+            %input{:name => "end_date", :style => "width:82% !important;", :id => "system_log_end_date", :value => "#{Date.today().strftime("%d")}-#{Date.today().strftime("%m")}-#{Date.today().year()}", :class => "enddatepick", :start_date => "system_log_start_date"}
+          .field_10
+            %label Entry Type
+            %select{:name => "status", :id => "system_log_status"}
+              %option{:value => ""} Any
+              %option{:value => "Live"} Live
+              %option{:value => "Archived"} Archived
+          .field_15
+            %label &nbsp;
+            = submit_tag("Search", :id => "system_log_search_submit")
 
+    .full_container#system_log_search_results{:style => "display:none;"}
+      
 
-      = submit_tag("Search", :id => "system_log_search_submit")
-
-  .full_container#system_log_search_results{:style => "display:none;"}
-    
-
-  .full_container#system_log_export_options{:style => "display:none;"}
-    - form_tag("/reports/generate_system_log_pdf") do
-      %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
-      %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
-      %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
-      %input{:name => "status", :style => "display:none;", :id => "system_log_export_status"}
-      = submit_tag("Export PDF")
+    .full_container#system_log_export_options{:style => "display:none;"}
+      %h2 Data Export
+      - form_tag("/reports/generate_system_log_pdf") do
+        %input{:name => "user_name", :style => "display:none;", :id => "system_log_export_user_name"}
+        %input{:name => "start_date", :style => "display:none;", :id => "system_log_export_start_date"}
+        %input{:name => "end_date", :style => "display:none;", :id => "system_log_export_end_date"}
+        %input{:name => "status", :style => "display:none;", :id => "system_log_export_status"}
+        = submit_tag("Export PDF")
+    .full_container#system_log_archive_options{:style => "display:none;"}
+      %h2 Archive
+      - form_tag("/client_setups/archive_system_log_entries") do
+        %input{:name => "user_name", :style => "display:none;", :id => "system_log_archive_user_name"}
+        %input{:name => "start_date", :style => "display:none;", :id => "system_log_archive_start_date"}
+        %input{:name => "end_date", :style => "display:none;", :id => "system_log_archive_end_date"}
+        = submit_tag("Archive")
 
 #archive_page.tab_switch_container
   .full_container#system_log_archive
@@ -73,10 +70,5 @@
     %h2 System Log Entrie
     %table#system_log_archive_grid
 
-  .full_container#system_log_archive_options{:style => "display:none;"}
-    - form_tag("/client_setups/archive_system_log_entries") do
-      %input{:name => "user_name", :style => "display:none;", :id => "system_log_archive_user_name"}
-      %input{:name => "start_date", :style => "display:none;", :id => "system_log_archive_start_date"}
-      %input{:name => "end_date", :style => "display:none;", :id => "system_log_archive_end_date"}
-      = submit_tag("Archive")
+
 

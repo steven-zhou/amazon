@@ -820,17 +820,6 @@ $(function(){
 });
 
 $(function(){
-    $('#system_log_search_submit').live('click',function(){
-        $('#system_log_search_results').show();
-        $('#system_log_export_options').show();
-        $('#system_log_export_user_name').val($('#user_name').val());
-        $('#system_log_export_start_date').val($('#system_log_start_date').val());
-        $('#system_log_export_end_date').val($('#system_log_end_date').val());
-        $('#system_log_export_status').val($('#system_log_status').val());
-    });
-});
-
-$(function(){
     $('#system_log_archive_submit').live('click',function(){
         $('#system_log_archive_results').show();
         $('#system_log_archive_options').show();
@@ -1813,39 +1802,6 @@ $(".tab_switch_button").live('click', function(){
     $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
     $('#'+$(this).attr('field')).addClass("active");
 });
-
-/*help-icon*/
-
-//$(function(){
-//    $('#help_icon_tab').click(function(){
-//        $('#warning_message_text').html("This Part Still Processing, Coming Soon");
-//        $('#warning_message_image').css("display","");
-//        $('#warning_message').dialog({
-//            modal: true,
-//            resizable: false,
-//            draggable: true,
-//            height: 'auto',
-//            width: 'auto',
-//            buttons: {
-//
-//                ok: function(){
-//                    $(this).dialog('destroy');
-//                    return false;
-//
-//                }
-//            }
-//        });
-//        $('#warning_message').dialog('option', 'title', 'Warning');
-//
-//        $('#warning_message').parent().find("a").css("display","none");
-//        $("#warning_message").parent().css('background-color','#D1DDE6');
-//        $("#warning_message").css('background-color','#D1DDE6');
-//
-//        $('#warning_message').dialog('open');
-//
-//    });
-//});
-
 
 // Address assistant //
 
@@ -3157,7 +3113,7 @@ delete_from_grid = function(grid,mode,type,url){
                     Yes: function(){
                         $.ajax({
                             type: type,
-                            url: url,
+                            url: url+id,
                             data: "id="+id,
                             dataType: "script"
                         });
@@ -3195,9 +3151,10 @@ delete_from_grid = function(grid,mode,type,url){
 };
 
 
-retrieve_from_grid = function(grid,type,url){
+retrieve_from_grid = function(grid,mode,type,url){
     var trSelected = grid
     var id = "";
+   if($(mode).attr('mode')=="show"){
     if (trSelected != undefined){
         id = trSelected.substring(3);
         $.ajax({
@@ -3207,6 +3164,8 @@ retrieve_from_grid = function(grid,type,url){
             dataType: "script"
         });
     };
+        }
+
 };
 
 

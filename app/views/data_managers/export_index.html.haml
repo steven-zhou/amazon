@@ -12,11 +12,11 @@
   .tab_switch_right.left{:field =>"organisation_part"}
 %br.clear
 
+.full_container
+  #person_part.tab_switch_container.active
+    = render :partial => '/data_managers/person_export_tab'
 
-#person_part.tab_switch_container.active
-  = render :partial => '/data_managers/person_export_tab'
-
-#organisation_part.tab_switch_container
-  = render :partial => '/data_managers/organisation_export_tab'
+  #organisation_part.tab_switch_container
+    = render :partial => '/data_managers/organisation_export_tab'
 
 

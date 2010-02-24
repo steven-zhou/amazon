@@ -8,7 +8,7 @@
     };
 
     retrieve_from_a_grid = function(){
-      retrieve_from_grid($("#show_keywords_grid tr.trSelected").attr('id'), "get", "/keywords/retrieve");
+      retrieve_from_grid($("#show_keywords_grid tr.trSelected").attr('id'),"#keyword_mode", "get", "/keywords/retrieve");
     };
     $("#show_keywords_grid").flexigrid({
       url: '/grids/show_keywords_grid?keyword_type_id=#{@keyword_type_id}',

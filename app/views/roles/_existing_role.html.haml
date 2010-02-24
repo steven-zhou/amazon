@@ -8,7 +8,7 @@
     };
 
     retrieve_from_a_grid = function(){
-      retrieve_from_grid($("#show_roles_grid tr.trSelected").attr('id'), "get", "/roles/retrieve");
+      retrieve_from_grid($("#show_roles_grid tr.trSelected").attr('id'), "#role_mode", "get", "/roles/retrieve");
     };
     $("#show_roles_grid").flexigrid({
       url: '/grids/show_roles_grid?role_type_id=#{@role_type_id}',

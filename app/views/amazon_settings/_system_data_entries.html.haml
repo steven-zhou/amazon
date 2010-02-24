@@ -8,7 +8,7 @@
     };
 
     retrieve_from_a_grid = function(){
-    retrieve_from_grid($("#show_system_data_grid tr.trSelected").attr('id'),"get","/amazon_settings/retrieve");
+    retrieve_from_grid($("#show_system_data_grid tr.trSelected").attr('id'),"#system_data_mode","get","/amazon_settings/retrieve");
     };
 
     $("#show_system_data_grid").flexigrid({

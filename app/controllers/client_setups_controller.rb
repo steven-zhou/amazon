@@ -161,10 +161,41 @@ class ClientSetupsController < ApplicationController
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries.")
 
-    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
-    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
-    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
-    status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '%%')
+
+   @query=""
+
+    if (params[:start_date].blank? || params[:end_date].blank?)
+         @start_date= '0001-01-01 00:00:01' if params[:start_date].blank?
+         @end_date = '9999-12-31 23:59:59' if params[:end_date].blank?
+    else
+
+
+    if valid_date(params[:start_date]) && valid_date(params[:end_date])
+    @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    else
+       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+    
+    end
+
+
+    if flash.now[:error].nil?
+    @query << "start_date="+@start_date+"&end_date="+@end_date
+    end
+
+
+
+    @user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '')
+    unless @user_name.empty?
+
+        @query << "&user_name="+@user_name
+    end
+
+    @status = ((!params[:status].nil? && !params[:status].empty?) ? params[:status] : '')
+    unless @status.empty?
+      @query << "&status="+@status
+    end
     # controller = ((!params[:log_controller].nil? && !params[:log_controller].empty?) ? params[:log_controller] : '%%')
     # action = ((!params[:log_action].nil? && !params[:log_action].empty?) ? params[:log_action] : '%%')
 
@@ -180,9 +211,22 @@ class ClientSetupsController < ApplicationController
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) searched System Log entries for achiving.")
 
+        if (params[:start_date].blank? || params[:end_date].blank?)
+         start_date= '0001-01-01 00:00:01'
+         end_date = '9999-12-31 23:59:59'
+    else
+
+
+     if valid_date(params[:start_date]) && valid_date(params[:end_date])
+       start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+       end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+     else
+        flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+     end
+        end
+
     user_name = ((!params[:archive_user_name].nil? && !params[:archive_user_name].empty?) ? params[:archive_user_name] : '%%')
-    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
-    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    
     status = 'Live'
 
     @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date, status)

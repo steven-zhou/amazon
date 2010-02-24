@@ -1,4 +1,4 @@
-puts "destroy custom groups"
+puts "destroy custom groups ..."
 custom_group = GroupMetaMetaType.find_custom_group
 customer_group_children = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", custom_group.id])
 customer_group_children.each do |c|
@@ -12,7 +12,7 @@ customer_group_children.each do |c|
   end
 end
 
-puts "destroy security groups"
+puts "destroy security groups ..."
 security_group = GroupMetaMetaType.find_security_group
 security_group_children = GroupMetaType.find(:all, :conditions => ["tag_meta_type_id = ?", security_group.id])
 security_group_children.each do |s|
@@ -30,7 +30,7 @@ GroupMetaType.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   i.destroy
 end
 
-puts "destroy masterdoc type"
+puts "destroy masterdoc type ..."
 MasterDocType.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if MasterDoc.find_by_master_doc_type_id(i.id).nil?
     i.destroy
@@ -48,7 +48,7 @@ MasterDocMetaMetaType.find(:all, :conditions => ["to_be_removed = true"]).each d
   i.destroy
 end
 
-puts "destroy contact meta type"
+puts "destroy contact meta type ..."
 ContactMetaType.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if Contact.find_by_contact_meta_type_id(i.id).nil?
     i.destroy
@@ -58,7 +58,7 @@ ContactMetaType.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   end
 end
 
-puts "destroy receipt meta type"
+puts "destroy receipt meta type ..."
 ReceiptMetaType.find(:all, :conditions => ["to_be_removed = true"]).each do |i|
   if TransactionHeader.find_by_receipt_type_id(i.id).nil?
     i.destroy

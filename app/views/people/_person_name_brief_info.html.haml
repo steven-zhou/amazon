@@ -10,8 +10,9 @@
     -if @current_user.type == "MemberZone" || @current_user.type == "SuperAdmin"
       - to_be_removed = @person.to_be_removed ? "Retrieve" : " Remove"
       = link_to_function "#{to_be_removed}",:class=>"ajax_call",:style => "font-size: 12px;display:inline;text-decoration: underline;font-style: italic;",:method =>"DELETE",:url=>"/people/"+@person.id.to_s,:light_box =>"true",:message =>@person.to_be_removed ? "Retrieve this Person" : "Remove this Person"
-      - status = @person.status ? "Active" : "Inactive"
-      = link_to_function "#{status}",:class=> "ajax_call",:id=>"person_active_button",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true",:message=>@person.status ? "Inactive this Person" : "Active this Person"
+      - unless @person.to_be_removed
+        - status = @person.status ? "Active" : "Inactive"
+        = link_to_function "#{status}",:class=> "ajax_call",:id=>"person_active_button",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;", :method => "GET", :url => "/people/change_status", :param1 => @person.id, :light_box => "true",:message=>@person.status ? "Inactive this Person" : "Active this Person"
     %div.display_field_bg{:style=>"margin-left: 4px;"}
       = @person.custom_id
 .form_line{:style=>"width:200px;margin-top:2px;"}
