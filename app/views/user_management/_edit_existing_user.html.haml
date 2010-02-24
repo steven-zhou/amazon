@@ -119,7 +119,7 @@
       = link_to_function 'Generate new password', :id => "generate_new_password",:class =>"alt_option left", :login_account_id => @login_account.id
     .field_17{:class => @login_account.login_status ? "" : "hidden"}
       %label &nbsp
-      = link_to 'reset user online status', reset_online_status_login_account_path{@login_account}, :class => "post alt_option"
+      = link_to 'reset user online status', reset_online_status_login_account_path(@login_account), :class => "post alt_option"
 
 
 
