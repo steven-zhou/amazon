@@ -164,8 +164,9 @@ class MessageTemplatesController < ApplicationController
 
 
     #-----change html to pdf and give the flashmessage for click
-
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
+    now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
+    pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf #{pdf_options}; rm #{file_dir}/*.html"
     flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;' target='_blank'>#{template_name}#{time_stamp}.pdf</a>"
     
     #for create record in the database mail-logs
