@@ -135,31 +135,12 @@ class MessageTemplatesController < ApplicationController
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
    
-    @mail_merge = @mail_template.body
-    @mail_merge = @mail_merge.gsub(/&lt;/, "<")
-    @mail_merge = @mail_merge.gsub(/&gt;/, ">")
-    file_name = "message_templates/temp/"+@current_user.user_name
-    #file_name = @current_user.user_name
-    file_dir = "#{RAILS_ROOT}/app/views/#{file_name}/"
-    FileUtils.mkdir_p("#{file_dir}")
-    File.open("#{file_dir}"+"_create_mail_template.html.erb", 'w') do |f2|
-      f2.puts "#{@mail_merge}"
-    end
-
-    @list_header_id = params[:list_header_id]
-    @message_template_id = params[:message_template_id]
-    @entity_type = params[:entity_type]
-    redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
-  end
-
-  def merge_mail
-
-    #----prepare the data which pdf use
-    @list_header = ListHeader.find(params[:list_header_id])
-    @mail_template = MessageTemplate.find(params[:message_template_id])
     @content = @mail_template.body
     @content = @content.gsub(/&lt;/, "<")
     @content = @content.gsub(/&gt;/, ">")
+
+    @list_header_id = params[:list_header_id]
+    @message_template_id = params[:message_template_id]
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
@@ -170,11 +151,12 @@ class MessageTemplatesController < ApplicationController
     # "#{RAILS_ROOT}/"
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
-    #@render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
-    @render_url = "message_templates/create_mail_template.html.erb"
     @pdf = ""
-    @pdf << render_to_string(:partial => "message_templates/render_mail_template")
-
+    @pdf << render_to_string(:partial => "message_templates/render_mail_template") rescue @pdf = ""
+    if @pdf == ""
+      flash.now[:error] = "One of the merge fileds in the template is invalid."
+    end
+    
     FileUtils.mkdir_p(file_dir)
     File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
@@ -183,8 +165,9 @@ class MessageTemplatesController < ApplicationController
 
     #-----change html to pdf and give the flashmessage for click
 
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf; rm #{file_dir}/*.html"
-    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;'>#{template_name}#{time_stamp}.pdf</a>"
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf"
+    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;' target='_blank'>#{template_name}#{time_stamp}.pdf</a>"
+    
     #for create record in the database mail-logs
     @entities.each do |entity|
       @mail_log = entity.mail_logs.new

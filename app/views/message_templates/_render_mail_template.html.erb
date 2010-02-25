@@ -2,7 +2,7 @@
   <%- for @people in @entities%>
     <%= render(:inline => @content) %>
     <%if @people != @entities.last%>
-      <div style="page-break-before: always;">&nbsp;</div>
+<hr style="page-break-after: always;opacity:-1;"/>
     <%end%>
   <%end%>
 
@@ -10,7 +10,7 @@
   <%- for @organisations in @entities%>
     <%= render(:inline => @content) %>
     <%if @organisations != @entities.last%>
-      <div style="page-break-before: always;">&nbsp;</div>
+<hr style="page-break-after: always;opacity:-1;"/>
     <%end%>
   <%end%>
 <%end%>
