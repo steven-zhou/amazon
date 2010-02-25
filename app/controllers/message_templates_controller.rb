@@ -1,5 +1,7 @@
 class MessageTemplatesController < ApplicationController
 
+  public :render_to_string
+
   def new
     @mail_template = params[:param1] == "person" ? PersonMailTemplate.new : OrganisationMailTemplate.new
     @type = params[:param1]   
@@ -76,7 +78,8 @@ class MessageTemplatesController < ApplicationController
     @type = params[:type]
     @model_type = (params[:type]+"_mail_template").camelize
     @entity_list_headers = (params[:type]== "person")? @current_user.all_person_lists : @current_user.all_organisation_lists
-    @entity_query_headers = QueryHeader.saved_query_header
+    @entity_query_headers = (params[:type]== "person")? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    
     @mail_templates = (params[:type]== "person")? PersonMailTemplate.active_record : OrganisationMailTemplate.active_record
     @entity_type = (params[:type]== "person")? "person" : "organisation"
     
@@ -131,6 +134,8 @@ class MessageTemplatesController < ApplicationController
     end
   end
 
+    
+
   def create_mail
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
@@ -138,6 +143,7 @@ class MessageTemplatesController < ApplicationController
     @mail_merge = @mail_template.body
     @mail_merge = @mail_merge.gsub(/&lt;/, "<")
     @mail_merge = @mail_merge.gsub(/&gt;/, ">")
+    puts"----DEBUG-111111111111111--#{@mail_merge.to_yaml}"
     file_name = "message_templates/temp/"+@current_user.user_name+"/"
     file_dir = "#{RAILS_ROOT}/app/views/#{file_name}"
     FileUtils.mkdir_p("#{file_dir}")
@@ -161,10 +167,14 @@ class MessageTemplatesController < ApplicationController
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
     time_stamp = Time.now.strftime("%d-%m-%y-%I:%M:%p")
+    @mail_merge = @mail_template.body
+    @new = @mail_merge.gsub(/&lt;/, "<")
+    @pp = @new.gsub(/&gt;/, ">")
+  
 
     #---------render the html which have another html which use the object above and create temp dir
 
-    # "#{RAILS_ROOT}/"
+
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
     @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
@@ -172,7 +182,7 @@ class MessageTemplatesController < ApplicationController
     @pdf << render_to_string(:partial => "message_templates/render_mail_template.html.erb")
 
 
-    FileUtils.mkdir(file_dir) unless File.exists?(file_dir)
+    FileUtils.mkdir_p(file_dir) unless File.exists?(file_dir)
     File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
     end
@@ -195,6 +205,9 @@ class MessageTemplatesController < ApplicationController
     end
   end
 
+
+
+  
 
   def person_mail_log_filter
 
@@ -223,7 +236,7 @@ class MessageTemplatesController < ApplicationController
     end
 
     unless (creator_username.blank?)
-      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"      
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"
       conditions << ("creator_id="+ creator_id)
     end
 
