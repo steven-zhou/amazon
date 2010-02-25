@@ -620,12 +620,13 @@ $(function(){
     $("#person_birth_date").live('change', function(){
 
         if($("#person_birth_date").val()!= "")
-        {
+        {    
             var current_year = new Date();
+           
             $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
         }
         else
-        {
+        {    alert("baesle");
 
             $('#person_age').html('').change();
         }

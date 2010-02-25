@@ -1118,10 +1118,17 @@ $(function(){
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
 });
+
 disabled_form = function(){
 
     $(".disabled_form").find("input").attr("disabled", true);
     $(".disabled_form").find("select").attr("disabled", true);
+    $(".disabled_form").find(".person_lookup").css('display','none');
+    $(".disabled_form").find(".organisation_lookup").css('display','none');
+    $(".disabled_form").find(".launch_address_assistant").css('display','none');
+    $(".disabled_form").find(".bank_lookup").css('display','none');
+    $(".disabled_form").find(".ui-datepicker-trigger").css('display','none');
+
 
 };
 

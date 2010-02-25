@@ -9,6 +9,7 @@ class NightlyProcessesController < ApplicationController
   end
 
   def run
+
     cmd = "/usr/bin/ruby /usr/bin/rake -f #{RAILS_ROOT}/Rakefile rake:db:nightly_process_tasks RAILS_ENV=#{RAILS_ENV}"
     system  "#{cmd}"
     respond_to do |format|
