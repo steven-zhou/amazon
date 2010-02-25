@@ -1,6 +1,7 @@
 <%-if @type == "Person"%>
 $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:person => @person})) %>');
- disabled_form();
+
 <%-else%>
 $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:organisation => @organisation})) %>');
 <%-end%>
+ disabled_form();

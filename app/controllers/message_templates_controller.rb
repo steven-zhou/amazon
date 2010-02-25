@@ -1,5 +1,7 @@
 class MessageTemplatesController < ApplicationController
 
+  public :render_to_string
+
   def new
     @mail_template = params[:param1] == "person" ? PersonMailTemplate.new : OrganisationMailTemplate.new
     @type = params[:param1]   
@@ -76,7 +78,8 @@ class MessageTemplatesController < ApplicationController
     @type = params[:type]
     @model_type = (params[:type]+"_mail_template").camelize
     @entity_list_headers = (params[:type]== "person")? @current_user.all_person_lists : @current_user.all_organisation_lists
-    @entity_query_headers = QueryHeader.saved_query_header
+    @entity_query_headers = (params[:type]== "person")? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    
     @mail_templates = (params[:type]== "person")? PersonMailTemplate.active_record : OrganisationMailTemplate.active_record
     @entity_type = (params[:type]== "person")? "person" : "organisation"
     
@@ -131,27 +134,37 @@ class MessageTemplatesController < ApplicationController
     end
   end
 
+    
+
   def create_mail
-    @list_header = ListHeader.find(params[:list_header_id])
+    #----------------all come in name is the same --list header id but it belongs to list header || query header
+
+    if(params[:list_header_id].include?("list_"))
+      list_header_id = params[:list_header_id].delete("list_")
+      @list_header = ListHeader.find(list_header_id )
+      @entities = @list_header.entity_on_list #people
+    else  #query use
+      query_header_id = params[:list_header_id].delete("query_")
+      @query_header = QueryHeader.find(query_header_id)
+      @entities = @query_header.run #people
+    end
     @mail_template = MessageTemplate.find(params[:message_template_id])
-   
     @content = @mail_template.body
     @content = @content.gsub(/&lt;/, "<")
     @content = @content.gsub(/&gt;/, ">")
-
-    @list_header_id = params[:list_header_id]
-    @message_template_id = params[:message_template_id]
     @entity_type = params[:entity_type]
-    @entities = @list_header.entity_on_list #people
+    
     template_name = @mail_template.name
     time_stamp = Time.now.strftime("%d-%m-%y-%I:%M%p")
 
+
     #---------render the html which have another html which use the object above and create temp dir
 
-    # "#{RAILS_ROOT}/"
+
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
     @pdf = ""
+
     @pdf << render_to_string(:partial => "message_templates/render_mail_template") rescue @pdf = ""
     if @pdf == ""
       flash.now[:error] = "One of the merge fileds in the template is invalid."
@@ -183,12 +196,32 @@ class MessageTemplatesController < ApplicationController
   end
 
 
+
+  
+
   def person_mail_log_filter
 
     conditions = Array.new
     person_id = params[:mail_log_filter][:person_id]
-    start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
-    end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
+
+
+#     if ( params[:mail_log_filter][:start_date].blank? || params[:mail_log_filter][:end_date].blank?)
+#         start_date= '0001-01-01 00:00:01' if params[:mail_log_filter][:start_date].blank?
+#         end_date = '9999-12-31 23:59:59' if params[:mail_log_filter][:end_date].blank?
+#    else
+#
+#
+#    if valid_date(params[:mail_log_filter][:start_date]) && valid_date(params[:mail_log_filter][:end_date])
+#    @start_date = ((!params[:mail_log_filter][:start_date].nil? && !params[:mail_log_filter][:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+#    @end_date = ((!params[:mail_log_filter][:end_date].nil? && !params[:mail_log_filter][:end_date].empty?) ? params[:mail_log_filter][:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+#    else
+#       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+#    end
+#
+#    end
+
+
+    
     creator_username = params[:mail_log_filter][:creator_username]
     @date_valid = true
 
@@ -196,7 +229,11 @@ class MessageTemplatesController < ApplicationController
       conditions << ("entity_id=" + person_id)
     end
 
-    if valid_date(start_date) && valid_date(end_date)
+    if valid_date(params[:mail_log_filter][:start_date]) && valid_date(params[:mail_log_filter][:end_date])
+    start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
+    end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
+
+
       unless start_date.blank? || end_date.blank?
         start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
         end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
@@ -210,7 +247,7 @@ class MessageTemplatesController < ApplicationController
     end
 
     unless (creator_username.blank?)
-      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"      
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"
       conditions << ("creator_id="+ creator_id)
     end
 
@@ -225,8 +262,7 @@ class MessageTemplatesController < ApplicationController
   def organisation_mail_log_filter
     conditions = Array.new
     organisation_id = params[:organisation_id]
-    start_date = params[:start_date].to_date.yesterday.to_s
-    end_date = params[:end_date].to_date.tomorrow.to_s
+
     creator_username = params[:creator_username]
     @date_valid = true
 
@@ -234,7 +270,9 @@ class MessageTemplatesController < ApplicationController
       conditions << ("entity_id=" + organisation_id)
     end
 
-    if valid_date(start_date) && valid_date(end_date)
+    if valid_date(params[:start_date]) && valid_date(params[:end_date])
+     start_date = params[:start_date].to_date.yesterday.to_s
+      end_date = params[:end_date].to_date.tomorrow.to_s
       unless start_date.blank? || end_date.blank?
         start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
         end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?

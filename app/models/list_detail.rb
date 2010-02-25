@@ -17,6 +17,7 @@ class ListDetail < ActiveRecord::Base
   end
   def minus_list_size
     self.list_header.list_size = self.list_header.list_size - 1
+    
     self.list_header.save
   end
 end

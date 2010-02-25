@@ -230,15 +230,16 @@ class CommunicationController < ApplicationController
 
   def person_mail_merge
     @entity_list_headers = @current_user.all_person_lists
-    @entity_query_headers = PersonQueryHeader.saved_query_header
+    @entity_query_headers = PersonQueryHeader.saved_queries
     @mail_templates = PersonMailTemplate.active_record
     @entity_type = "person"
+   
     
   end
   
   def organisation_mail_merge
     @entity_list_headers = @current_user.all_organisation_lists
-    @entity_query_headers = OrganisationQueryHeader.saved_query_header
+    @entity_query_headers = OrganisationQueryHeader.saved_queries
     @mail_templates = OrganisationMailTemplate.active_record
     @entity_type = "organisation"
 
