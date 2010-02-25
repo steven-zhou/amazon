@@ -1,6 +1,6 @@
 <%- if @entity_type == "person"%>
   <%- for @people in @entities%>
-    <%= render(:partial => "#{@render_url}") %>
+    <%= render(:partial => @render_url) %>
     <%if @people != @entities.last%>
       <div style="page-break-after: always;">&nbsp;</div>
     <%end%>

@@ -161,7 +161,7 @@ class MessageTemplatesController < ApplicationController
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
-    time_stamp = Time.now.strftime("%d-%m-%y-%I:%M:%p")
+    time_stamp = Time.now.strftime("%d-%m-%y-%I:%M%p")
 
     #---------render the html which have another html which use the object above and create temp dir
 
