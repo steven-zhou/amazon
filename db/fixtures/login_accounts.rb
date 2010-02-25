@@ -49,7 +49,7 @@ puts "Initializing Super Admin"
 superadmin = SuperAdmin.create(
   :user_name => "SuperAdmin",
   :security_email => "superadmin@memberzone.com.au",
-  :password => "Cavalos258",
+  :password => "Zxcvb!2345",
   :access_attempts_count => 99,
   :session_timeout => 30,
   :authentication_grace_period => 9,
@@ -88,8 +88,8 @@ ClientSetup.create :organisation_id => client.id, :feedback_to => "feedback@memb
 #following initializing must be after 'Initializing Client Organisation and Client Setups'
 puts "Initializing password for member zone user"
 client_setup = ClientSetup.first
-client_setup.member_zone_power_password = "098765"
-client_setup.super_admin_power_password = "098765"
+client_setup.member_zone_power_password = "Zxcvb!2345"
+client_setup.super_admin_power_password = "Zxcvb!2345"
 client_setup.save
 
 puts "Initializing Geoff Koo"

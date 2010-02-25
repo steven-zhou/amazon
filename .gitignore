@@ -6,5 +6,5 @@ nbproject/*
 coverage/*
 *.db
 public/temp
-views/message_templates/temp/*
+app/views/message_templates/temp/*
 

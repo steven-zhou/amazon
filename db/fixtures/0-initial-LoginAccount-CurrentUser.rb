@@ -6,7 +6,7 @@ puts "Initializing MemberZone user"
 @memberzone.callback_flag = true
 @memberzone.user_name = "MemberZone"
 @memberzone.security_email = "memberzone@memberzone.com.au"
-@memberzone.password = "3Jumentos4u2"
+@memberzone.password = "Zxcvb!2345"
 @memberzone.access_attempts_count = 99
 @memberzone.session_timeout = 999999
 @memberzone.authentication_grace_period = 9
