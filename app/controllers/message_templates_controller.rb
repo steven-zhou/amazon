@@ -177,8 +177,9 @@ class MessageTemplatesController < ApplicationController
 
 
     #-----change html to pdf and give the flashmessage for click
-
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf; rm *.html"
+    now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
+    pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf #{pdf_options}; rm #{file_dir}/*.html"
     flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;' target='_blank'>#{template_name}#{time_stamp}.pdf</a>"
     
     #for create record in the database mail-logs
@@ -202,8 +203,25 @@ class MessageTemplatesController < ApplicationController
 
     conditions = Array.new
     person_id = params[:mail_log_filter][:person_id]
-    start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
-    end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
+
+
+#     if ( params[:mail_log_filter][:start_date].blank? || params[:mail_log_filter][:end_date].blank?)
+#         start_date= '0001-01-01 00:00:01' if params[:mail_log_filter][:start_date].blank?
+#         end_date = '9999-12-31 23:59:59' if params[:mail_log_filter][:end_date].blank?
+#    else
+#
+#
+#    if valid_date(params[:mail_log_filter][:start_date]) && valid_date(params[:mail_log_filter][:end_date])
+#    @start_date = ((!params[:mail_log_filter][:start_date].nil? && !params[:mail_log_filter][:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+#    @end_date = ((!params[:mail_log_filter][:end_date].nil? && !params[:mail_log_filter][:end_date].empty?) ? params[:mail_log_filter][:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+#    else
+#       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+#    end
+#
+#    end
+
+
+    
     creator_username = params[:mail_log_filter][:creator_username]
     @date_valid = true
 
@@ -211,7 +229,11 @@ class MessageTemplatesController < ApplicationController
       conditions << ("entity_id=" + person_id)
     end
 
-    if valid_date(start_date) && valid_date(end_date)
+    if valid_date(params[:mail_log_filter][:start_date]) && valid_date(params[:mail_log_filter][:end_date])
+    start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
+    end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
+
+
       unless start_date.blank? || end_date.blank?
         start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
         end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
@@ -240,8 +262,7 @@ class MessageTemplatesController < ApplicationController
   def organisation_mail_log_filter
     conditions = Array.new
     organisation_id = params[:organisation_id]
-    start_date = params[:start_date].to_date.yesterday.to_s
-    end_date = params[:end_date].to_date.tomorrow.to_s
+
     creator_username = params[:creator_username]
     @date_valid = true
 
@@ -249,7 +270,9 @@ class MessageTemplatesController < ApplicationController
       conditions << ("entity_id=" + organisation_id)
     end
 
-    if valid_date(start_date) && valid_date(end_date)
+    if valid_date(params[:start_date]) && valid_date(params[:end_date])
+     start_date = params[:start_date].to_date.yesterday.to_s
+      end_date = params[:end_date].to_date.tomorrow.to_s
       unless start_date.blank? || end_date.blank?
         start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
         end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?

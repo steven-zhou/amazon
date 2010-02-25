@@ -138,6 +138,7 @@ $(function(){
                         $(".container_selected").removeClass("container_selected");
                         $("#edit_system_data_entry").hide();
                         $("#system_data_add_data").show();
+
                         $("#system_data_type").attr("disabled",false);
                         $.ajax({
                             type: "GET",

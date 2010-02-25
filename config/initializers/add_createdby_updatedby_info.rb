@@ -15,6 +15,7 @@ class ActiveRecord::Base
   def insert_updatedby
 
     self.updater_id = LoginAccount.current_user.id
+
   end
 
   def skip_callback?
