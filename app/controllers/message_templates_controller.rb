@@ -138,11 +138,10 @@ class MessageTemplatesController < ApplicationController
     @mail_merge = @mail_template.body
     @mail_merge = @mail_merge.gsub(/&lt;/, "<")
     @mail_merge = @mail_merge.gsub(/&gt;/, ">")
-    #file_name = "message_templates/temp/"+@current_user.user_name+"/"
-    file_name = @current_user.user_name
+    file_name = "message_templates/temp/"+@current_user.user_name
+    #file_name = @current_user.user_name
     file_dir = "#{RAILS_ROOT}/app/views/#{file_name}/"
     FileUtils.mkdir_p("#{file_dir}")
-    # File.open("#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", 'w') do |f2|
     File.open("#{file_dir}"+"_create_mail_template.html.erb", 'w') do |f2|
       f2.puts "#{@mail_merge}"
     end
@@ -168,8 +167,8 @@ class MessageTemplatesController < ApplicationController
     # "#{RAILS_ROOT}/"
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
-    #@render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
-    @render_url = @current_user.user_name+"/create_mail_template.html.erb"
+    @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
+    #@render_url = @current_user.user_name+"/create_mail_template.html.erb"
     @pdf = ""
     @pdf << render_to_string(:partial => "message_templates/render_mail_template")
 
