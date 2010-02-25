@@ -157,6 +157,9 @@ class MessageTemplatesController < ApplicationController
     #----prepare the data which pdf use
     @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
+    @content = @mail_template.body
+    @content = @content.gsub(/&lt;/, "<")
+    @content = @content.gsub(/&gt;/, ">")
     @entity_type = params[:entity_type]
     @entities = @list_header.entity_on_list #people
     template_name = @mail_template.name
@@ -167,11 +170,10 @@ class MessageTemplatesController < ApplicationController
     # "#{RAILS_ROOT}/"
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
-    @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
-    #@render_url = @current_user.user_name+"/create_mail_template.html.erb"
+    #@render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
+    @render_url = "message_templates/create_mail_template.html.erb"
     @pdf = ""
     @pdf << render_to_string(:partial => "message_templates/render_mail_template")
-
 
     FileUtils.mkdir_p(file_dir)
     File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
