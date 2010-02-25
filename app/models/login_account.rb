@@ -260,4 +260,8 @@ class LoginAccount < ActiveRecord::Base
     self.class.to_s == "SystemUser" ? "#{self.user_name} - (#{self.person.name})" : "#{self.user_name}"
   end
 
+  def number_of_online_users
+    LoginAccount.count(:all, :conditions => ["online_status=? and type!=?", true, "MemberZone"])
+  end
+
 end

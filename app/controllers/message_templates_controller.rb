@@ -1,5 +1,7 @@
 class MessageTemplatesController < ApplicationController
 
+  public :render_to_string
+
   def new
     @mail_template = params[:param1] == "person" ? PersonMailTemplate.new : OrganisationMailTemplate.new
     @type = params[:param1]   
@@ -76,7 +78,8 @@ class MessageTemplatesController < ApplicationController
     @type = params[:type]
     @model_type = (params[:type]+"_mail_template").camelize
     @entity_list_headers = (params[:type]== "person")? @current_user.all_person_lists : @current_user.all_organisation_lists
-    @entity_query_headers = QueryHeader.saved_query_header
+    @entity_query_headers = (params[:type]== "person")? PersonQueryHeader.saved_queries : OrganisationQueryHeader.saved_queries
+    
     @mail_templates = (params[:type]== "person")? PersonMailTemplate.active_record : OrganisationMailTemplate.active_record
     @entity_type = (params[:type]== "person")? "person" : "organisation"
     
@@ -131,48 +134,43 @@ class MessageTemplatesController < ApplicationController
     end
   end
 
+    
+
   def create_mail
-    @list_header = ListHeader.find(params[:list_header_id])
-    @mail_template = MessageTemplate.find(params[:message_template_id])
-   
-    @mail_merge = @mail_template.body
-    @mail_merge = @mail_merge.gsub(/&lt;/, "<")
-    @mail_merge = @mail_merge.gsub(/&gt;/, ">")
-    file_name = "message_templates/temp/"+@current_user.user_name+"/"
-    file_dir = "#{RAILS_ROOT}/app/views/#{file_name}"
-    FileUtils.mkdir_p("#{file_dir}")
-    # File.open("#{RAILS_ROOT}/app/views/message_templates/_create_mail_template.html.erb", 'w') do |f2|
-    File.open("#{file_dir}"+"_create_mail_template.html.erb", 'w') do |f2|
-      f2.puts "#{@mail_merge}"
+    #----------------all come in name is the same --list header id but it belongs to list header || query header
+
+    if(params[:list_header_id].include?("list_"))
+      list_header_id = params[:list_header_id].delete("list_")
+      @list_header = ListHeader.find(list_header_id )
+      @entities = @list_header.entity_on_list #people
+    else  #query use
+      query_header_id = params[:list_header_id].delete("query_")
+      @query_header = QueryHeader.find(query_header_id)
+      @entities = @query_header.run #people
     end
-
-    @list_header_id = params[:list_header_id]
-    @message_template_id = params[:message_template_id]
-    @entity_type = params[:entity_type]
-    redirect_to :action => "merge_mail", :list_header_id => params[:list_header_id], :message_template_id => params[:message_template_id], :entity_type => params[:entity_type]
-  end
-
-  def merge_mail
-
-    #----prepare the data which pdf use
-    @list_header = ListHeader.find(params[:list_header_id])
     @mail_template = MessageTemplate.find(params[:message_template_id])
+    @content = @mail_template.body
+    @content = @content.gsub(/&lt;/, "<")
+    @content = @content.gsub(/&gt;/, ">")
     @entity_type = params[:entity_type]
-    @entities = @list_header.entity_on_list #people
+    
     template_name = @mail_template.name
-    time_stamp = Time.now.strftime("%d-%m-%y-%I:%M:%p")
+    time_stamp = Time.now.strftime("%d-%m-%y-%I:%M%p")
+
 
     #---------render the html which have another html which use the object above and create temp dir
 
-    # "#{RAILS_ROOT}/"
+
     file_name = "temp/"+@current_user.user_name+"/merge_docs"
     file_dir = "public/#{file_name}"
-    @render_url = "message_templates/temp/"+@current_user.user_name+"/create_mail_template.html.erb"
     @pdf = ""
-    @pdf << render_to_string(:partial => "message_templates/render_mail_template.html.erb")
 
-
-    FileUtils.mkdir(file_dir) unless File.exists?(file_dir)
+    @pdf << render_to_string(:partial => "message_templates/render_mail_template") rescue @pdf = ""
+    if @pdf == ""
+      flash.now[:error] = "One of the merge fileds in the template is invalid."
+    end
+    
+    FileUtils.mkdir_p(file_dir)
     File.open("#{file_dir}/#{template_name}#{time_stamp}.html", 'w') do |f2|
       f2.puts  "#{@pdf}"
     end
@@ -180,8 +178,9 @@ class MessageTemplatesController < ApplicationController
 
     #-----change html to pdf and give the flashmessage for click
 
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf; rm #{file_dir}/*.html"
-    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;'>#{template_name}#{time_stamp}.pdf</a>"
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf; rm *.html"
+    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' style='color:red;' target='_blank'>#{template_name}#{time_stamp}.pdf</a>"
+    
     #for create record in the database mail-logs
     @entities.each do |entity|
       @mail_log = entity.mail_logs.new
@@ -195,6 +194,9 @@ class MessageTemplatesController < ApplicationController
     end
   end
 
+
+
+  
 
   def person_mail_log_filter
 
@@ -244,7 +246,7 @@ class MessageTemplatesController < ApplicationController
     end
 
     unless (creator_username.blank?)
-      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"      
+      creator_id = LoginAccount.find_by_user_name("#{creator_username}").id.to_s rescue creator_id = "0"
       conditions << ("creator_id="+ creator_id)
     end
 

@@ -29,6 +29,7 @@ class SigninController < ApplicationController
           check_group_permissions(login_account) # Check the permissions for the groups of the login account
           check_online_status(login_account) #check the account has already online or not, if true, you can not login.
           check_password_life_time(login_account)# Check if the password has expired  when expired jump to rescue no.1 case
+          check_number_of_online_users(login_account)# Check if the user number out of license number
  
           #---------------------------------------------successful login-------------------------#
           session[:user] = login_account.id
@@ -220,6 +221,7 @@ class SigninController < ApplicationController
         
         if login_account.class.to_s == "SuperAdmin"
           check_online_status(login_account) #check the account has already online or not, if true, you can not login.
+          check_number_of_online_users(login_account)# Check if the user number out of license number
         end
 
         #---------------------------------------------successful login-------------------------#
@@ -335,6 +337,15 @@ class SigninController < ApplicationController
     if login_account.online_status?
       flash[:warning] = flash_message(:type => "login_online_error")
       raise "Online Status Check Failed"
+    end
+  end
+
+
+  def check_number_of_online_users(login_account)
+    number_of_users =  ClientSetup.first.number_of_users.blank? ? 5 : ClientSetup.first.number_of_users
+    if login_account.number_of_online_users >= number_of_users
+      flash[:warning] = flash_message(:type => "login_online_max_error")
+      raise "Online User Number Check Failed"
     end
   end
 
