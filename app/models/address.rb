@@ -26,7 +26,7 @@ class Address < ActiveRecord::Base
   ################
   #++
 
-  before_save :update_priority
+  before_save :update_priority, :format_state
   before_destroy :update_priority_before_destroy
   ################
   #  Delegation
@@ -98,6 +98,10 @@ class Address < ActiveRecord::Base
   def update_priority
     #self.move_to_bottom
     self.priority_number = self.addressable.addresses.length+1 if self.new_record?
+  end
+
+  def format_state
+    self.state = self.state.upcase
   end
 
   def update_priority_before_destroy
