@@ -375,7 +375,7 @@ class Person < ActiveRecord::Base
   def check_birthday
 
   
-    if self.birth_date >  Date.today
+    if !self.birth_date.nil? && self.birth_date > Date.today
         return false
     else
       return true
