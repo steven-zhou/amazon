@@ -1351,6 +1351,7 @@ class GridsController < ApplicationController
           u.citizenship,
           u.capital,
           u.iso_code,
+          u.iso_number,
           u.dialup_code,
           u.main_language_id.nil? ? "" : u.main_language.name,
           #         u.govenment_language,

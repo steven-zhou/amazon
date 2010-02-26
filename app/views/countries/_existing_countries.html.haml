@@ -2,4 +2,158 @@
   %h2 Existing Countries
 
   %table#show_countries_grid{:class=>"selectable_grid",:field=>"country",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/countries/"}
- 
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $("#show_countries_grid").flexigrid({
+    url: '/grids/show_countries_grid',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Long Name',
+    name : 'long_name',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Short Name',
+    name : 'short_name',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Citizenship',
+    name : 'citizenship',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Capital',
+    name : 'capital',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'ISO Code',
+    name : 'iso_code',
+    width : 60,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'ISO Number',
+    name : 'iso_number',
+    width : 60,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Dialup Code',
+    name : 'dialup_code',
+    width : 60,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Main Language',
+    name : 'amazon_settings.name',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Currency',
+    name : 'currency',
+    width : 60,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Currency Subunit',
+    name : 'currency_subunit',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+    display: 'Long Name',
+    name : 'long_name'
+    },
+
+    {
+    display: 'Short Name',
+    name : 'short_name'
+    },
+
+    {
+    display: 'Citizenship',
+    name : 'citizenship'
+    },
+
+    {
+    display: 'Capital',
+    name : 'capital'
+    },
+
+    {
+    display: 'ISO Code',
+    name : 'iso_code'
+    },
+
+    {
+    display: 'ISO Number',
+    name : 'iso_number'
+    },
+
+    {
+    display: 'Dialup Code',
+    name : 'dialup_code'
+    },
+
+    {
+    display: 'Main Language',
+    name : 'amazon_settings.name'
+    },
+
+    {
+    display: 'Currency',
+    name : 'currency'
+    },
+
+    {
+    display: 'Currency Subunit',
+    name : 'currency_subunit'
+    }
+    ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

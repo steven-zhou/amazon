@@ -14,7 +14,7 @@ class AddUserstamps < ActiveRecord::Migration
     "helps",
     "images",
     "keyword_links","keywords",
-    "languages", "list_details", "list_headers", "login_accounts",
+    "list_details", "list_headers", "login_accounts",
     "master_docs", "message_templates",
     "notes",
     "organisation_groups", "organisation_hierarchies","organisation_key_personnels", "organisation_relationships", "organisation_subsidiaries", "organisations",
