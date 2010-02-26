@@ -2,7 +2,7 @@ namespace :db do
   desc "Add all countries to old database"
   task :add_all_countries => :environment do
     #LoginAccount.current_user is shared by all the patches
-    LoginAccount.current_user = LoginAccount.find_by_id(1)
+    LoginAccount.current_user = MemberZone.first
 
     puts "Run Patch Add all countries ..."
     Country.create :long_name => "Afghanistan", :short_name => "Afghanistan", :citizenship => "Afghanistan", :iso_code => "AF", :iso_number => "4", :status => true, :to_be_removed => false

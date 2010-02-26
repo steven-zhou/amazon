@@ -6,7 +6,7 @@ namespace :db do
     Person.all.each do |i|
       i.to_be_removed = false if i.to_be_removed.nil?
       i.status = true if i.status.nil?
-      i.save!
+      i.save if i.to_be_removed.nil? || i.to_be_removed.nil?
     end
   
 
@@ -14,7 +14,7 @@ namespace :db do
     Organisation.all.each do |i|
       i.to_be_removed = false if i.to_be_removed.nil?
       i.status = true if i.status.nil?
-      i.save!
+      i.save if i.to_be_removed.nil? || i.to_be_removed.nil?
     end
     puts "DONE"
   end

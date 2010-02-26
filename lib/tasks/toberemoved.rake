@@ -1,8 +1,6 @@
 namespace :db do
   desc "change to be removed to be false after adding that field to tables"
   task :fixtoberemoved => :environment do
-    #LoginAccount.current_user is shared by all the patches
-    LoginAccount.current_user = LoginAccount.find_by_id(1)
 
     @tablesArray = Array[
       "bank_accounts",
