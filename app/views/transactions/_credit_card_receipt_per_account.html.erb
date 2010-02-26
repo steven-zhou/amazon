@@ -1,3 +1,12 @@
+<%- sub_total = 0.00%>
+<%- num_transaction = 0%>
+<%- transactions = transaction[account.id]%>
+
+<%- transaction[account.id].try(:each) do |transaction|%>
+  <%- total = transaction.total_amount%>
+  <%- sub_total += total%>
+  <%- num_transaction=num_transaction+1%>
+<%- end %>
 <div id="header"><h1>Credit Card Receipt</h1></div>
 <div id="content_holder">
   <div id="summary_of_card">
@@ -5,7 +14,7 @@
     <div class="div_line">
       <div class="div_cell">SUMMARY OF <%=type%></div>
       <div class="div_cell">MAIL/PHONE ORDER TRANSACTIONS DATE:</div>
-      <div class="div_cell" style="">7/01/2010</div>
+      <div class="div_cell" style=""><%= @date %></div>
     </div>
 
     <div class="div_line table_style_1">
@@ -15,8 +24,8 @@
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell cell">123456789</div>
-      <div class="div_cell cell">4</div>
-      <div class="div_cell cell">$105.00</div>
+      <div class="div_cell cell"><%= num_transaction%></div>
+      <div class="div_cell cell"><%= number_to_currency(sub_total)%></div>
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell cell">MERCHANT TRADING NAME</div>
@@ -31,12 +40,12 @@
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell big_number">(I)</div>
-      <div class="div_cell big_number_content">TRANSACTIONS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
+      <div class="div_cell big_number_content" style="width: 90%">TRANSACTIONS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell big_number">(II)</div>
-      <div class="div_cell big_number_content">TRANSACTIONS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
-      <div class="div_cell signature" style="margin-top: 40px;">MERCHANT SIGNATURE</div>
+      <div class="div_cell big_number_content" style="width: 90%">TRANSACTIONS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
+      <div class="div_cell signature" style="margin-top: 40px;float: right;">MERCHANT SIGNATURE</div>
     </div>
     <br class="clear"/>
   </div>
@@ -57,20 +66,16 @@
     <div class="div_line_separater"></div>
     <br class="clear"/>
     <div class="div_line talbe_line">
-      <%- sub_total = 0.00%>
-      <%- num_transaction = 0%>
 
-      <%- transaction[account.id].try(:each) do |transaction|%>
+
+      <%- transactions.try(:each) do |transaction|%>
         <div class="div_cell th20">XXXXXXXXXX</div>
         <div class="div_cell th15"><%= transaction.transaction_type_detail.try(:name_on_card) %></div>
         <div class="div_cell th7"><%= transaction.received_via.try(:name)%></div>
         <div class="div_cell th7">1</div>
         <div class="div_cell th15"><%=transaction.transaction_type_detail.try(:card_number)%></div>
         <div class="div_cell th7"><%=transaction.transaction_type_detail.try(:cvv_number)%></div>
-        <div class="div_cell th7"><%= transaction.total_amount%></div>
-        <%- total = transaction.total_amount%>
-        <%- sub_total += total%>
-        <%- num_transaction=num_transaction+1%>
+        <div class="div_cell th7"><%= number_to_currency(transaction.total_amount)%></div>
       <%- end %>
     </div>
 
@@ -78,10 +83,11 @@
   </div>
 
   <div id="summary_sheet">
-    <div id="summary_sheet_title" style="margin-left: 300px;">
+    <div class="div_cell date" style="float: right;margin-top:12px;text-align:right;">Date:<%= @date %></div>
+    <div id="summary_sheet_title" style="text-align: center;">
       <h1>Summary Sheet</h1>
-      <div class="div_cell date">Date:<%= @date %></div>
     </div>
+    
     <div class="div_line">
       <div id="client_org_name">
         <span class="bold_title">The Client Organisation Legal Name</span>

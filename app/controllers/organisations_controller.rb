@@ -59,6 +59,8 @@ class OrganisationsController < ApplicationController
   end
 
   def create
+     check_valid_date = params[:organisation][:registered_date].blank? ? true : valid_date(params[:organisation][:registered_date])
+      if check_valid_date
     @organisation = (params[:type].camelize.constantize).new(params[:organisation])
     @organisation.onrecord_since = Date.today()
     @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
@@ -74,15 +76,19 @@ class OrganisationsController < ApplicationController
       end
       @organisation_new = Organisation.new
       flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href='/organisations/#{@organisation.id}/edit' style='color:white'>edit details</a>)"
-      redirect_to new_organisation_path
+#      redirect_to new_organisation_path
     else
       @organisation.addresses.build(params[:organisation][:addresses_attributes][0]) if @organisation.addresses.empty?
       @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
       @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
       @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
       flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      redirect_to new_organisation_path
+      
     end
+       else
+      flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+    redirect_to new_organisation_path
   end
 
 
@@ -124,8 +130,14 @@ class OrganisationsController < ApplicationController
   end
 
   def update
+  
+
     @organisation = Organisation.find(params[:id])
-    type = @organisation.class.to_s.underscore
+        type = @organisation.class.to_s.underscore
+      check_valid_date = params[type.to_sym][:registered_date].blank? ? true : valid_date(params[type.to_sym][:registered_date])
+    if check_valid_date
+
+
     Image.transaction do
       unless params[:image].nil?
         @image = Image.new(params[:image])
@@ -155,12 +167,19 @@ class OrganisationsController < ApplicationController
 
 
     flash[:message] = "#{@organisation.full_name}'s Details Have been Updated Successfully." unless !flash[:warning].nil?
-    if(params[:installation])
+     else
+      flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
+
+    
+      if(params[:installation])
       flash[:message] = "Client Organisation - #{@organisation.full_name}'s information was initialized successfully."
       redirect_to :controller => :client_setups, :action => :client_organisation
     else
       redirect_to edit_organisation_path(@organisation)
     end
+
+
   end
 
   def name_finder

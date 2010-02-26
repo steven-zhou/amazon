@@ -626,7 +626,7 @@ $(function(){
             $('#person_age').html(parseInt(current_year.getFullYear())-parseInt($(this).val().substring(6,10))).change();
         }
         else
-        {    alert("baesle");
+        {    
 
             $('#person_age').html('').change();
         }

@@ -1,4 +1,4 @@
-<% if @person_role.errors.empty? -%>
+<% if flash[:error].nil? -%>
   $('#person_roles').prepend('<%= escape_javascript(render(:partial => @person_role)) %>');
   $("#new_person_role")[0].reset();
   $("#person_role_role_id").html('');
