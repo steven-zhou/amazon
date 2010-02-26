@@ -91,11 +91,3 @@ client_setup = ClientSetup.first
 client_setup.member_zone_power_password = "Zxcvb!2345"
 client_setup.super_admin_power_password = "Zxcvb!2345"
 client_setup.save
-
-puts "Initializing Geoff Koo"
-Person.create(
-  :custom_id => "89567",
-  :first_name => "Geoff",
-  :family_name => "Koo",
-  :preferred_name => "Geoff"
-)
