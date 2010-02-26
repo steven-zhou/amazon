@@ -1,4 +1,4 @@
-<% if @masterdoc.errors.empty? -%>
+<% if @masterdoc.errors.empty? && flash[:error].nil?-%>
 $('#<%= dom_id(@masterdoc, :edit) %>').replaceWith(" <%= escape_javascript(render(:partial => @masterdoc)) %>");
   $('.person_master_doc_edit_delete').css("display","none");
   $('.person_master_doc_toggle_button').css("display","");
@@ -30,3 +30,4 @@ $('#<%= dom_id(@masterdoc, :edit) %>').replaceWith(" <%= escape_javascript(rende
 
 
      <%end%>
+    enable_form_after_submit_finish();

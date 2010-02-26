@@ -3267,3 +3267,57 @@ $(".select_ban_submit").live('change', function(){
 });
 
 
+// check date input
+check_date = function(value){
+
+
+ _valid = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(value.val());
+    if(value.val()!=""){
+        if((!_valid)){
+            var link = value;
+
+            $('#error_message_text').html("Invalid Date Format");
+
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+
+                        link.val("").change();
+                        link.focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+
+
+        }
+    }
+
+
+}
+
+
+$(".hasDatepicker").live('change',function(){
+ check_date($(this));
+});
+
+hasDatepicker= function()
+{
+  $(".hasDatepicker").live('change',function(){
+ check_date($(this));
+});
+
+}

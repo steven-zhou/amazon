@@ -31,6 +31,10 @@ class ReceiptingController < ApplicationController
 
   def create_campaign
     @campaign = Campaign.new(params[:campaign])
+    check_start_date = params[:start_date].blank? ? true : valid_date(params[:start_date])
+     check_end_date = params[:end_date].blank? ? true : valid_date(params[:end_date])
+     if check_start_date&&check_end_date
+
     @campaign.start_date = params[:start_date]
     @campaign.end_date = params[:end_date]
     @campaign.to_be_removed = false
@@ -46,6 +50,9 @@ class ReceiptingController < ApplicationController
         flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
       end
     end
+     else
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
     respond_to do |format|
       format.js
     end
@@ -53,6 +60,10 @@ class ReceiptingController < ApplicationController
 
   def update_campaign
     @campaign = Campaign.find(params[:id])
+
+    check_start_date = params[:start_date].blank? ? true : valid_date(params[:start_date])
+     check_end_date = params[:end_date].blank? ? true : valid_date(params[:end_date])
+     if check_start_date&&check_end_date
     @campaign.start_date = params[:start_date] unless params[:start_date].nil?
     @campaign.end_date = params[:end_date] unless params[:end_date].nil?
     if @campaign.update_attributes(params[:campaign])
@@ -69,6 +80,9 @@ class ReceiptingController < ApplicationController
         flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "End Date")
       end
     end
+        else
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
     respond_to do |format|
       format.js
     end

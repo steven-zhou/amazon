@@ -19,6 +19,10 @@ class EmploymentsController < ApplicationController
 
   def create
     @person = Person.find(params[:person_id].to_i)
+
+     check_start_date = params[:employment][:commenced_date].blank? ? true : valid_date(params[:employment][:commenced_date])
+   check_end_date = params[:employment][:term_end_date].blank? ? true : valid_date(params[:employment][:term_end_date])
+    if  check_start_date&&check_end_date
     @employment = @person.employments.new(params[:employment])
     if @employment.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id})  created a new Employment record with ID #{@employment.id}.")
@@ -56,6 +60,9 @@ class EmploymentsController < ApplicationController
         flash.now[:error]= "Some Input Field Invalid, Please Check It Again"
       end
     end
+     else
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
     respond_to do |format|
       format.js
     end
@@ -63,7 +70,9 @@ class EmploymentsController < ApplicationController
 
   def update
     @employment = Employment.find(params[:id].to_i)
-    respond_to do |format|
+  check_start_date = params[:employment][@employment.id.to_s][:commenced_date].blank? ? true : valid_date(params[:employment][@employment.id.to_s][:commenced_date])
+   check_end_date = params[:employment][@employment.id.to_s][:term_end_date].blank? ? true : valid_date(params[:employment][@employment.id.to_s][:term_end_date])
+    if  check_start_date&&check_end_date
       if @employment.update_attributes(params[:employment][@employment.id.to_s])
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Employment ID #{@employment.id}.")
       else
@@ -96,6 +105,11 @@ class EmploymentsController < ApplicationController
         end
 
       end
+       else
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+
+     respond_to do |format|
       format.js { render 'show.js' }
       
     end

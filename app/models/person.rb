@@ -129,7 +129,7 @@ class Person < ActiveRecord::Base
   ################
   #++
 
-  before_save :insert_primary_salutation, :insert_duplication_value
+  before_save :insert_primary_salutation, :insert_duplication_value,:check_birthday
   after_create :update_primary_list
   #set to_be_removed to be false before save
 
@@ -370,6 +370,16 @@ class Person < ActiveRecord::Base
   def set_to_be_removed_and_active
     self.to_be_removed=false
     self.status = true
+  end
+
+  def check_birthday
+
+  
+    if self.birth_date >  Date.today
+        return false
+    else
+      return true
+    end
 
   end
 

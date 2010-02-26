@@ -229,6 +229,10 @@ class PeopleController < ApplicationController
   end
 
   def create
+    
+      check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date]) 
+      if check_valid_date
+
     @person = Person.new(params[:person])
     @person.onrecord_since = Date.today()
     if @person.save
@@ -250,7 +254,7 @@ class PeopleController < ApplicationController
       #        # If the user wants to continue adding records
       #      else
       flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
-      redirect_to new_person_path
+#         redirect_to new_person_path
       #end
     else
       @person.addresses.build(params[:person][:addresses_attributes][0]) if @person.addresses.empty?
@@ -271,13 +275,23 @@ class PeopleController < ApplicationController
       flash[:message] = "There Was an Error to Create a New User"
       #      redirect_to new_person_path
       #      render :action => "new"
-      redirect_to new_person_path
+    
     end
+
+       else
+
+      flash[:message] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+       
+      end
+       redirect_to new_person_path
   end
 
   def update
 
+      check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
+
     @person = Person.find(params[:id])
+    if check_valid_date
     Image.transaction do
       unless params[:image].nil?
         @image = Image.new(params[:image])
@@ -290,6 +304,8 @@ class PeopleController < ApplicationController
       end
     end
 
+
+
     @person.update_attributes(params[:person])
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person #{@person.id}.")
     flash[:warning] = "There was an error updating the person's details." unless @person.save
@@ -298,6 +314,9 @@ class PeopleController < ApplicationController
     flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
     #modified by Tao, removing "submit and close", code is commited for further checking
     #if(params[:edit])
+    else
+      flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
     redirect_to edit_person_path(@person)
     #else
     #    redirect_to person_path(@person)

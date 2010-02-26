@@ -89,6 +89,11 @@ class ClientSetupsController < ApplicationController
   def update
     @client_setup = ClientSetup.first
 
+
+    check_installation_date = params[:client_setup][:installation_date].blank? ? true : valid_date(params[:client_setup][:halt_date])
+        check_halt_date = params[:client_setup][:installation_date].blank? ? true : valid_date(params[:client_setup][:halt_date])
+         check_birthday_date = params[:client_setup][:date_of_birth].blank? ? true : valid_date(params[:client_setup][:date_of_birth])
+       if check_installation_date&&check_halt_date&&check_birthday_date
     if params[:parameters]
       label_has_gap = nil
 
@@ -136,6 +141,12 @@ class ClientSetupsController < ApplicationController
       flash[:message] = "Client Setup is updated"
     end
 
+
+    else
+      flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
+
+
     if params[:installation]
       redirect_to installation_client_setups_path
     elsif
@@ -165,13 +176,22 @@ class ClientSetupsController < ApplicationController
 
    @query=""
 
-    if (params[:start_date].blank? || params[:end_date].blank?)
-         @start_date= '0001-01-01 00:00:01' if params[:start_date].blank?
-         @end_date = '9999-12-31 23:59:59' if params[:end_date].blank?
+    if (params[:start_date].blank? || params[:end_date].blank? )
+         params[:start_date]= '01-01-1909' if params[:start_date].blank?
+         params[:end_date] = '12-31-2599' if params[:end_date].blank?
+         
+        if valid_date(params[:start_date]) && valid_date(params[:end_date])
+         @start_date=params[:start_date]
+         @end_date=params[:end_date]
+       else
+       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
     else
 
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
+
+    puts "abcded"
     @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     else
@@ -179,7 +199,15 @@ class ClientSetupsController < ApplicationController
     end
     
     end
-
+# puts "***********88"
+# puts valid_date(params[:start_date]) && valid_date(params[:end_date])
+# puts valid_date(params[:start_date])
+#  puts valid_date(params[:end_date])
+# puts params[:start_date]
+# puts params[:end_date]
+#  puts "111111188"
+# puts @start_date
+# puts @end_date
 
     if flash.now[:error].nil?
     @query << "start_date="+@start_date+"&end_date="+@end_date

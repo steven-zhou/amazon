@@ -1,4 +1,4 @@
-<% if @employment.errors.empty? -%>
+<% if flash[:error].nil? -%>
   $('#employments').html('<%= escape_javascript(render(:partial => "/employments/employment",:collection => @person.employments)) %>');
   $("#new_employment")[0].reset();
   $("#new_employment").hide();

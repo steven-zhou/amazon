@@ -1,4 +1,4 @@
-<% if @masterdoc.errors.empty? -%>
+<% if @masterdoc.errors.empty? && flash[:error].nil? -%>
   $('#masterdocs').html('<%= escape_javascript(render(:partial => "/master_docs/master_doc",:collection => @entity.master_docs)) %>');
 
   $("#new_master_doc")[0].reset();

@@ -1,4 +1,4 @@
-<% if @campaign.errors.empty? -%>
+<% if @campaign.errors.empty? && flash[:error].nil?  -%>
 $('#add_new_campaign').html('<%= escape_javascript(render(:partial => "/receipting/new_campaign")) %>');
 $('#existing_campaigns').html('<%= escape_javascript(render(:partial => "/receipting/existing_campaigns")) %>');
 $('#campaign_mode').attr('mode', 'show');

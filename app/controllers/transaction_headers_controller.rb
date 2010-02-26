@@ -214,6 +214,7 @@ class TransactionHeadersController < ApplicationController
       end
 
       if valid_date(params[:start_system_date]) && valid_date(params[:end_system_date])
+
         if (!params[:start_system_date].blank? || !params[:end_system_date].blank?)
           params[:start_system_date] = "01-01-#{Date.today().year().to_s}" if params[:start_system_date].blank?
           params[:end_system_date] = "31-12-#{Date.today().year().to_s}" if params[:end_system_date].blank?
