@@ -2938,6 +2938,7 @@ disable_form_after_submit = function(submit_button){
         target_form = submit_button.closest('form');
     }
     target_form.find("input").attr("readonly", true);
+     target_form.find("input[type = 'submit']").attr("disabled", true);
     target_form.find("select").attr("readonly", true);
     target_form.find("textarea").attr("readonly", true);
     submit_button.attr("disabled", true);

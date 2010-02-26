@@ -513,14 +513,18 @@ class TransactionHeadersController < ApplicationController
     file_dir = "temp/#{@current_user.user_name}/bank_run_reports"
     FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
 
+    #pdf header and footer
+    now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
+    pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
+
     #prepare bank deposit sheet
 
     @bank_deposit_sheet = render_to_string(:partial => "transactions/bank_deposit_sheet")
     File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html", 'w') do |f|
       f.puts "#{@bank_deposit_sheet}"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
-    flash[:comfirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run.id}-BankDepositSheet.pdf\'>#{@run.id}-BankDepositSheet.pdf</a></p>"
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
+    flash[:comfirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run.id}-BankDepositSheet.pdf\' target='_blank'>#{@run.id}-BankDepositSheet.pdf</a></p>"
 
 
     #prepare bank run audit sheet
@@ -529,8 +533,8 @@ class TransactionHeadersController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
         f.puts "#{@bank_run_audit_sheet}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
-      flash[:comfirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf\'>#{@run.id}-BankRunAuditSheet.pdf</a></p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
+      flash[:comfirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run.id}-BankRunAuditSheet.pdf</a></p>"
     end
     
     #prepare bank run campaign summary
@@ -539,8 +543,8 @@ class TransactionHeadersController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html", 'w') do |f|
         f.puts "#{@bank_run_campaign_summary}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html"
-      flash[:comfirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf\'>#{@run.id}-BankRunCampaignSummary.pdf</a></p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html"
+      flash[:comfirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf\' target='_blank'>#{@run.id}-BankRunCampaignSummary.pdf</a></p>"
     end
 
     #prepare credit card receipt
@@ -558,8 +562,8 @@ class TransactionHeadersController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html", 'w') do |f|
         f.puts "#{@credit_card_receipt}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html"
-      flash[:comfirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf\'>#{@run.id}-CreditCardReceipt.pdf</a></p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf #{pdf_options}"
+      flash[:comfirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf\' target='_blank'>#{@run.id}-CreditCardReceipt.pdf</a></p>"
     end
     
     #prepare receipt account summary
@@ -568,8 +572,8 @@ class TransactionHeadersController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html", 'w') do |f|
         f.puts "#{@receipt_account_summary}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html"
-      flash[:comfirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf\'>#{@run.id}-ReceiptAccountSummary.pdf</a></p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html"
+      flash[:comfirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf\' target='_blank'>#{@run.id}-ReceiptAccountSummary.pdf</a></p>"
     end
     
     #prepare receipt type summary
@@ -578,8 +582,8 @@ class TransactionHeadersController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html", 'w') do |f|
         f.puts "#{@receipt_type_summary}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
-      flash[:comfirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf\'>#{@run.id}-ReceiptTypeSummary.pdf</a><p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
+      flash[:comfirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf\' target='_blank'>#{@run.id}-ReceiptTypeSummary.pdf</a><p>"
     end
   end
       

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100217065103) do
+ActiveRecord::Schema.define(:version => 20100226005557) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -336,6 +336,9 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.string   "dialup_code"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.boolean  "status"
+    t.boolean  "to_be_removed"
+    t.string   "iso_number"
   end
 
   create_table "dashboard_preferences", :force => true do |t|
@@ -528,14 +531,6 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.integer  "updater_id"
   end
 
-  create_table "languages", :force => true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-  end
-
   create_table "list_details", :force => true do |t|
     t.integer  "list_header_id"
     t.integer  "entity_id"
@@ -651,6 +646,7 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.integer  "mail_merge_category_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.boolean  "status"
   end
 
   create_table "notes", :force => true do |t|
@@ -842,6 +838,8 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.boolean  "status"
+    t.boolean  "to_be_removed"
   end
 
   create_table "postcodes", :force => true do |t|
@@ -862,15 +860,19 @@ ActiveRecord::Schema.define(:version => 20100217065103) do
     t.integer "electoral_area_id"
     t.integer "creator_id"
     t.integer "updater_id"
+    t.boolean "status"
+    t.boolean "to_be_removed"
   end
 
   create_table "potential_members", :force => true do |t|
-    t.string  "first_name"
-    t.string  "family_name"
-    t.string  "email"
-    t.string  "validation_key"
-    t.integer "creator_id"
-    t.integer "updater_id"
+    t.string   "first_name"
+    t.string   "family_name"
+    t.string   "email"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "validation_key"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "query_criterias", :force => true do |t|
