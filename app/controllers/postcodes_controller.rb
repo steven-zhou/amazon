@@ -96,4 +96,20 @@ class PostcodesController < ApplicationController
     end
   end
 
+   def lookup_postcode
+     puts"--DEBUGSSS---#{params[:suburb]}"
+     puts"--DEBUG-TTTT--#{params[:state]}"
+
+
+    @postcode = Postcode.lookup_postcode(params[:suburb],params[:state])
+    @postcode_id = @postcode.try(:postcode)
+    @postcode_country_name = @postcode.try(:country).try(:short_name)
+
+    puts"-----------DEBUG-----1211111 #{@postcode_country_name.to_yaml}----"
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

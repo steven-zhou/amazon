@@ -637,6 +637,7 @@ label {
     line-height:16px;
     width: 96%;
     height: 18px;
+    text-transform:capitalize;
 
 }
 
@@ -2738,3 +2739,5 @@ input.error_flag{
 }
 
 #confirm_message_text a {color:red;text-decoration:underline;}
+
+.uppercase{text-transform: uppercase;}

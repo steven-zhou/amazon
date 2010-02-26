@@ -17,4 +17,8 @@ class Postcode < ActiveRecord::Base
     @post_code = Postcode.find(:all, :conditions => ["suburb ILIKE ? AND state ILIKE ? AND postcode LIKE ?", "%#{suburb}%", "%#{state}%", "%#{postcode}%"])
   end
 
+  def self.lookup_postcode(suburb, state)
+    Postcode.find(:first, :conditions => ["suburb ILIKE ? AND state ILIKE ?", "%#{suburb}%", "%#{state}%"])
+  end
+
 end

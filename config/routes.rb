@@ -151,7 +151,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :post_areas, :collection => {:select_ajax_show => :get}
   map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get}
-  map.resources :postcodes, :collection => {:show_by_country => :get}
+  map.resources :postcodes, :collection => {:show_by_country => :get, :lookup_postcode => :get}
   map.resources :languages, :collection => {:show_languages => :get}
   map.resources :banks, :collection => {:list=>:get,:name_finder => :get,:lookup=>:get,:lookup_fill => :get,:refresh_existing_banks=>:get,:delete_bank_entry=>:get,:edit_bank_entry=>:get}
   map.resources :religions

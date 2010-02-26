@@ -1742,13 +1742,13 @@ $(function(){
 
             var link = $(this);
             if (link.attr("message")!="")
-              {
-                 $('#warning_message_text').html("Are You Sure You Want to "+link.attr("message")+"?");
-              }
-              else
-                {
-                 $('#warning_message_text').html("Are You Sure You Want to Change?  ");
-                }
+            {
+                $('#warning_message_text').html("Are You Sure You Want to "+link.attr("message")+"?");
+            }
+            else
+            {
+                $('#warning_message_text').html("Are You Sure You Want to Change?  ");
+            }
 
 
             $('#warning_message_image').css("display","");
@@ -2717,7 +2717,7 @@ $(function(){
     });
 
     $('.close_edit').live('click', function(){
-      $('table.selectable_grid[field='+ $(this).attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
+        $('table.selectable_grid[field='+ $(this).attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
     });
 });
 
@@ -2938,7 +2938,7 @@ disable_form_after_submit = function(submit_button){
         target_form = submit_button.closest('form');
     }
     target_form.find("input").attr("readonly", true);
-     target_form.find("input[type = 'submit']").attr("disabled", true);
+    target_form.find("input[type = 'submit']").attr("disabled", true);
     target_form.find("select").attr("readonly", true);
     target_form.find("textarea").attr("readonly", true);
     submit_button.attr("disabled", true);
@@ -3162,17 +3162,17 @@ delete_from_grid = function(grid,mode,type,url){
 retrieve_from_grid = function(grid,mode,type,url){
     var trSelected = grid
     var id = "";
-   if($(mode).attr('mode')=="show"){
-    if (trSelected != undefined){
-        id = trSelected.substring(3);
-        $.ajax({
-            type: type,
-            url: url,
-            data: "id="+id,
-            dataType: "script"
-        });
-    };
-        }
+    if($(mode).attr('mode')=="show"){
+        if (trSelected != undefined){
+            id = trSelected.substring(3);
+            $.ajax({
+                type: type,
+                url: url,
+                data: "id="+id,
+                dataType: "script"
+            });
+        };
+    }
 
 };
 
@@ -3266,5 +3266,52 @@ select_ban_submit_check = function(link){
 $(".select_ban_submit").live('change', function(){
     select_ban_submit_check($(this));
 });
+
+
+
+
+post_code_auto = function(link){
+    // link = this---this input field
+
+        var current_form = $('#'+ link.closest('form').attr('id'));
+        var suburb = current_form.find('.suburb_value').val();
+        var state = current_form.find('.state_value').val();
+        var postcode =current_form.find('.postcode_auto').val();
+        if (suburb != ""&& state != ""){
+
+           $.ajax({
+                type: "GET",
+                url: "/postcodes/lookup_postcode.js",
+                data: 'state='+state+'&suburb='+suburb,
+                dataType: "script"
+            });
+
+        }else{
+
+        }
+
+    }
+
+
+
+$(function(){
+    $('.state_value').blur(function(){
+
+            post_code_auto($(this));
+
+    });
+
+});
+
+$(function(){
+    $('.suburb_value').blur(function(){
+
+            post_code_auto($(this));
+
+
+    });
+
+});
+
 
 

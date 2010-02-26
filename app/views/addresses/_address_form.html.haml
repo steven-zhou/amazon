@@ -30,7 +30,7 @@
 .form_line
   .field_40{:style => "margin-right: 5px;"}
     = address.label :town, 'Suburb'
-    = address.text_field :town ,:id => @address.new_record? ? "address_town" : "address_#{@address.id}_town" ,:style => "width:99%;"
+    = address.text_field :town , :class => "suburb_value", :id => @address.new_record? ? "address_town" : "address_#{@address.id}_town" ,:style => "width:99%;"
    
 
   .field_5
@@ -38,14 +38,14 @@
     = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>@address.new_record? ? "address_town" : "address_#{@address.id}_town",:update_field2 =>@address.new_record? ? "address_state" : "address_#{@address.id}_state" ,:update_field3 => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code",:update_field4 => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id", :title=>"Postcode"
   .field_40
     = address.label :state, 'State/Province'
-    = address.text_field :state , :id => @address.new_record? ? "address_state" : "address_#{@address.id}_state"
+    = address.text_field :state , :id => @address.new_record? ? "address_state" : "address_#{@address.id}_state",  :class => "state_value"
 .form_line
   .field_45
     = address.label :postal_code, 'Postal Code'
-    = address.text_field :postal_code, :id => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code"
+    = address.text_field :postal_code, :id => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code", :class => "postcode_auto"
   .field_45
     = address.label :country, 'Country'
-    = address.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"}
+    = address.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"}, :class => "uppercase country_value"
 
 
 

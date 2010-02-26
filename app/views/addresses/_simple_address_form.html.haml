@@ -21,7 +21,7 @@
 .form_line
   .field_40
     = address.label :town, 'Suburb/Town'
-    = address.text_field :town
+    = address.text_field :town, :class => "suburb_value"
   .field_5
     %label &nbsp;
     -if !@person.nil?
@@ -30,12 +30,12 @@
       = link_to_function image_tag ('Icons/System/postcode_check.png'), :style => 'display:inline', :class => "launch_address_assistant" ,:update_field1 =>"organisation_addresses_attributes_0_town", :update_field2 =>"organisation_addresses_attributes_0_state",:update_field3 => "organisation_addresses_attributes_0_postal_code", :update_field4 => "organisation_addresses_attributes_0_country_id", :title=>"Postcode"
   .field_50
     = address.label :state, 'State/Province'
-    = address.text_field :state
+    = address.text_field :state,  :class => "state_value"
 
 .form_line
   .field_47
     = address.label :postal_code, 'Postal Code'
-    = address.text_field :postal_code
+    = address.text_field :postal_code ,:class => "postcode_auto"
   .field_49
     = address.label :country, 'Country'
-    = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true}
+    = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true}, :class => "uppercase country_value"
