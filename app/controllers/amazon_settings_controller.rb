@@ -112,10 +112,6 @@ class AmazonSettingsController < ApplicationController
 
   def delete_system_data_entry
     amazon_setting = AmazonSetting.find(params[:id])
-#    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
-    #amazon_setting.destroy
-
-    #if 'to_be_removed' is true, then this recored will be physically deleted from database in maintaince prgress
     amazon_setting.to_be_removed = true
     amazon_setting.save!
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Amazon Setting ID #{amazon_setting.id}.")
