@@ -1,3 +1,10 @@
+%script{:type => "text/javascript"}
+  :plain
+
+    iphone_checkbox();
+
+
+
 -form_for @login_account, :url=> {:controller => 'login_accounts',:action => 'create'}, :html => {:class => 'ajax_form create_account', :id => "new_login_account"} do |login|
   .form_line
     .field_12
@@ -26,7 +33,7 @@
         %span{:id => "user_name_container_0", :class => "viewname"}
       -else
         %span{:id => "user_name_container_#{@login_account.id}"} #{@login_account.user_name}
-    .field_35
+    .field_23
       = login.label :security_email, "<span class='asterisk'>*</span>Email"
       = login.text_field :security_email, :class => "user_email_new mandantory_field", :mandantory_field1=>"login_account_person_id",:mandantory_field2=>"login_account_user_name",:mandantory_field3=>"login_account_security_email",:submit_button_id=>"user_account_new_submit",:id => "login_account_security_email" , :name => "login_account[security_email]"
     -#.field_15
@@ -36,16 +43,16 @@
       &nbsp;&nbsp;&nbsp;
       = login.radio_button :login_status, false, :style => "width:10%"
       %label{:style => "display:inline"} Inactive
-    .field_2
+    .field_5
       = login.label :login_status, '&nbsp'
       = login.check_box :login_status, :checked => true, :class => "checkbox_style", :id => "login_account_login_status" , :name => "login_account[login_status]"
-    .field_8
+    .field_5
       = login.label :login_status, '&nbsp'
       = login.label :login_status, 'Active', :style => "margin-top:6px;"
-    .field_2
+    .field_5
       = login.label :system_user, '&nbsp'
       = login.check_box :system_user,{:checked => true, :style => "width:10%", :id => "login_account_system_user" , :name => "login_account[system_user]"}
-    .field_10
+    .field_8
       = login.label :system_user, '&nbsp'
       = login.label :system_user, 'System User', :style => "margin-top:6px;"
   -#.form_line

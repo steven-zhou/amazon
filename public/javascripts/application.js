@@ -3076,6 +3076,7 @@ iphone_checkbox = function(){
 
 };
 
+
 /* for help button */
 $(function(){
     //ajax invoke the help lightbox

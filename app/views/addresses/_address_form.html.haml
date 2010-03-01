@@ -45,7 +45,7 @@
     = address.text_field :postal_code, :id => @address.new_record? ? "address_postal_code" : "address_#{@address.id}_postal_code", :class => "postcode_auto"
   .field_45
     = address.label :country, 'Country'
-    = address.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id"}, :class => "uppercase country_value"
+    = address.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => @address.new_record? ? "address_country_id" : "address_#{@address.id}_country_id", :class => "uppercase country_value"}
 
 
 

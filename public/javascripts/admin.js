@@ -177,12 +177,12 @@ $(function(){
             $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
             $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
             $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
-//            $.ajax({
-//                type: "GET",
-//                url: "/amazon_settings/system_settings_finder.js",
-//                data: 'type=' + $("#system_data_type").val(),
-//                dataType: "script"
-//            });
+        //            $.ajax({
+        //                type: "GET",
+        //                url: "/amazon_settings/system_settings_finder.js",
+        //                data: 'type=' + $("#system_data_type").val(),
+        //                dataType: "script"
+        //            });
 
         }
 
@@ -1999,19 +1999,19 @@ $(function(){
             $("#keyword_add_entry").css("display","");
             $("#keyword_mode").attr('mode', 'show');
             $("#keyword_add_entry_form").hide();
-             $("#keyword_add_data").show();
+            $("#keyword_add_data").show();
             $("#keyword_type").attr("disabled",false);
             $("#edit_keyword_entry").html("");
             $(".keyword_entry_selected").removeClass("keyword_entry_selected");
             $('.flexigrid table.selectable_grid tr.IamEdited td').css("background-color","");
             $('.flexigrid table.selectable_grid tr.IamEdited').removeClass("IamEdited");
             $('.flexigrid table.selectable_grid tr.trSelected').removeClass("trSelected");
-//            $.ajax({
-//                type: "GET",
-//                url: "/keywords/keywords_finder.js",
-//                data: 'type=' + $("#keyword_type").val(),
-//                dataType: "script"
-//            });
+        //            $.ajax({
+        //                type: "GET",
+        //                url: "/keywords/keywords_finder.js",
+        //                data: 'type=' + $("#keyword_type").val(),
+        //                dataType: "script"
+        //            });
 
         }
 
@@ -2544,10 +2544,10 @@ $(function(){
 
                 }
                 else
-                    {
+                {
                     $('#input_data_value').css('display','none');
                     $("#global_run").attr('disabled',false);
-                    }
+                }
 
 
                 if($('#select_system_data').css('display')=='none')
@@ -2749,4 +2749,9 @@ $(function(){
 
     });
 });
+
+
+
+
+
 

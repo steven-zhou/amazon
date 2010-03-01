@@ -82,7 +82,9 @@ class PostcodesController < ApplicationController
   
   def destroy
     @postcode = Postcode.find(params[:id])
-    @postcode.destroy
+#    @postcode.destroy
+@postcode.to_be_removed = true
+@postcode.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted postcode with ID #{@postcode.id}.")
     respond_to do |format|
       format.js
@@ -100,6 +102,17 @@ class PostcodesController < ApplicationController
     @postcode = Postcode.lookup_postcode(params[:suburb],params[:state])
     @postcode_id = @postcode.try(:postcode)
     @postcode_country_name = @postcode.try(:country).try(:short_name)
+    respond_to do |format|
+      format.js
+    end
+  end
+
+    def retrieve_postcode
+    @postcode = Postcode.find(params[:id])
+#    @postcode.destroy
+   @postcode.to_be_removed = false
+   @postcode.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieved postcode with ID #{@postcode.id}.")
     respond_to do |format|
       format.js
     end

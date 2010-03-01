@@ -1,10 +1,8 @@
-<% if @postcode.errors.empty? -%>
-$('#add_new_postcode').html('<%= escape_javascript(render(:partial => "/postcodes/new_postcode")) %>').css('display','');
-$('#existing_postcodes').html('<%= escape_javascript(render(:partial => "/postcodes/existing_postcodes")) %>');
-$('#postcode_mode').attr('mode', 'show');
-$('.select_ajax_call[field="postcode"]').attr('disabled', false)
-$('#edit_postcode').css('display','none');
-  
+<% if flash[:error].nil? -%>
+$('#add_new_country').html('<%= escape_javascript(render(:partial => "/countries/new_country")) %>');
+$('#existing_countries').html('<%= escape_javascript(render(:partial => "/countries/existing_countries")) %>');
+$('#country_mode').attr('mode', 'show');
+
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
  $('#flash_message').dialog( {

@@ -3,6 +3,7 @@ class PostAreasController < ApplicationController
   def select_ajax_show
     @postal_areas = (params[:type]).camelize.constantize.find_all_by_country_id(params[:param1])
     @country_id = params[:param1]
+    @country_id_ele = params[:param1]
     session[:geo_country_id]= params[:param1]
     session[:ele_country_id]= params[:param1]
     if (params[:type]== "GeographicalArea")
@@ -100,11 +101,41 @@ class PostAreasController < ApplicationController
 
   def destroy
     @postal_area = PostArea.find(params[:id].to_i)
+    
+#    @postal_area.destroy
+    if (@postal_area.class.to_s == "GeographicalArea")
+      @type = "geo_area"
+    else
+      @type = "electoral_area"
+    end
+        @country_id = session[:geo_country_id]
+    @country_id_ele = session[:ele_country_id]
+
+    @postal_area.to_be_removed = true
+    @postal_area.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted #{@postal_area.class.to_s} ID #{@postal_area.id}.")
-    @postal_area.destroy
     respond_to do |format|
       format.js
     end
+  end
+
+
+  def retrieve_post_areas
+      @postal_area = PostArea.find(params[:id].to_i)
+    if (@postal_area.class.to_s == "GeographicalArea")
+      @type = "geo_area"
+    else
+      @type = "electoral_area"
+    end
+        @country_id = session[:geo_country_id]
+    @country_id_ele = session[:ele_country_id]
+      @postal_area.to_be_removed = false
+    @postal_area.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve #{@postal_area.class.to_s} ID #{@postal_area.id}.")
+    respond_to do |format|
+      format.js
+    end
+
   end
 
 end

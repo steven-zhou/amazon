@@ -1346,17 +1346,28 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @country.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.long_name,
-          u.short_name,
-          u.citizenship,
-          u.capital,
-          u.iso_code,
-          u.iso_number,
-          u.dialup_code,
-          u.main_language_id.nil? ? "" : u.main_language.name,
-          #         u.govenment_language,
-          u.currency,
-          u.currency_subunit]}}
+#          u.long_name,
+#          u.short_name,
+#          u.citizenship,
+#          u.capital,
+#          u.iso_code,
+#          u.iso_number,
+#          u.dialup_code,
+#          u.main_language_id.nil? ? "" : u.main_language.name,
+#          #         u.govenment_language,
+#          u.currency,
+#          u.currency_subunit
+          u.to_be_removed? ? "<span class='red'>"+u.long_name+"</span>": u.long_name,
+          u.to_be_removed? ? "<span class='red'>"+u.short_name+"</span>": u.short_name,
+          u.to_be_removed? ? "<span class='red'>"+u.citizenship+"</span>": u.citizenship,
+          u.capital.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.capital+"</span>": u.capital,
+          u.iso_code.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.iso_code+"</span>": u.iso_code,
+          u.iso_number.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.iso_number+"</span>": u.iso_number,
+          u.dialup_code.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.dialup_code+"</span>": u.dialup_code,
+
+          u.main_language_id.nil? ? "" :  u.to_be_removed? ? "<span class='red'>"+u.main_language.name+"</span>": u.main_language.name,
+          u.currency.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.currency+"</span>": u.currency,
+          u.currency_subunit.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.currency_subunit+"</span>": u.currency_subunit          ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1480,8 +1491,9 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @language.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.name,
-          u.description]}}
+         u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
+
+          u.description.nil? ?  "" :  u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1541,8 +1553,9 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @geographical_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.division_name,
-          u.remarks]}}
+          u.to_be_removed? ? "<span class='red'>"+u.division_name+"</span>" : u.division_name,
+         u.remarks.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.remarks+ "</span>" :  u.remarks)
+     ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1600,8 +1613,10 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @religion.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.name,
-          u.description]}}
+  u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
+
+          u.description.nil? ?  "" :  u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description]}}
+
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1661,8 +1676,9 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @electoral_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.division_name,
-          u.remarks]}}
+           u.to_be_removed? ? "<span class='red'>"+u.division_name+"</span>" : u.division_name,
+         u.remarks.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.remarks+ "</span>" :  u.remarks)
+     ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1742,11 +1758,12 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @postcodes.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.state,
-          u.suburb,
-          u.postcode,
-          u.geographical_area_id.nil? ? "" : u.geographical_area.division_name,
-          u.electoral_area_id.nil? ? "" : u.electoral_area.division_name
+          u.to_be_removed? ? "<span class='red'>"+u.state+"</span>": u.state,
+          u.to_be_removed? ? "<span class='red'>"+u.suburb+"</span>": u.suburb,
+          u.to_be_removed? ? "<span class='red'>"+u.postcode+"</span>": u.postcode,
+          u.geographical_area_id.nil? ? "" :(u.to_be_removed? ? "<span class='red'>"+u.geographical_area.division_name+"</span>": u.geographical_area.division_name),
+         u.electoral_area_id.nil? ? "" :(u.to_be_removed? ? "<span class='red'>"+u.electoral_area.division_name+"</span>": u.electoral_area.division_name),
+
         ]}}
 
     # Convert the hash to a json object
