@@ -5,7 +5,7 @@ class Title < AmazonSetting
   has_many :second_title_owners, :class_name => "Person", :foreign_key => "second_title_id"
 
   validates_presence_of :name
-  validates_uniqueness_of :name, :message => "A title already exists with the same name."
+  validates_uniqueness_of :name
 
   after_create :assign_priority
   before_destroy :reorder_priority

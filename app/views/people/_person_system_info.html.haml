@@ -48,8 +48,9 @@
     %h1 Membership
 
   %div#membership_details.left{:style => "width:100%;display:none;"}
-    %br
-    %br
+    .container
+      .right
+        = link_to "Become a member", :controller => "memberships", :action => "apply"
 
 %div.container
   %div.toggle_div{:toggle_id_name => "fundrainsing_details", :style => "cursor: pointer;"}
