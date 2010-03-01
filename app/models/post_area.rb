@@ -2,7 +2,6 @@ class PostArea < ActiveRecord::Base
 
   validates_presence_of :division_name
   belongs_to :country
-  has_many :postcodes
  
   before_destroy :delete_all_links
 
