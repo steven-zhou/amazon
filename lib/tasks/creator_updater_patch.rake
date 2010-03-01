@@ -33,7 +33,7 @@ namespace :db do
       table.singularize.camelize.constantize.all.each do |i|
         i.creator_id = 1 if i.creator_id.nil?
         i.updater_id = 1 if i.updater_id.nil?
-        i.save!
+        i.save if i.creator_id.nil? || i.updater_id.nil?
       end
     end
   end

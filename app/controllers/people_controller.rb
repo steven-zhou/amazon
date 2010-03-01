@@ -53,6 +53,8 @@ class PeopleController < ApplicationController
     else
       #@group_types = @current_user.group_types
       @list_headers = @current_user.all_person_lists
+      puts "***********************"
+      puts @list_headers
       @active_tab = params[:active_tab]
       @active_sub_tab = params[:active_sub_tab]
       #when it is cal show action

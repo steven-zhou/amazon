@@ -21,4 +21,15 @@ class Postcode < ActiveRecord::Base
     Postcode.find(:first, :conditions => ["suburb ILIKE ? AND state ILIKE ?", "%#{suburb}%", "%#{state}%"])
   end
 
+  after_save :update_parent_when_retrieve
+
+  private
+
+  def update_parent_when_retrieve
+    if self.to_be_removed == false && self.country.to_be_removed == true
+      self.country.to_be_removed = false
+      self.country.save
+    end
+  end
+
 end

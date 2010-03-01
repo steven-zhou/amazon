@@ -5,15 +5,15 @@ person_list_headers = PersonListHeader.all
 
 Person.find(:all,:conditions=>["to_be_removed = true"]).each do |person|
 
-  puts "Destroy People on the user group"
-
-  person_on_user_group = UserGroup.find_by_user_id(person.id)
-  person_on_user_group.destroy unless person_on_user_group.nil?
-
-  puts "Destroy People on the user list"
-
-  person_on_user_list = UserList.find_by_user_id(person.id)
-  person_on_user_list.destroy unless person_on_user_list.nil?
+#  puts "Destroy People on the user group"
+#
+#  person_on_user_group = UserGroup.find_by_user_id(person.id)
+#  person_on_user_group.destroy unless person_on_user_group.nil?
+#
+#  puts "Destroy People on the user list"
+#
+#  person_on_user_list = UserList.find_by_user_id(person.id)
+#  person_on_user_list.destroy unless person_on_user_list.nil?
 
 
 
