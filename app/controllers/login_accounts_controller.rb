@@ -100,7 +100,7 @@ class LoginAccountsController < ApplicationController
     @login_account.update_password = false
     if @login_account.update_attributes(params[:login_account])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Login Account ID #{@login_account.id} #{@login_account.user_name}.")
-      flash.now[:message] = " New User Account is Saved successfully."
+      flash.now[:message] = " User Account is updated successfully."
     else
       flash.now[:error] = flash_message(:type => "field_missing", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "too_short", :field => "user_name")if(!@login_account.errors[:user_name].nil? && @login_account.errors.on(:user_name).include?("pick a longer name"))
