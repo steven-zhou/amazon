@@ -3,6 +3,7 @@ class PaymentMethod < AmazonSetting
   acts_as_list
 
   has_many :employments
+  has_many :membership_fees,:class_name =>"MembershipFee",:foreign_key => "smembership_id"
 
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "A payment method already exists with the same name."
