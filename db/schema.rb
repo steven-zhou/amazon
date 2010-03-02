@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100301052737) do
+ActiveRecord::Schema.define(:version => 20100302000611) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -634,6 +634,48 @@ ActiveRecord::Schema.define(:version => 20100301052737) do
     t.integer  "issue_country_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
+  end
+
+  create_table "memberships", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "employer_id"
+    t.integer  "workplace_id"
+    t.integer  "membership_status_id"
+    t.integer  "membership_type_id"
+    t.integer  "campaign_id"
+    t.integer  "source_id"
+    t.integer  "last_transaction_id"
+    t.integer  "letter_id"
+    t.integer  "initiated_by"
+    t.date     "initiated_date"
+    t.text     "initiated_comment"
+    t.integer  "reviewed_by"
+    t.date     "reviewed_date"
+    t.text     "reviewed_comment"
+    t.integer  "next_reviewed_by"
+    t.date     "next_reviewed_date"
+    t.text     "next_reviewed_comment"
+    t.integer  "finalized_by"
+    t.date     "finalized_date"
+    t.text     "finalized_comment"
+    t.date     "starting_date"
+    t.text     "starting_comment"
+    t.date     "ending_date"
+    t.text     "ending_comment"
+    t.integer  "suspended_by"
+    t.date     "suspended_date"
+    t.text     "suspended_comment"
+    t.integer  "terminated_by"
+    t.date     "terminated_date"
+    t.text     "terminated_comment"
+    t.decimal  "last_amount_paid",      :precision => 11, :scale => 3
+    t.date     "last_amount_date"
+    t.decimal  "YTD_total",             :precision => 11, :scale => 3
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.boolean  "active"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "message_templates", :force => true do |t|
