@@ -2541,6 +2541,9 @@ $(function(){
 $(function(){
     $(".select_ajax_call").live('change', function(){
         if($(this).val() != ""){
+            if($(this).attr("update_field")!=undefined){
+              $('#'+$(this).attr("update_field")).attr("disabled", "true");
+            }
             $.ajax({
                 type: $(this).attr("method"),
                 url: $(this).attr("url")+".js",

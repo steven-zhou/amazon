@@ -43,13 +43,13 @@ class TransactionHeadersController < ApplicationController
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new transaction with ID #{@transaction_header.id}.")
         
         #save transaction type detail
-        @transaction_type_detail = case @transaction_header.receipt_meta_meta_type.name
+        @transaction_type_detail = case @transaction_header.payment_method_type.name
         when "Cheque" then ChequeDetail.new(params[:transaction_type_detail])
         when "Credit Card" then CreditCardDetail.new(params[:transaction_type_detail])
         end
 
         #cash is not implemented
-        unless @transaction_header.receipt_meta_meta_type.name == "Cash"
+        unless @transaction_header.payment_method_type.name == "Cash"
           @transaction_type_detail.transaction_header_id = @transaction_header.id
           @transaction_type_detail.save!
         end
@@ -125,7 +125,7 @@ class TransactionHeadersController < ApplicationController
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for TransactionHeader with ID #{@transaction_header.id}.")
 
         #update transaction type detail
-        if @transaction_header.receipt_meta_meta_type.name + ' Detail' == @transaction_header.transaction_type_detail.class.to_s.titleize
+        if @transaction_header.payment_method_type.name + ' Detail' == @transaction_header.transaction_type_detail.class.to_s.titleize
           #if receipt meta meta type is not changed
           @transaction_type_detail = @transaction_header.transaction_type_detail
           @transaction_type_detail.update_attributes(params[:transaction_type_detail])
@@ -133,13 +133,13 @@ class TransactionHeadersController < ApplicationController
           #else receipt meta meta type is changed, destroy old detail and create a new one
           @transaction_type_detail_old = @transaction_header.transaction_type_detail
           @transaction_type_detail_old.destroy unless @transaction_type_detail_old.nil?
-          @transaction_type_detail = case @transaction_header.receipt_meta_meta_type.name
+          @transaction_type_detail = case @transaction_header.payment_method_type.name
           when "Cheque" then ChequeDetail.new(params[:transaction_type_detail])
           when "Credit Card" then CreditCardDetail.new(params[:transaction_type_detail])
           end
 
           #cash is not implemented
-          unless @transaction_header.receipt_meta_meta_type.name == "Cash"
+          unless @transaction_header.payment_method_type.name == "Cash"
             @transaction_type_detail.transaction_header_id = @transaction_header.id
             @transaction_type_detail.save!
           end
@@ -248,12 +248,12 @@ class TransactionHeadersController < ApplicationController
         conditions << ("banked=" + params[:banked])
       end
 
-      if (params[:receipt_meta_type_id] && params[:receipt_meta_type_id]!= "0")
-        conditions << ("receipt_meta_type_id=" + params[:receipt_meta_type_id])
+      if (params[:payment_method_type_id] && params[:payment_method_type_id]!= "0")
+        conditions << ("payment_method_type_id=" + params[:payment_method_type_id])
       end
 
-      if (params[:receipt_type_id] && params[:receipt_type_id]!= "0")
-        conditions << ("receipt_type_id=" + params[:receipt_type_id])
+      if (params[:payment_method_id] && params[:payment_method_id]!= "0")
+        conditions << ("payment_method_id=" + params[:payment_method_id])
       end
 
       if (params[:received_via_id] && params[:received_via_id]!= "0")
@@ -306,12 +306,12 @@ class TransactionHeadersController < ApplicationController
   end
 
   def enquiry_show_receipt_type
-    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])rescue  @receipt_meta_type = ReceiptMetaMetaType.new
+    @payment_method_type = PaymentMethodType.find(params[:param1])rescue  @payment_method_type = PaymentMethodType.new
     if params[:param1] != "0"
-      @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+      @payment_methods = PaymentMethod.find(:all, :conditions => ['tag_type_id = ? AND status = true AND to_be_removed = false', params[:param1]])
       @options = ""
       @options += "<option value = 0 >All"
-      @receipt_types.each do |i|
+      @payment_methods.each do |i|
         @options += '<option value=' + i.id.to_s + '>' + i.name
       end
       @cheque_detail = ChequeDetail.new
@@ -434,23 +434,23 @@ class TransactionHeadersController < ApplicationController
     
     @transactions.each do |i|
       bank_account = i.bank_account
-      receipt_meta_meta_type = i.receipt_meta_meta_type.try(:name)
-      receipt_meta_type = i.receipt_meta_type.try(:name)
+      payment_method_type = i.payment_method_type.try(:name)
+      payment_method = i.payment_method.try(:name)
       @accounts << bank_account unless @accounts.include?(bank_account)
 
-      if receipt_meta_meta_type == "Cash"
+      if payment_method_type == "Cash"
         @cash_transactions[bank_account.id] << i rescue @cash_transactions[bank_account.id]=[i]
       end
-      if receipt_meta_meta_type == "Cheque"
+      if payment_method_type == "Cheque"
         @cheque_transactions[bank_account.id] << i rescue @cheque_transactions[bank_account.id]=[i]
       end
 
       # for bank run audit sheet or credit cards receipt
       if params[:BRAS] || params[:CCR]
-        if receipt_meta_meta_type == "Credit Card"
-          if receipt_meta_type == "Master Card"
+        if payment_method_type == "Credit Card"
+          if payment_method == "Master Card"
             @master_transactions[bank_account.id] << i rescue @master_transactions[bank_account.id]=[i]
-          elsif receipt_meta_type == "Visa Card"
+          elsif payment_method == "Visa Card"
             @visa_transactions[bank_account.id] << i rescue @visa_transactions[bank_account.id]=[i]
           end
         end
@@ -461,11 +461,11 @@ class TransactionHeadersController < ApplicationController
         @receipt_account.each do |receipt_account|
           i.transaction_allocations.each do |transaction_allocation|
             if transaction_allocation.receipt_account.name == receipt_account.name
-              if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+              if transaction_allocation.transaction_header.payment_method_type.name == "Cash"
                 @receipt_account_cash[bank_account.id+receipt_account.id] << transaction_allocation.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
-              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+              elsif transaction_allocation.transaction_header.payment_method_type.name == "Cheque"
                 @receipt_account_cheque[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
-              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
+              elsif transaction_allocation.transaction_header.payment_method_type.name == "Credit Card"
                 @receipt_account_cards[bank_account.id+receipt_account.id] <<transaction_allocation.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [transaction_allocation.amount]
               end
             end
@@ -476,13 +476,13 @@ class TransactionHeadersController < ApplicationController
       # for receipt type summary
       if params[:RTS]
         i.transaction_allocations.each do |transaction_allocation|
-          if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+          if transaction_allocation.transaction_header.payment_method_type.name == "Cash"
             @receipt_type_cash[bank_account.id] << transaction_allocation.amount rescue @receipt_type_cash[bank_account.id]  = [transaction_allocation.amount]
-          elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+          elsif transaction_allocation.transaction_header.payment_method_type.name == "Cheque"
             @receipt_type_cheque[bank_account.id] <<transaction_allocation.amount rescue @receipt_type_cheque[bank_account.id] = [transaction_allocation.amount]
-          elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Master Card"
+          elsif transaction_allocation.transaction_header.payment_method.name == "Master Card"
             @receipt_type_master_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_master_cards[bank_account.id] = [transaction_allocation.amount]
-          elsif transaction_allocation.transaction_header.receipt_meta_type.name == "Visa Card"
+          elsif transaction_allocation.transaction_header.payment_method.name == "Visa Card"
             @receipt_type_visa_cards[bank_account.id] << transaction_allocation.amount rescue @receipt_type_visa_card[bank_account.id] = [transaction_allocation.amount]
           end
         end
@@ -494,11 +494,11 @@ class TransactionHeadersController < ApplicationController
         @campaign.each do |campaign|
           i.transaction_allocations.each do |transaction_allocation|
             if transaction_allocation.campaign.try(:name) == campaign.name
-              if transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cash"
+              if transaction_allocation.transaction_header.payment_method_type.name == "Cash"
                 @campaign_cash[bank_account.id+campaign.id] << transaction_allocation.amount rescue @campaign_cash[bank_account.id+campaign.id] = [transaction_allocation.amount]
-              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Cheque"
+              elsif transaction_allocation.transaction_header.payment_method_type.name == "Cheque"
                 @campaign_cheque[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [transaction_allocation.amount]
-              elsif transaction_allocation.transaction_header.receipt_meta_meta_type.name == "Credit Card"
+              elsif transaction_allocation.transaction_header.payment_method_type.name == "Credit Card"
                 @campaign_cards[bank_account.id+campaign.id] <<transaction_allocation.amount rescue @campaign_cards[bank_account.id+campaign.id] = [transaction_allocation.amount]
               end
             end

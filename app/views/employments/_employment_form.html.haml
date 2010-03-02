@@ -131,8 +131,8 @@
 
     .form_line      
       .field_45
-        =employment.label :payment_method_id, "Payment Method"
-        =employment.collection_select :payment_method_id, PaymentMethod.active_payment_method, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
+        =employment.label :payroll_method_id, "Payroll Method"
+        =employment.collection_select :payroll_method_id, PayrollMethod.active_payroll_method, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
       .field_50
         =employment.label :payment_day_id, "Payment Day"
         =employment.collection_select :payment_day_id, PaymentDay.active_payment_day, :id, :name, {:include_blank => true}, {:disabled=>@employment.status == false}
