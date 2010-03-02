@@ -1,6 +1,6 @@
 namespace :db do
   desc "Run patch after restore database"
-  task :patch => [:environment, "db:migrate", "initial_current_user", "add_payroll_methods"] do
+  task :patch => [:environment, "db:migrate", "initial_current_user", "add_payment_methods", "add_payroll_methods"] do
     puts "Patch Done!"
   end
 end
