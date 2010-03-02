@@ -71,9 +71,19 @@ class Person < ActiveRecord::Base
   has_many :extention_allocations, :as => :extention , :class_name => 'TransactionAllocation', :foreign_key => 'extention_id', :dependent => :destroy
   has_many :cluster_allocations, :as => :cluster ,:class_name => 'TransactionAllocation', :foreign_key => 'cluster_id', :dependent => :destroy
   has_many :transaction_headers, :as => :entity
-#  has_many :list_details, :as => :listable
-#  has_many :mail_logs, :as => :entity
+  #  has_many :list_details, :as => :listable
+  #  has_many :mail_logs, :as => :entity
   #has_many :players, :through => :list_details, :source => :player
+  has_many :memberships, :dependent => :destroy
+  has_many :initated_memberships, :foreign_key => "initiated_by", :class_name => "Membership",:dependent => :destroy
+  has_many :reviewed_memberships, :foreign_key => "reviewed_by", :class_name => "Membership",:dependent => :destroy
+  has_many :finalized_memberships, :foreign_key => "finalized_by", :class_name => "Membership",:dependent => :destroy
+  has_many :next_reviewed_memberships, :foreign_key => "next_reviewed_by", :class_name => "Membership",:dependent => :destroy
+  has_many :suspended_memberships, :foreign_key => "suspended_by", :class_name => "Membership",:dependent => :destroy
+  has_many :terminated_memberships, :foreign_key => "terminated_by", :class_name => "Membership",:dependent => :destroy
+
+
+
 
   
   belongs_to :primary_title, :class_name => "Title", :foreign_key => "primary_title_id"
@@ -376,7 +386,7 @@ class Person < ActiveRecord::Base
 
   
     if !self.birth_date.nil? && self.birth_date > Date.today
-        return false
+      return false
     else
       return true
     end
