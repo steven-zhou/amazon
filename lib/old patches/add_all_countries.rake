@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Add new payment method"
+  desc "Add all countries to old database"
   task :add_all_countries => :environment do
     #LoginAccount.current_user is shared by all the patches
     LoginAccount.current_user = MemberZone.first

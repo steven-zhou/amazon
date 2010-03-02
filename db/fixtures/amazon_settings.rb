@@ -75,9 +75,9 @@ PositionStatus.create :name => "Part-time", :status => true,:to_be_removed =>fal
 PaymentFrequency.create :name => "Weekly", :status => true,:to_be_removed =>false
 PaymentFrequency.create :name => "Fortnightly", :status => true,:to_be_removed =>false
 PaymentFrequency.create :name => "Monthly", :status => true,:to_be_removed =>false
-PaymentMethod.create :name => "Cheque", :status => true,:to_be_removed =>false
-PaymentMethod.create :name => "Cash", :status => true,:to_be_removed =>false
-PaymentMethod.create :name => "Bank Transfer", :status => true,:to_be_removed =>false
+PayrollMethod.create :name => "Cheque", :status => true,:to_be_removed =>false
+PayrollMethod.create :name => "Cash", :status => true,:to_be_removed =>false
+PayrollMethod.create :name => "Bank Transfer", :status => true,:to_be_removed =>false
 PaymentDay.create :name => "Every 15th of the month", :status => true,:to_be_removed =>false
 SuspensionType.create :name => "Pending case", :status => true,:to_be_removed =>false
 SuspensionType.create :name => "Stepped down", :status => true,:to_be_removed =>false
