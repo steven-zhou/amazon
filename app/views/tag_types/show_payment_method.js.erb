@@ -1,0 +1,45 @@
+<% if @action == 'new'%>
+  var cash_form = $('#cash_detail_form');
+  var cheque_form = $('#cheque_detail_form');
+  var credit_card_form = $('#credit_card_detail_form');
+  $("#receipt_type").html("<%= escape_javascript("#{@options}") %>");
+<% else %>
+  var cash_form = $('#edit_cash_detail_form');
+  var cheque_form = $('#edit_cheque_detail_form');
+  var credit_card_form = $('#edit_credit_card_detail_form');
+  $("#edit_receipt_type").html("<%= escape_javascript("#{@options}") %>");
+<% end %>
+
+<%- if @payment_method_type.name == 'Cash'%>
+  cash_form.html("<%= escape_javascript(render :partial => '/transaction_type_details/cash_detail_form') %>");
+  cheque_form.html('');
+  credit_card_form.html('');
+<%- end %>
+<%- if @payment_method_type.name == 'Cheque'%>
+  cash_form.html('');
+  cheque_form.html("<%= escape_javascript(render :partial => '/transaction_type_details/cheque_detail_form') %>");
+  credit_card_form.html('');
+<%- end %>
+<%- if @payment_method_type.name == 'Credit Card' %>
+  cash_form.html('');
+  cheque_form.html('');
+  credit_card_form.html("<%= escape_javascript(render :partial => '/transaction_type_details/credit_card_detail_form') %>");
+<%- end%>
+
+$('#'+$('.compulsory_field').get(0).id).change();
+$('.datepick').datepicker({
+showOn: 'button',
+buttonImage: '/images/Icons/System/calendar.png',
+buttonImageOnly: true,
+dateFormat: 'dd-mm-yy',
+altFormat: 'mm-dd-yy',
+changeMonth: true,
+changeYear: true,
+yearRange: '-200:+20',
+onClose: function(){
+$(this).keyup();
+}
+});
+
+
+

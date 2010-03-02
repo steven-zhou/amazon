@@ -9,7 +9,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100302000611) do
+
+ActiveRecord::Schema.define(:version => 20100302011051) do
+
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -1185,9 +1187,9 @@ ActiveRecord::Schema.define(:version => 20100302000611) do
     t.string   "entity_type"
     t.date     "todays_date"
     t.date     "transaction_date"
-    t.integer  "receipt_meta_type_id"
+    t.integer  "payment_method_type_id"
     t.string   "receipt_meta_type_name"
-    t.integer  "receipt_type_id"
+    t.integer  "payment_method_id"
     t.string   "receipt_type_name"
     t.integer  "bank_account_id"
     t.string   "bank_account_name"

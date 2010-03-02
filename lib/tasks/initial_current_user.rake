@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Add all countries to old database"
+  desc "Initial current user"
   task :initial_current_user => :environment do
     puts "Prepare current user ..."
     #LoginAccount.current_user is shared by all the patches

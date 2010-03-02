@@ -188,12 +188,27 @@ class TagTypesController < ApplicationController
     end
   end  
 
-  def show_receipt_type
-    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])
-    @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+#  def show_receipt_type
+#    @receipt_meta_type = ReceiptMetaMetaType.find(params[:param1])
+#    @receipt_types = ReceiptMetaType.find(:all, :conditions => ['tag_meta_type_id = ? ', params[:param1]])
+#    @action = params[:type] #new or edit
+#    @options = ""
+#    @receipt_types.each do |i|
+#      @options += '<option value=' + i.id.to_s + '>' + i.name
+#    end
+#    @cheque_detail = ChequeDetail.new
+#    @credit_card_detail = CreditCardDetail.new
+#    respond_to do |format|
+#      format.js
+#    end
+#  end
+
+  def show_payment_method
+    @payment_method_type = PaymentMethodType.find(params[:param1])
+    @payment_methods = PaymentMethod.find(:all, :conditions => ['tag_type_id = ? ', params[:param1]])
     @action = params[:type] #new or edit
     @options = ""
-    @receipt_types.each do |i|
+    @payment_methods.each do |i|
       @options += '<option value=' + i.id.to_s + '>' + i.name
     end
     @cheque_detail = ChequeDetail.new
