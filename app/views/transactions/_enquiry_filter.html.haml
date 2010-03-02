@@ -14,7 +14,7 @@
             %option{:value=>"Transaction Date"} Transaction Date
             %option{:value=>"Bank Account Number"} Bank Account Number
             %option{:value=>"Banking Status"} Banking Status
-            %option{:value=>"Receipt Type"} Payment Method
+            %option{:value=>"Receipt Type"} Receipt Method
             %option{:value=>"Receipt Account"} Receipt Account
             %option{:value=>"Letter"} Letter
     %label &nbsp
@@ -120,7 +120,7 @@
         .form_line
           .field_30
             %label &nbsp;
-            %h2 Filter By Payment Method Type
+            %h2 Filter By Receipt Method Type
           .field_20
             %label Payment Method Type
             %select{:name => "payment_method_type_id", :id=>"payment_method_type_id", :class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type", :update_field => "payment_method_id"}
@@ -129,7 +129,7 @@
                 %option{:value => "#{i.id}"} #{i.name}
 
           .field_20
-            %label Payment Method
+            %label Receipt Method
             - if @payment_method_types.first.nil?
               %select{:disabled => true}
             -else

@@ -242,4 +242,12 @@ class ReceiptingController < ApplicationController
     end
   end
 
+  def receipt_methods
+    @tag_meta_types = PaymentMethodMetaType.all
+    @category = "PaymentMethod"
+    respond_to do |format|
+      format.html
+    end
+  end
+
 end
