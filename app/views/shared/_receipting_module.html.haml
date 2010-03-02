@@ -32,7 +32,7 @@
             = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Campaigns", {:controller => "receipting", :action => "campaign_data"}, :class => "draggable", :controller => "receipting", :action => "campaign_data", :icon_module=>"receipting",:image_url => "Icons/Receipting/campaigns.png", :title => "campaign_data"
           %li{:id => @current_action == "receipt_accounts" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Receipting/receipt_accounts.png')} Receipt Accounts", {:controller => "receipting", :action => "receipt_accounts"}, :class => "draggable", :controller => "receipting", :action => "receipt_accounts", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_accounts.png", :title => "receipt_accounts"
-          %li{:id => @current_action == "receipt_types" ? "selected" : ""}
+          -#%li{:id => @current_action == "receipt_types" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Receipting/receipt_types.png')} Receipt Types", {:controller => "receipting", :action => "receipt_types"}, :class => "draggable", :controller => "receipting", :action => "receipt_types", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_types.png", :title => "receipt_types"
           %br.clear
     .bottom

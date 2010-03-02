@@ -16,7 +16,7 @@ class Employment < ActiveRecord::Base
   belongs_to :award_agreement
   belongs_to :position_status
   belongs_to :payment_frequency
-  belongs_to :payment_method
+  belongs_to :payroll_method
   belongs_to :payment_day
   belongs_to :suspension_type
   belongs_to :termination_method

@@ -14,7 +14,7 @@
             %option{:value=>"Transaction Date"} Transaction Date
             %option{:value=>"Bank Account Number"} Bank Account Number
             %option{:value=>"Banking Status"} Banking Status
-            %option{:value=>"Receipt Type"} Receipt Type
+            %option{:value=>"Receipt Type"} Payment Method
             %option{:value=>"Receipt Account"} Receipt Account
             %option{:value=>"Letter"} Letter
     %label &nbsp
@@ -120,23 +120,22 @@
         .form_line
           .field_30
             %label &nbsp;
-            %h2 Filter By Receipt Type
+            %h2 Filter By Payment Method Type
           .field_20
-            %label Receipt Meta Type
-            %select{:name => "receipt_meta_type_id",:id=>"receipt_meta_type_id",:class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type"}
+            %label Payment Method Type
+            %select{:name => "payment_method_type_id", :id=>"payment_method_type_id", :class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type", :update_field => "payment_method_id"}
               %option{:value => "0"}All
-              -for i in @receipt_meta_types
+              -for i in @payment_method_types
                 %option{:value => "#{i.id}"} #{i.name}
 
           .field_20
-            %label Receipt Type
-            - if ReceiptMetaMetaType.first.nil?
+            %label Payment Method
+            - if @payment_method_types.first.nil?
               %select{:disabled => true}
             -else
-
-              %select{:name => "receipt_type_id",:id => "enquiry_receipt_type"}
+              %select{:name => "payment_method_id", :id => "payment_method_id"}
                 %option{:value => "0"}All
-                -for i in @receipt_types
+                -for i in @payment_methods
                   %option{:value => "#{i.id}"} #{i.name}
 
           .field_20

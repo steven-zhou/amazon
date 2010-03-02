@@ -2578,14 +2578,14 @@ class GridsController < ApplicationController
       values << params[:banked]
     end
 
-    if params[:receipt_meta_type_id]
-      conditions << "transaction_headers.receipt_meta_type_id =?"
-      values << params[:receipt_meta_type_id]
+    if params[:payment_method_type_id]
+      conditions << "transaction_headers.payment_method_type_id =?"
+      values << params[:payment_method_type_id]
     end
 
-    if params[:receipt_type_id]
-      conditions << "transaction_headers.receipt_type_id =?"
-      values << params[:receipt_type_id]
+    if params[:payment_method_id]
+      conditions << "transaction_headers.payment_method_id =?"
+      values << params[:payment_method_id]
     end
 
     if params[:received_via_id]
