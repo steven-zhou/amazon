@@ -4,13 +4,11 @@
     $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/geo_areas/existing_geo_area"))%>');
     $('.select_ajax_call[field="geo_area"]').attr('disabled', false)
     $('#geo_area_mode').attr('mode', 'show');
-   
-  <%else-%>
-    $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/new_electoral_area"))%>');
+     <%else-%>
+     $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/new_electoral_area"))%>');
     $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/electoral_areas/existing_electoral_area"))%>');
     $('.select_ajax_call[field="electoral_area"]').attr('disabled', false)
     $('#electoral_area_mode').attr('mode', 'show');
-   
 
   <%end%>
 
@@ -35,3 +33,4 @@
   $('#flash_message').dialog('open');
 <% end -%>
   enable_form_after_submit_finish();
+

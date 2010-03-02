@@ -58,8 +58,22 @@ class LanguagesController < ApplicationController
 
   def destroy
     @language = Language.find(params[:id])
-    @language.destroy
+#    @language.destroy
+
+    @language.to_be_removed = true
+    @language.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Language with ID #{@language.id}.")
+    respond_to do |format|
+      format.js
+    end
+  end
+    def retrieve_language
+    @language = Language.find(params[:id])
+#    @language.destroy
+
+    @language.to_be_removed = false
+    @language.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieved Language with ID #{@language.id}.")
     respond_to do |format|
       format.js
     end

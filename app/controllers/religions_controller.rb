@@ -58,8 +58,20 @@ class ReligionsController < ApplicationController
 
   def destroy
     @religion = Religion.find(params[:id])
-    @religion.destroy
+#    @religion.destroy
+@religion.to_be_removed= true
+@religion.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Religion with ID #{@religion.id}.")
+    respond_to do |format|
+      format.js
+    end
+  end
+    def retrieve_religion
+    @religion = Religion.find(params[:id])
+#    @religion.destroy
+@religion.to_be_removed= false
+@religion.save
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieved Religion with ID #{@religion.id}.")
     respond_to do |format|
       format.js
     end

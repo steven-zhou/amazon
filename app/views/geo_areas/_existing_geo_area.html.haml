@@ -2,3 +2,68 @@
   %h2 Existing Geographical Area
 
   %table#show_geographicalarea_grid{:class=>"selectable_grid",:field=>"geo_area",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/post_areas/",:params2=>"GeographicalArea"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_geographicalarea_grid tr.trSelected").attr('id'),"#geo_area_mode","delete","/post_areas/");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_geographicalarea_grid tr.trSelected").attr('id'),"#geo_area_mode","get","/post_areas/retrieve_post_areas.js");
+    };
+
+    $("#show_geographicalarea_grid").flexigrid({
+    url: '/grids/show_geographicalarea_grid?country_id=#{@country_id}',
+    dataType: 'json',
+    colModel : [
+    {
+        display: 'ID',
+        name : 'id',
+        width : 40,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Division Name',
+        name : 'division_name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Remarks',
+        name : 'remarks',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    }
+    ],
+    searchitems : [
+
+    {
+        display: 'Division Name',
+        name : 'division_name'
+    },
+
+    {
+        display: 'Remarks',
+        name : 'remarks'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

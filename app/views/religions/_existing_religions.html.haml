@@ -2,4 +2,66 @@
   %h2 Existing Religions
 
   %table#show_religions_grid{:class=>"selectable_grid",:field=>"religion",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/religions/"}
- 
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_religions_grid tr.trSelected").attr('id'),"#religion_mode","delete","/religions/");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_religions_grid tr.trSelected").attr('id'),"#religion_mode","get","/religions/retrieve_religion.js");
+    };
+    $("#show_religions_grid").flexigrid({
+    url: '/grids/show_religions_grid',
+    dataType: 'json',
+    colModel : [
+    {
+        display: 'ID',
+        name : 'id',
+        width : 40,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Name',
+        name : 'name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Description',
+        name : 'description',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+        display: 'Name',
+        name : 'name'
+    },
+
+    {
+        display: 'Description',
+        name : 'description'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

@@ -66,13 +66,37 @@ class CountriesController < ApplicationController
   end
   
   def destroy
+
+
     @country = Country.find(params[:id])
-    @country.destroy
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted country with ID #{@country.id}.")    
+
+    if @country.postcodes.empty?&&@country.post_areas.empty?
+
+      @country.to_be_removed = true
+      @country.save
+    else
+
+      flash.now[:error]="The Country has been used. Can not be delete."
+
+    end
+
+#    @country.destroy
+
+
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted country with ID #{@country.id}.")
+
+
+
     respond_to do |format|
       format.js
     end
   end
+
+
+
+
+
 
   def select_renew
     @country = Country.all
@@ -104,6 +128,26 @@ class CountriesController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end
+
+
+  def retrieve_country
+
+  @country = Country.find(params[:id])
+
+
+      @country.to_be_removed = false
+      @country.save
+
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve country with ID #{@country.id}.")
+
+
+
+    respond_to do |format|
+      format.js
+    end
+    
   end
 
 end

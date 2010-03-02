@@ -149,12 +149,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}
   map.resources :available_modules, :collection => {:switch_status => :get}
 
-  map.resources :post_areas, :collection => {:select_ajax_show => :get}
-  map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get}
-  map.resources :postcodes, :collection => {:show_by_country => :get, :lookup_postcode => :get}
-  map.resources :languages, :collection => {:show_languages => :get}
+    map.resources :post_areas, :collection => {:select_ajax_show => :get,:retrieve_post_areas=>:get}
+  map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get,:retrieve_country=>:get}
+  map.resources :postcodes, :collection => {:show_by_country => :get, :lookup_postcode => :get,:retrieve_postcode=>:get}
+  map.resources :languages, :collection => {:show_languages => :get,:retrieve_language=>:get}
   map.resources :banks, :collection => {:list=>:get,:name_finder => :get,:lookup=>:get,:lookup_fill => :get,:refresh_existing_banks=>:get,:delete_bank_entry=>:get,:edit_bank_entry=>:get}
-  map.resources :religions
+  map.resources :religions,:collection =>{:retrieve_religion=>:get}
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
   map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get, :show_personal_transaction => :get, :show_organisational_transaction => :get, :bank_run => :get, :enquiry => :get}
 

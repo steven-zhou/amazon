@@ -5,6 +5,14 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_countries_grid tr.trSelected").attr('id'),"#country_mode","delete","/countries/");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_countries_grid tr.trSelected").attr('id'),"#country_mode","get","/countries/retrieve_country.js");
+    };
+
     $("#show_countries_grid").flexigrid({
     url: '/grids/show_countries_grid',
     dataType: 'json',
@@ -148,6 +156,10 @@
     name : 'currency_subunit'
     }
     ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
     sortname: "id",
     sortorder: "asc",
     usepager: true,
