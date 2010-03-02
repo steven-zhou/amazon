@@ -17,7 +17,7 @@ namespace :db do
       table.singularize.camelize.constantize.all.each do |i|
         i.status = true if i.status.nil?
         i.to_be_removed = false if i.to_be_removed.nil?
-        i.save!
+        i.save
       end
     end
     

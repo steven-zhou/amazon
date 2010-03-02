@@ -82,6 +82,14 @@ class AdministrationsController < ApplicationController
     end
   end
 
+  def payment_methods
+    @tag_meta_types = PaymentMethodMetaType.all
+    @category = "PaymentMethod"
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def duplication_check
     @personal_duplication_formula_old = PersonalDuplicationFormula.applied_setting
     @personal_duplication_formula_old = PersonalDuplicationFormula.default_setting if @personal_duplication_formula_old.nil?

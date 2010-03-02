@@ -6,6 +6,7 @@
 - routing[:administrations][:role_conditions]           = {:controller => "configuration", :action => "role_conditions"}
 - routing[:administrations][:roles_management]          = {:controller => "configuration", :action => "roles_management" }
 - routing[:administrations][:contact_types]             = {:controller => "configuration", :action => "contact_types" }
+- routing[:administrations][:payment_methods]           = {:controller => "configuration", :action => "payment_methods" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
 - routing[:administrations][:group_permissions]         = {:controller => "security", :action => "group_permissions" }
 - routing[:administrations][:group_lists]               = {:controller => "security", :action => "group_lists" }
@@ -63,6 +64,9 @@
             = link_to "#{image_tag('Icons/Admin/Configuration/contact_types.png')} Contact Types",{:controller => "administrations", :action => "contact_types"}, :controller => "administrations", :action => "contact_types",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/contact_types.png", :title => "Contact Types"
           %li{:id => action == "duplication_check" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/duplications.png')} Dups Check",{:controller => "administrations", :action => "duplication_check"}, :controller => "administrations", :action => "duplication_check",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/duplications.png", :title => "Dups Check"
+          %li{:id => action == "payment_methods" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Payment Methods", {:controller => "administrations", :action => "payment_methods"}, :controller => "administrations", :action => "payment_methods",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Payment Methods"
+
     .bottom
 
   - # Security Menu

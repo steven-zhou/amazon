@@ -32,6 +32,9 @@ class Organisation < ActiveRecord::Base
   has_many :list_details, :as => :listable
 
   has_many :mail_logs, :as=>:entity,:dependent => :destroy
+  has_many :employer_memberships, :foreign_key => "employer_id", :class_name => "Membership",:dependent => :destroy
+  has_many :workplace_memberships, :foreign_key => "workplace_id", :class_name => "Membership",:dependent => :destroy
+
 
 
 

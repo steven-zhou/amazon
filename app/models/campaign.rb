@@ -2,6 +2,7 @@ class Campaign < ActiveRecord::Base
 
   has_many :sources, :dependent => :destroy
   has_many :transaction_allocations
+  has_many :memberships
 
   validates_uniqueness_of :name
   validates_presence_of :name, :start_date
@@ -14,14 +15,14 @@ class Campaign < ActiveRecord::Base
   
   after_save :update_children_when_delete
 
-   protected
+  protected
   def end_date_must_be_equal_or_after_start_date
 
     errors.add(:end_date, "can't be before start date") if (!end_date.nil? && !start_date.nil? && end_date < start_date)
 
   end
 
-private
+  private
 
   def update_children_when_delete
     if self.to_be_removed == true
