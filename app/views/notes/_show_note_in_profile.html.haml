@@ -1,0 +1,5 @@
+.options
+  = link_to_function image_tag('close_icon.png'), :field => "note", :style => "display:none;", :title=>"Close", :class => "close_option close_edit", :toggle_id_name => "show_person_note"
+%h1 Note
+#edit_note_form.right
+  = @note.body_text

@@ -1963,10 +1963,30 @@ $(function(){
 
 $(function(){
     $(".mandantory_field").live('keyup',function(){
-        mandantory_check($(this));
+
+      if ($.trim($(this).val())!="")
+        {mandantory_check($(this));}
+      else
+        {
+           $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
+        }
+      
     });
 });
 
+//This is for select the data from dropdownlist in input field
+$(function(){
+    $(".mandantory_field").live('change',function(){
+
+      if ($.trim($(this).val())!="")
+        {mandantory_check($(this));}
+      else
+        {
+           $('#'+$(this).attr('submit_button_id')).attr('disabled', true);
+        }
+
+    });
+});
 
 
 
@@ -2028,11 +2048,25 @@ $(function(){
     };
 
     $(".compulsory_field").live('keyup', function(){
-        compulsory_check($(this));
+             var current_form = $('#'+$(this).closest('form').get(0).id);
+       if ($.trim($(this).val())!="")
+        {compulsory_check($(this));}
+      else
+        {
+           $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+        }
+
+        
     });
 
     $(".compulsory_field").live('change', function(){
-        compulsory_check($(this));
+       var current_form = $('#'+$(this).closest('form').get(0).id);
+      if ($.trim($(this).val())!="")
+        {compulsory_check($(this));}
+      else
+        {
+           $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+        }
 
     });
 });
@@ -3300,8 +3334,8 @@ post_code_auto = function(link){
 
 
 $(function(){
-    $('.state_value').blur(function(){
-
+//    $('.state_value').blur(function(){
+  $('.state_value').live('change',function(){
             post_code_auto($(this));
 
     });
@@ -3309,8 +3343,8 @@ $(function(){
 });
 
 $(function(){
-    $('.suburb_value').blur(function(){
-
+//    $('.suburb_value').blur(function(){
+  $('.suburb_value').live('change',function(){
             post_code_auto($(this));
 
 

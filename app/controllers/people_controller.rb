@@ -274,7 +274,7 @@ class PeopleController < ApplicationController
         end
       end
 
-      flash[:message] = "There Was an Error to Create a New User"
+      flash[:error] = "There Was an Error to Create a New User"
       #      redirect_to new_person_path
       #      render :action => "new"
     
@@ -282,7 +282,7 @@ class PeopleController < ApplicationController
 
        else
 
-      flash[:message] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
        
       end
        redirect_to new_person_path
