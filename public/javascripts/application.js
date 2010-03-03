@@ -2542,7 +2542,7 @@ $(function(){
     $(".select_ajax_call").live('change', function(){
         if($(this).val() != ""){
             if($(this).attr("update_field")!=undefined){
-              $('#'+$(this).attr("update_field")).attr("disabled", "true");
+                $('#'+$(this).attr("update_field")).attr("disabled", "true");
             }
             $.ajax({
                 type: $(this).attr("method"),
@@ -3278,31 +3278,31 @@ $(".select_ban_submit").live('change', function(){
 post_code_auto = function(link){
     // link = this---this input field
 
-        var current_form = $('#'+ link.closest('form').attr('id'));
-        var suburb = current_form.find('.suburb_value').val();
-        var state = current_form.find('.state_value').val();
-        var postcode =current_form.find('.postcode_auto').val();
-        if (suburb != ""&& state != ""){
+    var current_form = $('#'+ link.closest('form').attr('id'));
+    var suburb = current_form.find('.suburb_value').val();
+    var state = current_form.find('.state_value').val();
+    var postcode =current_form.find('.postcode_auto').val();
+    if (suburb != ""&& state != ""){
 
-           $.ajax({
-                type: "GET",
-                url: "/postcodes/lookup_postcode.js",
-                data: 'state='+state+'&suburb='+suburb,
-                dataType: "script"
-            });
+        $.ajax({
+            type: "GET",
+            url: "/postcodes/lookup_postcode.js",
+            data: 'state='+state+'&suburb='+suburb,
+            dataType: "script"
+        });
 
-        }else{
+    }else{
 
-        }
+}
 
-    };
+};
 
 
 
 $(function(){
     $('.state_value').blur(function(){
 
-            post_code_auto($(this));
+        post_code_auto($(this));
 
     });
 
@@ -3311,7 +3311,7 @@ $(function(){
 $(function(){
     $('.suburb_value').blur(function(){
 
-            post_code_auto($(this));
+        post_code_auto($(this));
 
 
     });
@@ -3325,7 +3325,7 @@ $(function(){
 check_date = function(value){
 
 
- _valid = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(value.val());
+    _valid = /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/.test(value.val());
     if(value.val()!=""){
         if((!_valid)){
             var link = value;
@@ -3365,13 +3365,48 @@ check_date = function(value){
 
 
 $(".hasDatepicker").live('change',function(){
- check_date($(this));
+    check_date($(this));
 });
 
 hasDatepicker= function()
 {
-  $(".hasDatepicker").live('change',function(){
- check_date($(this));
-});
+    $(".hasDatepicker").live('change',function(){
+        check_date($(this));
+    });
 
 }
+
+
+/*for all validating input field use*/
+
+$(function(){
+
+    $('input[numeric]').live('keyup',function(){
+        var d= $(this).attr('numeric');
+        var value = $(this).val();
+        var orignalValue = value
+        val = value.replace(/[0-9]*/g, "")
+        var msg="Only Integer Values allowed.";
+        if (d=='decimal'){
+            value=value.replace(/\./, "");
+            msg="Only Numeric Values allowed.";
+        }
+
+        if (val!=''){
+            orignalValue=orignalValue.replace(/([^0-9].*)/g, "")
+            $(this).val(orignalValue);
+           
+           
+           
+        }
+
+
+
+
+
+    }
+    )
+
+});
+
+

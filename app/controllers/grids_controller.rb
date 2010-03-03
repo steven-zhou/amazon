@@ -171,11 +171,11 @@ class GridsController < ApplicationController
       conditions << "system_logs.status ilike ?"
       values << params[:status]
     end
-        if params[:start_date]
+    if params[:start_date]
       conditions << "system_logs.created_at >= ?"
       values << params[:start_date].to_date
     end
-        if params[:end_date]
+    if params[:end_date]
       conditions << "system_logs.created_at <= ?"
       values << params[:end_date].to_date.tomorrow
     end
@@ -1346,17 +1346,17 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @country.collect{|u| {:id => u.id,
         :cell=>[u.id,
-#          u.long_name,
-#          u.short_name,
-#          u.citizenship,
-#          u.capital,
-#          u.iso_code,
-#          u.iso_number,
-#          u.dialup_code,
-#          u.main_language_id.nil? ? "" : u.main_language.name,
-#          #         u.govenment_language,
-#          u.currency,
-#          u.currency_subunit
+          #          u.long_name,
+          #          u.short_name,
+          #          u.citizenship,
+          #          u.capital,
+          #          u.iso_code,
+          #          u.iso_number,
+          #          u.dialup_code,
+          #          u.main_language_id.nil? ? "" : u.main_language.name,
+          #          #         u.govenment_language,
+          #          u.currency,
+          #          u.currency_subunit
           u.to_be_removed? ? "<span class='red'>"+u.long_name+"</span>": u.long_name,
           u.to_be_removed? ? "<span class='red'>"+u.short_name+"</span>": u.short_name,
           u.to_be_removed? ? "<span class='red'>"+u.citizenship+"</span>": u.citizenship,
@@ -1491,7 +1491,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @language.collect{|u| {:id => u.id,
         :cell=>[u.id,
-         u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
 
           u.description.nil? ?  "" :  u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description]}}
     # Convert the hash to a json object
@@ -1554,8 +1554,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @geographical_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.to_be_removed? ? "<span class='red'>"+u.division_name+"</span>" : u.division_name,
-         u.remarks.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.remarks+ "</span>" :  u.remarks)
-     ]}}
+          u.remarks.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.remarks+ "</span>" :  u.remarks)
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1613,7 +1613,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @religion.collect{|u| {:id => u.id,
         :cell=>[u.id,
-  u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
 
           u.description.nil? ?  "" :  u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description]}}
 
@@ -1676,9 +1676,9 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @electoral_area.collect{|u| {:id => u.id,
         :cell=>[u.id,
-           u.to_be_removed? ? "<span class='red'>"+u.division_name+"</span>" : u.division_name,
-         u.remarks.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.remarks+ "</span>" :  u.remarks)
-     ]}}
+          u.to_be_removed? ? "<span class='red'>"+u.division_name+"</span>" : u.division_name,
+          u.remarks.nil? ? "" : (u.to_be_removed? ? "<span class='red'>"+u.remarks+ "</span>" :  u.remarks)
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
@@ -1762,7 +1762,7 @@ class GridsController < ApplicationController
           u.to_be_removed? ? "<span class='red'>"+u.suburb+"</span>": u.suburb,
           u.to_be_removed? ? "<span class='red'>"+u.postcode+"</span>": u.postcode,
           u.geographical_area_id.nil? ? "" :(u.to_be_removed? ? "<span class='red'>"+u.geographical_area.division_name+"</span>": u.geographical_area.division_name),
-         u.electoral_area_id.nil? ? "" :(u.to_be_removed? ? "<span class='red'>"+u.electoral_area.division_name+"</span>": u.electoral_area.division_name),
+          u.electoral_area_id.nil? ? "" :(u.to_be_removed? ? "<span class='red'>"+u.electoral_area.division_name+"</span>": u.electoral_area.division_name),
 
         ]}}
 
@@ -3846,7 +3846,74 @@ class GridsController < ApplicationController
           u.state,
           u.postcode,
           u.country_id.nil? ? "" : u.country.short_name,
-          ]}}
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
+
+  def show_tax_items_grid
+    page = (params[:page]).to_i
+    rp =(params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page -1) * rp).to_i
+    query = "%"+query+"%"
+
+     # No search terms provided
+    if(query == "%%")
+      @tax_items = TaxItem.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+       
+      )
+      count = TaxItem.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @tax_items = TaxItem.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?", query]
+       )
+      count = TaxItem.count(:all, :conditions=>[qtype +" ilike ?", query])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @tax_items.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.name,
+          u.description,
+          u.percentage,
+          u.active
+        ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
 

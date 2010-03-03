@@ -1,0 +1,5 @@
+$('#add_new_tax_item').css('display','none');
+$('#edit_tax_item').css('display', '');
+$('#edit_tax_item_form').html('<%= escape_javascript(render(:partial => "/tax_items/edit_tax_item_form")) %>');
+$('#tax_item_mode').attr('mode', 'edit');
+$('.close_option[field="tax_item"]').css("display","");

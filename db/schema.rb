@@ -413,7 +413,7 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
     t.integer  "award_agreement_id"
     t.integer  "position_status_id"
     t.integer  "payment_frequency_id"
-    t.integer  "payment_method_id"
+    t.integer  "payroll_method_id"
     t.integer  "payment_day_id"
     t.integer  "suspension_type_id"
     t.integer  "termination_method_id"
@@ -1182,7 +1182,7 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
 
   create_table "tax_items", :force => true do |t|
     t.text     "name"
-    t.text     "destription"
+    t.text     "description"
     t.decimal  "percentage"
     t.boolean  "active"
     t.boolean  "to_be_removed"
