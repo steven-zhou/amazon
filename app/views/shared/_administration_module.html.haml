@@ -8,7 +8,7 @@
 - routing[:administrations][:contact_types]             = {:controller => "configuration", :action => "contact_types" }
 - routing[:administrations][:payment_methods]           = {:controller => "configuration", :action => "payment_methods" }
 - routing[:administrations][:tax_items]                 = {:controller => "configuration", :action => "tax_items" }
-- routing[:administrations][:subscription_fees]         = {:controller => "configuration", :action => "subscription_fees" }
+- routing[:administrations][:fee_types]                 = {:controller => "configuration", :action => "fee_types" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
 - routing[:administrations][:group_permissions]         = {:controller => "security", :action => "group_permissions" }
 - routing[:administrations][:group_lists]               = {:controller => "security", :action => "group_lists" }
@@ -70,9 +70,10 @@
             = link_to "#{image_tag('icon_holder.png')} Payment Methods", {:controller => "administrations", :action => "payment_methods"}, :controller => "administrations", :action => "payment_methods",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Payment Methods"
           %li{:id => action == "tax_items" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Tax Items", {:controller => "administrations", :action => "tax_items"}, :controller => "administrations", :action => "tax_items",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Tax Items"
-          %li{:id => action == "subscription_fees" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Subscription Fees", {:controller => "administrations", :action => "subscription_fees"}, :controller => "administrations", :action => "subscription_fees",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Subscription Fees"
-     .bottom
+          %li{:id => action == "fee_types" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Fee Types", {:controller => "administrations", :action => "fee_types"}, :controller => "administrations", :action => "fee_types",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Fee Types"
+
+    .bottom
 
   - # Security Menu
   %li{:id => controller == "security" ? "menu_active" : ""}

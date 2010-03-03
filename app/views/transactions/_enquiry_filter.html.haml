@@ -122,20 +122,20 @@
             %label &nbsp;
             %h2 Filter By Receipt Method Type
           .field_20
-            %label Payment Method Type
-            %select{:name => "payment_method_type_id", :id=>"payment_method_type_id", :class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type", :update_field => "payment_method_id"}
+            %label Receipt Method Type
+            %select{:name => "payment_method_meta_type_id", :id=>"payment_method_meta_type_id", :class => "select_ajax_call", :method => "GET", :url => "/transaction_headers/enquiry_show_receipt_type", :update_field => "payment_method_type_id"}
               %option{:value => "0"}All
-              -for i in @payment_method_types
+              -for i in @payment_method_meta_types
                 %option{:value => "#{i.id}"} #{i.name}
 
           .field_20
             %label Receipt Method
-            - if @payment_method_types.first.nil?
+            - if @payment_method_meta_types.first.nil?
               %select{:disabled => true}
             -else
-              %select{:name => "payment_method_id", :id => "payment_method_id"}
+              %select{:name => "payment_method_type_id", :id => "payment_method_type_id"}
                 %option{:value => "0"}All
-                -for i in @payment_methods
+                -for i in @payment_method_types
                   %option{:value => "#{i.id}"} #{i.name}
 
           .field_20
