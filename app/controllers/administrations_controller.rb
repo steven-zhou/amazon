@@ -91,8 +91,8 @@ class AdministrationsController < ApplicationController
   end
 
   def subscription_fees
-    @tag_meta_types = FeeMetaMetaType.all
-    @category = "Fee"
+    @tag_meta_types = SubscriptionFeeMetaMetaType.all
+    @category = "SubscriptionFee"
     respond_to do |format|
       format.html
     end
