@@ -16,8 +16,8 @@ class ModuleController < ApplicationController
   end
 
   def membership
-    session[:module] = "core"
-    redirect_to :controller => "people", :action => "show"
+    session[:module] = "membership"
+    redirect_to :controller => "membership", :action => "new"
   end
 
   def fundraising

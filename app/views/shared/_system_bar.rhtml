@@ -15,6 +15,9 @@
         <%- if session[:module] == "client_setup" %>
           <%= "#{image_tag('Icons/System/module_menu.png')} MemberZone" %>
         <%- end %>
+        <%- if session[:module] == "membership" %>
+          <%= "#{image_tag('icon_holder.png')} Membership" %>
+        <%- end %>
         <%- if session[:module] == "dashboard" %>
           <%= "#{image_tag('Icons/System/module_menu.png')} System Menu" %>
         <%- end %>
@@ -25,6 +28,9 @@
         <ul>
           <%- if session[:module] != "core" %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/System/module menu/core.png')} System Core", :controller => "module", :action => "core"  %></li>
+          <%- end %>
+          <%- if session[:module] != "membership" %>
+            <li class="module_menu_item"><%= link_to "#{image_tag('icon_holder.png')} Membership", :controller => "module", :action => "membership"  %></li>
           <%- end %>
           <%- if session[:module] != "receipting" %>
             <li class="module_menu_item"><%= link_to "#{image_tag('Icons/Receipting/receipt.png')} Receipting", :controller => "module", :action => "receipting"  %></li>

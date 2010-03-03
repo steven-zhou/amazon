@@ -170,7 +170,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
-
+  map.resources :membership
 
 
 
