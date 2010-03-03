@@ -3430,18 +3430,8 @@ $(function(){
         if (val!=''){
             orignalValue=orignalValue.replace(/([^0-9].*)/g, "")
             $(this).val(orignalValue);
-           
-           
-           
-        }
-
-
-
-
-
-    }
+      }}
     )
-
 });
 
 

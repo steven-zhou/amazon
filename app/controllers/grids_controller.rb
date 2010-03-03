@@ -2261,10 +2261,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["bank_account", "payment_method_type", "payment_method"]
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
       count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and entity_type=? and banked=?", params[:entity_id], params[:entity_type], false],
-        :include => ["bank_account", "payment_method_type", "payment_method"]
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
 
@@ -2275,9 +2275,9 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false],
-        :include => ["bank_account", "payment_method_type", "payment_method"])
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
       count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and banked=?", query, params[:entity_id], params[:entity_type], false],
-        :include => ["bank_account", "payment_method_type", "payment_method"])
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2289,8 +2289,8 @@ class GridsController < ApplicationController
           u.receipt_number,
           u.transaction_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
+          u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
-          u.payment_method_id.nil? ? "" : u.payment_method.name,
           u.notes,
           u.total_amount.nil? ? "$0.00" : currencify(u.total_amount)]}}
     # Convert the hash to a json object
@@ -2331,10 +2331,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["bank_account", "payment_method_type", "payment_method"]
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
       count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
-        :include => ["bank_account", "payment_method_type", "payment_method"]
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
 
@@ -2345,9 +2345,9 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
-        :include => ["bank_account", "payment_method_type", "payment_method"])
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
       count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.banked=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], true, params[:start_date].to_date, params[:end_date].to_date],
-        :include => ["bank_account", "payment_method_type", "payment_method"])
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2359,8 +2359,8 @@ class GridsController < ApplicationController
           u.receipt_number,
           u.transaction_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
+          u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
-          u.payment_method_id.nil? ? "" : u.payment_method.name,
           u.notes,
           u.total_amount.nil? ? "$0.00" : currencify(u.total_amount)
         ]}}
@@ -2578,14 +2578,14 @@ class GridsController < ApplicationController
       values << params[:banked]
     end
 
+    if params[:payment_method_meta_type_id]
+      conditions << "transaction_headers.payment_method_meta_type_id =?"
+      values << params[:payment_method_meta_type_id]
+    end
+
     if params[:payment_method_type_id]
       conditions << "transaction_headers.payment_method_type_id =?"
       values << params[:payment_method_type_id]
-    end
-
-    if params[:payment_method_id]
-      conditions << "transaction_headers.payment_method_id =?"
-      values << params[:payment_method_id]
     end
 
     if params[:received_via_id]
@@ -2605,10 +2605,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["bank_account", "payment_method_type", "payment_method","transaction_allocations"]
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type","transaction_allocations"]
       )
       count = TransactionHeader.count(:all, :conditions => [conditions.join(' AND '), *values],
-        :include => ["bank_account", "payment_method_type", "payment_method","transaction_allocations"]
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type","transaction_allocations"]
       )
     end
 
@@ -2619,9 +2619,9 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
-        :include => ["bank_account", "payment_method_type", "payment_method"])
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
       count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
-        :include => ["bank_account", "payment_method_type", "payment_method"])
+        :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2634,8 +2634,8 @@ class GridsController < ApplicationController
           u.todays_date.to_s,
           u.transaction_date.to_s,
           u.bank_account.nil? ? "" : u.bank_account.account_number,
+          u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
-          u.payment_method_id.nil? ? "" : u.payment_method.name,
           u.notes,
           u.total_amount.nil? ? currencify(0) : currencify(u.total_amount)
         ]}}

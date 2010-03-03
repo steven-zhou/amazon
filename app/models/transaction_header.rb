@@ -15,7 +15,7 @@ class TransactionHeader < ActiveRecord::Base
 
   default_scope :order => "transaction_headers.id"
 
-  validates_presence_of :transaction_date, :bank_account_id, :payment_method_type_id, :payment_method_id, :received_via_id
+  validates_presence_of :transaction_date, :bank_account_id, :payment_method_meta_type_id, :payment_method_type_id, :received_via_id
 
   #reg ex for date format with dd/mm/yyyy
   validates_format_of :transaction_date, :with => /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/

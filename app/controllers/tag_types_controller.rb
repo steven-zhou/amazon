@@ -233,4 +233,3 @@ class TagTypesController < ApplicationController
   end
   
 end
-
