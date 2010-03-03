@@ -1,0 +1,5 @@
+class SubscriptionFeeMetaType < FeeMetaType
+
+
+end
+

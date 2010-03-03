@@ -1,0 +1,5 @@
+class SubscriptionFeeType < FeeType
+
+
+end
+
