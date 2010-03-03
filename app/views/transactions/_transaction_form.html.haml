@@ -24,15 +24,15 @@
 
   .form_line
     .field_15
-      = f.label :payment_method_type_id, "<span class='asterisk'>*</span>Payment Method Type"
-      = f.collection_select :payment_method_type_id, PaymentMethodType.manual, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_types/show_payment_method", :type_class => "new"}
+      = f.label :payment_method_meta_type_id, "<span class='asterisk'>*</span>Receipt Method Type"
+      = f.collection_select :payment_method_meta_type_id, PaymentMethodMetaType.manual, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_types/show_payment_method", :type_class => "new"}
 
     .field_15
-      = f.label :payment_method_id, "<span class='asterisk'>*</span>Payment Method"
-      - if PaymentMethodType.manual.first.nil?
+      = f.label :payment_method_type_id, "<span class='asterisk'>*</span>Receipt Method"
+      - if PaymentMethodMetaType.manual.first.nil?
         %select{:disabled => true}
       - else
-        = f.collection_select :payment_method_id, PaymentMethod.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", PaymentMethodType.manual.first.id], :order => "name"), :id, :name, {}, {:id => "receipt_type"}
+        = f.collection_select :payment_method_type_id, PaymentMethodType.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", PaymentMethodMetaType.manual.first.id], :order => "name"), :id, :name, {}, {:id => "receipt_type"}
 
     .field_15
       = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"

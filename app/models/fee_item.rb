@@ -5,6 +5,7 @@ class FeeItem < ActiveRecord::Base
     belongs_to :payment_frequency , :class_name => "PaymentFrequency", :foreign_key => "pay_frequency_id"
     belongs_to :link_module, :class_name => "LinkModule",:foreign_key=>"link_module_id"
     has_many :membership_fees,:class_name=>"MembershipFee",:foreign_key=>"fee_item_id"
+
     validates_presence_of :name
     validates_uniqueness_of :name
 

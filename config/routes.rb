@@ -6,7 +6,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :addresses,  :member => {:search_postcodes => :get,:move_up_address_priority => :get,:move_down_address_priority => :get,:move_down_organisation_address_priority => :get, :move_up_organisation_address_priority => :get}, :collection => {:page_initial => :get}
   map.resources :master_docs, :member => {:move_down_master_doc_priority =>:get, :move_up_master_doc_priority => :get,:move_organisation_up_master_doc_priority=> :get, :move_organisation_down_master_doc_priority => :get}, :collection => {:page_initial => :get}
   map.resources :relationships, :collection => {:page_initial => :get}
-  map.resources :notes, :member => {:note_update => :post}, :collection => {:page_initial => :get,:new_note_form =>:get}
+  map.resources :notes, :member => {:note_update => :post}, :collection => {:page_initial => :get,:new_note_form =>:get,:show_note=>:get}
   map.resources :person_roles,:collection => {:page_initial => :get}
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get},:collection => {:page_initial => :get}
   map.resources :person_groups,:collection => {:page_initial => :get}
@@ -76,7 +76,7 @@ ActionController::Routing::Routes.draw do |map|
     :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrieve_message_template => :get, :person_mail_merge => :get, :organisation_mail_merge => :get
   }
 
-  map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :payment_methods => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get, :tax_items => :get}
+  map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :payment_methods => :get, :subscription_fees => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get , :tax_items => :get}
 
   map.resources :amazon_settings ,:collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get,:retrieve =>:get}
  

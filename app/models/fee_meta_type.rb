@@ -5,8 +5,7 @@ class FeeMetaType < TagType
   belongs_to :fee_meta_meta_type, :class_name => "FeeMetaMetaType", :foreign_key => "tag_meta_type_id"
   has_many :fee_types, :class_name => "FeeType", :foreign_key => "tag_type_id"
 
-  validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :tag_meta_type_id, :message => "A fee meta type already exists with the same name."
+  named_scope :subscription_fee, :conditions => {:category => "subscription"}
 
   after_create :assign_priority
   before_destroy :reorder_priority

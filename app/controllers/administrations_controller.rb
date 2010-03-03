@@ -83,8 +83,16 @@ class AdministrationsController < ApplicationController
   end
 
   def payment_methods
-    @tag_meta_types = PaymentMethodMetaType.all
+    @tag_meta_types = PaymentMethodMetaMetaType.all
     @category = "PaymentMethod"
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def subscription_fees
+    @tag_meta_types = FeeMetaMetaType.all
+    @category = "Fee"
     respond_to do |format|
       format.html
     end

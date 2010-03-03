@@ -120,4 +120,12 @@ class NotesController < ApplicationController
     end
   end
 
+  def show_note
+
+    @note = Note.find(params[:id].to_i)
+    respond_to do |format|
+      format.js
+    end
+  end
+
 end

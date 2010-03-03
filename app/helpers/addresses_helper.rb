@@ -4,7 +4,7 @@ module AddressesHelper
   def format_address(address)
     formatted = ""
     formatted += "#{address.building_name} <br/>" unless address.building_name.blank?
-    formatted += "#{address.suite_unit} " unless address.suite_unit.blank?
+    formatted += "#{address.suite_unit} " + " / " unless address.suite_unit.blank?
     formatted += "#{address.street_number} " unless address.street_number.blank?
     formatted += "#{address.street_name} <br/>" unless address.street_name.blank?
     formatted += "#{address.town} " unless address.town.blank?

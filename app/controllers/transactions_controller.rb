@@ -194,8 +194,8 @@ class TransactionsController < ApplicationController
 
   def enquiry
     @bank_accounts = ClientBankAccount.active_client_bank_account
-    @payment_method_types = PaymentMethodType.manual
-    @payment_methods = PaymentMethod.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", @payment_method_types.first.id])
+    @payment_method_types = PaymentMethodMetaType.manual
+    @payment_methods = PaymentMethodType.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", @payment_method_types.first.id])
     @receipt_via =ReceivedVia.active_received_via
     @receipt_accounts=ReceiptAccount.active
     respond_to do |format|

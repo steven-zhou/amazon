@@ -1,8 +1,12 @@
 
 /show personal notes details
 - if !@person.sorted_notes.blank?
+  %input.hidden{:id => "note_mode", :mode => "show"}
+  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/notes/show_note/",:db_show=>"true",:field=>"note"}
+  %br
+  #show_person_note{:class => "header_container", :style => "display:none;"}
+    =render :partial => 'show_note_in_profile'
 
-  %table#show_notes_grid{:class => "selectable_grid", :db_click_function => "false", :db_click_url => "/notes/",:edit=>"false"}
 - else
   .no_record
     %h1 No Record
@@ -48,7 +52,7 @@
       align: 'left'
       },
       {
-      display: 'Active',
+      display: 'Status',
       name : 'active',
       width : 40,
       sortable : true,

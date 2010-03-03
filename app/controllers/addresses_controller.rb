@@ -84,8 +84,8 @@ class AddressesController < ApplicationController
   end
 
   def search_postcodes
-    @postcodes = Postcode.search_post_code(params[:suburb],params[:state], params[:postcode])
-   
+#    @postcodes = Postcode.search_post_code(params[:suburb],params[:state], params[:postcode])
+    @postcodes = Postcode.search_post_code(params[:suburb])
     respond_to do |format|
       format.js
     end
