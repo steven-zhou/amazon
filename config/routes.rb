@@ -174,6 +174,7 @@ ActionController::Routing::Routes.draw do |map|
 
 
   map.resources :tax_items
+  map.resources :membership_administrations, :collection => {:fee_items => :get}
 
 
   # The priority is based upon order of creation: first created -> highest priority.
