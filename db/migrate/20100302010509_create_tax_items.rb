@@ -2,7 +2,7 @@ class CreateTaxItems < ActiveRecord::Migration
   def self.up
     create_table :tax_items do |t|
       t.text :name
-      t.text :destription
+      t.text :description
       t.column :percentage, :decimal
       t.boolean :active
       t.boolean :to_be_removed

@@ -12,6 +12,6 @@ class TaxItem < ActiveRecord::Base
   def update_to_be_removed_and_status
 
     self.to_be_removed = false
-    self.active = true
+    true
   end
 end

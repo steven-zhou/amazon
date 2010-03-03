@@ -178,4 +178,11 @@ class AdministrationsController < ApplicationController
     end
   end
 
+  def tax_items
+    @tax_items = TaxItem.all
+    respond_to do |format|
+      format.html
+    end
+  end
+
 end
