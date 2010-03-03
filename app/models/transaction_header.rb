@@ -1,8 +1,8 @@
 class TransactionHeader < ActiveRecord::Base
 
   belongs_to :entity, :polymorphic => true
+  belongs_to :payment_method_meta_type
   belongs_to :payment_method_type
-  belongs_to :payment_method
   belongs_to :bank_account
   belongs_to :received_via
 

@@ -191,15 +191,15 @@ PaymentFrequency.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
   end
 end
 
-puts "destroy payment method ..."
-PaymentMethod.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
-  unless Employment.find_by_payment_method_id(i.id).nil?
-    i.to_be_removed = false
-    i.save
-  else
-    i.destroy
-  end
-end
+#puts "destroy payment method ..."
+#PaymentMethod.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
+#  unless Employment.find_by_payment_method_id(i.id).nil?
+#    i.to_be_removed = false
+#    i.save
+#  else
+#    i.destroy
+#  end
+#end
 
 puts "destroy suspension type ..."
 SuspensionType.find(:all,:conditions => ["to_be_removed = true"]).each do |i|

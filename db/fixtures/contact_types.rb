@@ -37,16 +37,16 @@ ReceiptMetaType.create :name => "Cash",   :tag_meta_type_id => cash.id,    :stat
 
 
 puts "Initializing Payment Methods"
-manual = PaymentMethodMetaType.create :name => "Manual", :status => true, :to_be_removed => false
-direct_debit = PaymentMethodMetaType.create :name => "Direct Debit", :status => true, :to_be_removed => false
+manual = PaymentMethodMetaMetaType.create :name => "Manual", :status => true, :to_be_removed => false
+direct_debit = PaymentMethodMetaMetaType.create :name => "Direct Debit", :status => true, :to_be_removed => false
 
-cash = PaymentMethodType.create :name => "Cash", :tag_meta_type_id => manual.id, :status => true, :to_be_removed => false
-cheque = PaymentMethodType.create :name => "Cheque", :tag_meta_type_id => manual.id, :status => true, :to_be_removed => false
-cc = PaymentMethodType.create :name => "Credit Card", :tag_meta_type_id => manual.id, :status => true, :to_be_removed => false
+cash = PaymentMethodMetaType.create :name => "Cash", :tag_meta_type_id => manual.id, :status => true, :to_be_removed => false
+cheque = PaymentMethodMetaType.create :name => "Cheque", :tag_meta_type_id => manual.id, :status => true, :to_be_removed => false
+cc = PaymentMethodMetaType.create :name => "Credit Card", :tag_meta_type_id => manual.id, :status => true, :to_be_removed => false
 
-bank_account = PaymentMethodType.create :name => "Bank Account", :tag_meta_type_id => direct_debit.id, :status => true, :to_be_removed => false
-ccd = PaymentMethodType.create :name => "Credit Card", :tag_meta_type_id => direct_debit.id, :status => true, :to_be_removed => false
-payroll = PaymentMethodType.create :name => "Payroll Deduction", :tag_meta_type_id => direct_debit.id, :status => true, :to_be_removed => false
+bank_account = PaymentMethodMetaType.create :name => "Bank Account", :tag_meta_type_id => direct_debit.id, :status => true, :to_be_removed => false
+ccd = PaymentMethodMetaType.create :name => "Credit Card", :tag_meta_type_id => direct_debit.id, :status => true, :to_be_removed => false
+payroll = PaymentMethodMetaType.create :name => "Payroll Deduction", :tag_meta_type_id => direct_debit.id, :status => true, :to_be_removed => false
 
 PaymentMethodType.create :name => "Cash", :tag_type_id => cash.id, :status => true, :to_be_removed => false
 PaymentMethodType.create :name => "Personal Cheque", :tag_type_id => cheque.id, :status => true, :to_be_removed => false

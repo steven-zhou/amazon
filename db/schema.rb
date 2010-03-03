@@ -658,7 +658,7 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
 
   create_table "membership_fees", :force => true do |t|
     t.integer  "membership_id"
-    t.integer  "payment_method_id"
+    t.integer  "payment_method_type_id"
     t.integer  "fee_item_id"
     t.integer  "receipt_account_id"
     t.boolean  "active"
@@ -1229,9 +1229,9 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
     t.string   "entity_type"
     t.date     "todays_date"
     t.date     "transaction_date"
-    t.integer  "payment_method_type_id"
+    t.integer  "payment_method_meta_type_id"
     t.string   "receipt_meta_type_name"
-    t.integer  "payment_method_id"
+    t.integer  "payment_method_type_id"
     t.string   "receipt_type_name"
     t.integer  "bank_account_id"
     t.string   "bank_account_name"
@@ -1240,7 +1240,7 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
     t.integer  "letter_id"
     t.boolean  "letter_sent"
     t.date     "date_sent"
-    t.decimal  "total_amount",           :precision => 11, :scale => 3
+    t.decimal  "total_amount",                :precision => 11, :scale => 3
     t.text     "notes"
     t.integer  "received_via_id"
     t.string   "received_via_name"

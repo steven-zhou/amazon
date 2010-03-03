@@ -306,9 +306,9 @@ class TransactionHeadersController < ApplicationController
   end
 
   def enquiry_show_receipt_type
-    @payment_method_type = PaymentMethodType.find(params[:param1])rescue  @payment_method_type = PaymentMethodType.new
+    @payment_method_type = PaymentMethodMetaType.find(params[:param1])rescue  @payment_method_type = PaymentMethodMetaType.new
     if params[:param1] != "0"
-      @payment_methods = PaymentMethod.find(:all, :conditions => ['tag_type_id = ? AND status = true AND to_be_removed = false', params[:param1]])
+      @payment_methods = PaymentMethodType.find(:all, :conditions => ['tag_type_id = ? AND status = true AND to_be_removed = false', params[:param1]])
       @options = ""
       @options += "<option value = 0 >All"
       @payment_methods.each do |i|
