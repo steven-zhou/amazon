@@ -1,0 +1,18 @@
+%ul#menu
+
+  - # New Menu
+  %li{:id => @current_controller == "membership" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "membership"
+        = link_to "#{image_tag('Icons/System/add.png')} New", :controller => "membership", :action => "new", :id => (@membership.nil?) ? "" : @membership.id
+      - else
+        <p>New</p>
+        %ul       
+          %li{:id => @current_action == "new" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/add.png')} New", {:controller => "people", :action => "new"} , :class => "draggable", :controller => "people", :action => "new",:icon_module=>"core",:image_url => "Icons/System/add.png", :title => "Membership New"
+          
+          %br.clear
+    .bottom
+
+  

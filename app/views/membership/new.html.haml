@@ -1,0 +1,22 @@
+- form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form"} do |p|
+  #header
+    #page_title
+      %h1 New Membership
+    #lol
+  #left_content
+    .container
+
+    .container
+
+    .container
+
+
+    .container
+
+      %br.clear
+
+
+
+    %p.submit
+      = link_to_function 'Clear', :class => "clear_form alt_option"
+      = submit_tag "Submit",:id => "new_person_submit",:disabled=>true, :style => "float:right;"
