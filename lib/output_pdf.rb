@@ -901,7 +901,7 @@ module OutputPdf
 
     PDF::SimpleTable.new do |tab|
 
-      tab.column_order.push(*%w(receipt_number transaction_date bank_account receipt_meta_meta_type receipt_meta_type notes total_amount))
+      tab.column_order.push(*%w(receipt_number transaction_date bank_account payment_method_type payment_method notes total_amount))
 
       tab.columns["receipt_number"] = PDF::SimpleTable::Column.new("receipt_number") { |col|
         col.heading = "Receipt Number"
@@ -918,15 +918,15 @@ module OutputPdf
       }
       tab.columns["bank_account"].width = 80
 
-      tab.columns["receipt_meta_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_meta_type") { |col|
-        col.heading = "Receipt Meta Type"
+      tab.columns["payment_method_type"] = PDF::SimpleTable::Column.new("payment_method_type") { |col|
+        col.heading = "Payment Method Type"
       }
-      tab.columns["receipt_meta_meta_type"].width = 80
+      tab.columns["payment_method_type"].width = 80
 
-      tab.columns["receipt_meta_type"] = PDF::SimpleTable::Column.new("receipt_meta_type") { |col|
-        col.heading = "Receipt Type"
+      tab.columns["payment_method"] = PDF::SimpleTable::Column.new("payment_method") { |col|
+        col.heading = "Payment Method"
       }
-      tab.columns["receipt_meta_type"].width = 80
+      tab.columns["payment_method"].width = 80
 
       tab.columns["notes"] = PDF::SimpleTable::Column.new("notes") { |col|
         col.heading = "Notes"
@@ -947,13 +947,13 @@ module OutputPdf
       data = Array.new
       @transaction.each do |transaction|
         bank_account = transaction.bank_account.nil? ? "" : transaction.bank_account.account_number
-        receipt_meta_type = transaction.receipt_meta_meta_type.nil? ? "" : transaction.receipt_meta_meta_type.name
-        receipt_type = transaction.receipt_meta_type.nil? ? "" : transaction.receipt_meta_type.name
+        payment_method_type = transaction.payment_method_type.nil? ? "" : transaction.payment_method_type.name
+        payment_method = transaction.payment_method.nil? ? "" : transaction.payment_method.name
         data << { "receipt_number" => "#{transaction.receipt_number}",
           "transaction_date" => "#{transaction.transaction_date.to_s}",
           "bank_account" => "#{bank_account}",
-          "receipt_meta_meta_type" => "#{receipt_meta_type}",
-          "receipt_meta_type" => "#{receipt_type}",
+          "payment_method_type" => "#{payment_method_type}",
+          "payment_method" => "#{payment_method}",
           "notes" => "#{transaction.notes}",
           "total_amount" => "#{currencify(transaction.total_amount)}" }
       end
