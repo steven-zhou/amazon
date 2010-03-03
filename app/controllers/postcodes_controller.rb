@@ -102,6 +102,11 @@ class PostcodesController < ApplicationController
     @postcode = Postcode.lookup_postcode(params[:suburb],params[:state])
     @postcode_id = @postcode.try(:postcode)
     @postcode_country_name = @postcode.try(:country).try(:short_name)
+
+
+    if @postcode_id.nil? || @postcode_country_name.nil?
+      flash.now[:error]= "Can not Find the Suburb or State.</br> Do you want to continue ?"
+    end
     respond_to do |format|
       format.js
     end

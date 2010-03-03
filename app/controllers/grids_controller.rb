@@ -2842,7 +2842,7 @@ class GridsController < ApplicationController
           u.label,
           u.short_description,
           u.body_text,
-          u.active]}}
+          u.active? ? "Active" : "Inactive"]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end

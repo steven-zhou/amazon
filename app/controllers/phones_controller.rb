@@ -17,7 +17,9 @@ class PhonesController < ApplicationController
   def create
     @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
     @phone = @entity.phones.new(params[:phone])
-    @phone.save
+    unless @phone.save
+      flash.now[:error]="The Value can not be empty."
+    end
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Phone ID #{@phone.id}.")
     if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@phone.contactable_id)

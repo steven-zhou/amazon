@@ -1,4 +1,4 @@
-<% if @phone.errors.empty? -%>
+<% if @phone.errors.empty?&&flash[:error].nil? -%>
   <%if @organisation.nil? -%>
   $('#phone_type').html('<%= escape_javascript(render(:partial => "phones/personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
   $('#contacts').html('<%= escape_javascript(render(:partial => "contacts/contacts_tab_create")) %>');

@@ -378,13 +378,6 @@ $(function(){
     $(".clear_form_to_phone").live("click", function(){
         $("#select_contact_type").val("Phone").change();
 
-        //        if($("#phone_contact_meta_type_id").val() == null)
-        //        {
-        //            $("#phone_pre_value").attr('readonly','readonly');
-        //            $("#phone_value").attr('readonly','readonly');
-        //            $("#phone_post_value").attr('readonly','readonly');
-        //            $("#phone_remarks").attr('readonly','readonly');
-        //            $("#contact_phone_submit").attr('readonly','readonly');
         if($("#phone_contact_meta_type_id").val() == null)
         {
             $("#phone_pre_value").attr('readonly','readonly');
@@ -424,11 +417,15 @@ $(function(){
     $("#select_contact_type").ready(function(){
         $('form.active').removeClass('active');
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
+
+        $('.mandantory_field').keyup();
     });
 
     $("#select_contact_type").live('change',function(){
         $('form.active').removeClass('active');
         $("form."+$('#select_contact_type option:selected').val()).addClass('active');
+
+        $('.mandantory_field').keyup();
     });
 });
 
