@@ -48,6 +48,9 @@
     <%- if session[:module] == "receipting" %>
       <%= javascript_include_tag  "receipting.js"%>
     <%- end%>
+    <%- if session[:module] == "membership" %>
+      <%= javascript_include_tag  "membership.js"%>
+    <%- end%>
 
   </head>
 

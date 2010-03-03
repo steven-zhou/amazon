@@ -1,0 +1,17 @@
+.form_line
+  .field_30
+    = label_tag :name, 'Name', {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@person.nil? ? "" :@person.name.to_s
+  .field_30
+    = label_tag :date_of_birth, "Date of Birth", {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@person.nil? ? "" : @person.birth_date.nil? ? "" : @person.birth_date.to_s
+  .field_30
+    = label_tag :age,"Age", {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@person.nil? ? "" : @person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
+  %br.clear
+
+
+

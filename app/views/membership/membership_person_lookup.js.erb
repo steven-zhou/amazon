@@ -1,0 +1,4 @@
+<%-unless @person.nil?%>
+
+ $('#membership_person_info').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+<%-end%>
