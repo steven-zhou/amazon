@@ -12,6 +12,22 @@
     %div.display_field_bg
       =@person.nil? ? "" : @person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
   %br.clear
+.form_line
+  .field_30
+    = label_tag :name, 'Organisation Name', {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@organisation.nil? ? "" :@organisation.full_name.to_s
+  .field_30
+    = label_tag :type, "Organisation Type", {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@organisation.nil? ? "" : @organisation.type.to_s
+  .field_30
+    = label_tag :age,"Registered Date", {:style => "color: #232323;"}
+    %div.display_field_bg
+      =@organisation.nil? ? "" : @organisation.registered_date.nil? ? "" : @organisation.registered_date.to_s
+  %br.clear
+
+
 
 
 

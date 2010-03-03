@@ -3,33 +3,22 @@
     #page_title
       %h1 New Membership
     #lol
-  #left_content
+.full_container
     .container
-      .container
-        %h1 Person Details
-        .form_line{:style => "float:none;"}
-          .field_20{:style => "margin-right: 2px;"}
-            %label Person ID
-            = p.text_field :person_id,:class=>"membership_person_lookup"
-          .field_5
-            %label &nbsp;
-            = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
-        #membership_person_info
-          =render :partial =>"/membership/membership_person_detail"
-      .container
-        %h1 Organisation Details
-        .form_line{:style => "float:none;"}
-          .field_20{:style => "margin-right: 2px;"}
-            %label Organisation ID
-            = p.text_field :employer_id,:class=>"membership_organisation_lookup"
-          .field_5
-            %label &nbsp;
-            = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "membership_organisation_id", :title=>"Search"
-        #membership_organisation_info
-          =render :partial =>"/membership/membership_organisation_detail"
+      %h1 Person Details
+      .form_line{:style => "float:none;"}
+        .field_20{:style => "margin-right: 2px;"}
+          %label Person ID
+          = p.text_field :person_id,:class=>"membership_person_lookup"
+        .field_5
+          %label &nbsp;
+          = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
+      #membership_person_info
+        =render :partial =>"/membership/membership_person_detail"
+    .container
 
 
-      %br.clear
+    %br.clear
 
 
 
