@@ -71,8 +71,8 @@
             = link_to "#{image_tag('icon_holder.png')} Payment Methods", {:controller => "administrations", :action => "payment_methods"}, :controller => "administrations", :action => "payment_methods",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Payment Methods"
           %li{:id => action == "tax_items" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Tax Items", {:controller => "administrations", :action => "tax_items"}, :controller => "administrations", :action => "tax_items",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Tax Items"
-          %li{:id => action == "subscription_fees" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Subscription Fees", {:controller => "administrations", :action => "subscription_fees"}, :controller => "administrations", :action => "subscription_fees",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Subscription Fees"
+          %li{:id => action == "fee_types" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Fee Types", {:controller => "administrations", :action => "fee_types"}, :controller => "administrations", :action => "fee_types",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Fee Types"
 
     .bottom
 

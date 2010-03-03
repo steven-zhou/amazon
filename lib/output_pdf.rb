@@ -918,15 +918,15 @@ module OutputPdf
       }
       tab.columns["bank_account"].width = 80
 
+      tab.columns["payment_method_meta_type"] = PDF::SimpleTable::Column.new("payment_method_meta_type") { |col|
+        col.heading = "Receipt Method Type"
+      }
+      tab.columns["payment_method_meta_type"].width = 80
+
       tab.columns["payment_method_type"] = PDF::SimpleTable::Column.new("payment_method_type") { |col|
-        col.heading = "Payment Method Type"
+        col.heading = "Receipt Method"
       }
       tab.columns["payment_method_type"].width = 80
-
-      tab.columns["payment_method"] = PDF::SimpleTable::Column.new("payment_method") { |col|
-        col.heading = "Payment Method"
-      }
-      tab.columns["payment_method"].width = 80
 
       tab.columns["notes"] = PDF::SimpleTable::Column.new("notes") { |col|
         col.heading = "Notes"
@@ -947,13 +947,13 @@ module OutputPdf
       data = Array.new
       @transaction.each do |transaction|
         bank_account = transaction.bank_account.nil? ? "" : transaction.bank_account.account_number
+        payment_method_meta_type = transaction.payment_method_meta_type.nil? ? "" : transaction.payment_method_meta_type.name
         payment_method_type = transaction.payment_method_type.nil? ? "" : transaction.payment_method_type.name
-        payment_method = transaction.payment_method.nil? ? "" : transaction.payment_method.name
         data << { "receipt_number" => "#{transaction.receipt_number}",
           "transaction_date" => "#{transaction.transaction_date.to_s}",
           "bank_account" => "#{bank_account}",
+          "payment_method_meta_type" => "#{payment_method_meta_type}",
           "payment_method_type" => "#{payment_method_type}",
-          "payment_method" => "#{payment_method}",
           "notes" => "#{transaction.notes}",
           "total_amount" => "#{currencify(transaction.total_amount)}" }
       end
