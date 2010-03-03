@@ -1,0 +1,3 @@
+class MembershipFeeMetaMetaType < FeeMetaMetaType
+
+end

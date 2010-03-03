@@ -112,5 +112,3 @@ class TagMetaTypesController < ApplicationController
   end
 
 end
-
-

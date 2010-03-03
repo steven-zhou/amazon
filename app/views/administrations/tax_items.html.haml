@@ -1,0 +1,35 @@
+#header
+  #page_title
+    %h1 Tax Items
+  #lol
+    %br.clear
+
+
+
+%input.hidden{:id => "tax_item_mode", :mode => "show"}
+
+#add_new_tax_item
+  = render :partial => "tax_items/new_tax_item"
+
+#existing_tax_items
+  = render :partial => "tax_items/existing_tax_items"
+
+#edit_tax_item{:style => "display:none;margin-top:10px;float:left;"}
+  .tab_looking_left
+  .tab_looking_icon
+    = image_tag('edit_icon.png')
+    %h3{:style=>"display:inline;"} Edit
+  .tab_looking_right
+
+  %div.tab_close
+    .tab_looking_left
+    .tab_looking_icon
+      = link_to_function image_tag('/images/Icons/System/close.png'), :field => "tax_item", :style => "display:none;", :title=>"Close", :class => "close_option close_edit", :toggle_id_name => "edit_tax_item", :toggle_id_name1 => "add_new_tax_item"
+    .tab_looking_right
+      .options
+
+
+  .full_container
+    -#.options
+      = link_to_function image_tag('close_icon.png'), :field => "tax_item", :style => "display:none;", :title=>"Close", :class => "close_option ", :toggle_id_name => "edit_tax_item", :toggle_id_name1 => "add_new_tax_item"
+    #edit_tax_item_form

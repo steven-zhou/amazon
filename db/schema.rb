@@ -1182,7 +1182,7 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
 
   create_table "tax_items", :force => true do |t|
     t.text     "name"
-    t.text     "destription"
+    t.text     "description"
     t.decimal  "percentage"
     t.boolean  "active"
     t.boolean  "to_be_removed"

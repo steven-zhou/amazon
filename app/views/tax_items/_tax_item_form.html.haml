@@ -1,0 +1,28 @@
+%script{:type => "text/javascript"}
+  :plain
+
+    iphone_checkbox();
+-form_for @tax_item, :html => {:class => "ajax_form",:submit_button_id => "new_tax_item_submit"} do |f|
+  .form_line
+    .field_15
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name, :class => "compulsory_field"
+    .field_20
+      = f.label :description, "description"
+      = f.text_field :description
+    .field_20
+      = f.label :percentage, "percentage(%)"
+      = f.text_field :percentage, :numeric =>"decimal"
+    .field_15
+      = f.label :active, "Active"
+      = f.check_box :active, :class => "iphone_checkbox",:checked => true
+    .field_20
+      %label &nbsp
+      = submit_tag 'submit', :id => "new_tax_item_submit",:disabled => true
+
+
+
+   
+
+
+
