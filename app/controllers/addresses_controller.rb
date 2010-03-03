@@ -32,7 +32,6 @@ class AddressesController < ApplicationController
 
   def create
     @entity = Person.find(params[:person_id]) rescue @entity = Organisation.find(params[:organisation_id])
-    params[:address][:suite_unit] =  params[:address][:suite_unit] + " / "
     @address = @entity.addresses.new(params[:address])
     @countries = Country.all
     @active_address = AddressType.active_address_type
