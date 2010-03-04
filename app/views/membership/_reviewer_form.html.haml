@@ -1,18 +1,17 @@
-.full_container
-  %h1 Reviewer
-  .form_line
-    .field_20
-      %label Reviewer ID
-      %input{:id => "reviewer_id", :name => "reviewer_id", :value => "ID"}
-    .field_40
-      %label Reviewer
-      .display_field_bg
-        Name
-    .field_30
-      %label Review Date
-      %input{:id => "reviewer_date", :name => "reviewer_date", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
-  .form_line{:style => "height:auto;"}
-    .field_100{:style => "height:auto;"}
-      %label Output
-      %textarea{:style=>"width:100%;height:150px;"}
-    %br.clear
+%h1 Reviewer
+.form_line
+  .field_20
+    %label Reviewer ID
+    %input{:id => "reviewer_id", :name => "membership[reviewed_by]", :value => "ID"}
+  .field_40
+    %label Reviewer
+    .display_field_bg#reviewer_name
+      =@person.name unless @person.nil?
+  .field_30
+    %label Review Date
+    %input{:id => "reviewer_date", :name => "membership[reviewed_date]", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
+.form_line{:style => "height:auto;"}
+  .field_100{:style => "height:auto;"}
+    %label Output
+    %textarea{:name=>"membership[reviewed_comment]",:style=>"width:100%;height:150px;"}
+  %br.clear

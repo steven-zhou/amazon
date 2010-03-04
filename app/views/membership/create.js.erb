@@ -2,7 +2,9 @@
 $('#flash_feedback').html('Sucessfully Created');
 $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
-$("#membership_person_id").val("").change();
+$('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$("#membership_person_id").val("");
+
 
  <%else%>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

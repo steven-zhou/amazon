@@ -11,6 +11,8 @@
         %ul       
           %li{:id => @current_action == "new" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/add.png')} New", {:controller => "membership", :action => "new"} , :class => "draggable", :controller => "membership", :action => "new",:icon_module=>"membership",:image_url => "Icons/System/add.png", :title => "Membership New"
+          %li{:id => @current_action == "new" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Review", {:controller => "membership", :action => "review"} , :class => "draggable", :controller => "membership", :action => "review",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Membership Review"
           
           %br.clear
     .bottom
@@ -24,6 +26,8 @@
       -else
         <p>Fee Items</p>
         %ul
+          %li{:id => @current_action == "fee_items" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Fee Items", {:controller => "membership_administrations", :action => "fee_items"}, :class => "draggable", :controller => "membership_administrations", :action => "fee_items", :icon_module=>"membership",:image_url => "Icons/Receipting/campaigns.png", :title => "fee_items"
           %li{:id => @current_action == "fee_items" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Fee Items", {:controller => "membership_administrations", :action => "fee_items"}, :class => "draggable", :controller => "membership_administrations", :action => "fee_items", :icon_module=>"membership",:image_url => "Icons/Receipting/campaigns.png", :title => "fee_items"
       

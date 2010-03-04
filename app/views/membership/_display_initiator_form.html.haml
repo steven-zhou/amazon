@@ -1,0 +1,22 @@
+%h1 Initiator
+.form_line
+  .field_20
+    %label Initiator ID
+    -unless @membership.nil?
+      %input{:name=>"id",:value=>"#{@membership.id}",:class=>"hidden"}
+    %div.display_field_bg
+      =@membership.nil? ? "" : @membership.initiated_by
+  .field_40
+    %label Initiator
+    .display_field_bg#initiator_name
+      = @membership.nil? ? "" : @membership.initiated_by.nil? ? "" : Person.find(@membership.initiated_by).name
+  .field_30
+    %label Initiator Date
+    .display_field_bg
+      =@membership.nil? ? "" : @membership.initiated_date.nil? ? "" : @membership.initiated_date
+.form_line{:style => "height:auto;"}
+  .field_100{:style => "height:auto;"}
+    %label Output
+    .display_field_bg
+      =@membership.nil? ? "" : @membership.initiated_comment.nil? ? "" : @membership.initiated_comment
+  %br.clear
