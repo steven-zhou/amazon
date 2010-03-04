@@ -1,10 +1,10 @@
 <%-unless @person.nil?%>
 
- $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$("#"+"<%=escape_javascript("#{@update_field}")%>").html("<%=@person.name%>");
 
  <%else%>
 
-$('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$("#"+"<%=@update_field%>").html("");
 
 $("#flash_message_text").html("Invalid Person ID");
  $('#flash_message').dialog( {

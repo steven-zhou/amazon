@@ -1,0 +1,4 @@
+
+$('#display_review_info').show();
+$('#review_membership').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$('#initiator').html('<%= escape_javascript(render(:partial => "/membership/display_initiator_form")) %>');

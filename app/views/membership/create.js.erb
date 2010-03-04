@@ -1,12 +1,13 @@
-<%-unless @person.nil?%>
+<%-if flash[:error].nil?%>
+$('#flash_feedback').html('Sucessfully Created');
+$('#flash_feedback').fadeIn("slow");
+$('body').click(function(){$('#flash_feedback').fadeOut("slow")});
+$('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$("#membership_person_id").val("");
 
- $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
 
  <%else%>
-
-$('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
-
-$("#flash_message_text").html("Invalid Person ID");
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
  $('#flash_message').dialog( {
      modal: true,
       resizable: false,
@@ -24,4 +25,6 @@ $("#flash_message_text").html("Invalid Person ID");
  $("#flash_message").parent().css('background-color','#D1DDE6');
  $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
+
 <%-end%>
+  enable_form_after_submit_finish();

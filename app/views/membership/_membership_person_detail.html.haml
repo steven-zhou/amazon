@@ -1,17 +1,62 @@
-.form_line
-  .field_30
-    = label_tag :name, 'Name', {:style => "color: #232323;"}
-    %div.display_field_bg
-      =@person.nil? ? "" :@person.name.to_s
-  .field_30
-    = label_tag :date_of_birth, "Date of Birth", {:style => "color: #232323;"}
-    %div.display_field_bg
-      =@person.nil? ? "" : @person.birth_date.nil? ? "" : @person.birth_date.to_s
-  .field_30
-    = label_tag :age,"Age", {:style => "color: #232323;"}
-    %div.display_field_bg
-      =@person.nil? ? "" : @person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
-  %br.clear
+.container#membership_person_info
+  %h1 Personel Details
+  .form_line
+    .field_30
+      = label_tag :name, 'Name', {:style => "color: #232323;"}
+      -unless @person.nil?
+        %input{:name=>"membership[person_id]",:value=>"#{@person.id}",:class=>"hidden"}
+      %div.display_field_bg
+        =@person.nil? ? "" :@person.name.to_s
+    .field_30
+      = label_tag :date_of_birth, "Date of Birth", {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" : @person.birth_date.nil? ? "" : @person.birth_date.to_s
+    .field_30
+      = label_tag :age,"Age", {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" : @person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
+    %br.clear
 
+
+.container#membership_organisation_info
+  %h1 Person Organisation Details
+  .form_line
+    .field_30
+      = label_tag :name, 'Organisation Name', {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" :  @person.employers.nil? ? "" :@person.employers.first.full_name.to_s
+      -unless @person.nil?||@person.employers.nil?
+        %input{:name=>"membership[employer_id]",:value=>"#{@person.employers.first.id}",:class=>"hidden"}
+    .field_30
+      = label_tag :type, "Organisation Type", {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.type.to_s
+    .field_30
+      = label_tag :age,"Registered Date", {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.registered_date.nil? ? "" : @person.employers.first.registered_date.to_s
+    %br.clear
+
+
+.container#membership_organisation_info
+  %h1 Person Workplace Details
+  .form_line
+    .field_30
+      = label_tag :name, 'Organisation Name', {:style => "color: #232323;"}
+      -unless @person.nil?||@person.employers.nil?
+        %input{:name=>"membership[workplace_id]",:value=>"#{@person.employers.first.id}",:class=>"hidden"}
+      %div.display_field_bg
+        =@person.nil? ? "" :  @person.employers.nil? ? "" :@person.employers.first.full_name.to_s
+    .field_30
+      = label_tag :type, "Organisation Type", {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.type.to_s
+    .field_30
+      = label_tag :age,"Registered Date", {:style => "color: #232323;"}
+      %div.display_field_bg
+        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.registered_date.nil? ? "" : @person.employers.first.registered_date.to_s
+    %br.clear
+.container#membership_detail
+  =render :partial =>"/membership/membership_detail"
 
 

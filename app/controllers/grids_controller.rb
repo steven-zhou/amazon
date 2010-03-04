@@ -3909,10 +3909,82 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @tax_items.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.name,
-          u.description,
-          u.percentage,
-          u.active
+          u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
+          u.to_be_removed ? "<span class='red'>"+u.description+"</span>" : u.description,
+          u.to_be_removed ? "<span class='red'>"+u.percentage.to_s+"</span>" : u.percentage,
+          u.to_be_removed ? "<span class='red'>"+u.active.to_s+"</span>" : u.active,
+
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
+
+
+  def show_intiate_membership_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @membership = Membership.find(:all,
+        :conditions=>["membership_status_id = ?", MembershipStatus.find_by_name("Intiate").id],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+
+      )
+      count = Membership.count(:all)
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @membership = Membership.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiate").id]
+        )
+      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiate").id])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @membership.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.person_id,
+          u.employer_id,
+          u.workplace_id,
+          u.membership_status_id,
+          u.membership_type_id,
+
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
