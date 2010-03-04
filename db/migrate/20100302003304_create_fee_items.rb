@@ -1,6 +1,6 @@
 class CreateFeeItems < ActiveRecord::Migration
   def self.up
-    create_table :fee_items do |t|
+    create_table :fee_items, :force => true do |t|
       t.integer :tag_type_id
       t.string :type
       t.text :name
