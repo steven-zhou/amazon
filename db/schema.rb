@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100302011051) do
+ActiveRecord::Schema.define(:version => 20100304003956) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -419,6 +419,7 @@ ActiveRecord::Schema.define(:version => 20100302011051) do
     t.integer  "termination_method_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "workplace_id"
   end
 
   create_table "fee_items", :force => true do |t|

@@ -1,0 +1,18 @@
+.full_container
+  %h1 Next Reviewer
+  .form_line
+    .field_20
+      %label Next Reviewer ID
+      %input{:id => "reviewer_id", :name => "reviewer_id", :value => "ID"}
+    .field_40
+      %label Next Reviewer
+      .display_field_bg
+        Name
+    .field_30
+      %label Next Review Date
+      %input{:id => "reviewer_date", :name => "reviewer_date", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      %label Output
+      %textarea{:style=>"width:100%;height:150px;"}
+    %br.clear

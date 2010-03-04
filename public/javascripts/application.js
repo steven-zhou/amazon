@@ -2454,7 +2454,7 @@ $(function(){
 
         $.ajax({
             type: $(this).attr("method"),
-            url: $(this).attr("url")+".js",
+            url: $(this).attr("url"),
             data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type"),
             dataType: "script"
         });
@@ -2706,7 +2706,7 @@ $(function(){
                 dataType: "script"
             });
         }
-        if($('#'+form.attr('field')+"_mode").attr('mode')=='show'){
+        if($('#'+form.attr('field')+"_mode").attr('mode')=='show' || $('#'+form.attr('field')+"_mode").attr('mode')==undefined){
             $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
             $(this).addClass("trSelected");
         }else{

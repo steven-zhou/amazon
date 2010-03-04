@@ -1819,6 +1819,10 @@ $("#employment_edit_close_button").live('click',function(){
     $('#employment_hidden_tab').attr('mode','show');
 });
 
+$(".copy_to").live("change", function(){
+  $("#"+$(this).attr("copy_field")).val($(this).val()).change();
+});
+
 /* Person Roles */
 $(".person_roles_toggle_button").live('click', function(){
 
@@ -2554,7 +2558,7 @@ $(function(){
                 url:
                 "/organisations/name_finder.js",
                 data:
-                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id')+'&object_id='+$(this).attr('object_id'),
+                'organisation_id='+$(this).val()+'&employment_id='+$(this).attr('employment_id')+'&object_id='+$(this).attr('object_id')+'&update_field='+$(this).attr('update_field'),
                 dataType: "script"
             });
         }else{
@@ -3800,8 +3804,6 @@ $(function() {
         length: 6
     });
 });
-
-
 
 
 

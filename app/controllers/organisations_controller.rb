@@ -186,7 +186,7 @@ class OrganisationsController < ApplicationController
     @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = nil
     @employment = Employment.find(params[:employment_id]) rescue @employment = Employment.new
     @org_relationship = true if params[:object_id]
-
+    @update_field = params[:update_field]
     respond_to do |format|
       format.js {  }
     end
