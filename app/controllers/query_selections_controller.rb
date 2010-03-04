@@ -17,6 +17,7 @@ class QuerySelectionsController < ApplicationController
       else
         flash.now[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_selection.errors.on(:table_name).nil? && @query_selection.errors.on(:table_name).include?("can't be blank"))
         flash.now[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_selection.errors.on(:field_name).nil? && @query_selection.errors.on(:field_name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "field_name") if (!@query_selection.errors.on(:field_name).nil? && @query_selection.errors.on(:field_name).include?("has already been taken"))
       end
     else
       flash.now[:error] = "Only Display Ten Attributes"

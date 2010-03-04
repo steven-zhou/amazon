@@ -16,6 +16,7 @@ class QueryCriteriasController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_criteria.errors.on(:table_name).nil? && @query_criteria.errors.on(:table_name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_criteria.errors.on(:field_name).nil? && @query_criteria.errors.on(:field_name).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "operator") if (!@query_criteria.errors.on(:operator).nil? && @query_criteria.errors.on(:operator).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "field_name") if (!@query_criteria.errors.on(:field_name).nil? && @query_criteria.errors.on(:field_name).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
@@ -34,7 +35,14 @@ class QueryCriteriasController < ApplicationController
   
   def update
     @query_criteria = QueryCriteria.find(params[:id].to_i)
-    @query_criteria.update_attributes(params[:query_criteria])
+    if @query_criteria.update_attributes(params[:query_criteria])
+      
+    else
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "table_name") if (!@query_criteria.errors.on(:table_name).nil? && @query_criteria.errors.on(:table_name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "field_name") if (!@query_criteria.errors.on(:field_name).nil? && @query_criteria.errors.on(:field_name).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "operator") if (!@query_criteria.errors.on(:operator).nil? && @query_criteria.errors.on(:operator).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "field_name") if (!@query_criteria.errors.on(:field_name).nil? && @query_criteria.errors.on(:field_name).include?("has already been taken"))
+    end
     @action = String.new
     @action = params[:current_action]
     @query_header = @query_criteria.query_header

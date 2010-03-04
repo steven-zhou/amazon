@@ -2706,7 +2706,7 @@ $(function(){
                 dataType: "script"
             });
         }
-        if($('#'+form.attr('field')+"_mode").attr('mode')=='show'){
+        if($('#'+form.attr('field')+"_mode").attr('mode')=='show' || $('#'+form.attr('field')+"_mode").attr('mode')==undefined){
             $('table.selectable_grid tbody tr.trSelected').removeClass('trSelected');
             $(this).addClass("trSelected");
         }else{
