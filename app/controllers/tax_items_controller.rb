@@ -49,4 +49,35 @@ class TaxItemsController < ApplicationController
     end
   end
 
+
+  def destroy
+
+     @tax_item = TaxItem.find(params[:id])
+
+    @tax_item.to_be_removed = true
+    @tax_item.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Tax Item with ID #{@tax_item.id}.")
+    # keyword.destroy
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+  def retrieve_tax_item
+
+      @tax_item = TaxItem.find(params[:id])
+
+    @tax_item.to_be_removed = false
+    @tax_item.save!
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Tax Item with ID #{@tax_item.id}.")
+    # keyword.destroy
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
 end

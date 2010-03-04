@@ -9,16 +9,3 @@ $(function(){
         });
     });
 });
-
-
-
-$(function(){
-    $(".membership_person_lookup").live('change', function(){
-        $.ajax({
-            type: "GET",
-            url: "/membership/membership_organisation_lookup/",
-            data: 'id=' + $(this).val(),
-            dataType: "script"
-        });
-    });
-});

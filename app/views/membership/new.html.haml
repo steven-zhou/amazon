@@ -1,27 +1,20 @@
-- form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form"} do |p|
-  #header
-    #page_title
-      %h1 New Membership
-    #lol
-.full_container
+#header
+  #page_title
+    %h1 New Membership
+  #lol
+  .full_container
     .container
-      %h1 Person Details
+      %h1 Membership Details
       .form_line{:style => "float:none;"}
         .field_20{:style => "margin-right: 2px;"}
-          %label Person ID
-          = p.text_field :person_id,:class=>"membership_person_lookup"
+          = label_tag :name, '<span class="asterisk">*</span>Person ID'
+          %input{:id=>"membership_person_id",:class=>"membership_person_lookup mandantory_field",:submit_button_id=>"new_membership_submit"}
         .field_5
           %label &nbsp;
           = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
-      #membership_person_info
-        =render :partial =>"/membership/membership_person_detail"
-    .container
-
-
-    %br.clear
-
-
-
-    %p.submit
-      = link_to_function 'Clear', :class => "clear_form alt_option"
-      = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
+      #person_detail
+      - form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form"} do |p|
+        #person_detail_form
+          =render :partial =>"/membership/membership_person_detail"
+        = link_to_function 'Clear', :class => "clear_form alt_option"
+        = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"

@@ -4,7 +4,7 @@ class CreateFeeItems < ActiveRecord::Migration
       t.integer :tag_type_id
       t.string :type
       t.text :name
-      t.text :destription
+      t.text :description
       t.integer :tax_items_id
       t.string :GL_Code
 

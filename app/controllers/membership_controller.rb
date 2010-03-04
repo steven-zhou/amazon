@@ -12,23 +12,28 @@ class MembershipController < ApplicationController
   end
 
 
+  def create
+
+    @membership = Membership.new(params[:membership])
+    @membership.save!
+   unless @membership.save!
+
+     flash[:error] = "Can not save the Membership Data"
+   end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
   def membership_person_lookup
-    
-    @person = Person.find(params[:id])
+    @membership = Membership.new
+    @person = Person.find(params[:id]) rescue @person=nil
 
      respond_to do |format|
       format.js
     end
   end
 
-
-    def membership_organisation_lookup
-
-    @organisation = Organisation.find(params[:id])
-
-     respond_to do |format|
-      format.js
-    end
-  end
 
 end
