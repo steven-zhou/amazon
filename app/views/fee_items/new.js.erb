@@ -1,0 +1,9 @@
+<%if @type == "subscription_fee"%>
+  $('#new_subscription_fee_form').html('<%= escape_javascript(render(:partial => "/fee_items/fee_item_form")) %>');
+  $('#new_subscription_fee_form').css('display','');
+ 
+<%else%>
+  $('#new_membership_fee_form').html('<%= escape_javascript(render(:partial => "/fee_items/fee_item_form")) %>');
+  $('#new_membership_fee_form').css('display','');
+
+<%end%>

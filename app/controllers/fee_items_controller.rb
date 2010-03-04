@@ -2,7 +2,12 @@ class FeeItemsController < ApplicationController
   # System Log stuff added
 
   def new
-    @fee_item = (params[:tag]+"FeeItem").camelize.constantize.new
+    @fee_item = (params[:param1]).camelize.constantize.new
+    if (params[:param1]== "SubscriptionFeeItem")
+      @type = "subscription_fee"
+    else
+      @type = "membership_fee"
+    end
     respond_to do |format|
       format.js
     end

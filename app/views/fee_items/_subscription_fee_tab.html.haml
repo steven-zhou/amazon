@@ -1,1 +1,10 @@
-sdfds
+%input.hidden{:id => "subscription_fee_mode", :mode => "show"}
+
+-#  when you in this page list all the structure here----user for add + grid
+
+#add_new_subscription_fee
+  =render :partial => "fee_items/new_subscription_fee_item"
+
+#existing_subscription_fee
+  = render :partial => "fee_items/existing_fee_items"
+

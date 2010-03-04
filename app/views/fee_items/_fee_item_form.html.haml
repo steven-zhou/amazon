@@ -1,0 +1,24 @@
+-form_for @fee_item, :url => {:controller => "fee_items", :action => 'create'}, :html => {:class=> "ajax_form"} do |f|
+
+  .form_line
+    .field_20
+      = f.label :name, "<span class='asterisk'>*</span>Name"
+      = f.text_field :name
+
+    .field_20
+      = f.label :GL_Code
+      = f.text_field :GL_Code
+
+    .field_20
+      = f.label :amount, "<span class='asterisk'>*</span>Amount ($)"
+      = f.text_field :amount, :class => "number_field"
+
+    .field_20
+      = f.label :description, "Description"
+      = f.text_field :description
+
+
+
+
+
+
