@@ -7,6 +7,7 @@
       $("#workplace_name_container_0").stop().fadeOut(3000);
       $("#employment_workplace_id").focus();
       $("#employment_workplace_id").val("");
+      mandantory_check($("#employment_workplace_id"));
     <%- else %>
       $("#organisation_name_container_0").css('display','');
       $("#organisation_name_container_0").html("Invalid Organisation ID");
@@ -14,6 +15,7 @@
       $("#organisation_name_container_0").stop().fadeOut(3000);
       $("#employment_organisation_id").focus();
       $("#employment_organisation_id").val("");
+      mandantory_check($("#employment_organisation_id"));
     <%- end %>
 
   <%- else %>
@@ -24,6 +26,7 @@
       $("#workplace_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").stop().fadeOut(3000);
       $("#employment_<%=escape_javascript("#{@employment.id}")%>_workplace_id").focus();
       $("#employment_<%=escape_javascript("#{@employment.id}")%>_workplace_id").val("");
+      mandantory_check($("#employment_<%=escape_javascript("#{@employment.id}")%>_workplace_id"));
     <%- else %>
       $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").css('display','');
       $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").html("Invalid Organisation ID");
@@ -31,6 +34,7 @@
       $("#organisation_name_container_"+"<%=escape_javascript("#{@employment.id}")%>").stop().fadeOut(3000);
       $("#employment_<%=escape_javascript("#{@employment.id}")%>_organisation_id").focus();
       $("#employment_<%=escape_javascript("#{@employment.id}")%>_organisation_id").val("");
+      mandantory_check($("#employment_<%=escape_javascript("#{@employment.id}")%>_organisation_id"));
     <%- end %>
 
   <%  end %>

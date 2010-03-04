@@ -1819,9 +1819,9 @@ $("#employment_edit_close_button").live('click',function(){
     $('#employment_hidden_tab').attr('mode','show');
 });
 
-$(".copy_to").live("change", function(){
-  $("#"+$(this).attr("copy_field")).val($(this).val()).change();
-});
+//$(".copy_to").live("change", function(){
+//  $("#"+$(this).attr("copy_field")).val($(this).val()).change();
+//});
 
 /* Person Roles */
 $(".person_roles_toggle_button").live('click', function(){
@@ -2562,7 +2562,11 @@ $(function(){
                 dataType: "script"
             });
         }else{
-            $("#organisation_name_container_"+$(this).attr('employment_id')).html(" ");
+          if($(this).attr("update_field") == "employment_workplace"){
+            $("#workplace_name_container_"+$(this).attr('employment_id')).html("");
+          }else{
+            $("#organisation_name_container_"+$(this).attr('employment_id')).html("");
+          }
         }
     });
 });
