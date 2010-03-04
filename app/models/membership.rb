@@ -20,12 +20,4 @@ class Membership < ActiveRecord::Base
 
   belongs_to :transaction_header, :class_name => "TransactionHeader", :foreign_key => 'last_transaction_id'
  
-  # validates_presence_of :account_number,:bank_id,:entity_id,:account_type
-
-
-
-
-
-
-
 end

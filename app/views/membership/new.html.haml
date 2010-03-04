@@ -3,6 +3,15 @@
     #page_title
       %h1 New Membership
     #lol
+  #initiator
+    = render :partial => "membership/initiator_form"
+  #reviewer
+    = render :partial => "membership/reviewer_form"
+  #finalizer
+    = render :partial => "membership/finalizer_form"
+  #next_reviewer
+    = render :partial => "membership/next_reviewer_form"
+
   #left_content
     .container
 
