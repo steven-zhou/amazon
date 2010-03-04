@@ -109,6 +109,6 @@ LinkModule.create(:name => "Miscellaneous", :status => true,:to_be_removed =>fal
 ReceivedVia.create(:name => "Phone", :status => true,:to_be_removed =>false)
 ReceivedVia.create(:name => "Internet", :status => true,:to_be_removed =>false)
 ReceivedVia.create(:name => "Fax", :status => true,:to_be_removed =>false)
-MailMergeCategory.create(:name => "All", :status => true,:to_be_removed =>false)
+MailMergeCategory.create(:name => "Others", :status => true,:to_be_removed =>false)
 MembershipType.create(:name => "Full Member", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Financial", :status => true,:to_be_removed =>false)
