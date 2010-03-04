@@ -9,7 +9,7 @@ class FeeTypesController < ApplicationController
       @category = "SubscriptionFee"
     else
       @tag_meta_types = MembershipFeeMetaMetaType.all
-      @category = "SubscriptionFee"
+      @category = "MembershipFee"
     end
     respond_to do |format|
       format.js

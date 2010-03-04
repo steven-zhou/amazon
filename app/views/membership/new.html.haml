@@ -3,15 +3,40 @@
     #page_title
       %h1 New Membership
     #lol
+  #initiator
+    = render :partial => "membership/initiator_form"
+  #reviewer
+    = render :partial => "membership/reviewer_form"
+  #finalizer
+    = render :partial => "membership/finalizer_form"
+  #next_reviewer
+    = render :partial => "membership/next_reviewer_form"
+
   #left_content
     .container
+      .container
+        %h1 Person Details
+        .form_line{:style => "float:none;"}
+          .field_20{:style => "margin-right: 2px;"}
+            %label Person ID
+            = p.text_field :person_id,:class=>"membership_person_lookup"
+          .field_5
+            %label &nbsp;
+            = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
+        #membership_person_info
+          =render :partial =>"/membership/membership_person_detail"
+      .container
+        %h1 Organisation Details
+        .form_line{:style => "float:none;"}
+          .field_20{:style => "margin-right: 2px;"}
+            %label Organisation ID
+            = p.text_field :employer_id,:class=>"membership_organisation_lookup"
+          .field_5
+            %label &nbsp;
+            = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "membership_organisation_id", :title=>"Search"
+        #membership_organisation_info
+          =render :partial =>"/membership/membership_organisation_detail"
 
-    .container
-
-    .container
-
-
-    .container
 
       %br.clear
 
@@ -19,4 +44,4 @@
 
     %p.submit
       = link_to_function 'Clear', :class => "clear_form alt_option"
-      = submit_tag "Submit",:id => "new_person_submit",:disabled=>true, :style => "float:right;"
+      = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"

@@ -11,4 +11,24 @@ class MembershipController < ApplicationController
     end
   end
 
+
+  def membership_person_lookup
+    
+    @person = Person.find(params[:id])
+
+     respond_to do |format|
+      format.js
+    end
+  end
+
+
+    def membership_organisation_lookup
+
+    @organisation = Organisation.find(params[:id])
+
+     respond_to do |format|
+      format.js
+    end
+  end
+
 end
