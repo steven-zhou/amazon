@@ -1,7 +1,7 @@
 
 $('#edit_membership').show();
 $('#edit_membership_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
-<%-if @type == "intiate"%>
+<%-if @type == "Initiated"%>
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_initiator_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/reviewer_form")) %>');
 <%-elsif @type == "Reviewed"%>
@@ -9,14 +9,14 @@ $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/me
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_reviewer_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/finalizer_form")) %>');
 
-<%-elsif @type =="Suspend"%>
+<%-elsif @type =="Approved"%>
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_initiator_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_reviewer_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_finalizer_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/suspend_form")) %>');
 
 
-<%-elsif @type =="Terminate"%>
+<%-elsif @type =="Suspended"%>
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_initiator_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_reviewer_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_finalizer_form")) %>');
