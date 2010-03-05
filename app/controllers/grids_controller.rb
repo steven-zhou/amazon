@@ -3959,7 +3959,7 @@ class GridsController < ApplicationController
         :offset =>start
 
       )
-      count = Membership.count(:all)
+      count = Membership.count(:all, :conditions=>["membership_status_id = ?", MembershipStatus.find_by_name(params[:type]).id])
     end
 
     # User provided search terms
