@@ -3952,7 +3952,7 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id = ?", MembershipStatus.find_by_name("Intiate").id],
+        :conditions=>["membership_status_id = ?", MembershipStatus.find_by_name(params[:type]).id],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
@@ -3967,9 +3967,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiated").id]
+        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name(params[:type]).id]
         )
-      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiated").id])
+      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name(params[:type]).id])
     end
 
     # Construct a hash from the ActiveRecord result
