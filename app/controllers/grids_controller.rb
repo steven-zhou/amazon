@@ -3967,9 +3967,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiate").id]
+        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiated").id]
         )
-      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiate").id])
+      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name("Intiated").id])
     end
 
     # Construct a hash from the ActiveRecord result

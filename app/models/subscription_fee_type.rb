@@ -2,4 +2,3 @@ class SubscriptionFeeType < FeeType
 
 
 end
-
