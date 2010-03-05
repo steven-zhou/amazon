@@ -128,7 +128,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
     :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get,:show_allocation_types_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get, :show_person_bank_accounts_grid => :get,
-    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get, :show_mail_logs_grid => :get, :show_org_mail_logs_grid => :get, :show_person_maillog_enquiry_grid => :get, :show_organisation_maillog_enquiry_grid => :get, :show_banks_grid => :get,:show_tax_items_grid => :get}
+    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get, :show_mail_logs_grid => :get, :show_org_mail_logs_grid => :get, :show_person_maillog_enquiry_grid => :get, :show_organisation_maillog_enquiry_grid => :get, :show_banks_grid => :get,:show_tax_items_grid => :get, :show_fee_grid => :get}
                                        
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
@@ -177,7 +177,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}
   map.resources :membership_administrations, :collection => {:fee_items => :get}
-  map.resources :fee_items, :collection => {:page_initial => :get}
+  map.resources :fee_items, :collection => {:page_initial => :get, :drop_down_list_l1 => :get, :drop_down_list_l2 => :get}
 
 
   # The priority is based upon order of creation: first created -> highest priority.

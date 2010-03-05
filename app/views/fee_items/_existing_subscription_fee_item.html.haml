@@ -1,0 +1,110 @@
+.full_container
+  %h2 Existing Subscription Fee Item
+  %table#show_subscription_fee_grid{:class=>"selectable_grid",:field=>"subscription_fee",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/fee_items/",:params2=>"SubscriptionFeeItem"}
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_subscription_fee_grid tr.trSelected").attr('id'),"#subscription_fee_mode","delete","/fee_items/");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_subscription_fee_grid tr.trSelected").attr('id'),"#subscription_fee_mode","get","/fee_items/retrieve_subscription_fees.js");
+    };
+
+    $("#show_subscription_fee_grid").flexigrid({
+    url: '/grids/show_fee_grid?type=#{@type_class}',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Name',
+    name : 'name',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Description',
+    name : 'description',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'GL_Code',
+    name : 'GL_Code',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+     {
+    display: 'starting date',
+    name : 'starting_date',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Ending_date',
+    name : 'ending_date',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+   
+    {
+    display: 'Type',
+    name : 'type',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Active',
+    name : 'active',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
+
+
+
+    ],
+    searchitems : [
+    {
+    display: 'Name',
+    name : 'name'
+    },
+
+    {
+    display: 'active',
+    name : 'active'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

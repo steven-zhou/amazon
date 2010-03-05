@@ -5,7 +5,7 @@
   :plain
     delete_from_a_grid = function(){
       var selectedId = $("#show_users_grid tr.trSelected").attr('id');
-      delete_from_grid(selectedId, "#login_account_mode", "DELETE", "/login_accounts/"+selectedId.substring(3));
+      delete_from_grid(selectedId, "#login_account_mode", "DELETE", "/login_accounts/");
     };
 
     $("#show_users_grid").flexigrid({

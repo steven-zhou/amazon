@@ -1,0 +1,19 @@
+<%if @type == "subscription_fee"%>
+  $('#add_new_subscription_fee').css('display','none');
+  $('#edit_subscription_fee').css('display', '');
+  $('#subscription_fee_mode').attr('mode', 'edit');
+  $('.close_option[field="subscription_fee"]').css("display","");
+ $('#edit_subscription_fee_form').html('<%= escape_javascript(render(:partial => "/fee_items/edit_fee_item_form")) %>');
+  
+
+<%else%>
+  $('#add_new_membership_fee').css('display','none');
+  $('#edit_membership_fee').css('display', '');
+  $('#membership_fee_mode').attr('mode', 'edit');
+  $('.close_option[field="membership_fee"]').css("display","");
+ $('#edit_membership_fee_form').html('<%= escape_javascript(render(:partial => "/fee_items/edit_fee_item_form")) %>');
+ $('.select_ajax_call[field="membership_fee"]').attr('disabled', true)
+
+<%end%>
+
+ disabled_form();

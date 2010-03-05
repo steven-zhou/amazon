@@ -1,0 +1,37 @@
+<% if flash[:error].nil? %>
+  <%if @type == "subscription_fee"%>
+    $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/new_subscription_fee_item"))%>');
+    $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/existing_subscription_fee_item"))%>');
+
+    $('#subscription_fee_mode').attr('mode', 'show');
+
+  <%else-%>
+    $("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/new_membership_fee"))%>');
+    $("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/existing_membership_fee"))%>');
+
+    $('#membership_fee_mode').attr('mode', 'show');
+
+
+  <%end%>
+
+<% else %>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+  $('#flash_message').dialog( {
+  modal: true,
+  resizable: false,
+  draggable: true,
+  height: 'auto',
+  width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+  $('#flash_message').dialog( 'option', 'title', 'ERROR');
+  $('#flash_message').parent().find("a").css("display","none");
+  $("#flash_message").parent().css('background-color','#D1DDE6');
+  $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
+enable_form_after_submit_finish();

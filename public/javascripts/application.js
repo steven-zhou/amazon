@@ -1121,7 +1121,8 @@ $(function(){
 
 disabled_form = function(){
 
-    $(".disabled_form").find("input").attr("disabled", true);
+    $(".disabled_form").find("input").not(".active_status").attr("disabled", true);
+
     $(".disabled_form").find("select").attr("disabled", true);
     $(".disabled_form").find(".person_lookup").css('display','none');
     $(".disabled_form").find(".organisation_lookup").css('display','none');
@@ -2030,7 +2031,7 @@ $(function(){
         var length = compulsory_fields.length;
         var disable = true;
         for(i=0; i<length; i++){
-            if ($('#'+compulsory_fields[i].id).val()==''){
+            if ($('#'+compulsory_fields[i].id).val()=='' || $('#'+compulsory_fields[i].id).val()== null ){
                 disable = true;
                 break;
             }else{

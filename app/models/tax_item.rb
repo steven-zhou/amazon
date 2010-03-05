@@ -7,6 +7,10 @@ class TaxItem < ActiveRecord::Base
 
   before_create :update_to_be_removed_and_status
 
+  def self.active_record
+  TaxItem.find(:all, :conditions => ["active = true and to_be_removed = false"], :order => 'name')
+  end
+
   private
 
   def update_to_be_removed_and_status
