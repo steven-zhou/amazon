@@ -10,6 +10,8 @@ class FeeMetaType < TagType
   after_create :assign_priority
   before_destroy :reorder_priority
 
+ 
+
   private
 
   def assign_priority

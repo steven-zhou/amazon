@@ -1,6 +1,6 @@
 .full_container
   .options
-    =link_to_function image_tag('close_icon.png'),:style => "display:none;", :field => "subscription_fee", :title => "Close", :class => "close_option", :toggle_id_name => "new_subscription_fee_form"
+    = link_to_function image_tag('close_icon.png'),:style => "display:none;", :field => "subscription_fee", :title => "Close", :class => "close_option", :toggle_id_name => "new_subscription_fee_form"
   .title
     = link_to_function image_tag('add_icon.png', :size=> "22x22"),:class => "ajax_call new_option", :field => "subscription_fee", :title => "New",:param1 => "SubscriptionFeeItem", :method => "GET", :url => "/fee_items/new"
     &nbsp

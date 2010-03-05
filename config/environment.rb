@@ -95,7 +95,7 @@ Rails::Initializer.run do |config|
     :domain => "memberzone.com.au",
     :authentication => :plain,
     :user_name => "feedback@memberzone.com.au",
-    :password => "feedback123",
+    :password => "feedbackmemberzone",
   }
 
 end

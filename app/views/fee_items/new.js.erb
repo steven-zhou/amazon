@@ -1,4 +1,5 @@
 <%if @type == "subscription_fee"%>
+  
   $('#new_subscription_fee_form').html('<%= escape_javascript(render(:partial => "/fee_items/fee_item_form")) %>');
   $('#new_subscription_fee_form').css('display','');
  
@@ -7,3 +8,7 @@
   $('#new_membership_fee_form').css('display','');
 
 <%end%>
+
+  start_end_date_pick();
+
+  $('.general_drop_down_level').change();

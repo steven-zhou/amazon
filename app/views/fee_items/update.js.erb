@@ -1,0 +1,17 @@
+<%if @type == "subscription_fee"%>
+$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/new_subscription_fee_item"))%>').css('display','');
+$("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/existing_subscription_fee_item"))%>');
+$('#edit_subscription_fee').css('display','none');
+$('#subscription_fee_mode').attr('mode', 'show');
+
+
+<%else%>
+$("#add_new_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/new_membership_fee"))%>').css('display','');
+$("#existing_"+"<%=escape_javascript("#{@type}")%>").html('<%=escape_javascript(render(:partial =>"/fee_items/existing_membership_fee"))%>');
+$('#edit_membership_fee').css('display','none');
+$('#membership_fee_mode').attr('mode', 'show');
+
+
+
+<%end%>
+    enable_form_after_submit_finish();

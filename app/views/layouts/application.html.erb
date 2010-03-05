@@ -49,7 +49,8 @@
       <%= javascript_include_tag  "receipting.js"%>
     <%- end%>
     <%- if session[:module] == "membership" %>
-      <%= javascript_include_tag  "membership.js"%>
+       <%= stylesheet_link_tag "checkbox" %>
+      <%= javascript_include_tag  "membership.js","iphone-style-checkboxes.js"%>
     <%- end%>
 
   </head>
