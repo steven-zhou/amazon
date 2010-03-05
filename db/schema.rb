@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100304003956) do
+ActiveRecord::Schema.define(:version => 20100305033716) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -426,9 +426,7 @@ ActiveRecord::Schema.define(:version => 20100304003956) do
     t.integer  "tag_type_id"
     t.string   "type"
     t.text     "name"
-
     t.text     "description"
-
     t.integer  "tax_items_id"
     t.string   "GL_Code"
     t.decimal  "amount",               :precision => 11, :scale => 3
@@ -680,7 +678,7 @@ ActiveRecord::Schema.define(:version => 20100304003956) do
     t.integer  "campaign_id"
     t.integer  "source_id"
     t.integer  "last_transaction_id"
-    t.integer  "letter_id"
+    t.integer  "initiate_letter_id"
     t.integer  "initiated_by"
     t.date     "initiated_date"
     t.text     "initiated_comment"
@@ -711,6 +709,15 @@ ActiveRecord::Schema.define(:version => 20100304003956) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "review_letter_id"
+    t.string   "approve_letter_id"
+    t.string   "suspend_letter_id"
+    t.string   "terminate_letter_id"
+    t.boolean  "initiate_letter_sent"
+    t.boolean  "review_letter_sent"
+    t.boolean  "approve_letter_sent"
+    t.boolean  "suspend_letter_sent"
+    t.boolean  "terminate_letter_sent"
   end
 
   create_table "message_templates", :force => true do |t|
