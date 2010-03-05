@@ -1,18 +1,35 @@
-.full_container
-  %h1 Finalizer
+.container
+  %h1 Next Reviewer
   .form_line
     .field_20
-      %label <span class="asterisk">*</span>Finalizer ID
-      %input{:id => "reviewer_id", :name => "reviewer_id", :value => "ID"}
+      %label Finalizer ID
+      %input{:id => "finalized_by", :name => "membership[finalized_by]", :value => "ID",:class=>"mandantory_field membership_intiator_lookup",:mandantory_field1=>"finalized_by",:submit_button_id=>"new_membership_submit",:update_field=>"finalized_name"}
+    .field_5
+      %label &nbsp;
+      = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "finalized_by", :title=>"Search"
     .field_40
-      %label Finalizer
-      .display_field_bg
-        Name
+      %label Finalizer Name
+      .display_field_bg#finalized_name
+
     .field_30
       %label Finalizer Date
-      %input{:id => "reviewer_date", :name => "reviewer_date", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
+      %input{:id => "finalized_date", :name => "membership[finalized_date]", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
   .form_line{:style => "height:auto;"}
     .field_100{:style => "height:auto;"}
       %label Output
-      %textarea{:style=>"width:100%;height:150px;"}
+      %textarea{:name=>"membership[finalized_comment]",:style=>"width:100%;height:150px;"}
+    %br.clear
+
+
+
+  .form_line
+    .field_20
+      %label Mail Template Category
+      = collection_select :letter_id, :template_id, MailMergeCategory.active_mail_merge_category, :id, :name, {:include_blank => true}, {:class => "select_ajax_call clear_select", :method => "GET", :url => "/amazon_settings/look_for_template", :update_field => "approve_letter_id"}
+    .field_20
+      %label Mail Template
+      %select{:id => "approve_letter_id", :name => "membership[approve_letter_id]", :class => "mail_template", :check_box_id => "approve_letter_sent"}
+    .field_20{:style => "display:none;"}
+      %label Send Instant Mail
+      %input{:type => "checkbox", :id => "approve_letter_sent", :name => "membership[approve_letter_sent]"}
     %br.clear

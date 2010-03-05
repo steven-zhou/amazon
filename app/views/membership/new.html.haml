@@ -25,11 +25,11 @@
   .container_icon.left{:align => 'center'}
     = "--->"
 
-  .tab_switch_left.left{:field =>"approve_page"}
+  .tab_switch_left.left{:field =>"finalize_page"}
   .container_icon.left{:align => 'center'}
-    = link_to_function "<h1>Approve</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial", :method => "GET", :render_page => "membership/approve_page", :field => "approve_page"
-    = link_to_function "<h1>Approve</h1>", :class=>"tab_switch_with_page_initial", :field => "approve_page"
-  .tab_switch_right.left{:field =>"approve_page"}
+    = link_to_function "<h1>Finalize</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial", :method => "GET", :render_page => "membership/finalize_page", :field => "finalize_page"
+    = link_to_function "<h1>Finalize</h1>", :class=>"tab_switch_with_page_initial", :field => "finalize_page"
+  .tab_switch_right.left{:field =>"finalize_page"}
 
   .container_icon.left{:align => 'center'}
     = "--->"
@@ -57,7 +57,7 @@
 
   #review_page.tab_switch_container
 
-  #approve_page.tab_switch_container
+  #finalize_page.tab_switch_container
 
   #suspend_page.tab_switch_container
 
