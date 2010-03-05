@@ -82,6 +82,7 @@ class MembershipController < ApplicationController
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
+    @membership = Membership.new
     respond_to do |format|
       format.js
     end
