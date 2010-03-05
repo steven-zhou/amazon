@@ -1,10 +1,8 @@
-#header
-  #page_title
-    %h1 Suspend Membership
-  #lol
-  .full_container
-    .container
-      =render :partial => "/membership/display_grid",:locals=>{:type=>"Approved"}
+
+.container
+  %h1 Memberships
+  =render :partial => "/membership/display_grid",:locals=>{:type=>"Approved"}
+
 
 
 = render :partial => "membership/edit_membership_container", :locals => {:title => "Suspend"}

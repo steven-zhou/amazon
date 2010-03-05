@@ -1,10 +1,7 @@
-#header
-  #page_title
-    %h1 Review Membership
-  #lol
-  .full_container
-    .container
-      =render :partial => "/membership/display_grid",:locals=>{:type=>"Initiated"}
+
+.container
+  %h1 Outstanding Application
+  =render :partial => "/membership/display_grid",:locals=>{:type=>"Initiated"}
 
 
 = render :partial => "membership/edit_membership_container", :locals => {:title => "Review"}
