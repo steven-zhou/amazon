@@ -1,4 +1,27 @@
 <%-unless @person.nil?%>
 
- $('#membership_person_info').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+ $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+
+ <%else%>
+
+$('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+
+$("#flash_message_text").html("Invalid Person ID");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
 <%-end%>

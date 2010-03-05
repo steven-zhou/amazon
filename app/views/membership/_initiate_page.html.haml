@@ -1,0 +1,20 @@
+- form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form"} do |p|
+  .container
+    %h1 Membership Details
+    .form_line{:style => "float:none;"}
+      .field_20{:style => "margin-right: 2px;"}
+        = label_tag :name, '<span class="asterisk">*</span>Person ID'
+        %input{:id=>"membership_person_id",:class=>"membership_person_lookup mandantory_field",:mandantory_field1=>"membership_person_id",:mandantory_field2=>"reviewer_id",:submit_button_id=>"new_membership_submit"}
+      .field_5
+        %label &nbsp;
+        = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
+    #person_detail    
+      #person_detail_form
+        =render :partial =>"/membership/membership_person_detail"
+
+  .container#initiator{:style => "margin-top: 10px;"}
+    =render :partial =>"/membership/initiator_form"
+
+
+
+    = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"

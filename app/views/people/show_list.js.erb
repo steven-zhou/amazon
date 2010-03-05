@@ -11,37 +11,6 @@ $('#show_list_grid').dialog({
 });
 $('#show_list_grid').dialog("option","title","Show List");
 $('#show_list_grid').dialog('open');
-$("#search_list_results").flexigrid(
 
-{
-url: '/grids/show_list_grid',
-dataType: 'json',
-colModel : [
-{display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-{display: 'First Name', name : 'field_1', width : 55, sortable : true, align: 'left'},
-{display: 'Family Name', name : 'field_2', width : 65, sortable : true, align: 'left'},
-{display: 'Address', name : 'field_3', width : 140, sortable : true, align: 'left'},
-{display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
-{display: 'Email', name : 'field_5', width : 140, sortable : true, align: 'left'}
-
-],
-searchitems : [
-{display: 'First Name', name : 'field_1'},
-{display: 'Family Name', name : 'field_2'},
-{display: 'Address', name : 'field_3'},
-{display: 'Phone', name : 'field_4'},
-{display: 'Email', name : 'field_5'}
-
-],
-sortname: "grid_object_id",
-sortorder: "asc",
-usepager: true,
-title: 'People List',
-useRp:true,
-rp: 20,
-showTableToggleBtn: false,
-width: 'auto',
-height: 'auto'
-});
-
+$('#show_all_list_member_disabled').attr("id","show_all_list_member");
 

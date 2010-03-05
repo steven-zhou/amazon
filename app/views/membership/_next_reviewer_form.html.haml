@@ -1,18 +1,20 @@
-.full_container
+.container
   %h1 Next Reviewer
   .form_line
     .field_20
       %label Next Reviewer ID
-      %input{:id => "reviewer_id", :name => "reviewer_id", :value => "ID"}
+      %input{:id => "next_reviewed_by", :name => "membership[next_reviewed_by]", :value => "ID",:class=>"mandantory_field membership_intiator_lookup",:mandantory_field1=>"next_reviewed_by",:submit_button_id=>"new_membership_submit",:update_field=>"next_reviewer_name"}
     .field_40
       %label Next Reviewer
-      .display_field_bg
-        Name
+      .display_field_bg#next_reviewer_name
+
     .field_30
       %label Next Review Date
-      %input{:id => "reviewer_date", :name => "reviewer_date", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
+      %input{:id => "next_reviewer_date", :name => "membership[next_reviewer_date]", :class => "datepick", :value => Time.now.strftime("%d-%m-%Y")}
   .form_line{:style => "height:auto;"}
     .field_100{:style => "height:auto;"}
       %label Output
-      %textarea{:style=>"width:100%;height:150px;"}
+      %textarea{:name=>"membership[next_reviewed_comment]",:style=>"width:100%;height:150px;"}
     %br.clear
+
+

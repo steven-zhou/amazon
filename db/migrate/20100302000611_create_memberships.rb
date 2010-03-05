@@ -1,6 +1,6 @@
 class CreateMemberships < ActiveRecord::Migration
   def self.up
-    create_table :memberships do |t|
+    create_table :memberships, :force => true do |t|
       t.integer "person_id"
       t.integer "employer_id"
       t.integer "workplace_id"

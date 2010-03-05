@@ -78,7 +78,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :payment_methods => :get, :fee_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get , :tax_items => :get}
 
-  map.resources :amazon_settings ,:collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get,:retrieve =>:get}
+  map.resources :amazon_settings ,:collection => {:data_list_finder => :get, :new_keyword => :get,:system_settings_finder => :get, :system_data_entry_finder => :get, :update_setting => :get, :new_setting => :get, :delete_system_data_entry => :get,:retrieve =>:get, :look_for_template => :get}
  
 
   map.resources :role_conditions, :collection => {:add_conditions => :post,:remove_conditions => :post, :role_condition_show_roles => :get, :condition_meta_type_finder => :get, :doc_type_finder => :get, :page_initial => :get, :condition_dictionary_page_initial => :get}
@@ -170,10 +170,12 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_organisation_lookup=>:get}
+
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get}
 
 
-  map.resources :tax_items
+
+  map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}
   map.resources :membership_administrations, :collection => {:fee_items => :get}
   map.resources :fee_items, :collection => {:page_initial => :get, :drop_down_list_l1 => :get, :drop_down_list_l2 => :get}
 

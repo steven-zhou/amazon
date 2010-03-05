@@ -1,47 +1,64 @@
-- form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form"} do |p|
-  #header
-    #page_title
-      %h1 New Membership
-    #lol
-  #initiator
-    = render :partial => "membership/initiator_form"
-  #reviewer
-    = render :partial => "membership/reviewer_form"
-  #finalizer
-    = render :partial => "membership/finalizer_form"
-  #next_reviewer
-    = render :partial => "membership/next_reviewer_form"
+#header
+  #page_title
+    %h1 Membership Management
+  #lol
+    %br.clear
+.tab_switch{:style => "margin-left:15px;"}
 
-  #left_content
-    .container
-      .container
-        %h1 Person Details
-        .form_line{:style => "float:none;"}
-          .field_20{:style => "margin-right: 2px;"}
-            %label Person ID
-            = p.text_field :person_id,:class=>"membership_person_lookup"
-          .field_5
-            %label &nbsp;
-            = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "membership_person_id", :title=>"Search"
-        #membership_person_info
-          =render :partial =>"/membership/membership_person_detail"
-      .container
-        %h1 Organisation Details
-        .form_line{:style => "float:none;"}
-          .field_20{:style => "margin-right: 2px;"}
-            %label Organisation ID
-            = p.text_field :employer_id,:class=>"membership_organisation_lookup"
-          .field_5
-            %label &nbsp;
-            = link_to_function image_tag("Icons/System/search.png"), :class => "organisation_lookup", :update_field => "membership_organisation_id", :title=>"Search"
-        #membership_organisation_info
-          =render :partial =>"/membership/membership_organisation_detail"
+  .tab_switch_left.active.left{:field =>"initiate_page"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to_function "<h1>Initiate</h1>",:class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial",:method => "GET", :render_page => "membership/initiate_page", :field => "initiate_page"
+    = link_to_function "<h1>Initiate</h1>", :class=>"tab_switch_with_page_initial", :field => "initiate_page"
+  .tab_switch_right.active.left{:field =>"initiate_page"}
+
+  .container_icon.left{:align => 'center'}
+    = "--->"
+
+  .tab_switch_left.left{:field =>"review_page"}
+  .container_icon.left{:align => 'center'}
+
+    = link_to_function "<h1>Review</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial", :method => "GET", :render_page => "membership/review_page", :field => "review_page"
+    = link_to_function "<h1>Review</h1>", :class=>"tab_switch_with_page_initial", :field => "review_page"
+  .tab_switch_right.left{:field =>"review_page"}
 
 
-      %br.clear
+  .container_icon.left{:align => 'center'}
+    = "--->"
 
+  .tab_switch_left.left{:field =>"finalize_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Finalize</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial", :method => "GET", :render_page => "membership/finalize_page", :field => "finalize_page"
+    = link_to_function "<h1>Finalize</h1>", :class=>"tab_switch_with_page_initial", :field => "finalize_page"
+  .tab_switch_right.left{:field =>"finalize_page"}
 
+  .container_icon.left{:align => 'center'}
+    = "--->"
 
-    %p.submit
-      = link_to_function 'Clear', :class => "clear_form alt_option"
-      = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
+  .tab_switch_left.left{:field =>"suspend_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Suspend</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial", :method => "GET", :render_page => "membership/suspend_page", :field => "suspend_page"
+    = link_to_function "<h1>Suspend</h1>", :class=>"tab_switch_with_page_initial", :field => "suspend_page"
+  .tab_switch_right.left{:field =>"suspend_page"}
+
+  .container_icon.left{:align => 'center'}
+    = "--->"
+
+  .tab_switch_left.left{:field =>"terminate_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Terminate</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/membership/page_initial", :method => "GET", :render_page => "membership/terminate_page", :field => "terminate_page"
+    = link_to_function "<h1>Terminate</h1>", :class=>"tab_switch_with_page_initial", :field => "terminate_page"
+  .tab_switch_right.left{:field =>"terminate_page"}
+
+%br.clear
+
+.full_container
+  #initiate_page.tab_switch_container.active
+    = render :partial => "membership/initiate_page"
+
+  #review_page.tab_switch_container
+
+  #finalize_page.tab_switch_container
+
+  #suspend_page.tab_switch_container
+
+  #terminate_page.tab_switch_container

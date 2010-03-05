@@ -11,14 +11,23 @@ $(function(){
 });
 
 
-
 $(function(){
-    $(".membership_person_lookup").live('change', function(){
+    $(".membership_intiator_lookup").live('change', function(){
         $.ajax({
             type: "GET",
-            url: "/membership/membership_organisation_lookup/",
-            data: 'id=' + $(this).val(),
+            url: "/membership/membership_intiator_lookup/",
+            data: 'id=' + $(this).val()+"&update_field="+$(this).attr("update_field"),
             dataType: "script"
         });
     });
+});
+
+$(function(){
+  $(".mail_template").live('change', function(){
+    if($(this).val()==""){
+      $("#"+$(this).attr('check_box_id')).removeAttr('checked').parent().hide();
+    }else{
+      $("#"+$(this).attr('check_box_id')).parent().show();
+    }
+  });
 });

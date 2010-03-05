@@ -6,11 +6,11 @@
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_from_a_grid = function(){
-    delete_from_grid($("#show_tax_item_grid tr.trSelected").attr('id'),"#tax_item_mode","delete","/tax_items/");
+    delete_from_grid($("#show_tax_items_grid tr.trSelected").attr('id'),"#tax_item_mode","delete","/tax_items/");
     };
 
     retrieve_from_a_grid = function(){
-    retrieve_from_grid($("#show_tax_item_grid tr.trSelected").attr('id'),"#tax_item_mode","get","/countries/retrieve_tax_item.js");
+    retrieve_from_grid($("#show_tax_items_grid tr.trSelected").attr('id'),"#tax_item_mode","get","/tax_items/retrieve_tax_item.js");
     };
 
     $("#show_tax_items_grid").flexigrid({

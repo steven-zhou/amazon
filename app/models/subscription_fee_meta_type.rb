@@ -2,4 +2,3 @@ class SubscriptionFeeMetaType < FeeMetaType
 
 
 end
-

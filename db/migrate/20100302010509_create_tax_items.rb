@@ -1,6 +1,6 @@
 class CreateTaxItems < ActiveRecord::Migration
   def self.up
-    create_table :tax_items do |t|
+    create_table :tax_items, :force => true do |t|
       t.text :name
       t.text :description
       t.column :percentage, :decimal

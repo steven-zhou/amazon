@@ -1,6 +1,6 @@
 class CreateMembershipFees < ActiveRecord::Migration
   def self.up
-    create_table :membership_fees do |t|
+    create_table :membership_fees, :force => true  do |t|
       t.integer :membership_id
       t.integer :payment_method_id
       t.integer :fee_item_id

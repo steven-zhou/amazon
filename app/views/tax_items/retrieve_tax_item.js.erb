@@ -1,0 +1,26 @@
+<% if @tax_item.errors.empty? -%>
+$('#add_new_tax_item').html('<%= escape_javascript(render(:partial => "/tax_items/new_tax_item")) %>');
+$('#existing_tax_items').html('<%= escape_javascript(render(:partial => "/tax_items/existing_tax_items")) %>');
+$('#tax_item_mode').attr('mode', 'show');
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
+  enable_form_after_submit_finish();

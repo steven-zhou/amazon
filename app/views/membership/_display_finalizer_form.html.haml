@@ -1,0 +1,21 @@
+.container
+  %h1 Finalizer
+  .form_line
+    .field_20
+      %label Suspend ID
+      %div.display_field_bg
+        =@membership.nil? ? "" : @membership.finalized_by
+    .field_40
+      %label Suspendor
+      .display_field_bg#reviewer_name
+        = @membership.nil? ? "" : @membership.finalized_by.nil? ? "" : Person.find(@membership.finalized_by).name
+    .field_30
+      %label Suspend Date
+      .display_field_bg
+        =@membership.nil? ? "" : @membership.finalized_date.nil? ? "" : @membership.finalized_date
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      %label Output
+      .display_field_bg
+        =@membership.nil? ? "" : @membership.finalized_comment.nil? ? "" : @membership.finalized_comment
+    %br.clear
