@@ -14,4 +14,14 @@
   .field_100{:style => "height:auto;"}
     %label Output
     %textarea{:name=>"membership[reviewed_comment]",:style=>"width:100%;height:150px;"}
+.form_line
+  .field_20
+    %label Mail Template Category
+    = collection_select :letter_id, :template_id, MailMergeCategory.active_mail_merge_category, :id, :name, {:include_blank => true}, {:class => "select_ajax_call clear_select", :method => "GET", :url => "/amazon_settings/look_for_template", :update_field => "review_letter_id"}
+  .field_20
+    %label Mail Template
+    %select{:id => "review_letter_id", :name => "membership[review_letter_id]", :class => "mail_template", :check_box_id => "review_letter_sent"}
+  .field_20{:style => "display:none;"}
+    %label Send Instant Mail
+    %input{:type => "checkbox", :id => "review_letter_sent", :name => "membership[review_letter_sent]"}
   %br.clear

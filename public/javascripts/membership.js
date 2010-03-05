@@ -22,3 +22,12 @@ $(function(){
     });
 });
 
+$(function(){
+  $(".mail_template").live('change', function(){
+    if($(this).val()==""){
+      $("#"+$(this).attr('check_box_id')).removeAttr('checked').parent().hide();
+    }else{
+      $("#"+$(this).attr('check_box_id')).parent().show();
+    }
+  });
+});

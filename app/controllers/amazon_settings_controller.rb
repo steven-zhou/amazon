@@ -140,4 +140,15 @@ class AmazonSettingsController < ApplicationController
     end
   end
 
+  def look_for_template
+    @amazon_setting = MailMergeCategory.find(params[:param1])
+    @update_field = params[:update_field]
+    @options = "<option>"
+    @amazon_setting.message_templates.each do |i|
+      @options << "<option value = #{i.id}>#{i.name}</option>"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end
