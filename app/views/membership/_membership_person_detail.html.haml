@@ -5,6 +5,8 @@
       = label_tag :name, 'Name', {:style => "color: #232323;"}
       -unless @person.nil?
         %input{:name=>"membership[person_id]",:value=>"#{@person.id}",:class=>"hidden"}
+      -unless @membership.nil?
+        %input{:name=>"id",:value=>"#{@membership.id}",:class=>"hidden"}
       %div.display_field_bg
         =@person.nil? ? "" :@person.name.to_s
     .field_30

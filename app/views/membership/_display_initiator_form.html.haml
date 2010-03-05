@@ -2,8 +2,7 @@
 .form_line
   .field_20
     %label Initiator ID
-    -unless @membership.nil?
-      %input{:name=>"id",:value=>"#{@membership.id}",:class=>"hidden"}
+
     %div.display_field_bg
       =@membership.nil? ? "" : @membership.initiated_by
   .field_40

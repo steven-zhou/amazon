@@ -1,30 +1,9 @@
-#header
-  #page_title
-    %h1 Review Membership
-  #lol
-  .full_container
-    .container
-      %table#show_membership_grid{:class=>"selectable_grid",:field=>"membership",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/membership/"}
-    #display_review_info.hidden
-      - form_for 'membership',:url => {:controller =>"membership",:action=>"update"}, :html => {:class => "ajax_form"} do |p|
-        #review_membership
-          =render :partial =>"/membership/membership_person_detail"
-
-        .container
-          #initiator{:style => "margin-top: 10px;"}
-            =render :partial =>"/membership/display_initiator_form"
-        .container       
-          #reviewer{:style => "margin-top: 10px;"}
-            =render :partial =>"/membership/reviewer_form"
-        = link_to_function 'Clear', :class => "clear_form alt_option"
-
-        = submit_tag "Submit",:id => "new_membership_submit", :style => "float:right;"
-
+%table#show_membership_grid{:class=>"selectable_grid",:field=>"membership",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/membership/"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     $("#show_membership_grid").flexigrid({
-    url: '/grids/show_intiate_membership_grid?type=Intiated',
+    url: '/grids/show_intiate_membership_grid?type=#{type}',
     dataType: 'json',
     colModel : [
     {
