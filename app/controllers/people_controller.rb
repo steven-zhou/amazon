@@ -460,6 +460,10 @@ class PeopleController < ApplicationController
       i.destroy
     end
 
+    @temp = ShowListGrid.all
+
+
+   if @temp.empty?
     @p.each do |person|
       @slg = ShowListGrid.new
       @slg.login_account_id = session[:user]
@@ -485,7 +489,7 @@ class PeopleController < ApplicationController
 
       @slg.save
     end
-
+   end
     @current_operation = params[:current_operation]
 
     respond_to do |format|

@@ -2143,7 +2143,7 @@ $(function(){
 $(function(){
     $("#show_all_list_member").live('click',function(){
         var link= $(this);
-
+ 
         right_tab = $("#content #right_content").find("#tabs");
         //         alert(right_tab.length);
         if(right_tab.length > 0)
@@ -2175,6 +2175,8 @@ $(function(){
         var link = $(this);
         if($('#check_input_change').val() == "false")
         {
+
+          
             $.ajax({
                 type: "GET",
                 url: "/people/show_list.js",
