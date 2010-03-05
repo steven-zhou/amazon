@@ -30,6 +30,11 @@ class MembershipController < ApplicationController
    def edit
     @membership = Membership.find(params[:id])
     @person = Person.find(@membership.person_id)
+    @type = params[:params2]
+
+
+     puts "***********8"
+     puts @type
     respond_to do |format|
       format.js
     end

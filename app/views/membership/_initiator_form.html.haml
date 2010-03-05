@@ -1,8 +1,8 @@
 %h1 Initiator
 .form_line
   .field_20
-    %label Initiator ID
-    %input{:id => "reviewer_id", :name => "membership[initiated_by]", :value => "ID",:class=>"mandantory_field membership_intiator_lookup",:mandantory_field1=>"membership_person_id",:mandantory_field2=>"reviewer_id",:submit_button_id=>"new_membership_submit",:update_field=>"initiator_name"}
+    %label <span class="asterisk">*</span>Initiator ID
+    %input{:id => "reviewer_id", :name => "membership[initiated_by]",:class=>"mandantory_field membership_intiator_lookup",:mandantory_field1=>"membership_person_id",:mandantory_field2=>"reviewer_id",:submit_button_id=>"new_membership_submit",:update_field=>"initiator_name"}
   .field_5
     %label &nbsp;
     = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "reviewer_id", :title=>"Search"
@@ -17,4 +17,14 @@
   .field_100{:style => "height:auto;"}
     %label Output
     %textarea{:name=>"membership[initiated_comment]",:style=>"width:100%;height:150px;"}
+.form_line
+  .field_20
+    %label Mail Template Category
+    = collection_select :letter_id, :template_id, MailMergeCategory.active_mail_merge_category, :id, :name, {:include_blank => true}, {:class => "select_ajax_call", :method => "GET", :url => ""}
+  .field_20
+    %label Mail Template
+    %select{:id => "initiate_letter_id", :name => "membership[initiate_letter_id]"}
+  .field_20
+    %label Send Instant Mail
+    %input{:type => "checkbox", :id => "initiate_letter_sent", :name => "membership[initiate_letter_sent]"}
   %br.clear

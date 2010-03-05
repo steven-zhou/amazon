@@ -5,20 +5,6 @@
   .full_container
     .container
       =render :partial => "/membership/display_grid",:locals=>{:type=>"Reviewed"}
-    #display_review_info.hidden
-      - form_for 'membership',:url => {:controller =>"membership",:action=>"update"}, :html => {:class => "ajax_form"} do |p|
-        #review_membership
-          =render :partial =>"/membership/membership_person_detail"
-
-        .container
-          #initiator{:style => "margin-top: 10px;"}
-            =render :partial =>"/membership/display_initiator_form"
-        .container
-          #reviewer{:style => "margin-top: 10px;"}
-            =render :partial =>"/membership/reviewer_form"
-        = link_to_function 'Clear', :class => "clear_form alt_option"
-
-        = submit_tag "Submit",:id => "new_membership_submit", :style => "float:right;"
-
+= render :partial => "membership/edit_membership_container", :locals => {:title => "Review"}
 
 
