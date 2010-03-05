@@ -1815,6 +1815,9 @@ $(".tab_switch_button").live('click', function(){
 $(document).ready(function() {
 
     $('.launch_address_assistant').live('click', function() {
+
+      $(this).removeClass('launch_address_assistant');
+      $(this).addClass('launch_address_assistant_disabled');
         var suburb = $("#"+$(this).attr("update_field1")).val();
         var state = $("#"+$(this).attr("update_field2")).val();
         var postcode = $("#"+$(this).attr("update_field3")).val();
@@ -2839,6 +2842,8 @@ $(function(){
 /* Organisation Lookup*/
 $(function(){
     $(".organisation_lookup").live('click', function(){
+      $(this).removeClass('organisation_lookup');
+      $(this).addClass('organisation_lookup_disabled');
         $.ajax({
             type: "GET",
             url:"/organisations/lookup.js",
@@ -2869,6 +2874,8 @@ $(function(){
 /* Person Lookup*/
 $(function(){
     $(".person_lookup").live('click', function(){
+      $(this).removeClass('person_lookup');
+      $(this).addClass('person_lookup_disabled');
         $.ajax({
             type: "GET",
             url:"/people/lookup.js",

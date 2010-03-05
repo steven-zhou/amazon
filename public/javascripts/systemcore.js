@@ -711,6 +711,8 @@ system_id_check_input_change_or_not = function()
 /* Bank Look up*/
 $(function(){
     $(".bank_lookup").live('click', function(){
+            $(this).removeClass('bank_lookup');
+      $(this).addClass('bank_lookup_disabled');
         $.ajax({
             type: "GET",
             url:"/banks/lookup.js",
@@ -1034,6 +1036,8 @@ $("#keyword_person_types").live("change", showKeyword);
 /* show other group member */
 $(function(){
     $("#show_other_group_members").live('click',function(){
+      $(this).attr("id","show_other_group_members_disabled");
+
         $.ajax({
             type: "GET",
             url: "/people/"+$(this).attr('person_id')+"/person_groups/show_group_members.js",
@@ -2143,7 +2147,7 @@ $(function(){
 $(function(){
     $("#show_all_list_member").live('click',function(){
         var link= $(this);
- 
+        $(this).attr("id","show_all_list_member_disabled");
         right_tab = $("#content #right_content").find("#tabs");
         //         alert(right_tab.length);
         if(right_tab.length > 0)
@@ -2717,7 +2721,7 @@ $(function(){
     $("#show_all_organisations").live('click',function(){
 
         var link= $(this);
-
+        $(this).attr('id','show_all_organisations_disabled');
         right_tab = $("#content #right_content").find("#tabs");
         //         alert(right_tab.length);
         if(right_tab.length > 0)
