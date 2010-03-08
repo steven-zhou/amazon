@@ -21,6 +21,10 @@ class MembershipController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_status_id") if (!@membership.errors.on(:membership_status_id).nil? &&  @membership.errors.on(:membership_status_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_by") if (!@membership.errors.on(:initiated_by).nil? &&  @membership.errors.on(:initiated_by).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_date") if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_comment") if (!@membership.errors.on(:initiated_comment).nil? &&  @membership.errors.on(:initiated_comment).include?("can't be blank"))
+      flash.now[:error] = "Please make sure the initiated date is entered in valid format (dd-mm-yyyy)" if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("is_invalid"))
     end
     respond_to do |format|
       format.js
