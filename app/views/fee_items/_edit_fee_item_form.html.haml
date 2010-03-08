@@ -23,36 +23,6 @@
     %div#test{:class => @fee_item.active ? "" : "disabled_form"}
       .form_line
         .field_20
-          = f.label :name, "<span class='asterisk'>*</span>Name"
-          = f.text_field :name,:class => "compulsory_field"
-
-        .field_20
-          = f.label :GL_Code, "GL_Code"
-          = f.text_field :GL_Code, :class => "number_field"
-
-        .field_20
-          = f.label :amount, "Amount ($)"
-          = f.text_field :amount, :class => "number_field"
-
-        .field_20
-          = f.label :description, "Description"
-          = f.text_field :description
-
-      .form_line
-        .field_20
-          = f.label :start_date, "Start Date"
-          = f.text_field :starting_date, :class => "startdatepick",:id => "fee_item_start_date", :end_date => "fee_item_end_date", :value => "#{Date.today().to_s}"
-        .field_20
-          = f.label :end_date, "End Date"
-          = f.text_field :ending_date, :class => "enddatepick", :id => "fee_item_end_date", :start_date=> "fee_item_start_date", :value => "#{Date.today.next_year().to_s}"
-        .field_20
-          = f.label :tax_item, "Tax Item"
-          = f.collection_select :tax_items_id, TaxItem.active_record, :id, :name
-        .field_20
-          = f.label :tax_item, "Link Module"
-          = f.collection_select :link_module_id, LinkModule.active_link_module_type, :id, :name
-      .form_line
-        .field_20
           %label Fee Item Meta Meta Type
           %select{:class => "clear_select general_drop_down_level", :drop_down_field => "new_fee_item" , :method => "GET", :url => "/fee_items/drop_down_list_l1"}
             -@fee_meta_meta_types.each do |i|
@@ -74,13 +44,49 @@
                 = i.name
           %br.clear
 
+
+
+
+      .form_line
+        .field_20
+          = f.label :name, "<span class='asterisk'>*</span>Name"
+          = f.text_field :name,:class => "compulsory_field"
+        .field_70
+          = f.label :description, "Description"
+          = f.text_field :description
+
+      .form_line
+        .field_20
+          = f.label :amount, "<span class='asterisk'>*</span>Amount ($)"
+          = f.text_field :amount, :class => "number_field compulsory_field"
+        .field_20
+          = f.label :GL_Code, "GL_Code"
+          = f.text_field :GL_Code, :class => "number_field"
+        .field_20
+          = f.label :tax_item, "Tax Item"
+          = f.collection_select :tax_items_id, TaxItem.active_record, :id, :name
         .field_20
           %label Frequency
           = f.collection_select :payment_frequency_id, PaymentFrequency.all, :id, :name
           %input{:class => "hidden active_status", :name => "type", :value => @fee_item.class.to_s}
+
+      .form_line
+        .field_20
+          = f.label :start_date, "Start Date"
+          = f.text_field :starting_date, :class => "startdatepick",:id => "fee_item_start_date", :end_date => "fee_item_end_date", :value => "#{Date.today().to_s}"
+        .field_20
+          = f.label :end_date, "End Date"
+          = f.text_field :ending_date, :class => "enddatepick", :id => "fee_item_end_date", :start_date=> "fee_item_start_date", :value => "#{Date.today.next_year().to_s}"
+        .field_20
+          = f.label :tax_item, "Link Module"
+          = f.collection_select :link_module_id, LinkModule.active_link_module_type, :id, :name
         .field_15
           = f.label :active, "Active"
           = f.check_box :active, :class => "active_status iphone_check_box"
+
+
+
+
       .form_line
         .field_20{:style => "float:right;"}
           %label &nbsp

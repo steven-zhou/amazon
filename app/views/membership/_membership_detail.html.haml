@@ -6,7 +6,7 @@
     = collection_select :membership, :membership_type_id, MembershipType.active, :id, :name
   .field_30
     = label_tag :type, '<span class="asterisk">*</span>Membership Status'
-    = collection_select :membership,:membership_status_id, MembershipStatus.active, :id, :name, {:selected => @selected_id.nil? ? "" : @selected_id}
+    = collection_select :membership,:membership_status_id, MembershipStatus.active, :id, :name, {:selected => @default_stage_id.nil? ? "" : @default_stage_id}
 
   %br.clear
 

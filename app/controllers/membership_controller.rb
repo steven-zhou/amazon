@@ -3,6 +3,7 @@ class MembershipController < ApplicationController
 
   def new
     @membership = Membership.new
+    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
     respond_to do |format|
       format.html
     end
@@ -30,6 +31,10 @@ class MembershipController < ApplicationController
     @person = Person.find(@membership.person_id)
     @type = params[:params2]
 
+    @default_stage_id = case @type
+    when "Initiated" then AmazonSetting.find_by_name("Reviewed").try(:id)
+    when "Reviewed" then AmazonSetting.find_by_name("Approved").try(:id)
+    end
 
     respond_to do |format|
       format.js
@@ -67,7 +72,7 @@ class MembershipController < ApplicationController
   def membership_person_lookup
     @membership = Membership.new
     @person = Person.find(params[:id]) rescue @person=nil
-
+    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
      respond_to do |format|
       format.js
     end

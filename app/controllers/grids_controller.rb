@@ -4116,9 +4116,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @fee_items.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.name,
-          u.description,
-          
-          u.GL_Code,
+          u.description,          
+          u.gl_code,
           u.starting_date,
           u.ending_date,
           u.type,
