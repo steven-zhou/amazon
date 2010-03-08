@@ -1,5 +1,8 @@
 
 $('#edit_membership').show();
+$('.close_option[field=membership]').show();
+$('#membership_mode').attr('mode','edit');
+
 $('#edit_membership_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
 <%-if @type == "Initiated"%>
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_initiator_form")) %>');
@@ -23,3 +26,7 @@ $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/me
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_suspend_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/terminate_form")) %>');
 <%end%>
+datapick_config();
+start_end_date_pick();
+
+hasDatepicker();

@@ -6,6 +6,11 @@ $('#reviewer').html('<%= escape_javascript(render(:partial => "/membership/revie
 $("#reviewer_id").val("");
 $('#display_review_info').hide();
 
+$('#membership_mode').attr('mode', 'show');
+$(".tab_switch_container").html("");
+
+
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
  <%else%>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
  $('#flash_message').dialog( {

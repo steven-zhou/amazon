@@ -947,9 +947,10 @@ $(function(){
                             $('#check_input_change').val("false");
                         }
                
-                        
+
 
                         $(this).dialog('destroy');
+                        $('table.selectable_grid[field='+ link.attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
                         return true;
                     }
                 }
@@ -2026,7 +2027,7 @@ $(function(){
 /* new compulsory field setting for controlling submit button*/
 $(function(){
     compulsory_check = function(link){
-        var current_form = $('#'+link.closest('form').get(0).id);
+        var current_form = $('#'+link.closest('form').attr('id'));
         var compulsory_fields = current_form.find('.compulsory_field');
         var length = compulsory_fields.length;
         var disable = true;
@@ -2052,11 +2053,14 @@ $(function(){
     };
 
     $(".compulsory_field").live('keyup', function(){
-             var current_form = $('#'+$(this).closest('form').get(0).id);
+        var current_form = $('#'+$(this).closest('form').attr('id'));
+ 
        if ($.trim($(this).val())!="")
-        {compulsory_check($(this));}
+        {    
+          compulsory_check($(this));
+              }
       else
-        {
+        {   
            $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
         }
 
@@ -2064,7 +2068,7 @@ $(function(){
     });
 
     $(".compulsory_field").live('change', function(){
-       var current_form = $('#'+$(this).closest('form').get(0).id);
+       var current_form = $('#'+$(this).closest('form').attr('id'));
       if ($.trim($(this).val())!="")
         {compulsory_check($(this));}
       else
@@ -2758,7 +2762,10 @@ $(function(){
     });
 
     $('.close_edit').live('click', function(){
+
+
         $('table.selectable_grid[field='+ $(this).attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
+
     });
 });
 
