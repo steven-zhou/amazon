@@ -28,10 +28,10 @@ class FeeItemsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new #{@fee_item.class.to_s}")
       #----------------------------presence - of--------------
-      if(!@fee_item.errors[:name].nil? && @fee_item.errors.on(:name).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
+      if(!@fee_item.errors.on(:name).nil? && @fee_item.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
         #-----------------------validate--uniqueness------------------------
-      elsif(!@fee_item.errors[:name].nil? && @fee_item.errors.on(:name).include?("has already been taken"))
+      elsif(!@fee_item.errors.on(:name).nil? && @fee_item.errors.on(:name).include?("has already been taken"))
         flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
       else
         flash.now[:error] = "Input Error"
@@ -84,10 +84,10 @@ class FeeItemsController < ApplicationController
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update #{params[:type]} Setting with ID #{ @fee_item.id}.")
       #----------------------------presence - of--------------
-      if(!@fee_item.errors[:name].nil? && @fee_item.errors.on(:name).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
+      if(!@fee_item.errors.on(:name).nil? && @fee_item.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
         #-----------------------validate--uniqueness------------------------
-      elsif(!@fee_item.errors[:name].nil? && @fee_item.errors.on(:name).include?("has already been taken"))
+      elsif(!@fee_item.errors.on(:name).nil? && @fee_item.errors.on(:name).include?("has already been taken"))
         flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
       else
         flash.now[:error] = "Input Error"

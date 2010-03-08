@@ -1,5 +1,5 @@
 <%-if flash[:error].nil?%>
-$('#flash_feedback').html('Sucessfully Created');
+$('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
 $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');

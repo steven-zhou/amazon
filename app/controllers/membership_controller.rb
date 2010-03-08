@@ -1,5 +1,5 @@
 class MembershipController < ApplicationController
-
+# System Log stuff added
 
   def new
     @membership = Membership.new
@@ -11,21 +11,23 @@ class MembershipController < ApplicationController
 
 
   def create
-
     @membership = Membership.new(params[:membership])
-    @membership.save!
-   unless @membership.save!
-
-     flash[:error] = "Can not save the Membership Data"
-   end
+    @membership.stage = "InitiateStage"
+    if @membership.save
+      flash.now[:message] ||= " Saved successfully"
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
+    else
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "person_id") if (!@membership.errors.on(:person_id).nil? && @membership.errors.on(:person_id).include?("has already been taken"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_status_id") if (!@membership.errors.on(:membership_status_id).nil? &&  @membership.errors.on(:membership_status_id).include?("can't be blank"))
+      flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
+    end
     respond_to do |format|
       format.js
     end
   end
 
-
-
-   def edit
+  def edit
     @membership = Membership.find(params[:id])
     @person = Person.find(@membership.person_id)
     @type = params[:params2]
@@ -39,20 +41,16 @@ class MembershipController < ApplicationController
   end
 
 
-   def update
-
-   @membership = Membership.find(params[:id])
-   @membership.update_attributes(params[:membership])
-
+  def update
+    @membership = Membership.find(params[:id])
+    @membership.update_attributes(params[:membership])
     respond_to do |format|
       format.js
     end
-   end
+  end
 
 
   def review
-
-
 
     respond_to do |format|
       format.html
@@ -60,24 +58,20 @@ class MembershipController < ApplicationController
 
   end
 
-
-
-
-
-
   def membership_person_lookup
     @membership = Membership.new
     @person = Person.find(params[:id]) rescue @person=nil
     @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
-     respond_to do |format|
+    respond_to do |format|
       format.js
     end
   end
+  
   def membership_intiator_lookup
 
     @person = Person.find(params[:id]) rescue @person=nil
     @update_field = params[:update_field]
-     respond_to do |format|
+    respond_to do |format|
       format.js
     end
   end
