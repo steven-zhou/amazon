@@ -93,4 +93,16 @@ class MembershipController < ApplicationController
     end
   end
 
+
+  def step_2
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def step_3
+    respond_to do |format|
+      format.html
+    end
+  end
 end
