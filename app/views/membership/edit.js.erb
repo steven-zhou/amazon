@@ -26,3 +26,7 @@ $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/me
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/display_suspend_form")) %>');
 $('#edit_membership_form').append('<%= escape_javascript(render(:partial => "/membership/terminate_form")) %>');
 <%end%>
+datapick_config();
+start_end_date_pick();
+
+hasDatepicker();
