@@ -21,6 +21,7 @@ class MembershipController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_status_id") if (!@membership.errors.on(:membership_status_id).nil? &&  @membership.errors.on(:membership_status_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
+       flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated ID") if (!@membership.errors.on(:initiated_by).nil? &&  @membership.errors.on(:initiated_by).include?("can't be blank"))
     end
     respond_to do |format|
       format.js
@@ -45,9 +46,20 @@ class MembershipController < ApplicationController
 
   def update
     @membership = Membership.find(params[:id])
-    @membership.update_attributes(params[:membership])
     @field= params[:field]
+    case @field
+    
+    when "review_page" then @membership.stage="ReviewStage"
+    when "finalize_page" then @membership.stage="FinalizeStage"
+    end
     @render_page = params[:render_page]
+
+   unless @membership.update_attributes(params[:membership])
+     flash.now[:error] = "error"
+   end
+
+
+   
     respond_to do |format|
       format.js
     end
@@ -86,6 +98,16 @@ class MembershipController < ApplicationController
     @membership = Membership.new
     respond_to do |format|
       format.js
+    end
+  end
+
+
+  def step_one
+
+    @membership = Membership.new
+    
+    respond_to do |format|
+      format.html
     end
   end
 
