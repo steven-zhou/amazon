@@ -947,9 +947,10 @@ $(function(){
                             $('#check_input_change').val("false");
                         }
                
-                        
+
 
                         $(this).dialog('destroy');
+                        $('table.selectable_grid[field='+ link.attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
                         return true;
                     }
                 }
@@ -2758,7 +2759,10 @@ $(function(){
     });
 
     $('.close_edit').live('click', function(){
+
+
         $('table.selectable_grid[field='+ $(this).attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
+
     });
 });
 

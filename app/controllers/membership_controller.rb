@@ -12,6 +12,7 @@ class MembershipController < ApplicationController
   def create
 
     @membership = Membership.new(params[:membership])
+
     @membership.save!
    unless @membership.save!
 
@@ -30,8 +31,6 @@ class MembershipController < ApplicationController
     @type = params[:params2]
 
 
-     puts "***********8"
-     puts @type
     respond_to do |format|
       format.js
     end
@@ -42,7 +41,8 @@ class MembershipController < ApplicationController
 
    @membership = Membership.find(params[:id])
    @membership.update_attributes(params[:membership])
-
+    @field= params[:field]
+    @render_page = params[:render_page]
     respond_to do |format|
       format.js
     end

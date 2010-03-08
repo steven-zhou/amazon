@@ -4,6 +4,8 @@
     .field_20
       %label Terminate ID
       %input{:id => "suspended_by", :name => "membership[terminated_by]", :value => "ID",:class=>"mandantory_field membership_intiator_lookup",:mandantory_field1=>"terminated_by",:submit_button_id=>"new_membership_submit",:update_field=>"terminated_name"}
+      %input{:name=>"field",:value=>"terminate_page",:class=>"hidden"}
+      %input{:name=>"render_page",:value=>"terminate_page",:class=>"hidden"}
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "suspended_by", :title=>"Search"

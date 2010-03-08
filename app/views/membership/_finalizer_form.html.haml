@@ -4,6 +4,8 @@
     .field_20
       %label Finalizer ID
       %input{:id => "finalized_by", :name => "membership[finalized_by]", :value => "ID",:class=>"mandantory_field membership_intiator_lookup",:mandantory_field1=>"finalized_by",:submit_button_id=>"new_membership_submit",:update_field=>"finalized_name"}
+      %input{:name=>"field",:value=>"finalize_page",:class=>"hidden"}
+      %input{:name=>"render_page",:value=>"finalize_page",:class=>"hidden"}
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "finalized_by", :title=>"Search"

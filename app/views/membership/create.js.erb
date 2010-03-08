@@ -3,7 +3,9 @@ $('#flash_feedback').html('Sucessfully Created');
 $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$('#initiator').html('<%= escape_javascript(render(:partial => "/membership/initiator_form")) %>');
 $("#membership_person_id").val("");
+$('#membership_mode').attr('mode', 'show');
 
 
  <%else%>
