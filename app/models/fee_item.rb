@@ -5,7 +5,7 @@ class FeeItem < ActiveRecord::Base
     belongs_to :link_module, :class_name => "LinkModule",:foreign_key=>"link_module_id"
     has_many :membership_fees,:class_name=>"MembershipFee",:foreign_key=>"fee_item_id"
 
-    validates_presence_of :name, :tag_type_id
+    validates_presence_of :name, :tag_type_id, :amount
     validates_uniqueness_of :name
 
     default_scope :order => "name ASC"
