@@ -28,8 +28,12 @@ class ModuleController < ApplicationController
 
    def manage_membership
     session[:module] = "membership"
-    membership_id = Membership.find_by_person_id(params[:id]).id
-    redirect_to :controller => "membership", :action => "step_2",:id=>membership_id
+    membership = Membership.find_by_person_id(params[:id])
+    action = case membership.membership_status.name
+    when "Initiated" then "step_2"
+    when "Reviewed" then "step_3"
+    end
+    redirect_to :controller => "membership", :action => action, :id => membership.id
    end
 
 
