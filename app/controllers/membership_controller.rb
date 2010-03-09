@@ -49,6 +49,7 @@ class MembershipController < ApplicationController
 
   def update
     @membership = Membership.find(params[:id])
+    
     @field= params[:field]
     case @field
     
@@ -105,6 +106,8 @@ class MembershipController < ApplicationController
   end
 
   def step_2
+    @membership = Membership.find(params[:id])
+    @person = Person.find(@membership.person_id) rescue @person = Person.new
     respond_to do |format|
       format.html
     end

@@ -20,4 +20,8 @@
   .tab_switch_right.left{:field =>"finalize_page"}
 
 .full_container
-  = render :partial => "membership/review_page"
+  #review_page
+    = render :partial => "membership/review_page" if @person.new_recored?
+
+  #individual_review_page
+    = render :partial => "membership/edit_membership_container", :locals => {:title => "Review"}
