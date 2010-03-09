@@ -58,7 +58,9 @@ class MembershipController < ApplicationController
     end
     @render_page = params[:render_page]
 
-    unless @membership.update_attributes(params[:membership])
+    if @membership.update_attributes(params[:membership])
+      flash.now[:message] = "Membership Update Successfully"
+    else
       flash.now[:error] = "error"
     end
 
@@ -106,14 +108,20 @@ class MembershipController < ApplicationController
   end
 
   def step_2
-    @membership = Membership.find(params[:id])
+    @membership = Membership.find(11) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
+    @status = @membership.membership_status.try(:name)
+    @default_stage_id = AmazonSetting.find_by_name("Reviewed").try(:id)
     respond_to do |format|
       format.html
     end
   end
 
   def step_3
+    @membership = Membership.find(11) rescue @membership = Membership.new
+    @person = Person.find(@membership.person_id) rescue @person = Person.new
+    @status = @membership.membership_status.try(:name)
+    @default_stage_id = AmazonSetting.find_by_name("Approved").try(:id)
     respond_to do |format|
       format.html
     end
