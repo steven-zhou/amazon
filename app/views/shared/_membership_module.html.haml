@@ -13,8 +13,9 @@
             = link_to "#{image_tag('icon_holder.png')} Management", {:controller => "membership", :action => "new"} , :class => "draggable", :controller => "membership", :action => "new",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Membership Management"
           %li{:id => (@current_action == "step_2" || @current_action == "step_3") ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Manage", {:controller => "membership", :action => "step_2"}, :class => "draggable", :controller => "membership_administrations", :action => "step_2", :icon_module=>"membership",:image_url => "icon_holder.png", :title => "MEM STEP 2"
-
-          
+          %li{:id => @current_action == "step_one" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Step One", {:controller => "membership", :action => "step_one"} , :class => "draggable", :controller => "membership", :action => "step_one",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Step One"
+         
           %br.clear
     .bottom
 

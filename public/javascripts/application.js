@@ -2054,17 +2054,17 @@ $(function(){
 
     $(".compulsory_field").live('keyup', function(){
         var current_form = $('#'+$(this).closest('form').attr('id'));
- 
+
        if ($.trim($(this).val())!="")
-        {    
+        {
           compulsory_check($(this));
               }
       else
-        {   
+        {
            $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
         }
 
-        
+
     });
 
     $(".compulsory_field").live('change', function(){

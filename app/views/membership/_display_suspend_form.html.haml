@@ -5,6 +5,7 @@
       %label Suspend ID
       %div.display_field_bg
         =@membership.nil? ? "" : @membership.suspended_by
+        %input{:name=>"field",:value=>@membership.person_id,:class=>"hidden membership_person_lookup"}
     .field_40
       %label Suspender
       .display_field_bg#suspended_name

@@ -5,6 +5,7 @@
       %label Reviewer ID
       %div.display_field_bg
         =@membership.nil? ? "" : @membership.reviewed_by
+        %input{:name=>"field",:value=>@membership.person_id,:class=>"hidden membership_person_lookup"}
     .field_40
       %label Initiator
       .display_field_bg#reviewer_name
