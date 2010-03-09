@@ -15,6 +15,32 @@ class MembershipController < ApplicationController
     @membership.person.is_member = true
 
     @membership.stage = "InitiateStage"
+
+    if params[:membership][:initiate_mail_id]
+      @membership.initiate_mail_id = PersonMailTemplate.initiate_template_id
+    end
+
+    if params[:membership][:initiate_letter_sent]
+       @membership.initiate_letter_sent = true
+
+       #config temp folder
+      file_prefix = "public"
+      file_dir = "temp/#{@current_user.user_name}/membership"
+      FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+
+
+
+      #prepare bank deposit sheet
+
+      @membership_initiate_sheet = render_to_string(PersonMailTemplate.find_by_name("Membership Initiate Template").body)
+      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.html", 'w') do |f|
+        f.puts "#{@membership_initiate_sheet}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.pdf ; rm #{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.html"
+      flash[:comfirmation] << "<p>MembershipInitateSheet <a href=\'/#{file_dir}/#{@run.id}-MembershipInitateSheet.pdf\' target='_blank'>#{@run.id}-MembershipInitateSheet.pdf</a></p>"
+    end
+
+    
     if @membership.save && @membership.person.save
 
       flash.now[:message] ||= " Saved successfully"
@@ -109,6 +135,7 @@ class MembershipController < ApplicationController
   end
 
   def step_2
+
     @membership = Membership.find(params[:id])
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     respond_to do |format|
@@ -124,6 +151,7 @@ class MembershipController < ApplicationController
 
   def step_1
     @person =  Person.find(params[:id]) unless params[:id].nil?
+    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
     @membership = Membership.new
     respond_to do |format|
       format.html

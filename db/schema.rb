@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100308035411) do
+ActiveRecord::Schema.define(:version => 20100309024937) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -426,7 +426,7 @@ ActiveRecord::Schema.define(:version => 20100308035411) do
     t.integer  "tag_type_id"
     t.string   "type"
     t.text     "name"
-    t.text     "description"
+    t.text     "destription"
     t.integer  "tax_items_id"
     t.string   "gl_code"
     t.decimal  "amount",               :precision => 11, :scale => 3
@@ -678,7 +678,7 @@ ActiveRecord::Schema.define(:version => 20100308035411) do
     t.integer  "campaign_id"
     t.integer  "source_id"
     t.integer  "last_transaction_id"
-    t.integer  "initiate_letter_id"
+    t.integer  "initiate_mail_id"
     t.integer  "initiated_by"
     t.date     "initiated_date"
     t.text     "initiated_comment"
@@ -709,8 +709,8 @@ ActiveRecord::Schema.define(:version => 20100308035411) do
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "review_letter_id"
-    t.string   "approve_letter_id"
+    t.string   "review_mail_id"
+    t.string   "approve_mail_id"
     t.string   "suspend_letter_id"
     t.string   "terminate_letter_id"
     t.boolean  "initiate_letter_sent"
@@ -718,6 +718,9 @@ ActiveRecord::Schema.define(:version => 20100308035411) do
     t.boolean  "approve_letter_sent"
     t.boolean  "suspend_letter_sent"
     t.boolean  "terminate_letter_sent"
+    t.integer  "initiate_email_id"
+    t.integer  "review_email_id"
+    t.integer  "approve_email_id"
   end
 
   create_table "message_templates", :force => true do |t|

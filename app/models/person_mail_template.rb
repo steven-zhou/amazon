@@ -4,5 +4,10 @@ class PersonMailTemplate < MailTemplate
     @mail_templates = PersonMailTemplate.find(:all, :conditions => ["to_be_removed = false"], :order => 'name')
   end
 
+  def self.initiate_template_id
+
+    PersonMailTemplate.find_by_name("Membership Initiate Template").id
+  end
+
 
 end
