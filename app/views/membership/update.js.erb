@@ -1,5 +1,5 @@
 <%-if flash[:error].nil?%>
-$('#flash_feedback').html('Sucessfully Created');
+$('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
 $('#flash_feedback').fadeIn("slow");
 $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
 $('#reviewer').html('<%= escape_javascript(render(:partial => "/membership/reviewer_form")) %>');
@@ -8,7 +8,7 @@ $('#display_review_info').hide();
 
 $('#membership_mode').attr('mode', 'show');
 $(".tab_switch_container").html("");
-
+$('#individual_review_page').html('');
 
 $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
  <%else%>

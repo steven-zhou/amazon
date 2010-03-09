@@ -1,11 +1,20 @@
 -# locals => {:title => "Review, Approve..."}
 
 -form_for 'membership',:url => {:controller =>"membership",:action=>"update"}, :html => {:class => "ajax_form",:id=>"membership",:submit_button_id=>"new_membership_submit"} do |p|
-  .full_container
+  .ex_container
     #edit_membership_form
       = render :partial => "/membership/membership_person_detail"
       = render :partial => "/membership/display_initiator_form"
-      = render :partial => "/membership/membership_person_detail"
-      = render :partial => "/membership/membership_person_detail"
-      = render :partial => "/membership/membership_person_detail"
+
+      - if @status == "Initiated"
+        = render :partial => "/membership/reviewer_form"
+      - else
+        = render :partial => "/membership/display_reviewer_form"
+
+        - if @status == "Reviewed"
+          = render :partial => "/membership/finalizer_form"
+        - else
+          = render :partial => "/membership/display_finalizer_form"
+
+
     = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"

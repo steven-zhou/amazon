@@ -24,4 +24,4 @@
     = render :partial => "membership/review_page" if @person.new_record?
 
   #individual_review_page
-    = render :partial => "membership/edit_membership_container", :locals => {:title => "Review"}
+    = render :partial => "membership/edit_membership_individual", :locals => {:title => "Review"} unless @person.new_record?
