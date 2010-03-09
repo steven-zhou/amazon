@@ -12,7 +12,14 @@ class MembershipController < ApplicationController
 
   def create
     @membership = Membership.new(params[:membership])
+
+    unless @membership.person.nil?
     @membership.person.is_member = true
+    else
+      person = Person.find(params[:id])
+      person.is_member = true
+      person.save
+    end
 
     @membership.stage = "InitiateStage"
 
