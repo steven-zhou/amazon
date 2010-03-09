@@ -102,7 +102,7 @@ class MembershipController < ApplicationController
   end
 
 
-  def step_one
+  def step_1
 
     @membership = Membership.new
     
