@@ -28,9 +28,9 @@ class MembershipController < ApplicationController
     end
 
     if params[:membership][:initiate_letter_sent]
-       @membership.initiate_letter_sent = true
+      @membership.initiate_letter_sent = true
 
-       #config temp folder
+      #config temp folder
       file_prefix = "public"
       file_dir = "temp/#{@current_user.user_name}/membership"
       FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
@@ -96,42 +96,42 @@ class MembershipController < ApplicationController
       flash.now[:message] = "Membership Update Successfully"
 
 
-    if params[:membership][:review_letter_sent]
-       @membership.review_letter_sent = true
+      if params[:membership][:review_letter_sent]
+        @membership.review_letter_sent = true
 
-       #config temp folder
-      file_prefix = "public"
-      file_dir = "temp/#{@current_user.user_name}/membership"
-      FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+        #config temp folder
+        file_prefix = "public"
+        file_dir = "temp/#{@current_user.user_name}/membership"
+        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
 
 
 
-      @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
-      File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
-        f.puts "#{@membership_review_sheet}"
+        @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
+        File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
+          f.puts "#{@membership_review_sheet}"
+        end
+        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
+        flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
-      flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
-    end
 
 
-     if params[:membership][:approve_letter_sent]
-       @membership.approve_letter_sent = true
+      if params[:membership][:approve_letter_sent]
+        @membership.approve_letter_sent = true
 
-       #config temp folder
-      file_prefix = "public"
-      file_dir = "temp/#{@current_user.user_name}/membership"
-      FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+        #config temp folder
+        file_prefix = "public"
+        file_dir = "temp/#{@current_user.user_name}/membership"
+        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
 
 
 
-      @membership_approve_sheet = render_to_string(:partial => "membership/membership_approve_sheet")
-      File.open("#{file_prefix}/#{file_dir}/MembershipApproveSheet.html", 'w') do |f|
-        f.puts "#{@membership_approve_sheet}"
+        @membership_approve_sheet = render_to_string(:partial => "membership/membership_approve_sheet")
+        File.open("#{file_prefix}/#{file_dir}/MembershipApproveSheet.html", 'w') do |f|
+          f.puts "#{@membership_approve_sheet}"
+        end
+        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipApproveSheet.html #{file_prefix}/#{file_dir}/MembershipApproveSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipApproveSheet.html"
+        flash.now[:comfirmation] = "<p>MembershipApproveSheet <a href=\'/#{file_dir}/MembershipApproveSheet.pdf\' target='_blank'>MembershipApproveSheet.pdf</a></p>"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipApproveSheet.html #{file_prefix}/#{file_dir}/MembershipApproveSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipApproveSheet.html"
-      flash.now[:comfirmation] = "<p>MembershipApproveSheet <a href=\'/#{file_dir}/MembershipApproveSheet.pdf\' target='_blank'>MembershipApproveSheet.pdf</a></p>"
-    end
 
 
 
@@ -183,6 +183,15 @@ class MembershipController < ApplicationController
     end
   end
 
+  def step_1
+    @person =  Person.find(params[:id]) unless params[:id].nil?
+    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
+    @membership = Membership.new
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def step_2
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
@@ -203,10 +212,21 @@ class MembershipController < ApplicationController
     end
   end
 
-  def step_1
-    @person =  Person.find(params[:id]) unless params[:id].nil?
-    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
-    @membership = Membership.new
+  def step_4
+    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
+    @person = Person.find(@membership.person_id) rescue @person = Person.new
+    @status = @membership.membership_status.try(:name)
+    @default_stage_id = AmazonSetting.find_by_name("Suspended").try(:id)
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def step_5
+    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
+    @person = Person.find(@membership.person_id) rescue @person = Person.new
+    @status = @membership.membership_status.try(:name)
+    @default_stage_id = AmazonSetting.find_by_name("Terminated").try(:id)
     respond_to do |format|
       format.html
     end
