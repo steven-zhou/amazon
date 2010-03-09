@@ -73,6 +73,8 @@ class MembershipController < ApplicationController
     @default_stage_id = case @type
     when "Initiated" then AmazonSetting.find_by_name("Reviewed").try(:id)
     when "Reviewed" then AmazonSetting.find_by_name("Approved").try(:id)
+    when "Approved" then AmazonSetting.find_by_name("Suspended").try(:id)
+    when "Suspended" then AmazonSetting.find_by_name("Terminated").try(:id)
     end
 
     respond_to do |format|

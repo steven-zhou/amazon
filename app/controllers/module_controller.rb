@@ -32,6 +32,8 @@ class ModuleController < ApplicationController
     action = case membership.membership_status.name
     when "Initiated" then "step_2"
     when "Reviewed" then "step_3"
+    when "Approved" then "step_4"
+    when "Suspended" then "step_5"
     end
     redirect_to :controller => "membership", :action => action, :id => membership.id
    end
