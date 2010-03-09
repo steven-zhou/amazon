@@ -37,11 +37,11 @@
       %input{:type => "checkbox", :id => "approve_letter_sent", :name => "membership[approve_letter_sent]"}
     .field_10
       %label Send Mail
-      %input{:type => "checkbox", :id => "approve_mail_sent", :name => "membership[approve_mail_id]"}
+      %input{:type => "checkbox", :id => "approve_mail_sent", :name => "membership[approve_mail_id]",:class=>"enable_submit_checkbox"}
     .field_10
       %label Send Email
-      %input{:type => "checkbox", :id => "approve_email_sent", :name => "membership[approve_email_id]"}
+      %input{:type => "checkbox", :id => "approve_email_sent", :name => "membership[approve_email_id]",:class=>"enable_submit_checkbox"}
     .field_10
       %label Send After Submit
-      %input{:type => "checkbox", :id => "approve_send_after_submit", :name => "membership[[approve_letter_sent]"}
+      %input{:type => "checkbox", :id => "approve_send_after_submit", :name => "membership[[approve_letter_sent]",:class=>"submit_checkbox",:disabled=>true}
     %br.clear

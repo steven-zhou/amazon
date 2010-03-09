@@ -36,7 +36,7 @@
   .tab_switch_right.left{:field =>"terminate_page"}
 
 .full_container
-  #finalize_page
+  #suspend_page
     = render :partial => "membership/suspend_page" if @person.new_record?
   #individual_review_page
     = render :partial => "membership/edit_membership_individual", :locals => {:title => "Suspend"} unless @person.new_record?
