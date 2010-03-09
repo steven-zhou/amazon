@@ -1,6 +1,6 @@
 -# locals => {:title => "Review, Approve..."}
 
--form_for 'membership',:url => {:controller =>"membership",:action=>"update"}, :html => {:class => "ajax_form",:id=>"membership",:submit_button_id=>"new_membership_submit"} do |p|
+-form_for 'membership', :url => "/membership/update", :html => {:class => "ajax_form",:id=>"membership",:submit_button_id=>"new_membership_submit"} do |p|
   .ex_container
     #edit_membership_form
       = render :partial => "/membership/membership_person_detail"

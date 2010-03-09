@@ -177,10 +177,7 @@ class MembershipController < ApplicationController
   end
 
   def step_2
-
-
-    @membership = Membership.find(params[:id])
-
+    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
     @default_stage_id = AmazonSetting.find_by_name("Reviewed").try(:id)
@@ -190,7 +187,7 @@ class MembershipController < ApplicationController
   end
 
   def step_3
-    @membership = Membership.find(11) rescue @membership = Membership.new
+    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
     @default_stage_id = AmazonSetting.find_by_name("Approved").try(:id)
