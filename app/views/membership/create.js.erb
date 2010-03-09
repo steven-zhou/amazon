@@ -7,6 +7,32 @@ $('#initiator').html('<%= escape_javascript(render(:partial => "/membership/init
 $("#membership_person_id").val("");
 $('#membership_mode').attr('mode', 'show');
 
+<%-unless flash[:comfirmation].nil?%>
+ $("#confirm_message_text").html("<%=escape_javascript(flash[:comfirmation])%>");
+      $("#confirm_message_text").css('padding-top', '32px')
+      $('#confirm_message_image').css("display","");
+      $('#confirm_message').dialog( {
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 600,
+        buttons:{
+          Ok: function() {
+            $(this).dialog('destroy');
+            enable_form_after_submit_finish();
+          }
+        }
+      });
+      $('#confirm_message').dialog( 'option', 'title', 'Confirm');
+      $('#confirm_message').parent().find("a").css("display","inline");
+      $("#confirm_message").parent().css('background-color','#D1DDE6');
+      $("#confirm_message").css('background-color','#D1DDE6');
+      $('#confirm_message').dialog('open');
+
+<%-end%>
+
+
 
  <%else%>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

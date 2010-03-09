@@ -30,14 +30,12 @@ class MembershipController < ApplicationController
 
 
 
-      #prepare bank deposit sheet
-
-      @membership_initiate_sheet = render_to_string(PersonMailTemplate.find_by_name("Membership Initiate Template").body)
-      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.html", 'w') do |f|
+      @membership_initiate_sheet = render_to_string(:partial => "membership/membership_initiate_sheet")
+      File.open("#{file_prefix}/#{file_dir}/MembershipInitateSheet.html", 'w') do |f|
         f.puts "#{@membership_initiate_sheet}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.pdf ; rm #{file_prefix}/#{file_dir}/#{@run.id}-MembershipInitateSheet.html"
-      flash[:comfirmation] << "<p>MembershipInitateSheet <a href=\'/#{file_dir}/#{@run.id}-MembershipInitateSheet.pdf\' target='_blank'>#{@run.id}-MembershipInitateSheet.pdf</a></p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipInitateSheet.html #{file_prefix}/#{file_dir}/MembershipInitateSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipInitateSheet.html"
+      flash.now[:comfirmation] = "<p>MembershipInitateSheet <a href=\'/#{file_dir}/MembershipInitateSheet.pdf\' target='_blank'>MembershipInitateSheet.pdf</a></p>"
     end
 
     
@@ -89,6 +87,48 @@ class MembershipController < ApplicationController
 
     if @membership.update_attributes(params[:membership])
       flash.now[:message] = "Membership Update Successfully"
+
+
+    if params[:membership][:review_letter_sent]
+       @membership.review_letter_sent = true
+
+       #config temp folder
+      file_prefix = "public"
+      file_dir = "temp/#{@current_user.user_name}/membership"
+      FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+
+
+
+      @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
+      File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
+        f.puts "#{@membership_review_sheet}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
+      flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
+    end
+
+
+     if params[:membership][:approve_letter_sent]
+       @membership.approve_letter_sent = true
+
+       #config temp folder
+      file_prefix = "public"
+      file_dir = "temp/#{@current_user.user_name}/membership"
+      FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+
+
+
+      @membership_approve_sheet = render_to_string(:partial => "membership/membership_approve_sheet")
+      File.open("#{file_prefix}/#{file_dir}/MembershipApproveSheet.html", 'w') do |f|
+        f.puts "#{@membership_approve_sheet}"
+      end
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipApproveSheet.html #{file_prefix}/#{file_dir}/MembershipApproveSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipApproveSheet.html"
+      flash.now[:comfirmation] = "<p>MembershipApproveSheet <a href=\'/#{file_dir}/MembershipApproveSheet.pdf\' target='_blank'>MembershipApproveSheet.pdf</a></p>"
+    end
+
+
+
+
     else
       flash.now[:error] = "error"
     end
