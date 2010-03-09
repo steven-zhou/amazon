@@ -146,7 +146,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keywords , :collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get, :delete_keywords => :get, :retrieve => :get}
 
 
-  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}
+  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get,:become_membership=>:get}
   map.resources :available_modules, :collection => {:switch_status => :get}
 
     map.resources :post_areas, :collection => {:select_ajax_show => :get,:retrieve_post_areas=>:get}
@@ -171,7 +171,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get,:step_1=>:get}
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get,:step_1=>:get,:step_2=>:get}
 
 
 

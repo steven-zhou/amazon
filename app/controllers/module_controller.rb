@@ -20,6 +20,19 @@ class ModuleController < ApplicationController
     redirect_to :controller => "membership", :action => "new"
   end
 
+  def become_membership
+    session[:module] = "membership"
+
+    redirect_to :controller => "membership", :action => "step_1",:id=>params[:id]
+  end
+
+   def manage_membership
+    session[:module] = "membership"
+
+    redirect_to :controller => "membership", :action => "step_2",:id=>params[:id]
+   end
+
+
   def fundraising
     session[:module] = "core"
     redirect_to :controller => "people", :action => "show"

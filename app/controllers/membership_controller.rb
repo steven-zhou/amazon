@@ -12,8 +12,11 @@ class MembershipController < ApplicationController
 
   def create
     @membership = Membership.new(params[:membership])
+    @membership.person.is_member = true
+
     @membership.stage = "InitiateStage"
-    if @membership.save
+    if @membership.save && @membership.person.save
+
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
     else
@@ -103,7 +106,7 @@ class MembershipController < ApplicationController
 
 
   def step_1
-
+    @person =  Person.find(params[:id]) unless params[:id].nil?
     @membership = Membership.new
     
     respond_to do |format|

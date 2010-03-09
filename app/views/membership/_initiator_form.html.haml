@@ -9,7 +9,7 @@
   .field_40
     %label Initiator
     .display_field_bg#initiator_name
-      =@person.name unless @person.nil?
+      =@person.name unless @person.nil?||@update_field.nil?
   .field_30
     %label <span class="asterisk">*</span>Initiator Date
     %input{:id => "reviewer_date", :name => "membership[initiated_date]", :class => "datepick compulsory_field", :value => Time.now.strftime("%d-%m-%Y")}
