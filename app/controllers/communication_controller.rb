@@ -9,20 +9,28 @@ class CommunicationController < ApplicationController
 
 
   def new_message_template
-    @message_template = EmailTemplate.new
+    @message_template = params[:param1] == "person" ? PersonEmailTemplate.new : OrganisationEmailTemplate.new
+    @type = params[:param1]
+    @table_attributes = TableMetaMetaType.table_categroy(@type)
+    @prefix_table_value = (params[:param1]== "person")? "@people." : "@organisations."
     respond_to do |format|
       format.js
     end
   end
 
   def create_message_template
-    @message_template = EmailTemplate.new(params[:message_template])
-    if @message_template.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Email_template with ID #{@message_template.id}.")
+    @message_template = (params[:type]+"_email_template").camelize.constantize.new(params[:message_template])
+    @type = params[:type]
+    @model_type = (params[:type]+"_email_template").camelize
+    if @mail_template.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new email template with ID #{@message_template.id}.")
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a Email template.")
-      if(!@message_template.errors[:name].nil?)
-        flash.now[:error] = "A Template With That Name Already Exists"
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new email template.")
+      #----------------------------presence - of--------------------
+      if(!@message_template.errors[:name].nil? && @message_template.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "A record with same name already exists, please try other name"
       end
     end
 
@@ -41,31 +49,57 @@ class CommunicationController < ApplicationController
         flash.now[:error] = "A Template With That Name Already Exists"
       end
     end
+
+    @message_template = MessageTemplate.find(params[:id])
+    if @message_template.update_attributes(params[:message_template])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Email Template with ID #{@message_template.id}.")
+    else
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a Email Template record.")
+      #----------------------------presence - of------------------
+      if(!@message_template.errors[:name].nil? && @message_template.errors.on(:name).include?("can't be blank"))
+        flash.now[:error] = "Please Enter All Required Data"
+      else
+        flash.now[:error] = "A record with same name already exists, please try other name"
+      end
+
+    end
+    @type = params[:type]
+    @model_type = (params[:type]+"_email_template").camelize
+
     respond_to do |format|
       format.js
     end
   end
 
   def edit_message_template
-    @message_template = EmailTemplate.find(params[:id])
+    @message_template = MessageTemplate.find(params[:id])
+    @type = params[:params2]
+    @table_attributes = TableMetaMetaType.table_categroy(@type)
+    @prefix_table_value = (params[:params2]== "person")? "@people." : "@organisations."
     respond_to do |format|
       format.js
     end
   end
 
   def destroy_message_template
-    @message_template = EmailTemplate.find(params[:id])
+    @message_template = MessageTemplate.find(params[:id])
     @message_template.to_be_removed = true
     @message_template.save
+    @type = (@message_template.class.to_s == "PersonEmailTemplate")? "person" : "organisation"
+    @model_type = (@type+"_email_template").camelize
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Mail Template ID #{@message_template.id}.")
     respond_to do |format|
       format.js
     end
   end
 
   def retrieve_message_template
-    @message_template = EmailTemplate.find(params[:id])
+    @message_template = MessageTemplate.find(params[:id])
     @message_template.to_be_removed = false
     @message_template.save
+    @type = (@message_template.class.to_s == "PersonEmailTemplate")? "person" : "organisation"
+    @model_type = (@type+"_email_template").camelize
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Mail Template ID #{@message_template.id}.")
     respond_to do |format|
       format.js
     end
@@ -233,11 +267,6 @@ class CommunicationController < ApplicationController
     @entity_query_headers = PersonQueryHeader.saved_queries
     @mail_templates = PersonMailTemplate.active_record
     @entity_type = "person"
-
-  respond_to do |format|
-      format.html
-    end
-    
   end
   
   def organisation_mail_merge
@@ -245,9 +274,20 @@ class CommunicationController < ApplicationController
     @entity_query_headers = OrganisationQueryHeader.saved_queries
     @mail_templates = OrganisationMailTemplate.active_record
     @entity_type = "organisation"
-   respond_to do |format|
-      format.html
-    end
   end
 
+  def person_email_merge
+    @entity_list_headers = @current_user.all_person_lists
+    @entity_query_headers = PersonQueryHeader.saved_queries
+    @mail_templates = PersonEmailTemplate.active_record
+    @entity_type = "person"
+
+  end
+
+  def organisation_email_merge
+    @entity_list_headers = @current_user.all_organisation_lists
+    @entity_query_headers = OrganisationQueryHeader.saved_queries
+    @mail_templates = OrganisationEmailTemplate.active_record
+    @entity_type = "organisation"
+  end
 end
