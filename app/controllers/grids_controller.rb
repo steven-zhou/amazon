@@ -2736,31 +2736,73 @@ class GridsController < ApplicationController
 
     end
 
+
+     conditions = Array.new
+    values = Array.new
+
+
+    if params[:start_date]
+      conditions << "created_at >= ?"
+      values << params[:start_date].to_date
+    end
+
+
+    if params[:end_date]
+      conditions << "created_at <= ?"
+      values << params[:end_date].to_date+1
+
+    end
+
+    if params[:to_be_removed]
+      conditions << "to_be_removed = ?"
+      values << params[:to_be_removed]
+
+    end
+
+    if params[:status]
+      conditions << "status = ?"
+      values << params[:status]
+
+    end
+
+#     if params[:dispatch_date] == "false"
+#
+#      conditions << "dispatch_date IS"
+#      values << "NULL"
+#     else
+#      conditions << "dispatch_date IS NOT"
+#      values << "NULL"
+#
+#    end
+
+
+
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
     # No search terms provided
     if(query == "%%")
-      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"    
-      @email_maintenance = BulkEmail.find(:all,
-        :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]],
+      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
+      @email_maintenance = params[:model_type].constantize.find(:all,
+       :conditions => [query_string + " AND " + conditions.join(' AND '), *values],
+
         #:conditions => ["created_at >= ? and created_at <= ?", params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )      
-      count = BulkEmail.count(:all, :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+      count = params[:model_type].constantize.count(:all,:conditions => [query_string + " AND " +conditions.join(' AND '), *values] )
     end
 
     # User provided search terms
     if(query != "%%")
       query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
-      @email_maintenance = BulkEmail.find(:all,
+      @email_maintenance = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
-      count = BulkEmail.count(:all, :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+       :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
+      count = params[:model_type].constantize.count(:all, :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
     end
 
     # Construct a hash from the ActiveRecord result

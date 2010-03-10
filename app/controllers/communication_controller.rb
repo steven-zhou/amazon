@@ -107,22 +107,22 @@ class CommunicationController < ApplicationController
     else  #query use
       query_header_id = params[:list_header_id].delete("query_")
       @query_header = QueryHeader.find(query_header_id)
-      @type = @list_header.class.name
+      @type = @query_header.class.name
       @entities = @query_header.run #people
 
     end
-    @message_templates = EmailTemplate.active_record
+
     @message_template = EmailTemplate.new
     subject = params[:email][:subject]
 
 
-    if @type == "PrimaryList" || @type =="PersonListHeader"
+    if @type == "PrimaryList" || @type =="PersonListHeader" || @type =="PersonQueryHeader"
 
     @list_headers = @current_user.all_person_lists
    message_template = PersonEmailTemplate.find(params[:message_template_id])
     @entity_list_headers = @current_user.all_person_lists
     @entity_query_headers = PersonQueryHeader.saved_queries
-
+     @message_templates = PersonEmailTemplate.active_record
 #    list_header = ListHeader.find(params[:list_header_id])
 
     flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
@@ -138,13 +138,15 @@ class CommunicationController < ApplicationController
       email.save unless person.primary_email.nil?
 
     end
-    elsif @type == "OrganisationPrimaryList" || @type =="OrganisationListHeader"
+    elsif @type == "OrganisationPrimaryList" || @type =="OrganisationListHeader" || @type =="OrganisationQueryHeader"
 
 #      @list_headers = @current_user.all_organisation_lists
    message_template = OrganisationEmailTemplate.find(params[:message_template_id])
 
 #    list_header = ListHeader.find(params[:list_header_id])
-
+    @entity_list_headers = @current_user.all_organisation_lists
+    @entity_query_headers = OrganisationQueryHeader.saved_queries
+     @message_templates = OrganisationEmailTemplate.active_record
     flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list/query header .")
 
@@ -193,6 +195,11 @@ class CommunicationController < ApplicationController
     #    end
 
 
+
+    @bulk_email = params[:modify_email_type]
+
+
+    
     params[:start_date] ||= "01-01-#{Date.today().year().to_s}"
     params[:end_date] ||= "31-12-#{Date.today().year().to_s}"
     @start_date = params[:start_date]
@@ -259,8 +266,16 @@ class CommunicationController < ApplicationController
     @field = params[:field]
     @type = params[:type]
     @model_type = (params[:type]+"_email_template").camelize
-    @list_headers = @current_user.all_person_lists
-    @message_templates = EmailTemplate.active_record
+   if @type == "person"
+    @entity_list_headers = @current_user.all_person_lists
+    @entity_query_headers = PersonQueryHeader.saved_queries
+     @message_templates = PersonEmailTemplate.active_record
+    else
+    @entity_list_headers = @current_user.all_organisation_lists
+    @entity_query_headers = OrganisationQueryHeader.saved_queries
+    @message_templates = OrganisationEmailTemplate.active_record
+    end
+#    @message_templates = EmailTemplate.active_record
     @message_template = EmailTemplate.new
     @start_date = "#{Date.today().at_beginning_of_week.strftime('%Y-%m-%d')}"
     @end_date = "#{Date.today().strftime('%Y-%m-%d')}"
@@ -274,10 +289,20 @@ class CommunicationController < ApplicationController
     @field = params[:field]
     @type = params[:type]
     @model_type = (params[:type]+"_email_template").camelize
-    @list_headers = @current_user.all_person_lists
-    @message_templates = EmailTemplate.find(:all)
+    @bulk_email = (params[:type]+"_bulk_email").camelize
+#    @list_headers = @current_user.all_person_lists
+#    @message_templates = EmailTemplate.find(:all)
     @message_template = EmailTemplate.new
+    if @type == "person"
+    @entity_list_headers = @current_user.all_person_lists
+    @entity_query_headers = PersonQueryHeader.saved_queries
+     @message_templates = PersonEmailTemplate.active_record
 
+    else
+    @entity_list_headers = @current_user.all_organisation_lists
+    @entity_query_headers = OrganisationQueryHeader.saved_queries
+    @message_templates = OrganisationEmailTemplate.active_record
+    end
     #for the email history using
     @start_date = "#{Date.today().at_beginning_of_week.strftime('%d-%m-%Y')}"
     
