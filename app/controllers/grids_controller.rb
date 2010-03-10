@@ -2674,22 +2674,24 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @message_templates = EmailTemplate.find(:all,
+      @message_templates = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["template_category"]
       )
-      count = EmailTemplate.count(:all)
+      count = params[:model_type].constantize.count(:all)
     end
 
     # User provided search terms
     if(query != "%%")
-      @message_templates = EmailTemplate.find(:all,
+      @message_templates = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-      count = EmailTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["template_category"])
+      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2699,6 +2701,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @message_templates.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
+          u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
         ]}}
