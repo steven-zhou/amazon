@@ -277,6 +277,7 @@ class CommunicationController < ApplicationController
   end
 
   def person_email_merge
+    @list_headers = @current_user.all_person_lists
     @entity_list_headers = @current_user.all_person_lists
     @entity_query_headers = PersonQueryHeader.saved_queries
     @message_templates = PersonEmailTemplate.active_record
