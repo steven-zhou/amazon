@@ -3974,8 +3974,7 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    puts "**************"
-    puts params[:type]
+
     if (!sortname)
       sortname = "id"
     end
