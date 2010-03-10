@@ -1812,6 +1812,17 @@ $(".tab_switch_button").live('click', function(){
     $('#'+$(this).attr('field')).addClass("active");
 });
 
+
+/*CSS tab menu_switch system*/
+$(".tab menu_switch_button").live('click', function(){
+    $('.active mene').removeClass("active menu");
+    $(this).addClass("active menu");
+    $(this).parent().addClass("active menu");
+    $('.tab menu_switch_right[field='+ $(this).attr('field') +']').addClass("active menu");
+    $('.tab menu_switch_left[field='+ $(this).attr('field') +']').addClass("active menu");
+    $('#'+$(this).attr('field')).addClass("active menu");
+});
+
 // Address assistant //
 
 $(document).ready(function() {

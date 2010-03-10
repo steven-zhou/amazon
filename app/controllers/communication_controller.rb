@@ -233,7 +233,10 @@ class CommunicationController < ApplicationController
     @entity_query_headers = PersonQueryHeader.saved_queries
     @mail_templates = PersonMailTemplate.active_record
     @entity_type = "person"
-   
+
+  respond_to do |format|
+      format.html
+    end
     
   end
   
@@ -242,7 +245,9 @@ class CommunicationController < ApplicationController
     @entity_query_headers = OrganisationQueryHeader.saved_queries
     @mail_templates = OrganisationMailTemplate.active_record
     @entity_type = "organisation"
-
+   respond_to do |format|
+      format.html
+    end
   end
 
 end
