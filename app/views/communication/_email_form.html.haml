@@ -9,8 +9,7 @@
           }
       });
     });
--#.full_container#email
-  -#%div#email_form
+
 - form_for :email, nil, :url => { :action => "send_email" }, :html => {:class => 'ajax_form', :id => "send_email_form"}  do |f|
   .full_container
     %h2 Email Message
