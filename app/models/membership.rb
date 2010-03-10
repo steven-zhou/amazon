@@ -13,12 +13,25 @@ class Membership < ActiveRecord::Base
   belongs_to :source
   belongs_to :campaign
   belongs_to :initiator, :class_name => 'Person', :foreign_key => 'initiated_by'
+  belongs_to :initiate_mail, :class_name => "PersonMailTemplate", :foreign_key => "initiate_mail_id"
+  belongs_to :initiate_email, :class_name => "PersonEmailTemplate", :foreign_key => "initiate_email_id"
   belongs_to :reviewer, :class_name => "Person", :foreign_key => 'reviewed_by'
+  belongs_to :review_mail, :class_name => "PersonMailTemplate", :foreign_key => "review_mail_id"
+  belongs_to :review_email, :class_name => "PersonEmailTemplate", :foreign_key => "review_email_id"
+  belongs_to :second_reviewer, :class_name => "Person", :foreign_key => 'second_reviewed_by'
+  belongs_to :second_review_mail, :class_name => "PersonMailTemplate", :foreign_key => "second_review_mail_id"
+  belongs_to :second_review_email, :class_name => "PersonEmailTemplate", :foreign_key => "second_review_email_id"
+  belongs_to :third_reviewer, :class_name => "Person", :foreign_key => 'third_reviewed_by'
+  belongs_to :third_review_mail, :class_name => "PersonMailTemplate", :foreign_key => "third_review_mail_id"
+  belongs_to :third_review_email, :class_name => "PersonEmailTemplate", :foreign_key => "third_review_email_id"
   belongs_to :finalizer, :class_name => "Person", :foreign_key => ' finalized_by'
+  belongs_to :approve_mail, :class_name => "PersonMailTemplate", :foreign_key => "approve_mail_id"
+  belongs_to :approve_email, :class_name => "PersonEmailTemplate", :foreign_key => "approve_email_id"
+  belongs_to :decline_mail, :class_name => "PersonMailTemplate", :foreign_key => "decline_mail_id"
+  belongs_to :decline_email, :class_name => "PersonEmailTemplate", :foreign_key => "decline_email_id"
   belongs_to :next_reviewer, :class_name => "Person", :foreign_key => 'next_reviewed_by'
   belongs_to :suspender, :class_name => "Person", :foreign_key => 'suspended_by'
   belongs_to :terminator, :class_name => "Person", :foreign_key => 'terminated_by'
-
   belongs_to :transaction_header, :class_name => "TransactionHeader", :foreign_key => 'last_transaction_id'
 
   validates_presence_of :person_id, :membership_status_id, :membership_type_id
