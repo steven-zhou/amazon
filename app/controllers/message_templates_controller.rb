@@ -111,7 +111,7 @@ class MessageTemplatesController < ApplicationController
   def retrieve_mail_template
     @mail_template = MessageTemplate.find(params[:id])
     @mail_template.to_be_removed = false
-    @mail_template.save!
+    @mail_template.save
     @type = (@mail_template.class.to_s == "PersonMailTemplate")? "person" : "organisation"
     @model_type = (@type+"_mail_template").camelize
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) retrieve Mail Template ID #{@mail_template.id}.")
@@ -125,7 +125,7 @@ class MessageTemplatesController < ApplicationController
   def destroy_mail_template
     @mail_template = MessageTemplate.find(params[:id])
     @mail_template.to_be_removed = true
-    @mail_template.save!
+    @mail_template.save
     @type = (@mail_template.class.to_s == "PersonMailTemplate")? "person" : "organisation"
     @model_type = (@type+"_mail_template").camelize
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Mail Template ID #{@mail_template.id}.")
