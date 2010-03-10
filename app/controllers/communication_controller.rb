@@ -22,7 +22,7 @@ class CommunicationController < ApplicationController
     @message_template = (params[:type]+"_email_template").camelize.constantize.new(params[:message_template])
     @type = params[:type]
     @model_type = (params[:type]+"_email_template").camelize
-    if @mail_template.save
+    if @message_template.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new email template with ID #{@message_template.id}.")
     else
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new email template.")
@@ -40,16 +40,6 @@ class CommunicationController < ApplicationController
   end
 
   def update_message_template
-    @message_template = EmailTemplate.find(params[:id])
-    if @message_template.update_attributes(params[:message_template])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new Email template with ID #{@message_template.id}.")
-    else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a Email template #{@message_template.id}.")
-      if(!@message_template.errors[:name].nil?)
-        flash.now[:error] = "A Template With That Name Already Exists"
-      end
-    end
-
     @message_template = MessageTemplate.find(params[:id])
     if @message_template.update_attributes(params[:message_template])
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Email Template with ID #{@message_template.id}.")
@@ -267,6 +257,8 @@ class CommunicationController < ApplicationController
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
+    @type = params[:type]
+    @model_type = (params[:type]+"_email_template").camelize
     @list_headers = @current_user.all_person_lists
     @message_templates = EmailTemplate.active_record
     @message_template = EmailTemplate.new
@@ -280,6 +272,8 @@ class CommunicationController < ApplicationController
   def template_page_initial
     @render_page = params[:render_page]
     @field = params[:field]
+    @type = params[:type]
+    @model_type = (params[:type]+"_email_template").camelize
     @list_headers = @current_user.all_person_lists
     @message_templates = EmailTemplate.find(:all)
     @message_template = EmailTemplate.new

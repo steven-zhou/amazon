@@ -427,7 +427,7 @@ ActiveRecord::Schema.define(:version => 20100310035204) do
     t.integer  "tag_type_id"
     t.string   "type"
     t.text     "name"
-    t.text     "destription"
+    t.text     "description"
     t.integer  "tax_items_id"
     t.string   "gl_code"
     t.decimal  "amount",               :precision => 11, :scale => 3
