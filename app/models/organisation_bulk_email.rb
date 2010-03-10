@@ -1,0 +1,2 @@
+class OrganisationBulkEmail < BulkEmail
+end

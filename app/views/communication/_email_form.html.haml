@@ -10,23 +10,27 @@
       });
     });
 
-- form_for :email, nil, :url => { :action => "send_email" }, :html => {:class => 'ajax_form', :id => "send_email_form"}  do |f|
+- form_for :email, nil, :url => { :action => "send_email" }, :html => {:class => 'ajax_form', :id => "send_email_form",:submit_button_id=>"new_email_submit"}  do |f|
   .full_container
     %h2 Email Message
     .form_line
       .field_30
         = f.label :subject, "<span class='asterisk'>*</span>Subject"
-        = f.text_field :subject, :id => "new_email_subject", :style => "width:250px", :class => 'new_email_required_field'
+        = f.text_field :subject, :id => "new_email_subject", :style => "width:250px", :class => 'select_ban_submit'
       .field_30
         = f.label :subject, "<span class='asterisk'>*</span>Template"
         %select{:id => "message_template_id", :name => "message_template_id", :style => "width:250px", :class => 'new_email_required_field' }
           - @message_templates.each do |r|
             %option{:value => "#{r.id}"} #{r.name}
       .field_30
-        = f.label :subject, "<span class='asterisk'>*</span>List"
-        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'new_email_required_field' }
-          - @list_headers.each do |r|
-            %option{:value => "#{r.id}"} #{r.name}
+        = f.label :subject, "<span class='asterisk'>*</span>List/Query"
+        %select{:id => "list_header_id", :name => "list_header_id", :style => "width:250px", :class => 'select_ban_submit' }
+          %option{:value => "0"} --------------------List--------------------------------
+          - @entity_list_headers.each do |r|
+            %option{:value => "list_#{r.id}"} #{r.name}
+          %option{:value => "0"} --------------------Query------------------------------
+          - @entity_query_headers.each do |r|
+            %option{:value => "query_#{r.id}"} #{r.name}
       .field_5
         = submit_tag "Submit", :id => "new_email_submit", :style => "margin-top:10px;", :disabled => true
 

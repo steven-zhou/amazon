@@ -116,7 +116,7 @@
     .top
     .item
       - if @current_controller != "communication"
-        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "email"
+        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "person_email_merge"
       - else
         <p>Contact</p>
         %ul

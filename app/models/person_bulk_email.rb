@@ -1,0 +1,2 @@
+class PersonBulkEmail < BulkEmail
+end

@@ -108,25 +108,64 @@ class CommunicationController < ApplicationController
   
   def send_email
 
-    @list_headers = @current_user.all_person_lists
+
+     if(params[:list_header_id].include?("list_"))
+      list_header_id = params[:list_header_id].delete("list_")
+      @list_header = ListHeader.find(list_header_id )
+      @type = @list_header.class.name
+      @entities = @list_header.entity_on_list #people
+    else  #query use
+      query_header_id = params[:list_header_id].delete("query_")
+      @query_header = QueryHeader.find(query_header_id)
+      @type = @list_header.class.name
+      @entities = @query_header.run #people
+
+    end
     @message_templates = EmailTemplate.active_record
     @message_template = EmailTemplate.new
-
     subject = params[:email][:subject]
-    message_template = EmailTemplate.find(params[:message_template_id])
-    list_header = ListHeader.find(params[:list_header_id])
+
+
+    if @type == "PrimaryList" || @type =="PersonListHeader"
+
+    @list_headers = @current_user.all_person_lists
+   message_template = PersonEmailTemplate.find(params[:message_template_id])
+    @entity_list_headers = @current_user.all_person_lists
+    @entity_query_headers = PersonQueryHeader.saved_queries
+
+#    list_header = ListHeader.find(params[:list_header_id])
 
     flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list header id #{list_header.id}.")
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list/query header .")
 
-    for person in list_header.entity_on_list do
+    for person in @entities do
 
       message = message_template.body
-      message = message.gsub(/#first_name#/, "#{person.first_name}")
-      message = message.gsub(/#last_name#/, "#{person.family_name}")
 
-      email = BulkEmail.new(:subject => subject, :from => "feedback@memberzone.com.au", :to => person.primary_email.value, :body => message) unless person.primary_email.nil?
+
+      email = PersonBulkEmail.new(:subject => subject, :from => "feedback@memberzone.com.au", :to => person.primary_email.value, :body => message) unless person.primary_email.nil?
+
       email.save unless person.primary_email.nil?
+
+    end
+    elsif @type == "OrganisationPrimaryList" || @type =="OrganisationListHeader"
+
+#      @list_headers = @current_user.all_organisation_lists
+   message_template = OrganisationEmailTemplate.find(params[:message_template_id])
+
+#    list_header = ListHeader.find(params[:list_header_id])
+
+    flash.now[:message] = flash_message(:message => "Your Email Has Been Scheduled For Dispatch And Will Be Sent Soon")
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) send an email with subject #{subject} to list/query header .")
+
+    for org in @entities do
+
+      message = message_template.body
+
+      email = OrganisationBulkEmail.new(:subject => subject, :from => "feedback@memberzone.com.au", :to => org.primary_email.value, :body => message) unless org.primary_email.nil?
+      email.save unless org.primary_email.nil?
+
+    end
 
     end
 

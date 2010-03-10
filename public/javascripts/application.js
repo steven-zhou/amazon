@@ -3306,7 +3306,7 @@ select_ban_submit_check = function(link){
     var disable = true;
 
     for(i=0; i<length; i++){
-        if ($('#'+select_ban_submits[i].id).val()=='0'||$('#'+select_ban_submits[i].id).val()== null){
+        if ($('#'+select_ban_submits[i].id).val()=='0'||$('#'+select_ban_submits[i].id).val()== null||$.trim($('#'+select_ban_submits[i].id).val())== ""){
             disable = true;
             break;
         }else{
