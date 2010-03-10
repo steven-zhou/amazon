@@ -4,7 +4,7 @@ class MessageTemplate < ActiveRecord::Base
 
   validates_uniqueness_of :name, :scope => "type"
 
-  belongs_to :mail_merge_category, :foreign_key => "mail_merge_category_id"
+  belongs_to :template_category, :foreign_key => "template_category_id"
 
   after_validation_on_create :set_to_be_removed_and_active
 
