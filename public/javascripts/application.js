@@ -3443,3 +3443,18 @@ $(function(){
 });
 
 
+//user preferences  --default value
+
+$(function(){
+
+  $('#user_defaule_value').click(function(){
+
+    $.ajax({
+      type: "GET",
+      url: "/user_preferences/default_value",
+      dataType: "script"
+      });
+    return false;
+
+  })
+});

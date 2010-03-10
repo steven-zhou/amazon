@@ -288,6 +288,7 @@ class SigninController < ApplicationController
   # If we have had an invalid access attempt, record their i[ and decrease number of access attempts availabnle
   def invalid_access_attempt(login_account)
     login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
+    puts"----------DEBUG-----1111--#{login_account.to_yaml}"
     login_account.access_attempt_ip = request.remote_ip
     login_account.save
   end

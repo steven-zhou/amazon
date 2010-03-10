@@ -118,7 +118,7 @@
       - if @current_controller != "communication"
         = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "email"
       - else
-        <p>Contact</p>
+        <p>Contact Manager</p>
         %ul
           %li{:id => @current_action == "email" ? "selected" : ""}
             = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "email"}, :controller => "communication", :action => "email",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"

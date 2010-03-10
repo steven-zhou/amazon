@@ -112,6 +112,12 @@ class ApplicationController < ActionController::Base
     !(date =~ date_regex).nil?
   end
 
+  def valid_user_name(username)
+    login_account = LoginAccount.find_by_user_name(username)
+    if login_account.nil?
+      raise "Username invalid"
+    end
+  end
   private
 
   def check_session_timeout(current_user)

@@ -1,5 +1,5 @@
 class UserPreferencesController < ApplicationController
-# System Logging done...
+  # System Logging done...
 
   def change_email
     if @current_user.security_email == params[:old_email] && params[:new_email]== params[:retype_new_email]
@@ -26,7 +26,7 @@ class UserPreferencesController < ApplicationController
 
 
   def change_password
-     if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
+    if (Digest::SHA256.hexdigest(params[:old_password] + @current_user.password_salt) == @current_user.password_hash  && params[:new_password]== params[:retype_new_password])
       @current_user.password = params[:new_password]
       if @current_user.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated its password.")
@@ -74,6 +74,29 @@ class UserPreferencesController < ApplicationController
   end
 
   def show_whoami
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def default_value
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def edit_default_value
+    @default_value = UserPreference.find(params[:grid_object_id])
+    @address_types = AddressType.active_address_type
+    @default_address_type = @default_value.default_address_type
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update_default_value
+    @default_value = UserPreference.find(params[:id])
+    
     respond_to do |format|
       format.js
     end
