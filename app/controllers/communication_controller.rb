@@ -282,14 +282,15 @@ class CommunicationController < ApplicationController
     @entity_query_headers = PersonQueryHeader.saved_queries
     @message_templates = PersonEmailTemplate.active_record
     @entity_type = "person"
-    render "person_email.html"
+
   end
 
   def organisation_email_merge
+    @list_headers = @current_user.all_organisation_lists
     @entity_list_headers = @current_user.all_organisation_lists
     @entity_query_headers = OrganisationQueryHeader.saved_queries
-    @mail_templates = OrganisationEmailTemplate.active_record
+    @message_templates = OrganisationEmailTemplate.active_record
     @entity_type = "organisation"
-     render "organisation_email.html"
+
   end
 end

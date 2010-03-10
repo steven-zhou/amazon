@@ -5,21 +5,6 @@
     %br.clear
 .tab_switch{:style => "margin-left:15px;"}
 
-  .tab_menu_switch_left.left{:field =>"review_page"}
-  .container_menu_icon.left{:align => 'center'}
-    = link_to "Person Email" , person_email_merge_communication_path()
-  .tab_menu_switch_right.left{:field =>"review_page"}
-
-
-
-  .tab_menu_switch_left.active_menu.left{:field =>"finalize_page"}
-  .container_menu_icon.active_menu.left{:align => 'center'}
-    = link_to "Organisation Email", organisation_email_merge_communication_path()
-  .tab_menu_switch_right.active_menu.left{:field =>"finalize_page"}
-
-    %br.clear
-.tab_switch{:style => "margin-left:15px;"}
-
   .tab_switch_left.active.left{:field =>"email_page"}
   .container_icon.active.left{:align => 'center'}
     = link_to_function "<h1>List Email</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/communication/page_initial",:method => "GET", :render_page => "communication/email_form", :field => "email_page"
@@ -43,7 +28,4 @@
 #email_page.tab_switch_container.active.full_container
   = render :partial => "email_form"
 #template_page.tab_switch_container.full_container
-  -#= render :partial => "message_template_tab"
 #email_maintenance_page.tab_switch_container.full_container
-  -#%div#email_maintenance_form
-  -#= render :partial => "email_maintenance_form"
