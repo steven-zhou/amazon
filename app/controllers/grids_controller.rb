@@ -2949,9 +2949,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["mail_merge_category"]
+        :include => ["template_category"]
       )
-      count = params[:model_type].constantize.count(:all,:include => ["mail_merge_category"])
+      count = params[:model_type].constantize.count(:all,:include => ["template_category"])
     end
 
     # User provided search terms
@@ -2961,8 +2961,8 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query],
-        :include => ["mail_merge_category"])
-      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["mail_merge_category"])
+        :include => ["template_category"])
+      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["template_category"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2971,7 +2971,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @mail_templates.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
-          u.mail_merge_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.mail_merge_category.name+"</span>" : u.mail_merge_category.name,
+          u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
         ]}}

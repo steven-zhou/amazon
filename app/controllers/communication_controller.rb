@@ -282,7 +282,7 @@ class CommunicationController < ApplicationController
     @entity_query_headers = PersonQueryHeader.saved_queries
     @message_templates = PersonEmailTemplate.active_record
     @entity_type = "person"
-
+    render "person_email.html"
   end
 
   def organisation_email_merge
@@ -290,5 +290,6 @@ class CommunicationController < ApplicationController
     @entity_query_headers = OrganisationQueryHeader.saved_queries
     @mail_templates = OrganisationEmailTemplate.active_record
     @entity_type = "organisation"
+     render "organisation_email.html"
   end
 end
