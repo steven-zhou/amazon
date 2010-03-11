@@ -217,7 +217,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @system_log_entries.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.created_at.strftime('%a %d %b %Y %H:%M:%S'),
+          u.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S'),
           u.login_account.nil? ? "Unknown" : u.login_account.formatted_name,
           u.ip_address,
           u.controller,
@@ -3991,19 +3991,21 @@ class GridsController < ApplicationController
       rp = 20
     end
 
+    params[:type] = [1]
+
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id = ?", MembershipSubStatus.find_by_name(params[:type]).id],
+        :conditions=>["membership_status_id IN ?", params[:type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
 
       )
-      count = Membership.count(:all, :conditions=>["membership_status_id = ?", MembershipSubStatus.find_by_name(params[:type]).id])
+      count = Membership.count(:all, :conditions=>["membership_status_id IN ?", params[:type]])
     end
 
     # User provided search terms

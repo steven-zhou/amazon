@@ -74,7 +74,7 @@ class SigninController < ApplicationController
     login_account = LoginAccount.find_by_id(session[:user])
 
     LoginAccount.current_user = login_account
-
+    @current_user = login_account
     @temp_list = TempList.find_by_login_account_id(session[:user])
     @temp_list.destroy unless @temp_list.nil?
     system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) logged out of the system.", "signin", "signout")
