@@ -4174,4 +4174,82 @@ class GridsController < ApplicationController
    
   end
 
+  def show_default_value_grid
+
+    page = (params[:page]).to_i
+    rp =(params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page -1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @default_values = UserPreference.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions => ["login_account_id=?", "#{@current_user.id}"],
+        :include => ["login_account", "default_address_type"]
+
+      )
+      count = UserPreference.count(:all, :conditions => ["login_account_id=?", "#{@current_user.id}"], :include => ["login_account", "default_address_type"] )
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @default_values = UserPreference.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?  AND login_account_id=?", query, "#{@current_user.id}"]
+      )
+      count = UserPreference.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id=?", query, "#{@current_user.id}"], :include => ["login_account", "default_address_type"])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @default_values.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.login_account.user_name,
+          u.start_date,
+          u.end_date,
+          u.default_address_type.name
+#          u.default_first_title.name,
+#          u.default_nationality.name,
+#          u.default_language.name,
+#          u.default_phone_type.name,
+#          u.default_email_type.name,
+#          u.default_website_type.name,
+#          u.default_note_type.name,
+
+
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
 end

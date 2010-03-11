@@ -18,6 +18,7 @@
     = link_to "Organisation Mail", organisation_mail_merge_communication_path()
   .tab_menu_switch_right.active_menu.left{:field =>"finalize_page"}
 
+
 %br.clear
 
 .full_container
@@ -41,6 +42,13 @@
       = link_to_function "<h1>Mail Log</h1>", :class=>"tab_switch_with_page_initial", :field => "mail_log"
     .tab_switch_right.left{:field => "mail_log"}
 
+
+    .tab_switch_left.left{:field => "mail_document"}
+    .container_icon.left{:align => "center"}
+      = link_to_function "<h1>Mail Document</h1>", :class=>"tab_switch_button page_initial hidden", :url => "/message_templates/page_initial", :method => "GET", :render_page => "/message_templates/organisation_mail_document_tab", :field => "mail_document", :type => "organisation"
+      = link_to_function "<h1>Mail Document</h1>", :class=>"tab_switch_with_page_initial", :field => "mail_document"
+    .tab_switch_right.left{:field => "mail_document"}
+
   %br.clear
 
   .full_container
@@ -50,3 +58,6 @@
     #template_manager.tab_switch_container
 
     #mail_log.tab_switch_container
+
+    #mail_document.tab_switch_container
+

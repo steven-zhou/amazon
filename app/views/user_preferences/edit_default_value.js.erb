@@ -1,0 +1,6 @@
+
+$('#edit_default_value').css('display', '');
+$('#edit_default_value_form').html('<%= escape_javascript(render(:partial => "/user_preferences_default_value/edit_default_value_form")) %>');
+$('#default_value_mode').attr('mode', 'edit');
+$('.close_option[field="default_value"]').css("display","");
+ start_end_date_pick();

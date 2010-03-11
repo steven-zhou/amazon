@@ -66,6 +66,8 @@ Rails::Initializer.run do |config|
   config.gem "remarkable_rails"
   config.gem "webrat"
   config.gem 'ryanb-acts-as-list', :lib => 'acts_as_list', :source => 'http://gems.github.com'
+#   config.gem 'will_paginate', :version => '~> 2.3.11', :source => 'http://gemcutter.org'
+
 
 
   

@@ -16,7 +16,7 @@
         .title
           = link_to_function image_tag("add_icon.png" , :size => "22x22", :id => "system_data_add_entry", :class => "new_option", :field => "system_data")
           &nbsp
-        %h2 New Data
+        %h2 New
         %div#system_data_add_entry_form{:style => "display:none;"}
           - form_for AmazonSetting.new, :url => {:controller => "amazon_settings", :action => "new_setting"}, :html => {:class => "ajax_form"} do |p|
             = p.text_field :type, {:style => "display:none"}
