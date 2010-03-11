@@ -265,6 +265,7 @@ class CommunicationController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
     @type = params[:type]
+    @entity_type = params[:type]
     @model_type = (params[:type]+"_email_template").camelize
    if @type == "person"
     @entity_list_headers = @current_user.all_person_lists
@@ -323,14 +324,14 @@ class CommunicationController < ApplicationController
   def person_mail_merge
     @entity_list_headers = @current_user.all_person_lists
     @entity_query_headers = PersonQueryHeader.saved_queries
-    @mail_templates = PersonMailTemplate.active_record
+    @mail_templates = PersonMailTemplate.find(:all, :conditions => ["template_category_id = ?", TemplateCategory.active.first.id])
     @entity_type = "person"
   end
   
   def organisation_mail_merge
     @entity_list_headers = @current_user.all_organisation_lists
     @entity_query_headers = OrganisationQueryHeader.saved_queries
-    @mail_templates = OrganisationMailTemplate.active_record
+    @mail_templates = OrganisationMailTemplate.find(:all, :conditions => ["template_category_id = ?", TemplateCategory.active.first.id])
     @entity_type = "organisation"
   end
 
@@ -338,7 +339,7 @@ class CommunicationController < ApplicationController
     @list_headers = @current_user.all_person_lists
     @entity_list_headers = @current_user.all_person_lists
     @entity_query_headers = PersonQueryHeader.saved_queries
-    @message_templates = PersonEmailTemplate.active_record
+    @message_templates = PersonEmailTemplate.find(:all, :conditions => ["template_category_id = ?", TemplateCategory.active.first.id])
     @entity_type = "person"
 
   end
@@ -347,7 +348,7 @@ class CommunicationController < ApplicationController
     @list_headers = @current_user.all_organisation_lists
     @entity_list_headers = @current_user.all_organisation_lists
     @entity_query_headers = OrganisationQueryHeader.saved_queries
-    @message_templates = OrganisationEmailTemplate.active_record
+    @message_templates = OrganisationEmailTemplate.find(:all, :conditions => ["template_category_id = ?", TemplateCategory.active.first.id])
     @entity_type = "organisation"
 
   end
