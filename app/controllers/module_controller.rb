@@ -20,6 +20,25 @@ class ModuleController < ApplicationController
     redirect_to :controller => "membership", :action => "new"
   end
 
+  def become_membership
+    session[:module] = "membership"
+
+    redirect_to :controller => "membership", :action => "step_1",:id=>params[:id]
+  end
+
+   def manage_membership
+    session[:module] = "membership"
+    membership = Membership.find_by_person_id(params[:id])
+    action = case membership.membership_status.name
+    when "Initiated" then "step_2"
+    when "Reviewed" then "step_3"
+    when "Approved" then "step_4"
+    when "Suspended" then "step_5"
+    end
+    redirect_to :controller => "membership", :action => action, :id => membership.id
+   end
+
+
   def fundraising
     session[:module] = "core"
     redirect_to :controller => "people", :action => "show"

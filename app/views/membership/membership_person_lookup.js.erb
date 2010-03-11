@@ -5,6 +5,7 @@
  <%else%>
 
 $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
+$('.membership_person_lookup').val('').keyup();
 
 $("#flash_message_text").html("Invalid Person ID");
  $('#flash_message').dialog( {

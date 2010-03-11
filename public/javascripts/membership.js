@@ -13,12 +13,43 @@ $(function(){
 
 $(function(){
     $(".membership_intiator_lookup").live('change', function(){
+   var link=$(this);
+      if($(this).val()!=$(".membership_person_lookup").val()){
         $.ajax({
             type: "GET",
             url: "/membership/membership_intiator_lookup/",
             data: 'id=' + $(this).val()+"&update_field="+$(this).attr("update_field"),
             dataType: "script"
         });
+      }
+      else
+        {
+            $('#error_message_text').html("Can Not Be Same As The Applicant ID");
+            $('#error_message_image').css("display","");
+            $('#error_message').dialog({
+                modal: true,
+                resizable: false,
+                draggable: true,
+                height: 'auto',
+                width: 'auto',
+                buttons: {
+                    "OK": function(){
+                        $(this).focus();
+
+                        $(this).dialog('destroy');
+                        return true;
+                    }
+                }
+            });
+            $('#error_message').dialog('option', 'title', 'ERROR');
+            $('#error_message').parent().find("a").css("display","none");
+            $("#error_message").parent().css('background-color','#D1DDE6');
+            $("#error_message").css('background-color','#D1DDE6');
+            $('#error_message').dialog('open');
+           link.val("");
+           $("#"+link.attr("update_field")).html("");
+          
+        }
     });
 });
 
@@ -29,5 +60,33 @@ $(function(){
     }else{
       $("#"+$(this).attr('check_box_id')).parent().show();
     }
+  });
+});
+
+
+$(function(){
+
+  $(".enable_submit_checkbox").live('change', function(){
+
+        var link=$(this)
+        var current_form = $('#'+link.closest('form').attr('id'));
+        var compulsory_fields = current_form.find('.enable_submit_checkbox');
+        var length = compulsory_fields.length;
+        var disable = true;
+        for(i=0; i<length; i++){
+            if ($('#'+compulsory_fields[i].id).attr('checked')==true ){
+                disable = false;
+                break;
+            }
+        }
+
+
+        if (disable){
+            $('.submit_checkbox').attr('disabled', true);
+        }else{ 
+            $('.submit_checkbox').attr('disabled', false);
+        }
+
+
   });
 });

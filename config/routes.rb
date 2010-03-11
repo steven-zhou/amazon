@@ -73,7 +73,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts, :collection => {:page_initial => :get}
  
   map.resources :communication, :collection => { :email => :get, :create_email_template => :post, :refresh_template_message_select => :get, :send_email => :post, :search_email => :post, :show_email => :get, :modify_email => :post,
-    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrieve_message_template => :get, :person_mail_merge => :get, :organisation_mail_merge => :get
+    :message_templates => :get, :new_message_template => :get, :create_message_template => :post, :edit_message_template => :get, :update_message_template => :post, :page_initial => :get, :template_page_initial => :get, :destroy_message_template => :delete,:retrieve_message_template => :get, :person_mail_merge => :get, :organisation_mail_merge => :get, :person_email_merge => :get, :organisation_email_merge => :get
   }
 
   map.resources :administrations, :collection => {:system_setting => :get, :keyword_dict => :get, :system_management => :get, :duplication_formula => :get, :system_data => :get, :custom_groups => :get, :query_tables => :get, :master_docs => :get, :role_conditions => :get, :roles_management => :get, :contact_types => :get, :payment_methods => :get, :fee_types => :get, :access_permissions => :get, :group_permissions => :get, :group_lists => :get, :security_groups => :get, :user_accounts => :get, :user_groups => :get, :user_lists => :get, :duplication_check => :get , :tax_items => :get}
@@ -146,7 +146,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keywords , :collection => {:keywords_finder => :get,:check_destroy => :get, :keyword_name_show => :get, :keyword_des_show => :get, :page_initial => :get, :delete_keywords => :get, :retrieve => :get}
 
 
-  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get}
+  map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get,:become_membership=>:get}
   map.resources :available_modules, :collection => {:switch_status => :get}
 
     map.resources :post_areas, :collection => {:select_ajax_show => :get,:retrieve_post_areas=>:get}
@@ -165,15 +165,12 @@ ActionController::Routing::Routes.draw do |map|
   #nightly processes for testing only
   map.resources :nightly_processes, :collection => {:run => :get}
   map.resources :quick_launch_icons,:collection => {:check => :get}
+
   map.resources :user_preferences,:collection => {:change_email => :put,:show_modify_my_account => :get,:change_password => :put,:change_security_question =>:put, :show_whoami => :get, :default_value => :get, :edit_default_value => :get, :update_default_value => :put}
-
-
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get, :person_mail_document_filter => :get, :organisation_mail_document_filter => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get}
-
-
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :step_4 => :get, :step_5 => :get}
 
   map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}
   map.resources :membership_administrations, :collection => {:fee_items => :get}

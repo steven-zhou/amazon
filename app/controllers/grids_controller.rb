@@ -2674,22 +2674,24 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @message_templates = EmailTemplate.find(:all,
+      @message_templates = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include => ["template_category"]
       )
-      count = EmailTemplate.count(:all)
+      count = params[:model_type].constantize.count(:all)
     end
 
     # User provided search terms
     if(query != "%%")
-      @message_templates = EmailTemplate.find(:all,
+      @message_templates = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query])
-      count = EmailTemplate.count(:all, :conditions=>[qtype +" ilike ?", query])
+        :conditions=>[qtype +" ilike ?", query],
+        :include => ["template_category"])
+      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2699,6 +2701,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @message_templates.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
+          u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
         ]}}
@@ -2733,31 +2736,73 @@ class GridsController < ApplicationController
 
     end
 
+
+     conditions = Array.new
+    values = Array.new
+
+
+    if params[:start_date]
+      conditions << "created_at >= ?"
+      values << params[:start_date].to_date
+    end
+
+
+    if params[:end_date]
+      conditions << "created_at <= ?"
+      values << params[:end_date].to_date+1
+
+    end
+
+    if params[:to_be_removed]
+      conditions << "to_be_removed = ?"
+      values << params[:to_be_removed]
+
+    end
+
+    if params[:status]
+      conditions << "status = ?"
+      values << params[:status]
+
+    end
+
+#     if params[:dispatch_date] == "false"
+#
+#      conditions << "dispatch_date IS"
+#      values << "NULL"
+#     else
+#      conditions << "dispatch_date IS NOT"
+#      values << "NULL"
+#
+#    end
+
+
+
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
     # No search terms provided
     if(query == "%%")
-      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"    
-      @email_maintenance = BulkEmail.find(:all,
-        :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]],
+      query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
+      @email_maintenance = params[:model_type].constantize.find(:all,
+       :conditions => [query_string + " AND " + conditions.join(' AND '), *values],
+
         #:conditions => ["created_at >= ? and created_at <= ?", params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )      
-      count = BulkEmail.count(:all, :conditions => ["created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+      count = params[:model_type].constantize.count(:all,:conditions => [query_string + " AND " +conditions.join(' AND '), *values] )
     end
 
     # User provided search terms
     if(query != "%%")
       query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
-      @email_maintenance = BulkEmail.find(:all,
+      @email_maintenance = params[:model_type].constantize.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
-      count = BulkEmail.count(:all, :conditions=>[qtype +" ilike ? AND created_at >= ? and created_at <= ? and to_be_removed = ? AND status = ? AND #{query_string}", query, params[:start_date].to_date, params[:end_date].to_date+1, params[:to_be_removed], params[:status]])
+       :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
+      count = params[:model_type].constantize.count(:all, :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2949,9 +2994,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["mail_merge_category"]
+        :include => ["template_category"]
       )
-      count = params[:model_type].constantize.count(:all,:include => ["mail_merge_category"])
+      count = params[:model_type].constantize.count(:all,:include => ["template_category"])
     end
 
     # User provided search terms
@@ -2961,8 +3006,8 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ?", query],
-        :include => ["mail_merge_category"])
-      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["mail_merge_category"])
+        :include => ["template_category"])
+      count = params[:model_type].constantize.count(:all, :conditions=>[qtype +" ilike ?", query],:include => ["template_category"])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2971,7 +3016,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @mail_templates.collect{|u| {:id => u.id,
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
-          u.mail_merge_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.mail_merge_category.name+"</span>" : u.mail_merge_category.name,
+          u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
         ]}}
@@ -3929,8 +3974,7 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    puts "**************"
-    puts params[:type]
+
     if (!sortname)
       sortname = "id"
     end
@@ -4116,9 +4160,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @fee_items.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.name,
-          u.description,
-          
-          u.GL_Code,
+          u.description,          
+          u.gl_code,
           u.starting_date,
           u.ending_date,
           u.type,

@@ -116,14 +116,12 @@
     .top
     .item
       - if @current_controller != "communication"
-        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "email"
+        = link_to "#{image_tag('Icons/communication/contact.png')} Contact", :controller => "communication", :action => "person_email_merge"
       - else
         <p>Contact Manager</p>
         %ul
-          %li{:id => @current_action == "email" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "email"}, :controller => "communication", :action => "email",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"
-          %li{:id => @current_action == "person_mail_merge" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Contacts/Person_mail.png')} Person Mail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Contacts/Person_mail.png", :title => "PersonMail"
-          %li{:id => @current_action == "organisation_mail_merge" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Contacts/org_mail.png')} Org Mail",{:controller => "communication", :action => "organisation_mail_merge"}, :controller => "communication", :action => "organisation_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Contacts/org_mail.png", :title => "OrganisationMail"
+          %li{:id => (["person_email_merge", "organisation_email_merge"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/communication/email.png')} Email",{:controller => "communication", :action => "person_email_merge"}, :controller => "communication", :action => "person_email_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/communication/email.png", :title => "Email"
+          %li{:id => (["person_mail_merge", "organisation_mail_merge"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Contacts/Person_mail.png')}Mail",{:controller => "communication", :action => "person_mail_merge"}, :controller => "communication", :action => "person_mail_merge",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Contacts/Person_mail.png", :title => "Mail"
     .bottom

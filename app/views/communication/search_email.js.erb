@@ -12,7 +12,7 @@
   $('#email_maintenance_search_results').html('<h2> Result found </h2> <table id="email_maintenance_search_grid" class="selectable_grid" db_click_function= "true" db_click_url="/communication/show_email.js"></table>');
 
     $("#email_maintenance_search_grid").flexigrid({
-        url: '/grids/email_maintenance_search_grid?start_date='+'<%=escape_javascript("#{@start_date}")%>'+ '&end_date='+'<%=escape_javascript("#{@end_date}")%>'+ '&to_be_removed='+'<%=escape_javascript("#{@tbr}")%>'+ '&dispatch_date='+'<%=escape_javascript("#{@dd}")%>'+ '&status='+'<%=escape_javascript("#{@status}")%>',
+        url: '/grids/email_maintenance_search_grid?start_date='+'<%=escape_javascript("#{@start_date}")%>'+ '&end_date='+'<%=escape_javascript("#{@end_date}")%>'+ '&to_be_removed='+'<%=escape_javascript("#{@tbr}")%>'+ '&dispatch_date='+'<%=escape_javascript("#{@dd}")%>'+ '&status='+'<%=escape_javascript("#{@status}")%>'+'&model_type='+'<%=escape_javascript("#{@bulk_email}")%>',
         dataType: 'json',
         colModel : [
         {

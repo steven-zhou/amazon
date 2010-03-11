@@ -1,4 +1,4 @@
-class MailMergeCategory < AmazonSetting
+class TemplateCategory < AmazonSetting
 
   acts_as_list
 
@@ -9,8 +9,8 @@ class MailMergeCategory < AmazonSetting
   before_destroy :reorder_priority
   has_many :message_templates
 
-  def self.active_mail_merge_category
-    @mail_merge_category = MailMergeCategory.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
+  def self.active_template_category
+    @template_category = TemplateCategory.find(:all, :conditions => ["status = true and to_be_removed = false"], :order => 'name')
   end
 
   private

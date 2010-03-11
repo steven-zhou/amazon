@@ -37,6 +37,7 @@ class Person < ActiveRecord::Base
   has_many :emp_terminators, :through => :employments, :source => :emp_terminator
   has_many :emp_suspenders, :through => :employments, :source => :emp_suspender
   has_many :employers, :through => :employments, :source => :organisation
+  has_many :workplaces, :through => :employments, :source => :workplace
   has_many :organisation_key_personnels
   has_many :notes, :as => :noteable,:dependent => :destroy
   has_one  :image, :as => :imageable

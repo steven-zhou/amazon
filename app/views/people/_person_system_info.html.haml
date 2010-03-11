@@ -50,7 +50,11 @@
   %div#membership_details.left{:style => "width:100%;display:none;"}
     .container
       .right
-        = link_to "Become a member", :controller => "memberships", :action => "apply"
+      -unless @person.is_member
+        = link_to "Become a member", :controller => "module", :action => "become_membership",:id=>@person.id
+      -else
+        = link_to "Manage Membership", :controller => "module", :action => "manage_membership",:id=>@person.id
+
 
 %div.container
   %div.toggle_div{:toggle_id_name => "fundrainsing_details", :style => "cursor: pointer;"}

@@ -6,8 +6,8 @@
   .form_line
     .field_22
       = f.label :name, "Mail Category"
-      = f.collection_select :mail_merge_category_id, MailMergeCategory.active_mail_merge_category, :id, :name, {},{:name => "mail_template[mail_merge_category_id]"}
-    .field_22
+      = f.collection_select :template_category_id, TemplateCategory.active_template_category, :id, :name, {},{:name => "mail_template[template_category_id]"}
+    .field_20
       = f.label :name, "<span class='asterisk'>*</span>Name"
       = f.text_field :name, :name => "mail_template[name]",:class => "compulsory_field"
     .field_40

@@ -2,7 +2,7 @@
   .options
     = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "message_template", :title=>"Close", :class => "close_option", :toggle_id_name => "new_message_template_form"
   .title
-    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "message_template", :title => "New", :method => "GET", :url => "/communication/new_message_template"
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :param1 => "#{@type}", :field => "message_template", :title => "New", :method => "GET", :url => "/communication/new_message_template"
     &nbsp
   %h2 New Email Template
   #new_message_template_form{:style => "float:left;width:100%;"}

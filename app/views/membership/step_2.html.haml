@@ -1,0 +1,44 @@
+#header
+  #page_title
+    %h1 Membership Management
+  #lol
+    %br.clear
+.tab_switch{:style => "margin-left:15px;"}
+
+  .tab_switch_left.active.left{:field =>"review_page"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to "Step 2", step_2_membership_path()
+  .tab_switch_right.active.left{:field =>"review_page"}
+
+
+  .container_icon.left{:align => 'center'}
+    = "--->"
+
+  .tab_switch_left.left{:field =>"finalize_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to "Step 3", step_3_membership_path()
+  .tab_switch_right.left{:field =>"finalize_page"}
+
+  .container_icon.left{:align => 'center'}
+    = "--->"
+
+  .tab_switch_left.left{:field =>"suspend_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to "Step 4", step_4_membership_path()
+  .tab_switch_right.left{:field =>"suspend_page"}
+
+  .container_icon.left{:align => 'center'}
+    = "--->"
+
+  .tab_switch_left.left{:field =>"terminate_page"}
+  .container_icon.left{:align => 'center'}
+    = link_to "Step 5", step_5_membership_path()
+  .tab_switch_right.left{:field =>"terminate_page"}
+
+
+.full_container
+  #review_page
+    = render :partial => "membership/review_page" if @person.new_record?
+
+  #individual_review_page
+    = render :partial => "membership/edit_membership_individual", :locals => {:title => "Review"} unless @person.new_record?

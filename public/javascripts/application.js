@@ -947,9 +947,10 @@ $(function(){
                             $('#check_input_change').val("false");
                         }
                
-                        
+
 
                         $(this).dialog('destroy');
+                        $('table.selectable_grid[field='+ link.attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
                         return true;
                     }
                 }
@@ -1811,6 +1812,17 @@ $(".tab_switch_button").live('click', function(){
     $('#'+$(this).attr('field')).addClass("active");
 });
 
+
+/*CSS tab menu_switch system*/
+$(".tab menu_switch_button").live('click', function(){
+    $('.active mene').removeClass("active menu");
+    $(this).addClass("active menu");
+    $(this).parent().addClass("active menu");
+    $('.tab menu_switch_right[field='+ $(this).attr('field') +']').addClass("active menu");
+    $('.tab menu_switch_left[field='+ $(this).attr('field') +']').addClass("active menu");
+    $('#'+$(this).attr('field')).addClass("active menu");
+});
+
 // Address assistant //
 
 $(document).ready(function() {
@@ -2026,7 +2038,7 @@ $(function(){
 /* new compulsory field setting for controlling submit button*/
 $(function(){
     compulsory_check = function(link){
-        var current_form = $('#'+link.closest('form').get(0).id);
+        var current_form = $('#'+link.closest('form').attr('id'));
         var compulsory_fields = current_form.find('.compulsory_field');
         var length = compulsory_fields.length;
         var disable = true;
@@ -2052,19 +2064,22 @@ $(function(){
     };
 
     $(".compulsory_field").live('keyup', function(){
-             var current_form = $('#'+$(this).closest('form').get(0).id);
+        var current_form = $('#'+$(this).closest('form').attr('id'));
+
        if ($.trim($(this).val())!="")
-        {compulsory_check($(this));}
+        {
+          compulsory_check($(this));
+              }
       else
         {
            $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
         }
 
-        
+
     });
 
     $(".compulsory_field").live('change', function(){
-       var current_form = $('#'+$(this).closest('form').get(0).id);
+       var current_form = $('#'+$(this).closest('form').attr('id'));
       if ($.trim($(this).val())!="")
         {compulsory_check($(this));}
       else
@@ -2758,7 +2773,10 @@ $(function(){
     });
 
     $('.close_edit').live('click', function(){
+
+
         $('table.selectable_grid[field='+ $(this).attr('field') +'] tbody tr.trEdited').removeClass('trEdited');
+
     });
 });
 
@@ -3288,7 +3306,7 @@ select_ban_submit_check = function(link){
     var disable = true;
 
     for(i=0; i<length; i++){
-        if ($('#'+select_ban_submits[i].id).val()=='0'||$('#'+select_ban_submits[i].id).val()== null){
+        if ($('#'+select_ban_submits[i].id).val()=='0'||$('#'+select_ban_submits[i].id).val()== null||$.trim($('#'+select_ban_submits[i].id).val())== ""){
             disable = true;
             break;
         }else{

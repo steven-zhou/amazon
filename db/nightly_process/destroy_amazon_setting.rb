@@ -318,7 +318,7 @@ RoleType.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
   i.destroy
 end
 
-puts "Destroy Mail Merge Category ..."
-MailMergeCategory.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
+puts "Destroy Template Category ..."
+TemplateCategory.find(:all,:conditions => ["to_be_removed = true"]).each do |i|
   i.destroy
 end

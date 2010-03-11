@@ -2,7 +2,7 @@
   %h1 Personel Details
   .form_line
     .field_30
-      = label_tag :name, 'Name', {:style => "color: #232323;"}
+      = label_tag :name, 'Name'
       -unless @person.nil?
         %input{:name=>"membership[person_id]",:value=>"#{@person.id}",:class=>"hidden"}
       -unless @membership.nil?
@@ -10,11 +10,11 @@
       %div.display_field_bg
         =@person.nil? ? "" :@person.name.to_s
     .field_30
-      = label_tag :date_of_birth, "Date of Birth", {:style => "color: #232323;"}
+      = label_tag :date_of_birth, "Date of Birth"
       %div.display_field_bg
         =@person.nil? ? "" : @person.birth_date.nil? ? "" : @person.birth_date.to_s
     .field_30
-      = label_tag :age,"Age", {:style => "color: #232323;"}
+      = label_tag :age,"Age"
       %div.display_field_bg
         =@person.nil? ? "" : @person.birth_date.nil? ? "" : Time.now.year - @person.birth_date.year
     %br.clear
@@ -24,19 +24,18 @@
   %h1 Person Organisation Details
   .form_line
     .field_30
-      = label_tag :name, 'Organisation Name', {:style => "color: #232323;"}
+      = label_tag :name, 'Organisation Name'
       %div.display_field_bg
-        =@person.nil? ? "" :  @person.employers.nil? ? "" :@person.employers.first.full_name.to_s
-      -unless @person.nil?||@person.employers.nil?
-        %input{:name=>"membership[employer_id]",:value=>"#{@person.employers.first.id}",:class=>"hidden"}
+        = @person.try(:primary_employment).try(:organisation).try(:full_name)
+        %input{:name=>"membership[employer_id]",:value=>"#{@person.try(:primary_employment).try(:organisation).try(:id)}",:class=>"hidden"}
     .field_30
-      = label_tag :type, "Organisation Type", {:style => "color: #232323;"}
+      = label_tag :type, "Organisation Type"
       %div.display_field_bg
-        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.type.to_s
+        = @person.try(:primary_employment).try(:organisation).try(:class).try(:to_s)
     .field_30
-      = label_tag :age,"Registered Date", {:style => "color: #232323;"}
+      = label_tag :age,"Registered Date"
       %div.display_field_bg
-        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.registered_date.nil? ? "" : @person.employers.first.registered_date.to_s
+        = @person.try(:primary_employment).try(:organisation).try(:registered_date).try(:to_s)
     %br.clear
 
 
@@ -44,19 +43,18 @@
   %h1 Person Workplace Details
   .form_line
     .field_30
-      = label_tag :name, 'Organisation Name', {:style => "color: #232323;"}
-      -unless @person.nil?||@person.employers.nil?
-        %input{:name=>"membership[workplace_id]",:value=>"#{@person.employers.first.id}",:class=>"hidden"}
+      = label_tag :name, 'Organisation Name'
       %div.display_field_bg
-        =@person.nil? ? "" :  @person.employers.nil? ? "" :@person.employers.first.full_name.to_s
+        = @person.try(:primary_employment).try(:workplace).try(:full_name)
+        %input{:name=>"membership[workplace_id]",:value=>"#{@person.try(:primary_employment).try(:workplace).try(:id)}",:class=>"hidden"}
     .field_30
-      = label_tag :type, "Organisation Type", {:style => "color: #232323;"}
+      = label_tag :type, "Organisation Type"
       %div.display_field_bg
-        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.type.to_s
+        = @person.try(:primary_employment).try(:workplace).try(:class).try(:to_s)
     .field_30
-      = label_tag :age,"Registered Date", {:style => "color: #232323;"}
+      = label_tag :age,"Registered Date"
       %div.display_field_bg
-        =@person.nil? ? "" : @person.employers.nil? ? "" : @person.employers.first.registered_date.nil? ? "" : @person.employers.first.registered_date.to_s
+        = @person.try(:primary_employment).try(:workplace).try(:registered_date).try(:to_s)
     %br.clear
 .container#membership_detail
   =render :partial =>"/membership/membership_detail"
