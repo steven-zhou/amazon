@@ -2,6 +2,9 @@ namespace :db do
   desc "Add new payment methods"
   task :add_payment_methods => :environment do
     puts "Run Patch all payment methods ..."
+
+
+
     manual = PaymentMethodMetaMetaType.create :name => "Manual", :status => true, :to_be_removed => false
     direct_debit = PaymentMethodMetaMetaType.create :name => "Direct Debit", :status => true, :to_be_removed => false
 

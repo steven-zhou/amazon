@@ -1,7 +1,7 @@
 .container#membership_person_info
   %h1 Personel Details
   .form_line
-    .field_20{:style => "margin-right: 2px;"}
+    .field_25{:style => "margin-right: 2px;"}
       = label_tag :name, '<span class="asterisk">*</span>Person ID'
       %input{:id=>"membership_person_id",:class=>"membership_person_lookup compulsory_field",:value=>@person.nil? ? "" : @person.id}
     .field_5
@@ -17,44 +17,42 @@
         =@person.nil? ? "" :@person.name.to_s
 
     %br.clear
+  #membership_employer_info
+    .form_line
+      .field_30
+        = label_tag :name, 'Employer Reference No'
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:staff_reference)
+
+      .field_30
+        = label_tag :type, "Workplace Reference No"
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:workplace_reference)
+      .field_30
+        = label_tag :age,"Union Reference No"
+        %div.display_field_bg
+          = @person.try(:primary_employment).try(:union_reference)
+      %br.clear
 
 
   #membership_organisation_info
-
     .form_line
       .field_30
-        = label_tag :name, 'Organisation Name'
+        = label_tag :name, 'Employer '
         %div.display_field_bg
-          = @person.try(:primary_employment).try(:organisation).try(:full_name)
+          =(@person.try(:primary_employment).try(:organisation).try(:id).to_s + '-' +  @person.try(:primary_employment).try(:organisation).try(:full_name).to_s) unless  @person.try(:primary_employment).try(:organisation).try(:full_name).nil?
           %input{:name=>"membership[employer_id]",:value=>"#{@person.try(:primary_employment).try(:organisation).try(:id)}",:class=>"hidden"}
       .field_30
-        = label_tag :type, "Organisation Type"
+        = label_tag :name, "Workplace"
         %div.display_field_bg
-          = @person.try(:primary_employment).try(:organisation).try(:class).try(:to_s)
-      .field_30
-        = label_tag :age,"Registered Date"
-        %div.display_field_bg
-          = @person.try(:primary_employment).try(:organisation).try(:registered_date).try(:to_s)
-      %br.clear
-
-
-  #membership_organisation_info
-    %h1 Person Workplace Details
-    .form_line
-      .field_30
-        = label_tag :name, 'Organisation Name'
-        %div.display_field_bg
-          = @person.try(:primary_employment).try(:workplace).try(:full_name)
+          = (@person.try(:primary_employment).try(:workplace).try(:id).to_s+ '-' +@person.try(:primary_employment).try(:workplace).try(:full_name).to_s) unless  @person.try(:primary_employment).try(:workplace).try(:full_name).nil?
           %input{:name=>"membership[workplace_id]",:value=>"#{@person.try(:primary_employment).try(:workplace).try(:id)}",:class=>"hidden"}
       .field_30
-        = label_tag :type, "Organisation Type"
+        = label_tag :pay_roll_center, "PayRoll Center"
         %div.display_field_bg
-          = @person.try(:primary_employment).try(:workplace).try(:class).try(:to_s)
-      .field_30
-        = label_tag :age,"Registered Date"
-        %div.display_field_bg
-          = @person.try(:primary_employment).try(:workplace).try(:registered_date).try(:to_s)
+          = @person.try(:primary_employment).try(:payroll_center)
       %br.clear
+
 -#.container#membership_detail
   =render :partial =>"/membership/membership_detail"
 

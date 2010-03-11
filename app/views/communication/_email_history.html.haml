@@ -1,6 +1,6 @@
 %h2 Result found
 
-%table#email_maintenance_search_grid{:class => "selectable_grid", :db_click_function => "true", :db_click_url => "/communication/show_email.js"}
+%table#email_maintenance_search_grid{:class => "selectable_grid",:field=>"email_maintenance_search", :db_click_function => "true", :db_click_url => "/communication/show_email.js"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#email_maintenance_search_grid").flexigrid({
