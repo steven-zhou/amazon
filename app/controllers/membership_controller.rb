@@ -30,7 +30,13 @@ class MembershipController < ApplicationController
       @membership.initiate_email_id = PersonEmailTemplate.initiate_template_id
     end
 
-    if params[:membership][:initiate_letter_sent]
+   
+
+
+    
+    if @membership.save && @membership.person.save
+
+       if params[:membership][:initiate_letter_sent]
       @membership.initiate_letter_sent = true
     if params[:membership][:initiate_mail_id]
       #config temp folder
@@ -41,11 +47,11 @@ class MembershipController < ApplicationController
 
 
       @membership_initiate_sheet = render_to_string(:partial => "membership/membership_initiate_sheet")
-      File.open("#{file_prefix}/#{file_dir}/MembershipInitateSheet.html", 'w') do |f|
+      File.open("#{file_prefix}/#{file_dir}/MembershipInitateMail.html", 'w') do |f|
         f.puts "#{@membership_initiate_sheet}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipInitateSheet.html #{file_prefix}/#{file_dir}/MembershipInitateSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipInitateSheet.html"
-      flash.now[:comfirmation] = "<p>MembershipInitateSheet <a href=\'/#{file_dir}/MembershipInitateSheet.pdf\' target='_blank'>MembershipInitateSheet.pdf</a></p>"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipInitateMail.html #{file_prefix}/#{file_dir}/MembershipInitateMail.pdf ; rm #{file_prefix}/#{file_dir}/MembershipInitateMail.html"
+      flash.now[:comfirmation] = "<p>MembershipInitateMail <a href=\'/#{file_dir}/MembershipInitateMail.pdf\' target='_blank'>MembershipInitateMail.pdf</a></p>"
     end
          if params[:membership][:initiate_email_id]
 
@@ -55,10 +61,6 @@ class MembershipController < ApplicationController
 
     end
 
-
-
-    
-    if @membership.save && @membership.person.save
 
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")

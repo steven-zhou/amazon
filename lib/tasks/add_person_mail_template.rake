@@ -23,10 +23,8 @@ PersonMailTemplate.create :name=>"Membership Finalize Template", :body=>"<p>hi,<
 <p>Amazon</p>" , :status => true,:to_be_removed =>false ,:template_category_id=> TemplateCategory.find_by_name('Membership').id
     puts "DONE"
 
-  end
 
-
-  puts "Run Patch all person email template"
+     puts "Run Patch All person email template"
       PersonEmailTemplate.all.each do |i|
       i.destroy
     end
@@ -37,4 +35,9 @@ PersonEmailTemplate.create :name=>"Membership Initiate Email Template", :body=>"
 <p>&nbsp;</p>
 <p>Amazon</p>" , :status => true,:to_be_removed =>false ,:template_category_id=> TemplateCategory.find_by_name('Membership').id
 
+
+  end
+
+
+ 
 end
