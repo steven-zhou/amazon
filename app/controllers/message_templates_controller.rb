@@ -298,7 +298,15 @@ class MessageTemplatesController < ApplicationController
 
   end
 
-
-
-
+  def find_templates
+    @message_templates = params[:type].camelize.constantize.find(:all, :conditions => ["template_category_id = ?", params[:param1]])
+    @update_field = params[:update_field]
+    @options = ""
+    @message_templates.each do |i|
+      @options << "<option value= \"#{i.id}\">#{i.name}</option>"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
 end

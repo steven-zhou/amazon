@@ -56,7 +56,7 @@
           %div.left
             = @person.notes.blank? ? "No Notes": "<strong #{'class=\'red\'' if @person.notes.first.note_type.to_be_removed == true}>#{@person.notes.first.note_type.name}</strong>"
             \-
-            = show_date(@person.notes.first.created_at) unless @person.notes.blank?
+            = show_date(@person.notes.first.created_at.getlocal) unless @person.notes.blank?
           %br.clear
         %div.right
           = @person.notes.first.label unless @person.notes.blank?
@@ -68,7 +68,7 @@
           %div.left
             = @person.notes.second.blank? ? "No Notes": "<strong #{'class=\'red\'' if @person.notes.second.note_type.to_be_removed == true}>#{@person.notes.second.note_type.name}</strong>"
             \-
-            = show_date(@person.notes.second.created_at) unless @person.notes.second.blank?
+            = show_date(@person.notes.second.created_at.getlocal) unless @person.notes.second.blank?
           %br.clear
         %div.right
           = @person.notes.second.label unless @person.notes.second.blank?

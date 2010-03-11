@@ -6,8 +6,8 @@ namespace :db do
       i.destroy
     end
     MembershipStatus.create(:name => "In-process", :status => true,:to_be_removed =>false)
-    MembershipStatus.create(:name => "Live", :status => true,:to_be_removed =>false)
-    MembershipStatus.create(:name => "Dead", :status => true,:to_be_removed =>false)
+    MembershipStatus.create(:name => "Life", :status => true,:to_be_removed =>false)
+    MembershipStatus.create(:name => "End", :status => true,:to_be_removed =>false)
     #    MembershipStatus.create(:name => "Declined", :status => true,:to_be_removed =>false)
     #    MembershipStatus.create(:name => "Suspended", :status => true,:to_be_removed =>false)
     #    MembershipStatus.create(:name => "Terminated", :status => true,:to_be_removed =>false)
@@ -21,8 +21,8 @@ namespace :db do
     end
     MembershipSubStatus.create(:name => "Initiated", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Reviewed", :status => true,:to_be_removed =>false)
-    MembershipSubStatus.create(:name => "2nd Reviewed", :status => true,:to_be_removed =>false)
-    MembershipSubStatus.create(:name => "3nd Reviewed", :status => true,:to_be_removed =>false)
+    MembershipSubStatus.create(:name => "2nd Review Required", :status => true,:to_be_removed =>false)
+    MembershipSubStatus.create(:name => "3nd Review Required", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Approved", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Declined", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Incompleted", :status => true,:to_be_removed =>false)

@@ -217,7 +217,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @system_log_entries.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.created_at.strftime('%a %d %b %Y %H:%M:%S'),
+          u.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S'),
           u.login_account.nil? ? "Unknown" : u.login_account.formatted_name,
           u.ip_address,
           u.controller,
@@ -2703,7 +2703,7 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
-          u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
+          u.to_be_removed? ? "<span class='red'>"+u.created_at.getlocal.strftime('%d-%m-%Y')+"</span>" : u.created_at.getlocal.strftime('%d-%m-%Y'),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -2813,7 +2813,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.to,
           u.subject,
-          u.created_at.strftime('%d-%m-%Y %H:%M:%S'),
+          u.created_at.getlocal.strftime('%d-%m-%Y %H:%M:%S'),
           u.dispatch_date.nil? ? "Not Dispatched" : "#{u.dispatch_date.strftime('%d-%m-%Y %H:%M:%S')}",
           u.to_be_removed,
           u.status? ? "Active" : "Inactive"
@@ -3018,7 +3018,7 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
-          u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
+          u.to_be_removed? ? "<span class='red'>"+u.created_at.getlocal.strftime('%d-%m-%Y')+"</span>" : u.created_at.getlocal.strftime('%d-%m-%Y'),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -3991,19 +3991,21 @@ class GridsController < ApplicationController
       rp = 20
     end
 
+    params[:type] = [1]
+
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id = ?", MembershipSubStatus.find_by_name(params[:type]).id],
+        :conditions=>["membership_status_id IN ?", params[:type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
 
       )
-      count = Membership.count(:all, :conditions=>["membership_status_id = ?", MembershipSubStatus.find_by_name(params[:type]).id])
+      count = Membership.count(:all, :conditions=>["membership_status_id IN ?", params[:type]])
     end
 
     # User provided search terms
