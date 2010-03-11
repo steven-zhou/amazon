@@ -217,7 +217,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @system_log_entries.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.created_at.strftime('%a %d %b %Y %H:%M:%S'),
+          u.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S'),
           u.login_account.nil? ? "Unknown" : u.login_account.formatted_name,
           u.ip_address,
           u.controller,

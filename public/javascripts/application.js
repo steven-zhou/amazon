@@ -1173,7 +1173,8 @@ $('#signout').live('click', function(){
 
             "Yes": function(){
                 window.open("/signin/signout", "_self");
-                $(this).dialog('close');
+               
+                signout_waiting();
                 return true;
             }
         }
@@ -1187,7 +1188,27 @@ $('#signout').live('click', function(){
     return false;
 });
 
+signout_waiting = function(){
 
+$('#signout_warning_message').dialog('destroy');
+
+   $('#signout_waiting_message').dialog({
+
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 'auto'
+    });
+    $('#signout_waiting_message').dialog('option', 'title', 'Warning');
+    $('#signout_waiting_message').parent().find("a").css("display","none");
+    $("#signout_waiting_message").parent().css('background-color','#D1DDE6');
+    $("#signout_waiting_message").css('background-color','#D1DDE6');
+
+    $('#signout_waiting_message').dialog('open');
+    return false;
+
+}
 
 
 /* Dashboard */

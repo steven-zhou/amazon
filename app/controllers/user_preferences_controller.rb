@@ -80,6 +80,7 @@ class UserPreferencesController < ApplicationController
   end
 
   def default_value
+    @default_value = UserPreference.new
     respond_to do |format|
       format.js
     end
