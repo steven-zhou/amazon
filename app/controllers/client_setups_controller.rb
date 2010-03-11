@@ -267,7 +267,7 @@ class ClientSetupsController < ApplicationController
       @slsg = SystemLogArchiveGrid.new
       @slsg.login_account_id = session[:user]
       @slsg.grid_object_id = log_entry.id
-      @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
+      @slsg.field_1 = log_entry.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S')
       @slsg.field_2 = (@current_user.class.to_s == "SystemUser")? "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})" : "#{log_entry.login_account.user_name}"
       @slsg.field_3 = "#{log_entry.ip_address}"
       @slsg.field_4 = "#{log_entry.controller}"

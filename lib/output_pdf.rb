@@ -518,7 +518,7 @@ module OutputPdf
 
       for log_entry in system_log_entries do
 
-        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.try(:login_account).try(:user_name)}", "ip_address" => "#{log_entry.ip_address}", "log_controller" => "#{log_entry.controller}", "log_action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
+        data << { "system_id" => "#{log_entry.id}", "log_date" => "#{log_entry.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S')}", "user" => "#{log_entry.try(:login_account).try(:user_name)}", "ip_address" => "#{log_entry.ip_address}", "log_controller" => "#{log_entry.controller}", "log_action" => "#{log_entry.action}", "message" => "#{log_entry.message}" }
 
       end
 

@@ -392,8 +392,8 @@ class TransactionHeadersController < ApplicationController
   def prepare_bank_run_report(bank_run_id)
     @client = ClientOrganisation.first
     @run = BankRun.find(bank_run_id)
-    @date = @run.created_at.strftime('%d-%m-%Y')
-    @time =  @run.created_at.strftime('%I:%m%p')
+    @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
+    @time =  @run.created_at.getlocal.strftime('%I:%m%p')
     @transactions = TransactionHeader.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
     @accounts = Array.new
     @cash_transactions = Array.new
