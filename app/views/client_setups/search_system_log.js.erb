@@ -24,6 +24,19 @@
   $('#system_log_archive_options').hide();
   }
 
+    if($('#system_log_status').val()=="Archived")
+  {
+
+  $('#system_log_archive_delete').show();
+  $('#system_log_delete_archive_user_name').val($('#user_name').val());
+  $('#system_log_delete_archive_start_date').val($('#system_log_start_date').val());
+  $('#system_log_delete_archive_end_date').val($('#system_log_end_date').val());
+
+  }
+  else
+  {
+    $('#system_log_archive_delete').hide();
+  }
 
 
 <%-else%>

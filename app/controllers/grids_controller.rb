@@ -2703,7 +2703,7 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
-          u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
+          u.to_be_removed? ? "<span class='red'>"+u.created_at.getlocal.strftime('%d-%m-%Y')+"</span>" : u.created_at.getlocal.strftime('%d-%m-%Y'),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -2813,7 +2813,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.to,
           u.subject,
-          u.created_at.strftime('%d-%m-%Y %H:%M:%S'),
+          u.created_at.getlocal.strftime('%d-%m-%Y %H:%M:%S'),
           u.dispatch_date.nil? ? "Not Dispatched" : "#{u.dispatch_date.strftime('%d-%m-%Y %H:%M:%S')}",
           u.to_be_removed,
           u.status? ? "Active" : "Inactive"
@@ -3018,7 +3018,7 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.template_category.nil? ? "" : u.to_be_removed? ? "<span class='red'>"+u.template_category.name+"</span>" : u.template_category.name,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
-          u.to_be_removed? ? "<span class='red'>"+u.created_at.strftime('%d-%m-%Y')+"</span>" : u.created_at.strftime('%d-%m-%Y'),
+          u.to_be_removed? ? "<span class='red'>"+u.created_at.getlocal.strftime('%d-%m-%Y')+"</span>" : u.created_at.getlocal.strftime('%d-%m-%Y'),
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

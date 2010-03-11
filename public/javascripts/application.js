@@ -3352,6 +3352,10 @@ $(".select_ban_submit").live('change', function(){
     select_ban_submit_check($(this));
 });
 
+$(".select_ban_submit").live('keyup', function(){
+    select_ban_submit_check($(this));
+});
+
 
 
 

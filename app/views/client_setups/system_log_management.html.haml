@@ -25,7 +25,7 @@
             %label Entry Type
             %select{:name => "status", :id => "system_log_status"}
               %option{:value => ""} Any
-              %option{:value => "Live"} Live
+              %option{:value => "Live",:selected=>true} Live
               %option{:value => "Archived"} Archived
           .field_15
             %label &nbsp;
@@ -49,6 +49,13 @@
         %input{:name => "start_date", :style => "display:none;", :id => "system_log_archive_start_date"}
         %input{:name => "end_date", :style => "display:none;", :id => "system_log_archive_end_date"}
         = submit_tag("Archive")
+    .full_container#system_log_archive_delete{:style => "display:none;"}
+      %h2 Delete Archive
+      - form_tag("/client_setups/delete_archive_system_log_entries") do
+        %input{:name => "user_name", :style => "display:none;", :id => "system_log_delete_archive_user_name"}
+        %input{:name => "start_date", :style => "display:none;", :id => "system_log_delete_archive_start_date"}
+        %input{:name => "end_date", :style => "display:none;", :id => "system_log_delete_archive_end_date"}
+        = submit_tag("Delete")
 
 #archive_page.tab_switch_container
   .full_container#system_log_archive

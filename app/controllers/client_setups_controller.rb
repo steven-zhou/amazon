@@ -191,7 +191,7 @@ class ClientSetupsController < ApplicationController
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
 
-    puts "abcded"
+  
     @start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
     @end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
     else
@@ -199,15 +199,6 @@ class ClientSetupsController < ApplicationController
     end
     
     end
-# puts "***********88"
-# puts valid_date(params[:start_date]) && valid_date(params[:end_date])
-# puts valid_date(params[:start_date])
-#  puts valid_date(params[:end_date])
-# puts params[:start_date]
-# puts params[:end_date]
-#  puts "111111188"
-# puts @start_date
-# puts @end_date
 
     if flash.now[:error].nil?
     @query << "start_date="+@start_date+"&end_date="+@end_date
@@ -267,7 +258,7 @@ class ClientSetupsController < ApplicationController
       @slsg = SystemLogArchiveGrid.new
       @slsg.login_account_id = session[:user]
       @slsg.grid_object_id = log_entry.id
-      @slsg.field_1 = log_entry.created_at.strftime('%a %d %b %Y %H:%M:%S')
+      @slsg.field_1 = log_entry.created_at.getlocal.strftime('%a %d %b %Y %H:%M:%S')
       @slsg.field_2 = (@current_user.class.to_s == "SystemUser")? "#{log_entry.login_account.user_name} - (#{log_entry.login_account.person.name})" : "#{log_entry.login_account.user_name}"
       @slsg.field_3 = "#{log_entry.ip_address}"
       @slsg.field_4 = "#{log_entry.controller}"
@@ -282,6 +273,40 @@ class ClientSetupsController < ApplicationController
 
 
   end
+
+      def delete_archive_system_log_entries
+   
+
+    user_name = ((!params[:user_name].nil? && !params[:user_name].empty?) ? params[:user_name] : '%%')
+    start_date = ((!params[:start_date].nil? && !params[:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
+    end_date = ((!params[:end_date].nil? && !params[:end_date].empty?) ? params[:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
+    status = 'Archived'
+
+    @system_log_entries = SystemLog.system_log_entries(user_name, start_date, end_date.to_date.tomorrow, status)
+    SystemLogArchiveGrid.find_all_by_login_account_id(session[:user]).each do |i|
+      i.destroy
+    end
+
+    for entry in @system_log_entries do
+      entry.destroy
+    end
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) Deleted archived System Log entries.")
+    flash[:message] = "The Archived System Log Entries has been deleted"
+    redirect_to :action => "system_log_management"
+
+
+    end
+
+
+
+
+
+
+
+
+
+
+
 
   def archive_system_log_entries
 
@@ -495,6 +520,8 @@ class ClientSetupsController < ApplicationController
       format.js {render "destroy_client_bank_account.js"}
     end
   end
+
+
 
 
   private

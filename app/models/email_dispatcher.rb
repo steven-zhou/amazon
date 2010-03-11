@@ -33,4 +33,15 @@ class EmailDispatcher < ActionMailer::Base
     body                :email_template => email_template, :object => object,:password => password
     content_type        "text/html"
   end
+
+   def send_person_email_template(email)
+    recipients       "#{email}"
+    from              "noreply@memberzone.com.au"
+    subject          "Thank you for joining the membership"
+    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
+    sent_on           Time.now
+    body
+    content_type        "text/html"
+
+  end
 end

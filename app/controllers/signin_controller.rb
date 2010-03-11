@@ -267,7 +267,7 @@ class SigninController < ApplicationController
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
 
 
-      if( ( (Time.now - login_account.created_at) / (24 * 60 * 60) ) > login_account.authentication_grace_period.to_i )
+      if( ( (Time.now - login_account.created_at.getlocal) / (24 * 60 * 60) ) > login_account.authentication_grace_period.to_i )
         # If time since the account was created (in days) is greater than the grace period allowed
         # delete the account
         system_log("Login Account #{login_account.user_name} (ID #{login_account.id}) attempted to login outside of the defined grace period.", "signin", "grace_period_check", login_account)

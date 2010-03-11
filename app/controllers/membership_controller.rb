@@ -16,20 +16,23 @@ class MembershipController < ApplicationController
     unless @membership.person.nil?
     @membership.person.is_member = true
     else
-      person = Person.find(params[:id])
-      person.is_member = true
-      person.save
+      @person = Person.find(params[:id])
+      @person.is_member = true
+      @person.save
     end
-
+     @email = @membership.person.primary_email rescue @person.primary_email
     @membership.stage = "InitiateStage"
 
     if params[:membership][:initiate_mail_id]
       @membership.initiate_mail_id = PersonMailTemplate.initiate_template_id
     end
+    if params[:membership][:initiate_email_id]
+      @membership.initiate_email_id = PersonEmailTemplate.initiate_template_id
+    end
 
     if params[:membership][:initiate_letter_sent]
       @membership.initiate_letter_sent = true
-
+    if params[:membership][:initiate_mail_id]
       #config temp folder
       file_prefix = "public"
       file_dir = "temp/#{@current_user.user_name}/membership"
@@ -44,6 +47,15 @@ class MembershipController < ApplicationController
       system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipInitateSheet.html #{file_prefix}/#{file_dir}/MembershipInitateSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipInitateSheet.html"
       flash.now[:comfirmation] = "<p>MembershipInitateSheet <a href=\'/#{file_dir}/MembershipInitateSheet.pdf\' target='_blank'>MembershipInitateSheet.pdf</a></p>"
     end
+         if params[:membership][:initiate_email_id]
+
+       email = EmailDispatcher.create_send_person_email_template(@email.value)
+       EmailDispatcher.deliver(email)
+    end
+
+    end
+
+
 
     
     if @membership.save && @membership.person.save
