@@ -7,6 +7,20 @@ class MembershipSubStatus < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+
+  def self.initiated
+
+    MembershipSubStatus.find_all_by_name("Initiated")
+
+  end
+
+    def self.reviewed
+
+#    MembershipSubStatus.find_all_by_name(:all,:conditions=>["name = ? or name = ?","Reviewed","2nd Reviewed"])
+   reviewed = ["Reviewed","2nd Reviewed", "3nd Reviewed","Declined"]
+  end
+
+
   private
 
   def assign_priority

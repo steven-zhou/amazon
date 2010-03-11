@@ -3997,13 +3997,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id = ?", MembershipStatus.find_by_name(params[:type]).id],
+        :conditions=>["membership_status_id = ?", MembershipSubStatus.find_by_name(params[:type]).id],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
 
       )
-      count = Membership.count(:all, :conditions=>["membership_status_id = ?", MembershipStatus.find_by_name(params[:type]).id])
+      count = Membership.count(:all, :conditions=>["membership_status_id = ?", MembershipSubStatus.find_by_name(params[:type]).id])
     end
 
     # User provided search terms
@@ -4012,9 +4012,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name(params[:type]).id]
+        :conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipSubStatus.find_by_name(params[:type]).id]
       )
-      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipStatus.find_by_name(params[:type]).id])
+      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id = ?", query, MembershipSubStatus.find_by_name(params[:type]).id])
     end
 
     # Construct a hash from the ActiveRecord result
