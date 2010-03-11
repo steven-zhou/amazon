@@ -294,6 +294,7 @@ class MessageTemplatesController < ApplicationController
 
   end
 
+<<<<<<< HEAD:app/controllers/message_templates_controller.rb
   def mail_document_filter
 
     #-----------for both organisation and person use----
@@ -344,10 +345,21 @@ class MessageTemplatesController < ApplicationController
 
     system "rm -rf public/temp/"+@current_user.user_name+"/merge_docs/#{mail_document}"
 
+=======
+  def find_templates
+    @message_templates = params[:type].camelize.constantize.find(:all, :conditions => ["template_category_id = ?", params[:param1]])
+    @options = ""
+    @message_templates.each do |i|
+      @options << "<option value= \"#{i.id}\">#{i.name}</option>"
+    end
+>>>>>>> f5ffdd273dae117c2b12ece002bd2e625ada6535:app/controllers/message_templates_controller.rb
     respond_to do |format|
       format.js
     end
   end
+<<<<<<< HEAD:app/controllers/message_templates_controller.rb
 
 
+=======
+>>>>>>> f5ffdd273dae117c2b12ece002bd2e625ada6535:app/controllers/message_templates_controller.rb
 end

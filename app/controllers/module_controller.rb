@@ -17,7 +17,7 @@ class ModuleController < ApplicationController
 
   def membership
     session[:module] = "membership"
-    redirect_to :controller => "membership", :action => "new"
+    redirect_to :controller => "membership", :action => "step_1"
   end
 
   def become_membership
