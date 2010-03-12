@@ -53,8 +53,6 @@ class PeopleController < ApplicationController
     else
       #@group_types = @current_user.group_types
       @list_headers = @current_user.all_person_lists
-      puts "***********************"
-      puts @list_headers
       @active_tab = params[:active_tab]
       @active_sub_tab = params[:active_sub_tab]
       #when it is cal show action
@@ -65,7 +63,8 @@ class PeopleController < ApplicationController
           @p = Array.new
         else
           if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-            @list_header = @list_headers.first
+            @list_header = @current_user.default_value.default_list_header.blank? ? @list_headers.first : @current_user.default_value.default_list_header
+
             session[:current_list_id] = @list_header.id
             @person = @list_header.entity_on_list.first unless @list_headers.blank?
             @person = Person.new if @person.nil?
@@ -171,7 +170,7 @@ class PeopleController < ApplicationController
               session[:current_person_id] = @person.id
             end
           else
-            @list_header = @list_headers.first
+            @list_header = @current_user.default_value.default_list_header.blank? ? @list_headers.first : @current_user.default_value.default_list_header
             session[:current_list_id] = @list_header.id
             @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
             session[:current_person_id] = @person.id

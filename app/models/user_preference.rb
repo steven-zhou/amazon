@@ -2,7 +2,7 @@ class UserPreference < ActiveRecord::Base
 
   validates_presence_of :login_account_id
   belongs_to :login_account, :class_name => "LoginAccount", :foreign_key => "login_account_id"
-  belongs_to :default_list, :class_name => "ListHeader", :foreign_key => "default_list_header_id"
+  belongs_to :default_list_header, :class_name => "ListHeader", :foreign_key => "default_list_header_id"
   belongs_to :default_address_type, :class_name => "AmazonSetting", :foreign_key => "default_address_type_id"
   belongs_to :default_first_title, :class_name => "AmazonSetting", :foreign_key => "default_first_title_id"
   belongs_to :default_nationality, :class_name => "Country", :foreign_key => "default_nationality_id"

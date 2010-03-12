@@ -1,3 +1,6 @@
+-default_nationality = @current_user.default_value.default_nationality_id
+-default_language = @current_user.default_value.default_language_id
+
 .form_line
   .field_31
     = p.label :birth_date,"Date of Birth"
@@ -23,10 +26,10 @@
     = p.collection_select :origin_country_id, @countries, :id, :short_name, {:include_blank => true}, {:class=>@personal_check_field.include?("origin_country")?"personal_check_field":""}
   .field_31
     = p.label :nationality_id, 'Nationality'
-    = p.collection_select :nationality_id, @countries, :id, :citizenship, {:include_blank => true}, {:class=>@personal_check_field.include?("nationality")?"personal_check_field":""}
+    = p.collection_select :nationality_id, @countries, :id, :citizenship, {:include_blank => true,:selected => @person.new_record? ? default_nationality : @person.nationality_id}, {:class=>@personal_check_field.include?("nationality")?"personal_check_field":""}
   .field_31
     = p.label :language_id, 'Language'
-    = p.collection_select :language_id, @Languages, :id, :name, {:include_blank => true}, {:class=>@personal_check_field.include?("language")?"personal_check_field":""}
+    = p.collection_select :language_id, @Languages, :id, :name, {:include_blank => true,:selected => @person.new_record? ? default_language : @person.language_id}, {:class=>@personal_check_field.include?("language")?"personal_check_field":""}
 .form_line
   .field_31
     = p.label :residence_country_id,"Country of Residence"
