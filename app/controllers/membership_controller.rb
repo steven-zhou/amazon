@@ -23,17 +23,6 @@ class MembershipController < ApplicationController
     end
     @email = @membership.person.primary_email rescue @person.primary_email
     @membership.stage = "InitiateStage"
-
-    #    if params[:membership][:initiate_mail_id]
-    #      @membership.initiate_mail_id = PersonMailTemplate.initiate_template_id
-    #    end
-    #    if params[:membership][:initiate_email_id]
-    #      @membership.initiate_email_id = PersonEmailTemplate.initiate_template_id
-    #    end
-
-   
-
-
     
     if @membership.save && @membership.person.save
 
@@ -103,14 +92,7 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id])
     @person = Person.find(@membership.person_id)
     @type = params[:params2]
-
-    @default_stage_id = case @type
-    when "Initiated" then AmazonSetting.find_by_name("Reviewed").try(:id)
-    when "Reviewed" then AmazonSetting.find_by_name("Approved").try(:id)
-    when "Approved" then AmazonSetting.find_by_name("Suspended").try(:id)
-    when "Suspended" then AmazonSetting.find_by_name("Terminated").try(:id)
-    end
-
+    @membership_logs = @membership.membership_logs
     respond_to do |format|
       format.js
     end
@@ -254,7 +236,6 @@ class MembershipController < ApplicationController
   def membership_person_lookup
     @membership = Membership.new
     @person = Person.find(params[:id]) rescue @person=nil
-    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
     respond_to do |format|
       format.js
     end
@@ -280,7 +261,6 @@ class MembershipController < ApplicationController
 
   def step_1
     @person =  Person.find(params[:id]) unless params[:id].nil?
-    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
     @membership = Membership.new
     respond_to do |format|
       format.html
@@ -291,7 +271,6 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
-    @default_stage_id = AmazonSetting.find_by_name("Reviewed").try(:id)
     respond_to do |format|
       format.html
     end
@@ -301,7 +280,6 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
-    @default_stage_id = AmazonSetting.find_by_name("Approved").try(:id)
     respond_to do |format|
       format.html
     end
@@ -311,7 +289,6 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
-    @default_stage_id = AmazonSetting.find_by_name("Suspended").try(:id)
     respond_to do |format|
       format.html
     end
@@ -321,7 +298,6 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
-    @default_stage_id = AmazonSetting.find_by_name("Terminated").try(:id)
     respond_to do |format|
       format.html
     end
