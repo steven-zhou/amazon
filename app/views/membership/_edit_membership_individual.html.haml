@@ -6,12 +6,12 @@
       = render :partial => "/membership/membership_person_detail"
       = render :partial => "/membership/display_initiator_form"
 
-      - if @status == "Initiated"
+      - if @status == "Prospective"
         = render :partial => "/membership/reviewer_form"
       - else
         = render :partial => "/membership/display_reviewer_form"
 
-        - if @status == "Reviewed"
+        - if @status == "In-review"
           = render :partial => "/membership/finalizer_form"
         - else
           = render :partial => "/membership/display_finalizer_form"

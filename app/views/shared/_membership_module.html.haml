@@ -10,11 +10,11 @@
         <p>Management</p>
         %ul       
           -#%li{:id => @current_action == "new" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} In-process", {:controller => "membership", :action => "new"} , :class => "draggable", :controller => "membership", :action => "new",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Membership Management"
+            = link_to "#{image_tag('icon_holder.png')} Application", {:controller => "membership", :action => "new"} , :class => "draggable", :controller => "membership", :action => "new",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Membership Management"
           %li{:id => (["step_2", "step_3", "step_1"].include?(@current_action)) ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} In-process", {:controller => "membership", :action => "step_1"}, :class => "draggable", :controller => "membership", :action => "step_1", :icon_module=>"membership",:image_url => "icon_holder.png", :title => "In-process"
+            = link_to "#{image_tag('icon_holder.png')} Application", {:controller => "membership", :action => "step_1"}, :class => "draggable", :controller => "membership", :action => "step_1", :icon_module=>"membership",:image_url => "icon_holder.png", :title => "Application"
           %li{:id => @current_action == "step_4" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Live", {:controller => "membership", :action => "step_4"} , :class => "draggable", :controller => "membership", :action => "step_4",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Live"
+            = link_to "#{image_tag('icon_holder.png')} Life", {:controller => "membership", :action => "step_4"} , :class => "draggable", :controller => "membership", :action => "step_4",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Life"
           %br.clear
     .bottom
 
