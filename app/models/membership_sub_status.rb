@@ -1,6 +1,7 @@
 class MembershipSubStatus < AmazonSetting
 
     acts_as_list
+    has_one :membership
    validates_presence_of :name
   validates_uniqueness_of :name
 
@@ -10,14 +11,14 @@ class MembershipSubStatus < AmazonSetting
 
   def self.initiated
 
-    MembershipSubStatus.find_all_by_name("Initiated")
+    MembershipSubStatus.find_all_by_name("Prospective")
 
   end
 
     def self.reviewed
 
 #    MembershipSubStatus.find_all_by_name(:all,:conditions=>["name = ? or name = ?","Reviewed","2nd Reviewed"])
-   reviewed = ["Reviewed","2nd Reviewed", "3nd Reviewed","Declined"]
+   reviewed = ["In-review","Prospective"]
   end
 
 

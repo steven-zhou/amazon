@@ -1,0 +1,41 @@
+- @membership_logs.each do |i|
+  .container
+    %h1 #{i.action}
+    .form_line
+      .field_20
+        %label Performer ID
+        .display_field_bg
+          = i.performer_id
+      .field_40
+        %label Performer
+        .display_field_bg
+          = i.performer.try(:name)
+      .field_30
+        %label Performed At
+        .display_field_bg
+          = i.performed_at.to_s
+
+    .form_line
+      .field_20
+        %label Pre-status
+        .display_field_bg
+          = i.pre_status
+      .field_20
+        %label Post-status
+        .display_field_bg
+          = i.post_status
+      .field_20
+        %label Mail Sent
+        .display_field_bg
+          = i.mail_sent ? "Yes" : "Not"
+      .field_20
+        %label Email Sent
+        .display_field_bg
+          = i.email_sent ? "Yes" : "Not"
+
+    .form_line{:style => "height:auto;"}
+      .field_100{:style => "height:auto;"}
+        %label Outcomes
+        .display_field_bg
+          = i.comment
+      %br.clear

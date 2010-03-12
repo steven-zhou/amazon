@@ -1,44 +1,40 @@
 .container
-  %h1 Reviewer
+  %h1 Reviewers
   .form_line
     .field_20
       %label <span class="asterisk">*</span>Reviewer ID
-      %input{:id => "reviewer_id", :name => "membership[reviewed_by]", :value => "",:class=>"compulsory_field membership_intiator_lookup",:update_field=>"reviewer_name"}
+      %input{:id => "reviewer_id", :name => "membership_log[performer_id]", :value => "#{@current_user.try(:person).try(:id)}",:class=>"compulsory_field membership_intiator_lookup",:update_field=>"reviewer_name"}
       %input{:name=>"field",:value=>"review_page",:class=>"hidden"}
       %input{:name=>"render_page",:value=>"review_page",:class=>"hidden"}
     .field_5
       %label &nbsp;
-      = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "suspended_by", :title=>"Search"
+      = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "reviewer_id", :title=>"Search"
     .field_40
       %label Reviewer
       .display_field_bg#reviewer_name
+        = "#{@current_user.try(:person).try(:name)}"
 
     .field_30
       %label <span class="asterisk">*</span>Review Date
-      %input{:id => "reviewer_date", :name => "membership[reviewed_date]", :class => "datepick compulsory_field ", :value => Time.now.strftime("%d-%m-%Y")}
+      %input{:id => "reviewer_date", :name => "membership_log[performed_at]", :class => "datepick compulsory_field ", :value => Time.now.strftime("%d-%m-%Y")}
+
   .form_line{:style => "height:auto;"}
     .field_100{:style => "height:auto;"}
       %label <span class="asterisk">*</span>Outcomes
-      %textarea{:id=>"review_comment",:name=>"membership[reviewed_comment]",:style=>"width:100%;height:150px;",:class=>"compulsory_field "}
-  -#.form_line
-    .field_20
-      %label Mail Template Category
-      = collection_select :letter_id, :template_id,TemplateCategory.active_template_category, :id, :name, {:include_blank => true}, {:class => "select_ajax_call clear_select", :method => "GET", :url => "/amazon_settings/look_for_template", :update_field => "review_letter_id"}
-    .field_20
-      %label Mail Template
-      %select{:id => "review_letter_id", :name => "membership[review_letter_id]", :class => "mail_template", :check_box_id => "review_letter_sent"}
+      %textarea{:id=>"review_comment",:name=>"membership_log[comment]",:style=>"width:100%;height:150px;",:class=>"compulsory_field "}
+
   .form_line
-    .field_20{:style => "display:none;"}
-      %label Send Instant Mail
-      %input{:type => "checkbox", :id => "review_letter_sent", :name => "membership[review_letter_sent]"}
     .field_10
       %label Send Mail
-      %input{:type => "checkbox", :id => "review_mail_sent", :name => "membership[review_mail_id]",:class=>"enable_submit_checkbox"}
+      %input{:type => "checkbox", :id => "review_send_mail", :name => "membership_log[send_mail]",:class=>"enable_submit_checkbox", :field => "mail"}
+    .field_10
+      %label Send Mail After Submit
+      %input{:type => "checkbox", :id => "review_mail_sent", :name => "membership_log[mail_sent]", :class => "submit_checkbox", :disabled => true, :field => "mail"}
     .field_10
       %label Send Email
-      %input{:type => "checkbox", :id => "review_email_sent", :name => "membership[review_email_id]",:class=>"enable_submit_checkbox"}
+      %input{:type => "checkbox", :id => "review_send_email", :name => "membership_log[send_email]",:class=>"enable_submit_checkbox", :field => "email"}
     .field_10
-      %label Send After Submit
-      %input{:type => "checkbox", :id => "review_send_after_submit", :name => "membership[review_letter_sent]",:class=>"submit_checkbox",:disabled=>true}
+      %label Send Email After Submit
+      %input{:type => "checkbox", :id => "review_email_sent", :name => "membership_log[email_sent]",:class=>"submit_checkbox",:disabled=>true, :field => "email"}
     %br.clear
 

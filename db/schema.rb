@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310231753) do
+ActiveRecord::Schema.define(:version => 20100311235729) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -430,7 +430,7 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer  "tag_type_id"
     t.string   "type"
     t.text     "name"
-    t.text     "destription"
+    t.text     "description"
     t.integer  "tax_items_id"
     t.string   "gl_code"
     t.decimal  "amount",               :precision => 11, :scale => 3
@@ -673,74 +673,50 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.datetime "updated_at"
   end
 
+  create_table "membership_logs", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "membership_id"
+    t.string   "action"
+    t.integer  "performer_id"
+    t.string   "pre_status"
+    t.string   "post_status"
+    t.text     "comment"
+    t.date     "performed_at"
+    t.integer  "mail_template_id"
+    t.boolean  "send_mail"
+    t.boolean  "mail_sent"
+    t.integer  "email_template_id"
+    t.boolean  "send_email"
+    t.boolean  "email_sent"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "memberships", :force => true do |t|
     t.integer  "person_id"
     t.integer  "employer_id"
     t.integer  "workplace_id"
     t.integer  "membership_status_id"
+    t.integer  "membership_sub_status_id"
     t.integer  "membership_type_id"
     t.integer  "campaign_id"
     t.integer  "source_id"
     t.integer  "last_transaction_id"
-    t.integer  "initiate_mail_id"
-    t.integer  "initiated_by"
-    t.date     "initiated_date"
-    t.text     "initiated_comment"
-    t.integer  "reviewed_by"
-    t.date     "reviewed_date"
-    t.text     "reviewed_comment"
-    t.integer  "next_reviewed_by"
-    t.date     "next_reviewed_date"
-    t.text     "next_reviewed_comment"
-    t.integer  "finalized_by"
-    t.date     "finalized_date"
-    t.text     "finalized_comment"
+    t.integer  "letter_id"
     t.date     "starting_date"
     t.text     "starting_comment"
     t.date     "ending_date"
     t.text     "ending_comment"
-    t.integer  "suspended_by"
-    t.date     "suspended_date"
-    t.text     "suspended_comment"
-    t.integer  "terminated_by"
-    t.date     "terminated_date"
-    t.text     "terminated_comment"
-    t.decimal  "last_amount_paid",            :precision => 11, :scale => 3
+    t.decimal  "last_amount_paid",         :precision => 11, :scale => 3
     t.date     "last_amount_date"
-    t.decimal  "YTD_total",                   :precision => 11, :scale => 3
+    t.decimal  "YTD_total",                :precision => 11, :scale => 3
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "review_mail_id"
-    t.string   "approve_mail_id"
-    t.string   "suspend_letter_id"
-    t.string   "terminate_letter_id"
-    t.boolean  "initiate_letter_sent"
-    t.boolean  "review_letter_sent"
-    t.boolean  "approve_letter_sent"
-    t.boolean  "suspend_letter_sent"
-    t.boolean  "terminate_letter_sent"
-    t.integer  "initiate_email_id"
-    t.integer  "review_email_id"
-    t.integer  "approve_email_id"
-    t.integer  "decline_mail_id"
-    t.integer  "decline_email_id"
-    t.boolean  "decline_letter_sent"
-    t.integer  "second_reviewed_by"
-    t.date     "second_reviewed_date"
-    t.text     "second_reviewed_comment"
-    t.integer  "second_reviewed_mail_id"
-    t.integer  "second_reviewed_email_id"
-    t.boolean  "second_reviewed_letter_sent"
-    t.integer  "third_reviewed_by"
-    t.date     "third_reviewed_date"
-    t.text     "third_reviewed_comment"
-    t.integer  "third_reviewed_mail_id"
-    t.integer  "third_reviewed_email_id"
-    t.boolean  "third_reviewed_letter_sent"
-    t.boolean  "billing"
   end
 
   create_table "message_templates", :force => true do |t|
