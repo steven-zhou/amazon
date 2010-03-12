@@ -32,7 +32,7 @@ class ModuleController < ApplicationController
     action = case membership.membership_sub_status.name
     when "Prospective" then "step_2"
     when "In-review" then "step_3"
-    
+    when "Pre-active" then "step_4"
     end
     redirect_to :controller => "membership", :action => action, :id => membership.id
    end
