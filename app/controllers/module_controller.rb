@@ -29,10 +29,10 @@ class ModuleController < ApplicationController
    def manage_membership
     session[:module] = "membership"
     membership = Membership.find_by_person_id(params[:id])
-    action = case membership.membership_status.name
+    action = case membership.membership_sub_status.name
     when "Prospective" then "step_2"
     when "In-review" then "step_3"
-    when "Approved" then "step_4"
+    
     end
     redirect_to :controller => "membership", :action => action, :id => membership.id
    end
