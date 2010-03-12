@@ -9,5 +9,10 @@ class PersonMailTemplate < MailTemplate
     PersonMailTemplate.find_by_name("Membership Initiate Template").id
   end
 
+  def self.inreview_template_id
+    
+    PersonMailTemplate.find_by_name("Membership Review Template").id
+
+  end
 
 end

@@ -1,3 +1,8 @@
+
+
+
+
+
 #default_setting_form
   .container
     .form_line
@@ -8,13 +13,68 @@
 
 
   %div.container
-    %div.toggle_div{:toggle_id_name => "default_setting_group_1", :style => "cursor: pointer;"}
+    %div.toggle_div.toggle_auto{:toggle_id_name => "default_setting_group_1", :style => "cursor: pointer;"}
       .options{:style=>"float:right"}
         = image_tag('Icons/System/expand.png')
-      %h1 Default setting
+      %h1 Default setting Group_1
 
 
     #default_setting_group_1.left{:style => "width:100%;display:none;"}
+      -form_for @default_value, :html => {:class => "ajax_form"} do |f|
+        .container
+          .form_line
+            .field_23
+              %label Default Start_date
+              = f.text_field :default_start_date, :class => "startdatepick", :id => "default_start_date", :end_date => "default_end_date", :value => "#{@start_date}", :name => "user_preference[default_start_date]"
+            .field_23
+              %label Default End_date
+              = f.text_field :default_end_date, :class => "enddatepick", :id => "default_end_date", :start_date => "default_start_date", :value => "#{@end_date}", :name => "user_preference[default_end_date]"
+            .field_23
+              %label Default Address Type
+              = f.collection_select :default_address_type_id, AddressType.all, :id, :name, {:selected =>  @default_value.default_address_type_id}
+            .field_23
+              %label Default First Title
+              = f.collection_select :default_first_title_id, Title.all, :id, :name, {:selected =>  @default_value.default_first_title_id}
+          .form_line
+            .field_23
+              %label Default Nationality
+              = f.collection_select :default_nationality_id, Country.all, :id, :short_name, {:selected =>  @default_value.default_nationality_id}
+            .field_23
+              %label Default Language
+              = f.collection_select :default_language_id, Language.all, :id, :name, {:selected =>  @default_value.default_language_id}
+            .field_23
+              %label Default Phone Type
+              = f.collection_select :default_phone_type_id, Contact.phone_types, :id, :name, {:selected =>  @default_value.default_phone_type_id}
+            .field_23
+              %label Default Email Type
+              = f.collection_select :default_email_type_id, Contact.email_types, :id, :name, {:selected =>  @default_value.default_email_type_id}
+          .form_line
+            .field_23
+              %label Default Website Type
+              = f.collection_select :default_website_type_id,  Contact.website_types, :id, :name, {:selected =>  @default_value.default_website_type_id}
+            .field_23
+              %label Default List Header
+              = f.collection_select :default_list_header_id,  ListHeader.all, :id, :name, {:selected =>  @default_value.default_list_header_id}
+            .field_23
+              %label &nbsp
+              .hidden
+                = f.text_field :login_account_id, :value => "#{@current_user.id}"
+            .field_23
+              %label &nbsp
+              .hidden
+                %input{:class=> "current_tab", :value => "default_setting_group_1", :name => "current_tab"}
+          .form_line
+            .right
+              %label &nbsp
+              = submit_tag "Submit"
+
+  %div.container
+    %div.toggle_div.toggle_auto{:toggle_id_name => "default_setting_group_2", :style => "cursor: pointer;"}
+      .options{:style=>"float:right"}
+        = image_tag('Icons/System/expand.png')
+      %h1 Default setting Group_2
+
+    #default_setting_group_2.left{:style => "width:100%;display:none;"}
       -form_for @default_value, :html => {:class => "ajax_form"} do |f|
         .container
           .form_line
@@ -30,13 +90,6 @@
             .field_23
               %label Default First Title
               = f.collection_select :default_first_title_id, Title.all, :id, :name
-          .form_line
-            .field_23
-              %label Default Nationality
-              = f.collection_select :default_nationality_id, Country.all, :id, :short_name
-            .field_23
-              %label Default Language
-              = f.collection_select :default_language_id, Language.all, :id, :name
-            .field_23
-              %label Default Language
-              = f.collection_select :default_language_id, Language.all, :id, :name
+
+
+           

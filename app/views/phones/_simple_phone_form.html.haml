@@ -1,9 +1,9 @@
-
+-default_phone = @current_user.default_value.default_phone_type_id
 %h2 Phone
 .form_line
   .field_25
     = phone.label :contact_meta_type_id, 'Type'
-    = phone.collection_select :contact_meta_type_id, @phone_types, :id, :name
+    = phone.collection_select :contact_meta_type_id, @phone_types, :id, :name, {:selected => default_phone}
   .field_15
     = phone.label :pre_value, "Pre Value"
     = phone.text_field :pre_value, :readonly => @phone_types.blank? ? true :false
