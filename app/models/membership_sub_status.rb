@@ -1,6 +1,7 @@
 class MembershipSubStatus < AmazonSetting
 
     acts_as_list
+    has_one :membership
    validates_presence_of :name
   validates_uniqueness_of :name
 
