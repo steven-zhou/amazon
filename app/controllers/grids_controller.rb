@@ -3999,13 +3999,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id IN ?", params[:type]],
+        :conditions=>["membership_status_id = ?", params[:type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
 
       )
-      count = Membership.count(:all, :conditions=>["membership_status_id IN ?", params[:type]])
+      count = Membership.count(:all, :conditions=>["membership_status_id = ?", params[:type]])
     end
 
     # User provided search terms
