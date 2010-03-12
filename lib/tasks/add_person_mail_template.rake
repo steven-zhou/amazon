@@ -21,10 +21,11 @@ namespace :db do
 <p>Your application has been&nbsp; finalized.</p>
 <p>&nbsp;</p>
 <p>Amazon</p>" , :status => true,:to_be_removed =>false ,:template_category_id=> TemplateCategory.find_by_name('Membership').id
-    
+
+    puts "DONE"
 
 
-    puts "Run Patch all person email template"
+    puts "Run Patch All person email template"
     PersonEmailTemplate.all.each do |i|
       i.destroy
     end

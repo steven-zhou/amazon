@@ -1,5 +1,12 @@
+
 <%- if @date_valid%>
-  $("#existing_mail_log" ).html('<%=escape_javascript(render(:partial => "message_templates/person_mail_log_enquiry_result", :locals => {:query => @query})) %>');
+
+  <%-if @type == "person"-%>
+    $("#current_user_document" ).html('<%=escape_javascript(render(:partial => "message_templates/person_mail_document_enquiry_result", :locals => {:query => @mail_documents})) %>');
+  <%- else %>
+    $("#current_user_document" ).html('<%=escape_javascript(render(:partial => "message_templates/organisation_mail_document_enquiry_result", :locals => {:query => @mail_documents})) %>');
+  <%- end %>
+
 <%- else %>
 
 
@@ -23,4 +30,4 @@
   $('#flash_message').dialog('open');
 <%- end %>
 
-  enable_form_after_submit_finish();
+enable_form_after_submit_finish();

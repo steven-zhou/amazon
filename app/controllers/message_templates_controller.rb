@@ -82,6 +82,20 @@ class MessageTemplatesController < ApplicationController
     
     @mail_templates = (params[:type]== "person")? PersonMailTemplate.active_record : OrganisationMailTemplate.active_record
     @entity_type = (params[:type]== "person")? "person" : "organisation"
+
+    if (@field == "mail_document")
+
+      pdf_directory = "public/temp/"+@current_user.user_name+"/merge_docs"
+      dir = Dir.new(pdf_directory) rescue dir = nil
+      @mail_documents = dir.nil? ? [] : (dir.entries - [".", ".."]).sort
+      for m in @mail_documents do
+        if @entity_type == "person"
+          @mail_documents = @mail_documents-[m] if (m =~ /\bP-/).nil?
+        else
+          @mail_documents = @mail_documents-[m] if (m =~ /\bO-/).nil?
+        end
+      end
+    end
     
    
     respond_to do |format|
@@ -153,6 +167,7 @@ class MessageTemplatesController < ApplicationController
     @content = @content.gsub(/&lt;/, "<")
     @content = @content.gsub(/&gt;/, ">")
     @entity_type = params[:entity_type]
+    @flag = (@entity_type == "person")? "P" : "O"
     
     template_name = @mail_template.name
     time_stamp = Time.now.strftime("%d-%m-%y-%I:%M%p")
@@ -179,8 +194,8 @@ class MessageTemplatesController < ApplicationController
     #-----change html to pdf and give the flashmessage for click
     now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
     pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
-    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{template_name}#{time_stamp}.pdf #{pdf_options}; rm #{file_dir}/*.html"
-    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{template_name}#{time_stamp}.pdf' target='_blank'>#{template_name}#{time_stamp}.pdf</a>"
+    system "wkhtmltopdf #{file_dir}/#{template_name}#{time_stamp}.html #{file_dir}/#{@flag}-#{template_name}-#{time_stamp}.pdf #{pdf_options}; rm #{file_dir}/*.html"
+    flash.now[:message] = "Sucessfully added-<a href='/#{file_name}/#{@flag}-#{template_name}-#{time_stamp}.pdf' target='_blank'>#{@flag}-#{template_name}-#{time_stamp}.pdf</a>"
     
     #for create record in the database mail-logs
     @entities.each do |entity|
@@ -202,26 +217,7 @@ class MessageTemplatesController < ApplicationController
   def person_mail_log_filter
 
     conditions = Array.new
-    person_id = params[:mail_log_filter][:person_id]
-
-
-#     if ( params[:mail_log_filter][:start_date].blank? || params[:mail_log_filter][:end_date].blank?)
-#         start_date= '0001-01-01 00:00:01' if params[:mail_log_filter][:start_date].blank?
-#         end_date = '9999-12-31 23:59:59' if params[:mail_log_filter][:end_date].blank?
-#    else
-#
-#
-#    if valid_date(params[:mail_log_filter][:start_date]) && valid_date(params[:mail_log_filter][:end_date])
-#    @start_date = ((!params[:mail_log_filter][:start_date].nil? && !params[:mail_log_filter][:start_date].empty?) ? params[:start_date].to_date.strftime('%Y-%m-%d') : '0001-01-01 00:00:01')
-#    @end_date = ((!params[:mail_log_filter][:end_date].nil? && !params[:mail_log_filter][:end_date].empty?) ? params[:mail_log_filter][:end_date].to_date.strftime('%Y-%m-%d') : '9999-12-31 23:59:59')
-#    else
-#       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-#    end
-#
-#    end
-
-
-    
+    person_id = params[:mail_log_filter][:person_id]    
     creator_username = params[:mail_log_filter][:creator_username]
     @date_valid = true
 
@@ -230,13 +226,13 @@ class MessageTemplatesController < ApplicationController
     end
 
     if valid_date(params[:mail_log_filter][:start_date]) && valid_date(params[:mail_log_filter][:end_date])
-    start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
-    end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
+      start_date = params[:mail_log_filter][:start_date].to_date.yesterday.to_s
+      end_date = params[:mail_log_filter][:end_date].to_date.tomorrow.to_s
 
 
       unless start_date.blank? || end_date.blank?
-        start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
-        end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
+        # start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
+        # end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
         conditions << ("start_date=" + start_date)
         conditions << ("end_date=" + end_date)
       end
@@ -271,7 +267,7 @@ class MessageTemplatesController < ApplicationController
     end
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
-     start_date = params[:start_date].to_date.yesterday.to_s
+      start_date = params[:start_date].to_date.yesterday.to_s
       end_date = params[:end_date].to_date.tomorrow.to_s
       unless start_date.blank? || end_date.blank?
         start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
@@ -298,6 +294,60 @@ class MessageTemplatesController < ApplicationController
 
   end
 
+  def mail_document_filter
+
+    #-----------for both organisation and person use----
+    @type =  params[:mail_document_filter][:type] unless params[:mail_document_filter][:type].nil?
+    @date_valid = true
+    
+    begin valid_user_name(params[:mail_document_filter][:user_name])
+      @user_name = params[:mail_document_filter][:user_name]   
+    rescue
+      @user_name = ""
+    end
+
+    
+
+    if valid_date(params[:mail_document_filter][:start_date]) && valid_date(params[:mail_document_filter][:end_date])
+      start_date = params[:mail_document_filter][:start_date].to_date
+      end_date = params[:mail_document_filter][:end_date].to_date
+      pdf_directory = "public/temp/"+@user_name+"/merge_docs/"
+      dir = Dir.new(pdf_directory) rescue dir = nil
+      @mail_documents = dir.nil? ? [] : (dir.entries - [".", ".."]).sort
+   
+      for m in @mail_documents do
+        file_date = File.new(pdf_directory+m).mtime.to_date
+        @mail_documents = @mail_documents - [m] if (file_date < start_date || file_date > end_date)
+        if @type =="organisation"
+          @mail_documents = @mail_documents-[m] if (m =~ /\bO-/).nil?
+        else
+          @mail_documents = @mail_documents-[m] if (m =~ /\bP-/).nil?
+        end
+      end
+      @date_valid = true
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+  
+
+  def destroy
+
+    mail_document = params[:param1]
+    @type = params[:param2]
+    
+    # $("#current_user_document" ).html('<%=escape_javascript(render(:partial => "message_templates/person_mail_document_enquiry_result", :locals => {:query => @mail_documents})) %>');
+
+    system "rm -rf public/temp/"+@current_user.user_name+"/merge_docs/#{mail_document}"
+  respond_to do |format|
+      format.js
+    end
+  end
+
   def find_templates
     @message_templates = params[:type].camelize.constantize.find(:all, :conditions => ["template_category_id = ?", params[:param1]])
     @update_field = params[:update_field]
@@ -305,8 +355,10 @@ class MessageTemplatesController < ApplicationController
     @message_templates.each do |i|
       @options << "<option value= \"#{i.id}\">#{i.name}</option>"
     end
+
     respond_to do |format|
       format.js
     end
   end
+
 end

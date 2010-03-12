@@ -109,7 +109,7 @@ LinkModule.create(:name => "Miscellaneous", :status => true,:to_be_removed =>fal
 ReceivedVia.create(:name => "Phone", :status => true,:to_be_removed =>false)
 ReceivedVia.create(:name => "Internet", :status => true,:to_be_removed =>false)
 ReceivedVia.create(:name => "Fax", :status => true,:to_be_removed =>false)
-TemplateCategory.create(:name => "Others", :status => true,:to_be_removed =>false)
+TemplateCategory.create(:name => "Others", :status => true,:to_be_removed =>false, :description => "can not be deleted")
 TemplateCategory.create(:name => "Membership", :status => true,:to_be_removed =>false)
 MembershipType.create(:name => "Full Member", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "In-process", :status => true,:to_be_removed =>false)

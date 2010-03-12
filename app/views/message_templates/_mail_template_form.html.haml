@@ -4,15 +4,19 @@
 
 -form_for @mail_template, :url => @mail_template.new_record? ? message_templates_path : message_template_path(@mail_template), :html => {:class => "ajax_form", :submit_button_id => @mail_template.new_record? ? "new_submit_button" : "edit_submit_button"} do |f|
   .form_line
-    .field_10
+    .field_22
       = f.label :name, "Mail Category"
       = f.collection_select :template_category_id, TemplateCategory.active_template_category, :id, :name, {},{:name => "mail_template[template_category_id]"}
     .field_20
       = f.label :name, "<span class='asterisk'>*</span>Name"
       = f.text_field :name, :name => "mail_template[name]",:class => "compulsory_field"
+    .field_40
+      = f.label :description, "Description"
+      = f.text_field :description
     .field_10{:class => "hidden"}
       %label &nbsp
       %input{:id => "prefix_table_name", :value => "#{@prefix_table_value}"}
+  .form_line
     .field_22
       %label Table Name
       %select{:class => "select_table_word clear_select general_drop_down_level", :drop_down_field => @mail_template.new_record? ? "new_mail_template" : "edit_mail_template", :method => "GET", :url => "/message_templates/drop_down_list"}
