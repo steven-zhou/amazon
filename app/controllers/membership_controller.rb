@@ -35,7 +35,7 @@ class MembershipController < ApplicationController
 
 
     
-    if @membership.save! && @membership.person.save
+    if @membership.save && @membership.person.save
 
 
       #save to membership log
@@ -81,7 +81,7 @@ class MembershipController < ApplicationController
 
       end
 
-
+      @person = nil
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
     else
