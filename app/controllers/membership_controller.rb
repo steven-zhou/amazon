@@ -123,6 +123,20 @@ class MembershipController < ApplicationController
 
       #save to membership log
 
+      if params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("Prospective").id
+
+        params[:membership_log][:mail_template_id]=PersonMailTemplate.initiate_template_id
+        params[:membership_log][:email_template_id]=PersonEmailTemplate.initiate_template_id
+        params[:membership_log][:post_status] = "Prospective"
+
+      elsif params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("In-review").id
+
+        params[:membership_log][:mail_template_id]=PersonMailTemplate.inreview_template_id
+        params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
+        params[:membership_log][:post_status] = "In-review"
+
+      end
+
       @membership_log = MembershipLog.new(params[:membership_log])
       @membership_log.person_id = @membership.person.id
       @membership_log.membership_id = @membership.id
@@ -133,25 +147,18 @@ class MembershipController < ApplicationController
         @membership_log.send_email = true
       end
 
-      if params[:membership][:membership_sub_status_id]== MembershipSubStatus.find_by_name("Prospective").id
 
-        params[:membership_log][:mail_template_id]=PersonMailTemplate.initiate_template_id
-        params[:membership_log][:email_template_id]=PersonEmailTemplate.initiate_template_id
-        
-      elsif params[:membership][:membership_sub_status_id]== MembershipSubStatus.find_by_name("In-review").id
-        
-        params[:membership_log][:mail_template_id]=PersonMailTemplate.inreview_template_id
-        params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
-      end
 
 
       if @membership_log.save
 
-         if params[:membership_log][:mail_sent]
+        if params[:membership_log][:mail_sent]
+          puts "xxxxxxxxxxxxxxxxx"
           @membership_log.mail_sent = true
           if params[:membership_log][:mail_template_id]
 
             @body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
+            puts @body
             file_name="MembershipReviewMail"
             @entities = [@person]
             send_membership_mail(@body,file_name,@entities)
@@ -160,7 +167,7 @@ class MembershipController < ApplicationController
           @membership_log.save
         end
 
-       if  params[:membership_log][:email_sent]
+        if  params[:membership_log][:email_sent]
           @membership_log.email_sent = true
           if params[:membership_log][:email_template_id]
 
@@ -172,24 +179,24 @@ class MembershipController < ApplicationController
 
       end
 
-#
-#      if params[:membership][:review_letter_sent]
-#        @membership.review_letter_sent = true
-#
-#        #config temp folder
-#        file_prefix = "public"
-#        file_dir = "temp/#{@current_user.user_name}/membership"
-#        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
-#
-#
-#
-#        @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
-#        File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
-#          f.puts "#{@membership_review_sheet}"
-#        end
-#        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
-#        flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
-#      end
+      #
+      #      if params[:membership][:review_letter_sent]
+      #        @membership.review_letter_sent = true
+      #
+      #        #config temp folder
+      #        file_prefix = "public"
+      #        file_dir = "temp/#{@current_user.user_name}/membership"
+      #        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+      #
+      #
+      #
+      #        @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
+      #        File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
+      #          f.puts "#{@membership_review_sheet}"
+      #        end
+      #        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
+      #        flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
+      #      end
 
 
       if params[:membership][:approve_letter_sent]

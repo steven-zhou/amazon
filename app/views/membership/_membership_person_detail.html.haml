@@ -7,7 +7,7 @@
         %input{:id=>"membership_person_id",:class=>"membership_person_lookup compulsory_field",:value=>@person.nil? ? "" : @person.id}
       - else
         .display_field_bg
-          = @person.id
+          = @person.id unless @person.nil?
     .field_5
       %label &nbsp;
       - if @membership.new_record?
