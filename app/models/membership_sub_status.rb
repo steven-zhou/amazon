@@ -15,7 +15,7 @@ class MembershipSubStatus < AmazonSetting
 
   end
 
-    def self.reviewed
+    def self.review_option
 
 #    MembershipSubStatus.find_all_by_name(:all,:conditions=>["name = ? or name = ?","Reviewed","2nd Reviewed"])
    reviewed = ["In-review","Prospective"]

@@ -89,9 +89,9 @@ class MembershipController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_sub_status_id") if (!@membership.errors.on(:membership_sub_status_id).nil? &&  @membership.errors.on(:membership_sub_status_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
-#      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_by") if (!@membership.errors.on(:initiated_by).nil? &&  @membership.errors.on(:initiated_by).include?("can't be blank"))
-#      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_date") if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("can't be blank"))
-#      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_comment") if (!@membership.errors.on(:initiated_comment).nil? &&  @membership.errors.on(:initiated_comment).include?("can't be blank"))
+      #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_by") if (!@membership.errors.on(:initiated_by).nil? &&  @membership.errors.on(:initiated_by).include?("can't be blank"))
+      #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_date") if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("can't be blank"))
+      #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_comment") if (!@membership.errors.on(:initiated_comment).nil? &&  @membership.errors.on(:initiated_comment).include?("can't be blank"))
       flash.now[:error] = "Please make sure the initiated date is entered in valid format (dd-mm-yyyy)" if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("is_invalid"))
     end
     respond_to do |format|
@@ -119,8 +119,9 @@ class MembershipController < ApplicationController
 
   def update
     @membership = Membership.find(params[:id])
-    
+    @person = @membership.person
     @field= params[:field]
+    @email = @membership.person.primary_email
     case @field
     
     when "review_page" then @membership.stage="ReviewStage"
@@ -128,27 +129,85 @@ class MembershipController < ApplicationController
     end
     @render_page = params[:render_page]
 
+
+    
+
+
+
+
+
     if @membership.update_attributes(params[:membership])
       flash.now[:message] = "Membership Update Successfully"
 
+      #save to membership log
 
-      if params[:membership][:review_letter_sent]
-        @membership.review_letter_sent = true
-
-        #config temp folder
-        file_prefix = "public"
-        file_dir = "temp/#{@current_user.user_name}/membership"
-        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
-
-
-
-        @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
-        File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
-          f.puts "#{@membership_review_sheet}"
-        end
-        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
-        flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
+      @membership_log = MembershipLog.new(params[:membership_log])
+      @membership_log.person_id = @membership.person.id
+      @membership_log.membership_id = @membership.id
+      if params[:membership_log][:send_mail]
+        @membership_log.send_mail = true
       end
+      if params[:membership_log][:send_email]
+        @membership_log.send_email = true
+      end
+
+      if params[:membership][:membership_sub_status_id]== MembershipSubStatus.find_by_name("Prospective").id
+
+        params[:membership_log][:mail_template_id]=PersonMailTemplate.initiate_template_id
+        params[:membership_log][:email_template_id]=PersonEmailTemplate.initiate_template_id
+        
+      elsif params[:membership][:membership_sub_status_id]== MembershipSubStatus.find_by_name("In-review").id
+        
+        params[:membership_log][:mail_template_id]=PersonMailTemplate.inreview_template_id
+        params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
+      end
+
+
+      if @membership_log.save
+
+         if params[:membership_log][:mail_sent]
+          @membership_log.mail_sent = true
+          if params[:membership_log][:mail_template_id]
+
+            @body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
+            file_name="MembershipReviewMail"
+            @entities = [@person]
+            send_membership_mail(@body,file_name,@entities)
+
+          end
+          @membership_log.save
+        end
+
+       if  params[:membership_log][:email_sent]
+          @membership_log.email_sent = true
+          if params[:membership_log][:email_template_id]
+
+            email = EmailDispatcher.create_send_person_email_template(@email.value)
+            EmailDispatcher.deliver(email)
+          end
+          @membership_log.save
+        end
+
+      end
+
+#
+#      if params[:membership][:review_letter_sent]
+#        @membership.review_letter_sent = true
+#
+#        #config temp folder
+#        file_prefix = "public"
+#        file_dir = "temp/#{@current_user.user_name}/membership"
+#        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+#
+#
+#
+#        @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
+#        File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
+#          f.puts "#{@membership_review_sheet}"
+#        end
+#        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
+#        flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
+#      end
 
 
       if params[:membership][:approve_letter_sent]
