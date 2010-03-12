@@ -83,6 +83,7 @@ class MembershipController < ApplicationController
       #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_comment") if (!@membership.errors.on(:initiated_comment).nil? &&  @membership.errors.on(:initiated_comment).include?("can't be blank"))
       flash.now[:error] = "Please make sure the initiated date is entered in valid format (dd-mm-yyyy)" if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("is_invalid"))
     end
+    @membership = Membership.new
     respond_to do |format|
       format.js
     end
@@ -135,6 +136,17 @@ class MembershipController < ApplicationController
         params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
         params[:membership_log][:post_status] = "In-review"
 
+      elsif params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("Pre-active").id
+        params[:membership_log][:mail_template_id]=PersonMailTemplate.approve_template_id
+        params[:membership_log][:email_template_id]=PersonEmailTemplate.approve_template_id
+        params[:membership_log][:post_status] = "Pre-active"
+
+
+      elsif params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("Rejected").id
+
+        params[:membership_log][:mail_template_id]=PersonMailTemplate.reject_template_id
+        params[:membership_log][:email_template_id]=PersonEmailTemplate.reject_template_id
+        params[:membership_log][:post_status] = "Rejected"
       end
 
       @membership_log = MembershipLog.new(params[:membership_log])

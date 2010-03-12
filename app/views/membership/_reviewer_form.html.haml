@@ -45,7 +45,10 @@
       = collection_select :membership, :membership_type_id, MembershipType.active, :id, :name
     .field_30
       = label_tag :type, '<span class="asterisk">*</span>Membership Status'
-      = collection_select :membership,:membership_sub_status_id, MembershipSubStatus.review_option, :id, :name
+      = collection_select :membership,:membership_sub_status_id, MembershipSubStatus.review_option, :id, :name, {:selected => MembershipSubStatus.find_by_name("In-review").id}
       %input{:name=>"membership_log[pre_status]",:value=>"#{@membership.membership_sub_status.name}",:class=>"hidden"}
+    .field_30{:style => "float:right;"}
+      %label &nbsp;
+      = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
     %br.clear
 
