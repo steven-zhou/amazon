@@ -1,8 +1,9 @@
 -# The options to edit or add an address
+-default_address_type = @current_user.default_value.default_address_type_id
 .form_line
   .field_22
     = address.label :address_type_id, "Type"
-    = address.collection_select :address_type_id, @active_address_types, :id, :name
+    = address.collection_select :address_type_id, @active_address_types, :id, :name, {:selected => default_address_type}
   .field_40
     = address.label :building_name, 'Building Name'
     = address.text_field :building_name

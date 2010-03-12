@@ -80,16 +80,38 @@ class UserPreferencesController < ApplicationController
   end
 
   def default_value
-    @default_value = UserPreference.new
+    @default_value = @current_user.default_value.nil? ? UserPreference.new : @current_user.default_value
+    @end_date = @default_value.new_record? ? "01-01-3000" : @default_value.default_end_date.to_s
+    @start_date = @default_value.new_record? ? "01-01-3000" : @default_value.default_end_date.to_s
     respond_to do |format|
       format.js
     end
   end
 
-  def edit_default_value
-    @default_value = UserPreference.find(params[:grid_object_id])
-    @address_types = AddressType.active_address_type
-    @default_address_type = @default_value.default_address_type
+  def create
+    @default_value = UserPreference.new(params[:user_preference])
+    @current_tab = params[:current_tab]
+
+    if @default_value.save!
+      flash[:message] = "successfull update default value"
+    else
+      
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    @default_value = UserPreference.find(params[:id])
+    @current_tab = params[:current_tab]
+    if @default_value.update_attributes(params[:user_preference])
+      flash[:message] = "successfull update default value"
+
+    else
+
+    end
+    
     respond_to do |format|
       format.js
     end

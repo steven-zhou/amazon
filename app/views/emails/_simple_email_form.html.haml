@@ -1,8 +1,9 @@
+-default_email = @current_user.default_value.default_email_type_id
 %h2 Email
 .form_line
   .field_25
     = email.label :contact_meta_type_id, 'Type'
-    = email.collection_select :contact_meta_type_id, @email_types, :id, :name
+    = email.collection_select :contact_meta_type_id, @email_types, :id, :name, {:selected => default_email}
   .field_70
     = email.label :value, "Email"
     = email.text_field :value,:readonly => @email_types.blank? ? true :false

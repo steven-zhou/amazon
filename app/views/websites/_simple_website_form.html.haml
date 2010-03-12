@@ -1,8 +1,9 @@
+-default_website = @current_user.default_value.default_website_type_id
 %h2 Website
 .form_line
   .field_25
     = website.label :contact_meta_type_id, 'Type'
-    = website.collection_select :contact_meta_type_id, @website_types, :id, :name
+    = website.collection_select :contact_meta_type_id, @website_types, :id, :name, {:selected => default_website}
   .field_70
     = website.label :value, "Website"
     = website.text_field :value ,:readonly => @website_types.blank? ? true :false
