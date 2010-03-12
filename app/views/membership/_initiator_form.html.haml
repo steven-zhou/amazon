@@ -1,7 +1,7 @@
 %h1 Initiator
 .form_line
   .field_20
-    %label <span class="asterisk">*</span>Prospective ID
+    %label <span class="asterisk">*</span>Initiator ID
     %input{:id => "reviewer_id", :name => "membership_log[performer_id]",:class=>"compulsory_field membership_intiator_lookup",:update_field=>"initiator_name"}
     %input{:name=>"membership_log[action]",:value=>"StartUp",:class=>"hidden"}
     %input{:name=>"membership_log[mail_template_id]",:value=>"#{PersonMailTemplate.initiate_template_id}",:class=>"hidden"}

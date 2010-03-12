@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310231753) do
+ActiveRecord::Schema.define(:version => 20100311235729) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -206,6 +206,7 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.boolean  "status",        :default => true
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.string   "type"
   end
 
   create_table "campaigns", :force => true do |t|
@@ -413,12 +414,16 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer  "award_agreement_id"
     t.integer  "position_status_id"
     t.integer  "payment_frequency_id"
-    t.integer  "payment_method_id"
+    t.integer  "payroll_method_id"
     t.integer  "payment_day_id"
     t.integer  "suspension_type_id"
     t.integer  "termination_method_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "workplace_id"
+    t.string   "workplace_reference"
+    t.string   "union_reference"
+    t.string   "payroll_center"
   end
 
   create_table "fee_items", :force => true do |t|
@@ -427,7 +432,7 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.text     "name"
     t.text     "description"
     t.integer  "tax_items_id"
-    t.string   "GL_Code"
+    t.string   "gl_code"
     t.decimal  "amount",               :precision => 11, :scale => 3
     t.string   "payment_frequency_id"
     t.integer  "link_module_id"
@@ -656,74 +661,62 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer  "updater_id"
   end
 
+  create_table "membership_fees", :force => true do |t|
+    t.integer  "membership_id"
+    t.integer  "payment_method_type_id"
+    t.integer  "fee_item_id"
+    t.integer  "receipt_account_id"
+    t.boolean  "active"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "membership_logs", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "membership_id"
+    t.string   "action"
+    t.integer  "performer_id"
+    t.string   "pre_status"
+    t.string   "post_status"
+    t.text     "comment"
+    t.date     "performed_at"
+    t.integer  "mail_template_id"
+    t.boolean  "send_mail"
+    t.boolean  "mail_sent"
+    t.integer  "email_template_id"
+    t.boolean  "send_email"
+    t.boolean  "email_sent"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "memberships", :force => true do |t|
     t.integer  "person_id"
     t.integer  "employer_id"
     t.integer  "workplace_id"
     t.integer  "membership_status_id"
+    t.integer  "membership_sub_status_id"
     t.integer  "membership_type_id"
     t.integer  "campaign_id"
     t.integer  "source_id"
     t.integer  "last_transaction_id"
-    t.integer  "initiate_mail_id"
-    t.integer  "initiated_by"
-    t.date     "initiated_date"
-    t.text     "initiated_comment"
-    t.integer  "reviewed_by"
-    t.date     "reviewed_date"
-    t.text     "reviewed_comment"
-    t.integer  "next_reviewed_by"
-    t.date     "next_reviewed_date"
-    t.text     "next_reviewed_comment"
-    t.integer  "finalized_by"
-    t.date     "finalized_date"
-    t.text     "finalized_comment"
+    t.integer  "letter_id"
     t.date     "starting_date"
     t.text     "starting_comment"
     t.date     "ending_date"
     t.text     "ending_comment"
-    t.integer  "suspended_by"
-    t.date     "suspended_date"
-    t.text     "suspended_comment"
-    t.integer  "terminated_by"
-    t.date     "terminated_date"
-    t.text     "terminated_comment"
-    t.decimal  "last_amount_paid",            :precision => 11, :scale => 3
+    t.decimal  "last_amount_paid",         :precision => 11, :scale => 3
     t.date     "last_amount_date"
-    t.decimal  "YTD_total",                   :precision => 11, :scale => 3
+    t.decimal  "YTD_total",                :precision => 11, :scale => 3
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.boolean  "active"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "review_mail_id"
-    t.string   "approve_mail_id"
-    t.string   "suspend_letter_id"
-    t.string   "terminate_letter_id"
-    t.boolean  "initiate_letter_sent"
-    t.boolean  "review_letter_sent"
-    t.boolean  "approve_letter_sent"
-    t.boolean  "suspend_letter_sent"
-    t.boolean  "terminate_letter_sent"
-    t.integer  "initiate_email_id"
-    t.integer  "review_email_id"
-    t.integer  "approve_email_id"
-    t.integer  "decline_mail_id"
-    t.integer  "decline_email_id"
-    t.boolean  "decline_letter_sent"
-    t.integer  "second_reviewed_by"
-    t.date     "second_reviewed_date"
-    t.text     "second_reviewed_comment"
-    t.integer  "second_reviewed_mail_id"
-    t.integer  "second_reviewed_email_id"
-    t.boolean  "second_reviewed_letter_sent"
-    t.integer  "third_reviewed_by"
-    t.date     "third_reviewed_date"
-    t.text     "third_reviewed_comment"
-    t.integer  "third_reviewed_mail_id"
-    t.integer  "third_reviewed_email_id"
-    t.boolean  "third_reviewed_letter_sent"
-    t.boolean  "billing"
   end
 
   create_table "message_templates", :force => true do |t|
@@ -733,10 +726,11 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.datetime "updated_at"
     t.boolean  "to_be_removed"
     t.string   "type"
-    t.integer  "mail_merge_category_id"
+    t.integer  "template_category_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.boolean  "status"
+    t.text     "description"
   end
 
   create_table "notes", :force => true do |t|
@@ -1196,6 +1190,18 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer  "updater_id"
   end
 
+  create_table "tax_items", :force => true do |t|
+    t.text     "name"
+    t.text     "description"
+    t.decimal  "percentage"
+    t.boolean  "active"
+    t.boolean  "to_be_removed"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "to_do_lists", :force => true do |t|
     t.text     "description"
     t.string   "status"
@@ -1233,9 +1239,9 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.string   "entity_type"
     t.date     "todays_date"
     t.date     "transaction_date"
-    t.integer  "receipt_meta_type_id"
+    t.integer  "payment_method_meta_type_id"
     t.string   "receipt_meta_type_name"
-    t.integer  "receipt_type_id"
+    t.integer  "payment_method_type_id"
     t.string   "receipt_type_name"
     t.integer  "bank_account_id"
     t.string   "bank_account_name"
@@ -1244,7 +1250,7 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer  "letter_id"
     t.boolean  "letter_sent"
     t.date     "date_sent"
-    t.decimal  "total_amount",           :precision => 11, :scale => 3
+    t.decimal  "total_amount",                :precision => 11, :scale => 3
     t.text     "notes"
     t.integer  "received_via_id"
     t.string   "received_via_name"
@@ -1286,6 +1292,25 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer "list_header_id"
     t.integer "creator_id"
     t.integer "updater_id"
+  end
+
+  create_table "user_preferences", :force => true do |t|
+    t.integer  "login_account_id"
+    t.date     "default_start_date"
+    t.date     "default_end_date"
+    t.integer  "default_list_header_id"
+    t.integer  "default_address_type_id"
+    t.integer  "default_first_title_id"
+    t.integer  "default_nationality_id"
+    t.integer  "default_language_id"
+    t.integer  "default_phone_type_id"
+    t.integer  "default_email_type_id"
+    t.integer  "default_website_type_id"
+    t.integer  "default_note_type_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end
