@@ -61,7 +61,7 @@ class MembershipController < ApplicationController
           @membership_log.email_sent = true
           if params[:membership_log][:email_template_id]
              email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
-             send_membership_email(@email.value,email_body)
+             send_membership_email(@email.try(:value),email_body)
 
           end
           @membership_log.save
