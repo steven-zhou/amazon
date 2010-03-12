@@ -35,7 +35,7 @@ class Membership < ActiveRecord::Base
 #  belongs_to :terminator, :class_name => "Person", :foreign_key => 'terminated_by'
   belongs_to :transaction_header, :class_name => "TransactionHeader", :foreign_key => 'last_transaction_id'
 
-  validates_presence_of :person_id, :membership_status_id, :membership_type_id
+  validates_presence_of :person_id, :membership_sub_status_id, :membership_type_id
   validates_uniqueness_of :person_id
   
 #  validates_presence_of :initiated_by, :initiated_date, :initiated_comment, :if => :initiate_stage?

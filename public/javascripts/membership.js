@@ -66,27 +66,27 @@ $(function(){
 
 $(function(){
 
-  $(".enable_submit_checkbox").live('change', function(){
-
-        var link=$(this)
-        var current_form = $('#'+link.closest('form').attr('id'));
-        var compulsory_fields = current_form.find('.enable_submit_checkbox');
-        var length = compulsory_fields.length;
-        var disable = true;
-        for(i=0; i<length; i++){
-            if ($('#'+compulsory_fields[i].id).attr('checked')==true ){
-                disable = false;
-                break;
-            }
-        }
-
-
-        if (disable){
-            $('.submit_checkbox').attr('disabled', true);
-        }else{ 
-            $('.submit_checkbox').attr('disabled', false);
-        }
-
-
-  });
+//  $(".enable_submit_checkbox").live('change', function(){
+//
+//        var link=$(this)
+//        var current_form = $('#'+link.closest('form').attr('id'));
+//        var compulsory_fields = current_form.find('.enable_submit_checkbox');
+//        var length = compulsory_fields.length;
+//        var disable = true;
+//        for(i=0; i<length; i++){
+//            if ($('#'+compulsory_fields[i].id).attr('checked')==true ){
+//                disable = false;
+//                break;
+//            }
+//        }
+//
+//
+//        if (disable){
+//            $('.submit_checkbox').attr('disabled', true);
+//        }else{
+//            $('.submit_checkbox').attr('disabled', false);
+//        }
+//
+//
+//  });
 });

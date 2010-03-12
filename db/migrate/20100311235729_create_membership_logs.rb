@@ -15,6 +15,8 @@ class CreateMembershipLogs < ActiveRecord::Migration
       t.integer :email_template_id
       t.boolean :send_email
       t.boolean :email_sent
+      t.integer "creator_id"
+      t.integer "updater_id"
       t.timestamps
     end
   end
