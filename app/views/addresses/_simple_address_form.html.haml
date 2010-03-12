@@ -1,5 +1,5 @@
 -# The options to edit or add an address
--default_address_type = @current_user.default_value.default_address_type_id
+-default_address_type = @current_user.default_value.try(:default_address_type_id)
 .form_line
   .field_22
     = address.label :address_type_id, "Type"

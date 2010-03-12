@@ -1,4 +1,4 @@
--default_email = @current_user.default_value.default_email_type_id
+-default_email = @current_user.default_value.try(:default_email_type_id)
 %h2 Email
 .form_line
   .field_25
