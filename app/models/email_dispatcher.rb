@@ -34,13 +34,13 @@ class EmailDispatcher < ActionMailer::Base
     content_type        "text/html"
   end
 
-   def send_person_email_template(email)
+   def send_person_email_template(email,content)
     recipients       "#{email}"
     from              "noreply@memberzone.com.au"
     subject          "Thank you for joining the membership"
     headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
     sent_on           Time.now
-    body
+    body              :content => content
     content_type        "text/html"
 
   end

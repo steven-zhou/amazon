@@ -47,10 +47,10 @@ class MembershipController < ApplicationController
           @membership_log.mail_sent = true
           if params[:membership_log][:mail_template_id]
 
-            @body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
+            @mail_body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
             file_name="MembershipStartupMail"
             @entities = [@person]
-            send_membership_mail(@body,file_name,@entities)
+            send_membership_mail(@mail_body,file_name,@entities)
           
           end
           @membership_log.save
@@ -60,9 +60,9 @@ class MembershipController < ApplicationController
         if  params[:membership_log][:email_sent]
           @membership_log.email_sent = true
           if params[:membership_log][:email_template_id]
+             email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
+             send_membership_email(@email.value,email_body)
 
-            email = EmailDispatcher.create_send_person_email_template(@email.value)
-            EmailDispatcher.deliver(email)
           end
           @membership_log.save
         end
@@ -153,15 +153,15 @@ class MembershipController < ApplicationController
       if @membership_log.save
 
         if params[:membership_log][:mail_sent]
-          puts "xxxxxxxxxxxxxxxxx"
+
           @membership_log.mail_sent = true
           if params[:membership_log][:mail_template_id]
 
-            @body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
-            puts @body
+            mail_body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
+
             file_name="MembershipReviewMail"
             @entities = [@person]
-            send_membership_mail(@body,file_name,@entities)
+            send_membership_mail(mail_body,file_name,@entities)
 
           end
           @membership_log.save
@@ -170,9 +170,9 @@ class MembershipController < ApplicationController
         if  params[:membership_log][:email_sent]
           @membership_log.email_sent = true
           if params[:membership_log][:email_template_id]
+            email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
+           send_membership_email(@email.value,email_body)
 
-            email = EmailDispatcher.create_send_person_email_template(@email.value)
-            EmailDispatcher.deliver(email)
           end
           @membership_log.save
         end
@@ -325,5 +325,11 @@ class MembershipController < ApplicationController
     system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{file_name}.html #{file_prefix}/#{file_dir}/#{file_name}.pdf ; rm #{file_prefix}/#{file_dir}/#{file_name}.html"
     flash.now[:comfirmation] = "<p>#{file_name} <a href=\'/#{file_dir}/#{file_name}.pdf\' target='_blank'>#{file_name}.pdf</a></p>"
 
+  end
+
+
+  def send_membership_email(email_address,content)
+  email = EmailDispatcher.create_send_person_email_template(email_address,content)
+  EmailDispatcher.deliver(email)
   end
 end
