@@ -1,4 +1,4 @@
--default_phone = @current_user.default_value.default_phone_type_id
+-default_phone = @current_user.default_value.try(:default_phone_type_id)
 %h2 Phone
 .form_line
   .field_25

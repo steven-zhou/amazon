@@ -1,4 +1,4 @@
--first_title = @current_user.default_value.default_first_title_id
+-first_title = @current_user.default_value.try(:default_first_title_id)
 .form_line
   .field_20
     = p.label :title_id, '1st Title1'
