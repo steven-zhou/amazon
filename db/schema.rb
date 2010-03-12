@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100310231753) do
+ActiveRecord::Schema.define(:version => 20100311235729) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -430,7 +430,7 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.integer  "tag_type_id"
     t.string   "type"
     t.text     "name"
-    t.text     "destription"
+    t.text     "description"
     t.integer  "tax_items_id"
     t.string   "gl_code"
     t.decimal  "amount",               :precision => 11, :scale => 3
@@ -669,6 +669,25 @@ ActiveRecord::Schema.define(:version => 20100310231753) do
     t.boolean  "active"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "membership_logs", :force => true do |t|
+    t.integer  "person_id"
+    t.integer  "membership_id"
+    t.string   "action"
+    t.integer  "performer_id"
+    t.string   "pre_status"
+    t.string   "post_status"
+    t.text     "comment"
+    t.date     "performed_at"
+    t.integer  "mail_template_id"
+    t.boolean  "send_mail"
+    t.boolean  "mail_sent"
+    t.integer  "email_template_id"
+    t.boolean  "send_email"
+    t.boolean  "email_sent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
