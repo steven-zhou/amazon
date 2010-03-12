@@ -6,6 +6,9 @@
       %input{:id => "reviewer_id", :name => "membership_log[performer_id]", :value => "#{@current_user.try(:person).try(:id)}",:class=>"compulsory_field membership_intiator_lookup",:update_field=>"reviewer_name"}
       %input{:name=>"field",:value=>"review_page",:class=>"hidden"}
       %input{:name=>"render_page",:value=>"review_page",:class=>"hidden"}
+      %input{:name=>"membership_log[action]",:value=>"Reviews",:class=>"hidden"}
+      %input{:name=>"membership[membership_status_id]",:value=>"#{MembershipStatus.find_by_name('Application').id}",:class=>"hidden"}
+ 
     .field_5
       %label &nbsp;
       = link_to_function image_tag("Icons/System/search.png"), :class => "person_lookup", :update_field => "reviewer_id", :title=>"Search"
@@ -36,5 +39,16 @@
     .field_10
       %label Send Email After Submit
       %input{:type => "checkbox", :id => "review_email_sent", :name => "membership_log[email_sent]",:class=>"submit_checkbox",:disabled=>true, :field => "email"}
+  .form_line
+    .field_30
+      = label_tag :name, '<span class="asterisk">*</span>Membership Type'
+      = collection_select :membership, :membership_type_id, MembershipType.active, :id, :name
+    .field_30
+      = label_tag :type, '<span class="asterisk">*</span>Membership Status'
+      = collection_select :membership,:membership_sub_status_id, MembershipSubStatus.review_option, :id, :name
+      %input{:name=>"membership_log[pre_status]",:value=>"#{@membership.membership_sub_status.name}",:class=>"hidden"}
+    .field_30{:style => "float:right;"}
+      %label &nbsp;
+      = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
     %br.clear
 

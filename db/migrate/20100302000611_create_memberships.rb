@@ -10,7 +10,6 @@ class CreateMemberships < ActiveRecord::Migration
       t.integer "campaign_id"
       t.integer "source_id"
       t.integer "last_transaction_id"
-      t.integer "letter_id"
       t.date "starting_date"
       t.text "starting_comment"
       t.date "ending_date"

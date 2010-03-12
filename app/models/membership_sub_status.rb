@@ -1,8 +1,8 @@
 class MembershipSubStatus < AmazonSetting
 
-    acts_as_list
-    has_one :membership
-   validates_presence_of :name
+  acts_as_list
+  has_one :membership
+  validates_presence_of :name
   validates_uniqueness_of :name
 
   after_create :assign_priority
@@ -15,13 +15,13 @@ class MembershipSubStatus < AmazonSetting
 
   end
 
-    def self.reviewed
-
-#    MembershipSubStatus.find_all_by_name(:all,:conditions=>["name = ? or name = ?","Reviewed","2nd Reviewed"])
-   reviewed = ["In-review","Prospective"]
+  def self.review_option
+    [MembershipSubStatus.find_by_name("Prospective"), MembershipSubStatus.find_by_name("In-review")]
   end
 
-
+  def self.finalize_option
+    [MembershipSubStatus.find_by_name("Pre-active"), MembershipSubStatus.find_by_name("Rejected")]
+  end
   private
 
   def assign_priority

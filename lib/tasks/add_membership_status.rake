@@ -21,7 +21,7 @@ namespace :db do
     end
     MembershipSubStatus.create(:name => "Prospective", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "In-review", :status => true,:to_be_removed =>false)
-    MembershipSubStatus.create(:name => "Approved", :status => true,:to_be_removed =>false)
+    MembershipSubStatus.create(:name => "Pre-active", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Rejected", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Incompleted", :status => true,:to_be_removed =>false)
     MembershipSubStatus.create(:name => "Actived", :status => true,:to_be_removed =>false)

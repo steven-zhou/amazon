@@ -20,3 +20,13 @@ PersonEmailTemplate.create :name=>"Membership Initiate Email Template", :body=>"
 <p>Your application has been&nbsp; initiated.</p>
 <p>&nbsp;</p>
 <p>Amazon</p>" , :status => true,:to_be_removed =>false ,:template_category_id=> TemplateCategory.find_by_name('Membership').id
+
+PersonEmailTemplate.create :name=>"Membership Review Email Template", :body=>"<p>hi,</p>
+<p>Your application has been&nbsp; reviewed.</p>
+<p>&nbsp;</p>
+<p>Amazon</p>" , :status => true,:to_be_removed =>false ,:template_category_id=> TemplateCategory.find_by_name('Membership').id
+
+PersonEmailTemplate.create :name=>"Membership Finalize Email Template", :body=>"<p>hi,</p>
+<p>Your application has been&nbsp; finalized.</p>
+<p>&nbsp;</p>
+<p>Amazon</p>" , :status => true,:to_be_removed =>false ,:template_category_id=> TemplateCategory.find_by_name('Membership').id
