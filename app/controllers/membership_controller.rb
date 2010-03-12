@@ -288,8 +288,9 @@ class MembershipController < ApplicationController
 
   def step_2
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
+    @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_status.try(:name)
+    @status = @membership.membership_sub_status.try(:name)
     respond_to do |format|
       format.html
     end
@@ -297,8 +298,9 @@ class MembershipController < ApplicationController
 
   def step_3
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
+    @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_status.try(:name)
+    @status = @membership.membership_sub_status.try(:name)
     respond_to do |format|
       format.html
     end

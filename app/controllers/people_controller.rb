@@ -63,7 +63,7 @@ class PeopleController < ApplicationController
           @p = Array.new
         else
           if params[:id].nil? || params[:id] == "show" #when just jumping or change list
-            @list_header = @current_user.default_value.default_list_header.blank? ? @list_headers.first : @current_user.default_value.default_list_header
+            @list_header = @current_user.default_value.try(:default_list_header).nil? ? @list_headers.first : @current_user.default_value.try(:default_list_header)
 
             session[:current_list_id] = @list_header.id
             @person = @list_header.entity_on_list.first unless @list_headers.blank?
@@ -170,7 +170,7 @@ class PeopleController < ApplicationController
               session[:current_person_id] = @person.id
             end
           else
-            @list_header = @current_user.default_value.default_list_header.blank? ? @list_headers.first : @current_user.default_value.default_list_header
+            @list_header = @current_user.default_value.try(:default_list_header).blank? ? @list_headers.first : @current_user.default_value.try(:default_list_header)
             session[:current_list_id] = @list_header.id
             @person = @list_headers.first.entity_on_list.first unless @list_headers.blank?
             session[:current_person_id] = @person.id

@@ -1,5 +1,5 @@
--default_nationality = @current_user.default_value.default_nationality_id
--default_language = @current_user.default_value.default_language_id
+-default_nationality = @current_user.default_value.try(:default_nationality_id)
+-default_language = @current_user.default_value.try(:default_language_id)
 
 .form_line
   .field_31

@@ -4,17 +4,14 @@
   .ex_container
     #edit_membership_form
       = render :partial => "/membership/membership_person_detail"
-      = render :partial => "/membership/display_initiator_form"
+      = render :partial => "/membership/display_membership_histroy"
 
       - if @status == "Prospective"
         = render :partial => "/membership/reviewer_form"
-      - else
-        = render :partial => "/membership/display_reviewer_form"
-
-        - if @status == "In-review"
-          = render :partial => "/membership/finalizer_form"
-        - else
-          = render :partial => "/membership/display_finalizer_form"
+     
+      - if @status == "In-review"
+        = render :partial => "/membership/finalizer_form"
+        
 
 
-    = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
+   
