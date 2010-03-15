@@ -290,7 +290,7 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_sub_status.try(:name)
+    @status = @membership.membership_status.try(:name)
     @type = []
     @type <<  MembershipStatus.find_by_name("Prospective").id
     @type <<  MembershipStatus.find_by_name("In-review").id

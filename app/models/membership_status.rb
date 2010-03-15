@@ -10,6 +10,10 @@ class MembershipStatus < AmazonSetting
   after_create :assign_priority
   before_destroy :reorder_priority
 
+  def self.initiated
+    MembershipStatus.find_all_by_name("Prospective")
+  end
+
   private
   
   def assign_priority
@@ -19,5 +23,7 @@ class MembershipStatus < AmazonSetting
   def reorder_priority
     self.remove_from_list
   end
+
+
   
 end

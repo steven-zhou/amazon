@@ -58,7 +58,7 @@
     = collection_select :membership, :membership_type_id, MembershipType.active, :id, :name
   .field_30
     = label_tag :type, '<span class="asterisk">*</span>Membership Status'
-    = collection_select :membership,:membership_sub_status_id, MembershipSubStatus.initiated, :id, :name, {:disabled=>true}
-    %input{:name=>"membership_log[post_status]",:value=>"#{MembershipSubStatus.initiated.first.name}",:class=>"hidden"}
+    = collection_select :membership,:membership_status_id, MembershipStatus.initiated, :id, :name, {:disabled=>true}
+    %input{:name=>"membership_log[post_status]",:value=>"#{MembershipStatus.initiated.first.name}",:class=>"hidden"}
 
   %br.clear
