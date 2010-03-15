@@ -4029,7 +4029,7 @@ class GridsController < ApplicationController
           u.person_id,
           u.employer_id,
           u.workplace_id,
-          u.membership_sub_status_id,
+          u.membership_status_id,
           u.membership_type_id,
 
         ]}}

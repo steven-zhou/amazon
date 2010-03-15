@@ -1,7 +1,7 @@
 -first_title = @current_user.default_value.try(:default_first_title_id)
 .form_line
   .field_20
-    = p.label :title_id, '1st Title1'
+    = p.label :title_id, '1st Title'
     = p.collection_select :primary_title_id, @active_title, :id, :name, {:include_blank => true,:selected => @person.new_record? ? first_title : @person.primary_title_id }, {:class => @personal_check_field.include?("primary_title") ? "personal_check_field":""}
   .field_40
     = p.label :first_name, "First Names"
