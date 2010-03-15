@@ -8,6 +8,7 @@
       - else
         .display_field_bg
           = @person.id unless @person.nil?
+          %input{:id=>"membership_person_id",:class=>"membership_person_lookup hidden",:value=>@person.nil? ? "" : @person.id}
     .field_5
       %label &nbsp;
       - if @membership.new_record?
