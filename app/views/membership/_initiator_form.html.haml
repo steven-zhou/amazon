@@ -32,8 +32,8 @@
     = label_tag :name, 'Active'
     %input{:type => "checkbox", :checked => @membership.new_record? ? true : @membership.active, :name => "membership[active]"}
   .field_15
-    %label Auto_approve
-    %input{:type => "checkbox", :id => "auto_approve_checkbox", :class => "ajax_call", :method => "GET", :url => "auto_approve"}
+    %label Auto Approve
+    %input{:type => "checkbox", :id => "auto_approve_checkbox", :class => "ajax_call", :method => "GET", :url => "auto_approve", :param1 => ""}
 
 
 .form_line{:style => "height:auto;"}
