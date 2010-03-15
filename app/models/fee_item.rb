@@ -8,8 +8,8 @@ class FeeItem < ActiveRecord::Base
   validates_presence_of :name, :tag_type_id, :amount
   validates_uniqueness_of :name
 
-  named_scope :active, :conditions => {:status => true, :to_be_removed => false}, :order => "name"
-  named_scope :inactive, :conditions => {:status => false}, :order => "name"
+  named_scope :active, :conditions => {:active => true, :to_be_removed => false}, :order => "name"
+  named_scope :inactive, :conditions => {:active => false}, :order => "name"
   named_scope :removed, :conditions => {:to_be_removed => true}, :order => "name"
   default_scope :order => "name ASC"
 

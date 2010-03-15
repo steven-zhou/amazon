@@ -1,25 +1,25 @@
-- fee_items = MembershipFeeItem.active + SubscriptionFeeItem.active
+- fee_items = (MembershipFeeItem.active + SubscriptionFeeItem.active)
 - form_for @membership_fee, :html => {:class => "ajax_form", :submit_button_id => "new_membership_fee"} do |f|
   .form_line
     .field_20
-      = f.label "<span class="asterisk">*</span>Fee"
+      = f.label :id, "<span class='asterisk'>*</span>Fee"
       = f.collection_select :fee_item_id, fee_items, :id, :name, {}, {:class => "compulsory_field"}
       %input{:name=>"membership_fee[membership_id]", :value=>@membership.id, :class=>"hidden"}
     .field_20
-      = f.label "Amount"
+      = f.label :id,  "Amount"
       .display_field_bg
         - if @membership_fee.new_record?
           = number_to_currency(fee_items.first.amount)
     .field_20
-      = f.label "<span class="asterisk">*</span>Receipt Account"
-      = f.collection_select :receipt_account_id, ReceiptAccount.active :id, :name, {}, {:class => "compulsory_field"}
+      = f.label :id, "<span class='asterisk'>*</span>Receipt Account"
+      = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {}, {:class => "compulsory_field"}
 
   .form_line
     .field_20
-      = f.label "Payment Method Type"
-      = f.collection_select :id, PaymentMethodMetaType.direct_debit, :id, :name, {}, {:class => "select_ajax_call", :update_field => payment_method_type_id, :url => "/tag_types/show_payment_method"}
+      = f.label :id,  "Payment Method Type"
+      = f.collection_select :id, PaymentMethodMetaType.direct_debit, :id, :name, {}, {:class => "select_ajax_call", :update_field => "payment_method_type_id", :url => "/tag_types/show_dd_payment_method"}
     .field_20
-      = f.label <span class="asterisk">*</span>Payment Method
+      = f.label :id, "<span class='asterisk'>*</span>Payment Method"
       - if @membership_fee.new_record?
         = f.collection_select :payment_method_type_id, PaymentMethodType.find(:all, :conditions => ["tag_type_id = ?", PaymentMethodMetaType.direct_debit.first.id]), :id, :name, {}, {:id => "payment_method_type_id", :class => "compulsory_field"}
       - else
@@ -27,9 +27,9 @@
 
   .form_line
     .field_30
-      = f.label 'Active'
-      = f.checkbox :active
+      = f.label :id, 'Active'
+      = f.check_box :active, {:checked => @membership_fee.new_record? ? true : @membership_fee.active}
     .field_30{:style => "float:right;"}
       %label &nbsp;
-      = submit_tag "Submit",:id => "new_membership_fee",:disabled=>true, :style => "float:right;"
+      = submit_tag "Submit",:id => "new_membership_fee", :style => "float:right;"
     %br.clear
