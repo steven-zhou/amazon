@@ -34,8 +34,8 @@
       = f.label :amount, "<span class='asterisk'>*</span>Amount ($)"
       = f.text_field :amount, :class => "number_field compulsory_field"
     .field_20
-      = f.label :GL_Code, "GL_Code"
-      = f.text_field :GL_Code, :class => "number_field"
+      = f.label :gl_code, "GL_Code"
+      = f.text_field :gl_code, :class => "number_field"
     .field_20
       = f.label :tax_item, "Tax Item"
       = f.collection_select :tax_items_id, TaxItem.active_record, :id, :name
