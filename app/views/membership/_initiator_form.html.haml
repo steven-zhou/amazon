@@ -60,5 +60,7 @@
     = label_tag :type, '<span class="asterisk">*</span>Membership Status'
     = collection_select :membership,:membership_status_id, MembershipStatus.initiated, :id, :name, {:disabled=>true}
     %input{:name=>"membership_log[post_status]",:value=>"#{MembershipStatus.initiated.first.name}",:class=>"hidden"}
+  .field_15
+    %input{:type => "check_box"}
 
   %br.clear
