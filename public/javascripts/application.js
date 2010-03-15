@@ -1816,7 +1816,7 @@ $(function(){
     }else{
       $.ajax({
         type: $(this).attr("method"),
-        url: $(this).attr("url")+".js",
+        url: $(this).attr("url"),
         data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
         dataType: "script"
       });
