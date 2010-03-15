@@ -65,6 +65,6 @@
     .form_line
       .field_15
         = label_tag :name, 'Active'
-        %input{:type => "checkbox", :checked => @membership.new_record? ? true : @membership.active.to_i, :name => "membership[active]"}
+        %input{:type => "checkbox", :checked => @membership.new_record? ? true : @membership.active, :name => "membership[active]"}
         
       %br.clear

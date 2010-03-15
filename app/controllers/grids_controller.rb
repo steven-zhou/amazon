@@ -4029,7 +4029,7 @@ class GridsController < ApplicationController
           u.person_id,
           u.employer_id,
           u.workplace_id,
-          u.membership_sub_status_id,
+          u.membership_status_id,
           u.membership_type_id,
 
         ]}}
@@ -4311,7 +4311,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @membership_fee.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.fee_item,
+          u.fee_item.name,
           u.membership.person.name,
           u.payment_method_type,
           u.receipt_account.name
