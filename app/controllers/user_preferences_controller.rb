@@ -81,7 +81,7 @@ class UserPreferencesController < ApplicationController
 
   def default_value
     @default_value = @current_user.default_value.nil? ? UserPreference.new : @current_user.default_value
-    @end_date = @default_value.new_record? ? "01-01-3000" : @default_value.default_end_date.to_s
+    @end_date = @default_value.new_record? ? "01-01-1900" : @default_value.default_end_date.to_s
     @start_date = @default_value.new_record? ? "01-01-3000" : @default_value.default_end_date.to_s
     respond_to do |format|
       format.js

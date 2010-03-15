@@ -21,6 +21,10 @@
         %input{:name=>"id",:value=>"#{@membership.id}",:class=>"hidden"}
       .display_field_bg
         =@person.nil? ? "" :@person.name.to_s
+    .field_30
+      %label Application Date
+      .display_field_bg
+        = @membership.new_record? ? Time.now.strftime("%d-%m-%Y") : @membership.created_at.getlocal.to_date.to_s
 
     %br.clear
   #membership_employer_info
@@ -57,4 +61,9 @@
         = label_tag :pay_roll_center, "PayRoll Center"
         %div.display_field_bg
           = @person.try(:primary_employment).try(:payroll_center)
+    .form_line
+      .field_15
+        = label_tag :name, 'Active'
+        %input{:type => "checkbox", :checked => @membership.new_record? ? true : @membership.active.to_i, :name => "membership[active]"}
+        
       %br.clear
