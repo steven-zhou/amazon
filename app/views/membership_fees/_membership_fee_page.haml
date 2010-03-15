@@ -1,0 +1,15 @@
+#header
+  #page_title
+    %h1 Membership Fee
+  #lol
+    %br.clear
+
+
+
+%input.hidden{:id => "membership_fee_mode", :mode => "show"}
+
+#add_new_tax_item
+  = render :partial => "membership_fees/new_membership_fee"
+
+#existing_tax_items
+  = render :partial => "membership_fees/existing_membership_fee"
