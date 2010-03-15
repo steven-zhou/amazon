@@ -4164,8 +4164,8 @@ class GridsController < ApplicationController
           u.name,
           u.description,          
           u.gl_code,
-          u.starting_date,
-          u.ending_date,
+          u.starting_date.getlocal.to_date.to_s,
+          u.ending_date.getlocal.to_date.to_s,
           u.type,
           u.active
         ]}}

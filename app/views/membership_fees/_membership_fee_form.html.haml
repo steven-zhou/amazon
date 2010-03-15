@@ -1,10 +1,23 @@
+- fee_items = MembershipFeeItem.active + SubscriptionFeeItem.active
 - form_for @membership_fee, :html => {:class => "ajax_form", :submit_button_id => "new_membership_fee"} do |f|
+  .form_line
+    .field_20
+      = f.label "<span class="asterisk">*</span>Fee"
+      = f.collection_select :fee_item_id, fee_items, :id, :name, {}, {:class => "compulsory_field"}
+      %input{:name=>"membership_fee[membership_id]", :value=>@membership.id, :class=>"hidden"}
+    .field_20
+      = f.label "Amount"
+      .display_field_bg
+        - if @membership_fee.new_record?
+          = number_to_currency(fee_items.first.amount)
+    .field_20
+      = f.label "<span class="asterisk">*</span>Receipt Account"
+      = f.collection_select :receipt_account_id, ReceiptAccount.active :id, :name, {}, {:class => "compulsory_field"}
+
   .form_line
     .field_20
       = f.label "Payment Method Type"
       = f.collection_select :id, PaymentMethodMetaType.direct_debit, :id, :name, {}, {:class => "select_ajax_call", :update_field => payment_method_type_id, :url => "/tag_types/show_payment_method"}
-      %input{:name=>"membership_fee[membership_id]", :value=>@membership.id, :class=>"hidden"}
-
     .field_20
       = f.label <span class="asterisk">*</span>Payment Method
       - if @membership_fee.new_record?
@@ -12,35 +25,6 @@
       - else
         = f.collection_select :payment_method_type_id, PaymentMethodType.find(:all, :conditions => ["tag_type_id = ?", @membership_fee.payment_method_type.payment_method_meta_type.id]), :id, :name, {}, {:id => "payment_method_type_id", :class => "compulsory_field"}
 
-    .field_40
-      %label Finalizer
-      .display_field_bg#finalized_name
-        = "#{@current_user.try(:person).try(:name)}"
-
-    .field_30
-      %label <span class="asterisk">*</span>Finalizer Date
-      %input{:id => "finalized_date", :name => "membership_log[performed_at]", :class => "datepick compulsory_field", :value => Time.now.strftime("%d-%m-%Y")}
-
-  .form_line{:style => "height:auto;"}
-    .field_100{:style => "height:auto;"}
-      %label <span class="asterisk">*</span>Outcomes
-      %textarea{:id=>"finalizer_comment",:name=>"membership_log[comment]",:style=>"width:100%;height:150px;",:class=>"compulsory_field"}
-    %br.clear
-
-
-  .form_line
-    .field_10
-      %label Send Mail
-      %input{:type => "checkbox", :id => "review_send_mail", :name => "membership_log[send_mail]",:class=>"enable_submit_checkbox", :field => "mail"}
-    .field_10
-      %label Send Mail After Submit
-      %input{:type => "checkbox", :id => "review_mail_sent", :name => "membership_log[mail_sent]", :class => "submit_checkbox", :disabled => true, :field => "mail"}
-    .field_10
-      %label Send Email
-      %input{:type => "checkbox", :id => "review_send_email", :name => "membership_log[send_email]",:class=>"enable_submit_checkbox", :field => "email"}
-    .field_10
-      %label Send Email After Submit
-      %input{:type => "checkbox", :id => "review_email_sent", :name => "membership_log[email_sent]",:class=>"submit_checkbox",:disabled=>true, :field => "email"}
   .form_line
     .field_30
       = f.label 'Active'
