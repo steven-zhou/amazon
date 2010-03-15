@@ -1518,6 +1518,18 @@ form#organisation_names_form input#image_image_file{
     width: 100%;
 }
 
+.ui-dialog .container .title {
+    float: left;
+    display:inline;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.ui-dialog .container .options {
+    float: right;
+    display:inline;
+}
+
 .ui-dialog .container .form_line label {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 11px;
@@ -2696,7 +2708,6 @@ div#permission_form .options{
     border-radius-topleft: 10px;
     border-radius-topright: 10px;
     font-size:20px;
-}  font-size:20px;
 }
 
 #app #main #content .tab_menu_switch_container {
