@@ -1793,7 +1793,7 @@ $(function(){
                     
             $.ajax({
               type: link.attr("method"),
-              url: link.attr("url")+".js",
+              url: link.attr("url"),
               data: 'param1='+link.attr("param1")+'&param2='+link.attr("param2")+'&param3='+link.attr("param3"),
               dataType: "script"
 
