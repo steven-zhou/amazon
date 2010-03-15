@@ -2627,7 +2627,7 @@ $(function(){
       }
       $.ajax({
         type: $(this).attr("method"),
-        url: $(this).attr("url")+".js",
+        url: $(this).attr("url"),
         data: 'param1='+$(this).val()+'&type='+$(this).attr('type_class')+'&update_field='+$(this).attr('update_field'),
         dataType: "script"
       });
