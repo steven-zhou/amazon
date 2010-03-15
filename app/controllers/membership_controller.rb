@@ -317,6 +317,7 @@ class MembershipController < ApplicationController
   end
 
 
+
   def show_membership_fee
     @membership_id = Membership.find(params[:id]).id
 
@@ -350,5 +351,27 @@ class MembershipController < ApplicationController
   def send_membership_email(email_address,content)
     email = EmailDispatcher.create_send_person_email_template(email_address,content)
     EmailDispatcher.deliver(email)
+  end
+
+  def auto_approve
+    @membership_id = Membership.find(params[:id]).id
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def end_cycle
+   
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def membership_filter
+    
+    respond_to do |format|
+      format.js
+    end
   end
 end
