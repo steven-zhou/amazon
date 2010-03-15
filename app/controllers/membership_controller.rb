@@ -24,6 +24,11 @@ class MembershipController < ApplicationController
 #    @email = @membership.person.primary_email rescue @person.primary_email  get the person email to send email
      @email =  @person.primary_email  #get the person email to send email
      @membership.stage = "InitiateStage"
+     if params[:membership][:active]
+       @membership.active = true
+     else
+       @membership.active = false
+     end
     
     if @membership.save && @membership.person.save && @person.save
 
