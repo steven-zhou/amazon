@@ -24,6 +24,11 @@ class MembershipController < ApplicationController
 #    @email = @membership.person.primary_email rescue @person.primary_email  get the person email to send email
      @email =  @person.primary_email  #get the person email to send email
      @membership.stage = "InitiateStage"
+     if params[:membership][:active]
+       @membership.active = true
+     else
+       @membership.active = false
+     end
     
     if @membership.save && @membership.person.save && @person.save
 
@@ -112,10 +117,10 @@ class MembershipController < ApplicationController
     @render_page = params[:render_page]
 
 
-    
-
-
-
+     type = []
+    type <<  MembershipStatus.find_by_name("Prospective").id
+    type << MembershipStatus.find_by_name("In-review").id
+    @type = type.join(',')
 
 
     if @membership.update_attributes(params[:membership])
@@ -123,25 +128,25 @@ class MembershipController < ApplicationController
 
       #save to membership log
 
-      if params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("Prospective").id
+      if params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Prospective").id
 
         params[:membership_log][:mail_template_id]=PersonMailTemplate.initiate_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.initiate_template_id
         params[:membership_log][:post_status] = "Prospective"
 
-      elsif params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("In-review").id
+      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("In-review").id
 
         params[:membership_log][:mail_template_id]=PersonMailTemplate.inreview_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
         params[:membership_log][:post_status] = "In-review"
 
-      elsif params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("Pre-active").id
+      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Pre-active").id
         params[:membership_log][:mail_template_id]=PersonMailTemplate.approve_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.approve_template_id
         params[:membership_log][:post_status] = "Pre-active"
 
 
-      elsif params[:membership][:membership_sub_status_id].to_i== MembershipSubStatus.find_by_name("Rejected").id
+      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Rejected").id
 
         params[:membership_log][:mail_template_id]=PersonMailTemplate.reject_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.reject_template_id
