@@ -1,16 +1,16 @@
 /* Membership Menu Module*/
 $(function(){
   $(".membership_person_lookup").live('change', function(){
-        var link=$(this);
+    var link=$(this);
     if($(this).val()!=$(".membership_intiator_lookup").val()){
-    $.ajax({
-      type: "GET",
-      url: "/membership/membership_person_lookup/",
-      data: 'id=' + $(this).val(),
-      dataType: "script"
-    });
+      $.ajax({
+        type: "GET",
+        url: "/membership/membership_person_lookup/",
+        data: 'id=' + $(this).val(),
+        dataType: "script"
+      });
     }
-   else
+    else
     {
       $('#error_message_text').html("Can Not Be Same As The Applicant ID");
       $('#error_message_image').css("display","");
@@ -105,33 +105,17 @@ $(function(){
   });
 });
 
-////  $(".enable_submit_checkbox").live('change', function(){
-//
+$(function(){
+  $(".membership_fee").live("change",function(){
+    if($(".membership_fee option:selected").html()=="Actived")
+    {
+      $.ajax({
+        type: "GET",
+        url: "/membership/show_membership_fee/"+$(this).attr("membership_id"),
+        dataType: "script"
+      });
+    }
 
+  });
 
-
-
-//        var link=$(this)
-//        var current_form = $('#'+link.closest('form').attr('id'));
-//        var compulsory_fields = current_form.find('.enable_submit_checkbox');
-//        var length = compulsory_fields.length;
-//        var disable = true;
-//        for(i=0; i<length; i++){
-//            if ($('#'+compulsory_fields[i].id).attr('checked')==true ){
-//                disable = false;
-//                break;
-//            }
-//        }
-//
-//
-//        if (disable){
-//            $('.submit_checkbox').attr('disabled', true);
-//        }else{
-//            $('.submit_checkbox').attr('disabled', false);
-//        }
-
-//
-//
-//  });
-
-//});
+});
