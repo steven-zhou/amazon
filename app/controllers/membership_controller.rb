@@ -13,16 +13,17 @@ class MembershipController < ApplicationController
   def create
     @membership = Membership.new(params[:membership])
 
-    unless @membership.person.nil?
+    unless @membership.person.nil?  #from Membership Applcation page
       @membership.person.is_member = true
       @person= @membership.person
-    else
+    else                            #from person profile
       @person = Person.find(params[:id])
       @person.is_member = true
 #      @person.save
     end
-    @email = @membership.person.primary_email rescue @person.primary_email
-    @membership.stage = "InitiateStage"
+#    @email = @membership.person.primary_email rescue @person.primary_email  get the person email to send email
+     @email =  @person.primary_email  #get the person email to send email
+     @membership.stage = "InitiateStage"
     
     if @membership.save && @membership.person.save && @person.save
 
@@ -70,7 +71,8 @@ class MembershipController < ApplicationController
 
       end
 
-      @person = nil
+      @person = nil #set the person to be nil to clear the from after create
+
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
     else
@@ -78,9 +80,6 @@ class MembershipController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_sub_status_id") if (!@membership.errors.on(:membership_sub_status_id).nil? &&  @membership.errors.on(:membership_sub_status_id).include?("can't be blank"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
-      #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_by") if (!@membership.errors.on(:initiated_by).nil? &&  @membership.errors.on(:initiated_by).include?("can't be blank"))
-      #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_date") if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("can't be blank"))
-      #      flash.now[:error] = flash_message(:type => "field_missing", :field => "initiated_comment") if (!@membership.errors.on(:initiated_comment).nil? &&  @membership.errors.on(:initiated_comment).include?("can't be blank"))
       flash.now[:error] = "Please make sure the initiated date is entered in valid format (dd-mm-yyyy)" if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("is_invalid"))
     end
     @membership = Membership.new
@@ -290,10 +289,11 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_sub_status.try(:name)
-    @type = []
-    @type <<  MembershipStatus.find_by_name("Prospective").id
-    @type <<  MembershipStatus.find_by_name("In-review").id
+    @status = @membership.membership_status.try(:name)
+    type = []
+    type <<  MembershipStatus.find_by_name("Prospective").id
+    type << MembershipStatus.find_by_name("In-review").id
+    @type = type.join(',')
     respond_to do |format|
       format.html
     end
