@@ -1,7 +1,7 @@
 -n = 1
 - @membership_logs.each do |i|
   .container
-    - if {i.action == "Reviews"}
+    - if (i.action == "Reviews")
       %h1 Review_#{n}
       - n = n+1
     -else
