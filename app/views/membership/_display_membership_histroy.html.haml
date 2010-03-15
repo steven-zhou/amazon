@@ -1,6 +1,11 @@
+-n = 1
 - @membership_logs.each do |i|
   .container
-    %h1 #{i.action}
+    - if i.action = "Reviews"    
+      %h1 Review_#{n}
+      - n = n+1
+    -else
+      %h1 #{i.action}
     .form_line
       .field_20
         %label Performer ID
