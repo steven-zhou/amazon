@@ -4299,9 +4299,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?  AND membership_id=?", query, params[:membership_id]]
+        :conditions=>[qtype +" ilike ?  AND membership_id=?", query, params[:membership_id]],
+        :include => ["fee_item","payment_method_type","person","receipt_account"]
       )
-      count = MembershipFee.count(:all, :conditions=>[qtype +" ilike ? AND membership_id=?", query, params[:membership_id]])
+      count = MembershipFee.count(:all, :conditions=>[qtype +" ilike ? AND membership_id=?", query, params[:membership_id]],:include => ["fee_item","payment_method_type","person","receipt_account"] )
     end
 
     # Construct a hash from the ActiveRecord result
@@ -4313,7 +4314,7 @@ class GridsController < ApplicationController
         :cell=>[u.id,
           u.fee_item.name,
           u.membership.person.name,
-          u.payment_method_type,
+          u.payment_method_type.name,
           u.receipt_account.name
 
         ]}}
