@@ -328,6 +328,8 @@ class MembershipController < ApplicationController
   end
 
 
+
+
   def send_membership_mail(body,file_name,entities)
     #config temp folder
     @body = body
