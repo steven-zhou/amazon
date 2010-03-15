@@ -171,7 +171,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get, :person_mail_document_filter => :get, :organisation_mail_document_filter => :get,  :find_templates => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :step_4 => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get}
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :life => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get}
 
   map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}
   map.resources :membership_administrations, :collection => {:fee_items => :get}

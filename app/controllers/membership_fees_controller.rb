@@ -10,7 +10,7 @@ class MembershipFeesController < ApplicationController
 
     def destroy
     membership_fee = MembershipFee.find(params[:id])
-    @membership_id = membership_fee.membership_id
+    @membership_id = membership_fee.try(:membership_id)
     membership_fee.destroy
      respond_to do |format|
       format.js

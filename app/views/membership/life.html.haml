@@ -1,0 +1,11 @@
+#header
+  #page_title
+    %h1 Membership Management
+  #lol
+    %br.clear
+.full_container
+  -form_for "life_page_filter_form" , :url =>{:controller => "membership" ,:action =>""},:html => {:class =>'ajax_form'} do |f|
+    #life_page_filter
+      = render :partial => "membership/suspend_page" 
+  #life_grid
+    =render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Actived"}

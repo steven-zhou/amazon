@@ -3925,6 +3925,9 @@ class GridsController < ApplicationController
     start = ((page -1) * rp).to_i
     query = "%"+query+"%"
 
+
+
+
     # No search terms provided
     if(query == "%%")
       @tax_items = TaxItem.find(:all,
@@ -3991,21 +3994,44 @@ class GridsController < ApplicationController
       rp = 20
     end
 
-   params[:type]=params[:type].split(",")
+   params[:type]=params[:type].split(",") rescue params[:type] = params[:type]
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
+
+     conditions = Array.new
+    values = Array.new
+
+    conditions << "membership_status_id IN (?)"
+    values << params[:type]
+
+    if params[:start_date]
+      conditions << "created_at >= ? "
+      values << params[:start_date]
+    end
+
+    if params[:end_date]
+      conditions << "created_at >= ? "
+      values << params[:end_date]
+    end
+
+    if params[:creator_id]
+      conditions << "creator_id = ? "
+      values << params[:creator_id]
+    end
+
+
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id IN (?)", params[:type]],
+        :conditions=>[ conditions.join(' AND '), *values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
 
       )
-      count = Membership.count(:all, :conditions=>["membership_status_id IN (?)",params[:type]])
+      count = Membership.count(:all, :conditions=>[ conditions.join(' AND '), *values])
     end
 
     # User provided search terms
@@ -4014,9 +4040,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and membership_status_id IN (?)", query,params[:type]]
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values]
       )
-      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id IN (?)", query, params[:type]])
+      count = Membership.count(:all,:conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
     end
 
     # Construct a hash from the ActiveRecord result

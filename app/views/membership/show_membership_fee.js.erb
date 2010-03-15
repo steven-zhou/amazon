@@ -4,11 +4,13 @@ $('#membership_fee_container').dialog({
   modal: true,
   resizable: true,
   draggable: true,
-  position: "center",
-  width: 680,
-  height: 600,
+  position: "top",
+  width: 800,
+  height: 800,
   buttons: {
   }
 });
 $('#membership_fee_container').dialog("option","title","Membership Fee");
+$("#membership_fee_container").parent().css('background-color','#D1DDE6');
+$("#membership_fee_container").css('background-color','#D1DDE6');
 $('#membership_fee_container').dialog('open');
