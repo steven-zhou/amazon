@@ -18,14 +18,6 @@
     = link_to "In-Review", step_2_membership_path()
   .tab_switch_right.left{:field =>"review_page"}
 
-
-  .container_icon.left{:align => 'center'}
-    = "--->"
-
-  .tab_switch_left.left{:field =>"finalize_page"}
-  .container_icon.left{:align => 'center'}
-    = link_to "Finalization", step_3_membership_path()
-  .tab_switch_right.left{:field =>"finalize_page"}
 - form_for @membership,:url => {:controller =>"membership",:action=>"create"}, :html => {:class => "ajax_form",:submit_button_id=>"new_membership_submit"} do |p|
   .container
     %h1 Membership Details
