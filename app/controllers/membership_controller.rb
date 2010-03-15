@@ -190,25 +190,6 @@ class MembershipController < ApplicationController
 
       end
 
-      #
-      #      if params[:membership][:review_letter_sent]
-      #        @membership.review_letter_sent = true
-      #
-      #        #config temp folder
-      #        file_prefix = "public"
-      #        file_dir = "temp/#{@current_user.user_name}/membership"
-      #        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
-      #
-      #
-      #
-      #        @membership_review_sheet = render_to_string(:partial => "membership/membership_review_sheet")
-      #        File.open("#{file_prefix}/#{file_dir}/MembershipReviewSheet.html", 'w') do |f|
-      #          f.puts "#{@membership_review_sheet}"
-      #        end
-      #        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipReviewSheet.html #{file_prefix}/#{file_dir}/MembershipReviewSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipReviewSheet.html"
-      #        flash.now[:comfirmation] = "<p>MembershipReviewSheet <a href=\'/#{file_dir}/MembershipReviewSheet.pdf\' target='_blank'>MembershipReviewSheet.pdf</a></p>"
-      #      end
-
 
       if params[:membership][:approve_letter_sent]
         @membership.approve_letter_sent = true
