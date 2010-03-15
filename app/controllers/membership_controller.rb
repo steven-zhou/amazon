@@ -19,16 +19,16 @@ class MembershipController < ApplicationController
     else                            #from person profile
       @person = Person.find(params[:id])
       @person.is_member = true
-#      @person.save
+      #      @person.save
     end
-#    @email = @membership.person.primary_email rescue @person.primary_email  get the person email to send email
-     @email =  @person.primary_email  #get the person email to send email
-     @membership.stage = "InitiateStage"
-     if params[:membership][:active]
-       @membership.active = true
-     else
-       @membership.active = false
-     end
+    #    @email = @membership.person.primary_email rescue @person.primary_email  get the person email to send email
+    @email =  @person.primary_email  #get the person email to send email
+    @membership.stage = "InitiateStage"
+    if params[:membership][:active]
+      @membership.active = true
+    else
+      @membership.active = false
+    end
     
     if @membership.save && @membership.person.save && @person.save
 
@@ -66,8 +66,8 @@ class MembershipController < ApplicationController
         if  params[:membership_log][:email_sent]
           @membership_log.email_sent = true
           if params[:membership_log][:email_template_id]
-             email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
-             send_membership_email(@email.try(:value),email_body)
+            email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
+            send_membership_email(@email.try(:value),email_body)
 
           end
           @membership_log.save
@@ -117,7 +117,7 @@ class MembershipController < ApplicationController
     @render_page = params[:render_page]
 
 
-     type = []
+    type = []
     type <<  MembershipStatus.find_by_name("Prospective").id
     type << MembershipStatus.find_by_name("In-review").id
     @type = type.join(',')
@@ -187,7 +187,7 @@ class MembershipController < ApplicationController
           @membership_log.email_sent = true
           if params[:membership_log][:email_template_id]
             email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
-           send_membership_email(@email.value,email_body)
+            send_membership_email(@email.value,email_body)
 
           end
           @membership_log.save
@@ -317,6 +317,17 @@ class MembershipController < ApplicationController
   end
 
 
+  def show_membership_fee
+    @membership_id = Membership.find(params[:id]).id
+
+    respond_to do |format|
+      format.js
+    end
+
+    
+  end
+
+
   def send_membership_mail(body,file_name,entities)
     #config temp folder
     @body = body
@@ -335,7 +346,7 @@ class MembershipController < ApplicationController
 
 
   def send_membership_email(email_address,content)
-  email = EmailDispatcher.create_send_person_email_template(email_address,content)
-  EmailDispatcher.deliver(email)
+    email = EmailDispatcher.create_send_person_email_template(email_address,content)
+    EmailDispatcher.deliver(email)
   end
 end
