@@ -3991,7 +3991,7 @@ class GridsController < ApplicationController
       rp = 20
     end
 
-#    params[:type] = [MembershipStatus.find_by_name("Prospective").id,MembershipStatus.find_by_name("In-review").id]
+   params[:type]=params[:type].split(",")
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
@@ -3999,13 +3999,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @membership = Membership.find(:all,
-        :conditions=>["membership_status_id IN ?", params[:type]],
+        :conditions=>["membership_status_id IN (?)", params[:type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
 
       )
-      count = Membership.count(:all, :conditions=>["membership_status_id IN ?",params[:type]])
+      count = Membership.count(:all, :conditions=>["membership_status_id IN (?)",params[:type]])
     end
 
     # User provided search terms
@@ -4014,9 +4014,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? and membership_status_id IN ?", query,params[:type]]
+        :conditions=>[qtype +" ilike ? and membership_status_id IN (?)", query,params[:type]]
       )
-      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id IN ?", query, params[:type]])
+      count = Membership.count(:all,:conditions=>[qtype +" ilike ? and membership_status_id IN (?)", query, params[:type]])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -4252,4 +4252,73 @@ class GridsController < ApplicationController
 
   end
 
+
+
+   def show_membership_fee_grid
+
+    page = (params[:page]).to_i
+    rp =(params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page -1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @membership_fee = MembershipFee.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions => ["membership_id=?", params[:membership_id]]
+      )
+      count = MembershipFee.count(:all, :conditions => ["membership_id=?", params[:membership_id]] )
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @membership_fee = MembershipFee.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ?  AND membership_id=?", query, params[:membership_id]]
+      )
+      count = MembershipFee.count(:all, :conditions=>[qtype +" ilike ? AND membership_id=?", query, params[:membership_id]])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @membership_fee.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.fee_item,
+          u.membership.person.name,
+          u.payment_method_type,
+          u.receipt_account.name
+
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+   end
 end

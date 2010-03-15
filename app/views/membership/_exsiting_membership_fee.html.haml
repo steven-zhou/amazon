@@ -1,0 +1,69 @@
+%table#show_membership_fee_grid{:class=>"selectable_grid",:field=>"membership",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/membership/"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $("#show_membership_fee_grid").flexigrid({
+    url: '/grids/show_membership_fee_grid?membership_id=#{@membership_id}',
+    dataType: 'json',
+    colModel : [
+    {
+        display: 'ID',
+        name : 'id',
+        width : 40,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Fee Item',
+        name : 'fee_item.name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    },
+
+    {
+        display: 'Person Name',
+        name : 'person.name',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    },
+    {
+        display: 'Receipt Account Name',
+        name : 'receipt_account.name',
+        width : 200,
+        sortable : true,
+        align: 'left'
+    }  align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+        display: 'Fee Item',
+        name : 'fee_item.name'
+    },
+
+    {
+        display: 'Person Name',
+        name : 'person.name'
+    },
+
+
+    {
+        display: 'Receipt Account Name',
+        name : 'receipt_account.name'
+    }
+
+    ],
+
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    title: '',
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
