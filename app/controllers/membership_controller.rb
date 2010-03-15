@@ -19,12 +19,12 @@ class MembershipController < ApplicationController
     else
       @person = Person.find(params[:id])
       @person.is_member = true
-      @person.save
+#      @person.save
     end
     @email = @membership.person.primary_email rescue @person.primary_email
     @membership.stage = "InitiateStage"
     
-    if @membership.save && @membership.person.save
+    if @membership.save && @membership.person.save && @person.save
 
 
       #save to membership log
@@ -291,6 +291,9 @@ class MembershipController < ApplicationController
     @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_sub_status.try(:name)
+    @type = []
+    @type <<  MembershipStatus.find_by_name("Prospective").id
+    @type <<  MembershipStatus.find_by_name("In-review").id
     respond_to do |format|
       format.html
     end

@@ -5,15 +5,17 @@ class CreateMemberships < ActiveRecord::Migration
       t.integer "employer_id"
       t.integer "workplace_id"
       t.integer "membership_status_id"
-      t.integer "membership_sub_status_id"
       t.integer "membership_type_id"
       t.integer "campaign_id"
       t.integer "source_id"
-      t.integer "last_transaction_id"
       t.date "starting_date"
       t.text "starting_comment"
       t.date "ending_date"
       t.text "ending_comment"
+      t.integer "first_transaction_id"
+      t.column :first_amount_paid, :decimal, :precision => 11, :scale => 3
+      t.date "first_amount_date"
+      t.integer "last_transaction_id"
       t.column :last_amount_paid, :decimal, :precision => 11, :scale => 3
       t.date "last_amount_date"
       t.column :YTD_total, :decimal, :precision => 11, :scale => 3      
