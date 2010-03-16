@@ -7,7 +7,6 @@
       %input{:name=>"field",:value=>"review_page",:class=>"hidden"}
       %input{:name=>"render_page",:value=>"review_page",:class=>"hidden"}
       %input{:name=>"membership_log[action]",:value=>"Reviews",:class=>"hidden"}
-
  
     .field_5
       %label &nbsp;
@@ -21,32 +20,44 @@
       %label <span class="asterisk">*</span>Review Date
       %input{:id => "reviewer_date", :name => "membership_log[performed_at]", :class => "datepick compulsory_field ", :value => Time.now.strftime("%d-%m-%Y")}
 
+  .form_line
+    .field_25
+      = label_tag :name, '<span class="asterisk">*</span>Membership Type'
+      = collection_select :membership, :membership_type_id, MembershipType.active, :id, :name
+    .field_27
+      = label_tag :type, '<span class="asterisk">*</span>Membership Status'
+      = collection_select :membership,:membership_status_id, MembershipStatus.review_option, :id, :name, {:selected => MembershipStatus.find_by_name("In-review").id},{:class=>"membership_fee",:membership_id=>@membership.id}
+      %input{:name=>"membership_log[pre_status]",:value=>"#{@membership.membership_status.name}",:class=>"hidden"}
+    .field_12
+      = label_tag :name, 'Active'
+      %input{:type => "checkbox", :checked => @membership.new_record? ? true : @membership.active, :name => "membership[active]"}
+
   .form_line{:style => "height:auto;"}
     .field_100{:style => "height:auto;"}
       %label <span class="asterisk">*</span>Outcomes
-      %textarea{:id=>"review_comment",:name=>"membership_log[comment]",:style=>"width:100%;height:150px;",:class=>"compulsory_field "}
+      %textarea{:id=>"review_comment",:name=>"membership_log[comment]",:style=>"width:100%;height:60px;",:class=>"compulsory_field "}
 
   .form_line
     .field_10
       %label Send Mail
       %input{:type => "checkbox", :id => "review_send_mail", :name => "membership_log[send_mail]",:class=>"enable_submit_checkbox", :field => "mail"}
-    .field_10
+    .field_20
+      %label &nbsp
+      %label Membership Review Mail
+    .field_15
       %label Send Mail After Submit
       %input{:type => "checkbox", :id => "review_mail_sent", :name => "membership_log[mail_sent]", :class => "submit_checkbox", :disabled => true, :field => "mail"}
     .field_10
       %label Send Email
       %input{:type => "checkbox", :id => "review_send_email", :name => "membership_log[send_email]",:class=>"enable_submit_checkbox", :field => "email"}
-    .field_10
+    .field_20
+      %label &nbsp
+      %label Membership Review Email
+    .field_15
       %label Send Email After Submit
       %input{:type => "checkbox", :id => "review_email_sent", :name => "membership_log[email_sent]",:class=>"submit_checkbox",:disabled=>true, :field => "email"}
+
   .form_line
-    .field_30
-      = label_tag :name, '<span class="asterisk">*</span>Membership Type'
-      = collection_select :membership, :membership_type_id, MembershipType.active, :id, :name
-    .field_30
-      = label_tag :type, '<span class="asterisk">*</span>Membership Status'
-      = collection_select :membership,:membership_status_id, MembershipStatus.review_option, :id, :name, {:selected => MembershipStatus.find_by_name("In-review").id},{:class=>"membership_fee",:membership_id=>@membership.id}
-      %input{:name=>"membership_log[pre_status]",:value=>"#{@membership.membership_status.name}",:class=>"hidden"}
     .field_30{:style => "float:right;"}
       %label &nbsp;
       = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
