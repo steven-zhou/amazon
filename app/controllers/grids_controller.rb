@@ -4008,12 +4008,12 @@ class GridsController < ApplicationController
 
     if params[:start_date]
       conditions << "created_at >= ? "
-      values << params[:start_date]
+      values << params[:start_date].to_date
     end
 
     if params[:end_date]
-      conditions << "created_at >= ? "
-      values << params[:end_date]
+      conditions << "created_at <= ? "
+      values << params[:end_date].to_date
     end
 
     if params[:creator_id]
