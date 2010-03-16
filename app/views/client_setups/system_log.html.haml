@@ -30,7 +30,6 @@
       = submit_tag("Search", :id => "system_log_search_submit")
 
   .container#system_log_search_results{:style => "display:none;"}
-    %table#system_log_search_grid
 
   .container#system_log_export_options{:style => "display:none;"}
     - form_tag("/reports/generate_system_log_pdf") do
