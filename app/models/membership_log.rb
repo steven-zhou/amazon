@@ -6,5 +6,5 @@ class MembershipLog < ActiveRecord::Base
 
   validates_presence_of :person, :membership, :performer
 
-  default_scope :order => "performed_at"
+  default_scope :order => "created_at"
 end
