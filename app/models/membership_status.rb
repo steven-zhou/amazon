@@ -15,7 +15,7 @@ class MembershipStatus < AmazonSetting
   end
 
   def self.review_option
-    MembershipStatus.find(:all, :conditions => ["name IN (?)", ["In-review", "Actived", "Rejected"]])
+    MembershipStatus.find(:all, :conditions => ["name IN (?)", ["In-review", "Active", "Rejected"]])
   end
 
   def self.approve
@@ -28,7 +28,7 @@ class MembershipStatus < AmazonSetting
   end
 
   def self.reject
-    MembershipStatus.find_by_name("Reject")
+    MembershipStatus.find_by_name("Rejected")
   end
 
   def self.remove
@@ -61,7 +61,7 @@ class MembershipStatus < AmazonSetting
   end
 
   def self.all_life
-    status = ["Actived"]
+    status = ["Active"]
     MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
   end
   private
