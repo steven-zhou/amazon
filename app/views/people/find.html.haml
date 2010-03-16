@@ -165,12 +165,13 @@
       %a{:href => "#"} Find by Address
     %div.container
       -form_for Address.new, :url => {:action => 'search'}, :html => {:method => :post} do |address|
-        -default_address_type = @current_user.default_value.default_address_type_id
+        -default_address_type = @current_user.default_value.try(:default_address_type_id)
         .container
           .form_line
             .field_20
               = address.label :address_type_id, 'Type'
               = address.collection_select :address_type_id, AddressType.active_address_type, :id, :name, {:include_blank => true, :selected => default_address_type}
+
             .field_40
               = address.label :building_name, 'Building Name'
               = address.text_field :building_name

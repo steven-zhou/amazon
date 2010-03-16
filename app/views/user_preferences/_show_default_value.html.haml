@@ -31,30 +31,30 @@
               = f.text_field :default_end_date, :class => "enddatepick", :id => "default_end_date", :start_date => "default_start_date", :value => "#{@end_date}", :name => "user_preference[default_end_date]"
             .field_23
               %label Default Address Type
-              = f.collection_select :default_address_type_id, AddressType.all, :id, :name, {:selected =>  @default_value.default_address_type_id}
+              = f.collection_select :default_address_type_id, AddressType.all, :id, :name, {:selected =>  @default_value.try(:default_address_type_id)}
             .field_23
               %label Default First Title
-              = f.collection_select :default_first_title_id, Title.all, :id, :name, {:selected =>  @default_value.default_first_title_id}
+              = f.collection_select :default_first_title_id, Title.all, :id, :name, {:selected =>  @default_value.try(:default_first_title_id)}
           .form_line
             .field_23
               %label Default Nationality
-              = f.collection_select :default_nationality_id, Country.all, :id, :short_name, {:selected =>  @default_value.default_nationality_id}
+              = f.collection_select :default_nationality_id, Country.all, :id, :short_name, {:selected =>  @default_value.try(:default_nationality_id)}
             .field_23
               %label Default Language
-              = f.collection_select :default_language_id, Language.all, :id, :name, {:selected =>  @default_value.default_language_id}
+              = f.collection_select :default_language_id, Language.all, :id, :name, {:selected =>  @default_value.try(:default_language_id)}
             .field_23
               %label Default Phone Type
-              = f.collection_select :default_phone_type_id, Contact.phone_types, :id, :name, {:selected =>  @default_value.default_phone_type_id}
+              = f.collection_select :default_phone_type_id, Contact.phone_types, :id, :name, {:selected =>  @default_value.try(default_phone_type_id)}
             .field_23
               %label Default Email Type
-              = f.collection_select :default_email_type_id, Contact.email_types, :id, :name, {:selected =>  @default_value.default_email_type_id}
+              = f.collection_select :default_email_type_id, Contact.email_types, :id, :name, {:selected =>  @default_value.try(default_email_type_id)}
           .form_line
             .field_23
               %label Default Website Type
-              = f.collection_select :default_website_type_id,  Contact.website_types, :id, :name, {:selected =>  @default_value.default_website_type_id}
+              = f.collection_select :default_website_type_id,  Contact.website_types, :id, :name, {:selected =>  @default_value.try(default_website_type_id)}
             .field_23
               %label Default List Header
-              = f.collection_select :default_list_header_id,  ListHeader.all, :id, :name, {:selected =>  @default_value.default_list_header_id}
+              = f.collection_select :default_list_header_id,  ListHeader.all, :id, :name, {:selected =>  @default_value.try(default_list_header_id)}
             .field_23
               %label &nbsp
               .hidden
