@@ -124,7 +124,7 @@ class MembershipController < ApplicationController
 
 
 
-   @type = MembershipStatus.join_membership_status(MembershipStatus.review)
+    @type = MembershipStatus.join_membership_status(MembershipStatus.review)
 
     #if status change from non-active to active, payment is required. status will keep as it is before payment is completed
     if params[:membership][:membership_status_id].to_i == MembershipStatus.approve.id
@@ -133,10 +133,10 @@ class MembershipController < ApplicationController
     end
 
     if params[:membership][:active]
-        params[:membership][:active] = true
-      else
-        params[:membership][:active] = false
-      end
+      params[:membership][:active] = true
+    else
+      params[:membership][:active] = false
+    end
 
     if @membership.update_attributes(params[:membership])
       
@@ -358,21 +358,13 @@ class MembershipController < ApplicationController
     @state = params[:state]
 
     if (params[:state] == "end_cycle")
+      @type = MembershipStatus.join_membership_status(MembershipStatus.all_end_cycle)
 
-      @type = []
-      @type <<  MembershipStatus.reject.id
-      @type << MembershipStatus.terminate.id
-      @type << MembershipStatus.remove.id
-      @type << MembershipStatus.archive.id
-      @type = @type.join(',')
     elsif (params[:state]=="life")
+      @type = MembershipStatus.join_membership_status(MembershipStatus.all_life)
 
-     @type = [MembershipStatus.approve.id]
     elsif (params[:state]=="review")
       @type = MembershipStatus.join_membership_status(MembershipStatus.review)
-#      @type <<  MembershipStatus.find_by_name("Prospective").id
-#      @type << MembershipStatus.find_by_name("In-review").id
-#      @type = @type.join(',')
     end
 
 

@@ -2,15 +2,13 @@
 <%- if @date_valid%>
 
   <%- if @state == "end_cycle" %>
+    $("#existing_end_cycle_membership" ).show().html('<%=escape_javascript(render(:partial => "membership/display_grid", :locals => {:membership_status=>"Rejected"})) %>');
 
-    $("#existing_end_cycle_membership" ).html('<%=escape_javascript(render(:partial => "membership/display_grid", :locals => {:membership_status=>"Rejected"})) %>');
   <%-elsif @state == "life"%>
-
     $('#life_grid').show().html('<%= escape_javascript(render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Actived"}) %>');
-    <%elsif @state =="review"%>
-   $('#review_page_grid').show().html('<%= escape_javascript(render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Prospective"}) %>');
-
-    $("#existing_end_cycle_membership" ).html('<%=escape_javascript(render(:partial => "membership/display_grid", :locals => {:membership_status=>"Rejected"})) %>').css('display', '');
+    
+  <%elsif @state =="review"%>
+    $('#review_page_grid').show().html('<%= escape_javascript(render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Prospective"}) %>');
 
   <%end%>
 
