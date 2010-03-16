@@ -1,4 +1,4 @@
-$('#payment_detail').html('Payment Details display here').show();
 $('.close_option[field="membership_fee"]').click();
 $('#existing_membership_fees').html('<%= escape_javascript(render(:partial => "/membership_fees/existing_membership_fee")) %>');
+$('#membership_log_<%= escape_javascript("#{@membership_log.id}") %> #post_status').html('<%= escape_javascript(MembershipStatus.approve.name) %>');
 enable_form_after_submit_finish();

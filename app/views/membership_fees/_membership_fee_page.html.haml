@@ -1,14 +1,7 @@
-#header
-  #page_title
-  #lol
-    %br.clear
-
-
-
 %input.hidden{:id => "membership_fee_mode", :mode => "show"}
 
-#add_new_membership_fee
+#add_new_membership_fee.container
   = render :partial => "membership_fees/new_membership_fee"
 
-#existing_membership_fees
+#existing_membership_fees.container
   = render :partial => "membership_fees/existing_membership_fee"

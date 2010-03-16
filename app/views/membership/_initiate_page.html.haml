@@ -3,14 +3,10 @@
     #person_detail_form
       =render :partial =>"/membership/membership_person_detail"
 
-  #payment_detail.container{:style => "display:none;"}
-
-
   #initiator.container
     =render :partial =>"/membership/initiator_form"
 
-
-
   = submit_tag "Submit",:id => "new_membership_submit",:disabled=>true, :style => "float:right;"
 
-  #histroy
+#payment_detail
+#histroy

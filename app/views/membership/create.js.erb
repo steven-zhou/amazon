@@ -1,7 +1,10 @@
 <%-if flash[:error].nil?%>
   <%-if @auto_approve%>
     $('#person_detail_form').html('<%= escape_javascript(render(:partial => "/membership/membership_person_detail")) %>');
-    $('#payment_detail').html('<%= escape_javascript(render(:partial => "/membership_fees/membership_fee_page")) %>')
+    $('#payment_detail').html('<%= escape_javascript(render(:partial => "/membership_fees/membership_fee_page")) %>').show();
+    $('#initiator').hide();
+    $('#new_membership_submit').hide();
+    $('#histroy').html('<%= escape_javascript(render(:partial => "/membership/display_membership_histroy")) %>');
   <%- else %>
     $('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
     $('#flash_feedback').fadeIn("slow");
@@ -10,6 +13,23 @@
     $('#initiator').html('<%= escape_javascript(render(:partial => "/membership/initiator_form")) %>');
     $("#membership_person_id").val("");
     $('#membership_mode').attr('mode', 'show');
+  <%- end %>
+
+  <%- unless flash[:confirmation].nil? %>
+    $("#confirm_message_text").html("<%= escape_javascript(flash[:confirmation]) %>").css("padding-top", "32px");
+    $("#confirm_message_image").css("display", "");
+    $("#confirm_message").dialog({
+    modal: true,
+    resizable: false,
+    draggable: true,
+    height: 'auto',
+    width: 600,
+    buttons:{
+    Ok: function() {
+    $(this).dialog('destroy');
+    }
+    }
+    });
   <%- end %>
 
 <%- else %>

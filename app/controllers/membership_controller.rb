@@ -75,15 +75,17 @@ class MembershipController < ApplicationController
 
       end
 
-      @person = nil #set the person to be nil to clear the from after create
+      
 
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
       if params[:auto_approve]
         @auto_approve = true
         @membership_id = @membership.id
+        @membership_logs = @membership.membership_logs
       else
         @membership = Membership.new
+        @person = nil #set the person to be nil to clear the from after create
       end
     else
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "person_id") if (!@membership.errors.on(:person_id).nil? && @membership.errors.on(:person_id).include?("has already been taken"))
@@ -145,7 +147,7 @@ class MembershipController < ApplicationController
         params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
         params[:membership_log][:post_status] = "In-review"
 
-      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Actived").id
+      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.approve.id
         params[:membership_log][:mail_template_id]=PersonMailTemplate.approve_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.approve_template_id
         params[:membership_log][:post_status] = "Actived"
@@ -349,7 +351,7 @@ class MembershipController < ApplicationController
       f.puts "#{@membership_mail}"
     end
     system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{file_name}.html #{file_prefix}/#{file_dir}/#{file_name}.pdf ; rm #{file_prefix}/#{file_dir}/#{file_name}.html"
-    flash.now[:comfirmation] = "<p>#{file_name} <a href=\'/#{file_dir}/#{file_name}.pdf\' target='_blank'>#{file_name}.pdf</a></p>"
+    flash.now[:confirmation] = "<p>#{file_name} <a href=\'/#{file_dir}/#{file_name}.pdf\' target='_blank'>#{file_name}.pdf</a></p>"
 
   end
 

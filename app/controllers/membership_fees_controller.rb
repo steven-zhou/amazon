@@ -11,8 +11,15 @@ class MembershipFeesController < ApplicationController
 
   def create
     @membership_fee = MembershipFee.new(params[:membership_fee])
-    @membership_fee.save
-    @membership_id =params[:membership_fee][:membership_id]
+    @membership = Membership.find(params[:membership_fee][:membership_id])
+    if @membership_fee.save
+      @membership.update_attribute("membership_status_id", MembershipStatus.approve.id) if @membership.membership_status_id != MembershipStatus.approve.id
+      @membership_log = @membership.membership_logs.last
+      @membership_log.update_attribute("post_status", MembershipStatus.approve.name)
+    else
+
+    end
+    @membership_id = @membership.id
     respond_to do |format|
       format.js
     end
