@@ -372,7 +372,17 @@ class MembershipController < ApplicationController
   end
 
   def membership_filter
-    
+    conditions = Array.new
+    start_date = params[:start_date]
+    end_date = params[:end_date]
+    creator_id = LoginAccount.find_by_user_name(params[:creator_username]).id
+    @type = [MembershipStatus.find_by_name("Actived").id]
+    conditions << ("start_date=" + start_date.to_s)
+    conditions << ("end_date=" + end_date.to_s)
+    conditions << ("creator_id= " + creator_id.to_s)
+    @query_conditions = conditions.join('&')
+
+
     respond_to do |format|
       format.js
     end
