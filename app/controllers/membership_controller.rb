@@ -116,8 +116,7 @@ class MembershipController < ApplicationController
     @person = @membership.person
     @field= params[:field]
     @email = @membership.person.primary_email
-    case @field
-    
+    case @field    
     when "review_page" then @membership.stage="ReviewStage"
     when "finalize_page" then @membership.stage="FinalizeStage"
     end
@@ -129,20 +128,31 @@ class MembershipController < ApplicationController
     type << MembershipStatus.find_by_name("In-review").id
     @type = type.join(',')
 
+    #if status change from non-active to active, payment is required. status will keep as it is before payment is completed
+    if params[:membership][:membership_status_id].to_i == MembershipStatus.approve.id
+      @payment_required = true
+      params[:membership][:membership_status_id] = @membership.membership_status.id
+    end
+
+    if params[:membership][:active]
+        params[:membership][:active] = true
+      else
+        params[:membership][:active] = false
+      end
 
     if @membership.update_attributes(params[:membership])
+      
       flash.now[:message] = "Membership Update Successfully"
 
+
+      
       #save to membership log
-
       if params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Prospective").id
-
         params[:membership_log][:mail_template_id]=PersonMailTemplate.initiate_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.initiate_template_id
         params[:membership_log][:post_status] = "Prospective"
 
       elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("In-review").id
-
         params[:membership_log][:mail_template_id]=PersonMailTemplate.inreview_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
         params[:membership_log][:post_status] = "In-review"
@@ -150,11 +160,10 @@ class MembershipController < ApplicationController
       elsif params[:membership][:membership_status_id].to_i== MembershipStatus.approve.id
         params[:membership_log][:mail_template_id]=PersonMailTemplate.approve_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.approve_template_id
-        params[:membership_log][:post_status] = "Actived"
+        params[:membership_log][:post_status] = "In-review" #keep In-review before payment is completed
 
 
       elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Rejected").id
-
         params[:membership_log][:mail_template_id]=PersonMailTemplate.reject_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.reject_template_id
         params[:membership_log][:post_status] = "Rejected"
@@ -170,22 +179,15 @@ class MembershipController < ApplicationController
         @membership_log.send_email = true
       end
 
-
-
-
       if @membership_log.save
 
         if params[:membership_log][:mail_sent]
-
           @membership_log.mail_sent = true
           if params[:membership_log][:mail_template_id]
-
             mail_body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
-
             file_name="MembershipReviewMail"
             @entities = [@person]
             send_membership_mail(mail_body,file_name,@entities)
-
           end
           @membership_log.save
         end
@@ -195,36 +197,15 @@ class MembershipController < ApplicationController
           if params[:membership_log][:email_template_id]
             email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
             send_membership_email(@email.value,email_body)
-
           end
           @membership_log.save
         end
-
       end
 
-
-      if params[:membership][:approve_letter_sent]
-        @membership.approve_letter_sent = true
-
-        
-
-        #config temp folder
-        file_prefix = "public"
-        file_dir = "temp/#{@current_user.user_name}/membership"
-        FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
-
-
-
-        @membership_approve_sheet = render_to_string(:partial => "membership/membership_approve_sheet")
-        File.open("#{file_prefix}/#{file_dir}/MembershipApproveSheet.html", 'w') do |f|
-          f.puts "#{@membership_approve_sheet}"
-        end
-        system "wkhtmltopdf #{file_prefix}/#{file_dir}/MembershipApproveSheet.html #{file_prefix}/#{file_dir}/MembershipApproveSheet.pdf ; rm #{file_prefix}/#{file_dir}/MembershipApproveSheet.html"
-        flash.now[:comfirmation] = "<p>MembershipApproveSheet <a href=\'/#{file_dir}/MembershipApproveSheet.pdf\' target='_blank'>MembershipApproveSheet.pdf</a></p>"
+      if @payment_required
+        @membership_logs = @membership.membership_logs
+        @membership_id = @membership.id
       end
-
-
-
 
     else
       flash.now[:error] = "error"
@@ -239,11 +220,9 @@ class MembershipController < ApplicationController
 
 
   def review
-
     respond_to do |format|
       format.html
     end
-
   end
 
   def membership_person_lookup
@@ -326,60 +305,25 @@ class MembershipController < ApplicationController
 
 
 
+
   def show_membership_fee
     @membership_id = Membership.find(params[:id]).id
-
     respond_to do |format|
       format.js
-    end
-
-    
-  end
-
-
-
-
-  def send_membership_mail(body,file_name,entities)
-    #config temp folder
-    @body = body
-    @entities = entities
-    file_prefix = "public"
-    file_dir = "temp/#{@current_user.user_name}/membership"
-    FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
-    @membership_mail = render_to_string(:partial => "membership/membership_mail")
-    File.open("#{file_prefix}/#{file_dir}/#{file_name}.html", 'w') do |f|
-      f.puts "#{@membership_mail}"
-    end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{file_name}.html #{file_prefix}/#{file_dir}/#{file_name}.pdf ; rm #{file_prefix}/#{file_dir}/#{file_name}.html"
-    flash.now[:confirmation] = "<p>#{file_name} <a href=\'/#{file_dir}/#{file_name}.pdf\' target='_blank'>#{file_name}.pdf</a></p>"
-
-  end
-
-
-  def send_membership_email(email_address,content)
-    email = EmailDispatcher.create_send_person_email_template(email_address,content)
-    EmailDispatcher.deliver(email)
-  end
-
-  def auto_approve
-    @membership_id = Membership.find(params[:id]).id
-
-    respond_to do |format|
-      format.js
-    end
+    end    
   end
 
   def end_cycle
     status = ["Rejected","Terminated","Removed","Archived"]
-   @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
-  
+    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+
     respond_to do |format|
       format.html
     end
   end
 
   def membership_filter
-    conditions = Array.new  
+    conditions = Array.new
     creator_username = params[:creator_username]
 
     #----------------check creator--------------------------------------------------------
@@ -390,9 +334,9 @@ class MembershipController < ApplicationController
 
 
     membership_status = params[:membership_status]
-    
+
     unless (membership_status=="")
-#      membership_status_id = MembershipStatus.find_by_name(membership_status).id
+      #      membership_status_id = MembershipStatus.find_by_name(membership_status).id
       conditions << ("membership_status_id="+membership_status.to_s)
     end
 
@@ -434,4 +378,31 @@ class MembershipController < ApplicationController
       format.js
     end
   end
+
+  private
+
+  def send_membership_mail(body,file_name,entities)
+    #config temp folder
+    @body = body
+    @entities = entities
+    file_prefix = "public"
+    file_dir = "temp/#{@current_user.user_name}/membership"
+    FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+    @membership_mail = render_to_string(:partial => "membership/membership_mail")
+    File.open("#{file_prefix}/#{file_dir}/#{file_name}.html", 'w') do |f|
+      f.puts "#{@membership_mail}"
+    end
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{file_name}.html #{file_prefix}/#{file_dir}/#{file_name}.pdf ; rm #{file_prefix}/#{file_dir}/#{file_name}.html"
+    flash.now[:confirmation] = "<p>#{file_name} <a href=\'/#{file_dir}/#{file_name}.pdf\' target='_blank'>#{file_name}.pdf</a></p>"
+  end
+
+  def send_membership_email(email_address,content)
+    email = EmailDispatcher.create_send_person_email_template(email_address,content)
+    EmailDispatcher.deliver(email)
+  end
+ 
+
+
+
+
 end
