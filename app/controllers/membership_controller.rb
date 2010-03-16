@@ -379,6 +379,14 @@ class MembershipController < ApplicationController
       conditions << ("creator_id="+creator_id)
     end
 
+    membership_status = params[:membership_status]
+    
+    unless (membership_status=="All")
+      membership_status_id = MembershipStatus.find_by_name(membership_status).id
+      conditions << ("membership_status_id="+membership_status_id)
+    end
+
+
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
       start_date = params[:start_date].to_date.yesterday.to_s
       end_date = params[:end_date].to_date.tomorrow.to_s
