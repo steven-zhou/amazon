@@ -4039,10 +4039,10 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include =>["person","employer"]
+        :include =>["employer"]
 
       )
-      count = Membership.count(:all,:include =>["person","employer"], :conditions=>[ conditions.join(' AND '), *values])
+      count = Membership.count(:all,:include =>["employer"], :conditions=>[ conditions.join(' AND '), *values])
     end
 
     # User provided search terms
@@ -4052,9 +4052,9 @@ class GridsController < ApplicationController
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
-        :include =>["person","employer"]
+        :include =>["employer"]
       )
-      count = Membership.count(:all,:include =>["person","employer"],:conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
+      count = Membership.count(:all,:include =>["employer"],:conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
     end
 
 
@@ -4065,8 +4065,7 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @membership.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.person_id.nil? ? "" : u.person.first_name,
-          u.person_id.nil? ? "" : u.person.family_name,
+          u.person_id.nil? ? "" : u.person.name,
           u.employer_id.nil? ? "" : u.employer.full_name,
           u.workplace_id.nil? ? "" : u.workplace.full_name,
           u.membership_status_id.nil? ? "" : u.membership_status.name,
