@@ -15,7 +15,7 @@
 
     .field_20
       %label Status
-      %select{:id => "membership_status"}
+      %select{:id => "membership_status",:name=>"membership_status"}
         %option{:value => ""}
           All
         -membership_status.each do |s|

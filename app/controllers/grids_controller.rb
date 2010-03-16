@@ -4006,6 +4006,7 @@ class GridsController < ApplicationController
      conditions = Array.new
     values = Array.new
 
+
     conditions << "membership_status_id IN (?)"
     values << params[:type]
 
@@ -4025,7 +4026,7 @@ class GridsController < ApplicationController
     end
 
     if params[:membership_status_id]
-      conditions << "membership_status_id"
+      conditions << "membership_status_id=?"
       values << params[:membership_status_id]
     end
 
