@@ -372,7 +372,7 @@ class MembershipController < ApplicationController
   def end_cycle
     status = ["Rejected","Terminated","Removed","Archived"]
    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
-   puts"---DEBUG---#{status.to_yaml}----------999999"
+  
     respond_to do |format|
       format.html
     end
