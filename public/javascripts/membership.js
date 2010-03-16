@@ -104,18 +104,3 @@ $(function(){
     }
   });
 });
-
-$(function(){
-  $(".membership_fee").live("change",function(){
-    if($(".membership_fee option:selected").html()=="Actived")
-    {
-      $.ajax({
-        type: "GET",
-        url: "/membership/show_membership_fee/"+$(this).attr("membership_id"),
-        dataType: "script"
-      });
-    }
-
-  });
-
-});

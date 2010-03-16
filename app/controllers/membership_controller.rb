@@ -30,7 +30,7 @@ class MembershipController < ApplicationController
       @membership.active = false
     end
     
-    if @membership.save && @membership.person.save && @person.save
+    if @membership.save && @person.save
 
 
       #save to membership log
@@ -52,7 +52,6 @@ class MembershipController < ApplicationController
         if params[:membership_log][:mail_sent]
           @membership_log.mail_sent = true
           if params[:membership_log][:mail_template_id]
-
             @mail_body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
             file_name="MembershipStartupMail"
             @entities = [@person]
@@ -80,6 +79,12 @@ class MembershipController < ApplicationController
 
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
+      if params[:auto_approve]
+        @auto_approve = true
+        @membership_id = @membership.id
+      else
+        @membership = Membership.new
+      end
     else
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "person_id") if (!@membership.errors.on(:person_id).nil? && @membership.errors.on(:person_id).include?("has already been taken"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
@@ -87,7 +92,7 @@ class MembershipController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
       flash.now[:error] = "Please make sure the initiated date is entered in valid format (dd-mm-yyyy)" if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("is_invalid"))
     end
-    @membership = Membership.new
+    
     respond_to do |format|
       format.js
     end
@@ -365,7 +370,9 @@ class MembershipController < ApplicationController
   end
 
   def end_cycle
-   
+    status = ["Rejected","Terminated","Removed","Archived"]
+   @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+   puts"---DEBUG---#{status.to_yaml}----------999999"
     respond_to do |format|
       format.html
     end
@@ -374,10 +381,13 @@ class MembershipController < ApplicationController
   def membership_filter
     conditions = Array.new  
     creator_username = params[:creator_username]
+
+    #----------------check creator--------------------------------------------------------
     unless (creator_username.blank?)
       creator_id = LoginAccount.find_by_user_name(creator_username).id.to_s rescue creator_id = "0"
       conditions << ("creator_id="+creator_id)
     end
+
 
     membership_status = params[:membership_status]
     
@@ -386,6 +396,7 @@ class MembershipController < ApplicationController
       conditions << ("membership_status_id="+membership_status_id)
     end
 
+    #----------------check date--------------------------------------------------------
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
       start_date = params[:start_date].to_date.yesterday.to_s
@@ -402,11 +413,18 @@ class MembershipController < ApplicationController
       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
 
+    #----------------join all conditions--------------------------------------------------------
     @query_conditions = conditions.join('&')
     @state = params[:state]
 
     if (params[:state] == "end_cycle")
-      @type = [MembershipStatus.find_by_name("Rejected").id,MembershipStatus.find_by_name("Terminated").id]
+
+      @type = []
+      @type <<  MembershipStatus.find_by_name("Rejected").id
+      @type << MembershipStatus.find_by_name("Terminated").id
+      @type << MembershipStatus.find_by_name("Removed").id
+      @type << MembershipStatus.find_by_name("Archived").id
+      @type = @type.join(',')
     elsif (params[:state]=="life")
       @type = [MembershipStatus.find_by_name("Actived").id]
     end
