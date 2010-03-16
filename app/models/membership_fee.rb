@@ -2,8 +2,6 @@ class MembershipFee < ActiveRecord::Base
 
   belongs_to :fee_item
   belongs_to :membership
-
-
   belongs_to :payment_method_type
   belongs_to :receipt_account
 

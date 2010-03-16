@@ -92,7 +92,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types,:member => {:retrieve => :get}, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
   map.resources :group, :collection => {:show_group_types => :get}
-  map.resources :tag_types,:member => {:retrieve => :get}, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get, :create_group_meta_type => :get, :custom_groups_finder => :get, :create_security_group_meta_type => :get, :security_groups_finder => :get, :create_query_table_meta_meta_type => :get, :query_tables_finder => :get, :delete_custom_group_type => :get, :show_receipt_type => :get, :show_payment_method => :get}
+  map.resources :tag_types,:member => {:retrieve => :get}, :collection => {:show_tag_types => :get, :show_fields => :get, :show_types => :get, :create_group_meta_type => :get, :custom_groups_finder => :get, :create_security_group_meta_type => :get, :security_groups_finder => :get, :create_query_table_meta_meta_type => :get, :query_tables_finder => :get, :delete_custom_group_type => :get, :show_receipt_type => :get, :show_payment_method => :get, :show_dd_payment_method => :get}
   map.resources :tags, :member => {:retrieve => :get},:collection => {:show_tags => :get, :show_role_condition_description=>:get,:show_group_description => :get, :create_custom_sub_group => :get, :custom_sub_groups_finder => :get, :create_security_sub_group => :get, :security_sub_groups_finder => :get, :create_query_table_atttribute => :get, :query_table_attributes_finder => :get, :delete_custom_group => :get, :edit_custom_sub_group => :get}
 
   map.resources :query_headers, :shallow=> true, :collection => {:copy => :get, :show_sql_statement => :get, :run => :get, :clear => :get, :check_runtime => :get, :copy_runtime => :get, :org_new => :get, :org_index => :get},
@@ -171,7 +171,9 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :message_templates, :collection => {:page_initial => :get, :drop_down_list => :get, :retrieve_mail_template=> :get, :destroy_mail_template => :get, :create_mail => :post, :merge_mail=> :get,:drop_down_list_level2_3 => :get, :person_mail_log_filter => :get,  :organisation_mail_log_filter => :get, :person_mail_document_filter => :get, :organisation_mail_document_filter => :get,  :find_templates => :get}
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :step_4 => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get, :end_cycle => :get}
+
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :life => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get, :end_cycle => :get}
+
 
   map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}
   map.resources :membership_administrations, :collection => {:fee_items => :get}

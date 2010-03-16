@@ -1,7 +1,7 @@
 
 .container
   %h1 Outstanding Application
-  =render :partial => "/membership/display_grid"
+  =render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Prospective"}
 
 
 = render :partial => "membership/edit_membership_container", :locals => {:title => "Reviews"}
