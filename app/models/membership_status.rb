@@ -19,7 +19,7 @@ class MembershipStatus < AmazonSetting
   end
 
   def self.approve
-    MembershipStatus.find_by_name("Actived")
+    MembershipStatus.find_by_name("Active")
   end
 
 
