@@ -170,9 +170,6 @@ class MembershipController < ApplicationController
         @membership_log.send_email = true
       end
 
-
-
-
       if @membership_log.save
 
         if params[:membership_log][:mail_sent]
@@ -195,7 +192,6 @@ class MembershipController < ApplicationController
           if params[:membership_log][:email_template_id]
             email_body = PersonEmailTemplate.find(params[:membership_log][:email_template_id]).body
             send_membership_email(@email.value,email_body)
-
           end
           @membership_log.save
         end
@@ -205,15 +201,10 @@ class MembershipController < ApplicationController
 
       if params[:membership][:approve_letter_sent]
         @membership.approve_letter_sent = true
-
-        
-
         #config temp folder
         file_prefix = "public"
         file_dir = "temp/#{@current_user.user_name}/membership"
         FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
-
-
 
         @membership_approve_sheet = render_to_string(:partial => "membership/membership_approve_sheet")
         File.open("#{file_prefix}/#{file_dir}/MembershipApproveSheet.html", 'w') do |f|

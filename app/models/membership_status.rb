@@ -47,10 +47,7 @@ class MembershipStatus < AmazonSetting
     MembershipStatus.find_by_name("In-review")
   end
 
-
-
   def self.join_membership_status(array)
-
     type = []
     array.each do |a|
       type <<  a
