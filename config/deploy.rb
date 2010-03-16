@@ -12,7 +12,7 @@ set :use_sudo, false
 set :application, "amazon"
 set :deploy_to, "/home/rails/amazon"
 # set :repository, svn+ssh://test.example.com/repository/trunk
-set :repository, "rails@60.242.17.197:/var/git/amazon.git"
+set :repository, "rails@203.23.28.172:/var/git/amazon.git"
 
 # IMPORTANT If you're capistrano deployment is not working :
 #
