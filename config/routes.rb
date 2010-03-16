@@ -172,13 +172,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
 
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :life => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get, :end_cycle => :get, :membership_filter => :get, :fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :life => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get, :end_cycle => :get, :membership_filter => :get}
 
 
   map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}
   map.resources :membership_administrations, :collection => {:fee_items => :get}
   map.resources :fee_items, :collection => {:page_initial => :get, :drop_down_list_l1 => :get, :drop_down_list_l2 => :get}
-    map.resources :membership_fees
+  map.resources :membership_fees,:collection=> {:fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
 
 
   # The priority is based upon order of creation: first created -> highest priority.

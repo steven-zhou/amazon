@@ -46,9 +46,9 @@
     .top
     .item
       - if controller != "configuration"
-        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Configuration", :controller => "administrations", :action => "system_data"
+        = link_to "#{image_tag('Icons/Admin/Configuration/configuration.png')} Data Setup", :controller => "administrations", :action => "system_data"
       -else
-        <p>Configuration</p>
+        <p>Data Setup</p>
         %ul
           %li{:id => action == "system_data" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/system-data.png')} System Data",{:controller => "administrations", :action => "system_data"}, :controller => "administrations", :action => "system_data",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/system-data.png", :title => "System Data"
@@ -114,9 +114,9 @@
     .top
     .item
       - if !(@current_controller == "maintenance" || @current_controller == "banks" )
-        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} Maintenance", :controller => "maintenance", :action => "system_backup"
+        = link_to "#{image_tag('Icons/Admin/Maintenance/maintenance.png')} House Keeping", :controller => "maintenance", :action => "system_backup"
       - else
-        <p>Maintenance</p>
+        <p>House Keeping</p>
         %ul
           %li{:id => @current_action == "system_backup" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Maintenance/database_backup.png')} Data Backup",{ :controller => "maintenance", :action => "system_backup"}, :controller => "maintenance", :action => "system_backup",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Maintenance/database_backup.png", :title => "Data Backup"

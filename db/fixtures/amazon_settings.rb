@@ -115,7 +115,7 @@ MembershipType.create(:name => "Full Member", :status => true,:to_be_removed =>f
 MembershipStatus.create(:name => "Prospective", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "In-review", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Rejected", :status => true,:to_be_removed =>false)
-MembershipStatus.create(:name => "Actived", :status => true,:to_be_removed =>false)
+MembershipStatus.create(:name => "Active", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Suspended", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Terminated", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Archived", :status => true,:to_be_removed =>false)

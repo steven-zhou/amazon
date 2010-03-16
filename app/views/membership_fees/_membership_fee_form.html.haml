@@ -3,13 +3,13 @@
   .form_line
     .field_20
       %label Fee Type
-      %select{:class => "clear_select general_drop_down_level", :drop_down_field => "fee_item_list" , :method => "GET", :url => "/membership/fee_drop_down_list_l1"}
+      %select{:class => "clear_select general_drop_down_level", :drop_down_field => "fee_item_list" , :method => "GET", :url => "/membership_fees/fee_drop_down_list_l1"}
         %option{:value => "membership_fee_item"} Membership Fee Item
         %option{:value => "subscription_fee_item"} Subscription Fee Item
 
     .field_20
       = f.label :id, "<span class='asterisk'>*</span>Fee"
-      %select{:class => "compulsory_field general_drop_down_level_2_3",:drop_down_field => "fee_item_list", :id => "fee_item_list", :method => "GET", :url => "/membership/fee_drop_down_list_l2"}
+      %select{:class => "compulsory_field general_drop_down_level_2_3",:drop_down_field => "fee_item_list", :id => "fee_item_list", :method => "GET", :url => "/membership_fees/fee_drop_down_list_l2"}
       %input{:name=>"membership_fee[membership_id]", :value=>@membership.id, :class=>"hidden"}
     .field_20
       = f.label :id,  "Amount"
