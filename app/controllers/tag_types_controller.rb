@@ -218,6 +218,20 @@ class TagTypesController < ApplicationController
     end
   end
 
+  def show_dd_payment_method
+    @payment_method_type = PaymentMethodMetaType.find(params[:param1])
+    @update_field = params[:update_field]
+    @payment_methods = PaymentMethodType.find(:all, :conditions => ['tag_type_id = ? ', params[:param1]])
+    @action = params[:type] #new or edit
+    @options = ""
+    @payment_methods.each do |i|
+      @options += '<option value=' + i.id.to_s + '>' + i.name
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
 
   def retrieve
     @tag_type = TagType.find(params[:id])

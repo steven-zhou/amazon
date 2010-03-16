@@ -2,7 +2,7 @@
   .options
     = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "membership_fee", :title=>"Close", :class => "close_option", :toggle_id_name => "new_membership_fee_form"
   .title
-    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "membership_fee", :title => "New", :method => "GET", :url => "/membership_fees/new"
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "membership_fee", :title => "New", :method => "GET", :url => "/membership_fees/new", :param1 => @membership_id
     &nbsp;
   %h2 New Membership Fee
   #new_membership_fee_form{:style => "float:left;width:100%;"}
