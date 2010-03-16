@@ -306,10 +306,8 @@ class MembershipController < ApplicationController
   end
 
   def life
-    #    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
-    #    @membership_logs = @membership.membership_logs
-    #    @person = Person.find(@membership.person_id) rescue @person = Person.new
-    #    @status = @membership.membership_sub_status.try(:name)
+    status = ["Actived"]
+    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
     @type=[MembershipStatus.find_by_name("Actived").id]
     respond_to do |format|
       format.html
@@ -372,7 +370,9 @@ class MembershipController < ApplicationController
   end
 
   def end_cycle
-   
+    status = ["Rejected","Terminated","Removed","Archived"]
+   @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+  
     respond_to do |format|
       format.html
     end
@@ -381,10 +381,22 @@ class MembershipController < ApplicationController
   def membership_filter
     conditions = Array.new  
     creator_username = params[:creator_username]
+
+    #----------------check creator--------------------------------------------------------
     unless (creator_username.blank?)
       creator_id = LoginAccount.find_by_user_name(creator_username).id.to_s rescue creator_id = "0"
       conditions << ("creator_id="+creator_id)
     end
+
+
+    membership_status = params[:membership_status]
+    
+    unless (membership_status=="")
+#      membership_status_id = MembershipStatus.find_by_name(membership_status).id
+      conditions << ("membership_status_id="+membership_status.to_s)
+    end
+
+    #----------------check date--------------------------------------------------------
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
       start_date = params[:start_date].to_date.yesterday.to_s
@@ -401,11 +413,18 @@ class MembershipController < ApplicationController
       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
 
+    #----------------join all conditions--------------------------------------------------------
     @query_conditions = conditions.join('&')
     @state = params[:state]
 
     if (params[:state] == "end_cycle")
-      @type = [MembershipStatus.find_by_name("Rejected").id,MembershipStatus.find_by_name("Terminated").id]
+
+      @type = []
+      @type <<  MembershipStatus.find_by_name("Rejected").id
+      @type << MembershipStatus.find_by_name("Terminated").id
+      @type << MembershipStatus.find_by_name("Removed").id
+      @type << MembershipStatus.find_by_name("Archived").id
+      @type = @type.join(',')
     elsif (params[:state]=="life")
       @type = [MembershipStatus.find_by_name("Actived").id]
     end
