@@ -30,7 +30,7 @@ class MembershipController < ApplicationController
       @membership.active = false
     end
     
-    if @membership.save && @membership.person.save && @person.save
+    if @membership.save && @person.save
 
 
       #save to membership log
@@ -52,7 +52,6 @@ class MembershipController < ApplicationController
         if params[:membership_log][:mail_sent]
           @membership_log.mail_sent = true
           if params[:membership_log][:mail_template_id]
-
             @mail_body = PersonMailTemplate.find(params[:membership_log][:mail_template_id].to_i).body
             file_name="MembershipStartupMail"
             @entities = [@person]
@@ -80,6 +79,12 @@ class MembershipController < ApplicationController
 
       flash.now[:message] ||= " Saved successfully"
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Membership #{@membership.id}.")
+      if params[:auto_approve]
+        @auto_approve = true
+        @membership_id = @membership.id
+      else
+        @membership = Membership.new
+      end
     else
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "person_id") if (!@membership.errors.on(:person_id).nil? && @membership.errors.on(:person_id).include?("has already been taken"))
       flash.now[:error] = flash_message(:type => "field_missing", :field => "person_id") if (!@membership.errors.on(:person_id).nil? &&  @membership.errors.on(:person_id).include?("can't be blank"))
@@ -87,7 +92,7 @@ class MembershipController < ApplicationController
       flash.now[:error] = flash_message(:type => "field_missing", :field => "membership_type_id") if (!@membership.errors.on(:membership_type_id).nil? &&  @membership.errors.on(:membership_type_id).include?("can't be blank"))
       flash.now[:error] = "Please make sure the initiated date is entered in valid format (dd-mm-yyyy)" if (!@membership.errors.on(:initiated_date).nil? &&  @membership.errors.on(:initiated_date).include?("is_invalid"))
     end
-    @membership = Membership.new
+    
     respond_to do |format|
       format.js
     end
