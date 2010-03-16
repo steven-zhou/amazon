@@ -7,9 +7,9 @@
     %h1 Find by Person
     %div
       - form_for @person, :url => {:action => 'search'}, :html => {:method => :post} do |p|
-        -first_title = @current_user.default_value.default_first_title_id
-        -default_nationality = @current_user.default_value.default_nationality_id
-        -default_language = @current_user.default_value.default_language_id
+        -first_title = @current_user.default_value.try(:default_first_title_id)
+        -default_nationality = @current_user.default_value.try(:default_nationality_id)
+        -default_language = @current_user.default_value.try(:default_language_id)
         
         .container
           %h2 Record Details
@@ -116,7 +116,7 @@
         %h1 Find by Email
     %div.container
       -form_for Email.new, :url => {:action => 'search'}, :html => {:method => :post} do |email|    
-        -default_email = @current_user.default_value.default_email_type_id
+        -default_email = @current_user.default_value.try(:default_email_type_id)
         .container
           %h2 Email
           .form_line
@@ -137,7 +137,7 @@
       %a{:href => "#"} Find by Phone
     %div.container
       -form_for Phone.new, :url => {:action => 'search'}, :html => {:method => :post} do |phone|
-        -default_phone = @current_user.default_value.default_phone_type_id
+        -default_phone = @current_user.default_value.try(:default_phone_type_id)
         .container
           %h2 Phone
           .form_line
