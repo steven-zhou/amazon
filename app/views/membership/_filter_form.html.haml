@@ -16,9 +16,12 @@
     .field_20
       %label Status
       %select{:id => "membership_status"}
+        %option{:value => ""}
+          All
         -membership_status.each do |s|
           %option{:value => s.id}
             = s.name
+          
     .field_15
       %label &nbsp
       =submit_tag 'submit'
