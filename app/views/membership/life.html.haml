@@ -7,5 +7,7 @@
   #life_page_filter
     -#-form_for "life_page_filter_form" , :url =>{:controller => "membership" ,:action =>""},:html => {:class =>'ajax_form'} do |f|
     = render :partial => "/membership/filter_form"
+
+.full_container
   #life_grid
     =render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Actived"}

@@ -299,11 +299,11 @@ class MembershipController < ApplicationController
   end
 
   def life
-#    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
-#    @membership_logs = @membership.membership_logs
-#    @person = Person.find(@membership.person_id) rescue @person = Person.new
-#    @status = @membership.membership_sub_status.try(:name)
-     @type=[MembershipStatus.find_by_name("Actived").id]
+    #    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
+    #    @membership_logs = @membership.membership_logs
+    #    @person = Person.find(@membership.person_id) rescue @person = Person.new
+    #    @status = @membership.membership_sub_status.try(:name)
+    @type=[MembershipStatus.find_by_name("Actived").id]
     respond_to do |format|
       format.html
     end
@@ -372,7 +372,38 @@ class MembershipController < ApplicationController
   end
 
   def membership_filter
-    
+    @state = params[:state]
+    if (params[:state] == "end_cycle")
+      @state = params[:state]
+      puts"---DEBUG---1111"
+      conditions = Array.new
+      creator_username = params[:creator_username]
+
+      unless (creator_username.blank?)
+        creator_id = LoginAccount.find_by_user_name(creator_username).id.to_s rescue creator_id = "0"
+        conditions << ("creator_id="+creator_id)
+      end
+
+      if valid_date(params[:start_date]) && valid_date(params[:end_date])
+        start_date = params[:start_date].to_date.yesterday.to_s
+        end_date = params[:end_date].to_date.tomorrow.to_s
+        unless start_date.blank? || end_date.blank?
+          start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
+          end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
+          conditions << ("start_date=" + start_date)
+          conditions << ("end_date=" + end_date)
+        end
+        @date_valid = true
+      else
+        @date_valid = false
+        flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+      end
+
+      @query = conditions.join('&')
+      puts"---DEBUG-2222222--#{@query.to_yaml}"
+    else
+      puts"---DEBUG---22222"
+    end
     respond_to do |format|
       format.js
     end
