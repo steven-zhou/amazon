@@ -39,7 +39,7 @@
 .form_line{:style => "height:auto;"}
   .field_100{:style => "height:auto;"}
     %label <span class="asterisk">*</span>Outcomes
-    %textarea{:id=>"initiator_outcome",:name=>"membership_log[comment]",:style=>"width:100%;height:150px;",:class=>"compulsory_field"}
+    %textarea{:id=>"initiator_outcome",:name=>"membership_log[comment]",:style=>"width:100%;height:60px;",:class=>"compulsory_field"}
 -#.form_line
   .field_20
     %label Mail Template Category
@@ -57,8 +57,8 @@
   .field_20
     %label &nbsp
     %label Membership Prospective Mail
-  .field_10
-    %label Send After Submit
+  .field_15
+    %label Send Mail After Submit
     %input{:type => "checkbox", :id => "mail_send_after_submit", :name => "membership_log[mail_sent]",:class=>"submit_checkbox",:disabled=>true,:field=>"mail"}
 
   .field_10
@@ -67,8 +67,8 @@
   .field_20
     %label &nbsp
     %label Membership Prospective Email
-  .field_10
-    %label Send After Submit
+  .field_15
+    %label Send Email After Submit
     %input{:type => "checkbox", :id => "email_send_after_submit", :name => "membership_log[email_sent]",:class=>"submit_checkbox",:disabled=>true,:field=>"email"}
 
 
