@@ -7,7 +7,7 @@
   %input.hidden{:id => "end_cycle_mode", :mode => "show"}
 
   #end_cycle_filter
-    -form_tag("/membership/membership_filter", {:class => "ajax_form"}) do
+    -form_tag("/membership/membership_filter?state=end_cycle", {:class => "ajax_form"}) do
       =render :partial => "membership/filter_form"
 
-  #existing_end_cycle
+  #existing_end_cycle_membership

@@ -5,7 +5,7 @@
     %br.clear
 .full_container
   #life_page_filter
-    -form_for "life_page_filter_form" , :url =>{:controller => "membership" ,:action =>"membership_filter"},:html => {:class =>'ajax_form'} do |f|
+    -form_tag("/membership/membership_filter?state=life", {:class => "ajax_form"}) do
       = render :partial => "/membership/filter_form"
   #life_grid
     =render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Actived"}
