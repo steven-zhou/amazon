@@ -18,6 +18,10 @@ class MembershipStatus < AmazonSetting
     MembershipStatus.find(:all, :conditions => ["name IN (?)", ["In-review", "Actived", "Rejected"]])
   end
 
+  def self.approve
+    MembershipStatus.find_by_name("Actived")
+  end
+
   private
   
   def assign_priority

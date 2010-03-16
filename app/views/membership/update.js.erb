@@ -13,8 +13,8 @@ $('#individual_review_page').html('');
 $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
 
 
-<%-unless flash[:comfirmation].nil?%>
- $("#confirm_message_text").html("<%=escape_javascript(flash[:comfirmation])%>");
+<%-unless flash[:confirmation].nil?%>
+ $("#confirm_message_text").html("<%=escape_javascript(flash[:confirmation])%>");
       $("#confirm_message_text").css('padding-top', '32px')
       $('#confirm_message_image').css("display","");
       $('#confirm_message').dialog( {
