@@ -1,6 +1,6 @@
 -n = 1
 - @membership_logs.each do |i|
-  .container
+  .container{:id => "membership_log_#{i.id}"}
     - if (i.action == "Reviews")
       %h1 Review_#{n}
       - n = n+1
@@ -27,7 +27,7 @@
           = i.pre_status
       .field_20
         %label Post-status
-        .display_field_bg
+        .display_field_bg#post_status
           = i.post_status
       .field_20
         %label Mail Sent
