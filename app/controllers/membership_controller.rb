@@ -381,6 +381,7 @@ class MembershipController < ApplicationController
     end
   end
 
+
   private
 
   def send_membership_mail(body,file_name,entities)
