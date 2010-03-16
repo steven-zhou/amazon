@@ -18,7 +18,7 @@
       %select{:id => "membership_status",:name=>"membership_status"}
         %option{:value => ""}
           All
-        -membership_status.each do |s|
+        -@membership_status.each do |s|
           %option{:value => s.id}
             = s.name
           

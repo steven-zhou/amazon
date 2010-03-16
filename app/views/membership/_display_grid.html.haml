@@ -15,8 +15,15 @@
     },
 
     {
-        display: 'Person Name',
-        name : 'person_id',
+        display: 'Person First Name',
+        name : 'person.first_name',
+        width : 100,
+        sortable : true,
+        align: 'left'
+    },
+    {
+        display: 'Person Family Name',
+        name : 'person.family_name',
         width : 100,
         sortable : true,
         align: 'left'
@@ -53,24 +60,28 @@
     ],
     searchitems : [
     {
-        display: 'Person Name',
-        name : 'person_id'
+        display: 'Person Family Name',
+        name : 'people.family_name'
+    },
+    {
+        display: 'Person First Name',
+        name : 'people.first_name'
     },
 
     {
         display: 'Employer Name',
-        name : 'employer_id'
+        name : 'organisations.full_name'
     },
 
 
     {
         display: 'Workplace Name',
-        name : 'workplace_id'
+        name : 'organisations.full_name'
     }
 
     ],
 
-    sortname: "id",
+    sortname: "memberships.id",
     sortorder: "asc",
     usepager: true,
     title: '',

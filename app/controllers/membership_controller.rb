@@ -115,6 +115,7 @@ class MembershipController < ApplicationController
     @person = @membership.person
     @field= params[:field]
     @email = @membership.person.primary_email
+    @membership_status = MembershipStatus.review
     case @field    
     when "review_page" then @membership.stage="ReviewStage"
     when "finalize_page" then @membership.stage="FinalizeStage"
@@ -122,10 +123,8 @@ class MembershipController < ApplicationController
     @render_page = params[:render_page]
 
 
-    type = []
-    type <<  MembershipStatus.prospective.id
-    type << MembershipStatus.in_reivew.id
-    @type = type.join(',')
+
+   @type = MembershipStatus.join_membership_status(MembershipStatus.review)
 
     #if status change from non-active to active, payment is required. status will keep as it is before payment is completed
     if params[:membership][:membership_status_id].to_i == MembershipStatus.approve.id
@@ -210,8 +209,7 @@ class MembershipController < ApplicationController
       flash.now[:error] = "error"
     end
 
-
-   
+    @person = Person.new
     respond_to do |format|
       format.js
     end
@@ -264,10 +262,12 @@ class MembershipController < ApplicationController
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
 
-    type = []
-    type <<  MembershipStatus.prospective.id
-    type << MembershipStatus.in_review.id
-    @type = type.join(',')
+
+    
+    @membership_status = MembershipStatus.review
+
+
+    @type = MembershipStatus.join_membership_status(MembershipStatus.review)
     respond_to do |format|
       format.html
     end
@@ -366,7 +366,13 @@ class MembershipController < ApplicationController
       @type << MembershipStatus.archive.id
       @type = @type.join(',')
     elsif (params[:state]=="life")
-      @type = [MembershipStatus.approve.id]
+
+     @type = [MembershipStatus.approve.id]
+    elsif (params[:state]=="review")
+      @type = MembershipStatus.join_membership_status(MembershipStatus.review)
+#      @type <<  MembershipStatus.find_by_name("Prospective").id
+#      @type << MembershipStatus.find_by_name("In-review").id
+#      @type = @type.join(',')
     end
 
 

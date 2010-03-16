@@ -8,16 +8,21 @@
     $('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
     $('#flash_feedback').fadeIn("slow");
     $('body').click(function(){$('#flash_feedback').fadeOut("slow")});
-    $('#reviewer').html('<%= escape_javascript(render(:partial => "/membership/reviewer_form")) %>');
+
     $("#reviewer_id").val("");
-    $('#display_review_info').hide();
+
 
     $('#membership_mode').attr('mode', 'show');
-    $(".tab_switch_container").html("");
+
     $('#individual_review_page').html('');
 
-    $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
+
+    $("#review_filter").css("display","");
+    $("#review_page_grid").css("display","none");
+    $('#review_page').html('<%= escape_javascript(render(:partial => "/membership/review_page")) %>');
+
   <%- end %>
+
 
 
 
@@ -69,4 +74,10 @@
   $('#flash_message').dialog('open');
 
 <%-end%>
+
 enable_form_after_submit_finish();
+
+datapick_config();
+start_end_date_pick();
+
+hasDatepicker();

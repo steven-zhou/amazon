@@ -2737,7 +2737,7 @@ class GridsController < ApplicationController
     end
 
 
-     conditions = Array.new
+    conditions = Array.new
     values = Array.new
 
 
@@ -2765,15 +2765,15 @@ class GridsController < ApplicationController
 
     end
 
-#     if params[:dispatch_date] == "false"
-#
-#      conditions << "dispatch_date IS"
-#      values << "NULL"
-#     else
-#      conditions << "dispatch_date IS NOT"
-#      values << "NULL"
-#
-#    end
+    #     if params[:dispatch_date] == "false"
+    #
+    #      conditions << "dispatch_date IS"
+    #      values << "NULL"
+    #     else
+    #      conditions << "dispatch_date IS NOT"
+    #      values << "NULL"
+    #
+    #    end
 
 
 
@@ -2784,7 +2784,7 @@ class GridsController < ApplicationController
     if(query == "%%")
       query_string = params[:dispatch_date]== "false" ? "dispatch_date IS NULL " : "dispatch_date IS NOT NULL"
       @email_maintenance = params[:model_type].constantize.find(:all,
-       :conditions => [query_string + " AND " + conditions.join(' AND '), *values],
+        :conditions => [query_string + " AND " + conditions.join(' AND '), *values],
 
         #:conditions => ["created_at >= ? and created_at <= ?", params[:start_date].to_date, params[:end_date].to_date],
         :order => sortname+' '+sortorder,
@@ -2801,7 +2801,7 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-       :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
+        :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
       count = params[:model_type].constantize.count(:all, :conditions => [query_string + " AND " +conditions.join(' AND '), *values])
     end
 
@@ -3994,34 +3994,35 @@ class GridsController < ApplicationController
       rp = 20
     end
 
-   if qtype == "person_id"
-     qtype = "person.first_name ilike "+ query + "And person.family_name"
-   end
-   params[:type]=params[:type].split(",") rescue params[:type] = params[:type]
+ 
+    params[:type]=params[:type].split(",") rescue params[:type] = params[:type]
 
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
 
-     conditions = Array.new
+    conditions = Array.new
     values = Array.new
-
+    
+    #  if qtype == "person_id"
+    #     qtype = "person.first_name ilike "+ query + " And person.family_name"
+    #   end
 
     conditions << "membership_status_id IN (?)"
     values << params[:type]
 
     if params[:start_date]
-      conditions << "created_at >= ? "
+      conditions << "memberships.created_at >= ? "
       values << params[:start_date].to_date
     end
 
     if params[:end_date]
-      conditions << "created_at <= ? "
+      conditions << "memberships.created_at <= ? "
       values << params[:end_date].to_date
     end
 
     if params[:creator_id]
-      conditions << "creator_id = ? "
+      conditions << "memberships.creator_id = ? "
       values << params[:creator_id]
     end
 
@@ -4037,10 +4038,11 @@ class GridsController < ApplicationController
         :conditions=>[ conditions.join(' AND '), *values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start
+        :offset =>start,
+        :include =>["person","employer"]
 
       )
-      count = Membership.count(:all, :conditions=>[ conditions.join(' AND '), *values])
+      count = Membership.count(:all,:include =>["person","employer"], :conditions=>[ conditions.join(' AND '), *values])
     end
 
     # User provided search terms
@@ -4049,10 +4051,12 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values]
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :include =>["person","employer"]
       )
-      count = Membership.count(:all,:conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
+      count = Membership.count(:all,:include =>["person","employer"],:conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
     end
+
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
@@ -4061,11 +4065,12 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @membership.collect{|u| {:id => u.id,
         :cell=>[u.id,
-         u.person_id.nil? ? "" : u.person.name,
-         u.employer_id.nil? ? "" : u.employer.full_name,
-         u.workplace_id.nil? ? "" : u.workplace.full_name,
-         u.membership_status_id.nil? ? "" : u.membership_status.name,
-         u.membership_type_id.nil? ? "" : u.membership_type.name
+          u.person_id.nil? ? "" : u.person.first_name,
+          u.person_id.nil? ? "" : u.person.family_name,
+          u.employer_id.nil? ? "" : u.employer.full_name,
+          u.workplace_id.nil? ? "" : u.workplace.full_name,
+          u.membership_status_id.nil? ? "" : u.membership_status.name,
+          u.membership_type_id.nil? ? "" : u.membership_type.name
 
         ]}}
     # Convert the hash to a json object
@@ -4272,13 +4277,13 @@ class GridsController < ApplicationController
           u.start_date,
           u.end_date,
           u.default_address_type.name
-#          u.default_first_title.name,
-#          u.default_nationality.name,
-#          u.default_language.name,
-#          u.default_phone_type.name,
-#          u.default_email_type.name,
-#          u.default_website_type.name,
-#          u.default_note_type.name,
+          #          u.default_first_title.name,
+          #          u.default_nationality.name,
+          #          u.default_language.name,
+          #          u.default_phone_type.name,
+          #          u.default_email_type.name,
+          #          u.default_website_type.name,
+          #          u.default_note_type.name,
 
 
         ]}}
@@ -4289,7 +4294,7 @@ class GridsController < ApplicationController
 
 
 
-   def show_membership_fee_grid
+  def show_membership_fee_grid
 
     page = (params[:page]).to_i
     rp =(params[:rp]).to_i
@@ -4356,5 +4361,5 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
 
-   end
+  end
 end

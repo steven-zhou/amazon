@@ -50,13 +50,18 @@ class MembershipStatus < AmazonSetting
   def self.join_membership_status(array)
     type = []
     array.each do |a|
-      type <<  a
+      type <<  a.id
     end
     type = type.join(',')
   end
 
   def self.all_end_cycle
     status = ["Rejected","Terminated","Removed","Archived"]
+    MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+  end
+
+  def self.review
+    status = ["Prospective","In-review"]
     MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
   end
 
