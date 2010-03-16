@@ -3,7 +3,6 @@ class MembershipController < ApplicationController
 
   def new
     @membership = Membership.new
-    @default_stage_id = AmazonSetting.find_by_name("Initiated").try(:id)
     respond_to do |format|
       format.html
     end
@@ -147,12 +146,12 @@ class MembershipController < ApplicationController
 
       
       #save to membership log
-      if params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Prospective").id
+      if params[:membership][:membership_status_id].to_i== MembershipStatus.prospective.id
         params[:membership_log][:mail_template_id]=PersonMailTemplate.initiate_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.initiate_template_id
         params[:membership_log][:post_status] = "Prospective"
 
-      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("In-review").id
+      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.in_review.id
         params[:membership_log][:mail_template_id]=PersonMailTemplate.inreview_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.inreview_template_id
         params[:membership_log][:post_status] = "In-review"
@@ -163,7 +162,7 @@ class MembershipController < ApplicationController
         params[:membership_log][:post_status] = "In-review" #keep In-review before payment is completed
 
 
-      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.find_by_name("Rejected").id
+      elsif params[:membership][:membership_status_id].to_i== MembershipStatus.reject.id
         params[:membership_log][:mail_template_id]=PersonMailTemplate.reject_template_id
         params[:membership_log][:email_template_id]=PersonEmailTemplate.reject_template_id
         params[:membership_log][:post_status] = "Rejected"
@@ -314,14 +313,7 @@ class MembershipController < ApplicationController
   end
 
   def end_cycle
-<<<<<<< HEAD:app/controllers/membership_controller.rb
-    status = ["Rejected","Terminated","Removed","Archived"]
-    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
-
-=======
     @membership_status = MembershipStatus.all_end_cycle
-  
->>>>>>> 031d1d766999bddfcb4ff3086b71fa36a2f88ae6:app/controllers/membership_controller.rb
     respond_to do |format|
       format.html
     end
@@ -338,16 +330,9 @@ class MembershipController < ApplicationController
       conditions << ("creator_id="+creator_id)
     end
 
-<<<<<<< HEAD:app/controllers/membership_controller.rb
 
-    membership_status = params[:membership_status]
-
-    unless (membership_status=="")
-      #      membership_status_id = MembershipStatus.find_by_name(membership_status).id
-=======
     #----------------status drop down list--------------------------------------------------------
     unless (membership_status.blank?)
->>>>>>> 031d1d766999bddfcb4ff3086b71fa36a2f88ae6:app/controllers/membership_controller.rb
       conditions << ("membership_status_id="+membership_status.to_s)
     end
 

@@ -7,7 +7,7 @@
       %input{:name=>"membership_log[action]",:value=>"Startup",:class=>"hidden"}
       %input{:name=>"membership_log[mail_template_id]",:value=>"#{PersonMailTemplate.initiate_template_id}",:class=>"hidden"}
       %input{:name=>"membership_log[email_template_id]",:value=>"#{PersonEmailTemplate.initiate_template_id}",:class=>"hidden"}
-      %input{:name=>"membership[membership_status_id]",:value=>"#{MembershipStatus.find_by_name('Prospective').id}",:class=>"hidden"}
+      %input{:name=>"membership[membership_status_id]",:value=>"#{MembershipStatus.prospective.id}",:class=>"hidden"}
 
     .field_5
       %label &nbsp;
