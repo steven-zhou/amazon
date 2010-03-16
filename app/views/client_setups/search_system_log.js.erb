@@ -1,8 +1,8 @@
 
 <%-if flash[:error].nil?%>
 
-  $('#system_log_search_results').html("<%=escape_javascript(render(:partial => "/client_setups/system_log_search_result"))%>");
-  $('#system_log_search_results').show();
+  $('#system_log_search_results').show().html("<%=escape_javascript(render(:partial => "/client_setups/system_log_search_result"))%>");
+
   $('#system_log_export_options').show();
   $('#system_log_export_user_name').val($('#user_name').val());
   $('#system_log_export_start_date').val($('#system_log_start_date').val());
