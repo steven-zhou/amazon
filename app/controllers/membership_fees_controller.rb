@@ -39,7 +39,6 @@ class MembershipFeesController < ApplicationController
     def fee_drop_down_list_l1
     @tag_types = params[:level1_value].camelize.constantize.all
     @drop_down_field = params[:drop_down_field]
-
     respond_to do |format|
       format.js
     end

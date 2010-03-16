@@ -9,7 +9,7 @@
 
     .field_20
       = f.label :id, "<span class='asterisk'>*</span>Fee"
-      %select{:class => "compulsory_field general_drop_down_level_2_3",:drop_down_field => "fee_item_list", :id => "fee_item_list", :method => "GET", :url => "/membership_fees/fee_drop_down_list_l2"}
+      %select{:class => "compulsory_field general_drop_down_level_2_3",:drop_down_field => "fee_item_list", :id => "fee_item_list", :method => "GET", :url => "/membership_fees/fee_drop_down_list_l2", :name => "membership_fee[fee_item_id]"}
       %input{:name=>"membership_fee[membership_id]", :value=>@membership.id, :class=>"hidden"}
     .field_20
       = f.label :id,  "Amount"
