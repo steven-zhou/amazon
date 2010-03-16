@@ -10,6 +10,9 @@ $('#membership_mode').attr('mode', 'show');
 $(".tab_switch_container").html("");
 $('#individual_review_page').html('');
 
+$("#review_filter").css("display","");
+$("#review_page_grid").css("display","none");
+$(".active").find("a").click();
 $("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
 
 

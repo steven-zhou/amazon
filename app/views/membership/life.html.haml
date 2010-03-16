@@ -7,5 +7,5 @@
   #life_page_filter
     -form_tag("/membership/membership_filter?state=life", {:class => "ajax_form"}) do
       = render :partial => "/membership/filter_form", :locals => {:membership_status => @membership_status}
-  #life_grid
+  .container#life_grid{:style=>"display:none"}
     -#=render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Actived"}

@@ -230,8 +230,7 @@ class MembershipController < ApplicationController
       flash.now[:error] = "error"
     end
 
-
-   
+    @person = Person.new
     respond_to do |format|
       format.js
     end
@@ -285,6 +284,10 @@ class MembershipController < ApplicationController
     @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
     @status = @membership.membership_status.try(:name)
+
+
+    status = ["Prospective","In-review"]
+    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
 
     type = []
     type <<  MembershipStatus.find_by_name("Prospective").id
@@ -427,6 +430,11 @@ class MembershipController < ApplicationController
       @type = @type.join(',')
     elsif (params[:state]=="life")
       @type = [MembershipStatus.find_by_name("Actived").id]
+    elsif (params[:state]=="review")
+      @type = []
+      @type <<  MembershipStatus.find_by_name("Prospective").id
+      @type << MembershipStatus.find_by_name("In-review").id
+      @type = @type.join(',')
     end
 
 
