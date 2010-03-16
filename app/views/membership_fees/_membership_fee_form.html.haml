@@ -2,14 +2,19 @@
 - form_for @membership_fee, :html => {:class => "ajax_form", :submit_button_id => "new_membership_fee"} do |f|
   .form_line
     .field_20
+      %label Fee Type
+      %select{:class => "clear_select general_drop_down_level", :drop_down_field => "fee_item_list" , :method => "GET", :url => "/membership/fee_drop_down_list_l1"}
+        %option{:value => "membership_fee_item"} Membership Fee Item
+        %option{:value => "subscription_fee_item"} Subscription Fee Item
+
+    .field_20
       = f.label :id, "<span class='asterisk'>*</span>Fee"
-      = f.collection_select :fee_item_id, fee_items, :id, :name, {}, {:class => "compulsory_field"}
+      %select{:class => "compulsory_field general_drop_down_level_2_3",:drop_down_field => "fee_item_list", :id => "fee_item_list", :method => "GET", :url => "/membership/fee_drop_down_list_l2"}
       %input{:name=>"membership_fee[membership_id]", :value=>@membership.id, :class=>"hidden"}
     .field_20
       = f.label :id,  "Amount"
-      .display_field_bg
-        - if @membership_fee.new_record?
-          = number_to_currency(fee_items.first.amount)
+      .display_field_bg.general_drop_down_level_3{:drop_down_field => "fee_item_list"}
+       
     .field_20
       = f.label :id, "<span class='asterisk'>*</span>Receipt Account"
       = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {}, {:class => "compulsory_field"}

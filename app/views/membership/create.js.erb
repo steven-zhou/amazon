@@ -5,6 +5,8 @@
     $('#initiator').hide();
     $('#new_membership_submit').hide();
     $('#histroy').html('<%= escape_javascript(render(:partial => "/membership/display_membership_histroy")) %>');
+
+
   <%- else %>
     $('#flash_feedback').html('<%=escape_javascript(flash[:message])%>');
     $('#flash_feedback').fadeIn("slow");
