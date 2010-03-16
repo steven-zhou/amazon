@@ -304,10 +304,8 @@ class MembershipController < ApplicationController
   end
 
   def life
-    #    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
-    #    @membership_logs = @membership.membership_logs
-    #    @person = Person.find(@membership.person_id) rescue @person = Person.new
-    #    @status = @membership.membership_sub_status.try(:name)
+    status = ["Actived"]
+    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
     @type=[MembershipStatus.find_by_name("Actived").id]
     respond_to do |format|
       format.html
@@ -371,7 +369,7 @@ class MembershipController < ApplicationController
 
   def end_cycle
     status = ["Rejected","Terminated","Removed","Archived"]
-   @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
   
     respond_to do |format|
       format.html
@@ -381,6 +379,7 @@ class MembershipController < ApplicationController
   def membership_filter
     conditions = Array.new  
     creator_username = params[:creator_username]
+    membership_status = params[:membership_status]
 
     #----------------check creator--------------------------------------------------------
     unless (creator_username.blank?)
@@ -388,7 +387,13 @@ class MembershipController < ApplicationController
       conditions << ("creator_id="+creator_id)
     end
 
+    #----------------status drop down list--------------------------------------------------------
+    unless (membership_status.blank?)
+      conditions << ("membership_status_id="+membership_status.to_s)
+    end
+
     #----------------check date--------------------------------------------------------
+
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
       start_date = params[:start_date].to_date.yesterday.to_s
       end_date = params[:end_date].to_date.tomorrow.to_s

@@ -3994,6 +3994,9 @@ class GridsController < ApplicationController
       rp = 20
     end
 
+   if qtype == "person_id"
+     qtype = "person.first_name ilike "+ query + "And person.family_name"
+   end
    params[:type]=params[:type].split(",") rescue params[:type] = params[:type]
 
     start = ((page-1) * rp).to_i
@@ -4002,6 +4005,7 @@ class GridsController < ApplicationController
 
      conditions = Array.new
     values = Array.new
+
 
     conditions << "membership_status_id IN (?)"
     values << params[:type]
@@ -4019,6 +4023,11 @@ class GridsController < ApplicationController
     if params[:creator_id]
       conditions << "creator_id = ? "
       values << params[:creator_id]
+    end
+
+    if params[:membership_status_id]
+      conditions << "membership_status_id=?"
+      values << params[:membership_status_id]
     end
 
 
@@ -4052,11 +4061,11 @@ class GridsController < ApplicationController
 
     return_data[:rows] = @membership.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.person_id,
-          u.employer_id,
-          u.workplace_id,
-          u.membership_status_id,
-          u.membership_type_id,
+         u.person_id.nil? ? "" : u.person.name,
+         u.employer_id.nil? ? "" : u.employer.full_name,
+         u.workplace_id.nil? ? "" : u.workplace.full_name,
+         u.membership_status_id.nil? ? "" : u.membership_status.name,
+         u.membership_type_id.nil? ? "" : u.membership_type.name
 
         ]}}
     # Convert the hash to a json object
