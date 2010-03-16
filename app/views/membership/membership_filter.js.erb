@@ -2,7 +2,7 @@
 <%- if @date_valid%>
 
   <%- if @state == "end_cycle" %>
-    $("#existing_end_cycle_membership" ).html('<%=escape_javascript(render(:partial => "membership/display_grid", :locals => {:membership_status=>"Rejected"})) %>');
+    $("#existing_end_cycle_membership" ).html('<%=escape_javascript(render(:partial => "membership/display_grid", :locals => {:membership_status=>"Rejected"})) %>').css('display', '');
   <%-else%>
     $('#life_grid').html('<%= escape_javascript(render :partial => "/membership/display_grid",:locals=>{:membership_status=>"Actived"}) %>');
   <%end%>

@@ -124,8 +124,8 @@ class MembershipController < ApplicationController
 
 
     type = []
-    type <<  MembershipStatus.find_by_name("Prospective").id
-    type << MembershipStatus.find_by_name("In-review").id
+    type <<  MembershipStatus.prospective.id
+    type << MembershipStatus.in_reivew.id
     @type = type.join(',')
 
     #if status change from non-active to active, payment is required. status will keep as it is before payment is completed
@@ -266,8 +266,8 @@ class MembershipController < ApplicationController
     @status = @membership.membership_status.try(:name)
 
     type = []
-    type <<  MembershipStatus.find_by_name("Prospective").id
-    type << MembershipStatus.find_by_name("In-review").id
+    type <<  MembershipStatus.prospective.id
+    type << MembershipStatus.in_review.id
     @type = type.join(',')
     respond_to do |format|
       format.html
@@ -285,9 +285,9 @@ class MembershipController < ApplicationController
   end
 
   def life
-    status = ["Actived"]
-    @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
-    @type=[MembershipStatus.find_by_name("Actived").id]
+    
+    @membership_status = MembershipStatus.all_life
+    @type=[MembershipStatus.approve.id]
     respond_to do |format|
       format.html
     end
@@ -314,9 +314,14 @@ class MembershipController < ApplicationController
   end
 
   def end_cycle
+<<<<<<< HEAD:app/controllers/membership_controller.rb
     status = ["Rejected","Terminated","Removed","Archived"]
     @membership_status = MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
 
+=======
+    @membership_status = MembershipStatus.all_end_cycle
+  
+>>>>>>> 031d1d766999bddfcb4ff3086b71fa36a2f88ae6:app/controllers/membership_controller.rb
     respond_to do |format|
       format.html
     end
@@ -325,6 +330,7 @@ class MembershipController < ApplicationController
   def membership_filter
     conditions = Array.new
     creator_username = params[:creator_username]
+    membership_status = params[:membership_status]
 
     #----------------check creator--------------------------------------------------------
     unless (creator_username.blank?)
@@ -332,11 +338,16 @@ class MembershipController < ApplicationController
       conditions << ("creator_id="+creator_id)
     end
 
+<<<<<<< HEAD:app/controllers/membership_controller.rb
 
     membership_status = params[:membership_status]
 
     unless (membership_status=="")
       #      membership_status_id = MembershipStatus.find_by_name(membership_status).id
+=======
+    #----------------status drop down list--------------------------------------------------------
+    unless (membership_status.blank?)
+>>>>>>> 031d1d766999bddfcb4ff3086b71fa36a2f88ae6:app/controllers/membership_controller.rb
       conditions << ("membership_status_id="+membership_status.to_s)
     end
 
@@ -364,13 +375,13 @@ class MembershipController < ApplicationController
     if (params[:state] == "end_cycle")
 
       @type = []
-      @type <<  MembershipStatus.find_by_name("Rejected").id
-      @type << MembershipStatus.find_by_name("Terminated").id
-      @type << MembershipStatus.find_by_name("Removed").id
-      @type << MembershipStatus.find_by_name("Archived").id
+      @type <<  MembershipStatus.reject.id
+      @type << MembershipStatus.terminate.id
+      @type << MembershipStatus.remove.id
+      @type << MembershipStatus.archive.id
       @type = @type.join(',')
     elsif (params[:state]=="life")
-      @type = [MembershipStatus.find_by_name("Actived").id]
+      @type = [MembershipStatus.approve.id]
     end
 
 

@@ -10,4 +10,6 @@
     -form_tag("/membership/membership_filter?state=end_cycle", {:class => "ajax_form"}) do
       =render :partial => "membership/filter_form", :locals => {:membership_status => @membership_status}
 
-  #existing_end_cycle_membership
+  #existing_end_cycle_membership.full_container{:style => "display:none"}
+   
+      

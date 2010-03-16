@@ -22,6 +22,48 @@ class MembershipStatus < AmazonSetting
     MembershipStatus.find_by_name("Actived")
   end
 
+
+  def self.terminate
+    MembershipStatus.find_by_name("Terminated")
+  end
+
+  def self.reject
+    MembershipStatus.find_by_name("Rejected")
+  end
+
+  def self.remove
+    MembershipStatus.find_by_name("Removed")
+  end
+
+  def self.archive
+    MembershipStatus.find_by_name("Archived")
+  end
+
+  def self.prospective
+    MembershipStatus.find_by_name("Prospective")
+  end
+  
+  def self.in_review
+    MembershipStatus.find_by_name("In-review")
+  end
+
+  def self.join_membership_status(array)
+    type = []
+    array.each do |a|
+      type <<  a
+    end
+    type = type.join(',')
+  end
+
+  def self.all_end_cycle
+    status = ["Rejected","Terminated","Removed","Archived"]
+    MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+  end
+
+  def self.all_life
+    status = ["Actived"]
+    MembershipStatus.find(:all, :conditions => ["Name IN (?)",status ])
+  end
   private
   
   def assign_priority
