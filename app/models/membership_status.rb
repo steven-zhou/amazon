@@ -28,7 +28,7 @@ class MembershipStatus < AmazonSetting
   end
 
   def self.reject
-    MembershipStatus.find_by_name("Rejected")
+    MembershipStatus.find_by_name("Reject")
   end
 
   def self.remove
