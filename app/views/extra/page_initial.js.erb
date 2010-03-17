@@ -1,0 +1,10 @@
+<%-if @type == "Person"%>
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:person => @person})) %>');
+<%-else%>
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:organisation => @organisation})) %>');
+<%-end%>
+
+start_end_date_pick();
+datapick_config();
+hasDatepicker();
+disabled_form();
