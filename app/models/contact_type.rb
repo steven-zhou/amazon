@@ -9,7 +9,7 @@ class ContactType < Tag
 
   after_create :assign_priority
   before_destroy :reorder_priority
-
+  default_scope :order => "name ASC"
   private
 
   def assign_priority

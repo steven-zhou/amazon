@@ -6,6 +6,7 @@ class MembershipType < AmazonSetting
   validates_presence_of :name
   validates_uniqueness_of :name
 
+  
   after_create :assign_priority
   before_destroy :reorder_priority
 

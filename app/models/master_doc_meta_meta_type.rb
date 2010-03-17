@@ -7,6 +7,7 @@ class MasterDocMetaMetaType < TagMetaType
   validates_presence_of :name
   validates_uniqueness_of :name, :message => "A master doc meta meta type already exists with the same name."
 
+  default_scope :order => "name ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 
