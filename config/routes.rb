@@ -124,12 +124,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :personal_duplication_formulas, :collection => {:set_default => :get, :generate => :get, :change_status => :get}
   map.resources :organisational_duplication_formulas, :collection => {:set_default => :get, :generate => :get}
   map.resources :duplication_formula_details
-
-  
-  map.resources :grids, :member => {:people_search_grid => :get, :query_result_grid => :get, :list_edit_grid => :get, 
-    :list_compile_grid => :get,:show_person_lookup_grid =>:get,:show_postcode_grid => :get,:organisation_search_grid => :get, :duplication_organisations_grid => :get, :show_campaigns_grid => :get, :show_sources_by_campaign_grid => :get, :show_receipt_accounts_grid => :get,:show_allocation_types_grid => :get, :show_receipt_methods_grid => :get, :show_client_bank_accounts_grid => :get, :show_person_bank_accounts_grid => :get,
-    :show_other_group_organisations_grid => :get, :show_organisation_contacts_report_grid=>:get,:show_person_contacts_report_grid => :get,:show_other_member_grid => :get, :organisation_employee_grid => :get, :show_mail_logs_grid => :get, :show_org_mail_logs_grid => :get, :show_person_maillog_enquiry_grid => :get, :show_organisation_maillog_enquiry_grid => :get, :show_banks_grid => :get,:show_tax_items_grid => :get, :show_fee_grid => :get, :show_default_value_grid => :get}
-                                       
+                                  
   map.resources :phones, :member => {:move_down_phone_priority =>:get,:move_up_phone_priority =>:get,:move_organisation_down_phone_priority=>:get,:move_organisation_up_phone_priority => :get}
   map.resources :emails, :member => {:move_down_email_priority =>:get, :move_up_email_priority => :get,:move_organisation_up_email_priority=> :get, :move_organisation_down_email_priority=> :get}
   map.resources :websites, :member => {:move_down_website_priority =>:get, :move_up_website_priority => :get,:move_organisation_down_website_priority=>:get, :move_organisation_up_website_priority => :get}
@@ -172,7 +167,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :global_changes, :collection => {:change_value => :get,:check_field_type => :get,:show_type=>:get,:org_index=>:get, :page_initial => :get}
 
 
-  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :life => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get, :end_cycle => :get, :membership_filter => :get}
+  map.resources :membership,:collection=> {:membership_person_lookup=>:get,:membership_intiator_lookup=>:get,:review=>:get,:page_initial=>:get, :step_1=>:get, :step_2 => :get, :step_3 => :get, :life => :get, :step_5 => :get,:show_membership_fee=>:get, :auto_approve => :get, :end_cycle => :get, :membership_filter => :get, :log => :get}
 
 
   map.resources :tax_items,:collection=>{:retrieve_tax_item=>:get}

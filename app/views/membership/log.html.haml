@@ -1,0 +1,12 @@
+#header
+  #page_title
+    %h1 Log
+  #lol
+    %br.clear
+
+%input.hidden{:id => "log_mode", :mode => "show"}
+#log_page_filter   
+  = render :partial => "/membership_logs/log_filter_form"
+
+.container#life_grid{:style=>"display:none"}
+    

@@ -4077,7 +4077,7 @@ class GridsController < ApplicationController
 
   end
 
-  def show_memberships_grid
+  def show_membership_logs_grid
     page = (params[:page]).to_i
     rp =(params[:rp]).to_i
     query = params[:query]
@@ -4086,11 +4086,11 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "id"
+      sortname = "performed_at"
     end
 
     if (!sortorder)
-      sortorder = "asc"
+      sortorder = "desc"
     end
 
     if (!page)
@@ -4101,28 +4101,51 @@ class GridsController < ApplicationController
       rp = 20
     end
 
+    conditions = Array.new
+    values = Array.new
+    if params[:start_date]
+      conditions << "membership_logs.performed_at >= ? "
+      values << params[:start_date].to_date
+    end
+
+    if params[:end_date]
+      conditions << "membership_logs.performed_at <= ? "
+      values << params[:end_date].to_date
+    end
+
+    if params[:person_id]
+      conditions << "membership_logs.person_id = ? "
+      values << params[:person_id]
+    end
+
+    if params[:performer_id]
+      conditions << "membership_logs.performer_id = ? "
+      values << params[:performer_id]
+    end
+
     start = ((page -1) * rp).to_i
     query = "%"+query+"%"
 
     # No search terms provided
     if(query == "%%")
-      @membership = Membership.find(:all,
+      @membership_logs = MembershipLog.find(:all,
+        :conditions=>[ conditions.join(' AND '), *values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = Membership.count(:all)
+      count = MembershipLog.count(:all, :conditions=>[ conditions.join(' AND '), *values])
     end
 
     # User provided search terms
     if(query != "%%")
-      @membership = Membership.find(:all,
+      @membership_logs = MembershipLog.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ?", query]
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values]
       )
-      count = Membership.count(:all, :conditions=>[qtype +" ilike ?", query])
+      count = MembershipLog.count(:all, :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values])
     end
 
     # Construct a hash from the ActiveRecord result
@@ -4130,12 +4153,14 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
 
-    return_data[:rows] = @membership.collect{|u| {:id => u.id,
+    return_data[:rows] = @membership_logs.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.name,
-          u.description,
-          u.percentage,
-          u.active
+          u.person_id,
+          u.action,
+          u.pre_status,
+          u.post_status,
+          u.performer_id,
+          u.performed_at
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

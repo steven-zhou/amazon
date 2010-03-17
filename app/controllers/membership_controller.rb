@@ -121,9 +121,6 @@ class MembershipController < ApplicationController
     when "finalize_page" then @membership.stage="FinalizeStage"
     end
     @render_page = params[:render_page]
-
-
-
     @type = MembershipStatus.join_membership_status(MembershipStatus.review)
 
     #if status change from non-active to active, payment is required. status will keep as it is before payment is completed
@@ -231,7 +228,6 @@ class MembershipController < ApplicationController
   end
   
   def membership_intiator_lookup
-
     @person = Person.find(params[:id]) rescue @person=nil
     @update_field = params[:update_field]
     respond_to do |format|
@@ -260,49 +256,21 @@ class MembershipController < ApplicationController
     @membership = Membership.find(params[:id]) rescue @membership = Membership.new
     @membership_logs = @membership.membership_logs
     @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_status.try(:name)
-
-
-    
+    @status = @membership.membership_status.try(:name)    
     @membership_status = MembershipStatus.review
-
-
     @type = MembershipStatus.join_membership_status(MembershipStatus.review)
     respond_to do |format|
       format.html
     end
   end
 
-  def step_3
-    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
-    @membership_logs = @membership.membership_logs
-    @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_sub_status.try(:name)
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def life
-    
+  def life    
     @membership_status = MembershipStatus.all_life
     @type=[MembershipStatus.approve.id]
     respond_to do |format|
       format.html
     end
   end
-
-  def step_5
-    @membership = Membership.find(params[:id]) rescue @membership = Membership.new
-    @membership_logs = @membership.membership_logs
-    @person = Person.find(@membership.person_id) rescue @person = Person.new
-    @status = @membership.membership_sub_status.try(:name)
-    respond_to do |format|
-      format.html
-    end
-  end
-
-
 
 
   def show_membership_fee
@@ -314,6 +282,12 @@ class MembershipController < ApplicationController
 
   def end_cycle
     @membership_status = MembershipStatus.all_end_cycle
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def log
     respond_to do |format|
       format.html
     end
@@ -339,8 +313,8 @@ class MembershipController < ApplicationController
     #----------------check date--------------------------------------------------------
 
     if valid_date(params[:start_date]) && valid_date(params[:end_date])
-      start_date = params[:start_date].to_date.yesterday.to_s
-      end_date = params[:end_date].to_date.tomorrow.to_s
+      start_date = params[:start_date].to_date.to_s
+      end_date = params[:end_date].to_date.to_s
       unless start_date.blank? || end_date.blank?
         start_date = "#{Date.today().last_year.yesterday.to_s}" if start_date.blank?
         end_date = "#{Date.today().tomorrow.to_s}" if end_date.blank?
