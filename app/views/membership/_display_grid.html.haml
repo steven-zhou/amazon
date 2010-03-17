@@ -1,3 +1,5 @@
+-# locals => {:title => "tilte"} 
+%h1 #{title}
 %table#show_membership_grid{:class=>"selectable_grid",:field=>"membership",:db_click_function=>"true",:edit=>"true",:db_click_url=>"/membership/",:params2=>membership_status}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
@@ -15,15 +17,8 @@
     },
 
     {
-        display: 'Person First Name',
-        name : 'person.first_name',
-        width : 100,
-        sortable : true,
-        align: 'left'
-    },
-    {
-        display: 'Person Family Name',
-        name : 'person.family_name',
+        display: 'Person Name',
+        name : 'person.name',
         width : 100,
         sortable : true,
         align: 'left'
@@ -59,14 +54,7 @@
     }
     ],
     searchitems : [
-    {
-        display: 'Person Family Name',
-        name : 'people.family_name'
-    },
-    {
-        display: 'Person First Name',
-        name : 'people.first_name'
-    },
+
 
     {
         display: 'Employer Name',
