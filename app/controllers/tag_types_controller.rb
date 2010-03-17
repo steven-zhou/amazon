@@ -259,7 +259,7 @@ class TagTypesController < ApplicationController
       @current_extra_meta_type.save
     end
 
-    @person = Person.find(@current_extra_meta_type.extra.entity_id)
+
     respond_to do |format|
       format.js
     end
@@ -276,7 +276,7 @@ class TagTypesController < ApplicationController
     @up_exchange_tag_meta_type.save
     @up_current_tag_meta_type.save
     
-    @person = Person.find(@up_current_master_doc.extra.entity_id)
+
 
     respond_to do |format|
       format.js

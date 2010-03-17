@@ -61,5 +61,12 @@ PaymentMethodType.create :name => "Visa Card", :tag_type_id => ccd.id, :status =
 PaymentMethodType.create :name => "Payroll Deduction", :tag_type_id => payroll.id, :status => true, :to_be_removed => false
 
 
+
 puts "Initializing Extra Meta Meta Type"
 ExtraMetaMetaType.create(:name => "Custom Field", :status => true,:to_be_removed =>false)
+
+puts "Initailizing Custom Field Group"
+
+ExtraMetaType.create(:name => "Group One",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)
+ExtraMetaType.create(:name => "Group Two",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)
+ExtraMetaType.create(:name => "Group Three",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)

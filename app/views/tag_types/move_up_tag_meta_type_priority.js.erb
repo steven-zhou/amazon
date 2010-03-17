@@ -1,1 +1,6 @@
- $('#extra').html('<%= escape_javascript(render(:partial => "/master_docs/master_doc",:collection => @person.extra)) %>');
+
+
+var temp = $("#div_<%= escape_javascript(@up_current_tag_meta_type.position+1) %>").html();
+$("#div_<%= escape_javascript(@up_current_tag_meta_type.position+1) %>").html($("#div_<%= escape_javascript(@up_current_tag_meta_type.position) %>").html());
+
+$("#div_<%= escape_javascript(@up_current_tag_meta_type.position)%>").html(temp);

@@ -11,5 +11,16 @@ namespace :db do
 
     puts "DONE"
 
+    puts "Run Patch Custom Group"
+    ExtraMetaType.all.each do |i|
+      i.destroy
+    end
+
+
+    ExtraMetaType.create(:name => "Group One",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)
+    ExtraMetaType.create(:name => "Group Two",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)
+    ExtraMetaType.create(:name => "Group Three",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)
+    ExtraMetaType.create(:name => "Group Four",:tag_meta_type_id=>ExtraMetaMetaType.find_by_name("Custom Field").id, :status => true,:to_be_removed =>false)
+
   end
 end
