@@ -15,6 +15,8 @@
             = link_to "#{image_tag('icon_holder.png')} Life", {:controller => "membership", :action => "life"} , :class => "draggable", :controller => "membership", :action => "life",:icon_module=>"membership",:image_url => "icon_holder.png", :title => "Life"
           %li{:id => @current_action == "end_cycle" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} End", {:controller => "membership", :action => "end_cycle"}, :class => "draggable", :controller => "membership", :action => "end_cycle", :icon_module => "membership", :image_url => "icon_holder.png", :title => "End"
+          %li{:id => @current_action == "log" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Log", {:controller => "membership", :action => "log"}, :class => "draggable", :controller => "membership", :action => "log", :icon_module => "membership", :image_url => "icon_holder.png", :title => "Log"
           %br.clear
     .bottom
 

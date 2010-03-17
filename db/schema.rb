@@ -9,8 +9,6 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
-
 ActiveRecord::Schema.define(:version => 20100317033603) do
 
   create_table "addresses", :force => true do |t|
@@ -428,7 +426,6 @@ ActiveRecord::Schema.define(:version => 20100317033603) do
     t.string   "payroll_center"
   end
 
-<<<<<<< HEAD:db/schema.rb
   create_table "extra_meta_meta_types", :force => true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -440,9 +437,13 @@ ActiveRecord::Schema.define(:version => 20100317033603) do
   end
 
   create_table "extra_types", :force => true do |t|
-=======
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "extras", :force => true do |t|
     t.integer  "entity_id"
+    t.integer  "group_id"
     t.string   "entity_type"
     t.integer  "label1_id"
     t.string   "label1_value"
@@ -459,7 +460,6 @@ ActiveRecord::Schema.define(:version => 20100317033603) do
     t.boolean  "active"
     t.integer  "creator_id"
     t.integer  "updater_id"
->>>>>>> 694fb6ed4c0a15b41555601ed741bf4f2017ecae:db/schema.rb
     t.datetime "created_at"
     t.datetime "updated_at"
   end

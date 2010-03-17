@@ -59,3 +59,7 @@ PaymentMethodType.create :name => "Cheque", :tag_type_id => bank_account.id, :st
 PaymentMethodType.create :name => "Master Card", :tag_type_id => ccd.id, :status => true, :to_be_removed => false
 PaymentMethodType.create :name => "Visa Card", :tag_type_id => ccd.id, :status => true, :to_be_removed => false
 PaymentMethodType.create :name => "Payroll Deduction", :tag_type_id => payroll.id, :status => true, :to_be_removed => false
+
+
+puts "Initializing Extra Meta Meta Type"
+ExtraMetaMetaType.create(:name => "Custom Field", :status => true,:to_be_removed =>false)
