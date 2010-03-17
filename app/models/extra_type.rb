@@ -4,7 +4,7 @@ class ExtraType < Tag
 
   belongs_to :extra_meta_type, :class_name => "ExtraMetaType", :foreign_key => "tag_type_id"
 
-
+  default_scope :order => "position ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 
