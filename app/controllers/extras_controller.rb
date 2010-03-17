@@ -5,7 +5,7 @@ class ExtrasController < ApplicationController
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
-    @extra = Extra.new
+    @extra_types = ExtraMetaMetaType.first.extra_meta_types
    
     if params[:type]=="Person"
       @type = "Person"
