@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100311235729) do
+ActiveRecord::Schema.define(:version => 20100317033200) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -424,6 +424,21 @@ ActiveRecord::Schema.define(:version => 20100311235729) do
     t.string   "workplace_reference"
     t.string   "union_reference"
     t.string   "payroll_center"
+  end
+
+  create_table "extra_meta_meta_types", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "extra_meta_types", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "extra_types", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "fee_items", :force => true do |t|

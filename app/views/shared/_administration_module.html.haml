@@ -10,13 +10,14 @@
 - routing[:administrations][:tax_items]                 = {:controller => "configuration", :action => "tax_items" }
 - routing[:administrations][:fee_types]                 = {:controller => "configuration", :action => "fee_types" }
 - routing[:administrations][:duplication_check]         = {:controller => "configuration", :action => "duplication_check" }
+- routing[:administrations][:extra_custom_field]        = {:controller => "configuration", :action => "extra_custom_field" }
 - routing[:administrations][:group_permissions]         = {:controller => "security", :action => "group_permissions" }
 - routing[:administrations][:group_lists]               = {:controller => "security", :action => "group_lists" }
 - routing[:administrations][:security_groups]           = {:controller => "security", :action => "security_groups" }
 - routing[:administrations][:user_accounts]             = {:controller => "users", :action => "user_accounts" }
 - routing[:administrations][:user_groups]               = {:controller => "users", :action => "user_groups" }
 - routing[:administrations][:user_lists]                = {:controller => "users", :action => "user_lists" }
--
+
 - controller = routing[@current_controller.to_sym][@current_action.to_sym][:controller]
 - action = routing[@current_controller.to_sym][@current_action.to_sym][:action]
 
@@ -72,6 +73,8 @@
             = link_to "#{image_tag('icon_holder.png')} Tax Items", {:controller => "administrations", :action => "tax_items"}, :controller => "administrations", :action => "tax_items",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Tax Items"
           %li{:id => action == "fee_types" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Fee Types", {:controller => "administrations", :action => "fee_types"}, :controller => "administrations", :action => "fee_types",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Fee Types"
+          %li{:id => action == "extra_custom_field" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Extra Field", {:controller => "administrations", :action => "extra_custom_field"}, :controller => "administrations", :action => "extra_custom_field",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Extra Field"
     .bottom
 
   - # Security Menu
