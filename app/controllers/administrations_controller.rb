@@ -185,4 +185,12 @@ class AdministrationsController < ApplicationController
     end
   end
 
+  def extra_custom_field
+    @tag_meta_type = ExtraMetaMetaType.extra_custom_field
+    @category = "Extra"
+      respond_to do |format|
+      format.html
+    end
+  end
+
 end

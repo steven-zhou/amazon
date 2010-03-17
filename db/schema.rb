@@ -9,7 +9,9 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100311235729) do
+
+
+ActiveRecord::Schema.define(:version => 20100317033603) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -424,6 +426,42 @@ ActiveRecord::Schema.define(:version => 20100311235729) do
     t.string   "workplace_reference"
     t.string   "union_reference"
     t.string   "payroll_center"
+  end
+
+<<<<<<< HEAD:db/schema.rb
+  create_table "extra_meta_meta_types", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "extra_meta_types", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "extra_types", :force => true do |t|
+=======
+  create_table "extras", :force => true do |t|
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.integer  "label1_id"
+    t.string   "label1_value"
+    t.integer  "label2_id"
+    t.string   "label2_value"
+    t.integer  "label3_id"
+    t.string   "label3_value"
+    t.integer  "label4_id"
+    t.string   "label4_value"
+    t.integer  "label5_id"
+    t.string   "label5_value"
+    t.integer  "label6_id"
+    t.string   "label6_value"
+    t.boolean  "active"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+>>>>>>> 694fb6ed4c0a15b41555601ed741bf4f2017ecae:db/schema.rb
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "fee_items", :force => true do |t|
