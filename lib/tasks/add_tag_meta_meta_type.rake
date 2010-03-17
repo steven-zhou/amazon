@@ -7,7 +7,7 @@ namespace :db do
       i.destroy
     end
 
-    ExtraMetaMetaType.create :name => "Extra", :status => true,:to_be_removed =>false
+    ExtraMetaMetaType.create :name => "Custom Field", :status => true,:to_be_removed =>false
 
     puts "DONE"
 

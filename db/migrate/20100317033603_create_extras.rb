@@ -2,6 +2,7 @@ class CreateExtras < ActiveRecord::Migration
   def self.up
     create_table :extras, :force => true do |t|
       t.integer :entity_id
+      t.integer :group_id
       t.string  :entity_type
       t.integer :label1_id
       t.string  :label1_value

@@ -120,4 +120,3 @@ MembershipStatus.create(:name => "Suspended", :status => true,:to_be_removed =>f
 MembershipStatus.create(:name => "Terminated", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Archived", :status => true,:to_be_removed =>false)
 MembershipStatus.create(:name => "Removed", :status => true,:to_be_removed =>false)
-ExtraMetaMetaType.create(:name => "Extra", :status => true,:to_be_removed =>false)
