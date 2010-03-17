@@ -82,6 +82,7 @@ class Person < ActiveRecord::Base
   has_many :next_reviewed_memberships, :foreign_key => "next_reviewed_by", :class_name => "Membership",:dependent => :destroy
   has_many :suspended_memberships, :foreign_key => "suspended_by", :class_name => "Membership",:dependent => :destroy
   has_many :terminated_memberships, :foreign_key => "terminated_by", :class_name => "Membership",:dependent => :destroy
+  has_many :extras, :as=>:entity
 
 
 
