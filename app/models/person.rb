@@ -45,7 +45,7 @@ class Person < ActiveRecord::Base
   has_many :people_as_source, :foreign_key => "source_person_id", :class_name => "Relationship",:dependent => :destroy
   has_many :people_as_related, :foreign_key => 'related_person_id', :class_name => 'Relationship',:dependent => :destroy
   has_many :person_bank_accounts, :foreign_key => "entity_id",:order => "priority_number ASC",:dependent => :destroy
-
+  has_many :extras, :as => "entity", :order => "group_id", :dependent => :destroy
 
   has_many :mail_logs, :as=>:entity
   has_many :person_groups, :class_name =>'PersonGroup', :foreign_key => 'people_id',:dependent => :destroy

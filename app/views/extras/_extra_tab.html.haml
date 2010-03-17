@@ -7,14 +7,14 @@
       .options{:style=>"float:right"}
         -if(group.position == 1)
           -if(@extra_types.size > 1)
-            = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(group), :class => 'get', :id => 'phone_down_button', :phone_id => contact.id, :title=>"Move Down"
-          - else
-            = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(group),  :class => 'get', :id => 'phone_up_button', :phone_id => contact.id, :title=>"Move Up"
+            = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(group), :class => 'get', :id => 'phone_down_button', :title=>"Move Down"
+        - else
+          = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(group),  :class => 'get', :id => 'phone_up_button', :title=>"Move Up"
         = image_tag('Icons/System/expand.png')
       .title
         = group.name
     %div{:id => "extra_div_#{i}"}
-      - extra = Extra.find(group.id, @entity.id)
+      - extra = Extra.find_extra(group.id, @entity)
       - if extra.nil?
         = render :partial => "/extras/extra_form", :locals => {:extra => Extra.new, :group => group}
       - else
