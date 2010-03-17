@@ -14,14 +14,14 @@
   - i = 1
   - group.extra_types.each do |label|
     .form_line
-      .field_40
-        = f.label "label#{i}_id", "#{label.name}"
+      .field_10
+        = f.label "label#{i}_id", "#{label.name}", :style => "margin-top:7px;"
       .field_40
         - field = "label#{i}_value"
         = f.text_field "lable#{i}_value", :value => "#{extra.__send__(field)}"
     - i = i + 1
 
   .form_line
-    .field_15
+    .field_30{:style => "float:right;"}
       %label &nbsp
       = submit_tag 'submit', :id => "membership_log_filter"
