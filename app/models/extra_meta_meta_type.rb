@@ -4,7 +4,7 @@ class ExtraMetaMetaType < TagMetaType
 
   has_many :extra_meta_types, :class_name => "ExtraMetaType", :foreign_key => "tag_meta_type_id"
   def self.extra_custom_field
-    ExtraMetaMetaType.find_by_name("Extra")
+    ExtraMetaMetaType.find_by_name("Custom Field")
   end
 
 

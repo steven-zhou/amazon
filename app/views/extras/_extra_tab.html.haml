@@ -1,1 +1,12 @@
-df
+-#This is main tab page of user extras
+-n = 0
+-@extra_types.each do |extra_type|
+  - if (n< @extra_types.size)
+    -n= n+1
+  %div.toggle_div.container{:toggle_id_name => "change_email", :style => "cursor: pointer;", :id => "div_#{n}"}
+
+    .options{:style=>"float:right"}
+      = image_tag('Icons/System/expand.png')
+    .title
+      = extra_type.name
+

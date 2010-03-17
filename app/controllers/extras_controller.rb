@@ -5,7 +5,7 @@ class ExtrasController < ApplicationController
   def page_initial
     @render_page = params[:render_page]
     @field = params[:field]
-    @groups = ExtraMetaType.active
+    @extra_types = ExtraMetaType.active
     if params[:type]=="Person"
       @type = "Person"
       @person = Person.find_by_id(params[:params1])
