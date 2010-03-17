@@ -5,7 +5,7 @@ class FeeType < Tag
   belongs_to :fee_meta_type, :class_name => "FeeMetaType", :foreign_key => "tag_type_id"
 
   named_scope :subscription_fee, :conditions => {:category => "subscription"}
-
+  default_scope :order => "name ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 
