@@ -1,0 +1,11 @@
+%input{:class => "hidden", :id => "extra_mode", :mode => "show"}
+
+- i = 1
+- @extra_types.each do |group|
+  %div_#{i}
+    - extra = Extra.find(group.id, @entity.id)
+    - if extra.nil?
+      = render :partial => "/extras/extra_form", :locals => {:extra => Extra.new, :group => group}
+    - else
+      = render :partial => "/extras/display_extra", :locals => {:extra => extra, :group => group}
+  - i = i + 1

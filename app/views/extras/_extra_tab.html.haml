@@ -1,1 +1,17 @@
-df
+%input{:class => "hidden", :id => "extra_mode", :mode => "show"}
+
+- i = 1
+- @extra_types.each do |group|
+  .container
+    .toggle_div.container{:toggle_id_name => "extra_div_#{i}", :style => "cursor: pointer;", :id => "div_#{i}"}
+      .options{:style=>"float:right"}
+        = image_tag('Icons/System/expand.png')
+      .title
+        = group.name
+    #extra_div_#{i}
+      - extra = Extra.find(group.id, @entity.id)
+      - if extra.nil?
+        = render :partial => "/extras/extra_form", :locals => {:extra => Extra.new, :group => group}
+      - else
+        = render :partial => "/extras/display_extra", :locals => {:extra => extra, :group => group}
+  - i = i + 1
