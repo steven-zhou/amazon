@@ -1,21 +1,23 @@
--form_for @extra, :html => {:class => "ajax_form", :submit_button_id => "extra_submit", :id => "extra_form"}) do |f|
+-# :locals = {:group => @group, :extra => @extra}
+-form_for extra, :html => {:class => "ajax_form", :id => "extra_form"}) do |f|
   .header_container
     .title
       %h1 Extra Info
     .options
-      = link_to image_tag('close_icon.png'), extra_path(@extra), :class => 'close_option', :title=>"Close", :field => "extra"
+      = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
     %br{ :style=>"clear: both;"}
-   
+
+  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => #{group.id}}
   - count = 1
-  - @labels.each do |i|
+  - group.extra_types.each do |i|
     .form_line
       .field_40
         = f.label :label#{i}_id, "#{i.name}"
       .field_40
-        = f.text_field :value#{i}, :value => #{@extra.__send__("value#{i}")}
+        = f.text_field :value#{i}, :value => #{extra.__send__("value#{i}")}
     - count = count + 1
 
   .form_line
     .field_15
       %label &nbsp
-      = submit_tag 'submit', :id => "membership_log_filter", :disabled => true
+      = submit_tag 'submit', :id => "membership_log_filter"
