@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :employments, :member => {:move_down_employment_priority => :get,:move_up_employment_priority => :get},:collection => {:page_initial => :get}
   map.resources :person_groups,:collection => {:page_initial => :get}
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
+  map.resources :extras,:collection => {:page_initial => :get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   map.resources :organisation_relationships, :collection => {:page_initial => :get}
   map.resources :organisation_groups, :collection => {:page_initial => :get}
@@ -39,6 +40,7 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :person_roles
     person.resources :person_bank_accounts
     person.resources :relationships, :collection => {:remove_relation => :delete}
+    person.resources :extras
   end
 
   map.resources :people do |person|
@@ -174,7 +176,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :membership_administrations, :collection => {:fee_items => :get}
   map.resources :fee_items, :collection => {:page_initial => :get, :drop_down_list_l1 => :get, :drop_down_list_l2 => :get}
   map.resources :membership_fees,:collection=> {:fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
-
+  
 
   # The priority is based upon order of creation: first created -> highest priority.
 
