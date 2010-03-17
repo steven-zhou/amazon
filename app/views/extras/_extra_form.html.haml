@@ -1,20 +1,24 @@
 -# :locals = {:group => @group, :extra => @extra}
--form_for extra, :html => {:class => "ajax_form", :id => "extra_form"}) do |f|
-  .header_container
+-form_for extra, :html => {:class => "ajax_form", :id => "extra_form"} do |f|
+  .ex_container
     .title
       %h1 Extra Info
     .options
-      = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
-    %br{ :style=>"clear: both;"}
+      - if extra.new_record?
+        = link_to_function image_tag('close_icon.png')
+      - else
+        = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
+    %br{:style=>"clear: both;"}
 
-  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => #{group.id}}
+  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => group.id}
   - i = 1
   - group.extra_types.each do |label|
     .form_line
       .field_40
-        = f.label :label#{i}_id, "#{label.name}"
+        = f.label "label#{i}_id", "#{label.name}"
       .field_40
-        = f.text_field :value#{i}, :value => #{extra.__send__("value#{i}")}
+        - field = "label#{i}_value"
+        = f.text_field "lable#{i}_value", :value => "#{extra.__send__(field)}"
     - i = i + 1
 
   .form_line

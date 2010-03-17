@@ -8,7 +8,7 @@ class Extra < ActiveRecord::Base
 
   private
 
-  def self.find_extra(group_id, entity_id)
-    Extra.find(:all, :conditions => ["group_id = ? AND person_id = ?", group_id, entity_id]).try(:first)
+  def self.find_extra(group_id, entity)
+    entity.extras.find_by_group_id(group_id)
   end
 end
