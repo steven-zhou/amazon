@@ -9,7 +9,7 @@ class ExtraMetaType < TagType
   after_create :assign_priority
   before_destroy :reorder_priority
 
- 
+  default_scope :order => "position ASC"
 
   private
 

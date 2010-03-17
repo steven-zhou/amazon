@@ -8,6 +8,7 @@ class TableMetaType < TagType
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :tag_meta_type_id, :message => "A table meta type already exists with the same name."
 
+  default_scope :order => "name ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 

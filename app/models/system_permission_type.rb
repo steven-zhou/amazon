@@ -11,6 +11,7 @@ class SystemPermissionType < Tag
 
   validates_presence_of :name
 
+  default_scope :order => "name ASC"
   after_create :assign_priority
   before_destroy :reorder_priority
 
