@@ -19,4 +19,6 @@ class ExtrasController < ApplicationController
       format.js
     end
   end
+
+  
 end
