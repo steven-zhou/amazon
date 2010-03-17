@@ -245,5 +245,46 @@ class TagTypesController < ApplicationController
       format.js
     end
   end
+
+
+  def move_down_tag_meta_type_priority
+    @current_extra_meta_type = TagType.find(params[:id])
+
+    if(@current_extra_meta_type.position == 1)
+      @exchange_extra_meta_type = @current_extra_meta_type.type.camelize.constantize.find_by_position(2)
+
+      @exchange_extra_meta_type.position = 1
+      @current_extra_meta_type.position = 2
+      @exchange_extra_meta_type.save
+      @current_extra_meta_type.save
+    end
+
+    @person = Person.find(@current_extra_meta_type.extra.entity_id)
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+  def move_up_tag_meta_type_priority
+    @up_current_tag_meta_type = TagType.find(params[:id])
+    @up_exchange_tag_meta_type = @up_current_tag_meta_type.type.camelize.constantize.find_by_position(@up_current_tag_meta_type.position - 1)
+
+    @up_exchange_tag_meta_type.position = @up_exchange_tag_meta_type.position + 1
+    @up_current_tag_meta_type.position = @up_current_tag_meta_type.position - 1
+
+    @up_exchange_tag_meta_type.save
+    @up_current_tag_meta_type.save
+    
+    @person = Person.find(@up_current_master_doc.extra.entity_id)
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
+
+
   
 end
