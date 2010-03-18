@@ -3,13 +3,13 @@
 - i = 1
 - @extra_types.each do |group|
   .container
-    .toggle_div{:toggle_id_name => "extra_div_#{i}", :style => "cursor: pointer;", :id => "div_#{i}"}
+    .toggle_div{:toggle_id_name => "extra_div_#{i}", :style => "cursor: pointer;", :id => "div_#{i}", :expand_with_arrow => "true"}
       .options{:style=>"float:right"}
         -if(group.position == 1)
           -if(@extra_types.size > 1)
-            = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(group), :class => 'get', :id => 'phone_down_button', :title=>"Move Down"
+            = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(group), :class => 'get expand_image', :id => 'phone_down_button', :title=>"Move Down"
         - else
-          = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(group),  :class => 'get', :id => 'phone_up_button', :title=>"Move Up"
+          = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(group),  :class => 'get expand_image', :id => 'phone_up_button', :title=>"Move Up"
         = image_tag('Icons/System/expand.png')
       .title
         %h1
