@@ -92,7 +92,9 @@
         = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/person_bank_accounts/page_initial", :method => "GET", :render_page => "/person_bank_accounts/account_tab", :field => "banking_page",:params1 => @person.id, :type => "Person"
         = link_to_function image_tag('Icons/Core/Person/tabs/banking_BW.png'), :class=>"tab_switch_with_page_initial", :field => "banking_page"
 
-
+      #Extra{:style => "float:left;margin-left:10px;", :title => "extra fields", :class => "person_edit_tab", :field =>  "extra"}
+        = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class => "tab_switch_button page_initial hidden", :url => "/extras/page_initial", :method => "GET", :render_page => "/extras/extra_tab", :field => "extra_page", :params1 => @person.id, :type => "Person"
+        = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=> "tab_switch_with_page_initial", :field => "extra_page"
 
 
 
@@ -117,6 +119,7 @@
         -#= render :partial => "/person_groups/group_tab",:locals =>{:person => @person}
       #banking_page.tab_switch_container
         -#= render :partial => "/person_bank_accounts/account_tab",:locals =>{:person => @person}
+      #extra_page.tab_switch_container
 
   %br.clear
 

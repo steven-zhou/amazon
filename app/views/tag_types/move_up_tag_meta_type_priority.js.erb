@@ -1,8 +1,4 @@
 
-
-
-
-
 <%-if @up_current_tag_meta_type.position == 1 %>
   $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%>").find("a").attr("title","Move Down").attr("href","/tag_types/<%= escape_javascript("#{@up_current_tag_meta_type.id}")%>/move_down_tag_meta_type_priority");
   $("#div_<%= escape_javascript("#{@up_current_tag_meta_type.position+1}")%> a").find("img").attr("src","/images/down_arrow.png").attr("alt","Down_arrow");;
