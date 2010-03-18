@@ -1364,7 +1364,7 @@ $(function(){
                         $('#add_'+link.attr('flag_name')).css('display', '');
                         $('#new_'+link.attr('flag_name')).toggle('blind');
                         $('#add_new_role').css("display","");
-                        $('#role_role_type_id').attr("disabled", false);
+           
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -1426,7 +1426,6 @@ $(function(){
                         $('#edit_'+link.attr('flag_name')+"_container").html('');
                         $('#add_new_role').css("display","");
                         $('#check_input_change').val("false");
-                        $('#role_role_type_id').attr("disabled", false);
                         $(".container_selected").removeClass("container_selected");
                         $(this).dialog('destroy');
                         return true;
@@ -1452,7 +1451,7 @@ $(function(){
             $('#edit_'+link.attr('flag_name')+"_container").html('');
             $('#add_new_role').css("display","");
             $('#check_input_change').val("false");
-            $('#role_role_type_id').attr("disabled", false);
+//            $('#role_role_type_id').attr("disabled", false);
             $(".container_selected").removeClass("container_selected");
 
             return true;
@@ -2129,15 +2128,15 @@ $(function(){
 });
 
 //add_new_role in Role Manager for control role_type dropdown list
-$(function(){
-    $("#new_role_bar #add_new_role").live('click',function(){
-        $('#role_role_type_id').attr("disabled", true);
-        $("#role_new_submit").attr("disabled",true);
-    });
-    $("#new_role_bar #close_role").live('click', function(){
-        $('#role_role_type_id').attr("disabled", false);
-    });
-});
+//$(function(){
+//    $("#new_role_bar #add_new_role").live('click',function(){
+//        $('#role_role_type_id').attr("disabled", true);
+//        $("#role_new_submit").attr("disabled",true);
+//    });
+//    $("#new_role_bar #close_role").live('click', function(){
+//        $('#role_role_type_id').attr("disabled", false);
+//    });
+//});
 
 //Country Data
 $(function(){

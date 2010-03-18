@@ -1,2 +1,4 @@
 $("#keyword_mode").attr('mode', 'show');
-$("#keyword_type").attr("disabled",false).change();
+$("#keyword_add_data").css("display","");
+
+$("#keyword_entries").html("<%= escape_javascript(render(:partial => "keyword_entries"))%>");

@@ -19,7 +19,7 @@ class Keyword < ActiveRecord::Base
   
   belongs_to :keyword_type, :class_name => "KeywordType", :foreign_key => "keyword_type_id"
 
- default_scope :order => "name ASC"
+ default_scope :order => "keywords.name ASC"
     #--
   ################
   #  Validations
@@ -27,8 +27,8 @@ class Keyword < ActiveRecord::Base
   #++
 
   validates_presence_of :keyword_type_id
-  validates_presence_of :name
-  validates_uniqueness_of :name, :case_sensitive => false
+  validates_presence_of :name 
+  validates_uniqueness_of :name,:scope=>[:keyword_type_id], :case_sensitive => false
   #--
   ################
   #  Delegation
