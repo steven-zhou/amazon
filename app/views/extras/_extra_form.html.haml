@@ -8,7 +8,7 @@
         - if extra.new_record?
           = link_to_function image_tag('close_icon.png')
         - else
-          = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
+          = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'get close_option', :title=>"Close", :field => "extra"
     %br{:style=>"clear: both;"}
 
   %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => group.id}

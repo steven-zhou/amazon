@@ -28,11 +28,23 @@ class ExtrasController < ApplicationController
     else
 
     end
+    @group = @extra.group
+    @position = @group.try(:position)
     respond_to do |format|
       format.js
     end
   end
 
+  def edit
+    @extra = Extra.find(params[:id])
+    @group = @extra.group
+    @position = @group.try(:position)
+    @entity = @extra.entity
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def update
     @extra = Extra.find(params[:id])
     if @extra.update_attributes(params[:extra])
@@ -40,6 +52,9 @@ class ExtrasController < ApplicationController
     else
 
     end
+    @group = @extra.group
+    @position = @group.try(:position)
+    @entity = @extra.entity
     respond_to do |format|
       format.js
     end
@@ -47,6 +62,9 @@ class ExtrasController < ApplicationController
 
   def show
     @extra = Extra.find(params[:id])
+    @group = @extra.group
+    @position = @group.try(:position)
+    @entity = @extra.entity
     respond_to do |format|
       format.js
     end
