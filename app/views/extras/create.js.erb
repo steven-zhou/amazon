@@ -23,6 +23,6 @@
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
 <% end -%>
-enable_form_after_submit_finish();
+enable_form_after_submit_finish_extension('extra_form[submit_button_id="group<%=escape_javascript(@group.id.to_s)%>_submit"]',false);
 
 
