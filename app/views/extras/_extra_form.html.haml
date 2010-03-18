@@ -6,9 +6,9 @@
     .options
       - unless group.extra_types.blank?
         - if extra.new_record?
-          = link_to_function image_tag('close_icon.png')
+          = link_to_function image_tag('close_icon.png'), :class => "close_extra"
         - else
-          = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
+          = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'get close_option', :title=>"Close", :field => "extra"
     %br{:style=>"clear: both;"}
 
   %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => group.id}
@@ -20,7 +20,7 @@
   - else
     - group.extra_types.each do |label|
       .form_line
-        .field_10
+        .field_15
           = f.label "label#{i}_id", "#{label.name}", :style => "margin-top:7px;"
           = f.text_field "label#{i}_id", :value => "#{label.id}", :style => "display:none;"
         .field_40
