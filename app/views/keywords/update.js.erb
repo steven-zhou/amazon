@@ -1,9 +1,11 @@
 $("#edit_keyword_entry").html("");
 
-$("#keyword_type").attr("disabled",false).change();
 
 $("#keyword_main_contents").show();
 $("#keyword_mode").attr('mode', 'show');
 
 $("#keyword_add_entry").css("display","");
+$("#keyword_add_data").css("display","");
+
+$("#keyword_entries").html("<%= escape_javascript(render(:partial => "keyword_entries"))%>");
  enable_form_after_submit_finish();

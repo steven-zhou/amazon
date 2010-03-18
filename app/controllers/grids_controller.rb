@@ -3060,12 +3060,13 @@ class GridsController < ApplicationController
     if(query == "%%")
       @keywords = Keyword.find(
         :all,
-        :conditions => ["keyword_type_id = ?", keyword_type_id],
+#        :conditions => ["keyword_type_id = ?", keyword_type_id],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start
       )
-      count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
+#      count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
+       count = Keyword.count(:all)
     end
 
 
@@ -3074,8 +3075,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND keyword_type_id = ? ", query, keyword_type_id])
-      count = Keyword.count(:all, :conditions=>[qtype +" ilike ? AND keyword_type_id = ? ", query, keyword_type_id])
+        :conditions=>[qtype +" ilike ? ", query],
+        :include => ["keyword_type"])
+      count = Keyword.count(:all, :conditions=>[qtype +" ilike ? ", query],:include => ["keyword_type"])
     end
 
     return_data = Hash.new()
@@ -3085,6 +3087,7 @@ class GridsController < ApplicationController
         :id => u.id,
         :cell => [
           u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+          u.to_be_removed ?  "<span class='red'>"+(u.keyword_type.nil? ? "" : u.keyword_type.name)+"</span>" : u.keyword_type.name,
           u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed ? "<span class='red'>"+(u.description.nil? ? "" : u.description)+"</span>" : u.description
         ]
@@ -3164,7 +3167,7 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    role_type_id = params[:role_type_id]
+
 
     if (!sortname)
       sortname = "grid_object_id"
@@ -3189,12 +3192,13 @@ class GridsController < ApplicationController
     if(query == "%%")
       @roles = Role.find(
         :all,
-        :conditions => ["role_type_id = ?", role_type_id],
+#        :conditions => ["role_type_id = ?", role_type_id],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start
       )
-      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
+#      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
+      count = Role.count(:all)
     end
 
     if(query != "%%")
@@ -3202,8 +3206,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND role_type_id = ? ", query, role_type_id])
-      count = Role.count(:all, :conditions=>[qtype +" ilike ? AND role_type_id = ? ", query, role_type_id])
+        :conditions=>[qtype +" ilike ?", query],
+        :include=>["role_type"])
+      count = Role.count(:all, :conditions=>[qtype +" ilike ?", query],:include=>["role_type"])
     end
 
     return_data = Hash.new()
@@ -3213,6 +3218,7 @@ class GridsController < ApplicationController
         :id => u.id,
         :cell => [
           u.to_be_removed ? "<span class='red'>"+(u.id.nil? ? "" : u.id.to_s)+"</span>" : u.id,
+          u.to_be_removed ? "<span class='red'>"+(u.role_type.nil? ? "" : u.role_type.name)+"</span>" : u.role_type.name,
           u.to_be_removed ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed ? "<span class='red'>"+(u.remarks.nil? ? "" : u.remarks)+"</span>" : u.remarks
         ]

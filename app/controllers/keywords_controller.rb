@@ -7,11 +7,9 @@ class KeywordsController < ApplicationController
 
   def create
     @keyword_table = Keyword.new
-    #    @keyword_table.name = params[:keyword][:name]
-    #    @keyword_table.description = params[:keyword][:description]
-    #    @keyword_table.status = params[:keyword][:status]
+
     @keyword_table.update_attributes(params[:keyword])
-    @keyword_table.keyword_type_id = params[:type_id]
+
     @keyword_table.to_be_removed = false
     if @keyword_table.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Keyword with ID #{@keyword_table.id}.")

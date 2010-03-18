@@ -5,9 +5,9 @@ $("#keyword_mode").attr('mode', 'show');
 $("#keyword_add_entry_form").hide();
 $("#keyword_close_entry").css("display", "none");
 $("#keyword_add_entry").css("display", "");
-$("#keyword_type").attr("disabled",false).change();
+$("#keyword_add_data").css("display","");
 
-
+$("#keyword_entries").html("<%= escape_javascript(render(:partial => "keyword_entries"))%>");
 <%else%>
 
  $('#error_message_text').html("<%=escape_javascript(flash[:error])%> ");

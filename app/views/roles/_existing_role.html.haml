@@ -11,7 +11,7 @@
       retrieve_from_grid($("#show_roles_grid tr.trSelected").attr('id'), "#role_mode", "get", "/roles/retrieve");
     };
     $("#show_roles_grid").flexigrid({
-      url: '/grids/show_roles_grid?role_type_id=#{@role_type_id}',
+      url: '/grids/show_roles_grid',
       dataType: 'json',
       colModel: [
         {
@@ -21,11 +21,18 @@
           sortable: true,
           align: 'left'
         },
+        {
+          display: 'Role Type',
+          name: 'role_type_id',
+          width: 100,
+          sortable: true,
+          align: 'left'
+        },
 
         {
           display: 'Name',
           name: 'name',
-          width: 570,
+          width: 470,
           sortable: true,
           align: 'left'
         },
@@ -45,16 +52,20 @@
 
       searchitems:[
       {
+        display: 'Role Type',
+        name: 'amazon_settings.name'
+      },
+      {
         display: 'Name',
-        name: 'name'
+        name: 'roles.name'
       },
       {
         display: 'Remarks',
-        name: 'remarks'
+        name: 'roles.remarks'
       }
       ],
 
-      sortname: "name",
+      sortname: "roles.name",
       sortorder: "asc",
       usepager: true,
       title: '',
