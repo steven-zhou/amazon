@@ -2,26 +2,33 @@
 -form_for extra, :html => {:class => "ajax_form", :id => "extra_form"} do |f|
   .ex_container
     .title
-      %h1 Extra Info
+      %h1
     .options
-      - if extra.new_record?
-        = link_to_function image_tag('close_icon.png')
-      - else
-        = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
+      - unless group.extra_types.blank?
+        - if extra.new_record?
+          = link_to_function image_tag('close_icon.png')
+        - else
+          = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'close_option', :title=>"Close", :field => "extra"
     %br{:style=>"clear: both;"}
 
   %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => group.id}
+  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[entity_id]", :value => @entity.id}
+  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[entity_type]", :value => @entity.class.to_s}
   - i = 1
-  - group.extra_types.each do |label|
-    .form_line
-      .field_40
-        = f.label "label#{i}_id", "#{label.name}"
-      .field_40
-        - field = "label#{i}_value"
-        = f.text_field "lable#{i}_value", :value => "#{extra.__send__(field)}"
-    - i = i + 1
+  - if group.extra_types.blank?
+    %h2 Please add labels first
+  - else
+    - group.extra_types.each do |label|
+      .form_line
+        .field_10
+          = f.label "label#{i}_id", "#{label.name}", :style => "margin-top:7px;"
+          = f.text_field "label#{i}_id", :value => "#{label.id}", :style => "display:none;"
+        .field_40
+          - field = "label#{i}_value"
+          = f.text_field "label#{i}_value", :value => "#{extra.__send__(field)}"
+      - i = i + 1
 
-  .form_line
-    .field_15
-      %label &nbsp
-      = submit_tag 'submit', :id => "membership_log_filter"
+    .form_line
+      .field_30{:style => "float:right;"}
+        %label &nbsp
+        = submit_tag 'submit', :id => "membership_log_filter"
