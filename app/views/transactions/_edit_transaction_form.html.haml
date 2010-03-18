@@ -1,6 +1,11 @@
 - form_for transaction, :html => {:class => "ajax_form", :id => "edit_transaction_header_form", :submit_button_id => "edit_submit_button"} do |f|
   .form_line
     .field_15
+      = f.label :id, "Transaction ID"
+      .display_field_bg
+        #{transaction.id}
+
+    .field_15
       = f.label :todays_date, "System Date"
       .display_field_bg
         #{transaction.todays_date.to_s}
@@ -13,14 +18,6 @@
       = f.label :bank_account_id, "<span class='asterisk'>*</span>Bank Account"
       = f.collection_select :bank_account_id, ClientBankAccount.active_client_bank_account, :id, :account_number
 
-    .field_10
-      = f.label :banked, "Already Banked"
-      = f.check_box :banked
-
-    .field_15
-      = f.label :letter_id, "Single Letter ID"
-      %select
-
   .form_line
     .field_15
       = f.label :payment_method_meta_type_id, "<span class='asterisk'>*</span>Receipt Method Type"
@@ -28,11 +25,19 @@
 
     .field_15
       = f.label :payment_method_type_id, "<span class='asterisk'>*</span>Receipt Method"
-      = f.collection_select :payment_method_type_id, PaymentMethodType.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", transaction.payment_method_type.id], :order => "name"), :id, :name, {}, {:id => "edit_receipt_type"}
+      = f.collection_select :payment_method_type_id, PaymentMethodType.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", transaction.payment_method_meta_type_id], :order => "name"), :id, :name, {}, {:id => "edit_receipt_type"}
 
     .field_15
       = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
       = f.collection_select :received_via_id, ReceivedVia.active_received_via, :id, :name
+
+    .field_15
+      = f.label :letter_id, "Single Letter ID"
+      %select
+
+    .field_10
+      = f.label :banked, "Already Banked"
+      = f.check_box :banked
 
   #edit_cheque_detail_form
     - if transaction.payment_method_type.name == 'Cheque'

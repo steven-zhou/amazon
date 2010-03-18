@@ -14,14 +14,6 @@
       = f.label :bank_account_id, "<span class='asterisk'>*</span>Bank Account"
       = f.collection_select :bank_account_id, ClientBankAccount.active_client_bank_account, :id, :account_number
 
-    .field_10
-      = f.label :banked, "Already Banked"
-      = f.check_box :banked
-
-    .field_15
-      = f.label :letter_id, "Single Letter ID"
-      %select
-
   .form_line
     .field_15
       = f.label :payment_method_meta_type_id, "<span class='asterisk'>*</span>Receipt Method Type"
@@ -37,6 +29,14 @@
     .field_15
       = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
       = f.collection_select :received_via_id, ReceivedVia.active_received_via, :id, :name
+
+    .field_15
+      = f.label :letter_id, "Single Letter ID"
+      %select
+
+    .field_10
+      = f.label :banked, "Already Banked"
+      = f.check_box :banked
 
   #cash_detail_form
     
