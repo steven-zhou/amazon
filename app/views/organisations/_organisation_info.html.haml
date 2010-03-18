@@ -35,6 +35,9 @@
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/organisations/organisation_relationships", :field => "o2o_page", :params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_with_page_initial", :field => "o2o_page"
 
+  #Extra{:style => "float:left;margin-left:10px;", :title => "extra fields", :class => "person_edit_tab", :field =>  "extra"}
+    = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class => "tab_switch_button page_initial hidden", :url => "/extras/page_initial", :method => "GET", :render_page => "/extras/display_extra_only", :field => "extra_page", :params1 => @organisation.id, :type => "Organisation"
+    = link_to_function image_tag('Icons/Core/Person/tabs/keywords_BW.png'), :class=> "tab_switch_with_page_initial", :field => "extra_page"
 
 .container
   #contact_page.tab_switch_container.active
@@ -54,3 +57,5 @@
   #banking_page.tab_switch_container
 
   #o2o_page.tab_switch_container
+
+  #extra_page.tab_switch_container
