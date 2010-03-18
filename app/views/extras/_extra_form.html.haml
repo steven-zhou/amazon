@@ -6,7 +6,7 @@
     .options
       - unless group.extra_types.blank?
         - if extra.new_record?
-          = link_to_function image_tag('close_icon.png')
+          = link_to_function image_tag('close_icon.png'), :class => "close_extra"
         - else
           = link_to image_tag('close_icon.png'), extra_path(extra), :class => 'get close_option', :title=>"Close", :field => "extra"
     %br{:style=>"clear: both;"}

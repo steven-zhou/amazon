@@ -3866,3 +3866,10 @@ mail_merge_insert_name = function(this_form){
     window.tinyMCE.execCommand('mceInsertContent', false, value);
 };
 
+$(function(){
+  $('.close_extra').live('click', function(){
+    toggle_id_name = $(this).closest('form').parent().attr('id');
+    $('.toggle_div[toggle_id_name='+toggle_id_name+']').click();
+    return false;
+  });
+});
