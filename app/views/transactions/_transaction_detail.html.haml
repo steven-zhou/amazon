@@ -1,5 +1,10 @@
 .form_line
   .field_15
+    %label Transaction ID
+    .display_field_bg
+      #{transaction.id}
+
+  .field_15
     %label System Date
     .display_field_bg
       #{transaction.todays_date.to_s}
@@ -18,12 +23,12 @@
   .field_15
     %label Receipt Meta Type
     .display_field_bg
-      #{ReceiptMetaMetaType.find(transaction.receipt_meta_type_id).name}
+      #{PaymentMethodMetaType.find(transaction.payment_method_meta_type_id).name}
 
   .field_15
     %label Receipt Type
     .display_field_bg
-      #{ReceiptMetaType.find(transaction.receipt_type_id).name}
+      #{PaymentMethodType.find(transaction.payment_method_type_id).name}
 
   .field_20
     %label Receipt Type
