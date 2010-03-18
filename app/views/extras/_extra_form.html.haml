@@ -1,5 +1,5 @@
 -# :locals = {:group => @group, :extra => @extra}
--form_for extra, :html => {:class => "ajax_form", :id => "extra_form"} do |f|
+-form_for extra, :html => {:class => "ajax_form", :id => "extra_form", :submit_button_id => "group#{group.id}_submit"} do |f|
   .ex_container
     .title
       %h1
@@ -19,16 +19,14 @@
     %h2 Please add labels first
   - else
     - group.extra_types.each do |label|
-      .form_line
-        .field_15
-          = f.label "label#{i}_id", "#{label.name}", :style => "margin-top:7px;"
-          = f.text_field "label#{i}_id", :value => "#{label.id}", :style => "display:none;"
-        .field_40
-          - field = "label#{i}_value"
-          = f.text_field "label#{i}_value", :value => "#{extra.__send__(field)}"
+      .field_40{:style => "width:45%;float:left;"}
+        = f.label "label#{i}_id", "#{label.name}", :style => "margin-top:7px;"
+        = f.text_field "label#{i}_id", :value => "#{label.id}", :style => "display:none;"
+        - field = "label#{i}_value"
+        = f.text_field "label#{i}_value", :value => "#{extra.__send__(field)}", :class => "optional_field"
       - i = i + 1
 
     .form_line
       .field_30{:style => "float:right;"}
         %label &nbsp
-        = submit_tag 'submit', :id => "membership_log_filter"
+        = submit_tag 'submit', :id => "group#{group.id}_submit", :disabled => extra.new_record?
