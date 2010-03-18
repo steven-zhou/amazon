@@ -1,16 +1,17 @@
-.header_container.toggle_options{:field => "extra"}
+.toggle_options{:field => "extra"}
   .title
-    %h1 Extra Info
+    %h1
   .options
-    = link_to image_tag('edit_icon.png'), edit_extra_path(@extra), :class => 'get edit_option', :field => "extra", :title=>"Edit"
+    = link_to image_tag('edit_icon.png'), edit_extra_path(extra), :class => 'get edit_option', :field => "extra", :title=>"Edit"
   %br{ :style=>"clear: both;"}
 
-- i = 1
-- group.extra_types.each do |label|
-  .form_line
-    .field_40
-      %label :label#{i}_id, "#{label.name}"
-    .field_40
-      .display_bg_background
-        = #{@extra.__send__("value#{i}")}
-  - i = i + 1
+  - i = 1
+  - group.extra_types.each do |label|
+    .form_line
+      .field_10
+        %label{:style => "margin-top:3px;"} #{label.name}:
+      .field_40
+        .display_bg_background
+          - field = "label#{i}_value"
+          = extra.__send__(field)
+    - i = i + 1

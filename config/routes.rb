@@ -40,7 +40,6 @@ ActionController::Routing::Routes.draw do |map|
     person.resources :person_roles
     person.resources :person_bank_accounts
     person.resources :relationships, :collection => {:remove_relation => :delete}
-    person.resources :extras
   end
 
   map.resources :people do |person|

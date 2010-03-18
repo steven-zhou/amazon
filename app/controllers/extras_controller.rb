@@ -21,6 +21,35 @@ class ExtrasController < ApplicationController
     end
   end
 
+  def create
+    @extra = Extra.new(params[:extra])
+    if @extra.save
 
+    else
+
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def update
+    @extra = Extra.find(params[:id])
+    if @extra.update_attributes(params[:extra])
+
+    else
+
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @extra = Extra.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
   
 end
