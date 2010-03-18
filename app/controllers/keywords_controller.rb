@@ -35,8 +35,12 @@ class KeywordsController < ApplicationController
     @keyword_table= Keyword.find(params[:id].to_i)
    
     @keyword_table.update_attributes(params[:keyword])
-    #    @keyword_table.save
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Keyword with ID #{@keyword_table.id}.")
+    if @keyword_table.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new Keyword with ID #{@keyword_table.id}.")
+    else
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Keyword")
+    end
+    
 
     respond_to do |format|
       format.js  
