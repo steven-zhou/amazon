@@ -1,6 +1,6 @@
 class Organisation < ActiveRecord::Base
 
- self.abstract_class = true
+
 
   ################
   #  Associations

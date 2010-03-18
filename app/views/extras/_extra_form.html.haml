@@ -13,7 +13,7 @@
 
   %input{:class => "hidden", :id => "extra_group_id", :name => "extra[group_id]", :value => group.id}
   %input{:class => "hidden", :id => "extra_group_id", :name => "extra[entity_id]", :value => @entity.id}
-  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[entity_type]", :value => @entity.class.to_s}
+  %input{:class => "hidden", :id => "extra_group_id", :name => "extra[entity_type]", :value => (@entity.class.to_s == "Person")? "Person" : "Organisation"}
   - i = 1
   - if group.extra_types.blank?
     %h2 Please add labels first
