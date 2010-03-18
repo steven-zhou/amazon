@@ -1331,6 +1331,7 @@ $(function(){
     $('.add_flag').live('click', function(){
         $(this).css('display', 'none');
         $('#close_'+ $(this).attr('flag_name')).css('display', '');
+        $(".mandantory_field").keyup();
     });
 });
 
@@ -1858,12 +1859,12 @@ $(function(){
 
         $("#edit_keyword_entry").html("");
 
-        //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+
         $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
         $("#keyword_new_submit").attr("disabled",true);
         $("#keyword_close_entry").css("display","");
-
+        $(".mandantory_field").keyup();
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
     });
