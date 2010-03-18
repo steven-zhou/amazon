@@ -6,10 +6,10 @@
     .toggle_div.container{:toggle_id_name => "extra_div_#{i}", :style => "cursor: pointer;", :id => "div_#{i}"}
       .options{:style=>"float:right"}
         -if(group.position == 1)
-          -if(@extra_types.size > 1)
-            = link_to image_tag('down_arrow.png'),move_down_phone_priority_phone_path(group), :class => 'get', :id => 'phone_down_button', :title=>"Move Down"
+          -if(@extra_types.size > 1)               
+            = link_to image_tag('down_arrow.png'), move_down_tag_meta_type_priority_tag_type_path(group), :class => 'get', :id => 'extra_down_button', :title=>"Move Down"
         - else
-          = link_to image_tag('up_arrow.png'),move_up_phone_priority_phone_path(group),  :class => 'get', :id => 'phone_up_button', :title=>"Move Up"
+          = link_to image_tag('up_arrow.png'), move_up_tag_meta_type_priority_tag_type_path(group),  :class => 'get', :id => 'extra_up_button', :title=>"Move Up"
         = image_tag('Icons/System/expand.png')
       .title
         = group.name
