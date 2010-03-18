@@ -2,19 +2,28 @@ class TransactionsController < ApplicationController
   # System Log stuff added
 
   def personal_transaction
-    session[:module] = "receipting"
-    @group_types = @current_user.group_types
-    @list_headers = @current_user.all_person_lists
-    @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
-    @p = @list_header.entity_on_list.uniq
-    @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
-    session[:entity_type] = "Person"
-    session[:entity_id] = @person.id
-    session[:current_list_id] = @list_header.id
-    session[:current_person_id] = @person.id
-    respond_to do |format|
-      format.html
+
+
+    if PrimaryList.first.entity_on_list.empty?
+       
+      redirect_to :controller =>"module",:action=>"core"
+    else
+      session[:module] = "receipting"
+      @group_types = @current_user.group_types
+      @list_headers = @current_user.all_person_lists
+      @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
+      @p = @list_header.entity_on_list.uniq
+      @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
+      session[:entity_type] = "Person"
+      session[:entity_id] = @person.id
+      session[:current_list_id] = @list_header.id
+      session[:current_person_id] = @person.id
+      respond_to do |format|
+        format.html
+      end
     end
+
+
   end
 
   def organisational_transaction
@@ -204,7 +213,7 @@ class TransactionsController < ApplicationController
   end
 
   def bank_run
-   @bank_accounts = BankAccount.find(:all, :order => "id asc")
+    @bank_accounts = BankAccount.find(:all, :order => "id asc")
     respond_to do |format|
       format.html
     end

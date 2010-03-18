@@ -1331,6 +1331,7 @@ $(function(){
     $('.add_flag').live('click', function(){
         $(this).css('display', 'none');
         $('#close_'+ $(this).attr('flag_name')).css('display', '');
+        $(".mandantory_field").keyup();
     });
 });
 
@@ -1364,7 +1365,7 @@ $(function(){
                         $('#add_'+link.attr('flag_name')).css('display', '');
                         $('#new_'+link.attr('flag_name')).toggle('blind');
                         $('#add_new_role').css("display","");
-                        $('#role_role_type_id').attr("disabled", false);
+           
                         $('#check_input_change').val("false");
                         $(this).dialog('destroy');
                         return true;
@@ -1426,7 +1427,6 @@ $(function(){
                         $('#edit_'+link.attr('flag_name')+"_container").html('');
                         $('#add_new_role').css("display","");
                         $('#check_input_change').val("false");
-                        $('#role_role_type_id').attr("disabled", false);
                         $(".container_selected").removeClass("container_selected");
                         $(this).dialog('destroy');
                         return true;
@@ -1452,7 +1452,7 @@ $(function(){
             $('#edit_'+link.attr('flag_name')+"_container").html('');
             $('#add_new_role').css("display","");
             $('#check_input_change').val("false");
-            $('#role_role_type_id').attr("disabled", false);
+//            $('#role_role_type_id').attr("disabled", false);
             $(".container_selected").removeClass("container_selected");
 
             return true;
@@ -1859,12 +1859,12 @@ $(function(){
 
         $("#edit_keyword_entry").html("");
 
-        //        $("#keyword_add_entry_form").attr("type_id", $("#keyword_type").val());
+
         $("#type_id").val($("#keyword_type").val());
         $("#keyword_type").attr("disabled",true);
         $("#keyword_new_submit").attr("disabled",true);
         $("#keyword_close_entry").css("display","");
-
+        $(".mandantory_field").keyup();
         $(".keyword_entry_selected").removeClass("keyword_entry_selected");
 
     });
@@ -2129,15 +2129,15 @@ $(function(){
 });
 
 //add_new_role in Role Manager for control role_type dropdown list
-$(function(){
-    $("#new_role_bar #add_new_role").live('click',function(){
-        $('#role_role_type_id').attr("disabled", true);
-        $("#role_new_submit").attr("disabled",true);
-    });
-    $("#new_role_bar #close_role").live('click', function(){
-        $('#role_role_type_id').attr("disabled", false);
-    });
-});
+//$(function(){
+//    $("#new_role_bar #add_new_role").live('click',function(){
+//        $('#role_role_type_id').attr("disabled", true);
+//        $("#role_new_submit").attr("disabled",true);
+//    });
+//    $("#new_role_bar #close_role").live('click', function(){
+//        $('#role_role_type_id').attr("disabled", false);
+//    });
+//});
 
 //Country Data
 $(function(){

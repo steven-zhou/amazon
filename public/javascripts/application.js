@@ -2117,6 +2117,40 @@ $(function(){
 
   });
 });
+
+
+/* optional field setting for controlling submit button*/
+$(function(){
+  optional_check = function(link){
+    var current_form = $('#'+link.closest('form').attr('id'));
+    var optional_fields = current_form.find('.optional_field');
+    var length = optional_fields.length;
+    var disable = true;
+    for(i=0; i<length; i++){
+      if ($('#'+optional_fields[i].id).val()!=''){
+        disable = false;
+        break;
+      }
+    }
+    if (disable){
+      $('#'+current_form.attr('submit_button_id')).attr('disabled', true);
+    }else{
+      a = current_form.attr('submit_button_id')
+      $('#'+current_form.attr('submit_button_id')).removeAttr('disabled');
+    }
+    return false;
+  };
+
+  $(".optional_field").live('keyup', function(){
+      optional_check($(this));
+  });
+
+  $(".optional_field").live('change', function(){
+      optional_check($(this));
+  });
+});
+
+
 //from person.js
 
 $(function() {

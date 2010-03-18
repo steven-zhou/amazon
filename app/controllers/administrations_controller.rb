@@ -13,6 +13,7 @@ class AdministrationsController < ApplicationController
 
 
   def keyword_dict
+
     respond_to do |format|
       format.html
     end
