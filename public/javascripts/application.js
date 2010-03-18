@@ -2129,7 +2129,7 @@ $(function() {
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
     
     if ($(this).attr('expand_with_arrow') == "true"){
-      var current_image = $(this).find('.expand_image');
+      var current_image = $(this).find('img[alt=Expand]');
   }else{
     var current_image = $(this).find('img');}
 
