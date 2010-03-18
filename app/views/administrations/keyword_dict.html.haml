@@ -21,10 +21,15 @@
           %div#keyword_add_entry_form{:style => "display:none;",:type_id => ""}
             = p.text_field :type, {:style => "display:none"}
             .form_line
-              .field_30
+              .field_20
+                = p.label :keyword_type_id, "<span class='asterisk'>*</span>Keyword Type"
+                %select#keyword_type.clear_select{:style => "display:inline;width:20%;"}
+                %option
+                  = KeywordType.distinct_active_keyword_type
+              .field_20
                 = p.label :name, "<span class='asterisk'>*</span>Name"
                 = p.text_field :name,:class=>'mandantory_field',:mandantory_field1=>"keyword_name",:submit_button_id=>"keyword_new_submit"
-              .field_35
+              .field_20
                 = p.label :description, 'Description'
                 = p.text_field :description
               .field_7

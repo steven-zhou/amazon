@@ -1895,6 +1895,7 @@ class GridsController < ApplicationController
         :cell=>[u.to_be_removed? ? "<span class='red'>"+u.id.to_s+"</span>" : u.id,
           u.to_be_removed? ? "<span class='red'>"+u.name+"</span>" : u.name,
           u.to_be_removed? ? "<span class='red'>"+u.description+"</span>" : u.description,
+          u.receipt_account_type.nil? ? "" : ((u.receipt_account_type.to_be_removed? || u.to_be_removed?) ? "<span class='red'>"+u.receipt_account_type.name+"</span>" : u.receipt_account_type.name),
           u.link_module.nil? ? "" : ((u.link_module.to_be_removed? || u.to_be_removed?) ? "<span class='red'>"+u.link_module.name+"</span>" : u.link_module.name),
           u.to_be_removed? ? "<span class='red'>"+u.post_to_history.to_s+"</span>" : u.post_to_history,
           u.to_be_removed? ? "<span class='red'>"+u.post_to_campaign.to_s+"</span>" : u.post_to_campaign,

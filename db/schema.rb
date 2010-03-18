@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100318020208) do
+ActiveRecord::Schema.define(:version => 20100318035900) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -1063,6 +1063,7 @@ ActiveRecord::Schema.define(:version => 20100318020208) do
     t.boolean  "to_be_removed"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "receipt_account_type_id"
   end
 
   create_table "receipt_methods", :force => true do |t|
