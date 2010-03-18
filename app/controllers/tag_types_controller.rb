@@ -268,7 +268,7 @@ class TagTypesController < ApplicationController
 
   def move_up_tag_meta_type_priority
     @up_current_tag_meta_type = TagType.find(params[:id])
-    @up_exchange_tag_meta_type = @up_current_tag_meta_type.type.camelize.constantize.find_by_position(@up_current_tag_meta_type.position - 1)
+    @up_exchange_tag_meta_type = @up_current_tag_meta_type.class.find_by_position(@up_current_tag_meta_type.position - 1)
 
     @up_exchange_tag_meta_type.position = @up_exchange_tag_meta_type.position + 1
     @up_current_tag_meta_type.position = @up_current_tag_meta_type.position - 1

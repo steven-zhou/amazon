@@ -36,7 +36,7 @@ class TransactionHeadersController < ApplicationController
     @transaction_header = TransactionHeader.new(params[:transaction_header])
     @transaction_header.entity_type = session[:entity_type]
     @transaction_header.entity_id = session[:entity_id]
-
+    @transaction_header.post = false
     TransactionHeader.transaction do
 
       if @transaction_header.save
