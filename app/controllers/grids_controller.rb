@@ -1119,12 +1119,19 @@ class GridsController < ApplicationController
       page = 1
     end
 
-    if (params[:param1])
-      page = params[:param1]
+    #show album
+    if params[:param1]
+      if (params[:param1]!="undefined")
+        page = params[:param1].to_i
+      else
+        page = 1
+      end
+      query = ""
+      qtype = ""
     end
 
-    if (!rp)
-      rp = 20
+    if (!rp || rp == 0)
+      rp = 2
     end
 
     start = ((page-1) * rp).to_i
@@ -1143,7 +1150,6 @@ class GridsController < ApplicationController
 
     # User provided search terms
     if(query != "%%")
-
       @people = ShowListGrid.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
@@ -1152,7 +1158,7 @@ class GridsController < ApplicationController
       count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
-    if params[:album]
+    if params[:param1]
       @entities = Array.new
       @people.each do |i|
         @entities << Person.find(i.grid_object_id)
