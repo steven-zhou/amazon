@@ -2,6 +2,10 @@ namespace :db do
   desc "Add membership status"
   task :add_membership_status => :environment do
     puts "Run Patch all membership_status ..."
+    MembershipSubStatus.all.each do |i|
+      i.destroy
+    end
+
     MembershipStatus.all.each do |i|
       i.destroy
     end
