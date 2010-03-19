@@ -116,19 +116,7 @@ class Person < ActiveRecord::Base
   ################
   #++
 
-  accepts_nested_attributes_for :addresses,
-    :reject_if => proc {
-    |attributes|
-    blank = true
-    attributes.each do |key,value|
-      unless value.blank?
-        if (key != 'address_type_id' && key != 'priority')
-          blank = false
-        end
-      end
-    end
-    blank
-  }
+  accepts_nested_attributes_for :addresses, :reject_if => proc { |attributes| attributes['street_name'].blank? }
 
   accepts_nested_attributes_for :phones, :emails, :faxes, :websites,:instant_messagings,  :reject_if => proc { |attributes| attributes['value'].blank? || attributes['contact_meta_type_id'].blank? }
 

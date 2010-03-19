@@ -17,7 +17,7 @@ class Address < ActiveRecord::Base
   ################
   #++
 
-  validates_presence_of :address_type_id
+  validates_presence_of :address_type_id, :street_name
   validate :fields_cannot_all_be_empty
   
   #--
@@ -92,7 +92,8 @@ class Address < ActiveRecord::Base
       postal_code.blank? and
       time_zone.blank? and
       map_reference.blank? and
-      bar_code.blank?
+      bar_code.blank? and
+      country_id.blank?
   end
   
   def update_priority
