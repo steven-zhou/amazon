@@ -273,7 +273,7 @@ class TransactionHeadersController < ApplicationController
       @end_date = params[:end_date]
       
       if valid_date(@start_date) && valid_date(@end_date)
-        @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+        @count = TransactionHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and transaction_date >= ? and transaction_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
         @date_valid = true
       else
         @date_valid = false

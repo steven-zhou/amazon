@@ -11,6 +11,6 @@
         %label End Date
         %input{:id => "filter_end_date", :class => "enddatepick", :start_date => "filter_start_date", :value => "31-12-#{Date.today().year()}", :name => "end_date"}
 
-      .field_10{:style => "float:right;"}
+      .field_20{:style => "float:right;"}
         %label &nbsp;
         = button_to_function "Filter", :class => "fake_submit_button", :form_id => "transaction_filter_form", :id => "filter_submit_button", :style => "float:right;"

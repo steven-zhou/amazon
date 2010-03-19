@@ -16,19 +16,24 @@
       sortable : true,
       align: 'left'
       },
-
       {
       display: 'Receipt Number',
       name : 'receipt_number',
-      width : 80,
+      width : 74,
       sortable : true,
       align: 'left'
       },
-
+      {
+      display: 'Manual Receipt Number',
+      name : 'receipt_number',
+      width : 113,
+      sortable : true,
+      align: 'left'
+      },
       {
       display: 'System Date',
       name : 'todays_date',
-      width : 100,
+      width : 60,
       sortable : true,
       align: 'left'
       },
@@ -36,16 +41,16 @@
       {
       display: 'Transaction Date',
       name : 'transaction_date',
-      width : 100,
+      width : 80,
       sortable : true,
       align: 'left'
       },
 
 
       {
-      display: 'Bank Account',
+      display: 'Deposit Bank Account',
       name : 'bank_accounts.account_number',
-      width : 100,
+      width : 110,
       sortable : true,
       align: 'left'
       },
@@ -53,7 +58,7 @@
       {
       display: 'Receipt Method Type',
       name : 'tag_types.name',
-      width : 120,
+      width : 105,
       sortable : true,
       align: 'left'
       },
@@ -61,7 +66,7 @@
       {
       display: 'Receipt Method',
       name : 'tags.name',
-      width : 120,
+      width : 75,
       sortable : true,
       align: 'left'
       },
@@ -69,7 +74,7 @@
       {
       display: 'Notes',
       name : 'notes',
-      width : 180,
+      width : 130,
       sortable : true,
       align: 'left'
       },
@@ -77,13 +82,17 @@
       {
       display: 'Total Amount',
       name : 'total_amount',
-      width : 100,
+      width : 70,
       sortable : true,
       align: 'left'
       }
 
       ],
       searchitems : [
+      {
+      display: 'Manual Receipt Number',
+      name : 'manual_receipt_number'
+      },
       {
       display: 'Receipt Method Type',
       name : 'tag_types.name'

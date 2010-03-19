@@ -39,19 +39,19 @@
         = f.text_field :address_line_1
       .field_20
         = f.label :address_line_3, 'Suburb/Town'
-        = f.text_field :address_line_3
+        = f.text_field :address_line_3, :class => "suburb_value"
       .field_2
         = link_to_function image_tag 'Icons/System/postcode_check.png', :style => 'display:inline;float:left;padding-top:13px;', :class => "launch_address_assistant" ,:update_field1 =>"bank_address_line_3", :update_field2 =>"bank_state", :update_field3 => "bank_postcode", :update_field4 => "bank_country_id", :title=>"Postcode"
       .field_17
         = f.label :state, 'State'
-        = f.text_field :state
+        = f.text_field :state,  :class => "state_value"
     .form_line
       .field_36
         = f.label :address_line_2, 'Address Line 2'
         = f.text_field :address_line_2
       .field_23
         = f.label :postcode, 'Postcode'
-        = f.text_field :postcode
+        = f.text_field :postcode, :class => "postcode_auto"
       .field_17
         = f.label :country, 'Country'
         = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)}
