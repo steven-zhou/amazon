@@ -34,5 +34,5 @@
       = a.text_field :postal_code, :id => "address_postal_code", :class => "postcode_auto"
     .field_45
       = a.label :country, 'Country'
-      = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true}, {:id => "address_country_id", :class => "uppercase country_value"}
+      = a.collection_select :country_id, Country.all,:id, :short_name , {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)}, {:id => "address_country_id", :class => "uppercase country_value"}
   = submit_tag 'Submit', :id => "address_submit_button" , :check_field => "address_street_name",:disabled => true

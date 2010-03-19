@@ -16,7 +16,7 @@
         .form_line
           .field_25
             = label :country_id, "<span class='asterisk'>*</span>Country"
-            = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false}, {:style => "width:90%;"}
+            = collection_select :import_postcode, :country_id, Country.all, :id, :short_name,  {:include_blank => false,:selected=>ClientSetup.try(:first).try(:home_country_id)}, {:style => "width:90%;"}
           .field_40
             = label :postcode_file, "<span class='asterisk'>*</span>Postcode Data File (*.csv)"
             = file_field :postcode_file, nil, {:style => "height:25px;"}

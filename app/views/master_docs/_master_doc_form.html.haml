@@ -73,8 +73,10 @@
     = form.text_field :issue_state
   .field_25
     = form.label :issue_country, 'Issue Country'
-    = form.collection_select(:issue_country_id, Country.all, :id, :short_name)
-
+    -if @masterdoc.new_record?
+      = form.collection_select(:issue_country_id, Country.all, :id, :short_name, {:include_blank => true,:selected=> ClientSetup.try(:first).try(:home_country_id)})
+    -else
+      = form.collection_select(:issue_country_id, Country.all, :id, :short_name)
 .form_line
   .field_25
     = form.label :expiry_date, 'Expiry Date'

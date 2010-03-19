@@ -39,4 +39,4 @@
     = address.text_field :postal_code ,:class => "postcode_auto"
   .field_49
     = address.label :country, 'Country'
-    = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true}, :class => "uppercase country_value"
+    = address.collection_select :country_id, @countries, :id, :short_name, {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)}, :class => "uppercase country_value"
