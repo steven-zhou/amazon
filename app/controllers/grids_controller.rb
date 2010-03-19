@@ -1120,7 +1120,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp)
-      rp = 10
+      rp = 20
     end
 
     start = ((page-1) * rp).to_i
@@ -1148,20 +1148,28 @@ class GridsController < ApplicationController
       count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     end
 
-    # Construct a hash from the ActiveRecord result
-    return_data = Hash.new()
-    return_data[:page] = page
-    return_data[:total] = count
-    return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2,
-          u.field_3,
-          u.field_4,
-          u.field_5]}}
+    if params[:album]
+      @entities = Array.new
+      @people.each do |i|
+        @entities << Person.find(i.grid_object_id)
+      end
+      render '/tests/show_album.js'
+    else
+      # Construct a hash from the ActiveRecord result
+      return_data = Hash.new()
+      return_data[:page] = page
+      return_data[:total] = count
+      return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
+          :cell=>[u.grid_object_id,
+            u.field_1,
+            u.field_2,
+            u.field_3,
+            u.field_4,
+            u.field_5]}}
 
-    # Convert the hash to a json object
-    render :text=>return_data.to_json, :layout=>false
+      # Convert the hash to a json object
+      render :text=>return_data.to_json, :layout=>false
+    end
   end
 
   def show_organisation_list_grid
@@ -3063,13 +3071,13 @@ class GridsController < ApplicationController
     if(query == "%%")
       @keywords = Keyword.find(
         :all,
-#        :conditions => ["keyword_type_id = ?", keyword_type_id],
+        #        :conditions => ["keyword_type_id = ?", keyword_type_id],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start
       )
-#      count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
-       count = Keyword.count(:all)
+      #      count = Keyword.count(:all, :conditions => ["keyword_type_id = ?", keyword_type_id])
+      count = Keyword.count(:all)
     end
 
 
@@ -3195,12 +3203,12 @@ class GridsController < ApplicationController
     if(query == "%%")
       @roles = Role.find(
         :all,
-#        :conditions => ["role_type_id = ?", role_type_id],
+        #        :conditions => ["role_type_id = ?", role_type_id],
         :order => sortname + ' ' + sortorder,
         :limit => rp,
         :offset => start
       )
-#      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
+      #      count = Role.count(:all, :conditions => ["role_type_id = ?", role_type_id])
       count = Role.count(:all)
     end
 
