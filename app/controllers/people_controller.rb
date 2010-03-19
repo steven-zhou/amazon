@@ -671,7 +671,7 @@ class PeopleController < ApplicationController
 
   def  show_postcode
     @suburb = params[:suburb]
-    @postcode = params[:postcode]
+    @postcode = ""
     @state = params[:state]
     respond_to do |format|
       format.js
