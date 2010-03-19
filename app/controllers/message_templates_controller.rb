@@ -169,7 +169,7 @@ class MessageTemplatesController < ApplicationController
     @entity_type = params[:entity_type]
     @flag = (@entity_type == "person")? "P" : "O"
     
-    template_name = @mail_template.name
+    template_name = @mail_template.name.gsub(' ', '_')
     time_stamp = Time.now.strftime("%d-%m-%y-%I:%M%p")
 
 

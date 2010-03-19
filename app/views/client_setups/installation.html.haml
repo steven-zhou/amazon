@@ -14,10 +14,10 @@
       .field_20
         = f.label :client_rego, "Client Registration"
         = f.text_field :client_rego
-      .field_10
+      .field_15
         = f.label :installation_date, "Installation Date"
         = f.text_field :installation_date, :class => "startdatepick", :end_date => "client_setup_halt_date", :value=> @client_setup.installation_date.to_s
-      .field_10
+      .field_15
         = f.label :halt_date, "Halt Date"
         = f.text_field :halt_date, :class => "enddatepick", :start_date => "client_setup_installation_date", :value=> @client_setup.halt_date.to_s
       .field_20

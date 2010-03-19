@@ -1,6 +1,6 @@
 - form_for @postal_area, :url => {:controller => "post_areas", :action => @postal_area.new_record? ? 'create' : 'update', :id => @postal_area.id},  :html => {:class => "ajax_form"} do |f|
   .form_line{:style => "float:none;"}
-    .field_30
+    .field_10
       = f.label :country_id, "Country Id"
       = f.text_field :country_id, :disabled => true, :value => session[:geo_country_id]
       = f.text_field :country_id, :class => "hidden", :value => session[:geo_country_id]
@@ -14,6 +14,7 @@
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
       %input{:class => "hidden", :name => "type", :value => @postal_area.class.to_s}
-  .form_line
+
     .field_20{:style => "float:right;"}
+      %label &nbsp;
       = submit_tag "Submit",:style=>"", :id=>"new_geo_submit", :disabled=>true

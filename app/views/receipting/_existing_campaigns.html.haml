@@ -6,173 +6,104 @@
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
-    delete_campaigns_list = function(){
-    var trSelected = $("#show_campaigns_grid tr.trSelected").attr('id');
-    var id = "";
-    if ($('#campaign_mode').attr("mode") == "show"){
-    if (trSelected != undefined)  {
-      id = trSelected.substring(3);
-      $("#warning_message_text").html("Are you sure you wish to delete this campaign?");
-      $("#warning_message").dialog({
-        modal:false,
-        resizable:false,
-        draggable:false,
-        height: 'auto',
-        width: 'auto',
-        buttons:{
 
-        NO: function(){
-          $(this).dialog("destroy");
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_campaigns_grid tr.trSelected").attr('id'),"#campaign_mode","get","/receipting/destroy_campaign/");
+    };
 
-        },
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_campaigns_grid tr.trSelected").attr('id'),"#campaign_mode","get","/receipting/retrieve_campaign/");
+    };
+    $("#show_campaigns_grid").flexigrid({
+    url: '/grids/show_campaigns_grid',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
 
-        Yes: function(){
-  
-          $.ajax({
-                      type: "post",
-                      url: "/receipting/destroy_campaign/"+id+".js",
-                      dataType: "script"
-                  });
-                  $(this).dialog('destroy');
-                  return true;
+    {
+    display: 'Name',
+    name : 'name',
+    width : 160,
+    sortable : true,
+    align: 'left'
+    },
 
-              }
-              }
+    {
+    display: 'Description',
+    name : 'description',
+    width : 260,
+    sortable : true,
+    align: 'left'
+    },
 
-          });
-        }else{
-          $('#warning_message_text').html("Please select the record you want to delete");
-          $('#warning_message').dialog({
-              modal: true,
-              resizable: false,
-              draggable: true,
-              height: 'auto',
-              width: 'auto',
-              buttons: {
-                  Ok: function(){
-                      $(this).dialog('destroy');
-                      return false;
-                  }
-              }
+    {
+    display: 'Target Amount',
+    name : 'target_amount',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
 
-          });
-      }
-      $('#warning_message_image').css("display","");
-      $('#warning_message').dialog('option', 'title', 'Warning');
-      $('#warning_message').parent().find("a").css("display","none");
-      $("#warning_message").parent().css('background-color','#D1DDE6');
-      $("#warning_message").css('background-color','#D1DDE6');
-      $('#warning_message').dialog('open');
-      return false;
-      };
-      };
-    retrieve_campaigns_list = function(){
-    var trSelected = $("#show_campaigns_grid tr.trSelected").attr('id');
-    var id = "";
-    if ($('#campaign_mode').attr("mode") == "show"){
-    if (trSelected != undefined)  {
-      id = trSelected.substring(3);
-       $.ajax({
-       type: "post",
-       url: "/receipting/retrieve_campaign/"+id+".js",
-       dataType: "script"
-        });
-      };
-      };
-      };
+    {
+    display: 'Start Date',
+    name : 'start_date',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
+    {
+    display: 'End Date',
+    name : 'end_date',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
 
-%script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_campaigns_grid").flexigrid({
-  url: '/grids/show_campaigns_grid',
-  dataType: 'json',
-  colModel : [
-  {
-  display: 'ID',
-  name : 'id',
-  width : 40,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Status',
+    name : 'status',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
 
-  {
-  display: 'Name',
-  name : 'name',
-  width : 160,
-  sortable : true,
-  align: 'left'
-  },
+    ],
 
-  {
-  display: 'Description',
-  name : 'description',
-  width : 260,
-  sortable : true,
-  align: 'left'
-  },
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
+    searchitems : [
+    {
+    display: 'Name',
+    name : 'Name'
+    },
 
-  {
-  display: 'Target Amount',
-  name : 'target_amount',
-  width : 80,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Target Amount',
+    name : 'target_amount'
+    },
 
-  {
-  display: 'Start Date',
-  name : 'start_date',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'End Date',
-  name : 'end_date',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  },
-
-  {
-  display: 'Status',
-  name : 'status',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  }
-
-  ],
-
-  buttons : [
-  {name: 'Delete', bclass: 'delete', onpress : delete_campaigns_list},
-  {name: 'Retrieve', bclass: 'get', onpress : retrieve_campaigns_list}
-  ],
-  searchitems : [
-  {
-  display: 'Name',
-  name : 'Name'
-  },
-
-  {
-  display: 'Target Amount',
-  name : 'target_amount'
-  },
-
-  {
-  display: 'Status',
-  name : 'status'
-  }
+    {
+    display: 'Status',
+    name : 'status'
+    }
 
 
-  ],
-  sortname: "start_date, name",
-  sortorder: "asc",
-  usepager: true,
-  useRp: true,
-  rp: 20,
-  showTableToggleBtn: false,
-  width: 'auto',
-  height: 'auto'
-  });
+    ],
+    sortname: "start_date, name",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
