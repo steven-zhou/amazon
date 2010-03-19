@@ -10,7 +10,11 @@ class BanksController < ApplicationController
     if @bank.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Bank with ID #{@bank.id}.")
     else
-      flash[:error] = flash_message(:type => "field_missing", :field => "#{@bank.errors.first.first.humanize}")
+      if (!@bank.errors.on(:branch_number).nil? && @bank.errors.on(:branch_number).include?("has already been taken"))
+        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "branch number")
+      else
+        flash[:error] = flash_message(:type => "field_missing", :field => "#{@bank.errors.first.first.humanize}")
+      end
     end
     respond_to do |format|
       format.js
@@ -39,6 +43,7 @@ class BanksController < ApplicationController
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Bank with ID #{@bank.id}.")
     else
       flash[:error] = flash_message(:type => "field_missing", :field => "#{@bank.errors.first.first.humanize}")
+      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "branch number") if (!@bank.errors.on(:branch_number).nil? && @bank.errors.on(:branch_number).include?("has already been taken"))
     end
     respond_to do |format|
       format.js
