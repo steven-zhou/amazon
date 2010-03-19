@@ -5,7 +5,7 @@
 #transaction_filter
   = render :partial => "transactions/transaction_filter"
 
-#transaction_histroy
+#transaction_histroy{:style => "display:none;"}
   = render :partial => "transactions/transaction_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date}
 
 
@@ -26,6 +26,6 @@
   .full_container
     #view_transaction_detail
 
-= button_to_function 'Export to PDF', :style => "float:right;margin-top:10px;", :id => "export_to_pdf_button", :disabled => (@count==0)
+= button_to_function 'Export to PDF', :style => "float:right;margin-top:10px;display:none;", :id => "export_to_pdf_button"
 
 

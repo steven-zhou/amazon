@@ -1,5 +1,5 @@
 .form_line
-  .field_15
+  .field_10
     %label Transaction ID
     .display_field_bg
       #{transaction.id}
@@ -15,9 +15,18 @@
       #{transaction.transaction_date.to_s}
 
   .field_20
-    %label Bank Account
+    %label Deposit Bank Account
     .display_field_bg
       #{ClientBankAccount.find(transaction.bank_account_id).account_number}
+
+  .field_15
+    %label Manual Receipt Number
+    .display_field_bg
+      #{transaction.manual_receipt_number}
+
+  .field_15
+    %label System Receipt Number
+    .display_field_bg #{transaction.receipt_number}
 
 .form_line
   .field_15
@@ -40,7 +49,7 @@
 .form_line{:style => "height:auto;"}
   .field_100{:style => "height:auto;"}
     %label Notes
-    %div{:style => "min-height:60px;"}
+    .display_field_bg
       #{transaction.notes}
 
 #view_existing_transaction_allocations

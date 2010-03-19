@@ -1,12 +1,11 @@
 <%- if @date_valid &&flash[:error].nil?%>
   <%-if @filter_target == "histroy"%>
 
-    $("#transaction_histroy" ).html('<%= escape_javascript(render(:partial => "transactions/transaction_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
-    $('#view_transaction_histroy').css('display', 'none');
+    $("#transaction_histroy" ).show().html('<%= escape_javascript(render(:partial => "transactions/transaction_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
     <%- if @count == 0%>
-      $('#export_to_pdf_button').attr('disabled',true);
+      $('#export_to_pdf_button').attr('disabled',true).hide();
     <%- else %>
-      $('#export_to_pdf_button').removeAttr('disabled');
+      $('#export_to_pdf_button').removeAttr('disabled').show();
     <%- end %>
   <%-elsif @filter_target == "enquiry"%>
     $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "transactions/enquiry_result", :locals => {:db_function => "true", :query => @query})) %>');

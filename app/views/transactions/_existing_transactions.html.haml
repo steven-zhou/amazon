@@ -1,6 +1,6 @@
 -# locals => {:entity_type, :entity_id}
 .full_container
-  %h2 Un-banked Transactions
+  %h2 Current Transactions
 
   %table#show_unbanked_transaction_grid{:class => "selectable_grid",:db_click_function => "true", :db_click_url => "/transaction_headers/", :field => "current", :edit => "true"}
 
@@ -82,52 +82,63 @@
       align: 'left'
       },
       {
-      display: 'Transaction Date',
-      name : 'transaction_date',
-      width : 100,
+      display: 'Manual Receipt Number',
+      name : 'receipt_number',
+      width : 120,
       sortable : true,
       align: 'left'
       },
       {
-      display: 'Bank Account',
+      display: 'Transaction Date',
+      name : 'transaction_date',
+      width : 90,
+      sortable : true,
+      align: 'left'
+      },
+      {
+      display: 'Deposit Bank Account',
       name : 'bank_account_id',
-      width : 100,
+      width : 110,
       sortable : true,
       align: 'left'
       },
       {
       display: 'Receipt Method Type',
       name : 'tag_types.name',
-      width : 120,
+      width : 110,
       sortable : true,
       align: 'left'
       },
       {
       display: 'Receipt Method',
       name : 'tags.name',
-      width : 120,
+      width : 80,
       sortable : true,
       align: 'left'
       },
       {
       display: 'Notes',
       name : 'notes',
-      width : 220,
+      width : 160,
       sortable : true,
       align: 'left'
       },
       {
       display: 'Total Amount',
       name : 'total_amount',
-      width : 120,
+      width : 70,
       sortable : true,
       align: 'left'
       }
       ],
       buttons : [
-      {name: 'Delete', bclass: 'delete', onpress : delete_unbank_transaction}
+        {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_unbank_transaction}
       ],
       searchitems : [
+      {
+      display: 'Manual Receipt Number',
+      name : 'manual_receipt_number'
+      },
       {
       display: 'Receipt Method Type',
       name : 'tag_types.name'
@@ -144,7 +155,6 @@
       sortname: "transaction_headers.id",
       sortorder: "asc",
       usepager: true,
-      title: '',
       useRp: true,
       rp: 20,
       showTableToggleBtn: false,
