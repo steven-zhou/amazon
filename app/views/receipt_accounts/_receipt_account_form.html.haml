@@ -3,6 +3,11 @@
     .field_30
       = f.label :receipt_account_type_id, "<span class='asterisk'>*</span>Receipt Account Type"
       = f.collection_select(:receipt_account_type_id, ReceiptAccountType.active, :id, :name, {},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id",:mandantory_field3=>"receipt_account_receipt_account_type_id", :submit_button_id=>"new_receipt_account_submit"})
+
+    .field_30
+      = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
+      = f.collection_select(:link_module_id, LinkModule.active_link_module_type, :id, :name, {},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id",:mandantory_field3=>"receipt_account_receipt_account_type_id", :submit_button_id=>"new_receipt_account_submit"})
+
     .field_30
       = f.label :long_name, "<span class='asterisk'>*</span> Name"
       = f.text_field :name, :class => "mandantory_field", :id => "new_receipt_account_name", :mandantory_field1=>"receipt_account_link_module_id",:mandantory_field2=>"new_receipt_account_name",:mandantory_field3=>"receipt_account_receipt_account_type_id", :submit_button_id=>"new_receipt_account_submit"
@@ -11,10 +16,7 @@
     .field_30
       = f.label :description, "Description"
       = f.text_field :description
-    .field_30
-      = f.label :link_module_id, "<span class='asterisk'>*</span>Link Module"
-      = f.collection_select(:link_module_id, LinkModule.active_link_module_type, :id, :name, {},{:class=>"mandantory_dropdown_list",:mandantory_field1=>"new_receipt_account_name", :mandantory_field2=>"receipt_account_link_module_id",:mandantory_field3=>"receipt_account_receipt_account_type_id", :submit_button_id=>"new_receipt_account_submit"})
-  .form_line
+    
     .field_63
       = f.label :remarks, "Remarks"
       = f.text_field :remarks

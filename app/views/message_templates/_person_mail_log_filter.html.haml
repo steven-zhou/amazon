@@ -4,14 +4,14 @@
 
     .form_line
       .field_10
-        %label Person_id
+        %label Person Id
         %input{:id => "mail_log_filter_person_id", :value => "", :name => "mail_log_filter[person_id]",:class=>"integer_field"}
       .field_20
-        %label Start_date
+        %label Start Date
         %input{:class => "startdatepick",:id => "mail_log_filter_start_date",:end_date => "mail_log_filter_end_date", :value => "01-01-1900", :name => "mail_log_filter[start_date]"}
 
       .field_20
-        %label End_date
+        %label End Date
         %input{:class => "enddatepick",:id => "mail_log_filter_end_date",:start_date => "mail_log_filter_start_date", :value => "31-12-3000", :name => "mail_log_filter[end_date]"}
 
       .field_15
@@ -19,5 +19,5 @@
         %input{:id => "mail_log_filter_creator_username", :value => "#{@current_user.user_name}",:name => "mail_log_filter[creator_username]"}
       .field_15
         %label &nbsp
-        =submit_tag 'submit'
+        =submit_tag 'Submit'
 
