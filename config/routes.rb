@@ -176,7 +176,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :fee_items, :collection => {:page_initial => :get, :drop_down_list_l1 => :get, :drop_down_list_l2 => :get}
   map.resources :membership_fees,:collection=> {:fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
   
-
+  map.resources :tests
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
