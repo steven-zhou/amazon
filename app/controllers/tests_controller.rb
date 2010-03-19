@@ -1,6 +1,7 @@
 class TestsController < ApplicationController
 
 
+
   def index
 
 
@@ -9,3 +10,4 @@ class TestsController < ApplicationController
     end
   end
 end
+
