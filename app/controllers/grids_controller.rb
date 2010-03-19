@@ -1153,6 +1153,8 @@ class GridsController < ApplicationController
       @people.each do |i|
         @entities << Person.find(i.grid_object_id)
       end
+      @count = count
+      @page = page
       render '/tests/show_album.js'
     else
       # Construct a hash from the ActiveRecord result
