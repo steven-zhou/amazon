@@ -3,80 +3,14 @@
   %table#show_sources_by_campaign_grid{:class => "selectable_grid",:db_click_function => "true", :field => "source", :db_click_url => "/receipting/edit_source.js"}
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
-    delete_source = function(){
-    var trSelected = $("#show_sources_by_campaign_grid tr.trSelected").attr('id');
-    var id = "";
-    if ($('#source_mode').attr("mode") == "show"){
-    if (trSelected != undefined){
-      id = trSelected.substring(3);
-      $("#warning_message_text").html("Are you sure you wish to delete this source?");
-      $("#warning_message").dialog({
-        modal:false,
-        resizable:false,
-        draggable:false,
-        height: 'auto',
-        width: 'auto',
-        buttons:{
+ 
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_sources_by_campaign_grid tr.trSelected").attr('id'),"#source_mode","get","/receipting/destroy_source/");
+    };
 
-        NO: function(){
-          $(this).dialog("destroy");
-
-        },
-
-        Yes: function(){
-          $.ajax({
-                      type: "post",
-                      url: "/receipting/destroy_source/"+id+".js",
-                      dataType: "script"
-                  });
-                  $(this).dialog('destroy');
-                  return true;
-              }
-              }
-
-          });
-        }else{
-          $('#warning_message_text').html("Please select the record you want to delete");
-          $('#warning_message').dialog({
-              modal: true,
-              resizable: false,
-              draggable: true,
-              height: 'auto',
-              width: 'auto',
-              buttons: {
-                  Ok: function(){
-                      $(this).dialog('destroy');
-                      return false;
-                  }
-              }
-
-          });
-      }
-      $('#warning_message_image').css("display","");
-      $('#warning_message').dialog('option', 'title', 'Warning');
-      $('#warning_message').parent().find("a").css("display","none");
-      $("#warning_message").parent().css('background-color','#D1DDE6');
-      $("#warning_message").css('background-color','#D1DDE6');
-      $('#warning_message').dialog('open');
-      return false;
-      };
-      };
-
-    retrieve_source = function(){
-    var trSelected = $("#show_sources_by_campaign_grid  tr.trSelected").attr('id');
-    var id = "";
-    if ($('#source_mode').attr("mode") == "show"){
-    if (trSelected != undefined)  {
-      id = trSelected.substring(3);
-       $.ajax({
-       type: "post",
-       url: "/receipting/retrieve_source/"+id+".js",
-       dataType: "script"
-        });
-      };
-      };
-      };
-
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_sources_by_campaign_grid tr.trSelected").attr('id'),"#source_mode","get","/receipting/retrieve_source/");
+    };
     $("#show_sources_by_campaign_grid").flexigrid({
       url: '/grids/show_sources_by_campaign_grid',
       dataType: 'json',
@@ -129,9 +63,9 @@
       }
       ],
       buttons : [
-        {name: 'Delete', bclass: 'delete', onpress : delete_source},
-        {name: 'Retrieve', bclass: 'delete', onpress : retrieve_source}
-      ],
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
       searchitems : [
         {
             display: 'Name',

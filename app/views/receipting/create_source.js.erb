@@ -1,6 +1,6 @@
 <% if @source.errors.empty? -%>
 $('#add_new_source').html('<%= escape_javascript(render(:partial => "/receipting/new_source")) %>');
-$('#existing_source').html('<%= escape_javascript(render(:partial => "/receipting/existing_sources")) %>');
+$('#existing_sources').html('<%= escape_javascript(render(:partial => "/receipting/existing_sources")) %>');
 $('#source_mode').attr('mode', 'show');
 $('.select_ajax_call[field="source"]').attr('disabled', false)
    
