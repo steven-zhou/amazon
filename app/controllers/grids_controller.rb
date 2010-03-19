@@ -1119,6 +1119,10 @@ class GridsController < ApplicationController
       page = 1
     end
 
+    if (params[:param1])
+      page = params[:param1]
+    end
+
     if (!rp)
       rp = 20
     end
