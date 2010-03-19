@@ -54,7 +54,7 @@
         = f.text_field :postcode, :class => "postcode_auto"
       .field_17
         = f.label :country, 'Country'
-        = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true}     
+        = collection_select :bank, :country_id, Country.all, :id, :short_name,  {:include_blank => true,:selected=>ClientSetup.try(:first).try(:home_country_id)}
   .full_container
     %h2 Contact Person
     .form_line{:style => "float:none;"}

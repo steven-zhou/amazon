@@ -14,7 +14,10 @@ class Country < ActiveRecord::Base
   has_many :postcodes
 
 
+def self.active_country
 
+
+end
 #--
 ################ 
 #  Validation

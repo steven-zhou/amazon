@@ -5,6 +5,8 @@ class ClientSetup < ActiveRecord::Base
   belongs_to :security_question_1, :class_name => "SecurityQuestion", :foreign_key => "security_question1_id"
   belongs_to :security_question_2, :class_name => "SecurityQuestion", :foreign_key => "security_question2_id"
   belongs_to :security_question_3, :class_name => "SecurityQuestion", :foreign_key => "security_question3_id"
+  belongs_to :home_country, :class_name => "Country",:foreign_key => "home_country_id"
+
 
   def check_primary_password(password)
     Digest::SHA256.hexdigest(password + self.primary_password_salt) == self.primary_password_hash

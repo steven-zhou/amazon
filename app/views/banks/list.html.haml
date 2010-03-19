@@ -5,8 +5,8 @@
     %br.clear
 #content_full_page
   %input{:id => "bank_mode", :style => "display:none;", :mode => "show"}
-  .full_container
-    %div#new_bank_bar
+  .full_container#new_bank_bar
+    %div
       .options
         = link_to_function image_tag('/images/close_icon.png'), :style => "display:none;", :id => "", :class => "close_option", :field => "bank", :toggle_id_name => "add_new_bank", :title => "Close"
       .title

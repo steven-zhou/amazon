@@ -15,8 +15,9 @@
       .field_20
         =label_tag :super_password_confirmation , "<span class='asterisk'>*</span>Super Password Confirmation"
         %input{:type => "password", :id => "repeat_password", :name => "repeat_password"}
-    .form_line
-      = submit_tag "Submit", :disabled => true, :id => "password_submit"
+      .field_20{:style => "float:right;"}
+        %label &nbsp;
+        = submit_tag "Submit", :disabled => true, :id => "password_submit"
 
 #password_error{:style => "display:none;"}
   .container

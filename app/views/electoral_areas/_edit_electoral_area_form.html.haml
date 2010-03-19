@@ -15,13 +15,10 @@
 .full_container  
   - form_for @postal_area, :url => {:controller => "post_areas", :action => @postal_area.new_record? ? 'create' : 'update', :id => @postal_area.id},  :html => {:class => "ajax_form"} do |f|
     .form_line
-      .field_30
+      .field_10
         = f.label :country_id, "Country Id"
         = f.text_field :country_id, :disabled => true, :value => session[:ele_country_id]
         = f.text_field :country_id, :class => "hidden", :value => session[:ele_country_id]
-      -#.field_30.hidden
-        = f.label :country_name, "Country Name"
-        = f.text_field :country_name, :class => "hidden", :value => @country_name
       .field_30
         = f.label :division_name, "<span class='asterisk'>*</span>Division Name"
         = f.text_field :division_name, :id=>"edit_ele_area_division_name", :class=>"mandantory_field", :mandantory_field2=>"edit_ele_area_division_name", :submit_button_id=>"edit_ele_submit"
@@ -29,6 +26,6 @@
         = f.label :remarks, "Remarks"
         = f.text_field :remarks
         %input{:class => "hidden", :name => "type", :value => @postal_area.class.to_s}
-    .form_line
       .field_20{:style => "float:right;"}
+        %label &nbsp;
         = submit_tag "Submit",:style=>"",:id=>"edit_ele_submit", :disabled=>false

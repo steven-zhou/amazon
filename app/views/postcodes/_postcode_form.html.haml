@@ -19,9 +19,9 @@
     .title
       %h2 More Details
     .options
-      = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => "postcode_more"
+      = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => postcode.new_record? ? "postcode_more" : "edit_postcode_more"
 
-    #postcode_more.hidden.left
+    %div.hidden.left{:id => postcode.new_record? ? "postcode_more" : "edit_postcode_more"}
       .form_line
         .field_15
           = f.label :governance, 'Governance'
