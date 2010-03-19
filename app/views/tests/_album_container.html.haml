@@ -1,0 +1,8 @@
+.full_container
+
+  %div.left#left_arrow{:style => "width:15%"}
+    = link_to_function "Left", :class => "ajax_call", :method => "GET", :url => "/grids/show_list_grid",
+  %div#album
+    =render :partial => "tests/album_wall"
+  %div.right#right_arrow{:style => "width:15%"}
+    = link_to_function "Right", :class => "ajax_call", :method => "GET", :url => "/grids/show_list_grid",

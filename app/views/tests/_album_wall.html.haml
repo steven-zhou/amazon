@@ -1,0 +1,5 @@
+%div{:style => "width:60%"}
+
+  - @entities.each do |i|
+    %div{:style => "float:left;width:20%"}
+      = image_tag image_path(i.image.try(:id)), :id => "photo", :class => "medium"
