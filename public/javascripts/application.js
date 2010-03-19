@@ -2621,7 +2621,7 @@ number_check = function(link)
   if(link.val()!=""){
     if((!_valid) || link.val()<0){
 
-      $('#error_message_text').html("Entered Value Must Be Number And Only One Comma ");
+      $('#error_message_text').html("Entered Value Must Be Number Only");
 
       $('#error_message_image').css("display","");
       $('#error_message').dialog({

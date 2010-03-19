@@ -11,10 +11,10 @@
         %label User Name
         %input{:id => "mail_document_filter_user_name",:value => "#{@current_user.user_name}",:name => "mail_document_filter[user_name]"}
       .field_25
-        %label Start_date
+        %label Start Date
         %input{:class => "startdatepick",:id => "mail_document_filter_start_date",:end_date => "mail_document_filter_end_date", :value => "01-01-1900", :name => "mail_document_filter[start_date]"}
       .field_25
-        %label End_date
+        %label End Date
         %input{:class => "enddatepick",:id => "mail_document_filter_end_date",:start_date => "mail_document_filter_start_date", :value => "31-12-3000", :name => "mail_document_filter[end_date]"}
       .field_25.hidden
         %input{:id => "mail_document_filter_type",:value => "person",:name => "mail_document_filter[type]"}
