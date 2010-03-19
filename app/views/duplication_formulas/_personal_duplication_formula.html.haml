@@ -10,8 +10,7 @@
     - personal_descriptions += "<label class='descriptions_personal_duplication' id='description_personal_duplication_#{i.name}' style='display:none;'>#{i.description}(#{i.category})</label>"
 
 .full_container.duplication_check{:style => "width:98%;padding:1%;"}
-  %h1 Personal Duplication Formula
-  
+ 
 
   #formular_form.full_container
     -form_for @personal_duplication_formula, :html => {:class => 'ajax_form', :id => "personal_duplication_form", :style => "margin-bottom:40px;"} do |f|

@@ -1,11 +1,11 @@
 - form_for religion, :html => {:class => "ajax_form"} do |f|
   .form_line
-    .field_30
+    .field_20
       = f.label :name, "<span class='asterisk'>*</span>Name"
       = f.text_field :name, :id=>@current_action=="new" ? "new_religion_name" : "edit_religion_name", :class=>"mandantory_field", :mandantory_field1=>@current_action=="new" ? "new_religion_name" : "edit_religion_name", :submit_button_id=>@current_action=="new" ? "new_religion_submit" : "edit_religion_submit"
     .field_50
       = f.label :description, 'Description'
       = f.text_field :description
-  .form_line
     .field_20{:style => "float:right;"}
+      %label &nbsp;
       = submit_tag "Submit",:style=>"", :id=>@current_action=="new" ? "new_religion_submit" : "edit_religion_submit", :disabled=>(true if @current_action=="new")
