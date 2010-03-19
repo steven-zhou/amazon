@@ -1,15 +1,6 @@
 %script{:type => "text/javascript"}
   :plain
-    $(function() {
-      $('.new_campaign_required_field').keyup(function() {
-          if($('#new_campaign_name').val() == '' || $('#new_campaign_start_date').val() == '') {
-              $('#new_campaign_submit').attr('disabled', true);
-          } else {
-              $('#new_campaign_submit').removeAttr('disabled');
-          }
-      });
-    });
-
+   
     $('.startdatepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
@@ -59,30 +50,27 @@
 
 - form_for :campaign, @campaign, :url => { :action => "create_campaign" }, :html => {:class => 'ajax_form', :id => "campaign_form", :submit_button_id => "new_campaign_submit"}  do |f|
   .form_line
-    .field_15
+    .field_25
       = f.label :long_name, "<span class='asterisk'>*</span> Name", :class => "required_field"
       = f.text_field :name, :class => "compulsory_field", :id => "new_campaign_name"
-
-    .field_30
-      = f.label :description, "Description"
-      = f.text_field :description
-  .form_line
-    .field_15
+    .field_25
       = f.label :target_amount, "Target Amount"
       = f.text_field :target_amount
-  .form_line
-    .field_22
 
+    .field_22
       %label <span class='asterisk'>*</span> Start Date
       %input{:name => "start_date", :style => "width:82% !important;", :id => "new_campaign_start_date", :class => "startdatepick compulsory_field", :end_date => "new_campaign_end_date"}
     .field_22
       %label End Date
       %input{:name => "end_date", :style => "width:82% !important;", :id => "new_campaign_end_date", :class => "enddatepick", :start_date => "new_campaign_start_date"}
-
+  
   .form_line
-    .field_30
+    .field_25
       = f.label :remarks, "Remarks"
       = f.text_field :remarks
+    .field_50
+      = f.label :description, "Description"
+      = f.text_field :description
     .field_10
       = f.label :status, "Active"
       = f.check_box :status, :checked => true, :class => "checkbox_style"

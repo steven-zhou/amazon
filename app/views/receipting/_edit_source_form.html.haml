@@ -1,42 +1,30 @@
-%script{:type => "text/javascript"}
-  :plain
-    $(function() {
-      $('.edit_source_required_field').keyup(function() {
-          if($('#edit_source_name').val() == '') {
-              $('#edit_source_submit').attr('disabled', true);
-          } else {
-              $('#edit_source_submit').removeAttr('disabled');
-          }
-      });
-    });
-- form_for :source, @source, :url => {:action => "update_source"}, :html => {:class => "ajax_form"} do |f|
+- form_for :source, @source, :url => {:action => "update_source"}, :html => {:class => "ajax_form", :id => "source_form_edit", :submit_button_id => "edit_source_submit"}  do |f|
   %input{:name => "id", :style => "width:0px;height:0px;display:none;", :value => @source.id}
   .form_line
-    .field_45
+    .field_25
       = f.label :name, "<span class='asterisk'>*</span> Name"
-      = f.text_field :name, :class => "edit_source_required_field", :id => "edit_source_name", :disabled => true
-  .form_line
+      = f.text_field :name, :id => "edit_source_name", :disabled => true
+    .field_20
+      = f.label :volume, 'Volume'
+      = f.text_field :volume, :disabled => @source.status == false
+    .field_20
+      = f.label :cost, 'Cost $'
+      = f.text_field :cost, :disabled => @source.status == false
     .field_25
       = f.label :description, 'Description'
       = f.text_field :description, :disabled => @source.status == false
-    .field_15
-      = f.label :volume, 'Volume'
-      = f.text_field :volume, :disabled => @source.status == false
-    .field_15
-      = f.label :cost, 'Cost $'
-      = f.text_field :cost, :disabled => @source.status == false
+
   .form_line
     .field_25
       = f.label :dead_return, 'Dead Return'
       = f.text_field :dead_return, :disabled => @source.status == false
-    .field_15
+    .field_20
       = f.label :letter_id, 'Default Letter ID'
       = f.text_field :letter_id, :disabled => @source.status == false
-    .field_15
+    .field_20
       = f.label :account_code_id, 'Default Account Code ID'
       = f.text_field :account_code_id, :disabled => @source.status == false
-  .form_line
-    .field_30
+    .field_20
       = f.label :remarks, "Remarks"
       = f.text_field :remarks, :disabled => @source.status == false
     .field_10
