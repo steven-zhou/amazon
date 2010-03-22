@@ -1131,7 +1131,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp || rp == 0)
-      rp = 2
+      rp = 20
     end
 
     start = ((page-1) * rp).to_i

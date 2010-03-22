@@ -1,7 +1,9 @@
 - @entities.each do |i|
-  %div{:style => "float:left;width:20%"}
-    = i.try(:name)
-    - if i.image.nil?
-      = "no image found"
-    - else
-      = image_tag image_path(i.image.try(:id)), :id => "photo", :class => "medium"
+  %div{:style => "float:left;width:25%;text-align:center"}
+    .person_photo_name{:style => "height:auto;"}
+      =i.try(:name)
+    #im{:style=> "margin:0 auto;display:block;"}
+      - if i.image.blank?
+        = "no image found"
+      - else
+        = image_tag image_path(i.image.try(:id)), :id => "photo", :class => "medium"
