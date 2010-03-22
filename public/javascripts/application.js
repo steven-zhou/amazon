@@ -3635,3 +3635,16 @@ $(function(){
     return false;
   });
 });
+
+
+$(function(){
+
+  $('.spin_start').live('click', function(){
+
+    $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
+    return false
+
+
+
+  });
+})

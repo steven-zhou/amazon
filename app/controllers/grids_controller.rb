@@ -1133,7 +1133,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp || rp == 0)
-      rp = 2
+      rp = 4
     end
 
     start = ((page-1) * rp).to_i
@@ -1182,6 +1182,13 @@ class GridsController < ApplicationController
       end
       @count = count
       @page = page
+      if @count/rp == 0
+        @last_page = 1
+      elsif @count/rp !=0 && @count%rp != 0
+        @last_page = @count/rp + 1
+      elsif @count/rp !=0 && @count%rp == 0
+        @last_page = @count/rp
+      end
       render '/tests/show_album.js'
     else
       # Construct a hash from the ActiveRecord result
