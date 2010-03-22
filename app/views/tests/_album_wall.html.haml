@@ -1,9 +1,34 @@
+%script{:type => "text/javascript"}
+  :plain
+    $(function(){
+     $('a.lightbox').lightBox({
+       
+	
+	
+	
+	
+      containerResizeSpeed: 350,
+      
+      
+      
+
+
+
+
+     }); // Select all links with lightbox class
+
+
+    });
+
+
+
 - @entities.each do |i|
-  %div{:style => "float:left;width:25%;text-align:center"}
+  %div#album_wall_show{:style => "float:left;width:25%;text-align:center"}
     .person_photo_name{:style => "height:auto;"}
       =i.try(:name)
     #im{:style=> "margin:0 auto;display:block;"}
       - if i.image.blank?
         = "no image found"
       - else
-        = image_tag image_path(i.image.try(:id)), :id => "photo", :class => "medium"
+        -#= link_to image_tag("1.png", :alt => "Greenery foryou!", :id => "photo", :class => "medium"), "images/1.png", {:rel => "lightbox", :title => "Greenery", :class => "lightbox"}
+        = link_to image_tag("#{i.image.try(:id)}", :alt => "#{i.name}", :id => "photo", :class => "medium"), image_path(i.image.try(:id)), {:rel => "lightbox", :title => "#{i.name}",:contentid => "ab", :class => "lightbox small"}

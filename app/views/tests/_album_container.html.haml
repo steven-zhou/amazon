@@ -3,10 +3,11 @@
  
     
   %div.left#left_arrow{:style => "width:15%;text-align:center;"}
-    = link_to_function image_tag 'Icons/Core/Lol/go-first.png', :class => "ajax_call", :method => "GET", :url => "/grids/show_list_grid", :param1 => 1
-    = link_to_function image_tag 'Icons/Core/Lol/go-previous.png', :class => "ajax_call", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page==1 ? @page : @page - 1, :style => "margin-left:20px;"
+    = link_to_function image_tag 'Icons/Core/Lol/go-first.png', :class => "ajax_call spin_start", :method => "GET", :url => "/grids/show_list_grid", :param1 => 1, :field => "album"
+    = link_to_function image_tag 'Icons/Core/Lol/go-previous.png', :class => "ajax_call spin_start", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page==1 ? @page : @page - 1, :style => "margin-left:20px;", :field => "album"
   %div#album{:style => "width:70%;margin: 0 auto;float:left;"}
     =render :partial => "/tests/album_wall"
   %div.right#right_arrow{:style => "width:15%;text-align:center;"}
-    = link_to_function image_tag 'Icons/Core/Lol/go-next.png', :class => "ajax_call", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page + 1
-     = link_to_function image_tag 'Icons/Core/Lol/go-previous.png', :class => "ajax_call", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page==1 ? @page : @page - 1, :style => "margin-left:20px;"
+    - check = @page + 1 > @last_page ? "display:none;" : "" 
+    = link_to_function image_tag 'Icons/Core/Lol/go-next.png', :class => "ajax_call spin_start",:style => "#{check}", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page + 1 > @last_page ? @last_page : @page + 1, :field => "album"
+    = link_to_function image_tag 'Icons/Core/Lol/go-last.png', :class => "ajax_call spin_start",:method => "GET", :url => "/grids/show_list_grid", :param1 => @last_page, :style => "margin-left:20px;#{check}", :field => "album"
