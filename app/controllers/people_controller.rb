@@ -1,10 +1,18 @@
+require 'net/https'
+require 'uri'
+require 'rexml/document'
+
 class PeopleController < ApplicationController
   # Added system logging
 
   include PeopleSearch
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
   protect_from_forgery :except => [:post_data]
-  
+
+
+
+
+
   def new
    
     @person = Person.new
@@ -47,7 +55,7 @@ class PeopleController < ApplicationController
   def show
    
     
-   # if no person in the system , go to person new directly
+    # if no person in the system , go to person new directly
     if PrimaryList.first.entity_on_list.empty?
       redirect_to :action=>"new"
     else
@@ -136,7 +144,7 @@ class PeopleController < ApplicationController
 
   def edit
    
-   # if no person in the system , go to person new directly
+    # if no person in the system , go to person new directly
     if PrimaryList.first.entity_on_list.empty?
       redirect_to :action=>"new"
 
@@ -231,93 +239,93 @@ class PeopleController < ApplicationController
 
   def create
     
-      check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date]) 
-      if check_valid_date
+    check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
+    if check_valid_date
 
-    @person = Person.new(params[:person])
-    @person.onrecord_since = Date.today()
-    if @person.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
-      if !params[:image].nil?
-        @image = Image.new(params[:image])
-        if @image.save
-          @person.image = @image
-        else
-          flash[:warning_before_message] = "There Was an Error to Save the Selected Image."
+      @person = Person.new(params[:person])
+      @person.onrecord_since = Date.today()
+      if @person.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
+        if !params[:image].nil?
+          @image = Image.new(params[:image])
+          if @image.save
+            @person.image = @image
+          else
+            flash[:warning_before_message] = "There Was an Error to Save the Selected Image."
+          end
         end
-      end
 
-      # edit by Tao, "submit and edit" button is removed, code is commit for further checking.
-      # If the user wants to edit the record they just added
-      #      if(params[:edit])
-      #        flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name}"
-      #        redirect_to edit_person_path(@person)
-      #        # If the user wants to continue adding records
-      #      else
-      flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
-#         redirect_to new_person_path
-      #end
-    else
-      @person.addresses.build(params[:person][:addresses_attributes][0]) if @person.addresses.empty?
-      @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
-      @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
-      @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
-      #@postcodes = Postcode.find(:all)
-      @image = Image.new
+        # edit by Tao, "submit and edit" button is removed, code is commit for further checking.
+        # If the user wants to edit the record they just added
+        #      if(params[:edit])
+        #        flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name}"
+        #        redirect_to edit_person_path(@person)
+        #        # If the user wants to continue adding records
+        #      else
+        flash[:message] = "Sucessfully added ##{@person.id} - #{@person.name} (<a href='/people/#{@person.id}/edit' style='color:white;'>edit details</a>)"
+        #         redirect_to new_person_path
+        #end
+      else
+        @person.addresses.build(params[:person][:addresses_attributes][0]) if @person.addresses.empty?
+        @person.phones.build(params[:person][:phones_attributes][0]) if @person.phones.empty?
+        @person.emails.build(params[:person][:emails_attributes][0]) if @person.emails.empty?
+        @person.websites.build(params[:person][:websites_attributes][0]) if @person.websites.empty?
+        #@postcodes = Postcode.find(:all)
+        @image = Image.new
 
-      @personal_check_field = Array.new
-      @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
-      unless @duplication_formula_appiled.status == false
-        @duplication_formula_appiled.duplication_formula_details.each do |i|
-          @personal_check_field << i.field_name
+        @personal_check_field = Array.new
+        @duplication_formula_appiled = PersonalDuplicationFormula.applied_setting
+        unless @duplication_formula_appiled.status == false
+          @duplication_formula_appiled.duplication_formula_details.each do |i|
+            @personal_check_field << i.field_name
+          end
         end
-      end
 
-      flash[:error] = "There Was an Error to Create a New User"
-      #      redirect_to new_person_path
-      #      render :action => "new"
+        flash[:error] = "There Was an Error to Create a New User"
+        #      redirect_to new_person_path
+        #      render :action => "new"
     
-    end
+      end
 
-       else
+    else
 
       flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
        
-      end
-       redirect_to new_person_path
+    end
+    redirect_to new_person_path
   end
 
   def update
 
-      check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
+    check_valid_date = params[:person][:birth_date].blank? ? true : valid_date(params[:person][:birth_date])
 
     @person = Person.find(params[:id])
     if check_valid_date
-    Image.transaction do
-      unless params[:image].nil?
-        @image = Image.new(params[:image])
-        if @image.save
-          @person.image.destroy unless @person.image.nil?
-          @person.image = @image
-        else
-          flash[:warning] = "There Was an Error to Save the Selected Image."
+      Image.transaction do
+        unless params[:image].nil?
+          @image = Image.new(params[:image])
+          if @image.save
+            @person.image.destroy unless @person.image.nil?
+            @person.image = @image
+          else
+            flash[:warning] = "There Was an Error to Save the Selected Image."
+          end
         end
       end
-    end
 
 
 
-    @person.update_attributes(params[:person])
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person #{@person.id}.")
-    flash[:warning] = "There was an error updating the person's details." unless @person.save
+      @person.update_attributes(params[:person])
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Person #{@person.id}.")
+      flash[:warning] = "There was an error updating the person's details." unless @person.save
   
 
-    flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
-    #modified by Tao, removing "submit and close", code is commited for further checking
-    #if(params[:edit])
+      flash[:message] = "#{@person.name}'s information was updated successfully." unless !flash[:warning].nil?
+      #modified by Tao, removing "submit and close", code is commited for further checking
+      #if(params[:edit])
     else
       flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-      end
+    end
     redirect_to edit_person_path(@person)
     #else
     #    redirect_to person_path(@person)
@@ -449,43 +457,43 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
-    @p = @list_header.entity_on_list
+    #    @p = @list_header.entity_on_list
     #clear
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
 
      
-    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
+    #    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+    #      i.destroy
+    #    end
 
 
-    @p.each do |person|
-      @slg = ShowListGrid.new
-      @slg.login_account_id = session[:user]
-      if person.to_be_removed
-        @slg.grid_object_id = person.id
-        @slg.field_1 = "<span class='red'>"+person.first_name+"</span>"
-        @slg.field_2 = "<span class='red'>"+person.family_name+"</span>"
-        @slg.field_3 = "<span class='red'>"+person.primary_address.first_line+"</span>" unless person.primary_address.blank?
-        @slg.field_4 = "<span class='red'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
-        @slg.field_5 = "<span class='red'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
+    #    @p.each do |person|
+    #      @slg = ShowListGrid.new
+    #      @slg.login_account_id = session[:user]
+    #      if person.to_be_removed
+    #        @slg.grid_object_id = person.id
+    #        @slg.field_1 = "<span class='red'>"+person.first_name+"</span>"
+    #        @slg.field_2 = "<span class='red'>"+person.family_name+"</span>"
+    #        @slg.field_3 = "<span class='red'>"+person.primary_address.first_line+"</span>" unless person.primary_address.blank?
+    #        @slg.field_4 = "<span class='red'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
+    #        @slg.field_5 = "<span class='red'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
+    #
+    #      else
+    #        @slg.grid_object_id = person.id
+    #        @slg.field_1 = person.status ? person.first_name : "<span class='gray'>"+person.first_name+"</span>"
+    #        @slg.field_2 = person.status ? person.family_name : "<span class='gray'>"+person.family_name+"</span>"
+    #        @slg.field_3 = person.status ? person.primary_address.first_line : "<span class='gray'>"+person.family_name+"</span>" unless person.primary_address.blank?
+    #        @slg.field_4 = person.status ? person.primary_phone.value : "<span class='gray'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
+    #        @slg.field_5 = person.status ? person.primary_email.address : "<span class='gray'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
+    #
+    #      end
 
-      else
-        @slg.grid_object_id = person.id
-        @slg.field_1 = person.status ? person.first_name : "<span class='gray'>"+person.first_name+"</span>"
-        @slg.field_2 = person.status ? person.family_name : "<span class='gray'>"+person.family_name+"</span>"
-        @slg.field_3 = person.status ? person.primary_address.first_line : "<span class='gray'>"+person.family_name+"</span>" unless person.primary_address.blank?
-        @slg.field_4 = person.status ? person.primary_phone.value : "<span class='gray'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
-        @slg.field_5 = person.status ? person.primary_email.address : "<span class='gray'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
-
-      end
 
 
+    #      @slg.save
 
-      @slg.save
-
-   end
+    #   end
     @current_operation = params[:current_operation]
 
     respond_to do |format|
@@ -793,6 +801,58 @@ class PeopleController < ApplicationController
     end
   end
 
+  def spell_check
+   puts "*********811111111111"
+
+   puts params[:string]
+    @results = []
+    x=0
+    i=i
+    phrase = params[:string]
+    phrase = phrase.downcase
+    phrase = phrase.gsub("&","&amp;")
+    phrase = phrase.gsub("<","&lt;")
+    phrase = phrase.gsub(">","&gt;")
+    word_frag = phrase.split(" ")
+    word_frag.each do |lookup|
+
+      words = ' <specllrequest textalreadyclipped ="0" ignoredups="1" ignoredigits = "1" ignoreallcaps="0"><text>'+lookup+'</text></spellrequest>'
+      gword = Hash.new()
+      gword["original"] =lookup;
+      gword["data"] = ""
+      http = Net::HTTP.new('www.google.com',443)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL:SSL::VERIFY_NONE
+      response = http.start{
+        |net|
+        net.request_post("/tbproxy/spell?lang=en",words) {
+          |response|
+          doc = REXML::Document.new response.body
+          nodelist = doc.elecments.to_a("//c")
+          nodelist.each do |item|
+            if item.text.downcase != gword["original"]
+              gword["data"] = item.text.downcase
+            else
+              gword["data"] = ""
+
+            end
+          end
+
+        }
+
+      }
+      @results << gword
+    end
+    #    return results
+   puts "*********8"
+   puts @results
+   puts params[:string]
+   
+    respond_to do |format|
+
+      format.js
+    end
+  end
 
 
 end

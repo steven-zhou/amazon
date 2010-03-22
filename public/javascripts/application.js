@@ -17,6 +17,7 @@ jQuery.ajaxSetup({
 
 /* Authenticity token*/
 $(document).ready(function(){
+
   // All non-GET requests will add the authenticity token
   // if not already present in the data packet
   $("body").bind("ajaxSend", function(elm, xhr, s) {
@@ -33,6 +34,7 @@ $(document).ready(function(){
     + "=" + encodeURIComponent(window._auth_token);
   });
 });
+
 
 
 
@@ -1317,6 +1319,12 @@ $(function(){
       $('#check_input_change').val("true");
 
     }
+    $.ajax({
+      type: "GET",
+      url: "/people/spell_check.js",
+      data: "string="+$(this).val(),
+      dataType: "script"
+    });
   });
 
 
@@ -1334,6 +1342,10 @@ $(function(){
 
     }
   });
+
+          
+
+
 });
 
 $(function(){
@@ -2142,11 +2154,11 @@ $(function(){
   };
 
   $(".optional_field").live('keyup', function(){
-      optional_check($(this));
+    optional_check($(this));
   });
 
   $(".optional_field").live('change', function(){
-      optional_check($(this));
+    optional_check($(this));
   });
 });
 
@@ -2164,8 +2176,9 @@ $(function() {
     
     if ($(this).attr('expand_with_arrow') == "true"){
       var current_image = $(this).find('img[alt=Expand]');
-  }else{
-    var current_image = $(this).find('img');}
+    }else{
+      var current_image = $(this).find('img');
+    }
 
     if (current_image.attr('src').indexOf('expand') > 0){
       current_image.attr('src','/images/Icons/System/collapse.png');
@@ -3553,68 +3566,68 @@ $(function(){
 
 //function for alert message when a link is clicked
 alert_with_link = function(link, e){
-    // if left-click
-    if(e.button != 2){
-      right_tab = $("#content #right_content").find("#tabs");
-      if(right_tab.length > 0)
+  // if left-click
+  if(e.button != 2){
+    right_tab = $("#content #right_content").find("#tabs");
+    if(right_tab.length > 0)
+    {
+      check_input_change();
+    }
+    left_content = $("#content").find("#left_content");
+    right_content = $("#content").find("#right_content");
+    if (left_content.length > 0 &&  right_content.length > 0)
+    {
+      if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
       {
-        check_input_change();
-      }
-      left_content = $("#content").find("#left_content");
-      right_content = $("#content").find("#right_content");
-      if (left_content.length > 0 &&  right_content.length > 0)
-      {
-        if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
-        {
-          $('#check_input_change').val("true");
-        }
-        else
-        {
-          $('#check_input_change').val("false");
-        }
-      }
-
-      if($('#check_input_change').val() == "false"  )
-      {
-        window.open(link.attr('href'),"_self");
-        return false;
+        $('#check_input_change').val("true");
       }
       else
       {
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-          modal: true,
-          resizable: false,
-          draggable: true,
-          height: 'auto',
-          width: 'auto',
-          buttons: {
-            No: function(){
-              $(this).dialog('destroy');
-              return false;
-            },
-            Yes: function(){
-              window.open(link.attr('href'),"_self");
-              $('#check_left_input_change').val("false");
-              $('#check_right_input_change').val("false");
-              $('#check_input_change').val("false");
-              $(this).dialog('destroy');
-              return true;
-            }
-          }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-        $('#warning_message').dialog('open');
-        return false;
+        $('#check_input_change').val("false");
       }
-    }else{
+    }
+
+    if($('#check_input_change').val() == "false"  )
+    {
+      window.open(link.attr('href'),"_self");
       return false;
     }
-  };
+    else
+    {
+      $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog({
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 'auto',
+        buttons: {
+          No: function(){
+            $(this).dialog('destroy');
+            return false;
+          },
+          Yes: function(){
+            window.open(link.attr('href'),"_self");
+            $('#check_left_input_change').val("false");
+            $('#check_right_input_change').val("false");
+            $('#check_input_change').val("false");
+            $(this).dialog('destroy');
+            return true;
+          }
+        }
+      });
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+    }
+  }else{
+    return false;
+  }
+};
 
 $(function(){
   $('.alert_with_link_container a').live('click', function(e){
