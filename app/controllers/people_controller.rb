@@ -506,8 +506,6 @@ class PeopleController < ApplicationController
     @active_sub_tab = params[:active_sub_tab]
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
-
-
     @active_address = AddressType.active_address_type
     @active_title = Title.active_title
     @countries = Country.all #
@@ -575,9 +573,9 @@ class PeopleController < ApplicationController
       @primary_website = @person.primary_website
       @primary_address = @person.primary_address
       @primary_employment = @person.primary_employment
-      #      @other_phones = @person.other_phones
-      #      @other_emails = @person.other_emails
-      #      @other_faxes = @person.other_faxes
+      #  @other_phones = @person.other_phones
+      #  @other_emails = @person.other_emails
+      #  @other_faxes = @person.other_faxes
       #      @other_websites = @person.other_websites
       #      @other_addresses = @person.other_addresses
       #      @notes = @person.notes
@@ -805,8 +803,7 @@ class PeopleController < ApplicationController
     @person = Person.find(params[:params1]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
-    #    @p = @list_header.entity_on_list
-    #clear
+
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
 
@@ -814,12 +811,12 @@ class PeopleController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
 
- puts "************8"
- puts params[:current_operation]
- puts @active_tab
- puts @active_sub_tab
- puts @render_page
- puts @field
+# puts "************8"
+# puts params[:current_operation]
+# puts @active_tab
+# puts @active_sub_tab
+# puts @render_page
+# puts @field
 
 
     respond_to do |format|

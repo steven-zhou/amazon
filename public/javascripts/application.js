@@ -1834,7 +1834,16 @@ $(function(){
 
 /*CSS tab switch system*/
 $(".tab_switch_button").live('click', function(){
-  $('.active').removeClass("active");
+  $('#content .active').removeClass("active");
+  $(this).addClass("active");
+  $(this).parent().addClass("active");
+  $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
+  $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
+  $('#'+$(this).attr('field')).addClass("active");
+});
+
+$(".tab_switch_button_show_list").live('click', function(){
+  $('#show_list_grid  .active').removeClass("active");
   $(this).addClass("active");
   $(this).parent().addClass("active");
   $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
@@ -2478,6 +2487,7 @@ $(function(){
     {
       $('.page_initial[field='+ link.attr('field')+']').mousedown();
       $('.tab_switch_button[field='+ link.attr('field')+']').click();
+       $('.tab_switch_button_show_list[field='+ link.attr('field')+']').click();
       $('#current_tab_id').val(link.attr('field'));
 
     }
@@ -2501,6 +2511,7 @@ $(function(){
           Yes: function(){
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
             $('.tab_switch_button[field='+ link.attr('field')+']').click();
+            $('.tab_switch_button_show_list[field='+ link.attr('field')+']').click();
             $('#current_tab_id').val(link.attr('field'));
             if (left_content.length > 0 &&  right_content.length > 0)
             {
