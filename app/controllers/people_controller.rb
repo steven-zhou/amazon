@@ -811,6 +811,8 @@ class PeopleController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
 
+
+
     respond_to do |format|
 
       format.js
