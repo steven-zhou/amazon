@@ -1,6 +1,3 @@
-require 'net/https'
-require 'uri'
-require 'rexml/document'
 
 class PeopleController < ApplicationController
   # Added system logging
@@ -802,7 +799,26 @@ class PeopleController < ApplicationController
   end
 
   def show_album
-    
+
+    @person = Person.find(params[:params1]) rescue @person = Person.find(session[:current_person_id])
+    @list_header = ListHeader.find(session[:current_list_id])
+    @p = Array.new
+    #    @p = @list_header.entity_on_list
+    #clear
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
+
+    @current_operation = params[:params2]
+    @render_page = params[:render_page]
+    @field = params[:field]
+
+ puts "************8"
+ puts params[:current_operation]
+ puts @active_tab
+ puts @active_sub_tab
+ puts @render_page
+ puts @field
+
 
     respond_to do |format|
 
