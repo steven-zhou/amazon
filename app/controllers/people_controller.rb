@@ -798,8 +798,8 @@ class PeopleController < ApplicationController
     end
   end
 
-  def show_album
 
+  def show_grid
     @person = Person.find(params[:params1]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
@@ -811,12 +811,23 @@ class PeopleController < ApplicationController
     @render_page = params[:render_page]
     @field = params[:field]
 
-# puts "************8"
-# puts params[:current_operation]
-# puts @active_tab
-# puts @active_sub_tab
-# puts @render_page
-# puts @field
+    respond_to do |format|
+
+      format.js
+    end
+
+  end
+
+  def show_album
+
+
+
+    # puts "************8"
+    # puts params[:current_operation]
+    # puts @active_tab
+    # puts @active_sub_tab
+    # puts @render_page
+    # puts @field
 
 
     respond_to do |format|
