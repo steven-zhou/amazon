@@ -801,7 +801,14 @@ class PeopleController < ApplicationController
     end
   end
 
+  def show_album
+    
 
+    respond_to do |format|
+
+      format.js
+    end
+  end
 
 
 end
