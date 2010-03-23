@@ -499,8 +499,11 @@ class PeopleController < ApplicationController
   end
 
   def show_left
-
+   
     params[:person_id] =  params[:param1] if params[:param1]
+    params[:current_operation]=  params[:param2] if params[:param2]
+    params[:active_tab]=  params[:param3] if params[:param3]
+    params[:active_sub_tab]=  params[:param4] if params[:param4]
 
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
@@ -821,14 +824,16 @@ class PeopleController < ApplicationController
   def show_album
 
 
+    @person = Person.find(params[:params1]) rescue @person = Person.find(session[:current_person_id])
+    @list_header = ListHeader.find(session[:current_list_id])
+    @p = Array.new
 
-    # puts "************8"
-    # puts params[:current_operation]
-    # puts @active_tab
-    # puts @active_sub_tab
-    # puts @render_page
-    # puts @field
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
 
+    @current_operation = params[:params2]
+    @render_page = params[:render_page]
+    @field = params[:field]
 
     respond_to do |format|
 

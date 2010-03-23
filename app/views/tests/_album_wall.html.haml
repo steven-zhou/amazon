@@ -7,6 +7,6 @@
         = "no image found"
       - else
         -#= link_to image_tag("1.png", :alt => "Greenery foryou!", :id => "photo", :class => "medium"), "images/1.png", {:rel => "lightbox", :title => "Greenery", :class => "lightbox"}
-        = link_to_function image_tag("#{i.image.try(:id)}", :alt => "#{i.name}", :id => "photo", :class => "medium"), :class => "ajax_call", :method => "GET", :url => "/people/show_left", :param1 => "#{i.id}", :param2 => "", :param3 => "", :param4 => ""
+        = link_to_function image_tag("#{i.image.try(:id)}", :alt => "#{i.name}", :id => "photo", :class => "medium"), :class => "ajax_call", :method => "GET", :url => "/people/show_left", :param1 => "#{i.id}", :param2 => "#{@current_operation}", :param3 => "#{@active_tab}", :param4 => "#{@active_sub_tab}"
     .person_phone_number{:style => "height:auto;margin-bottom:9px;"}
       =i.primary_phone_num.nil? ? "&nbsp" : i.primary_phone_num

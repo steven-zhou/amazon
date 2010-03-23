@@ -1106,8 +1106,12 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    @field = params[:field]
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
+
+    @current_operation = params[:params2]
     @render_page = params[:render_page]
+    @field = params[:field]
     @list_header = ListHeader.find(session[:current_list_id])
 
 
@@ -1191,10 +1195,7 @@ class GridsController < ApplicationController
       elsif @count/rp !=0 && @count%rp == 0
         @last_page = @count/rp
       end
-      puts "************8"
-      puts @people
-      puts @entities
-      puts count
+      
 
       render '/people/show_album.js'
     else
