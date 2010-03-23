@@ -801,59 +801,6 @@ class PeopleController < ApplicationController
     end
   end
 
-  def spell_check
-    puts "*********811111111111"
-
-    puts params[:string]
-    @results = []
-    x=0
-    i=i
-    phrase = params[:string]
-    phrase = phrase.downcase
-    phrase = phrase.gsub("&","&amp;")
-    phrase = phrase.gsub("<","&lt;")
-    phrase = phrase.gsub(">","&gt;")
-    word_frag = phrase.split(" ")
-    word_frag.each do |lookup|
-
-      words = ' <specllrequest textalreadyclipped ="0" ignoredups="1" ignoredigits = "1" ignoreallcaps="0"><text>'+lookup+'</text></spellrequest>'
-      gword = Hash.new()
-      gword["original"] =lookup;
-      gword["data"] = ""
-      http = Net::HTTP.new('www.google.com',443)
-      http.use_ssl = true
-      http.verify_mode = OpenSSL:SSL::VERIFY_NONE
-      response = http.start{
-        |net|
-        net.request_post("/tbproxy/spell?lang=en",words) {
-          |response|
-          doc = REXML::Document.new response.body
-          nodelist = doc.elecments.to_a("//c")
-          nodelist.each do |item|
-            if item.text.downcase != gword["original"]
-              gword["data"] = item.text.downcase
-            else
-              gword["data"] = ""
-
-            end
-          end
-
-        }
-
-      }
-      @results << gword
-    end
-    #    return results
-    puts "*********8"
-    puts @results
-    puts params[:string]
-   
-    respond_to do |format|
-
-      format.js
-    end
-  end
-
   def show_album
     
 

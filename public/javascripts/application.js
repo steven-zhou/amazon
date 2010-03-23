@@ -1309,6 +1309,7 @@ $(function(){
 $(function(){
 
   $("#content input[type='text']").live('change', function(){
+    $(this).attr("spellcheck",true);
     left_content = $("#content").find("#left_content");
     right_content = $("#content").find("#right_content");
     if ((left_content.length > 0 &&  right_content.length > 0) || $(this).attr("class").indexOf('change_without_check_js')>0)
@@ -1319,12 +1320,7 @@ $(function(){
       $('#check_input_change').val("true");
 
     }
-    $.ajax({
-      type: "GET",
-      url: "/people/spell_check.js",
-      data: "string="+$(this).val(),
-      dataType: "script"
-    });
+
   });
 
 
