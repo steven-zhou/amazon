@@ -2550,7 +2550,10 @@ $(function(){
     $.ajax({
       type: $(this).attr("method"),
       url: $(this).attr("url"),
-      data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type")+'&param1='+$(this).attr('param1'),
+      // params1 for let it as undefined for grid controller show list grid
+      //parmas2 for judement this page is edit or show
+      data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type")+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field')+'&param1='+$(this).attr('param1')+'&params2='+$(this).attr("params2"),
+
       dataType: "script"
     });
   });
