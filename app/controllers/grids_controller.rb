@@ -1133,7 +1133,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp || rp == 0)
-      rp = 4
+      rp = 5
     end
 
     start = ((page-1) * rp).to_i

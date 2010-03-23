@@ -2722,7 +2722,7 @@ div#permission_form .options{
   left:0;
 }
 /*for menu tab*/
-#app #main #content  .container_icon { /*For find people page*/
+.container_icon { /*For find people page*/
 
                                        font-family:Arial, Helvetica, sans-serif;
                                        background-repeat:repeat;
@@ -2739,7 +2739,7 @@ div#permission_form .options{
                                        font-size:20px;
 }
 
-#app #main #content  .container_icon.active{
+.container_icon.active{
 
   background-image:url(/images/container_bg.png);
   font-family:Arial, Helvetica, sans-serif;
@@ -2757,12 +2757,12 @@ div#permission_form .options{
   font-size:20px;
 }
 
-#app #main #content .tab_switch_container {
+.tab_switch_container {
   position: absolute;
   left: -10000px;
 }
 
-#app #main #content .tab_switch_container.active {
+.tab_switch_container.active {
   position: relative;
   left:0;
 }

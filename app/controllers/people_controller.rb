@@ -802,9 +802,9 @@ class PeopleController < ApplicationController
   end
 
   def spell_check
-   puts "*********811111111111"
+    puts "*********811111111111"
 
-   puts params[:string]
+    puts params[:string]
     @results = []
     x=0
     i=i
@@ -844,10 +844,19 @@ class PeopleController < ApplicationController
       @results << gword
     end
     #    return results
-   puts "*********8"
-   puts @results
-   puts params[:string]
+    puts "*********8"
+    puts @results
+    puts params[:string]
    
+    respond_to do |format|
+
+      format.js
+    end
+  end
+
+  def show_album
+    
+
     respond_to do |format|
 
       format.js
