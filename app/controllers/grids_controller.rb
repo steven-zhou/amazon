@@ -1110,7 +1110,7 @@ class GridsController < ApplicationController
 
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
