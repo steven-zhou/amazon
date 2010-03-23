@@ -1825,7 +1825,7 @@ $(function(){
       $.ajax({
         type: $(this).attr("method"),
         url: $(this).attr("url"),
-        data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
+        data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3")+'&param4='+$(this).attr("param4")+'&render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
         dataType: "script"
       });
     }
