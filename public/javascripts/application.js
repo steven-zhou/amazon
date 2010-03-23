@@ -2550,7 +2550,7 @@ $(function(){
     $.ajax({
       type: $(this).attr("method"),
       url: $(this).attr("url"),
-      data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type"),
+      data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type")+'&param1='+$(this).attr('param1'),
       dataType: "script"
     });
   });

@@ -1124,9 +1124,9 @@ class GridsController < ApplicationController
     end
 
     #show album
-    if params[:params1]
-      if (params[:params1]!="undefined")
-        page = params[:params1].to_i
+    if params[:param1]
+      if (params[:param1]!="undefined")
+        page = params[:param1].to_i
       else
         page = 1
       end
@@ -1135,7 +1135,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp || rp == 0)
-      rp = 20
+      rp = 10
     end
 
     start = ((page-1) * rp).to_i
@@ -1177,7 +1177,7 @@ class GridsController < ApplicationController
       count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query, @list_header.entity_on_list])
     end
 
-    if params[:params1]
+    if params[:param1]
       @entities = Array.new
       @people.each do |i|
         @entities << Person.find(i.id)

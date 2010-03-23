@@ -1,1 +1,1 @@
-$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:person => @person})) %>');
+$('#album_show_page').html('<%= escape_javascript(render(:partial => "/tests/album_container")) %>');
