@@ -503,6 +503,8 @@ class PeopleController < ApplicationController
 
   def show_left
 
+    params[:person_id] =  params[:param1] if params[:param1]
+
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     #    check_user
