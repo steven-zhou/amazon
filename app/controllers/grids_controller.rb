@@ -1106,6 +1106,8 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
+    @field = params[:field]
+    @render_page = params[:render_page]
     @list_header = ListHeader.find(session[:current_list_id])
 
 
@@ -1122,9 +1124,9 @@ class GridsController < ApplicationController
     end
 
     #show album
-    if params[:param1]
-      if (params[:param1]!="undefined")
-        page = params[:param1].to_i
+    if params[:params1]
+      if (params[:params1]!="undefined")
+        page = params[:params1].to_i
       else
         page = 1
       end
@@ -1175,7 +1177,7 @@ class GridsController < ApplicationController
       count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query, @list_header.entity_on_list])
     end
 
-    if params[:param1]
+    if params[:params1]
       @entities = Array.new
       @people.each do |i|
         @entities << Person.find(i.id)
@@ -1189,7 +1191,7 @@ class GridsController < ApplicationController
       elsif @count/rp !=0 && @count%rp == 0
         @last_page = @count/rp
       end
-      render '/tests/show_album.js'
+      render '/people/show_album.js'
     else
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
