@@ -1110,7 +1110,7 @@ class GridsController < ApplicationController
 
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -1133,7 +1133,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp || rp == 0)
-      rp = 4
+      rp = 20
     end
 
     start = ((page-1) * rp).to_i
@@ -1178,7 +1178,7 @@ class GridsController < ApplicationController
     if params[:param1]
       @entities = Array.new
       @people.each do |i|
-        @entities << Person.find(i.grid_object_id)
+        @entities << Person.find(i.id)
       end
       @count = count
       @page = page
