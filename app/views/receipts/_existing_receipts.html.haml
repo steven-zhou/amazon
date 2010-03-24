@@ -1,84 +1,91 @@
 -# locals => {:deposit_id}
 .full_container
   %h2 Receipt Allocations
-
   %table#show_existing_receipts_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_existing_receipts_grid").flexigrid({
-  url: '/grids/show_existing_receipts_grid?deposit_id=#{deposit_id}',
-  dataType: 'json',
-  colModel : [
-  {
-  display: 'ID',
-  name : 'id',
-  width : 40,
-  sortable : true,
-  align: 'left'
-  },
+  :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_existing_receipts_grid tr.trSelected").attr('id'),"#receipt_mode","delete","/receipts/");
+    };
 
-  {
-  display: 'Receipt Account',
-  name : 'receipt_accounts.name',
-  width : 150,
-  sortable : true,
-  align: 'left'
-  },
+    $("#show_existing_receipts_grid").flexigrid({
+    url: '/grids/show_existing_receipts_grid?deposit_id=#{@deposit_id}',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
 
-  {
-  display: 'Campaign',
-  name : 'campaigns.name',
-  width : 150,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Receipt Account',
+    name : 'receipt_accounts.name',
+    width : 150,
+    sortable : true,
+    align: 'left'
+    },
 
-  {
-  display: 'Source',
-  name : 'sources.name',
-  width : 150,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Campaign',
+    name : 'campaigns.name',
+    width : 150,
+    sortable : true,
+    align: 'left'
+    },
 
-  {
-  display: 'Letter',
-  name : 'letter_id',
-  width : 250,
-  sortable : true,
-  align: 'left'
-  },
+    {
+    display: 'Source',
+    name : 'sources.name',
+    width : 150,
+    sortable : true,
+    align: 'left'
+    },
 
-  {
-  display: 'Amount',
-  name : 'amount',
-  width : 100,
-  sortable : true,
-  align: 'left'
-  }
-  ],
-  searchitems : [
-  {
-  display: 'Receipt Account',
-  name : 'receipt_accounts.name'
-  },
+    {
+    display: 'Letter',
+    name : 'letter_id',
+    width : 250,
+    sortable : true,
+    align: 'left'
+    },
 
-  {
-  display: 'Campaign',
-  name : 'campaigns.name'
-  },
+    {
+    display: 'Amount',
+    name : 'amount',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+    display: 'Receipt Account',
+    name : 'receipt_accounts.name'
+    },
 
-  {
-  display: 'Source',
-  name : 'sources.name'
-  }
-  ],
-  sortname: "id",
-  sortorder: "asc",
-  usepager: true,
-  useRp: true,
-  rp: 20,
-  showTableToggleBtn: false,
-  width: 'auto',
-  height: 'auto'
-  });
+    {
+    display: 'Campaign',
+    name : 'campaigns.name'
+    },
+
+    {
+    display: 'Source',
+    name : 'sources.name'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+        ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

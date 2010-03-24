@@ -937,8 +937,8 @@ $(function(){
             link.css("display","none");
             $('.new_option[field='+ link.attr('field') +']').css("display","");
             $('.close_option[field='+ link.attr('field') +']').css("display","none");
-            if($(this).attr('show_existing')=="true"){
-              $('#'+$(this).attr('show_existing_id')).css('display', '');
+            if(link.attr('show_existing')=="true"){
+              $('#'+link.attr('show_existing_id')).css('display', '');
             }
 
 

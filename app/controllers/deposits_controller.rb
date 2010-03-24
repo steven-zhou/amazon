@@ -248,7 +248,7 @@ class DepositsController < ApplicationController
   end
 
   def destroy
-    @deposit = depositHeader.find(params[:id].to_i)
+    @deposit = Deposit.find(params[:id].to_i)
     @deposit.destroy
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) destroy a deposit header record with id #{params[:id]}.")
     respond_to do |format|

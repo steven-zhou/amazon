@@ -1,10 +1,9 @@
-- form_for transaction_allocation, :html => {:class => "ajax_form", :submit_button_id => transaction_allocation.new_record? ? "edit_new_allocation_submit_button" : "edit_edit_allocation_submit_button"} do |f|
+- form_for @receipt, :html => {:class => "ajax_form", :submit_button_id => "edit_edit_allocation_submit_button"} do |f|
   .form_line
     .field_15
       = f.label :receipt_account_id, "<span class='asterisk'>*</span>Receipt Account"
       = f.collection_select :receipt_account_id, ReceiptAccount.all, :id, :name
-      - if transaction_allocation.new_record?
-        %input{:style => "display:none;", :name => "transaction_allocation[transaction_header_id]", :value => "#{transaction_header_id}"}
+      
 
     .field_15
       = f.label :campaign_id, "Campaign"
@@ -20,8 +19,8 @@
 
     .field_15
       = f.label :amount, "<span class='asterisk'>*</span>Amount"
-      = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(transaction_allocation.amount, :unit => "", :delimiter => "")
-  .full_container
+      = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(@receipt.amount, :unit => "", :delimiter => "")
+  -#.full_container
     .options
       = link_to_function image_tag('/images/Icons/System/expand.png'), :class => "toggle_button close_image", :toggle_id_name => transaction_allocation.new_record? ? "edit_bank_extension_form" : "edit_bank_extension_form_edit"
     .title
@@ -85,7 +84,4 @@
                   #{Person.find(transaction_allocation.cluster_id).name}
                 - else
                   #{Organisation.find(transaction_allocation.cluster_id).full_name}
-  - if transaction_allocation.new_record?
-    = submit_tag '   Add   ', :id => "edit_new_allocation_submit_button", :disabled => true
-  - else
     = submit_tag '  Update  ', :id => "edit_edit_allocation_submit_button"

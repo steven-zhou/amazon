@@ -9,7 +9,7 @@ class ReceiptsController < ApplicationController
   end
 
   def edit
-    @transaction_allocation = TransactionAllocation.find(params[:id])
+    @receipt = Receipt.find(params[:id])
     respond_to do |format|
       format.js
     end
@@ -31,10 +31,15 @@ class ReceiptsController < ApplicationController
       
     
     @entity = Deposit.find(@deposit_id).entity
+#    params[:receipt][:entity_id] =@entity.id
+#    params[:receipt][:entity_type]= @entity.type
     @receipt = @entity.receipts.new(params[:receipt])
 
     end
 
+#    puts "*************"
+#    puts params[:receipt][:entity_id]
+#    puts params[:receipt][:entity_type]
 
 
     if @receipt.save
@@ -63,6 +68,35 @@ class ReceiptsController < ApplicationController
       format.js
     end
   end
+
+
+  def destroy
+
+    @receipt = Receipt.find(params[:id])
+    #for the receipt grid
+   @deposit_id = @receipt.deposit_id
+    @receipt.destroy
+    
+    #for re-calculate the deposit amount
+    @deposit= Deposit.find(@deposit_id)
+    @receipts = @deposit.receipts
+    @receipt_value = 0
+    @receipts.each do |r|
+      @receipt_value += r.amount.to_f
+    end
+    
+    @deposit.update_attribute(:total_amount,@receipt_value )
+
+
+
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted receipt.")
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   
   def temp_update
     @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:id])
