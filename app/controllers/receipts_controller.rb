@@ -2,10 +2,12 @@ class ReceiptsController < ApplicationController
   # System Log stuff added
 
   def new    
-
-      @receipt = Receipt.new
-      @deposit_id = params[:param1]
-
+    @receipt = Receipt.new
+    @deposit = Deposit.find(params[:param1])
+    @is_extension = true if (params[:param2] == "extension")
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit
@@ -15,24 +17,14 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  def temp_edit
-    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:grid_object_id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def create
-#    @receipt = Receipt.new(params[:receipt])
-    @deposit_id = params[:receipt][:deposit_id]
+    #    @receipt = Receipt.new(params[:receipt])
+    deposit_id = params[:receipt][:deposit_id]
 
     #for no extenion
-    unless params[:receipt][:entity_id]
-      
-    
-    @entity = Deposit.find(@deposit_id).entity
-    @receipt = @entity.receipts.new(params[:receipt])
-
+    unless params[:receipt][:entity_id]         
+      @entity = Deposit.find(deposit_id).entity
+      @receipt = @entity.receipts.new(params[:receipt])
     end
 
 
@@ -52,13 +44,14 @@ class ReceiptsController < ApplicationController
         flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
-    @deposit= Deposit.find(@deposit_id)
+    @deposit= Deposit.find(deposit_id)
     @receipts = @deposit.receipts
     @receipt_value = 0
     @receipts.each do |r|
       @receipt_value += r.amount.to_f
     end
     @deposit.update_attribute(:total_amount,@receipt_value )
+    @is_extension = true if params[:is_extension]
     respond_to do |format|
       format.js
     end
