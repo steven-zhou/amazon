@@ -16,7 +16,7 @@ $(function() {
 
     $('a.move_down_phone_priority').live('click', function() {
         var link = $(this);
-        $.get(link.attr('href'), null ,null, 'script');
+        $.get(link.attr('href'), nullshow ,null, 'script');
         return false;
     }).attr("rel", "nofollow");
 
@@ -1079,7 +1079,8 @@ $(function(){
 
 $(function(){
     $('table#search_list_results tbody tr').live('dblclick',function(){
-        // alert($('table#search_list_results').attr('current_operation'));
+
+  
         if ($('table#search_list_results').attr('current_operation') == "edit_list")
         {
             window.open("/people/"+$(this).attr("id").substring(3)+"/edit","_self");

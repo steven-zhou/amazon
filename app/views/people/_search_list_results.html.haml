@@ -1,35 +1,24 @@
-.container{:style => "width:96%;padding:2%;"}
-  %table#search_list_results{:current_operation => "#{current_operation}",:active_tab => "#{active_tab}",:active_sub_tab => "#{active_sub_tab}"}
-%script{:type => "text/javascript", :charset => "utf-8"}
-  :plain
-    $("#search_list_results").flexigrid(
-    {
-    url: '/grids/show_list_grid',
-    dataType: 'json',
-    colModel : [
-    {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-    {display: 'First Name', name : 'field_1', width : 55, sortable : true, align: 'left'},
-    {display: 'Family Name', name : 'field_2', width : 65, sortable : true, align: 'left'},
-    {display: 'Address', name : 'field_3', width : 170, sortable : true, align: 'left'},
-    {display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
-    {display: 'Email', name : 'field_5', width : 140, sortable : true, align: 'left'}
+-#pass value :people => @p, :current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab
+%div
 
-    ],
-    searchitems : [
-    {display: 'First Name', name : 'field_1'},
-    {display: 'Family Name', name : 'field_2'},
-    {display: 'Address', name : 'field_3'},
-    {display: 'Phone', name : 'field_4'},
-    {display: 'Email', name : 'field_5'}
+  .tab_switch{:style => "margin-left:15px;"}
+    .tab_switch_left.active.left{:field =>"grid_show_page"}
+    .container_icon.active.left{:align => 'center'}
+      = link_to_function "<h1>grid</h1>",:class=>"tab_switch_button_show_list page_initial hidden", :url => "/people/show_grid.js",:method => "GET", :render_page => "/people/search_list_result_table", :field => "grid_show_page",:params1 => @person.id,:params2 =>@current_operation, :type => "Person_Clase"
+      = link_to_function "<h1>grid</h1>", :class=>"tab_switch_with_page_initial", :field => "grid_show_page"
+    .tab_switch_right.active.left{:field =>"grid_show_page"}
 
-    ],
-    sortname: "grid_object_id",
-    sortorder: "asc",
-    usepager: true,
-    title: 'People List',
-    useRp:true,
-    rp: 20,
-    showTableToggleBtn: false,
-    width: 'auto',
-    height: 'auto'
-    });
+
+    .tab_switch_left.left{:field =>"album_show_page"}
+    .container_icon.left{:align => 'center'}
+      = link_to_function "<h1>album</h1>",:class=>"tab_switch_button_show_list page_initial hidden", :url => "/grids/show_list_grid",:method => "GET", :render_page => "/tests/album_container", :field => "album_show_page",:type => "Person_Class",:params2 => @current_operation
+      = link_to_function "<h1>album</h1>", :class=>"tab_switch_with_page_initial", :field => "album_show_page"
+    .tab_switch_right.left{:field =>"album_show_page"}
+
+
+
+  .container
+    #grid_show_page.tab_switch_container.active
+      =render :partial =>"people/search_list_result_table", :locals =>{:current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab}
+    #album_show_page.tab_switch_container
+  

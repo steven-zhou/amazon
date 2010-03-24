@@ -1106,9 +1106,17 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
+    @active_tab = params[:active_tab]
+    @active_sub_tab = params[:active_sub_tab]
+
+    @current_operation = params[:params2]
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @list_header = ListHeader.find(session[:current_list_id])
+
 
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -1131,7 +1139,7 @@ class GridsController < ApplicationController
     end
 
     if (!rp || rp == 0)
-      rp = 2
+      rp = 10
     end
 
     start = ((page-1) * rp).to_i
@@ -1139,46 +1147,76 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @people = ShowListGrid.find(:all,
-        :conditions => ["login_account_id = ?", session[:user]],
+      #      @people = ShowListGrid.find(:all,
+      #        :conditions => ["login_account_id = ?", session[:user]],
+      #        :order => sortname+' '+sortorder,
+      #        :limit =>rp,
+      #        :offset =>start
+      #      )
+      #      count = ShowListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      @people = Person.find(:all,
+        :conditions => ["id IN (?)",@list_header.entity_on_list],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = ShowListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = Person.count(:all, :conditions => ["id IN (?)",@list_header.entity_on_list])
     end
 
     # User provided search terms
+    #    if(query != "%%")
+    #      @people = ShowListGrid.find(:all,
+    #        :order => sortname+' '+sortorder,
+    #        :limit =>rp,
+    #        :offset =>start,
+    #        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+    #      count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+    #    end
     if(query != "%%")
-      @people = ShowListGrid.find(:all,
+      @people = Person.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+      count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query, @list_header.entity_on_list])
     end
 
     if params[:param1]
       @entities = Array.new
       @people.each do |i|
-        @entities << Person.find(i.grid_object_id)
+        @entities << Person.find(i.id)
       end
       @count = count
       @page = page
-      @last_page = (@count % rp == 0) ? (@count / rp) : (@count / rp) + 1
-      render '/tests/show_album.js'
+      if @count/rp == 0
+        @last_page = 1
+      elsif @count/rp !=0 && @count%rp != 0
+        @last_page = @count/rp + 1
+      elsif @count/rp !=0 && @count%rp == 0
+        @last_page = @count/rp
+      end
+      
+
+      render '/people/show_album.js'
     else
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
       return_data[:page] = page
       return_data[:total] = count
-      return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
-          :cell=>[u.grid_object_id,
-            u.field_1,
-            u.field_2,
-            u.field_3,
-            u.field_4,
-            u.field_5]}}
+      #      return_data[:rows] = @people.collect{|u| {:id => u.grid_object_id,
+      #          :cell=>[u.grid_object_id,
+      #            u.field_1,
+      #            u.field_2,
+      #            u.field_3,
+      #            u.field_4,
+      #            u.field_5]}}
+      return_data[:rows] = @people.collect{|u| {:id => u.id,
+          :cell=>[u.id,
+            u.first_name,
+            u.family_name,
+            u.primary_phone_num,
+            u.primary_email_address,
+          ]}}
 
       # Convert the hash to a json object
       render :text=>return_data.to_json, :layout=>false
@@ -1192,7 +1230,7 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-
+    @list_header = ListHeader.find(session[:current_org_list_id])
     if (!sortname)
       sortname = "grid_object_id"
     end
@@ -1213,37 +1251,46 @@ class GridsController < ApplicationController
     query = "%"+query+"%"
 
     # No search terms provided
+    #    if(query == "%%")
+    #      @organisation = ShowOrganisationListGrid.find(:all,
+    #        :conditions => ["login_account_id = ?", session[:user]],
+    #        :order => sortname+' '+sortorder,
+    #        :limit =>rp,
+    #        :offset =>start
+    #      )
+    #      count = ShowOrganisationListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+    #    end
     if(query == "%%")
-      @organisation = ShowOrganisationListGrid.find(:all,
-        :conditions => ["login_account_id = ?", session[:user]],
+      @organisation = Organisation.find(:all,
+        :conditions => ["id IN (?)",@list_header.entity_on_list],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = ShowOrganisationListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
+      count = Organisation.count(:all, :conditions => ["id IN (?)",@list_header.entity_on_list])
     end
+
 
     # User provided search terms
     if(query != "%%")
-      @organisation = ShowOrganisationListGrid.find(:all,
+      @organisation = Organisation.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
-      count = ShowOrganisationListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
+        :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+      count = Organisation.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @organisation.collect{|u| {:id => u.grid_object_id,
-        :cell=>[u.grid_object_id,
-          u.field_1,
-          u.field_2,
-          u.field_3,
-          u.field_4,
-          u.field_5]}}
+    return_data[:rows] = @organisation.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.full_name,
+          u.short_name,
+          u.primary_phone_num,
+          u.primary_email_address]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
