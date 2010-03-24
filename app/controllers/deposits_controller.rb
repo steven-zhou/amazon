@@ -15,6 +15,7 @@ class DepositsController < ApplicationController
 
   def edit
     @deposit = Deposit.find(params[:id])
+    @deposit_id = params[:id]
     @cheque_detail = @deposit.cheque_detail rescue @cheque_detail = ChequeDetail.new
     @credit_card_detail = @deposit.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new
     @receipts = @deposit.receipts
@@ -247,7 +248,7 @@ class DepositsController < ApplicationController
   end
 
   def destroy
-    @deposit = depositHeader.find(params[:id].to_i)
+    @deposit = Deposit.find(params[:id].to_i)
     @deposit.destroy
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) destroy a deposit header record with id #{params[:id]}.")
     respond_to do |format|

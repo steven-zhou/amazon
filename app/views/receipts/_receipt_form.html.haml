@@ -4,6 +4,7 @@
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
       = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {:class=>"compulsory_field"}
       %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit_id}",:class =>"hidden"}
+      %input.hidden{:name=>"field",:value=>"new_receipt"}
     .field_15
       = f.label :field_2, "Campaign"
       = f.collection_select :campaign_id, Campaign.active_campaign, :id, :name, {:include_blank => true}

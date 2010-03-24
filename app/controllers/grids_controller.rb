@@ -1197,6 +1197,7 @@ class GridsController < ApplicationController
       end     
 
       render '/people/show_album.js'
+
     else
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
