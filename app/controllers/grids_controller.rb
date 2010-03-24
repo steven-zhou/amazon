@@ -2506,6 +2506,84 @@ class GridsController < ApplicationController
 
   end
 
+    def show_existing_extensions_grid
+
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "entity_type"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipts = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions => ["deposit_id=?", params[:deposit_id]],
+        :group => "entity_type, entity_id",
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions => ["deposit_id=?", params[:deposit_id]],
+        :group => "entity_type, entity_id"
+      ).count
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipts = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
+        :group => "entity_type, entity_id",
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+        
+      count = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
+        :group => "entity_type, entity_id"
+      ).count
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
+        :cell=>[u.entity_type,
+          u.entity_id,
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
+    
   def show_existing_receipts_grid
 
     page = (params[:page]).to_i

@@ -3,6 +3,13 @@ $('#edit_current_deposit').show();
 $('#edit_current_deposit_form').html('<%=escape_javascript(render(:partial => "/deposits/edit_deposit_form", :locals => {:deposit => @deposit })) %>');
 $('#current_mode').attr('mode', 'edit');
 $('.close_option[field="current"]').css("display","");
+
+
+
+$('#edit_add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/edit_new_receipt")) %>');
+
+$('#edit_existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts")) %>');
+
 $("#edit_temp_allocation_total_amount_value").html('<%= escape_javascript("#{number_to_currency(@deposit_allocation_value)}")%>');
 $('.datepick').datepicker({
         showOn: 'button',

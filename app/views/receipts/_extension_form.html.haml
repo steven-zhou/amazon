@@ -1,17 +1,24 @@
-- form_for @receipt, :html => {:class => "ajax_form", :submit_button_id => "new_receipt_submit_button"} do |f|
+- form_for @receipt, :html => {:class => "ajax_form", :id => "extension_form", :submit_button_id => "new_extension_submit_button"} do |f|
   .form_line
-    .field_15
-      = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
-      = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {:class=>"compulsory_field"}
+    .field_40
+      = f.label :entity_type, "<span class='asterisk'>*</span>Entity Type"
+      %select{:id => "extension_entity_type", :name => "receipt[entity_type]", :class => "entity_type_change", :input_field => "new_entity_id, :"}
+        %option{:value => "Person"} Person
+        %option{:value => "Organisation"} Organisation
       %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit_id}",:class =>"hidden"}
-      %input.hidden{:name=>"field",:value=>"new_receipt"}
-    .field_15
-      = f.label :field_2, "Campaign"
-      = f.collection_select :campaign_id, Campaign.active_campaign, :id, :name, {:include_blank => true}
+    .field_40
+      = f.label :entity_id, "<span class='asterisk'>*</span>Entity ID"
+      = f.text_field :entity_id, :class => "general_name_show", :id => "new_entity_id", :update_field => "new_entity_name", :input_field => ""
+      
+    .field_10
+      %label &nbsp;
+      = link_to_function image_tag("Icons/System/search.png"), :id => "new_entity_lookup", :class => "person_lookup", :update_field => transaction_allocation_grid.new_record? ? "temp_transaction_allocation_grid_field_7" : "edit_temp_transaction_allocation_grid_field_7", :title=>"Search", :id => transaction_allocation_grid.new_record? ? "temp_extention_lookup" : "edit_temp_extention_lookup"
+    
 
-    .field_20
-      = f.label :field_3, "Source"
-      = f.collection_select :source_id, Source.active_source, :id, :name, {:include_blank => true}
+  .form_line
+    .field_80
+      %label Entity Name
+      .display_field_bg{:id => "new_entity_name"}
 
     .field_10
       = f.label :field_4, "Letter"

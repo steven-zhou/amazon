@@ -5,6 +5,7 @@ class ReceiptsController < ApplicationController
 
       @receipt = Receipt.new
       @deposit_id = params[:param1]
+      @field = params[:param2]
 
   end
 
@@ -27,19 +28,15 @@ class ReceiptsController < ApplicationController
     @deposit_id = params[:receipt][:deposit_id]
 
     #for no extenion
-    unless params[:receipt][:entity_id]
-      
-    
+
     @entity = Deposit.find(@deposit_id).entity
 #    params[:receipt][:entity_id] =@entity.id
 #    params[:receipt][:entity_type]= @entity.type
     @receipt = @entity.receipts.new(params[:receipt])
+    @field = params[:field]
 
-    end
-
-#    puts "*************"
-#    puts params[:receipt][:entity_id]
-#    puts params[:receipt][:entity_type]
+    puts "*******"
+    puts @field
 
 
     if @receipt.save
