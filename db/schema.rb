@@ -1133,11 +1133,11 @@ ActiveRecord::Schema.define(:version => 20100322042327) do
   end
 
   create_table "receipts", :force => true do |t|
-    t.integer  "transaction_header_id"
+    t.integer  "deposit_id"
     t.integer  "receipt_account_id"
     t.integer  "campaign_id"
     t.integer  "source_id"
-    t.decimal  "amount",                :precision => 11, :scale => 3
+    t.decimal  "amount",             :precision => 11, :scale => 3
     t.integer  "letter_id"
     t.boolean  "letter_sent"
     t.date     "date_sent"

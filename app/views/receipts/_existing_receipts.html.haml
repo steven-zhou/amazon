@@ -1,12 +1,12 @@
--# locals => {:transaction_header_id}
+-# locals => {:deposit_id}
 .full_container
-  %h2 Allocations
+  %h2 Receipt Allocations
 
-  %table#show_existing_transaction_allocations_grid
+  %table#show_existing_receipts_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_existing_transaction_allocations_grid").flexigrid({
-  url: '/grids/show_existing_transaction_allocations_grid?transaction_header_id=#{transaction_header_id}',
+  $("#show_existing_receipts_grid").flexigrid({
+  url: '/grids/show_existing_receipts_grid?deposit_id=#{deposit_id}',
   dataType: 'json',
   colModel : [
   {

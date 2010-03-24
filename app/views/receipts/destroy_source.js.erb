@@ -1,6 +1,0 @@
-  $('#edit_source').hide();
-  $('#add_new_source').html('<%= escape_javascript(render(:partial => "/receipting/new_source")) %>');
-  $('#add_new_source').show();
-  $('#existing_sources').html('<%= escape_javascript(render(:partial => "/receipting/existing_sources")) %>');
-  $('#source_mode').attr('mode', 'show');
-  $('.select_ajax_call[field="source"]').removeAttr('disabled');

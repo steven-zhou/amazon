@@ -2458,7 +2458,7 @@ class GridsController < ApplicationController
 
   end
 
-  def show_existing_transaction_allocations_grid
+  def show_existing_receipts_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2488,25 +2488,25 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction_allocations = TransactionAllocation.find(:all,
-        :conditions => ["transaction_header_id=?", params[:transaction_header_id]],
+      @receipts = Receipt.find(:all,
+        :conditions => ["deposit_id=?", params[:deposit_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?", params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
+      count = Receipt.count(:all, :conditions => ["deposit_id=?", params[:deposit_id]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction_allocations = TransactionAllocation.find(:all,
+      @receipts = Receipt.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
         :include => ["campaign", "receipt_account", "source"])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
+      count = Receipt.count(:all, :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
         :include => ["campaign", "receipt_account", "source"])
     end
 
@@ -2514,7 +2514,7 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
           u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),

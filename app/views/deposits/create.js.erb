@@ -1,7 +1,7 @@
 <% if @deposit.errors.empty? -%>
-$('#add_new_deposit').html('<%= escape_javascript(render(:partial => "/deposits/new_deposit")) %>');
-$('#existing_current_deposits').show().html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
-$('#current_mode').attr('mode', 'show');
+$('#new_deposit_form').attr('action', '/deposits/<%= escape_javascript(@deposit.id.to_s) %>');
+$('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
+
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

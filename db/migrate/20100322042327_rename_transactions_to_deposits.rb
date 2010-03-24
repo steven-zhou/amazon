@@ -8,6 +8,7 @@ class RenameTransactionsToDeposits < ActiveRecord::Migration
     remove_column :deposits, :receipt_type_name
     add_column :deposits, :extension, :boolean
     rename_column :deposit_details, :transaction_header_id, :deposit_id
+    rename_column :receipts, :transaction_header_id, :deposit_id
   end
 
   def self.down
@@ -19,5 +20,6 @@ class RenameTransactionsToDeposits < ActiveRecord::Migration
     add_column :transaction_headers, :receipt_type_name, :string
     remove_column :transaction_headers, :extension
     rename_column :transaction_type_details, :deposit_id, :transaction_header_id
+    rename_column :transaction_allocations, :deposit_id, :transaction_header_id
   end
 end
