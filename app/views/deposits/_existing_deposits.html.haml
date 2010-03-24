@@ -1,17 +1,17 @@
 -# locals => {:entity_type, :entity_id}
 .full_container
-  %h2 Current Transactions
+  %h2 Current Deposits
 
-  %table#show_unbanked_transaction_grid{:class => "selectable_grid",:db_click_function => "true", :db_click_url => "/transaction_headers/", :field => "current", :edit => "true"}
+  %table#show_current_deposit_grid{:class => "selectable_grid",:db_click_function => "true", :db_click_url => "/deposits/", :field => "current", :edit => "true"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
-      delete_unbank_transaction = function(){
-      var trSelected = $('#show_unbanked_transaction_grid tr.trSelected').attr('id');
+      delete_current_deposit = function(){
+      var trSelected = $('#show_current_deposit_grid tr.trSelected').attr('id');
       var id = "";
       if (trSelected != undefined){
           id = trSelected.substring(3);
-          $('#warning_message_text').html("Are you sure you wish to delete this transaction?");
+          $('#warning_message_text').html("Are you sure you wish to delete this deposit?");
           $('#warning_message').dialog({
               modal: true,
               resizable: false,
@@ -28,7 +28,7 @@
               Yes: function(){
                   $.ajax({
                       type: "delete",
-                      url: "/transaction_headers/"+id+".js",
+                      url: "/deposits/"+id+".js",
                       dataType: "script"
                   });
                   $(this).dialog('destroy');
@@ -63,13 +63,13 @@
       return false;
       };
 
-      $("#show_unbanked_transaction_grid").flexigrid({
-      url: '/grids/show_unbanked_transaction_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
+      $("#show_current_deposit_grid").flexigrid({
+      url: '/grids/show_current_deposit_grid?entity_id='+'#{entity_id}'+ '&entity_type='+ '#{entity_type}',
       dataType: 'json',
       colModel : [
       {
       display: 'ID',
-      name : 'transaction_headers.id',
+      name : 'deposits.id',
       width : 40,
       sortable : true,
       align: 'left'
@@ -89,8 +89,8 @@
       align: 'left'
       },
       {
-      display: 'Transaction Date',
-      name : 'transaction_date',
+      display: 'Deposit Date',
+      name : 'deposit_date',
       width : 90,
       sortable : true,
       align: 'left'
@@ -132,7 +132,7 @@
       }
       ],
       buttons : [
-        {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_unbank_transaction}
+        {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_current_deposit}
       ],
       searchitems : [
       {
@@ -152,7 +152,7 @@
       name : 'notes'
       }
       ],
-      sortname: "transaction_headers.id",
+      sortname: "deposits.id",
       sortorder: "asc",
       usepager: true,
       useRp: true,

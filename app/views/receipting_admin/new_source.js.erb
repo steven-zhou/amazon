@@ -1,0 +1,4 @@
+$('#new_source_form').html('<%= escape_javascript(render(:partial => "/receipting_admin/source_form", :locals => {:source => @source })) %>');
+$('#new_source_form').css('display','');
+
+$('.select_ajax_call[field="source"]').attr('disabled', true)

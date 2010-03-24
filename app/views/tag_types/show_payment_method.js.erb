@@ -11,19 +11,19 @@
 <% end %>
 
 <%- if @payment_method_type.name == 'Cash'%>
-  cash_form.html("<%= escape_javascript(render :partial => '/transaction_type_details/cash_detail_form') %>");
+  cash_form.html("<%= escape_javascript(render :partial => '/deposit_details/cash_detail_form') %>");
   cheque_form.html('');
   credit_card_form.html('');
 <%- end %>
 <%- if @payment_method_type.name == 'Cheque'%>
   cash_form.html('');
-  cheque_form.html("<%= escape_javascript(render :partial => '/transaction_type_details/cheque_detail_form') %>");
+  cheque_form.html("<%= escape_javascript(render :partial => '/deposit_details/cheque_detail_form') %>");
   credit_card_form.html('');
 <%- end %>
 <%- if @payment_method_type.name == 'Credit Card' %>
   cash_form.html('');
   cheque_form.html('');
-  credit_card_form.html("<%= escape_javascript(render :partial => '/transaction_type_details/credit_card_detail_form') %>");
+  credit_card_form.html("<%= escape_javascript(render :partial => '/deposit_details/credit_card_detail_form') %>");
 <%- end%>
 
 $('#'+$('.compulsory_field').get(0).id).change();

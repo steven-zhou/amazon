@@ -1198,6 +1198,7 @@ class GridsController < ApplicationController
       
 
       render '/people/show_album.js'
+
     else
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
@@ -2296,7 +2297,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def show_unbanked_transaction_grid
+  def show_current_deposit_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -2305,7 +2306,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "transaction_headers.id"
+      sortname = "deposits.id"
     end
 
     if (!sortorder)
@@ -2325,27 +2326,27 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction = TransactionHeader.find(:all,
-        :conditions => ["transaction_headers.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      @deposit = Deposit.find(:all,
+        :conditions => ["deposits.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction = TransactionHeader.find(:all,
+      @deposit = Deposit.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2353,11 +2354,11 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction.collect{|u| {:id => u.id,
+    return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_number,
           u.manual_receipt_number,
-          u.transaction_date.to_s,
+          u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
