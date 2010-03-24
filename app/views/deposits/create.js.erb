@@ -1,8 +1,13 @@
 <% if @deposit.errors.empty? -%>
-$('#new_deposit_form').attr('action', '/deposits/update').attr('method','put');
-$('#deposit_id').val('<%= escape_javascript("#{@deposit.id}") %>')
-$('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
-
+  $('#new_deposit_form').attr('action', '/deposits/update').attr('method','put');
+  $('#deposit_id').val('<%= escape_javascript("#{@deposit.id}") %>')
+  <%- if @deposit.extension%>
+    $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
+    $('#existing_extension').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions", :locals => {:deposit => @deposit})) %>');
+  <%- else %>
+    $('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
+    $('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts", :locals => {:deposit => @deposit})) %>');
+  <%- end %>
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

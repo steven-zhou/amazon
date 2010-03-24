@@ -1,0 +1,58 @@
+-# locals => {:deposit}
+.full_container
+  %h2 Extensions
+
+  %table#show_existing_extensions_grid
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  $("#show_existing_extensions_grid").flexigrid({
+  url: '/grids/show_existing_extensions_grid?deposit_id=#{deposit.id}',
+  dataType: 'json',
+  colModel : [
+  {
+  display: 'Entity Type',
+  name : 'entity_type',
+  width : 80,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Entity ID',
+  name : 'entity_id',
+  width : 40,
+  sortable : true,
+  align: 'left'
+  },
+
+  {
+  display: 'Entity Name',
+  name : 'campaigns.name',
+  width : 150,
+  sortable : false,
+  align: 'left'
+  },
+
+  {
+  display: 'Total Allocated',
+  name : 'amount',
+  width : 150,
+  sortable : false,
+  align: 'left'
+  }
+  ],
+  searchitems : [
+  {
+  display: 'Entity Type',
+  name : 'entity_type'
+  }
+  ],
+  sortname: "id",
+  sortorder: "asc",
+  usepager: true,
+  useRp: true,
+  rp: 20,
+  showTableToggleBtn: false,
+  width: 'auto',
+  height: 'auto'
+  });

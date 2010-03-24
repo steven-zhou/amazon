@@ -58,10 +58,15 @@
       = f.label :notes, "Notes"
       = f.text_area :notes, :rows => 3, :cols => 45, :class => "mceNoEditor"
 
-%input.hidden{:id => "receipt_mode", :mode => "show"}
-#add_new_receipt
+#new_extension
+  %input.hidden{:id => "extension_mode", :mode => "show"}
+  #add_new_extension
+  #existing_extension
 
-#existing_receipt
+#new_receipt
+  %input.hidden{:id => "receipt_mode", :mode => "show"}
+  #add_new_receipt
+  #existing_receipts
   
 
 = button_to_function "Submit", :disabled => false, :class => "fake_submit_button", :form_id => "new_deposit_form", :id => "new_submit_button", :style => "float:right;margin-left:10px;"
