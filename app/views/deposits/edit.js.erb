@@ -1,9 +1,9 @@
-$('#add_new_transaction').css('display','none');
-$('#edit_unbanked_transaction').css('display', '');
-$('#edit_unbanked_transaction_form').html('<%=escape_javascript(render(:partial => "/transactions/edit_transaction_form", :locals => {:transaction => @transaction_header })) %>');
+$('#add_new_deposit').css('display','none');
+$('#edit_current_deposit').css('display', '');
+$('#edit_current_deposit_form').html('<%=escape_javascript(render(:partial => "/deposits/edit_deposit_form", :locals => {:deposit => @deposit })) %>');
 $('#current_mode').attr('mode', 'edit');
 $('.close_option[field="current"]').css("display","");
-$("#edit_temp_allocation_total_amount_value").html('<%= escape_javascript("#{number_to_currency(@transaction_allocation_value)}")%>');
+$("#edit_temp_allocation_total_amount_value").html('<%= escape_javascript("#{number_to_currency(@deposit_allocation_value)}")%>');
 $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',

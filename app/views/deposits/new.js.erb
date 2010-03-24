@@ -1,5 +1,5 @@
-$('#new_transaction_form').html('<%= escape_javascript(render(:partial => "/transactions/transaction_form", :locals => {:transaction => @transaction_header })) %>');
-$('#new_transaction_form').css('display','');
+$('#new_deposit_form').html('<%= escape_javascript(render(:partial => "/deposits/deposit_form", :locals => {:deposit => @deposit })) %>');
+$('#new_deposit_form').css('display','');
 $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
@@ -13,5 +13,5 @@ $('.datepick').datepicker({
             $(this).keyup();
         }
     });
-$('#existing_unbanked_transactions').css('display', 'none');
+$('#existing_current_deposits').css('display', 'none');
 hasDatepicker();
