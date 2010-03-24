@@ -1194,11 +1194,9 @@ class GridsController < ApplicationController
         @last_page = @count/rp + 1
       elsif @count/rp !=0 && @count%rp == 0
         @last_page = @count/rp
-      end
-      
+      end     
 
       render '/people/show_album.js'
-
     else
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
