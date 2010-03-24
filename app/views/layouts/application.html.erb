@@ -21,7 +21,7 @@
     </script>
 
 
-    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword", :cache => "common"%>
+    <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword","jquery.lightbox-0.5", :cache => "common"%>
 
     <%= yield_authenticity_token %>
 <%#*<script type="text/javascript" src="http://www.google.com/jsapi"></script>%>
@@ -40,6 +40,7 @@
       "jquery.form.js",
       "jquery.validationEngine.js",
       "nicEdit.js",
+      "jquery.lightbox-0.5",
       "jquery.jpassword.js"%>
 
     <%- if session[:module] == "dashboard" %>
@@ -81,6 +82,11 @@
         </div>
         <br style="clear: both;"/>
       </div>
+      <br style="clear: both;"/>
+    </div>
+
+    <div id ="footer" class="footer">
+      <span>Powered by: <%=image_tag('memberzone_footer.png')%>  &nbsp;&nbsp; Licensed to: <%=image_tag('Aghapytv.png')%>   </span>
     </div>
 
     <!-- Feedback form used throughout the system -->

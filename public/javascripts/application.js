@@ -17,6 +17,7 @@ jQuery.ajaxSetup({
 
 /* Authenticity token*/
 $(document).ready(function(){
+
   // All non-GET requests will add the authenticity token
   // if not already present in the data packet
   $("body").bind("ajaxSend", function(elm, xhr, s) {
@@ -33,6 +34,7 @@ $(document).ready(function(){
     + "=" + encodeURIComponent(window._auth_token);
   });
 });
+
 
 
 
@@ -1307,6 +1309,7 @@ $(function(){
 $(function(){
 
   $("#content input[type='text']").live('change', function(){
+    $(this).attr("spellcheck",true);
     left_content = $("#content").find("#left_content");
     right_content = $("#content").find("#right_content");
     if ((left_content.length > 0 &&  right_content.length > 0) || $(this).attr("class").indexOf('change_without_check_js')>0)
@@ -1317,6 +1320,7 @@ $(function(){
       $('#check_input_change').val("true");
 
     }
+
   });
 
 
@@ -1334,6 +1338,10 @@ $(function(){
 
     }
   });
+
+          
+
+
 });
 
 $(function(){
@@ -1817,7 +1825,7 @@ $(function(){
       $.ajax({
         type: $(this).attr("method"),
         url: $(this).attr("url"),
-        data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3"),
+        data: 'param1='+$(this).attr("param1")+'&param2='+$(this).attr("param2")+'&param3='+$(this).attr("param3")+'&param4='+$(this).attr("param4")+'&render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
         dataType: "script"
       });
     }
@@ -1826,7 +1834,16 @@ $(function(){
 
 /*CSS tab switch system*/
 $(".tab_switch_button").live('click', function(){
-  $('.active').removeClass("active");
+  $('#content .active').removeClass("active");
+  $(this).addClass("active");
+  $(this).parent().addClass("active");
+  $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
+  $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
+  $('#'+$(this).attr('field')).addClass("active");
+});
+
+$(".tab_switch_button_show_list").live('click', function(){
+  $('#show_list_grid  .active').removeClass("active");
   $(this).addClass("active");
   $(this).parent().addClass("active");
   $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
@@ -2142,11 +2159,11 @@ $(function(){
   };
 
   $(".optional_field").live('keyup', function(){
-      optional_check($(this));
+    optional_check($(this));
   });
 
   $(".optional_field").live('change', function(){
-      optional_check($(this));
+    optional_check($(this));
   });
 });
 
@@ -2164,8 +2181,9 @@ $(function() {
     
     if ($(this).attr('expand_with_arrow') == "true"){
       var current_image = $(this).find('img[alt=Expand]');
-  }else{
-    var current_image = $(this).find('img');}
+    }else{
+      var current_image = $(this).find('img');
+    }
 
     if (current_image.attr('src').indexOf('expand') > 0){
       current_image.attr('src','/images/Icons/System/collapse.png');
@@ -2469,6 +2487,7 @@ $(function(){
     {
       $('.page_initial[field='+ link.attr('field')+']').mousedown();
       $('.tab_switch_button[field='+ link.attr('field')+']').click();
+       $('.tab_switch_button_show_list[field='+ link.attr('field')+']').click();
       $('#current_tab_id').val(link.attr('field'));
 
     }
@@ -2492,6 +2511,7 @@ $(function(){
           Yes: function(){
             $('.page_initial[field='+ link.attr('field')+']').mousedown();
             $('.tab_switch_button[field='+ link.attr('field')+']').click();
+            $('.tab_switch_button_show_list[field='+ link.attr('field')+']').click();
             $('#current_tab_id').val(link.attr('field'));
             if (left_content.length > 0 &&  right_content.length > 0)
             {
@@ -2541,7 +2561,10 @@ $(function(){
     $.ajax({
       type: $(this).attr("method"),
       url: $(this).attr("url"),
-      data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type"),
+      // params1 for let it as undefined for grid controller show list grid
+      //parmas2 for judement this page is edit or show
+      data: 'render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field")+'&params1='+$(this).attr("params1")+'&type='+$(this).attr("type")+'&active_tab='+$('.container_icon_color').find('a').attr('show_id_name')+'&active_sub_tab='+$('.person_edit_tab.active').attr('field')+'&param1='+$(this).attr('param1')+'&params2='+$(this).attr("params2"),
+
       dataType: "script"
     });
   });
@@ -3553,68 +3576,68 @@ $(function(){
 
 //function for alert message when a link is clicked
 alert_with_link = function(link, e){
-    // if left-click
-    if(e.button != 2){
-      right_tab = $("#content #right_content").find("#tabs");
-      if(right_tab.length > 0)
+  // if left-click
+  if(e.button != 2){
+    right_tab = $("#content #right_content").find("#tabs");
+    if(right_tab.length > 0)
+    {
+      check_input_change();
+    }
+    left_content = $("#content").find("#left_content");
+    right_content = $("#content").find("#right_content");
+    if (left_content.length > 0 &&  right_content.length > 0)
+    {
+      if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
       {
-        check_input_change();
-      }
-      left_content = $("#content").find("#left_content");
-      right_content = $("#content").find("#right_content");
-      if (left_content.length > 0 &&  right_content.length > 0)
-      {
-        if ( $('#check_right_input_change').val() == "true" || $('#check_left_input_change').val() == "true" )
-        {
-          $('#check_input_change').val("true");
-        }
-        else
-        {
-          $('#check_input_change').val("false");
-        }
-      }
-
-      if($('#check_input_change').val() == "false"  )
-      {
-        window.open(link.attr('href'),"_self");
-        return false;
+        $('#check_input_change').val("true");
       }
       else
       {
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
-        $('#warning_message_image').css("display","");
-        $('#warning_message').dialog({
-          modal: true,
-          resizable: false,
-          draggable: true,
-          height: 'auto',
-          width: 'auto',
-          buttons: {
-            No: function(){
-              $(this).dialog('destroy');
-              return false;
-            },
-            Yes: function(){
-              window.open(link.attr('href'),"_self");
-              $('#check_left_input_change').val("false");
-              $('#check_right_input_change').val("false");
-              $('#check_input_change').val("false");
-              $(this).dialog('destroy');
-              return true;
-            }
-          }
-        });
-        $('#warning_message').dialog('option', 'title', 'Warning');
-        $('#warning_message').parent().find("a").css("display","none");
-        $("#warning_message").parent().css('background-color','#D1DDE6');
-        $("#warning_message").css('background-color','#D1DDE6');
-        $('#warning_message').dialog('open');
-        return false;
+        $('#check_input_change').val("false");
       }
-    }else{
+    }
+
+    if($('#check_input_change').val() == "false"  )
+    {
+      window.open(link.attr('href'),"_self");
       return false;
     }
-  };
+    else
+    {
+      $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+      $('#warning_message_image').css("display","");
+      $('#warning_message').dialog({
+        modal: true,
+        resizable: false,
+        draggable: true,
+        height: 'auto',
+        width: 'auto',
+        buttons: {
+          No: function(){
+            $(this).dialog('destroy');
+            return false;
+          },
+          Yes: function(){
+            window.open(link.attr('href'),"_self");
+            $('#check_left_input_change').val("false");
+            $('#check_right_input_change').val("false");
+            $('#check_input_change').val("false");
+            $(this).dialog('destroy');
+            return true;
+          }
+        }
+      });
+      $('#warning_message').dialog('option', 'title', 'Warning');
+      $('#warning_message').parent().find("a").css("display","none");
+      $("#warning_message").parent().css('background-color','#D1DDE6');
+      $("#warning_message").css('background-color','#D1DDE6');
+      $('#warning_message').dialog('open');
+      return false;
+    }
+  }else{
+    return false;
+  }
+};
 
 $(function(){
   $('.alert_with_link_container a').live('click', function(e){
@@ -3622,3 +3645,16 @@ $(function(){
     return false;
   });
 });
+
+
+$(function(){
+
+  $('.spin_start').live('click', function(){
+
+    $("#"+$(this).attr("field")).html("<div class='spinner'></div>");
+    return false
+
+
+
+  });
+})

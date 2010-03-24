@@ -264,33 +264,34 @@ class OrganisationsController < ApplicationController
     @organisations = @list_header.entity_on_list.uniq
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
+#    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+#      i.destroy
+#    end
 
-    @organisations.each do |organisations|
+#    @organisations.each do |organisations|
+#
+#      @solg = ShowOrganisationListGrid.new
+#      @solg.login_account_id = session[:user]
+#      @solg.grid_object_id = organisations.id
+#      if organisations.to_be_removed
+#      @solg.field_1 = "<span class='red'>"+organisations.full_name+"</span>"
+#      @solg.field_2 = "<span class='red'>"+organisations.short_name+"</span>"
+#      @solg.field_3 = "<span class='red'>"+organisations.primary_address.first_line+"</span>" unless organisations.primary_address.blank?
+#      @solg.field_4 = "<span class='red'>"+organisations.primary_phone.value+"</span>" unless organisations.primary_phone.blank?
+#      @solg.field_5 = "<span class='red'>"+organisations.primary_email.address+"</span>" unless organisations.primary_email.blank?
+#      else
+#      @solg.field_1 = organisations.status ? organisations.full_name : "<span class='gray'>"+organisations.full_name+"</span>"
+#      @solg.field_2 = organisations.status ? organisations.short_name : "<span class='gray'>"+organisations.short_name+"</span>"
+#      @solg.field_3 = organisations.status ? organisations.primary_address.first_line : "<span class='gray'>"+organisations.primary_address.first_line+"</span>" unless organisations.primary_address.blank?
+#      @solg.field_4 = organisations.status ? organisations.primary_phone.value : "<span class='gray'>"+organisations.primary_phone.value+"</span>" unless organisations.primary_phone.blank?
+#      @solg.field_5 = organisations.status ? organisations.primary_email.address : "<span class='gray'>"+organisations.primary_email.address+"</span>" unless organisations.primary_email.blank?
+#      end
+#      @solg.save
+#
+#
+#
+#      end
 
-      @solg = ShowOrganisationListGrid.new
-      @solg.login_account_id = session[:user]
-      @solg.grid_object_id = organisations.id
-      if organisations.to_be_removed
-      @solg.field_1 = "<span class='red'>"+organisations.full_name+"</span>"
-      @solg.field_2 = "<span class='red'>"+organisations.short_name+"</span>"
-      @solg.field_3 = "<span class='red'>"+organisations.primary_address.first_line+"</span>" unless organisations.primary_address.blank?
-      @solg.field_4 = "<span class='red'>"+organisations.primary_phone.value+"</span>" unless organisations.primary_phone.blank?
-      @solg.field_5 = "<span class='red'>"+organisations.primary_email.address+"</span>" unless organisations.primary_email.blank?
-      else
-      @solg.field_1 = organisations.status ? organisations.full_name : "<span class='gray'>"+organisations.full_name+"</span>"
-      @solg.field_2 = organisations.status ? organisations.short_name : "<span class='gray'>"+organisations.short_name+"</span>"
-      @solg.field_3 = organisations.status ? organisations.primary_address.first_line : "<span class='gray'>"+organisations.primary_address.first_line+"</span>" unless organisations.primary_address.blank?
-      @solg.field_4 = organisations.status ? organisations.primary_phone.value : "<span class='gray'>"+organisations.primary_phone.value+"</span>" unless organisations.primary_phone.blank?
-      @solg.field_5 = organisations.status ? organisations.primary_email.address : "<span class='gray'>"+organisations.primary_email.address+"</span>" unless organisations.primary_email.blank?
-      end
-      @solg.save
-
-
-
-      end
 
     @current_operation = params[:current_operation]
     respond_to do |format|

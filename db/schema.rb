@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100322042327) do
+ActiveRecord::Schema.define(:version => 20100324042753) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -910,6 +910,8 @@ ActiveRecord::Schema.define(:version => 20100322042327) do
     t.boolean  "to_be_removed"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.string   "primary_phone_num"
+    t.string   "primary_email_address"
   end
 
   create_table "people", :force => true do |t|
@@ -950,6 +952,8 @@ ActiveRecord::Schema.define(:version => 20100322042327) do
     t.boolean  "is_donor"
     t.boolean  "is_event"
     t.boolean  "is_case"
+    t.string   "primary_phone_num"
+    t.string   "primary_email_address"
   end
 
   create_table "person_bank_accounts", :force => true do |t|
@@ -1149,6 +1153,8 @@ ActiveRecord::Schema.define(:version => 20100322042327) do
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.integer  "entity_id"
+    t.string   "entity_type"
   end
 
   create_table "relationships", :force => true do |t|

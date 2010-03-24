@@ -23,8 +23,12 @@ class EmailsController < ApplicationController
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Email with ID #{@email.id}.")
     if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@email.contactable_id)
+      @person.primary_email_address = @person.emails.find_by_priority_number(1).value
+      @person.save
     else
       @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+      @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+      @organisation.save
     end
     @email_new = Email.new
     respond_to do |format|
@@ -70,8 +74,12 @@ class EmailsController < ApplicationController
     @email_new = Email.new
     if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
       @person = Person.find(@email.contactable_id)
+      @person.primary_email_address =  @person.emails.find_by_priority_number(1).value rescue @person.primary_email_address = nil
+      @person.save
     else
       @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+      @organisation.primary_email_address =  @organisation.emails.find_by_priority_number(1).value rescue @organisation.primary_email_address = nil
+      @organisation.save
     end
     respond_to do |format|
       format.js
@@ -90,6 +98,8 @@ class EmailsController < ApplicationController
       @current_email.save
     end
     @person = Person.find(@current_email.contactable_id)
+    @person.primary_email_address = @person.emails.find_by_priority_number(1).value
+    @person.save
     respond_to do |format|
       format.js
     end
@@ -105,6 +115,8 @@ class EmailsController < ApplicationController
     @up_exchange_email.save
     @up_current_email.save
     @person = Person.find(@up_current_email.contactable_id)
+    @person.primary_email_address = @person.emails.find_by_priority_number(1).value
+    @person.save
 
     respond_to do |format|
       format.js
@@ -124,6 +136,8 @@ class EmailsController < ApplicationController
       @current_email.save
     end
     @organisation = Organisation.find(@current_email.contactable_id)
+    @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+    @organisation.save
     respond_to do |format|
       format.js
     end
@@ -139,7 +153,8 @@ class EmailsController < ApplicationController
     @up_exchange_email.save
     @up_current_email.save
     @organisation = Organisation.find(@up_current_email.contactable_id)
-
+    @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+    @organisation.save
     respond_to do |format|
       format.js
     end
