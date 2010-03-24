@@ -1,4 +1,4 @@
-- form_for transaction_allocation_grid, :url => {:controller => "transaction_allocations", :action => transaction_allocation_grid.new_record? ? "temp_create" : "temp_update", :id => transaction_allocation_grid.id }, :html => {:class => "ajax_form", :submit_button_id => transaction_allocation_grid.new_record? ? "new_allocation_submit_button" : "edit_allocation_submit_button"} do |f|
+- form_for receipt, :html => {:class => "ajax_form", :submit_button_id => "new_receipt_submit_button"} do |f|
   .form_line
     .field_15
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"

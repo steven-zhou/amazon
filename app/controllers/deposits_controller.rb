@@ -70,10 +70,10 @@ class DepositsController < ApplicationController
   end
   
   def update
-    @deposit = depositHeader.find(params[:id])
-    depositHeader.deposit do
+    @deposit = Deposit.find(params[:id])
+    Deposit.transaction do
       if @deposit.update_attributes(params[:deposit])
-        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for depositHeader with ID #{@deposit.id}.")
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Deposit with ID #{@deposit.id}.")
 
         #update deposit type detail
         if @deposit.payment_method_meta_type.name + ' Detail' == @deposit.deposit_detail.class.to_s.titleize
