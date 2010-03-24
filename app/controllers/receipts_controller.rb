@@ -1,4 +1,4 @@
-class TransactionAllocationsController < ApplicationController
+class ReceiptsController < ApplicationController
   # System Log stuff added
 
   def new    

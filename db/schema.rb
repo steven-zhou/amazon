@@ -9,9 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-
 ActiveRecord::Schema.define(:version => 20100322042327) do
-
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
