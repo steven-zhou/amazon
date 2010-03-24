@@ -1,5 +1,4 @@
-$('#new_deposit_form').html('<%= escape_javascript(render(:partial => "/deposits/deposit_form", :locals => {:deposit => @deposit })) %>');
-$('#new_deposit_form').css('display','');
+$('#new_deposit').show().html('<%= escape_javascript(render(:partial => "/deposits/deposit_form", :locals => {:deposit => @deposit })) %>');
 $('.datepick').datepicker({
         showOn: 'button',
         buttonImage: '/images/Icons/System/calendar.png',
