@@ -51,25 +51,6 @@ ActiveRecord::Schema.define(:version => 20100322042327) do
     t.integer  "updater_id"
   end
 
-  create_table "allocations", :force => true do |t|
-    t.integer  "transaction_header_id"
-    t.integer  "receipt_account_id"
-    t.integer  "campaign_id"
-    t.integer  "source_id"
-    t.decimal  "amount",                :precision => 11, :scale => 3
-    t.integer  "letter_id"
-    t.boolean  "letter_sent"
-    t.date     "date_sent"
-    t.integer  "extention_id"
-    t.string   "extention_type"
-    t.integer  "cluster_id"
-    t.string   "cluster_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-  end
-
   create_table "amazon_settings", :force => true do |t|
     t.string   "name"
     t.integer  "position"
@@ -1152,14 +1133,22 @@ ActiveRecord::Schema.define(:version => 20100322042327) do
   end
 
   create_table "receipts", :force => true do |t|
-    t.integer  "deposit_id"
-    t.integer  "entity_id"
-    t.string   "entity_type"
-    t.boolean  "active"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
+    t.integer  "transaction_header_id"
+    t.integer  "receipt_account_id"
+    t.integer  "campaign_id"
+    t.integer  "source_id"
+    t.decimal  "amount",                :precision => 11, :scale => 3
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.integer  "extention_id"
+    t.string   "extention_type"
+    t.integer  "cluster_id"
+    t.string   "cluster_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
   end
 
   create_table "relationships", :force => true do |t|
