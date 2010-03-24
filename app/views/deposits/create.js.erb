@@ -1,5 +1,6 @@
 <% if @deposit.errors.empty? -%>
-$('#new_deposit_form').attr('action', '/deposits/<%= escape_javascript(@deposit.id.to_s) %>');
+$('#new_deposit_form').attr('action', '/deposits/update').attr('method','put');
+$('#deposit_id').val('<%= escape_javascript("#{@deposit.id}") %>')
 $('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
 
 

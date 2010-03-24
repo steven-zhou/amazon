@@ -1,8 +1,8 @@
-<% if @transaction_header.errors.empty? -%>
-$('#add_new_transaction').html('<%= escape_javascript(render(:partial => "/transactions/new_transaction")) %>').css('display','');
-$('#existing_unbanked_transactions').html('<%= escape_javascript(render(:partial => "/transactions/existing_transactions", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>').css('display','');;
+<% if @deposit.errors.empty? -%>
+$('#add_new_deposit').html('<%= escape_javascript(render(:partial => "/deposits/new_deposit")) %>').css('display','');
+$('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>').css('display','');;
 $('#current_mode').attr('mode', 'show');
-$('#edit_unbanked_transaction').css('display','none');
+$('#edit_current_deposit').css('display','none');
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");

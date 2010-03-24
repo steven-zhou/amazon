@@ -1,5 +1,5 @@
 $('#add_new_deposit').css('display','none');
-$('#edit_current_deposit').css('display', '');
+$('#edit_current_deposit').show();
 $('#edit_current_deposit_form').html('<%=escape_javascript(render(:partial => "/deposits/edit_deposit_form", :locals => {:deposit => @deposit })) %>');
 $('#current_mode').attr('mode', 'edit');
 $('.close_option[field="current"]').css("display","");
