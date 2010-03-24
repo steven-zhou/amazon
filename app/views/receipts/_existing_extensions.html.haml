@@ -1,5 +1,5 @@
 -# locals => {:deposit}
-.full_container
+.container
   %h2 Extensions
 
   %table#show_existing_extensions_grid
@@ -26,14 +26,6 @@
   },
 
   {
-  display: 'Entity Name',
-  name : 'campaigns.name',
-  width : 150,
-  sortable : false,
-  align: 'left'
-  },
-
-  {
   display: 'Total Allocated',
   name : 'amount',
   width : 150,
@@ -47,7 +39,7 @@
   name : 'entity_type'
   }
   ],
-  sortname: "id",
+  sortname: "entity_type",
   sortorder: "asc",
   usepager: true,
   useRp: true,

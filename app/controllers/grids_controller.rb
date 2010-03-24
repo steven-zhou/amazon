@@ -2516,7 +2516,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "id"
+      sortname = "entity_type"
     end
 
     if (!sortorder)
@@ -2537,26 +2537,36 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @receipts = Receipt.find(:all,
-        :select => "deposit_id",
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
         :conditions => ["deposit_id=?", params[:deposit_id]],
+        :group => "entity_type, entity_id",
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start,
-        :include => ["campaign", "receipt_account", "source"]
+        :offset =>start
       )
-      count = Receipt.count(:all, :conditions => ["deposit_id=?", params[:deposit_id]], :include => ["campaign", "receipt_account", "source"])
+      count = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions => ["deposit_id=?", params[:deposit_id]],
+        :group => "entity_type, entity_id"
+      ).count
     end
 
     # User provided search terms
     if(query != "%%")
       @receipts = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
+        :group => "entity_type, entity_id",
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start,
+        :offset =>start
+      )
+        
+      count = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
         :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
-        :include => ["campaign", "receipt_account", "source"])
-      count = Receipt.count(:all, :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
-        :include => ["campaign", "receipt_account", "source"])
+        :group => "entity_type, entity_id"
+      ).count
     end
 
     # Construct a hash from the ActiveRecord result
@@ -2564,11 +2574,8 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.receipt_account_id.nil? ? "" : u.receipt_account.name,
-          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
-          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
-          u.letter_id.nil? ? "" : u.letter_id,
+        :cell=>[u.entity_type,
+          u.entity_id,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object

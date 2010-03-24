@@ -5,6 +5,7 @@
     $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
     $('#existing_extension').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions", :locals => {:deposit => @deposit})) %>');
   <%- else %>
+    $('#new_receipt').css('width','100%');
     $('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
     $('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts", :locals => {:deposit => @deposit})) %>');
   <%- end %>
