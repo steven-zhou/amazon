@@ -1,7 +1,7 @@
 .container
   %h2 Extensions
 
-  %table#show_existing_extensions_grid
+  %table#show_existing_extensions_grid{:class=>"selectable_grid",:field=>"extension",:db_click_function=>"true", :db_click_url=>"/receipts/show_extension_receipts"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

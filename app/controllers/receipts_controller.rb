@@ -116,32 +116,7 @@ class ReceiptsController < ApplicationController
   end
 
   
-  def temp_update
-    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:id])
-    if @temp_transaction_allocation_grid.update_attributes(params[:temp_transaction_allocation_grid])
-      #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
-    else
-      #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction allocation record.")
-      #----------------------------presence - of------------------
-      if(!@temp_transaction_allocation_grid.errors[:field_1].nil? && @temp_transaction_allocation_grid.errors.on(:field_1).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@temp_transaction_allocation_grid.errors[:field_5].nil? && @temp_transaction_allocation_grid.errors.on(:field_5).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      else
-        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
-      end
-    end
-
-    @temp_allocations = @current_user.all_temp_allocation
-    @temp_allocation_value = 0
-    @temp_allocations.each do |temp_transaction|
-      @temp_allocation_value += temp_transaction.field_5.to_f
-    end
-
-    respond_to do |format|
-      format.js
-    end
-  end
+  
 
   def update
     @transaction_allocation = TransactionAllocation.find(params[:id])
@@ -172,36 +147,6 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  def temp_create
-    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.new(params[:temp_transaction_allocation_grid])
-    @temp_transaction_allocation_grid.login_account_id = @current_user.id
-    if @temp_transaction_allocation_grid.save
-   
-
-
-
-      
-    else
-      #----------------------------presence - of--------------------
-      if(!@temp_transaction_allocation_grid.errors[:field_1].nil? && @temp_transaction_allocation_grid.errors.on(:field_1).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@temp_transaction_allocation_grid.errors[:field_5].nil? && @temp_transaction_allocation_grid.errors.on(:field_5).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      else
-        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
-      end
-    end
-
-    @temp_allocations = @current_user.all_temp_allocation
-    @temp_allocation_value = 0
-    @temp_allocations.each do |temp_transaction|
-      @temp_allocation_value += temp_transaction.field_5.to_f
-    end
-    
-    respond_to do |format|
-      format.js
-    end
-  end
 
   def extention_name_finder
 
@@ -209,5 +154,13 @@ class ReceiptsController < ApplicationController
   end
 
 
+  def show_extension_receipts
+    p = params[:grid_object_id].split("-")
+    @entity = p[0].camelize.constantize.find(p[1])
+    @deposit = Deposit.find(p[2])
+    respond_to do |format|
+      format.js
+    end
+  end
   
 end
