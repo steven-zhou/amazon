@@ -6,7 +6,7 @@
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_from_a_grid = function(){
-    delete_from_grid($("#show_existing_receipts_grid tr.trSelected").attr('id'),"#receipt_mode","delete","/receipts/");
+      delete_from_grid($("#show_existing_receipts_grid tr.trSelected").attr('id'),"#receipt_mode","delete","/receipts/");
     };
 
     $("#show_existing_receipts_grid").flexigrid({

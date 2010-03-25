@@ -1802,7 +1802,7 @@ $(function(){
             $.ajax({
               type: link.attr("method"),
               url: link.attr("url"),
-              data: 'param1='+link.attr("param1")+'&param2='+link.attr("param2")+'&param3='+link.attr("param3"),
+              data: 'param1='+link.attr("param1")+'&param2='+link.attr("param2")+'&param3='+link.attr("param3")+'&param4='+$(this).attr("param4")+'&render_page='+$(this).attr("render_page")+'&field='+$(this).attr("field"),
               dataType: "script"
 
             });
@@ -2175,6 +2175,11 @@ $(function() {
   $(".toggle_button").live('click', function(){
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
   });
+
+  $(".toggle_button_clear").live('click', function(){
+    $('#'+$(this).attr('toggle_id_name')).html("");
+  });
+
 
   $(".toggle_div").live('click', function(){
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');

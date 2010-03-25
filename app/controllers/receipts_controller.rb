@@ -5,7 +5,7 @@ class ReceiptsController < ApplicationController
 
       @receipt = Receipt.new
       @deposit_id = params[:param1]
-      @field = params[:param2]
+#      @field = params[:field]
 
   end
 
@@ -33,10 +33,7 @@ class ReceiptsController < ApplicationController
 #    params[:receipt][:entity_id] =@entity.id
 #    params[:receipt][:entity_type]= @entity.type
     @receipt = @entity.receipts.new(params[:receipt])
-    @field = params[:field]
-
-    puts "*******"
-    puts @field
+#    @field = params[:field]
 
 
     if @receipt.save
@@ -46,7 +43,7 @@ class ReceiptsController < ApplicationController
       #----------------------------presence - of--------------------
       if(!@receipt.errors[:deposit_id].nil? && @receipt.errors.on(:deposit_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@receipt.errors[:receipt_account_id].nil? && !@receipt.errors.on(:receipt_account_id).include?("can't be blank"))
+      elsif(!@receipt.errors[:receipt_account_id].nil? && @receipt.errors.on(:receipt_account_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       elsif(!@receipt.errors[:amount].nil? && !@receipt.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
@@ -70,6 +67,7 @@ class ReceiptsController < ApplicationController
   def destroy
 
     @receipt = Receipt.find(params[:id])
+#    @field = params[:field]
     #for the receipt grid
    @deposit_id = @receipt.deposit_id
     @receipt.destroy
@@ -81,12 +79,8 @@ class ReceiptsController < ApplicationController
     @receipts.each do |r|
       @receipt_value += r.amount.to_f
     end
-    
+   
     @deposit.update_attribute(:total_amount,@receipt_value )
-
-
-
-
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted receipt.")
 
     respond_to do |format|

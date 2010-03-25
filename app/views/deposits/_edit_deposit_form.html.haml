@@ -61,16 +61,16 @@
       = f.text_area :notes, :rows => 3, :cols => 45, :class => "mceNoEditor"
 
 
-%input.hidden{:id => "edit_receipt_mode", :mode => "show"}
-#edit_add_new_receipt
+%input.hidden{:id => "receipt_mode", :mode => "show"}
+#add_new_receipt
   
 
-#edit_existing_receipts
+#existing_receipts
   
 
 = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_deposit_form", :id => "edit_submit_button", :style => "float:right;margin-left:10px;"
 
 #edit_temp_allocation_total_amount.right{:style => "width:35%;"}
   .display_field_bg.right{:style => "width:160px !important;"}
-    %div{:id => "edit_temp_allocation_total_amount_value"}
-  %h2{:class => "float:right;"} deposit Total:
+    %div{:id => "total_amount_value"}
+  %h2{:class => "float:right;"} Deposit Total:

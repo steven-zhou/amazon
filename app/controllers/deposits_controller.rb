@@ -16,9 +16,12 @@ class DepositsController < ApplicationController
   def edit
     @deposit = Deposit.find(params[:id])
     @deposit_id = params[:id]
+#    @field ="edit_deposit"
     @cheque_detail = @deposit.cheque_detail rescue @cheque_detail = ChequeDetail.new
     @credit_card_detail = @deposit.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new
     @receipts = @deposit.receipts
+
+
     respond_to do |format|
       format.js
     end
@@ -64,6 +67,8 @@ class DepositsController < ApplicationController
         end
       end
     end
+
+    @deposit_id = @deposit.id
     respond_to do |format|
       format.js
     end

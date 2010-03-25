@@ -5,7 +5,7 @@ $('#deposit_id').val('<%= escape_javascript("#{@deposit.id}") %>')
 $('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
 
 $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
-
+$('#temp_allocation_total_amount').show();
   <%- if @deposit.extension%>
     $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
     $('#existing_extension').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions", :locals => {:deposit => @deposit})) %>');

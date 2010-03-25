@@ -1,11 +1,6 @@
 
-<%if @field == "edit_receipt"%>
-$('#edit_new_transaction_allocation_form').html('<%= escape_javascript(render(:partial => "receipts/edit_receipt_form", :locals => {:deposit_id => @deposit_id })) %>');
-$('#edit_new_transaction_allocation_form').css('display','');
-<%else%>
-
 $('#new_transaction_allocation_form').html('<%= escape_javascript(render(:partial => "receipts/receipt_form", :locals => {:deposit_id => @deposit_id })) %>');
 $('#new_transaction_allocation_form').css('display','');
-<%end%>
+
 
 $('.compulsory_field').change();
