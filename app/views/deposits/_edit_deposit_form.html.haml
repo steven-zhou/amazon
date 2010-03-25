@@ -60,12 +60,18 @@
       = f.label :notes, "Notes"
       = f.text_area :notes, :rows => 3, :cols => 45, :class => "mceNoEditor"
 
+#new_extension{:style => "width:33%;float:left;"}
+  %input.hidden{:id => "extension_mode", :mode => "show"}
+  #add_new_extension
+  #existing_extensions
 
-%input.hidden{:id => "receipt_mode", :mode => "show"}
-#add_new_receipt
-  
+#gap{:style => "width:2%;float:left;"}
+  &nbsp;
 
-#existing_receipts
+#new_receipt{:style => "width:65%;float:left;"}
+  %input.hidden{:id => "receipt_mode", :mode => "show"}
+  #add_new_receipt
+  #existing_receipts
   
 
 = button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_deposit_form", :id => "edit_submit_button", :style => "float:right;margin-left:10px;"

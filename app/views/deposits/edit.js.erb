@@ -11,17 +11,22 @@ $('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/
 $('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts")) %>');
 
 $("#total_amount_value").html('<%= escape_javascript("#{number_to_currency(@deposit.total_amount)}")%>');
+
+
+$('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
+$('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
+
 $('.datepick').datepicker({
-        showOn: 'button',
-        buttonImage: '/images/Icons/System/calendar.png',
-        buttonImageOnly: true,
-        dateFormat: 'dd-mm-yy',
-        altFormat: 'mm-dd-yy',
-        changeMonth: true,
-        changeYear: true,
-        yearRange: '-200:+20',
-        onClose: function(){
-            $(this).keyup();
-        }
-    });
+showOn: 'button',
+buttonImage: '/images/Icons/System/calendar.png',
+buttonImageOnly: true,
+dateFormat: 'dd-mm-yy',
+altFormat: 'mm-dd-yy',
+changeMonth: true,
+changeYear: true,
+yearRange: '-200:+20',
+onClose: function(){
+$(this).keyup();
+}
+});
 hasDatepicker();

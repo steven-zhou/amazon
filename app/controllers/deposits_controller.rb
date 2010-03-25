@@ -15,7 +15,10 @@ class DepositsController < ApplicationController
 
   def edit
     @deposit = Deposit.find(params[:id])
-    @deposit_id = params[:id]
+    @entity = @deposit.entity
+
+
+
 #    @field ="edit_deposit"
     @cheque_detail = @deposit.cheque_detail rescue @cheque_detail = ChequeDetail.new
     @credit_card_detail = @deposit.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new

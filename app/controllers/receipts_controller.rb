@@ -4,8 +4,19 @@ class ReceiptsController < ApplicationController
   def new    
 
     @deposit = Deposit.find(params[:param1])
+    @entity = @deposit.entity
     @is_extension = true if (params[:param2] == "extension")
-    @receipt = Receipt.new
+    if @is_extension
+      #left
+       @receipt = Receipt.new
+    else
+      #right
+      if @entity.receipts.find(:all, :conditions => ["deposit_id = ? and receipt_account_id IsNull", @deposit.id]).empty?
+        @receipt = Receipt.new
+      else
+        @receipt = Receipt.find_by_deposit_id(params[:param1])
+      end
+    end    
     respond_to do |format|
       format.js
     end
@@ -67,7 +78,8 @@ class ReceiptsController < ApplicationController
   def destroy
 
     @receipt = Receipt.find(params[:id])
-#    @field = params[:field]
+    @entity=@receipt.entity
+    #    @field = params[:field]
     #for the receipt grid
     @deposit_id = @receipt.deposit_id
     @receipt.destroy
@@ -119,29 +131,41 @@ class ReceiptsController < ApplicationController
   
 
   def update
-    @transaction_allocation = TransactionAllocation.find(params[:id])
-    if @transaction_allocation.update_attributes(params[:transaction_allocation])
+    @receipt = Receipt.find(params[:id])
+    @entity = @receipt.entity
+    if @receipt.update_attributes(params[:receipt])
       #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
     else
       #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction allocation record.")
       #----------------------------presence - of------------------
-      if(!@transaction_allocation.errors[:receipt_account_id].nil? && @transaction_allocation.errors.on(:receipt_account_id).include?("can't be blank"))
+      if(!@receipt.errors[:receipt_account_id].nil? && @receipt.errors.on(:receipt_account_id).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@transaction_allocation.errors[:amount].nil? && @transaction_allocation.errors.on(:amount).include?("can't be blank"))
+      elsif(!@receipt.errors[:amount].nil? && @receipt.errors.on(:amount).include?("can't be blank"))
         flash.now[:error] = "Please Enter All Required Data"
       else
         flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
-    @transaction_header_id = @transaction_allocation.transaction_header_id
+    #    @transaction_header_id = @transaction_allocation.transaction_header_id
    
-    @transaction_header = @transaction_allocation.transaction_header
-    @transaction_allocations = @transaction_header.transaction_allocations
-    @transaction_allocation_value = 0
-    @transaction_allocations.each do |transaction_transaction|
-      @transaction_allocation_value += transaction_transaction.amount.to_f
+    #    @transaction_header = @receipt.deposit
+    #    @transaction_allocations = @transaction_header.transaction_allocations
+    #    @transaction_allocation_value = 0
+    #    @transaction_allocations.each do |transaction_transaction|
+    #      @transaction_allocation_value += transaction_transaction.amount.to_f
+    #    end
+    #    @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
+
+
+
+    @deposit= Deposit.find(@receipt.deposit_id)
+    @receipts = @deposit.receipts
+    @receipt_value = 0
+    @receipts.each do |r|
+      @receipt_value += r.amount.to_f
     end
-    @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
+
+    @deposit.update_attribute(:total_amount,@receipt_value )
     respond_to do |format|
       format.js
     end
