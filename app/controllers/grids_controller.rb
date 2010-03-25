@@ -1106,15 +1106,17 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-
-    @current_operation = params[:params2]
+    #    @active_tab = session[:active_tab]
+    #    @active_sub_tab = params[:active_sub_tab]
+    #
+    #    @current_operation = params[:current_operation]
     @render_page = params[:render_page]
     @field = params[:field]
     @list_header = ListHeader.find(session[:current_list_id])
-
-
+    
+    @active_tab = session[:active_tab]
+    @active_sub_tab =  session[:active_sub_tab]
+    @current_operation = session[:current_operation]
     if (!sortname)
       sortname = "id"
     end
@@ -1127,21 +1129,17 @@ class GridsController < ApplicationController
       page = 1
     end
 
-    #show album
-    if params[:param1]
-      if (params[:param1]!="undefined")
-        page = params[:param1].to_i
-      else
-        page = 1
-      end
-      query = ""
-      qtype = ""
+    #show album----------------------------------------------------------
+    if params[:page_show] == "album"
+      page = 1 if (page == 0)
+       query = "" if !(query)
+       qtype = ""if !(qtype)
     end
 
     if (!rp || rp == 0)
       rp = 10
     end
-
+    @query = query
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
@@ -1181,7 +1179,8 @@ class GridsController < ApplicationController
       count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query, @list_header.entity_on_list])
     end
 
-    if params[:param1]
+    if params[:page_show] == "album"
+      
       @entities = Array.new
       @people.each do |i|
         @entities << Person.find(i.id)
@@ -1190,15 +1189,26 @@ class GridsController < ApplicationController
       @page = page
       if @count/rp == 0
         @last_page = 1
+        @total_pages = @last_page
       elsif @count/rp !=0 && @count%rp != 0
         @last_page = @count/rp + 1
+        @total_pages = @last_page
       elsif @count/rp !=0 && @count%rp == 0
         @last_page = @count/rp
-      end     
+        @total_pages = @last_page
+      end
+      
+      @rp = rp
+      @sortname = sortname
+      @qtype = qtype
+      
+      
 
       render '/people/show_album.js'
 
     else
+
+    
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
       return_data[:page] = page
