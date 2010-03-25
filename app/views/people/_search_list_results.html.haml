@@ -1,5 +1,5 @@
 -#pass value :people => @p, :current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab
-%div
+-#%div
 
   .tab_switch{:style => "margin-left:15px;"}
     .tab_switch_left.active.left{:field =>"grid_show_page"}
@@ -14,11 +14,12 @@
       = link_to_function "<h1>album</h1>",:class=>"tab_switch_button_show_list page_initial hidden", :url => "/grids/show_list_grid",:method => "GET", :render_page => "/tests/album_container", :field => "album_show_page",:type => "Person_Class",:params2 => @current_operation
       = link_to_function "<h1>album</h1>", :class=>"tab_switch_with_page_initial", :field => "album_show_page"
     .tab_switch_right{:field =>"album_show_page"}
+-#
 
+-#---start from here
+.container{:style => "height:100%;"}
+  
+  #show_grid_album_page
+    =render :partial =>"people/search_list_result_table"
 
-
-  .container
-    #grid_show_page.tab_switch_container.active
-      =render :partial =>"people/search_list_result_table", :locals =>{:current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab}
-    #album_show_page.tab_switch_container
   

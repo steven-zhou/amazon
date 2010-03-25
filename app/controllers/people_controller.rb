@@ -1,6 +1,11 @@
 
 class PeopleController < ApplicationController
+  #cache pages
+  #caches_action :show_list, :find
+  #cache_sweeper :person_sweeper, :only => [:create, :update, :destroy]
+
   # Added system logging
+  #caches_page :show_album
 
   include PeopleSearch
   skip_before_filter :verify_authenticity_token, :only => [:show, :edit]
@@ -453,45 +458,18 @@ class PeopleController < ApplicationController
 
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
-    @p = Array.new
-    #    @p = @list_header.entity_on_list
-    #clear
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-
-     
-    #    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-    #      i.destroy
-    #    end
-
-
-    #    @p.each do |person|
-    #      @slg = ShowListGrid.new
-    #      @slg.login_account_id = session[:user]
-    #      if person.to_be_removed
-    #        @slg.grid_object_id = person.id
-    #        @slg.field_1 = "<span class='red'>"+person.first_name+"</span>"
-    #        @slg.field_2 = "<span class='red'>"+person.family_name+"</span>"
-    #        @slg.field_3 = "<span class='red'>"+person.primary_address.first_line+"</span>" unless person.primary_address.blank?
-    #        @slg.field_4 = "<span class='red'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
-    #        @slg.field_5 = "<span class='red'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
-    #
-    #      else
-    #        @slg.grid_object_id = person.id
-    #        @slg.field_1 = person.status ? person.first_name : "<span class='gray'>"+person.first_name+"</span>"
-    #        @slg.field_2 = person.status ? person.family_name : "<span class='gray'>"+person.family_name+"</span>"
-    #        @slg.field_3 = person.status ? person.primary_address.first_line : "<span class='gray'>"+person.family_name+"</span>" unless person.primary_address.blank?
-    #        @slg.field_4 = person.status ? person.primary_phone.value : "<span class='gray'>"+person.primary_phone.value+"</span>" unless person.primary_phone.blank?
-    #        @slg.field_5 = person.status ? person.primary_email.address : "<span class='gray'>"+person.primary_email.address+"</span>" unless person.primary_email.blank?
-    #
-    #      end
-
-
-
-    #      @slg.save
-
-    #   end
     @current_operation = params[:current_operation]
+    #----use for the pop window
+
+    session[:active_tab]= params[:active_tab]
+    session[:active_sub_tab] = params[:active_sub_tab]
+    session[:current_operation] = params[:current_operation]
+    #session[:current_person_id]
+    #session[:current_list_id]
+
+    session
 
     respond_to do |format|
       format.js
@@ -501,12 +479,11 @@ class PeopleController < ApplicationController
   def show_left
    
     params[:person_id] =  params[:param1] if params[:param1]
-    params[:current_operation]=  params[:param2] if params[:param2]
-    params[:active_tab]=  params[:param3] if params[:param3]
-    params[:active_sub_tab]=  params[:param4] if params[:param4]
+    params[:current_operation]= session[:current_operation]
+    
 
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
+    @active_tab = session[:active_tab]
+    @active_sub_tab = session[:active_sub_tab]
     #    check_user
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @active_address = AddressType.active_address_type
@@ -803,16 +780,11 @@ class PeopleController < ApplicationController
 
 
   def show_grid
-    @person = Person.find(params[:params1]) rescue @person = Person.find(session[:current_person_id])
+    @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
-    @p = Array.new
 
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-
-    @current_operation = params[:params2]
-    @render_page = params[:render_page]
-    @field = params[:field]
+    #    @render_page = params[:render_page]
+    #    @field = params[:field]
 
     respond_to do |format|
 
@@ -824,16 +796,15 @@ class PeopleController < ApplicationController
   def show_album
 
 
-    @person = Person.find(params[:params1]) rescue @person = Person.find(session[:current_person_id])
-    @list_header = ListHeader.find(session[:current_list_id])
-    @p = Array.new
-
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-
-    @current_operation = params[:params2]
-    @render_page = params[:render_page]
-    @field = params[:field]
+    #    @person = Person.find(session[:current_person_id])
+    #    @list_header = ListHeader.find(session[:current_list_id])
+    #
+    #    @active_tab = params[:active_tab]
+    #    @active_sub_tab = params[:active_sub_tab]
+    #
+    #    @current_operation = params[:params2]
+    #    @render_page = params[:render_page]
+    #    @field = params[:field]
 
     respond_to do |format|
 

@@ -1,0 +1,22 @@
+.form_line
+  .field_15
+    %label &nbsp;
+    %label{:style => "margin-top:5px;"} Quick Search
+  .field_35
+    %label &nbsp;
+    %input{:id => "album_query"}
+  .field_20
+    %label Search By
+    %select{:id => "album_qtype", :name => "qtype"}
+      %option{:value => "id", :selected => @qtype == "id"} Id
+      %option{:value => "first_name", :selected => @qtype == "first_name"} First Name
+      %option{:value => "family_name", :selected => @qtype == "family_name"} Family Name
+      %option{:value => "primary_email_address", :selected => @qtype == "primary_email_address"} Primary Email
+      %option{:value => "primary_phone_num", :selected => @qtype == "primary_phone_num"} Primary Phone
+  .field_15
+    %label &nbsp;
+    = link_to_function image_tag ('Icons/System/search.png'), :class => "album_page_load_click"
+
+
+
+//{:style => "padding-top:9px;"}
