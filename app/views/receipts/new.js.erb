@@ -1,6 +1,11 @@
+<%- if @is_extension%>
+  $('#new_extension_form').show().html('<%= escape_javascript(render(:partial => "receipts/extension_form")) %>');
+<%- else %>
+  $('#new_transaction_allocation_form').html('<%= escape_javascript(render(:partial => "receipts/receipt_form", :locals => {:deposit_id => @deposit.id })) %>');
+  $('#new_transaction_allocation_form').css('display','');
+<%- end %>
 
-$('#new_transaction_allocation_form').html('<%= escape_javascript(render(:partial => "receipts/receipt_form", :locals => {:deposit_id => @deposit_id })) %>');
-$('#new_transaction_allocation_form').css('display','');
+
 
 
 $('.compulsory_field').change();

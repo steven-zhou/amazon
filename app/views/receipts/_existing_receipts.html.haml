@@ -1,4 +1,3 @@
--# locals => {:deposit.id}
 .full_container
   %h2 Receipt Allocations
   %table#show_existing_receipts_grid
@@ -10,7 +9,7 @@
     };
 
     $("#show_existing_receipts_grid").flexigrid({
-    url: '/grids/show_existing_receipts_grid?deposit_id=#{@deposit_id}',
+    url: '/grids/show_existing_receipts_grid?deposit_id=#{@deposit.id}',
     dataType: 'json',
     colModel : [
     {

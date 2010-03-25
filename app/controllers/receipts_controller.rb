@@ -3,10 +3,12 @@ class ReceiptsController < ApplicationController
 
   def new    
 
-      @receipt = Receipt.new
-      @deposit_id = params[:param1]
-#      @field = params[:field]
-
+    @deposit = Deposit.find(params[:param1])
+    @is_extension = true if (params[:param2] == "extension")
+    @receipt = Receipt.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   def edit
@@ -16,48 +18,46 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  def temp_edit
-    @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(params[:grid_object_id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
   def create
-#    @receipt = Receipt.new(params[:receipt])
-    @deposit_id = params[:receipt][:deposit_id]
-
-    #for no extenion
-
-    @entity = Deposit.find(@deposit_id).entity
-#    params[:receipt][:entity_id] =@entity.id
-#    params[:receipt][:entity_type]= @entity.type
-    @receipt = @entity.receipts.new(params[:receipt])
-#    @field = params[:field]
-
-
-    if @receipt.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt with ID #{@receipt.id}.")
+    @deposit= Deposit.find(params[:receipt][:deposit_id])
+    if params[:receipt][:entity_id]
+      @entity = params[:receipt][:entity_type].camelize.constantize.find(params[:receipt][:entity_id]) rescue @entity = nil
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new @receipt.")
-      #----------------------------presence - of--------------------
-      if(!@receipt.errors[:deposit_id].nil? && @receipt.errors.on(:deposit_id).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@receipt.errors[:receipt_account_id].nil? && @receipt.errors.on(:receipt_account_id).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
-      elsif(!@receipt.errors[:amount].nil? && !@receipt.errors.on(:amount).include?("can't be blank"))
-        flash.now[:error] = "Please Enter All Required Data"
+      @entity = @deposit.entity
+    end
+
+    if @entity.nil?
+      flash.now[:error] = "#{params[:receipt][:entity_type]} #{params[:receipt][:entity_id]} can not be found"
+    else    
+      @receipt = @entity.receipts.new(params[:receipt])
+      @receipt.extension = params[:is_extension].nil? ? false : true  #switch for correct validation
+
+      if @receipt.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt with ID #{@receipt.id}.")
       else
-        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new @receipt.")
+        #----------------------------presence - of--------------------
+        if(!@receipt.errors[:deposit_id].nil? && @receipt.errors.on(:deposit_id).include?("can't be blank"))
+          flash.now[:error] = "Please Enter All Required Data"
+        elsif(!@receipt.errors[:receipt_account_id].nil? && @receipt.errors.on(:receipt_account_id).include?("can't be blank"))
+          flash.now[:error] = "Please Enter All Required Data"
+        elsif(!@receipt.errors[:amount].nil? && @receipt.errors.on(:amount).include?("can't be blank"))
+          flash.now[:error] = "Please Enter All Required Data"
+        elsif(!@receipt.errors[:entity_id].nil? && @receipt.errors.on(:entity_id).include?("has already been taken"))
+          flash.now[:error] = "A record with same extension already exists"
+        else
+          flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
+        end
       end
+    
+      @receipts = @deposit.receipts
+      @receipt_value = 0
+      @receipts.each do |r|
+        @receipt_value += r.amount.to_f
+      end
+      @deposit.update_attribute(:total_amount, @receipt_value )
+      @is_extension = true if params[:is_extension]
     end
-    @deposit= Deposit.find(@deposit_id)
-    @receipts = @deposit.receipts
-    @receipt_value = 0
-    @receipts.each do |r|
-      @receipt_value += r.amount.to_f
-    end
-    @deposit.update_attribute(:total_amount,@receipt_value )
     respond_to do |format|
       format.js
     end
@@ -69,7 +69,7 @@ class ReceiptsController < ApplicationController
     @receipt = Receipt.find(params[:id])
 #    @field = params[:field]
     #for the receipt grid
-   @deposit_id = @receipt.deposit_id
+    @deposit_id = @receipt.deposit_id
     @receipt.destroy
     
     #for re-calculate the deposit amount
@@ -82,6 +82,33 @@ class ReceiptsController < ApplicationController
    
     @deposit.update_attribute(:total_amount,@receipt_value )
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted receipt.")
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def destroy_extension
+    p = params[:id].split("-")
+    @entity = p[0].camelize.constantize.find(p[1])
+    @deposit = Deposit.find(p[2])
+    @receipts = @entity.receipts.find(:all, :conditions => ["deposit_id = ?", @deposit.id])
+    @receipts.each do |i|
+      i.destroy
+    end
+
+    @receipts = @deposit.receipts
+    @receipt_value = 0
+    @receipts.each do |r|
+      @receipt_value += r.amount.to_f
+    end
+
+    @deposit.update_attribute(:total_amount,@receipt_value )
+
+
+
+
+    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted extension.")
 
     respond_to do |format|
       format.js

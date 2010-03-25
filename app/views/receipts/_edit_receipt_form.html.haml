@@ -3,7 +3,7 @@
     .field_15
       = f.label :receipt_account_id, "<span class='asterisk'>*</span>Receipt Account"
       = f.collection_select :receipt_account_id, ReceiptAccount.all, :id, :name
-      %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit_id}",:class =>"hidden"}
+      %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit.id}",:class =>"hidden"}
       %input.hidden{:name=>"field",:value=>"edit_receipt"}
 
     .field_15
