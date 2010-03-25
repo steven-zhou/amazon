@@ -231,7 +231,9 @@ class PeopleController < ApplicationController
         end
       end
       @entity = @person
-
+      puts "**********"
+      puts @person
+      puts @p
       respond_to do |format|
         format.html
         format.js {render 'show_edit_left.js'}
@@ -785,6 +787,8 @@ class PeopleController < ApplicationController
 
     #    @render_page = params[:render_page]
     #    @field = params[:field]
+
+
 
     respond_to do |format|
 

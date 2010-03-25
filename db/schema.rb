@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100322041406) do
+ActiveRecord::Schema.define(:version => 20100324042753) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -348,6 +348,53 @@ ActiveRecord::Schema.define(:version => 20100322041406) do
     t.integer "box_id"
     t.integer "creator_id"
     t.integer "updater_id"
+  end
+
+  create_table "deposit_details", :force => true do |t|
+    t.integer  "deposit_id"
+    t.string   "type"
+    t.string   "name_on_cheque"
+    t.string   "cheque_number"
+    t.string   "date_on_cheque"
+    t.string   "name_on_card"
+    t.string   "card_number"
+    t.string   "expire_month"
+    t.string   "expire_year"
+    t.string   "cvv_number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "bank_id"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  create_table "deposits", :force => true do |t|
+    t.integer  "entity_id"
+    t.string   "entity_type"
+    t.date     "todays_date"
+    t.date     "deposit_date"
+    t.integer  "payment_method_meta_type_id"
+    t.integer  "payment_method_type_id"
+    t.integer  "bank_account_id"
+    t.string   "bank_account_name"
+    t.integer  "bank_run_id"
+    t.integer  "receipt_number"
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.decimal  "total_amount",                :precision => 11, :scale => 3
+    t.text     "notes"
+    t.integer  "received_via_id"
+    t.string   "received_via_name"
+    t.boolean  "banked"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "temp_banked"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.boolean  "post"
+    t.string   "manual_receipt_number"
+    t.boolean  "extension"
   end
 
   create_table "duplication_formula_details", :force => true do |t|
@@ -1089,6 +1136,27 @@ ActiveRecord::Schema.define(:version => 20100322041406) do
     t.integer  "updater_id"
   end
 
+  create_table "receipts", :force => true do |t|
+    t.integer  "deposit_id"
+    t.integer  "receipt_account_id"
+    t.integer  "campaign_id"
+    t.integer  "source_id"
+    t.decimal  "amount",             :precision => 11, :scale => 3
+    t.integer  "letter_id"
+    t.boolean  "letter_sent"
+    t.date     "date_sent"
+    t.integer  "extention_id"
+    t.string   "extention_type"
+    t.integer  "cluster_id"
+    t.string   "cluster_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "entity_id"
+    t.string   "entity_type"
+  end
+
   create_table "relationships", :force => true do |t|
     t.integer  "source_person_id"
     t.integer  "related_person_id"
@@ -1241,73 +1309,6 @@ ActiveRecord::Schema.define(:version => 20100322041406) do
     t.integer  "login_account_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-  end
-
-  create_table "transaction_allocations", :force => true do |t|
-    t.integer  "transaction_header_id"
-    t.integer  "receipt_account_id"
-    t.integer  "campaign_id"
-    t.integer  "source_id"
-    t.decimal  "amount",                :precision => 11, :scale => 3
-    t.integer  "letter_id"
-    t.boolean  "letter_sent"
-    t.date     "date_sent"
-    t.integer  "extention_id"
-    t.string   "extention_type"
-    t.integer  "cluster_id"
-    t.string   "cluster_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-  end
-
-  create_table "transaction_headers", :force => true do |t|
-    t.integer  "entity_id"
-    t.string   "entity_type"
-    t.date     "todays_date"
-    t.date     "transaction_date"
-    t.integer  "payment_method_meta_type_id"
-    t.string   "receipt_meta_type_name"
-    t.integer  "payment_method_type_id"
-    t.string   "receipt_type_name"
-    t.integer  "bank_account_id"
-    t.string   "bank_account_name"
-    t.integer  "bank_run_id"
-    t.integer  "receipt_number"
-    t.integer  "letter_id"
-    t.boolean  "letter_sent"
-    t.date     "date_sent"
-    t.decimal  "total_amount",                :precision => 11, :scale => 3
-    t.text     "notes"
-    t.integer  "received_via_id"
-    t.string   "received_via_name"
-    t.boolean  "banked"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.boolean  "temp_banked"
-    t.integer  "creator_id"
-    t.integer  "updater_id"
-    t.boolean  "post"
-    t.string   "manual_receipt_number"
-  end
-
-  create_table "transaction_type_details", :force => true do |t|
-    t.integer  "transaction_header_id"
-    t.string   "type"
-    t.string   "name_on_cheque"
-    t.string   "cheque_number"
-    t.string   "date_on_cheque"
-    t.string   "name_on_card"
-    t.string   "card_number"
-    t.string   "expire_month"
-    t.string   "expire_year"
-    t.string   "cvv_number"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "bank_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
   end

@@ -1202,13 +1202,13 @@ class GridsController < ApplicationController
       @sortname = sortname
       @qtype = qtype
       
-      puts"ddddddddddddd-------#{@sortname.to_yaml}"
-      puts"ddddddddddddd-------#{@qtype.to_yaml}"
-       puts"ddddddddddddd-------#{@query.to_yaml}"
+      
+
       render '/people/show_album.js'
+
     else
 
-       puts"dddeeeeeeeeeed"
+    
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
       return_data[:page] = page
@@ -1242,7 +1242,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
     @list_header = ListHeader.find(session[:current_org_list_id])
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -2306,7 +2306,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def show_unbanked_transaction_grid
+  def show_current_deposit_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -2315,7 +2315,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "transaction_headers.id"
+      sortname = "deposits.id"
     end
 
     if (!sortorder)
@@ -2335,27 +2335,27 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction = TransactionHeader.find(:all,
-        :conditions => ["transaction_headers.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      @deposit = Deposit.find(:all,
+        :conditions => ["deposits.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction = TransactionHeader.find(:all,
+      @deposit = Deposit.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2363,11 +2363,11 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction.collect{|u| {:id => u.id,
+    return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_number,
           u.manual_receipt_number,
-          u.transaction_date.to_s,
+          u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
@@ -2515,7 +2515,85 @@ class GridsController < ApplicationController
 
   end
 
-  def show_existing_transaction_allocations_grid
+    def show_existing_extensions_grid
+
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "entity_type"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipts = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions => ["deposit_id=?", params[:deposit_id]],
+        :group => "entity_type, entity_id",
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions => ["deposit_id=?", params[:deposit_id]],
+        :group => "entity_type, entity_id"
+      ).count
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipts = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
+        :group => "entity_type, entity_id",
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+        
+      count = Receipt.find(:all,
+        :select => "entity_type, entity_id, SUM(amount) AS amount",
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
+        :group => "entity_type, entity_id"
+      ).count
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @receipts.collect{|u| {:id => "#{u.entity_type}-#{u.entity_id}-#{params[:deposit_id]}",
+        :cell=>[u.entity_type,
+          u.entity_id,
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
+    
+  def show_existing_receipts_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2545,25 +2623,25 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction_allocations = TransactionAllocation.find(:all,
-        :conditions => ["transaction_header_id=?", params[:transaction_header_id]],
+      @receipts = Receipt.find(:all,
+        :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?", params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
+      count = Receipt.count(:all, :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction_allocations = TransactionAllocation.find(:all,
+      @receipts = Receipt.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
+        :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
         :include => ["campaign", "receipt_account", "source"])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
+      count = Receipt.count(:all, :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
         :include => ["campaign", "receipt_account", "source"])
     end
 
@@ -2571,7 +2649,7 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
           u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),

@@ -1,0 +1,82 @@
+- form_for deposit, :html => {:class => "ajax_form", :id => "edit_deposit_form", :submit_button_id => "edit_submit_button"} do |f|
+  .form_line
+    .field_10
+      = f.label :id, "Deposit ID"
+      .display_field_bg
+        #{deposit.id}
+
+    .field_15
+      = f.label :todays_date, "System Date"
+      .display_field_bg
+        #{deposit.todays_date.to_s}
+
+    .field_15
+      = f.label :deposit_date, "<span class='asterisk'>*</span>Deposit Date"
+      = f.text_field :deposit_date, :value => deposit.deposit_date.to_s, :class => "compulsory_field datepick"
+
+    .field_20
+      = f.label :bank_account_id, "<span class='asterisk'>*</span> Deposit Bank Account"
+      = f.collection_select :bank_account_id, ClientBankAccount.active_client_bank_account, :id, :account_number
+
+    .field_15
+      = f.label :manual_receipt_number, "Manual Receipt Number"
+      = f.text_field :manual_receipt_number, :value => deposit.manual_receipt_number
+
+    .field_15
+      = f.label :receipt_number, "System Receipt Number"
+      .display_field_bg #{deposit.receipt_number}
+
+  .form_line
+    .field_15
+      = f.label :payment_method_meta_type_id, "<span class='asterisk'>*</span>Receipt Method Type"
+      = f.collection_select :payment_method_meta_type_id, PaymentMethodMetaType.manual, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_types/show_payment_method", :type_class => "edit"}
+
+    .field_15
+      = f.label :payment_method_type_id, "<span class='asterisk'>*</span>Receipt Method"
+      = f.collection_select :payment_method_type_id, PaymentMethodType.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", deposit.payment_method_meta_type_id], :order => "name"), :id, :name, {}, {:id => "edit_receipt_type"}
+
+    .field_20
+      = f.label :received_via_id, "<span class='asterisk'>*</span>Receipt Via"
+      = f.collection_select :received_via_id, ReceivedVia.active_received_via, :id, :name
+
+    .field_15
+      = f.label :letter_id, "Single Letter ID"
+      %select
+
+    .field_10
+      = f.label :banked, "Already Banked"
+      = f.check_box :banked
+
+  #edit_cheque_detail_form
+    - if deposit.payment_method_type.name == 'Cheque'
+      = render :partial => "deposit_details/cheque_detail_form"
+
+  #edit_credit_card_detail_form
+    - if deposit.payment_method_type.name == 'Credit Card'
+      = render :partial => "deposit_details/credit_card_detail_form"
+
+  .form_line{:style => "height:auto;"}
+    .field_100{:style => "height:auto;"}
+      = f.label :notes, "Notes"
+      = f.text_area :notes, :rows => 3, :cols => 45, :class => "mceNoEditor"
+
+#new_extension{:style => "width:33%;float:left;"}
+  %input.hidden{:id => "extension_mode", :mode => "show"}
+  #add_new_extension
+  #existing_extensions
+
+#gap{:style => "width:2%;float:left;"}
+  &nbsp;
+
+#new_receipt{:style => "width:65%;float:left;"}
+  %input.hidden{:id => "receipt_mode", :mode => "show"}
+  #add_new_receipt
+  #existing_receipts
+  
+%br.clear
+= button_to_function "Update", :class => "fake_submit_button", :form_id => "edit_deposit_form", :id => "edit_submit_button", :style => "float:right;margin-left:10px;"
+
+#edit_temp_allocation_total_amount.right{:style => "width:35%;"}
+  .display_field_bg.right{:style => "width:160px !important;"}
+    %div{:id => "total_amount_value"}
+  %h2{:class => "float:right;"} Deposit Total:

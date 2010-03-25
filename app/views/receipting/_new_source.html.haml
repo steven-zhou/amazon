@@ -1,8 +1,0 @@
-.full_container
-  .options
-    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "source", :title=>"Close", :class => "close_option", :toggle_id_name => "new_source_form"
-  .title
-    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "source", :title => "New", :method => "GET", :url => "/receipting/new_source"
-    &nbsp
-  %h2 New Source
-  #new_source_form{:style => "float:left;width:100%;"}

@@ -1,250 +1,165 @@
-class ReceiptingController < ApplicationController
-  
+class ReceiptingController < ApplicationController  
 
-  def campaign_data
-
-  end
-
-  def receipt_accounts
-
-  end
-
-  def allocation_types
-
-  end
-
-  def receipt_methods
-    
-  end
-
-  def receipt_types
-    @tag_meta_types = ReceiptMetaMetaType.find(:all, :order => "name asc")
-    @category = "Receipt"
-  end
-
-  def new_campaign
-    @campaign = Campaign.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def create_campaign
-    @campaign = Campaign.new(params[:campaign])
-    check_start_date = params[:start_date].blank? ? true : valid_date(params[:start_date])
-     check_end_date = params[:end_date].blank? ? true : valid_date(params[:end_date])
-     if check_start_date&&check_end_date
-
-    @campaign.start_date = params[:start_date]
-    @campaign.end_date = params[:end_date]
-    @campaign.to_be_removed = false
-    if @campaign.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaign entry with ID #{@campaign.id}.")
+  def personal_deposit
+    if PrimaryList.first.entity_on_list.empty?
+      redirect_to :controller =>"module",:action=>"core"
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign record.")
-      if(!@campaign.errors[:start_date].nil?)
-        flash.now[:error] = "Please Enter A Valid Start Date"
-      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("can't be blank"))
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
-      elsif(!@campaign.errors.nil? && @campaign.errors.on(:name).include?("has already been taken"))
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
+      session[:module] = "receipting"
+      @group_types = @current_user.group_types
+      @list_headers = @current_user.all_person_lists
+      @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
+      @p = @list_header.entity_on_list.uniq
+      @person = Person.find(session[:current_person_id]) rescue @person = @p[0]
+      session[:entity_type] = "Person"
+      session[:entity_id] = @person.id
+      session[:current_list_id] = @list_header.id
+      session[:current_person_id] = @person.id
+      respond_to do |format|
+        format.html
       end
     end
-     else
-      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-      end
+
+
+  end
+
+  def organisational_deposit
+    session[:module] = "receipting"
+    @list_headers = @current_user.all_organisation_lists
+    @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
+    @o = @list_header.entity_on_list.uniq
+    @organisation = Organisation.find(session[:current_organisation_id]) rescue @organisation = @o[0]
+    session[:entity_type] = "Organisation"
+    session[:entity_id] = @organisation.id
+    session[:current_org_list_id] = @list_header.id
+    session[:current_organisation_id] = @organisation.id
     respond_to do |format|
-      format.js
+      format.html
     end
   end
 
-  def update_campaign
-    @campaign = Campaign.find(params[:id])
+  def show_personal_deposit
+    @current_tab_id = params[:current_tab_id]
+    if request.post?
+      #find the list in top
+      @list_header = ListHeader.find(params[:list_header_id])
+      # params person_id not blank then pass it to params[:id]
+      params[:id] = params[:person_id] unless (params[:person_id].nil? || params[:person_id].empty?)
+      c1 = Array.new
+      #find all people in the lis
+      c1 = @list_header.entity_on_list.uniq
+      @person = Person.find_by_id(params[:id].to_i)
+      unless c1.include?(@person)
+        #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
+        @person = c1.first
+      else
+        #if you type the right id of people which is valid in the list
+        @person
+      end
+      session[:entity_id] = @person.id
+      session[:entity_type] = "Person"
+      session[:current_person_id] = @person.id
+      session[:current_list_id] = @list_header.id
 
-    check_start_date = params[:start_date].blank? ? true : valid_date(params[:start_date])
-     check_end_date = params[:end_date].blank? ? true : valid_date(params[:end_date])
-     if check_start_date&&check_end_date
-    @campaign.start_date = params[:start_date] unless params[:start_date].nil?
-    @campaign.end_date = params[:end_date] unless params[:end_date].nil?
-    if @campaign.update_attributes(params[:campaign])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated a new campaign entry with ID #{@campaign.id}.")
+      @p = Array.new
+      @p = @list_header.entity_on_list.uniq
+      @list_headers = @current_user.all_person_lists
     else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a campaign #{@campaign.id}.")
-      if(!@campaign.errors[:start_date].nil?)
-        flash.now[:error] = "Please Enter A Valid Start Date"
-      elsif(!@campaign.errors[:name].nil? && @campaign.errors.on(:name).include?("can't be blank"))
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
-      elsif(!@campaign.errors[:name].nil? && @campaign.errors.on(:name).include?("has already been taken"))
-        flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name")
-      elsif(!@campaign.errors[:end_date].nil? && @campaign.errors.on(:end_date).include?("can't be before start date"))
-        flash.now[:error] = flash_message(:type => "invalid_date_order", :field => "End Date")
+      #request.get
+
+      @list_headers = @current_user.all_person_lists
+      @list_header = ListHeader.find(session[:current_list_id]) rescue @list_header = @list_headers.first
+      @p = @list_header.entity_on_list.uniq
+
+      @current_person = Person.find(session[:current_person_id]) rescue @current_person = @p[0]
+      @person = case params[:target]
+      when 'First' then @p[0]
+      when 'Previous' then @p.at((@p.index(@current_person))-1)
+      when 'Next' then @p.index(@current_person) != @p.index(@p.last) ? @p[@p.index(@current_person)+1] : @p.first
+      when 'Last' then @p.fetch(-1)
+      when "default" then params[:grid_object_id].nil? ? @current_person : Person.find(params[:grid_object_id])
       end
+      session[:entity_id] = @person.id
+      session[:entity_type] = "Person"
+      session[:current_person_id] = @person.id
+      session[:current_list_id] = @list_header.id
     end
-        else
-      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
-      end
     respond_to do |format|
       format.js
     end
   end
 
-  def edit_campaign
-    @campaign = Campaign.find(params[:grid_object_id])
-    respond_to do |format|
-      format.js
-    end
-  end
+  def show_organisational_deposit
 
-  def copy_campaign
-    @campaign = Campaign.find(params[:id].to_i)
-    respond_to do |format|
-      format.js
-    end
-  end
+    @current_tab_id = params[:current_tab_id]
 
-  def create_copy_of_campaign
-    @campaign_old = Campaign.find(params[:source_id].to_i)
-    @campaign = Campaign.new
-    @campaign.name = params[:campaign][:name]
-    @campaign.description = params[:campaign][:description]
-    @campaign.target_amount = @campaign_old.target_amount
-    @campaign.start_date = @campaign_old.start_date
-    @campaign.end_date = @campaign_old.end_date
-    @campaign.status = @campaign_old.status
-    @campaign.remarks = @campaign_old.remarks
-    @campaign.to_be_removed = @campaign_old.to_be_removed
-    if @campaign.save
 
-      @campaign_old.sources.each do |i|
-        @source = Source.new(i.attributes)
-        @source.campaign_id = @campaign.id
-        @source.save
+    if request.post?
+      #find the list in top
+      @list_header = ListHeader.find(params[:list_header_id])
+      # params _id not blank then pass it to params[:id]
+      params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
+      c1 = Array.new
+      #find all people in the lis
+      c1 = @list_header.entity_on_list.uniq
+
+      @organisation = Organisation.find(params[:id].to_i)
+      unless c1.include?(@organisation)
+        #if list just have 1,2 you type 3, you will get person id is 1.---the first valid people in the list
+        @organisation = c1.first
+      else
+        #if you type the right id of people which is valid in the list
+        @organisation
       end
 
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Campaign #{@campaign.id}.")
-      flash.now[:message] = flash_message(:type => "object_created_successfully", :object => "campaign")
+      session[:entity_id] = @organisation.id
+      session[:entity_type] = "Organisation"
+      session[:current_organisation_id] = @organisation.id
+      session[:current_org_list_id] = @list_header.id
+      @o = Array.new
+      @o = @list_header.entity_on_list.uniq
+      @list_headers = @current_user.all_organisation_lists
+
     else
-      flash.now[:error] = flash_message(:type => "field_missing", :field => "name") if (!@campaign.errors.nil? && @campaign.errors.on(:name).include?("can't be blank"))
-      flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "name") if (!@campaign.errors.nil? && @campaign.errors.on(:name).include?("has already been taken"))
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
+      #request.get
 
+      @list_headers = @current_user.all_organisation_lists
+      @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
+      @o = @list_header.entity_on_list.uniq
 
-  def show_by_campaign
-    session[:source_campaign_id] = params[:param1]
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def destroy_campaign
-    @campaign = Campaign.find(params[:id])
-#    @campaign.destroy
-@campaign.to_be_removed = true
-@campaign.save
-    respond_to do |format|
-      format.js
-    end    
-  end
-
-  def retrieve_campaign
-    @campaign = Campaign.find(params[:id])
-    @campaign.to_be_removed = false
-    @campaign.save
-    respond_to do |format|
-      format.js {render "destroy_campaign.js"}
-    end
-
-  end
-
-  def new_source
-    @source = Source.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def create_source
-    @source = Source.new(params[:source])
-    @source.campaign_id = params[:id]
-    @source.to_be_removed = false
-    if @source.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new campaing source with ID #{@source.id}.")
-    else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a campaign source record.")
-      if(!@source.errors[:campaign_id].nil?)
-        flash.now[:error] = "You must select a campaign for this source."
-      elsif(!@source.errors[:name].nil? && @source.errors.on(:name).include?("can't be blank"))
-        flash.now[:error] = flash_message(:type => "field_missing", :field => "name")
-      elsif(!@source.errors[:name].nil? && @source.errors.on(:name).include?("has already been taken"))
-        flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
+      @current_organisation = Organisation.find(session[:current_organisation_id]) rescue @current_organisation = @o[0]
+      @organisation = case params[:target]
+      when 'First' then @o[0]
+      when 'Previous' then @o.at((@o.index(@current_organisation))-1)
+      when 'Next' then (@o.index(@current_organisation) == @o.index(@o.last)) ? @o.first : @o[@o.index(@current_organisation)+1]
+      when 'Last' then @o.fetch(-1)
+      when "default" then params[:grid_object_id].nil? ? @current_organisation : Organisation.find(params[:grid_object_id])
       end
+      session[:entity_id] = @organisation.id
+      session[:entity_type] = "Organisation"
+      session[:current_organisation_id] = @organisation.id
+      session[:current_org_list_id] = @list_header.id
     end
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def edit_source
-    @source = Source.find(params[:grid_object_id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def update_source
-    @source = Source.find(params[:id])
-    if @source.update_attributes(params[:source])
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for source with ID #{@source.id}.")
-    else
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update source record #{@source.id}.")
-      if(!@source.errors[:campaign_id].nil?)
-        flash.now[:error] = "You must select a campaign for this source."
-      elsif(!@source.errors[:name].nil?)
-        flash.now[:error] = "A source with that name already exists for this campaign. Names must be unique."
-      end
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
-
-  def destroy_source
-    @source = Source.find(params[:id])
-#    @source.destroy
-    @source.to_be_removed = true
-    @source.save
-    respond_to do |format|
-      format.js
-    end
-  end
 
 
-  def retrieve_source
-     @source = Source.find(params[:id])
-#    @source.destroy
-    @source.to_be_removed = false
-    @source.save
-    respond_to do |format|
-      format.js {render "destroy_source.js"}
-    end
-  end
-
-  def page_initial
-    @render_page = params[:render_page]
-    @field = params[:field]
 
     respond_to do |format|
       format.js
     end
   end
 
-  def receipt_methods
-    @tag_meta_types = PaymentMethodMetaMetaType.all
-    @category = "PaymentMethod"
+  def enquiry
+    @bank_accounts = ClientBankAccount.active_client_bank_account
+    @payment_method_meta_types = PaymentMethodMetaType.manual
+    @payment_method_types = PaymentMethodType.find(:all, :conditions => ["tag_type_id = ? AND status = true and to_be_removed = false", @payment_method_meta_types.first.id])
+    @receipt_via =ReceivedVia.active_received_via
+    @receipt_accounts=ReceiptAccount.active
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def bank_run
+    @bank_accounts = BankAccount.find(:all, :order => "id asc")
     respond_to do |format|
       format.html
     end

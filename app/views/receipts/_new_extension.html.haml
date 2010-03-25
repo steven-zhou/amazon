@@ -1,0 +1,8 @@
+.container
+  .options
+    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "extension", :title=>"Close", :class => "close_option", :toggle_id_name => "new_extension_form"
+  .title
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "extension", :title => "New", :method => "GET", :url => "/receipts/new", :param1 => "#{@deposit.id}", :param2 => "extension"
+    &nbsp;
+  %h2 Add Extension
+  #new_extension_form{:style => "float:left;width:100%;"}

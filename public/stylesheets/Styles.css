@@ -2904,3 +2904,10 @@ input.error_flag{
 
 }
 
+.footer{
+  margin: 0 auto;
+  width: 40%;
+  text-align: center;
+  color: #796b52;
+  font-size: 11px;
+}
