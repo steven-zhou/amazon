@@ -30,10 +30,9 @@ class DepositsController < ApplicationController
     end
   end
 
-  def create
-    @deposit = Deposit.new(params[:deposit])
-    @deposit.entity_type = session[:entity_type]
-    @deposit.entity_id = session[:entity_id]
+  def create    
+    @entity = session[:entity_type].camelize.constantize.find(session[:entity_id])
+    @deposit = @entity.deposits.new(params[:deposit])
     @deposit.post = false
     Deposit.transaction do
       if @deposit.save
@@ -72,6 +71,8 @@ class DepositsController < ApplicationController
     end
 
     @deposit_id = @deposit.id
+    @receipt = Receipt.new
+    @first_time = true
     respond_to do |format|
       format.js
     end

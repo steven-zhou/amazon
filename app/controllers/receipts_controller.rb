@@ -2,8 +2,8 @@ class ReceiptsController < ApplicationController
   # System Log stuff added
 
   def new    
-
     @deposit = Deposit.find(params[:param1])
+
     @entity = @deposit.entity
     @is_extension = true if (params[:param2] == "extension")
     if @is_extension
@@ -17,6 +17,7 @@ class ReceiptsController < ApplicationController
         @receipt = Receipt.find_by_deposit_id(params[:param1])
       end
     end    
+
     respond_to do |format|
       format.js
     end
