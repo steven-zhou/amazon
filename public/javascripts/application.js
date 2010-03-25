@@ -2123,6 +2123,7 @@ $(function(){
 
   $(".compulsory_field").live('change', function(){
     var current_form = $('#'+$(this).closest('form').attr('id'));
+
     if ($.trim($(this).val())!="")
     {
       compulsory_check($(this));
