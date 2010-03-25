@@ -1232,7 +1232,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
     @list_header = ListHeader.find(session[:current_org_list_id])
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -2572,7 +2572,7 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
+    return_data[:rows] = @receipts.collect{|u| {:id => "#{u.entity_type}-#{u.entity_id}-#{params[:deposit_id]}",
         :cell=>[u.entity_type,
           u.entity_id,
           u.amount.nil? ? "$0.00" : currencify(u.amount)

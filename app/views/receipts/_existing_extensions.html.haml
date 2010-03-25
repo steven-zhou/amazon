@@ -4,46 +4,55 @@
   %table#show_existing_extensions_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_existing_extensions_grid").flexigrid({
-  url: '/grids/show_existing_extensions_grid?deposit_id=#{@deposit.id}',
-  dataType: 'json',
-  colModel : [
-  {
-  display: 'Entity Type',
-  name : 'entity_type',
-  width : 80,
-  sortable : true,
-  align: 'left'
-  },
+  :plain
 
-  {
-  display: 'Entity ID',
-  name : 'entity_id',
-  width : 40,
-  sortable : true,
-  align: 'left'
-  },
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_existing_extensions_grid tr.trSelected").attr('id'),"#extension_mode","GET","/receipts/destroy_extension/");
+    };
 
-  {
-  display: 'Total Allocated',
-  name : 'amount',
-  width : 150,
-  sortable : false,
-  align: 'left'
-  }
-  ],
-  searchitems : [
-  {
-  display: 'Entity Type',
-  name : 'entity_type'
-  }
-  ],
-  sortname: "entity_type",
-  sortorder: "asc",
-  usepager: true,
-  useRp: true,
-  rp: 20,
-  showTableToggleBtn: false,
-  width: 'auto',
-  height: 'auto'
-  });
+    $("#show_existing_extensions_grid").flexigrid({
+    url: '/grids/show_existing_extensions_grid?deposit_id=#{@deposit.id}',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'Entity Type',
+    name : 'entity_type',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Entity ID',
+    name : 'entity_id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Total Allocated',
+    name : 'amount',
+    width : 150,
+    sortable : false,
+    align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+    display: 'Entity Type',
+    name : 'entity_type'
+    }
+    ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid}
+        ],
+    sortname: "entity_type",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

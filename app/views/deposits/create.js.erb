@@ -8,7 +8,7 @@ $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "
 
   <%- if @deposit.extension%>
     $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
-    $('#existing_extension').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
+    $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
   <%- else %>
     $('#new_receipt').css('width','100%');
     $('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>');
