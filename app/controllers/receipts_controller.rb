@@ -96,6 +96,9 @@ class ReceiptsController < ApplicationController
     @deposit.update_attribute(:total_amount,@receipt_value )
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted receipt.")
 
+    if @entity.receipts.find(:all, :conditions => ["deposit_id = ?", @deposit.id]).empty?
+      @clear = true
+    end
     respond_to do |format|
       format.js
     end

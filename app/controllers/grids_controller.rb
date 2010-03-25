@@ -2614,13 +2614,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @receipts = Receipt.find(:all,
-        :conditions => ["deposit_id=? and entity_id = ? and entity_type = ?", params[:deposit_id],params[:entity_id],params[:entity_type]],
+        :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = Receipt.count(:all, :conditions => ["deposit_id=? and entity_id = ? and entity_type = ?", params[:deposit_id],params[:entity_id],params[:entity_type]], :include => ["campaign", "receipt_account", "source"])
+      count = Receipt.count(:all, :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
@@ -2629,9 +2629,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ?", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
+        :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
         :include => ["campaign", "receipt_account", "source"])
-      count = Receipt.count(:all, :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ?", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
+      count = Receipt.count(:all, :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
         :include => ["campaign", "receipt_account", "source"])
     end
 

@@ -6,11 +6,7 @@ $('.close_option[field="current"]').css("display","");
 
 
 
-$('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/edit_new_receipt")) %>');
 
-$('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts")) %>');
-
-$("#total_amount_value").html('<%= escape_javascript("#{number_to_currency(@deposit.total_amount)}")%>');
 
 
 $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
