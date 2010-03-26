@@ -20,13 +20,13 @@ class ReceiptsController < ApplicationController
     else
       #right
       if @entity.receipts.find(:all, :conditions => ["deposit_id = ? and receipt_account_id IsNull", @deposit.id]).empty?
-        puts "*************"
+#        puts "*************"
         @receipt = Receipt.new
       else
-        puts "1111111111111"
-        puts @entity.id
-        puts params[:param1]
-        puts @entity.class.to_s
+#        puts "1111111111111"
+#        puts @entity.id
+#        puts params[:param1]
+#        puts @entity.class.to_s
         @receipt = Receipt.find_by_deposit_id_and_entity_id_and_entity_type(params[:param1],@entity.id,@entity.class.base_class.to_s)
       end
 
@@ -49,8 +49,12 @@ class ReceiptsController < ApplicationController
     @deposit= Deposit.find(params[:receipt][:deposit_id])
     if params[:receipt][:entity_id]
       @entity = params[:receipt][:entity_type].camelize.constantize.find(params[:receipt][:entity_id]) rescue @entity = nil
+    puts "***********8"
+   puts @entity
     else
+    puts "11111111111111"
       @entity = @deposit.entity
+      puts @entity
     end
 
     if @entity.nil?
@@ -151,7 +155,11 @@ class ReceiptsController < ApplicationController
 
   def update
     @receipt = Receipt.find(params[:id])
+
     @entity = @receipt.entity
+    puts "55555555555555555"
+    puts @entity.id
+    puts @entity.class.base_class
     if @receipt.update_attributes(params[:receipt])
       #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
     else
