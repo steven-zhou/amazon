@@ -3875,31 +3875,30 @@ $(function(){
   });
 });
 
-
+// user in search_list_result table--for first change to image
 $(function(){
   $(".show_album").live('click', function(){
     $('#show_grid_album_page').html("<div class='spinner'></div>");
     var link = $(this);
-    var url = link.attr('url')
-
-
+    var url = link.attr('url');
+    var page_show = link.attr('page_show');
+    var page = link.attr('page');
+    var rp = link.attr('rp');  
     $.ajax({
       type: "GET",
       url: url,
-      data:'page_show=' + link.attr('page_show')+'&page='+link.attr('page'),
-      // + '&login_account_id=' + $("#login_account_id").val()+'&type=org',
+      data:'page_show='+page_show +'&page='+page,
       dataType: "script"
     });
-
-
   });
 });
 
+//main function for album control panel
+album_page_load = function(link){
 
-album_page_load = function(){
-
-  var link = $(this);
-  var url = link.attr('url')
+ 
+  var url = link.attr('url');
+  var link_id = link.attr('id');
   var page = $('#album_page').val();
   var sortname = $('#album_sortname').val();
   var rp = $('#album_rp').val();
@@ -3909,7 +3908,9 @@ album_page_load = function(){
    query = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(query)? query : "";
 
   }
-
+  if (link.attr('id')== "album_rp"){
+    page=1
+  }
   $('#show_grid_album_page').html("<div class='spinner'></div>");
 
   $.ajax({
@@ -3927,7 +3928,7 @@ album_page_load = function(){
 
 $(function(){
   $(".album_page_load").live('change', function(){
-    album_page_load();
+    album_page_load($(this));
   });
 
 });

@@ -26,6 +26,6 @@
     %input{:id => "album_page", :value => "#{@page}", :style => "width:6%;",:class => "album_page_load", :name => "page"}
     %span of #{@total_pages} pages
     %div#right_arrow{:style => "width:20%;display:inline;"}
-      - check = @page + 1 > @last_page ? "display:none;" : ""
+      - check = @page + 1 > @last_page ? "" : ""
       = link_to_function image_tag 'Icons/Core/Lol/go-next.png', :class => "show_album",:style => "#{check}", :url => "/grids/show_list_grid", :page => @page + 1 > @last_page ? @last_page : @page + 1, :page_show => "album"
       = link_to_function image_tag 'Icons/Core/Lol/go-last.png', :class => "show_album", :url => "/grids/show_list_grid", :page  => @last_page, :page_show => "album", :style => "margin-left:20px;#{check}", :page_show => "album"

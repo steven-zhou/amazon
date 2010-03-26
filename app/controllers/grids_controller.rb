@@ -1132,8 +1132,8 @@ class GridsController < ApplicationController
     #show album----------------------------------------------------------
     if params[:page_show] == "album"
       page = 1 if (page == 0)
-       query = "" if !(query)
-       qtype = ""if !(qtype)
+      query = "" if !(query)
+      qtype = ""if !(qtype)
     end
 
     if (!rp || rp == 0)
@@ -1202,8 +1202,11 @@ class GridsController < ApplicationController
       @sortname = sortname
       @qtype = qtype
       
-      
-
+      puts"-page---debug----#{@page.to_yaml}"
+      puts"-rp---debug----#{@rp.to_yaml}"
+      puts"-@sortname---debug----#{@sortname.to_yaml}"
+      puts"-@qtype---debug----#{@qtype.to_yaml}"
+      puts"-@query---debug----#{@query.to_yaml}"
       render '/people/show_album.js'
 
     else
@@ -2515,7 +2518,7 @@ class GridsController < ApplicationController
 
   end
 
-    def show_existing_extensions_grid
+  def show_existing_extensions_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
