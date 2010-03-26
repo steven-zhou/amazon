@@ -12,7 +12,7 @@
 </style>
 <div id="bank_run_audit_sheet">
 <%- @accounts.each do |account|%>
-<%= render :partial => "transactions/bank_run_audit_sheet_per_account", :locals => {:account => account} %>
+<%= render :partial => "deposits/bank_run_audit_sheet_per_account", :locals => {:account => account} %>
   <%- if account != @accounts.last %>
   <div class="page_break">&nbsp;</div>
   <%- end %>
