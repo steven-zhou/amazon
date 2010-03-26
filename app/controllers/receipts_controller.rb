@@ -16,17 +16,17 @@ class ReceiptsController < ApplicationController
     @is_extension = true if (params[:param2] == "extension")
     if @is_extension
       #left
-       @receipt = Receipt.new
+      @receipt = Receipt.new
     else
       #right
       if @entity.receipts.find(:all, :conditions => ["deposit_id = ? and receipt_account_id IsNull", @deposit.id]).empty?
-#        puts "*************"
+        #        puts "*************"
         @receipt = Receipt.new
       else
-#        puts "1111111111111"
-#        puts @entity.id
-#        puts params[:param1]
-#        puts @entity.class.to_s
+        #        puts "1111111111111"
+        #        puts @entity.id
+        #        puts params[:param1]
+        #        puts @entity.class.to_s
         @receipt = Receipt.find_by_deposit_id_and_entity_id_and_entity_type(params[:param1],@entity.id,@entity.class.base_class.to_s)
       end
 
@@ -49,11 +49,8 @@ class ReceiptsController < ApplicationController
     @deposit= Deposit.find(params[:receipt][:deposit_id])
     if params[:receipt][:entity_id]
       @entity = params[:receipt][:entity_type].camelize.constantize.find(params[:receipt][:entity_id]) rescue @entity = nil
-
     else
-
       @entity = @deposit.entity
-
     end
 
     if @entity.nil?
@@ -154,11 +151,7 @@ class ReceiptsController < ApplicationController
 
   def update
     @receipt = Receipt.find(params[:id])
-
     @entity = @receipt.entity
-    puts "55555555555555555"
-    puts @entity.id
-    puts @entity.class.base_class
     if @receipt.update_attributes(params[:receipt])
       #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
     else
@@ -213,5 +206,49 @@ class ReceiptsController < ApplicationController
       format.js
     end
   end
+
+  def filter
+    @date_valid = true
+    conditions = Array.new
+    conditions << "entity_type = ?"
+    values << session[:entity_type]
+    conditions << "entity_id = ?"
+    values << session[:entity_id]
+    if valid_date(params[:start_deposit_date]) && valid_date(params[:end_deposit_date])
+      if (!params[:start_deposit_date].blank? || !params[:end_deposit_date].blank?)
+        params[:start_deposit_date] = "01-01-#{Date.today().year().to_s}"if params[:start_deposit_date].blank?
+        params[:end_deposit_date] = "31-12-#{Date.today().year().to_s}"if params[:end_deposit_date].blank?
+        conditions << ("deposits.start_deposit_date=" + params[:start_deposit_date])
+        conditions << ("deposits.end_deposit_date=" + params[:end_deposit_date])
+      end
+      @date_valid = true
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+
+    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
+      conditions << ("receipt_account_id=" + params[:receipt_account_id])
+    end
+
+    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
+      conditions << ("campaign_id=" + params[:campaign_id])
+    end
+
+    if (params[:source_id] && params[:source_id].to_i!= 0)
+      conditions << ("source_id=" + params[:source_id])
+    end
+
+    @query = conditions.join('&').delete("deposits.")
+    if @date_valid
+      @count = Receipt.count(:all,
+        :conditions => [conditions.join(' AND '), *values],
+        :include => ["deposit"])
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
   
 end
