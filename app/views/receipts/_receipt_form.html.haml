@@ -4,6 +4,8 @@
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
       = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {:class=>"compulsory_field"}
       %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit.id}",:class =>"hidden"}
+      %input{:name=>"receipt[entity_id]",:value=>"#{@entity.id}",:class =>"hidden"}
+      %input{:name=>"receipt[entity_type]",:value=>"#{@entity.class.base_class}",:class =>"hidden"}
     .field_15
       = f.label :field_5, "<span class='asterisk'>*</span>Amount ($)"
       = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(@receipt.amount.to_f, :unit => "", :delimiter => "")
