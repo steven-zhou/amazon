@@ -1,7 +1,13 @@
 
 <% if flash[:error].nil? -%>
   <%- if @is_extension %>
-    $('.close_option[field="extension"]').click();
+
+    $('.close_option[param1=<%= escape_javascript(@deposit.id.to_s) %>]').click();
+
+
+
+
+    
     $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
   <%- else %>
 

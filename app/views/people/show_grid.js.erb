@@ -1,5 +1,4 @@
-
-$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}",:locals =>{:person => @person,:current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab})) %>');
+$('#show_grid_album_page').html('<%= escape_javascript(render(:partial => "people/search_list_result_table")) %>');
 
 
 

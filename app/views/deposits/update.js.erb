@@ -2,7 +2,8 @@
 $('#add_new_deposit').html('<%= escape_javascript(render(:partial => "/deposits/new_deposit")) %>').css('display','');
 $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>').css('display','');;
 $('#current_mode').attr('mode', 'show');
-$('#edit_current_deposit').css('display','none');
+$('#edit_current_deposit').hide();
+$('#edit_current_deposit_form').html("");
 
 <% else %>
 $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
