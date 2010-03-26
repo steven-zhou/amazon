@@ -130,7 +130,7 @@ class DepositsController < ApplicationController
   end
 
   def show
-    @deposit = depositHeader.find(params[:id])
+    @deposit = Deposit.find(params[:id])
     respond_to do |format|
       format.js
     end
@@ -142,7 +142,7 @@ class DepositsController < ApplicationController
     @start_date = "01-01-#{Date.today().year().to_s}"
     @end_date = "31-12-#{Date.today().year().to_s}"
     if @field == "histroy_page"
-      @count = depositHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and banked=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], true, @start_date.to_date, @end_date.to_date])
+      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
     end
     respond_to do |format|
       format.js
@@ -160,15 +160,15 @@ class DepositsController < ApplicationController
       conditions = Array.new
       
       if (!params[:start_id].blank? || !params[:end_id].blank?)
-        params[:start_id] = depositHeader.first_record.id.to_s if params[:start_id].blank?
-        params[:end_id] =   depositHeader.last_record.id.to_s if params[:end_id].blank?
+        params[:start_id] = Deposit.first_record.id.to_s if params[:start_id].blank?
+        params[:end_id] =   Deposit.last_record.id.to_s if params[:end_id].blank?
         conditions << ("start_id=" + params[:start_id].to_i.to_s)
         conditions << ("end_id=" + params[:end_id].to_i.to_s)
       end
 
       if (!params[:start_receipt_id].blank? || !params[:end_receipt_id].blank?)
-        params[:start_receipt_id] = depositHeader.first_record.receipt_number.to_s if params[:start_receipt_id].blank?
-        params[:end_receipt_id] = depositHeader.last_record.receipt_number.to_s if params[:end_receipt_id].blank?
+        params[:start_receipt_id] = Deposit.first_record.receipt_number.to_s if params[:start_receipt_id].blank?
+        params[:end_receipt_id] = Deposit.last_record.receipt_number.to_s if params[:end_receipt_id].blank?
         conditions << ("start_receipt_id=" + params[:start_receipt_id].to_i.to_s)
         conditions << ("end_receipt_id=" + params[:end_receipt_id].to_i.to_s)
       end
@@ -233,7 +233,7 @@ class DepositsController < ApplicationController
       @end_date = params[:end_date]
       
       if valid_date(@start_date) && valid_date(@end_date)
-        @count = depositHeader.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+        @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
         @date_valid = true
       else
         @date_valid = false
@@ -299,8 +299,8 @@ class DepositsController < ApplicationController
     end
     
     if (params[:start_id] || params[:end_id])
-      params[:start_id] = depositHeader.first_record.id.to_s if params[:start_id].blank?
-      params[:end_id] = depositHeader.last_record.id.to_s if params[:end_id].blank?
+      params[:start_id] = Deposit.first_record.id.to_s if params[:start_id].blank?
+      params[:end_id] = Deposit.last_record.id.to_s if params[:end_id].blank?
       conditions << "id BETWEEN ? AND ?"
       values << params[:start_id].to_i.to_s
       values << params[:end_id].to_i.to_s
@@ -324,7 +324,7 @@ class DepositsController < ApplicationController
       end
     end
     
-    @deposits = depositHeader.find(:all, :conditions => [conditions.join(" AND "), *values])
+    @deposits = Deposit.find(:all, :conditions => [conditions.join(" AND "), *values])
     
     if @deposits.blank?
       flash[:warning] = "No outstanding deposits found"
@@ -354,7 +354,7 @@ class DepositsController < ApplicationController
     @run = BankRun.find(bank_run_id)
     @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
     @time =  @run.created_at.getlocal.strftime('%I:%m%p')
-    @deposits = depositHeader.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
+    @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
     @accounts = Array.new
     @cash_deposits = Array.new
     @cheque_deposits = Array.new

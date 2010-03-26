@@ -2836,6 +2836,7 @@ $(function(){
     var form = $('#'+form_id);
     if (form.attr('db_click_function') == "true" && ($('#'+form.attr('field')+"_mode").attr('mode')=='show' || $('#'+form.attr('field')+"_mode").attr('mode')==undefined))
     {
+      $("#" + form_id + " tbody tr.trEdited").removeClass('trEdited');
       $(this).addClass("trEdited");
       var url = form.attr('db_click_url');
       var type = "GET";

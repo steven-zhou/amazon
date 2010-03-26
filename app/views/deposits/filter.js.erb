@@ -1,16 +1,16 @@
 <%- if @date_valid &&flash[:error].nil?%>
   <%-if @filter_target == "histroy"%>
 
-    $("#transaction_histroy" ).show().html('<%= escape_javascript(render(:partial => "transactions/transaction_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
+    $("#deposit_histroy" ).show().html('<%= escape_javascript(render(:partial => "deposits/deposit_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
     <%- if @count == 0%>
       $('#export_to_pdf_button').attr('disabled',true).hide();
     <%- else %>
       $('#export_to_pdf_button').removeAttr('disabled').show();
     <%- end %>
   <%-elsif @filter_target == "enquiry"%>
-    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "transactions/enquiry_result", :locals => {:db_function => "true", :query => @query})) %>');
+    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "deposits/enquiry_result", :locals => {:db_function => "true", :query => @query})) %>');
   <%-else%>
-    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "transactions/enquiry_result", :locals => {:db_function => "false", :query => @query})) %>');
+    $("#enquiry_result" ).html('<%= escape_javascript(render(:partial => "deposits/enquiry_result", :locals => {:db_function => "false", :query => @query})) %>');
   <%-end%>
 
 

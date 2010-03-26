@@ -1,17 +1,17 @@
 -# locals => {:entity_type, :entity_id, :start_date, :end_date}
 .full_container
-  %h2 Transactions
+  %h2 Deposits
 
-  %table#show_transaction_histroy_grid.selectable_grid{:db_click_function => 'true', :field => 'histroy', :db_show => 'true', :db_click_url => "/transaction_headers/"}
+  %table#show_deposit_histroy_grid.selectable_grid{:db_click_function => 'true', :field => 'histroy', :db_show => 'true', :db_click_url => "/deposits/"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
-  $("#show_transaction_histroy_grid").flexigrid({
-  url: '/grids/show_transaction_histroy_grid?entity_id=#{entity_id}&entity_type=#{entity_type}&start_date=#{start_date}&end_date=#{end_date}',
+  $("#show_deposit_histroy_grid").flexigrid({
+  url: '/grids/show_deposit_histroy_grid?entity_id=#{entity_id}&entity_type=#{entity_type}&start_date=#{start_date}&end_date=#{end_date}',
   dataType: 'json',
   colModel : [
   {
   display: 'ID',
-  name : 'transaction_headers.id',
+  name : 'deposits.id',
   width : 40,
   sortable : true,
   align: 'left'
@@ -32,8 +32,8 @@
   align: 'left'
   },
   {
-  display: 'Transaction Date',
-  name : 'transaction_date',
+  display: 'Deposit Date',
+  name : 'deposit_date',
   width : 90,
   sortable : true,
   align: 'left'
@@ -100,7 +100,7 @@
   name : 'notes'
   }
   ],
-  sortname: "transaction_headers.id",
+  sortname: "deposits.id",
   sortorder: "asc",
   usepager: true,
   useRp: true,
