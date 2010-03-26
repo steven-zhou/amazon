@@ -130,7 +130,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def convert_html_to_pdf(folder, html_name, pdf_name, pdf_options)
+  def convert_html_to_pdf(folder, html_name, pdf_name, pdf_options={})
     #config temp folder
     file_prefix = "public"
     file_dir = "temp/#{@current_user.user_name}/#{folder}"
@@ -138,7 +138,7 @@ class ApplicationController < ActionController::Base
 
     #pdf header and footer
     now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
-    pdf_options ||= "--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
+    pdf_options = "--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
 
     system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{html_name}.html #{file_prefix}/#{file_dir}/#{pdf_name}.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{html_name}.html"
   end

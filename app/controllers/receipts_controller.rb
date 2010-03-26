@@ -291,7 +291,7 @@ class ReceiptsController < ApplicationController
         :include => ["deposit"])
       @count = @receipts.size
       if @count > 0
-        generate_html("receipt_enquiry", "receipts/receipt_enquiry_result", "receipt_enquiry_result")        
+        generate_html("receipt_enquiry", "receipts/receipt_enquiry_result", "receipt_enquiry_result")
       end
     end
 
@@ -301,7 +301,7 @@ class ReceiptsController < ApplicationController
   end
 
   def show_pdf
-    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result","")
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result")
 
     respond_to do |format|
       format.pdf {send_file("public/temp/#{@current_user.user_name}/receipt_enquiry/receipt_enquiry_result.pdf", :filename => "receipt_enquiry_result.pdf", :type => "application/pdf")}
