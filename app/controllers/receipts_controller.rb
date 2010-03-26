@@ -221,6 +221,7 @@ class ReceiptsController < ApplicationController
     conditions = Array.new
     values = Array.new
     query_conditions = Array.new
+    @entity = session[:entity_type].camelize.constantize.find(session[:entity_id])
     conditions << "receipts.entity_type =?"
     values << session[:entity_type]
     conditions << "receipts.entity_id = ?"
@@ -236,6 +237,8 @@ class ReceiptsController < ApplicationController
         query_conditions << ("end_deposit_date=" + params[:end_deposit_date])
       end
       @date_valid = true
+      @start_date = params[:start_deposit_date]
+      @end_date = params[:end_deposit_date]
     else
       @date_valid = false
       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"

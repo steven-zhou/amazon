@@ -1,15 +1,27 @@
 <style type="text/css">
   .page_break {page-break-after: always;}
-  #logo {float:left;background-image:url("/images/memberzone_logo_small.jpg");}
+  #logo {float:left;}
   #header {text-align: center;}
-  #left_title {width:50%;text-align: left;}
-  #right_title {width:50%;text-align: right;}
+  #left_title {width:50%;text-align: left;float: left}
+  #right_title {width:50%;text-align: right;float: left}
+  #receipt_enquiry_result {width: 100%;}
+  .clear{clear: both;}
 </style>
 <div id="content_holder">
-  <div id="logo"></div>
-  <div id="header"></div>
-  <div id="left_title"></div>
-  <div id="right_title"></div>
+  <div id="logo">
+    <img src="/images/memberzone_logo_small.png" alt="logo"/>
+  </div>
+  <div id="header">
+    <h1><%= @entity.class.base_class%> Receipt Enquiry Result</h1>
+  </div>
+  <div id="left_title">
+    <h3>Name: (<%= @entity.id %>) <%= @entity.full_name %></h3>
+    <h3>Period From <%= @start_date %> to <%= @end_date %></h3>
+  </div>
+  <div id="right_title">
+    <h3>Print Date <%= Date.today.to_s%></h3>
+  </div>
+  <br class="clear"/>
   <table id="receipt_enquiry_result">
     <tr>
       <td>Receipt ID</td>
