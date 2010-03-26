@@ -4,9 +4,9 @@
     .top
     .item
       - if @current_controller != "receipting"
-        = link_to "#{image_tag('Icons/Receipting/transactions.png')} Deposits", :controller => "receipting", :action => "personal_deposit"
+        = link_to "#{image_tag('Icons/Receipting/transactions.png')} Receipts", :controller => "receipting", :action => "personal_deposit"
       - else
-        <p>Deposits</p>
+        <p>Receipts</p>
         %ul
           %li{:id => @current_action == "personal_deposit" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Receipting/money_person.png')} Person", {:controller => "receipting", :action => "personal_deposit"}, :class => "draggable", :controller => "receipting", :action => "personal_deposit", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_person.png", :title => "Personal Deposit"

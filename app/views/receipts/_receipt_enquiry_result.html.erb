@@ -1,0 +1,33 @@
+<style type="text/css">
+  .page_break {page-break-after: always;}
+  #logo {float:left;background-image:url("/images/memberzone_logo_small.jpg");}
+  #header {text-align: center;}
+  #left_title {width:50%;text-align: left;}
+  #right_title {width:50%;text-align: right;}
+</style>
+<div id="content_holder">
+  <div id="logo"></div>
+  <div id="header"></div>
+  <div id="left_title"></div>
+  <div id="right_title"></div>
+  <table id="receipt_enquiry_result">
+    <tr>
+      <td>Receipt ID</td>
+      <td>Receipt Account</td>
+      <td>Campaign</td>
+      <td>Source</td>
+      <td>Deposit Date</td>
+      <td>Amount</td>
+    </tr>
+    <%- @receipts.each do |receipt|%>
+      <tr>
+        <td><%=receipt.id%></td>
+        <td><%=receipt.receipt_account.try(:name)%></td>
+        <td><%=receipt.campaign.try(:name)%></td>
+        <td><%=receipt.source.try(:name)%></td>
+        <td><%=receipt.deposit.try(:deposit_date).try(:to_s)%></td>
+        <td><%=number_to_currency(receipt.amount)%></td>
+      </tr>
+    <%- end %>
+  </table>
+</div>

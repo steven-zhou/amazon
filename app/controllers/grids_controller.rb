@@ -2562,7 +2562,6 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
 
   end
-
     
   def show_existing_receipts_grid
 
@@ -2629,6 +2628,104 @@ class GridsController < ApplicationController
           u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
+  def show_receipts_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    if (!sortname)
+      sortname = "id"
+    end
+    if (!sortorder)
+      sortorder = "asc"
+    end
+    if (!page)
+      page = 1
+    end
+    if (!rp)
+      rp = 20
+    end
+
+    conditions = Array.new
+    values = Array.new
+    conditions << "receipts.entity_type = ?"
+    values << params[:entity_type]
+    conditions << "receipts.entity_id = ?"
+    values << params[:entity_id]
+    conditions << "receipt_account_id Is Not Null"
+    if params[:start_deposit_date]
+      conditions << "deposits.deposit_date >= ?"
+      values << params[:start_deposit_date].to_date
+    end
+    if params[:end_deposit_date]
+      conditions << "deposits.deposit_date <= ?"
+      values << params[:end_deposit_date].to_date
+    end
+    if params[:receipt_account_id]
+      conditions << "receipt_account_id = ?"
+      values << params[:receipt_account_id]
+    end
+    if params[:campaign_id]
+      conditions << "campaign_id = ?"
+      values << params[:campaign_id]
+    end
+    if params[:source_id]
+      conditions << "source_id = ?"
+      values << params[:source_id]
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipts = Receipt.find(:all,
+        :conditions => [conditions.join(' AND '), *values],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :include => ["deposit", "campaign", "receipt_account", "source"]
+      )
+      count = Receipt.count(:all,
+        :conditions => [conditions.join(' AND '), *values],
+        :include => ["deposit", "campaign", "receipt_account", "source"])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipts = Receipt.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :include => ["deposit", "campaign", "receipt_account", "source"])
+      count = Receipt.count(:all,
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :include => ["deposit", "campaign", "receipt_account", "source"])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+
+          u.receipt_account_id.nil? ? "" : u.receipt_account.name,
+          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
+          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
+          u.deposit.deposit_date.to_s,
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
+    
+        ]}}
+    # Convert the hash to a json object
+
     render :text=>return_data.to_json, :layout=>false
 
   end
@@ -2862,15 +2959,11 @@ class GridsController < ApplicationController
     end
 
     if (!rp)
-
       rp = 20
-
     end
-
 
     conditions = Array.new
     values = Array.new
-
 
     if params[:start_date]
       conditions << "created_at >= ?"
@@ -2881,31 +2974,17 @@ class GridsController < ApplicationController
     if params[:end_date]
       conditions << "created_at <= ?"
       values << params[:end_date].to_date+1
-
     end
 
     if params[:to_be_removed]
       conditions << "to_be_removed = ?"
       values << params[:to_be_removed]
-
     end
 
     if params[:status]
       conditions << "status = ?"
       values << params[:status]
-
     end
-
-    #     if params[:dispatch_date] == "false"
-    #
-    #      conditions << "dispatch_date IS"
-    #      values << "NULL"
-    #     else
-    #      conditions << "dispatch_date IS NOT"
-    #      values << "NULL"
-    #
-    #    end
-
 
 
     start = ((page-1) * rp).to_i

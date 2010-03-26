@@ -19,7 +19,7 @@ class DepositsController < ApplicationController
 
 
 
-#    @field ="edit_deposit"
+    #    @field ="edit_deposit"
     @cheque_detail = @deposit.cheque_detail rescue @cheque_detail = ChequeDetail.new
     @credit_card_detail = @deposit.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new
     @receipts = @deposit.receipts
@@ -141,6 +141,12 @@ class DepositsController < ApplicationController
     @field = params[:field]
     @start_date = "01-01-#{Date.today().year().to_s}"
     @end_date = "31-12-#{Date.today().year().to_s}"
+
+    if params[:field]=="receipt_histroy_page"
+    @receipt_accounts = ReceiptAccount.active
+    @campaign = Campaign.active_campaign
+    @source = Source.active_source
+    end
     if @field == "histroy_page"
       @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
     end
@@ -334,7 +340,7 @@ class DepositsController < ApplicationController
     else
       #new Bank Run
       @run = BankRun.new
-      BankRun.deposit do
+      BankRun.transaction do
         @run.save
         @deposits.each do |i|
           i.bank_run_id = @run.id
@@ -346,7 +352,7 @@ class DepositsController < ApplicationController
       prepare_bank_run_report(@run.id)
     end
 
-    redirect_to :controller => "deposits", :action => "bank_run"
+    redirect_to :controller => "receipting", :action => "bank_run"
   end
 
   def prepare_bank_run_report(bank_run_id)
@@ -419,14 +425,14 @@ class DepositsController < ApplicationController
       # for receipt account summary
       if params[:RAS]
         @receipt_account.each do |receipt_account|
-          i.deposit_allocations.each do |deposit_allocation|
-            if deposit_allocation.receipt_account.name == receipt_account.name
-              if deposit_allocation.deposit.payment_method_meta_type.name == "Cash"
-                @receipt_account_cash[bank_account.id+receipt_account.id] << deposit_allocation.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [deposit_allocation.amount]
-              elsif deposit_allocation.deposit.payment_method_meta_type.name == "Cheque"
-                @receipt_account_cheque[bank_account.id+receipt_account.id] <<deposit_allocation.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [deposit_allocation.amount]
-              elsif deposit_allocation.deposit.payment_method_meta_type.name == "Credit Card"
-                @receipt_account_cards[bank_account.id+receipt_account.id] <<deposit_allocation.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [deposit_allocation.amount]
+          i.receipts.each do |receipt|
+            if receipt.receipt_account.name == receipt_account.name
+              if receipt.deposit.payment_method_meta_type.name == "Cash"
+                @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
+              elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+                @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
+              elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
+                @receipt_account_cards[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [receipt.amount]
               end
             end
           end
@@ -435,15 +441,15 @@ class DepositsController < ApplicationController
 
       # for receipt type summary
       if params[:RTS]
-        i.deposit_allocations.each do |deposit_allocation|
-          if deposit_allocation.deposit.payment_method_meta_type.name == "Cash"
-            @receipt_type_cash[bank_account.id] << deposit_allocation.amount rescue @receipt_type_cash[bank_account.id]  = [deposit_allocation.amount]
-          elsif deposit_allocation.deposit.payment_method_meta_type.name == "Cheque"
-            @receipt_type_cheque[bank_account.id] <<deposit_allocation.amount rescue @receipt_type_cheque[bank_account.id] = [deposit_allocation.amount]
-          elsif deposit_allocation.deposit.payment_method_type.name == "Master Card"
-            @receipt_type_master_cards[bank_account.id] << deposit_allocation.amount rescue @receipt_type_master_cards[bank_account.id] = [deposit_allocation.amount]
-          elsif deposit_allocation.deposit.payment_method_type.name == "Visa Card"
-            @receipt_type_visa_cards[bank_account.id] << deposit_allocation.amount rescue @receipt_type_visa_card[bank_account.id] = [deposit_allocation.amount]
+        i.receipts.each do |receipt|
+          if receipt.deposit.payment_method_meta_type.name == "Cash"
+            @receipt_type_cash[bank_account.id] << receipt.amount rescue @receipt_type_cash[bank_account.id]  = [receipt.amount]
+          elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+            @receipt_type_cheque[bank_account.id] <<receipt.amount rescue @receipt_type_cheque[bank_account.id] = [receipt.amount]
+          elsif receipt.deposit.payment_method_type.name == "Master Card"
+            @receipt_type_master_cards[bank_account.id] << receipt.amount rescue @receipt_type_master_cards[bank_account.id] = [receipt.amount]
+          elsif receipt.deposit.payment_method_type.name == "Visa Card"
+            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_card[bank_account.id] = [receipt.amount]
           end
         end
       end
@@ -452,14 +458,14 @@ class DepositsController < ApplicationController
       #for bank run campaign summary
       if params[:CS]
         @campaign.each do |campaign|
-          i.deposit_allocations.each do |deposit_allocation|
-            if deposit_allocation.campaign.try(:name) == campaign.name
-              if deposit_allocation.deposit.payment_method_meta_type.name == "Cash"
-                @campaign_cash[bank_account.id+campaign.id] << deposit_allocation.amount rescue @campaign_cash[bank_account.id+campaign.id] = [deposit_allocation.amount]
-              elsif deposit_allocation.deposit.payment_method_meta_type.name == "Cheque"
-                @campaign_cheque[bank_account.id+campaign.id] <<deposit_allocation.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [deposit_allocation.amount]
-              elsif deposit_allocation.deposit.payment_method_meta_type.name == "Credit Card"
-                @campaign_cards[bank_account.id+campaign.id] <<deposit_allocation.amount rescue @campaign_cards[bank_account.id+campaign.id] = [deposit_allocation.amount]
+          i.receipts.each do |receipt|
+            if receipt.campaign.try(:name) == campaign.name
+              if receipt.deposit.payment_method_meta_type.name == "Cash"
+                @campaign_cash[bank_account.id+campaign.id] << receipt.amount rescue @campaign_cash[bank_account.id+campaign.id] = [receipt.amount]
+              elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+                @campaign_cheque[bank_account.id+campaign.id] <<receipt.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [receipt.amount]
+              elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
+                @campaign_cards[bank_account.id+campaign.id] <<receipt.amount rescue @campaign_cards[bank_account.id+campaign.id] = [receipt.amount]
               end
             end
           end

@@ -1,11 +1,11 @@
 <%- sub_total = 0.00%>
-<%- num_transaction = 0%>
-<%- transactions = transaction[account.id]%>
+<%- num_deposit = 0%>
+<%- deposits = deposit[account.id]%>
 
-<%- transaction[account.id].try(:each) do |transaction|%>
-  <%- total = transaction.total_amount%>
+<%- deposit[account.id].try(:each) do |deposit|%>
+  <%- total = deposit.total_amount%>
   <%- sub_total += total%>
-  <%- num_transaction=num_transaction+1%>
+  <%- num_deposit=num_deposit+1%>
 <%- end %>
 <div id="header"><h1>Credit Card Receipt</h1></div>
 <div id="content_holder">
@@ -13,7 +13,7 @@
 
     <div class="div_line">
       <div class="div_cell">SUMMARY OF <%=type%></div>
-      <div class="div_cell">MAIL/PHONE ORDER TRANSACTIONS DATE:</div>
+      <div class="div_cell">MAIL/PHONE ORDER depositS DATE:</div>
       <div class="div_cell" style=""><%= @date %></div>
     </div>
 
@@ -24,7 +24,7 @@
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell cell">123456789</div>
-      <div class="div_cell cell"><%= num_transaction%></div>
+      <div class="div_cell cell"><%= num_deposit%></div>
       <div class="div_cell cell"><%= number_to_currency(sub_total)%></div>
     </div>
     <div class="div_line table_style_1">
@@ -40,11 +40,11 @@
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell big_number">(I)</div>
-      <div class="div_cell big_number_content" style="width: 90%">TRANSACTIONS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
+      <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
     </div>
     <div class="div_line table_style_1">
       <div class="div_cell big_number">(II)</div>
-      <div class="div_cell big_number_content" style="width: 90%">TRANSACTIONS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
+      <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
       <div class="div_cell signature" style="margin-top: 40px;float: right;">MERCHANT SIGNATURE</div>
     </div>
     <br class="clear"/>
@@ -68,14 +68,14 @@
     <div class="div_line talbe_line">
 
 
-      <%- transactions.try(:each) do |transaction|%>
+      <%- deposits.try(:each) do |deposit|%>
         <div class="div_cell th20">XXXXXXXXXX</div>
-        <div class="div_cell th15"><%= transaction.transaction_type_detail.try(:name_on_card) %></div>
-        <div class="div_cell th7"><%= transaction.received_via.try(:name)%></div>
+        <div class="div_cell th15"><%= deposit.deposit_type_detail.try(:name_on_card) %></div>
+        <div class="div_cell th7"><%= deposit.received_via.try(:name)%></div>
         <div class="div_cell th7">1</div>
-        <div class="div_cell th15"><%=transaction.transaction_type_detail.try(:card_number)%></div>
-        <div class="div_cell th7"><%=transaction.transaction_type_detail.try(:cvv_number)%></div>
-        <div class="div_cell th7"><%= number_to_currency(transaction.total_amount)%></div>
+        <div class="div_cell th15"><%=deposit.deposit_type_detail.try(:card_number)%></div>
+        <div class="div_cell th7"><%=deposit.deposit_type_detail.try(:cvv_number)%></div>
+        <div class="div_cell th7"><%= number_to_currency(deposit.total_amount)%></div>
       <%- end %>
     </div>
 
@@ -111,8 +111,8 @@
         <div class="div_cell th30"><%= number_to_currency(sub_total) %></div>
       </div>
       <div class="div_line ci_line">
-        <div class="div_cell th25">Number of Transactions:</div>
-        <div class="div_cell th30"><%=num_transaction%></div>
+        <div class="div_cell th25">Number of Deposits:</div>
+        <div class="div_cell th30"><%=num_deposit%></div>
       </div>
     </div>
     <br class="clear"/>
