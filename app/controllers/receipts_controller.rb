@@ -4,7 +4,15 @@ class ReceiptsController < ApplicationController
   def new    
     @deposit = Deposit.find(params[:param1])
 
-    @entity = @deposit.entity
+
+    if (params[:param3]!= "undefined" )
+      p = params[:param3].split("-")
+      @entity = p[0].camelize.constantize.find(p[1])
+
+
+    else
+      @entity = @deposit.entity
+    end
     @is_extension = true if (params[:param2] == "extension")
     if @is_extension
       #left
@@ -12,10 +20,17 @@ class ReceiptsController < ApplicationController
     else
       #right
       if @entity.receipts.find(:all, :conditions => ["deposit_id = ? and receipt_account_id IsNull", @deposit.id]).empty?
+        puts "*************"
         @receipt = Receipt.new
       else
-        @receipt = Receipt.find_by_deposit_id(params[:param1])
+        puts "1111111111111"
+        puts @entity.id
+        puts params[:param1]
+        puts @entity.class.to_s
+        @receipt = Receipt.find_by_deposit_id_and_entity_id_and_entity_type(params[:param1],@entity.id,@entity.class.base_class.to_s)
       end
+
+
     end    
 
     respond_to do |format|
@@ -184,6 +199,7 @@ class ReceiptsController < ApplicationController
 
   def show_extension_receipts
     p = params[:grid_object_id].split("-")
+
     @entity = p[0].camelize.constantize.find(p[1])
     @deposit = Deposit.find(p[2])
     respond_to do |format|
