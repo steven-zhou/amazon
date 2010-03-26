@@ -1,0 +1,69 @@
+.full_container
+  %h2 Receipts
+
+  %table#show_receipts_grid.selectable_grid{:db_click_function => 'true', :field => 'histroy', :db_show => 'true', :db_click_url => "/deposits/"}
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+    $("#show_receipts_grid").flexigrid({
+    url: '/grids/show_receipts_grid?#{@query}',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'receipts.id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Receipt Account',
+    name : 'receipt_accounts.name',
+    width : 120,
+    sortable : true,
+    align: 'left'
+    },
+    {
+    display: 'Campaign',
+    name : 'campaigns.name',
+    width : 120,
+    sortable : true,
+    align: 'left'
+    },
+    {
+    display: 'Source',
+    name : 'sources.name',
+    width : 120,
+    sortable : true,
+    align: 'left'
+    },
+    {
+    display: 'Deposit Date',
+    name : 'deposits.deposit_date',
+    width : 90,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Amount',
+    name : 'amount',
+    width : 70,
+    sortable : true,
+    align: 'left'
+    }
+
+    ],
+    searchitems : [
+    
+    ],
+    sortname: "receipts.id",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
