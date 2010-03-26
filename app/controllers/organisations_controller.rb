@@ -59,33 +59,33 @@ class OrganisationsController < ApplicationController
   end
 
   def create
-     check_valid_date = params[:organisation][:registered_date].blank? ? true : valid_date(params[:organisation][:registered_date])
-      if check_valid_date
-    @organisation = (params[:type].camelize.constantize).new(params[:organisation])
-    @organisation.onrecord_since = Date.today()
-    @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
-    if @organisation.save
-      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
-      if !params[:image].nil?
-        @image = Image.new(params[:image])
-        if @image.save
-          @organisation.image = @image
-        else
-          flash[:warning] = "There Was an Error to Save the Selected Image."
+    check_valid_date = params[:organisation][:registered_date].blank? ? true : valid_date(params[:organisation][:registered_date])
+    if check_valid_date
+      @organisation = (params[:type].camelize.constantize).new(params[:organisation])
+      @organisation.onrecord_since = Date.today()
+      @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
+      if @organisation.save
+        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
+        if !params[:image].nil?
+          @image = Image.new(params[:image])
+          if @image.save
+            @organisation.image = @image
+          else
+            flash[:warning] = "There Was an Error to Save the Selected Image."
+          end
         end
-      end
-      @organisation_new = Organisation.new
-      flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href='/organisations/#{@organisation.id}/edit' style='color:white'>edit details</a>)"
-#      redirect_to new_organisation_path
-    else
-      @organisation.addresses.build(params[:organisation][:addresses_attributes][0]) if @organisation.addresses.empty?
-      @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
-      @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
-      @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
-      flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
+        @organisation_new = Organisation.new
+        flash[:message] = "Sucessfully added ##{@organisation.id} - #{@organisation.full_name} (<a href='/organisations/#{@organisation.id}/edit' style='color:white'>edit details</a>)"
+        #      redirect_to new_organisation_path
+      else
+        @organisation.addresses.build(params[:organisation][:addresses_attributes][0]) if @organisation.addresses.empty?
+        @organisation.phones.build(params[:organisation][:phones_attributes][0]) if @organisation.phones.empty?
+        @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
+        @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
+        flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
       
-    end
-       else
+      end
+    else
       flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
     redirect_to new_organisation_path
@@ -133,46 +133,46 @@ class OrganisationsController < ApplicationController
   
 
     @organisation = Organisation.find(params[:id])
-        type = @organisation.class.to_s.underscore
-      check_valid_date = params[type.to_sym][:registered_date].blank? ? true : valid_date(params[type.to_sym][:registered_date])
+    type = @organisation.class.to_s.underscore
+    check_valid_date = params[type.to_sym][:registered_date].blank? ? true : valid_date(params[type.to_sym][:registered_date])
     if check_valid_date
 
 
-    Image.transaction do
-      unless params[:image].nil?
-        @image = Image.new(params[:image])
-        if @image.save
-          @organisation.image.destroy unless @organisation.image.nil?
-          @organisation.image = @image
-        else
-          flash[:warning] = "There Was an Error to Save the Selected Image"
+      Image.transaction do
+        unless params[:image].nil?
+          @image = Image.new(params[:image])
+          if @image.save
+            @organisation.image.destroy unless @organisation.image.nil?
+            @organisation.image = @image
+          else
+            flash[:warning] = "There Was an Error to Save the Selected Image"
+          end
         end
       end
-    end
 
-    @organisation.update_attributes(params[type.to_sym])
-    if @organisation.class.to_s != "ClientOrganisation" && @organisation.level != params[:organisation][:level].to_i  #destroy the source and related organisation relationship if they change the organisation level
-      @source = OrganisationRelationship.find_by_source_organisation_id(@organisation.id) #to find the source relationship
-      @relate = OrganisationRelationship.find_by_related_organisation_id(@organisation.id) #to find the related relationship
+      @organisation.update_attributes(params[type.to_sym])
+      if @organisation.class.to_s != "ClientOrganisation" && @organisation.level != params[:organisation][:level].to_i  #destroy the source and related organisation relationship if they change the organisation level
+        @source = OrganisationRelationship.find_by_source_organisation_id(@organisation.id) #to find the source relationship
+        @relate = OrganisationRelationship.find_by_related_organisation_id(@organisation.id) #to find the related relationship
     
-      @source.destroy unless @source.nil?
-      @relate.destroy unless @relate.nil?
-      @organisation.level = params[:organisation][:level]
+        @source.destroy unless @source.nil?
+        @relate.destroy unless @relate.nil?
+        @organisation.level = params[:organisation][:level]
 
-      @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
-    end
-    @organisation.save
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
-    flash[:warning] = "Organisation Update Has NOT been Submitted Due to Data Errors" unless @organisation.save
-
-
-    flash[:message] = "#{@organisation.full_name}'s Details Have been Updated Successfully." unless !flash[:warning].nil?
-     else
-      flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+        @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
       end
+      @organisation.save
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
+      flash[:warning] = "Organisation Update Has NOT been Submitted Due to Data Errors" unless @organisation.save
+
+
+      flash[:message] = "#{@organisation.full_name}'s Details Have been Updated Successfully." unless !flash[:warning].nil?
+    else
+      flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
 
     
-      if(params[:installation])
+    if(params[:installation])
       flash[:message] = "Client Organisation - #{@organisation.full_name}'s information was initialized successfully."
       redirect_to :controller => :client_setups, :action => :client_organisation
     else
@@ -260,40 +260,15 @@ class OrganisationsController < ApplicationController
   end
 
   def show_list
-    @list_header = ListHeader.find(session[:current_org_list_id])
-    @organisations = @list_header.entity_on_list.uniq
+    #org show
+    # @list_header = ListHeader.find(session[:current_org_list_id])
+    # @organisations = @list_header.entity_on_list.uniq
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
-#    ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-#      i.destroy
-#    end
-
-#    @organisations.each do |organisations|
-#
-#      @solg = ShowOrganisationListGrid.new
-#      @solg.login_account_id = session[:user]
-#      @solg.grid_object_id = organisations.id
-#      if organisations.to_be_removed
-#      @solg.field_1 = "<span class='red'>"+organisations.full_name+"</span>"
-#      @solg.field_2 = "<span class='red'>"+organisations.short_name+"</span>"
-#      @solg.field_3 = "<span class='red'>"+organisations.primary_address.first_line+"</span>" unless organisations.primary_address.blank?
-#      @solg.field_4 = "<span class='red'>"+organisations.primary_phone.value+"</span>" unless organisations.primary_phone.blank?
-#      @solg.field_5 = "<span class='red'>"+organisations.primary_email.address+"</span>" unless organisations.primary_email.blank?
-#      else
-#      @solg.field_1 = organisations.status ? organisations.full_name : "<span class='gray'>"+organisations.full_name+"</span>"
-#      @solg.field_2 = organisations.status ? organisations.short_name : "<span class='gray'>"+organisations.short_name+"</span>"
-#      @solg.field_3 = organisations.status ? organisations.primary_address.first_line : "<span class='gray'>"+organisations.primary_address.first_line+"</span>" unless organisations.primary_address.blank?
-#      @solg.field_4 = organisations.status ? organisations.primary_phone.value : "<span class='gray'>"+organisations.primary_phone.value+"</span>" unless organisations.primary_phone.blank?
-#      @solg.field_5 = organisations.status ? organisations.primary_email.address : "<span class='gray'>"+organisations.primary_email.address+"</span>" unless organisations.primary_email.blank?
-#      end
-#      @solg.save
-#
-#
-#
-#      end
-
-
     @current_operation = params[:current_operation]
+    session[:active_tab]= params[:active_tab]
+    session[:active_sub_tab] = params[:active_sub_tab]
+    session[:current_operation] = params[:current_operation]
     respond_to do |format|
       format.js
     end
@@ -301,6 +276,9 @@ class OrganisationsController < ApplicationController
 
   #organisation grid show left part
   def show_left
+    params[:organisation_id] =  params[:param1] if params[:param1]
+    params[:current_operation]= session[:current_operation]
+
     @list_headers = @current_user.all_organisation_lists
     @list_header = ListHeader.find(session[:current_org_list_id])
     
@@ -311,8 +289,10 @@ class OrganisationsController < ApplicationController
     @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
     session[:current_org_list_id] = @list_header.id
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
+    #    @active_tab = params[:active_tab]
+    #    @active_sub_tab = params[:active_sub_tab]
+    @active_tab = session[:active_tab]
+    @active_sub_tab = session[:active_sub_tab]
     @client_setup = ClientSetup.first
     @check_field = Array.new
     
@@ -497,6 +477,30 @@ class OrganisationsController < ApplicationController
     end
   end
 
+
+  def show_album
+
+    respond_to do |format|
+
+      format.js
+    end
+  end
+
+  def show_grid
+    @organisation = Organisation.find(session[:current_person_id])
+    @list_header = ListHeader.find(session[:current_list_id])
+
+    #    @render_page = params[:render_page]
+    #    @field = params[:field]
+
+
+
+    respond_to do |format|
+
+      format.js
+    end
+
+  end
 
 
 end
