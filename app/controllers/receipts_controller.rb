@@ -49,12 +49,8 @@ class ReceiptsController < ApplicationController
     @deposit= Deposit.find(params[:receipt][:deposit_id])
     if params[:receipt][:entity_id]
       @entity = params[:receipt][:entity_type].camelize.constantize.find(params[:receipt][:entity_id]) rescue @entity = nil
-      puts "***********8"
-      puts @entity
     else
-      puts "11111111111111"
       @entity = @deposit.entity
-      puts @entity
     end
 
     if @entity.nil?
