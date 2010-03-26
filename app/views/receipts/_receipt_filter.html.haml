@@ -1,0 +1,35 @@
+- form_tag('/receipts/filter',:class => "ajax_form", :id => "receipt_filter_form", :submit_button_id => "filter_submit_button") do
+  .full_container
+    .form_line
+      .field_10
+        %label &nbsp;
+        %h2 Filter By 
+      .field_15
+        %label Start Date
+        %input{:id => "filter_start_date", :class => "startdatepick", :end_date => "filter_end_date", :value => "01-01-#{Date.today().year()}", :name => "start_date"}
+      .field_15
+        %label End Date
+        %input{:id => "filter_end_date", :class => "enddatepick", :start_date => "filter_start_date", :value => "31-12-#{Date.today().year()}", :name => "end_date"}
+      .field_10
+        %label Receipt Account
+        %select{:name => "receipt_account_id",:id => "receipt_account_id"}
+          %option{:value => "0"}All
+          -for i in @receipt_accounts
+            %option{:value => "#{i.id}"} #{i.name}
+      .field_10
+        %label Campaign
+        %select{:name => "campaign_id",:id => "campaign_id"}
+          %option{:value => "0"}All
+          -for i in @campaign
+            %option{:value => "#{i.id}"} #{i.name}
+
+      .field_10
+        %label Source
+        %select{:name => "source_id",:id => "source_id"}
+          %option{:value => "0"}All
+          -for i in @source
+            %option{:value => "#{i.id}"} #{i.name}
+
+      .field_15{:style => "float:right;"}
+        %label &nbsp;
+        = button_to_function "Filter", :class => "fake_submit_button", :form_id => "receipt_filter_form", :id => "filter_submit_button", :style => "float:right;"

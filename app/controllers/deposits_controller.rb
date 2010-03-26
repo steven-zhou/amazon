@@ -141,6 +141,12 @@ class DepositsController < ApplicationController
     @field = params[:field]
     @start_date = "01-01-#{Date.today().year().to_s}"
     @end_date = "31-12-#{Date.today().year().to_s}"
+
+    if params[:field]=="receipt_histroy_page"
+    @receipt_accounts = ReceiptAccount.active
+    @campaign = Campaign.active_campaign
+    @source = Source.active_source
+    end
     if @field == "histroy_page"
       @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
     end
