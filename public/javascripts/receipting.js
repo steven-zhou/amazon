@@ -241,12 +241,12 @@ $(function(){
   });
 });
 
-//transaction histroy export
+//deposit histroy export
 $(function(){
   $('#export_to_pdf_button').live('click',function(){
     var start_date = $("#filter_start_date").val();
     var end_date = $("#filter_end_date").val();
-    window.open("/transaction_headers/export_histroy_to_report.pdf?start_date="+start_date+"&end_date="+end_date);
+    window.open("/deposits/export_histroy_to_report.pdf?start_date="+start_date+"&end_date="+end_date);
   });
 });
 
