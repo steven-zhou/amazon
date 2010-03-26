@@ -2,9 +2,9 @@
 <%- if @date_valid && flash[:error].nil?%>
     $("#receipt_histroy" ).show().html('<%= escape_javascript(render(:partial => "receipts/receipts_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
     <%- if @count == 0%>
-      $('#export_to_pdf_button').attr('disabled',true).hide();
+      $('#receipt_export_to_pdf_button').attr('disabled',true).hide();
     <%- else %>
-      $('#export_to_pdf_button').removeAttr('disabled').show();
+      $('#receipt_export_to_pdf_button').removeAttr('disabled').show();
     <%- end %>
 
 <%- else %>

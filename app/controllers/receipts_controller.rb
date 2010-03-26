@@ -291,14 +291,20 @@ class ReceiptsController < ApplicationController
         generate_html("receipt_enquiry", "receipts/receipt_enquiry_result", "receipt_enquiry_result")        
       end
     end
-    puts "*******88888"
-    puts [conditions.join(' AND '), *values]
-    puts @count
-    puts @date_valid
+
     respond_to do |format|
       format.js
     end
   end
+
+  def show_pdf
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result","")
+
+  
+    respond_to do |format|
+      format.pdf {send_file("public/temp/#{@current_user.user_name}/receipt_enquiry/receipt_enquiry_result.pdf", :filename => "receipt_enquiry_result.pdf", :type => "application/pdf")}
+    end
+ end
 
   
 end
