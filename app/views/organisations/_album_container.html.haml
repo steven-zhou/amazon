@@ -1,0 +1,16 @@
+.right
+  =link_to_function image_tag('Icons/Core/Person/tabs/notes_BW.png'), :class => "show_album", :page_show => "grid", :url => "/organisations/show_grid"
+%br.clear
+.container{:style => "height:445px;overflow:auto;"}
+  #album{:style => "margin: 5px auto;float:left;width:100%;"}
+    =render :partial => "/organisations/album_wall"
+  %br.clear
+
+#album_control_panel
+  .container{:style => "height:45px;display:none;",:id => "quick_search_bar"}
+    #album_search{:style => "margin:auto 12px;"}
+      = render :partial => "organisations/album_search"
+  .container{:style => "height:40px;"}
+    #album_footer{:style => "margin:auto 12px;"}
+      =render :partial => "organisations/album_footer"
+

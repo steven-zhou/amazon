@@ -457,22 +457,17 @@ class PeopleController < ApplicationController
   end
 
   def show_list
-
+  # people show
     @person = Person.find(params[:person_id]) rescue @person = Person.find(session[:current_person_id])
     @list_header = ListHeader.find(session[:current_list_id])
     @active_tab = params[:active_tab]
     @active_sub_tab = params[:active_sub_tab]
     @current_operation = params[:current_operation]
     #----use for the pop window
-
     session[:active_tab]= params[:active_tab]
     session[:active_sub_tab] = params[:active_sub_tab]
     session[:current_operation] = params[:current_operation]
-    #session[:current_person_id]
-    #session[:current_list_id]
-
-    session
-
+ 
     respond_to do |format|
       format.js
     end
@@ -798,17 +793,6 @@ class PeopleController < ApplicationController
   end
 
   def show_album
-
-
-    #    @person = Person.find(session[:current_person_id])
-    #    @list_header = ListHeader.find(session[:current_list_id])
-    #
-    #    @active_tab = params[:active_tab]
-    #    @active_sub_tab = params[:active_sub_tab]
-    #
-    #    @current_operation = params[:params2]
-    #    @render_page = params[:render_page]
-    #    @field = params[:field]
 
     respond_to do |format|
 

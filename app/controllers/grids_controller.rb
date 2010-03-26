@@ -1106,14 +1106,9 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    #    @active_tab = session[:active_tab]
-    #    @active_sub_tab = params[:active_sub_tab]
-    #
-    #    @current_operation = params[:current_operation]
     @render_page = params[:render_page]
     @field = params[:field]
-    @list_header = ListHeader.find(session[:current_list_id])
-    
+    @list_header = ListHeader.find(session[:current_list_id])    
     @active_tab = session[:active_tab]
     @active_sub_tab =  session[:active_sub_tab]
     @current_operation = session[:current_operation]
@@ -1129,17 +1124,19 @@ class GridsController < ApplicationController
       page = 1
     end
 
-    #show album----------------------------------------------------------
-    if params[:page_show] == "album"
-      page = 1 if (page == 0)
-       query = "" if !(query)
-       qtype = ""if !(qtype)
-    end
-
     if (!rp || rp == 0)
       rp = 10
     end
+
+    #show album----------------------------------------------------------
+    if params[:page_show] == "album"
+      page = 1 if (page == 0)
+      query = "" if !(query)
+      qtype = ""if !(qtype)
+    end
     @query = query
+
+    
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
@@ -1202,8 +1199,12 @@ class GridsController < ApplicationController
       @sortname = sortname
       @qtype = qtype
       
-      
-
+      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
+      puts"-page---debug----#{@page.to_yaml}"
+      puts"-rp---debug----#{@rp.to_yaml}"
+      puts"-@sortname---debug----#{@sortname.to_yaml}"
+      puts"-@qtype---debug----#{@qtype.to_yaml}"
+      puts"-@query---debug----#{@query.to_yaml}"
       render '/people/show_album.js'
 
     else
@@ -1241,6 +1242,9 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
     @list_header = ListHeader.find(session[:current_org_list_id])
+    @active_tab = session[:active_tab]
+    @active_sub_tab =  session[:active_sub_tab]
+    @current_operation = session[:current_operation]
     if (!sortname)
       sortname = "id"
     end
@@ -1253,23 +1257,20 @@ class GridsController < ApplicationController
       page = 1
     end
 
-    if (!rp)
+    if (!rp || rp == 0)
       rp = 10
     end
 
+    #show album----------------------------------------------------------
+    if params[:page_show] == "album"
+      page = 1 if (page == 0)
+      query = "" if !(query)
+      qtype = ""if !(qtype)
+    end
+    @query = query
+
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
-
-    # No search terms provided
-    #    if(query == "%%")
-    #      @organisation = ShowOrganisationListGrid.find(:all,
-    #        :conditions => ["login_account_id = ?", session[:user]],
-    #        :order => sortname+' '+sortorder,
-    #        :limit =>rp,
-    #        :offset =>start
-    #      )
-    #      count = ShowOrganisationListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-    #    end
     if(query == "%%")
       @organisation = Organisation.find(:all,
         :conditions => ["id IN (?)",@list_header.entity_on_list],
@@ -1291,18 +1292,53 @@ class GridsController < ApplicationController
       count = Organisation.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
     end
 
-    # Construct a hash from the ActiveRecord result
-    return_data = Hash.new()
-    return_data[:page] = page
-    return_data[:total] = count
-    return_data[:rows] = @organisation.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.full_name,
-          u.short_name,
-          u.primary_phone_num,
-          u.primary_email_address]}}
-    # Convert the hash to a json object
-    render :text=>return_data.to_json, :layout=>false
+
+    if params[:page_show] == "album"
+
+      @entities = Array.new
+      @organisation.each do |i|
+        @entities << Organisation.find(i.id)
+      end
+      @count = count
+      @page = page
+      if @count/rp == 0
+        @last_page = 1
+        @total_pages = @last_page
+      elsif @count/rp !=0 && @count%rp != 0
+        @last_page = @count/rp + 1
+        @total_pages = @last_page
+      elsif @count/rp !=0 && @count%rp == 0
+        @last_page = @count/rp
+        @total_pages = @last_page
+      end
+      
+      @rp = rp
+      @sortname = sortname
+      @qtype = qtype
+      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
+      puts"-page---debug----#{@page.to_yaml}"
+      puts"-rp---debug----#{@rp.to_yaml}"
+      puts"-@sortname---debug----#{@sortname.to_yaml}"
+      puts"-@qtype---debug----#{@qtype.to_yaml}"
+      puts"-@query---debug----#{@query.to_yaml}"
+      
+      render '/organisations/show_album.js'
+
+    else
+
+      # Construct a hash from the ActiveRecord result
+      return_data = Hash.new()
+      return_data[:page] = page
+      return_data[:total] = count
+      return_data[:rows] = @organisation.collect{|u| {:id => u.id,
+          :cell=>[u.id,
+            u.full_name,
+            u.short_name,
+            u.primary_phone_num,
+            u.primary_email_address]}}
+      # Convert the hash to a json object
+      render :text=>return_data.to_json, :layout=>false
+    end
   end
 
   def show_person_lookup_grid
@@ -2448,6 +2484,7 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
   end
+
 
   def show_existing_extensions_grid
 

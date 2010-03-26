@@ -3193,7 +3193,8 @@ $(function(){
       $('#save_form').dialog('open');
       $("#save_form").parent().css('background-color','#D1DDE6');
       $("#save_form").css('background-color','#D1DDE6');
-    }else{
+    }
+    else{
       $('#edit_query_header').doAjaxSubmit();
     }
   });
@@ -3206,7 +3207,8 @@ $(function(){
     temp += 'id=' + $("#query_header_id").val();
     if($("#query_top_number").attr("checked")==true){
       temp += "&top=number&top_number=" + $("#query_top_value").val();
-    }else{
+    }
+    else{
       temp += "&top=percent&top_percent=" + $("#query_top_value").val();
     }
     $.ajax({
@@ -3295,7 +3297,8 @@ $(function(){
     if ($("#query_criteria_value").attr("readonly")==false){
       $("#query_criteria_value").val("?");
       $("#query_criteria_value").attr("readonly", true);
-    }else{
+    }
+    else{
       $("#query_criteria_value").val("");
       $("#query_criteria_value").attr("readonly", false);
     }
@@ -3875,46 +3878,84 @@ $(function(){
   });
 });
 
-
+// user in search_list_result table--for first change to image
 $(function(){
   $(".show_album").live('click', function(){
-    $('#show_grid_album_page').html("<div class='spinner'></div>");
+
     var link = $(this);
-    var url = link.attr('url')
+    var page_show = link.attr('page_show');
+    var url = link.attr('url');
+    var page = link.attr('page');
+    if(link.attr('prev')=="grid"){
+      var sortname = "id";
+      var rp = 10;
+      var qtype ="";
+      var query = "";
 
+    }else{
+   
+    
+      var sortname = $('#album_sortname').val();
+      var rp = $('#album_rp').val();
+      var qtype = $('#album_qtype').val();
+      var query = $('#album_query').val();
 
+    }
+    if (qtype == "id"){
+      query = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(query)? query : "";
+
+    }
+    $('#show_grid_album_page').html("<div class='spinner'></div>");
     $.ajax({
       type: "GET",
       url: url,
-      data:'page_show=' + link.attr('page_show')+'&page='+link.attr('page'),
-      // + '&login_account_id=' + $("#login_account_id").val()+'&type=org',
+      data:'page_show='+page_show+'&page='+page+'&sortname='+sortname+'&rp='+rp+'&qtype='+qtype+'&query='+query,
       dataType: "script"
     });
-
-
   });
 });
 
+//main function for album control panel
+album_page_load = function(link){
 
-album_page_load = function(){
-
-  var link = $(this);
-  var url = link.attr('url')
+ 
+  
+  var link_id = link.attr('id');
   var page = $('#album_page').val();
   var sortname = $('#album_sortname').val();
   var rp = $('#album_rp').val();
   var qtype = $('#album_qtype').val();
   var query = $('#album_query').val();
-  if (qtype == "id"){
-   query = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(query)? query : "";
+  var total_page = $('#album_total_page').val();
+  
 
+
+  if (parseInt(page) > parseInt(total_page)){
+    page = total_page
   }
 
+  if ($('#album_page').attr('page_class')== "organisation"){
+
+    url = "/grids/show_organisation_list_grid"
+  }else{
+
+    url = "/grids/show_list_grid"
+  }
+
+  if (qtype == "id"){
+    query = /^-?(?:\d+|\d{1,3}(?:,\d{3})+)(?:\.\d+)?$/.test(query)? query : "";
+
+  }
+  if (link_id == "album_rp" || link_id == "album_search_start"){
+    page=1
+  }
+  //  alert(link_id)
+  // alert(page)
   $('#show_grid_album_page').html("<div class='spinner'></div>");
 
   $.ajax({
     type: "GET",
-    url: "/grids/show_list_grid",
+    url: url,
     data:'page_show=album'+'&page='+page+'&sortname='+sortname+'&rp='+rp+'&qtype='+qtype+'&query='+query,
     dataType: "script"
   });
@@ -3927,7 +3968,7 @@ album_page_load = function(){
 
 $(function(){
   $(".album_page_load").live('change', function(){
-    album_page_load();
+    album_page_load($(this));
   });
 
 });
@@ -3935,7 +3976,9 @@ $(function(){
 
 $(function(){
   $(".album_page_load_click").live('click', function(){
-    album_page_load();
+
+   
+    album_page_load($(this));
   });
 
 });
@@ -3951,6 +3994,7 @@ $(document).ready(function(){
     });
 
   $('#quick_search_toggle').live('click', function(){
+    $('#album_query').val('');
     $('#quick_search_bar').slideToggle("slow");
     
   });
@@ -3961,7 +4005,7 @@ $(document).ready(function(){
 $(function(){
   $(".album_click").live('click', function(){
 
- //  $(".album_click").removeClass('album_click');
+    //  $(".album_click").removeClass('album_click');
     var link = $(this);
     var url = link.attr('url')
 
