@@ -45,6 +45,15 @@ class ReceiptsController < ApplicationController
     end
   end
 
+
+  def show
+   @receipt = Receipt.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
   def create
     @deposit= Deposit.find(params[:receipt][:deposit_id])
     if params[:receipt][:entity_id]
@@ -210,16 +219,21 @@ class ReceiptsController < ApplicationController
   def filter
     @date_valid = true
     conditions = Array.new
-    conditions << "entity_type = ?"
+    values = Array.new
+    query_conditions = Array.new
+    conditions << "receipts.entity_type =?"
     values << session[:entity_type]
-    conditions << "entity_id = ?"
+    conditions << "receipts.entity_id = ?"
     values << session[:entity_id]
+    conditions << "receipt_account_id Is Not Null"
+
+
     if valid_date(params[:start_deposit_date]) && valid_date(params[:end_deposit_date])
       if (!params[:start_deposit_date].blank? || !params[:end_deposit_date].blank?)
         params[:start_deposit_date] = "01-01-#{Date.today().year().to_s}"if params[:start_deposit_date].blank?
         params[:end_deposit_date] = "31-12-#{Date.today().year().to_s}"if params[:end_deposit_date].blank?
-        conditions << ("deposits.start_deposit_date=" + params[:start_deposit_date])
-        conditions << ("deposits.end_deposit_date=" + params[:end_deposit_date])
+        query_conditions << ("start_deposit_date=" + params[:start_deposit_date])
+        query_conditions << ("end_deposit_date=" + params[:end_deposit_date])
       end
       @date_valid = true
     else
@@ -227,24 +241,56 @@ class ReceiptsController < ApplicationController
       flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
 
+
+
+    if params[:start_deposit_date]
+      conditions << "deposits.deposit_date >= ?"
+      values << params[:start_deposit_date].to_date
+    end
+    if params[:end_deposit_date]
+      conditions << "deposits.deposit_date <= ?"
+      values << params[:end_deposit_date].to_date
+    end
     if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
-      conditions << ("receipt_account_id=" + params[:receipt_account_id])
+      conditions << "receipt_account_id = ?"
+      values << params[:receipt_account_id]
+    end
+    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
+      conditions << "campaign_id = ?"
+      values << params[:campaign_id]
+    end
+    if (params[:source_id] && params[:source_id].to_i!= 0)
+      conditions << "source_id = ?"
+      values << params[:source_id]
+    end
+
+
+    query_conditions << ("receipts.entity_type=#{session[:entity_type]}")
+    query_conditions << ("receipts.entity_id=#{session[:entity_id]}")
+    
+    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
+      query_conditions << ("receipt_account_id=" + params[:receipt_account_id])
     end
 
     if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
-      conditions << ("campaign_id=" + params[:campaign_id])
+      query_conditions << ("campaign_id=" + params[:campaign_id])
     end
 
     if (params[:source_id] && params[:source_id].to_i!= 0)
-      conditions << ("source_id=" + params[:source_id])
+      query_conditions << ("source_id=" + params[:source_id])
     end
 
-    @query = conditions.join('&').delete("deposits.")
+
+    @query = query_conditions.join('&').gsub("receipts.","")
     if @date_valid
       @count = Receipt.count(:all,
         :conditions => [conditions.join(' AND '), *values],
         :include => ["deposit"])
     end
+    puts "*******88888"
+    puts [conditions.join(' AND '), *values]
+    puts @count
+    puts @date_valid
     respond_to do |format|
       format.js
     end

@@ -1,12 +1,12 @@
 .full_container
   %h2 Receipts
 
-  %table#show_receipts_grid.selectable_grid{:db_click_function => 'true', :field => 'histroy', :db_show => 'true', :db_click_url => "/deposits/"}
+  %table#show_receipts_grid.selectable_grid{:db_click_function => 'true', :field => 'receipt_histroy', :db_show => 'true', :db_click_url => "/receipts/"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     $("#show_receipts_grid").flexigrid({
-    url: '/grids/show_receipts_grid?#{@query}',
+    url: "/grids/show_receipts_grid?#{@query}",
     dataType: 'json',
     colModel : [
     {
@@ -54,9 +54,6 @@
     align: 'left'
     }
 
-    ],
-    searchitems : [
-    
     ],
     sortname: "receipts.id",
     sortorder: "asc",

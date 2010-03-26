@@ -2617,9 +2617,9 @@ class GridsController < ApplicationController
 
     conditions = Array.new
     values = Array.new
-    conditions << "entity_type = ?"
+    conditions << "receipts.entity_type = ?"
     values << params[:entity_type]
-    conditions << "entity_id = ?"
+    conditions << "receipts.entity_id = ?"
     values << params[:entity_id]
     conditions << "receipt_account_id Is Not Null"
     if params[:start_deposit_date]
@@ -2679,14 +2679,16 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.deposit.deposit_date.to_s,
+
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
           u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
           u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
-          u.letter_id.nil? ? "" : u.letter_id,
+          u.deposit.deposit_date.to_s,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
+    
         ]}}
     # Convert the hash to a json object
+
     render :text=>return_data.to_json, :layout=>false
 
   end
