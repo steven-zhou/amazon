@@ -241,9 +241,13 @@ class ReceiptsController < ApplicationController
 
     @query = conditions.join('&').delete("deposits.")
     if @date_valid
-      @count = Receipt.count(:all,
+      @receipts = Receipt.find(:all,
         :conditions => [conditions.join(' AND '), *values],
         :include => ["deposit"])
+      @count = @receipts.size
+      if @count > 0
+        generate_html("receipt_enquiry", "receipts/receipt_enquiry_result", "receipt_enquiry_result")        
+      end
     end
     respond_to do |format|
       format.js
