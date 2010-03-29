@@ -3,36 +3,17 @@ class ReceiptsController < ApplicationController
 
   def new    
     @deposit = Deposit.find(params[:param1])
-
-    @receipt = Receipt.new
-
-
+    @receipt = EntityReceipt.new
     respond_to do |format|
       format.js
     end
   end
 
-  def edit
-    @receipt = Receipt.find(params[:id])
-    respond_to do |format|
-      format.js
-    end
-  end
-
-
-  def show
-    @receipt = Receipt.find(params[:id])
-    respond_to do |format|
-      format.js
-    end
-
-  end
 
   def create
     @deposit= Deposit.find(params[:receipt][:deposit_id])
     if params[:receipt][:entity_id]
       @entity = params[:receipt][:entity_type].camelize.constantize.find(params[:receipt][:entity_id]) rescue @entity = nil
-
     end
 
     if @entity.nil?
@@ -81,49 +62,6 @@ class ReceiptsController < ApplicationController
   end
 
   
-  
-
-#  def update
-#    @receipt = Receipt.find(params[:id])
-#    @entity = @receipt.entity
-#    if @receipt.update_attributes(params[:receipt])
-      #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated the details for Transaction Allocation with ID #{@transaction_allocation.id}.")
-#    else
-      #system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to update a transaction allocation record.")
-#      #----------------------------presence - of------------------
-#      if(!@receipt.errors[:receipt_account_id].nil? && @receipt.errors.on(:receipt_account_id).include?("can't be blank"))
-#        flash.now[:error] = "Please Enter All Required Data"
-#      elsif(!@receipt.errors[:amount].nil? && @receipt.errors.on(:amount).include?("can't be blank"))
-#        flash.now[:error] = "Please Enter All Required Data"
-#      else
-#        flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
-#      end
-#    end
-#    #    @transaction_header_id = @transaction_allocation.transaction_header_id
-#
-#    #    @transaction_header = @receipt.deposit
-#    #    @transaction_allocations = @transaction_header.transaction_allocations
-#    #    @transaction_allocation_value = 0
-#    #    @transaction_allocations.each do |transaction_transaction|
-#    #      @transaction_allocation_value += transaction_transaction.amount.to_f
-#    #    end
-#    #    @transaction_header.update_attribute(:total_amount,@transaction_allocation_value )
-#
-#
-#
-#    @deposit= Deposit.find(@receipt.deposit_id)
-#    @receipts = @deposit.receipts
-#    @receipt_value = 0
-#    @receipts.each do |r|
-#      @receipt_value += r.amount.to_f
-#    end
-#
-#    @deposit.update_attribute(:total_amount,@receipt_value )
-#    respond_to do |format|
-#      format.js
-#    end
-#  end
-
 
   def extention_name_finder
 

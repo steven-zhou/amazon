@@ -151,7 +151,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :religions,:collection =>{:retrieve_religion=>:get}
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
   map.resources :deposits, :collection => {:page_initial => :get, :export_histroy_to_report => :get,:enquiry_show_receipt_type => :get, :run => :get}
-  map.resources :receipts, :collection => {:destroy_extension => :get, :show_extension_receipts => :get,:show_pdf=>:get}
+  map.resources :entity_receipts
   map.resources :receipt_allocations
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
