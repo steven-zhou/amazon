@@ -4,6 +4,7 @@ namespace :db do
     puts "Run Patch all membership_status ..."
     MembershipSubStatus.all.each do |i|
       i.destroy
+
     end
 
     MembershipStatus.all.each do |i|
