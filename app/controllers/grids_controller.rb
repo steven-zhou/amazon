@@ -2609,20 +2609,21 @@ class GridsController < ApplicationController
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = Receipt.count(:all,
+      count = ReceiptAllocation.count(:all,
         :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
         :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
     if(query != "%%")
-      @receipts = Receipt.find(:all,
+      @receipt_allocations = ReceiptAllocation.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
+        :conditions=>[qtype +" ilike ? AND entity_receipt_id = ?", query, params[:entity_receipt_id]],
         :include => ["campaign", "receipt_account", "source"])
-      count = Receipt.count(:all, :conditions=>[qtype +" ilike ? AND deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", query, params[:deposit_id],params[:entity_id],params[:entity_type]],
+      count = ReceiptAllocation.count(:all,
+        :conditions=>[qtype +" ilike ? AND entity_receipt_id = ?", query, params[:entity_receipt_id]],
         :include => ["campaign", "receipt_account", "source"])
     end
 
@@ -2630,7 +2631,7 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
+    return_data[:rows] = @receipt_allocations.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
           u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),

@@ -16,15 +16,9 @@ class DepositsController < ApplicationController
   def edit
     @deposit = Deposit.find(params[:id])
     @entity = @deposit.entity
-
-
-
-    #    @field ="edit_deposit"
     @cheque_detail = @deposit.cheque_detail rescue @cheque_detail = ChequeDetail.new
     @credit_card_detail = @deposit.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new
     @receipts = @deposit.entity_receipts
-
-
     respond_to do |format|
       format.js
     end
@@ -47,7 +41,6 @@ class DepositsController < ApplicationController
           @deposit_detail.deposit_id = @deposit.id
           @deposit_detail.save
         end      
-#        @deposit.update_attribute("receipt_number", @deposit.id)
 
       else
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new deposit record.")
@@ -71,8 +64,7 @@ class DepositsController < ApplicationController
     end
 
     @deposit_id = @deposit.id
-    @receipt = Receipt.new
-    @first_time = true
+    @receipt = EntityReceipt.new
     respond_to do |format|
       format.js
     end
