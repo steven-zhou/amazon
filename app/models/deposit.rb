@@ -22,6 +22,8 @@ class Deposit < ActiveRecord::Base
   #reg ex for date format with mm/dd/yyyy
   #validates_format_of :deposit_date, :with => /^(((0?[1-9]|1[012])\-(0?[1-9]|1\d|2[0-8])|(0?[13456789]|1[012])\-(29|30)|(0?[13578]|1[02])\-31)\-(19|[2-9]\d)\d{2}|0?2\-29\-((19|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00)))$/
 
+  before_update :update_total_amount
+
   private
   def self.first_record
     Deposit.first
@@ -29,5 +31,13 @@ class Deposit < ActiveRecord::Base
 
   def self.last_record
     Deposit.last
+  end
+
+  def update_total_amount
+    t = 0
+    self.entity_receipts.each do |i|
+      t += i.amount.to_f
+    end
+    self.total_amount = t
   end
 end

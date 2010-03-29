@@ -2628,7 +2628,6 @@ class GridsController < ApplicationController
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
           u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
           u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
-          u.letter_id.nil? ? "" : u.letter_id,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object

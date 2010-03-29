@@ -28,12 +28,20 @@ class ReceiptAllocationsController < ApplicationController
         flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
       end
     end
+    
+    #update entity receipt total amount
+    @entity_receipt = @receipt_allocation.entity_receipt
+    entity_value = 0
+    @entity_receipt.receipt_allocations.each do |i|
+      entity_value += i.amount.to_f
+    end
+    @entity_receipt.update_attribute(:amount, entity_value)
+
+    #update deposit total amount
     @receipt_value = 0
-    @deposit = @receipt_allocation.entity_receipt.deposit
+    @deposit = @entity_receipt.deposit
     @deposit.entity_receipts.each do |e|
-      e.receipt_allocations.each do |r|
-        @receipt_value += r.amount.to_f
-      end
+      @receipt_value += e.amount.to_f
     end
 
     respond_to do |format|
