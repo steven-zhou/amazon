@@ -1,6 +1,6 @@
 $('#add_new_receipt').css('display','none');
 $('#edit_receipt').css('display', '');
-$('#edit_receipt_form').html('<%= escape_javascript(render(:partial => "/receipts/edit_receipt_form")) %>');
+$('#edit_receipt_form').html('<%= escape_javascript(render(:partial => "/receipt_allocations/edit_receipt_form")) %>');
 $('#receipt_mode').attr('mode', 'edit');
 $('.close_option[field="receipt"]').css("display","");
 

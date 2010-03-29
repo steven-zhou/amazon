@@ -6,7 +6,7 @@
         %option{:value => "Person", :selected => (@first_time && session[:entity_type]=="Person")} Person
         %option{:value => "Organisation", :selected => (@first_time && session[:entity_type]=="Organisation")} Organisation
       %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit.id}",:class =>"hidden"}
-      %input{:name=>"is_extension", :class =>"hidden"}
+      
     .field_40
       = f.label :entity_id, "<span class='asterisk'>*</span>Entity ID"
       = f.text_field :entity_id, :value => @first_time ? "#{session[:entity_id]}" : "", :class => "general_name_show compulsory_field", :id => "new_entity_id", :update_field => "new_entity_name", :input_field => "new_entity_id"
