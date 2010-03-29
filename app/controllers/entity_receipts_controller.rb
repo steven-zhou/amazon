@@ -21,9 +21,6 @@ class EntityReceiptsController < ApplicationController
     else    
       @receipt = @entity.entity_receipts.new(params[:entity_receipt])
 
-      puts "****************"
-      puts @receipt
-      puts @entity
       
       if @receipt.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt with ID #{@receipt.id}.")
@@ -51,13 +48,19 @@ class EntityReceiptsController < ApplicationController
 
 
   def destroy
-    p = params[:id].split("-")
-    @entity = p[0].camelize.constantize.find(p[1])
-    @deposit = Deposit.find(p[2])
-    @receipts = @entity.receipts.find(:all, :conditions => ["deposit_id = ?", @deposit.id])
-    @receipts.each do |i|
-      i.destroy
+    @entity = EntityReceipt.find(params[:id])
+    @deposit = @entity.deposit
+    @entity.destroy
+
+
+ #for re-calculate the total amount of the receipt
+    receipt_value = 0
+    @entity.receipt_allocations.each do |r|
+      receipt_value += r.amount.to_f
     end
+  
+    @deposit.update_attribute(:total_amount, receipt_value)
+
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted extension.")
 

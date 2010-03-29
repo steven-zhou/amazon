@@ -9,8 +9,8 @@ $('.close_option[field="current"]').css("display","");
 
 
 
-$('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
-$('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
+$('#add_new_extension').html('<%= escape_javascript(render(:partial => "/entity_receipts/new_extension")) %>');
+$('#existing_extensions').html('<%= escape_javascript(render(:partial => "/entity_receipts/existing_extensions")) %>');
 
 $('.datepick').datepicker({
 showOn: 'button',
