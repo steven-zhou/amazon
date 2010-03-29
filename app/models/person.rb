@@ -83,7 +83,7 @@ class Person < ActiveRecord::Base
   has_many :suspended_memberships, :foreign_key => "suspended_by", :class_name => "Membership",:dependent => :destroy
   has_many :terminated_memberships, :foreign_key => "terminated_by", :class_name => "Membership",:dependent => :destroy
   has_many :deposits, :as => :entity, :dependent => :destroy
-  has_many :receipts, :as=> :entity, :dependent => :destroy
+  has_many :entity_receipts, :as=> :entity, :dependent => :destroy
 
 
 

@@ -5,11 +5,11 @@
   $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
   $('#temp_allocation_total_amount').show();
 
-  $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/receipts/new_extension")) %>');
+  $('#add_new_extension').html('<%= escape_javascript(render(:partial => "/entity_receipts/new_extension")) %>');
   $('.new_option[field="extension"]').hide();
   $('.close_option[field="extension"]').show();
-  $('#new_extension_form').show().html('<%= escape_javascript(render(:partial => "receipts/extension_form")) %>');
-  $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
+  $('#new_extension_form').show().html('<%= escape_javascript(render(:partial => "/entity_receipts/extension_form")) %>');
+  $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/entity_receipts/existing_extensions")) %>');
   
 <% else %>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
