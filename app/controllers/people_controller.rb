@@ -717,23 +717,20 @@ class PeopleController < ApplicationController
     @list_header = ListHeader.find(session[:current_list_id])
     @p = Array.new
     @p = @list_header.entity_on_list
-
-
-    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
-      i.destroy
-    end
-
-    @p.each do |person|
-      @slg = ShowListGrid.new
-      @slg.login_account_id = session[:user]
-      @slg.grid_object_id = person.id
-      @slg.field_1 = person.first_name
-      @slg.field_2 = person.family_name
-      @slg.field_3 = person.primary_address.first_line unless person.primary_address.blank?
-      @slg.field_4 = person.primary_phone.value unless person.primary_phone.blank?
-      @slg.field_5 = person.primary_email.address unless person.primary_email.blank?
-      @slg.save
-    end
+#    ShowListGrid.find_all_by_login_account_id(session[:user]).each do |i|
+#      i.destroy
+#    end
+#    @p.each do |person|
+#      @slg = ShowListGrid.new
+#      @slg.login_account_id = session[:user]
+#      @slg.grid_object_id = person.id
+#      @slg.field_1 = person.first_name
+#      @slg.field_2 = person.family_name
+#      @slg.field_3 = person.primary_address.first_line unless person.primary_address.blank?
+#      @slg.field_4 = person.primary_phone.value unless person.primary_phone.blank?
+#      @slg.field_5 = person.primary_email.address unless person.primary_email.blank?
+#      @slg.save
+#    end
     respond_to do |format|
       format.js
     end

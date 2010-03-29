@@ -1168,12 +1168,25 @@ class GridsController < ApplicationController
     #      count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     #    end
     if(query != "%%")
-      @people = Person.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
-      count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query, @list_header.entity_on_list])
+      if (qtype = "id" && @query != "")
+       
+      
+        @people = Person.find(:all,
+          :order => sortname+' '+sortorder,
+          :limit =>rp,
+          :offset =>start,
+          :conditions=>["id = ?", @query])
+        count = Person.count(:all, :conditions=>["id = ?", @query])
+        
+      else
+        @people = Person.find(:all,
+          :order => sortname+' '+sortorder,
+          :limit =>rp,
+          :offset =>start,
+          :conditions=> [qtype+"ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+        count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+      end
+     
     end
 
     if params[:page_show] == "album"
@@ -1199,12 +1212,12 @@ class GridsController < ApplicationController
       @sortname = sortname
       @qtype = qtype
       
-      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
-      puts"-page---debug----#{@page.to_yaml}"
-      puts"-rp---debug----#{@rp.to_yaml}"
-      puts"-@sortname---debug----#{@sortname.to_yaml}"
-      puts"-@qtype---debug----#{@qtype.to_yaml}"
-      puts"-@query---debug----#{@query.to_yaml}"
+      #      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
+      #      puts"-page---debug----#{@page.to_yaml}"
+      #      puts"-rp---debug----#{@rp.to_yaml}"
+      #      puts"-@sortname---debug----#{@sortname.to_yaml}"
+      #      puts"-@qtype---debug----#{@qtype.to_yaml}"
+      #      puts"-@query---debug----#{@query.to_yaml}"
       render '/people/show_album.js'
 
     else
