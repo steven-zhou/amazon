@@ -1,0 +1,8 @@
+.full_container
+  .options
+    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "receipt", :title=>"Close", :class => "close_option", :toggle_id_name => "new_transaction_allocation_form"
+  .title
+    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "receipt", :title => "New", :method => "GET", :url => "/receipts/new", :param1 => "#{@deposit.id}",:param3=>"#{@entity.class.base_class}-#{@entity.id}"
+    &nbsp;
+  %h2 New Allocation
+  #new_transaction_allocation_form{:style => "float:left;width:100%;"}
