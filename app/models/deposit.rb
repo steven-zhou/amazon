@@ -7,7 +7,7 @@ class Deposit < ActiveRecord::Base
   belongs_to :received_via
   belongs_to :bank_run
      
-  has_many :receipts, :dependent => :destroy
+  has_many :entity_receipts, :dependent => :destroy
   has_one :deposit_detail, :dependent => :destroy
   has_one :cheque_detail, :dependent => :destroy
   has_one :credit_card_detail, :dependent => :destroy
