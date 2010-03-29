@@ -2414,8 +2414,6 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_number,
-          u.manual_receipt_number,
           u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
@@ -2485,8 +2483,6 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_number,
-          u.manual_receipt_number,
           u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
@@ -2576,7 +2572,7 @@ class GridsController < ApplicationController
 
   end
     
-  def show_existing_receipts_grid
+  def show_existing_receipt_allocations_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2606,14 +2602,16 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @receipts = Receipt.find(:all,
-        :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]],
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = Receipt.count(:all, :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]], :include => ["campaign", "receipt_account", "source"])
+      count = Receipt.count(:all,
+        :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
+        :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms

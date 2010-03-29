@@ -1,13 +1,13 @@
 - form_for deposit, :html => {:class => "ajax_form", :id => "new_deposit_form", :submit_button_id => "new_submit_button"} do |f|
   .form_line
-    .field_15
+    .field_25
       = f.label :todays_date, "System Date"
       %input{:style => "display:none;", :value => "#{@system_date}", :name => "deposit[todays_date]"}
       %input{:style => "display:none;", :value => "#{deposit.id}", :name => "id", :id => "deposit_id"}
       .display_field_bg
         #{@system_date.to_s}      
 
-    .field_15
+    .field_25
       = f.label :deposit_date, "<span class='asterisk'>*</span>Deposit Date"
       = f.text_field :deposit_date, :value => "#{@system_date}", :class => "compulsory_field datepick"
 
@@ -15,13 +15,16 @@
       = f.label :bank_account_id, "<span class='asterisk'>*</span>Deposit Bank Account"
       = f.collection_select :bank_account_id, ClientBankAccount.active_client_bank_account, :id, :account_number
 
+    .field_15
+      = f.label :banked, "Already Banked"
+      = f.check_box :banked
 
   .form_line
-    .field_15
+    .field_25
       = f.label :payment_method_meta_type_id, "<span class='asterisk'>*</span>Receipt Method Type"
       = f.collection_select :payment_method_meta_type_id, PaymentMethodMetaType.manual, :id, :name, {}, {:class => "select_ajax_call", :method => "GET", :url => "/tag_types/show_payment_method", :type_class => "new"}
 
-    .field_15
+    .field_25
       = f.label :payment_method_type_id, "<span class='asterisk'>*</span>Receipt Method"
       - if PaymentMethodMetaType.manual.first.nil?
         %select{:disabled => true}
@@ -36,9 +39,7 @@
       = f.label :letter_id, "Single Letter ID"
       %select
 
-    .field_10
-      = f.label :banked, "Already Banked"
-      = f.check_box :banked
+   
 
   #cash_detail_form
     
