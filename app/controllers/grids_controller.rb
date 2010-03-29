@@ -2414,8 +2414,6 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_number,
-          u.manual_receipt_number,
           u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
@@ -2485,8 +2483,6 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_number,
-          u.manual_receipt_number,
           u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
