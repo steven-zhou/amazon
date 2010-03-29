@@ -135,9 +135,9 @@ class DepositsController < ApplicationController
     @end_date = "31-12-#{Date.today().year().to_s}"
 
     if params[:field]=="receipt_histroy_page"
-    @receipt_accounts = ReceiptAccount.active
-    @campaign = Campaign.active_campaign
-    @source = Source.active_source
+      @receipt_accounts = ReceiptAccount.active
+      @campaign = Campaign.active_campaign
+      @source = Source.active_source
     end
     if @field == "histroy_page"
       @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
@@ -229,9 +229,16 @@ class DepositsController < ApplicationController
       @filter_target = "histroy"
       @start_date = params[:start_date]
       @end_date = params[:end_date]
+      @entity = session[:entity_type].camelize.constantize.find(session[:entity_id])
       
       if valid_date(@start_date) && valid_date(@end_date)
-        @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+        @deposits = Deposit.find(:all,
+          :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+        @count = @deposits.size
+        #@count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+        if @count > 0
+          generate_html("deposit_enquiry", "deposits/deposit_enquiry_result", "deposit_enquiry_result")
+        end
         @date_valid = true
       else
         @date_valid = false
@@ -245,12 +252,16 @@ class DepositsController < ApplicationController
   end
 
   def export_histroy_to_report
-    @file_name = params[:file_name].blank? ? "deposit histroy" : params[:file_name]
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a deposit histroy report.")
+    #    @file_name = params[:file_name].blank? ? "deposit histroy" : params[:file_name]
+    #    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) exported a deposit histroy report.")
+    #    respond_to do |format|
+    #      format.pdf {pdf = PDF::Writer.new
+    #        pdf = OutputPdf.generate_deposit_histroy_report_pdf(session[:entity_type], session[:entity_id], params[:start_date], params[:end_date], {}, {})
+    #        send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
+    #    end
+    convert_html_to_pdf("deposit_enquiry","deposit_enquiry_result","deposit_enquiry_result", {:option => "--page-size A5"})
     respond_to do |format|
-      format.pdf {pdf = PDF::Writer.new
-        pdf = OutputPdf.generate_deposit_histroy_report_pdf(session[:entity_type], session[:entity_id], params[:start_date], params[:end_date], {}, {})
-        send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
+      format.pdf {send_file("public/temp/#{@current_user.user_name}/deposit_enquiry/deposit_enquiry_result.pdf", :filename => "deposit_enquiry_result.pdf", :type => "application/pdf")}
     end
   end
 
