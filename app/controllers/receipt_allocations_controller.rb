@@ -3,6 +3,7 @@ class ReceiptAllocationsController < ApplicationController
 
   def new
     @entity_receipt = EntityReceipt.find(params[:param1])
+    @deposit = @entity_receipt.deposit
     @receipt_allocation = ReceiptAllocation.new
     respond_to do |format|
       format.js

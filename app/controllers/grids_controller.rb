@@ -2554,7 +2554,7 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @receipts.collect{|u| {:id => "#{u.entity_type}-#{u.entity_id}-#{params[:deposit_id]}",
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.entity_type,
           u.entity_id,
           u.amount.nil? ? "$0.00" : currencify(u.amount)

@@ -65,6 +65,7 @@ class DepositsController < ApplicationController
 
     @deposit_id = @deposit.id
     @receipt = EntityReceipt.new
+    @first_time = true
     respond_to do |format|
       format.js
     end
