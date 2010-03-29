@@ -1,10 +1,14 @@
 
-<% if flash[:error].nil? -%>
-  $('.close_option[param1=<%= escape_javascript(@deposit.id.to_s) %>]').click();
-  $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
+<%- if @date_valid && flash[:error].nil?%>
+    $("#receipt_histroy" ).show().html('<%= escape_javascript(render(:partial => "receipts/receipts_histroy", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id], :start_date => @start_date, :end_date => @end_date})) %>');
+    <%- if @count == 0%>
+      $('#receipt_export_to_pdf_button').attr('disabled',true).hide();
+    <%- else %>
+      $('#receipt_export_to_pdf_button').removeAttr('disabled').show();
+    <%- end %>
 
+<%- else %>
 
-<% else %>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $('#flash_message').dialog( {
   modal: true,
@@ -23,5 +27,11 @@
   $("#flash_message").parent().css('background-color','#D1DDE6');
   $("#flash_message").css('background-color','#D1DDE6');
   $('#flash_message').dialog('open');
-<% end -%>
+<%- end %>
+
+
+
+start_end_date_pick();
+datapick_config();
+hasDatepicker();
 enable_form_after_submit_finish();

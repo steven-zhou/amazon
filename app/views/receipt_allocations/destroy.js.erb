@@ -1,0 +1,37 @@
+<% if @receipt.errors.empty? -%>
+
+
+
+  $('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts")) %>');
+  $("#total_amount_value").html('<%= escape_javascript("#{number_to_currency(@receipt_value)}")%>');
+  $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
+
+    $('#existing_extensions').html('<%= escape_javascript(render(:partial => "/receipts/existing_extensions")) %>');
+
+    <%if @clear%>
+
+    $('#new_receipt').hide();
+    <%end%>
+
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+     modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 600,
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
+  enable_form_after_submit_finish();

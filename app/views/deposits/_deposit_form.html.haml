@@ -15,9 +15,6 @@
       = f.label :bank_account_id, "<span class='asterisk'>*</span>Deposit Bank Account"
       = f.collection_select :bank_account_id, ClientBankAccount.active_client_bank_account, :id, :account_number
 
-    .field_15
-      = f.label :manual_receipt_number, "Manual Receipt Number"
-      = f.text_field :manual_receipt_number
 
   .form_line
     .field_15

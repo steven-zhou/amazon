@@ -16,5 +16,5 @@
         =i.try(:primary_phone_num).nil? ? "&nbsp" : i.primary_phone_num
       %br
       #person_contact_email{:style=> "float:left;margin:5px;font-size:12px;"}
-        =i.try(:primary_email).nil? ? "&nbsp" : i.primary_email
+        =i.try(:primary_email).nil? ? "&nbsp" : truncate(i.primary_email.value, 16)
 

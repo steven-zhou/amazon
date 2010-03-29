@@ -47,7 +47,7 @@ class DepositsController < ApplicationController
           @deposit_detail.deposit_id = @deposit.id
           @deposit_detail.save
         end      
-        @deposit.update_attribute("receipt_number", @deposit.id)
+#        @deposit.update_attribute("receipt_number", @deposit.id)
 
       else
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new deposit record.")
