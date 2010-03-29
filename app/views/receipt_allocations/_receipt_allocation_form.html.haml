@@ -1,11 +1,9 @@
-- form_for @receipt, :html => {:class => "ajax_form", :id => "new_receipt_form", :submit_button_id => "new_receipt_submit_button"} do |f|
+- form_for @receipt_allocation, :html => {:class => "ajax_form", :id => "new_receipt_allocation_form", :submit_button_id => "new_receipt_allocation_submit_button"} do |f|
   .form_line
     .field_20
       = f.label :field_1, "<span class='asterisk'>*</span>Receipt Account"
       = f.collection_select :receipt_account_id, ReceiptAccount.active, :id, :name, {:class=>"compulsory_field"}
-      %input{:name=>"receipt[deposit_id]",:value=>"#{@deposit.id}",:class =>"hidden"}
-      %input{:name=>"receipt[entity_id]",:value=>"#{@entity.id}",:class =>"hidden"}
-      %input{:name=>"receipt[entity_type]",:value=>"#{@entity.class.base_class}",:class =>"hidden"}
+      %input{:name=>"receipt_allocation[entity_receipt_id]",:value=>"#{@entity_receipt.id}",:class =>"hidden"}
     .field_15
       = f.label :field_5, "<span class='asterisk'>*</span>Amount ($)"
       = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(@receipt.amount.to_f, :unit => "", :delimiter => "")
@@ -24,5 +22,5 @@
 
     
  
-  = submit_tag '   Add   ', :id =>"new_receipt_submit_button", :disabled => true
+  = submit_tag '   Add   ', :id =>"new_receipt_allocation_submit_button", :disabled => true
   

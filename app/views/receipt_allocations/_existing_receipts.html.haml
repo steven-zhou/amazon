@@ -1,15 +1,15 @@
 .full_container
   %h2 Receipt Allocations
-  %table#show_existing_receipts_grid
+  %table#show_existing_receipt_allocations_grid
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_from_a_grid = function(){
-      delete_from_grid($("#show_existing_receipts_grid tr.trSelected").attr('id'),"#receipt_mode","delete","/receipts/");
+      delete_from_grid($("#show_existing_receipt_allocations_grid tr.trSelected").attr('id'),"#receipt_allocation_mode","delete","/receipt_allocations/");
     };
 
-    $("#show_existing_receipts_grid").flexigrid({
-    url: '/grids/show_existing_receipts_grid?deposit_id=#{@deposit.id}&entity_id=#{@entity.id}&entity_type=#{@entity.class.base_class.to_s}',
+    $("#show_existing_receipt_allocations_grid").flexigrid({
+    url: '/grids/show_existing_receipt_allocations_grid?entity_receipt_id=#{@entity_receipt.id}',
     dataType: 'json',
     colModel : [
     {
@@ -38,14 +38,6 @@
     {
     display: 'Source',
     name : 'sources.name',
-    width : 50,
-    sortable : true,
-    align: 'left'
-    },
-
-    {
-    display: 'Letter',
-    name : 'letter_id',
     width : 50,
     sortable : true,
     align: 'left'

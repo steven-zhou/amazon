@@ -2576,7 +2576,7 @@ class GridsController < ApplicationController
 
   end
     
-  def show_existing_receipts_grid
+  def show_existing_receipt_allocations_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2606,14 +2606,16 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @receipts = Receipt.find(:all,
-        :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]],
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["campaign", "receipt_account", "source"]
       )
-      count = Receipt.count(:all, :conditions => ["deposit_id=? and entity_id = ? and entity_type = ? and receipt_account_id Is Not Null", params[:deposit_id],params[:entity_id],params[:entity_type]], :include => ["campaign", "receipt_account", "source"])
+      count = Receipt.count(:all,
+        :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
+        :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
