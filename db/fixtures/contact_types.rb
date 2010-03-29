@@ -9,13 +9,21 @@ phone = ContactMetaMetaType.find_by_name("Phone")
 website = ContactMetaMetaType.find_by_name("Website")
 im = ContactMetaMetaType.find_by_name("IM")
 
-ContactMetaType.create :name => "Work",   :tag_meta_type_id => email.id,    :status => true, :to_be_removed =>false
-ContactMetaType.create :name => "Personal",   :tag_meta_type_id => email.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Business",   :tag_meta_type_id => email.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Private",   :tag_meta_type_id => email.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Hotmail",   :tag_meta_type_id => email.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Gmail",   :tag_meta_type_id => email.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Business",   :tag_meta_type_id => phone.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Pirvate",   :tag_meta_type_id => phone.id,    :status => true, :to_be_removed =>false
 ContactMetaType.create :name => "Mobile",   :tag_meta_type_id => phone.id,    :status => true, :to_be_removed =>false
-ContactMetaType.create :name => "Home",   :tag_meta_type_id => phone.id,    :status => true, :to_be_removed =>false
 ContactMetaType.create :name => "Fax",   :tag_meta_type_id => phone.id,    :status => true, :to_be_removed =>false
 ContactMetaType.create :name => "Business",   :tag_meta_type_id => website.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Private",   :tag_meta_type_id => website.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "MSN",   :tag_meta_type_id => im.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Skype",   :tag_meta_type_id => im.id,    :status => true, :to_be_removed =>false
 ContactMetaType.create :name => "Facebook",   :tag_meta_type_id => im.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "Twitter",   :tag_meta_type_id => im.id,    :status => true, :to_be_removed =>false
+ContactMetaType.create :name => "MySpace",   :tag_meta_type_id => im.id,    :status => true, :to_be_removed =>false
 
 
 puts "Initializing Receipt Types"
