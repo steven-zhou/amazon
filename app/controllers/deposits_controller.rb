@@ -22,7 +22,7 @@ class DepositsController < ApplicationController
     #    @field ="edit_deposit"
     @cheque_detail = @deposit.cheque_detail rescue @cheque_detail = ChequeDetail.new
     @credit_card_detail = @deposit.credit_card_detail rescue @credit_card_detail = CreditCardDetail.new
-    @receipts = @deposit.receipts
+    @receipts = @deposit.entity_receipts
 
 
     respond_to do |format|

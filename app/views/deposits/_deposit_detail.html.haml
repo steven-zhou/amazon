@@ -1,15 +1,15 @@
 .form_line
-  .field_10
+  .field_20
     %label Deposit ID
     .display_field_bg
       #{deposit.id}
 
-  .field_15
+  .field_20
     %label System Date
     .display_field_bg
       #{deposit.todays_date.to_s}
 
-  .field_15
+  .field_20
     %label Deposit Date
     .display_field_bg
       #{deposit.deposit_date.to_s}
@@ -19,22 +19,13 @@
     .display_field_bg
       #{ClientBankAccount.find(deposit.bank_account_id).account_number}
 
-  .field_15
-    %label Manual Receipt Number
-    .display_field_bg
-      #{deposit.manual_receipt_number}
-
-  .field_15
-    %label System Receipt Number
-    .display_field_bg #{deposit.receipt_number}
-
 .form_line
-  .field_15
+  .field_20
     %label Receipt Meta Type
     .display_field_bg
       #{PaymentMethodMetaType.find(deposit.payment_method_meta_type_id).name}
 
-  .field_15
+  .field_20
     %label Receipt Type
     .display_field_bg
       #{PaymentMethodType.find(deposit.payment_method_type_id).name}
