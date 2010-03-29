@@ -2525,37 +2525,29 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @receipts = Receipt.find(:all,
-        :select => "entity_type, entity_id, SUM(amount) AS amount",
+      @receipts = EntityReceipt.find(:all,
         :conditions => ["deposit_id=?", params[:deposit_id]],
-        :group => "entity_type, entity_id",
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = Receipt.find(:all,
-        :select => "entity_type, entity_id, SUM(amount) AS amount",
-        :conditions => ["deposit_id=?", params[:deposit_id]],
-        :group => "entity_type, entity_id"
-      ).count
+      count = EntityReceipt.count(:all,
+        :conditions => ["deposit_id=?", params[:deposit_id]]
+      )
     end
 
     # User provided search terms
     if(query != "%%")
-      @receipts = Receipt.find(:all,
-        :select => "entity_type, entity_id, SUM(amount) AS amount",
+      @receipts = EntityReceipt.find(:all,
         :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
-        :group => "entity_type, entity_id",
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
         
-      count = Receipt.find(:all,
-        :select => "entity_type, entity_id, SUM(amount) AS amount",
-        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
-        :group => "entity_type, entity_id"
-      ).count
+      count = EntityReceipt.count(:all,
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]]
+      )
     end
 
     # Construct a hash from the ActiveRecord result
