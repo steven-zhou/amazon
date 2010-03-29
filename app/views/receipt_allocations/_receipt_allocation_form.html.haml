@@ -6,7 +6,7 @@
       %input{:name=>"receipt_allocation[entity_receipt_id]",:value=>"#{@entity_receipt.id}",:class =>"hidden"}
     .field_15
       = f.label :field_5, "<span class='asterisk'>*</span>Amount ($)"
-      = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(@receipt.amount.to_f, :unit => "", :delimiter => "")
+      = f.text_field :amount, :class => "compulsory_field number_field", :value => number_to_currency(@receipt_allocation.amount.to_f, :unit => "", :delimiter => "")
 
     .field_20
       = f.label :field_2, "Campaign"
