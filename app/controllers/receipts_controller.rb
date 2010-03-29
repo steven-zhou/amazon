@@ -97,7 +97,7 @@ class ReceiptsController < ApplicationController
 
   def show_pdf
 
-    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result", {:option => "--page-size A5"})
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result")
 
 
     respond_to do |format|
