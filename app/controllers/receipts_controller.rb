@@ -301,7 +301,7 @@ class ReceiptsController < ApplicationController
   end
 
   def show_pdf
-    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result")
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result", {:option => "--page-size A5"})
 
     respond_to do |format|
       format.pdf {send_file("public/temp/#{@current_user.user_name}/receipt_enquiry/receipt_enquiry_result.pdf", :filename => "receipt_enquiry_result.pdf", :type => "application/pdf")}
