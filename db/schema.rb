@@ -392,7 +392,7 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.datetime "system_time"
-    t.boolean  "to_be_removed"
+    t.boolean  "to_be_banked"
     t.date     "bank_run_date"
   end
 
@@ -1151,10 +1151,10 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.integer  "entity_id"
     t.string   "entity_type"
     t.integer  "receipt_number"
-    t.integer  "manual_receipt_number"
     t.string   "type"
     t.integer  "entity_receipt_id"
     t.boolean  "receipt_post"
+    t.string   "manual_receipt_number"
   end
 
   create_table "relationships", :force => true do |t|

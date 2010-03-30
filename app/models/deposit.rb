@@ -40,4 +40,11 @@ class Deposit < ActiveRecord::Base
     end
     self.total_amount = t
   end
+
+
+  def to_be_bank_validation
+    self.already_banked == true ? self.to_be_banked = false : self.to_be_banked = true
+    return true
+  end
+  
 end
