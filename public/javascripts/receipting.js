@@ -260,8 +260,10 @@ $(function(){
 
 $(function(){
   $('#receipt_export_to_pdf_button').live('click',function(){
- window.open("/receipts/show_pdf.pdf");
-
+    window.open("/receipts/show_pdf");
+  });
+  $('#receipt_detail_export_to_pdf_button').live('click',function(){
+    window.open("/receipts/show_detail_pdf");
   });
 });
 

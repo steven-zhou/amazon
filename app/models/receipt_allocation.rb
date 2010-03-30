@@ -7,5 +7,6 @@ class  ReceiptAllocation < Receipt
 
   validates_presence_of :receipt_account_id, :amount
   validates_uniqueness_of :receipt_account_id, :scope => ["entity_receipt_id"]
+  
 
 end

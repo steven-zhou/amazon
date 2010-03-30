@@ -14,7 +14,7 @@
     <img src="<%=RAILS_ROOT%>/public/images/memberzone_logo_small.png" alt="logo"/>
   </div>
   <div id="header">
-    <h3><%= @entity.class.base_class%> Receipt Enquiry Result</h3>
+    <h3><%= @entity.class.base_class%> Receipt Detail Enquiry Result</h3>
   </div>
   <div id="left_title">
     <p>Name: (<%= @entity.id %>) <%= @entity.full_name %>
@@ -28,22 +28,22 @@
   <br class="clear"/>
   <table id="receipt_enquiry_result">
     <tr>
-      <th>Receipt ID</th>
-      <th>Receipt Number</th>
-      <th>Manual Receipt Number</th>
-      <th>Deposit Date</th>
+      <th>Allocation ID</th>
+      <th>Receipt Account</th>
+      <th>Campaign</th>
+      <th>Source</th>
       <th>Amount</th>
-      <th>Bank Run ID</th>
     </tr>
     <%- @receipts.each do |receipt|%>
-      <tr>
-        <td><%=receipt.id%></td>
-        <td><%=receipt.receipt_number%></td>
-        <td><%=receipt.manual_receipt_number%></td>
-        <td><%=receipt.deposit.try(:deposit_date).try(:to_s)%></td>
-        <td><%=number_to_currency(receipt.amount)%></td>
-        <td><%=number_to_currency(receipt.amount)%></td>
-      </tr>
+      <%- receipt.receipt_allocations.each do |allocation|%>
+        <tr>
+          <td><%=allocation.id%></td>
+          <td><%=allocation.receipt_account.try(:name)%></td>
+          <td><%=allocation.campaign.try(:name)%></td>
+          <td><%=allocation.source.try(:name)%></td>
+          <td><%=number_to_currency(allocation.amount)%></td>
+        </tr>
+      <%- end %>
     <%- end %>
   </table>
 </div>
