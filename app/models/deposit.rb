@@ -42,6 +42,7 @@ class Deposit < ActiveRecord::Base
   end
 
 
+
   def update_children_reciepts_bank_run_id
 
     deposit_bank_run_id = self.bank_run_id
@@ -53,4 +54,11 @@ class Deposit < ActiveRecord::Base
 
 
   end
+
+  def to_be_bank_validation
+    self.already_banked == true ? self.to_be_banked = false : self.to_be_banked = true
+    return true
+  end
+  
+
 end
