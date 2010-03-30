@@ -27,7 +27,7 @@ class DepositsController < ApplicationController
   def create    
     @entity = session[:entity_type].camelize.constantize.find(session[:entity_id])
     @deposit = @entity.deposits.new(params[:deposit])
-    @deposit.post = false
+
     Deposit.transaction do
       if @deposit.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new deposit with ID #{@deposit.id}.")
