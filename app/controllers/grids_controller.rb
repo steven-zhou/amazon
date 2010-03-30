@@ -2557,7 +2557,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.entity_type,
           u.entity_id,
-          u.amount.nil? ? "$0.00" : currencify(u.amount)
+          u.amount.nil? ? "$0.00" : currencify(u.amount),
+          u.manual_receipt_number
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
