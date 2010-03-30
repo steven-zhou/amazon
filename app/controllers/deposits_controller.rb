@@ -298,8 +298,8 @@ class DepositsController < ApplicationController
   def run
     conditions = Array.new
     values = Array.new
-    conditions << "already_banked = ?"
-    values << "false"
+    conditions << "bank_run_id = ?"
+    values << "nil"
 
 
     @date_valid = true
@@ -347,7 +347,14 @@ class DepositsController < ApplicationController
       BankRun.transaction do
         @run.save
         @deposits.each do |i|
-          i.bank_run_id = @run.id
+
+          if i.to_be_banked == true && i.already_banked == false
+            i.bank_run_id = @run.id            
+          elsif i.to_be_banked == false && i.already_banked == true
+            i.bank_run_id = -1
+          elsif i.to_be_banked == false && i.already_banked == false
+            i.bank_run_id = -2
+          end
           i.already_banked = true
           i.save
         end
