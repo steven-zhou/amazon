@@ -2687,27 +2687,27 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @receipts = Receipt.find(:all,
+      @receipts = EntityReceipt.find(:all,
         :conditions => [conditions.join(' AND '), *values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["deposit", "campaign", "receipt_account", "source"]
       )
-      count = Receipt.count(:all,
+      count = EntityReceipt.count(:all,
         :conditions => [conditions.join(' AND '), *values],
         :include => ["deposit", "campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
     if(query != "%%")
-      @receipts = Receipt.find(:all,
+      @receipts = EntityReceipt.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
         :include => ["deposit", "campaign", "receipt_account", "source"])
-      count = Receipt.count(:all,
+      count = EntityReceipt.count(:all,
         :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
         :include => ["deposit", "campaign", "receipt_account", "source"])
     end
@@ -2720,8 +2720,8 @@ class GridsController < ApplicationController
         :cell=>[u.id,
 
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
-          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
-          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
+#          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
+#          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
           u.deposit.deposit_date.to_s,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
     
@@ -2729,7 +2729,7 @@ class GridsController < ApplicationController
     # Convert the hash to a json object
 
     render :text=>return_data.to_json, :layout=>false
-
+   
   end
 
   def show_transaction_enquiry_grid
