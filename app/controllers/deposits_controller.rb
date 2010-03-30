@@ -298,7 +298,7 @@ class DepositsController < ApplicationController
   def run
     conditions = Array.new
     values = Array.new
-    conditions << "banked = ?"
+    conditions << "already_banked = ?"
     values << "false"
 
 
@@ -325,7 +325,7 @@ class DepositsController < ApplicationController
       params[:start_deposit_date] = "01-01-#{Date.today().year().to_s}"if params[:start_deposit_date].blank?
       params[:end_deposit_date] = "31-12-#{Date.today().year().to_s}"if params[:end_deposit_date].blank?
       if valid_date(params[:start_deposit_date]) && valid_date(params[:end_deposit_date])
-        conditions << "deposit_date BETWEEN ? AND ?"
+        conditions << "business_date BETWEEN ? AND ?"
         values << params[:start_deposit_date].to_date
         values << params[:end_deposit_date].to_date
       else

@@ -7,7 +7,7 @@ class ChangeColumnToDeposit < ActiveRecord::Migration
     remove_column :deposits, :post
 
     add_column :deposits ,:system_time ,:datetime
-    add_column :deposits, :to_be_removed, :boolean
+    add_column :deposits, :to_be_banked, :boolean
     add_column :deposits, :bank_run_date, :date
 
   end
@@ -18,7 +18,7 @@ class ChangeColumnToDeposit < ActiveRecord::Migration
     add_column :deposits, :todays_date
     add_column :deposits, :post
     remove_column :deposits ,:system_time
-    remove_column :deposits, :to_be_removed
+    remove_column :deposits, :to_be_banked
     remove_column :deposits, :bank_run_date
   end
 end
