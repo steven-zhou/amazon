@@ -912,7 +912,7 @@ $(function(){
         
     if ( temp=="true")
     {
-      $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+      $('#warning_message_text').html("Data Not Saved.");
       $('#warning_message_image').css("display","");
       $('#warning_message').dialog({
         modal: true,
@@ -922,12 +922,12 @@ $(function(){
         width: 'auto',
         buttons: {
 
-          No: function(){
+          "Go Back" : function(){
             $(this).dialog('destroy');
             return false;
 
           },
-          Yes: function(){
+          Exit: function(){
             $('#'+link.attr('toggle_id_name')).toggle('blind');
             $('#'+link.attr('toggle_id_name1')).toggle('blind');
             $("#" + link.attr('enable_id')).removeAttr('disabled');
@@ -1168,13 +1168,13 @@ $('#signout').live('click', function(){
     width: 'auto',
     buttons: {
 
-      "No ": function(){
+      "Go Back": function(){
         $(this).dialog('close');
         return true;
 
       },
 
-      "Yes": function(){
+      "Exit": function(){
         window.open("/signin/signout", "_self");
                
         signout_waiting();
@@ -1439,7 +1439,7 @@ $(function(){
       }
       else
       {
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+        $('#warning_message_text').html("Data Not Saved.");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
           modal: true,
@@ -1449,12 +1449,12 @@ $(function(){
           width: 'auto',
           buttons: {
 
-            No: function(){
+            "Go Back" : function(){
               $(this).dialog('destroy');
               return false;
 
             },
-            Yes: function(){
+            "Exit" : function(){
               window.open(link.attr('href'),"_self");
               $('#check_left_input_change').val("false");
               $('#check_right_input_change').val("false");
@@ -1520,7 +1520,7 @@ $(function(){
       }
       else
       {
-        $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+        $('#warning_message_text').html("Data Not Saved.");
         $('#warning_message_image').css("display","");
         $('#warning_message').dialog({
           modal: true,
@@ -1530,12 +1530,12 @@ $(function(){
           width: 'auto',
           buttons: {
 
-            No: function(){
+            "Go Back" : function(){
               $(this).dialog('destroy');
               return false;
 
             },
-            Yes: function(){
+            "Exit" : function(){
               window.open(link.attr('href'),"_self");
               $('#check_left_input_change').val("false");
               $('#check_right_input_change').val("false");
@@ -1618,7 +1618,7 @@ lolanavigation = function(link){
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1628,12 +1628,12 @@ lolanavigation = function(link){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           if (link.attr('url').indexOf("people") > 0)
           {
             $.ajax({
@@ -2504,7 +2504,7 @@ $('a.tab_switch_with_page_initial').live('click', function(){
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -2514,12 +2514,12 @@ $('a.tab_switch_with_page_initial').live('click', function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('.page_initial[field='+ link.attr('field')+']').mousedown();
           $('.tab_switch_button[field='+ link.attr('field')+']').click();
           $('.tab_switch_button_show_list[field='+ link.attr('field')+']').click();
@@ -2760,7 +2760,7 @@ $(".general_show_all_list_member").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -2770,12 +2770,12 @@ $(".general_show_all_list_member").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $.ajax({
             type: "GET",
             url: "/people/general_show_list.js",
@@ -2904,7 +2904,7 @@ $(".general_show_all_list_organisations").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -2914,12 +2914,12 @@ $(".general_show_all_list_organisations").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
 
           $.ajax({
             type: "GET",
@@ -3176,7 +3176,7 @@ $(".show_all_objects_look_up").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -3186,12 +3186,12 @@ $(".show_all_objects_look_up").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
 
           $.ajax({
             type: "GET",
@@ -3616,7 +3616,7 @@ if(e.button != 2){
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -3625,11 +3625,11 @@ if(e.button != 2){
       height: 'auto',
       width: 'auto',
       buttons: {
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
         },
-        Yes: function(){
+        "Exit" : function(){
           window.open(link.attr('href'),"_self");
           $('#check_left_input_change').val("false");
           $('#check_right_input_change').val("false");
