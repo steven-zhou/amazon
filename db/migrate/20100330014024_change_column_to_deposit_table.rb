@@ -25,8 +25,8 @@ class ChangeColumnToDepositTable < ActiveRecord::Migration
     remove_column :deposits, :bank_run_date
     remove_column :deposit_details,:card_authority_number
     remove_column :receipts , :receipt_post
-
-    add_column :receipts, :manual_receipt_number, :integer
     remove_column :receipts, :manual_receipt_number
+    add_column :receipts, :manual_receipt_number, :integer
+    
   end
 end
