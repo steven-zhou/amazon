@@ -348,7 +348,7 @@ class DepositsController < ApplicationController
         @run.save
         @deposits.each do |i|
           i.bank_run_id = @run.id
-          i.banked = true
+          i.already_banked = true
           i.save
         end
       end

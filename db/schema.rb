@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330003424) do
+ActiveRecord::Schema.define(:version => 20100330002108) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -1154,7 +1154,6 @@ ActiveRecord::Schema.define(:version => 20100330003424) do
     t.integer  "manual_receipt_number"
     t.string   "type"
     t.integer  "entity_receipt_id"
-    t.boolean  "receipt_post"
   end
 
   create_table "relationships", :force => true do |t|
