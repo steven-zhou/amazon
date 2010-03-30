@@ -2,7 +2,7 @@
   .form_line
     .field_15
       = f.label :todays_date, "System Date"
-      %input{:style => "display:none;", :value => "#{@system_date}", :name => "deposit[todays_date]"}
+      %input{:style => "display:none;", :value => "#{@system_date}", :name => "deposit[system_time]"}
       .display_field_bg
         #{@system_date.to_s}      
 

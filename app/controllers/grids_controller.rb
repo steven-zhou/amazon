@@ -2385,13 +2385,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @deposit = Deposit.find(:all,
-        :conditions => ["deposits.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+        :conditions => ["deposits.entity_id=? and entity_type=?", params[:entity_id], params[:entity_type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=?", params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
@@ -2402,9 +2402,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=?", query, params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=?", query, params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2414,7 +2414,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.deposit_date.to_s,
+          u.business_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,

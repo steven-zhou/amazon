@@ -6,13 +6,13 @@
         #{deposit.id}
 
     .field_25
-      = f.label :todays_date, "System Date"
+      = f.label :system_time, "System Date"
       .display_field_bg
         #{deposit.todays_date.to_s}
 
     .field_20
       = f.label :deposit_date, "<span class='asterisk'>*</span>Deposit Date"
-      = f.text_field :deposit_date, :value => deposit.deposit_date.to_s, :class => "compulsory_field datepick"
+      = f.text_field :business_date, :value => deposit.business_date.to_s, :class => "compulsory_field datepick"
 
     .field_20
       = f.label :bank_account_id, "<span class='asterisk'>*</span> Deposit Bank Account"
@@ -37,7 +37,7 @@
 
     .field_10
       = f.label :banked, "Already Banked"
-      = f.check_box :banked
+      = f.check_box :already_banked
 
   #edit_cheque_detail_form
     - if deposit.payment_method_type.name == 'Cheque'
