@@ -17,14 +17,14 @@ class ReceiptsController < ApplicationController
     @date_valid = true
     conditions = Array.new
     values = Array.new
+    r_conditions = Array.new
+    r_values = Array.new
     query_conditions = Array.new
     @entity = session[:entity_type].camelize.constantize.find(session[:entity_id])
-    conditions << "receipts.entity_type =?"
-    values << session[:entity_type]
-    conditions << "receipts.entity_id = ?"
-    values << session[:entity_id]
-    conditions << "receipt_account_id Is Not Null"
-
+    r_conditions << "receipts.entity_type =?"
+    r_values << session[:entity_type]
+    r_conditions << "receipts.entity_id = ?"
+    r_values << session[:entity_id]
 
     if valid_date(params[:start_deposit_date]) && valid_date(params[:end_deposit_date])
       if (!params[:start_deposit_date].blank? || !params[:end_deposit_date].blank?)
@@ -44,12 +44,12 @@ class ReceiptsController < ApplicationController
 
 
     if params[:start_deposit_date]
-      conditions << "deposits.deposit_date >= ?"
-      values << params[:start_deposit_date].to_date
+      r_conditions << "deposits.deposit_date >= ?"
+      r_values << params[:start_deposit_date].to_date
     end
     if params[:end_deposit_date]
-      conditions << "deposits.deposit_date <= ?"
-      values << params[:end_deposit_date].to_date
+      r_conditions << "deposits.deposit_date <= ?"
+      r_values << params[:end_deposit_date].to_date
     end
     if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
       conditions << "receipt_account_id = ?"
@@ -83,12 +83,22 @@ class ReceiptsController < ApplicationController
 
     @query = query_conditions.join('&').gsub("receipts.","")
     if @date_valid
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :conditions => [conditions.join(' AND '), *values]
+      )
+      r = Array.new
+      @receipt_allocations.each do |i|
+        r << i.entity_receipt.id
+      end
+      r = r.uniq
       @receipts = EntityReceipt.find(:all,
-        :conditions => [conditions.join(' AND '), *values],
-        :include => ["deposit"])
+        :conditions => ["receipts.id IN (?) AND " + r_conditions.join(' AND '), r, *r_values],
+        :include => ["deposit"]
+      )
       @count = @receipts.size
       if @count > 0
         generate_html("receipt_enquiry", "receipts/receipt_enquiry_result", "receipt_enquiry_result")
+        generate_html("receipt_enquiry", "receipts/receipt_enquiry_result_detail", "receipt_enquiry_result_detail")
       end
     end
 
@@ -97,15 +107,17 @@ class ReceiptsController < ApplicationController
     end
   end
 
-  def show_pdf
-
-    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result")
-
-
-    respond_to do |format|
-      format.pdf {send_file("public/temp/#{@current_user.user_name}/receipt_enquiry/receipt_enquiry_result.pdf", :filename => "receipt_enquiry_result.pdf", :type => "application/pdf")}
-    end
+  def test
+    
   end
 
-  
+  def show_pdf
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result")
+    send_file("public/temp/#{@current_user.user_name}/receipt_enquiry/receipt_enquiry_result.pdf", :filename => "receipt_enquiry_result.pdf", :type => "application/pdf")    
+  end
+
+  def show_detail_pdf
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result_detail","receipt_enquiry_result_detail")
+    send_file("public/temp/#{@current_user.user_name}/receipt_enquiry/receipt_enquiry_result_detail.pdf", :filename => "receipt_enquiry_result_detail.pdf", :type => "application/pdf")
+  end
 end

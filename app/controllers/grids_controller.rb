@@ -2656,18 +2656,20 @@ class GridsController < ApplicationController
 
     conditions = Array.new
     values = Array.new
-    conditions << "receipts.entity_type = ?"
-    values << params[:entity_type]
-    conditions << "receipts.entity_id = ?"
-    values << params[:entity_id]
-    conditions << "receipt_account_id Is Not Null"
+    r_conditions = Array.new
+    r_values = Array.new
+    r_conditions << "receipts.entity_type = ?"
+    r_values << params[:entity_type]
+    r_conditions << "receipts.entity_id = ?"
+    r_values << params[:entity_id]
+    
     if params[:start_deposit_date]
-      conditions << "deposits.deposit_date >= ?"
-      values << params[:start_deposit_date].to_date
+      r_conditions << "deposits.deposit_date >= ?"
+      r_values << params[:start_deposit_date].to_date
     end
     if params[:end_deposit_date]
-      conditions << "deposits.deposit_date <= ?"
-      values << params[:end_deposit_date].to_date
+      r_conditions << "deposits.deposit_date <= ?"
+      r_values << params[:end_deposit_date].to_date
     end
     if params[:receipt_account_id]
       conditions << "receipt_account_id = ?"
@@ -2687,16 +2689,25 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :conditions => [conditions.join(' AND '), *values]
+      )
+      r = Array.new
+      @receipt_allocations.each do |i|
+        r << i.entity_receipt.id
+      end
+      r = r.uniq
       @receipts = EntityReceipt.find(:all,
-        :conditions => [conditions.join(' AND '), *values],
+        :conditions => ["receipts.id IN (?) AND " + r_conditions.join(' AND '), r, *r_values],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :include => ["deposit", "campaign", "receipt_account", "source"]
+        :include => ["deposit"]
       )
       count = EntityReceipt.count(:all,
-        :conditions => [conditions.join(' AND '), *values],
-        :include => ["deposit", "campaign", "receipt_account", "source"])
+        :conditions => ["receipts.id IN (?) AND " + r_conditions.join(' AND '), r, *r_values],
+        :include => ["deposit"]
+      )
     end
 
     # User provided search terms
