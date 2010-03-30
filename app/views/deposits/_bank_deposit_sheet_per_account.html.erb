@@ -26,7 +26,7 @@
 
   <div id="content">
     <%- cheque_total = 0.00%>
-    <%- @cheque_transactions[account.id].try(:each) do |cheque_transaction|%>
+    <%- @cheque_deposits[account.id].try(:each) do |cheque_transaction|%>
       <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:name_on_cheque) %></div>
       <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:cheque_number) %></div>
       <div class="title_item"><%= cheque_transaction.transaction_type_detail.try(:bank).try(:full_name) %></div>
@@ -45,7 +45,7 @@
         <div class="summary_item"><%= number_to_currency(cheque_total)%></div>
         <div class="summary_item">Cash: </div>
         <%- cash_total = 0 %>
-        <%- @cash_transactions[account.id].try(:each) do |cash_transaction| %>
+        <%- @cash_deposits[account.id].try(:each) do |cash_transaction| %>
         <%- cash_total += cash_transaction.total_amount%>
         <%- end %>
         <div class="summary_item"><%= number_to_currency(cash_total)%></div>

@@ -22,8 +22,8 @@ class Deposit < ActiveRecord::Base
   #reg ex for date format with mm/dd/yyyy
   #validates_format_of :business_date, :with => /^(((0?[1-9]|1[012])\-(0?[1-9]|1\d|2[0-8])|(0?[13456789]|1[012])\-(29|30)|(0?[13578]|1[02])\-31)\-(19|[2-9]\d)\d{2}|0?2\-29\-((19|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00)))$/
 
-  before_update :update_total_amount
-
+  before_update :update_total_amount,:update_children_reciepts_bank_run_id
+  before_save :to_be_bank_validation
   private
   def self.first_record
     Deposit.first
@@ -42,9 +42,23 @@ class Deposit < ActiveRecord::Base
   end
 
 
+
+  def update_children_reciepts_bank_run_id
+
+    deposit_bank_run_id = self.bank_run_id
+    
+    self.entity_receipts.each do |i|
+      i.bank_run_id =  deposit_bank_run_id
+      i.save
+    end
+
+
+  end
+
   def to_be_bank_validation
     self.already_banked == true ? self.to_be_banked = false : self.to_be_banked = true
     return true
   end
   
+
 end
