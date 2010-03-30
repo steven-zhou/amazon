@@ -299,7 +299,7 @@ class DepositsController < ApplicationController
     conditions = Array.new
     values = Array.new
     conditions << "bank_run_id IS NULL"
-#    values << "IS Null"
+    #    values << "IS Null"
 
 
     @date_valid = true
@@ -437,13 +437,17 @@ class DepositsController < ApplicationController
       if params[:RAS]
         @receipt_account.each do |receipt_account|
           i.entity_receipts.each do |receipt|
-            if receipt.receipt_account.name == receipt_account.name
-              if receipt.deposit.payment_method_meta_type.name == "Cash"
-                @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
-                @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
-                @receipt_account_cards[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [receipt.amount]
+
+            receipt.receipt_allocations.each do |allocation|
+              if allocation.receipt_account.name == receipt_account.name
+                if receipt.deposit.payment_method_meta_type.name == "Cash"
+                  @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
+                elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+                  @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
+                elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
+                  @receipt_account_cards[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [receipt.amount]
+                end
+
               end
             end
           end

@@ -44,11 +44,11 @@ class ReceiptsController < ApplicationController
 
 
     if params[:start_deposit_date]
-      r_conditions << "deposits.deposit_date >= ?"
+      r_conditions << "deposits.business_date >= ?"
       r_values << params[:start_deposit_date].to_date
     end
     if params[:end_deposit_date]
-      r_conditions << "deposits.deposit_date <= ?"
+      r_conditions << "deposits.business_date <= ?"
       r_values << params[:end_deposit_date].to_date
     end
     if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
