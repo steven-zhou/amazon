@@ -1,15 +1,15 @@
 - form_for deposit, :html => {:class => "ajax_form", :id => "new_deposit_form", :submit_button_id => "new_submit_button"} do |f|
   .form_line
     .field_25
-      = f.label :todays_date, "System Date"
-      %input{:style => "display:none;", :value => "#{@system_date}", :name => "deposit[todays_date]"}
+      = f.label :system_time, "System Date"
+      %input{:style => "display:none;", :value => "#{@system_date}", :name => "deposit[system_time]"}
       %input{:style => "display:none;", :value => "#{deposit.id}", :name => "id", :id => "deposit_id"}
       .display_field_bg
         #{@system_date.to_s}      
 
     .field_25
       = f.label :deposit_date, "<span class='asterisk'>*</span>Deposit Date"
-      = f.text_field :deposit_date, :value => "#{@system_date}", :class => "compulsory_field datepick"
+      = f.text_field :business_date, :value => "#{@system_date}", :class => "compulsory_field datepick"
 
     .field_20
       = f.label :bank_account_id, "<span class='asterisk'>*</span>Deposit Bank Account"
@@ -17,7 +17,7 @@
 
     .field_15
       = f.label :banked, "Already Banked"
-      = f.check_box :banked
+      = f.check_box :already_banked
 
   .form_line
     .field_25

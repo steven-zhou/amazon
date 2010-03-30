@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100329044405) do
+ActiveRecord::Schema.define(:version => 20100330014024) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -366,13 +366,13 @@ ActiveRecord::Schema.define(:version => 20100329044405) do
     t.integer  "bank_id"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.string   "card_authority_number"
   end
 
   create_table "deposits", :force => true do |t|
     t.integer  "entity_id"
     t.string   "entity_type"
-    t.date     "todays_date"
-    t.date     "deposit_date"
+    t.date     "business_date"
     t.integer  "payment_method_meta_type_id"
     t.integer  "payment_method_type_id"
     t.integer  "bank_account_id"
@@ -385,13 +385,15 @@ ActiveRecord::Schema.define(:version => 20100329044405) do
     t.text     "notes"
     t.integer  "received_via_id"
     t.string   "received_via_name"
-    t.boolean  "banked"
+    t.boolean  "already_banked"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "temp_banked"
     t.integer  "creator_id"
     t.integer  "updater_id"
-    t.boolean  "post"
+    t.datetime "system_time"
+    t.boolean  "to_be_banked"
+    t.date     "bank_run_date"
   end
 
   create_table "duplication_formula_details", :force => true do |t|
@@ -1149,9 +1151,10 @@ ActiveRecord::Schema.define(:version => 20100329044405) do
     t.integer  "entity_id"
     t.string   "entity_type"
     t.integer  "receipt_number"
-    t.integer  "manual_receipt_number"
     t.string   "type"
     t.integer  "entity_receipt_id"
+    t.boolean  "receipt_post"
+    t.string   "manual_receipt_number"
   end
 
   create_table "relationships", :force => true do |t|

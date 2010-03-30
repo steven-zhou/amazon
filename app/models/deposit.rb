@@ -14,13 +14,13 @@ class Deposit < ActiveRecord::Base
 
   default_scope :order => "deposits.id"
 
-  validates_presence_of :deposit_date, :bank_account_id, :payment_method_meta_type_id, :payment_method_type_id, :received_via_id
+  validates_presence_of :business_date, :bank_account_id, :payment_method_meta_type_id, :payment_method_type_id, :received_via_id
 
   #reg ex for date format with dd/mm/yyyy
-  validates_format_of :deposit_date, :with => /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
+  validates_format_of :business_date, :with => /^(((0[1-9]|[12]\d|3[01])\-(0[13578]|1[02])\-((19|[2-9]\d)\d{2}))|((0[1-9]|[12]\d|30)\-(0[13456789]|1[012])\-((19|[2-9]\d)\d{2}))|((0[1-9]|1\d|2[0-8])\-02\-((19|[2-9]\d)\d{2}))|(29\-02\-((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))))$/
   
   #reg ex for date format with mm/dd/yyyy
-  #validates_format_of :deposit_date, :with => /^(((0?[1-9]|1[012])\-(0?[1-9]|1\d|2[0-8])|(0?[13456789]|1[012])\-(29|30)|(0?[13578]|1[02])\-31)\-(19|[2-9]\d)\d{2}|0?2\-29\-((19|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00)))$/
+  #validates_format_of :business_date, :with => /^(((0?[1-9]|1[012])\-(0?[1-9]|1\d|2[0-8])|(0?[13456789]|1[012])\-(29|30)|(0?[13578]|1[02])\-31)\-(19|[2-9]\d)\d{2}|0?2\-29\-((19|[2-9]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00)))$/
 
   before_update :update_total_amount
 
@@ -40,4 +40,11 @@ class Deposit < ActiveRecord::Base
     end
     self.total_amount = t
   end
+
+
+  def to_be_bank_validation
+    self.already_banked == true ? self.to_be_banked = false : self.to_be_banked = true
+    return true
+  end
+  
 end
