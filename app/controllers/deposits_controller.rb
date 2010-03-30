@@ -349,7 +349,7 @@ class DepositsController < ApplicationController
         @deposits.each do |i|
 
           if i.to_be_banked == true && i.already_banked == false
-            i.bank_run_id = @run.id            
+            i.bank_run_id = @run.id
           elsif i.to_be_banked == false && i.already_banked == true
             i.bank_run_id = -1
           elsif i.to_be_banked == false && i.already_banked == false
@@ -452,7 +452,7 @@ class DepositsController < ApplicationController
 
       # for receipt type summary
       if params[:RTS]
-        i.receipts.each do |receipt|
+        i.entity_receipts.each do |receipt|
           if receipt.deposit.payment_method_meta_type.name == "Cash"
             @receipt_type_cash[bank_account.id] << receipt.amount rescue @receipt_type_cash[bank_account.id]  = [receipt.amount]
           elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
@@ -469,7 +469,7 @@ class DepositsController < ApplicationController
       #for bank run campaign summary
       if params[:CS]
         @campaign.each do |campaign|
-          i.receipts.each do |receipt|
+          i.entity_receipts.each do |receipt|
             if receipt.campaign.try(:name) == campaign.name
               if receipt.deposit.payment_method_meta_type.name == "Cash"
                 @campaign_cash[bank_account.id+campaign.id] << receipt.amount rescue @campaign_cash[bank_account.id+campaign.id] = [receipt.amount]
@@ -500,7 +500,7 @@ class DepositsController < ApplicationController
     File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html", 'w') do |f|
       f.puts "#{@bank_deposit_sheet}"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf #{pdf_options}"
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
     flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run.id}-BankDepositSheet.pdf\' target='_blank'>#{@run.id}-BankDepositSheet.pdf</a></p>"
 
 
@@ -510,7 +510,7 @@ class DepositsController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
         f.puts "#{@bank_run_audit_sheet}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf #{pdf_options};rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
       flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run.id}-BankRunAuditSheet.pdf</a></p>"
     end
     

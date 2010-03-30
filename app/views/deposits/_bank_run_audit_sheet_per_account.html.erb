@@ -27,7 +27,7 @@
 
   <div id="content">
     <%- sub_total = 0.00%>
-    <%- @cash_transactions[account.id].try(:each) do |cash_transaction|%>
+    <%- @cash_deposits[account.id].try(:each) do |cash_transaction|%>
       <div class="title_item"><%= cash_transaction.id %></div>
       <div class="title_item"><%= cash_transaction.entity.name rescue cash_transaction.entity.full_name %></div>
       <div class="title_item">Cash</div>
@@ -45,7 +45,7 @@
       <div class="title_item"><%= number_to_currency(total) %></div>
       <div class="title_item"><%= cheque_transaction.receipt_number %></div>
     <%- end %>
-    <%- @master_transactions[account.id].try(:each) do |master_transaction|%>
+    <%- @master_deposits[account.id].try(:each) do |master_transaction|%>
       <div class="title_item"><%= master_transaction.id %></div>
       <div class="title_item"><%= master_transaction.transaction_type_detail.try(:name_on_card) %></div>
       <div class="title_item">Master</div>
@@ -54,7 +54,7 @@
       <div class="title_item"><%= number_to_currency(total) %></div>
       <div class="title_item"><%= master_transaction.receipt_number %></div>
     <%- end %>
-    <%- @visa_transactions[account.id].try(:each) do |visa_transaction|%>
+    <%- @visa_deposits[account.id].try(:each) do |visa_transaction|%>
       <div class="title_item"><%= visa_transaction.id %></div>
       <div class="title_item"><%= visa_transaction.transaction_type_detail.try(:name_on_card) %></div>
       <div class="title_item">Visa</div>
