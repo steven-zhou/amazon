@@ -436,7 +436,7 @@ class DepositsController < ApplicationController
       # for receipt account summary
       if params[:RAS]
         @receipt_account.each do |receipt_account|
-          i.receipts.each do |receipt|
+          i.entity_receipts.each do |receipt|
             if receipt.receipt_account.name == receipt_account.name
               if receipt.deposit.payment_method_meta_type.name == "Cash"
                 @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
