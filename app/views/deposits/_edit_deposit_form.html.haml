@@ -71,4 +71,5 @@
 #edit_temp_allocation_total_amount.right{:style => "width:35%;"}
   .display_field_bg.right{:style => "width:160px !important;"}
     %div{:id => "total_amount_value"}
+      #{number_to_currency(@deposit.total_amount)}
   %h2{:class => "float:right;"} Deposit Total:

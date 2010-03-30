@@ -65,6 +65,7 @@ class DepositsController < ApplicationController
 
     @deposit_id = @deposit.id
     @receipt = EntityReceipt.new
+    @first_time = true
     respond_to do |format|
       format.js
     end
@@ -259,7 +260,7 @@ class DepositsController < ApplicationController
     #        pdf = OutputPdf.generate_deposit_histroy_report_pdf(session[:entity_type], session[:entity_id], params[:start_date], params[:end_date], {}, {})
     #        send_data(pdf.render, :filename => "#{@file_name}.pdf", :type => "application/pdf")}
     #    end
-    convert_html_to_pdf("deposit_enquiry","deposit_enquiry_result","deposit_enquiry_result", {:option => "--page-size A5"})
+    convert_html_to_pdf("deposit_enquiry","deposit_enquiry_result","deposit_enquiry_result")
     respond_to do |format|
       format.pdf {send_file("public/temp/#{@current_user.user_name}/deposit_enquiry/deposit_enquiry_result.pdf", :filename => "deposit_enquiry_result.pdf", :type => "application/pdf")}
     end

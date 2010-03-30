@@ -1,79 +1,13 @@
 class ReceiptsController < ApplicationController
   # System Log stuff added
 
-  def new    
-    @deposit = Deposit.find(params[:param1])
-    @receipt = EntityReceipt.new
-    respond_to do |format|
-      format.js
-    end
-  end
-
-
-  def create
-    @deposit= Deposit.find(params[:receipt][:deposit_id])
-    if params[:receipt][:entity_id]
-      @entity = params[:receipt][:entity_type].camelize.constantize.find(params[:receipt][:entity_id]) rescue @entity = nil
-    end
-
-    if @entity.nil?
-      flash.now[:error] = "#{params[:receipt][:entity_type]} #{params[:receipt][:entity_id]} can not be found"
-    else    
-      @receipt = @entity.receipts.new(params[:receipt])
-      if @receipt.save
-        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt with ID #{@receipt.id}.")
-      else
-        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) had an error when attempting to create a new @receipt.")
-        #----------------------------presence - of--------------------
-        if(!@receipt.errors[:deposit_id].nil? && @receipt.errors.on(:deposit_id).include?("can't be blank"))
-          flash.now[:error] = "Please Enter All Required Data"
-        elsif(!@receipt.errors[:receipt_account_id].nil? && @receipt.errors.on(:receipt_account_id).include?("can't be blank"))
-          flash.now[:error] = "Please Enter All Required Data"
-        elsif(!@receipt.errors[:amount].nil? && @receipt.errors.on(:amount).include?("can't be blank"))
-          flash.now[:error] = "Please Enter All Required Data"
-        elsif(!@receipt.errors[:entity_id].nil? && @receipt.errors.on(:entity_id).include?("has already been taken"))
-          flash.now[:error] = "A record with same extension already exists"
-        else
-          flash.now[:error] = "A record with same receipt account already exists, please try other receipt accounts"
-        end
-      end
-    
-    end
-    respond_to do |format|
-      format.js
-    end
-  end
-
-
-  def destroy
-    p = params[:id].split("-")
-    @entity = p[0].camelize.constantize.find(p[1])
-    @deposit = Deposit.find(p[2])
-    @receipts = @entity.receipts.find(:all, :conditions => ["deposit_id = ?", @deposit.id])
-    @receipts.each do |i|
-      i.destroy
-    end
-
-    system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted extension.")
-
-    respond_to do |format|
-      format.js
-    end
-  end
-
   
-
-  def extention_name_finder
-
-
-  end
-
-
   def show_extension_receipts
-#    p = params[:grid_object_id].split("-")
 
-    @entity = p[0].camelize.constantize.find(p[1])
-    @deposit = Deposit.find(p[2])
+    @entity_receipt = EntityReceipt.find(params[:grid_object_id])
+    @entity = @entity_receipt.entity
+    @deposit = @entity_receipt.deposit
+
     respond_to do |format|
       format.js
     end
@@ -165,7 +99,7 @@ class ReceiptsController < ApplicationController
 
   def show_pdf
 
-    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result", {:option => "--page-size A5"})
+    convert_html_to_pdf("receipt_enquiry","receipt_enquiry_result","receipt_enquiry_result")
 
 
     respond_to do |format|

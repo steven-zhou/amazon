@@ -2454,13 +2454,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @deposit = Deposit.find(:all,
-        :conditions => ["deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+        :conditions => ["deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
@@ -2471,9 +2471,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ?", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ?", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ?", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ? ", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2628,7 +2628,6 @@ class GridsController < ApplicationController
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
           u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
           u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
-          u.letter_id.nil? ? "" : u.letter_id,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
