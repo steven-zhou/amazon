@@ -70,7 +70,7 @@ class ReceiptsController < ApplicationController
 
 
   def show_extension_receipts
-    p = params[:grid_object_id].split("-")
+#    p = params[:grid_object_id].split("-")
 
     @entity = p[0].camelize.constantize.find(p[1])
     @deposit = Deposit.find(p[2])
@@ -149,7 +149,7 @@ class ReceiptsController < ApplicationController
 
     @query = query_conditions.join('&').gsub("receipts.","")
     if @date_valid
-      @receipts = Receipt.find(:all,
+      @receipts = EntityReceipt.find(:all,
         :conditions => [conditions.join(' AND '), *values],
         :include => ["deposit"])
       @count = @receipts.size
