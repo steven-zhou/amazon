@@ -40,9 +40,9 @@
         <td><%=receipt.id%></td>
         <td><%=receipt.receipt_number%></td>
         <td><%=receipt.manual_receipt_number%></td>
-        <td><%=receipt.deposit.try(:deposit_date).try(:to_s)%></td>
+        <td><%=receipt.deposit.try(:business_date).try(:to_s)%></td>
         <td><%=number_to_currency(receipt.amount)%></td>
-        <td><%=number_to_currency(receipt.amount)%></td>
+        <td><%=receipt.bank_run_id%></td>
       </tr>
     <%- end %>
   </table>
