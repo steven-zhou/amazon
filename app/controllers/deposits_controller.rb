@@ -298,8 +298,8 @@ class DepositsController < ApplicationController
   def run
     conditions = Array.new
     values = Array.new
-    conditions << "bank_run_id = ?"
-    values << "nil"
+    conditions << "bank_run_id IS NULL"
+#    values << "IS Null"
 
 
     @date_valid = true
@@ -333,9 +333,9 @@ class DepositsController < ApplicationController
         flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
       end
     end
-    
+
     @deposits = Deposit.find(:all, :conditions => [conditions.join(" AND "), *values])
-    
+
     if @deposits.blank?
       flash[:warning] = "No outstanding deposits found"
     elsif !@date_valid
@@ -500,7 +500,7 @@ class DepositsController < ApplicationController
     File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html", 'w') do |f|
       f.puts "#{@bank_deposit_sheet}"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf #{pdf_options}"
     flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run.id}-BankDepositSheet.pdf\' target='_blank'>#{@run.id}-BankDepositSheet.pdf</a></p>"
 
 
