@@ -35,7 +35,7 @@
           %li{:id => @current_action == "parameters" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_parameters.png')} Parameters",{:controller => "client_setups", :action => "parameters"}, :controller => "client_setups", :action => "parameters",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/system_parameters.png", :title => "Parameters"
           %li{:id => @current_action == "client_bank_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Bank Accounts",{:controller => "client_setups", :action => "client_bank_accounts"}, :controller => "client_setups", :action => "client_bank_accounts",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Banks Accounts"
+            = link_to "#{image_tag('Icons/Admin/System Setup/bank_account.png')} Bank Accounts",{:controller => "client_setups", :action => "client_bank_accounts"}, :controller => "client_setups", :action => "client_bank_accounts",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/bank_account.png", :title => "Banks Accounts"
           %li{:id => @current_action == "license_info" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info",{:controller => "client_setups", :action => "license_info"}, :controller => "client_setups", :action => "license_info",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/license_info.png", :title => "License Info"
           %li{:id => @current_action == "system_log_management" ? "selected" : ""}
