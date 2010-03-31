@@ -1,12 +1,13 @@
+
 - @entities.each do |i|
   %div#album_wall_show{:style => "float:left;width:45%;text-align:center;padding:0.5%;background-color:white;margin:2%;"}
     
     #image{:style=> "margin:3px auto;float:left;"}
       - if i.image.blank?
-        = link_to_function image_tag ('Icons/System/image-missing.png', :class => "medium"), :class => "album_click", :url => "/people/show_left", :param1 => "#{i.id}"
+        = link_to_function image_tag ('Icons/System/image-missing.png', :class => "medium"), :class => "album_click", :url => "/people/show_left", :param1 => "#{i.id}", :current_operation => "#{session[:current_operation]}", :type => "person"
       - else
         -#= link_to image_tag("1.png", :alt => "Greenery foryou!", :id => "photo", :class => "medium"), "images/1.png", {:rel => "lightbox", :title => "Greenery", :class => "lightbox"}
-        = link_to_function image_tag("#{i.image.try(:id)}", :alt => "#{i.name}", :id => "photo", :class => "medium"), :class => "album_click", :url => "/people/show_left", :param1 => "#{i.id}"
+        = link_to_function image_tag("#{i.image.try(:id)}", :alt => "#{i.name}", :id => "photo", :class => "medium"), :class => "album_click", :url => "/people/show_left", :param1 => "#{i.id}", :current_operation => "#{session[:current_operation]}", :type => "person"
     #person_info_card{:style=> "float:left"}
       #person_name{:style=> "float:left;margin:5px;font-weight:bold;font-size:15px;"}
         =i.try(:primary_title)
