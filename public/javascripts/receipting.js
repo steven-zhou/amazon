@@ -563,3 +563,10 @@ $(function(){
 
   
 });
+
+$(function(){
+  $('#close_receipt_view').live('click', function(){
+    $('#receipt_filter').show();
+    $('.receipt_export_to_pdf_button').show();
+  });
+});

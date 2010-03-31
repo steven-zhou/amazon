@@ -3,48 +3,89 @@
     .options
       = image_tag('Icons/System/collapse.png')
     .right{:style => "margin:3px 3px 0 0;"}
-      = link_to "Transaction", :controller => "receipting", :action => "personal_deposit"
+      = link_to "My Transactions", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
     %h1 Receipting
 
   %div#receipting_details.left{:style => "width:100%;"}
     .container
-      %h2 Last Transaction
+      %h3 Last Transaction
       .form_line
         .field_31
           %label Date
           .display_field_bg
-            #{Date.today.to_s}
+            1st February 2010
 
         .field_31
           %label Amount
           .display_field_bg
-            #{number_to_currency(8000)}
+            #{number_to_currency(150)}
 
         .field_31
-          %label Status
+          %label Account
           .display_field_bg
+            Membership
 
-
-    .container
-      %h2 YTD Total
+      %h3 YTD
       .form_line
         .field_31
-          %label NO.Transactions
+          %label Number of Transactions
           .display_field_bg
-            = 100
+            2
 
         .field_31
           %label Amount
           .display_field_bg
-            #{number_to_currency(80000)}
+            #{number_to_currency(300)}
 
         .field_31
           %label Average Transaction
           .display_field_bg
-            #{number_to_currency(8000)}
+            #{number_to_currency(150)}
             
 
+%div.container
+  %div.toggle_div{:toggle_id_name => "fundraising_details", :style => "cursor: pointer;"}
+    .options
+      = image_tag('Icons/System/expand.png')
+    .right{:style => "margin:3px 3px 0 0;"}
+      = link_to "My Donations", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
+    %h1 Fundraising
 
+  %div#fundraising_details.left{:style => "width:100%;display:none;"}
+    .container
+      %h3 Last Donation
+      .form_line
+        .field_31
+          %label Date
+          .display_field_bg
+            2nd April 2010
+
+        .field_31
+          %label Amount
+          .display_field_bg
+            #{number_to_currency(100)}
+
+        .field_31
+          %label Account
+          .display_field_bg
+            Children Fund
+
+      %h3 YTD
+      .form_line
+        .field_31
+          %label Number of Donations
+          .display_field_bg
+            4
+
+        .field_31
+          %label Amount
+          .display_field_bg
+            #{number_to_currency(320)}
+
+        .field_31
+          %label Average Transaction
+          .display_field_bg
+            #{number_to_currency(80)}
 
 
 %div.container
@@ -53,42 +94,123 @@
       = image_tag('Icons/System/expand.png')
     .right{:style => "margin:3px 3px 0 0;"}
       -unless @person.is_member
-        = link_to "Become a member", :controller => "module", :action => "become_membership",:id=>@person.id
+        = link_to "My Memberships", {:controller => "module", :action => "become_membership",:id=>@person.id}, :class => "alt_link"
       -else
-        = link_to "Manage Membership", :controller => "module", :action => "manage_membership",:id=>@person.id
+        = link_to "My Memberships", {:controller => "module", :action => "manage_membership",:id=>@person.id}, :class => "alt_link"
     %h1 Membership
 
   %div#membership_details.left{:style => "width:100%;display:none;"}
     .container
-      Infomation Here
+      %h3 Setup
+      .form_line{:style => "height:auto;"}
+        .field_31
+          %label Type
+          .display_field_bg
+            Full Member
+
+        .field_31{:style => "height:auto;"}
+          %label System Status
+          .display_field_bg
+            Billing Activated
+            %br{:style => "margin-top:4px;display:block;"}
+            Financial
+
+        .field_31
+          %label Payment Method
+          .display_field_bg
+            CC Direct Debit
+
+      %h3 Payments
+      .form_line
+        .field_31
+          %label Last Payment Date
+          .display_field_bg
+            1st February 2010
+
+        .field_31
+          %label Amount
+          .display_field_bg
+            #{number_to_currency(120)}
+
+        .field_31
+          %label Balance
+          .display_field_bg
+            (#{number_to_currency(250)})
 
 
-%div.container
-  %div.toggle_div{:toggle_id_name => "fundraising_details", :style => "cursor: pointer;"}
-    .options
-      = image_tag('Icons/System/expand.png')
-    %h1 Fundraising
-
-  %div#fundraising_details.left{:style => "width:100%;display:none;"}
-    %br
-    %br
 
 %div.container
   %div.toggle_div{:toggle_id_name => "case_management_details", :style => "cursor: pointer;"}
     .options
       = image_tag('Icons/System/expand.png')
+    .right{:style => "margin:3px 3px 0 0;"}
+      = link_to "My Cases", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
     %h1 Case Management
 
   %div#case_management_details.left{:style => "width:100%;display:none;"}
-    %br
-    %br
+    .container
+      %h3 Current Cases
+      .form_line{:style => "height:auto;"}
+        .field_31{:style => "height:auto;"}
+          %label Date
+          .display_field_bg
+            3rd March 2010
+            %br{:style => "margin-top:4px;display:block;"}
+            10th April 2010
+
+        .field_31{:style => "height:auto;"}
+          %label Issue
+          .display_field_bg
+            Over Payment
+            %br{:style => "margin-top:4px;display:block;"}
+            Freedom of 
+            %br{:style => "margin-top:4px;display:block;"}
+            Information
+
+        .field_31{:style => "height:auto;"}
+          %label Status
+          .display_field_bg
+            Investigation
+            %br{:style => "margin-top:4px;display:block;"}
+            In Review
+
+
 
 %div.container
   %div.toggle_div{:toggle_id_name => "events_details", :style => "cursor: pointer;"}
     .options
       = image_tag('Icons/System/expand.png')
+    .right{:style => "margin:3px 3px 0 0;"}
+      = link_to "My Events", {:controller => "receipting", :action => "personal_deposit"}, :class => "alt_link"
     %h1 Events
 
   %div#events_details.left{:style => "width:100%;display:none;"}
-    %br
-    %br
+    .container
+      %h3 Current Events
+      .form_line{:style => "height:auto;"}
+        .field_31{:style => "height:auto;"}
+          %label Date
+          .display_field_bg
+            22nd April 2010
+            %br{:style => "margin-top:4px;display:block;"}
+            10th May 2010
+            %br{:style => "margin-top:4px;display:block;"}
+            21st May 2010
+
+        .field_31{:style => "height:auto;"}
+          %label Event
+          .display_field_bg
+            The Magic Show
+            %br{:style => "margin-top:4px;display:block;"}
+            Industrial Workshop
+            %br{:style => "margin-top:4px;display:block;"}
+            Investment Seminar
+
+        .field_31{:style => "height:auto;"}
+          %label Booking Status
+          .display_field_bg
+            Waited List
+            %br{:style => "margin-top:4px;display:block;"}
+            Confirmed
+            %br{:style => "margin-top:4px;display:block;"}
+            On-Hold

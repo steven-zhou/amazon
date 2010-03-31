@@ -2555,8 +2555,7 @@ class GridsController < ApplicationController
     return_data[:page] = page
     return_data[:total] = count
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
-        :cell=>[u.entity_type,
-          u.entity_id,
+        :cell=>["#{u.entity_type}-#{u.entity_id}",
           u.amount.nil? ? "$0.00" : currencify(u.amount),
           u.manual_receipt_number
         ]}}
@@ -2659,6 +2658,7 @@ class GridsController < ApplicationController
     values = Array.new
     r_conditions = Array.new
     r_values = Array.new
+    r_conditions << "receipts.bank_run_id IS NOT NULL"
     r_conditions << "receipts.entity_type = ?"
     r_values << params[:entity_type]
     r_conditions << "receipts.entity_id = ?"
@@ -2730,9 +2730,7 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_account_id.nil? ? "" : u.receipt_account.name,
-#          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
-#          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
+          u.manual_receipt_number,
           u.deposit.business_date.to_s,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
     

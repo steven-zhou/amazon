@@ -21,6 +21,7 @@ class ReceiptsController < ApplicationController
     r_values = Array.new
     query_conditions = Array.new
     @entity = session[:entity_type].camelize.constantize.find(session[:entity_id])
+    r_conditions << "receipts.bank_run_id IS NOT NULL"
     r_conditions << "receipts.entity_type =?"
     r_values << session[:entity_type]
     r_conditions << "receipts.entity_id = ?"

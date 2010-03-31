@@ -32,7 +32,7 @@
           .left
             Website
           .right
-            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank"}
+            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
               = @primary_website.value
 
       -unless @primary_email.nil?
@@ -40,7 +40,7 @@
           .left
             Email
           .right
-            %a{:href => "mailto:#{@primary_email.value}"}
+            %a{:href => "mailto:#{@primary_email.value}", :class => "alt_link"}
               = @primary_email.value
 
     .container
