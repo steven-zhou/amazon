@@ -443,7 +443,7 @@ class DepositsController < ApplicationController
               if allocation.receipt_account.name == receipt_account.name
                 if receipt.deposit.payment_method_meta_type.name == "Cash"
 
-                  @receipt_account_cash[bank_account.id+sreceipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id][receipt_account.id] = [receipt.amount]
+                  @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
                 elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
                   @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
                 elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
@@ -570,7 +570,7 @@ class DepositsController < ApplicationController
     end
 
     puts "****************************"
-    puts @receipt_account_cash.to_yaml
+    puts @receipt_account_cash
   end
 
 
