@@ -39,6 +39,8 @@
       = f.label :banked, "Already Banked"
       = f.check_box :already_banked
 
+  .form_line
+
   #edit_cheque_detail_form
     - if deposit.payment_method_type.name == 'Cheque'
       = render :partial => "deposit_details/cheque_detail_form"

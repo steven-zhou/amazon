@@ -17,6 +17,7 @@
 <div id="receipt_account_summary">
 <%- @accounts.each do |account|%>
 <%= render :partial => "deposits/receipt_account_summary_detail", :locals => {:account => account} %>
+
   <%-if account != @accounts.last %>
   <div class="page_break">&nbsp;</div>
   <%-end %>
