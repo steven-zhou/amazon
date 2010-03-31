@@ -34,8 +34,9 @@
       <%- total = cash_transaction.total_amount%>
       <%- sub_total += total%>
       <div class="title_item"><%= number_to_currency(total) %></div>
-
+    <br clear="both"/>
     <%- end %>
+
     <%- @cheque_deposits[account.id].try(:each) do |cheque_transaction|%>
       <div class="title_item"><%= cheque_transaction.id %></div>
       <div class="title_item"><%= cheque_transaction.deposit_detail.try(:name_on_cheque) %></div>
@@ -43,8 +44,9 @@
       <%- total = cheque_transaction.total_amount%>
       <%- sub_total += total%>
       <div class="title_item"><%= number_to_currency(total) %></div>
-
+    <br clear="both"/>
     <%- end %>
+
     <%- @master_deposits[account.id].try(:each) do |master_transaction|%>
       <div class="title_item"><%= master_transaction.id %></div>
       <div class="title_item"><%= master_transaction.deposit_detail.try(:name_on_card) %></div>
@@ -52,8 +54,9 @@
       <%- total = master_transaction.total_amount%>
       <%- sub_total += total%>
       <div class="title_item"><%= number_to_currency(total) %></div>
-
+        <br clear="both"/>
     <%- end %>
+
     <%- @visa_deposits[account.id].try(:each) do |visa_transaction|%>
       <div class="title_item"><%= visa_transaction.id %></div>
       <div class="title_item"><%= visa_transaction.deposit_detail.try(:name_on_card) %></div>
@@ -61,8 +64,9 @@
       <%- total = visa_transaction.total_amount%>
       <%- sub_total += total%>
       <div class="title_item"><%= number_to_currency(total) %></div>
-   
+        <br clear="both"/>
     <%- end %>
+
     <br class="clear"/>
   </div>
 

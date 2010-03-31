@@ -15,7 +15,7 @@
         - Bank.find(:all, :order => "full_name").each do |i|
           %span{:id => "branch_nos_#{i.id}", :class => "branch_nos", :style => "display:none;"}
             #{i.branch_number}
-    .field_30
+    .field_20
       = t.label :name_on_cheque, "<span class='asterisk'>*</span>Drawers Name"
       = t.text_field :name_on_cheque, :class => 'compulsory_field'
     .field_15

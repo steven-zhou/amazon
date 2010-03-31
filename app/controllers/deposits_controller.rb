@@ -439,8 +439,10 @@ class DepositsController < ApplicationController
           i.entity_receipts.each do |receipt|
 
             receipt.receipt_allocations.each do |allocation|
+              
               if allocation.receipt_account.name == receipt_account.name
                 if receipt.deposit.payment_method_meta_type.name == "Cash"
+
                   @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
                 elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
                   @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
@@ -566,6 +568,9 @@ class DepositsController < ApplicationController
       system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
       flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf\' target='_blank'>#{@run.id}-ReceiptTypeSummary.pdf</a><p>"
     end
+
+    puts "****************************"
+    puts @receipt_account_cash
   end
 
 
