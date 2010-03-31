@@ -1165,11 +1165,11 @@ $(".person_group_toggle_button").live('click', function(){
   if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
     $('.person_group_delete_button').css("display","none");
   else
-    $('.person_group_delete_button').css("display","");
+  $('.person_group_delete_button').css("display","");
   $('#'+$(this).attr('toggle_id_name')).toggle('blind');
   $('.person_group_close').css("display","");
   $(this).css("display","none");
-});
+  });
 
 $(".person_group_close").live('click',function(){
 
@@ -1177,61 +1177,61 @@ $(".person_group_close").live('click',function(){
   var link = $(this);
   if( $('#group_input_change_or_not').val() == "false")
   {
-    $('#'+link.attr('toggle_id_name')).toggle('blind');
+  $('#'+link.attr('toggle_id_name')).toggle('blind');
 
-    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-      $('.person_group_delete_button').css("display","none");
-    else
-      $('.person_group_delete_button').css("display","");
+  if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+  $('.person_group_delete_button').css("display","none");
+  else
+  $('.person_group_delete_button').css("display","");
 
-    link.css("display","none");
-    $('.person_group_toggle_button').css("display","");
+  link.css("display","none");
+  $('.person_group_toggle_button').css("display","");
 
 
   }
   else
-  {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
-    $('#warning_message_image').css("display","");
-    $('#warning_message').dialog({
-      modal: true,
-      resizable: false,
-      draggable: true,
-      height: 'auto',
-      width: 'auto',
-      buttons: {
+{
+  $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+  $('#warning_message_image').css("display","");
+  $('#warning_message').dialog({
+    modal: true,
+    resizable: false,
+    draggable: true,
+    height: 'auto',
+    width: 'auto',
+    buttons: {
 
-        No: function(){
-          $(this).dialog('destroy');
-          return false;
+      No: function(){
+        $(this).dialog('destroy');
+        return false;
 
-        },
-        Yes: function(){
-          $('#'+link.attr('toggle_id_name')).toggle('blind');
+      },
+      Yes: function(){
+        $('#'+link.attr('toggle_id_name')).toggle('blind');
 
-          if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-            $('.person_group_delete_button').css("display","none");
-          else
-            $('.person_group_delete_button').css("display","");
+        if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+          $('.person_group_delete_button').css("display","none");
+        else
+          $('.person_group_delete_button').css("display","");
 
-          link.css("display","none");
-          $('.person_group_toggle_button').css("display","");
+        link.css("display","none");
+        $('.person_group_toggle_button').css("display","");
 
-          $('#group_input_change_or_not').val("false");
-          $(this).dialog('destroy');
-          return true;
-        }
+        $('#group_input_change_or_not').val("false");
+        $(this).dialog('destroy');
+        return true;
       }
+    }
 
-    });
-    $('#warning_message').dialog('option', 'title', 'Warning');
+  });
+  $('#warning_message').dialog('option', 'title', 'Warning');
 
-    $('#warning_message').parent().find("a").css("display","none");
-    $("#warning_message").parent().css('background-color','#D1DDE6');
-    $("#warning_message").css('background-color','#D1DDE6');
+  $('#warning_message').parent().find("a").css("display","none");
+  $("#warning_message").parent().css('background-color','#D1DDE6');
+  $("#warning_message").css('background-color','#D1DDE6');
 
-    $('#warning_message').dialog('open');
-  }
+  $('#warning_message').dialog('open');
+}
 
 });
 
@@ -4020,3 +4020,35 @@ $(function(){
 
   });
 });
+
+$(function(){
+  $(".album_click").live('dblclick',function(){
+    var current_op = $(this).attr('current_operation')
+    var type = $(this).attr('type')
+    if  (type == "person")
+    {
+      if (current_op == "edit_list")
+      {
+        window.open("/people/"+$(this).attr("param1")+"/edit","_self");
+      }
+      if (current_op == "show_list")
+      {
+        window.open("/people/"+$(this).attr("param1")+"/","_self");
+
+      }
+    }else{
+      if (current_op == "edit_organisation_list")
+      {
+        window.open("/organisations/"+$(this).attr("param1")+"/edit","_self");
+      }
+      if (current_op == "show_organisation_list")
+      {
+         window.open("/organisations/"+$(this).attr("param1")+"/","_self");
+
+      }
+
+    }
+  });
+});
+
+
