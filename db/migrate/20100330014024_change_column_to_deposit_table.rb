@@ -9,10 +9,9 @@ class ChangeColumnToDepositTable < ActiveRecord::Migration
     add_column :deposits, :bank_run_date, :date
     add_column :deposit_details,:card_authority_number, :string
     add_column :receipts ,:receipt_post, :boolean
-
     remove_column :receipts, :manual_receipt_number
     add_column :receipts, :manual_receipt_number, :string
-
+    add_column :receipts, :bank_run_id, :integer
   end
 
   def self.down
@@ -26,7 +25,8 @@ class ChangeColumnToDepositTable < ActiveRecord::Migration
     remove_column :deposit_details,:card_authority_number
     remove_column :receipts , :receipt_post
     remove_column :receipts, :manual_receipt_number
-    add_column :receipts, :manual_receipt_number, :integer
-    
+    add_column :receipts, :manual_receipt_number, :integer    
+    remove_column :receipts, :bank_run_id
+
   end
 end

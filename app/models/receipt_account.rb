@@ -1,7 +1,7 @@
 class ReceiptAccount < ActiveRecord::Base
 
   belongs_to :link_module
-  has_many :transaction_allocations
+  has_many :receipt_allocations
   has_many :membership_fees ,:class_name =>"MembershipFee",:foreign_key => "receipt_account_id"
   belongs_to :receipt_account_type
   validates_uniqueness_of :name

@@ -70,11 +70,11 @@
 
       <%- deposits.try(:each) do |deposit|%>
         <div class="div_cell th20">XXXXXXXXXX</div>
-        <div class="div_cell th15"><%= deposit.deposit_type_detail.try(:name_on_card) %></div>
+        <div class="div_cell th15"><%= deposit.deposit_detail.try(:name_on_card) %></div>
         <div class="div_cell th7"><%= deposit.received_via.try(:name)%></div>
         <div class="div_cell th7">1</div>
-        <div class="div_cell th15"><%=deposit.deposit_type_detail.try(:card_number)%></div>
-        <div class="div_cell th7"><%=deposit.deposit_type_detail.try(:cvv_number)%></div>
+        <div class="div_cell th15"><%=deposit.deposit_detail.try(:card_number)%></div>
+        <div class="div_cell th7"><%=deposit.deposit_detail.try(:cvv_number)%></div>
         <div class="div_cell th7"><%= number_to_currency(deposit.total_amount)%></div>
       <%- end %>
     </div>

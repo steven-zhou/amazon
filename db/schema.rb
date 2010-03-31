@@ -1155,6 +1155,7 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.integer  "entity_receipt_id"
     t.boolean  "receipt_post"
     t.string   "manual_receipt_number"
+    t.integer  "bank_run_id"
   end
 
   create_table "relationships", :force => true do |t|

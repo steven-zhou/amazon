@@ -2665,11 +2665,11 @@ class GridsController < ApplicationController
     r_values << params[:entity_id]
     
     if params[:start_deposit_date]
-      r_conditions << "deposits.deposit_date >= ?"
+      r_conditions << "deposits.business_date >= ?"
       r_values << params[:start_deposit_date].to_date
     end
     if params[:end_deposit_date]
-      r_conditions << "deposits.deposit_date <= ?"
+      r_conditions << "deposits.business_date <= ?"
       r_values << params[:end_deposit_date].to_date
     end
     if params[:receipt_account_id]
@@ -2730,11 +2730,10 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>[u.id,
-
           u.receipt_account_id.nil? ? "" : u.receipt_account.name,
 #          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
 #          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
-          u.deposit.deposit_date.to_s,
+          u.deposit.business_date.to_s,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
     
         ]}}

@@ -298,8 +298,8 @@ class DepositsController < ApplicationController
   def run
     conditions = Array.new
     values = Array.new
-    conditions << "already_banked = ?"
-    values << "false"
+    conditions << "bank_run_id IS NULL"
+    #    values << "IS Null"
 
 
     @date_valid = true
@@ -333,9 +333,9 @@ class DepositsController < ApplicationController
         flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
       end
     end
-    
+
     @deposits = Deposit.find(:all, :conditions => [conditions.join(" AND "), *values])
-    
+
     if @deposits.blank?
       flash[:warning] = "No outstanding deposits found"
     elsif !@date_valid
@@ -347,7 +347,14 @@ class DepositsController < ApplicationController
       BankRun.transaction do
         @run.save
         @deposits.each do |i|
-          i.bank_run_id = @run.id
+
+          if i.to_be_banked == true && i.already_banked == false
+            i.bank_run_id = @run.id
+          elsif i.to_be_banked == false && i.already_banked == true
+            i.bank_run_id = -1
+          elsif i.to_be_banked == false && i.already_banked == false
+            i.bank_run_id = -2
+          end
           i.already_banked = true
           i.save
         end
@@ -429,14 +436,18 @@ class DepositsController < ApplicationController
       # for receipt account summary
       if params[:RAS]
         @receipt_account.each do |receipt_account|
-          i.receipts.each do |receipt|
-            if receipt.receipt_account.name == receipt_account.name
-              if receipt.deposit.payment_method_meta_type.name == "Cash"
-                @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
-                @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
-                @receipt_account_cards[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [receipt.amount]
+          i.entity_receipts.each do |receipt|
+
+            receipt.receipt_allocations.each do |allocation|
+              if allocation.receipt_account.name == receipt_account.name
+                if receipt.deposit.payment_method_meta_type.name == "Cash"
+                  @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
+                elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+                  @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
+                elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
+                  @receipt_account_cards[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [receipt.amount]
+                end
+
               end
             end
           end
@@ -445,7 +456,7 @@ class DepositsController < ApplicationController
 
       # for receipt type summary
       if params[:RTS]
-        i.receipts.each do |receipt|
+        i.entity_receipts.each do |receipt|
           if receipt.deposit.payment_method_meta_type.name == "Cash"
             @receipt_type_cash[bank_account.id] << receipt.amount rescue @receipt_type_cash[bank_account.id]  = [receipt.amount]
           elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
@@ -462,7 +473,7 @@ class DepositsController < ApplicationController
       #for bank run campaign summary
       if params[:CS]
         @campaign.each do |campaign|
-          i.receipts.each do |receipt|
+          i.entity_receipts.each do |receipt|
             if receipt.campaign.try(:name) == campaign.name
               if receipt.deposit.payment_method_meta_type.name == "Cash"
                 @campaign_cash[bank_account.id+campaign.id] << receipt.amount rescue @campaign_cash[bank_account.id+campaign.id] = [receipt.amount]
@@ -503,7 +514,7 @@ class DepositsController < ApplicationController
       File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
         f.puts "#{@bank_run_audit_sheet}"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
+      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf #{pdf_options};rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
       flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run.id}-BankRunAuditSheet.pdf</a></p>"
     end
     

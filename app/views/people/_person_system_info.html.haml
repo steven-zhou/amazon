@@ -2,25 +2,28 @@
   %div.toggle_div{:toggle_id_name => "receipting_details", :style => "cursor: pointer;"}
     .options
       = image_tag('Icons/System/collapse.png')
+    .right{:style => "margin:3px 3px 0 0;"}
+      = link_to "Transaction", :controller => "receipting", :action => "personal_deposit"
     %h1 Receipting
 
   %div#receipting_details.left{:style => "width:100%;"}
     .container
-      .right
-        = link_to "Transaction", :controller => "transactions", :action => "personal_transaction"
       %h2 Last Transaction
       .form_line
         .field_31
           %label Date
           .display_field_bg
+            #{Date.today.to_s}
 
         .field_31
           %label Amount
           .display_field_bg
+            #{number_to_currency(8000)}
 
         .field_31
           %label Status
           .display_field_bg
+
 
     .container
       %h2 YTD Total
@@ -28,14 +31,17 @@
         .field_31
           %label NO.Transactions
           .display_field_bg
+            = 100
 
         .field_31
           %label Amount
           .display_field_bg
+            #{number_to_currency(80000)}
 
         .field_31
           %label Average Transaction
           .display_field_bg
+            #{number_to_currency(8000)}
             
 
 
@@ -45,24 +51,25 @@
   %div.toggle_div{:toggle_id_name => "membership_details", :style => "cursor: pointer;"}
     .options
       = image_tag('Icons/System/expand.png')
-    %h1 Membership
-
-  %div#membership_details.left{:style => "width:100%;display:none;"}
-    .container
-      .right
+    .right{:style => "margin:3px 3px 0 0;"}
       -unless @person.is_member
         = link_to "Become a member", :controller => "module", :action => "become_membership",:id=>@person.id
       -else
         = link_to "Manage Membership", :controller => "module", :action => "manage_membership",:id=>@person.id
+    %h1 Membership
+
+  %div#membership_details.left{:style => "width:100%;display:none;"}
+    .container
+      Infomation Here
 
 
 %div.container
-  %div.toggle_div{:toggle_id_name => "fundrainsing_details", :style => "cursor: pointer;"}
+  %div.toggle_div{:toggle_id_name => "fundraising_details", :style => "cursor: pointer;"}
     .options
       = image_tag('Icons/System/expand.png')
-    %h1 Fundrainsing
+    %h1 Fundraising
 
-  %div#fundrainsing_details.left{:style => "width:100%;display:none;"}
+  %div#fundraising_details.left{:style => "width:100%;display:none;"}
     %br
     %br
 

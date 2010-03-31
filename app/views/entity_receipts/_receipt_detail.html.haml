@@ -1,0 +1,33 @@
+.form_line
+  .field_10
+    %label Receipt ID
+    .display_field_bg
+      #{receipt.id}
+
+  .field_15
+    %label Deposit Date
+    .display_field_bg
+      #{receipt.deposit.deposit_date.to_s}
+
+  .field_15
+    %label Receipt
+    .display_field_bg
+      #{receipt.receipt_account.name}
+
+  .field_15
+    %label Campaign
+    .display_field_bg
+      #{receipt.campaign.try(:name)}
+
+  .field_20
+    %label Source
+    .display_field_bg
+      #{receipt.source.try(:name)}
+.form_line
+  .field_20
+    %label Amount
+    .display_field_bg
+      #{number_to_currency(receipt.amount)}
+
+#existing_receipts
+

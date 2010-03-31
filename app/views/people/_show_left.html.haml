@@ -31,14 +31,16 @@
           .left
             Website
           .right
-            = @primary_website.value
+            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank"}
+              = @primary_website.value
 
       -unless @primary_email.nil?
         .container
           .left
             Email
           .right
-            = @primary_email.value
+            %a{:href => "mailto:#{@primary_email.value}"}
+              = @primary_email.value
 
     .container
       %h1 Primary Address
@@ -94,7 +96,7 @@
       .profile_tab_left{:field =>"person_info"}
       .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
       .container_icon{:align => 'center', :class => "container_icon_color"}
-        = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
+        = link_to_function "<h1>Business</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
       .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
 
 
