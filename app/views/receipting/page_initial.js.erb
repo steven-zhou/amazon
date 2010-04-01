@@ -1,0 +1,4 @@
+$("#"+ "<%=escape_javascript("#{@field}") %>" ).html('<%= escape_javascript(render(:partial => "#{@render_page}")) %>');
+$(document).ready(function(){
+    start_end_date_pick();
+});
