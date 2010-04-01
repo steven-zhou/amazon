@@ -69,7 +69,7 @@
 
 
       <%- deposits.try(:each) do |deposit|%>
-        <div class="div_cell th20">XXXXXXXXXX</div>
+        <div class="div_cell th20"><%= deposit.deposit_detail.try(:card_authority_number)%>&nbsp;</div>
         <div class="div_cell th15"><%= deposit.deposit_detail.try(:name_on_card) %></div>
         <div class="div_cell th7"><%= deposit.received_via.try(:name)%></div>
         <div class="div_cell th7">1</div>
