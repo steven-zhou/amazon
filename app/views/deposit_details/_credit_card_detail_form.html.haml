@@ -6,7 +6,7 @@
     .field_25
       = t.label :card_number, "<span class='asterisk'>*</span>Card Number"
       = t.text_field :card_number, :class => 'compulsory_field'
-    .field_20
+    .field_15
       = t.label :expire_month, "<span class='asterisk'>*</span>Expire Date"
       = t.text_field :expire_month, :style => "display:inline;width:20px;", :maxlength => "2", :class => 'compulsory_field integer_field'
       = ' / '
@@ -15,3 +15,6 @@
     .field_15
       = t.label :cvv_number, "<span class='asterisk'>*</span>CVV Number"
       = t.text_field :cvv_number, :class => 'compulsory_field'
+    .field_15
+      = t.label :card_authority_number, "<span class='asterisk'>*</span>Card Authority Number"
+      = t.text_field :card_authority_number, :class => 'compulsory_field'

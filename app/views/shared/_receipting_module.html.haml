@@ -35,7 +35,7 @@
           -#%li{:id => @current_action == "receipt_types" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Receipting/receipt_types.png')} Receipt Types", {:controller => "receipting_admin", :action => "receipt_types"}, :class => "draggable", :controller => "receipting_admin", :action => "receipt_types", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_types.png", :title => "receipt_types"
           %li{:id => @current_action == "receipt_methods" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Receipt Methods", {:controller => "receipting_admin", :action => "receipt_methods"}, :class => "draggable", :controller => "receipting_admin", :action => "receipt_methods", :icon_module=>"receipting",:image_url => "icon_holder.png", :title => "receipt_methods"
+            = link_to "#{image_tag('Icons/Receipting/receipt_method.png')} Receipt Methods", {:controller => "receipting_admin", :action => "receipt_methods"}, :class => "draggable", :controller => "receipting_admin", :action => "receipt_methods", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_method.png", :title => "receipt_methods"
           %br.clear
     .bottom
 

@@ -48,8 +48,8 @@ class EntityReceiptsController < ApplicationController
 
 
   def destroy
-    @entity = EntityReceipt.find(params[:id])
-    @deposit = @entity.deposit
+    @entity_receipt = EntityReceipt.find(params[:id])
+    @deposit = @entity_receipt.deposit
     @entity.destroy
 
 
@@ -64,6 +64,13 @@ class EntityReceiptsController < ApplicationController
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted extension.")
 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @entity_receipt = EntityReceipt.find(params[:grid_object_id])
     respond_to do |format|
       format.js
     end

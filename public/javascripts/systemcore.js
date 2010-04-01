@@ -3737,6 +3737,17 @@ $(function(){
     insert_name_in_email($(this));
 
   });
+
+  $("#triger_select").live('click', function(){
+    $('#new_email_submit').attr('disabled', true);
+    if ($(this).attr("checked")==true){
+      $('#input_email').removeClass("select_ban_submit").val('').attr("disabled", true).hide();
+      $('#select_email').addClass("select_ban_submit").removeAttr("disabled").show();
+    }else{
+      $('#select_email').removeClass("select_ban_submit").val('').attr("disabled", true).hide();
+      $('#input_email').addClass("select_ban_submit").removeAttr("disabled").show();
+    }
+  });
 });
 
 insert_name_in_email = function(this_form){

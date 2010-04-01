@@ -28,7 +28,8 @@
                 .title
                   %h2= "#{organisation_contact.contact_meta_type.name} "
                 %div{:style => "float:right;"}
-                  = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+                  %a{:href => "mailto:#{organisation_contact.value}", :class => "alt_link"}
+                    = organisation_contact.value
                 %br
                   = organisation_contact.remarks
 
@@ -43,7 +44,8 @@
                 .title
                   %h2= "#{organisation_contact.contact_meta_type.name} "
                 %div{:style => "float:right;"}
-                  = "#{organisation_contact.pre_value} #{organisation_contact.value} #{organisation_contact.post_value}".squeeze(" ").strip
+                  %a{:href => "http://#{organisation_contact.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+                    = organisation_contact.value
                 %br
                   = organisation_contact.remarks
 
