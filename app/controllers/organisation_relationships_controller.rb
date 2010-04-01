@@ -23,7 +23,17 @@ class OrganisationRelationshipsController < ApplicationController
 
     @relationship_new = Relationship.new
     respond_to do |format|
-      format.js{}
+      format.js
+    end
+  end
+
+  def lookup
+    @organisation = Organisation.find(params[:id])
+    if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
+      flash.now[:error] = "All Relationships Of This Organisation Will Be Delete."
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
