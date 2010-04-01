@@ -20,28 +20,24 @@
 <%- total_cash = 0.00%>
 <%- total_cheque = 0.00%>
 <%- total_card = 0.00%>
-<%- total = 0.00%>
+<%- cash = 0.00%>
+<%- cheque = 0.00%>
+<%- cards = 0.00%>
 <%- ReceiptAccount.active.try(:each) do |receipt_account|%>
+<%- cash = (@receipt_account_cash[account.id].nil?||@receipt_account_cash[account.id][receipt_account.id].nil?) ?  0 : @receipt_account_cash[account.id][receipt_account.id]%>
+<%- cheque = (@receipt_account_cheque[account.id].nil?||@receipt_account_cheque[account.id][receipt_account.id].nil?) ?  0 : @receipt_account_cheque[account.id][receipt_account.id]%>
+<%- cards = (@receipt_account_cards[account.id].nil?||@receipt_account_cards[account.id][receipt_account.id].nil?) ?  0 : @receipt_account_cards[account.id][receipt_account.id]%>
 <div class="div_line">
     <div class="div_cell cell_40"><%=receipt_account.name%></div>
-    <div class="div_cell cell_15"><%=@receipt_account_cash[account.id+receipt_account.id].nil? ?  number_to_currency(0) : number_to_currency(@receipt_account_cash[account.id+receipt_account.id].first.to_f)  %></div>
-    <div class="div_cell cell_15"><%=@receipt_account_cheque[account.id+receipt_account.id].nil? ?  number_to_currency(0) : number_to_currency(@receipt_account_cheque[account.id+receipt_account.id].first.to_f) %></div>
-    <div class="div_cell cell_15"><%=@receipt_account_cards[account.id+receipt_account.id].nil? ?  number_to_currency(0) : number_to_currency(@receipt_account_cards[account.id+receipt_account.id].first.to_f) %></div>
-    <%-if @receipt_account_cash[account.id+receipt_account.id].nil? %>
-      <%- @receipt_account_cash[account.id+receipt_account.id]=[0]%>
-    <%-end%>
-        <%-if @receipt_account_cheque[account.id+receipt_account.id].nil? %>
-      <%- @receipt_account_cheque[account.id+receipt_account.id]=[0]%>
-    <%-end%>
-        <%-if @receipt_account_cards[account.id+receipt_account.id].nil? %>
-      <%- @receipt_account_cards[account.id+receipt_account.id]=[0]%>
-    <%-end%>
-    <div class="div_cell cell_15"><%=number_to_currency(@receipt_account_cash[account.id+receipt_account.id].first.to_f+@receipt_account_cheque[account.id+receipt_account.id].first.to_f+@receipt_account_cards[account.id+receipt_account.id].first.to_f)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(cash)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(cheque)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(cards)%></div>
+       <div class="div_cell cell_15"><%=number_to_currency(cash+cheque+cards)%></div>
 </div>
- <%- total_cash += @receipt_account_cash[account.id+receipt_account.id].first.to_f%>
- <%- total_cheque += @receipt_account_cheque[account.id+receipt_account.id].first.to_f %>
- <%- total_card += @receipt_account_cards[account.id+receipt_account.id].first.to_f%>
- <%- total += @receipt_account_cash[account.id+receipt_account.id].first.to_f+@receipt_account_cheque[account.id+receipt_account.id].first.to_f+@receipt_account_cards[account.id+receipt_account.id].first.to_f%>
+ <%- total_cash += cash%>
+ <%- total_cheque += cheque %>
+ <%- total_card += cards%>
+
 <%-end%>
 <br clear="both"/>
 <div class="line_seperator"></div>
@@ -50,5 +46,5 @@
     <div class="div_cell cell_15"><%=number_to_currency(total_cash)%></div>
     <div class="div_cell cell_15"><%=number_to_currency(total_cheque)%></div>
     <div class="div_cell cell_15"><%=number_to_currency(total_card)%></div>
-    <div class="div_cell cell_15"><%=number_to_currency(total)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cash+total_cheque+total_card)%></div>
 </div>

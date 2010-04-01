@@ -1,7 +1,7 @@
 class Campaign < ActiveRecord::Base
 
   has_many :sources, :dependent => :destroy
-  has_many :transaction_allocations
+  has_many :receipt_allocations
   has_many :memberships
 
   validates_uniqueness_of :name

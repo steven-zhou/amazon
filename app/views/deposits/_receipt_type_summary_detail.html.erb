@@ -29,24 +29,24 @@
   <%-end%>
   <div class="div_line">
     <div class="div_cell cell_50">Cash</div>
-    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cash[account.id].first.to_f)%></div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cash[account.id].compact.sum.to_f)%></div>
   </div>
   <div class="div_line">
     <div class="div_cell cell_50">Cheque</div>
-    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cheque[account.id].first.to_f)%></div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cheque[account.id].compact.sum.to_f)%></div>
   </div>
   <div class="div_line">
     <div class="div_cell cell_50">Master Card</div>
-    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_master_cards[account.id].first.to_f)%></div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_master_cards[account.id].compact.sum.to_f)%></div>
   </div>
   <div class="div_line">
     <div class="div_cell cell_50">Visa Card</div>
-    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_visa_cards[account.id].first.to_f)%></div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_visa_cards[account.id].compact.sum.to_f)%></div>
   </div>
   <br clear="both"/>
   <div class="line_seperator"></div>
   <div class="div_line">
     <div class="div_cell cell_50 pure_bold">Total</div>
-    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cash[account.id].first.to_f+@receipt_type_cheque[account.id].first.to_f+@receipt_type_master_cards[account.id].first.to_f+@receipt_type_visa_cards[account.id].first.to_f)%></div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cash[account.id].compact.sum.to_f+@receipt_type_cheque[account.id].compact.sum.to_f+@receipt_type_master_cards[account.id].compact.sum.to_f+@receipt_type_visa_cards[account.id].compact.sum.to_f)%></div>
   </div>
 </div>
