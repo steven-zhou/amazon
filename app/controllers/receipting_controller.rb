@@ -165,4 +165,50 @@ class ReceiptingController < ApplicationController
     end
   end
 
+  def page_initial
+    @render_page = params[:render_page]
+    @field = params[:field]
+    @bank_accounts = BankAccount.find(:all, :order => "id asc")
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def bank_run_document_filter
+    # this function is for the bank run document
+    conditions = Array.new
+    bank_run_id = params[:bank_run_document_filter][:bank_run_id]
+    @date_valid = true
+    @user_name = @current_user.user_name
+#    unless (bank_run_id.blank?)
+#      conditions << ("bank_run_id=" + bank_run_id)
+#    end
+
+
+
+    if valid_date(params[:bank_run_document_filter][:start_date]) && valid_date(params[:bank_run_document_filter][:end_date])
+      start_date = params[:bank_run_document_filter][:start_date].to_date
+      end_date = params[:bank_run_document_filter][:end_date].to_date
+      pdf_directory = "public/temp/"+@user_name+"/bank_run_reports/"
+      dir = Dir.new(pdf_directory) rescue dir = nil
+      @bank_run_documents = dir.nil? ? [] : (dir.entries - [".", ".."]).sort
+
+      for m in @bank_run_documents do
+        file_date = File.new(pdf_directory+m).mtime.to_date
+        @bank_run_documents = @bank_run_documents - [m] if (file_date < start_date || file_date > end_date)
+        @bank_run_documents = @bank_run_documents-[m] if (m =~ /\b1-/).nil?
+      end
+    else
+      @date_valid = false
+      flash.now[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
+    end
+
+        
+    respond_to do |format|
+      format.js
+    end
+    
+  end
+
+
 end
