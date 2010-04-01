@@ -1,18 +1,14 @@
--# level
-#container_#{level}
-  .toggle_div{:toggle_id_name => "content_#{level}", :style => "cursor:pointer;"}
-    .options
-      = image_tag('Icons/System/collapse.png')
-    %h1{:id=>'title_#{level}'} Please Select Client Organiastion Name
-  #content_#{level}
-    #grid_#{level}.left{:style => "width:100%;"}
-    #add_new_relationship.container
-      .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close"
-      .title
-        = link_to_function image_tag('add_icon.png'), :id=>"", :class=>"add_option ajax_call"
-        %h1 New Relationship
-      #new_relationship
-
-
+-form_for "new_organisation_form",:url=>{:controller=>"organisation_relationships",:action=>"create" },:html => {:class =>"ajax_form"} do |f|
+-# The form to add new organisation relationshop
+.form_line{:style => "float:none;"}
+  .field_25
+    %label Organisation ID
+    %input{:name=>"organisation_relationship[related_organisation_id]"}
+    %input.hidden{:name=>"organisation_relationship[source_organisation_id]"}
+  .field_25
+    %label &nbsp
+    = f.text_field :source_organisation_name
+  .field_25
+    %label &nbsp
+    = submit_tag "Submit", :style => "float:right;"
 

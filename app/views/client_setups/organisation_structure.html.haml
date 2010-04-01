@@ -117,4 +117,4 @@
       = image_tag('Icons/System/collapse.png')
     %h1 Organisation Structure
     #organisation_structure_details.left{:style => "width:100%;display:none;"}
-      =render :partial=> '/organisation_relationships/show_organisation_structure'
+      =render :partial=> '/organisation_relationships/show_organisation_structure',:locals=>{:level=>"1"}
