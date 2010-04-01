@@ -4676,8 +4676,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @organisations.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.full_name,
-          u.primary_phone,
-          u.primary_email
+          u.primary_phone_num,
+          u.primary_email_address
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
@@ -4742,8 +4742,8 @@ class GridsController < ApplicationController
     return_data[:rows] = @branches.collect{|u| {:id => u.id,
         :cell=>[u.id,
           u.full_name,
-          u.primary_phone,
-          u.primary_email
+          u.primary_phone_num,
+          u.primary_email_address
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
