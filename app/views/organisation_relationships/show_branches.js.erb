@@ -1,0 +1,1 @@
+$('#container_<%= escape_javascript(@level)%>').after('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_structure', :locals =>{:level => @level.to_i+1})) %>');

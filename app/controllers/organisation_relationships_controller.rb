@@ -1,5 +1,13 @@
 class OrganisationRelationshipsController < ApplicationController
 
+  def new
+    @organisation_relationships = OrganisationRelationship.new
+    @organisation = Organisation.find(params[:param1])
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def create
 
     @source_organisation = Organisation.find(params[:organisation_id].to_i)
@@ -71,5 +79,12 @@ class OrganisationRelationshipsController < ApplicationController
     end
   end
 
+  def show_branches
+    @organisation = Organisation.find(params[:grid_object_id])
+    @level = params[:params2]
+    respond_to do |format|
+      format.js
+    end
+  end
   
 end
