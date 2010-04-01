@@ -40,6 +40,8 @@
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info",{:controller => "client_setups", :action => "license_info"}, :controller => "client_setups", :action => "license_info",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/license_info.png", :title => "License Info"
           %li{:id => @current_action == "system_log_management" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} Audit Trail",{:controller => "client_setups", :action => "system_log_management"}, :controller => "client_setups", :action => "system_log_management",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/system_log.png", :title => "Audit Trail"
+          %li{:id => @current_action == "organisation_structure" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Org Structure", {:controller => "client_setups", :action => "organisation_structure"}, :controller => "client_setups", :action => "organisation_structure",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Organisation Structure"
     .bottom
 
   - # Configuration Menu
