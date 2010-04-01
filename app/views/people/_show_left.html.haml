@@ -22,24 +22,27 @@
       -unless @primary_phone.nil?
         .container
           .left
-            Phone
+            %span{:class=>("red" if @primary_phone.contact_meta_type.to_be_removed == true)}
+              (#{@primary_phone.contact_meta_type.name}) Phone
           .right
             = @primary_phone.complete_number
 
       -unless @primary_website.nil?
         .container
           .left
-            Website
+            %span{:class=>("red" if @primary_website.contact_meta_type.to_be_removed == true)}
+              (#{@primary_website.contact_meta_type.name}) Website
           .right
-            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank"}
+            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
               = @primary_website.value
 
       -unless @primary_email.nil?
         .container
           .left
-            Email
+            %span{:class=>("red" if @primary_email.contact_meta_type.to_be_removed == true)}
+              (#{@primary_email.contact_meta_type.name}) Email
           .right
-            %a{:href => "mailto:#{@primary_email.value}"}
+            %a{:href => "mailto:#{@primary_email.value}", :class => "alt_link"}
               = @primary_email.value
 
     .container
