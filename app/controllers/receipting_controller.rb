@@ -196,7 +196,9 @@ class ReceiptingController < ApplicationController
       for m in @bank_run_documents do
         file_date = File.new(pdf_directory+m).mtime.to_date
         @bank_run_documents = @bank_run_documents - [m] if (file_date < start_date || file_date > end_date)
-        @bank_run_documents = @bank_run_documents-[m] if (m =~ /\b1-/).nil?
+
+       # @bank_run_documents = @bank_run_documents-[m] if (m =~ /\b1-/).nil?    m.split('-')[0]
+       @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[0] != bank_run_id)
       end
     else
       @date_valid = false
