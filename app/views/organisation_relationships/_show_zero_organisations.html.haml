@@ -1,0 +1,56 @@
+-# level
+%table#show_zero_organisations
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+
+    $("#show_zero_organisations").flexigrid({
+    url: '/grids/show_zero_organisation_grid',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Full Name',
+    name : 'full_name',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Phone',
+    name : 'primary_phone',
+    width : 100,
+    sortable : false,
+    align: 'left'
+    },
+    {
+    display: 'Email',
+    name : 'primary_email',
+    width : 100,
+    sortable : false,
+    align: 'left'
+    }
+    ],
+    searchitems : [
+    {
+    display: 'Full Name',
+    name : 'full_name'
+    }
+    ],
+    sortname: "id",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });
