@@ -17,6 +17,13 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+  def organisation_structure
+    @client_setup = ClientSetup.first
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def client_organisation
     @client_setup = ClientSetup.first
     @client_organisation = @client_setup.client_organisation
@@ -161,8 +168,11 @@ class ClientSetupsController < ApplicationController
       @client_setup.save
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Client Setup with ID #{@client_setup.id}.")
       redirect_to member_zone_client_setups_path
-    else
+    elsif
+      params[:parameters]
       redirect_to parameters_client_setups_path
+    else
+      redirect_to organisation_structure_client_setups_path
     end
   end
 
