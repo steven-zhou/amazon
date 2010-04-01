@@ -29,5 +29,12 @@
         %label Campaign Summary
         %input{:type => "checkbox", :name => "CS"}
 
-    .form_line
-      = submit_tag "Run", :id => "bank_run_submit"
+
+    %p.submit
+      .field_15{:style => "float:right !important;"}
+        %label &nbsp;
+        = submit_tag "Run", :id => "bank_run_submit"
+      .field_15{:style => "float:right !important;"}
+        %label Confirm
+        %input{:type => "checkbox", :name => "confirm"}
+      
