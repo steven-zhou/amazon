@@ -13,6 +13,7 @@
       .field_20
         %label Deposit Bank Account
         %select{:id => "bank_run_document_filter_deposit_bank_account_id",:name => "bank_run_document_filter[deposit_bank_account_id]"}
+          %option{:value => ""}All
           - ClientBankAccount.active_client_bank_account.each do |f|
             %option{:value => "#{f.id}"}#{f.account_number}
       .field_20
