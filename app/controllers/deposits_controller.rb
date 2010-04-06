@@ -348,8 +348,8 @@ class DepositsController < ApplicationController
         BankRun.transaction do
           @run.save
           @deposits.each do |i|
-            if i.total_amount.nil?
-              i.destroy
+            if i.total_amount.nil? || i.total_amount.to_f == 0.00
+              i.destroy # invalid deposit would be deleted
             else
               i.bank_run_id = @run.id            
             end
@@ -361,8 +361,8 @@ class DepositsController < ApplicationController
       else        
         # preview bank run report
         @deposits.each do |i|
-          if i.total_amount.nil?
-            @deposits.delete(i)
+          if i.total_amount.nil? || i.total_amount.to_f == 0.00 || i.to_be_banked == false
+            @deposits.delete(i) # only valid deposit would be included in the report
           end
         end
         flash[:confirmation] = "<p>Preview Reports are generated and available here:</p>"
@@ -379,7 +379,7 @@ class DepositsController < ApplicationController
       @run = BankRun.find(bank_run_id)
       @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
       @time =  @run.created_at.getlocal.strftime('%I:%m%p')
-      @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
+      @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ? and to_be_banked = true and already_banked = false", bank_run_id])
     else
       @date = Time.now.getlocal.strftime('%d-%m-%Y')
       @time = Time.now.getlocal.strftime('%I:%m%p')
@@ -560,41 +560,36 @@ class DepositsController < ApplicationController
       #prepare credit card receipt
       if params[:CCR]
 
-        report_name = "#{@run_id}-CreditCardReceipt"
+    
         @credit_card_receipt = ""
         @space = -40
         if !@master_deposits.empty?
-          @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits,:account=>account})
+              report_name = "#{@run_id}-MasterCreditCardReceipt"
+          @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
+        flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
         end
-        if !@master_deposits.empty? && !@visa_deposits.empty?
-          @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
-        end
+
         if !@visa_deposits.empty?
-          @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
+          report_name = "#{@run_id}-VisaCreditCardReceipt"
+          @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
           @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @visa_deposits,:account=>account,:type => "VisaCard"})
           generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
+         flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
         end
-       
-      
 
-
-
-
-        generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
-        flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{@run_id}-CreditCardReceipt.pdf\' target='_blank'>#{@run_id}-CreditCardReceipt.pdf</a></p>"
       end
     
    
       #prepare receipt account summary
       if params[:RAS]
-        @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary")
-        File.open("#{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html", 'w') do |f|
-          f.puts "#{@receipt_account_summary}"
-        end
-        system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html"
-        flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run_id}-ReceiptAccountSummary.pdf\' target='_blank'>#{@run_id}-ReceiptAccountSummary.pdf</a></p>"
+           @space = -50
+            report_name = "#{@run_id}-ReceiptAccountSummary"
+        @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary",:locals=>{:account=>account})
+        @receipt_account_summary_header = render_to_string(:partial => "deposits/receipt_account_summary_header",:locals=>{:account=>account})
+      generate_html_to_pdf(file_prefix,file_dir,report_name,@receipt_account_summary_header,@receipt_account_summary,now,@space)
+        flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
       end
     
       #prepare receipt type summary

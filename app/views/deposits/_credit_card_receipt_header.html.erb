@@ -28,7 +28,6 @@
   #credit_card_receipt #summary_of_card .table_style_1{padding-left: 2%;margin: 0;}
   #credit_card_receipt #summary_of_card .table_style_1 .cell {width:27%;}
   #credit_card_receipt #summary_of_card .table_style_2 {padding-left: 2%;margin: 10px auto 0 auto;}
-  
   #credit_card_receipt #summary_sheet_title h1, .date, #client_org_name .time{width: 30%;display: inline;}
   #credit_card_receipt #summary_sheet .bold_title{font-weight: 600;}
   #credit_card_receipt #summary_sheet_title .date{float: right;margin-top: 15px;font-weight: 600;}
@@ -44,10 +43,69 @@
 
 </style>
 <div id="credit_card_receipt">
-  <%- @accounts.each do |account|%>
-    <%= render :partial => "deposits/credit_card_receipt_per_account", :locals => {:account => account,:deposit=>deposit,:type=>type} %>
-    <%- if account != @accounts.last %>
-      <div class="page_break">&nbsp;</div>
-    <%- end %>
+  <%- sub_total = 0.00%>
+  <%- num_deposit = 0%>
+
+  <%- deposit[account.id].try(:each) do |deposit|%>
+    <%- total = deposit.total_amount%>
+    <%- sub_total += total%>
+    <%- num_deposit=num_deposit+1%>
   <%- end %>
+  <div id="content_holder">
+    <div id="summary_of_card">
+      <div class="div_line">
+        <div class="div_cell">SUMMARY OF <%=type%></div>
+        <div class="div_cell">MAIL/PHONE ORDER depositS DATE:</div>
+        <div class="div_cell" style=""><%= @date %></div>
+      </div>
+
+      <div class="div_line table_style_1">
+        <div class="div_cell cell" >MERCHANT NUMBER</div>
+        <div class="div_cell cell">No. OF ITEMS</div>
+        <div class="div_cell cell">TOTAL AMOUNT</div>
+      </div>
+      <div class="div_line table_style_1">
+        <div class="div_cell cell">123456789</div>
+        <div class="div_cell cell"><%= num_deposit%></div>
+        <div class="div_cell cell"><%= number_to_currency(sub_total)%></div>
+      </div>
+      <div class="div_line table_style_1">
+        <div class="div_cell cell">MERCHANT TRADING NAME</div>
+        <div class="div_cell cell">LOCATION</div>
+      </div>
+      <div class="div_line table_style_1">
+        <div class="div_cell cell">Westpac</div>
+        <div class="div_cell cell">City</div>
+      </div>
+      <div class="div_line table_style_2">
+        <div class="div_cell">LISTED HEREUNDER ARE THE FOLLOWING:</div>
+      </div>
+      <div class="div_line table_style_1">
+        <div class="div_cell big_number">(I)</div>
+        <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
+      </div>
+      <div class="div_line table_style_1">
+        <div class="div_cell big_number">(II)</div>
+        <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
+        <div class="div_cell signature" style="margin-top: 40px;float: right;">MERCHANT SIGNATURE</div>
+      </div>
+      <br class="clear"/>
+    </div>
+    
+    <div id="details_of_card">
+      <div class="div_line">
+        <div class="div_cell th20">Authority No.</div>
+        <div class="div_cell th15">Cardholder Name</div>
+        <div class="div_cell th7">Via</div>
+        <div class="div_cell th7">Item</div>
+        <div class="div_cell th15">Card Number</div>
+        <div class="div_cell th7">CVV</div>
+        <div class="div_cell th7">Amount</div>
+      </div>
+      <br class="clear"/>
+      <div class="div_line_separater"></div>
+      <br class="clear"/>
+    </div>
+  </div>
+
 </div>

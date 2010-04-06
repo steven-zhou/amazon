@@ -1,1 +1,3 @@
-$('#container_<%= escape_javascript(@level)%>').after('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_structure', :locals =>{:level => @level.to_i+1})) %>');
+$('#nav_level_<%= escape_javascript(@level)%> .name').html('<%= escape_javascript(@organisation.full_name) %>');
+$('#nav_level_<%= escape_javascript((@level.to_i+1).to_s)%> .label').html('Level 1 - NSW');
+$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');

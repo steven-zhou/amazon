@@ -1,5 +1,39 @@
+#nav{:style => "width:20%;float:left;"}
+  #nav_level_0
+    .label Level 0 - Head Office
+    .name
+  #nav_level_1
+    .label
+    .name
+  #nav_level_2
+    .label
+    .name
+  #nav_level_3
+    .label
+    .name
+  #nav_level_4
+    .label
+    .name
+  #nav_level_5
+    .label
+    .name
+  #nav_level_6
+    .label
+    .name
+  #nav_level_7
+    .label
+    .name
+  #nav_level_8
+    .label
+    .name
+  #nav_level_9
+    .label
+    .name
+#main_container.full_container{:style => "width:78%;float:left;min-height:200px;"}
+  = render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level}
+
 -# level
-%div.container{:id => "container_#{level}"}
+-#%div.container{:id => "container_#{level}"}
   %div{:id => "content_#{level}"}
     %h3{:id => "title_#{level}"}  Select Organiastion
     %div.left{:style => "width:100%;",:id => "grid_#{level}"}
