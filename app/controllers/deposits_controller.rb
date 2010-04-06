@@ -535,71 +535,78 @@ class DepositsController < ApplicationController
 
 
 
-    #prepare bank run audit sheet
-    if params[:BRAS]
+      #prepare bank run audit sheet
+      if params[:BRAS]
 
-      report_name = "#{@run_id}-BankRunAuditSheet"
-      @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
-      @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet",:locals=>{:account=>account})
-      @space = -40
-       generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_run_audit_sheet_header,@bank_run_audit_sheet,now,@space)
-#      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf #{pdf_options};rm #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.html"
-      flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run_id}-BankRunAuditSheet.pdf</a></p>"
-    end
+        report_name = "#{@run_id}-BankRunAuditSheet"
+        @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
+        @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet",:locals=>{:account=>account})
+        @space = -40
+        generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_run_audit_sheet_header,@bank_run_audit_sheet,now,@space)
+        #      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf #{pdf_options};rm #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.html"
+        flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run_id}-BankRunAuditSheet.pdf</a></p>"
+      end
   
-    #prepare bank run campaign summary
-    if params[:CS]
-      @bank_run_campaign_summary = render_to_string(:partial => "deposits/bank_run_campaign_summary")
-      File.open("#{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.html", 'w') do |f|
-        f.puts "#{@bank_run_campaign_summary}"
+      #prepare bank run campaign summary
+      if params[:CS]
+        @bank_run_campaign_summary = render_to_string(:partial => "deposits/bank_run_campaign_summary")
+        File.open("#{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.html", 'w') do |f|
+          f.puts "#{@bank_run_campaign_summary}"
+        end
+        system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.html"
+        flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{@run_id}-BankRunCampaignSummary.pdf\' target='_blank'>#{@run_id}-BankRunCampaignSummary.pdf</a></p>"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-BankRunCampaignSummary.html"
-      flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{@run_id}-BankRunCampaignSummary.pdf\' target='_blank'>#{@run_id}-BankRunCampaignSummary.pdf</a></p>"
-    end
 
-    #prepare credit card receipt
-    if params[:CCR]
-      @credit_card_receipt = ""
-      if !@master_deposits.empty?
-        @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits, :type => "MasterCard",:account=>account})
-      end
-      if !@master_deposits.empty? && !@visa_deposits.empty?
-        @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
-      end
-      if !@visa_deposits.empty?
-        @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
-      end
+      #prepare credit card receipt
+      if params[:CCR]
+
         report_name = "#{@run_id}-CreditCardReceipt"
-      @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:account=>account})
+        @credit_card_receipt = ""
+        @space = -40
+        if !@master_deposits.empty?
+          @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits,:account=>account})
+          @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
+          generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
+        end
+        if !@master_deposits.empty? && !@visa_deposits.empty?
+          @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
+        end
+        if !@visa_deposits.empty?
+          @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
+          @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @visa_deposits,:account=>account,:type => "VisaCard"})
+          generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
+        end
+       
+      
 
-      @space = -40
 
 
-      generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
+
+        generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
         flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{@run_id}-CreditCardReceipt.pdf\' target='_blank'>#{@run_id}-CreditCardReceipt.pdf</a></p>"
-    end
+      end
     
    
-    #prepare receipt account summary
-    if params[:RAS]
-      @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary")
-      File.open("#{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html", 'w') do |f|
-        f.puts "#{@receipt_account_summary}"
+      #prepare receipt account summary
+      if params[:RAS]
+        @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary")
+        File.open("#{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html", 'w') do |f|
+          f.puts "#{@receipt_account_summary}"
+        end
+        system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html"
+        flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run_id}-ReceiptAccountSummary.pdf\' target='_blank'>#{@run_id}-ReceiptAccountSummary.pdf</a></p>"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptAccountSummary.html"
-      flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run_id}-ReceiptAccountSummary.pdf\' target='_blank'>#{@run_id}-ReceiptAccountSummary.pdf</a></p>"
-    end
     
-    #prepare receipt type summary
-    if params[:RTS]
-      @receipt_type_summary = render_to_string(:partial => "deposits/receipt_type_summary")
-      File.open("#{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.html", 'w') do |f|
-        f.puts "#{@receipt_type_summary}"
+      #prepare receipt type summary
+      if params[:RTS]
+        @receipt_type_summary = render_to_string(:partial => "deposits/receipt_type_summary")
+        File.open("#{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.html", 'w') do |f|
+          f.puts "#{@receipt_type_summary}"
+        end
+        system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.html"
+        flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run_id}-ReceiptTypeSummary.pdf\' target='_blank'>#{@run_id}-ReceiptTypeSummary.pdf</a><p>"
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-ReceiptTypeSummary.html"
-      flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run_id}-ReceiptTypeSummary.pdf\' target='_blank'>#{@run_id}-ReceiptTypeSummary.pdf</a><p>"
     end
-  end
 
   end
 
