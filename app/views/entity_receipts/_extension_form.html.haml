@@ -19,8 +19,9 @@
   .form_line
     .field_40
       %label Entity Name
-      .display_field_bg{:id => "new_entity_name"}
-        = "#{@entity.full_name}" if @first_time
+      .display_field_bg{:id => "new_entity_name_div"}
+        .div{:id => "new_entity_name"}
+          = "#{@entity.full_name}" if @first_time
     .field_50
       %label Manual Receipt Number
       = f.text_field :manual_receipt_number

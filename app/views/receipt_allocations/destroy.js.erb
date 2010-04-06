@@ -1,8 +1,8 @@
-<% if @receipt.errors.empty? -%>
+<% if @receipt_allocation.errors.empty? -%>
 
 
 
-  $('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipts/existing_receipts")) %>');
+  $('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipt_allocations/existing_receipt_allocations")) %>');
   $("#total_amount_value").html('<%= escape_javascript("#{number_to_currency(@receipt_value)}")%>');
   $('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
 

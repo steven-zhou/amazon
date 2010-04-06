@@ -2626,7 +2626,8 @@ $(".general_name_show").live('change', function(){
       dataType: "script"
     });
   }else{
-    $("#"+$(this).attr('update_field')).val("");
+
+    $("#"+$(this).attr('update_field')).html("");
   }
 });
 });
