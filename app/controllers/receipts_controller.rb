@@ -27,10 +27,11 @@ class ReceiptsController < ApplicationController
     r_conditions << "receipts.entity_id = ?"
     r_values << session[:entity_id]
 
+    params[:start_deposit_date] = "01-01-#{Date.today().year().to_s}"if params[:start_deposit_date].blank?
+    params[:end_deposit_date] = "31-12-#{Date.today().year().to_s}"if params[:end_deposit_date].blank?
+    
     if valid_date(params[:start_deposit_date]) && valid_date(params[:end_deposit_date])
-      if (!params[:start_deposit_date].blank? || !params[:end_deposit_date].blank?)
-        params[:start_deposit_date] = "01-01-#{Date.today().year().to_s}"if params[:start_deposit_date].blank?
-        params[:end_deposit_date] = "31-12-#{Date.today().year().to_s}"if params[:end_deposit_date].blank?
+      if (!params[:start_deposit_date].blank? || !params[:end_deposit_date].blank?)     
         query_conditions << ("start_deposit_date=" + params[:start_deposit_date])
         query_conditions << ("end_deposit_date=" + params[:end_deposit_date])
       end
@@ -43,27 +44,27 @@ class ReceiptsController < ApplicationController
     end
 
 
-
-    if params[:start_deposit_date]
-      r_conditions << "deposits.business_date >= ?"
-      r_values << params[:start_deposit_date].to_date
-    end
-    if params[:end_deposit_date]
-      r_conditions << "deposits.business_date <= ?"
-      r_values << params[:end_deposit_date].to_date
-    end
-    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
-      conditions << "receipt_account_id = ?"
-      values << params[:receipt_account_id]
-    end
-    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
-      conditions << "campaign_id = ?"
-      values << params[:campaign_id]
-    end
-    if (params[:source_id] && params[:source_id].to_i!= 0)
-      conditions << "source_id = ?"
-      values << params[:source_id]
-    end
+#
+#    if params[:start_deposit_date]
+#      r_conditions << "deposits.business_date >= ?"
+#      r_values << params[:start_deposit_date].to_date
+#    end
+#    if params[:end_deposit_date]
+#      r_conditions << "deposits.business_date <= ?"
+#      r_values << params[:end_deposit_date].to_date
+#    end
+#    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
+#      conditions << "receipt_account_id = ?"
+#      values << params[:receipt_account_id]
+#    end
+#    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
+#      conditions << "campaign_id = ?"
+#      values << params[:campaign_id]
+#    end
+#    if (params[:source_id] && params[:source_id].to_i!= 0)
+#      conditions << "source_id = ?"
+#      values << params[:source_id]
+#    end
 
 
     query_conditions << ("receipts.entity_type=#{session[:entity_type]}")
@@ -83,6 +84,7 @@ class ReceiptsController < ApplicationController
 
 
     @query = query_conditions.join('&').gsub("receipts.","")
+  
     if @date_valid
       @receipt_allocations = ReceiptAllocation.find(:all,
         :conditions => [conditions.join(' AND '), *values]
