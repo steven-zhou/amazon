@@ -175,31 +175,34 @@ class ReceiptingController < ApplicationController
   end
 
   def bank_run_document_filter
-    # this function is for the bank run document
+    #--------------- this function is for the bank run document---pdf file system
     conditions = Array.new
     bank_run_id = params[:bank_run_document_filter][:bank_run_id]
+    deposit_bank_account_id = params[:bank_run_document_filter][:deposit_bank_account_id]
     @date_valid = true
     @user_name = @current_user.user_name
-    #    unless (bank_run_id.blank?)
-    #      conditions << ("bank_run_id=" + bank_run_id)
-    #    end
+  
 
 
-
+    # check the date is valid or not
     if valid_date(params[:bank_run_document_filter][:start_date]) && valid_date(params[:bank_run_document_filter][:end_date])
       start_date = params[:bank_run_document_filter][:start_date].to_date
       end_date = params[:bank_run_document_filter][:end_date].to_date
       pdf_directory = "public/temp/"+@user_name+"/bank_run_reports/"
       dir = Dir.new(pdf_directory) rescue dir = nil
-      @bank_run_documents = dir.nil? ? [] : (dir.entries - [".", ".."]).sort
+      @bank_run_documents = dir.nil? ? [] : (dir.entries - [".", ".."]).sort  #grab all the pdf document from the file system
 
       for m in @bank_run_documents do
         file_date = File.new(pdf_directory+m).mtime.to_date
         @bank_run_documents = @bank_run_documents - [m] if (file_date < start_date || file_date > end_date)
 
-        # @bank_run_documents = @bank_run_documents-[m] if (m =~ /\b1-/).nil?    m.split('-')[0]
+        # used for the bank_run_id is not blank
         unless bank_run_id.blank?
           @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[0] != bank_run_id)
+        end
+         # used for the deposit_bank_account_id is not blank
+         unless deposit_bank_account_id.blank?
+          @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[1] != deposit_bank_account_id)
         end
       end
     else
