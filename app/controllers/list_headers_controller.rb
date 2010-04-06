@@ -217,12 +217,6 @@ class ListHeadersController < ApplicationController
     end
   end
 
-  def manager
-   respond_to do |format|
-      format.html
-    end
-  end
-
   def compile_list
     @list_headers =@lists= @current_user.all_person_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
@@ -242,7 +236,6 @@ class ListHeadersController < ApplicationController
     end
   end
 
-
   def org_compile_list
 
     @lists = @current_user.all_organisation_lists
@@ -252,21 +245,6 @@ class ListHeadersController < ApplicationController
     end
     respond_to do |format|
       format.html
-    end
-  end
-
-  def page_initial
-    @render_page = params[:render_page]
-    @field = params[:field]
-    if @field == "person_part"
-      @list_headers = @current_user.all_person_lists - [PrimaryList.first]
-        puts"-----DEBUG---#{@list_headers.to_yaml}------------"
-    else
-      @lists = @current_user.all_organisation_lists - [OrganisationPrimaryList.first]
-      puts"-----DEBUG---#{@lists.to_yaml}------------"
-    end
-    respond_to do |format|
-      format.js
     end
   end
 

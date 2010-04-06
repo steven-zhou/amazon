@@ -73,15 +73,17 @@
       - else
         <p>List of lists</p>
         %ul
-          %li{:id => @current_action == "manager" ? "selected" : ""}
+          -#%li{:id => @current_action == "manager" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Manager",{:controller => "list_headers", :action => "manager"}, :controller => "list_headers", :action => "manager",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "List Manager"
-          -#%li{:id => @current_action == "manage_list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Person Manager",{:controller => "list_headers", :action => "manage_list"}, :controller => "list_headers", :action => "manage_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Person List Manager"
-          %li{:id => @current_action == "compile_list" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Person Compile",{:controller => "list_headers", :action => "compile_list"}, :controller => "list_headers", :action => "compile_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "Person List Compile"
+          %li{:id => (["org_manage_list", "manage_list"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Manager",{:controller => "list_headers", :action => "manage_list"}, :controller => "list_headers", :action => "manage_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Person List Manager"
+          -# %li{:id => @current_action == "compiler" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Compiler",{:controller => "list_headers", :action => "compiler"}, :controller => "list_headers", :action => "compiler",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "List Compiler"
+          %li{:id => (["org_compile_list", "compile_list"].include?(@current_action)) ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Compiler",{:controller => "list_headers", :action => "compile_list"}, :controller => "list_headers", :action => "compile_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "Person List Compile"
           -#%li{:id => @current_action == "org_manage_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/System/edit_button.graphic.png')} Org Manager",{:controller => "list_headers", :action => "org_manage_list"}, :controller => "list_headers", :action => "org_manage_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/System/edit_button.graphic.png", :title => "Organisation List Manager"
-          %li{:id => @current_action == "org_compile_list" ? "selected" : ""}
+          -# %li{:id => @current_action == "org_compile_list" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Core/Lol/list_compiler.png')} Org Compile",{:controller => "list_headers", :action => "org_compile_list"}, :controller => "list_headers", :action => "org_compile_list",:class => "draggable",:icon_module=>"core",:image_url => "Icons/Core/Lol/list_compiler.png", :title => "Organisation List Compile"
     .bottom
 
