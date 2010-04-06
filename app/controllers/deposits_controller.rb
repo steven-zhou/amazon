@@ -141,9 +141,9 @@ class DepositsController < ApplicationController
       @source = Source.active_source
     end
     # we delete the history_page part
-#    if @field == "histroy_page"
-#      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
-#    end
+    #    if @field == "histroy_page"
+    #      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+    #    end
     respond_to do |format|
       format.js
     end
@@ -373,6 +373,7 @@ class DepositsController < ApplicationController
     redirect_to :controller => "receipting", :action => "bank_run"
   end
 
+
   def prepare_bank_run_report(bank_run_id)
     if bank_run_id !=0 # confirm bank run
       @run = BankRun.find(bank_run_id)
@@ -475,16 +476,12 @@ class DepositsController < ApplicationController
         i.entity_receipts.each do |receipt|
           if receipt.deposit.payment_method_meta_type.name == "Cash"
             @receipt_type_cash[bank_account.id] << receipt.amount rescue @receipt_type_cash[bank_account.id]  = [receipt.amount]
-            puts @receipt_type_cash[bank_account.id]
           elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
             @receipt_type_cheque[bank_account.id] <<receipt.amount rescue @receipt_type_cheque[bank_account.id] = [receipt.amount]
-            puts @receipt_type_cheque[bank_account.id]
           elsif receipt.deposit.payment_method_type.name == "Master Card"
             @receipt_type_master_cards[bank_account.id] << receipt.amount rescue @receipt_type_master_cards[bank_account.id] = [receipt.amount]
-            puts @receipt_type_master_cards[bank_account.id]
           elsif receipt.deposit.payment_method_type.name == "Visa Card"
             @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_cards[bank_account.id] = [receipt.amount]
-            puts @receipt_type_visa_cards[bank_account.id]
           end
         end
       end
@@ -525,19 +522,17 @@ class DepositsController < ApplicationController
 
     #prepare bank deposit sheet
     @run_id = bank_run_id == 0 ? "temp" : @run.id
-    report_name = "#{@run_id}-BankDepositSheet"
-    @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header")
-    File.open("#{file_prefix}/#{file_dir}/#{report_name}-header.html", 'w') do |f|
-      f.puts "#{@bank_deposit_sheet_header}"
+   
+    @accounts.each do |account|
+      report_name = "#{@run_id}-BankDepositSheet"
+      @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
+      @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account}) 
+      generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_deposit_sheet_header,@bank_deposit_sheet,now,50)
+      flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run_id}-BankDepositSheet.pdf\' target='_blank'>#{@run_id}-BankDepositSheet.pdf</a></p>"
     end
-    @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet")    
-    File.open("#{file_prefix}/#{file_dir}/#{report_name}.html", 'w') do |f|
-      f.puts "#{@bank_deposit_sheet}"
-    end
-    pdf_options = "--page-size A4 --header-html '#{report_name}-header.html' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{report_name}.html #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.html"
-    flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run_id}-BankDepositSheet.pdf\' target='_blank'>#{@run_id}-BankDepositSheet.pdf</a></p>"
-    
+
+
+
 
     #prepare bank run audit sheet
     if params[:BRAS]
@@ -601,5 +596,18 @@ class DepositsController < ApplicationController
 
   end
 
+  def generate_html_to_pdf(file_prefix,file_dir,report_name,header_content,content,time,header_spacing)
+    
+    File.open("#{file_prefix}/#{file_dir}/#{report_name}-header.html", 'w') do |f|
+      f.puts "#{header_content}"
+    end
+
+    File.open("#{file_prefix}/#{file_dir}/#{report_name}.html", 'w') do |f|
+      f.puts "#{content}"
+    end
+
+    pdf_options = "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html --header-spacing -#{header_spacing} --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{time}'"
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{report_name}.html #{file_prefix}/#{file_dir}/#{report_name}.pdf #{pdf_options};"
+  end
 
 end

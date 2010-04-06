@@ -5,7 +5,7 @@
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     delete_from_a_grid = function(){
-      delete_from_grid($("#show_existing_receipt_allocations_grid tr.trSelected").attr('id'),"#receipt_allocation_mode","delete","/receipt_allocations/");
+      delete_from_grid($("#show_existing_receipt_allocations_grid tr.trSelected").attr('id'),"#receipt_mode","delete","/receipt_allocations/");
     };
 
     $("#show_existing_receipt_allocations_grid").flexigrid({
