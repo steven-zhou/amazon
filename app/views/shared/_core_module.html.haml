@@ -69,7 +69,7 @@
     .top
     .item
       - if @current_controller != "list_headers"
-        = link_to "#{image_tag('Icons/Core/Lol/lol.png')} List of lists", :controller => "list_headers", :action => "manager"
+        = link_to "#{image_tag('Icons/Core/Lol/lol.png')} List of lists", :controller => "list_headers", :action => "manage_list"
       - else
         <p>List of lists</p>
         %ul
