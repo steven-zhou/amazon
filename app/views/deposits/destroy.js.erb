@@ -1,6 +1,4 @@
-
-
-$('#add_new_receipt').html('<%= escape_javascript(render(:partial => "/receipts/new_receipt")) %>').css('display','');
-$('#existing_current_deposits').html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>').css('display','');
+$('#add_new_deposits').show().html('<%= escape_javascript(render(:partial => "/deposits/new_deposit")) %>');
+$('#existing_current_deposits').show().html('<%= escape_javascript(render(:partial => "/deposits/existing_deposits", :locals => {:entity_type => session[:entity_type], :entity_id => session[:entity_id]})) %>');
 $('#current_mode').attr('mode', 'show');
 $('#edit_unbanked_transaction').css('display','none');
