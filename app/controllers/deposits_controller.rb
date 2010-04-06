@@ -140,15 +140,17 @@ class DepositsController < ApplicationController
       @campaign = Campaign.active_campaign
       @source = Source.active_source
     end
-    if @field == "histroy_page"
-      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
-    end
+    # we delete the history_page part
+#    if @field == "histroy_page"
+#      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+#    end
     respond_to do |format|
       format.js
     end
   end
 
   def filter
+    #this is not the enquiry page in the person and org
     if params[:enquiry] || params[:bank_run]
       if params[:enquiry]
         @filter_target = "enquiry"
