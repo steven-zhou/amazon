@@ -1,8 +1,8 @@
 <% if @person.new_record? %>
   $("#<%=escape_javascript("#{@update_field}")%>").css('display','');
-  $("#<%=escape_javascript("#{@update_field}")%>").html("Invalid ID");
-  $("#<%=escape_javascript("#{@update_field}")%>").fadeTo(3000,1);
-  $("#<%=escape_javascript("#{@update_field}")%>").stop().fadeOut(3000);
+
+  $("#<%=escape_javascript("#{@update_field}")%>").html("Invalid ID").fadeOut(3000);
+
   $("#<%=escape_javascript("#{@input_field}")%>").val("");
 
 <% else %>

@@ -388,8 +388,6 @@ class DepositsController < ApplicationController
 
   def prepare_bank_run_report(bank_run_id, deposit_id)
     if bank_run_id !=0 
-
-   
       @run = BankRun.find(bank_run_id)
       @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
       @time =  @run.created_at.getlocal.strftime('%I:%m%p')
@@ -403,7 +401,6 @@ class DepositsController < ApplicationController
       end
     end
 
-    puts"---DEBUG-----#{@deposits.to_yaml}............"
 
     @client = ClientOrganisation.first
     @accounts = Array.new
@@ -494,23 +491,13 @@ class DepositsController < ApplicationController
       if params[:RTS]
         i.entity_receipts.each do |receipt|
           if receipt.deposit.payment_method_meta_type.name == "Cash"
-            puts "1111111111111111"
             @receipt_type_cash[bank_account.id] << receipt.amount rescue @receipt_type_cash[bank_account.id]  = [receipt.amount]
-            puts @receipt_type_cash[bank_account.id]
           elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
-            puts "22222222222"
             @receipt_type_cheque[bank_account.id] <<receipt.amount rescue @receipt_type_cheque[bank_account.id] = [receipt.amount]
-            puts @receipt_type_cheque[bank_account.id]
           elsif receipt.deposit.payment_method_type.name == "Master Card"
-            puts "33333333333333"
-
-
             @receipt_type_master_cards[bank_account.id] << receipt.amount rescue @receipt_type_master_cards[bank_account.id] = [receipt.amount]
-            puts @receipt_type_master_cards[bank_account.id]
           elsif receipt.deposit.payment_method_type.name == "Visa Card"
-            puts "444444444444"
             @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_cards[bank_account.id] = [receipt.amount]
-            puts @receipt_type_visa_cards[bank_account.id]
           end
         end
       end

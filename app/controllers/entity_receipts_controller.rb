@@ -19,9 +19,7 @@ class EntityReceiptsController < ApplicationController
     if @entity.nil?
       flash.now[:error] = "#{params[:entity_receipt][:entity_type]} #{params[:entity_receipt][:entity_id]} can not be found"
     else    
-      @receipt = @entity.entity_receipts.new(params[:entity_receipt])
-
-      
+      @receipt = @entity.entity_receipts.new(params[:entity_receipt])     
       if @receipt.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt with ID #{@receipt.id}.")
       else
