@@ -1,6 +1,4 @@
 <style type="text/css">
-  .page_break {page-break-after: always;}
-  #bank_run_campaign_summary{width: 800px;padding: 0;margin: 0 auto;}
   #bank_run_campaign_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
   #bank_run_campaign_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
   #bank_run_campaign_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
@@ -15,12 +13,45 @@
 
   #bank_run_campaign_summary .div_total {margin-top: 30px;}
   #bank_run_campaign_summary .pure_bold{font-weight: 600;}
+  #space {height:50mm;}
 </style>
+<div id="space">&nbsp;</div>
 <div id="bank_run_campaign_summary">
-<%- @accounts.each do |account|%>
-<%= render :partial => "deposits/bank_run_campaign_summary_detail", :locals => {:account => account} %>
-  <%- if account != @accounts.last %>
-    <div class="page_break">&nbsp;</div>
-  <%- end %>
-<%- end %>
+  <%- total_cash = 0.00%>
+  <%- total_cheque = 0.00%>
+  <%- total_card = 0.00%>
+  <%- cash = 0.00%>
+  <%- cheque = 0.00%>
+  <%- cards = 0.00%>
+
+  <%- Campaign.active_campaign.try(:each) do |campaign|%>
+
+    <%- cash = (@campaign_cash[account.id].nil?||@campaign_cash[account.id][campaign.id].nil?) ?  0 : @campaign_cash[account.id][campaign.id]%>
+    <%- cheque = (@campaign_cheque[account.id].nil?||@campaign_cheque[account.id][campaign.id].nil?) ? 0 : @campaign_cheque[account.id][campaign.id]%>
+    <%- cards = (@campaign_cards[account.id].nil?||@campaign_cards[account.id][campaign.id].nil?) ?  0 : @campaign_cards[account.id][campaign.id]%>
+
+    <div class="div_line">
+      <div class="div_cell cell_40"><%=campaign.name%></div>
+      <div class="div_cell cell_15"><%= number_to_currency(cash) %></div>
+      <div class="div_cell cell_15"><%= number_to_currency(cheque)  %></div>
+      <div class="div_cell cell_15"><%= number_to_currency(cards) %></div>
+
+      <div class="div_cell cell_15"><%=number_to_currency(cash+cheque+cards)%></div>
+    </div>
+    <%- total_cash += cash%>
+    <%- total_cheque += cheque %>
+    <%- total_card += cards%>
+
+  <%-end%>
+
+
+  <br style="clear:both;"/>
+  <div class="line_seperator"></div>
+  <div class="div_line div_total">
+    <div class="div_cell cell_40 pure_bold">Totals</div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cash)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cheque)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_card)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cash+total_cheque+total_card)%></div>
+  </div>
 </div>

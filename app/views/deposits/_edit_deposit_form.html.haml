@@ -40,13 +40,12 @@
       = f.check_box :already_banked
 
 
-
   #edit_cheque_detail_form
-    - if deposit.payment_method_type.name == 'Cheque'
+    - if deposit.payment_method_meta_type.name == 'Cheque'
       = render :partial => "deposit_details/cheque_detail_form"
 
   #edit_credit_card_detail_form
-    - if deposit.payment_method_type.name == 'Credit Card'
+    - if deposit.payment_method_meta_type.name == 'Credit Card'
       = render :partial => "deposit_details/credit_card_detail_form"
 
   .form_line{:style => "height:auto;"}

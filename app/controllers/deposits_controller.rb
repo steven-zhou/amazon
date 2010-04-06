@@ -348,8 +348,8 @@ class DepositsController < ApplicationController
         BankRun.transaction do
           @run.save
           @deposits.each do |i|
-            if i.total_amount.nil?
-              i.destroy
+            if i.total_amount.nil? || i.total_amount.to_f == 0.00
+              i.destroy # invalid deposit would be deleted
             else
               i.bank_run_id = @run.id            
             end
@@ -361,8 +361,8 @@ class DepositsController < ApplicationController
       else        
         # preview bank run report
         @deposits.each do |i|
-          if i.total_amount.nil?
-            @deposits.delete(i)
+          if i.total_amount.nil? || i.total_amount.to_f == 0.00 || i.to_be_banked == false
+            @deposits.delete(i) # only valid deposit would be included in the report
           end
         end
         flash[:confirmation] = "<p>Preview Reports are generated and available here:</p>"
@@ -379,7 +379,7 @@ class DepositsController < ApplicationController
       @run = BankRun.find(bank_run_id)
       @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
       @time =  @run.created_at.getlocal.strftime('%I:%m%p')
-      @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
+      @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ? and to_be_banked = true and already_banked = false", bank_run_id])
     else
       @date = Time.now.getlocal.strftime('%d-%m-%Y')
       @time = Time.now.getlocal.strftime('%I:%m%p')

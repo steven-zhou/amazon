@@ -140,6 +140,6 @@
     .toggle_div{:toggle_id_name => "organisation_structure_details", :style => "cursor:pointer;"}
       .options
         = image_tag('Icons/System/collapse.png')
-      %h1 Organisation Structure
+      %h1 Relationship Manager
     #organisation_structure_details.left{:style => "width:100%;display:none;"}
       =render :partial=> '/organisation_relationships/show_organisation_structure',:locals=>{:level=>0}
