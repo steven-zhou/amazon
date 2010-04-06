@@ -4,7 +4,7 @@
   #lol
   %br.clear
 
-- form_for @client_setup do |f|
+- form_for @client_setup, :html => {:id => "client_setup_form"} do |f|
   .full_container
     .toggle_div{:toggle_id_name => "organisation_level_details", :style => "cursor:pointer;"}
       .options
@@ -132,9 +132,9 @@
 
 
           %br.clear
-      .right
+      .right{:style => "width:25%;"}
         = submit_tag "Submit", :name => "organisation_structure", :style => "float:right;"
-        -#= button_to "reset", reset_default_label_client_setups_path
+        = link_to "reset", reset_default_label_client_setups_path, :class => "get alt_option"
 
   .full_container
     .toggle_div{:toggle_id_name => "organisation_structure_details", :style => "cursor:pointer;"}
