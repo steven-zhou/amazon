@@ -25,7 +25,7 @@
   </div>
 
   <div id="content">
-    <%- cheque_total = 0.00%>
+    <%- cheque_total = 0.00 %>
     <%- @cheque_deposits[account.id].try(:each) do |cheque_transaction|%>
       <div class="title_item"><%= cheque_transaction.deposit_detail.try(:name_on_cheque) %></div>
       <div class="title_item"><%= cheque_transaction.deposit_detail.try(:cheque_number) %></div>

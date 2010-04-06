@@ -140,15 +140,17 @@ class DepositsController < ApplicationController
       @campaign = Campaign.active_campaign
       @source = Source.active_source
     end
-    if @field == "histroy_page"
-      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
-    end
+    # we delete the history_page part
+#    if @field == "histroy_page"
+#      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+#    end
     respond_to do |format|
       format.js
     end
   end
 
   def filter
+    #this is not the enquiry page in the person and org
     if params[:enquiry] || params[:bank_run]
       if params[:enquiry]
         @filter_target = "enquiry"
@@ -481,7 +483,7 @@ class DepositsController < ApplicationController
             @receipt_type_master_cards[bank_account.id] << receipt.amount rescue @receipt_type_master_cards[bank_account.id] = [receipt.amount]
             puts @receipt_type_master_cards[bank_account.id]
           elsif receipt.deposit.payment_method_type.name == "Visa Card"
-            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_card[bank_account.id] = [receipt.amount]
+            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_cards[bank_account.id] = [receipt.amount]
             puts @receipt_type_visa_cards[bank_account.id]
           end
         end
