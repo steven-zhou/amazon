@@ -1,35 +1,47 @@
-
-
-  <div id="content">
-    <%- cheque_total = 0.00 %>
-    <%- @cheque_deposits[account.id].try(:each) do |cheque_transaction|%>
-      <div class="title_item"><%= cheque_transaction.deposit_detail.try(:name_on_cheque) %></div>
-      <div class="title_item"><%= cheque_transaction.deposit_detail.try(:cheque_number) %></div>
-      <div class="title_item"><%= cheque_transaction.deposit_detail.try(:bank).try(:full_name) %></div>
-      <div class="title_item"><%= cheque_transaction.deposit_detail.try(:bank).try(:branch_number) %></div>
-      <%- total = cheque_transaction.total_amount%>
-      <%- cheque_total += total%>
-      <div class="title_item"><%= number_to_currency(total)%></div>
-    <%- end %>
-    <br class="clear"/>
+<style type="text/css">
+  .page_break {page-break-after: always;}
+  #header {margin:5px auto;width:100%;text-align:center;}
+  #title {border-top: 3px double black;border-bottom: 3px double black;}
+  #content {border-bottom: 3px double black;}
+  .top_item {float:left;width:33%;}
+  .title_item {float:left;width:20%;}
+  .clear {clear:both;}
+  #summary {width:100%;}
+  #summary_detail {margin:5px auto;width:35%;}
+  .summary_item {width:50%;float:left;}
+  #space {height:50mm;}
+</style>
+<div id="space">&nbsp;</div>
+<div id="content">
+  <%- cheque_total = 0.00 %>
+  <%- @cheque_deposits[account.id].try(:each) do |cheque_transaction|%>
+    <div class="title_item"><%= cheque_transaction.deposit_detail.try(:name_on_cheque) %></div>
+    <div class="title_item"><%= cheque_transaction.deposit_detail.try(:cheque_number) %></div>
+    <div class="title_item"><%= cheque_transaction.deposit_detail.try(:bank).try(:full_name) %></div>
+    <div class="title_item"><%= cheque_transaction.deposit_detail.try(:bank).try(:branch_number) %></div>
+    <%- total = cheque_transaction.total_amount%>
+    <%- cheque_total += total%>
+    <div class="title_item"><%= number_to_currency(total)%></div>
+  <%- end %>
+  <br class="clear"/>
 </div>
 
 <div id="summary">
-    <div id="summary_detail">
-        <h2>Bank Deposit Total</h2>
-        <div class="summary_item">Cheques: </div>
-        <div class="summary_item"><%= number_to_currency(cheque_total)%></div>
-        <div class="summary_item">Cash: </div>
-        <%- cash_total = 0 %>
-        <%- @cash_deposits[account.id].try(:each) do |cash_transaction| %>
-        <%- cash_total += cash_transaction.total_amount%>
-        <%- end %>
-        <div class="summary_item"><%= number_to_currency(cash_total)%></div>
-        <br class="clear"/>
-        <hr/>
-        <div class="summary_item">Total Deposit: </div>
-        <div class="summary_item"><%= number_to_currency(cheque_total+cash_total)%></div>
-    </div>
+  <div id="summary_detail">
+    <h2>Bank Deposit Total</h2>
+    <div class="summary_item">Cheques: </div>
+    <div class="summary_item"><%= number_to_currency(cheque_total)%></div>
+    <div class="summary_item">Cash: </div>
+    <%- cash_total = 0 %>
+    <%- @cash_deposits[account.id].try(:each) do |cash_transaction| %>
+      <%- cash_total += cash_transaction.total_amount%>
+    <%- end %>
+    <div class="summary_item"><%= number_to_currency(cash_total)%></div>
     <br class="clear"/>
+    <hr/>
+    <div class="summary_item">Total Deposit: </div>
+    <div class="summary_item"><%= number_to_currency(cheque_total+cash_total)%></div>
+  </div>
+  <br class="clear"/>
 </div>
-</div>
+
