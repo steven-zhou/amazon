@@ -2385,13 +2385,13 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @deposit = Deposit.find(:all,
-        :conditions => ["deposits.entity_id=? and entity_type=?", params[:entity_id], params[:entity_type]],
+        :conditions => ["deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", params[:entity_id], params[:entity_type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=?", params[:entity_id], params[:entity_type]],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
@@ -2402,9 +2402,9 @@ class GridsController < ApplicationController
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=?", query, params[:entity_id], params[:entity_type]],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", query, params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=?", query, params[:entity_id], params[:entity_type]],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", query, params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2556,8 +2556,8 @@ class GridsController < ApplicationController
     return_data[:total] = count
     return_data[:rows] = @receipts.collect{|u| {:id => u.id,
         :cell=>["#{u.entity_type}-#{u.entity_id}",
-          u.amount.nil? ? "$0.00" : currencify(u.amount),
-          u.manual_receipt_number
+          u.manual_receipt_number,
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

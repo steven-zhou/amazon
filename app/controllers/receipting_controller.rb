@@ -180,9 +180,9 @@ class ReceiptingController < ApplicationController
     bank_run_id = params[:bank_run_document_filter][:bank_run_id]
     @date_valid = true
     @user_name = @current_user.user_name
-#    unless (bank_run_id.blank?)
-#      conditions << ("bank_run_id=" + bank_run_id)
-#    end
+    #    unless (bank_run_id.blank?)
+    #      conditions << ("bank_run_id=" + bank_run_id)
+    #    end
 
 
 
@@ -197,8 +197,10 @@ class ReceiptingController < ApplicationController
         file_date = File.new(pdf_directory+m).mtime.to_date
         @bank_run_documents = @bank_run_documents - [m] if (file_date < start_date || file_date > end_date)
 
-       # @bank_run_documents = @bank_run_documents-[m] if (m =~ /\b1-/).nil?    m.split('-')[0]
-       @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[0] != bank_run_id)
+        # @bank_run_documents = @bank_run_documents-[m] if (m =~ /\b1-/).nil?    m.split('-')[0]
+        unless bank_run_id.blank?
+          @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[0] != bank_run_id)
+        end
       end
     else
       @date_valid = false

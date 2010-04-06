@@ -50,16 +50,16 @@ class EntityReceiptsController < ApplicationController
   def destroy
     @entity_receipt = EntityReceipt.find(params[:id])
     @deposit = @entity_receipt.deposit
-    @entity.destroy
+    @entity_receipt.destroy
 
 
- #for re-calculate the total amount of the receipt
-    receipt_value = 0
-    @entity.receipt_allocations.each do |r|
-      receipt_value += r.amount.to_f
+    #for re-calculate the total amount of the deposit
+    deposit_value = 0
+    @deposit.entity_receipts.each do |r|
+      deposit_value += r.amount.to_f
     end
   
-    @deposit.update_attribute(:total_amount, receipt_value)
+    @deposit.update_attribute(:total_amount, deposit_value)
 
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted extension.")
