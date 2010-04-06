@@ -10,7 +10,9 @@
   #receipt_type_summary .line_seperator {width: 58%;margin: 10px auto;height: 1px;;border-bottom: 1px dashed black;}
   #receipt_type_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
   #receipt_type_summary .pure_bold{font-weight: 600;}
+  #space {height:50mm;}
 </style>
+<div id="space">&nbsp;</div>
 <div id="receipt_type_summary">
   <%-if @receipt_type_cash[account.id].nil? %>
     <%- @receipt_type_cash[account.id]=[0]%>
