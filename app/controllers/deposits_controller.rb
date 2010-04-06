@@ -511,7 +511,7 @@ class DepositsController < ApplicationController
             puts @receipt_type_master_cards[bank_account.id]
           elsif receipt.deposit.payment_method_type.name == "Visa Card"
             puts "444444444444"
-            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_card[bank_account.id] = [receipt.amount]
+            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_cards[bank_account.id] = [receipt.amount]
             puts @receipt_type_visa_cards[bank_account.id]
           end
         end

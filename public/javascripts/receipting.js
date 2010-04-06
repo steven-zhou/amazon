@@ -551,7 +551,7 @@ $(function(){
   
     $("#enquiry_filter").css("display","none");
     $("#bank_run_more_option").css("display","");
-    $("#transaction_bank_run").get(0).reset();
+    $("#deposit_bank_run").get(0).reset();
 
     $('#bank_id_filter').hide();
     $('#user_id_filter').hide();
