@@ -1,22 +1,22 @@
 -# level
 %div.container{:id => "container_#{level}"}
-  .toggle_div{:toggle_id_name => "content_#{level}", :style => "cursor:pointer;"}
-    .options
-      = image_tag('Icons/System/collapse.png')
-    %h1{:id=>'title_#{level}'} Please Select Client Organiastion Name
   %div{:id => "content_#{level}"}
+    %h3{:id => "title_#{level}"}  Select Organiastion
     %div.left{:style => "width:100%;",:id => "grid_#{level}"}
     -if level == 0
-      =render :partial=> '/organisation_relationships/show_zero_organisations'
+      =render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level}
     -else
       =render :partial=> '/organisation_relationships/show_organisation_branches',:locals=>{:level =>level}
-    #add_new_relationship.container
-      .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close"
-      .title
-        = link_to_function image_tag('add_icon.png'), :id=>"", :class=>"add_option ajax_call"
+
+    -if level !=0
+      #add_new_relationship.full_container{:style => "margin-top:10px;"}
+        .options
+          = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close"
+        .title
+          = link_to_function image_tag('add_icon.png'), :class=>"new_option ajax_call", :url => "organisation_relationships/new", :param1 => @organisation.id, :method => "GET"
+          &nbsp;
         %h1 New Relationship
-      #new_relationship
+        #new_relationship
 
 
 
