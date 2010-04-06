@@ -140,15 +140,17 @@ class DepositsController < ApplicationController
       @campaign = Campaign.active_campaign
       @source = Source.active_source
     end
-    if @field == "histroy_page"
-      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
-    end
+    # we delete the history_page part
+#    if @field == "histroy_page"
+#      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+#    end
     respond_to do |format|
       format.js
     end
   end
 
   def filter
+    #this is not the enquiry page in the person and org
     if params[:enquiry] || params[:bank_run]
       if params[:enquiry]
         @filter_target = "enquiry"
@@ -299,8 +301,6 @@ class DepositsController < ApplicationController
     conditions = Array.new
     values = Array.new
     conditions << "bank_run_id IS NULL"
-    #    values << "IS Null"
-
 
     @date_valid = true
     if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
@@ -335,9 +335,7 @@ class DepositsController < ApplicationController
     end
 
     @deposits = Deposit.find(:all, :conditions => [conditions.join(" AND "), *values])
-
-    
-
+  
     if @deposits.blank?
       flash[:warning] = "No outstanding deposits found"
     elsif !@date_valid
@@ -350,44 +348,34 @@ class DepositsController < ApplicationController
         BankRun.transaction do
           @run.save
           @deposits.each do |i|
-
-            if i.to_be_banked == true && i.already_banked == false
-              i.bank_run_id = @run.id
-            elsif i.to_be_banked == false && i.already_banked == true
-              i.bank_run_id = -1
-            elsif i.to_be_banked == false && i.already_banked == false
-              i.bank_run_id = -2
+            if i.total_amount.nil?
+              i.destroy
+            else
+              i.bank_run_id = @run.id            
             end
-            i.already_banked = true
             i.save
           end
         end
         flash[:confirmation] = "<p>Reports are generated and available here:</p>"
-        prepare_bank_run_report(@run.id, @deposit_id)
-      else
-        
-        @deposit_id =[]
+        prepare_bank_run_report(@run.id)
+      else        
+        # preview bank run report
         @deposits.each do |i|
-
-          if i.to_be_banked == true && i.already_banked == false
-            @deposit_id << i.id
+          if i.total_amount.nil?
+            @deposits.delete(i)
           end
-       
         end
-
-
-
-
-        flash[:confirmation] = "<p>Reports are generated and available here:</p>"
-        prepare_bank_run_report(0, @deposit_id)
+        flash[:confirmation] = "<p>Preview Reports are generated and available here:</p>"
+        prepare_bank_run_report(0)
       end
     end
 
     redirect_to :controller => "receipting", :action => "bank_run"
   end
 
-  def prepare_bank_run_report(bank_run_id, deposit_id)
-    if bank_run_id !=0 
+
+  def prepare_bank_run_report(bank_run_id)
+    if bank_run_id !=0 # confirm bank run
       @run = BankRun.find(bank_run_id)
       @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
       @time =  @run.created_at.getlocal.strftime('%I:%m%p')
@@ -395,12 +383,7 @@ class DepositsController < ApplicationController
     else
       @date = Time.now.getlocal.strftime('%d-%m-%Y')
       @time = Time.now.getlocal.strftime('%I:%m%p')
-      @deposits= []
-      deposit_id.each do |f|
-        @deposits << Deposit.find_by_id(f)
-      end
     end
-
 
     @client = ClientOrganisation.first
     @accounts = Array.new
@@ -445,12 +428,13 @@ class DepositsController < ApplicationController
       payment_method_meta_type = i.payment_method_meta_type.try(:name)
       payment_method_type = i.payment_method_type.try(:name)
       @accounts << bank_account unless @accounts.include?(bank_account)
-
-      if payment_method_meta_type == "Cash"
-        @cash_deposits[bank_account.id] << i rescue @cash_deposits[bank_account.id]=[i]
-      end
-      if payment_method_meta_type == "Cheque"
-        @cheque_deposits[bank_account.id] << i rescue @cheque_deposits[bank_account.id]=[i]
+      if i.to_be_banked == true && i.already_banked == false
+        if payment_method_meta_type == "Cash"
+          @cash_deposits[bank_account.id] << i rescue @cash_deposits[bank_account.id]=[i]
+        end
+        if payment_method_meta_type == "Cheque"
+          @cheque_deposits[bank_account.id] << i rescue @cheque_deposits[bank_account.id]=[i]
+        end
       end
 
       # for bank run audit sheet or credit cards receipt
@@ -534,16 +518,21 @@ class DepositsController < ApplicationController
 
     #pdf header and footer
     now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
-    pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
+    
 
     #prepare bank deposit sheet
-   @run_id = bank_run_id == 0 ? "temp" : @run.id
-
-    @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet")
-    File.open("#{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.html", 'w') do |f|
+    @run_id = bank_run_id == 0 ? "temp" : @run.id
+    report_name = "#{@run_id}-BankDepositSheet"
+    @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header")
+    File.open("#{file_prefix}/#{file_dir}/#{report_name}-header.html", 'w') do |f|
+      f.puts "#{@bank_deposit_sheet_header}"
+    end
+    @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet")    
+    File.open("#{file_prefix}/#{file_dir}/#{report_name}.html", 'w') do |f|
       f.puts "#{@bank_deposit_sheet}"
     end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.html"
+    pdf_options = "--page-size A4 --header-html '#{report_name}-header.html' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
+    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{report_name}.html #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run_id}-BankDepositSheet.html"
     flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run_id}-BankDepositSheet.pdf\' target='_blank'>#{@run_id}-BankDepositSheet.pdf</a></p>"
     
 

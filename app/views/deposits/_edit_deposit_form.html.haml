@@ -8,7 +8,7 @@
     .field_25
       = f.label :system_time, "System Date"
       .display_field_bg
-        #{deposit.system_time.to_s}
+        #{deposit.system_time.strftime("%d-%m-%Y")}
 
     .field_20
       = f.label :deposit_date, "<span class='asterisk'>*</span>Deposit Date"
@@ -39,7 +39,7 @@
       = f.label :banked, "Already Banked"
       = f.check_box :already_banked
 
-  .form_line
+
 
   #edit_cheque_detail_form
     - if deposit.payment_method_type.name == 'Cheque'
