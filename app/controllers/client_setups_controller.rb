@@ -533,6 +533,16 @@ class ClientSetupsController < ApplicationController
 
   def reset_default_label
 
+
+      i = 0
+      @default_label = Array.new
+      @id = Array.new
+        while i <= 9
+          @default_label << ClientSetup.first.__send__("level_#{i}_default_label")
+          @id << "client_setup_level_#{i}_label"
+          i+=1
+        end
+      
     respond_to do |format|
       format.js
     end
