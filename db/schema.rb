@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330014024) do
+ActiveRecord::Schema.define(:version => 20100406064909) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -286,6 +286,16 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.text     "level_9_remarks"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.text     "level_0_default_label"
+    t.text     "level_1_default_label"
+    t.text     "level_2_default_label"
+    t.text     "level_3_default_label"
+    t.text     "level_4_default_label"
+    t.text     "level_5_default_label"
+    t.text     "level_6_default_label"
+    t.text     "level_7_default_label"
+    t.text     "level_8_default_label"
+    t.text     "level_9_default_label"
   end
 
   create_table "compile_lists", :force => true do |t|

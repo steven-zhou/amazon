@@ -531,6 +531,14 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+  def reset_default_label
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
+
 
 
 
