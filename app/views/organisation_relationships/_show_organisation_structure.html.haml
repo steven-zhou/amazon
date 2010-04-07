@@ -1,35 +1,36 @@
 -# :locals => {:level}
-#nav{:style => "width:20%;float:left;"}
-  #nav_level_0
-    .label Level 0 - #{ClientSetup.label_0}
-    .name
-  #nav_level_1
-    .label
-    .name
-  #nav_level_2
-    .label
-    .name
-  #nav_level_3
-    .label
-    .name
-  #nav_level_4
-    .label
-    .name
-  #nav_level_5
-    .label
-    .name
-  #nav_level_6
-    .label
-    .name
-  #nav_level_7
-    .label
-    .name
-  #nav_level_8
-    .label
-    .name
-  #nav_level_9
-    .label
-    .name
-#main_container.full_container{:style => "width:78%;float:left;min-height:200px;"}
-  = render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level}
+.full_container
+  #nav{:style => "width:20%;float:left;"}
+    #nav_level_0.nav_item
+      .label Level 0 - #{ClientSetup.label_0}
+      .name
+    #nav_level_1.nav_item
+      .label
+      .name
+    #nav_level_2.nav_item
+      .label
+      .name
+    #nav_level_3.nav_item
+      .label
+      .name
+    #nav_level_4.nav_item
+      .label
+      .name
+    #nav_level_5.nav_item
+      .label
+      .name
+    #nav_level_6.nav_item
+      .label
+      .name
+    #nav_level_7.nav_item
+      .label
+      .name
+    #nav_level_8.nav_item
+      .label
+      .name
+    #nav_level_9.nav_item
+      .label
+      .name
+  #main_container.full_container{:style => "width:78%;float:left;min-height:200px;"}
+    = render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level}
 
