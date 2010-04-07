@@ -1,5 +1,5 @@
--# level
-%table#show_zero_organisations{:class=>"selectable_grid",:field=>"#{level}",:db_click_function=>"true", :db_click_url=>"/organisation_relationships/show_branches", :params2 => "#{level}"}
+-# level, target
+%table#show_zero_organisations{:class=>"selectable_grid",:field=>"#{level}",:db_click_function=>"true", :db_click_url=>"/organisation_relationships/show_branches", :params2 => "#{level}", :target => "#{target}"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

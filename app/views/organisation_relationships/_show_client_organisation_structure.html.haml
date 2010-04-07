@@ -1,11 +1,11 @@
--# :locals => {:level}
+-# :locals => {:level, target=client/other}
 .full_container
   #nav{:style => "width:20%;float:left;"}
     #nav_level_0.nav_item
-      .label Level 0 - #{ClientSetup.label_0}
-      .name
+      .label Level 0 - #{ClientSetup.client_label_0}
+      .name #{@organisation.full_name}
     #nav_level_1.nav_item
-      .label
+      .label Level 1 - #{ClientSetup.client_label_1}
       .name
     #nav_level_2.nav_item
       .label
@@ -32,5 +32,5 @@
       .label
       .name
   #main_container.full_container{:style => "width:78%;float:left;min-height:200px;"}
-    = render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level, :target => target}
+    = render :partial=> '/organisation_relationships/show_organisation_details',:locals=>{:level =>@next_level, :target => @target}
 

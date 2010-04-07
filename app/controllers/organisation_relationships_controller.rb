@@ -11,13 +11,13 @@ class OrganisationRelationshipsController < ApplicationController
   def create
     
     OrganisationRelationship.delete_all_relationship(params[:organisation_relationship][:related_organisation_id].to_i)
-   
-
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
     if @relationship.save #call back will update the level of branch
       @organisation = Organisation.find(params[:organisation_relationship][:source_organisation_id].to_i)
       @level = @organisation.level
+      @next_level = (@level.to_i)+1
+      @target = params[:target]
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Relationship #{@relationship.id}.")
       flash.now[:message]= "saved successfully"      
     else
@@ -58,6 +58,8 @@ class OrganisationRelationshipsController < ApplicationController
     @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
     @organisation = Organisation.find(@related_organisation.source_organisation_id)
     @level = @organisation.level
+    @next_level = (@level.to_i)+1
+    @target = params[:target]
     OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
 
@@ -84,6 +86,7 @@ class OrganisationRelationshipsController < ApplicationController
     @level = params[:params2]
     @next_level = (@level.to_i)+1
     @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    @target = params[:target]
     respond_to do |format|
       format.js
     end
