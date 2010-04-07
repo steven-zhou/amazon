@@ -1,17 +1,5 @@
 <html>
   <head>
-    <script>
-      function subst() {
-        var vars={};
-        var x=document.location.search.substring(1).split('&');
-        for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
-        var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
-        for(var i in x) {
-          var y = document.getElementsByClassName(x[i]);
-          for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
-        }
-      }
-    </script>
     <style type="text/css">
       .page_break {page-break-after: always;}
       #bank_deposit_sheet #header {margin:5px auto;width:100%;text-align:center;}
@@ -25,13 +13,11 @@
       #bank_deposit_sheet .summary_item {width:50%;float:left;}
     </style>
   </head>
-  <body style="border:0; margin: 0;" onload="subst()">
+  <body style="border:0; margin: 0;">
     <table style="border-bottom: 1px solid black; width: 100%">
       <tr>
-        <td  style="text-align:right">EmZee Report</td>
-        <td style="text-align:right">
-          Page <span class="page"></span> of <span class="topage"></span>
-        </td>
+        <td  style="text-align:center">EmZee Report</td>
+       
       </tr>
     </table>
     <div id="bank_deposit_sheet">
