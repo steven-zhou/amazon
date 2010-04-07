@@ -1,6 +1,7 @@
+-# :locals => {:level}
 #nav{:style => "width:20%;float:left;"}
   #nav_level_0
-    .label Level 0 - Head Office
+    .label Level 0 - #{ClientSetup.label_0}
     .name
   #nav_level_1
     .label
@@ -31,26 +32,4 @@
     .name
 #main_container.full_container{:style => "width:78%;float:left;min-height:200px;"}
   = render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level}
-
--# level
--#%div.container{:id => "container_#{level}"}
-  %div{:id => "content_#{level}"}
-    %h3{:id => "title_#{level}"}  Select Organiastion
-    %div.left{:style => "width:100%;",:id => "grid_#{level}"}
-    -if level == 0
-      =render :partial=> '/organisation_relationships/show_zero_organisations',:locals=>{:level =>level}
-    -else
-      =render :partial=> '/organisation_relationships/show_organisation_branches',:locals=>{:level =>level}
-
-    -if level !=0
-      #add_new_relationship.full_container{:style => "margin-top:10px;"}
-        .options
-          = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close"
-        .title
-          = link_to_function image_tag('add_icon.png'), :class=>"new_option ajax_call", :url => "organisation_relationships/new", :param1 => @organisation.id, :method => "GET"
-          &nbsp;
-        %h1 New Relationship
-        #new_relationship
-
-
 

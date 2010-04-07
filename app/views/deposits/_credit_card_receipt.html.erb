@@ -48,9 +48,14 @@
   <div id="header"><h1>Credit Card Receipt</h1></div>
   <div id="content_holder">
     <div id="details_of_card">
+      <%- sub_total = 0.00%>
+      <%- num_deposit = 0%>
 
       <div class="div_line table_line">
         <%- deposit[account.id].try(:each) do |deposit|%>
+          <%- total = deposit.total_amount%>
+          <%- sub_total += total%>
+          <%- num_deposit=num_deposit+1%>
           <div class="div_cell th20"><%= deposit.deposit_detail.try(:card_authority_number)%>&nbsp;</div>
           <div class="div_cell th15"><%= deposit.deposit_detail.try(:name_on_card) %></div>
           <div class="div_cell th7"><%= deposit.received_via.try(:name)%></div>
@@ -108,5 +113,6 @@
       </div>
       <br class="clear"/>
     </div>
+
   </div>
 </div>

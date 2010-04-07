@@ -1,7 +1,7 @@
 class OrganisationRelationshipsController < ApplicationController
 
   def new
-    @organisation_relationships = OrganisationRelationship.new
+    @organisation_relationship = OrganisationRelationship.new
     @organisation = Organisation.find(params[:param1])
     respond_to do |format|
       format.js
@@ -9,27 +9,19 @@ class OrganisationRelationshipsController < ApplicationController
   end
   
   def create
-
-    @source_organisation = Organisation.find(params[:organisation_id].to_i)
-    @organisation = @source_organisation
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
-
-    if @relationship.save
-      @organisation = Organisation.find(params[:organisation_id].to_i)
+    if @relationship.save #call back will update the level of branch
+      @organisation = Organisation.find(params[:organisation_relationship][:source_organisation_id].to_i)
+      @level = @organisation.level
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Relationship #{@relationship.id}.")
-      flash.now[:message]= "saved successfully"
-      
+      flash.now[:message]= "saved successfully"      
     else
-      #      flash.now[:error] = "Please Enter Current Organisation ID"
-
       flash.now[:error] = "Please Enter All Required Data"if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be blank"))
-      flash.now[:error] = "Please Check Organisation Level " if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
+      flash.now[:error] = "Invalid Organisation ID" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
+      flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Related Organisation")if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("has already been taken"))
-      #      flash.now[:error] = flash_message(:type => "not exist", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be invalid"))
     end
-
-    @relationship_new = Relationship.new
     respond_to do |format|
       format.js
     end
@@ -82,6 +74,8 @@ class OrganisationRelationshipsController < ApplicationController
   def show_branches
     @organisation = Organisation.find(params[:grid_object_id])
     @level = params[:params2]
+    @next_level = (@level.to_i)+1
+    @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
     respond_to do |format|
       format.js
     end

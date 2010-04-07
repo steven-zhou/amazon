@@ -49,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:show_album=>:get,:show_grid=>:get},
+    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:org_relationship_name_show => :get,:show_album=>:get,:show_grid=>:get},
     :member => {:name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
@@ -66,9 +66,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :client_setups, :collection => {:parameters => :get, :organisation_structure => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get, :verify_new_person_bank_account_person_id => :get, :verify_edit_person_bank_account_person_id => :get,
+  map.resources :client_setups, :collection => {:parameters => :get, :organisation_structure => :get,:client_organisation_structure => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get, :verify_new_person_bank_account_person_id => :get, :verify_edit_person_bank_account_person_id => :get,
     :client_bank_accounts => :get, :new_client_bank_account => :get, :create_client_bank_account => :post, :edit_client_bank_account => :get, :update_client_bank_account => :post, :destroy_client_bank_account => :get,
-    :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get,:delete_archive_system_log_entries=>:get, :reset_default_label => :get
+    :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get,:delete_archive_system_log_entries=>:get, :reset_default_label => :get, :reset_client_default_label => :get
 
   }
   map.resources :contacts, :collection => {:page_initial => :get}

@@ -36,7 +36,7 @@ class OrganisationsController < ApplicationController
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @list_header = params[:list_header_id].nil? ? @list_header : ListHeader.find(params[:list_header_id])
     @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]  
+    @active_sub_tab = params[:active_sub_tab]
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
 
     @o = @list_header.entity_on_list.uniq rescue @o = OrganisationPrimaryList.first.entity_on_list.uniq
@@ -83,7 +83,7 @@ class OrganisationsController < ApplicationController
         @organisation.emails.build(params[:organisation][:emails_attributes][0]) if @organisation.emails.empty?
         @organisation.websites.build(params[:organisation][:websites_attributes][0]) if @organisation.websites.empty?
         flash[:error] = flash_message(:type => "field_missing", :field => "Full name")if (!@organisation.errors[:full_name].nil? && @organisation.errors.on(:full_name).include?("can't be blank"))
-      
+
       end
     else
       flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
@@ -113,7 +113,7 @@ class OrganisationsController < ApplicationController
     @website = Website.new
     @instant_messaging = InstantMessaging.new
 
-    @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)    
+    @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
     @check_field = Array.new
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
@@ -121,7 +121,7 @@ class OrganisationsController < ApplicationController
         @check_field << i.field_name
       end
     end
-    
+
     @entity = @organisation
     respond_to do |format|
       format.html
@@ -130,7 +130,7 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-  
+
 
     @organisation = Organisation.find(params[:id])
     type = @organisation.class.to_s.underscore
@@ -154,7 +154,7 @@ class OrganisationsController < ApplicationController
       if @organisation.class.to_s != "ClientOrganisation" && @organisation.level != params[:organisation][:level].to_i  #destroy the source and related organisation relationship if they change the organisation level
         @source = OrganisationRelationship.find_by_source_organisation_id(@organisation.id) #to find the source relationship
         @relate = OrganisationRelationship.find_by_related_organisation_id(@organisation.id) #to find the related relationship
-    
+
         @source.destroy unless @source.nil?
         @relate.destroy unless @relate.nil?
         @organisation.level = params[:organisation][:level]
@@ -171,7 +171,7 @@ class OrganisationsController < ApplicationController
       flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
     end
 
-    
+
     if(params[:installation])
       flash[:message] = "Client Organisation - #{@organisation.full_name}'s information was initialized successfully."
       redirect_to :controller => :client_setups, :action => :client_organisation
@@ -253,7 +253,7 @@ class OrganisationsController < ApplicationController
   def show_sub_category
     @business_category = BusinessCategory.find(params[:sub_category_id])
     @business_sub_category = @business_category.description
-  
+
     respond_to do |format|
       format.js
     end
@@ -281,7 +281,7 @@ class OrganisationsController < ApplicationController
 
     @list_headers = @current_user.all_organisation_lists
     @list_header = ListHeader.find(session[:current_org_list_id])
-    
+
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
     @o = @list_header.entity_on_list.uniq
@@ -295,14 +295,14 @@ class OrganisationsController < ApplicationController
     @active_sub_tab = session[:active_sub_tab]
     @client_setup = ClientSetup.first
     @check_field = Array.new
-    
+
     @organisational_duplication_formula = OrganisationalDuplicationFormula.applied_setting
     unless @organisational_duplication_formula.nil?
       @organisational_duplication_formula.duplication_formula_details.each do |i|
         @check_field << i.field_name
       end
     end
-    
+
     if(params[:current_operation] == "edit_organisation_list")
       @address = Address.new
       @phone = Phone.new
@@ -312,7 +312,7 @@ class OrganisationsController < ApplicationController
       @instant_messaging = InstantMessaging.new
       @image = @organisation.image unless (@organisation.nil? || @organisation.image.nil?)
       @current_action = "edit"
-      render 'show_edit_left.js'     
+      render 'show_edit_left.js'
     else
       @primary_phone = @organisation.primary_phone
       @primary_email = @organisation.primary_email
@@ -351,7 +351,7 @@ class OrganisationsController < ApplicationController
         DuplicationOrganisationsGrid.find_all_by_login_account_id(session[:user]).each do |i|
           i.destroy
         end
-      
+
         @dup_organisations.each do |dup_organisation|
           @dog = DuplicationOrganisationsGrid.new
           @dog.login_account_id = session[:user]
@@ -373,7 +373,7 @@ class OrganisationsController < ApplicationController
     @update_field = params[:update_field]
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
-    end    
+    end
     @organisations = Organisation.find(:all, :order => "id")
     @organisations.each do |organisations|
       @solg = ShowOrganisationListGrid.new
@@ -405,7 +405,7 @@ class OrganisationsController < ApplicationController
     @list_header = ListHeader.find(session[:current_org_list_id])
     @o = Array.new
     @o = @list_header.entity_on_list
-    
+
     ShowOrganisationListGrid.find_all_by_login_account_id(session[:user]).each do |i|
       i.destroy
     end
@@ -431,14 +431,36 @@ class OrganisationsController < ApplicationController
 
   def org_general_name_show
 
-    @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = Organisation.new    
+    @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = Organisation.new
     @organisation = Organisation.new if @organisation.nil?  #handle the situation when @organisation return nil
     @update_field = params[:update_field]# for name field updating
     @input_field = params[:input_field]  #to clear the input field
+
+
     respond_to do |format|
       format.js
     end
   end
+
+  def   org_relationship_name_show
+
+    @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = Organisation.new
+
+
+    @organisation = Organisation.new if @organisation.nil?  #handle the situation when @organisation return nil
+    @update_field = params[:update_field]# for name field updating
+    @input_field = params[:input_field]  #to clear the input field
+
+    if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
+      flash.now[:error] = "All Relationships Of This Organisation Will Be Delete."
+    end
+    respond_to do |format|
+      format.js
+    end
+  end
+
+
+
 
   def check_level_change
     @organisation = Organisation.find(params[:organisation_id])
