@@ -80,8 +80,8 @@ class OrganisationRelationshipsController < ApplicationController
   end
 
   def show_branches
-    @organisation = Organisation.find(params[:grid_object_id])
-    @level = params[:params2]
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = params[:params2].to_i
     @next_level = (@level.to_i)+1
     @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
     respond_to do |format|

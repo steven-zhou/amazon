@@ -2763,3 +2763,20 @@ $(document).ready(function(){
    $('.iphone_checkbox').iphoneStyle();
 
 });
+
+
+
+/*For Organisation relationship*/
+$(function(){
+    $(".organisation_relationship_reset").live('click',function(){
+ 
+        $.ajax({
+            type: "GET",
+            url: "/organisation_relationships/show_branches.js",
+            data: "grid_object_id="+$(this).attr("grid_object_id")+"&params2="+$(this).attr("level"),
+            dataType: "script"
+
+        });
+
+    });
+        });

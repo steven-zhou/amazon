@@ -1,3 +1,11 @@
-$('#nav_level_<%= escape_javascript(@level)%> .name').html('<%= escape_javascript(@organisation.full_name) %>');
+<%if @level != 0 or !@organisation.nil?%>
+$('#nav_level_<%= escape_javascript(@level.to_s)%> .name').html('<%= escape_javascript(@organisation.full_name) %>');
+
 $('#nav_level_<%= escape_javascript(@next_level.to_s)%> .label').html('<%= escape_javascript(@next_level_label) %>');
+$('#nav_level_<%= escape_javascript(@next_level.to_s)%> .organisation_relationship_reset').attr('grid_object_id','<%= escape_javascript(@organisation.id.to_s) %>');
 $('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');
+<%else%>
+$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_zero_organisations', :locals =>{:level => @level.to_i})) %>');
+$('#nav_level_1').find(".name").html("");
+$('#nav_level_1').find(".label").html("");
+<%end%>
