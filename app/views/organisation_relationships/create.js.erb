@@ -1,34 +1,18 @@
-
- <% if @relationship.errors.empty? -%>
-    $('#organisation_relationship').prepend('<%= escape_javascript(render(:partial => '/organisation_relationships/organisation_relationship_container', :collection =>@organisation.organisation_as_source)) %>');
-
-     $("#new_organisation_relationship").hide();
-  $('#relationship_mode').attr('mode', 'show');
-  $('.new_option[field="relationship"]').css("display","");
-  $('#relationship_hidden_tab').attr('mode','show');
-  $('.organisation_relationship_close').css("display","none");
-  $('#<%= dom_id(@relationship) %>').effect('slide', {direction:'right'});
-  $("#organisation_relationship_related_organisation_id").val("").keyup();
-    $("#related_organisation_level").html("");
-    $("#related_organisation_level_label").html("");
-    $("#related_organisation_name_container").html("");
-    <%else%>
-     $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+<% if flash[:error].nil? -%>
+  $('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');
+<%else%>
+  $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $("#flash_message").dialog( {
   modal:true,
   resizable: false,
-   height: 'auto',
-    width: 'auto',
-  <%#*position: 'top',%>
+  height: 'auto',
+  width: 'auto',
   buttons: {
-
   OK: function(){
-
   $(this).dialog('close');
   }
   }
   });
-
 
 
   $('#flash_message').parent().find("a").css("display","none");
@@ -37,17 +21,5 @@
   $('#flash_message').dialog('open');
   $('#flash_message').dialog('option', 'title', 'Error');
 
-  <%end%>
-
-    $(function(){
-    $("input[type='text']#relationship_related_person_id").change(function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/name_finder.js",
-            data: 'person_id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
-
+<%end%>
 enable_form_after_submit_finish();

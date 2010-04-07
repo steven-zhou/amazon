@@ -1,14 +1,13 @@
 -form_for @organisation_relationship, :html => {:class =>"ajax_form"} do |f|
--# The form to add new organisation relationshop
-.form_line{:style => "float:none;"}
-  .field_25
-    %label Organisation ID
-    %input{:name=>"organisation_relationship[related_organisation_id]"}
-    %input.hidden{:name=>"organisation_relationship[source_organisation_id]", :value => "#{@organisation.id}"}
-  .field_25
-    %label &nbsp
-    = f.text_field :source_organisation_name
-  .field_25
-    %label &nbsp
-    = submit_tag "Submit", :style => "float:right;"
-
+  .form_line{:style => "float:none;"}
+    .field_25
+      %label Organisation ID
+      %input{:name=>"organisation_relationship[related_organisation_id]"}
+      %input.hidden{:name=>"organisation_relationship[source_organisation_id]", :value => "#{@organisation.id}"}
+    .field_25
+      %label Organisation Name
+      .display_field_bg#related_organisation_name
+        
+    .field_30{:style => "float:right;"}
+      %label &nbsp
+      = submit_tag "Submit", :style => "float:right;"

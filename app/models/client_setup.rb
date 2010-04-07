@@ -27,4 +27,13 @@ class ClientSetup < ActiveRecord::Base
     self.super_admin_power_password_salt, self.super_admin_power_password_hash =
       salt, Digest::SHA256.hexdigest(pass + salt)
   end
+
+
+  def self.label_0
+    ClientSetup.first.level_0_label.blank? ? ClientSetup.first.level_0_default_label : ClientSetup.first.level_0_label
+  end
+
+  def self.label_1
+    ClientSetup.first.level_1_label.blank? ? ClientSetup.first.level_1_default_label : ClientSetup.first.level_1_label
+  end
 end

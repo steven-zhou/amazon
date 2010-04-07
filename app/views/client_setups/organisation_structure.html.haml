@@ -4,8 +4,9 @@
   #lol
   %br.clear
 
-- form_for @client_setup, :html => {:id => "client_setup_form"} do |f|
-  .full_container
+
+.full_container
+  - form_for @client_setup, :html => {:id => "client_setup_form"} do |f|
     .toggle_div{:toggle_id_name => "organisation_level_details", :style => "cursor:pointer;"}
       .options
         = image_tag('Icons/System/collapse.png')
@@ -136,10 +137,10 @@
         = submit_tag "Submit", :name => "organisation_structure", :style => "float:right;"
         = link_to "reset", reset_default_label_client_setups_path, :class => "get alt_option"
 
-  .full_container
-    .toggle_div{:toggle_id_name => "organisation_structure_details", :style => "cursor:pointer;"}
-      .options
-        = image_tag('Icons/System/collapse.png')
-      %h1 Relationship Manager
-    #organisation_structure_details.left{:style => "width:100%;display:none;"}
-      =render :partial=> '/organisation_relationships/show_organisation_structure',:locals=>{:level=>0}
+.full_container
+  .toggle_div{:toggle_id_name => "organisation_structure_details", :style => "cursor:pointer;"}
+    .options
+      = image_tag('Icons/System/collapse.png')
+    %h1 Relationship Manager
+  #organisation_structure_details.left{:style => "width:100%;display:none;"}
+    =render :partial=> '/organisation_relationships/show_organisation_structure',:locals=>{:level=>0}
