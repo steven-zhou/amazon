@@ -63,7 +63,6 @@ class OrganisationsController < ApplicationController
     if check_valid_date
       @organisation = (params[:type].camelize.constantize).new(params[:organisation])
       @organisation.onrecord_since = Date.today()
-      @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
       if @organisation.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
         if !params[:image].nil?
