@@ -44,27 +44,27 @@ class ReceiptsController < ApplicationController
     end
 
 
-#
-#    if params[:start_deposit_date]
-#      r_conditions << "deposits.business_date >= ?"
-#      r_values << params[:start_deposit_date].to_date
-#    end
-#    if params[:end_deposit_date]
-#      r_conditions << "deposits.business_date <= ?"
-#      r_values << params[:end_deposit_date].to_date
-#    end
-#    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
-#      conditions << "receipt_account_id = ?"
-#      values << params[:receipt_account_id]
-#    end
-#    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
-#      conditions << "campaign_id = ?"
-#      values << params[:campaign_id]
-#    end
-#    if (params[:source_id] && params[:source_id].to_i!= 0)
-#      conditions << "source_id = ?"
-#      values << params[:source_id]
-#    end
+    #
+    #    if params[:start_deposit_date]
+    #      r_conditions << "deposits.business_date >= ?"
+    #      r_values << params[:start_deposit_date].to_date
+    #    end
+    #    if params[:end_deposit_date]
+    #      r_conditions << "deposits.business_date <= ?"
+    #      r_values << params[:end_deposit_date].to_date
+    #    end
+    #    if (params[:receipt_account_id] && params[:receipt_account_id].to_i!= 0)
+    #      conditions << "receipt_account_id = ?"
+    #      values << params[:receipt_account_id]
+    #    end
+    #    if (params[:campaign_id] && params[:campaign_id].to_i!= 0)
+    #      conditions << "campaign_id = ?"
+    #      values << params[:campaign_id]
+    #    end
+    #    if (params[:source_id] && params[:source_id].to_i!= 0)
+    #      conditions << "source_id = ?"
+    #      values << params[:source_id]
+    #    end
 
 
     query_conditions << ("receipts.entity_type=#{session[:entity_type]}")
@@ -100,8 +100,11 @@ class ReceiptsController < ApplicationController
       )
       @count = @receipts.size
       if @count > 0
-        generate_html("receipt_enquiry", "receipts/receipt_enquiry_result", "receipt_enquiry_result")
-        generate_html("receipt_enquiry", "receipts/receipt_enquiry_result_detail", "receipt_enquiry_result_detail")
+        @enquiry_result_html = render_to_string(:partial => "receipts/receipt_enquiry_result")
+        @enquiry_result_detail_html = render_to_string(:partial => "receipts/receipt_enquiry_result_detail")
+
+        generate_html("receipt_enquiry", @enquiry_result_html, "receipt_enquiry_result")
+        generate_html("receipt_enquiry", @enquiry_result_detail_html, "receipt_enquiry_result_detail")
       end
     end
 

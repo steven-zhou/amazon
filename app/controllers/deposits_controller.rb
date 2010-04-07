@@ -240,7 +240,8 @@ class DepositsController < ApplicationController
         @count = @deposits.size
         #@count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
         if @count > 0
-          generate_html("deposit_enquiry", "deposits/deposit_enquiry_result", "deposit_enquiry_result")
+          @deposit_enquiry_result_html = render_to_string(:partial => "deposits/deposit_enquiry_result")
+          generate_html("deposit_enquiry", @deposit_enquiry_result_html, "deposit_enquiry_result")
         end
         @date_valid = true
       else
@@ -527,7 +528,16 @@ class DepositsController < ApplicationController
       report_name = "#{@run_id}-BankDepositSheet"
       @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
       @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account}) 
-      generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_deposit_sheet_header,@bank_deposit_sheet,now,50)
+     # generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_deposit_sheet_header,@bank_deposit_sheet,now,50)
+      pdf_options={'header' => "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html"}
+
+      #{file_prefix}/#{file_dir}/#{report_name}-header.html
+#      generate_html_and_make_pdf("bank_run_reports", @bank_deposit_sheet, report_name, report_name, pdf_options)
+      generate_html("bank_run_reports",  @bank_deposit_sheet, report_name)# generate main html
+      generate_html("bank_run_reports",  @bank_deposit_sheet_header, "#{report_name}-header")# generate header html
+
+      convert_html_to_pdf("bank_run_reports", report_name, report_name, pdf_options)
+
       flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run_id}-BankDepositSheet.pdf\' target='_blank'>#{@run_id}-BankDepositSheet.pdf</a></p>"
     end
 
