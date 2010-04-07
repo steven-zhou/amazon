@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100406064909) do
+ActiveRecord::Schema.define(:version => 20100407005859) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -296,6 +296,26 @@ ActiveRecord::Schema.define(:version => 20100406064909) do
     t.text     "level_7_default_label"
     t.text     "level_8_default_label"
     t.text     "level_9_default_label"
+    t.text     "level_0_client_default_label"
+    t.text     "level_1_client_default_label"
+    t.text     "level_2_client_default_label"
+    t.text     "level_3_client_default_label"
+    t.text     "level_4_client_default_label"
+    t.text     "level_5_client_default_label"
+    t.text     "level_6_client_default_label"
+    t.text     "level_7_client_default_label"
+    t.text     "level_8_client_default_label"
+    t.text     "level_9_client_default_label"
+    t.text     "level_0_client_label"
+    t.text     "level_1_client_label"
+    t.text     "level_2_client_label"
+    t.text     "level_3_client_label"
+    t.text     "level_4_client_label"
+    t.text     "level_5_client_label"
+    t.text     "level_6_client_label"
+    t.text     "level_7_client_label"
+    t.text     "level_8_client_label"
+    t.text     "level_9_client_label"
   end
 
   create_table "compile_lists", :force => true do |t|

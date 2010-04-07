@@ -24,6 +24,14 @@ class ClientSetupsController < ApplicationController
     end
   end
 
+
+    def client_organisation_structure
+    @client_setup = ClientSetup.first
+    respond_to do |format|
+      format.html
+    end
+  end
+
   def client_organisation
     @client_setup = ClientSetup.first
     @client_organisation = @client_setup.client_organisation
@@ -171,6 +179,8 @@ class ClientSetupsController < ApplicationController
     elsif
       params[:parameters]
       redirect_to parameters_client_setups_path
+    elsif params[:client_organisation_structure]
+      redirect_to client_organisation_structure_client_setups_path
     else
       redirect_to organisation_structure_client_setups_path
     end
@@ -549,7 +559,23 @@ class ClientSetupsController < ApplicationController
 
   end
 
+  def reset_client_default_label
 
+
+      i = 0
+      @default_label = Array.new
+      @id = Array.new
+        while i <= 9
+          @default_label << ClientSetup.first.__send__("level_#{i}_client_default_label")
+          @id << "client_setup_level_#{i}_client_label"
+          i+=1
+        end
+
+    respond_to do |format|
+      format.js
+    end
+
+  end
 
 
   private
