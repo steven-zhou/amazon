@@ -1,5 +1,8 @@
 -# level
+
 %table{:id => "show_branches_grid_#{level}", :class=>"selectable_grid",:field=>"#{level}",:db_click_function=>"true", :db_click_url=>"/organisation_relationships/show_branches", :params2 => "#{level}"}
+
+
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
 
@@ -53,12 +56,3 @@
     width: 'auto',
     height: 'auto'
     });
-
-#add_new_relationship.full_container{:style => "margin-top:10px;"}
-  .options
-    = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close", :toggle_id_name => "new_relationship"
-  .title
-    = link_to_function image_tag('add_icon.png'), :class=>"new_option ajax_call", :url => "/organisation_relationships/new", :param1 => @organisation.id, :method => "GET", :field => "#{level}"
-    &nbsp;
-  %h1 New Relationship
-  #new_relationship

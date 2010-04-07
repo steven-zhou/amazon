@@ -1,0 +1,41 @@
+-# level
+.tab_switch{:style => "margin-right:15px;"}
+  .tab_switch_left.active.left{:field =>"tab_1"}
+  .container_icon.active.left{:align => 'center'}
+    = link_to_function "<h1>Children Org</h1>",:class=>"tab_switch_button", :field => "tab_1"
+  .tab_switch_right.active.left{:field =>"tab_1"}
+
+  .tab_switch_left.left{:field =>"tab_2"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Tab 2</h1>", :class=>"tab_switch_button", :field => "tab_2"
+  .tab_switch_right.left{:field =>"tab_2"}
+
+  .tab_switch_left.left{:field =>"tab_3"}
+  .container_icon.left{:align => 'center'}
+    = link_to_function "<h1>Tab 3</h1>", :class=>"tab_switch_button", :field => "tab_3"
+  .tab_switch_right.left{:field =>"tab_3"}
+%br.clear
+
+.full_container
+  #tab_1.tab_switch_container.active
+    #add_new_relationship.full_container{:style => "margin-top:10px;"}
+      .options
+        = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close", :toggle_id_name => "new_relationship"
+      .title
+        = link_to_function image_tag('add_icon.png'), :class=>"new_option ajax_call", :url => "/organisation_relationships/new", :param1 => @organisation.id, :method => "GET", :field => "#{level}"
+        &nbsp;
+      %h1 New Relationship
+      #new_relationship
+
+    #existing_relationships.left{:style => "width:100%;"}
+      = render :partial => '/organisation_relationships/existing_branches', :locals => {:level => level}
+
+
+  #tab_2.tab_switch_container
+    Coming Soon
+  #tab_3.tab_switch_container
+    Coming Soon
+
+
+
+

@@ -1,3 +1,3 @@
 $('#nav_level_<%= escape_javascript(@level)%> .name').html('<%= escape_javascript(@organisation.full_name) %>');
 $('#nav_level_<%= escape_javascript(@next_level.to_s)%> .label').html('<%= escape_javascript(@next_level_label) %>');
-$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');
+$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_details', :locals =>{:level => @level.to_i+1})) %>');

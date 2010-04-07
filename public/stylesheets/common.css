@@ -2920,7 +2920,10 @@ input.error_flag{
   font-size: 11px;
 }
 
-
+.nav_item{
+  height: 40px;
+  border-bottom: 2px solid black;
+}
 
 @charset "UTF-8";
 /* CSS Document */
