@@ -1,0 +1,47 @@
+<html>
+  <head>
+    <script>
+      function subst() {
+        var vars={};
+        var x=document.location.search.substring(1).split('&');
+        for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+        var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+        for(var i in x) {
+          var y = document.getElementsByClassName(x[i]);
+          for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+        }
+      }
+    </script>
+    <style type="text/css">
+      .page_break {page-break-after: always;}
+      #bank_deposit_sheet #header {margin:5px auto;width:100%;text-align:center;}
+      #bank_deposit_sheet #title {border-top: 3px double black;border-bottom: 3px double black;}
+      #bank_deposit_sheet #content {border-bottom: 3px double black;}
+      #bank_deposit_sheet .top_item {float:left;width:33%;}
+      #bank_deposit_sheet .bottle_item {text-align:center;width:100%;}
+      #bank_deposit_sheet .clear {clear:both;}
+      #bank_deposit_sheet #summary {width:100%;}
+      #bank_deposit_sheet #summary_detail {margin:5px auto;width:35%;}
+      #bank_deposit_sheet .summary_item {width:50%;float:left;}
+    </style>
+  </head>
+  <body style="border:0; margin: 0;" onload="subst()">
+    
+    <div id="bank_deposit_sheet">
+      
+      <div id="content_holder">
+        <div id="top">
+          
+          
+        </div>
+
+        <div id="title">
+          <div class="bottle_item">Copyright MemberZone Pty Ltd - Generated at <%= @date %></div>
+        </div>
+
+      </div>
+    </div>
+  </body>
+</html>
+
+

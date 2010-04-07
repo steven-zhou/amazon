@@ -1,5 +1,6 @@
 <% if flash[:error].nil? -%>
   $('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');
+  $('#organisation_relationship_mode').attr('mode', 'show');
 <%else%>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
   $("#flash_message").dialog( {

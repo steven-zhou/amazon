@@ -3285,6 +3285,7 @@ $("#search_result .title").live('click',function(){
 delete_from_grid = function(grid,mode,type,url){
 var trSelected = grid
 var id = "";
+
 if($(mode).attr('mode')=="show"){
   if (trSelected != undefined){
     id = trSelected.substring(3);

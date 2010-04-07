@@ -240,7 +240,8 @@ class DepositsController < ApplicationController
         @count = @deposits.size
         #@count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
         if @count > 0
-          generate_html("deposit_enquiry", "deposits/deposit_enquiry_result", "deposit_enquiry_result")
+          @deposit_enquiry_result_html = render_to_string(:partial => "deposits/deposit_enquiry_result")
+          generate_html("deposit_enquiry", @deposit_enquiry_result_html, "deposit_enquiry_result")
         end
         @date_valid = true
       else
@@ -526,9 +527,12 @@ class DepositsController < ApplicationController
     @accounts.each do |account|
       report_name = "#{@run_id}-BankDepositSheet"
       @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
-      @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account}) 
+      @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account})
+      @bank_deposit_sheet_footer = render_to_string(:partial => "deposits/bank_deposit_sheet_footer",:locals=>{:account=>account})
+     
       @space = -50
-      generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_deposit_sheet_header,@bank_deposit_sheet,now,@space)
+      generate_html_and_pdf(@bank_deposit_sheet_header,@bank_deposit_sheet, report_name, file_prefix, file_dir, @space)
+
       flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run_id}-BankDepositSheet.pdf\' target='_blank'>#{@run_id}-BankDepositSheet.pdf</a></p>"
    
 
@@ -542,18 +546,18 @@ class DepositsController < ApplicationController
         @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
         @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet",:locals=>{:account=>account})
         @space = -40
-        generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_run_audit_sheet_header,@bank_run_audit_sheet,now,@space)
-        #      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf #{pdf_options};rm #{file_prefix}/#{file_dir}/#{@run_id}-BankRunAuditSheet.html"
+        # generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_run_audit_sheet_header,@bank_run_audit_sheet,now,@space)
+        generate_html_and_pdf(@bank_run_audit_sheet_header,@bank_run_audit_sheet, report_name, file_prefix, file_dir, @space)
         flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run_id}-BankRunAuditSheet.pdf</a></p>"
       end
   
       #prepare bank run campaign summary
       if params[:CS]
-                @space = -20
-          report_name = "#{@run_id}-BankRunCampaignSummary"
+        @space = -20
+        report_name = "#{@run_id}-BankRunCampaignSummary"
         @bank_run_campaign_summary = render_to_string(:partial => "deposits/bank_run_campaign_summary",:locals=>{:account=>account})
-         @bank_run_campaign_summary_header = render_to_string(:partial => "deposits/bank_run_campaign_summary_header",:locals=>{:account=>account})
-         generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_run_campaign_summary_header,@bank_run_campaign_summary,now,@space)
+        @bank_run_campaign_summary_header = render_to_string(:partial => "deposits/bank_run_campaign_summary_header",:locals=>{:account=>account})
+         generate_html_and_pdf(@bank_run_campaign_summary_header,@bank_run_campaign_summary, report_name, file_prefix, file_dir, @space)
         flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
       end
 
@@ -567,15 +571,15 @@ class DepositsController < ApplicationController
           report_name = "#{@run_id}-MasterCreditCardReceipt"
           @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
-          generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
-          flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+           generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space)
+         flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
         end
 
         if !@visa_deposits.empty?
           report_name = "#{@run_id}-VisaCreditCardReceipt"
           @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
           @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @visa_deposits,:account=>account,:type => "VisaCard"})
-          generate_html_to_pdf(file_prefix,file_dir,report_name,@credit_card_receipt_header,@credit_card_receipt,now,@space)
+          generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space)
           flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
         end
 
@@ -588,35 +592,54 @@ class DepositsController < ApplicationController
         report_name = "#{@run_id}-ReceiptAccountSummary"
         @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary",:locals=>{:account=>account})
         @receipt_account_summary_header = render_to_string(:partial => "deposits/receipt_account_summary_header",:locals=>{:account=>account})
-        generate_html_to_pdf(file_prefix,file_dir,report_name,@receipt_account_summary_header,@receipt_account_summary,now,@space)
+        generate_html_and_pdf( @receipt_account_summary_header,@receipt_account_summary, report_name, file_prefix, file_dir, @space)
         flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
       end
     
       #prepare receipt type summary
       if params[:RTS]
-           @space = -20
+        @space = -20
         report_name = "#{@run_id}-ReceiptTypeSummary"
         @receipt_type_summary = render_to_string(:partial => "deposits/receipt_type_summary",:locals=>{:account=>account})
         @receipt_type_summary_header = render_to_string(:partial => "deposits/receipt_type_summary_header",:locals=>{:account=>account})
-        generate_html_to_pdf(file_prefix,file_dir,report_name,@receipt_type_summary_header,@receipt_type_summary,now,@space)
+        generate_html_and_pdf( @receipt_type_summary_header,@receipt_type_summary, report_name, file_prefix, file_dir, @space)
         flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a><p>"
       end
     end
 
   end
 
-  def generate_html_to_pdf(file_prefix,file_dir,report_name,header_content,content,time,header_spacing)
-    
-    File.open("#{file_prefix}/#{file_dir}/#{report_name}-header.html", 'w') do |f|
-      f.puts "#{header_content}"
-    end
+#  def generate_html_to_pdf(file_prefix,file_dir,report_name,header_content,content,time,header_spacing)
+#
+#    File.open("#{file_prefix}/#{file_dir}/#{report_name}-header.html", 'w') do |f|
+#      f.puts "#{header_content}"
+#    end
+#
+#    File.open("#{file_prefix}/#{file_dir}/#{report_name}.html", 'w') do |f|
+#      f.puts "#{content}"
+#    end
+#
+#    pdf_options = "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html --header-spacing #{header_spacing} --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{time}'"
+#    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{report_name}.html #{file_prefix}/#{file_dir}/#{report_name}.pdf #{pdf_options};"
+#  end
 
-    File.open("#{file_prefix}/#{file_dir}/#{report_name}.html", 'w') do |f|
-      f.puts "#{content}"
-    end
+  def generate_html_and_pdf(header,content, report_name, file_prefix, file_dir, space)
 
-    pdf_options = "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html --header-spacing #{header_spacing} --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{time}'"
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{report_name}.html #{file_prefix}/#{file_dir}/#{report_name}.pdf #{pdf_options};"
+    #------comment---------generate header html
+    generate_html("bank_run_reports",  header, "#{report_name}-header")
+    #------comment---------prepare the header options in pdf
+    pdf_options={'header' => "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html",
+      'extra_option'=> "--header-spacing #{space}"
+    }
+    generate_html_and_make_pdf("bank_run_reports", content, report_name, report_name, pdf_options)
   end
+
+#   #------comment---------generate header html
+#        generate_html("bank_run_reports",  @bank_run_audit_sheet_header, "#{report_name}-header")
+#        #------comment---------prepare the header options in pdf
+#        pdf_options={'header' => "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html",
+#          'extra_option'=> "--header-spacing #{@space}"
+#        }
+#        generate_html_and_make_pdf("bank_run_reports", @bank_run_audit_sheet, report_name, report_name, pdf_options)
 
 end

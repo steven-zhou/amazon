@@ -18,13 +18,14 @@
 
 .full_container
   #tab_1.tab_switch_container.active
+    %input.hidden{:id=>"organisation_relationship_mode",:mode=>"show"}
     #add_new_relationship.full_container{:style => "margin-top:10px;"}
       .options
-        = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "#{level}", :title=>"Close", :toggle_id_name => "new_relationship"
+        = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "organisation_relationship", :title=>"Close", :toggle_id_name => "new_relationship"
       .title
-        = link_to_function image_tag('add_icon.png'), :class=>"new_option ajax_call", :url => "/organisation_relationships/new", :param1 => @organisation.id, :method => "GET", :field => "#{level}"
+        = link_to_function image_tag('add_icon.png'), :class=>"new_option ajax_call", :url => "/organisation_relationships/new", :param1 => @organisation.id, :method => "GET", :field => "organisation_relationship"
         &nbsp;
-      %h1 New Relationship
+      %h1 Add Child
       #new_relationship
 
     #existing_relationships.left{:style => "width:100%;"}

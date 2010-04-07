@@ -1,10 +1,11 @@
 -# level
-
-%table{:id => "show_branches_grid_#{level}", :class=>"selectable_grid",:field=>"#{level}",:db_click_function=>"true", :db_click_url=>"/organisation_relationships/show_branches", :params2 => "#{level}"}
-
+%table{:id => "show_branches_grid_#{level}", :class=>"selectable_grid",:field=>"organisation_relationship",:db_click_function=>"true", :db_click_url=>"/organisation_relationships/show_branches", :params2 => "#{level}"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_branches_grid_#{level} tr.trSelected").attr('id'),"#organisation_relationship_mode","delete","/organisation_relationships/");
+    };
 
     $("#show_branches_grid_#{level}").flexigrid({
     url: '/grids/show_branches_grid?id=#{@organisation.id}',
@@ -47,6 +48,9 @@
     name : 'full_name'
     }
     ],
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+        ],
     sortname: "id",
     sortorder: "asc",
     usepager: true,
@@ -56,3 +60,4 @@
     width: 'auto',
     height: 'auto'
     });
+
