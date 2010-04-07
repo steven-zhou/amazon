@@ -2,12 +2,12 @@
   .form_line{:style => "float:none;"}
     .field_25
       %label Organisation ID
-      %input{:name=>"organisation_relationship[related_organisation_id]"}
+      %input{:name=>"organisation_relationship[related_organisation_id]",:id=>"related_organisation_id",:class=>"org_relationship_name_show ",:update_field=>"related_organisation_name",:input_field=>"related_organisation_id"}
       %input.hidden{:name=>"organisation_relationship[source_organisation_id]", :value => "#{@organisation.id}"}
     .field_25
       %label Organisation Name
-      .display_field_bg#related_organisation_name
-        
+      .display_field_bg
+        .div{:id => "related_organisation_name"}
     .field_30{:style => "float:right;"}
       %label &nbsp
-      = submit_tag "Submit", :style => "float:right;"
+      = submit_tag "Submit", :style => "float:right;",:id=>"org_relationship_submit_button",:disabled=>true

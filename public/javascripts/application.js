@@ -2648,6 +2648,23 @@ $(".org_general_name_show").live('change', function(){
 });
 
 
+$(function(){
+$(".org_relationship_name_show").live('keyup', function(){
+  if($(this).val() != ""){
+    $.ajax({
+      type: "GET",
+      url:"/organisations/org_relationship_name_show.js",
+      data:'organisation_id='+$(this).val()+'&update_field='+$(this).attr('update_field')+'&input_field='+$(this).attr('input_field'),
+      dataType: "script"
+    });
+  }else{
+
+    $("#"+$(this).attr('update_field')).html("");
+    $("#org_relationship_submit_button").attr('disabled',true);
+  }
+});
+});
+
 
 /*transaction--money--number field check*/
 number_check = function(link)
