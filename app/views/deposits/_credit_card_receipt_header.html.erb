@@ -1,111 +1,116 @@
-<style type="text/css">
-  #credit_card_receipt {width:100%;margin: 0 auto;}
-  #credit_card_receipt h1 {margin: 0;padding: 0;}
-  #credit_card_receipt #header {margin:5px auto;width:100%;text-align:center;}
-  #credit_card_receipt #content_holder{margin: 0 auto;}
-  #credit_card_receipt .top_item {float:left;width:33%;}
-  #credit_card_receipt .title_item {float:left;width:20%;}
-  #credit_card_receipt .clear {clear:both;}
-  #credit_card_receipt #summary {width:100%;}
-  #credit_card_receipt #summary_detail {margin:5px auto;width:25%;}
-  #credit_card_receipt .summary_item {width:50%;float:left;}
-  #credit_card_receipt .clear {clear:both;}
+<html>
+  <head>
 
-  #credit_card_receipt .div_line{width: 100%;height: auto;margin: 5px auto;padding: 0;float: left;}
-  #credit_card_receipt .div_line .big_number, .div_line .big_number_content{padding: 0;margin-left: 10px;}
-  #credit_card_receipt .div_line .big_number {width: 20px;}
-  #credit_card_receipt .div_line .big_number_content{width: 54%;}
-  #credit_card_receipt .div_line .signature{width:25%;;padding: 0; float: right;margin:4% 14% 0 0;border-top: dashed 1px black;}
-  #credit_card_receipt .div_line .div_cell{width:auto;height: auto;margin: 0 auto;padding: 0 10px;float: left;text-align: left;}
-  #credit_card_receipt .div_line .div_cell p, .div_line .th7, .div_line .th20, .div_line .th25, .div_line .th30 {margin: 0;padding: 0;}
-  #credit_card_receipt .div_line .th7 {width: 7%;}
-  #credit_card_receipt .div_line .th15 {width: 15%}
-  #credit_card_receipt .div_line .th20 {width: 20%}
-  #credit_card_receipt .div_line .th25 {width: 25%}
-  #credit_card_receipt .div_line .th30 {width: 35%;}
-  #credit_card_receipt .div_line_separater {height: 1px;border-bottom: dashed 1px black;}
+    <style type="text/css">
+      #credit_card_receipt {width:100%;margin: 0 auto;}
+      #credit_card_receipt h1 {margin: 0;padding: 0;}
+      #credit_card_receipt #header {margin:5px auto;width:100%;text-align:center;}
+      #credit_card_receipt #content_holder{margin: 0 auto;}
+      #credit_card_receipt .top_item {float:left;width:33%;}
+      #credit_card_receipt .title_item {float:left;width:20%;}
+      #credit_card_receipt .clear {clear:both;}
+      #credit_card_receipt #summary {width:100%;}
+      #credit_card_receipt #summary_detail {margin:5px auto;width:25%;}
+      #credit_card_receipt .summary_item {width:50%;float:left;}
+      #credit_card_receipt .clear {clear:both;}
 
-  #credit_card_receipt #summary_of_card .table_style_1{padding-left: 2%;margin: 0;}
-  #credit_card_receipt #summary_of_card .table_style_1 .cell {width:27%;}
-  #credit_card_receipt #summary_of_card .table_style_2 {padding-left: 2%;margin: 10px auto 0 auto;}
-  #credit_card_receipt #summary_sheet_title h1, .date, #client_org_name .time{width: 30%;display: inline;}
-  #credit_card_receipt #summary_sheet .bold_title{font-weight: 600;}
-  #credit_card_receipt #summary_sheet_title .date{float: right;margin-top: 15px;font-weight: 600;}
+      #credit_card_receipt .div_line{width: 100%;height: auto;margin: 5px auto;padding: 0;float: left;}
+      #credit_card_receipt .div_line .big_number, .div_line .big_number_content{padding: 0;margin-left: 10px;}
+      #credit_card_receipt .div_line .big_number {width: 20px;}
+      #credit_card_receipt .div_line .big_number_content{width: 54%;}
+      #credit_card_receipt .div_line .signature{width:25%;;padding: 0; float: right;margin:4% 14% 0 0;border-top: dashed 1px black;}
+      #credit_card_receipt .div_line .div_cell{width:auto;height: auto;margin: 0 auto;padding: 0 10px;float: left;text-align: left;}
+      #credit_card_receipt .div_line .div_cell p, .div_line .th7, .div_line .th20, .div_line .th25, .div_line .th30 {margin: 0;padding: 0;}
+      #credit_card_receipt .div_line .th7 {width: 7%;}
+      #credit_card_receipt .div_line .th15 {width: 15%}
+      #credit_card_receipt .div_line .th20 {width: 20%}
+      #credit_card_receipt .div_line .th25 {width: 25%}
+      #credit_card_receipt .div_line .th30 {width: 35%;}
+      #credit_card_receipt .div_line_separater {height: 1px;border-bottom: dashed 1px black;}
 
-  #credit_card_receipt #client_org_name .time{float: right;text-align: right;}
+      #credit_card_receipt #summary_of_card .table_style_1{padding-left: 2%;margin: 0;}
+      #credit_card_receipt #summary_of_card .table_style_1 .cell {width:27%;}
+      #credit_card_receipt #summary_of_card .table_style_2 {padding-left: 2%;margin: 10px auto 0 auto;}
+      #credit_card_receipt #summary_sheet_title h1, .date, #client_org_name .time{width: 30%;display: inline;}
+      #credit_card_receipt #summary_sheet .bold_title{font-weight: 600;}
+      #credit_card_receipt #summary_sheet_title .date{float: right;margin-top: 15px;font-weight: 600;}
 
-  #credit_card_receipt #details_of_card .talbe_line{margin: 0;}
-  #credit_card_receipt #details_of_card, #summary_sheet{margin-top: 20px;}
-  #credit_card_receipt #bottom  {margin-top: 50px;}
+      #credit_card_receipt #client_org_name .time{float: right;text-align: right;}
 
-  #credit_card_receipt #card_info .ci_line{margin: 0;padding: 1px 0 0 3%;}
-  #credit_card_receipt .ci_line .ci_cell{width: 30%;}
+      #credit_card_receipt #details_of_card .talbe_line{margin: 0;}
+      #credit_card_receipt #details_of_card, #summary_sheet{margin-top: 20px;}
+      #credit_card_receipt #bottom  {margin-top: 50px;}
 
-</style>
-<div id="credit_card_receipt">
-  <%- sub_total = 0.00%>
-  <%- num_deposit = 0%>
+      #credit_card_receipt #card_info .ci_line{margin: 0;padding: 1px 0 0 3%;}
+      #credit_card_receipt .ci_line .ci_cell{width: 30%;}
 
-  <%- deposit[account.id].try(:each) do |deposit|%>
-    <%- total = deposit.total_amount%>
-    <%- sub_total += total%>
-    <%- num_deposit=num_deposit+1%>
-  <%- end %>
-  <div id="content_holder">
-    <div id="summary_of_card">
-      <div class="div_line">
-        <div class="div_cell">SUMMARY OF <%=type%></div>
-        <div class="div_cell">MAIL/PHONE ORDER depositS DATE:</div>
-        <div class="div_cell" style=""><%= @date %></div>
+    </style>
+  </head>
+  <div id="credit_card_receipt">
+    <%- sub_total = 0.00%>
+    <%- num_deposit = 0%>
+
+    <%- deposit[account.id].try(:each) do |deposit|%>
+      <%- total = deposit.total_amount%>
+      <%- sub_total += total%>
+      <%- num_deposit=num_deposit+1%>
+    <%- end %>
+    <div id="content_holder">
+      <div id="summary_of_card">
+        <div class="div_line">
+          <div class="div_cell">SUMMARY OF <%=type%></div>
+          <div class="div_cell">MAIL/PHONE ORDER depositS DATE:</div>
+          <div class="div_cell" style=""><%= @date %></div>
+        </div>
+
+        <div class="div_line table_style_1">
+          <div class="div_cell cell" >MERCHANT NUMBER</div>
+          <div class="div_cell cell">No. OF ITEMS</div>
+          <div class="div_cell cell">TOTAL AMOUNT</div>
+        </div>
+        <div class="div_line table_style_1">
+          <div class="div_cell cell">123456789</div>
+          <div class="div_cell cell"><%= num_deposit%></div>
+          <div class="div_cell cell"><%= number_to_currency(sub_total)%></div>
+        </div>
+        <div class="div_line table_style_1">
+          <div class="div_cell cell">MERCHANT TRADING NAME</div>
+          <div class="div_cell cell">LOCATION</div>
+        </div>
+        <div class="div_line table_style_1">
+          <div class="div_cell cell">Westpac</div>
+          <div class="div_cell cell">City</div>
+        </div>
+        <div class="div_line table_style_2">
+          <div class="div_cell">LISTED HEREUNDER ARE THE FOLLOWING:</div>
+        </div>
+        <div class="div_line table_style_1">
+          <div class="div_cell big_number">(I)</div>
+          <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
+        </div>
+        <div class="div_line table_style_1">
+          <div class="div_cell big_number">(II)</div>
+          <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
+          <div class="div_cell signature" style="margin-top: 40px;float: right;">MERCHANT SIGNATURE</div>
+        </div>
+        <br class="clear"/>
       </div>
 
-      <div class="div_line table_style_1">
-        <div class="div_cell cell" >MERCHANT NUMBER</div>
-        <div class="div_cell cell">No. OF ITEMS</div>
-        <div class="div_cell cell">TOTAL AMOUNT</div>
+      <div id="details_of_card">
+        <div class="div_line">
+          <div class="div_cell th20">Authority No.</div>
+          <div class="div_cell th15">Cardholder Name</div>
+          <div class="div_cell th7">Via</div>
+          <div class="div_cell th7">Item</div>
+          <div class="div_cell th15">Card Number</div>
+          <div class="div_cell th7">CVV</div>
+          <div class="div_cell th7">Amount</div>
+        </div>
+        <br class="clear"/>
+        <div class="div_line_separater"></div>
+        <br class="clear"/>
       </div>
-      <div class="div_line table_style_1">
-        <div class="div_cell cell">123456789</div>
-        <div class="div_cell cell"><%= num_deposit%></div>
-        <div class="div_cell cell"><%= number_to_currency(sub_total)%></div>
-      </div>
-      <div class="div_line table_style_1">
-        <div class="div_cell cell">MERCHANT TRADING NAME</div>
-        <div class="div_cell cell">LOCATION</div>
-      </div>
-      <div class="div_line table_style_1">
-        <div class="div_cell cell">Westpac</div>
-        <div class="div_cell cell">City</div>
-      </div>
-      <div class="div_line table_style_2">
-        <div class="div_cell">LISTED HEREUNDER ARE THE FOLLOWING:</div>
-      </div>
-      <div class="div_line table_style_1">
-        <div class="div_cell big_number">(I)</div>
-        <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH INDIVIDUALLY SIGNED MAIL ORDER  <br/> INSTRUCTIONS ARE HELD, WHICH INSTRUCIONS WILL BE FURNISHED ON REQUEST, AND / OR</div>
-      </div>
-      <div class="div_line table_style_1">
-        <div class="div_cell big_number">(II)</div>
-        <div class="div_cell big_number_content" style="width: 90%">depositS FOR WHICH TELEPHONE ORDER INSTRUCTIONS HAVE BEEN RECEIVED</div>
-        <div class="div_cell signature" style="margin-top: 40px;float: right;">MERCHANT SIGNATURE</div>
-      </div>
-      <br class="clear"/>
     </div>
-    
-    <div id="details_of_card">
-      <div class="div_line">
-        <div class="div_cell th20">Authority No.</div>
-        <div class="div_cell th15">Cardholder Name</div>
-        <div class="div_cell th7">Via</div>
-        <div class="div_cell th7">Item</div>
-        <div class="div_cell th15">Card Number</div>
-        <div class="div_cell th7">CVV</div>
-        <div class="div_cell th7">Amount</div>
-      </div>
-      <br class="clear"/>
-      <div class="div_line_separater"></div>
-      <br class="clear"/>
-    </div>
+
   </div>
-
-</div>
+</html>
