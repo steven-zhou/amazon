@@ -9,6 +9,10 @@ class OrganisationRelationshipsController < ApplicationController
   end
   
   def create
+    
+    OrganisationRelationship.delete_all_relationship(params[:organisation_relationship][:related_organisation_id].to_i)
+   
+
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
     if @relationship.save #call back will update the level of branch
@@ -39,21 +43,22 @@ class OrganisationRelationshipsController < ApplicationController
 
   def destroy
 
-    @source_organisation = Organisation.find(params[:id].to_i)
-    @organisation = Organisation.find(params[:id].to_i)
-    if !params[:related_organisation_id].blank?
-      @organisation_relationship = OrganisationRelationship.find(params[:related_organisation_id].to_i)
-      @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
-    end
-
-    if !params[:source_organisation_id].blank?
-      @organisation_relationship = OrganisationRelationship.find(params[:source_organisation_id].to_i)
-      @relationship = OrganisationRelationship.find_by_related_organisation_id(@source_organisation.id)
-    end
-    @organisation_relationship.destroy
+#    @source_organisation = Organisation.find(params[:id].to_i)
+#    @organisation = Organisation.find(params[:id].to_i)
+#    if !params[:related_organisation_id].blank?
+#      @organisation_relationship = OrganisationRelationship.find(params[:related_organisation_id].to_i)
+#      @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
+#    end
+#
+#    if !params[:source_organisation_id].blank?
+#      @organisation_relationship = OrganisationRelationship.find(params[:source_organisation_id].to_i)
+#      @relationship = OrganisationRelationship.find_by_related_organisation_id(@source_organisation.id)
+#    end
+#    @organisation_relationship.destroy
+    OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
 
-    @relationship_new = Relationship.new
+#    @relationship_new = Relationship.new
 
     respond_to do |format|
       format.js

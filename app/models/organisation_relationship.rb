@@ -10,6 +10,20 @@ class OrganisationRelationship < ActiveRecord::Base
 
   before_create :update_branch_level
 
+
+  def self.delete_all_relationship(id)
+    @source_orgs = OrganisationRelationship.find_all_by_source_organisation_id(id)
+    @relate_orgs = OrganisationRelationship.find_all_by_related_organisation_id(id)
+
+    @source_orgs.each do |i|
+      i.destroy
+    end
+
+    @relate_orgs.each do |i|
+      i.destroy
+    end
+  end
+
   protected
 
   def related_organisation_cannot_be_the_same_as_source_organisation
@@ -27,6 +41,7 @@ class OrganisationRelationship < ActiveRecord::Base
     @branch = Organisation.find(self.related_organisation_id)
     @branch.update_attribute("level", @parent.level+1)
   end
+
 
 
 end
