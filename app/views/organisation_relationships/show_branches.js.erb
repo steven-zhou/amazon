@@ -1,11 +1,34 @@
 <%if @level != 0 or !@organisation.nil?%>
 $('#nav_level_<%= escape_javascript(@level.to_s)%> .name').html('<%= escape_javascript(@organisation.full_name) %>');
+$('#nav_level_<%= escape_javascript(@level.to_s)%> .reset').html('<%= escape_javascript(@reset) %>');
 
 $('#nav_level_<%= escape_javascript(@next_level.to_s)%> .label').html('<%= escape_javascript(@next_level_label) %>');
-$('#nav_level_<%= escape_javascript(@next_level.to_s)%> .organisation_relationship_reset').attr('grid_object_id','<%= escape_javascript(@organisation.id.to_s) %>');
-$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');
+
+
+$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_details', :locals =>{:level => @level.to_i+1})) %>');
+
+$('#nav_level_<%= escape_javascript(@next_level.to_s)%>').find(".name").html("");
+$('#nav_level_<%= escape_javascript(@next_level.to_s)%>').find(".reset").html("");
+
+for (i=<%= escape_javascript((@next_level.to_i+1).to_s)%>;i<9;i++)
+{
+$('#nav_level_'+i).find(".label").html("");
+$('#nav_level_'+i).find(".name").html("");
+$('#nav_level_'+i).find(".reset").html("");
+}
+
 <%else%>
 $('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_zero_organisations', :locals =>{:level => @level.to_i})) %>');
-$('#nav_level_1').find(".name").html("");
-$('#nav_level_1').find(".label").html("");
+
+$('#nav_level_0').find(".name").html("");
+$('#nav_level_0').find(".reset").html("");
+
+for (i=1;i<9;i++)
+{
+$('#nav_level_'+i).find(".label").html("");
+$('#nav_level_'+i).find(".name").html("");
+$('#nav_level_'+i).find(".reset").html("");
+}
 <%end%>
+
+

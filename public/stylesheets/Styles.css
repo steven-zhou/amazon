@@ -2920,3 +2920,7 @@ input.error_flag{
   font-size: 11px;
 }
 
+.nav_item{
+  height: 50px;
+  border-bottom: 2px solid black;
+}

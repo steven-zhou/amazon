@@ -2773,7 +2773,7 @@ $(function(){
         $.ajax({
             type: "GET",
             url: "/organisation_relationships/show_branches.js",
-            data: "grid_object_id="+$(this).attr("grid_object_id")+"&params2="+$(this).attr("level"),
+            data: "grid_object_id="+$(this).attr("grid_object_id"),
             dataType: "script"
 
         });
