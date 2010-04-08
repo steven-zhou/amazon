@@ -15,6 +15,7 @@ class OrganisationRelationshipsController < ApplicationController
 
     if @relationship.save #call back will update the level of branch
       @organisation = Organisation.find(params[:organisation_relationship][:source_organisation_id].to_i)
+      @relate_organisaton = Organisation.find(params[:organisation_relationship][:related_organisation_id].to_i)
       @level = @organisation.level
       @next_level = (@level.to_i)+1
       @target = params[:target]
