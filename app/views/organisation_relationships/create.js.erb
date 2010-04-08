@@ -1,6 +1,6 @@
 <% if flash[:error].nil? -%>
   $('.close_option[field="organisation_relationship"]').click();
-  $('#existing_relationships').html('<%= escape_javascript(render(:partial => '/organisation_relationships/existing_branches', :locals =>{:level => @next_level, :target => @target})) %>');
+  $('#existing_relationships').html('<%= escape_javascript(render(:partial => '/organisation_relationships/existing_branches', :locals =>{:level => @next_level})) %>');
   $('#organisation_relationship_mode').attr('mode', 'show');
 <%else%>
   $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
