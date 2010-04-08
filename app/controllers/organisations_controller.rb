@@ -64,6 +64,11 @@ class OrganisationsController < ApplicationController
       @organisation = (params[:type].camelize.constantize).new(params[:organisation])
       @organisation.onrecord_since = Date.today()
       if @organisation.save
+
+
+        @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+        @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+        @organisation.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
         if !params[:image].nil?
           @image = Image.new(params[:image])
@@ -441,15 +446,12 @@ class OrganisationsController < ApplicationController
     end
   end
 
-  def   org_relationship_name_show
+  def org_relationship_name_show
 
     @organisation = Organisation.find(params[:organisation_id]) rescue @organisation = Organisation.new
-
-
     @organisation = Organisation.new if @organisation.nil?  #handle the situation when @organisation return nil
     @update_field = params[:update_field]# for name field updating
     @input_field = params[:input_field]  #to clear the input field
-
     if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
       flash.now[:error] = "All Relationships Of This Organisation Will Be Delete."
     end
@@ -457,9 +459,6 @@ class OrganisationsController < ApplicationController
       format.js
     end
   end
-
-
-
 
   def check_level_change
     @organisation = Organisation.find(params[:organisation_id])
@@ -508,7 +507,7 @@ class OrganisationsController < ApplicationController
   end
 
   def show_grid
-    @organisation = Organisation.find(session[:current_person_id])
+    @organisation = Organisation.find(session[:current_organisation_id])
     @list_header = ListHeader.find(session[:current_list_id])
 
     #    @render_page = params[:render_page]

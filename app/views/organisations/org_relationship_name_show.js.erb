@@ -1,17 +1,14 @@
 <% if @organisation.new_record? %>
   $("#<%=escape_javascript("#{@update_field}")%>").css('display','');
   $("#<%=escape_javascript("#{@update_field}")%>").html("Invalid ID");
-  $("#<%=escape_javascript("#{@update_field}")%>").fadeTo(3000,1);
+  $("#<%=escape_javascript("#{@update_field}")%>").stop().fadeTo(3000,1);
   $("#<%=escape_javascript("#{@update_field}")%>").stop().fadeOut(3000);
-  $("#<%=escape_javascript("#{@input_field}")%>").val("");
-    $("#org_relationship_submit_button").attr('disabled',true);
+
+  $("#org_relationship_submit_button").attr('disabled',true);
 <% else %>
-
-
-
-    $("#<%=escape_javascript("#{@update_field}")%>").css('display','');
-    $("#<%=escape_javascript("#{@update_field}")%>").html("<%=escape_javascript("#{@organisation.full_name}")%>")
-    $("#org_relationship_submit_button").attr('disabled',false);
+  $("#<%=escape_javascript("#{@update_field}")%>").css('display','');
+  $("#<%=escape_javascript("#{@update_field}")%>").html("<%=escape_javascript("#{@organisation.full_name}")%>")
+  $("#org_relationship_submit_button").attr('disabled',false);
   <%unless flash[:error].nil?%>
     $("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
     $("#flash_message").dialog( {
@@ -20,9 +17,7 @@
     height: 'auto',
     width: 600,
     buttons: {
-
     OK: function(){
-
     $(this).dialog('close');
     }
     }
@@ -34,3 +29,4 @@
   <%end%>
 
 <% end %>
+$('#org_spinner').hide();

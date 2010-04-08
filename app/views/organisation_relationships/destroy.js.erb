@@ -1,2 +1,1 @@
- 
-  $('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_organisation_branches', :locals =>{:level => @level.to_i+1})) %>');
+$('#existing_relationships').html('<%= escape_javascript(render(:partial => '/organisation_relationships/existing_branches', :locals =>{:level => @next_level, :target => @target})) %>');

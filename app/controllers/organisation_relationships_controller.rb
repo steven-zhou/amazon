@@ -11,13 +11,13 @@ class OrganisationRelationshipsController < ApplicationController
   def create
     
     OrganisationRelationship.delete_all_relationship(params[:organisation_relationship][:related_organisation_id].to_i)
-   
-
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
     if @relationship.save #call back will update the level of branch
       @organisation = Organisation.find(params[:organisation_relationship][:source_organisation_id].to_i)
       @level = @organisation.level
+      @next_level = (@level.to_i)+1
+      @target = params[:target]
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Relationship #{@relationship.id}.")
       flash.now[:message]= "saved successfully"      
     else
@@ -42,27 +42,13 @@ class OrganisationRelationshipsController < ApplicationController
   end
 
   def destroy
-
-    #    @source_organisation = Organisation.find(params[:id].to_i)
-    #    @organisation = Organisation.find(params[:id].to_i)
-    #    if !params[:related_organisation_id].blank?
-    #      @organisation_relationship = OrganisationRelationship.find(params[:related_organisation_id].to_i)
-    #      @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
-    #    end
-    #
-    #    if !params[:source_organisation_id].blank?
-    #      @organisation_relationship = OrganisationRelationship.find(params[:source_organisation_id].to_i)
-    #      @relationship = OrganisationRelationship.find_by_related_organisation_id(@source_organisation.id)
-    #    end
-    #    @organisation_relationship.destroy
     @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
     @organisation = Organisation.find(@related_organisation.source_organisation_id)
     @level = @organisation.level
+    @next_level = (@level.to_i)+1
+    @target = params[:target]
     OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
-
-    #    @relationship_new = Relationship.new
-
     respond_to do |format|
       format.js
     end
@@ -80,10 +66,16 @@ class OrganisationRelationshipsController < ApplicationController
   end
 
   def show_branches
-    @organisation = Organisation.find(params[:grid_object_id])
-    @level = params[:params2]
-    @next_level = (@level.to_i)+1
-    @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = @organisation.level rescue @level = 0
+    @next_level = (@level.to_i)+1    
+    @target = params[:target]
+    if @target == "ClientOrganisation"
+      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    else
+      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    end
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' target='#{@target}' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
     respond_to do |format|
       format.js
     end

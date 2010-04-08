@@ -2759,7 +2759,8 @@ $(function(){
 
 
 $(document).ready(function(){
-
    $('.iphone_checkbox').iphoneStyle();
-
 });
+
+
+

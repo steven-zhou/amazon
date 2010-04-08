@@ -19,6 +19,8 @@ class ClientSetupsController < ApplicationController
 
   def organisation_structure
     @client_setup = ClientSetup.first
+    @level = 0
+    @target = "OtherOrganisation"
     respond_to do |format|
       format.html
     end
@@ -27,6 +29,9 @@ class ClientSetupsController < ApplicationController
 
     def client_organisation_structure
     @client_setup = ClientSetup.first
+    @organisation = ClientOrganisation.first
+    @next_level = @organisation.level + 1
+    @target = "ClientOrganisation"
     respond_to do |format|
       format.html
     end
