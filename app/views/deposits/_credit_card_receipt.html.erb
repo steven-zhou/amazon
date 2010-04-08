@@ -29,7 +29,8 @@
   #credit_card_receipt #summary_of_card .table_style_1 .cell {width:27%;}
   #credit_card_receipt #summary_of_card .table_style_2 {padding-left: 2%;margin: 10px auto 0 auto;}
 
-  #credit_card_receipt #summary_sheet_title h1, .date, #client_org_name .time{width: 30%;display: inline;}
+  /*#credit_card_receipt #summary_sheet_title h1, .date, #client_org_name .time{width: 30%;display: inline;}*/
+   #credit_card_receipt #summary_sheet_title .date, #client_org_name .time{width: 30%;display: inline;}
   #credit_card_receipt #summary_sheet .bold_title{font-weight: 600;}
   #credit_card_receipt #summary_sheet_title .date{float: right;margin-top: 15px;font-weight: 600;}
 
@@ -41,11 +42,10 @@
 
   #credit_card_receipt #card_info .ci_line{margin: 0;padding: 1px 0 0 3%;}
   #credit_card_receipt .ci_line .ci_cell{width: 30%;}
-  #space {height:50mm;}
+  #space {height:95mm;}
 </style>
 <div id="space">&nbsp;</div>
 <div id="credit_card_receipt">  
-  <div id="header"><h1>Credit Card Receipt</h1></div>
   <div id="content_holder">
     <div id="details_of_card">
       <%- sub_total = 0.00%>
@@ -106,13 +106,7 @@
     </div>
 
 
-    <div id="bottom">
-      <div class="div_line">
-        <div class="div_cell">*   PLEASE INDICATE WHETHER: <br />&nbsp;&nbsp;&nbsp;M - MAIL ORDER <br />&nbsp;&nbsp;&nbsp;T - TELEPHONE ORDER</div>
-        <div class="div_cell" style="width: 400px;">THE ORIGINAL COPY SHOULD BE FOLDED THREE TIMES AS INDICATED BY FOLD MARKS ON SIDES, AND PLACED IN MERCHANT SUMMARY ENVELOPE.</div>
-      </div>
-      <br class="clear"/>
-    </div>
+    
 
   </div>
 </div>
