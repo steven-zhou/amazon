@@ -2920,9 +2920,32 @@ input.error_flag{
   font-size: 11px;
 }
 
-.nav_item{
-  height: 40px;
-  border-bottom: 2px solid black;
+/*for organisation structure*/
+#org_structure_nav {
+  width:20%;
+  float:left;
+}
+#org_structure_nav .nav_item {
+  height: 50px;
+  border-bottom: 1px solid #ccc;
+}
+
+#org_structure_nav .label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#org_structure_nav .name {
+  font-size: 18px;
+  font-weight: bold;
+}
+#org_structure_nav .reset {
+  float: right;
+  margin-top:-33px;
+}
+
+#org_structure_nav .nav_item.active {
+  background: url(/images/pointer.png) no-repeat right;
 }
 
 @charset "UTF-8";
