@@ -184,6 +184,9 @@ class ReceiptingController < ApplicationController
     conditions = Array.new
     bank_run_id = params[:bank_run_document_filter][:bank_run_id]
     deposit_bank_account_id = params[:bank_run_document_filter][:deposit_bank_account_id]
+    document_name = params[:bank_run_document_filter][:document_type]
+    document_type = params[:bank_run_document_filter][:document_type]+".pdf"
+   
     @date_valid = true
     @user_name = @current_user.user_name
   
@@ -195,18 +198,28 @@ class ReceiptingController < ApplicationController
       end_date = params[:bank_run_document_filter][:end_date].to_date
       pdf_directory = "public/temp/"+@user_name+"/bank_run_reports/"
       dir = Dir.new(pdf_directory) rescue dir = nil
+      dir = dir.entries.delete_if {|x| !(x =~ /(pdf)$/)}
+
       @bank_run_documents = dir.nil? ? [] : (dir.entries - [".", ".."]).sort  #grab all the pdf document from the file system
 
       for m in @bank_run_documents do
+        #---comment--all temp file will be delete
+        @bank_run_documents = @bank_run_documents - [m] if (m.split('-')[0] == "temp")
+         #---comment--all file[2] != document_type will be delete  now document_type == "xxx.pdf"
+
+        @bank_run_documents = @bank_run_documents - [m] if (m.split('-')[2] != document_type) unless document_name.blank?
+       
+        #---comment--all file will be delete if the file date not in the range
         file_date = File.new(pdf_directory+m).mtime.to_date
         @bank_run_documents = @bank_run_documents - [m] if (file_date < start_date || file_date > end_date)
 
         # used for the bank_run_id is not blank
         unless bank_run_id.blank?
           @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[0] != bank_run_id)
+          
         end
-         # used for the deposit_bank_account_id is not blank
-         unless deposit_bank_account_id.blank?
+        # used for the deposit_bank_account_id is not blank
+        unless deposit_bank_account_id.blank?
           @bank_run_documents = @bank_run_documents-[m] if (m.split('-')[1] != deposit_bank_account_id)
         end
       end
