@@ -88,13 +88,12 @@ class OrganisationRelationshipsController < ApplicationController
     @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
     @level = @organisation.level rescue @level = 0
     @next_level = (@level.to_i)+1    
-    
-    if  @organisation.try(:family_id) == 1
-      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("client_label_#{@next_level}")
+    if @organisation.try(:family_id) == 1
+      @next_level_label = ClientSetup.send("client_label_#{@next_level}")
     else
-      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+      @next_level_label = ClientSetup.send("label_#{@next_level}")
     end
-    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
     respond_to do |format|
       format.js
     end

@@ -168,24 +168,24 @@ $(function($) {
     $('#clocktime_date').val($('.jclock_date').html());
 });
 
-$(function(){    
-    if(!$.browser.mozilla){
-        $('#browser_check').dialog( {
-        modal: true,
-        resizable: false,
-        draggable: true,
-        height: 'auto',
-        width: 800,
-        buttons: {
-          Ok: function() {
-            $(this).dialog('destroy');
-            return true;
-          }
-        }
-      });
-    }
-    //window.open(location.href,'windowName','toolbar=no');
-});
+//$(function(){
+//    if(!$.browser.mozilla){
+//        $('#browser_check').dialog( {
+//        modal: true,
+//        resizable: false,
+//        draggable: true,
+//        height: 'auto',
+//        width: 800,
+//        buttons: {
+//          Ok: function() {
+//            $(this).dialog('destroy');
+//            return true;
+//          }
+//        }
+//      });
+//    }
+//    //window.open(location.href,'windowName','toolbar=no');
+//});
 
 disable_form_after_submit = function(submit_button){
     var target_form
