@@ -2649,7 +2649,8 @@ $(".org_general_name_show").live('change', function(){
 
 
 $(function(){
-$(".org_relationship_name_show").live('keyup', function(){
+$(".org_relationship_name_show").live('change', function(){
+
   if($(this).val() != ""){
     $.ajax({
       type: "GET",

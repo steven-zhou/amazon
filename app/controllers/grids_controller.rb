@@ -4645,26 +4645,26 @@ class GridsController < ApplicationController
     # No search terms provided
     if(query == "%%")
       @organisations = Organisation.find(:all,
-        :conditions=>["level = 0"],
+        :conditions=>["level = 0 and type != 'ClientOrganisation'"],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
       count = Organisation.count(:all,
-        :conditions=>["level = 0"]
+        :conditions=>["level = 0 and type != 'ClientOrganisation'"]
       )
     end
 
     # User provided search terms
     if(query != "%%")
       @organisations = Organisation.find(:all,
-        :conditions=>[qtype +" ilike ? AND level = 0", query],
+        :conditions=>[qtype +" ilike ? AND level = 0 and type != 'ClientOrganisation'", query],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
       count = Organisation.find(:all,
-        :conditions=>[qtype +" ilike ? AND level = 0", query]
+        :conditions=>[qtype +" ilike ? AND level = 0 and type != 'ClientOrganisation'", query]
       )
     end
 
