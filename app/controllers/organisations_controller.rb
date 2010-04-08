@@ -512,14 +512,16 @@ class OrganisationsController < ApplicationController
 
     #    @render_page = params[:render_page]
     #    @field = params[:field]
-
-
-
     respond_to do |format|
-
       format.js
     end
+  end
 
+  def organisation_treeview
+    
+    respond_to do |format|
+      format.js
+    end
   end
 
 

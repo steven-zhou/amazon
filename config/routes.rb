@@ -49,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:org_relationship_name_show => :get,:show_album=>:get,:show_grid=>:get},
+    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:org_relationship_name_show => :get,:show_album=>:get,:show_grid=>:get, :organisation_treeview => :get},
     :member => {:name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
