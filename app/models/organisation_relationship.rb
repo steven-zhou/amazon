@@ -51,21 +51,22 @@ class OrganisationRelationship < ActiveRecord::Base
 
   def check_organisation_level
     @organisation = Organisation.find(self.related_organisation_id)
-
+    @temp = true
     if @organisation.level == 0
       errors.add(:check_level,"can't add level 0 organisaion")
-      return false
+      @temp = false
     else
-      return true
+      @temp = true
     end
 
-    unless @organisation.nil?
+    if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
       errors.add(:check_level,"already had organisaion relationship")
-      return false
+      @temp = false
     else
-      return true
+       @temp = true
     end
 
+     return @temp
   end
 
   def check_existing_organition
@@ -93,10 +94,7 @@ class OrganisationRelationship < ActiveRecord::Base
   end
 
   def delete_level_and_family_id
-#    @parent = Organisation.find(self.source_organisation_id)
-#    @parent.level = nil
-#    @parent.family_id = nil
-#    @parent.save
+
 
     @branch = Organisation.find(self.related_organisation_id)
     @branch.level = nil
