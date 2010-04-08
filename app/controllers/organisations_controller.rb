@@ -507,7 +507,7 @@ class OrganisationsController < ApplicationController
   end
 
   def show_grid
-    @organisation = Organisation.find(session[:current_person_id])
+    @organisation = Organisation.find(session[:current_organisation_id])
     @list_header = ListHeader.find(session[:current_list_id])
 
     #    @render_page = params[:render_page]
