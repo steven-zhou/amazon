@@ -43,8 +43,15 @@ class OrganisationRelationship < ActiveRecord::Base
   end
 
   def set_family_id
+    @parent = Organisation.find(self.source_organisation_id)
     @branch = Organisation.find(self.related_organisation_id)
-    @branch.update_attribute("family_id", self.source_organisation_id)
+    @branch.update_attribute("family_id", @parent.family_id)
   end
 
+
+#  def delete_level_and_family_id
+#
+#  @organisation = Organisation.find(self.related_organisation_id)
+#  @organisation.
+#  end
 end

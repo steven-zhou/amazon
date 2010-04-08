@@ -63,8 +63,13 @@ class OrganisationsController < ApplicationController
     if check_valid_date
       @organisation = (params[:type].camelize.constantize).new(params[:organisation])
       @organisation.onrecord_since = Date.today()
-      if @organisation.save
+      if params[:organisation][:level].to_i == 0
 
+      end
+      if @organisation.save
+      if @organisation.level == 0
+        @organisation.update_attribute('family_id',@organisation.id)
+      end
 
         @organisation.primary_email_address = @organisation.try(:emails).find_by_priority_number(1).try(:value)
         @organisation.primary_phone_num = @organisation.try(:phones).find_by_priority_number(1).try(:value)
