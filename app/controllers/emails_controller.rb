@@ -53,16 +53,23 @@ class EmailsController < ApplicationController
   def update
     @email = Email.find(params[:id].to_i)
     @email_new = Email.new
-    if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
-      @person = Person.find(@email.contactable_id)
-    else
-      @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+
+    if @email.update_attributes(params[:email])
+
+      if @email.contactable_type == "Person"             # if in Person return person object to destroy.js
+        @person = Person.find(@email.contactable_id)
+        @person.primary_email_address = @person.emails.find_by_priority_number(1).value
+        @person.save
+      else
+        @organisation =Organisation.find(@email.contactable_id)  # if in organisation return organisation object to destroy.js
+        @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+        @organisation.save
+      end
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Email with ID #{@email.id}.")
     end
     respond_to do |format|
-      if @email.update_attributes(params[:email])
-        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) edited Email with ID #{@email.id}.")
-        format.js { render 'show.js' }
-      end
+     
+      format.js { render 'show.js' }
     end
   end
 

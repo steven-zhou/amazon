@@ -64,6 +64,11 @@ class OrganisationsController < ApplicationController
       @organisation = (params[:type].camelize.constantize).new(params[:organisation])
       @organisation.onrecord_since = Date.today()
       if @organisation.save
+
+
+        @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
+        @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+        @organisation.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
         if !params[:image].nil?
           @image = Image.new(params[:image])
