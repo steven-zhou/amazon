@@ -1,11 +1,11 @@
 -# :locals => {:level}
 .full_container
   #org_structure_nav
-    #nav_level_0.nav_item
-      .label Level 0 - #{ClientSetup.client_label_0}
+    #nav_level_0.nav_item.active
+      .label #{ClientSetup.client_label_0}
       .name #{@organisation.full_name}
-    #nav_level_1.nav_item.active
-      .label Level 1 - #{ClientSetup.client_label_1}
+    #nav_level_1.nav_item
+      .label #{ClientSetup.client_label_1}
       .name
       .reset
     #nav_level_2.nav_item
