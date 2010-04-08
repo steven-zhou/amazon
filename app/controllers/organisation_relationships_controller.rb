@@ -66,8 +66,8 @@ class OrganisationRelationshipsController < ApplicationController
   end
 
   def show_branches
-    @organisation = Organisation.find(params[:grid_object_id])
-    @level = params[:params2]
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = @organisation.level rescue @level = 0
     @next_level = (@level.to_i)+1    
     @target = params[:target]
     if @target == "ClientOrganisation"
@@ -75,6 +75,7 @@ class OrganisationRelationshipsController < ApplicationController
     else
       @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
     end
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' target='#{@target}' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
     respond_to do |format|
       format.js
     end

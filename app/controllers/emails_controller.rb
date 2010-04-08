@@ -16,8 +16,7 @@ class EmailsController < ApplicationController
   end
   
   def create
-    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)
-   
+    @entity = Person.find(params[:person_id].to_i) rescue Organisation.find(params[:organisation_id].to_i)   
     @email = @entity.emails.new(params[:email])
     @email.save
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Email with ID #{@email.id}.")
