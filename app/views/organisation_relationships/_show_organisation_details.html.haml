@@ -18,7 +18,6 @@
 
 .full_container
   #tab_1.tab_switch_container.active
-    %input.hidden{:id=>"organisation_relationship_mode",:mode=>"show"}
     #add_new_relationship.full_container{:style => "margin-top:10px;"}
       .options
         = link_to_function image_tag('close_icon.png'), :class => "close_option", :style => "display:none;", :field => "organisation_relationship", :title=>"Close", :toggle_id_name => "new_relationship"
