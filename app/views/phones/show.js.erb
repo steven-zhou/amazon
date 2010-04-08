@@ -1,3 +1,4 @@
+  <% if @phone.errors.empty? -%>
  <%if @organisation.nil? -%>
 $('#phone_type').html('<%= escape_javascript(render(:partial => "phones/personal_phone_type" ,:locals => {:phone => @phone_new})) %>');
 <%else%>
@@ -11,3 +12,5 @@ $('.person_contact_toggle_button').css("display","");
  $('#contact_mode').attr('mode', 'show');
  $('.new_option[field="contact"]').css("display","");
   $('#add_new_contact').slideDown(300);
+  <%end%>
+    enable_form_after_submit_finish();
