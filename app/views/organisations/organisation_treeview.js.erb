@@ -1,0 +1,15 @@
+$('#show_organisation_tree_content').html('<%= escape_javascript(render(:partial => "/organisations/organisation_treeview")) %>');
+$('#show_organisation_tree').dialog({
+  modal: true,
+  resizable: false,
+  draggable: true,
+  position: "center",
+  width: 680,
+  height: 600,
+  buttons: {
+  }
+});
+$('#show_organisation_tree').dialog('option','title','Show Organisation List');
+$('#show_organisation_tree').dialog('open');
+
+

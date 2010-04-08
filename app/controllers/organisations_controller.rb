@@ -518,7 +518,7 @@ class OrganisationsController < ApplicationController
   end
 
   def organisation_treeview
-    
+    @organisation = Organisation.find(params[:id])
     respond_to do |format|
       format.js
     end

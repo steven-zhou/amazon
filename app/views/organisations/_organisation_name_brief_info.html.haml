@@ -12,7 +12,7 @@
     -unless @organisation.to_be_removed
       - status = @organisation.status ? "Inactivate" : "Activate"
       = link_to_function "#{status}",:class=> "ajax_call",:id=>"organisation_active_button",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;", :method => "GET", :url => "/organisations/change_status", :param1 => @organisation.id, :light_box => "true",:message =>@organisation.status ? "Inactivate this Organisation" : "Activate this Organisation"
-  -#= link_to "organisation tree", organisation_treeview_organisations_path, :class=> "get",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;"
+  = link_to "organisation tree", organisation_treeview_organisations_path(:id => @organisation), :class=> "get",:style => "font-size: 12px;display:inline;;text-decoration: underline;font-style: italic;"
   %div.display_field_bg{:style=>"margin-left: 4px;"}
     =@organisation.custom_id
 .form_line{:style=>"width: 200px; margin-top: 2px;"}
