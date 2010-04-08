@@ -1,4 +1,4 @@
--# level, target = client/other
+-# level
 .tab_switch{:style => "margin-right:15px;"}
   .tab_switch_left.active.left{:field =>"tab_1"}
   .container_icon.active.left{:align => 'center'}
@@ -29,7 +29,7 @@
       #new_relationship
 
     #existing_relationships.left{:style => "width:100%;"}
-      = render :partial => '/organisation_relationships/existing_branches', :locals => {:level => level, :target => target}
+      = render :partial => '/organisation_relationships/existing_branches', :locals => {:level => level}
 
 
   #tab_2.tab_switch_container

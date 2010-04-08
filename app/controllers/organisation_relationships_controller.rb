@@ -18,7 +18,6 @@ class OrganisationRelationshipsController < ApplicationController
       @relate_organisaton = Organisation.find(params[:organisation_relationship][:related_organisation_id].to_i)
       @level = @organisation.level
       @next_level = (@level.to_i)+1
-      @target = params[:target]
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Relationship #{@relationship.id}.")
       flash.now[:message]= "saved successfully"      
     else
@@ -47,7 +46,6 @@ class OrganisationRelationshipsController < ApplicationController
     @organisation = Organisation.find(@related_organisation.source_organisation_id)
     @level = @organisation.level
     @next_level = (@level.to_i)+1
-    @target = params[:target]
     OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
     respond_to do |format|
@@ -60,7 +58,6 @@ class OrganisationRelationshipsController < ApplicationController
     @field = params[:field]
     @relationship = OrganisationRelationship.new
     @organisation = Organisation.find_by_id(params[:params1])
-
     respond_to do |format|
       format.js
     end
@@ -70,13 +67,13 @@ class OrganisationRelationshipsController < ApplicationController
     @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
     @level = @organisation.level rescue @level = 0
     @next_level = (@level.to_i)+1    
-    @target = params[:target]
-    if @target == "ClientOrganisation"
-      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    
+    if @organisation.family_id == 1
+      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("client_label_#{@next_level}")
     else
       @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
     end
-    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' target='#{@target}' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
     respond_to do |format|
       format.js
     end
