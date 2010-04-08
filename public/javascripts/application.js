@@ -2654,17 +2654,13 @@ $(function(){
 
 
 find_org_name_for_relationship = function(target){
-  if(target != ""){
-        $.ajax({
-          type: "GET",
-          url:"/organisations/org_relationship_name_show.js",
-          data:'organisation_id='+target+'&update_field=related_organisation_name&input_field=related_organisation_id',
-          dataType: "script"
-        });
-      }else{
-        $("#related_organisation_name").html("");
-        $("#org_relationship_submit_button").attr('disabled',true);
-      }
+  $('#org_spinner').show();
+  $.ajax({
+    type: "GET",
+    url:"/organisations/org_relationship_name_show.js",
+    data:'organisation_id='+target+'&update_field=related_organisation_name&input_field=related_organisation_id',
+    dataType: "script"
+  });
 };
 
 
