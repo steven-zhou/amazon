@@ -8,21 +8,21 @@ class OrganisationRelationship < ActiveRecord::Base
   validate :related_organisation_cannot_be_the_same_as_source_organisation, :organisation_must_be_valid
 
 
-  before_create :update_branch_level,:set_family_id
-  after_destroy :delete_level_and_family_id
+  before_create :check_existing_organition,:check_organisation_level,:delete_all_relationship,:update_branch_level,:set_family_id
+  after_destroy :delete_level_and_family_id,:delete_all_relationship
 
-  def self.delete_all_relationship(id)
-    @source_orgs = OrganisationRelationship.find_all_by_source_organisation_id(id)
-    @relate_orgs = OrganisationRelationship.find_all_by_related_organisation_id(id)
-
-    @source_orgs.each do |i|
-      i.destroy
-    end
-
-    @relate_orgs.each do |i|
-      i.destroy
-    end
-  end
+#  def self.delete_all_relationship(id)
+#    @source_orgs = OrganisationRelationship.find_all_by_source_organisation_id(id)
+#    @relate_orgs = OrganisationRelationship.find_all_by_related_organisation_id(id)
+#
+#    @source_orgs.each do |i|
+#      i.destroy
+#    end
+#
+#    @relate_orgs.each do |i|
+#      i.destroy
+#    end
+#  end
 
   protected
 
@@ -49,6 +49,40 @@ class OrganisationRelationship < ActiveRecord::Base
   end
 
 
+  def check_organisation_level
+   @organisation = Organisation.find(self.related_organisation_id)
+   if @organisation.level == 0
+     errors.add(:check_level,"can't add level 0 organisaion")
+     return false
+   else
+     return true
+   end
+  end
+
+  def check_existing_organition
+    @parent = Organisation.find(self.source_organisation_id)
+    @branch = Organisation.find(self.related_organisation_id)
+    if @branch.family_id == @parent.family_id
+      errors.add(:same_organistion_family,"organisiton already in family")
+      return false
+    else
+      return true
+    end
+  end
+
+    def delete_all_relationship
+    @source_orgs = OrganisationRelationship.find_all_by_source_organisation_id(self.related_organisation_id)
+    @relate_orgs = OrganisationRelationship.find_all_by_related_organisation_id(self.related_organisation_id)
+
+    @source_orgs.each do |i|
+      i.destroy
+    end
+
+    @relate_orgs.each do |i|
+      i.destroy
+    end
+  end
+
   def delete_level_and_family_id
 
   @organisation = Organisation.find(self.related_organisation_id)
@@ -56,4 +90,6 @@ class OrganisationRelationship < ActiveRecord::Base
   @organisation.family_id = nil
   @organisation.save
   end
+
+
 end

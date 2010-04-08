@@ -10,7 +10,7 @@ class OrganisationRelationshipsController < ApplicationController
   
   def create
     
-    OrganisationRelationship.delete_all_relationship(params[:organisation_relationship][:related_organisation_id].to_i)
+#    OrganisationRelationship.delete_all_relationship(params[:organisation_relationship][:related_organisation_id].to_i)
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
     if @relationship.save #call back will update the level of branch
@@ -24,6 +24,8 @@ class OrganisationRelationshipsController < ApplicationController
       flash.now[:error] = "Please Enter All Required Data"if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be blank"))
       flash.now[:error] = "Invalid Organisation ID" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
       flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
+      flash.now[:error] = "Can't Add Level 0 Organisaion" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("can't add level 0 organisaion"))
+      flash.now[:error] = "Already In the Relationship" if (!@relationship.errors[:same_organistion_family].nil? && @relationship.errors.on(:same_organistion_family).include?("organisiton already in family"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Related Organisation")if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("has already been taken"))
     end
     respond_to do |format|
@@ -46,7 +48,10 @@ class OrganisationRelationshipsController < ApplicationController
     @organisation = Organisation.find(@related_organisation.source_organisation_id)
     @level = @organisation.level
     @next_level = (@level.to_i)+1
-    OrganisationRelationship.delete_all_relationship(params[:id].to_i)
+
+
+    @related_organisation.destroy
+#    OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
     respond_to do |format|
       format.js
@@ -68,7 +73,7 @@ class OrganisationRelationshipsController < ApplicationController
     @level = @organisation.level rescue @level = 0
     @next_level = (@level.to_i)+1    
     
-    if @organisation.family_id == 1
+    if  @organisation.try(:family_id) == 1
       @next_level_label = "Level #{@next_level} -" + ClientSetup.send("client_label_#{@next_level}")
     else
       @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
