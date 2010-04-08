@@ -66,8 +66,8 @@ class OrganisationsController < ApplicationController
       if @organisation.save
 
 
-        @organisation.primary_email_address = @organisation.emails.find_by_priority_number(1).value
-        @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+        @organisation.primary_email_address = @organisation.try(:emails).find_by_priority_number(1).try(:value)
+        @organisation.primary_phone_num = @organisation.try(:phones).find_by_priority_number(1).try(:value)
         @organisation.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
         if !params[:image].nil?

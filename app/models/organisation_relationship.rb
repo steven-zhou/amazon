@@ -8,7 +8,7 @@ class OrganisationRelationship < ActiveRecord::Base
   validate :related_organisation_cannot_be_the_same_as_source_organisation, :organisation_must_be_valid
 
 
-  before_create :update_branch_level
+  before_create :update_branch_level,:set_family_id
 
 
   def self.delete_all_relationship(id)
@@ -42,6 +42,9 @@ class OrganisationRelationship < ActiveRecord::Base
     @branch.update_attribute("level", @parent.level+1)
   end
 
-
+  def set_family_id
+    @branch = Organisation.find(self.related_organisation_id)
+    @branch.update_attribute("family_id", self.source_organisation_id)
+  end
 
 end

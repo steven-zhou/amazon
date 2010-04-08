@@ -250,8 +250,8 @@ class PeopleController < ApplicationController
       @person.onrecord_since = Date.today()
       if @person.save
         #to save to the person primary email address and pirmary phone address
-        @person.primary_email_address = @person.emails.find_by_priority_number(1).value
-        @person.primary_phone_num = @person.phones.find_by_priority_number(1).value
+        @person.primary_email_address = @person.try(:emails).find_by_priority_number(1).try(:value)
+        @person.primary_phone_num = @person.try(:phones).find_by_priority_number(1).try(:value)
         @person.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
         if !params[:image].nil?
