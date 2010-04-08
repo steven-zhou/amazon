@@ -358,7 +358,8 @@ class DepositsController < ApplicationController
           end
         end
         flash[:confirmation] = "<p>Reports are generated and available here:</p>"
-        prepare_bank_run_report(@run.id)
+        flash[:confirmation] << prepare_bank_run_report(@run.id).to_s
+        
       else        
         # preview bank run report
         @deposits.each do |i|
@@ -367,7 +368,10 @@ class DepositsController < ApplicationController
           end
         end
         flash[:confirmation] = "<p>Preview Reports are generated and available here:</p>"
-        prepare_bank_run_report(0)
+        
+        flash[:confirmation] << prepare_bank_run_report(0).to_s
+
+       
       end
     end
 
@@ -390,7 +394,7 @@ class DepositsController < ApplicationController
     @accounts = Array.new
     @cash_deposits = Array.new
     @cheque_deposits = Array.new
-
+puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
     # for bank run audit sheet or credit cards receipt
     if params[:BRAS] || params[:CCR]
       @master_deposits = Array.new
@@ -511,7 +515,7 @@ class DepositsController < ApplicationController
       end
 
     end
-
+   
     #config temp folder
     file_prefix = "public"
     file_dir = "temp/#{@current_user.user_name}/bank_run_reports"
@@ -523,9 +527,14 @@ class DepositsController < ApplicationController
 
     #prepare bank deposit sheet
     @run_id = bank_run_id == 0 ? "temp" : @run.id
-   
+
+
+    message_array = Array.new
+
+    i = 0
     @accounts.each do |account|
-      report_name = "#{@run_id}-BankDepositSheet"
+    
+      report_name = "#{@run_id}-#{account.id}-BankDepositSheet"
       @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
       @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account})
       @bank_deposit_sheet_footer = render_to_string(:partial => "deposits/bank_deposit_sheet_footer",:locals=>{:account=>account})
@@ -533,32 +542,38 @@ class DepositsController < ApplicationController
       @space = -50
       generate_html_and_pdf(@bank_deposit_sheet_header,@bank_deposit_sheet, report_name, file_prefix, file_dir, @space)
 
-      flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run_id}-BankDepositSheet.pdf\' target='_blank'>#{@run_id}-BankDepositSheet.pdf</a></p>"
-   
-
+      
+      message_array[0] = ["<p>BankDepositSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[0].nil?
+      i += 1
+      message_array[0] << "<p style='margin-left:25%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if i > 1
+     
+    
 
 
 
       #prepare bank run audit sheet
       if params[:BRAS]
 
-        report_name = "#{@run_id}-BankRunAuditSheet"
+        report_name = "#{@run_id}-#{account.id}-BankRunAuditSheet"
         @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
         @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet",:locals=>{:account=>account})
         @space = -40
-        # generate_html_to_pdf(file_prefix,file_dir,report_name,@bank_run_audit_sheet_header,@bank_run_audit_sheet,now,@space)
         generate_html_and_pdf(@bank_run_audit_sheet_header,@bank_run_audit_sheet, report_name, file_prefix, file_dir, @space)
-        flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run_id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run_id}-BankRunAuditSheet.pdf</a></p>"
+        # flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        message_array[1] = ["<p style='margin-top:5%;'>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[1].nil?
+        message_array[1] << "<p style='margin-left:27%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
   
       #prepare bank run campaign summary
       if params[:CS]
         @space = -20
-        report_name = "#{@run_id}-BankRunCampaignSummary"
+        report_name = "#{@run_id}-#{account.id}-BankRunCampaignSummary"
         @bank_run_campaign_summary = render_to_string(:partial => "deposits/bank_run_campaign_summary",:locals=>{:account=>account})
         @bank_run_campaign_summary_header = render_to_string(:partial => "deposits/bank_run_campaign_summary_header",:locals=>{:account=>account})
         generate_html_and_pdf(@bank_run_campaign_summary_header,@bank_run_campaign_summary, report_name, file_prefix, file_dir, @space)
-        flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        #flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        message_array[2] = ["<p style='margin-top:5%;'>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[2].nil?
+        message_array[2] << "<p style='margin-left:38%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
 
       #prepare credit card receipt
@@ -569,20 +584,25 @@ class DepositsController < ApplicationController
         @space = -100
         @footer_space = -30
         if !@master_deposits.empty?
-          report_name = "#{@run_id}-MasterCreditCardReceipt"
+          report_name = "#{@run_id}-#{account.id}-MasterCreditCardReceipt"
           @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           @credit_card_receipt_footer = render_to_string(:partial => "deposits/credit_card_receipt_footer",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
           generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space,@credit_card_receipt_footer,@footer_space)
-          flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+          #flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+          message_array[3] = ["<p style='margin-top:5%;'>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[3].nil?
+          message_array[3] << "<p style='margin-left:30%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
         end
 
         if !@visa_deposits.empty?
-          report_name = "#{@run_id}-VisaCreditCardReceipt"
+          report_name = "#{@run_id}-#{account.id}-VisaCreditCardReceipt"
           @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
           @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @visa_deposits,:account=>account,:type => "VisaCard"})
           generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space)
-          flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+
+          #flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+          message_array[4] = ["<p style='margin-top:5%;'>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[4].nil?
+          message_array[4] << "<p style='margin-left:30%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
         end
 
       end
@@ -591,24 +611,31 @@ class DepositsController < ApplicationController
       #prepare receipt account summary
       if params[:RAS]
         @space = -20
-        report_name = "#{@run_id}-ReceiptAccountSummary"
+        report_name = "#{@run_id}-#{account.id}-ReceiptAccountSummary"
         @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary",:locals=>{:account=>account})
         @receipt_account_summary_header = render_to_string(:partial => "deposits/receipt_account_summary_header",:locals=>{:account=>account})
         generate_html_and_pdf( @receipt_account_summary_header,@receipt_account_summary, report_name, file_prefix, file_dir, @space)
-        flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        #flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        message_array[5] = ["<p style='margin-top:5%;'>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[5].nil?
+        message_array[5] << "<p style='margin-left:33%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
     
       #prepare receipt type summary
       if params[:RTS]
         @space = -20
-        report_name = "#{@run_id}-ReceiptTypeSummary"
+        report_name = "#{@run_id}-#{account.id}-ReceiptTypeSummary"
         @receipt_type_summary = render_to_string(:partial => "deposits/receipt_type_summary",:locals=>{:account=>account})
         @receipt_type_summary_header = render_to_string(:partial => "deposits/receipt_type_summary_header",:locals=>{:account=>account})
         generate_html_and_pdf( @receipt_type_summary_header,@receipt_type_summary, report_name, file_prefix, file_dir, @space)
-        flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a><p>"
+        #flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a><p>"
+        message_array[6] = ["<p style='margin-top:5%;'>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[6].nil?
+        message_array[6] << "<p style='margin-left:29%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
+    
     end
-
+    
+    return message_array
+    
   end
 
   #  def generate_html_to_pdf(file_prefix,file_dir,report_name,header_content,content,time,header_spacing)
@@ -649,12 +676,5 @@ class DepositsController < ApplicationController
     generate_html_and_make_pdf("bank_run_reports", content, report_name, report_name, pdf_options)
   end
 
-  #   #------comment---------generate header html
-  #        generate_html("bank_run_reports",  @bank_run_audit_sheet_header, "#{report_name}-header")
-  #        #------comment---------prepare the header options in pdf
-  #        pdf_options={'header' => "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html",
-  #          'extra_option'=> "--header-spacing #{@space}"
-  #        }
-  #        generate_html_and_make_pdf("bank_run_reports", @bank_run_audit_sheet, report_name, report_name, pdf_options)
 
 end
