@@ -42,19 +42,6 @@ class OrganisationRelationshipsController < ApplicationController
   end
 
   def destroy
-
-    #    @source_organisation = Organisation.find(params[:id].to_i)
-    #    @organisation = Organisation.find(params[:id].to_i)
-    #    if !params[:related_organisation_id].blank?
-    #      @organisation_relationship = OrganisationRelationship.find(params[:related_organisation_id].to_i)
-    #      @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
-    #    end
-    #
-    #    if !params[:source_organisation_id].blank?
-    #      @organisation_relationship = OrganisationRelationship.find(params[:source_organisation_id].to_i)
-    #      @relationship = OrganisationRelationship.find_by_related_organisation_id(@source_organisation.id)
-    #    end
-    #    @organisation_relationship.destroy
     @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
     @organisation = Organisation.find(@related_organisation.source_organisation_id)
     @level = @organisation.level
@@ -62,9 +49,6 @@ class OrganisationRelationshipsController < ApplicationController
     @target = params[:target]
     OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
-
-    #    @relationship_new = Relationship.new
-
     respond_to do |format|
       format.js
     end
@@ -84,9 +68,13 @@ class OrganisationRelationshipsController < ApplicationController
   def show_branches
     @organisation = Organisation.find(params[:grid_object_id])
     @level = params[:params2]
-    @next_level = (@level.to_i)+1
-    @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    @next_level = (@level.to_i)+1    
     @target = params[:target]
+    if @target == "ClientOrganisation"
+      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    else
+      @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
+    end
     respond_to do |format|
       format.js
     end

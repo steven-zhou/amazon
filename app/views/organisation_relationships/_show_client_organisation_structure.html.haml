@@ -32,5 +32,5 @@
       .label
       .name
   #main_container.full_container{:style => "width:78%;float:left;min-height:200px;"}
-    = render :partial=> '/organisation_relationships/show_organisation_details',:locals=>{:level =>@next_level, :target => @target}
+    = render :partial=> '/organisation_relationships/show_organisation_details',:locals=>{:level => level, :target => target}
 

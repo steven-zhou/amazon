@@ -156,4 +156,4 @@
       = image_tag('Icons/System/collapse.png')
     %h1 Relationship Manager
   #organisation_structure_details.left{:style => "width:100%;display:none;"}
-    =render :partial=> '/organisation_relationships/show_client_organisation_structure'
+    =render :partial=> '/organisation_relationships/show_client_organisation_structure', :locals => {:level => @next_level, :target => @target}

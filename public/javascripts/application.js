@@ -654,6 +654,7 @@ check_website_field = function(){
       return false;
     }
   }
+  return false;
 };
 
 check_website_field_edit = function(){
@@ -686,6 +687,7 @@ check_website_field_edit = function(){
       return false;
     }
   }
+  return false;
 };
 
 
@@ -986,6 +988,7 @@ $(function(){
       $('.close_option[field='+ link.attr('field') +']').css("display","none");
 
     }
+    return false;
   });
 });
 
@@ -1829,6 +1832,7 @@ $(function(){
         dataType: "script"
       });
     }
+    return false;
   });
 });
 
@@ -2184,11 +2188,11 @@ $(function() {
 
   $(".toggle_div").live('click', function(){
     $('#'+$(this).attr('toggle_id_name')).toggle('blind');
-    
+    var current_image;
     if ($(this).attr('expand_with_arrow') == "true"){
-      var current_image = $(this).find('img[alt=Expand]');
+      current_image = $(this).find('img[alt=Expand]');
     }else{
-      var current_image = $(this).find('img');
+      current_image = $(this).find('img');
     }
 
     if (current_image.attr('src').indexOf('expand') > 0){
@@ -2548,6 +2552,7 @@ $('a.tab_switch_with_page_initial').live('click', function(){
     $('#warning_message').dialog('open');
     return false;
   }
+  return false;
 });
 });
 
@@ -3340,7 +3345,8 @@ if($(mode).attr('mode')=="show"){
   $("#warning_message").css('background-color','#D1DDE6');
   $('#warning_message').dialog('open');
   return false;
-};
+}
+  return false;
 };
 
 delete_from_grid_with_target = function(target, grid, mode, type, url){
@@ -3361,14 +3367,14 @@ if($(mode).attr('mode')=="show"){
 
         NO: function(){
           $(this).dialog("destroy");
-
+          return false;
         },
 
         Yes: function(){
           $.ajax({
             type: type,
             url: url+id,
-            data: "id="+id,
+            data: "id="+id+"&target="+target,
             dataType: "script"
           });
           $(this).dialog('destroy');
@@ -3401,7 +3407,8 @@ if($(mode).attr('mode')=="show"){
   $("#warning_message").css('background-color','#D1DDE6');
   $('#warning_message').dialog('open');
   return false;
-};
+}
+  return false;
 };
 
 
@@ -3417,7 +3424,7 @@ if($(mode).attr('mode')=="show"){
       data: "id="+id,
       dataType: "script"
     });
-  };
+  }
 }
 
 };
