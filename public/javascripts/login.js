@@ -220,9 +220,11 @@ $(function(){
 
   });
 
-  $('#signin_button').live('click', function(){
-    $('#login_form').submit();
-    $(this).attr('disabled', true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');;
+  $('#signin_button').live('click', function(e){
+    if(e.button == 0){
+      $('#login_form').submit();
+      $(this).attr('disabled', true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');;
+    }
   });
 });
 
