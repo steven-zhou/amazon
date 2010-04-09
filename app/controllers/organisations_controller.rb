@@ -447,7 +447,7 @@ class OrganisationsController < ApplicationController
     @update_field = params[:update_field]# for name field updating
     @input_field = params[:input_field]  #to clear the input field
     if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
-      flash.now[:error] = "Relationships of This Organisation Are Found. New Relationship Will Overwrite Old Ones."
+      flash.now[:error] = "Some Relationships of This Organisation Exist. Please Remove The Existing Relationship Before Adding A New One."
     end
     respond_to do |format|
       format.js
