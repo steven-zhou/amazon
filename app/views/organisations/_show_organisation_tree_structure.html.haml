@@ -1,50 +1,57 @@
 -# :locals => {:level}
 .full_container
-  #nav{:style => "width:21%;float:left;font-size:14px;"}
+  %input.hidden{:id=>"organisation_relationship_mode",:mode=>"show"}
+  #org_structure_nav
     #nav_level_0.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
 
     #nav_level_1.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
 
     #nav_level_2.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
 
     #nav_level_3.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
+
     #nav_level_4.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
+
     #nav_level_5.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
+
     #nav_level_6.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
+
     #nav_level_7.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
+
     #nav_level_8.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
+      .name
+      .reset{:style => "margin-right:11px;"}
+
     #nav_level_9.nav_item
       .label
-      .name{:style=>"float:left;margin-top:8px;"}
-      .reset{:style=>"float:right;margin-top:8px;"}
-  #main_container.full_container{:style => "width:76%;float:right;min-height:200px;"}
-    = render :partial=> 'organisation_relationships/profile_show_organisation_rel_details',:locals=>{:level =>level}
+      .name
+      .reset{:style => "margin-right:11px;"}
+  #main_container.full_container{:style => "width:78%;float:right;min-height:500px;"}
+    = render :partial=> 'organisation_relationships/profile_show_organisation_details',:locals=>{:level =>level}
 
 

@@ -19,6 +19,7 @@ $('#show_organisation_tree').dialog('open');
     $('#nav_level_<%= escape_javascript(i.to_s)%> .label').html('<%= escape_javascript(@level_array[i][1].to_s) %>');
     $('#nav_level_<%= escape_javascript(i.to_s)%> .name').html('<%= escape_javascript(@level_array[i][2].to_s)%>');
     $('#nav_level_<%= escape_javascript(i.to_s)%> .reset').html('<%= escape_javascript(@level_array[i][3].to_s)%>');
+    $('#nav_level_<%= escape_javascript(i.to_s)%>').addClass('active');
     <%i += 1%>
   <%end%>
 <%end%>

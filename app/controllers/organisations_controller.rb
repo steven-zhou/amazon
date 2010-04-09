@@ -520,9 +520,9 @@ class OrganisationsController < ApplicationController
     while i >= 0
       @level_array[i] = []
       @level_array[i][0]= i  # use for level_i
-      @level_array[i][1] = "Level #{i} -" + ClientSetup.send("label_#{i}")
+      @level_array[i][1] = @current_organisation.try(:family_id) == 1 ? ClientSetup.send("client_label_#{i}") : ClientSetup.send("label_#{i}")
       @level_array[i][2] = "#{@current_organisation.id} - #{@current_organisation.full_name}"
-      @level_array[i][3] = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@current_organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
+      @level_array[i][3] = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@current_organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
       @current_organisation = @current_organisation.source_organisations.first
       i-=1
     end
