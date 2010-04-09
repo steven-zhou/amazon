@@ -67,9 +67,9 @@ class OrganisationsController < ApplicationController
 
       end
       if @organisation.save
-      if @organisation.level == 0
-        @organisation.update_attribute('family_id',@organisation.id)
-      end
+        if @organisation.level == 0
+          @organisation.update_attribute('family_id',@organisation.id)
+        end
 
         @organisation.primary_email_address = @organisation.try(:emails).find_by_priority_number(1).try(:value)
         @organisation.primary_phone_num = @organisation.try(:phones).find_by_priority_number(1).try(:value)
@@ -524,6 +524,20 @@ class OrganisationsController < ApplicationController
 
   def organisation_treeview
     @organisation = Organisation.find(params[:id])
+    @level = @organisation.level
+    @current_organisation = @organisation
+    @level_array = Array.new
+    i = @level
+    while i >= 0
+      @level_array[i] = []
+      @level_array[i][0]= i  # use for level_i
+      @level_array[i][1] = "Level #{i} -" + ClientSetup.send("label_#{i}")
+      @level_array[i][2] = "#{@current_organisation.id} - #{@current_organisation.full_name}"
+      @level_array[i][3] = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@current_organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
+      @current_organisation = @current_organisation.source_organisations.first
+      i-=1
+    end
+
     respond_to do |format|
       format.js
     end

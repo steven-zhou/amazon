@@ -74,6 +74,23 @@ class OrganisationRelationshipsController < ApplicationController
       @next_level_label = "Level #{@next_level} -" + ClientSetup.send("label_#{@next_level}")
     end
     @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
+    @page = nil
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def profile_show_branches
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = @organisation.level rescue @level = 0
+    @next_level =(@level.to_i)+1
+    if @organisation.try(:family_id) == 1
+      @level_label = "Level #{@level} -" + ClientSetup.send("client_label_#{@level}")
+    else
+      @level_label = "Level #{@level} -" + ClientSetup.send("label_#{@level}")
+    end
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'>Reset</a>"
+   @page = "profile"
     respond_to do |format|
       format.js
     end

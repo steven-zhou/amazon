@@ -1839,11 +1839,13 @@ $(function(){
 /*CSS tab switch system*/
 $(".tab_switch_button").live('click', function(){
   $('#content .active').removeClass("active");
+  $('#org_rel .active').removeClass("active");
   $(this).addClass("active");
   $(this).parent().addClass("active");
   $('.tab_switch_right[field='+ $(this).attr('field') +']').addClass("active");
   $('.tab_switch_left[field='+ $(this).attr('field') +']').addClass("active");
   $('#'+$(this).attr('field')).addClass("active");
+  
 });
 
 $(".tab_switch_button_show_list").live('click', function(){
@@ -3749,11 +3751,23 @@ $(function(){
 /*For Organisation relationship*/
 $(function(){
   $(".organisation_relationship_reset").live('click',function(){
-    $.ajax({
-      type: "GET",
-      url: "/organisation_relationships/show_branches.js",
-      data: "grid_object_id="+$(this).attr("grid_object_id")+"&target="+$(this).attr("target"),
-      dataType: "script"
-    });
+    if ($(this).attr('use') == "profile_show"){
+      $.ajax({
+        type: "GET",
+        url: "/organisation_relationships/profile_show_branches.js",
+        data: "grid_object_id="+$(this).attr("grid_object_id")+"&target="+$(this).attr("target"),
+        dataType: "script"
+      });
+    
+
+    }else{
+      $.ajax({
+        type: "GET",
+        url: "/organisation_relationships/show_branches.js",
+        data: "grid_object_id="+$(this).attr("grid_object_id")+"&target="+$(this).attr("target"),
+        dataType: "script"
+      });
+
+    }
   });
 });

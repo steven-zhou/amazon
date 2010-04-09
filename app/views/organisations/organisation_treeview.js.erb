@@ -1,15 +1,24 @@
 $('#show_organisation_tree_content').html('<%= escape_javascript(render(:partial => "/organisations/organisation_treeview")) %>');
 $('#show_organisation_tree').dialog({
-  modal: true,
-  resizable: false,
-  draggable: true,
-  position: "center",
-  width: 680,
-  height: 600,
-  buttons: {
-  }
+modal: true,
+resizable: false,
+draggable: true,
+position: "center",
+width: 800,
+height: 600,
+buttons: {
+}
 });
 $('#show_organisation_tree').dialog('option','title','Show Organisation List');
 $('#show_organisation_tree').dialog('open');
 
 
+<%if !@organisation.nil?%>
+  <% i = 0 %>
+  <% while i <= @level%>
+    $('#nav_level_<%= escape_javascript(i.to_s)%> .label').html('<%= escape_javascript(@level_array[i][1].to_s) %>');
+    $('#nav_level_<%= escape_javascript(i.to_s)%> .name').html('<%= escape_javascript(@level_array[i][2].to_s)%>');
+    $('#nav_level_<%= escape_javascript(i.to_s)%> .reset').html('<%= escape_javascript(@level_array[i][3].to_s)%>');
+    <%i += 1%>
+  <%end%>
+<%end%>
