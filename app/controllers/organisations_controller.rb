@@ -157,9 +157,10 @@ class OrganisationsController < ApplicationController
       end
 
       @organisation.update_attributes(params[type.to_sym])
-      if params[:level] == 0  #set to be level 0
+      if params[:level] == "0"  #set to be level 0
         @organisation.level = 0
-        @organisation.update_attribute("family_id", @organisation.id)
+        @organisation.family_id = @organisation.id
+        @organisation.save
       end
       
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
