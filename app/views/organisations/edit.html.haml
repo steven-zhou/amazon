@@ -23,7 +23,11 @@
           .field_34
             = p.label :level, "Level"
             .display_field_bg
-              = @organisation.level.blank? ? "" : "#{@organisation.level} - #{@organisation.level_label}"
+              - if !@organisation.level.blank?
+                - if @organisation.family_id == 1
+                  #{@organisation.level} - #{ClientSetup.send("client_label_#{@organisation.level}")}
+                - else
+                  #{@organisation.level} - #{ClientSetup.send("label_#{@organisation.level}")}
 
           .field_25
             = p.label :custom_id, "Custom ID"
