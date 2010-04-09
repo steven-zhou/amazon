@@ -2094,12 +2094,7 @@ $(function(){
         disable = true;
         break;
       }else{
-        //                if (($('#'+compulsory_fields[i].id).val()).trim()==''){
-        //                    disable = true;
-        //                    break;
-        //                }else{
         disable = false;
-      //                }
       }
     }
     if (disable){
