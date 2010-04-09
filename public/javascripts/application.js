@@ -2,6 +2,20 @@
 // of +respond_to do |wants|+ declarations
 
 $(function(){
+  $('form').live('submit', function(){
+    disable_form_after_submit($(this));
+  });
+
+  $('form').live('keypress', function(e){
+    if(e.which == 13){
+      return false;
+    }else{
+      return true;
+    }
+  });
+});
+
+$(function(){
   $("#datepicker").datepicker();
 });
 
@@ -2468,6 +2482,7 @@ $(function(){
 $(function(){
   $('.fake_submit_button').live('click',function(){
     $('#'+$(this).attr('form_id')).doAjaxSubmit();
+    disable_form_after_submit($('#'+$(this).attr('form_id')));
   });
 });
 
@@ -3099,26 +3114,27 @@ config_drag= function(){
 
 
 //disable form after submit and enable form after submit finish
-$('input[type="submit"]').live('click', function(){
-  disable_form_after_submit($(this));
-});
-$('.fake_submit_button').live('click', function(){
-  disable_form_after_submit($(this));
-});
+//$('input[type="submit"]').live('click', function(){
+//  disable_form_after_submit($(this));
+//});
+//$('.fake_submit_button').live('click', function(){
+//  disable_form_after_submit($(this));
+//});
 
-disable_form_after_submit = function(submit_button){
-  var target_form
-  if (submit_button.attr('form_id') == ''){
-    target_form = $('#'+submit_button.attr('form_id'));
-  }else{
-    target_form = submit_button.closest('form');
-  }
+
+disable_form_after_submit = function(target_form){
   target_form.find("input").attr("readonly", true);
   target_form.find("input[type = 'submit']").attr("disabled", true);
   target_form.find("select").attr("readonly", true);
   target_form.find("textarea").attr("readonly", true);
+  if (target_form.attr('submit_button_id') != undefined){
+    submit_button = $('#'+target_form.attr('submit_button_id'));
+  }else{
+    submit_button = target_form.find("input[type = 'submit']");
+  }
   submit_button.attr("disabled", true);
   submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-right: 10px;"></div>');
+  
 };
 
 enable_form_after_submit_finish = function(){
