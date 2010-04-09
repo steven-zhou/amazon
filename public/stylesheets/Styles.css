@@ -2924,6 +2924,7 @@ input.error_flag{
 #org_structure_nav {
   width:20%;
   float:left;
+  margin-top: 15px;
 }
 #org_structure_nav .nav_item {
   height: 50px;
@@ -2941,7 +2942,7 @@ input.error_flag{
 }
 #org_structure_nav .reset {
   float: right;
-  margin-top:-33px;
+  margin:-33px 40px 0 0;
 }
 
 #org_structure_nav .nav_item.active {

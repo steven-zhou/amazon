@@ -1403,7 +1403,7 @@ check_input_change = function(){
 $(function(){
   $('#lc a').live('click', function(e){
     // if left-click
-    if(e.button != 2){
+    if(e.button == 0){
       right_tab = $("#content #right_content").find("#tabs");
       //         alert(right_tab.length);
       if(right_tab.length > 0)
@@ -1485,7 +1485,7 @@ $(function(){
 $(function(){
   $('#sysbar a').live('click', function(e){
     // if left-click
-    if(e.button != 2){
+    if(e.button == 0){
       right_tab = $("#content #right_content").find("#tabs");
       //         alert(right_tab.length);
       if(right_tab.length > 0)
@@ -2094,12 +2094,7 @@ $(function(){
         disable = true;
         break;
       }else{
-        //                if (($('#'+compulsory_fields[i].id).val()).trim()==''){
-        //                    disable = true;
-        //                    break;
-        //                }else{
         disable = false;
-      //                }
       }
     }
     if (disable){
@@ -3669,7 +3664,7 @@ $(function(){
 //function for alert message when a link is clicked
 alert_with_link = function(link, e){
   // if left-click
-  if(e.button != 2){
+  if(e.button == 0){
     right_tab = $("#content #right_content").find("#tabs");
     if(right_tab.length > 0)
     {
