@@ -23,10 +23,10 @@ class OrganisationRelationshipsController < ApplicationController
     else
       flash.now[:error] = "Please Enter All Required Data"if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be blank"))
       flash.now[:error] = "Invalid Organisation ID" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
-      flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
-      flash.now[:error] = "Can't Add Level 0 Organisaion" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("can't add level 0 organisaion"))
+#      flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
+#      flash.now[:error] = "Can't Add Level 0 Organisaion" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("can't add level 0 organisaion"))
       flash.now[:error] = "Already had Organisation Relationship" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("already had organisaion relationship"))
-      flash.now[:error] = "Already In the Relationship" if (!@relationship.errors[:same_organistion_family].nil? && @relationship.errors.on(:same_organistion_family).include?("organisiton already in family"))
+#      flash.now[:error] = "Already In the Relationship" if (!@relationship.errors[:same_organistion_family].nil? && @relationship.errors.on(:same_organistion_family).include?("organisiton already in family"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Related Organisation")if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("has already been taken"))
     end
     respond_to do |format|
@@ -47,27 +47,29 @@ class OrganisationRelationshipsController < ApplicationController
   def destroy
     #to set the flag for delete level zero org or other org
     @zero_org=false
-    @source_organisation = Organisation.find(params[:id].to_i)
-    if @source_organisation.level == 0
+    @organisation = Organisation.find(params[:id].to_i)
+    #if the organistion is level Zero
+    if @organisation.level == 0
+      
       @zero_org = true
-      unless @source_organisation.related_organisations.empty?
+      #if the organisaiton do not have any relationship, then just need to change itself level and family_id to be nil
+      unless @organisation.related_organisations.empty?
         @related_organisation = OrganisationRelationship.find_by_source_organisation_id(params[:id])
       end
 
-      @source_organisation.level=nil
-      @source_organisation.family_id = nil
-      @source_organisation.save
+      @organisation.level=nil
+      @organisation.family_id = nil
+      @organisation.save
     else
+
       @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
+      @level = @organisation.level
+      @next_level = (@level.to_i)+1
     end
     
-    @organisation = @source_organisation
-    @level = @organisation.level
-    @next_level = (@level.to_i)+1
+    OrganisationRelationship.delete_all_relationship(params[:id])
 
 
-    @related_organisation.destroy unless @related_organisation.nil?
-    #    OrganisationRelationship.delete_all_relationship(params[:id].to_i)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
     respond_to do |format|
       format.js
