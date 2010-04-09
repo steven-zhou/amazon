@@ -106,13 +106,13 @@
     <%= render(:partial => "/shared/flash_messages") %>
     <h1> System Sign In </h1>
     <div id="signin_form_wrapper">
-      <% form_tag(:controller => "signin", :action => "login") do -%>
+      <% form_tag('/', :id => "login_form", :submit_button_id => "signin_button") do -%>
         <label>Username</label>
-        <input class="field" type="text" size="28" name="user_name" />
+        <input id="username" class="field compulsory_field" type="text" size="28" name="user_name" />
         <label>Password</label>
-        <input class="field" type="password" size="28" name="password" /><br />
+        <input id="password" class="field compulsory_field" type="password" size="28" name="password" /><br />
         <a href="#" id="login_assistant">Having difficulty signing in?</a><br />
-        <input id="signin_button" type="submit" value="Sign In" />
+        <input id="signin_button" type="button" value="Sign In" disabled="true"/>        
         <div class ="jclock" style="display:none;" ></div>
          <input id ="clocktime" type="text" size="28" name="clocktime" style="display:none;" /><br />
          <div class ="jclock_date" style="display:none;" ></div>
@@ -124,8 +124,5 @@
 
 </div>
 
-<div id="browser_check" style="display:none;">
-  This application requires to open on Mozilla. It can be found on <a href="http://www.mozilla.com/en-US/products/download.html" target="_blank">here</a>
-</div>
 </body>
 </html>

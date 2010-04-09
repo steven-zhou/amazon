@@ -1,1 +1,6 @@
+<%unless @zero_org%>
 $('#existing_relationships').html('<%= escape_javascript(render(:partial => '/organisation_relationships/existing_branches', :locals =>{:level => @next_level})) %>');
+
+<%else%>
+$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_zero_organisations', :locals=>{:level =>0})) %>');
+<%end%>

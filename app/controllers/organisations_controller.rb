@@ -63,9 +63,6 @@ class OrganisationsController < ApplicationController
     if check_valid_date
       @organisation = (params[:type].camelize.constantize).new(params[:organisation])
       @organisation.onrecord_since = Date.today()
-      if params[:organisation][:level].to_i == 0
-
-      end
       if @organisation.save
         if @organisation.level == 0
           @organisation.update_attribute('family_id',@organisation.id)
@@ -160,21 +157,13 @@ class OrganisationsController < ApplicationController
       end
 
       @organisation.update_attributes(params[type.to_sym])
-      if @organisation.class.to_s != "ClientOrganisation" && @organisation.level != params[:organisation][:level].to_i  #destroy the source and related organisation relationship if they change the organisation level
-        @source = OrganisationRelationship.find_by_source_organisation_id(@organisation.id) #to find the source relationship
-        @relate = OrganisationRelationship.find_by_related_organisation_id(@organisation.id) #to find the related relationship
-
-        @source.destroy unless @source.nil?
-        @relate.destroy unless @relate.nil?
-        @organisation.level = params[:organisation][:level]
-
-        @organisation.level_label = ClientSetup.first.send("level_#{params[:organisation][:level]}_label")
+      if params[:level] == 0  #set to be level 0
+        @organisation.level = 0
+        @organisation.update_attribute("family_id", @organisation.id)
       end
-      @organisation.save
+      
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
       flash[:warning] = "Organisation Update Has NOT been Submitted Due to Data Errors" unless @organisation.save
-
-
       flash[:message] = "#{@organisation.full_name}'s Details Have been Updated Successfully." unless !flash[:warning].nil?
     else
       flash[:warning] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
@@ -458,7 +447,7 @@ class OrganisationsController < ApplicationController
     @update_field = params[:update_field]# for name field updating
     @input_field = params[:input_field]  #to clear the input field
     if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
-      flash.now[:error] = "All Relationships Of This Organisation Will Be Delete."
+      flash.now[:error] = "Relationships of This Organisation Are Found. New Relationship Will Overwrite Old Ones."
     end
     respond_to do |format|
       format.js
