@@ -1,13 +1,12 @@
 -# level
-
--url = @page.nil? ? "/organisation_relationships/show_branches" : "/organisation_relationships/profile_show_branches"
-%table#show_zero_organisations{:class=>"selectable_grid",:db_click_function=>"true", :db_click_url=>"#{url}", :params2 => "#{level}"}
+%table{:id => "show_branches_grid_#{level}", :class=>"selectable_grid",:field=>"organisation_relationship",:db_click_function=>"true", :db_click_url=>"/organisation_relationships/profile_show_branches", :params2 => "#{level}"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
     
-    $("#show_zero_organisations").flexigrid({
-    url: '/grids/show_zero_organisation_grid',
+
+    $("#show_branches_grid_#{level}").flexigrid({
+    url: '/grids/show_branches_grid?id=#{@organisation.id}',
     dataType: 'json',
     colModel : [
     {
@@ -41,13 +40,13 @@
     align: 'left'
     }
     ],
-    
     searchitems : [
     {
     display: 'Full Name',
     name : 'full_name'
     }
     ],
+    
     sortname: "id",
     sortorder: "asc",
     usepager: true,
@@ -57,3 +56,4 @@
     width: 'auto',
     height: 'auto'
     });
+

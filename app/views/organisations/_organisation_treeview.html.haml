@@ -1,0 +1,8 @@
+#header
+  #page_title
+    %h1 Organisation treeview
+  #lol
+  %br.clear
+
+%div.full_container
+  = render :partial => "/organisations/show_organisation_tree_structure", :locals => {:level => @level}

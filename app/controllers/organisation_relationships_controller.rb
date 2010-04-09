@@ -23,10 +23,10 @@ class OrganisationRelationshipsController < ApplicationController
     else
       flash.now[:error] = "Please Enter All Required Data"if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be blank"))
       flash.now[:error] = "Invalid Organisation ID" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
-#      flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
-#      flash.now[:error] = "Can't Add Level 0 Organisaion" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("can't add level 0 organisaion"))
+      #      flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
+      #      flash.now[:error] = "Can't Add Level 0 Organisaion" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("can't add level 0 organisaion"))
       flash.now[:error] = "Already had Organisation Relationship" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("already had organisaion relationship"))
-#      flash.now[:error] = "Already In the Relationship" if (!@relationship.errors[:same_organistion_family].nil? && @relationship.errors.on(:same_organistion_family).include?("organisiton already in family"))
+      #      flash.now[:error] = "Already In the Relationship" if (!@relationship.errors[:same_organistion_family].nil? && @relationship.errors.on(:same_organistion_family).include?("organisiton already in family"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Related Organisation")if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("has already been taken"))
     end
     respond_to do |format|
@@ -61,12 +61,12 @@ class OrganisationRelationshipsController < ApplicationController
       @organisation.family_id = nil
       @organisation.save
     else
-     @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
+      @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
       @level = @organisation.level
       @next_level = (@level.to_i)+1
     end
     @related_organisation.destroy unless @related_organisation.nil?
-#    OrganisationRelationship.delete_all_relationship(params[:id])
+    #    OrganisationRelationship.delete_all_relationship(params[:id])
 
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
@@ -95,6 +95,24 @@ class OrganisationRelationshipsController < ApplicationController
       @next_level_label = ClientSetup.send("label_#{@next_level}")
     end
     @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
+    @page = nil
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def profile_show_branches
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = @organisation.level rescue @level = 0
+    @next_level =(@level.to_i)+1
+    if @organisation.try(:family_id) == 1
+      @level_label = ClientSetup.send("client_label_#{@level}")
+    else
+      @level_label = ClientSetup.send("label_#{@level}")
+    end
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
+    @page = "profile"
+
     respond_to do |format|
       format.js
     end
