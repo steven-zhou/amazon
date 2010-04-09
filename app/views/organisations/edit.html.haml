@@ -22,12 +22,19 @@
                 %option{:value => "SubOrganisation", :selected =>  (@organisation.class.to_s == "SubOrganisation")} SubOrganisation
           .field_34
             = p.label :level, "Level"
-            .display_field_bg
-              - if !@organisation.level.blank?
-                - if @organisation.family_id == 1
-                  #{@organisation.level} - #{ClientSetup.send("client_label_#{@organisation.level}")}
-                - else
-                  #{@organisation.level} - #{ClientSetup.send("label_#{@organisation.level}")}
+            - if @organisation.level.blank?
+              %select{:name => "level"}
+                %option
+                %option{:value => 0} 0 - #{ClientSetup.label_0}
+            - else
+              .display_field_bg
+                - if !@organisation.level.blank?
+                  - if @organisation.family_id == 1
+                    #{@organisation.level} - #{ClientSetup.send("client_label_#{@organisation.level}")}
+                  - else
+                    #{@organisation.level} - #{ClientSetup.send("label_#{@organisation.level}")}
+
+
 
           .field_25
             = p.label :custom_id, "Custom ID"
