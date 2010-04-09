@@ -187,23 +187,23 @@ $(function($) {
 //    //window.open(location.href,'windowName','toolbar=no');
 //});
 
-disable_form_after_submit = function(submit_button){
-    var target_form
-    if (submit_button.attr('form_id') == ''){
-        target_form = $('#'+submit_button.attr('form_id'));
-    }else{
-        target_form = submit_button.closest('form');
-    }
-    target_form.find("input").attr("readonly", true);
-     target_form.find("input[type = 'submit']").attr("disabled", true);
-    target_form.find("select").attr("readonly", true);
-    target_form.find("textarea").attr("readonly", true);
-    submit_button.attr("disabled", true);
-};
-
-
-
-
-$('input[type="submit"]').live('click', function(){
-    disable_form_after_submit($(this));
-});
+//disable_form_after_submit = function(submit_button){
+//    var target_form
+//    if (submit_button.attr('form_id') == ''){
+//        target_form = $('#'+submit_button.attr('form_id'));
+//    }else{
+//        target_form = submit_button.closest('form');
+//    }
+//    target_form.find("input").attr("readonly", true);
+//     target_form.find("input[type = 'submit']").attr("disabled", true);
+//    target_form.find("select").attr("readonly", true);
+//    target_form.find("textarea").attr("readonly", true);
+//    submit_button.attr("disabled", true);
+//};
+//
+//
+//
+//
+//$('input[type="submit"]').live('click', function(){
+//    disable_form_after_submit($(this));
+//});
