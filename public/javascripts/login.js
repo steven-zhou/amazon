@@ -171,4 +171,5 @@ $(function($) {
 
 $('input[type="submit"]').live('click', function(){
     $(this).attr('disabled', true);
+    return true;
 });
