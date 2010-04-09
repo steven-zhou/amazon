@@ -9,17 +9,7 @@ class OrganisationRelationship < ActiveRecord::Base
 
 
   before_create :update_branch_level_and_set_family_id
-  after_destroy :delete_level_and_family_id
-
-  def self.delete_all_relationship(id)
-  #to find all the related and source organisation relationship
-    @orgs_relationship = OrganisationRelationship.find(:all,:conditions=>["source_organisation_id = ? or related_organisation_id = ?",id,id])
-
-    @orgs_relationship.each do |i|
-      i.destroy
-    end
-
-  end
+  after_destroy :delete_level_and_family_id,:delete_all_relationship
 
   protected
 
@@ -46,6 +36,23 @@ class OrganisationRelationship < ActiveRecord::Base
     @branch.level = nil
     @branch.family_id = nil
     @branch.save
+  end
+
+  
+  def delete_all_relationship
+    #to find all the related and source organisation relationship
+    @source_organisation = OrganisationRelationship.find_all_by_source_organisation_id(self.related_organisation_id)
+    @relate_organisation = OrganisationRelationship.find_all_by_related_organisation_id(self.related_organisation_id)
+
+
+    @source_organisation.each do |i|
+      i.destroy
+    end
+
+    @relate_organisation.each do |i|
+      i.destroy
+    end
+
   end
 
 
