@@ -174,7 +174,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :membership_fees,:collection=> {:fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
   
   map.resources :tests
-
+  map.resources :guests,:collection=>{:signin=>:get}
   map.resources :receipting,:collection=>{:personal_deposit=>:get,:organisational_deposit=>:get,:show_personal_deposit=>:get,:show_organisational_deposit=>:get,:enquiry=>:get,:bank_run=>:get, :bank_run_document_filter => :get, :page_initial => :get}
   # The priority is based upon order of creation: first created -> highest priority.
 

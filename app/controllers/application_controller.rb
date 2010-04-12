@@ -29,7 +29,12 @@ class ApplicationController < ActionController::Base
 
   def check_authentication
     unless session[:user]
-      redirect_to login_url
+      if controller_name == "guests"
+         redirect_to :controller => "guests", :action => "index"
+      else
+        redirect_to login_url
+      end
+      
     else
       @current_user = LoginAccount.find(session[:user])
       LoginAccount.current_user = @current_user      

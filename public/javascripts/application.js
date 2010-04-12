@@ -3782,3 +3782,19 @@ $(function(){
     }
   });
 });
+
+
+//$(function(){
+//
+//$('#register_guest_account').live('click',function(){
+//
+//  $.ajax({
+//    type: "GET",
+//    url: "/guests/register.js",
+//    dataType: "script"
+//  });
+//
+//
+//})
+//
+//});

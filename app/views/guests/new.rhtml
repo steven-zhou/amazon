@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>EmZee Version 1.1 - The Community Social Solution</title>
+
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("jquery","1.3.2");
+      google.load("jqueryui","1.7.1");
+    </script>
+    <%= stylesheet_link_tag   "jpassword", "signin.css","jquery-ui-1.7.1.custom.css" %>
+    <%= javascript_include_tag  "login.js",
+      "jquery.jclock.js",
+      "jquery.jpassword.js",
+      "jquery.form.js"
+  %>
+
+  </head>
+
+  <body>
+
+    <div id="signin_container" title="Login Assistance" style="height:500px;">
+      <div id="signin_logo">
+
+      </div>
+      <div id="shadow_bar">
+
+      </div>
+      <div id="signin_form">
+        <h1> Guest Register </h1>
+        <div id="signin_form_wrapper">
+          <% form_tag('/guests/create/',:id=>"create_guest", :submit_button_id => "register_button") do -%>
+            <label>First Name</label>
+            <input id="first_name" class="field compulsory_field" type="text" size="28" name="first_name" />
+            <label>Family Name</label>
+            <input id="family_name" class="field compulsory_field" type="text" size="28" name="family_name" />
+            <label>New Password</label>
+            <input id="new_password" class = "mandantory_field password_change jpassword-lefttop validate[required,length[6,30]]" type ="password" name="new_password"/>
+            <label>Old Password</label>
+            <input id="old_password" class = "mandantory_field validate[required,length[6,30]]confirm[new_password]" type ="password" name="old_password"/>
+            <label>Email</label>
+            <input id="eamil" class="field compulsory_field" type="text" size="28" name="email" />
+            <label>Phone</label>
+            <input id="phone" class="field compulsory_field" type="text" size="28" name="phone" />
+             <input id="register_button" type="submit" value="Register" disabled="true"/>
+          <% end -%>
+        </div>
+
+
+      </div>
+    </div>
+
+
+
+  </body>
+</html>
