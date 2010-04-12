@@ -64,9 +64,9 @@ class OrganisationsController < ApplicationController
       @organisation = (params[:type].camelize.constantize).new(params[:organisation])
       @organisation.onrecord_since = Date.today()
       if @organisation.save
-      if @organisation.level == 0
-        @organisation.update_attribute('family_id',@organisation.id)
-      end
+        if @organisation.level == 0
+          @organisation.update_attribute('family_id',@organisation.id)
+        end
 
         @organisation.primary_email_address = @organisation.try(:emails).find_by_priority_number(1).try(:value)
         @organisation.primary_phone_num = @organisation.try(:phones).find_by_priority_number(1).try(:value)
@@ -157,9 +157,10 @@ class OrganisationsController < ApplicationController
       end
 
       @organisation.update_attributes(params[type.to_sym])
-      if params[:level] == 0  #set to be level 0
+      if params[:level] == "0"  #set to be level 0
         @organisation.level = 0
-        @organisation.update_attribute("family_id", @organisation.id)
+        @organisation.family_id = @organisation.id
+        @organisation.save
       end
       
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Organisation #{@organisation.id}.")
@@ -447,7 +448,7 @@ class OrganisationsController < ApplicationController
     @update_field = params[:update_field]# for name field updating
     @input_field = params[:input_field]  #to clear the input field
     if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
-      flash.now[:error] = "Relationships of This Organisation Are Found. New Relationship Will Overwrite Old Ones."
+      flash.now[:error] = "Some Relationships of This Organisation Exist. Please Remove The Existing Relationship Before Adding A New One."
     end
     respond_to do |format|
       format.js
@@ -506,14 +507,30 @@ class OrganisationsController < ApplicationController
 
     #    @render_page = params[:render_page]
     #    @field = params[:field]
-
-
-
     respond_to do |format|
-
       format.js
     end
+  end
 
+  def organisation_treeview
+    @organisation = Organisation.find(params[:id])
+    @level = @organisation.level
+    @current_organisation = @organisation
+    @level_array = Array.new
+    i = @level
+    while i >= 0
+      @level_array[i] = []
+      @level_array[i][0]= i  # use for level_i
+      @level_array[i][1] = @current_organisation.try(:family_id) == 1 ? ClientSetup.send("client_label_#{i}") : ClientSetup.send("label_#{i}")
+      @level_array[i][2] = "#{@current_organisation.id} - #{@current_organisation.full_name}"
+      @level_array[i][3] = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@current_organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
+      @current_organisation = @current_organisation.source_organisations.first
+      i-=1
+    end
+
+    respond_to do |format|
+      format.js
+    end
   end
 
 

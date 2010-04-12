@@ -24,16 +24,14 @@
     <%= stylesheet_link_tag  "Styles.css", "flexigrid.css","validationEngine.jquery.css","jquery-ui-1.7.1.custom.css","jpassword","jquery.lightbox-0.5", :cache => "common"%>
 
     <%= yield_authenticity_token %>
-<%#*<script type="text/javascript" src="http://www.google.com/jsapi"></script>%>
-<%#*<script type="text/javascript">%>
-<%#*google.load("jquery","1.3.2");%>
-<%#*google.load("jqueryui","1.7.1");%>
-<%#*</script>%>
+    <script type="text/javascript" src="http://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+      google.load("jquery","1.3.2");
+      google.load("jqueryui","1.7.1");
+    </script>
 
 
-    <%= javascript_include_tag  "jquery.min.js",
-      "jquery-ui.min.js",
-      "typewatch.js",
+    <%= javascript_include_tag  "typewatch.js",
       "flexigrid.js",
       "/javascripts/tiny_mce/tiny_mce.js",
       "jquery-tinymce.js",

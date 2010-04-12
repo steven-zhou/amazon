@@ -220,10 +220,32 @@ $(function(){
 
   });
 
-  $('#signin_button').live('click', function(e){
-    if(e.button == 0){
-      $('#login_form').submit();
-      $(this).attr('disabled', true).after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');;
+
+
+  disable_form_after_submit = function(target_form){
+    target_form.find("input").attr("readonly", true);
+    target_form.find("input[type = 'submit']").attr("disabled", true);
+    target_form.find("select").attr("readonly", true);
+    target_form.find("textarea").attr("readonly", true);
+    if (target_form.attr('submit_button_id') != undefined){
+      submit_button = $('#'+target_form.attr('submit_button_id'));
+    }else{
+      submit_button = target_form.find("input[type = 'submit']");
+    }
+    submit_button.attr("disabled", true);
+    submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');
+
+  };
+
+  $('form').live('submit', function(){
+    disable_form_after_submit($(this));
+  });
+
+  $('form').keypress(function(e){
+    if(e.which == 13){
+      return false;
+    }else{
+      return true;
     }
   });
 });
