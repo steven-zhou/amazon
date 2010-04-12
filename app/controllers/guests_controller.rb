@@ -1,14 +1,15 @@
 class GuestsController < ApplicationController
 
   layout nil
-  before_filter :check_authentication, :except => [:index,:new,:create,:login]
+  include SimpleCaptcha::ControllerHelpers
+  before_filter :check_authentication, :except => [:index,:new,:create,:login,:captcha,:reset]
 
   def index
 
 
-#    respond_to do |format|
-#      format.js
-#    end
+    #    respond_to do |format|
+    #      format.js
+    #    end
   end
 
   #--comment when you click the register button for guest register process
@@ -26,9 +27,11 @@ class GuestsController < ApplicationController
     #----comment use the password setter method , set it as system random generate password
     @guest.password = Guest.generate_password
     @guest.password_by_system = true
-    if !simple_captcha_valid? @guest.save
 
-       email = EmailDispatcher.create_send_guest_username_and_password(@guest)
+
+    if simple_captcha_valid? and @guest.save
+
+      email = EmailDispatcher.create_send_guest_username_and_password(@guest)
 
       EmailDispatcher.deliver(email)
     else
@@ -58,15 +61,22 @@ class GuestsController < ApplicationController
   def login
 
     if Guest.authenticate(params[:user_name],params[:password])
-     
+   
+
       render :action=>"index"
+
     else
-      render "login.rhtml"
+      @user = Guest.find_by_email(params[:user_name])
+      if @user.password_by_system
+        render "reset.rhtml"
+      else
+        render "login.rhtml"
+      end
     end
 
   end
 
-    def captcha
+  def captcha
     respond_to do |format|
       format.js
     end
