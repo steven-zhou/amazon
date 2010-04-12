@@ -7,9 +7,10 @@ class CreateGuestTable < ActiveRecord::Migration
       t.column :password_hash, :text
       t.column :password_salt, :text
       t.column :phone_num, :string
-      t.column :email_address, :string
+      t.column :email, :string
       t.integer :creator_id
       t.integer :updater_id
+      t.boolean :password_by_system
       t.timestamps
     end
   end
