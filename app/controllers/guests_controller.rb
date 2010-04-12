@@ -17,12 +17,14 @@ class GuestsController < ApplicationController
 
 
   def create
-    guest = Guest.new
+
     @guest = Guest.new(params[:guest])
     #----comment use the password setter method , set it as system random generate password
     @guest.password = Guest.generate_password
-    if guest.save
-      #do sth
+    if @guest.save
+
+
+
     else
 
       #----------------------------presence - of------------------------#
