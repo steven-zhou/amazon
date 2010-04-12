@@ -55,15 +55,23 @@ h1 {
 #signin_container{
 
   background-color:#FFF;
-  height: 405px;
+
   width: 405px;
   /*  margin-top: 10%;*/
   margin-right: auto;
-  margin-bottom: auto;
+  margin-bottom: 0.5%;
   margin-left: auto;
   -moz-border-radius: 15px;
   -webkit-border-radius:15px;
   border-radius: 15px;
+}
+
+#signin_form{
+
+
+  height: 227px;
+
+
 }
 
 #signin_container #signin_logo {
@@ -71,7 +79,7 @@ h1 {
   background-repeat:no-repeat;
   background-position:center center;
   width: 405px;
-  height: 199px;
+  height: 178px;
   float:left;
 
 }
@@ -89,14 +97,13 @@ h1 {
 }
 input[type="submit"] {
   float: right;
-  margin-top:15px;
+
 }
 
 #register_form{
   display:none;
   background-color:#FFF;
   height: 240px;
-  width: 250px;
 
   margin-right: auto;
   margin-bottom: auto;
@@ -134,19 +141,20 @@ input[type="submit"] {
 #simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}
 #simple_captcha .form_line #captcha_image img{width: 110px !important; height:30px; background-color: #fff;}
 
-#signin_container .sign_content_title{
+.sign_content_title{
   font-family:Arial,Helvetica,sans-serif;
   font-weight:bold;
   color: #14427D;
-  font-size:28px; 
+  font-size:27px;
+  margin-bottom: 20px;
 }
 
-#signin_container input[type=submit] {
+#signin_container #signin_form input[type=submit] {
 
   background-color: #E3E1E2;
   -moz-border-radius: 10px;
-  padding:2% 5%;
-  -moz-opacity:0.2; /*Firefox*/
+  padding:9% 18%;
+  opacity:0.6; /*Firefox*/
 
 
 
@@ -229,4 +237,7 @@ input[type="submit"] {
 .form_line .field_90 {width: 90%;}
 .form_line .field_95 {width: 95%;}
 
+#signin_container  input[type=text] {
 
+height:24px;
+}
