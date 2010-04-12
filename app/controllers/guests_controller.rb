@@ -61,18 +61,18 @@ class GuestsController < ApplicationController
   def login
 
     if Guest.authenticate(params[:user_name],params[:password])
-   
-
-      render :action=>"index"
+    if @user.password_by_system
+        render "reset.rhtml"
+      else
+      render "login.rhtml"
+      end
 
     else
       @user = Guest.find_by_email(params[:user_name])
-      if @user.password_by_system
-        render "reset.rhtml"
-      else
-        render "login.rhtml"
+     
+          render :action=>"index"
       end
-    end
+  
 
   end
 
