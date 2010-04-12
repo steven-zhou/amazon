@@ -23,7 +23,7 @@ class EmailDispatcher < ActionMailer::Base
     content_type        "text/html"
   end
 
-   def change_password_email_with_template(recipient, subject, email_template, object, password)
+  def change_password_email_with_template(recipient, subject, email_template, object, password)
     # Goes to the end user when they request to have their password reset
     recipients         "#{recipient}"
     from               "noreply@memberzone.com.au"
@@ -34,7 +34,7 @@ class EmailDispatcher < ActionMailer::Base
     content_type        "text/html"
   end
 
-   def send_person_email_template(email,content)
+  def send_person_email_template(email,content)
     recipients       "#{email}"
     from              "noreply@memberzone.com.au"
     subject          "Thank you for joining the membership"
@@ -44,4 +44,16 @@ class EmailDispatcher < ActionMailer::Base
     content_type        "text/html"
 
   end
+
+  def send_guest_username_and_password(guest)
+    recipients       "#{guest.email}"
+    from              "noreply@memberzone.com.au"
+    subject          "Thank you for joining the membership"
+    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
+    sent_on           Time.now
+    body              :guest => guest, :password =>guest.password
+    content_type        "text/html"
+
+  end
+
 end

@@ -5,6 +5,10 @@ class GuestsController < ApplicationController
 
   def index
 
+
+#    respond_to do |format|
+#      format.js
+#    end
   end
 
   #--comment when you click the register button for guest register process
@@ -18,13 +22,15 @@ class GuestsController < ApplicationController
 
   def create
 
-    @guest = Guest.new(params[:guest])
+    @guest = Guest.new(params[:guests])
     #----comment use the password setter method , set it as system random generate password
     @guest.password = Guest.generate_password
-    if @guest.save
+    @guest.password_by_system = true
+    if !simple_captcha_valid? @guest.save
 
+       email = EmailDispatcher.create_send_guest_username_and_password(@guest)
 
-
+      EmailDispatcher.deliver(email)
     else
 
       #----------------------------presence - of------------------------#
@@ -58,5 +64,11 @@ class GuestsController < ApplicationController
       render "login.rhtml"
     end
 
+  end
+
+    def captcha
+    respond_to do |format|
+      format.js
+    end
   end
 end

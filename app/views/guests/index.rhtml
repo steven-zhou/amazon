@@ -48,9 +48,9 @@
 
 
     <div id="register_form">
-      <div class="sign_content_title"> Member1 Registration </div>
+      <div class="sign_content_title"> Member Registration </div>
       <div id="signin_form_wrapper">
-        <% form_tag('/guests/create/',:id=>"create_guest", :submit_button_id => "register_button") do -%>
+        <% form_tag('/guests/create/',:id=>"create_guest", :submit_button_id => "register_button",:class=>"ajax_form") do -%>
           <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]"  title="Family Name"/><br />
           <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]"  title="Last Name"/><br />
           <input id="eamil" class="field compulsory_field" type="text" size="28" name="guests[email]"  title="Email"/><br />
@@ -58,7 +58,7 @@
           <div class="captcha"><%= show_simple_captcha %></div>
           <div>
             <input id="register_button" type="submit" value="Register" disabled="true"/>
-            <a href="" id="cancel">Cancel</a>
+            <a href="/guests/" id="cancel">Cancel</a>
           </div>
         <% end -%>
       </div>

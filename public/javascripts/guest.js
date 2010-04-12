@@ -143,3 +143,14 @@ $(function(){
     }
   });
 });
+
+$(function() {
+  $('#regenerate_captcha').live('click', function(){
+    $.ajax({
+      type: "GET",
+      url: "/guests/captcha",
+      data: '',
+      dataType: "script"
+    });
+  });
+});

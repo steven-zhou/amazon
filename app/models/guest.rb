@@ -1,5 +1,6 @@
 class Guest < ActiveRecord::Base
 
+    attr_accessor :password
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of  :email, :first_name,:family_name,  :phone_num
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
