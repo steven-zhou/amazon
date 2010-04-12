@@ -101,7 +101,7 @@ input[type="submit"] {
 }
 
 #register_form{
-  display:none;
+  
   background-color:#FFF;
   height: 240px;
 
@@ -130,12 +130,7 @@ input[type="submit"] {
   margin-top:15px;
 }
 
-#cancel{
-  margin-right:20px;
-  margin-top:20px;
-  float: right;
 
-}
 
 /* SIMPLE CAPTCHA CSS STYLING*/
 #simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}
@@ -147,9 +142,10 @@ input[type="submit"] {
   color: #14427D;
   font-size:27px;
   margin-bottom: 20px;
+  padding-top: 6%;
 }
 
-#signin_container #signin_form input[type=submit] {
+#signin_container  input[type=submit] {
 
   background-color: #E3E1E2;
   -moz-border-radius: 10px;
@@ -240,4 +236,23 @@ input[type="submit"] {
 #signin_container  input[type=text] {
 
 height:24px;
+}
+
+
+a.alt_option{
+  /* color:#000000;
+  font-size:15px;
+  line-height:16px;
+  padding:1px;
+  margin:2px 10px 0px 5px;
+  float: right;*/
+
+  font-size: 14px ;
+  font-weight:bold ;
+  color: #154073 !important;
+  text-decoration:underline;
+  float: right;
+  margin:2px 15px 0px 10px;
+  padding:1px;
+  line-height:16px;
 }
