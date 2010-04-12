@@ -126,16 +126,3 @@
 
 </body>
 </html>
-<div id="signin_form">
-    <h1> Guest Sign In </h1>
-    <div id="signin_form_wrapper">
-      <% form_tag('/guests/login/', :submit_button_id => "signin_button", :class => "ajax_form") do -%>
-        <label>Username</label>
-        <input id="username" class="field compulsory_field" type="text" size="28" name="user_name" />
-        <label>Password</label>
-        <input id="password" class="field compulsory_field" type="password" size="28" name="password" /><br />
-         <a href="/guests/new/" id="register_guest_account">Register</a><br />
-        <input id="signin_button" type="button" value="Sign In" disabled="true"/>
-      <% end -%>
-    </div>
-  </div>
