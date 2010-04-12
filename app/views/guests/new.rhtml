@@ -31,18 +31,10 @@
         <h1> Member Registration </h1>
         <div id="signin_form_wrapper">
           <% form_tag('/guests/create/',:id=>"create_guest", :submit_button_id => "register_button") do -%>
-            <label>First Name</label>
-            <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]" />
-            <label>Family Name</label>
-            <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]" />
-            <label>New Password</label>
-            <input id="new_password" class = "mandantory_field password_change jpassword-lefttop validate[required,length[6,30]]" type ="password" name="new_password"/>
-            <label>Old Password</label>
-            <input id="old_password" class = "mandantory_field validate[required,length[6,30]]confirm[new_password]" type ="password" name="old_password"/>
-            <label>Email</label>
-            <input id="eamil" class="field compulsory_field" type="text" size="28" name="email" />
-            <label>Phone</label>
-            <input id="phone" class="field compulsory_field" type="text" size="28" name="phone" />
+            <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]" title="First Name" />
+            <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]" title="Family Name"/>
+            <input id="eamil" class="field compulsory_field" type="text" size="28" name="email"  title="Email" />
+            <input id="phone" class="field compulsory_field" type="text" size="28" name="phone"  title="Phone"/>
              <input id="register_button" type="submit" value="Register" disabled="true"/>
           <% end -%>
         </div>
