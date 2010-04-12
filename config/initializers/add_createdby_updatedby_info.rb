@@ -14,7 +14,7 @@ class ActiveRecord::Base
 
   def insert_updatedby
 
-    self.updater_id = LoginAccount.current_user.id rescue self.update_id = nil
+    self.updater_id = LoginAccount.current_user.id rescue self.updater_id = nil
 
   end
 

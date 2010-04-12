@@ -3,8 +3,8 @@ class Guest < ActiveRecord::Base
 
 
 
-  validates_uniqueness_of :email, :case_sensitive => false
-  validates_presence_of  :email
+  validates_uniqueness_of :email_address, :case_sensitive => false
+  validates_presence_of  :email_address
 
 
 
