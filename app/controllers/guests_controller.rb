@@ -2,8 +2,8 @@ class GuestsController < ApplicationController
 
   layout "portal"
   include SimpleCaptcha::ControllerHelpers
-  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password]
-  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password]
+  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password,:forgot_password,:retrieve_password]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password,:forgot_password,:retrieve_password]
 
   def guest_authentication
     unless session[:guest]
@@ -148,6 +148,26 @@ class GuestsController < ApplicationController
     respond_to do |format|
       format.html
     end
+  end
+
+  def retrieve_password
+
+    @guest = Guest.find_by_email(params[:email]) rescue @guest = nil
+
+    if !simple_captcha_valid? or @guest.nil?
+       @error_messsage =  "Please check if your details are correct. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
+    else
+      email = EmailDispatcher.create_send_guest_username_and_password(@guest)
+      EmailDispatcher.deliver(email)
+
+     @successful_messsage = "Details were sent. Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Close</a>"
+      
+    end
+    
+    respond_to do |format|
+      format.js
+    end
+    
   end
   
 end
