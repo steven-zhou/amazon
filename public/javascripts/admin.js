@@ -1591,6 +1591,7 @@ $(function(){
 $(function(){
     $(".close_edit_bank").live('click', function(){
         $(".container_selected").removeClass("container_selected");
+
         $("#new_bank_bar").show();
        $('#bank_mode').attr('mode', 'show');
 

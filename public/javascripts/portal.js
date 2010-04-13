@@ -60,6 +60,19 @@ $(function() {
 }
 );
 
+
+
+
+$(function() {
+      $("#captcha").addClass("compulsory_field");
+  $("#forgot_password").click(function(){
+    $("#captcha").addClass("compulsory_field");
+
+  });
+
+}
+);
+
 /* new compulsory field setting for controlling submit button*/
 $(function(){
   compulsory_check = function(link){
