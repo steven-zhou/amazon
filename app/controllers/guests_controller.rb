@@ -142,5 +142,12 @@ class GuestsController < ApplicationController
       format.html
     end
   end
+
+  def forgot_password
+
+    respond_to do |format|
+      format.html
+    end
+  end
   
 end
