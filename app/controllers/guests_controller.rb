@@ -27,13 +27,10 @@ class GuestsController < ApplicationController
     #----comment use the password setter method , set it as system random generate password
     @guest.password = Guest.generate_password
     @guest.password_by_system = true
-
-
     if simple_captcha_valid? and @guest.save
-
       email = EmailDispatcher.create_send_guest_username_and_password(@guest)
-
       EmailDispatcher.deliver(email)
+      @successful_messsage = "Registration Completed Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Cancel</a>"
     else
 
       #----------------------------presence - of------------------------#
@@ -52,8 +49,13 @@ class GuestsController < ApplicationController
       else
         flash.now[:error] = flash_message(:message => "Please Check Your Input, There are some invalid input")
       end
+   
+     
+      @error_messsage =  "Someting went wrong during the registration. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
     end
-    render :action=>"index"
+    respond_to do |format|
+      format.js
+    end
   end
 
 
@@ -61,17 +63,17 @@ class GuestsController < ApplicationController
   def login
 
     if Guest.authenticate(params[:user_name],params[:password])
-    if @user.password_by_system
+      if @user.password_by_system
         render "reset.rhtml"
       else
-      render "login.rhtml"
+        render "login.rhtml"
       end
 
     else
       @user = Guest.find_by_email(params[:user_name])
      
-          render :action=>"index"
-      end
+      render :action=>"index"
+    end
   
 
   end
