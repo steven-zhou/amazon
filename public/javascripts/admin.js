@@ -1011,8 +1011,6 @@ $(function(){
             $(".add_user").show();
             $(".container_selected").removeClass("container_selected");
             $("#edit_user").html('');
-
-
         }
 
     });
