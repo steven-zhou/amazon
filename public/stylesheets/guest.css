@@ -55,7 +55,6 @@ h1 {
 #signin_container{
 
   background-color:#FFF;
-
   width: 405px;
   /*  margin-top: 10%;*/
   margin-right: auto;
@@ -101,7 +100,7 @@ input[type="submit"] {
 }
 
 #register_form{
-  
+
   background-color:#FFF;
   height: 240px;
 
@@ -129,6 +128,7 @@ input[type="submit"] {
 #register_form form #signin_button {
   float: right;
   margin-top:15px;
+
 }
 
 
@@ -153,8 +153,8 @@ input[type="submit"] {
   padding:9% 18%;
   opacity:0.6; /*Firefox*/
 
-
-
+  width: 100px;
+  height: 40px;
 
 }
 
@@ -236,7 +236,7 @@ input[type="submit"] {
 
 #signin_container  input[type=text] {
 
-height:24px;
+  height:24px;
 }
 
 
@@ -256,4 +256,37 @@ a.alt_option{
   margin:2px 15px 0px 10px;
   padding:1px;
   line-height:16px;
+}
+
+
+#successful_message_container{
+  background-color:#D5E7A0;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+  
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+   margin-top:5px;
+}
+
+
+#fail_message_container{
+  background-color:#E68282;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+  margin-top:5px;
 }
