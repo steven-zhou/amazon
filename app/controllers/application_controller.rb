@@ -29,12 +29,7 @@ class ApplicationController < ActionController::Base
 
   def check_authentication
     unless session[:user]
-      if controller_name == "guests"
-         redirect_to :controller => "guests", :action => "index"
-      else
-        redirect_to login_url
-      end
-      
+      redirect_to login_url
     else
       @current_user = LoginAccount.find(session[:user])
       LoginAccount.current_user = @current_user      
@@ -169,7 +164,7 @@ class ApplicationController < ActionController::Base
     #if header is not exist, we create it
     FileTest.exist?("public/temp/default-header.html") ? "" : file_open_puts("","public/temp/default-header.html")
     FileTest.exist?("public/temp/default-footer.html") ? "" : file_open_puts("","public/temp/default-footer.html")
-#--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
+    #--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
     pdf_options['default_option'] ||= "--page-size A4 --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
     pdf_options['header'] ||= "--header-html public/temp/default-header.html"
     pdf_options['footer'] ||= "--footer-html public/temp/default-footer.html --footer-spacing -5"

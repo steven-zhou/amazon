@@ -1,6 +1,6 @@
 class Guest < ActiveRecord::Base
 
-    attr_accessor :password
+  attr_accessor :password
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of  :email, :first_name,:family_name,  :phone_num
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
@@ -19,7 +19,7 @@ class Guest < ActiveRecord::Base
     elsif Digest::SHA256.hexdigest(password + guest.password_salt) != guest.password_hash
       raise "Username or password invalid"
     else
-      return true
+      return guest
     end
   end
 
