@@ -28,7 +28,7 @@
 
     <div id="signin_container" title="Login Assistance">
       <div id="reset_form" style="padding:0 10%">
-        <div class="sign_content_title"> Welcome </div>
+        <div class="sign_content_title"> Welcome <%= @current_guest.first_name %></div>
         <div id="signin_form_wrapper">
           <% form_tag('/guests/reset/',:id=>"reset_guest_password", :submit_button_id => "reset_button") do -%>
             <div class="form_line">

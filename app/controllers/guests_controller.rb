@@ -1,16 +1,16 @@
 class GuestsController < ApplicationController
 
-  layout nil
+  layout "portal"
   include SimpleCaptcha::ControllerHelpers
   before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show]
-  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha]
 
   def guest_authentication
     unless session[:guest]
       redirect_to :action => 'index'
     else
       @current_guest = Guest.find(session[:guest])
-      redirect_to :action => 'reset' if (@current_guest.password_by_system)
+      redirect_to :action => 'reset' if (@current_guest.password_by_system &&  @current_action != "reset")
     end
   end
 
