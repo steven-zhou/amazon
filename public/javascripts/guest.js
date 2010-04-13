@@ -152,6 +152,7 @@ $(function() {
       data: '',
       dataType: "script"
     });
+    return false;
   });
 });
 

@@ -63,20 +63,20 @@
           <div id="signin_form_wrapper">
             <% form_tag('/guests/create/',:id=>"create_guest",:class => "ajax_form", :submit_button_id => "register_button") do -%>
               <div class="form_line">
-                <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]"  title="Family Name"/><br />
+                <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]"  title="*Family Name"/><br />
               </div>
 
 
               <div class="form_line">
-                <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]"  title="Last Name"/><br />
+                <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]"  title="*Last Name"/><br />
               </div>
 
               <div class="form_line">
-                <input id="eamil" class="field compulsory_field" type="text" size="28" name="guests[email]"  title="Email"/><br />
+               <input id="eamil" class="field compulsory_field" type="text" size="28" name="guests[email]"  title="*Email"/><br />
               </div>
 
               <div class="form_line">
-                <input id="phone" class="field compulsory_field" type="text" size="28" name="guests[phone_num]"  title="Contact Number" /><br />
+                <input id="phone" class="field compulsory_field" type="text" size="28" name="guests[phone_num]"  title="*Contact Number" /><br />
               </div>
 
               <div class="form_line">

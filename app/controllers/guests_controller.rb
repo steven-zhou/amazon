@@ -2,14 +2,20 @@ class GuestsController < ApplicationController
 
   layout nil
   include SimpleCaptcha::ControllerHelpers
-  before_filter :check_authentication, :except => [:index,:new,:create,:login,:captcha,:reset]
+  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset]
+
+  def guest_authentication
+    unless session[:guest]
+      redirect_to :action => 'index'
+    else
+      @current_guest = Guest.find(session[:guest])
+      redirect_to :action => 'reset' if (@current_guest.password_by_system)
+    end
+  end
 
   def index
 
-
-    #    respond_to do |format|
-    #      format.js
-    #    end
   end
 
   #--comment when you click the register button for guest register process
@@ -61,21 +67,15 @@ class GuestsController < ApplicationController
 
 
   def login
-
-    if Guest.authenticate(params[:user_name],params[:password])
-      if @user.password_by_system
-        render "reset.rhtml"
-      else
-        render "login.rhtml"
-      end
-
-    else
-      @user = Guest.find_by_email(params[:user_name])
-     
-      render :action=>"index"
+    begin
+      @guest = Guest.authenticate(params[:user_name],params[:password])
+      session[:guest] = @guest.id
+      redirect_to :action => 'show'
+    rescue
+      flash[:warning] = flash_message(:type => "login_error")
+      puts "there is a error"
+      redirect_to :action => 'index'
     end
-  
-
   end
 
   def captcha
@@ -83,4 +83,19 @@ class GuestsController < ApplicationController
       format.js
     end
   end
+
+  def reset
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def show
+
+    respond_to do |format|
+      format.html
+    end
+  end
+  
 end
