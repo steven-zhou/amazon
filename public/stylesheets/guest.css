@@ -129,6 +129,7 @@ input[type="submit"] {
 #register_form form #signin_button {
   float: right;
   margin-top:15px;
+
 }
 
 
@@ -153,8 +154,8 @@ input[type="submit"] {
   padding:9% 18%;
   opacity:0.6; /*Firefox*/
 
-
-
+  width: 100px;
+  height: 40px;
 
 }
 
