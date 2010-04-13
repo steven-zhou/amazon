@@ -51,7 +51,7 @@ $(function() {
 
 $(function() {
   $("#register_guest_account").click(function(){
-
+    $("#captcha").addClass("compulsory_field");
     $("#signin_form").fadeOut();
     $("#register_container").fadeIn();
     return false;
