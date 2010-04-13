@@ -39,14 +39,14 @@ h1 {
   background-color: #154073;
   background-repeat: repeat;
   height: 40px;
+
 }
 
 #go_back_link a{
-  background-repeat: repeat;
   color:  #ABC6CF;
   font-family: Arial,Helvetica,sans-serif;
   font-size: 10px;
-  margin:10px 0 0 30px;
+  margin:30px 100px 150px 150px;
   text-decoration: underline;
 }
 
@@ -263,4 +263,37 @@ a.alt_option{
   text-align: center;
   color: #796b52;
   font-size: 11px;
+}
+
+
+#successful_message_container{
+  background-color:#D5E7A0;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+   margin-top:5px;
+}
+
+
+#fail_message_container{
+  background-color:#E68282;
+  width: auto;
+  padding: 6%;
+  margin-right: auto;
+  margin-bottom: 11px;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-family: Arial,Helvetica,sans-serif;
+  margin-top:5px;
 }
