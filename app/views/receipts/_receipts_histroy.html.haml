@@ -1,7 +1,7 @@
 .full_container
   %h2 Receipts
 
-  %table#show_receipts_grid.selectable_grid{:db_click_function => 'true', :field => 'receipt_histroy', :db_show => 'true', :db_click_url => "/receipts/"}
+  %table#show_receipts_grid.selectable_grid{:db_click_function => 'true', :field => 'receipt_histroy', :db_show => 'true', :db_click_url => "/entity_receipts/"}
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain
@@ -17,13 +17,19 @@
     align: 'left'
     },
     {
+    display: 'Manual Receipt Number',
+    name : 'receipts.manual_reecipt_number',
+    width : 130,
+    sortable : true,
+    align: 'left'
+    },
+    {
     display: 'Deposit Date',
-    name : 'deposits.deposit_date',
+    name : 'deposits.business_date',
     width : 90,
     sortable : true,
     align: 'left'
     },
-
     {
     display: 'Amount',
     name : 'amount',

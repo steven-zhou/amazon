@@ -668,7 +668,7 @@ system_id_check_input_change_or_not = function()
   }
   else
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -678,12 +678,12 @@ system_id_check_input_change_or_not = function()
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
 
 
           $('#'+link.attr('form_name')).submit();
@@ -901,7 +901,7 @@ $('a.get_close').live('click', function() {
 
   if($('#check_right_input_change').val() == "true")
   {
-    $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+    $('#warning_message_text').html("Data Not Saved.");
 
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
@@ -912,7 +912,7 @@ $('a.get_close').live('click', function() {
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back": function(){
 
 
           $(this).dialog('destroy');
@@ -920,7 +920,7 @@ $('a.get_close').live('click', function() {
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
 
           //                    if(link.attr('field')== "contact")
           //                    {
@@ -1165,11 +1165,11 @@ $(".person_group_toggle_button").live('click', function(){
   if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
     $('.person_group_delete_button').css("display","none");
   else
-    $('.person_group_delete_button').css("display","");
+  $('.person_group_delete_button').css("display","");
   $('#'+$(this).attr('toggle_id_name')).toggle('blind');
   $('.person_group_close').css("display","");
   $(this).css("display","none");
-});
+  });
 
 $(".person_group_close").live('click',function(){
 
@@ -1177,21 +1177,22 @@ $(".person_group_close").live('click',function(){
   var link = $(this);
   if( $('#group_input_change_or_not').val() == "false")
   {
-    $('#'+link.attr('toggle_id_name')).toggle('blind');
+  $('#'+link.attr('toggle_id_name')).toggle('blind');
 
-    if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-      $('.person_group_delete_button').css("display","none");
-    else
-      $('.person_group_delete_button').css("display","");
+  if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+  $('.person_group_delete_button').css("display","none");
+  else
+  $('.person_group_delete_button').css("display","");
 
-    link.css("display","none");
-    $('.person_group_toggle_button').css("display","");
+  link.css("display","none");
+  $('.person_group_toggle_button').css("display","");
 
 
   }
   else
+
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1201,37 +1202,38 @@ $(".person_group_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
 
-          if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
-            $('.person_group_delete_button').css("display","none");
-          else
-            $('.person_group_delete_button').css("display","");
 
-          link.css("display","none");
-          $('.person_group_toggle_button').css("display","");
+        if ($('.person_group_delete_button').css("display")=="block" || $('.person_group_delete_button').css("display")=="")
+          $('.person_group_delete_button').css("display","none");
+        else
+          $('.person_group_delete_button').css("display","");
 
-          $('#group_input_change_or_not').val("false");
-          $(this).dialog('destroy');
-          return true;
-        }
+        link.css("display","none");
+        $('.person_group_toggle_button').css("display","");
+
+        $('#group_input_change_or_not').val("false");
+        $(this).dialog('destroy');
+        return true;
       }
+    }
 
-    });
-    $('#warning_message').dialog('option', 'title', 'Warning');
+  });
+  $('#warning_message').dialog('option', 'title', 'Warning');
 
-    $('#warning_message').parent().find("a").css("display","none");
-    $("#warning_message").parent().css('background-color','#D1DDE6');
-    $("#warning_message").css('background-color','#D1DDE6');
+  $('#warning_message').parent().find("a").css("display","none");
+  $("#warning_message").parent().css('background-color','#D1DDE6');
+  $("#warning_message").css('background-color','#D1DDE6');
 
-    $('#warning_message').dialog('open');
-  }
+  $('#warning_message').dialog('open');
+}
 
 });
 
@@ -1273,7 +1275,7 @@ $(".person_contact_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1283,12 +1285,12 @@ $(".person_contact_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
           $('.person_contact_edit_delete').css("display","none");
           link.css("display","none");
@@ -1406,7 +1408,7 @@ $(".person_address_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1416,12 +1418,12 @@ $(".person_address_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
           $('.person_address_edit_delete').css("display","none");
           link.css("display","none");
@@ -1492,7 +1494,7 @@ $(".person_master_doc_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1502,12 +1504,12 @@ $(".person_master_doc_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
           $('.person_master_doc_edit_delete').css("display","none");
           link.css("display","none");
@@ -1589,7 +1591,7 @@ $(".person_relationship_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1599,12 +1601,12 @@ $(".person_relationship_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
           $('.person_tag').css("display","none");
           $('#related_person_name_container').html('');
@@ -1675,7 +1677,7 @@ $(".person_notes_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1685,12 +1687,12 @@ $(".person_notes_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
 
           $('.person_notes_edit_delete').css("display","none");
@@ -1770,7 +1772,7 @@ $(".person_employments_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1780,12 +1782,12 @@ $(".person_employments_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
 
           $('.person_employments_edit_delete').css("display","none");
@@ -1867,7 +1869,7 @@ $(".person_roles_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -1877,12 +1879,12 @@ $(".person_roles_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
           $('#'+link.attr('toggle_id_name')).toggle('blind');
 
           $('.person_roles_edit_delete').css("display","none");
@@ -1992,7 +1994,7 @@ $(".person_account_close").live('click',function(){
   }
   else
   {
-    $('#warning_message_text').html("Some data did not save.Are you sure you wish to close ? ");
+    $('#warning_message_text').html("Data Not Saved.");
     $('#warning_message_image').css("display","");
     $('#warning_message').dialog({
       modal: true,
@@ -2002,12 +2004,12 @@ $(".person_account_close").live('click',function(){
       width: 'auto',
       buttons: {
 
-        No: function(){
+        "Go Back" : function(){
           $(this).dialog('destroy');
           return false;
 
         },
-        Yes: function(){
+        "Exit" : function(){
 
           $('#'+link.attr('toggle_id_name')).toggle('blind');
 
@@ -2194,7 +2196,7 @@ $(function(){
     }
     else
     {
-      $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+      $('#warning_message_text').html("Data Not Saved.");
       $('#warning_message_image').css("display","");
       $('#warning_message').dialog({
         modal: true,
@@ -2204,12 +2206,12 @@ $(function(){
         width: 'auto',
         buttons: {
 
-          No: function(){
+          "Go Back" : function(){
             $(this).dialog('destroy');
             return false;
 
           },
-          Yes: function(){
+          "Exit" : function(){
             $.ajax({
               type: "GET",
               url: "/people/show_list.js",
@@ -2766,7 +2768,7 @@ $(function(){
     }
     else
     {
-      $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT? ");
+      $('#warning_message_text').html("Data Not Saved.");
       $('#warning_message_image').css("display","");
       $('#warning_message').dialog({
         modal: true,
@@ -2776,12 +2778,12 @@ $(function(){
         width: 'auto',
         buttons: {
 
-          No: function(){
+          "Go Back" : function(){
             $(this).dialog('destroy');
             return false;
 
           },
-          Yes: function(){
+          "Exit" : function(){
 
             $.ajax({
               type: "GET",
@@ -3735,6 +3737,17 @@ $(function(){
     insert_name_in_email($(this));
 
   });
+
+  $("#triger_select").live('click', function(){
+    $('#new_email_submit').attr('disabled', true);
+    if ($(this).attr("checked")==true){
+      $('#input_email').removeClass("select_ban_submit").val('').attr("disabled", true).hide();
+      $('#select_email').addClass("select_ban_submit").removeAttr("disabled").show();
+    }else{
+      $('#select_email').removeClass("select_ban_submit").val('').attr("disabled", true).hide();
+      $('#input_email').addClass("select_ban_submit").removeAttr("disabled").show();
+    }
+  });
 });
 
 insert_name_in_email = function(this_form){
@@ -4020,3 +4033,35 @@ $(function(){
 
   });
 });
+
+$(function(){
+  $(".album_click").live('dblclick',function(){
+    var current_op = $(this).attr('current_operation')
+    var type = $(this).attr('type')
+    if  (type == "person")
+    {
+      if (current_op == "edit_list")
+      {
+        window.open("/people/"+$(this).attr("param1")+"/edit","_self");
+      }
+      if (current_op == "show_list")
+      {
+        window.open("/people/"+$(this).attr("param1")+"/","_self");
+
+      }
+    }else{
+      if (current_op == "edit_organisation_list")
+      {
+        window.open("/organisations/"+$(this).attr("param1")+"/edit","_self");
+      }
+      if (current_op == "show_organisation_list")
+      {
+         window.open("/organisations/"+$(this).attr("param1")+"/","_self");
+
+      }
+
+    }
+  });
+});
+
+

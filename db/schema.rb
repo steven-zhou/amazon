@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100330014024) do
+ActiveRecord::Schema.define(:version => 20100409045707) do
 
   create_table "addresses", :force => true do |t|
     t.string   "building_name"
@@ -286,6 +286,36 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.text     "level_9_remarks"
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.text     "level_0_default_label"
+    t.text     "level_1_default_label"
+    t.text     "level_2_default_label"
+    t.text     "level_3_default_label"
+    t.text     "level_4_default_label"
+    t.text     "level_5_default_label"
+    t.text     "level_6_default_label"
+    t.text     "level_7_default_label"
+    t.text     "level_8_default_label"
+    t.text     "level_9_default_label"
+    t.text     "level_0_client_default_label"
+    t.text     "level_1_client_default_label"
+    t.text     "level_2_client_default_label"
+    t.text     "level_3_client_default_label"
+    t.text     "level_4_client_default_label"
+    t.text     "level_5_client_default_label"
+    t.text     "level_6_client_default_label"
+    t.text     "level_7_client_default_label"
+    t.text     "level_8_client_default_label"
+    t.text     "level_9_client_default_label"
+    t.text     "level_0_client_label"
+    t.text     "level_1_client_label"
+    t.text     "level_2_client_label"
+    t.text     "level_3_client_label"
+    t.text     "level_4_client_label"
+    t.text     "level_5_client_label"
+    t.text     "level_6_client_label"
+    t.text     "level_7_client_label"
+    t.text     "level_8_client_label"
+    t.text     "level_9_client_label"
   end
 
   create_table "compile_lists", :force => true do |t|
@@ -579,6 +609,20 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.datetime "updated_at"
     t.integer  "creator_id"
     t.integer  "updater_id"
+  end
+
+  create_table "guests", :force => true do |t|
+    t.string   "first_name"
+    t.string   "family_name"
+    t.text     "password_hash"
+    t.text     "password_salt"
+    t.string   "phone_num"
+    t.string   "email"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.boolean  "password_by_system"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "helps", :force => true do |t|
@@ -911,6 +955,7 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.integer  "updater_id"
     t.string   "primary_phone_num"
     t.string   "primary_email_address"
+    t.integer  "family_id"
   end
 
   create_table "people", :force => true do |t|
@@ -1155,6 +1200,7 @@ ActiveRecord::Schema.define(:version => 20100330014024) do
     t.integer  "entity_receipt_id"
     t.boolean  "receipt_post"
     t.string   "manual_receipt_number"
+    t.integer  "bank_run_id"
   end
 
   create_table "relationships", :force => true do |t|

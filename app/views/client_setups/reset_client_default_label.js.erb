@@ -1,0 +1,8 @@
+<%- i=0 %>
+<%- while i <= 9 %>
+$("#<%=escape_javascript("#{@id[i]}")%>").val("<%=escape_javascript("#{@default_label[i]}")%>")
+<%- i += 1%>
+<%end%>
+
+
+$("#client_setup_form").submit();

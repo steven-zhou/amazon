@@ -1,29 +1,185 @@
 @charset "utf-8";
 @import url("reset.css");
 /* CSS Document */
+/*
+    Document   : guest
+    Created on : Apr 12, 2010, 11:29:14 AM
+    Author     : matthew
+    Description:
+        Purpose of the stylesheet follows.
+*/
 
+/*
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+body {
+  background-color: #C6D6E1;
+  /*background-image: url(/images/bg3.jpg);*/
+  background-repeat: repeat;
+  background-position: center -300px;
+}
+
+
+h1 {
+  color:#333;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 500;
+  text-transform: normal;
+  line-height: 1em;
+  padding-bottom: 0px;
+  margin-bottom: 5px;
+}
+
+
+#go_back_link {
+  background-color: #154073;
+  background-repeat: repeat;
+  height: 40px;
+}
+
+#go_back_link a{
+  background-repeat: repeat;
+  color:  #ABC6CF;
+  font-family: Arial,Helvetica,sans-serif;
+  font-size: 10px;
+  margin:10px 0 0 30px;
+  text-decoration: underline;
+}
+
+
+#signin_container{
+
+  background-color:#FFF;
+
+  width: 405px;
+  /*  margin-top: 10%;*/
+  margin-right: auto;
+  margin-bottom: 0.5%;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+}
+
+#signin_form{
+
+
+  height: 227px;
+
+
+}
+
+#signin_container #signin_logo {
+  background-image:url(/images/systemlogo.png);
+  background-repeat:no-repeat;
+  background-position:center center;
+  width: 405px;
+  height: 178px;
+  float:left;
+
+}
+#signin_container #signin_form form a {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #143F72;
+  font-weight: bold;
+}
+#signin_container #signin_form form a:hover {
+  text-decoration: underline;
+}
+#signin_container #signin_form form a img {
+  vertical-align: bottom;
+}
+input[type="submit"] {
+  float: right;
+
+}
+
+#register_form{
+
+  background-color:#FFF;
+  height: 240px;
+
+  margin-right: auto;
+  margin-bottom: auto;
+  margin-left: auto;
+  -moz-border-radius: 15px;
+  -webkit-border-radius:15px;
+  border-radius: 15px;
+}
+
+#register_form form a {
+  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #143F72;
+  font-weight: bold;
+}
+#register_form form a:hover {
+  text-decoration: underline;
+}
+#register_form form a img {
+  vertical-align: bottom;
+  border: none;
+}
+#register_form form #signin_button {
+  float: right;
+  margin-top:15px;
+}
+
+
+
+/* SIMPLE CAPTCHA CSS STYLING*/
+#simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}
+#simple_captcha .form_line #captcha_image img{width: 110px !important; height:30px; background-color: #fff;}
+
+.sign_content_title{
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:bold;
+  color: #14427D;
+  font-size:27px;
+  margin-bottom: 20px;
+  padding-top: 6%;
+}
+
+#signin_container  input[type=submit] {
+
+  background-color: #E3E1E2;
+  -moz-border-radius: 10px;
+  padding:9% 18%;
+  opacity:0.6; /*Firefox*/
+
+
+
+
+}
 
 .form_line {
-    float: left;
-    min-height: 30px;
-    padding-bottom: 5px;
-    width: 100%;
+  float: left;
+  min-height: 30px;
+  padding-bottom: 5px;
+  width: 100%;
 }
 
 .form_line label {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 12px;
-    color: #666;
-    text-decoration: none;
-    display: block;
-    padding-left: 3px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 12px;
+  color: #666;
+  text-decoration: none;
+  display: block;
+  padding-left: 3px;
 }
 
 .form_line input {
-    width:100%;
+  width:100%;
+
 }
+
 
 .form_line .field_2,
 .form_line .field_5,
@@ -46,10 +202,11 @@
 .form_line .field_70,
 .form_line .field_75,
 .form_line .field_80,
-.form_line .field_85 {
-    float: left;
-    height: 40px;
-    margin-right: 10px;
+.form_line .field_90,
+.form_line .field_95 {
+  float: left;
+  height: 40px;
+  margin-right: 10px;
 }
 .form_line .field_2 {width: 2%;}
 .form_line .field_5 {width: 5%;}
@@ -73,7 +230,37 @@
 .form_line .field_75 {width: 75%;}
 .form_line .field_80 {width: 80%;}
 .form_line .field_85 {width: 85%;}
+.form_line .field_90 {width: 90%;}
+.form_line .field_95 {width: 95%;}
 
-.captcha #captcha_image {display:inline;height:auto;width:auto;}
-.captcha #label {display:block;width:30%;float:left;height:40px;margin-right:10px;}
-.captcha #captcha {width:60%;float:left;margin-right:10px;}
+#signin_container  input[type=text] {
+
+height:24px;
+}
+
+
+a.alt_option{
+  /* color:#000000;
+  font-size:15px;
+  line-height:16px;
+  padding:1px;
+  margin:2px 10px 0px 5px;
+  float: right;*/
+
+  font-size: 14px ;
+  font-weight:bold ;
+  color: #154073 !important;
+  text-decoration:underline;
+  float: right;
+  margin:2px 15px 0px 10px;
+  padding:1px;
+  line-height:16px;
+}
+
+.footer{
+  margin: 0 auto;
+  width: 40%;
+  text-align: center;
+  color: #796b52;
+  font-size: 11px;
+}

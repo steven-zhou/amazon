@@ -1,50 +1,75 @@
 class OrganisationRelationshipsController < ApplicationController
 
+  def new
+    @organisation_relationship = OrganisationRelationship.new
+    @organisation = Organisation.find(params[:param1])
+    respond_to do |format|
+      format.js
+    end
+  end
+  
   def create
-
-    @source_organisation = Organisation.find(params[:organisation_id].to_i)
-    @organisation = @source_organisation
+    
+    #    OrganisationRelationship.delete_all_relationship(params[:organisation_relationship][:related_organisation_id].to_i)
     @relationship = OrganisationRelationship.new(params[:organisation_relationship])
 
-
-    if @relationship.save
-      @organisation = Organisation.find(params[:organisation_id].to_i)
+    if @relationship.save #call back will update the level of branch
+      @organisation = Organisation.find(params[:organisation_relationship][:source_organisation_id].to_i)
+      @relate_organisaton = Organisation.find(params[:organisation_relationship][:related_organisation_id].to_i)
+      @level = @organisation.level
+      @next_level = (@level.to_i)+1
       system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created Organisation Relationship #{@relationship.id}.")
-      flash.now[:message]= "saved successfully"
-      
+      flash.now[:message]= "saved successfully"      
     else
-      #      flash.now[:error] = "Please Enter Current Organisation ID"
-
       flash.now[:error] = "Please Enter All Required Data"if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be blank"))
-      flash.now[:error] = "Please Check Organisation Level " if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
+      flash.now[:error] = "Invalid Organisation ID" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be invalid"))
+      #      flash.now[:error] = "Can't Be Same As Parent Organisation" if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("can't be same as source organisation"))
+      #      flash.now[:error] = "Can't Add Level 0 Organisaion" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("can't add level 0 organisaion"))
+      flash.now[:error] = "Already had Organisation Relationship" if (!@relationship.errors[:check_level].nil? && @relationship.errors.on(:check_level).include?("already had organisaion relationship"))
+      #      flash.now[:error] = "Already In the Relationship" if (!@relationship.errors[:same_organistion_family].nil? && @relationship.errors.on(:same_organistion_family).include?("organisiton already in family"))
       flash.now[:error] = flash_message(:type => "uniqueness_error", :field => "Related Organisation")if (!@relationship.errors[:related_organisation_id].nil? && @relationship.errors.on(:related_organisation_id).include?("has already been taken"))
-      #      flash.now[:error] = flash_message(:type => "not exist", :field => "related_person")if (!@relationship.errors[:related_person_id].nil? && @relationship.errors.on(:related_person_id).include?("can't be invalid"))
     end
-
-    @relationship_new = Relationship.new
     respond_to do |format|
-      format.js{}
+      format.js
+    end
+  end
+
+  def lookup
+    @organisation = Organisation.find(params[:id])
+    if !@organisation.organisation_as_source.blank? || !@organisation.organisation_as_related.blank?
+      flash.now[:error] = "All Relationships Of This Organisation Will Be Delete."
+    end
+    respond_to do |format|
+      format.js
     end
   end
 
   def destroy
-
-    @source_organisation = Organisation.find(params[:id].to_i)
+    #to set the flag for delete level zero org or other org
+    @zero_org=false
     @organisation = Organisation.find(params[:id].to_i)
-    if !params[:related_organisation_id].blank?
-      @organisation_relationship = OrganisationRelationship.find(params[:related_organisation_id].to_i)
-      @relationship = OrganisationRelationship.find_by_source_organisation_id(@source_organisation.id)
-    end
+    #if the organistion is level Zero
+    if @organisation.level == 0
+      
+      @zero_org = true
+      #if the organisaiton do not have any relationship, then just need to change itself level and family_id to be nil
+      unless @organisation.related_organisations.empty?
+        @related_organisation = OrganisationRelationship.find_by_source_organisation_id(params[:id])
+      end
 
-    if !params[:source_organisation_id].blank?
-      @organisation_relationship = OrganisationRelationship.find(params[:source_organisation_id].to_i)
-      @relationship = OrganisationRelationship.find_by_related_organisation_id(@source_organisation.id)
+      @organisation.level=nil
+      @organisation.family_id = nil
+      @organisation.save
+    else
+      @related_organisation = OrganisationRelationship.find_by_related_organisation_id(params[:id])
+      @level = @organisation.level
+      @next_level = (@level.to_i)+1
     end
-    @organisation_relationship.destroy
+    @related_organisation.destroy unless @related_organisation.nil?
+    #    OrganisationRelationship.delete_all_relationship(params[:id])
+
+
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted Relationship ")
-
-    @relationship_new = Relationship.new
-
     respond_to do |format|
       format.js
     end
@@ -55,11 +80,42 @@ class OrganisationRelationshipsController < ApplicationController
     @field = params[:field]
     @relationship = OrganisationRelationship.new
     @organisation = Organisation.find_by_id(params[:params1])
-
     respond_to do |format|
       format.js
     end
   end
 
+  def show_branches
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = @organisation.level rescue @level = 0
+    @next_level = (@level.to_i)+1    
+    if @organisation.try(:family_id) == 1
+      @next_level_label = ClientSetup.send("client_label_#{@next_level}")
+    else
+      @next_level_label = ClientSetup.send("label_#{@next_level}")
+    end
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
+    @page = nil
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def profile_show_branches
+    @organisation = Organisation.find(params[:grid_object_id]) rescue @organisation = nil
+    @level = @organisation.level rescue @level = 0
+    @next_level =(@level.to_i)+1
+    if @organisation.try(:family_id) == 1
+      @level_label = ClientSetup.send("client_label_#{@level}")
+    else
+      @level_label = ClientSetup.send("label_#{@level}")
+    end
+    @reset = "<a href='#' onclick=';return false;' class='organisation_relationship_reset' use='profile_show' grid_object_id='#{@organisation.source_organisations.try(:first).try(:id) if @level!=0}'><img src='/images/Reselect.png' alt='Reset'/></a>"
+    @page = "profile"
+
+    respond_to do |format|
+      format.js
+    end
+  end
   
 end

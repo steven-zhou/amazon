@@ -19,9 +19,7 @@ class EntityReceiptsController < ApplicationController
     if @entity.nil?
       flash.now[:error] = "#{params[:entity_receipt][:entity_type]} #{params[:entity_receipt][:entity_id]} can not be found"
     else    
-      @receipt = @entity.entity_receipts.new(params[:entity_receipt])
-
-      
+      @receipt = @entity.entity_receipts.new(params[:entity_receipt])     
       if @receipt.save
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new receipt with ID #{@receipt.id}.")
       else
@@ -48,22 +46,29 @@ class EntityReceiptsController < ApplicationController
 
 
   def destroy
-    @entity = EntityReceipt.find(params[:id])
-    @deposit = @entity.deposit
-    @entity.destroy
+    @entity_receipt = EntityReceipt.find(params[:id])
+    @deposit = @entity_receipt.deposit
+    @entity_receipt.destroy
 
 
- #for re-calculate the total amount of the receipt
-    receipt_value = 0
-    @entity.receipt_allocations.each do |r|
-      receipt_value += r.amount.to_f
+    #for re-calculate the total amount of the deposit
+    deposit_value = 0
+    @deposit.entity_receipts.each do |r|
+      deposit_value += r.amount.to_f
     end
   
-    @deposit.update_attribute(:total_amount, receipt_value)
+    @deposit.update_attribute(:total_amount, deposit_value)
 
 
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted extension.")
 
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show
+    @entity_receipt = EntityReceipt.find(params[:grid_object_id])
     respond_to do |format|
       format.js
     end

@@ -140,15 +140,17 @@ class DepositsController < ApplicationController
       @campaign = Campaign.active_campaign
       @source = Source.active_source
     end
-    if @field == "histroy_page"
-      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
-    end
+    # we delete the history_page part
+    #    if @field == "histroy_page"
+    #      @count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
+    #    end
     respond_to do |format|
       format.js
     end
   end
 
   def filter
+    #this is not the enquiry page in the person and org
     if params[:enquiry] || params[:bank_run]
       if params[:enquiry]
         @filter_target = "enquiry"
@@ -238,7 +240,8 @@ class DepositsController < ApplicationController
         @count = @deposits.size
         #@count = Deposit.count(:all, :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", session[:entity_id], session[:entity_type], @start_date.to_date, @end_date.to_date])
         if @count > 0
-          generate_html("deposit_enquiry", "deposits/deposit_enquiry_result", "deposit_enquiry_result")
+          @deposit_enquiry_result_html = render_to_string(:partial => "deposits/deposit_enquiry_result")
+          generate_html("deposit_enquiry", @deposit_enquiry_result_html, "deposit_enquiry_result")
         end
         @date_valid = true
       else
@@ -298,9 +301,7 @@ class DepositsController < ApplicationController
   def run
     conditions = Array.new
     values = Array.new
-    conditions << "already_banked = ?"
-    values << "false"
-
+    conditions << "bank_run_id IS NULL"
 
     @date_valid = true
     if (params[:bank_account_number] && params[:bank_account_number].to_i!= 0)
@@ -333,9 +334,9 @@ class DepositsController < ApplicationController
         flash[:error] = "Please make sure the start date and end date are entered in valid format (dd-mm-yyyy)"
       end
     end
-    
+
     @deposits = Deposit.find(:all, :conditions => [conditions.join(" AND "), *values])
-    
+  
     if @deposits.blank?
       flash[:warning] = "No outstanding deposits found"
     elsif !@date_valid
@@ -343,32 +344,57 @@ class DepositsController < ApplicationController
       
     else
       #new Bank Run
-      @run = BankRun.new
-      BankRun.transaction do
-        @run.save
-        @deposits.each do |i|
-          i.bank_run_id = @run.id
-          i.already_banked = true
-          i.save
+      if params[:confirm]
+        @run = BankRun.new
+        BankRun.transaction do
+          @run.save
+          @deposits.each do |i|
+            if i.total_amount.nil? || i.total_amount.to_f == 0.00
+              i.destroy # invalid deposit would be deleted
+            else
+              i.bank_run_id = @run.id            
+            end
+            i.save
+          end
         end
+        flash[:confirmation] = "<p>Reports are generated and available here:</p>"
+        flash[:confirmation] << prepare_bank_run_report(@run.id).to_s
+        
+      else        
+        # preview bank run report
+        @deposits.each do |i|
+          if i.total_amount.nil? || i.total_amount.to_f == 0.00 || i.to_be_banked == false
+            @deposits.delete(i) # only valid deposit would be included in the report
+          end
+        end
+        flash[:confirmation] = "<p>Preview Reports are generated and available here:</p>"
+        
+        flash[:confirmation] << prepare_bank_run_report(0).to_s
+
+       
       end
-      flash[:confirmation] = "<p>Reports are generated and available here:</p>"
-      prepare_bank_run_report(@run.id)
     end
 
     redirect_to :controller => "receipting", :action => "bank_run"
   end
 
+
   def prepare_bank_run_report(bank_run_id)
+    if bank_run_id !=0 # confirm bank run
+      @run = BankRun.find(bank_run_id)
+      @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
+      @time =  @run.created_at.getlocal.strftime('%I:%m%p')
+      @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ? and to_be_banked = true and already_banked = false", bank_run_id])
+    else
+      @date = Time.now.getlocal.strftime('%d-%m-%Y')
+      @time = Time.now.getlocal.strftime('%I:%m%p')
+    end
+
     @client = ClientOrganisation.first
-    @run = BankRun.find(bank_run_id)
-    @date = @run.created_at.getlocal.strftime('%d-%m-%Y')
-    @time =  @run.created_at.getlocal.strftime('%I:%m%p')
-    @deposits = Deposit.find(:all, :conditions => ["bank_run_id = ?", bank_run_id])
     @accounts = Array.new
     @cash_deposits = Array.new
     @cheque_deposits = Array.new
-
+puts"--0SSSS01110--DEBUG--#{@accounts.to_yaml}---"
     # for bank run audit sheet or credit cards receipt
     if params[:BRAS] || params[:CCR]
       @master_deposits = Array.new
@@ -407,12 +433,13 @@ class DepositsController < ApplicationController
       payment_method_meta_type = i.payment_method_meta_type.try(:name)
       payment_method_type = i.payment_method_type.try(:name)
       @accounts << bank_account unless @accounts.include?(bank_account)
-
-      if payment_method_meta_type == "Cash"
-        @cash_deposits[bank_account.id] << i rescue @cash_deposits[bank_account.id]=[i]
-      end
-      if payment_method_meta_type == "Cheque"
-        @cheque_deposits[bank_account.id] << i rescue @cheque_deposits[bank_account.id]=[i]
+      if i.to_be_banked == true && i.already_banked == false
+        if payment_method_meta_type == "Cash"
+          @cash_deposits[bank_account.id] << i rescue @cash_deposits[bank_account.id]=[i]
+        end
+        if payment_method_meta_type == "Cheque"
+          @cheque_deposits[bank_account.id] << i rescue @cheque_deposits[bank_account.id]=[i]
+        end
       end
 
       # for bank run audit sheet or credit cards receipt
@@ -429,14 +456,20 @@ class DepositsController < ApplicationController
       # for receipt account summary
       if params[:RAS]
         @receipt_account.each do |receipt_account|
-          i.receipts.each do |receipt|
-            if receipt.receipt_account.name == receipt_account.name
-              if receipt.deposit.payment_method_meta_type.name == "Cash"
-                @receipt_account_cash[bank_account.id+receipt_account.id] << receipt.amount rescue @receipt_account_cash[bank_account.id+receipt_account.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
-                @receipt_account_cheque[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cheque[bank_account.id+receipt_account.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
-                @receipt_account_cards[bank_account.id+receipt_account.id] <<receipt.amount rescue @receipt_account_cards[bank_account.id+receipt_account.id] = [receipt.amount]
+          i.entity_receipts.each do |receipt|
+            receipt.receipt_allocations.each do |allocation|
+              if allocation.receipt_account.name == receipt_account.name
+                if receipt.deposit.payment_method_meta_type.name == "Cash"
+                  @receipt_account_cash[bank_account.id] = [] if @receipt_account_cash[bank_account.id].nil?
+                  @receipt_account_cash[bank_account.id][receipt_account.id] += receipt.amount rescue @receipt_account_cash[bank_account.id][receipt_account.id] = receipt.amount
+                elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+                  @receipt_account_cheque[bank_account.id] = [] if @receipt_account_cheque[bank_account.id].nil?
+                  @receipt_account_cheque[bank_account.id][receipt_account.id] += receipt.amount rescue @receipt_account_cheque[bank_account.id][receipt_account.id] = receipt.amount
+                elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
+                  @receipt_account_cards[bank_account.id] = [] if @receipt_account_cards[bank_account.id].nil?
+                  @receipt_account_cards[bank_account.id][receipt_account.id] += receipt.amount rescue @receipt_account_cards[bank_account.id][receipt_account.id] = receipt.amount
+                end
+
               end
             end
           end
@@ -445,7 +478,7 @@ class DepositsController < ApplicationController
 
       # for receipt type summary
       if params[:RTS]
-        i.receipts.each do |receipt|
+        i.entity_receipts.each do |receipt|
           if receipt.deposit.payment_method_meta_type.name == "Cash"
             @receipt_type_cash[bank_account.id] << receipt.amount rescue @receipt_type_cash[bank_account.id]  = [receipt.amount]
           elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
@@ -453,7 +486,7 @@ class DepositsController < ApplicationController
           elsif receipt.deposit.payment_method_type.name == "Master Card"
             @receipt_type_master_cards[bank_account.id] << receipt.amount rescue @receipt_type_master_cards[bank_account.id] = [receipt.amount]
           elsif receipt.deposit.payment_method_type.name == "Visa Card"
-            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_card[bank_account.id] = [receipt.amount]
+            @receipt_type_visa_cards[bank_account.id] << receipt.amount rescue @receipt_type_visa_cards[bank_account.id] = [receipt.amount]
           end
         end
       end
@@ -462,14 +495,19 @@ class DepositsController < ApplicationController
       #for bank run campaign summary
       if params[:CS]
         @campaign.each do |campaign|
-          i.receipts.each do |receipt|
-            if receipt.campaign.try(:name) == campaign.name
-              if receipt.deposit.payment_method_meta_type.name == "Cash"
-                @campaign_cash[bank_account.id+campaign.id] << receipt.amount rescue @campaign_cash[bank_account.id+campaign.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
-                @campaign_cheque[bank_account.id+campaign.id] <<receipt.amount rescue @campaign_cheque[bank_account.id+campaign.id] = [receipt.amount]
-              elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
-                @campaign_cards[bank_account.id+campaign.id] <<receipt.amount rescue @campaign_cards[bank_account.id+campaign.id] = [receipt.amount]
+          i.entity_receipts.each do |receipt|
+            receipt.receipt_allocations.each do |allocation|
+              if allocation.campaign.try(:name) == campaign.name
+                if receipt.deposit.payment_method_meta_type.name == "Cash"
+                  @campaign_cash[bank_account.id] = [] if @campaign_cash[bank_account.id].nil?
+                  @campaign_cash[bank_account.id][campaign.id] += receipt.amount rescue @campaign_cash[bank_account.id][campaign.id] =receipt.amount
+                elsif receipt.deposit.payment_method_meta_type.name == "Cheque"
+                  @campaign_cheque[bank_account.id]=[] if @campaign_cheque[bank_account.id].nil?
+                  @campaign_cheque[bank_account.id][campaign.id] +=receipt.amount rescue @campaign_cheque[bank_account.id][campaign.id] = receipt.amount
+                elsif receipt.deposit.payment_method_meta_type.name == "Credit Card"
+                  @campaign_cards[bank_account.id]=[] if @campaign_cards[bank_account.id].nil?
+                  @campaign_cards[bank_account.id][campaign.id] +=receipt.amount rescue @campaign_cards[bank_account.id][campaign.id] = receipt.amount
+                end
               end
             end
           end
@@ -477,7 +515,7 @@ class DepositsController < ApplicationController
       end
 
     end
-
+   
     #config temp folder
     file_prefix = "public"
     file_dir = "temp/#{@current_user.user_name}/bank_run_reports"
@@ -485,76 +523,157 @@ class DepositsController < ApplicationController
 
     #pdf header and footer
     now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
-    pdf_options = "--page-size A4 --header-center MemberZone --header-right 'Page [page] of [toPage]' --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{now}'"
+    
 
     #prepare bank deposit sheet
-
-    @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet")
-    File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html", 'w') do |f|
-      f.puts "#{@bank_deposit_sheet}"
-    end
-    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankDepositSheet.html"
-    flash[:confirmation] << "<p>BankDepositSheet: <a href=\'/#{file_dir}/#{@run.id}-BankDepositSheet.pdf\' target='_blank'>#{@run.id}-BankDepositSheet.pdf</a></p>"
+    @run_id = bank_run_id == 0 ? "temp" : @run.id
 
 
-    #prepare bank run audit sheet
-    if params[:BRAS]
-      @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet")
-      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html", 'w') do |f|
-        f.puts "#{@bank_run_audit_sheet}"
+    message_array = Array.new
+
+    i = 0
+    @accounts.each do |account|
+    
+      report_name = "#{@run_id}-#{account.id}-BankDepositSheet"
+      @bank_deposit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
+      @bank_deposit_sheet = render_to_string(:partial => "deposits/bank_deposit_sheet",:locals=>{:account=>account})
+      @bank_deposit_sheet_footer = render_to_string(:partial => "deposits/bank_deposit_sheet_footer",:locals=>{:account=>account})
+     
+      @space = -50
+      generate_html_and_pdf(@bank_deposit_sheet_header,@bank_deposit_sheet, report_name, file_prefix, file_dir, @space)
+
+      
+      message_array[0] = ["<p>BankDepositSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[0].nil?
+      i += 1
+      message_array[0] << "<p style='margin-left:25%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if i > 1
+     
+    
+
+
+
+      #prepare bank run audit sheet
+      if params[:BRAS]
+
+        report_name = "#{@run_id}-#{account.id}-BankRunAuditSheet"
+        @bank_run_audit_sheet_header = render_to_string(:partial => "deposits/bank_deposit_sheet_header",:locals=>{:account=>account})
+        @bank_run_audit_sheet = render_to_string(:partial => "deposits/bank_run_audit_sheet",:locals=>{:account=>account})
+        @space = -40
+        generate_html_and_pdf(@bank_run_audit_sheet_header,@bank_run_audit_sheet, report_name, file_prefix, file_dir, @space)
+        # flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        message_array[1] = ["<p style='margin-top:5%;'>BankRunAuditSheet: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[1].nil?
+        message_array[1] << "<p style='margin-left:27%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
       end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunAuditSheet.html"
-      flash[:confirmation] << "<p>BankRunAuditSheet: <a href=\'/#{file_dir}/#{@run.id}-BankRunAuditSheet.pdf\' target='_blank'>#{@run.id}-BankRunAuditSheet.pdf</a></p>"
+  
+      #prepare bank run campaign summary
+      if params[:CS]
+        @space = -20
+        report_name = "#{@run_id}-#{account.id}-BankRunCampaignSummary"
+        @bank_run_campaign_summary = render_to_string(:partial => "deposits/bank_run_campaign_summary",:locals=>{:account=>account})
+        @bank_run_campaign_summary_header = render_to_string(:partial => "deposits/bank_run_campaign_summary_header",:locals=>{:account=>account})
+        generate_html_and_pdf(@bank_run_campaign_summary_header,@bank_run_campaign_summary, report_name, file_prefix, file_dir, @space)
+        #flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        message_array[2] = ["<p style='margin-top:5%;'>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[2].nil?
+        message_array[2] << "<p style='margin-left:38%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+      end
+
+      #prepare credit card receipt
+      if params[:CCR]
+
+    
+        @credit_card_receipt = ""
+        @space = -100
+        @footer_space = -30
+        if !@master_deposits.empty?
+          report_name = "#{@run_id}-#{account.id}-MasterCreditCardReceipt"
+          @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
+          @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
+          @credit_card_receipt_footer = render_to_string(:partial => "deposits/credit_card_receipt_footer",:locals=>{:deposit => @master_deposits,:account=>account,:type => "MasterCard"})
+          generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space,@credit_card_receipt_footer,@footer_space)
+          #flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+          message_array[3] = ["<p style='margin-top:5%;'>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[3].nil?
+          message_array[3] << "<p style='margin-left:30%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+        end
+
+        if !@visa_deposits.empty?
+          report_name = "#{@run_id}-#{account.id}-VisaCreditCardReceipt"
+          @credit_card_receipt = render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard",:account=>account})
+          @credit_card_receipt_header = render_to_string(:partial => "deposits/credit_card_receipt_header",:locals=>{:deposit => @visa_deposits,:account=>account,:type => "VisaCard"})
+          generate_html_and_pdf( @credit_card_receipt_header,@credit_card_receipt, report_name, file_prefix, file_dir, @space)
+
+          #flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+          message_array[4] = ["<p style='margin-top:5%;'>CreditCardReceipt: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[4].nil?
+          message_array[4] << "<p style='margin-left:30%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+        end
+
+      end
+    
+   
+      #prepare receipt account summary
+      if params[:RAS]
+        @space = -20
+        report_name = "#{@run_id}-#{account.id}-ReceiptAccountSummary"
+        @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary",:locals=>{:account=>account})
+        @receipt_account_summary_header = render_to_string(:partial => "deposits/receipt_account_summary_header",:locals=>{:account=>account})
+        generate_html_and_pdf( @receipt_account_summary_header,@receipt_account_summary, report_name, file_prefix, file_dir, @space)
+        #flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"
+        message_array[5] = ["<p style='margin-top:5%;'>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[5].nil?
+        message_array[5] << "<p style='margin-left:33%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+      end
+    
+      #prepare receipt type summary
+      if params[:RTS]
+        @space = -20
+        report_name = "#{@run_id}-#{account.id}-ReceiptTypeSummary"
+        @receipt_type_summary = render_to_string(:partial => "deposits/receipt_type_summary",:locals=>{:account=>account})
+        @receipt_type_summary_header = render_to_string(:partial => "deposits/receipt_type_summary_header",:locals=>{:account=>account})
+        generate_html_and_pdf( @receipt_type_summary_header,@receipt_type_summary, report_name, file_prefix, file_dir, @space)
+        #flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a><p>"
+        message_array[6] = ["<p style='margin-top:5%;'>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>"] if message_array[6].nil?
+        message_array[6] << "<p style='margin-left:29%'><a href=\'/#{file_dir}/#{report_name}.pdf\' target='_blank'>#{report_name}.pdf</a></p>" if  i > 1
+      end
+    
     end
     
-    #prepare bank run campaign summary
-    if params[:CS]
-      @bank_run_campaign_summary = render_to_string(:partial => "deposits/bank_run_campaign_summary")
-      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html", 'w') do |f|
-        f.puts "#{@bank_run_campaign_summary}"
-      end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-BankRunCampaignSummary.html"
-      flash[:confirmation] << "<p>BankRunCampaignSummary: <a href=\'/#{file_dir}/#{@run.id}-BankRunCampaignSummary.pdf\' target='_blank'>#{@run.id}-BankRunCampaignSummary.pdf</a></p>"
-    end
+    return message_array
+    
+  end
 
-    #prepare credit card receipt
-    if params[:CCR]
-      @credit_card_receipt = ""
-      if !@master_deposits.empty?
-        @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @master_deposits, :type => "MasterCard"})
-      end
-      if !@master_deposits.empty? && !@visa_deposits.empty?
-        @credit_card_receipt << "<div class=\"page_break\">&nbsp;</div>"
-      end
-      if !@visa_deposits.empty?
-        @credit_card_receipt << render_to_string(:partial => "deposits/credit_card_receipt", :locals => {:deposit => @visa_deposits, :type => "VisaCard"})
-      end
-      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html", 'w') do |f|
-        f.puts "#{@credit_card_receipt}"
-      end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.html #{file_prefix}/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf #{pdf_options}"
-      flash[:confirmation] << "<p>CreditCardReceipt: <a href=\'/#{file_dir}/#{@run.id}-CreditCardReceipt.pdf\' target='_blank'>#{@run.id}-CreditCardReceipt.pdf</a></p>"
+  #  def generate_html_to_pdf(file_prefix,file_dir,report_name,header_content,content,time,header_spacing)
+  #
+  #    File.open("#{file_prefix}/#{file_dir}/#{report_name}-header.html", 'w') do |f|
+  #      f.puts "#{header_content}"
+  #    end
+  #
+  #    File.open("#{file_prefix}/#{file_dir}/#{report_name}.html", 'w') do |f|
+  #      f.puts "#{content}"
+  #    end
+  #
+  #    pdf_options = "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html --header-spacing #{header_spacing} --footer-center 'Copyright MemberZone Pty Ltd - Generated at #{time}'"
+  #    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{report_name}.html #{file_prefix}/#{file_dir}/#{report_name}.pdf #{pdf_options};"
+  #  end
+
+  def generate_html_and_pdf(header,content, report_name, file_prefix, file_dir, header_space,footer=nil,footer_space = -20)
+
+    #------comment---------generate header html
+
+    generate_html("bank_run_reports",  header, "#{report_name}-header")
+    if footer == nil
+      #------comment---------prepare the header options in pdf
+      pdf_options={'header' => "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html",
+        'extra_option'=> "--header-spacing #{ header_space}"
+      }
+
+     
+    else
+      generate_html("bank_run_reports",  footer, "#{report_name}-footer")
+      #------comment---------prepare the header options in pdf
+      pdf_options={'header' => "--header-html #{file_prefix}/#{file_dir}/#{report_name}-header.html",
+        'footer' => "--footer-html #{file_prefix}/#{file_dir}/#{report_name}-footer.html",
+        'extra_option'=> "--header-spacing #{header_space}  --footer-spacing #{footer_space}"
+      }
+      
     end
-    
-    #prepare receipt account summary
-    if params[:RAS]
-      @receipt_account_summary = render_to_string(:partial => "deposits/receipt_account_summary")
-      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html", 'w') do |f|
-        f.puts "#{@receipt_account_summary}"
-      end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptAccountSummary.html"
-      flash[:confirmation] << "<p>ReceiptAccountSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptAccountSummary.pdf\' target='_blank'>#{@run.id}-ReceiptAccountSummary.pdf</a></p>"
-    end
-    
-    #prepare receipt type summary
-    if params[:RTS]
-      @receipt_type_summary = render_to_string(:partial => "deposits/receipt_type_summary")
-      File.open("#{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html", 'w') do |f|
-        f.puts "#{@receipt_type_summary}"
-      end
-      system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf #{pdf_options}; rm #{file_prefix}/#{file_dir}/#{@run.id}-ReceiptTypeSummary.html"
-      flash[:confirmation] << "<p>ReceiptTypeSummary: <a href=\'/#{file_dir}/#{@run.id}-ReceiptTypeSummary.pdf\' target='_blank'>#{@run.id}-ReceiptTypeSummary.pdf</a><p>"
-    end
+    generate_html_and_make_pdf("bank_run_reports", content, report_name, report_name, pdf_options)
   end
 
 

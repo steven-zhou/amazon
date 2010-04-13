@@ -1,6 +1,4 @@
 <style type="text/css">
-  .page_break {page-break-after: always;}
-  #receipt_type_summary{width: 800px;padding: 0;margin: 0 auto;}
   #receipt_type_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
   #receipt_type_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
   #receipt_type_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
@@ -12,12 +10,42 @@
   #receipt_type_summary .line_seperator {width: 58%;margin: 10px auto;height: 1px;;border-bottom: 1px dashed black;}
   #receipt_type_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
   #receipt_type_summary .pure_bold{font-weight: 600;}
+  #space {height:50mm;}
 </style>
+<div id="space">&nbsp;</div>
 <div id="receipt_type_summary">
-  <%-@accounts.each do |account|%>
-    <%= render :partial => "deposits/receipt_type_summary_detail", :locals => {:account => account} %>
-    <%-if account != @accounts.last %>
-      <div class="page_break">&nbsp;</div>
-    <%-end %>
-  <%-end %>
+  <%-if @receipt_type_cash[account.id].nil? %>
+    <%- @receipt_type_cash[account.id]=[0]%>
+  <%-end%>
+  <%-if @receipt_type_cheque[account.id].nil? %>
+    <%- @receipt_type_cheque[account.id]=[0]%>
+  <%-end%>
+  <%-if @receipt_type_master_cards[account.id].nil? %>
+    <%- @receipt_type_master_cards[account.id]=[0]%>
+  <%-end%>
+  <%-if @receipt_type_visa_cards[account.id].nil? %>
+    <%- @receipt_type_visa_cards[account.id]=[0]%>
+  <%-end%>
+  <div class="div_line">
+    <div class="div_cell cell_50">Cash</div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cash[account.id].compact.sum.to_f)%></div>
+  </div>
+  <div class="div_line">
+    <div class="div_cell cell_50">Cheque</div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cheque[account.id].compact.sum.to_f)%></div>
+  </div>
+  <div class="div_line">
+    <div class="div_cell cell_50">Master Card</div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_master_cards[account.id].compact.sum.to_f)%></div>
+  </div>
+  <div class="div_line">
+    <div class="div_cell cell_50">Visa Card</div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_visa_cards[account.id].compact.sum.to_f)%></div>
+  </div>
+  <br clear="both"/>
+  <div class="line_seperator"></div>
+  <div class="div_line">
+    <div class="div_cell cell_50 pure_bold">Total</div>
+    <div class="div_cell cell_50"><%= number_to_currency(@receipt_type_cash[account.id].compact.sum.to_f+@receipt_type_cheque[account.id].compact.sum.to_f+@receipt_type_master_cards[account.id].compact.sum.to_f+@receipt_type_visa_cards[account.id].compact.sum.to_f)%></div>
+  </div>
 </div>

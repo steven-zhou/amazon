@@ -1,20 +1,68 @@
 <style type="text/css">
   .page_break {page-break-after: always;}
-  #bank_run_audit_sheet #header {margin:5px auto;width:100%;text-align:center;}
-  #bank_run_audit_sheet #title {border-top: 3px double black;border-bottom: 3px double black;}
-  #bank_run_audit_sheet #content {border-bottom: 3px double black;}
-  #bank_run_audit_sheet .top_item {float:left;width:33%;}
-  #bank_run_audit_sheet .title_item {float:left;width:20%;}
-  #bank_run_audit_sheet .clear {clear:both;}
-  #bank_run_audit_sheet #summary {width:100%;}
-  #bank_run_audit_sheet #summary_detail_left {width:60%;float:left;}
-  #bank_run_audit_sheet #summary_detail_right {width:40%;float:left;}
+  #header {margin:5px auto;width:100%;text-align:center;}
+  #title {border-top: 3px double black;border-bottom: 3px double black;}
+  #content {border-bottom: 3px double black;}
+  .top_item {float:left;width:33%;}
+  .title_item {float:left;width:20%;}
+  .clear {clear:both;}
+  #summary {width:100%;}
+  #summary_detail_left {width:60%;float:left;}
+  #summary_detail_right {width:40%;float:left;}
+  #space {height:40mm;}
 </style>
-<div id="bank_run_audit_sheet">
-<%- @accounts.each do |account|%>
-<%= render :partial => "deposits/bank_run_audit_sheet_per_account", :locals => {:account => account} %>
-  <%- if account != @accounts.last %>
-  <div class="page_break">&nbsp;</div>
+<div id="space">&nbsp;</div>
+<div id="content">
+  <%- sub_total = 0.00%>
+  <%- @cash_deposits[account.id].try(:each) do |cash_transaction|%>
+    <div class="title_item"><%= cash_transaction.id %></div>
+    <div class="title_item"><%= cash_transaction.entity.name rescue cash_transaction.entity.full_name %></div>
+    <div class="title_item">Cash</div>
+    <%- total = cash_transaction.total_amount%>
+    <%- sub_total += total%>
+    <div class="title_item"><%= number_to_currency(total) %></div>
+    <br clear="both"/>
   <%- end %>
-<%- end %>
+
+  <%- @cheque_deposits[account.id].try(:each) do |cheque_transaction|%>
+    <div class="title_item"><%= cheque_transaction.id %></div>
+    <div class="title_item"><%= cheque_transaction.deposit_detail.try(:name_on_cheque) %></div>
+    <div class="title_item">Cheque</div>
+    <%- total = cheque_transaction.total_amount%>
+    <%- sub_total += total%>
+    <div class="title_item"><%= number_to_currency(total) %></div>
+    <br clear="both"/>
+  <%- end %>
+
+  <%- @master_deposits[account.id].try(:each) do |master_transaction|%>
+    <div class="title_item"><%= master_transaction.id %></div>
+    <div class="title_item"><%= master_transaction.deposit_detail.try(:name_on_card) %></div>
+    <div class="title_item">Master</div>
+    <%- total = master_transaction.total_amount%>
+    <%- sub_total += total%>
+    <div class="title_item"><%= number_to_currency(total) %></div>
+    <br clear="both"/>
+  <%- end %>
+
+  <%- @visa_deposits[account.id].try(:each) do |visa_transaction|%>
+    <div class="title_item"><%= visa_transaction.id %></div>
+    <div class="title_item"><%= visa_transaction.deposit_detail.try(:name_on_card) %></div>
+    <div class="title_item">Visa</div>
+    <%- total = visa_transaction.total_amount%>
+    <%- sub_total += total%>
+    <div class="title_item"><%= number_to_currency(total) %></div>
+    <br clear="both"/>
+  <%- end %>
+
+  <br class="clear"/>
+</div>
+
+<div id="summary">
+  <div id="summary_detail_left">
+    <h2>Bank Deposit Total</h2>
+  </div>
+  <div id="summary_detail_right">
+    <h2><%= number_to_currency(sub_total) %></h2>
+  </div>
+  <br class="clear"/>
 </div>

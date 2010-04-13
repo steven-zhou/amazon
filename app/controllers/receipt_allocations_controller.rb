@@ -58,12 +58,12 @@ class ReceiptAllocationsController < ApplicationController
     @receipt_allocation.destroy
     
     #for re-calculate the total amount of the receipt
-    receipt_value = 0
+    @receipt_value = 0
     @entity_receipt.receipt_allocations.each do |r|
-      receipt_value += r.amount.to_f
+      @receipt_value += r.amount.to_f
     end
-    @entity_receipt.update_attribute(:amount, receipt_value)
-    @deposit.update_attribute(:total_amount, receipt_value)
+    @entity_receipt.update_attribute(:amount, @receipt_value)
+    @deposit.update_attribute(:total_amount, @receipt_value)
     system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) deleted receipt.")
 
     if @entity_receipt.receipt_allocations.blank?

@@ -3,17 +3,17 @@
     
     #image{:style=> "margin:3px auto;float:left;"}
       - if i.image.blank?
-        = link_to_function image_tag ('Icons/System/image-missing.png', :class => "medium"), :class => "album_click", :url => "/organisations/show_left", :param1 => "#{i.id}"
+        = link_to_function image_tag ('Icons/System/image-missing.png', :class => "medium"), :class => "album_click", :url => "/organisations/show_left", :param1 => "#{i.id}", :current_operation => "#{session[:current_operation]}", :type => "organisation"
       - else
         -#= link_to image_tag("1.png", :alt => "Greenery foryou!", :id => "photo", :class => "medium"), "images/1.png", {:rel => "lightbox", :title => "Greenery", :class => "lightbox"}
-        = link_to_function image_tag("#{i.image.try(:id)}", :alt => "#{i.name}", :id => "photo", :class => "medium"), :class => "album_click", :url => "/organisations/show_left", :param1 => "#{i.id}"
+        = link_to_function image_tag("#{i.image.try(:id)}", :alt => "#{i.full_name}", :id => "photo", :class => "medium"), :class => "album_click", :url => "/organisations/show_left", :param1 => "#{i.id}", :current_operation => "#{session[:current_operation]}", :type => "organisation"
     #organisation_info_card{:style=> "float:left"}
       #organisation_name{:style=> "float:left;margin:5px;font-weight:bold;font-size:15px;"}
-        =i.try(:full_name)
+        =truncate(i.try(:full_name), 16)
       %br
       #organisation_contact_phone{:style=> "float:left;margin:5px;font-size:12px;"}
         =i.try(:primary_phone_num).nil? ? "&nbsp" : i.primary_phone_num
       %br
       #organisation_contact_email{:style=> "float:left;margin:5px;font-size:12px;"}
-        =i.try(:primary_email).nil? ? "&nbsp" : i.primary_email
+        =i.try(:primary_email).nil? ? "&nbsp" : truncate(i.primary_email.value, 16)
 

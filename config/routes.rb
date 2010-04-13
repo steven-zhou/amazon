@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   map.resources :extras,:collection => {:page_initial => :get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
-  map.resources :organisation_relationships, :collection => {:page_initial => :get}
+  map.resources :organisation_relationships, :collection => {:page_initial => :get, :show_branches => :get, :profile_show_branches => :get}
   map.resources :organisation_groups, :collection => {:page_initial => :get}
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,:page_initial => :get,:change_status => :get,:show_album=>:get,:show_grid=>:get},
@@ -49,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:show_album=>:get,:show_grid=>:get},
+    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:org_relationship_name_show => :get,:show_album=>:get,:show_grid=>:get, :organisation_treeview => :get},
     :member => {:name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
@@ -66,9 +66,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get, :verify_new_person_bank_account_person_id => :get, :verify_edit_person_bank_account_person_id => :get,
+  map.resources :client_setups, :collection => {:parameters => :get, :organisation_structure => :get,:client_organisation_structure => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get, :verify_new_person_bank_account_person_id => :get, :verify_edit_person_bank_account_person_id => :get,
     :client_bank_accounts => :get, :new_client_bank_account => :get, :create_client_bank_account => :post, :edit_client_bank_account => :get, :update_client_bank_account => :post, :destroy_client_bank_account => :get,
-    :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get,:delete_archive_system_log_entries=>:get
+    :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get,:delete_archive_system_log_entries=>:get, :reset_default_label => :get, :reset_client_default_label => :get
 
   }
   map.resources :contacts, :collection => {:page_initial => :get}
@@ -174,6 +174,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :membership_fees,:collection=> {:fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
   
   map.resources :tests
+  map.resources :guests,:collection=>{:signin=>:get,:captcha=>:get,:reset=>:get}
+  map.resources :receipting,:collection=>{:personal_deposit=>:get,:organisational_deposit=>:get,:show_personal_deposit=>:get,:show_organisational_deposit=>:get,:enquiry=>:get,:bank_run=>:get, :bank_run_document_filter => :get, :page_initial => :get}
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:
