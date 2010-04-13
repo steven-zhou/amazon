@@ -155,3 +155,14 @@ $(function() {
     return false;
   });
 });
+
+
+$(function() {
+  $('.try_again').live('click', function(){
+    $("#create_guest input[type='text']").val('').blur()
+
+    $('#regenerate_captcha').click();
+  });
+});
+
+
