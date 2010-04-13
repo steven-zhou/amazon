@@ -192,10 +192,10 @@ $(function(){
     return false;
   };
 
-  $(".compulsory_field").live('keyup', function(){
+  $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
 
-    if ($.trim($(this).val())!="")
+    if ($.trim($(this).val())!="" && e.which !=13)
     {
       compulsory_check($(this));
     }
@@ -235,19 +235,10 @@ $(function(){
     }
     submit_button.attr("disabled", true);
     submit_button.after('<div id="spinner" style="height: 24px; float: right; background-image: url(/images/load.gif); background-repeat: no-repeat; background-position: center center; width: 50px; margin-top: 15px;"></div>');
-
   };
 
   $('form').live('submit', function(){
     disable_form_after_submit($(this));
-  });
-
-  $('form').keypress(function(e){
-    if(e.which == 13){
-      return false;
-    }else{
-      return true;
-    }
   });
 });
 
