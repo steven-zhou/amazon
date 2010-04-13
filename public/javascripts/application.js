@@ -6,13 +6,6 @@ $(function(){
     disable_form_after_submit($(this));
   });
 
-  $('form').live('keypress', function(e){
-    if(e.which == 13){
-      return false;
-    }else{
-      return true;
-    }
-  });
 });
 
 $(function(){
@@ -2037,9 +2030,9 @@ $(function(){
 });
 
 $(function(){
-  $(".mandantory_field").live('keyup',function(){
+  $(".mandantory_field").live('keyup',function(e){
 
-    if ($.trim($(this).val())!="")
+    if ($.trim($(this).val())!="" && e.which !=13)
     {
       mandantory_check($(this));
     }
@@ -2121,10 +2114,10 @@ $(function(){
     return false;
   };
 
-  $(".compulsory_field").live('keyup', function(){
+  $(".compulsory_field").live('keyup', function(e){
     var current_form = $('#'+$(this).closest('form').attr('id'));
 
-    if ($.trim($(this).val())!="")
+    if ($.trim($(this).val())!="" && e.which!=13)
     {
       compulsory_check($(this));
     }
