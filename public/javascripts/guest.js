@@ -54,8 +54,11 @@ $(function() {
 $(function() {
   $("#register_guest_account").click(function(){
 
+
+
     $("#signin_form").fadeOut();
     $("#register_container").fadeIn();
+
     return false;
   });
 
