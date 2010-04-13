@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   map.resources :extras,:collection => {:page_initial => :get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
-  map.resources :organisation_relationships, :collection => {:page_initial => :get}
+  map.resources :organisation_relationships, :collection => {:page_initial => :get, :show_branches => :get, :profile_show_branches => :get}
   map.resources :organisation_groups, :collection => {:page_initial => :get}
   map.resources :people, :shallow=> true, 
     :collection => {:find => :get, :search_lists => :get, :show_postcode => :get,:lookup_fill => :get,:lookup => :get,  :check_duplication =>:get ,:show_list_select => :get, :show_left => :get, :show_list => :get, :search => :post, :name_finder => :get, :role_finder => :get, :master_doc_meta_type_finder => :get, :master_doc_type_finder => :get, :login_id_finder => :get, :general_name_show => :get, :general_show_list => :get,:page_initial => :get,:change_status => :get,:show_album=>:get,:show_grid=>:get},
@@ -49,7 +49,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :keyword_links, :collection => {:remove_key => :post, :add_key => :post}
 
   map.resources :organisations, :shallow=>true,
-    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get},
+    :collection => {:find => :get,:check_level_change=>:get,:change_status => :get, :search => :post,:show_left => :get, :name_finder => :get, :show_industrial_code => :get, :show_sub_category => :get, :show_list => :get, :check_duplication => :get, :lookup => :get, :lookup_fill => :get, :general_show_list => :get, :org_general_name_show => :get,:org_relationship_name_show => :get,:show_album=>:get,:show_grid=>:get, :organisation_treeview => :get},
     :member => {:name_card => :get} do |organisation|
     organisation.resources :addresses, :member => {:set_primary_address => :post}, :collection => {:search_postcodes => :get}
     organisation.resources :phones
@@ -66,9 +66,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
 
-  map.resources :client_setups, :collection => {:parameters => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get, :verify_new_person_bank_account_person_id => :get, :verify_edit_person_bank_account_person_id => :get,
+  map.resources :client_setups, :collection => {:parameters => :get, :organisation_structure => :get,:client_organisation_structure => :get, :license_info => :get, :client_organisation => :get, :installation => :get, :available_modules => :get, :super_admin => :get, :member_zone => :get, :system_log_management => :get, :search_system_log => :get, :system_log_verify_user_name => :get, :archive_system_log_entries => :get, :system_log_archive_verify_user_name => :get, :feedback_list => :get, :verify_new_person_bank_account_person_id => :get, :verify_edit_person_bank_account_person_id => :get,
     :client_bank_accounts => :get, :new_client_bank_account => :get, :create_client_bank_account => :post, :edit_client_bank_account => :get, :update_client_bank_account => :post, :destroy_client_bank_account => :get,
-    :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get,:delete_archive_system_log_entries=>:get
+    :person_bank_accounts => :get, :new_person_bank_account => :get, :create_person_bank_account => :post, :edit_person_bank_account => :get, :update_person_bank_account => :post, :destroy_person_bank_account => :get,:delete_archive_system_log_entries=>:get, :reset_default_label => :get, :reset_client_default_label => :get
 
   }
   map.resources :contacts, :collection => {:page_initial => :get}
@@ -87,8 +87,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :roles,  :collection => {:show_roles => :get,:meta_name_finder => :get, :meta_type_name_finder => :get,:role_type_finder => :get, :page_initial => :get,:retrieve => :get, :delete_roles => :get}
 
-
-  map.resources :receipting, :collection => {:campaign_data => :get, :page_initial => :get, :new_campaign => :get, :create_campaign => :post, :edit_campaign => :get, :update_campaign => :post, :show_by_campaign => :get, :new_source => :get, :edit_source => :get, :update_source => :post, :copy_campaign => :get, :create_copy_of_campaign => :post, :destroy_campaign => :get,:retrieve_campaign => :get, :destroy_source => :get, :retrieve_source => :get, :receipt_accounts => :get, :receipt_methods => :get, :receipt_types => :get, :allocation_types => :get}
 
   map.resources :tag_settings, :collection => {:show_all_for_selected_classifier => :get}
   map.resources :tag_meta_types,:member => {:retrieve => :get}, :collection => {:show_group_types => :get, :create_access_permissions_meta_meta_type => :get, :access_permission_finder => :get}
@@ -145,17 +143,16 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :module, :collection => {:core => :get, :membership => :get, :fundraising => :get, :case_management => :get, :administration => :get, :dashboard => :get, :client_setup => :get, :receipting => :get,:become_membership=>:get}
   map.resources :available_modules, :collection => {:switch_status => :get}
 
-    map.resources :post_areas, :collection => {:select_ajax_show => :get,:retrieve_post_areas=>:get}
+  map.resources :post_areas, :collection => {:select_ajax_show => :get,:retrieve_post_areas=>:get}
   map.resources :countries, :collection => {:show_countries => :get, :select_renew => :get, :page_initial => :get,:retrieve_country=>:get}
   map.resources :postcodes, :collection => {:show_by_country => :get, :lookup_postcode => :get,:retrieve_postcode=>:get}
   map.resources :languages, :collection => {:show_languages => :get,:retrieve_language=>:get}
   map.resources :banks, :collection => {:list=>:get,:name_finder => :get,:lookup=>:get,:lookup_fill => :get,:refresh_existing_banks=>:get,:delete_bank_entry=>:get,:edit_bank_entry=>:get}
   map.resources :religions,:collection =>{:retrieve_religion=>:get}
   map.resources :allocation_types, :collection => {:new_allocation_type => :get, :create_allocation_type => :post, :edit_allocation_type => :get, :update_allocation_type => :post, :copy_allocation_type => :get, :create_copy_of_allocation_type => :post, :destroy_allocation_type => :get }
-  map.resources :transactions, :collection => {:personal_transaction => :get, :organisational_transaction => :get, :show_personal_transaction => :get, :show_organisational_transaction => :get, :bank_run => :get, :enquiry => :get}
-
-  map.resources :transaction_headers, :collection => {:page_initial => :get, :export_histroy_to_report => :get,:enquiry_show_receipt_type => :get}
-  map.resources :transaction_allocations, :collection => {:temp_create => :post,:temp_edit => :get}, :member => {:temp_update => :put}
+  map.resources :deposits, :collection => {:page_initial => :get, :export_histroy_to_report => :get,:enquiry_show_receipt_type => :get, :run => :get}
+  map.resources :entity_receipts
+  map.resources :receipt_allocations
   map.resources :person_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}
   map.resources :organisation_bank_accounts , :member=> {:move_down_bank_account_priority =>:get,:move_up_bank_account_priority=>:get}, :collection => {:page_initial => :get}
   #nightly processes for testing only
@@ -177,6 +174,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :membership_fees,:collection=> {:fee_drop_down_list_l1 => :get, :fee_drop_down_list_l2 => :get}
   
   map.resources :tests
+  map.resources :guests,:collection=>{:signin=>:get,:captcha=>:get,:reset=>:get}
+  map.resources :receipting,:collection=>{:personal_deposit=>:get,:organisational_deposit=>:get,:show_personal_deposit=>:get,:show_organisational_deposit=>:get,:enquiry=>:get,:bank_run=>:get, :bank_run_document_filter => :get, :page_initial => :get}
   # The priority is based upon order of creation: first created -> highest priority.
 
   # Sample of regular route:

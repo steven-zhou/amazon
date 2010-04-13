@@ -1,0 +1,39 @@
+<style type="text/css">
+  .page_break {page-break-after: always;}
+  #bank_run_campaign_summary{width: 800px;padding: 0;margin: 0 auto;}
+  #bank_run_campaign_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
+  #bank_run_campaign_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
+  #bank_run_campaign_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
+  #bank_run_campaign_summary .div_line .right{float: right;}
+
+  #bank_run_campaign_summary .div_line .cell_375 {width: 37.5%;}
+  #bank_run_campaign_summary .div_line .cell_475 {width: 47.5%;}
+  #bank_run_campaign_summary .div_line .cell_15 {width: 15%;}
+  #bank_run_campaign_summary .div_line .cell_40 {width: 40%;}
+  #bank_run_campaign_summary .line_seperator {height: 1px;;border-bottom: 1px dashed black;}
+  #bank_run_campaign_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
+
+  #bank_run_campaign_summary .div_total {margin-top: 30px;}
+  #bank_run_campaign_summary .pure_bold{font-weight: 600;}
+</style>
+<div id="bank_run_campaign_summary">
+  <div class="div_line">
+    <div class="title_bold">Bank Run Campaign Summary</div>
+  </div>
+  <div class="div_line">
+    <div class="div_cell">The Client Organisation</div>
+    <div class="div_cell right">Date: <%= @date %></div>
+  </div>
+  <div class="div_line">
+    <div class="div_cell cell_375">Bank Run ID: <%= @run_id %></div>
+    <div class="div_cell cell_475">Bank Account: <%= account.id %>-<%= account.account_number %></div>
+    <div class="div_cell right">Time: <%= @time %></div>
+  </div>
+  <div class="div_line table_title">
+    <div class="div_cell cell_40">Campaign</div>
+    <div class="div_cell cell_15">Cash</div>
+    <div class="div_cell cell_15">Cheque</div>
+    <div class="div_cell cell_15">Cards</div>
+    <div class="div_cell cell_15">Total Amount</div>
+  </div>
+</div>

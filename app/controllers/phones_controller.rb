@@ -51,17 +51,24 @@ class PhonesController < ApplicationController
 
   def update
     @phone = Phone.find(params[:id].to_i)
-    if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
-      @person = Person.find(@phone.contactable_id)
-    else
-      @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
-    end
+   
     @phone_new = Phone.new
-    respond_to do |format|
-      if @phone.update_attributes(params[:phone])
-        system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Phone #{@phone.id}.")
-        format.js { render 'show.js' }
+    if @phone.update_attributes(params[:phone])
+      if @phone.contactable_type == "Person"             # if in Person return person object to destroy.js
+        @person = Person.find(@phone.contactable_id)
+        @person.primary_phone_num = @person.phones.find_by_priority_number(1).value
+        @person.save
+      else
+        @organisation =Organisation.find(@phone.contactable_id)  # if in organisation return organisation object to destroy.js
+        @organisation.primary_phone_num = @organisation.phones.find_by_priority_number(1).value
+        @organisation.save
       end
+      system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) updated Phone #{@phone.id}.")
+
+    end
+    respond_to do |format|
+
+      format.js { render 'show.js' }
     end
   end
 

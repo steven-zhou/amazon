@@ -1,0 +1,4 @@
+$('#organisational_transaction').html('<%= escape_javascript(render(:partial => "deposits/deposit_template", :locals => {:title => "Organisation Transactions", :lol => "deposits/organisation_list_menu", :photo_info => "deposits/organisation_photo_info"})) %>');
+<%- if @current_tab_id == "histroy_page"%>
+  $('a.tab_switch_with_page_initial[field='+ 'histroy_page'+']').click();
+<%- end %>

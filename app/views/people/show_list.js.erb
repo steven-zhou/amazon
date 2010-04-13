@@ -1,11 +1,11 @@
-$('#show_list_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results", :locals =>{:people => @p, :current_operation => @current_operation,:active_tab => @active_tab,:active_sub_tab => @active_sub_tab })) %>');
+$('#show_list_content').html('<%= escape_javascript(render(:partial => "/people/search_list_results")) %>');
 $('#show_list_grid').dialog({
   modal: true,
   resizable: true,
   draggable: true,
   position: "center",
-  width: 1100,
-  height: 650,
+  width: 680,
+  height: 690,
   buttons: {
   }
 });

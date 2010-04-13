@@ -1,4 +1,8 @@
-%table#search_list_results{:current_operation => current_operation,:active_tab =>active_tab,:active_sub_tab => active_sub_tab}
+.right{:style => "margin-bottom:3px;"}
+  =link_to_function image_tag('Icons/Core/album.png'), :class => "show_album", :page_show => "album", :page => 1 ,:url => "/grids/show_list_grid",:prev => "grid"
+%br.clear
+%table#search_list_results{:current_operation => "#{session[:current_operation]}",:active_tab =>"#{session[:active_tab]}",:active_sub_tab => "#{session[:active_sub_tab]}"}
+
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   :plain

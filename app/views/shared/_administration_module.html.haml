@@ -40,6 +40,8 @@
             = link_to "#{image_tag('Icons/Admin/System Setup/license_info.png')} License Info",{:controller => "client_setups", :action => "license_info"}, :controller => "client_setups", :action => "license_info",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/license_info.png", :title => "License Info"
           %li{:id => @current_action == "system_log_management" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/System Setup/system_log.png')} Audit Trail",{:controller => "client_setups", :action => "system_log_management"}, :controller => "client_setups", :action => "system_log_management",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/System Setup/system_log.png", :title => "Audit Trail"
+          %li{:id => @current_action == "organisation_structure" ? "selected" : ""}
+            = link_to "#{image_tag('icon_holder.png')} Org Structure", {:controller => "client_setups", :action => "organisation_structure"}, :controller => "client_setups", :action => "organisation_structure",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Organisation Structure"
     .bottom
 
   - # Configuration Menu
@@ -68,13 +70,13 @@
           %li{:id => action == "duplication_check" ? "selected" : ""}
             = link_to "#{image_tag('Icons/Admin/Configuration/duplications.png')} Dups Check",{:controller => "administrations", :action => "duplication_check"}, :controller => "administrations", :action => "duplication_check",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/duplications.png", :title => "Dups Check"
           %li{:id => action == "payment_methods" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Payment Methods", {:controller => "administrations", :action => "payment_methods"}, :controller => "administrations", :action => "payment_methods",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Payment Methods"
+            = link_to "#{image_tag('Icons/Admin/Configuration/payments_methods.png')} Payment Methods", {:controller => "administrations", :action => "payment_methods"}, :controller => "administrations", :action => "payment_methods",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/payments_methods.png", :title => "Payment Methods"
           %li{:id => action == "tax_items" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Tax Items", {:controller => "administrations", :action => "tax_items"}, :controller => "administrations", :action => "tax_items",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Tax Items"
           %li{:id => action == "fee_types" ? "selected" : ""}
             = link_to "#{image_tag('icon_holder.png')} Fee Types", {:controller => "administrations", :action => "fee_types"}, :controller => "administrations", :action => "fee_types",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Fee Types"
           %li{:id => action == "extra_custom_field" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Extra Field", {:controller => "administrations", :action => "extra_custom_field"}, :controller => "administrations", :action => "extra_custom_field",:class => "draggable",:icon_module=>"administration",:image_url => "icon_holder.png", :title => "Extra Field"
+            = link_to "#{image_tag('Icons/Admin/Configuration/extra_field.png')} Custom Field", {:controller => "administrations", :action => "extra_custom_field"}, :controller => "administrations", :action => "extra_custom_field",:class => "draggable",:icon_module=>"administration",:image_url => "Icons/Admin/Configuration/extra_field.png", :title => "Custom Field"
     .bottom
 
   - # Security Menu

@@ -1,41 +1,41 @@
 %ul#menu
   - # Transaction Menu
-  %li{:id => @current_controller == "transactions" ? "menu_active" : ""}
-    .top
-    .item
-      - if @current_controller != "transactions"
-        = link_to "#{image_tag('Icons/Receipting/transactions.png')} Transactions", :controller => "transactions", :action => "personal_transaction"
-      - else
-        <p>Transactions</p>
-        %ul
-          %li{:id => @current_action == "personal_transaction" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/money_person.png')} Person", {:controller => "transactions", :action => "personal_transaction"}, :class => "draggable", :controller => "transactions", :action => "personal_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_person.png", :title => "Personal Transaction"
-          %li{:id => @current_action == "organisational_transaction" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/money_org.png')} Organisation", {:controller => "transactions", :action => "organisational_transaction"},:class => "draggable", :controller => "transactions", :action => "organisational_transaction", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_org.png", :title => "Organisational Transaction"
-          %li{:id => @current_action == "enquiry" ? "selected" : ""}
-            = link_to "#{image_tag('/images/Icons/Receipting/money_enquiry.png')} Enquiry", {:controller => "transactions", :action => "enquiry"},:class => "draggable", :controller => "transactions", :action => "enquiry", :icon_module=>"receipting",:image_url => "/images/Icons/Receipting/money_enquiry.png", :title => "Transaction Enquiry"
-          %li{:id => @current_action == "bank_run" ? "selected" : ""}
-            = link_to "#{image_tag('/images/Icons/Receipting/bankrun.png')} Bank Run", {:controller => "transactions", :action => "bank_run"},:class => "draggable", :controller => "transactions", :action => "bank_run", :icon_module=>"receipting",:image_url => "/images/Icons/Receipting/bankrun.png", :title => "Bank Run"
-          %br.clear
-    .bottom
-
-  - # Receipting Menu
   %li{:id => @current_controller == "receipting" ? "menu_active" : ""}
     .top
     .item
       - if @current_controller != "receipting"
-        = link_to "#{image_tag('Icons/System/admin.png')} Administration", :controller => "receipting", :action => "campaign_data"
+        = link_to "#{image_tag('Icons/Receipting/transactions.png')} Receipts", :controller => "receipting", :action => "personal_deposit"
+      - else
+        <p>Receipts</p>
+        %ul
+          %li{:id => @current_action == "personal_deposit" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Receipting/money_person.png')} Person", {:controller => "receipting", :action => "personal_deposit"}, :class => "draggable", :controller => "receipting", :action => "personal_deposit", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_person.png", :title => "Personal Deposit"
+          %li{:id => @current_action == "organisational_deposit" ? "selected" : ""}
+            = link_to "#{image_tag('Icons/Receipting/money_org.png')} Organisation", {:controller => "receipting", :action => "organisational_deposit"},:class => "draggable", :controller => "receipting", :action => "organisational_deposit", :icon_module=>"receipting",:image_url => "Icons/Receipting/money_org.png", :title => "Organisational Deposit"
+          %li{:id => @current_action == "enquiry" ? "selected" : ""}
+            = link_to "#{image_tag('/images/Icons/Receipting/money_enquiry.png')} Enquiry", {:controller => "receipting", :action => "enquiry"},:class => "draggable", :controller => "receipting", :action => "enquiry", :icon_module=>"receipting",:image_url => "/images/Icons/Receipting/money_enquiry.png", :title => "Deposit Enquiry"
+          %li{:id => @current_action == "bank_run" ? "selected" : ""}
+            = link_to "#{image_tag('/images/Icons/Receipting/bankrun.png')} Bank Run", {:controller => "receipting", :action => "bank_run"},:class => "draggable", :controller => "receipting", :action => "bank_run", :icon_module=>"receipting",:image_url => "/images/Icons/Receipting/bankrun.png", :title => "Bank Run"
+          %br.clear
+    .bottom
+
+  - # Receipting Menu
+  %li{:id => @current_controller == "receipting_admin" ? "menu_active" : ""}
+    .top
+    .item
+      - if @current_controller != "receipting_admin"
+        = link_to "#{image_tag('Icons/System/admin.png')} Administration", :controller => "receipting_admin", :action => "campaign_data"
       - else
         <p>Administration</p>
         %ul
           %li{:id => @current_action == "campaign_data" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Campaigns", {:controller => "receipting", :action => "campaign_data"}, :class => "draggable", :controller => "receipting", :action => "campaign_data", :icon_module=>"receipting",:image_url => "Icons/Receipting/campaigns.png", :title => "campaign_data"
+            = link_to "#{image_tag('Icons/Receipting/campaigns.png')} Campaigns", {:controller => "receipting_admin", :action => "campaign_data"}, :class => "draggable", :controller => "receipting_admin", :action => "campaign_data", :icon_module=>"receipting",:image_url => "Icons/Receipting/campaigns.png", :title => "campaign_data"
           %li{:id => @current_action == "receipt_accounts" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/receipt_accounts.png')} Receipt Accounts", {:controller => "receipting", :action => "receipt_accounts"}, :class => "draggable", :controller => "receipting", :action => "receipt_accounts", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_accounts.png", :title => "receipt_accounts"
+            = link_to "#{image_tag('Icons/Receipting/receipt_accounts.png')} Receipt Accounts", {:controller => "receipting_admin", :action => "receipt_accounts"}, :class => "draggable", :controller => "receipting_admin", :action => "receipt_accounts", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_accounts.png", :title => "receipt_accounts"
           -#%li{:id => @current_action == "receipt_types" ? "selected" : ""}
-            = link_to "#{image_tag('Icons/Receipting/receipt_types.png')} Receipt Types", {:controller => "receipting", :action => "receipt_types"}, :class => "draggable", :controller => "receipting", :action => "receipt_types", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_types.png", :title => "receipt_types"
+            = link_to "#{image_tag('Icons/Receipting/receipt_types.png')} Receipt Types", {:controller => "receipting_admin", :action => "receipt_types"}, :class => "draggable", :controller => "receipting_admin", :action => "receipt_types", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_types.png", :title => "receipt_types"
           %li{:id => @current_action == "receipt_methods" ? "selected" : ""}
-            = link_to "#{image_tag('icon_holder.png')} Receipt Methods", {:controller => "receipting", :action => "receipt_methods"}, :class => "draggable", :controller => "receipting", :action => "receipt_methods", :icon_module=>"receipting",:image_url => "icon_holder.png", :title => "receipt_methods"
+            = link_to "#{image_tag('Icons/Receipting/receipt_method.png')} Receipt Methods", {:controller => "receipting_admin", :action => "receipt_methods"}, :class => "draggable", :controller => "receipting_admin", :action => "receipt_methods", :icon_module=>"receipting",:image_url => "Icons/Receipting/receipt_method.png", :title => "receipt_methods"
           %br.clear
     .bottom
 

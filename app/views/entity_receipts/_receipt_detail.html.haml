@@ -1,0 +1,18 @@
+.form_line
+  .field_10
+    %label Receipt ID
+    .display_field_bg
+      #{receipt.id}
+
+  .field_15
+    %label Deposit Date
+    .display_field_bg
+      #{receipt.deposit.try(:business_date).try(:to_s)}
+
+  .field_20
+    %label Amount
+    .display_field_bg
+      #{number_to_currency(receipt.amount)}
+
+#existing_receipts
+

@@ -178,10 +178,10 @@ module OutputPdf
   #       bold_header(header bold?)         = true/false
   #       font_size(font_size)              = any integer(e.g. 32)
   #       text_align(alignment)             = "left"/"center"/"right"
-  def self.generate_transaction_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
+  def self.generate_deposit_histroy_report_pdf(entity_type, entity_id, start_date, end_date, header_settings={}, body_settings={})
     pdf = PDF::Writer.new
     @entity = (entity_type=="Person") ? Person.find(entity_id.to_i) : Organisation.find(entity_id.to_i)
-    header_settings[:title] ||= "#{entity_type} Transation Histroy Report\n"
+    header_settings[:title] ||= "#{entity_type} Deposit Histroy Report\n"
     if entity_type == "Person"
       header_settings[:extra_title] ||= "Name: (#{@entity.id}) #{@entity.name}\nPeriod from #{start_date} to  #{end_date}\n\n"
     else
@@ -189,7 +189,7 @@ module OutputPdf
     end
     header_settings[:right_extra_title] ||= "Print Date: #{Date.today()}"
     generate_report_header(pdf, entity_type, entity_id, start_date, end_date, header_settings)
-    generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
+    generate_deposit_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings)
     return pdf
   end
 
@@ -880,7 +880,7 @@ module OutputPdf
     end
   end
 
-  def self.generate_transaction_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings={})
+  def self.generate_deposit_histroy_report_body(pdf, entity_type, entity_id, start_date, end_date, body_settings={})
     body_settings[:show_lines] ||= "outer"
     body_settings[:show_headings] ||= true
     body_settings[:orientation] ||= "center"
@@ -889,32 +889,32 @@ module OutputPdf
     body_settings[:font_size] ||= 18
     body_settings[:text_align] ||= "center"
 
-    @transaction = TransactionHeader.find(:all,
-      :conditions => ["entity_id=? and entity_type=? and transaction_date >= ? and transaction_date <= ?", entity_id, entity_type, start_date.to_date, end_date.to_date],
+    @deposit = Deposit.find(:all,
+      :conditions => ["entity_id=? and entity_type=? and deposit_date >= ? and deposit_date <= ?", entity_id, entity_type, start_date.to_date, end_date.to_date],
       :order => "id"
     )
 
-    if @transaction.empty?
+    if @deposit.empty?
       pdf.text "No matching records found.", :font_size => body_settings[:font_size], :justification => body_settings[:text_align]
       return
     end
 
     PDF::SimpleTable.new do |tab|
 
-      tab.column_order.push(*%w(receipt_number transaction_date bank_account payment_method_type payment_method notes total_amount))
+      tab.column_order.push(*%w(receipt_number deposit_date bank_account payment_method_type payment_method notes total_amount))
 
       tab.columns["receipt_number"] = PDF::SimpleTable::Column.new("receipt_number") { |col|
         col.heading = "Receipt Number"
       }
       tab.columns["receipt_number"].width = 60
 
-      tab.columns["transaction_date"] = PDF::SimpleTable::Column.new("transaction_date") { |col|
-        col.heading = "Transaction Date"
+      tab.columns["deposit_date"] = PDF::SimpleTable::Column.new("deposit_date") { |col|
+        col.heading = "Deposit Date"
       }
-      tab.columns["transaction_date"].width = 80
+      tab.columns["deposit_date"].width = 80
 
       tab.columns["bank_account"] = PDF::SimpleTable::Column.new("bank_account") { |col|
-        col.heading = "Bank Account"
+        col.heading = "Deposit Bank Account"
       }
       tab.columns["bank_account"].width = 80
 
@@ -945,17 +945,17 @@ module OutputPdf
       tab.bold_headings = body_settings[:bold_header]
 
       data = Array.new
-      @transaction.each do |transaction|
-        bank_account = transaction.bank_account.nil? ? "" : transaction.bank_account.account_number
-        payment_method_meta_type = transaction.payment_method_meta_type.nil? ? "" : transaction.payment_method_meta_type.name
-        payment_method_type = transaction.payment_method_type.nil? ? "" : transaction.payment_method_type.name
-        data << { "receipt_number" => "#{transaction.receipt_number}",
-          "transaction_date" => "#{transaction.transaction_date.to_s}",
+      @deposit.each do |deposit|
+        bank_account = deposit.bank_account.nil? ? "" : deposit.bank_account.account_number
+        payment_method_meta_type = deposit.payment_method_meta_type.nil? ? "" : deposit.payment_method_meta_type.name
+        payment_method_type = deposit.payment_method_type.nil? ? "" : deposit.payment_method_type.name
+        data << { "receipt_number" => "#{deposit.receipt_number}",
+          "deposit_date" => "#{deposit.deposit_date.to_s}",
           "bank_account" => "#{bank_account}",
           "payment_method_meta_type" => "#{payment_method_meta_type}",
           "payment_method_type" => "#{payment_method_type}",
-          "notes" => "#{transaction.notes}",
-          "total_amount" => "#{currencify(transaction.total_amount)}" }
+          "notes" => "#{deposit.notes}",
+          "total_amount" => "#{currencify(deposit.total_amount)}" }
       end
 
 

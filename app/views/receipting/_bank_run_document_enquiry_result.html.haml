@@ -1,0 +1,13 @@
+.full_container
+  - if @bank_run_documents.empty?
+    bank_run Document folder is empty, please create mail
+  - else
+    %h1 Available Bank Run
+    %input.hidden{:id => "bank_run_document_mode", :mode => "show"}
+
+    - for bank_run_document in @bank_run_documents do
+      .container.toggle_options{:style => "width:26%;margin:1%;", :field => "bank_run_document"}
+        .title{:style => "width:100%;padding-bottom:2px;padding-top:2px;"}
+          = link_to "#{bank_run_document}", "/temp/"+@current_user.user_name+"/bank_run_reports/#{bank_run_document}"
+        -#.options{:style => "display:none;"}
+          = link_to_function image_tag("/images/delete_icon.png?1264549396"), :class => 'ajax_call', :param1 => "#{mail_document}",:param2 => "person",:light_box=> "true", :method => "delete", :url => "/message_templates/destroy", :message => "delete this pdf?"

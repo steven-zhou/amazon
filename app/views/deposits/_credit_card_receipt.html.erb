@@ -1,0 +1,112 @@
+<style type="text/css">
+  #credit_card_receipt {width:100%;margin: 0 auto;}
+  #credit_card_receipt h1 {margin: 0;padding: 0;}
+  #credit_card_receipt #header {margin:5px auto;width:100%;text-align:center;}
+  #credit_card_receipt #content_holder{margin: 0 auto;}
+  #credit_card_receipt .top_item {float:left;width:33%;}
+  #credit_card_receipt .title_item {float:left;width:20%;}
+  #credit_card_receipt .clear {clear:both;}
+  #credit_card_receipt #summary {width:100%;}
+  #credit_card_receipt #summary_detail {margin:5px auto;width:25%;}
+  #credit_card_receipt .summary_item {width:50%;float:left;}
+  #credit_card_receipt .clear {clear:both;}
+
+  #credit_card_receipt .div_line{width: 100%;height: auto;margin: 5px auto;padding: 0;float: left;}
+  #credit_card_receipt .div_line .big_number, .div_line .big_number_content{padding: 0;margin-left: 10px;}
+  #credit_card_receipt .div_line .big_number {width: 20px;}
+  #credit_card_receipt .div_line .big_number_content{width: 54%;}
+  #credit_card_receipt .div_line .signature{width:25%;;padding: 0; float: right;margin:4% 14% 0 0;border-top: dashed 1px black;}
+  #credit_card_receipt .div_line .div_cell{width:auto;height: auto;margin: 0 auto;padding: 0 10px;float: left;text-align: left;}
+  #credit_card_receipt .div_line .div_cell p, .div_line .th7, .div_line .th20, .div_line .th25, .div_line .th30 {margin: 0;padding: 0;}
+  #credit_card_receipt .div_line .th7 {width: 7%;}
+  #credit_card_receipt .div_line .th15 {width: 15%}
+  #credit_card_receipt .div_line .th20 {width: 20%}
+  #credit_card_receipt .div_line .th25 {width: 25%}
+  #credit_card_receipt .div_line .th30 {width: 35%;}
+  #credit_card_receipt .div_line_separater {height: 1px;border-bottom: dashed 1px black;}
+
+  #credit_card_receipt #summary_of_card .table_style_1{padding-left: 2%;margin: 0;}
+  #credit_card_receipt #summary_of_card .table_style_1 .cell {width:27%;}
+  #credit_card_receipt #summary_of_card .table_style_2 {padding-left: 2%;margin: 10px auto 0 auto;}
+
+  /*#credit_card_receipt #summary_sheet_title h1, .date, #client_org_name .time{width: 30%;display: inline;}*/
+   #credit_card_receipt #summary_sheet_title .date, #client_org_name .time{width: 30%;display: inline;}
+  #credit_card_receipt #summary_sheet .bold_title{font-weight: 600;}
+  #credit_card_receipt #summary_sheet_title .date{float: right;margin-top: 15px;font-weight: 600;}
+
+  #credit_card_receipt #client_org_name .time{float: right;text-align: right;}
+
+  #credit_card_receipt #details_of_card .table_line{margin: 0;}
+  #credit_card_receipt #details_of_card, #summary_sheet{margin-top: 20px;}
+  #credit_card_receipt #bottom  {margin-top: 50px;}
+
+  #credit_card_receipt #card_info .ci_line{margin: 0;padding: 1px 0 0 3%;}
+  #credit_card_receipt .ci_line .ci_cell{width: 30%;}
+  #space {height:95mm;}
+</style>
+<div id="space">&nbsp;</div>
+<div id="credit_card_receipt">  
+  <div id="content_holder">
+    <div id="details_of_card">
+      <%- sub_total = 0.00%>
+      <%- num_deposit = 0%>
+
+      <div class="div_line table_line">
+        <%- deposit[account.id].try(:each) do |deposit|%>
+          <%- total = deposit.total_amount%>
+          <%- sub_total += total%>
+          <%- num_deposit=num_deposit+1%>
+          <div class="div_cell th20"><%= deposit.deposit_detail.try(:card_authority_number)%>&nbsp;</div>
+          <div class="div_cell th15"><%= deposit.deposit_detail.try(:name_on_card) %></div>
+          <div class="div_cell th7"><%= deposit.received_via.try(:name)%></div>
+          <div class="div_cell th7">1</div>
+          <div class="div_cell th15"><%=deposit.deposit_detail.try(:card_number)%></div>
+          <div class="div_cell th7"><%=deposit.deposit_detail.try(:cvv_number)%></div>
+          <div class="div_cell th7"><%= number_to_currency(deposit.total_amount)%></div>
+        <%- end %>
+      </div>
+
+      <br class="clear"/>
+    </div>
+
+    <div id="summary_sheet">
+      <div class="div_cell date" style="float: right;margin-top:12px;text-align:right;">Date:<%= @date %></div>
+      <div id="summary_sheet_title" style="text-align: center;">
+        <h1>Summary Sheet</h1>
+      </div>
+
+      <div class="div_line">
+        <div id="client_org_name">
+          <span class="bold_title">The Client Organisation Legal Name</span>
+          <div class="time">Time: <%= @time %></div>
+        </div>
+      </div>
+      <div id="card_info" style="margin-top:50px;">
+        <div class="div_line">
+          <span class="bold_title"><%=type%></span>
+        </div>
+        <div class="div_line ci_line">
+          <div class="div_cell th25">Bank Run ID:</div>
+          <div class="div_cell th30"><%= @run_id %></div>
+        </div>
+        <div class="div_line ci_line">
+          <div class="div_cell th25">Bank Account:</div>
+          <div class="div_cell th30"><%= account.id %>-<%= account.account_number %>-<%= account.bank.try(:full_name) %></div>
+        </div>
+        <div class="div_line ci_line">
+          <div class="div_cell th25">Total Deposit:</div>
+          <div class="div_cell th30"><%= number_to_currency(sub_total) %></div>
+        </div>
+        <div class="div_line ci_line">
+          <div class="div_cell th25">Number of Deposits:</div>
+          <div class="div_cell th30"><%=num_deposit%></div>
+        </div>
+      </div>
+      <br class="clear"/>
+    </div>
+
+
+    
+
+  </div>
+</div>

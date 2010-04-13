@@ -22,23 +22,28 @@
       -unless @primary_phone.nil?
         .container
           .left
-            Phone
+            %span{:class=>("red" if @primary_phone.contact_meta_type.to_be_removed == true)}
+              (#{@primary_phone.contact_meta_type.name}) Phone
           .right
             = @primary_phone.number
 
       -unless @primary_website.nil?
         .container
           .left
-            Website &nbsp;&nbsp;&nbsp;&nbsp;
+            %span{:class=>("red" if @primary_website.contact_meta_type.to_be_removed == true)}
+              (#{@primary_website.contact_meta_type.name}) Website
           .right
-            = @primary_website.value
+            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+              = @primary_website.value
 
       -unless @primary_email.nil?
         .container
           .left
-            Email &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %span{:class=>("red" if @primary_email.contact_meta_type.to_be_removed == true)}
+              (#{@primary_email.contact_meta_type.name}) Email
           .right
-            = @primary_email.value
+            %a{:href => "mailto:#{@primary_email.value}", :class => "alt_link"}
+              = @primary_email.value
 
 
 
@@ -78,59 +83,12 @@
     .profile_tab_left{:field =>"organisation_info"}
     .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
     .container_icon{:align => 'center', :class => "container_icon_color"}
-      = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "organisation_info"
+      = link_to_function "<h1>Business</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "organisation_info"
     .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
-
-
-    -#.container_icon{:align => 'center'}
-      = link_to_function "#{image_tag('person_details.png')} Organisational", :style=>"font-size:17px;", :id=>"organisational", :class=>"active_organisation_info_tab", :hidden_id_name => "business_info"
-    -#.container_icon{:align => 'center', :class => "container_icon_color"}
-      = link_to_function "#{image_tag('business.png')} System",:style=>"font-size:17px;", :id=>"business", :class=>"active_organisation_info_tab", :hidden_id_name => "organisation_info"
 
 
     .container#organisation_info{:style=>"display:none"}
       = render :partial => 'organisation_info'
 
     .container#business_info
-      %div.container
-        %div.toggle_div{:toggle_id_name => "transaction_details", :style => "cursor: pointer;"}
-          .options
-            = image_tag('Icons/System/collapse.png')
-          %h1 Transaction
-
-        %div#transaction_details.left{:style => "width:100%;"}
-          -#.container
-          .right
-            = link_to "Transaction", :controller => "transactions", :action => "organisational_transaction"
-          %br
-          %br
-
-      %div.container
-        %div.toggle_div{:toggle_id_name => "module_x_details", :style => "cursor: pointer;"}
-          .options
-            = image_tag('Icons/System/expand.png')
-          %h1 System Module X
-
-        %div#module_x_details.left{:style => "width:100%;display:none;"}
-          %br
-          %br
-
-      %div.container
-        %div.toggle_div{:toggle_id_name => "membership_details", :style => "cursor: pointer;"}
-          .options
-            = image_tag('Icons/System/expand.png')
-          %h1 Membership
-
-        %div#membership_details.left{:style => "width:100%;display:none;"}
-          %br
-          %br
-
-      %div.container
-        %div.toggle_div{:toggle_id_name => "events_details", :style => "cursor: pointer;"}
-          .options
-            = image_tag('Icons/System/expand.png')
-          %h1 Events
-
-        %div#events_details.left{:style => "width:100%;display:none;"}
-          %br
-          %br
+      = render :partial => 'organisation_business_info'

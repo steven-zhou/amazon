@@ -1,13 +1,20 @@
-.container
+.right
+  =link_to_function image_tag('Icons/Core/grid.png'), :class => "show_album", :page_show => "grid", :url => "/people/show_grid"
+%br.clear
+%div.container{:style => "height:445px;overflow:auto;"}
 
  
-    
-  %div.left#left_arrow{:style => "width:10%;text-align:center;"}
-    = link_to_function image_tag 'Icons/Core/Lol/go-first.png', :class => "ajax_call spin_start", :method => "GET", :url => "/grids/show_list_grid", :param1 => 1, :render_page => "/tests/album_container", :field => "album_show_page"
-    = link_to_function image_tag 'Icons/Core/Lol/go-previous.png', :class => "ajax_call spin_start", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page==1 ? @page : @page - 1, :style => "margin-left:20px;",:render_page => "/tests/album_container", :field => "album_show_page"
-  %div#album{:style => "width:80%;margin: 0 auto;float:left;"}
+
+  %div#album{:style => "margin: 5px auto;float:left;width:100%;"}
     =render :partial => "/tests/album_wall"
-  %div.right#right_arrow{:style => "width:10%;text-align:center;"}
-    - check = @page + 1 > @last_page ? "display:none;" : "" 
-    = link_to_function image_tag 'Icons/Core/Lol/go-next.png', :class => "ajax_call spin_start",:style => "#{check}", :method => "GET", :url => "/grids/show_list_grid", :param1 => @page + 1 > @last_page ? @last_page : @page + 1, :render_page => "/tests/album_container", :field => "album_show_page"
-    = link_to_function image_tag 'Icons/Core/Lol/go-last.png', :class => "ajax_call spin_start",:method => "GET", :url => "/grids/show_list_grid", :param1 => @last_page, :style => "margin-left:20px;#{check}",:render_page => "/tests/album_container", :field => "album_show_page"
+  %br.clear
+
+
+%div#album_control_panel
+  .container{:style => "height:45px;display:none;",:id => "quick_search_bar"}
+    %div#album_search{:style => "margin:auto 12px;"}
+      = render :partial => "tests/album_search"
+  .container{:style => "height:40px;"}
+    %div#album_footer{:style => "margin:auto 12px;"}
+      =render :partial => "tests/album_footer"
+

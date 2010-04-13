@@ -1,0 +1,7 @@
+$('#view_receipt_histroy').css('display', '');
+$('#view_receipt_detail').html('<%= escape_javascript(render(:partial => "/entity_receipts/receipt_detail", :locals => {:receipt => @entity_receipt})) %>');
+$('#existing_receipts').html('<%= escape_javascript(render(:partial => "/receipt_allocations/existing_receipt_allocations")) %>');
+$('#receipt_histroy_mode').attr('mode', 'view');
+$('.close_option[field="receipt_histroy"]').css("display","");
+$('#receipt_filter').hide();
+$('.receipt_export_to_pdf_button').hide();

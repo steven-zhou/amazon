@@ -21,11 +21,13 @@
                 %option{:value => "AgentOrganisation", :selected =>  (@organisation.class.to_s == "AgentOrganisation")} AgentOrganisation
                 %option{:value => "SubOrganisation", :selected =>  (@organisation.class.to_s == "SubOrganisation")} SubOrganisation
           .field_34
-            = p.label :level, "<span class='asterisk'>*</span>Level"
-            %select{:name => "organisation[level]",:id=>"organisation_edit_level"}
-              - (0..9).each do |i|
-                - unless @client_setup.send("level_#{i}_label").blank?
-                  %option{:value => i, :selected => (@organisation.level == i)} #{i} - #{@client_setup.send("level_#{i}_label")}
+            = p.label :level, "Level"
+            .display_field_bg
+              - if !@organisation.level.blank?
+                - if @organisation.family_id == 1
+                  #{@organisation.level} - #{ClientSetup.send("client_label_#{@organisation.level}")}
+                - else
+                  #{@organisation.level} - #{ClientSetup.send("label_#{@organisation.level}")}
 
           .field_25
             = p.label :custom_id, "Custom ID"

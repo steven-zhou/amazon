@@ -1,0 +1,109 @@
+.full_container
+  %h2 Existing Campaigns
+
+  %table#show_campaigns_grid{:class => "selectable_grid",:db_click_function => "true", :field => "campaign", :db_click_url => "/receipting_admin/edit_campaign.js"}
+
+
+%script{:type => "text/javascript", :charset => "utf-8"}
+  :plain
+
+    delete_from_a_grid = function(){
+    delete_from_grid($("#show_campaigns_grid tr.trSelected").attr('id'),"#campaign_mode","get","/receipting_admin/destroy_campaign/");
+    };
+
+    retrieve_from_a_grid = function(){
+    retrieve_from_grid($("#show_campaigns_grid tr.trSelected").attr('id'),"#campaign_mode","get","/receipting_admin/retrieve_campaign/");
+    };
+    $("#show_campaigns_grid").flexigrid({
+    url: '/grids/show_campaigns_grid',
+    dataType: 'json',
+    colModel : [
+    {
+    display: 'ID',
+    name : 'id',
+    width : 40,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Name',
+    name : 'name',
+    width : 160,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Description',
+    name : 'description',
+    width : 260,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Target Amount',
+    name : 'target_amount',
+    width : 80,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Start Date',
+    name : 'start_date',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'End Date',
+    name : 'end_date',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    },
+
+    {
+    display: 'Status',
+    name : 'status',
+    width : 100,
+    sortable : true,
+    align: 'left'
+    }
+
+    ],
+
+    buttons : [
+            {name: '', bclass: 'delete delete_button_on_grid', onpress : delete_from_a_grid},
+            {name: '', bclass: 'get retrieve_button_on_grid', onpress : retrieve_from_a_grid}
+        ],
+    searchitems : [
+    {
+    display: 'Name',
+    name : 'Name'
+    },
+
+    {
+    display: 'Target Amount',
+    name : 'target_amount'
+    },
+
+    {
+    display: 'Status',
+    name : 'status'
+    }
+
+
+    ],
+    sortname: "start_date, name",
+    sortorder: "asc",
+    usepager: true,
+    useRp: true,
+    rp: 20,
+    showTableToggleBtn: false,
+    width: 'auto',
+    height: 'auto'
+    });

@@ -1,0 +1,4 @@
+$('#view_deposit_histroy').css('display', '');
+$('#view_deposit_detail').html('<%= escape_javascript(render(:partial => "/deposits/deposit_detail", :locals => {:deposit => @deposit})) %>');
+$('#histroy_mode').attr('mode', 'view');
+$('.close_option[field="histroy"]').css("display","");
