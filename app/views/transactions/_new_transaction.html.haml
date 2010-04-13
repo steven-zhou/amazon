@@ -1,8 +1,0 @@
-.full_container
-  .options
-    = link_to_function image_tag('close_icon.png'), :style => "display:none;", :field => "current", :title=>"Close", :class => "close_option", :toggle_id_name => "new_transaction_form", :show_existing => "true", :show_existing_id => "existing_unbanked_transactions"
-  .title
-    = link_to_function image_tag('add_icon.png', :size=> "22x22"), :class => "ajax_call new_option", :field => "current", :title => "New", :method => "GET", :url => "/transaction_headers/new"
-    &nbsp;
-  %h2 New Transaction
-  #new_transaction_form{:style => "float:left;width:100%;"}

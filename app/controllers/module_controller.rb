@@ -12,7 +12,7 @@ class ModuleController < ApplicationController
 
   def receipting
     session[:module] = "receipting"
-    redirect_to :controller => "transactions", :action => "personal_transaction"
+    redirect_to :controller => "receipting", :action => "personal_deposit"
   end
 
   def membership

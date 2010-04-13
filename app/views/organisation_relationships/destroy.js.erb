@@ -1,13 +1,6 @@
- 
-$('#<%= dom_id(@relationship) %>').fadeOut("slow", function(){$(this).remove})
+<%unless @zero_org%>
+$('#existing_relationships').html('<%= escape_javascript(render(:partial => '/organisation_relationships/existing_branches', :locals =>{:level => @next_level})) %>');
 
-  $(function(){
-    $("input[type='text']#relationship_related_person_id").change(function(){
-        $.ajax({
-            type: "GET",
-            url: "/people/name_finder.js",
-            data: 'person_id='+$(this).val(),
-            dataType: "script"
-        });
-    });
-});
+<%else%>
+$('#main_container').html('<%= escape_javascript(render(:partial => '/organisation_relationships/show_zero_organisations', :locals=>{:level =>0})) %>');
+<%end%>

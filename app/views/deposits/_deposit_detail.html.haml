@@ -1,0 +1,49 @@
+.form_line
+  .field_20
+    %label Deposit ID
+    .display_field_bg
+      #{deposit.id}
+
+  .field_20
+    %label System Date
+    .display_field_bg
+      #{deposit.todays_date.to_s}
+
+  .field_20
+    %label Deposit Date
+    .display_field_bg
+      #{deposit.deposit_date.to_s}
+
+  .field_20
+    %label Deposit Bank Account
+    .display_field_bg
+      #{ClientBankAccount.find(deposit.bank_account_id).account_number}
+
+.form_line
+  .field_20
+    %label Receipt Meta Type
+    .display_field_bg
+      #{PaymentMethodMetaType.find(deposit.payment_method_meta_type_id).name}
+
+  .field_20
+    %label Receipt Type
+    .display_field_bg
+      #{PaymentMethodType.find(deposit.payment_method_type_id).name}
+
+  .field_20
+    %label Receipt Type
+    .display_field_bg
+      #{ReceivedVia.find(deposit.received_via_id).name}
+
+  .field_20
+    %label Total Amount
+    .display_field_bg
+      #{number_to_currency(deposit.total_amount)}
+
+#deposit_payment_view
+
+.form_line{:style => "height:auto;"}
+  .field_100{:style => "height:auto;"}
+    %label Notes
+    .display_field_bg
+      #{deposit.notes}

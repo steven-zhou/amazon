@@ -1,28 +1,26 @@
 .container{:style => "width:96%;padding:2%;"}
-  %table#general_search_list_results{:class => "selectable_grid", :db_click_function => "true", :db_close => "true", :db_click_url => "/transactions/show_personal_transaction.js", :db_params1 => "", :target => "default" }
+  %table#general_search_list_results{:class => "selectable_grid", :db_click_function => "true", :db_close => "true", :db_click_url => "/receipting/show_personal_deposit", :db_params1 => "", :target => "default" }
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#general_search_list_results").flexigrid({
   url: '/grids/show_list_grid',
   dataType: 'json',
   colModel : [
-  {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-  {display: 'First Name', name : 'field_1', width : 55, sortable : true, align: 'left'},
-  {display: 'Family Name', name : 'field_2', width : 65, sortable : true, align: 'left'},
-  {display: 'Address', name : 'field_3', width : 140, sortable : true, align: 'left'},
-  {display: 'Phone', name : 'field_4', width : 80, sortable : true, align: 'left'},
-  {display: 'Email', name : 'field_5', width : 140, sortable : true, align: 'left'}
+  {display: 'ID', name : 'id', width : 40, sortable : true, align: 'left'},
+  {display: 'First Name', name : 'first_name', width : 55, sortable : true, align: 'left'},
+  {display: 'Family Name', name : 'family_name', width : 165, sortable : true, align: 'left'},
+  {display: 'Phone', name : 'primary_phone_num', width : 150, sortable : true, align: 'left'},
+  {display: 'Email', name : 'primary_email_address', width : 140, sortable : true, align: 'left'}
 
   ],
   searchitems : [
-  {display: 'First Name', name : 'field_1'},
-  {display: 'Family Name', name : 'field_2'},
-  {display: 'Address', name : 'field_3'},
-  {display: 'Phone', name : 'field_4'},
-  {display: 'Email', name : 'field_5'}
+  {display: 'First Name', name : 'first_name'},
+  {display: 'Family Name', name : 'family_name'},
+  {display: 'Phone', name : 'primary_phone_num'},
+  {display: 'Email', name : 'primary_email_address'}
 
   ],
-  sortname: "grid_object_id",
+  sortname: "id",
   sortorder: "asc",
   usepager: true,
   title: 'People List',

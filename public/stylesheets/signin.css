@@ -233,9 +233,9 @@ h1 {
 span.small_font {
     font-size: small;
 }
- /* SIMPLE CAPTCHA CSS STYLING*/
+/*  SIMPLE CAPTCHA CSS STYLING
  #simple_captcha .form_line #captcha_image {width: auto; height: auto; display:inline;}
-#simple_captcha .form_line #captcha_image img{width: 110px !important; height:30px; background-color: #fff;}
+#simple_captcha .form_line #captcha_image img{width: 110px !important; height:30px; background-color: #fff;}*/
 
 
   

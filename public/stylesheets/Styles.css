@@ -1292,7 +1292,7 @@ a.alt_option{
   margin:2px 10px 0px 5px;
   float: right;*/
 
-  font-size: 12px ;
+  font-size: 14px ;
   font-weight:bold ;
   color: #154073 !important;
   text-decoration:underline;
@@ -1300,6 +1300,14 @@ a.alt_option{
   margin:2px 15px 0px 10px;
   padding:1px;
   line-height:16px;
+}
+
+a.alt_link{
+  font-size: 14px ;
+  font-weight:bold ;
+  font-style: italic;
+  color: #154073 !important;
+  text-decoration:underline;
 }
 
 p.submit{
@@ -1504,6 +1512,8 @@ form#organisation_names_form input#image_image_file{
   -moz-border-radius: 10px;
   margin-bottom: 10px;
 }
+
+
 
 .ui-dialog #content .container h1 {
   color: #2C2C2C;
@@ -2904,3 +2914,39 @@ input.error_flag{
 
 }
 
+.footer{
+  margin: 0 auto;
+  width: 40%;
+  text-align: center;
+  color: #796b52;
+  font-size: 11px;
+}
+
+/*for organisation structure*/
+#org_structure_nav {
+  width:20%;
+  float:left;
+  margin-top: 15px;
+}
+#org_structure_nav .nav_item {
+  height: 50px;
+  border-bottom: 1px solid #ccc;
+}
+
+#org_structure_nav .label {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+#org_structure_nav .name {
+  font-size: 18px;
+  font-weight: bold;
+}
+#org_structure_nav .reset {
+  float: right;
+  margin:-33px 40px 0 0;
+}
+
+#org_structure_nav .nav_item.active {
+  background: url(/images/pointer.png) no-repeat right;
+}

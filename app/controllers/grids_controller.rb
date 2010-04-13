@@ -1106,15 +1106,12 @@ class GridsController < ApplicationController
     qtype = params[:qtype]
     sortname = params[:sortname]
     sortorder = params[:sortorder]
-    @active_tab = params[:active_tab]
-    @active_sub_tab = params[:active_sub_tab]
-
-    @current_operation = params[:params2]
     @render_page = params[:render_page]
     @field = params[:field]
-    @list_header = ListHeader.find(session[:current_list_id])
-
-
+    @list_header = ListHeader.find(session[:current_list_id])    
+    @active_tab = session[:active_tab]
+    @active_sub_tab =  session[:active_sub_tab]
+    @current_operation = session[:current_operation]
     if (!sortname)
       sortname = "id"
     end
@@ -1127,21 +1124,19 @@ class GridsController < ApplicationController
       page = 1
     end
 
-    #show album
-    if params[:param1]
-      if (params[:param1]!="undefined")
-        page = params[:param1].to_i
-      else
-        page = 1
-      end
-      query = ""
-      qtype = ""
-    end
-
     if (!rp || rp == 0)
       rp = 10
     end
 
+    #show album----------------------------------------------------------
+    if params[:page_show] == "album"
+      page = 1 if (page == 0)
+      query = "" if !(query)
+      qtype = ""if !(qtype)
+    end
+    @query = query
+
+    
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
 
@@ -1173,15 +1168,29 @@ class GridsController < ApplicationController
     #      count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     #    end
     if(query != "%%")
-      @people = Person.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
-      count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query, @list_header.entity_on_list])
+      if (qtype = "id" && @query != "")
+       
+      
+        @people = Person.find(:all,
+          :order => sortname+' '+sortorder,
+          :limit =>rp,
+          :offset =>start,
+          :conditions=>["id = ?", @query])
+        count = Person.count(:all, :conditions=>["id = ?", @query])
+        
+      else
+        @people = Person.find(:all,
+          :order => sortname+' '+sortorder,
+          :limit =>rp,
+          :offset =>start,
+          :conditions=> [qtype+"ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+        count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+      end
+     
     end
 
-    if params[:param1]
+    if params[:page_show] == "album"
+      
       @entities = Array.new
       @people.each do |i|
         @entities << Person.find(i.id)
@@ -1190,15 +1199,30 @@ class GridsController < ApplicationController
       @page = page
       if @count/rp == 0
         @last_page = 1
+        @total_pages = @last_page
       elsif @count/rp !=0 && @count%rp != 0
         @last_page = @count/rp + 1
+        @total_pages = @last_page
       elsif @count/rp !=0 && @count%rp == 0
         @last_page = @count/rp
+        @total_pages = @last_page
       end
       
-
+      @rp = rp
+      @sortname = sortname
+      @qtype = qtype
+      
+      #      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
+      #      puts"-page---debug----#{@page.to_yaml}"
+      #      puts"-rp---debug----#{@rp.to_yaml}"
+      #      puts"-@sortname---debug----#{@sortname.to_yaml}"
+      #      puts"-@qtype---debug----#{@qtype.to_yaml}"
+      #      puts"-@query---debug----#{@query.to_yaml}"
       render '/people/show_album.js'
+
     else
+
+    
       # Construct a hash from the ActiveRecord result
       return_data = Hash.new()
       return_data[:page] = page
@@ -1231,8 +1255,11 @@ class GridsController < ApplicationController
     sortname = params[:sortname]
     sortorder = params[:sortorder]
     @list_header = ListHeader.find(session[:current_org_list_id])
+    @active_tab = session[:active_tab]
+    @active_sub_tab =  session[:active_sub_tab]
+    @current_operation = session[:current_operation]
     if (!sortname)
-      sortname = "grid_object_id"
+      sortname = "id"
     end
 
     if (!sortorder)
@@ -1243,23 +1270,20 @@ class GridsController < ApplicationController
       page = 1
     end
 
-    if (!rp)
+    if (!rp || rp == 0)
       rp = 10
     end
 
+    #show album----------------------------------------------------------
+    if params[:page_show] == "album"
+      page = 1 if (page == 0)
+      query = "" if !(query)
+      qtype = ""if !(qtype)
+    end
+    @query = query
+
     start = ((page-1) * rp).to_i
     query = "%"+query+"%"
-
-    # No search terms provided
-    #    if(query == "%%")
-    #      @organisation = ShowOrganisationListGrid.find(:all,
-    #        :conditions => ["login_account_id = ?", session[:user]],
-    #        :order => sortname+' '+sortorder,
-    #        :limit =>rp,
-    #        :offset =>start
-    #      )
-    #      count = ShowOrganisationListGrid.count(:all, :conditions => ["login_account_id = ?", session[:user]])
-    #    end
     if(query == "%%")
       @organisation = Organisation.find(:all,
         :conditions => ["id IN (?)",@list_header.entity_on_list],
@@ -1281,18 +1305,53 @@ class GridsController < ApplicationController
       count = Organisation.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
     end
 
-    # Construct a hash from the ActiveRecord result
-    return_data = Hash.new()
-    return_data[:page] = page
-    return_data[:total] = count
-    return_data[:rows] = @organisation.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.full_name,
-          u.short_name,
-          u.primary_phone_num,
-          u.primary_email_address]}}
-    # Convert the hash to a json object
-    render :text=>return_data.to_json, :layout=>false
+
+    if params[:page_show] == "album"
+
+      @entities = Array.new
+      @organisation.each do |i|
+        @entities << Organisation.find(i.id)
+      end
+      @count = count
+      @page = page
+      if @count/rp == 0
+        @last_page = 1
+        @total_pages = @last_page
+      elsif @count/rp !=0 && @count%rp != 0
+        @last_page = @count/rp + 1
+        @total_pages = @last_page
+      elsif @count/rp !=0 && @count%rp == 0
+        @last_page = @count/rp
+        @total_pages = @last_page
+      end
+      
+      @rp = rp
+      @sortname = sortname
+      @qtype = qtype
+      puts"-page---debug----#{@entities.first.class.to_s.to_yaml}"
+      puts"-page---debug----#{@page.to_yaml}"
+      puts"-rp---debug----#{@rp.to_yaml}"
+      puts"-@sortname---debug----#{@sortname.to_yaml}"
+      puts"-@qtype---debug----#{@qtype.to_yaml}"
+      puts"-@query---debug----#{@query.to_yaml}"
+      
+      render '/organisations/show_album.js'
+
+    else
+
+      # Construct a hash from the ActiveRecord result
+      return_data = Hash.new()
+      return_data[:page] = page
+      return_data[:total] = count
+      return_data[:rows] = @organisation.collect{|u| {:id => u.id,
+          :cell=>[u.id,
+            u.full_name,
+            u.short_name,
+            u.primary_phone_num,
+            u.primary_email_address]}}
+      # Convert the hash to a json object
+      render :text=>return_data.to_json, :layout=>false
+    end
   end
 
   def show_person_lookup_grid
@@ -2296,7 +2355,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def show_unbanked_transaction_grid
+  def show_current_deposit_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -2305,7 +2364,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "transaction_headers.id"
+      sortname = "deposits.id"
     end
 
     if (!sortorder)
@@ -2325,27 +2384,27 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction = TransactionHeader.find(:all,
-        :conditions => ["transaction_headers.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      @deposit = Deposit.find(:all,
+        :conditions => ["deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", params[:entity_id], params[:entity_type]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and entity_type=? and post=?", params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction = TransactionHeader.find(:all,
+      @deposit = Deposit.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", query, params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and entity_type=? and post=?", query, params[:entity_id], params[:entity_type], false],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and entity_type=? and bank_run_id IS NULL", query, params[:entity_id], params[:entity_type]],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2353,11 +2412,9 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction.collect{|u| {:id => u.id,
+    return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_number,
-          u.manual_receipt_number,
-          u.transaction_date.to_s,
+          u.business_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
@@ -2367,7 +2424,7 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def show_transaction_histroy_grid
+  def show_deposit_histroy_grid
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
     query = params[:query]
@@ -2396,27 +2453,27 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @transaction = TransactionHeader.find(:all,
-        :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+      @deposit = Deposit.find(:all,
+        :conditions => ["deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
-      count = TransactionHeader.count(:all, :conditions => ["transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+      count = Deposit.count(:all, :conditions => ["deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ?", params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"]
       )
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction = TransactionHeader.find(:all,
+      @deposit = Deposit.find(:all,
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+        :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ?", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
-      count = TransactionHeader.count(:all, :conditions=>[qtype +" ilike ? AND transaction_headers.entity_id=? and transaction_headers.entity_type=? and transaction_headers.transaction_date >= ? and transaction_headers.transaction_date <= ?", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date],
+      count = Deposit.count(:all, :conditions=>[qtype +" ilike ? AND deposits.entity_id=? and deposits.entity_type=? and deposits.deposit_date >= ? and deposits.deposit_date <= ? and deposits.banked = ? ", query, params[:entity_id], params[:entity_type], params[:start_date].to_date, params[:end_date].to_date, true],
         :include => ["bank_account", "payment_method_meta_type", "payment_method_type"])
     end
 
@@ -2424,11 +2481,9 @@ class GridsController < ApplicationController
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction.collect{|u| {:id => u.id,
+    return_data[:rows] = @deposit.collect{|u| {:id => u.id,
         :cell=>[u.id,
-          u.receipt_number,
-          u.manual_receipt_number,
-          u.transaction_date.to_s,
+          u.deposit_date.to_s,
           u.bank_account.nil? ? "" :(u.bank_account.to_be_removed? ? "<span class = 'red'>"+u.bank_account.account_number+ "</span>" : u.bank_account.account_number),
           u.payment_method_meta_type_id.nil? ? "" : u.payment_method_meta_type.name,
           u.payment_method_type_id.nil? ? "" : u.payment_method_type.name,
@@ -2439,7 +2494,8 @@ class GridsController < ApplicationController
     render :text=>return_data.to_json, :layout=>false
   end
 
-  def temp_transaction_allocation_grid
+
+  def show_existing_extensions_grid
 
     page = (params[:page]).to_i
     rp = (params[:rp]).to_i
@@ -2449,7 +2505,7 @@ class GridsController < ApplicationController
     sortorder = params[:sortorder]
 
     if (!sortname)
-      sortname = "id"
+      sortname = "entity_type"
     end
 
     if (!sortorder)
@@ -2469,109 +2525,220 @@ class GridsController < ApplicationController
 
     # No search terms provided
     if(query == "%%")
-      @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(:all,
-        :conditions => ["login_account_id=?", @current_user],
+      @receipts = EntityReceipt.find(:all,
+        :conditions => ["deposit_id=?", params[:deposit_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
         :offset =>start
       )
-      count = TempTransactionAllocationGrid.count(:all, :conditions => ["login_account_id=?", @current_user])
-    end
-
-    # User provided search terms
-    if(query != "%%")
-      @temp_transaction_allocation_grid = TempTransactionAllocationGrid.find(:all,
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ? AND login_account_id=?", query, @current_user])
-      count = TempTransactionAllocationGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id=?", query, @current_user])
-    end
-
-    # Construct a hash from the ActiveRecord result
-    return_data = Hash.new()
-    return_data[:page] = page
-    return_data[:total] = count
-    return_data[:rows] = @temp_transaction_allocation_grid.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.field_1.blank? ? "" : ReceiptAccount.find(u.field_1.to_i).name,
-          u.field_2.blank? ? "" : Campaign.find(u.field_2.to_i).name,
-          u.field_3.blank? ? "" : Source.find(u.field_3.to_i).name,
-          u.field_4,
-          u.field_5.blank? ? "$0.00" : currencify(u.field_5),
-        ]}}
-    # Convert the hash to a json object
-    render :text=>return_data.to_json, :layout=>false
-
-  end
-
-  def show_existing_transaction_allocations_grid
-
-    page = (params[:page]).to_i
-    rp = (params[:rp]).to_i
-    query = params[:query]
-    qtype = params[:qtype]
-    sortname = params[:sortname]
-    sortorder = params[:sortorder]
-
-    if (!sortname)
-      sortname = "id"
-    end
-
-    if (!sortorder)
-      sortorder = "asc"
-    end
-
-    if (!page)
-      page = 1
-    end
-
-    if (!rp)
-      rp = 20
-    end
-
-    start = ((page-1) * rp).to_i
-    query = "%"+query+"%"
-
-    # No search terms provided
-    if(query == "%%")
-      @transaction_allocations = TransactionAllocation.find(:all,
-        :conditions => ["transaction_header_id=?", params[:transaction_header_id]],
-        :order => sortname+' '+sortorder,
-        :limit =>rp,
-        :offset =>start,
-        :include => ["campaign", "receipt_account", "source"]
+      count = EntityReceipt.count(:all,
+        :conditions => ["deposit_id=?", params[:deposit_id]]
       )
-      count = TransactionAllocation.count(:all, :conditions => ["transaction_header_id=?", params[:transaction_header_id]], :include => ["campaign", "receipt_account", "source"])
     end
 
     # User provided search terms
     if(query != "%%")
-      @transaction_allocations = TransactionAllocation.find(:all,
+      @receipts = EntityReceipt.find(:all,
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]],
         :order => sortname+' '+sortorder,
         :limit =>rp,
-        :offset =>start,
-        :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
-        :include => ["campaign", "receipt_account", "source"])
-      count = TransactionAllocation.count(:all, :conditions=>[qtype +" ilike ? AND transaction_header_id=?", query, params[:transaction_header_id]],
-        :include => ["campaign", "receipt_account", "source"])
+        :offset =>start
+      )
+        
+      count = EntityReceipt.count(:all,
+        :conditions=>[qtype +" ilike ? AND deposit_id=?", query, params[:deposit_id]]
+      )
     end
 
     # Construct a hash from the ActiveRecord result
     return_data = Hash.new()
     return_data[:page] = page
     return_data[:total] = count
-    return_data[:rows] = @transaction_allocations.collect{|u| {:id => u.id,
-        :cell=>[u.id,
-          u.receipt_account_id.nil? ? "" : u.receipt_account.name,
-          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
-          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
-          u.letter_id.nil? ? "" : u.letter_id,
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
+        :cell=>["#{u.entity_type}-#{u.entity_id}",
+          u.manual_receipt_number,
           u.amount.nil? ? "$0.00" : currencify(u.amount)
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false
 
+  end
+    
+  def show_existing_receipt_allocations_grid
+
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :include => ["campaign", "receipt_account", "source"]
+      )
+      count = ReceiptAllocation.count(:all,
+        :conditions => ["entity_receipt_id = ?", params[:entity_receipt_id]],
+        :include => ["campaign", "receipt_account", "source"])
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND entity_receipt_id = ?", query, params[:entity_receipt_id]],
+        :include => ["campaign", "receipt_account", "source"])
+      count = ReceiptAllocation.count(:all,
+        :conditions=>[qtype +" ilike ? AND entity_receipt_id = ?", query, params[:entity_receipt_id]],
+        :include => ["campaign", "receipt_account", "source"])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @receipt_allocations.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.receipt_account_id.nil? ? "" : u.receipt_account.name,
+          u.campaign_id.nil? ? "" : (u.campaign.to_be_removed? ? "<span class = 'red'>"+u.campaign.name+"</span>" : u.campaign.name),
+          u.source_id.nil? ? "" : (u.source.to_be_removed? ? "<span class = 'red'>"+u.source.name+"</span>" :u.source.name),
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+  end
+
+  def show_receipts_grid
+    page = (params[:page]).to_i
+    rp = (params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+    if (!sortname)
+      sortname = "id"
+    end
+    if (!sortorder)
+      sortorder = "asc"
+    end
+    if (!page)
+      page = 1
+    end
+    if (!rp)
+      rp = 20
+    end
+
+    conditions = Array.new
+    values = Array.new
+    r_conditions = Array.new
+    r_values = Array.new
+    r_conditions << "receipts.bank_run_id IS NOT NULL"
+    r_conditions << "receipts.entity_type = ?"
+    r_values << params[:entity_type]
+    r_conditions << "receipts.entity_id = ?"
+    r_values << params[:entity_id]
+    
+    if params[:start_deposit_date]
+      r_conditions << "deposits.business_date >= ?"
+      r_values << params[:start_deposit_date].to_date
+    end
+    if params[:end_deposit_date]
+      r_conditions << "deposits.business_date <= ?"
+      r_values << params[:end_deposit_date].to_date
+    end
+    if params[:receipt_account_id]
+      conditions << "receipt_account_id = ?"
+      values << params[:receipt_account_id]
+    end
+    if params[:campaign_id]
+      conditions << "campaign_id = ?"
+      values << params[:campaign_id]
+    end
+    if params[:source_id]
+      conditions << "source_id = ?"
+      values << params[:source_id]
+    end
+
+    start = ((page-1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @receipt_allocations = ReceiptAllocation.find(:all,
+        :conditions => [conditions.join(' AND '), *values]
+      )
+      r = Array.new
+      @receipt_allocations.each do |i|
+        r << i.entity_receipt.id
+      end
+      r = r.uniq
+      @receipts = EntityReceipt.find(:all,
+        :conditions => ["receipts.id IN (?) AND " + r_conditions.join(' AND '), r, *r_values],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :include => ["deposit"]
+      )
+      count = EntityReceipt.count(:all,
+        :conditions => ["receipts.id IN (?) AND " + r_conditions.join(' AND '), r, *r_values],
+        :include => ["deposit"]
+      )
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @receipts = EntityReceipt.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start,
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :include => ["deposit", "campaign", "receipt_account", "source"])
+      count = EntityReceipt.count(:all,
+        :conditions=>[qtype +" ilike ? AND " + conditions.join(' AND '), query, *values],
+        :include => ["deposit", "campaign", "receipt_account", "source"])
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+    return_data[:rows] = @receipts.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.manual_receipt_number,
+          u.deposit.business_date.to_s,
+          u.amount.nil? ? "$0.00" : currencify(u.amount)
+    
+        ]}}
+    # Convert the hash to a json object
+
+    render :text=>return_data.to_json, :layout=>false
+   
   end
 
   def show_transaction_enquiry_grid
@@ -2803,15 +2970,11 @@ class GridsController < ApplicationController
     end
 
     if (!rp)
-
       rp = 20
-
     end
-
 
     conditions = Array.new
     values = Array.new
-
 
     if params[:start_date]
       conditions << "created_at >= ?"
@@ -2822,31 +2985,17 @@ class GridsController < ApplicationController
     if params[:end_date]
       conditions << "created_at <= ?"
       values << params[:end_date].to_date+1
-
     end
 
     if params[:to_be_removed]
       conditions << "to_be_removed = ?"
       values << params[:to_be_removed]
-
     end
 
     if params[:status]
       conditions << "status = ?"
       values << params[:status]
-
     end
-
-    #     if params[:dispatch_date] == "false"
-    #
-    #      conditions << "dispatch_date IS"
-    #      values << "NULL"
-    #     else
-    #      conditions << "dispatch_date IS NOT"
-    #      values << "NULL"
-    #
-    #    end
-
 
 
     start = ((page-1) * rp).to_i
@@ -4459,6 +4608,142 @@ class GridsController < ApplicationController
           u.payment_method_type.name,
           u.receipt_account.name
 
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+
+  def show_zero_organisation_grid
+
+    page = (params[:page]).to_i
+    rp =(params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page -1) * rp).to_i
+    query = "%"+query+"%"
+
+    # No search terms provided
+    if(query == "%%")
+      @organisations = Organisation.find(:all,
+        :conditions=>["level = 0 and type != 'ClientOrganisation'"],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = Organisation.count(:all,
+        :conditions=>["level = 0 and type != 'ClientOrganisation'"]
+      )
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @organisations = Organisation.find(:all,
+        :conditions=>[qtype +" ilike ? AND level = 0 and type != 'ClientOrganisation'", query],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = Organisation.find(:all,
+        :conditions=>[qtype +" ilike ? AND level = 0 and type != 'ClientOrganisation'", query]
+      )
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @organisations.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.full_name,
+          u.primary_phone_num,
+          u.primary_email_address
+        ]}}
+    # Convert the hash to a json object
+    render :text=>return_data.to_json, :layout=>false
+
+  end
+  
+  def show_branches_grid
+
+    page = (params[:page]).to_i
+    rp =(params[:rp]).to_i
+    query = params[:query]
+    qtype = params[:qtype]
+    sortname = params[:sortname]
+    sortorder = params[:sortorder]
+
+    if (!sortname)
+      sortname = "id"
+    end
+
+    if (!sortorder)
+      sortorder = "asc"
+    end
+
+    if (!page)
+      page = 1
+    end
+
+    if (!rp)
+      rp = 20
+    end
+
+    start = ((page -1) * rp).to_i
+    query = "%"+query+"%"
+    branches = Organisation.find(params[:id]).related_organisations
+
+    # No search terms provided
+    if(query == "%%")
+      @branches = branches.find(:all,
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = branches.size
+    end
+
+    # User provided search terms
+    if(query != "%%")
+      @branches = branches.find(:all,
+        :conditions=>[qtype +" ilike ?", query],
+        :order => sortname+' '+sortorder,
+        :limit =>rp,
+        :offset =>start
+      )
+      count = branches.size
+    end
+
+    # Construct a hash from the ActiveRecord result
+    return_data = Hash.new()
+    return_data[:page] = page
+    return_data[:total] = count
+
+    return_data[:rows] = @branches.collect{|u| {:id => u.id,
+        :cell=>[u.id,
+          u.full_name,
+          u.primary_phone_num,
+          u.primary_email_address
         ]}}
     # Convert the hash to a json object
     render :text=>return_data.to_json, :layout=>false

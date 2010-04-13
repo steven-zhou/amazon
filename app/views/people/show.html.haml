@@ -23,23 +23,28 @@
       -unless @primary_phone.nil?
         .container
           .left
-            Phone
+            %span{:class=>("red" if @primary_phone.contact_meta_type.to_be_removed == true)}
+              (#{@primary_phone.contact_meta_type.name}) Phone
           .right
             = @primary_phone.complete_number
 
       -unless @primary_website.nil?
         .container
           .left
-            Website
+            %span{:class=>("red" if @primary_website.contact_meta_type.to_be_removed == true)}
+              (#{@primary_website.contact_meta_type.name}) Website
           .right
-            = @primary_website.value
+            %a{:href => "http://#{@primary_website.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+              = @primary_website.value
 
       -unless @primary_email.nil?
         .container
           .left
-            Email
+            %span{:class=>("red" if @primary_email.contact_meta_type.to_be_removed == true)}
+              (#{@primary_email.contact_meta_type.name}) Email
           .right
-            = @primary_email.value
+            %a{:href => "mailto:#{@primary_email.value}", :class => "alt_link"}
+              = @primary_email.value
 
     .container
       %h1 Primary Address
@@ -95,7 +100,7 @@
       .profile_tab_left{:field =>"person_info"}
       .profile_tab_right{:field =>"business_info", :style => "background-image:url(/images/round_right.png);"}
       .container_icon{:align => 'center', :class => "container_icon_color"}
-        = link_to_function "<h1>System</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
+        = link_to_function "<h1>Business</h1>", :id=>"business", :class=>"show_hide_button", :show_id_name => "business_info",:hide_id_name => "person_info", :color_id => "2"
       .profile_tab_left{:field =>"business_info", :style => "background-image:url(/images/round_left.png);"}
      
 

@@ -1,0 +1,49 @@
+<style type="text/css">
+  #receipt_account_summary .div_line {width: 100%;padding: 0;margin: 0;float: left;text-align: left;}
+  #receipt_account_summary .div_line .div_cell{width: auto;padding: 0;margin: 0;float: left;}
+  #receipt_account_summary .title_bold{font-weight: 600;font-size: 20px;text-align: center;}
+  #receipt_account_summary .div_line .right{float: right;}
+  #receipt_account_summary .div_line .cell_375 {width: 37.5%;}
+  #receipt_account_summary .div_line .cell_475 {width: 47.5%;}
+  #receipt_account_summary .div_line .cell_15 {width: 15%;}
+  #receipt_account_summary .div_line .cell_40 {width: 40%;}
+  #receipt_account_summary .line_seperator {height: 1px;;border-bottom: 1px dashed black;}
+  #receipt_account_summary .table_title {border-top: 3px double black;border-bottom: 3px double black;}
+  #receipt_account_summary .div_total {margin-top: 30px;}
+  #receipt_account_summary .pure_bold {font-weight: bold;}
+  #space {height:50mm;}
+</style>
+<div id="space">&nbsp;</div>
+<div id="receipt_account_summary">
+  <%- total_cash = 0.00%>
+  <%- total_cheque = 0.00%>
+  <%- total_card = 0.00%>
+  <%- cash = 0.00%>
+  <%- cheque = 0.00%>
+  <%- cards = 0.00%>
+  <%- ReceiptAccount.active.try(:each) do |receipt_account|%>
+    <%- cash = (@receipt_account_cash[account.id].nil?||@receipt_account_cash[account.id][receipt_account.id].nil?) ?  0 : @receipt_account_cash[account.id][receipt_account.id]%>
+    <%- cheque = (@receipt_account_cheque[account.id].nil?||@receipt_account_cheque[account.id][receipt_account.id].nil?) ?  0 : @receipt_account_cheque[account.id][receipt_account.id]%>
+    <%- cards = (@receipt_account_cards[account.id].nil?||@receipt_account_cards[account.id][receipt_account.id].nil?) ?  0 : @receipt_account_cards[account.id][receipt_account.id]%>
+    <div class="div_line">
+      <div class="div_cell cell_40"><%=receipt_account.name%></div>
+      <div class="div_cell cell_15"><%=number_to_currency(cash)%></div>
+      <div class="div_cell cell_15"><%=number_to_currency(cheque)%></div>
+      <div class="div_cell cell_15"><%=number_to_currency(cards)%></div>
+      <div class="div_cell cell_15"><%=number_to_currency(cash+cheque+cards)%></div>
+    </div>
+    <%- total_cash += cash%>
+    <%- total_cheque += cheque %>
+    <%- total_card += cards%>
+
+  <%-end%>
+  <br style="clear:both;"/>
+  <div class="line_seperator"></div>
+  <div class="div_line div_total">
+    <div class="div_cell cell_40 pure_bold">Totals</div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cash)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cheque)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_card)%></div>
+    <div class="div_cell cell_15"><%=number_to_currency(total_cash+total_cheque+total_card)%></div>
+  </div>
+</div>

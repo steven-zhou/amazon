@@ -1,0 +1,2 @@
+$('#new_relationship').show().html('<%= escape_javascript(render(:partial => "organisation_relationships/new_relationship_form")) %>');
+$(".org_relationship_name_show").typeWatch( {callback: find_org_name_for_relationship} );

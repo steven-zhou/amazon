@@ -118,6 +118,84 @@ class ApplicationController < ActionController::Base
       raise "Username invalid"
     end
   end
+
+  #  def generate_html(folder, partial, file_name)
+  #    #config temp folder
+  #    file_dir= "public/temp/#{@current_user.user_name}/#{folder}"
+  #    FileUtils.mkdir_p("#{file_dir}")
+  #
+  #    @html = render_to_string(:partial => "#{partial}")
+  #    File.open("#{file_dir}/#{file_name}.html", 'w') do |f|
+  #      f.puts "#{@html}"
+  #    end
+  #  end
+  #
+  #  def convert_html_to_pdf(folder, html_name, pdf_name, pdf_options={})
+  #    #config temp folder
+  #    file_prefix = "public"
+  #    file_dir = "temp/#{@current_user.user_name}/#{folder}"
+  #    FileUtils.mkdir_p("#{file_prefix}/#{file_dir}")
+  #
+  #    #pdf header and footer
+  #    now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
+  #
+  #    pdf_options[:option] ||= "--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
+  #
+  #
+  #    system "wkhtmltopdf #{file_prefix}/#{file_dir}/#{html_name}.html #{file_prefix}/#{file_dir}/#{pdf_name}.pdf #{pdf_options[:option]}"
+  #  end
+  #
+
+  
+
+  #----comment---------use this generate any html----------------
+  def generate_html(folder, html_content, file_name)
+    #config temp folder
+    @file_dir =  make_file_dir(folder)
+    file_open_puts("#{html_content}","#{@file_dir}/#{file_name}.html")    
+  end
+
+  #----comment---------use this generate any pdf----------------
+  def convert_html_to_pdf(folder, html_name, pdf_name, pdf_options={})
+    #config temp folder
+    @file_dir =  make_file_dir(folder)
+    now = Time.now.strftime("%A %d %B %Y %H:%M:%S")
+   
+    #if header is not exist, we create it
+    FileTest.exist?("public/temp/default-header.html") ? "" : file_open_puts("","public/temp/default-header.html")
+    FileTest.exist?("public/temp/default-footer.html") ? "" : file_open_puts("","public/temp/default-footer.html")
+    #--page-size A4 --header-center EmZee --header-right 'Page [page] of [toPage]' --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
+    pdf_options['default_option'] ||= "--page-size A4 --footer-center 'Copyright EmZee Pty Ltd - Generated at #{now}'"
+    pdf_options['header'] ||= "--header-html public/temp/default-header.html"
+    pdf_options['footer'] ||= "--footer-html public/temp/default-footer.html --footer-spacing -5"
+    pdf_options['extra_option'] ||= ""   
+    system "wkhtmltopdf #{ @file_dir}/#{html_name}.html #{@file_dir}/#{pdf_name}.pdf #{pdf_options['default_option']+" "+pdf_options['header']+" "+pdf_options['footer']+" "+pdf_options['extra_option']}"
+  end
+
+  #----comment---------use this generate any html and pdf----------------
+  def generate_html_and_make_pdf(folder, html_content, html_name, pdf_name, pdf_options)
+    generate_html(folder, html_content, html_name)
+    convert_html_to_pdf(folder,  html_name, pdf_name, pdf_options)
+  end
+
+  #----comment---------use this make any new dir folder----------------
+  def make_file_dir(folder, path="public/temp/#{@current_user.user_name}")
+    @file_dir= "#{path}/#{folder}"
+    FileUtils.mkdir_p("#{@file_dir}")
+    return @file_dir
+  end
+
+  #----comment---------use this write any file----------------
+  def file_open_puts object, filename
+    File.open(filename, 'w') do |f|
+      f.puts(object)
+    end
+
+  end
+
+
+
+  
   private
 
   def check_session_timeout(current_user)

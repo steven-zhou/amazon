@@ -1,0 +1,49 @@
+<style type="text/css">
+  .page_break {page-break-after: always;}
+  #logo {float:left;}
+  #header {text-align: center;}
+  #left_title {width:50%;text-align: left;float: left;font-weight: bold;}
+  #right_title {width:50%;text-align: right;float: left;font-weight: bold;}
+  #receipt_enquiry_result {width: 100%;border: 1px solid black;border-collapse: collapse;}
+  #receipt_enquiry_result th {border: 1px solid black;padding: 4px;}
+  #receipt_enquiry_result td {border-width: 0px 1px;border-style: solid;border-color: black;padding: 4px;}
+  .clear{clear: both;}
+</style>
+<div id="content_holder">
+  <div id="logo">
+    <img src="<%=RAILS_ROOT%>/public/images/memberzone_logo_small.png" alt="logo"/>
+  </div>
+  <div id="header">
+    <h3><%= @entity.class.base_class%> Receipt Detail Enquiry Result</h3>
+  </div>
+  <div id="left_title">
+    <p>Name: (<%= @entity.id %>) <%= @entity.full_name %>
+      <br/>
+      Period From <%= @start_date %> to <%= @end_date %>
+    </p>
+  </div>
+  <div id="right_title">
+    <p>Print Date <%= Date.today.to_s%></p>
+  </div>
+  <br class="clear"/>
+  <table id="receipt_enquiry_result">
+    <tr>
+      <th>Allocation ID</th>
+      <th>Receipt Account</th>
+      <th>Campaign</th>
+      <th>Source</th>
+      <th>Amount</th>
+    </tr>
+    <%- @receipts.each do |receipt|%>
+      <%- receipt.receipt_allocations.each do |allocation|%>
+        <tr>
+          <td><%=allocation.id%></td>
+          <td><%=allocation.receipt_account.try(:name)%></td>
+          <td><%=allocation.campaign.try(:name)%></td>
+          <td><%=allocation.source.try(:name)%></td>
+          <td><%=number_to_currency(allocation.amount)%></td>
+        </tr>
+      <%- end %>
+    <%- end %>
+  </table>
+</div>

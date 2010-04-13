@@ -114,7 +114,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -124,12 +124,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -195,7 +195,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -205,12 +205,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
 
 
 
@@ -882,7 +882,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are you Sure You Wish to EXIT ?");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -892,12 +892,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -963,7 +963,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -973,12 +973,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back": function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -1343,7 +1343,7 @@ $(function(){
         if ( $('#check_input_change').val()=="true")
         {
 
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1353,12 +1353,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" +link.attr('field')+'_mode').attr('mode','show');
                         link.css('display', 'none');
@@ -1405,7 +1405,7 @@ $(function(){
         if ( $('#check_input_change').val()=="true")
         {
 
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1415,12 +1415,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" +link.attr('field')+'_mode').attr('mode','show');
                         link.css('display', 'none');
@@ -1614,7 +1614,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1624,12 +1624,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -1878,7 +1878,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1887,11 +1887,11 @@ $(function(){
                 height: 'auto',
                 width: 'auto',
                 buttons: {
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
                     },
-                    Yes: function(){
+                    "Exit" : function(){
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
                         link.css("display","none");
@@ -1937,7 +1937,7 @@ $(function(){
         var link = $(this);
         if ( $('#check_input_change').val()=="true")
         {
-            $('#warning_message_text').html("Data Not Saved. Are You Sure You Wish to EXIT?  ");
+            $('#warning_message_text').html("Data Not Saved.");
             $('#warning_message_image').css("display","");
             $('#warning_message').dialog({
                 modal: true,
@@ -1947,12 +1947,12 @@ $(function(){
                 width: 'auto',
                 buttons: {
 
-                    No: function(){
+                    "Go Back" : function(){
                         $(this).dialog('destroy');
                         return false;
 
                     },
-                    Yes: function(){
+                    "Exit" : function(){
 
                         $('#'+link.attr('toggle_id_name')).toggle('blind');
                         $("#" + link.attr('field')+'_mode').attr('mode','show');
@@ -2759,7 +2759,8 @@ $(function(){
 
 
 $(document).ready(function(){
-
    $('.iphone_checkbox').iphoneStyle();
-
 });
+
+
+

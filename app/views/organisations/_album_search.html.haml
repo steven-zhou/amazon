@@ -1,0 +1,22 @@
+.form_line
+  .field_10
+    %label &nbsp;
+    %label{:style => "margin-top:5px;"} Filtering 
+  .field_20
+    %label Filter By
+    %select{:id => "album_qtype", :name => "qtype"}
+      %option{:value => "id", :selected => @qtype == "id"} Id
+      %option{:value => "full_name", :selected => @qtype == "full_name"} Full Name
+      %option{:value => "short_name", :selected => @qtype == "short_name"} Short Name
+      %option{:value => "primary_email_address", :selected => @qtype == "primary_email_address"} Primary Email
+      %option{:value => "primary_phone_num", :selected => @qtype == "primary_phone_num"} Primary Phone
+  .field_35
+    %label &nbsp;
+    %input{:id => "album_query", :value => "#{@query}"}
+  .field_15
+    %label &nbsp;
+    = button_to_function "Filter", :class => "album_page_load_click", :id => "album_search_start"
+
+
+
+//{:style => "padding-top:9px;"}

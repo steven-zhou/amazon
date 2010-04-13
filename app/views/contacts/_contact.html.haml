@@ -68,7 +68,14 @@
         = link_to image_tag('delete_icon.png'), instant_messaging_path(contact), :class => 'delete delete_instant_messaging delete_option', :field => "contact", :id => 'instant_messaging_delete_button', :instant_messaging_id => contact.id,:error_message_field => contact.contact_meta_type.name+ " IM Contact", :title=>"Remove"
     %br.clear
   %div{:style => "float:right;"}
-    = "#{contact.pre_value} #{contact.value} #{contact.post_value}".squeeze(" ").strip
+    -if contact.type =="Phone"
+      = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
+    -elsif contact.type=="Website"
+      %a{:href => "http://#{contact.value.gsub('http://','')}", :target => "_blank", :class => "alt_link"}
+        = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
+    -elsif contact.type == "Email"
+      %a{:href => "mailto:#{contact.value}", :class => "alt_link"}
+        = "#{contact.pre_value} #{contact.value}  #{contact.post_value}".squeeze(" ").strip
     %br
     -#- if (contact.read_attribute("type") == "Phone")
       = contact.preferrence_day_times 

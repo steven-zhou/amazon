@@ -1,5 +1,5 @@
 .container{:style => "width:96%;padding:2%;"}
-  %table#general_search_organisations_list_results{:class => "selectable_grid", :db_click_function => "true", :db_close => "true", :db_click_url => "/transactions/show_organisational_transaction.js", :db_params1 => "", :target => "default" }
+  %table#general_search_organisations_list_results{:class => "selectable_grid", :db_click_function => "true", :db_close => "true", :db_click_url => "/receipting/show_organisational_deposit", :db_params1 => "", :target => "default" }
 
 %script{:type => "text/javascript", :charset => "utf-8"}
   $("#general_search_organisations_list_results").flexigrid({
@@ -22,7 +22,7 @@
   {display: 'Email', name : 'field_5'}
 
   ],
-  sortname: "grid_object_id",
+  sortname: "id",
   sortorder: "asc",
   usepager: true,
   title: 'Organisation List',

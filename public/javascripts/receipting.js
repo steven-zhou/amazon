@@ -241,12 +241,29 @@ $(function(){
   });
 });
 
-//transaction histroy export
+//deposit histroy export
+//$(function(){
+//  $('#export_to_pdf_button').live('click',function(){
+//    var start_date = $("#filter_start_date").val();
+//    var end_date = $("#filter_end_date").val();
+//    window.open("/deposits/export_histroy_to_report.pdf?start_date="+start_date+"&end_date="+end_date);
+//  });
+//});
+
 $(function(){
   $('#export_to_pdf_button').live('click',function(){
     var start_date = $("#filter_start_date").val();
     var end_date = $("#filter_end_date").val();
-    window.open("/transaction_headers/export_histroy_to_report.pdf?start_date="+start_date+"&end_date="+end_date);
+    window.open("/deposits/export_histroy_to_report.pdf?start_date="+start_date+"&end_date="+end_date);
+  });
+});
+
+$(function(){
+  $('#receipt_export_to_pdf_button').live('click',function(){
+    window.open("/receipts/show_pdf");
+  });
+  $('#receipt_detail_export_to_pdf_button').live('click',function(){
+    window.open("/receipts/show_detail_pdf");
   });
 });
 
@@ -350,7 +367,7 @@ $(function(){
     {
       $('#filter_start_id').attr('disabled',true);
       $('#filter_end_id').attr('disabled',true);
-       $('#filter_start_id').val("1");
+      $('#filter_start_id').val("1");
       $('#filter_end_id').val("10000");
       $('#hidden_select_fileter').append($('#id_range_filter'));
       $('#id_range_filter').hide();
@@ -392,13 +409,13 @@ $(function(){
     else if ($(this).attr("field")=="Banking Status")
     {
       $('#hidden_select_fileter').append($('#banking_status_filter'));
-            $('#banked').val("0");
+      $('#banked').val("0");
       $('#banking_status_filter').hide();
     }
     else if ($(this).attr("field")=="Receipt Type")
     {
       $('#hidden_select_fileter').append($('#receipt_type_filter'));
-            $('#receipt_meta_type_id').val("0");
+      $('#receipt_meta_type_id').val("0");
       $('#enquiry_receipt_type').val("0");
       $('#received_via_id').val("0");
       $('#receipt_type_filter').hide();
@@ -534,7 +551,7 @@ $(function(){
   
     $("#enquiry_filter").css("display","none");
     $("#bank_run_more_option").css("display","");
-    $("#transaction_bank_run").get(0).reset();
+    $("#deposit_bank_run").get(0).reset();
 
     $('#bank_id_filter').hide();
     $('#user_id_filter').hide();
@@ -545,4 +562,11 @@ $(function(){
   });
 
   
+});
+
+$(function(){
+  $('#close_receipt_view').live('click', function(){
+    $('#receipt_filter').show();
+    $('.receipt_export_to_pdf_button').show();
+  });
 });

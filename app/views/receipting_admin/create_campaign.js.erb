@@ -1,0 +1,116 @@
+<% if @campaign.errors.empty? && flash[:error].nil?  -%>
+$('#add_new_campaign').html('<%= escape_javascript(render(:partial => "/receipting_admin/new_campaign")) %>');
+$('#existing_campaigns').html('<%= escape_javascript(render(:partial => "/receipting_admin/existing_campaigns")) %>');
+$('#campaign_mode').attr('mode', 'show');
+$("#show_campaigns_grid").flexigrid({
+url: '/grids/show_campaigns_grid',
+dataType: 'json',
+colModel : [
+{
+display: 'ID',
+name : 'id',
+width : 40,
+sortable : true,
+align: 'left'
+},
+
+{
+display: 'Name',
+name : 'name',
+width : 160,
+sortable : true,
+align: 'left'
+},
+
+{
+display: 'Description',
+name : 'description',
+width : 260,
+sortable : true,
+align: 'left'
+},
+
+{
+display: 'Target Amount',
+name : 'target_amount',
+width : 80,
+sortable : true,
+align: 'left'
+},
+
+{
+display: 'Start Date',
+name : 'start_date',
+width : 100,
+sortable : true,
+align: 'left'
+},
+
+{
+display: 'End Date',
+name : 'end_date',
+width : 100,
+sortable : true,
+align: 'left'
+},
+
+{
+display: 'Status',
+name : 'status',
+width : 100,
+sortable : true,
+align: 'left'
+}
+
+],
+searchitems : [
+{
+display: 'Name',
+name : 'Name'
+},
+
+{
+display: 'Target Amount',
+name : 'target_amount'
+},
+
+{
+display: 'Status',
+name : 'status'
+}
+
+
+],
+sortname: "start_date, name",
+sortorder: "asc",
+usepager: true,
+title: 'Campaigns',
+useRp: true,
+rp: 20,
+showTableToggleBtn: false,
+width: 'auto',
+height: 'auto'
+});
+
+
+<% else %>
+$("#flash_message_text").html("<%=escape_javascript(flash[:error])%>");
+ $('#flash_message').dialog( {
+      modal: true,
+      resizable: false,
+      draggable: true,
+      height: 'auto',
+      width: 'auto',
+  buttons:{
+  Ok: function() {
+  $(this).dialog('destroy');
+  }
+  }
+  });
+ $('#flash_message').dialog( 'option', 'title', 'ERROR');
+ $('#flash_message').parent().find("a").css("display","none");
+ $("#flash_message").parent().css('background-color','#D1DDE6');
+ $("#flash_message").css('background-color','#D1DDE6');
+  $('#flash_message').dialog('open');
+<% end -%>
+  enable_form_after_submit_finish();
