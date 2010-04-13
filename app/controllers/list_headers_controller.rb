@@ -217,7 +217,6 @@ class ListHeadersController < ApplicationController
     end
   end
 
-
   def compile_list
     @list_headers =@lists= @current_user.all_person_lists
     @compile_lists = CompileList.find_all_by_login_account_id(session[:user])
@@ -236,7 +235,6 @@ class ListHeadersController < ApplicationController
       format.html
     end
   end
-
 
   def org_compile_list
 
