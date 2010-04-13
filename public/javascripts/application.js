@@ -974,7 +974,7 @@ $(function(){
       $("#warning_message").css('background-color','#D1DDE6');
 
       $('#warning_message').dialog('open');
-      return false;
+  
     }
     else
     {
@@ -995,7 +995,7 @@ $(function(){
       $('.close_option[field='+ link.attr('field') +']').css("display","none");
 
     }
-    return false;
+
   });
 });
 
