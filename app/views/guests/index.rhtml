@@ -1,78 +1,78 @@
-    <div id="signin_container" title="Login Assistance">
-      <div id="signin_logo" ></div>
-      <div id="signin_form" style="padding:0 10%">
-        <div class="sign_content_title" > Member Portal </div>
-        <div id="signin_form_wrapper">
-          <% form_tag('/guests/login/', :id => "login_form", :submit_button_id => "signin_button") do -%>
-            <div class="form_line">
-              <div class="field_90">
-                <input id="username" class="field compulsory_field" type="text" size="28" name="user_name" style="height:24px;"  title="Email"/>
-              </div>
-            </div>
-            <div class="form_line">
-              <div class="field_90">
-                <input id="password" class="field compulsory_field" type="password" size="28" name="password" style="height:24px;" title ="Password"/>
-              </div>
-            </div>
-
-            <div id="signin_submit" style="">
-              <input id="signin_button" type="submit" value="Sign In" disabled="true" style="padding:2% 4%;margin-bottom:15px;"/>
-              <a href="" id="register_guest_account">Register</a> - <a href="/guests/new/" id="forgot_password">Forgot your password ?</a>
-            </div>
-
-          <% end -%>
+<div id="signin_container" title="Login Assistance">
+  <div id="signin_logo" ></div>
+  <div id="signin_form" style="padding:0 10%">
+    <div class="sign_content_title" > Member Portal </div>
+    <div id="signin_form_wrapper">
+      <% form_tag('/guests/login/', :id => "login_form", :submit_button_id => "signin_button") do -%>
+        <div class="form_line">
+          <div class="field_90">
+            <input id="username" class="field compulsory_field" type="text" size="28" name="user_name" style="height:24px;"  title="Email"/>
+          </div>
         </div>
-      </div>
-      <br></br>
-      <br style="clear:both"></br>
+        <div class="form_line">
+          <div class="field_90">
+            <input id="password" class="field compulsory_field" type="password" size="28" name="password" style="height:24px;" title ="Password"/>
+          </div>
+        </div>
 
+        <div id="signin_submit" style="">
+          <input id="signin_button" type="submit" value="Sign In" disabled="true" style="padding:2% 4%;margin-bottom:15px;"/>
+          <a href="" id="register_guest_account">Register</a> - <a href="/guests/forgot_password/" id="forgot_password">Forgot your password ?</a>
+        </div>
 
+      <% end -%>
     </div>
+  </div>
+  <br></br>
+  <br style="clear:both"></br>
+
+
+</div>
 
 
 
-    <div id="register_container" style="display:none;">
-      <div id="signin_container">
-        <div id="register_form" style="padding:0 10%">
-          <div class="sign_content_title"> Member Registration </div>
-          <div id="signin_form_wrapper">
-            <% form_tag('/guests/create/',:id=>"create_guest",:class => "ajax_form", :submit_button_id => "register_button") do -%>
-              <div class="form_line">
-                <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]"  title="*Family Name"/><br />
-              </div>
-
-
-              <div class="form_line">
-                <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]"  title="*Last Name"/><br />
-              </div>
-
-              <div class="form_line">
-               <input id="eamil" class="field compulsory_field" type="text" size="28" name="guests[email]"  title="*Email"/><br />
-              </div>
-
-              <div class="form_line">
-                <input id="phone" class="field compulsory_field" type="text" size="28" name="guests[phone_num]"  title="*Contact Number" /><br />
-              </div>
-
-              <div class="form_line">
-                <div class="captcha"><%= show_simple_captcha %></div>
-              </div>
-
-
-              <div id="register_submit" style="">
-                <input id="register_button" type="submit" value="Register" disabled="true" style="padding:2% 4%;"/>
-                <a href="" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;">Cancel</a>
-              </div>
-              <div class="form_line">
-                <div class="register_feedback" id="successful_message_container" style="display:none;"></div>
-                <div class="register_feedback" id="fail_message_container" style="display:none;"></div>
-              </div>
-            <% end -%>
-            <br style="clear:both"></br>
+<div id="register_container" style="display:none;">
+  <div id="signin_container">
+    <div id="register_form" style="padding:0 10%">
+      <div class="sign_content_title"> Member Registration </div>
+      <div id="signin_form_wrapper">
+        <% form_tag('/guests/create/',:id=>"create_guest",:class => "ajax_form", :submit_button_id => "register_button") do -%>
+          <div class="form_line">
+            <input id="first_name" class="field compulsory_field" type="text" size="28" name="guests[first_name]"  title="*Family Name"/><br />
           </div>
 
 
-        </div>
+          <div class="form_line">
+            <input id="family_name" class="field compulsory_field" type="text" size="28" name="guests[family_name]"  title="*Last Name"/><br />
+          </div>
+
+          <div class="form_line">
+            <input id="eamil" class="field compulsory_field" type="text" size="28" name="guests[email]"  title="*Email"/><br />
+          </div>
+
+          <div class="form_line">
+            <input id="phone" class="field compulsory_field" type="text" size="28" name="guests[phone_num]"  title="*Contact Number" /><br />
+          </div>
+
+          <div class="form_line">
+            <div class="captcha"><%= show_simple_captcha %></div>
+          </div>
+
+
+          <div id="register_submit" style="">
+            <input id="register_button" type="submit" value="Register" disabled="true" style="padding:2% 4%;"/>
+            <a href="" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;">Cancel</a>
+          </div>
+          <div class="form_line">
+            <div class="register_feedback" id="successful_message_container" style="display:none;"></div>
+            <div class="register_feedback" id="fail_message_container" style="display:none;"></div>
+          </div>
+        <% end -%>
         <br style="clear:both"></br>
       </div>
+
+
     </div>
+    <br style="clear:both"></br>
+  </div>
+</div>

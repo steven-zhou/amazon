@@ -2,8 +2,8 @@ class GuestsController < ApplicationController
 
   layout "portal"
   include SimpleCaptcha::ControllerHelpers
-  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show]
-  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha]
+  before_filter :check_authentication, :except => [:index, :new, :create, :login, :captcha, :reset, :show, :reset_password]
+  before_filter :guest_authentication, :except => [:index, :new, :create, :login, :captcha, :reset_password]
 
   def guest_authentication
     unless session[:guest]
@@ -20,7 +20,7 @@ class GuestsController < ApplicationController
 
   #--comment when you click the register button for guest register process
   def new
-    @guest = SystemUser.new
+   
     respond_to do |format|
       format.js
     end
@@ -92,7 +92,58 @@ class GuestsController < ApplicationController
     end
   end
 
+
+  def reset_password
+    #---comment--grab the current_guest info
+    @current_guest= Guest.find(session[:guest])
+    email = @current_guest.email
+    password_valid = true
+    #---comment--get the info from the form view
+    old_password = params[:guests][:old_password].nil? ? "" : params[:guests][:old_password]
+    new_password = params[:guests][:new_password].nil? ? "" : params[:guests][:new_password]
+    new_password_confirmation = params[:guests][:new_password_confirmation].nil? ? "" : params[:guests][:new_password_confirmation]
+
+    #---comment--Check that the old password was correct
+    begin 
+      @current_guest = Guest.authenticate(email,old_password)
+    rescue
+      password_valid = false
+    end
+
+    #---comment--Check If they got the new password and password confirmation wrong
+    if (!password_valid)
+      flash[:warning] = flash_message(:type => "password_error")
+      redirect_to :action => "reset"
+     
+    elsif(new_password != new_password_confirmation)
+      flash[:warning] = flash_message(:type => "password_confirm_error")
+      redirect_to :action => "reset"
+     
+
+    else
+      # Change the password
+      @current_guest.password = new_password
+      @current_guest.password_by_system = false
+      if @current_guest.save
+        flash[:warning] = flash_message(:type => "password_change_ok")
+        redirect_to :action => 'index'
+       
+      else
+        flash[:warning] = flash_message(:type => "set_password_error")
+        redirect_to :action => "reset"
+       
+      end
+    end 
+  end
+
   def show
+
+    respond_to do |format|
+      format.html
+    end
+  end
+
+  def forgot_password
 
     respond_to do |format|
       format.html
