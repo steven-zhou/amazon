@@ -36,7 +36,7 @@ class GuestsController < ApplicationController
     if simple_captcha_valid? and @guest.save
       email = EmailDispatcher.create_send_guest_username_and_password(@guest)
       EmailDispatcher.deliver(email)
-      @successful_messsage = "Registration Completed Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Cancel</a>"
+      @successful_messsage = "Registration Completed Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Close</a>"
     else
 
       #----------------------------presence - of------------------------#
