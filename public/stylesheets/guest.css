@@ -124,6 +124,7 @@ input[type="submit"] {
 }
 #register_form form a img {
   vertical-align: bottom;
+  border: none;
 }
 #register_form form #signin_button {
   float: right;
