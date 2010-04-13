@@ -4,8 +4,8 @@ class Guest < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false
   validates_presence_of  :email, :first_name,:family_name,  :phone_num
   validates_format_of :email, :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => "Invalid email"
-  validates_length_of :password, :within => 6..30
-  validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i
+ # validates_length_of :password, :within => 6..30
+ # validates_format_of :password, :with => /^[A-Za-z0-9!@$%^&*()#]+$/i
 
 
   default_scope :order => "id ASC"
@@ -23,16 +23,12 @@ class Guest < ActiveRecord::Base
     end
   end
 
-   #--comment----for the user type password , this is password setter----
+  #--comment----for the user type password , this is password setter----
 
 
   def password=(pass)
     @password=pass
-    if (!self.password_salt.nil? && !self.password_hash.nil?)
-      self.password_last_salt = self.password_salt
-      self.password_last_hash = self.password_hash
-    end
-    #    self.password_updated_at = Time.now()
+      #    self.password_updated_at = Time.now()
     salt = [Array.new(6){rand(256).chr}.join].pack("m").chomp
     self.password_salt, self.password_hash = salt, Digest::SHA256.hexdigest(@password + salt)
   end
@@ -45,5 +41,8 @@ class Guest < ActiveRecord::Base
     length.times { |i| password << chars[rand(chars.length)] }
     password
   end
+
+
+
 
 end
