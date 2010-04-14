@@ -5,6 +5,7 @@ class TagTypesController < ApplicationController
     @tag_type = (params[:tag]+"MetaType").camelize.constantize.new
     @tag_meta_type = (params[:tag]+"MetaMetaType").camelize.constantize.find(params[:tag_meta_type_id])
     @tag_types = @tag_meta_type.tag_types
+    @category = params[:tag]
     respond_to do |format|
       format.js
     end
@@ -28,6 +29,7 @@ class TagTypesController < ApplicationController
   def edit
     @tag_type = TagType.find(params[:id])
     @tag_meta_type = @tag_type.tag_meta_type
+    @category = @tag_type.class.to_s.sub(/MetaType/,'')
     respond_to do |format|
       format.js
     end

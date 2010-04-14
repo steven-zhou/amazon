@@ -17,8 +17,5 @@
       %br.clear
     %div{:id => "extra_div_#{i}", :style => "display:none;"}
       - extra = Extra.find_extra(group.id, @entity)
-      - if extra.nil?
-        = render :partial => "/extras/extra_form", :locals => {:extra => Extra.new, :group => group}
-      - else
-        = render :partial => "/extras/display_extra", :locals => {:extra => extra, :group => group}
+      = render :partial => "/extras/display_extra", :locals => {:extra => extra, :group => group}
   - i = i + 1

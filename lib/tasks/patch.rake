@@ -12,7 +12,8 @@ namespace :db do
 #    "modify_client_setups_level",
 #   "add_family_id",
     "add_primary_phone_and_email",
-    "reset_login_attempts"] do
+    "reset_login_attempts",
+    "create_custom_field"] do
     puts "Patch Done!"
   end
 end

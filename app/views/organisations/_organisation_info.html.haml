@@ -35,10 +35,9 @@
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_button page_initial hidden", :url => "/organisation_relationships/page_initial", :method => "GET", :render_page => "/organisations/organisation_relationships", :field => "o2o_page", :params1 => @organisation.id, :type => "Organisation"
     = link_to_function image_tag('Icons/Core/Org/tabs/o2o_BW.png'), :class=>"tab_switch_with_page_initial", :field => "o2o_page"
 
-  #Extra{:style => "float:left;margin-left:10px;", :title => "extra fields", :class => "person_edit_tab", :field =>  "extra"}
-    = link_to_function image_tag('Icons/Core/Person/tabs/extra_BW.png'), :class => "tab_switch_button page_initial hidden", :url => "/extras/page_initial", :method => "GET", :render_page => "/extras/display_extra_only", :field => "extra_page", :params1 => @organisation.id, :type => "Organisation"
-    = link_to_function image_tag('Icons/Core/Person/tabs/extra_BW.png'), :class=> "tab_switch_with_page_initial", :field => "extra_page"
-
+  #Extra{:style => "float:left;margin-left:10px;", :title => "Custom Field", :class => "organisation_edit_tab", :field => "custom_field"}
+    = link_to_function image_tag('Icons/Core/Org/tabs/custom_field_BW.png'), :class => "tab_switch_button page_initial hidden", :url => "/extras/page_initial", :method => "GET", :render_page => "/extras/display_extra_only", :field => "custom_field_page", :params1 => @organisation.id, :type => "Organisation"
+    = link_to_function image_tag('Icons/Core/Org/tabs/custom_field_BW.png'), :class=> "tab_switch_with_page_initial", :field => "custom_field_page"
 .container
   #contact_page.tab_switch_container.active
     = render :partial => "/organisations/organisation_contact", :locals => {:organisation => @organisation}
@@ -58,4 +57,4 @@
 
   #o2o_page.tab_switch_container
 
-  #extra_page.tab_switch_container
+  #custom_field_page.tab_switch_container
