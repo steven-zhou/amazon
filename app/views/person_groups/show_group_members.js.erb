@@ -1,3 +1,5 @@
+$('#show_group_members.ui-dialog-content').closest(".ui-dialog").remove();
+
 $('#show_group_members').html('<%= escape_javascript(render(:partial => "person_groups/show_other_group_member", :locals =>{:group_members => @group_members })) %>');
 
 $('#show_group_members').dialog({
