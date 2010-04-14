@@ -71,6 +71,25 @@ class OrganisationsController < ApplicationController
         @organisation.primary_email_address = @organisation.try(:emails).find_by_priority_number(1).try(:value)
         @organisation.primary_phone_num = @organisation.try(:phones).find_by_priority_number(1).try(:value)
         @organisation.save
+
+        # create custom field for org
+         @extra_types = ExtraMetaType.active
+        i=1
+        @extra_types.each do |group|
+          @extra =  Extra.new
+          @extra.entity_id = @organisation.id
+          @extra.group_id = group.id
+          @extra.entity_type = "Organisation"
+          group.extra_types.each do |label|
+            @extra.__send__(("label#{i}_id=").to_sym,label.id)
+            @extra.__send__(("label#{i}_value=").to_sym,nil)
+            i=i+1
+          end
+          @extra.save
+          i=1
+        end
+
+
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Organisation with ID #{@organisation.id}.")
         if !params[:image].nil?
           @image = Image.new(params[:image])
