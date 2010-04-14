@@ -1,47 +1,12 @@
 $('#show_group_members').html('<%= escape_javascript(render(:partial => "person_groups/show_other_group_member", :locals =>{:group_members => @group_members })) %>');
 
-$(function(){
-    $("#show_other_group_member_grid").flexigrid({
-        url: '/grids/show_other_member_grid',
-        dataType: 'json',
-        colModel : [
-            {display: 'ID', name : 'grid_object_id', width : 40, sortable : true, align: 'left'},
-            {display: 'Name', name : 'field_1', width : 100, sortable : true, align: 'left'},
-            {display: 'Phone', name : 'field_2', width : 100, sortable : true, align: 'left'},
-            {display: 'Address', name : 'field_3', width : 130, sortable : true, align: 'left'},
-            {display: 'Email', name : 'field_4', width : 130, sortable : true, align: 'left'},
-
-        ],
-        searchitems : [
-            {display: 'Name', name : 'field_1'},
- 
-        ],
-        sortname: "grid_object_id",
-        sortorder: "asc",
-        usepager: true,
-        title: 'Show Other Group Members',
-        useRp: true,
-        rp: 20,
-        showTableToggleBtn: false,
-        width: 'auto',
-        height: 'auto'
-    });
-});
-
-
 $('#show_group_members').dialog({
   modal: true,
   resizable: true,
   draggable: true,
   height: 'auto',
-  width: 600,
-  <%#*buttons: {%>
-    <%#*Ok: function() {%>
-      <%#*$(this).dialog('close');%>
-    <%#*}%>
-  <%#*}%>
+  width: 600
 });
 
 $('#show_group_members').dialog('open');
-
-      $('#show_other_group_members_disabled').attr("id","show_other_group_members");
+$('#show_other_group_members_disabled').attr("id","show_other_group_members");
