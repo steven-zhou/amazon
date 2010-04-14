@@ -23,7 +23,7 @@ class DashboardsController < ApplicationController
     @new_to_do = ToDoList.new_to_do(session[:user])
     @processing_to_do = ToDoList.processing_to_do(session[:user])
     @completed_to_do = ToDoList.completed_to_do(session[:user])
-
+    puts " Session[current org list id] is #{session[:current_org_list_id]} ************00000000"
     respond_to do |format|
       format.html
     end

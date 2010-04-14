@@ -30,6 +30,7 @@ class ReceiptingController < ApplicationController
   def organisational_deposit
     session[:module] = "receipting"
     @list_headers = @current_user.all_organisation_lists
+    @list_headers = [OrganisationPrimaryList.first] if @list_headers.blank?
     @list_header = ListHeader.find(session[:current_org_list_id]) rescue @list_header = @list_headers.first
     @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find(session[:current_organisation_id]) rescue @organisation = @o[0]
