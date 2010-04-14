@@ -160,10 +160,10 @@ class GuestsController < ApplicationController
       @guest.password = Guest.generate_password
       @guest.password_by_system = true
       if @guest.save
-        email = EmailDispatcher.create_send_guest_username_and_password(@guest)
+        email = EmailDispatcher.create_send_guest_forgot_password(@guest)
         EmailDispatcher.deliver(email)
 
-        @successful_messsage = "Details were sent. Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href=''>Close</a>"
+        @successful_messsage = "Details were sent. Please check your email. <a class='alt_option' id='cancel' style='margin:0;' href='/guests/index'>Close</a>"
       end
     end
     
