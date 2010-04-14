@@ -5,12 +5,12 @@
     <div id="signin_form_wrapper">
       <% form_tag('/guests/login/', :id => "login_form", :submit_button_id => "signin_button") do -%>
         <div class="form_line">
-          <div class="field_90">
+          <div class="field_100">
             <input id="username" class="field compulsory_field" type="text" size="28" name="user_name" style="height:24px;"  title="Email"/>
           </div>
         </div>
         <div class="form_line">
-          <div class="field_90">
+          <div class="field_100">
             <input id="password" class="field compulsory_field" type="password" size="28" name="password" style="height:24px;" title ="Password"/>
           </div>
         </div>
@@ -59,20 +59,24 @@
           </div>
 
 
-          <div id="register_submit" style="">
-            <input id="register_button" type="submit" value="Register" disabled="true" style="padding:2% 4%;"/>
-            <a href="" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;">Cancel</a>
+          <div id="register_submit" style="width:60%;float:right;">
+ 
+            <input id="register_button" type="submit" value="Register" disabled="true" style="padding:2% 4%;width:40%;float:right;"/>
+    
+            <a href="" id="cancel" class="alt_option register_cancel" style="padding-top: 5px;width:20%;float:left;">Cancel</a>
           </div>
-          <div class="form_line">
-            <div class="register_feedback" id="successful_message_container" style="display:none;"></div>
-            <div class="register_feedback" id="fail_message_container" style="display:none;"></div>
-          </div>
-        <% end -%>
-        <br style="clear:both"></br>
-      </div>
 
 
+        <div class="form_line">
+          <div class="register_feedback" id="successful_message_container" style="display:none;"></div>
+          <div class="register_feedback" id="fail_message_container" style="display:none;"></div>
+        </div>
+      <% end -%>
+      <br style="clear:both"></br>
     </div>
-    <br style="clear:both"></br>
+
+
   </div>
+  <br style="clear:both"></br>
+</div>
 </div>

@@ -57,7 +57,7 @@ class GuestsController < ApplicationController
       end
    
      
-      @error_messsage =  "Someting went wrong during the registration. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
+      @error_messsage =  "Something went wrong during the registration. <a class='alt_option try_again' style='margin:0;'>Try again</a>"
     end
     respond_to do |format|
       format.js
