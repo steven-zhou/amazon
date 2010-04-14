@@ -265,8 +265,6 @@ class SigninController < ApplicationController
   def grace_period_check(login_account)
     if ( !login_account.authentication_grace_period.nil? && login_account.authentication_grace_period.to_i > 0)
       # If we have no timeout or if timeout is not defined or if we have not had a last event record
-
-
       if( ( (Time.now - login_account.created_at.getlocal) / (24 * 60 * 60) ) > login_account.authentication_grace_period.to_i )
         # If time since the account was created (in days) is greater than the grace period allowed
         # delete the account
@@ -288,7 +286,6 @@ class SigninController < ApplicationController
   # If we have had an invalid access attempt, record their i[ and decrease number of access attempts availabnle
   def invalid_access_attempt(login_account)
     login_account.access_attempts_count -= 1 if login_account.access_attempts_count.to_i > 0
-    puts"----------DEBUG-----1111--#{login_account.to_yaml}"
     login_account.access_attempt_ip = request.remote_ip
     login_account.save
   end
