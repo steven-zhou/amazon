@@ -39,7 +39,8 @@ class OrganisationsController < ApplicationController
     @active_sub_tab = params[:active_sub_tab]
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
 
-    @o = @list_header.entity_on_list.uniq rescue @o = OrganisationPrimaryList.first.entity_on_list.uniq
+    @list_header = OrganisationPrimaryList.first if @list_header.nil?
+    @o = @list_header.entity_on_list.uniq
     @organisation = Organisation.find_by_id(params[:id].to_i)
     @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
     session[:current_organisation_id] = @organisation.id
@@ -107,6 +108,8 @@ class OrganisationsController < ApplicationController
     @current_user = LoginAccount.find(session[:user])
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
+
+    @list_header = OrganisationPrimaryList.first if @list_header.nil?
     @o = @list_header.entity_on_list.uniq
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
