@@ -1167,8 +1167,8 @@ class GridsController < ApplicationController
     #        :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     #      count = ShowListGrid.count(:all, :conditions=>[qtype +" ilike ? AND login_account_id = ?", query, session[:user]])
     #    end
-    if(query != "%%")
-      if (qtype = "id" && @query != "")
+    unless(query == "%%")
+      if (qtype == "id" && @query != "")
        
       
         @people = Person.find(:all,
@@ -1183,7 +1183,7 @@ class GridsController < ApplicationController
           :order => sortname+' '+sortorder,
           :limit =>rp,
           :offset =>start,
-          :conditions=> [qtype+"ilike ? AND id IN (?)", query,@list_header.entity_on_list])
+          :conditions=> [qtype+" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
         count = Person.count(:all, :conditions=>[qtype +" ilike ? AND id IN (?)", query,@list_header.entity_on_list])
       end
      
