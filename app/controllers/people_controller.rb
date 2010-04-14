@@ -253,6 +253,25 @@ class PeopleController < ApplicationController
         @person.primary_email_address = @person.try(:emails).find_by_priority_number(1).try(:value)
         @person.primary_phone_num = @person.try(:phones).find_by_priority_number(1).try(:value)
         @person.save
+
+
+        #create default custom field for new person
+        @extra_types = ExtraMetaType.active
+        i=1
+        @extra_types.each do |group|
+          @extra =  Extra.new
+          @extra.entity_id = @person.id
+          @extra.group_id = group.id
+          @extra.entity_type = "Person"
+          group.extra_types.each do |label|
+            @extra.__send__(("label#{i}_id=").to_sym,label.id)
+            @extra.__send__(("label#{i}_value=").to_sym,nil)
+            i=i+1
+          end
+          @extra.save
+          i=1
+        end
+
         system_log("Login Account #{@current_user.user_name} (#{@current_user.id}) created a new Person with ID #{@person.id}.")
         if !params[:image].nil?
           @image = Image.new(params[:image])
