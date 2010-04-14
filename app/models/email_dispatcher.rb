@@ -53,7 +53,16 @@ class EmailDispatcher < ActionMailer::Base
     sent_on           Time.now
     body              :guest => guest, :password =>guest.password
     content_type        "text/html"
-
   end
 
+
+    def send_guest_forgot_password(guest)
+    recipients       "#{guest.email}"
+    from              "noreply@memberzone.com.au"
+    subject          "Your New Password For Memebership"
+    headers           = {'Precedence' => 'bulk', 'List-Unsubscribe' => 'feedback@memberzone.com.au'}
+    sent_on           Time.now
+    body              :guest => guest, :password =>guest.password
+    content_type        "text/html"
+  end
 end
