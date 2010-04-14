@@ -107,7 +107,7 @@ class OrganisationsController < ApplicationController
     @current_user = LoginAccount.find(session[:user])
     @client_setup = ClientSetup.first
     @super_admin = (@current_user.class.to_s == "SuperAdmin" || @current_user.class.to_s == "MemberZone") ? true : false
-    @o = @list_header.entity_on_list.uniq rescue @o = OrganisationPrimaryList.first.entity_on_list.uniq
+    @o = @list_header.entity_on_list.uniq
     params[:id] = params[:organisation_id] unless (params[:organisation_id].nil? || params[:organisation_id].empty?)
     @organisation = Organisation.find(params[:id].to_i) rescue @organisation = @o[0]
     @organisation = @o[0] if (@organisation.nil? || !@o.include?(@organisation))
